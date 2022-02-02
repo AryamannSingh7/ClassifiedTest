@@ -1,0 +1,65 @@
+{
+  "id": "TaxCalculator",
+  "version": "0.0.1",
+  "status": "preAlpha",
+  "path": "./packages/blocks/TaxCalculator",
+  "assembler-adapters": [],
+  "mobile": {
+    "merge-engine-navigation": {},
+    "assembler-exports": [
+      "TaxCalculator"
+    ],
+    "assembler-dependencies": [],
+    "catalog-dependencies": [
+      "core"
+    ],
+    "assembler-devDependencies": [],
+    "merge-engine-screens": {
+      "TaxCalculator": {
+        "file": "TaxCalculator.tsx",
+        "extends": "TaxCalculatorController",
+        "configURL": "",
+        "validationRulesURL": "",
+        "imports": [
+          {
+            "value": "TaxCalculatorController",
+            "path": "./TaxCalculatorController"
+          },
+          {
+            "value": "{Props}",
+            "path": "./TaxCalculatorController"
+          }
+        ]
+      }
+    }
+  },
+  "web": {
+    "merge-engine-navigation": {},
+    "assembler-exports": [
+      "TaxCalculator"
+    ],
+    "assembler-dependencies": [],
+    "catalog-dependencies": [
+      "core"
+    ],
+    "assembler-devDependencies": [],
+    "merge-engine-screens": {
+      "TaxCalculator": {
+        "file": "TaxCalculator.web.tsx",
+        "extends": "TaxCalculatorController",
+        "configURL": "",
+        "validationRulesURL": "",
+        "imports": [
+          {
+            "value": "TaxCalculatorController",
+            "path": "./TaxCalculatorController"
+          },
+          {
+            "value": "{Props}",
+            "path": "./TaxCalculatorController"
+          }
+        ]
+      }
+    }
+  }
+}

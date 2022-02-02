@@ -1,0 +1,65 @@
+{
+  "id": "FormApprovalWorkflow",
+  "version": "0.0.1",
+  "status": "preAlpha",
+  "path": "./packages/blocks/FormApprovalWorkflow",
+  "assembler-adapters": [],
+  "mobile": {
+    "merge-engine-navigation": {},
+    "assembler-exports": [
+      "FormApprovalWorkflow"
+    ],
+    "assembler-dependencies": [],
+    "catalog-dependencies": [
+      "core"
+    ],
+    "assembler-devDependencies": [],
+    "merge-engine-screens": {
+      "FormApprovalWorkflow": {
+        "file": "FormApprovalWorkflow.tsx",
+        "extends": "FormApprovalWorkflowController",
+        "configURL": "",
+        "validationRulesURL": "",
+        "imports": [
+          {
+            "value": "FormApprovalWorkflowController",
+            "path": "./FormApprovalWorkflowController"
+          },
+          {
+            "value": "{Props}",
+            "path": "./FormApprovalWorkflowController"
+          }
+        ]
+      }
+    }
+  },
+  "web": {
+    "merge-engine-navigation": {},
+    "assembler-exports": [
+      "FormApprovalWorkflow"
+    ],
+    "assembler-dependencies": [],
+    "catalog-dependencies": [
+      "core"
+    ],
+    "assembler-devDependencies": [],
+    "merge-engine-screens": {
+      "FormApprovalWorkflow": {
+        "file": "FormApprovalWorkflow.web.tsx",
+        "extends": "FormApprovalWorkflowController",
+        "configURL": "",
+        "validationRulesURL": "",
+        "imports": [
+          {
+            "value": "FormApprovalWorkflowController",
+            "path": "./FormApprovalWorkflowController"
+          },
+          {
+            "value": "{Props}",
+            "path": "./FormApprovalWorkflowController"
+          }
+        ]
+      }
+    }
+  }
+}

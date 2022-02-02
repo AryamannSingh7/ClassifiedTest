@@ -1,0 +1,67 @@
+{
+  "id": "MultipleCurrencySupport",
+  "version": "0.0.1",
+  "status": "preAlpha",
+  "path": "./packages/blocks/MultipleCurrencySupport",
+  "assembler-adapters": [],
+  "mobile": {
+    "merge-engine-navigation": {},
+    "assembler-exports": [
+      "MultipleCurrencySupport"
+    ],
+    "assembler-dependencies": [],
+    "catalog-dependencies": [
+      "core"
+    ],
+    "assembler-devDependencies": [],
+    "merge-engine-screens": {
+      "MultipleCurrencySupport": {
+        "file": "MultipleCurrencySupport.tsx",
+        "extends": "MultipleCurrencySupportController",
+        "configURL": "",
+        "validationRulesURL": "",
+        "imports": [
+          {
+            "value": "MultipleCurrencySupportController",
+            "path": "./MultipleCurrencySupportController"
+          },
+          {
+            "value": "{Props}",
+            "path": "./MultipleCurrencySupportController"
+          }
+        ]
+      }
+    }
+  },
+  "web": {
+    "merge-engine-navigation": {},
+    "assembler-exports": [
+      "MultipleCurrencySupport"
+    ],
+    "assembler-dependencies": [
+      "\"react-select\": \"^3.0.8\""
+    ],
+    "catalog-dependencies": [
+      "core"
+    ],
+    "assembler-devDependencies": [],
+    "merge-engine-screens": {
+      "MultipleCurrencySupport": {
+        "file": "MultipleCurrencySupport.web.tsx",
+        "extends": "MultipleCurrencySupportController",
+        "configURL": "",
+        "validationRulesURL": "",
+        "imports": [
+          {
+            "value": "MultipleCurrencySupportController",
+            "path": "./MultipleCurrencySupportController"
+          },
+          {
+            "value": "{Props}",
+            "path": "./MultipleCurrencySupportController"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "id": "ExpenseTracking",
+  "version": "0.0.1",
+  "status": "preAlpha",
+  "path": "./packages/blocks/ExpenseTracking",
+  "assembler-adapters": [],
+  "mobile": {
+    "merge-engine-navigation": {},
+    "assembler-exports": [
+      "ExpenseTracking"
+    ],
+    "assembler-dependencies": [],
+    "catalog-dependencies": [
+      "core"
+    ],
+    "assembler-devDependencies": [],
+    "merge-engine-screens": {
+      "ExpenseTracking": {
+        "file": "ExpenseTracking.tsx",
+        "extends": "ExpenseTrackingController",
+        "configURL": "",
+        "validationRulesURL": "",
+        "imports": [
+          {
+            "value": "ExpenseTrackingController",
+            "path": "./ExpenseTrackingController"
+          },
+          {
+            "value": "{Props}",
+            "path": "./ExpenseTrackingController"
+          }
+        ]
+      }
+    }
+  },
+  "web": {
+    "merge-engine-navigation": {},
+    "assembler-exports": [
+      "ExpenseTracking"
+    ],
+    "assembler-dependencies": [],
+    "catalog-dependencies": [
+      "core"
+    ],
+    "assembler-devDependencies": [],
+    "merge-engine-screens": {
+      "ExpenseTracking": {
+        "file": "ExpenseTracking.web.tsx",
+        "extends": "ExpenseTrackingController",
+        "configURL": "",
+        "validationRulesURL": "",
+        "imports": [
+          {
+            "value": "ExpenseTrackingController",
+            "path": "./ExpenseTrackingController"
+          },
+          {
+            "value": "{Props}",
+            "path": "./ExpenseTrackingController"
+          }
+        ]
+      }
+    }
+  }
+}

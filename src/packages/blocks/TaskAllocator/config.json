@@ -1,0 +1,65 @@
+{
+  "id": "TaskAllocator",
+  "version": "0.0.1",
+  "status": "preAlpha",
+  "path": "./packages/blocks/TaskAllocator",
+  "assembler-adapters": [],
+  "mobile": {
+    "merge-engine-navigation": {},
+    "assembler-exports": [
+      "TaskAllocator"
+    ],
+    "assembler-dependencies": [],
+    "catalog-dependencies": [
+      "core"
+    ],
+    "assembler-devDependencies": [],
+    "merge-engine-screens": {
+      "TaskAllocator": {
+        "file": "TaskAllocator.tsx",
+        "extends": "TaskAllocatorController",
+        "configURL": "",
+        "validationRulesURL": "",
+        "imports": [
+          {
+            "value": "TaskAllocatorController",
+            "path": "./TaskAllocatorController"
+          },
+          {
+            "value": "{Props}",
+            "path": "./TaskAllocatorController"
+          }
+        ]
+      }
+    }
+  },
+  "web": {
+    "merge-engine-navigation": {},
+    "assembler-exports": [
+      "TaskAllocator"
+    ],
+    "assembler-dependencies": [],
+    "catalog-dependencies": [
+      "core"
+    ],
+    "assembler-devDependencies": [],
+    "merge-engine-screens": {
+      "TaskAllocator": {
+        "file": "TaskAllocator.web.tsx",
+        "extends": "TaskAllocatorController",
+        "configURL": "",
+        "validationRulesURL": "",
+        "imports": [
+          {
+            "value": "TaskAllocatorController",
+            "path": "./TaskAllocatorController"
+          },
+          {
+            "value": "{Props}",
+            "path": "./TaskAllocatorController"
+          }
+        ]
+      }
+    }
+  }
+}

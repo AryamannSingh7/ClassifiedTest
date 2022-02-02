@@ -1,0 +1,65 @@
+{
+  "id": "LeadManagement",
+  "version": "0.0.1",
+  "status": "preAlpha",
+  "path": "./packages/blocks/LeadManagement",
+  "assembler-adapters": [],
+  "mobile": {
+    "merge-engine-navigation": {},
+    "assembler-exports": [
+      "LeadManagement"
+    ],
+    "assembler-dependencies": [],
+    "catalog-dependencies": [
+      "core"
+    ],
+    "assembler-devDependencies": [],
+    "merge-engine-screens": {
+      "LeadManagement": {
+        "file": "LeadManagement.tsx",
+        "extends": "LeadManagementController",
+        "configURL": "",
+        "validationRulesURL": "",
+        "imports": [
+          {
+            "value": "LeadManagementController",
+            "path": "./LeadManagementController"
+          },
+          {
+            "value": "{Props}",
+            "path": "./LeadManagementController"
+          }
+        ]
+      }
+    }
+  },
+  "web": {
+    "merge-engine-navigation": {},
+    "assembler-exports": [
+      "LeadManagement"
+    ],
+    "assembler-dependencies": [],
+    "catalog-dependencies": [
+      "core"
+    ],
+    "assembler-devDependencies": [],
+    "merge-engine-screens": {
+      "LeadManagement": {
+        "file": "LeadManagement.web.tsx",
+        "extends": "LeadManagementController",
+        "configURL": "",
+        "validationRulesURL": "",
+        "imports": [
+          {
+            "value": "LeadManagementController",
+            "path": "./LeadManagementController"
+          },
+          {
+            "value": "{Props}",
+            "path": "./LeadManagementController"
+          }
+        ]
+      }
+    }
+  }
+}

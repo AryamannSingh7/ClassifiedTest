@@ -1,0 +1,65 @@
+{
+  "id": "StoreCredits",
+  "version": "0.0.1",
+  "status": "preAlpha",
+  "path": "./packages/blocks/StoreCredits",
+  "assembler-adapters": [],
+  "mobile": {
+    "merge-engine-navigation": {},
+    "assembler-exports": [
+      "StoreCredits"
+    ],
+    "assembler-dependencies": [],
+    "catalog-dependencies": [
+      "core"
+    ],
+    "assembler-devDependencies": [],
+    "merge-engine-screens": {
+      "StoreCredits": {
+        "file": "StoreCredits.tsx",
+        "extends": "StoreCreditsController",
+        "configURL": "",
+        "validationRulesURL": "",
+        "imports": [
+          {
+            "value": "StoreCreditsController",
+            "path": "./StoreCreditsController"
+          },
+          {
+            "value": "{Props}",
+            "path": "./StoreCreditsController"
+          }
+        ]
+      }
+    }
+  },
+  "web": {
+    "merge-engine-navigation": {},
+    "assembler-exports": [
+      "StoreCredits"
+    ],
+    "assembler-dependencies": [],
+    "catalog-dependencies": [
+      "core"
+    ],
+    "assembler-devDependencies": [],
+    "merge-engine-screens": {
+      "StoreCredits": {
+        "file": "StoreCredits.web.tsx",
+        "extends": "StoreCreditsController",
+        "configURL": "",
+        "validationRulesURL": "",
+        "imports": [
+          {
+            "value": "StoreCreditsController",
+            "path": "./StoreCreditsController"
+          },
+          {
+            "value": "{Props}",
+            "path": "./StoreCreditsController"
+          }
+        ]
+      }
+    }
+  }
+}

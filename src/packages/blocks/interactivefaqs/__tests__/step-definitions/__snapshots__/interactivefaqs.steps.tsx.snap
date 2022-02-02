@@ -1,0 +1,2133 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`interactivefaqs Empty content 1`] = `
+<KeyboardAvoidingView
+  enabled={true}
+  keyboardVerticalOffset={0}
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <ScrollViewMock
+    style={
+      Object {
+        "backgroundColor": "#ffffffff",
+        "flex": 1,
+        "marginLeft": "auto",
+        "marginRight": "auto",
+        "maxWidth": 650,
+        "padding": 16,
+        "width": "100%",
+      }
+    }
+  >
+    <TouchableWithoutFeedback
+      onPress={[Function]}
+      testID="Background"
+    >
+      <View
+        style={
+          Object {
+            "marginBottom": 30,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "fontSize": 16,
+              "marginBottom": 32,
+              "marginVertical": 8,
+              "textAlign": "left",
+            }
+          }
+        >
+          Title
+        </Text>
+        <TextInput
+          allowFontScaling={true}
+          onChangeText={[Function]}
+          placeholder="Enter Text"
+          rejectResponderTermination={true}
+          style={
+            Object {
+              "backgroundColor": "#00000000",
+              "borderBottomWidth": 1,
+              "borderColor": "#767676",
+              "borderRadius": 2,
+              "borderWidth": 1,
+              "flexDirection": "row",
+              "fontSize": 16,
+              "includeFontPadding": true,
+              "marginBottom": 16,
+              "padding": 10,
+              "textAlign": "left",
+            }
+          }
+          testID="txtInputTitle"
+          underlineColorAndroid="transparent"
+        />
+        <KeyboardAvoidingView
+          behavior="padding"
+          enabled={true}
+          keyboardVerticalOffset={0}
+        >
+          <Text
+            style={
+              Object {
+                "fontSize": 16,
+                "marginBottom": 32,
+                "marginVertical": 8,
+                "textAlign": "left",
+              }
+            }
+          >
+            Content
+          </Text>
+          <View>
+            <RichTextEditor
+              autoCapitalize="off"
+              contentInset={Object {}}
+              defaultParagraphSeparator="div"
+              disabled={false}
+              editorInitializedCallback={[Function]}
+              editorStyle={
+                Object {
+                  "backgroundColor": "#000033",
+                  "color": "#fff",
+                  "contentCSSText": "font-size: 16px; min-height: 200px; height: 100%;",
+                  "paddingBottom": 50,
+                  "placeholderColor": "gray",
+                }
+              }
+              initialContentHTML=""
+              initialFocus={false}
+              onHeightChange={[Function]}
+              pasteAsPlainText={false}
+              placeholder="Enter Content"
+              style={
+                Array [
+                  Object {
+                    "flex": 1,
+                    "height": 20,
+                  },
+                ]
+              }
+              useContainer={true}
+            />
+            <RichToolbar
+              actions={
+                Array [
+                  "bold",
+                  "italic",
+                  "unorderedList",
+                  "orderedList",
+                  "heading1",
+                  "heading2",
+                  "heading3",
+                  "heading4",
+                  "heading5",
+                  "heading6",
+                ]
+              }
+              disabled={false}
+              disabledIconTint="#8b8b8b"
+              getEditor={[Function]}
+              iconGap={16}
+              iconMap={
+                Object {
+                  "heading1": [Function],
+                  "heading2": [Function],
+                  "heading3": [Function],
+                  "heading4": [Function],
+                  "heading5": [Function],
+                  "heading6": [Function],
+                }
+              }
+              iconSize={20}
+              iconTint="#fff"
+              selectedIconTint="#2095F2"
+            />
+          </View>
+        </KeyboardAvoidingView>
+        <TouchableOpacity
+          activeOpacity={0.2}
+          onPress={[Function]}
+          style={
+            Object {
+              "backgroundColor": "blue",
+              "borderColor": "blue",
+              "borderRadius": 4,
+              "borderWidth": 1,
+              "marginTop": 10,
+              "paddingVertical": 8,
+            }
+          }
+          testID="btnAddFaqTxt"
+        >
+          <Text
+            style={
+              Object {
+                "color": "#fff",
+                "fontSize": 16,
+                "textAlign": "center",
+              }
+            }
+          >
+            Add Faq
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </TouchableWithoutFeedback>
+  </ScrollViewMock>
+</KeyboardAvoidingView>
+`;
+
+exports[`interactivefaqs Empty title 1`] = `
+<KeyboardAvoidingView
+  enabled={true}
+  keyboardVerticalOffset={0}
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <ScrollViewMock
+    style={
+      Object {
+        "backgroundColor": "#ffffffff",
+        "flex": 1,
+        "marginLeft": "auto",
+        "marginRight": "auto",
+        "maxWidth": 650,
+        "padding": 16,
+        "width": "100%",
+      }
+    }
+  >
+    <TouchableWithoutFeedback
+      onPress={[Function]}
+      testID="Background"
+    >
+      <View
+        style={
+          Object {
+            "marginBottom": 30,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "fontSize": 16,
+              "marginBottom": 32,
+              "marginVertical": 8,
+              "textAlign": "left",
+            }
+          }
+        >
+          Title
+        </Text>
+        <TextInput
+          allowFontScaling={true}
+          onChangeText={[Function]}
+          placeholder="Enter Text"
+          rejectResponderTermination={true}
+          style={
+            Object {
+              "backgroundColor": "#00000000",
+              "borderBottomWidth": 1,
+              "borderColor": "#767676",
+              "borderRadius": 2,
+              "borderWidth": 1,
+              "flexDirection": "row",
+              "fontSize": 16,
+              "includeFontPadding": true,
+              "marginBottom": 16,
+              "padding": 10,
+              "textAlign": "left",
+            }
+          }
+          testID="txtInputTitle"
+          underlineColorAndroid="transparent"
+        />
+        <KeyboardAvoidingView
+          behavior="padding"
+          enabled={true}
+          keyboardVerticalOffset={0}
+        >
+          <Text
+            style={
+              Object {
+                "fontSize": 16,
+                "marginBottom": 32,
+                "marginVertical": 8,
+                "textAlign": "left",
+              }
+            }
+          >
+            Content
+          </Text>
+          <View>
+            <RichTextEditor
+              autoCapitalize="off"
+              contentInset={Object {}}
+              defaultParagraphSeparator="div"
+              disabled={false}
+              editorInitializedCallback={[Function]}
+              editorStyle={
+                Object {
+                  "backgroundColor": "#000033",
+                  "color": "#fff",
+                  "contentCSSText": "font-size: 16px; min-height: 200px; height: 100%;",
+                  "paddingBottom": 50,
+                  "placeholderColor": "gray",
+                }
+              }
+              initialContentHTML=""
+              initialFocus={false}
+              onHeightChange={[Function]}
+              pasteAsPlainText={false}
+              placeholder="Enter Content"
+              style={
+                Array [
+                  Object {
+                    "flex": 1,
+                    "height": 20,
+                  },
+                ]
+              }
+              useContainer={true}
+            />
+            <RichToolbar
+              actions={
+                Array [
+                  "bold",
+                  "italic",
+                  "unorderedList",
+                  "orderedList",
+                  "heading1",
+                  "heading2",
+                  "heading3",
+                  "heading4",
+                  "heading5",
+                  "heading6",
+                ]
+              }
+              disabled={false}
+              disabledIconTint="#8b8b8b"
+              getEditor={[Function]}
+              iconGap={16}
+              iconMap={
+                Object {
+                  "heading1": [Function],
+                  "heading2": [Function],
+                  "heading3": [Function],
+                  "heading4": [Function],
+                  "heading5": [Function],
+                  "heading6": [Function],
+                }
+              }
+              iconSize={20}
+              iconTint="#fff"
+              selectedIconTint="#2095F2"
+            />
+          </View>
+        </KeyboardAvoidingView>
+        <TouchableOpacity
+          activeOpacity={0.2}
+          onPress={[Function]}
+          style={
+            Object {
+              "backgroundColor": "blue",
+              "borderColor": "blue",
+              "borderRadius": 4,
+              "borderWidth": 1,
+              "marginTop": 10,
+              "paddingVertical": 8,
+            }
+          }
+          testID="btnAddFaqTxt"
+        >
+          <Text
+            style={
+              Object {
+                "color": "#fff",
+                "fontSize": 16,
+                "textAlign": "center",
+              }
+            }
+          >
+            Add Faq
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </TouchableWithoutFeedback>
+  </ScrollViewMock>
+</KeyboardAvoidingView>
+`;
+
+exports[`interactivefaqs User can delete any faq 1`] = `
+<ScrollViewMock
+  style={
+    Object {
+      "backgroundColor": "#ffffffff",
+      "flex": 1,
+      "marginLeft": "auto",
+      "marginRight": "auto",
+      "maxWidth": 650,
+      "padding": 16,
+      "width": "100%",
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#fff",
+        "display": "none",
+        "flex": 1,
+        "height": "100%",
+        "justifyContent": "center",
+        "width": "100%",
+      }
+    }
+  >
+    <Component
+      animationType="fade"
+      hardwareAccelerated={false}
+      transparent={false}
+      visible={false}
+    >
+      <View
+        style={
+          Object {
+            "borderColor": "#ccc",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "marginLeft": 40,
+            "marginTop": 80,
+            "padding": 15,
+            "width": "80%",
+          }
+        }
+      >
+        <ScrollViewMock>
+          <Text
+            style={
+              Object {
+                "fontSize": 16,
+                "marginVertical": 4,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Id:
+                
+            </Text>
+            0
+          </Text>
+          <Text
+            numberOfLines={2}
+            style={
+              Object {
+                "fontSize": 16,
+                "marginVertical": 4,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Title:
+                
+            </Text>
+          </Text>
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontSize": 16,
+                  "marginVertical": 4,
+                },
+                Object {
+                  "fontWeight": "bold",
+                },
+              ]
+            }
+          >
+            Content:
+              
+          </Text>
+          <View
+            style={
+              Object {
+                "height": 200,
+              }
+            }
+          >
+            <WebView
+              cacheEnabled={true}
+              javaScriptEnabled={true}
+              originWhitelist={
+                Array [
+                  "http://*",
+                  "https://*",
+                ]
+              }
+              source={
+                Object {
+                  "html": "<html><head><meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1.0\\"/></head></html>",
+                }
+              }
+              useSharedProcessPool={true}
+            />
+          </View>
+          <Text
+            style={
+              Object {
+                "fontSize": 16,
+                "marginVertical": 4,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Created At:
+                
+            </Text>
+          </Text>
+          <Text
+            style={
+              Object {
+                "fontSize": 16,
+                "marginVertical": 4,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Updated At:
+                
+            </Text>
+          </Text>
+        </ScrollViewMock>
+        <View
+          style={
+            Object {
+              "display": "flex",
+              "flexDirection": "row",
+              "justifyContent": "space-between",
+            }
+          }
+        >
+          <TouchableOpacity
+            activeOpacity={0.2}
+            onPress={[Function]}
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "blue",
+                  "borderColor": "blue",
+                  "borderRadius": 4,
+                  "borderWidth": 1,
+                  "marginTop": 10,
+                  "paddingVertical": 8,
+                },
+                Object {
+                  "width": "48%",
+                },
+              ]
+            }
+            testID="btnDeleteFAQ"
+          >
+            <Text
+              style={
+                Object {
+                  "color": "#fff",
+                  "fontSize": 16,
+                  "textAlign": "center",
+                }
+              }
+            >
+              delete
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.2}
+            onPress={[Function]}
+            style={
+              Array [
+                Object {
+                  "width": "48%",
+                },
+                Object {
+                  "backgroundColor": "#fff",
+                  "borderColor": "#ccc",
+                  "borderRadius": 4,
+                  "borderWidth": 1,
+                  "marginTop": 10,
+                  "paddingVertical": 8,
+                },
+              ]
+            }
+            testID="btnCloseFAQ"
+          >
+            <Text
+              style={
+                Object {
+                  "color": "#000",
+                  "fontSize": 16,
+                  "textAlign": "center",
+                }
+              }
+            >
+              Close
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </Component>
+  </View>
+  <View
+    style={
+      Object {
+        "display": "flex",
+      }
+    }
+  >
+    <TouchableOpacity
+      activeOpacity={0.2}
+      onPress={[Function]}
+      style={
+        Object {
+          "alignSelf": "flex-end",
+          "backgroundColor": "blue",
+          "borderRadius": 4,
+          "display": "flex",
+          "height": 40,
+          "justifyContent": "center",
+          "marginBottom": 10,
+          "width": 80,
+        }
+      }
+      testID="btnAddFaqTxt"
+    >
+      <Text
+        style={
+          Object {
+            "color": "#fff",
+            "fontSize": 16,
+            "textAlign": "center",
+          }
+        }
+      >
+        Add FAQ
+      </Text>
+    </TouchableOpacity>
+  </View>
+</ScrollViewMock>
+`;
+
+exports[`interactivefaqs User can view any faq 1`] = `
+<ScrollViewMock
+  style={
+    Object {
+      "backgroundColor": "#ffffffff",
+      "flex": 1,
+      "marginLeft": "auto",
+      "marginRight": "auto",
+      "maxWidth": 650,
+      "padding": 16,
+      "width": "100%",
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#fff",
+        "display": "none",
+        "flex": 1,
+        "height": "100%",
+        "justifyContent": "center",
+        "width": "100%",
+      }
+    }
+  >
+    <Component
+      animationType="fade"
+      hardwareAccelerated={false}
+      transparent={false}
+      visible={false}
+    >
+      <View
+        style={
+          Object {
+            "borderColor": "#ccc",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "marginLeft": 40,
+            "marginTop": 80,
+            "padding": 15,
+            "width": "80%",
+          }
+        }
+      >
+        <ScrollViewMock>
+          <Text
+            style={
+              Object {
+                "fontSize": 16,
+                "marginVertical": 4,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Id:
+                
+            </Text>
+            0
+          </Text>
+          <Text
+            numberOfLines={2}
+            style={
+              Object {
+                "fontSize": 16,
+                "marginVertical": 4,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Title:
+                
+            </Text>
+          </Text>
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontSize": 16,
+                  "marginVertical": 4,
+                },
+                Object {
+                  "fontWeight": "bold",
+                },
+              ]
+            }
+          >
+            Content:
+              
+          </Text>
+          <View
+            style={
+              Object {
+                "height": 200,
+              }
+            }
+          >
+            <WebView
+              cacheEnabled={true}
+              javaScriptEnabled={true}
+              originWhitelist={
+                Array [
+                  "http://*",
+                  "https://*",
+                ]
+              }
+              source={
+                Object {
+                  "html": "<html><head><meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1.0\\"/></head></html>",
+                }
+              }
+              useSharedProcessPool={true}
+            />
+          </View>
+          <Text
+            style={
+              Object {
+                "fontSize": 16,
+                "marginVertical": 4,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Created At:
+                
+            </Text>
+          </Text>
+          <Text
+            style={
+              Object {
+                "fontSize": 16,
+                "marginVertical": 4,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Updated At:
+                
+            </Text>
+          </Text>
+        </ScrollViewMock>
+        <View
+          style={
+            Object {
+              "display": "flex",
+              "flexDirection": "row",
+              "justifyContent": "space-between",
+            }
+          }
+        >
+          <TouchableOpacity
+            activeOpacity={0.2}
+            onPress={[Function]}
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "blue",
+                  "borderColor": "blue",
+                  "borderRadius": 4,
+                  "borderWidth": 1,
+                  "marginTop": 10,
+                  "paddingVertical": 8,
+                },
+                Object {
+                  "width": "48%",
+                },
+              ]
+            }
+            testID="btnDeleteFAQ"
+          >
+            <Text
+              style={
+                Object {
+                  "color": "#fff",
+                  "fontSize": 16,
+                  "textAlign": "center",
+                }
+              }
+            >
+              delete
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.2}
+            onPress={[Function]}
+            style={
+              Array [
+                Object {
+                  "width": "48%",
+                },
+                Object {
+                  "backgroundColor": "#fff",
+                  "borderColor": "#ccc",
+                  "borderRadius": 4,
+                  "borderWidth": 1,
+                  "marginTop": 10,
+                  "paddingVertical": 8,
+                },
+              ]
+            }
+            testID="btnCloseFAQ"
+          >
+            <Text
+              style={
+                Object {
+                  "color": "#000",
+                  "fontSize": 16,
+                  "textAlign": "center",
+                }
+              }
+            >
+              Close
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </Component>
+  </View>
+  <View
+    style={
+      Object {
+        "display": "flex",
+      }
+    }
+  >
+    <TouchableOpacity
+      activeOpacity={0.2}
+      onPress={[Function]}
+      style={
+        Object {
+          "alignSelf": "flex-end",
+          "backgroundColor": "blue",
+          "borderRadius": 4,
+          "display": "flex",
+          "height": 40,
+          "justifyContent": "center",
+          "marginBottom": 10,
+          "width": 80,
+        }
+      }
+      testID="btnAddFaqTxt"
+    >
+      <Text
+        style={
+          Object {
+            "color": "#fff",
+            "fontSize": 16,
+            "textAlign": "center",
+          }
+        }
+      >
+        Add FAQ
+      </Text>
+    </TouchableOpacity>
+  </View>
+</ScrollViewMock>
+`;
+
+exports[`interactivefaqs User navigates to interactivefaqs 1`] = `
+<ScrollViewMock
+  style={
+    Object {
+      "backgroundColor": "#ffffffff",
+      "flex": 1,
+      "marginLeft": "auto",
+      "marginRight": "auto",
+      "maxWidth": 650,
+      "padding": 16,
+      "width": "100%",
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#fff",
+        "display": "none",
+        "flex": 1,
+        "height": "100%",
+        "justifyContent": "center",
+        "width": "100%",
+      }
+    }
+  >
+    <Component
+      animationType="fade"
+      hardwareAccelerated={false}
+      transparent={false}
+      visible={false}
+    >
+      <View
+        style={
+          Object {
+            "borderColor": "#ccc",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "marginLeft": 40,
+            "marginTop": 80,
+            "padding": 15,
+            "width": "80%",
+          }
+        }
+      >
+        <ScrollViewMock>
+          <Text
+            style={
+              Object {
+                "fontSize": 16,
+                "marginVertical": 4,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Id:
+                
+            </Text>
+            0
+          </Text>
+          <Text
+            numberOfLines={2}
+            style={
+              Object {
+                "fontSize": 16,
+                "marginVertical": 4,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Title:
+                
+            </Text>
+          </Text>
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontSize": 16,
+                  "marginVertical": 4,
+                },
+                Object {
+                  "fontWeight": "bold",
+                },
+              ]
+            }
+          >
+            Content:
+              
+          </Text>
+          <View
+            style={
+              Object {
+                "height": 200,
+              }
+            }
+          >
+            <WebView
+              cacheEnabled={true}
+              javaScriptEnabled={true}
+              originWhitelist={
+                Array [
+                  "http://*",
+                  "https://*",
+                ]
+              }
+              source={
+                Object {
+                  "html": "<html><head><meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1.0\\"/></head></html>",
+                }
+              }
+              useSharedProcessPool={true}
+            />
+          </View>
+          <Text
+            style={
+              Object {
+                "fontSize": 16,
+                "marginVertical": 4,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Created At:
+                
+            </Text>
+          </Text>
+          <Text
+            style={
+              Object {
+                "fontSize": 16,
+                "marginVertical": 4,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Updated At:
+                
+            </Text>
+          </Text>
+        </ScrollViewMock>
+        <View
+          style={
+            Object {
+              "display": "flex",
+              "flexDirection": "row",
+              "justifyContent": "space-between",
+            }
+          }
+        >
+          <TouchableOpacity
+            activeOpacity={0.2}
+            onPress={[Function]}
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "blue",
+                  "borderColor": "blue",
+                  "borderRadius": 4,
+                  "borderWidth": 1,
+                  "marginTop": 10,
+                  "paddingVertical": 8,
+                },
+                Object {
+                  "width": "48%",
+                },
+              ]
+            }
+            testID="btnDeleteFAQ"
+          >
+            <Text
+              style={
+                Object {
+                  "color": "#fff",
+                  "fontSize": 16,
+                  "textAlign": "center",
+                }
+              }
+            >
+              delete
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.2}
+            onPress={[Function]}
+            style={
+              Array [
+                Object {
+                  "width": "48%",
+                },
+                Object {
+                  "backgroundColor": "#fff",
+                  "borderColor": "#ccc",
+                  "borderRadius": 4,
+                  "borderWidth": 1,
+                  "marginTop": 10,
+                  "paddingVertical": 8,
+                },
+              ]
+            }
+            testID="btnCloseFAQ"
+          >
+            <Text
+              style={
+                Object {
+                  "color": "#000",
+                  "fontSize": 16,
+                  "textAlign": "center",
+                }
+              }
+            >
+              Close
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </Component>
+  </View>
+  <View
+    style={
+      Object {
+        "display": "flex",
+      }
+    }
+  >
+    <TouchableOpacity
+      activeOpacity={0.2}
+      onPress={[Function]}
+      style={
+        Object {
+          "alignSelf": "flex-end",
+          "backgroundColor": "blue",
+          "borderRadius": 4,
+          "display": "flex",
+          "height": 40,
+          "justifyContent": "center",
+          "marginBottom": 10,
+          "width": 80,
+        }
+      }
+      testID="btnAddFaqTxt"
+    >
+      <Text
+        style={
+          Object {
+            "color": "#fff",
+            "fontSize": 16,
+            "textAlign": "center",
+          }
+        }
+      >
+        Add FAQ
+      </Text>
+    </TouchableOpacity>
+  </View>
+</ScrollViewMock>
+`;
+
+exports[`interactivefaqs User navigates to interactivefaqs 2`] = `
+<ScrollViewMock
+  style={
+    Object {
+      "backgroundColor": "#ffffffff",
+      "flex": 1,
+      "marginLeft": "auto",
+      "marginRight": "auto",
+      "maxWidth": 650,
+      "padding": 16,
+      "width": "100%",
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#fff",
+        "display": "none",
+        "flex": 1,
+        "height": "100%",
+        "justifyContent": "center",
+        "width": "100%",
+      }
+    }
+  >
+    <Component
+      animationType="fade"
+      hardwareAccelerated={false}
+      transparent={false}
+      visible={false}
+    >
+      <View
+        style={
+          Object {
+            "borderColor": "#ccc",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "marginLeft": 40,
+            "marginTop": 80,
+            "padding": 15,
+            "width": "80%",
+          }
+        }
+      >
+        <ScrollViewMock>
+          <Text
+            style={
+              Object {
+                "fontSize": 16,
+                "marginVertical": 4,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Id:
+                
+            </Text>
+            0
+          </Text>
+          <Text
+            numberOfLines={2}
+            style={
+              Object {
+                "fontSize": 16,
+                "marginVertical": 4,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Title:
+                
+            </Text>
+          </Text>
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontSize": 16,
+                  "marginVertical": 4,
+                },
+                Object {
+                  "fontWeight": "bold",
+                },
+              ]
+            }
+          >
+            Content:
+              
+          </Text>
+          <View
+            style={
+              Object {
+                "height": 200,
+              }
+            }
+          >
+            <WebView
+              cacheEnabled={true}
+              javaScriptEnabled={true}
+              originWhitelist={
+                Array [
+                  "http://*",
+                  "https://*",
+                ]
+              }
+              source={
+                Object {
+                  "html": "<html><head><meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1.0\\"/></head></html>",
+                }
+              }
+              useSharedProcessPool={true}
+            />
+          </View>
+          <Text
+            style={
+              Object {
+                "fontSize": 16,
+                "marginVertical": 4,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Created At:
+                
+            </Text>
+          </Text>
+          <Text
+            style={
+              Object {
+                "fontSize": 16,
+                "marginVertical": 4,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Updated At:
+                
+            </Text>
+          </Text>
+        </ScrollViewMock>
+        <View
+          style={
+            Object {
+              "display": "flex",
+              "flexDirection": "row",
+              "justifyContent": "space-between",
+            }
+          }
+        >
+          <TouchableOpacity
+            activeOpacity={0.2}
+            onPress={[Function]}
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "blue",
+                  "borderColor": "blue",
+                  "borderRadius": 4,
+                  "borderWidth": 1,
+                  "marginTop": 10,
+                  "paddingVertical": 8,
+                },
+                Object {
+                  "width": "48%",
+                },
+              ]
+            }
+            testID="btnDeleteFAQ"
+          >
+            <Text
+              style={
+                Object {
+                  "color": "#fff",
+                  "fontSize": 16,
+                  "textAlign": "center",
+                }
+              }
+            >
+              delete
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.2}
+            onPress={[Function]}
+            style={
+              Array [
+                Object {
+                  "width": "48%",
+                },
+                Object {
+                  "backgroundColor": "#fff",
+                  "borderColor": "#ccc",
+                  "borderRadius": 4,
+                  "borderWidth": 1,
+                  "marginTop": 10,
+                  "paddingVertical": 8,
+                },
+              ]
+            }
+            testID="btnCloseFAQ"
+          >
+            <Text
+              style={
+                Object {
+                  "color": "#000",
+                  "fontSize": 16,
+                  "textAlign": "center",
+                }
+              }
+            >
+              Close
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </Component>
+  </View>
+  <View
+    style={
+      Object {
+        "display": "flex",
+      }
+    }
+  >
+    <TouchableOpacity
+      activeOpacity={0.2}
+      onPress={[Function]}
+      style={
+        Object {
+          "alignSelf": "flex-end",
+          "backgroundColor": "blue",
+          "borderRadius": 4,
+          "display": "flex",
+          "height": 40,
+          "justifyContent": "center",
+          "marginBottom": 10,
+          "width": 80,
+        }
+      }
+      testID="btnAddFaqTxt"
+    >
+      <Text
+        style={
+          Object {
+            "color": "#fff",
+            "fontSize": 16,
+            "textAlign": "center",
+          }
+        }
+      >
+        Add FAQ
+      </Text>
+    </TouchableOpacity>
+    <View
+      key="0"
+      style={
+        Object {
+          "borderColor": "#ccc",
+          "borderRadius": 4,
+          "borderWidth": 1,
+          "marginBottom": 30,
+          "marginVertical": 10,
+          "padding": 15,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "fontSize": 16,
+            "marginVertical": 4,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "fontWeight": "bold",
+            }
+          }
+        >
+          Id:
+            
+        </Text>
+        10
+      </Text>
+      <Text
+        style={
+          Object {
+            "fontSize": 16,
+            "marginVertical": 4,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "fontWeight": "bold",
+            }
+          }
+        >
+          Title:
+            
+        </Text>
+        FAQ 4
+      </Text>
+      <TouchableOpacity
+        activeOpacity={0.2}
+        onPress={[Function]}
+        style={
+          Object {
+            "backgroundColor": "blue",
+            "borderColor": "blue",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "marginTop": 10,
+            "paddingVertical": 8,
+          }
+        }
+        testID="btnViewFaqTxt"
+      >
+        <Text
+          style={
+            Object {
+              "color": "#fff",
+              "fontSize": 16,
+              "textAlign": "center",
+            }
+          }
+        >
+          View
+        </Text>
+      </TouchableOpacity>
+    </View>
+  </View>
+</ScrollViewMock>
+`;
+
+exports[`interactivefaqs User navigates to interactivefaqs 3`] = `
+<ScrollViewMock
+  style={
+    Object {
+      "backgroundColor": "#ffffffff",
+      "flex": 1,
+      "marginLeft": "auto",
+      "marginRight": "auto",
+      "maxWidth": 650,
+      "padding": 16,
+      "width": "100%",
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#fff",
+        "display": "none",
+        "flex": 1,
+        "height": "100%",
+        "justifyContent": "center",
+        "width": "100%",
+      }
+    }
+  >
+    <Component
+      animationType="fade"
+      hardwareAccelerated={false}
+      transparent={false}
+      visible={false}
+    >
+      <View
+        style={
+          Object {
+            "borderColor": "#ccc",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "marginLeft": 40,
+            "marginTop": 80,
+            "padding": 15,
+            "width": "80%",
+          }
+        }
+      >
+        <ScrollViewMock>
+          <Text
+            style={
+              Object {
+                "fontSize": 16,
+                "marginVertical": 4,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Id:
+                
+            </Text>
+            0
+          </Text>
+          <Text
+            numberOfLines={2}
+            style={
+              Object {
+                "fontSize": 16,
+                "marginVertical": 4,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Title:
+                
+            </Text>
+          </Text>
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontSize": 16,
+                  "marginVertical": 4,
+                },
+                Object {
+                  "fontWeight": "bold",
+                },
+              ]
+            }
+          >
+            Content:
+              
+          </Text>
+          <View
+            style={
+              Object {
+                "height": 200,
+              }
+            }
+          >
+            <WebView
+              cacheEnabled={true}
+              javaScriptEnabled={true}
+              originWhitelist={
+                Array [
+                  "http://*",
+                  "https://*",
+                ]
+              }
+              source={
+                Object {
+                  "html": "<html><head><meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1.0\\"/></head></html>",
+                }
+              }
+              useSharedProcessPool={true}
+            />
+          </View>
+          <Text
+            style={
+              Object {
+                "fontSize": 16,
+                "marginVertical": 4,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Created At:
+                
+            </Text>
+          </Text>
+          <Text
+            style={
+              Object {
+                "fontSize": 16,
+                "marginVertical": 4,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Updated At:
+                
+            </Text>
+          </Text>
+        </ScrollViewMock>
+        <View
+          style={
+            Object {
+              "display": "flex",
+              "flexDirection": "row",
+              "justifyContent": "space-between",
+            }
+          }
+        >
+          <TouchableOpacity
+            activeOpacity={0.2}
+            onPress={[Function]}
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "blue",
+                  "borderColor": "blue",
+                  "borderRadius": 4,
+                  "borderWidth": 1,
+                  "marginTop": 10,
+                  "paddingVertical": 8,
+                },
+                Object {
+                  "width": "48%",
+                },
+              ]
+            }
+            testID="btnDeleteFAQ"
+          >
+            <Text
+              style={
+                Object {
+                  "color": "#fff",
+                  "fontSize": 16,
+                  "textAlign": "center",
+                }
+              }
+            >
+              delete
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.2}
+            onPress={[Function]}
+            style={
+              Array [
+                Object {
+                  "width": "48%",
+                },
+                Object {
+                  "backgroundColor": "#fff",
+                  "borderColor": "#ccc",
+                  "borderRadius": 4,
+                  "borderWidth": 1,
+                  "marginTop": 10,
+                  "paddingVertical": 8,
+                },
+              ]
+            }
+            testID="btnCloseFAQ"
+          >
+            <Text
+              style={
+                Object {
+                  "color": "#000",
+                  "fontSize": 16,
+                  "textAlign": "center",
+                }
+              }
+            >
+              Close
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </Component>
+  </View>
+  <View
+    style={
+      Object {
+        "display": "flex",
+      }
+    }
+  >
+    <TouchableOpacity
+      activeOpacity={0.2}
+      onPress={[Function]}
+      style={
+        Object {
+          "alignSelf": "flex-end",
+          "backgroundColor": "blue",
+          "borderRadius": 4,
+          "display": "flex",
+          "height": 40,
+          "justifyContent": "center",
+          "marginBottom": 10,
+          "width": 80,
+        }
+      }
+      testID="btnAddFaqTxt"
+    >
+      <Text
+        style={
+          Object {
+            "color": "#fff",
+            "fontSize": 16,
+            "textAlign": "center",
+          }
+        }
+      >
+        Add FAQ
+      </Text>
+    </TouchableOpacity>
+    <View
+      key="0"
+      style={
+        Object {
+          "borderColor": "#ccc",
+          "borderRadius": 4,
+          "borderWidth": 1,
+          "marginBottom": 30,
+          "marginVertical": 10,
+          "padding": 15,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "fontSize": 16,
+            "marginVertical": 4,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "fontWeight": "bold",
+            }
+          }
+        >
+          Id:
+            
+        </Text>
+        10
+      </Text>
+      <Text
+        style={
+          Object {
+            "fontSize": 16,
+            "marginVertical": 4,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "fontWeight": "bold",
+            }
+          }
+        >
+          Title:
+            
+        </Text>
+        FAQ 4
+      </Text>
+      <TouchableOpacity
+        activeOpacity={0.2}
+        onPress={[Function]}
+        style={
+          Object {
+            "backgroundColor": "blue",
+            "borderColor": "blue",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "marginTop": 10,
+            "paddingVertical": 8,
+          }
+        }
+        testID="btnViewFaqTxt"
+      >
+        <Text
+          style={
+            Object {
+              "color": "#fff",
+              "fontSize": 16,
+              "textAlign": "center",
+            }
+          }
+        >
+          View
+        </Text>
+      </TouchableOpacity>
+    </View>
+  </View>
+</ScrollViewMock>
+`;
+
+exports[`interactivefaqs title and content 1`] = `
+<KeyboardAvoidingView
+  enabled={true}
+  keyboardVerticalOffset={0}
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <ScrollViewMock
+    style={
+      Object {
+        "backgroundColor": "#ffffffff",
+        "flex": 1,
+        "marginLeft": "auto",
+        "marginRight": "auto",
+        "maxWidth": 650,
+        "padding": 16,
+        "width": "100%",
+      }
+    }
+  >
+    <TouchableWithoutFeedback
+      onPress={[Function]}
+      testID="Background"
+    >
+      <View
+        style={
+          Object {
+            "marginBottom": 30,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "fontSize": 16,
+              "marginBottom": 32,
+              "marginVertical": 8,
+              "textAlign": "left",
+            }
+          }
+        >
+          Title
+        </Text>
+        <TextInput
+          allowFontScaling={true}
+          onChangeText={[Function]}
+          placeholder="Enter Text"
+          rejectResponderTermination={true}
+          style={
+            Object {
+              "backgroundColor": "#00000000",
+              "borderBottomWidth": 1,
+              "borderColor": "#767676",
+              "borderRadius": 2,
+              "borderWidth": 1,
+              "flexDirection": "row",
+              "fontSize": 16,
+              "includeFontPadding": true,
+              "marginBottom": 16,
+              "padding": 10,
+              "textAlign": "left",
+            }
+          }
+          testID="txtInputTitle"
+          underlineColorAndroid="transparent"
+        />
+        <KeyboardAvoidingView
+          behavior="padding"
+          enabled={true}
+          keyboardVerticalOffset={0}
+        >
+          <Text
+            style={
+              Object {
+                "fontSize": 16,
+                "marginBottom": 32,
+                "marginVertical": 8,
+                "textAlign": "left",
+              }
+            }
+          >
+            Content
+          </Text>
+          <View>
+            <RichTextEditor
+              autoCapitalize="off"
+              contentInset={Object {}}
+              defaultParagraphSeparator="div"
+              disabled={false}
+              editorInitializedCallback={[Function]}
+              editorStyle={
+                Object {
+                  "backgroundColor": "#000033",
+                  "color": "#fff",
+                  "contentCSSText": "font-size: 16px; min-height: 200px; height: 100%;",
+                  "paddingBottom": 50,
+                  "placeholderColor": "gray",
+                }
+              }
+              initialContentHTML=""
+              initialFocus={false}
+              onHeightChange={[Function]}
+              pasteAsPlainText={false}
+              placeholder="Enter Content"
+              style={
+                Array [
+                  Object {
+                    "flex": 1,
+                    "height": 20,
+                  },
+                ]
+              }
+              useContainer={true}
+            />
+            <RichToolbar
+              actions={
+                Array [
+                  "bold",
+                  "italic",
+                  "unorderedList",
+                  "orderedList",
+                  "heading1",
+                  "heading2",
+                  "heading3",
+                  "heading4",
+                  "heading5",
+                  "heading6",
+                ]
+              }
+              disabled={false}
+              disabledIconTint="#8b8b8b"
+              getEditor={[Function]}
+              iconGap={16}
+              iconMap={
+                Object {
+                  "heading1": [Function],
+                  "heading2": [Function],
+                  "heading3": [Function],
+                  "heading4": [Function],
+                  "heading5": [Function],
+                  "heading6": [Function],
+                }
+              }
+              iconSize={20}
+              iconTint="#fff"
+              selectedIconTint="#2095F2"
+            />
+          </View>
+        </KeyboardAvoidingView>
+        <TouchableOpacity
+          activeOpacity={0.2}
+          onPress={[Function]}
+          style={
+            Object {
+              "backgroundColor": "blue",
+              "borderColor": "blue",
+              "borderRadius": 4,
+              "borderWidth": 1,
+              "marginTop": 10,
+              "paddingVertical": 8,
+            }
+          }
+          testID="btnAddFaqTxt"
+        >
+          <Text
+            style={
+              Object {
+                "color": "#fff",
+                "fontSize": 16,
+                "textAlign": "center",
+              }
+            }
+          >
+            Add Faq
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </TouchableWithoutFeedback>
+  </ScrollViewMock>
+</KeyboardAvoidingView>
+`;

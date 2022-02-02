@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Maps User navigates to Maps 1`] = `
+<MapView
+  initialRegion={
+    Object {
+      "latitude": 37.78825,
+      "latitudeDelta": 0.0922,
+      "longitude": -122.4324,
+      "longitudeDelta": 0.0421,
+    }
+  }
+  style={
+    Object {
+      "bottom": 0,
+      "height": 1334,
+      "position": "absolute",
+      "top": 0,
+      "width": 750,
+    }
+  }
+/>
+`;
+
+exports[`Maps User navigates to Maps 2`] = `
+<MapView
+  initialRegion={
+    Object {
+      "latitude": 37.78825,
+      "latitudeDelta": 0.0922,
+      "longitude": -122.4324,
+      "longitudeDelta": 0.0421,
+    }
+  }
+  style={
+    Object {
+      "bottom": 0,
+      "height": 1334,
+      "position": "absolute",
+      "top": 0,
+      "width": 750,
+    }
+  }
+/>
+`;

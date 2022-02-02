@@ -1,0 +1,65 @@
+{
+  "id": "Feedback",
+  "version": "0.0.1",
+  "status": "preAlpha",
+  "path": "./packages/blocks/Feedback",
+  "assembler-adapters": [],
+  "mobile": {
+    "merge-engine-navigation": {},
+    "assembler-exports": [
+      "Feedback"
+    ],
+    "assembler-dependencies": [],
+    "catalog-dependencies": [
+      "core"
+    ],
+    "assembler-devDependencies": [],
+    "merge-engine-screens": {
+      "Feedback": {
+        "file": "Feedback.tsx",
+        "extends": "FeedbackController",
+        "configURL": "",
+        "validationRulesURL": "",
+        "imports": [
+          {
+            "value": "FeedbackController",
+            "path": "./FeedbackController"
+          },
+          {
+            "value": "{Props}",
+            "path": "./FeedbackController"
+          }
+        ]
+      }
+    }
+  },
+  "web": {
+    "merge-engine-navigation": {},
+    "assembler-exports": [
+      "Feedback"
+    ],
+    "assembler-dependencies": [],
+    "catalog-dependencies": [
+      "core"
+    ],
+    "assembler-devDependencies": [],
+    "merge-engine-screens": {
+      "Feedback": {
+        "file": "Feedback.web.tsx",
+        "extends": "FeedbackController",
+        "configURL": "",
+        "validationRulesURL": "",
+        "imports": [
+          {
+            "value": "FeedbackController",
+            "path": "./FeedbackController"
+          },
+          {
+            "value": "{Props}",
+            "path": "./FeedbackController"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "id": "FriendList",
+  "version": "0.0.1",
+  "status": "preAlpha",
+  "path": "./packages/blocks/FriendList",
+  "assembler-adapters": [],
+  "mobile": {
+    "merge-engine-navigation": {},
+    "assembler-exports": [
+      "FriendList"
+    ],
+    "assembler-dependencies": [],
+    "catalog-dependencies": [
+      "core"
+    ],
+    "assembler-devDependencies": [],
+    "merge-engine-screens": {
+      "FriendList": {
+        "file": "FriendList.tsx",
+        "extends": "FriendListController",
+        "configURL": "",
+        "validationRulesURL": "",
+        "imports": [
+          {
+            "value": "FriendListController",
+            "path": "./FriendListController"
+          },
+          {
+            "value": "{Props}",
+            "path": "./FriendListController"
+          }
+        ]
+      }
+    }
+  },
+  "web": {
+    "merge-engine-navigation": {},
+    "assembler-exports": [
+      "FriendList"
+    ],
+    "assembler-dependencies": [],
+    "catalog-dependencies": [
+      "core"
+    ],
+    "assembler-devDependencies": [],
+    "merge-engine-screens": {
+      "FriendList": {
+        "file": "FriendList.web.tsx",
+        "extends": "FriendListController",
+        "configURL": "",
+        "validationRulesURL": "",
+        "imports": [
+          {
+            "value": "FriendListController",
+            "path": "./FriendListController"
+          },
+          {
+            "value": "{Props}",
+            "path": "./FriendListController"
+          }
+        ]
+      }
+    }
+  }
+}
