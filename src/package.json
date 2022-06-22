@@ -22,6 +22,7 @@
     "@unimodules/core": "file:./packages/blocks/core/node_modules/@unimodules/core",
     "@unimodules/react-native-adapter": "file:./packages/blocks/core/node_modules/@unimodules/react-native-adapter",
     "formik": "file:./packages/blocks/core/node_modules/formik",
+    "html-react-parser": "^1.2.4",
     "i18n-js": "file:./packages/blocks/core/node_modules/i18n-js",
     "metro-react-native-babel-preset": "file:./packages/blocks/core/node_modules/metro-react-native-babel-preset",
     "moment": "file:./packages/blocks/core/node_modules/moment",
@@ -41,21 +42,21 @@
     "react-native-localize": "file:./packages/blocks/core/node_modules/react-native-localize",
     "react-native-material-dropdown": "file:./packages/blocks/core/node_modules/react-native-material-dropdown",
     "react-native-material-textfield": "file:./packages/blocks/core/node_modules/react-native-material-textfield",
+    "react-native-pell-rich-editor": "^1.8.8",
     "react-native-permissions": "file:./packages/blocks/core/node_modules/react-native-permissions",
     "react-native-responsive-dimensions": "file:./packages/blocks/core/node_modules/react-native-responsive-dimensions",
+    "react-native-responsive-fontsize": "^0.4.3",
+    "react-native-responsive-screen": "^1.4.1",
     "react-native-safe-area-context": "file:./packages/blocks/core/node_modules/react-native-safe-area-context",
     "react-native-svg": "file:./packages/blocks/core/node_modules/react-native-svg",
     "react-native-vector-icons": "file:./packages/blocks/core/node_modules/react-native-vector-icons",
     "react-native-webview": "file:./packages/blocks/core/node_modules/react-native-webview",
     "react-navigation": "file:./packages/blocks/core/node_modules/react-navigation",
     "react-navigation-stack": "file:./packages/blocks/core/node_modules/react-navigation-stack",
-    "recompose": "file:./packages/blocks/core/node_modules/recompose",
-    "yup": "file:./packages/blocks/core/node_modules/yup",
-    "react-select": "^3.0.8",
-    "react-native-responsive-fontsize": "^0.4.3",
-    "react-native-responsive-screen": "^1.4.1",
     "react-rte": "^0.16.3",
-    "html-react-parser": "^1.2.4"
+    "react-select": "^3.0.8",
+    "recompose": "file:./packages/blocks/core/node_modules/recompose",
+    "yup": "file:./packages/blocks/core/node_modules/yup"
   },
   "devDependencies": {
     "@types/node": "file:./packages/blocks/core/node_modules/@types/node",
@@ -63,14 +64,14 @@
     "@types/react-native": "file:./packages/blocks/core/node_modules/@types/react-native",
     "@types/react-native-check-box": "file:./packages/blocks/core/node_modules/@types/react-native-check-box",
     "@types/react-navigation": "file:./packages/blocks/core/node_modules/@types/react-navigation",
+    "@types/react-rte": "^0.16.1",
+    "@types/react-select": "^3.0.10",
     "@types/recompose": "file:./packages/blocks/core/node_modules/@types/recompose",
     "@types/yup": "file:./packages/blocks/core/node_modules/@types/yup",
     "concurrently": "file:./packages/blocks/core/node_modules/concurrently",
     "enzyme-adapter-react-16": "file:./packages/blocks/core/node_modules/enzyme-adapter-react-16",
     "jest-cucumber": "file:./packages/blocks/core/node_modules/jest-cucumber",
     "react-native-save-view": "file:./packages/blocks/core/node_modules/react-native-save-view",
-    "typescript": "file:./packages/blocks/core/node_modules/typescript",
-    "@types/react-select": "^3.0.10",
-    "@types/react-rte": "^0.16.1"
+    "typescript": "file:./packages/blocks/core/node_modules/typescript"
   }
 }
