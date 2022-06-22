@@ -66,7 +66,7 @@ import Settings5 from "../../blocks/Settings5/src/Settings5";
 import UserProfileBasicBlock from "../../blocks/user-profile-basic/src/UserProfileBasicBlock";
 import RequestManagement from "../../blocks/RequestManagement/src/RequestManagement";
 import LeadManagement from "../../blocks/LeadManagement/src/LeadManagement";
-import Dashboard from "../../blocks/dashboard/src/Dashboard";
+import Dashboard from "../../blocks/dashboard/src/Dashboard.web";
 import SocialMediaAccountRegistrationScreen from "../../blocks/social-media-account-registration/src/SocialMediaAccountRegistrationScreen";
 import Notifications from "../../blocks/notifications/src/Notifications";
 import MobileAccountLoginBlock from "../../blocks/mobile-account-login/src/MobileAccountLoginBlock";
@@ -289,8 +289,8 @@ class App extends Component {
     defaultAnalytics.logEvent('APP_Loaded');
     
     return (
-      <View style={{ height: '100vh', width: '100vw' }}>
-        <TopNav />
+      <View style={{ height: '100%', width: '100%' }}>
+        {/* <TopNav /> */}
         {WebRoutesGenerator({ routeMap })}
         <ModalContainer />
       </View>

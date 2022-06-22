@@ -23,6 +23,8 @@ interface S {
   token: string;
   errorMsg: string;
   loading: boolean;
+  Year: string;
+  expanded: string,
   // Customizable Area End
 }
 interface SS {
@@ -50,7 +52,9 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
       dashboardData: [],
       errorMsg: "",
       token: "",
-      loading: false
+      loading: false,
+      Year: "",
+      expanded: "",
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);

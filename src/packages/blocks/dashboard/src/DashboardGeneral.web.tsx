@@ -1,0 +1,303 @@
+// Customizable Area Start
+//@ts-nocheck
+//@ts-ignore
+
+import React from "react";
+import './Dashboard.web.css'
+
+import {
+    Container,
+    Typography,
+    Link,
+    FormControl,
+    MenuItem 
+  } from "@material-ui/core";
+import Box from '@material-ui/core/Box';
+import Select from "@material-ui/core/Select";
+import NativeSelect from "@material-ui/core/NativeSelect";
+
+import Grid from '@material-ui/core/Grid';
+
+import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
+import RoomOutlinedIcon from '@material-ui/icons/RoomOutlined';
+import DateRangeOutlinedIcon from '@material-ui/icons/DateRangeOutlined';
+import HighlightOffOutlinedIcon from '@material-ui/icons/HighlightOffOutlined';
+import CheckCircleOutlineOutlinedIcon from '@material-ui/icons/CheckCircleOutlineOutlined';
+
+import DashboardController, { Props } from "../../../blocks/dashboard/src/DashboardController";
+
+
+export default class DeshboardGeneral extends DashboardController {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+        dashboardData: [],
+        errorMsg: "",
+        token: "",
+        loading: false,
+        Year: "",
+        expanded: '',
+      };
+       this.handleChange = this.handleChange.bind(this) 
+  }
+
+    handleChange = (event: any) => {
+        console.log('click', event.target.value)
+        // this.setState({year: event.target.value});
+    };
+    
+  render() {
+    return ( 
+    <>
+    <Container>
+        <Box style={dashBoard.navigation}>
+            <Box>
+                <Typography variant="body1" >
+                My Dashboard / <Box component="span" style={{color: "blue"}}>General Dashboard</Box>
+                </Typography>
+                <Typography variant="h5" style={dashBoard.subHeading}>General Dashboard</Typography>
+            </Box>
+            <Box>
+                <FormControl style={dashBoard.YearMain} className='yearTab'>
+                    <NativeSelect className='yearSelection' value={this.state.Year} onChange={this.handleChange} displayEmpty notchedOutline>
+                        {/* <MenuItem value="">
+                            <em>Year</em>
+                        </MenuItem>
+                        <MenuItem value={10}>Ten</MenuItem>
+                        <MenuItem value={20}>Twenty</MenuItem>
+                        <MenuItem value={30}>Thirty</MenuItem> */}
+                         <option value="">None</option>
+                            <option value={10}>Ten</option>
+                            <option value={20}>Twenty</option>
+                            <option value={30}>Thirty</option>
+                    </NativeSelect>
+                </FormControl>
+            </Box>
+        </Box>
+        <Grid container spacing={4} style={{marginTop: 15}}>
+            <Grid item sm={4}>
+                <Box style={dashBoard.Cards}>
+                    <Box sx={{ml:1, mb:2}} style={dashBoard.CardsIcons}><PersonOutlineIcon/></Box>
+                    <Typography style={dashBoard.subHeading}>Building Ownership Rate</Typography>
+                    <Box style={dashBoard.cardBottom}>
+                        <Typography variant="body2">Sold</Typography>
+                        <Box component="span" style={dashBoard.bottomColor}>75%</Box>
+                        <Typography variant="body2">Unsold</Typography>
+                        <Box component="span" style={dashBoard.bottomColor}>25%</Box>
+                        
+                    </Box> 
+                </Box>
+            </Grid>
+            <Grid item sm={4}>
+                <Box style={dashBoard.Cards}>
+                    <Box sx={{ml:1, mb:2}} style={dashBoard.CardsIcons}><PersonOutlineIcon/></Box>
+                    <Typography style={dashBoard.subHeading}>Building Ownership Rate</Typography>
+                    <Box style={dashBoard.bottomTwoSpan}>
+                        <Box component="span" style={dashBoard.bottomColor}>42/327</Box>
+                    </Box> 
+                </Box>
+            </Grid> 
+            <Grid item sm={4}>
+                <Box style={dashBoard.Cards}>
+                    <Box sx={{ml:1, mb:2}} style={dashBoard.CardsIcons}><PersonOutlineIcon/></Box>
+                    <Typography style={dashBoard.subHeading}>Building Ownership Rate</Typography>
+                    <Box style={dashBoard.bottomTwoSpan}>
+                        <Box component="span" style={dashBoard.bottomColor}>58%</Box>
+                    </Box> 
+                </Box>
+            </Grid>  
+            <Grid item sm={4}>
+                <Box style={dashBoard.Cards}>
+                    <Box sx={{ml:1, mb:2}} style={dashBoard.CardsIcons}><PersonOutlineIcon/></Box>
+                    <Typography style={dashBoard.subHeading}>Building Ownership Rate</Typography>
+                    <Box style={dashBoard.bottomTwoSpan}>
+                        <Box component="span" style={dashBoard.bottomColor}>195</Box>
+                    </Box> 
+                </Box>
+            </Grid> 
+            <Grid item sm={4}>
+                <Box style={dashBoard.Cards}>
+                    <Box sx={{ml:1, mb:2}} style={dashBoard.CardsIcons}><PersonOutlineIcon/></Box>
+                    <Typography style={dashBoard.subHeading}>Building Ownership Rate</Typography>
+                    <Box style={dashBoard.bottomTwoSpan}>
+                        <Box component="span" style={dashBoard.bottomColor}>195</Box>
+                    </Box> 
+                </Box>
+            </Grid> 
+            <Grid item sm={4}>
+                <Box style={dashBoard.Cards}>
+                    <Box sx={{ml:1, mb:2}} style={dashBoard.CardsIcons}><PersonOutlineIcon/></Box>
+                    <Typography style={dashBoard.subHeading}>Building Ownership Rate</Typography>
+                    <Box style={dashBoard.bottomTwoSpan}>
+                        <Box component="span" style={dashBoard.bottomColor}>195</Box>
+                    </Box> 
+                </Box>
+            </Grid> 
+            <Grid item sm={4}>
+                <Box style={dashBoard.Cards}>
+                    <Box sx={{ml:1, mb:2}} style={dashBoard.CardsIcons}><PersonOutlineIcon/></Box>
+                    <Typography style={dashBoard.subHeading}>Building Ownership Rate</Typography>
+                    <Box style={dashBoard.bottomTwoSpan}>
+                        <Box component="span" style={dashBoard.bottomColor}>195</Box>
+                    </Box> 
+                </Box>
+            </Grid> 
+        </Grid>
+        <Box>
+            <Typography variant="h5" style={dashBoard.EventsHeading}>Upcoming Events</Typography>
+        </Box>
+        <Grid container spacing={4} style={{marginTop: 15, marginBottom:30}}>
+            <Grid item sm={6}>
+                <Box style={dashBoard.EventsCards}>
+                    <Box sx={{ml:1, mb:1}}>
+                        <Typography style={dashBoard.EventsTitle}>Meeting Title</Typography>
+                        <Typography>To discuss new vehicle guidlines</Typography>
+                    </Box>
+                    <Box style={dashBoard.EventsIconsText}>
+                        <RoomOutlinedIcon style={{color: "#054c94"}}/>
+                        <Box component="span">Center park common hall</Box>
+                    </Box>
+                    <Box style={dashBoard.EventsIconsText}>
+                        <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
+                        <Box component="span">05-08-2022 18:00 to 20:00 </Box>
+                    </Box>
+                    <Box style={dashBoard.EventsIconsData}>
+                        <Box style={dashBoard.EventsIconsDataBox}>
+                            <DateRangeOutlinedIcon style={{color: "#ff8100"}}/>
+                            <Box component="span">84</Box>
+                        </Box>
+                        <Box style={dashBoard.EventsIconsDataBox}>
+                            <CheckCircleOutlineOutlinedIcon style={{color: "green"}}/>
+                            <Box component="span">29</Box>
+                        </Box>
+                        <Box style={dashBoard.EventsIconsDataBox}>
+                            <HighlightOffOutlinedIcon style={{color: "red"}}/>
+                            <Box component="span">13</Box>
+                        </Box>
+                    </Box>
+                </Box>
+            </Grid> 
+            <Grid item sm={6}>
+            <Box style={dashBoard.EventsCards}>
+                    <Box sx={{ml:1, mb:1}} style={dashBoard.facility}>
+                        <Box>
+                            <Typography style={dashBoard.EventsTitle}>Facility Resrvation</Typography>
+                            <Typography>Patyment status : Paid</Typography>
+                        </Box>
+                        <Typography style={dashBoard.PricePaid}>SR 250</Typography>
+                    </Box>
+                    <Box style={dashBoard.EventsIconsText}>
+                        <RoomOutlinedIcon style={{color: "#054c94"}}/>
+                        <Box component="span">Center park garden</Box>
+                    </Box>
+                    <Box style={dashBoard.EventsIconsText}>
+                        <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
+                        <Box component="span">12-08-2022 18:00 to 20:00</Box>
+                    </Box>
+                    <Box style={dashBoard.EventsIconsText}>
+                        <PersonOutlineIcon style={{color: "#054c94"}}/>
+                        <Box component="span">jhon doe</Box>
+                    </Box>
+                </Box>
+            </Grid>  
+        </Grid>
+    </Container>
+   </>
+    );
+  }
+}
+
+
+
+const dashBoard = {
+    navigation:{
+        display: "flex",
+        justifyContent: "space-between",
+    },
+    subHeading: {
+        fontWeight:600,
+        marginTop:15,
+    },
+    cardBottom:{
+        display: "flex",
+        gap: 20,
+        marginTop: 10
+    },
+    bottomColor:{
+        color: "red"
+    },
+    bottomTwoSpan:{
+        display: "flex", 
+        gap: 20, 
+        marginTop: 10
+    },
+    Cards: {
+        paddingTop: 30,
+        paddingLeft: 15,
+        paddingBottom: 25,
+        background: "#fff",
+        borderRadius: 10,
+    },
+    CardsIcons:{
+        border: "1px solid #d9d4d3",
+        borderRadius: "50%",
+        width: 25,
+        height: 25,
+        padding: 10,
+        color:"#054c94",
+    },
+    EventsHeading:{
+        fontWeight:600,
+        marginTop:50,
+    },
+    EventsCards:{
+        paddingTop: 15,
+        paddingLeft: 15,
+        paddingBottom: 15,
+        background: "#fff",
+        borderRadius: 10,
+    },
+    EventsTitle:{
+        fontWeight:600,
+        fontSize:14,
+    },
+    EventsIconsText:{
+        display: "flex",
+        alignItems: "center",
+        gap:5,
+        marginTop:15,
+        fontSize:14,
+    },
+    EventsIconsData:{
+        display: "flex",
+        alignItems: "center",
+        gap:25,
+        marginTop:15,
+    },
+    EventsIconsDataBox:{
+        display: "flex",
+        alignItems: "center",
+        gap:5,
+    },
+    YearMain:{
+        background: "#fff",
+        border: "none",
+        borderRadius: 5,
+        paddingLeft:5,
+        paddingRight: 5,
+    },
+    facility: {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+    },
+    PricePaid:{
+        marginRight: 70,
+        background: "#dcf5f0",
+        padding: 6,
+        borderRadius: 30,
+        color: "green",
+    }
+  };
+
+// Customizable Area End
