@@ -59,13 +59,7 @@ export default class DeshboardGeneral extends DashboardController {
             </Box>
             <Box>
                 <FormControl style={dashBoard.YearMain} className='yearTab'>
-                    <NativeSelect className='yearSelection' value={this.state.Year} onChange={this.handleChange} displayEmpty notchedOutline>
-                        {/* <MenuItem value="">
-                            <em>Year</em>
-                        </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem> */}
+                    <NativeSelect className='yearSelection' value={this.state.Year} onChange={this.handleChange} displayEmpty>
                          <option value="">None</option>
                             <option value={10}>Ten</option>
                             <option value={20}>Twenty</option>
