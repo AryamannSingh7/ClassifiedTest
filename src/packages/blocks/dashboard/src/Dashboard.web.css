@@ -1,0 +1,11 @@
+.yearTab .MuiInput-underline::before{
+    border-bottom: none !important;
+}
+
+.yearSelection .MuiInput-underline:hover:not(.Mui-disabled):before {
+    border-bottom: none !important;
+}
+
+.yearSelection .MuiInput-underline:hover:not(.Mui-disabled):before {
+    border-bottom: none !important;
+}
