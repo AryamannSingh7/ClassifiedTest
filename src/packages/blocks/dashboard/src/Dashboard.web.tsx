@@ -18,6 +18,7 @@ import GlobalIcon from "../assets/globalicon.png"
 import BuildingLogo from "../assets/BuildingLogo.png"
 import ChairmanUser from "../assets/ChairmanUser.jpg"
 
+import "../../../web/src/assets/css/style.scss";
 
 //images and Icons end
 
@@ -82,7 +83,7 @@ export default class Dashboard extends DashboardController {
   render() {
     return ( 
     <>
-    <Box>
+    <Box className="mainWrapper">
         <Box>
             <Box style={dashBoard.Header}>
                 <Grid container spacing={2}>

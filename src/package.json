@@ -26,6 +26,7 @@
     "i18n-js": "file:./packages/blocks/core/node_modules/i18n-js",
     "metro-react-native-babel-preset": "file:./packages/blocks/core/node_modules/metro-react-native-babel-preset",
     "moment": "file:./packages/blocks/core/node_modules/moment",
+    "node-sass": "4.14.0",
     "react-geocode": "file:./packages/blocks/core/node_modules/react-geocode",
     "react-native": "file:./packages/blocks/core/node_modules/react-native",
     "react-native-android-location-enabler": "file:./packages/blocks/core/node_modules/react-native-android-location-enabler",

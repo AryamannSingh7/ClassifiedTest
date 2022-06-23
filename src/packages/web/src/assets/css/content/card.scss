@@ -1,0 +1,413 @@
+@import '../constants/base/colors.scss';
+@import '../constants/base/global.scss';
+.cardContainer {
+  &.MuiGrid-spacing-xs-5 {
+    @media screen and (max-width: 1024px) {
+      margin: 0 -20px;
+      padding-top: 10px;
+    }
+  }
+  &.MuiGrid-spacing-xs-5 > .MuiGrid-item {
+    @media screen and (max-width: 1024px) {
+      padding: 2px 22px;
+    }
+  }
+  & .card {
+    width: 100%;
+    &.MuiCard-root {
+      padding: 25px;
+      border-radius: $FORM_BORDER_RADIUS;
+      box-shadow: $BOX_SHADOW;
+      border: 0;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      @media screen and (max-width: 1024px) {
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 10px;
+      }
+      @media screen and (max-width: 1600px) {
+        padding: 20px 10px;
+      }
+      & .cardContent {
+        padding: 0;
+        .h6 {
+          color: $GRAY_SHADE3;
+          font-size: 15px;
+          font-weight: 400;
+          line-height: 12px;
+          padding-bottom: 5px;
+          @media screen and (max-width: 1024px) {
+            font-size: 13px;
+          }
+        }
+      }
+      & .priceRow {
+        display: flex;
+        align-items: center;
+        .h1 {
+          color: $DARK;
+          font-size: 30px;
+          font-weight: 600;
+          padding-right: 10px;
+          @media screen and (max-width: 1600px) {
+            font-size: 19px;
+          }
+          @media screen and (max-width: 1024px) {
+            font-size: 17px;
+          }
+        }
+      }
+      & .iconCircle {
+        // height: 50px;
+        // width: 50px;
+        padding: 5px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid rgb(103, 103, 177);
+      }
+    }
+    &.restDetailsCard {
+      cursor: pointer;
+      &.MuiCard-root {
+        background-color: $WHITE;
+        padding: 15px 25px;
+        border-radius: $BOX_RADIUS;
+        box-shadow: $BOX_SHADOW;
+        border: 1px solid $GRAY_SHADE3;
+        height: 100%;
+        margin-bottom: 30px;
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+        justify-content: flex-start;
+        &.activeRestdetailCard {
+          background-color: $GREEN_SHADE5;
+          border: 1px solid $GREEN_SHADE6;
+        }
+      }
+      .header {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        .MuiSvgIcon-root {
+          color: $GREEN_SHADE6;
+          font-size: 40px;
+        }
+        .h6 {
+          font-weight: 600;
+          font-size: 15px;
+          color: $GRAY_SHADE6;
+          margin-left: 20px;
+          width: 100%;
+          line-height: 1.1;
+          text-align: unset;
+        }
+      }
+      .description {
+        margin-top: 10px;
+      }
+    }
+    // chose us cards
+    &.choseCard {
+      position: relative;
+      &.MuiCard-root {
+        background-color: $WHITE;
+        padding: 50px 0 0 50px;
+        border-radius: $BOX_RADIUS;
+        box-shadow: 0px 0px 4px 0px $GRAY_SHADE3;
+      }
+    }
+    // course cards
+    &.courseCard {
+      flex-direction: column;
+      padding: 15px;
+      height: 100%;
+      box-shadow: 0px 16px 20px 0px #cccccc94;
+      .MuiCardMedia-img {
+        border-radius: $BORDER_RADIUS;
+      }
+      & .cardContent {
+        width: 100%;
+        padding-top: 20px;
+        & p {
+          font-weight: 400;
+          color: #c1c1c1;
+          padding-top: 10px;
+          word-spacing: 2px;
+          line-height: 25px;
+          font-size: 17px;
+          @media screen and (max-width: 1024px) {
+            font-size: 14px;
+          }
+        }
+        // .MuiTypography-h5 {
+        //   @media screen and (max-width: 768px) {
+        //     font-size: 14px;
+        //   }
+        // }
+      }
+      & .CardActions {
+        width: 100%;
+        padding: 20px 0;
+      }
+    }
+    //purchase card
+    &.purchaseCard {
+      margin-bottom: 0;
+      @media screen and (max-width: 1024px) {
+        margin-bottom: 30px;
+      }
+      flex-direction: column !important;
+      padding: 15px;
+      box-shadow: 0px 16px 20px 0px #cccccc94 !important;
+      & .imgContainer {
+        width: 100%;
+        position: relative;
+        .rating {
+          position: absolute;
+          top: 10px;
+          left: 10px;
+
+          & .MuiRating-iconEmpty {
+            color: white;
+          }
+        }
+      }
+      & .courseImg {
+        border-radius: 15px;
+      }
+      & .MuiRating-iconFilled {
+        color: $ORANGE;
+      }
+      & .MuiTypography-h5 {
+        font-size: 20px;
+        @media screen and (max-width: 1440px) {
+          font-size: 16px;
+        }
+      }
+      & h4 {
+        @media screen and (max-width: 1440px) {
+          font-size: 16px;
+        }
+      }
+      & .cardContent {
+        padding: 20px 20px 0 20px !important;
+        @media screen and (max-width: 1440px) {
+          padding: 5px 5px 0 5px !important;
+        }
+        .MuiTypography-body2 {
+          color: $GRAY_SHADE1;
+          margin: 4px 0;
+        }
+      }
+      & .CardActions {
+        justify-content: space-between;
+        width: 100%;
+        padding: 20px !important;
+        @media screen and (max-width: 1440px) {
+          padding: 5px 5px 0 5px !important;
+        }
+      }
+    }
+    &.receiptCard {
+      margin-bottom: 0;
+      flex-direction: column !important;
+      padding: 0px;
+      box-shadow: 0px 0px 10px 0px $GRAY_SHADE1;
+      @media screen and (max-width: 1024px) {
+        margin-bottom: 30px;
+      }
+      & .courseImg {
+        border-radius: 15px 0 0 0;
+      }
+      & .MuiRating-iconFilled {
+        color: $ORANGE;
+      }
+      & .MuiTypography-h4 {
+        font-size: 28px;
+        color: $GREEN_SHADE6;
+        font-weight: 600;
+        @media screen and (max-width: 1024px) {
+          font-size: 16px;
+        }
+      }
+      & .cardContent {
+        padding: 20px 20px 0 20px !important;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        position: relative;
+        @media screen and (max-width: 1024px) {
+          padding: 20px !important;
+        }
+        & .receiptDate {
+          position: absolute;
+          top: -40px;
+          background-color: $WHITE;
+          padding: 10px 20px;
+          border-radius: 10px 10px 0 0;
+          font-size: 18px;
+          font-weight: 600;
+        }
+      }
+      & .CardActions {
+        justify-content: space-between;
+        width: 100%;
+        padding: 20px 20px 40px 20px !important;
+        @media screen and (max-width: 1024px) {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        @media screen and (max-width: 1024px) {
+          padding: 20px !important;
+        }
+        & .actionRow {
+          display: flex;
+          align-items: center;
+          margin-left: 0;
+          @media screen and (max-width: 1024px) {
+            margin-bottom: 10px;
+          }
+          & h5 {
+            font-weight: 600;
+            padding: 0 5px;
+          }
+          & .actionIcons {
+            height: 30px;
+            width: 30px;
+          }
+        }
+      }
+    }
+    &.reviewCard {
+      padding: 20px;
+      border-radius: 15px;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: flex-start;
+      border: 1px solid $GRAY_SHADE9;
+      margin-bottom: 20px;
+      @media screen and (max-width: 767px) {
+        flex-direction: column;
+        align-items: center;
+      }
+      & .profileImg {
+        height: 100px;
+        width: 100px;
+        border-radius: 50%;
+        border: 1px solid $GRAY_SHADE6;
+      }
+      & .cardContent {
+        flex-direction: column;
+        width: 100%;
+        padding-left: 30px;
+        @media screen and (max-width: 767px) {
+          padding-left: 0;
+          padding-top: 20px;
+        }
+        & .topRow {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          & h5 {
+            font-weight: bold;
+          }
+        }
+        & .ratingRow {
+          margin: 15px 0;
+          display: flex;
+          & .MuiRating-icon {
+            font-size: 30px;
+          }
+          & .MuiRating-iconFilled {
+            color: $ORANGE;
+          }
+        }
+        & p {
+          font-size: 17px;
+        }
+      }
+    }
+    &.studentCard {
+      display: flex;
+      align-items: flex-start;
+      flex-direction: column;
+      border-radius: $BOX_RADIUS;
+      box-shadow: 1px 1px 9px $GRAY_SHADE3;
+      padding: 30px;
+      margin-bottom: 0;
+      .MuiCardHeader-root {
+        width: 100%;
+        padding: 0;
+        border-bottom: 1px solid $GRAY_SHADE2;
+        padding-bottom: 20px;
+        .MuiCardHeader-content {
+          span {
+            font-family: $ROUNDGOTHIC_MEDIUM;
+            &:nth-child(1) {
+              color: $DARK;
+              font-weight: 600;
+            }
+            &:nth-child(2) {
+              color: $GRAY_SHADE4;
+            }
+          }
+        }
+      }
+
+      .MuiCardContent-root {
+        padding: 20px 00 0 0;
+
+        p {
+          color: $GRAY_SHADE4;
+        }
+      }
+    }
+    &.coursePlayCard {
+      box-shadow: 1px 1px 20px 0px $GRAY_SHADE12;
+      padding: 15px 15px 150px 15px;
+      flex-direction: column;
+      @media screen and (max-width: 768px) {
+        border: 0;
+        box-shadow: none;
+        padding: 0;
+      }
+    }
+  }
+}
+
+.educatorCard {
+  &.MuiCard-root {
+    width: 100%;
+    border-radius: $FORM_BORDER_RADIUS $FORM_BORDER_RADIUS 0 0;
+
+    .MuiCardMedia-media {
+      height: 300px;
+    }
+
+    .cardContent {
+      background-color: $WHITE;
+      margin-top: -20px;
+      border-radius: $FORM_BORDER_RADIUS $FORM_BORDER_RADIUS 0 0;
+      .MuiTypography-h5 {
+        font-weight: 500;
+        text-align: center;
+        font-size: 25px;
+        word-spacing: 2px;
+        letter-spacing: 2px;
+      }
+      .MuiTypography-body2 {
+        text-align: center;
+        font-size: 13px;
+        // font-family: $POPPINS;
+      }
+    }
+  }
+}
