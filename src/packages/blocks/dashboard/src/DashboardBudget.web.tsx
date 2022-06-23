@@ -1,4 +1,6 @@
 // Customizable Area Start
+//@ts-nocheck
+//@ts-ignore
 
 import React from "react";
 import {
@@ -17,9 +19,8 @@ import {
 
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-
+import NativeSelect from "@material-ui/core/NativeSelect";
 import Select from "@material-ui/core/Select";
-import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import TodayOutlinedIcon from '@material-ui/icons/TodayOutlined';
@@ -46,11 +47,12 @@ export default class DashboardBudget extends DashboardController {
         token: "",
         loading: false,
         Year: "",
+        expanded: '',
       };
        this.handleChange = this.handleChange.bind(this)
     }
     handleChange = (event: any) => {
-        console.log('click', event.target.value)
+        // console.log('click', event.target.value)
         // this.setState({year: event.target.value});
     };
   
@@ -67,15 +69,13 @@ export default class DashboardBudget extends DashboardController {
                 <Typography variant="h5" style={dashBoardBudget.subHeading}>Budget Dashboard</Typography>
             </Box>
             <Box>
-                <FormControl style={dashBoardBudget.YearMain}>
-                    <Select value={this.state.Year} onChange={this.handleChange} displayEmpty>
-                        <MenuItem value="">
-                            <em>2020</em>
-                        </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
-                    </Select>
+                <FormControl style={dashBoard.YearMain} className='yearTab'>
+                    <NativeSelect className='yearSelection' value={this.state.Year} onChange={this.handleChange} displayEmpty notchedOutline>
+                         <option value="">None</option>
+                            <option value={10}>Ten</option>
+                            <option value={20}>Twenty</option>
+                            <option value={30}>Thirty</option>
+                    </NativeSelect>
                 </FormControl>
             </Box>
         </Box>
@@ -151,7 +151,6 @@ export default class DashboardBudget extends DashboardController {
                     <Box sx={{ml:1, mb:2}} style={dashBoardBudget.CardsIcons}><TodayOutlinedIcon/></Box>
                     <Typography style={dashBoardBudget.subHeading}>View Approved Budget</Typography>
                     <Box style={dashBoardBudget.bottomTwoSpan}>
-                        {/* <Box component="span" style={dashBoardBudget.bottomColor}>27</Box> */}
                         <Typography variant="body2">View Budget</Typography>
                     </Box> 
                 </Box>
@@ -163,7 +162,6 @@ export default class DashboardBudget extends DashboardController {
                 <Box style={{marginTop: 25,marginBottom:50, background:"#fff", borderRadius:10}}>
                     <Box style={dashBoardBudget.TableHeader}>
                         <Typography variant="h5" style={dashBoardBudget.subHeading}>Cash Flow</Typography>
-                        {/* <SearchOutlinedIcon/> */}
                     </Box>
                     <TableContainer >
                         <Table  aria-label="simple table">

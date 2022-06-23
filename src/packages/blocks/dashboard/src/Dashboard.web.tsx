@@ -16,6 +16,7 @@ import BudgetDetails from "./BudgetDetails.web"
 import TenantLogo from "../assets/TenantLogo.png"
 import GlobalIcon from "../assets/globalicon.png"
 import BuildingLogo from "../assets/BuildingLogo.png"
+import ChairmanUser from "../assets/ChairmanUser.jpg"
 
 
 //images and Icons end
@@ -26,21 +27,13 @@ import {
     List,
     ListItem,
     ListItemText,
-    Link,
-    FormControl,
-    MenuItem 
   } from "@material-ui/core";
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 
-import { makeStyles } from '@material-ui/core/styles';
-
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
-
-
-import Select, { SelectChangeEvent } from "@material-ui/core/Select";
 
 import { styled } from "@material-ui/styles";
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
@@ -49,7 +42,6 @@ import NotificationsNoneOutlinedIcon from '@material-ui/icons/NotificationsNoneO
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import DashboardOutlinedIcon from '@material-ui/icons/DashboardOutlined';
 import NavigateNextOutlinedIcon from '@material-ui/icons/NavigateNextOutlined';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import DashboardController, { Props } from "./DashboardController";
 
@@ -81,19 +73,12 @@ export default class Dashboard extends DashboardController {
         expanded: '',
       };
 
-    //   this.handleChange = this.handleChange.bind(this)
   }
 
   handleChange = (panel:string, isExpanded:boolean) => {
-    //   debugger
     this.setState({expanded: isExpanded ? panel : ''});
   };
 
-//   handleClick = () => {
-//       console.log("click view")
-//   }
-
-    
   render() {
     return ( 
     <>
@@ -115,7 +100,7 @@ export default class Dashboard extends DashboardController {
                         <Box 
                             style={dashBoard.HeaderSecRtBox}
                         >
-                            <img src="https://png.pngtree.com/png-vector/20190704/ourlarge/pngtree-businessman-user-avatar-free-vector-png-image_1538405.jpg" alt=""
+                            <img src={ChairmanUser} alt="ChairmanUser"
                             width={50}
                             style={{borderRadius: "50%"}}
                             />
@@ -180,28 +165,9 @@ export default class Dashboard extends DashboardController {
                     <Box>
                         <img src={TenantLogo} alt="TenantLogo"
                         width={110}
-                        // style={{color:"black"}}
                         />
                     </Box>
                 </Box> 
-                {/* {ItemsList.map((val, index) => <Accordion
-                expanded={expanded === 'panel' + index} 
-                onChange={this.handleChange('panel' + index)}
-                >
-                    <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel1bh-content"
-                    id="panel1bh-header"
-                    style={dashBoard.ListItem}
-                    >
-                    <Typography><DashboardOutlinedIcon/></Typography>
-                    <Typography style={dashBoard.ListItemText}>headings</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <Typography>sub headings</Typography>
-                    </AccordionDetails>
-                </Accordion>)}
-                */}
             </Grid>
 
             <Grid xs={9} md={9} sm={9} spacing={4} style={{paddingTop: 35, background:"#C8E3D4"}}>
@@ -213,9 +179,6 @@ export default class Dashboard extends DashboardController {
             </Grid>
         </Box> 
     </Box>
-
-    {/* <Container>
-    </Container> */}
    </>
     );
   }
@@ -229,7 +192,6 @@ const dashBoard = {
     },
     Header: {
         background: "#fff",
-        // marginBottom: "2em",
         padding:20,
     },
     HeaderSecLft: {
@@ -283,14 +245,3 @@ const dashBoard = {
   };
 
 // Customizable Area End
-
-// My Dashboards
-// My Team
-// Community Management
-// Invoices & Receipts
-// Meetings
-// Buildings & Apartments
-// Poll/Survey  -  (without arrow)
-// Documents & Reports  -  (without arrow)
-// Chat (Count)  -  (without arrow)
-// Help

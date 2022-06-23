@@ -1,4 +1,6 @@
 // Customizable Area Start
+//@ts-nocheck
+//@ts-ignore
 
 import React from "react";
 import {
@@ -18,6 +20,7 @@ import {
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Select from "@material-ui/core/Select";
+import NativeSelect from "@material-ui/core/NativeSelect";
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
@@ -45,6 +48,7 @@ export default class DashboardTicket extends DashboardController {
         token: "",
         loading: false,
         Year: "",
+        expanded: '',
       };
        this.handleChange = this.handleChange.bind(this)
     }
@@ -66,15 +70,13 @@ export default class DashboardTicket extends DashboardController {
                 <Typography variant="h5" style={dashBoardActions.subHeading}>Ticket Dashboard</Typography>
             </Box>
             <Box>
-                <FormControl style={dashBoardActions.YearMain}>
-                    <Select value={this.state.Year} onChange={this.handleChange} displayEmpty>
-                        <MenuItem value="">
-                            <em>2020</em>
-                        </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
-                    </Select>
+                <FormControl style={dashBoardActions.YearMain} className='yearTab'>
+                    <NativeSelect className='yearSelection' value={this.state.Year} onChange={this.handleChange} displayEmpty>
+                         <option value="">None</option>
+                            <option value={10}>Ten</option>
+                            <option value={20}>Twenty</option>
+                            <option value={30}>Thirty</option>
+                    </NativeSelect>
                 </FormControl>
             </Box>
         </Box>
