@@ -9,6 +9,7 @@ import AnalyticsController, {
   Props,
   configJSON
 } from "./AnalyticsController.web";
+import CustomButton from "../../../components/src/CustomButton.web";
 
 export default class Analytics extends AnalyticsController {
   constructor(props: Props) {
@@ -36,6 +37,7 @@ export default class Analytics extends AnalyticsController {
               sx={webStyle.buttonStyle}
             >
               <Button color={"primary"}>{configJSON.btnExampleTitle}</Button>
+              <CustomButton label="hello"/>
             </Box>
           </Box>
         </Container>
