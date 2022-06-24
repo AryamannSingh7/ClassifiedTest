@@ -21,36 +21,8 @@
     scrollbar-face-color: $GRAY_SHADE8;
     scrollbar-track-color: $GRAY_SHADE8;
   }
-  &::-webkit-scrollbar-track {
+  &::-webkit-scrollbar-track {  
     scrollbar-face-color: $GRAY_SHADE8;
     scrollbar-track-color: $GRAY_SHADE8;
-  }
-}
-
-@mixin mq($size) {
-  @if $size == phone-only {
-    @media (max-width: 599px) {
-      @content;
-    }
-  } @else if $size == tablet-portrait-medium-up {
-    @media (min-width: 600px) {
-      @content;
-    }
-  } @else if $size == tablet-portrait-large-up {
-    @media (max-width: 768px) {
-      @content;
-    }
-  } @else if $size == tablet-landscape-up {
-    @media (min-width: 900px) {
-      @content;
-    }
-  } @else if $size == desktop-up {
-    @media (min-width: 1200px) {
-      @content;
-    }
-  } @else if $size == big-desktop-up {
-    @media (min-width: 1800px) {
-      @content;
-    }
   }
 }
