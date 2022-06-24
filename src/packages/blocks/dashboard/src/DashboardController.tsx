@@ -23,8 +23,8 @@ interface S {
   token: string;
   errorMsg: string;
   loading: boolean;
-  Year: string;
-  expanded: string,
+  Year: any;
+  expanded: any,
   // Customizable Area End
 }
 interface SS {
@@ -54,11 +54,20 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
       token: "",
       loading: false,
       Year: "",
-      expanded: "",
+      expanded: '',
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
+
+  handleChange = (event: any) => {
+    console.log('click', event.target.value)
+    // this.setState({year: event.target.value});
+  };
+
+  handleAccordinoChange = (panel:string) => (event:any, isExpanded:boolean) => {
+    this.setState({expanded: isExpanded ? panel : ''});
+  };
 
   async componentDidMount() {
     super.componentDidMount();

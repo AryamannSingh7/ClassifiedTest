@@ -24,6 +24,7 @@ interface S {
   txtSavedValue: string;
   enableField: boolean;
   // Customizable Area Start
+  Year: string;
   // Customizable Area End
 }
 
@@ -57,6 +58,7 @@ export default class PollingController extends BlockComponent<
       txtSavedValue: "A",
       enableField: false,
       // Customizable Area Start
+      Year: '',
       // Customizable Area End
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -64,6 +66,11 @@ export default class PollingController extends BlockComponent<
     // Customizable Area Start
     // Customizable Area End
   }
+
+  handleChange = (event: any) => {
+    console.log('click', event.target.value)
+    //this.setState({year: event.target.value});
+  };
 
   async receive(from: string, message: Message) {
     runEngine.debugLog("Message Recived", message);

@@ -70,7 +70,7 @@ import Dashboard from "../../blocks/dashboard/src/Dashboard.web";
 import SocialMediaAccountRegistrationScreen from "../../blocks/social-media-account-registration/src/SocialMediaAccountRegistrationScreen";
 import Notifications from "../../blocks/notifications/src/Notifications";
 import MobileAccountLoginBlock from "../../blocks/mobile-account-login/src/MobileAccountLoginBlock";
-
+import DashboardGeneral from "../../blocks/dashboard/src/DashboardGeneral.web";
 
 
 const routeMap = {
@@ -251,6 +251,10 @@ path:"/Notifications"},
 MobileAccountLoginBlock:{
  component:MobileAccountLoginBlock,
 path:"/MobileAccountLoginBlock"},
+
+DashboardGeneral:{
+  component:DashboardGeneral,
+ path:"/DashboardGeneral"},
 
   Home: {
 component:Analytics,

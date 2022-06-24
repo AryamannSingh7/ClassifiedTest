@@ -40,14 +40,6 @@ function createData(Name:any, Amount:any) {
 export default class BudgetDetails extends DashboardController {
     constructor(props: Props) {
       super(props);
-      this.state = {
-        dashboardData: [],
-        errorMsg: "",
-        token: "",
-        loading: false,
-        Year: "",
-        expanded: '',
-      };
        this.handleChange = this.handleChange.bind(this)
     }
     handleChange = (event: any) => {

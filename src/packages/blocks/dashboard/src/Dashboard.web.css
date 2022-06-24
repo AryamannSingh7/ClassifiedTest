@@ -9,3 +9,15 @@
 .yearSelection .MuiInput-underline:hover:not(.Mui-disabled):before {
     border-bottom: none !important;
 }
+
+.AccordinoList .MuiPaper-elevation1{
+    box-shadow: none !important;
+}
+.AccordinoList .MuiPaper-root{
+    background-color: transparent !important;
+}
+.AccordinoList .MuiAccordion-root{
+    position: unset !important;
+}
+
+

@@ -10,7 +10,6 @@ import {
     Typography,
     Link,
     FormControl,
-    MenuItem 
   } from "@material-ui/core";
 import Box from '@material-ui/core/Box';
 import Select from "@material-ui/core/Select";
@@ -27,28 +26,16 @@ import CheckCircleOutlineOutlinedIcon from '@material-ui/icons/CheckCircleOutlin
 import DashboardController, { Props } from "../../../blocks/dashboard/src/DashboardController";
 
 
-export default class DeshboardGeneral extends DashboardController {
+export default class DashboardGeneral extends DashboardController {
   constructor(props: Props) {
     super(props);
-    this.state = {
-        dashboardData: [],
-        errorMsg: "",
-        token: "",
-        loading: false,
-        Year: "",
-        expanded: '',
-      };
        this.handleChange = this.handleChange.bind(this) 
   }
-
-    handleChange = (event: any) => {
-        console.log('click', event.target.value)
-        // this.setState({year: event.target.value});
-    };
     
   render() {
     return ( 
     <>
+    
     <Container>
         <Box style={dashBoard.navigation}>
             <Box>
