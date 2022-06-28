@@ -24,7 +24,7 @@ interface S {
   errorMsg: string;
   loading: boolean;
   Year: any;
-  expanded: any,
+  expanded: any;
   // Customizable Area End
 }
 interface SS {
@@ -47,6 +47,8 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
       getName(MessageEnum.SessionSaveMessage),
       getName(MessageEnum.SessionResponseMessage)
     ];
+
+    this.handleChange = this.handleChange.bind(this);
 
     this.state = {
       dashboardData: [],

@@ -8,8 +8,12 @@ import { runEngine } from "../../../framework/src/RunEngine";
 
 // Customizable Area Start
 import { imgPasswordInVisible, imgPasswordVisible } from "./assets";
-// Customizable Area End
+import { boolean, date } from "yup";
 
+import {Editor, EditorState} from 'draft-js';
+import 'draft-js/dist/Draft.css';
+
+// Customizable Area End
 export const configJSON = require("./config");
 
 export interface Props {
@@ -25,6 +29,9 @@ interface S {
   enableField: boolean;
   // Customizable Area Start
   Year: string;
+  selectedDate:any,
+  checked: boolean,
+  editorState:any,
   // Customizable Area End
 }
 
@@ -59,13 +66,25 @@ export default class PollingController extends BlockComponent<
       enableField: false,
       // Customizable Area Start
       Year: '',
+      selectedDate: new Date('2014-08-18T21:11:54'),
+      checked: false,
+      editorState: EditorState.createEmpty()
       // Customizable Area End
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
 
     // Customizable Area Start
+
     // Customizable Area End
   }
+
+  onChange = (editorState:any) => {
+    this.setState({editorState});
+  }
+
+  handleDateChange = (date: Date | null) => {
+    // this.setState({selectedDate:  date});
+  };
 
   handleChange = (event: any) => {
     console.log('click', event.target.value)

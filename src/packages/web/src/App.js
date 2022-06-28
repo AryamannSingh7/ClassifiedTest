@@ -66,11 +66,20 @@ import Settings5 from "../../blocks/Settings5/src/Settings5";
 import UserProfileBasicBlock from "../../blocks/user-profile-basic/src/UserProfileBasicBlock";
 import RequestManagement from "../../blocks/RequestManagement/src/RequestManagement";
 import LeadManagement from "../../blocks/LeadManagement/src/LeadManagement";
-import Dashboard from "../../blocks/dashboard/src/Dashboard.web";
 import SocialMediaAccountRegistrationScreen from "../../blocks/social-media-account-registration/src/SocialMediaAccountRegistrationScreen";
 import Notifications from "../../blocks/notifications/src/Notifications";
 import MobileAccountLoginBlock from "../../blocks/mobile-account-login/src/MobileAccountLoginBlock";
+import Dashboard from "../../blocks/dashboard/src/Dashboard.web";
 import DashboardGeneral from "../../blocks/dashboard/src/DashboardGeneral.web";
+import DashboardTicket from "../../blocks/dashboard/src/DashboardTicket.web";
+import DashboardActions from "../../blocks/dashboard/src/DashboardActions.web";
+import DashboardBudget from "../../blocks/dashboard/src/DashboardBudget.web";
+import BudgetDetails from "../../blocks/dashboard/src/BudgetDetails.web";
+import CreatePolls from "../../blocks/Polling/src/CreatePolls.web";
+import CreateSurveys from "../../blocks/Polling/src/CreateSurveys.web";
+import PollPreview from "../../blocks/Polling/src/PollPreview.web";
+import SurveyPreview from "../../blocks/Polling/src/SurveyPreview.web";
+
 
 
 const routeMap = {
@@ -252,9 +261,37 @@ MobileAccountLoginBlock:{
  component:MobileAccountLoginBlock,
 path:"/MobileAccountLoginBlock"},
 
+
 DashboardGeneral:{
-  component:DashboardGeneral,
- path:"/DashboardGeneral"},
+ component:DashboardGeneral,
+path:"/DashboardGeneral"},
+DashboardTicket:{
+ component:DashboardTicket,
+path:"/DashboardTicket"},
+DashboardActions:{
+ component:DashboardActions,
+path:"/DashboardActions"},
+DashboardBudget:{
+ component:DashboardBudget,
+path:"/DashboardBudget"},
+BudgetDetails:{
+  component:BudgetDetails,
+ path:"/BudgetDetails"},
+
+CreatePolls:{
+  component:CreatePolls,
+path:"/CreatePolls"},
+CreateSurveys:{
+  component:CreateSurveys,
+path:"/CreateSurveys"},
+PollPreview:{
+  component:PollPreview,
+path:"/PollPreview"},
+SurveyPreview:{
+  component:SurveyPreview,
+path:"/SurveyPreview"},
+
+
 
   Home: {
 component:Analytics,

@@ -116,8 +116,8 @@ ul {
   // @media screen and (max-width: 768px) {
   //   padding: 10px 10px 0 10px;
   // }
-  @include mq(tablet-portrait-large-up) {
-    padding: 10px 10px 0 10px;
-    background-color: red;
-  }
+  // @include mq(tablet-portrait-large-up) {
+  //   padding: 10px 10px 0 10px;
+  //   background-color: red;
+  // }
 }

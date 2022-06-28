@@ -1,5 +1,4 @@
-//@ts-nocheck
-//@ts-ignore
+
 
 import React from "react";
 import "./Polling.web.css"
@@ -26,6 +25,9 @@ import PollingController, {
   Props,
   configJSON,
 } from "./PollingController";
+import Dashboard from "../../dashboard/src/Dashboard.web";
+import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
+import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 
 export default class Polling extends PollingController {
   constructor(props: Props) {
@@ -35,270 +37,294 @@ export default class Polling extends PollingController {
   render() {
     return ( 
       <>
-      <Container>
-          <Box className="navigation">
-              <Box>
-                  <Typography variant="body1" >
-                  My Dashboard / <Box component="span" style={{color: "blue"}}>Poll and surveys</Box>
-                  </Typography>
-                  <Typography variant="h5" className="subHeading">Poll / Surveys</Typography>
-              </Box>
-              <Box>
-                  <FormControl className='YearMain'>
-                      <NativeSelect className='yearSelection' value={this.state.Year} onChange={this.handleChange} displayEmpty>
-                           <option value="">This Week</option>
-                              <option value={10}>Ten</option>
-                              <option value={20}>Twenty</option>
-                              <option value={30}>Thirty</option>
-                      </NativeSelect>
-                  </FormControl>
-              </Box>
-          </Box>
-          <Grid container spacing={4} style={{marginTop: 15}}>
-              <Grid item sm={4}>
-                  <Box className="CreatePS">
-                      <Box sx={{ml:1, mb:2}} className="CreatePSIcons"><PersonOutlineIcon/></Box>
-                      <Typography  className="CreatePSHeading">Create a New Polls/Survey</Typography> 
-                  </Box>
-              </Grid> 
+    <Box>
+        <DashboardHeader {...this.props}/>
+      
+        <Box style={{display: "flex"}}>
+            
+            <Grid item xs={3} md={3} sm={3} className="SideBar">
+                <ChairmanSidebar {...this.props}/>
+            </Grid>
 
-              <Grid item sm={4}>
-                  <Box className="Cards">
-                      <Box sx={{ml:1, mb:2}} className="CardsIcons"><PersonOutlineIcon/></Box>
-                      <Typography className="subHeading">Polls Created</Typography>
-                      <Box className="bottomTwoSpan">
-                          <Typography variant="body2" className="bottomColor">344</Typography>  
-                      </Box> 
-                      <Box className="bottomTwoSpan">
-                        <Typography variant="body2">Last poll created on 12-02-2022</Typography> 
-                      </Box> 
-                  </Box>
-              </Grid>
+            <Grid xs={9} md={9} sm={9} spacing={4} style={{paddingTop: 35}}>
+            <Container>
+            <Box className="navigation">
+                <Box>
+                    <Typography variant="body1" >
+                    My Dashboard / <Box component="span" style={{color: "blue"}}>Poll and surveys</Box>
+                    </Typography>
+                    <Typography variant="h5" className="subHeading">Poll / Surveys</Typography>
+                </Box>
+                <Box>
+                    <FormControl className='YearMain'>
+                        <NativeSelect className='yearSelection' value={this.state.Year} onChange={this.handleChange}>
+                            <option value="">This Week</option>
+                                <option value={10}>Ten</option>
+                                <option value={20}>Twenty</option>
+                                <option value={30}>Thirty</option>
+                        </NativeSelect>
+                    </FormControl>
+                </Box>
+            </Box>
+            <Grid container spacing={4} style={{marginTop: 15}}>
+                <Grid item sm={4}>
+                    <Box className="CreatePS">
+                        <Box sx={{ml:1, mb:2}} className="CreatePSIcons"><PersonOutlineIcon/></Box>
+                        <Typography  className="CreatePSHeading">Create a New Polls/Survey</Typography> 
+                    </Box>
+                </Grid> 
 
-              <Grid item sm={4}>
-                  <Box className="Cards">
-                      <Box sx={{ml:1, mb:2}} className="CardsIcons"><PersonOutlineIcon/></Box>
-                      <Typography className="subHeading">Surveys Created</Typography>
-                      <Box className="bottomTwoSpan">
-                          <Typography variant="body2" className="bottomColor">344</Typography>  
-                      </Box> 
-                      <Box className="bottomTwoSpan">
-                        <Typography variant="body2">Last Survey created on 12-02-2022</Typography> 
-                      </Box> 
-                  </Box>
-              </Grid>
+                <Grid item sm={4}>
+                    <Box className="Cards">
+                        <Box sx={{ml:1, mb:2}} className="CardsIcons"><PersonOutlineIcon/></Box>
+                        <Typography className="subHeading">Polls Created</Typography>
+                        <Box className="bottomTwoSpan">
+                            <Typography variant="body2" className="bottomColor">344</Typography>  
+                        </Box> 
+                        <Box className="bottomTwoSpan">
+                            <Typography variant="body2">Last poll created on 12-02-2022</Typography> 
+                        </Box> 
+                    </Box>
+                </Grid>
 
-          </Grid>
+                <Grid item sm={4}>
+                    <Box className="Cards">
+                        <Box sx={{ml:1, mb:2}} className="CardsIcons"><PersonOutlineIcon/></Box>
+                        <Typography className="subHeading">Surveys Created</Typography>
+                        <Box className="bottomTwoSpan">
+                            <Typography variant="body2" className="bottomColor">344</Typography>  
+                        </Box> 
+                        <Box className="bottomTwoSpan">
+                            <Typography variant="body2">Last Survey created on 12-02-2022</Typography> 
+                        </Box> 
+                    </Box>
+                </Grid>
 
-          <Box className="RecentItems">
-              <Typography className="Recenttitle">Recent Polls</Typography>
-              <Typography className="ViewAll">View All</Typography>
-          </Box>
-          <Grid container spacing={4} style={{marginTop: 15, marginBottom:30}}>
-              <Grid item sm={4} md={4} xs={4}>
-                  <Box className="EventsCards">
-                      <Box className="EventsIconsText">
-                        <Typography variant="body2" className="statusOngoing">Ongoing</Typography>
-                      </Box>
-                      <Box className="EventsIconsText">
-                        <Typography className="EventsTitle">Block W Parking</Typography>
-                      </Box>
-                      <Box className="EventsIconsText">
-                          <Typography variant="body2">To discuss new vehicle guidlines</Typography>
-                      </Box>
-                      <Box className="EventsIconsText">
-                          <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
-                          <Typography variant="body2">05-08-2022 - 08-08-2022 </Typography>
-                      </Box>
-                      <Divider style={{marginTop:10, marginRight:10}}/>
-                      <Box className="EventsIconsData">
-                          <Box className="EventsIconsDataBox">
-                              <DateRangeOutlinedIcon style={{color: "#ff8100"}}/>
-                              <Typography variant="body2">84</Typography>
-                          </Box>
-                          <Box className="EventsIconsDataBox">
-                              <CheckCircleOutlineOutlinedIcon style={{color: "green"}}/>
-                              <Typography variant="body2">29</Typography>
-                          </Box>
-                          <Box className="EventsIconsDataBox">
-                              <HighlightOffOutlinedIcon style={{color: "red"}}/>
-                              <Typography variant="body2">13</Typography>
-                          </Box>
-                      </Box>
-                  </Box>
-              </Grid>
-              <Grid item sm={4} md={4} xs={4}>
-                  <Box className="EventsCards">
-                      <Box className="EventsIconsText">
-                        <Typography variant="body2" className="statusOngoing">Ongoing</Typography>
-                      </Box>
-                      <Box className="EventsIconsText">
-                        <Typography className="EventsTitle">Block W Parking</Typography>
-                      </Box>
-                      <Box className="EventsIconsText">
-                          <Typography variant="body2">To discuss new vehicle guidlines</Typography>
-                      </Box>
-                      <Box className="EventsIconsText">
-                          <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
-                          <Typography variant="body2">05-08-2022 - 08-08-2022 </Typography>
-                      </Box>
-                      <Divider style={{marginTop:10, marginRight:10}}/>
-                      <Box className="EventsIconsData">
-                          <Box className="EventsIconsDataBox">
-                              <DateRangeOutlinedIcon style={{color: "#ff8100"}}/>
-                              <Typography variant="body2">84</Typography>
-                          </Box>
-                          <Box className="EventsIconsDataBox">
-                              <CheckCircleOutlineOutlinedIcon style={{color: "green"}}/>
-                              <Typography variant="body2">29</Typography>
-                          </Box>
-                          <Box className="EventsIconsDataBox">
-                              <HighlightOffOutlinedIcon style={{color: "red"}}/>
-                              <Typography variant="body2">13</Typography>
-                          </Box>
-                      </Box>
-                  </Box>
-              </Grid>
-              <Grid item sm={4} md={4} xs={4}>
-                  <Box className="EventsCards">
-                      <Box className="EventsIconsText">
-                        <Typography variant="body2" className="statusCompleted">Completed</Typography>
-                      </Box>
-                      <Box className="EventsIconsText">
-                        <Typography className="EventsTitle">Block W Parking</Typography>
-                      </Box>
-                      <Box className="EventsIconsText">
-                          <Typography variant="body2">To discuss new vehicle guidlines</Typography>
-                      </Box>
-                      <Box className="EventsIconsText">
-                          <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
-                          <Typography variant="body2">05-08-2022 - 08-08-2022 </Typography>
-                      </Box>
-                      <Divider style={{marginTop:10, marginRight:10}}/>
-                      <Box className="EventsIconsData">
-                          <Box className="EventsIconsDataBox">
-                              <DateRangeOutlinedIcon style={{color: "#ff8100"}}/>
-                              <Typography variant="body2">84</Typography>
-                          </Box>
-                          <Box className="EventsIconsDataBox">
-                              <CheckCircleOutlineOutlinedIcon style={{color: "green"}}/>
-                              <Typography variant="body2">29</Typography>
-                          </Box>
-                          <Box className="EventsIconsDataBox">
-                              <HighlightOffOutlinedIcon style={{color: "red"}}/>
-                              <Typography variant="body2">13</Typography>
-                          </Box>
-                      </Box>
-                  </Box>
-              </Grid>
-          </Grid>
+            </Grid>
 
-          <Box className="RecentItems">
-              <Typography className="Recenttitle">Recent Surveys</Typography>
-              <Typography className="ViewAll">View All</Typography>
-          </Box>
-          <Grid container spacing={4} style={{marginTop: 15, marginBottom:30}}>
-              <Grid item sm={4} md={4} xs={4}>
-                  <Box className="EventsCards">
-                      <Box className="EventsIconsText">
-                        <Typography variant="body2" className="statusOngoing">Ongoing</Typography>
-                      </Box>
-                      <Box className="EventsIconsText">
-                        <Typography className="EventsTitle">Block W Parking</Typography>
-                      </Box>
-                      <Box className="EventsIconsText">
-                          <Typography variant="body2">To discuss new vehicle guidlines</Typography>
-                      </Box>
-                      <Box className="EventsIconsText">
-                          <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
-                          <Typography variant="body2">05-08-2022 - 08-08-2022 </Typography>
-                      </Box>
-                      <Divider style={{marginTop:10, marginRight:10}}/>
-                      <Box className="EventsIconsData">
-                          <Box className="EventsIconsDataBox">
-                              <DateRangeOutlinedIcon style={{color: "#ff8100"}}/>
-                              <Typography variant="body2">84</Typography>
-                          </Box>
-                          <Box className="EventsIconsDataBox">
-                              <CheckCircleOutlineOutlinedIcon style={{color: "green"}}/>
-                              <Typography variant="body2">29</Typography>
-                          </Box>
-                          <Box className="EventsIconsDataBox">
-                              <HighlightOffOutlinedIcon style={{color: "red"}}/>
-                              <Typography variant="body2">13</Typography>
-                          </Box>
-                      </Box>
-                  </Box>
-              </Grid>
-              <Grid item sm={4} md={4} xs={4}>
-                  <Box className="EventsCards">
-                      <Box className="EventsIconsText">
-                        <Typography variant="body2" className="statusOngoing">Ongoing</Typography>
-                      </Box>
-                      <Box className="EventsIconsText">
-                        <Typography className="EventsTitle">Block W Parking</Typography>
-                      </Box>
-                      <Box className="EventsIconsText">
-                          <Typography variant="body2">To discuss new vehicle guidlines</Typography>
-                      </Box>
-                      <Box className="EventsIconsText">
-                          <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
-                          <Typography variant="body2">05-08-2022 - 08-08-2022 </Typography>
-                      </Box>
-                      <Divider style={{marginTop:10, marginRight:10}}/>
-                      <Box className="EventsIconsData">
-                          <Box className="EventsIconsDataBox">
-                              <DateRangeOutlinedIcon style={{color: "#ff8100"}}/>
-                              <Typography variant="body2">84</Typography>
-                          </Box>
-                          <Box className="EventsIconsDataBox">
-                              <CheckCircleOutlineOutlinedIcon style={{color: "green"}}/>
-                              <Typography variant="body2">29</Typography>
-                          </Box>
-                          <Box className="EventsIconsDataBox">
-                              <HighlightOffOutlinedIcon style={{color: "red"}}/>
-                              <Typography variant="body2">13</Typography>
-                          </Box>
-                      </Box>
-                  </Box>
-              </Grid>
-              <Grid item sm={4} md={4} xs={4}>
-                  <Box className="EventsCards">
-                      <Box className="EventsIconsText">
-                        <Typography variant="body2" className="statusOngoing">Ongoing</Typography>
-                      </Box>
-                      <Box className="EventsIconsText">
-                        <Typography className="EventsTitle">Block W Parking</Typography>
-                      </Box>
-                      <Box className="EventsIconsText">
-                          <Typography variant="body2">To discuss new vehicle guidlines</Typography>
-                      </Box>
-                      <Box className="EventsIconsText">
-                          <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
-                          <Typography variant="body2">05-08-2022 - 08-08-2022 </Typography>
-                      </Box>
-                      <Divider style={{marginTop:10, marginRight:10}}/>
-                      <Box className="EventsIconsData">
-                          <Box className="EventsIconsDataBox">
-                              <DateRangeOutlinedIcon style={{color: "#ff8100"}}/>
-                              <Typography variant="body2">84</Typography>
-                          </Box>
-                          <Box className="EventsIconsDataBox">
-                              <CheckCircleOutlineOutlinedIcon style={{color: "green"}}/>
-                              <Typography variant="body2">29</Typography>
-                          </Box>
-                          <Box className="EventsIconsDataBox">
-                              <HighlightOffOutlinedIcon style={{color: "red"}}/>
-                              <Typography variant="body2">13</Typography>
-                          </Box>
-                      </Box>
-                  </Box>
-              </Grid>
-          </Grid>
-      </Container>
+            <Box className="RecentItems">
+                <Typography className="Recenttitle">Recent Polls</Typography>
+                <Typography className="ViewAll">View All</Typography>
+            </Box>
+            <Grid container spacing={4} style={{marginTop: 15, marginBottom:30}}>
+                <Grid item sm={4} md={4} xs={4}>
+                    <Box className="EventsCards">
+                        <Box className="EventsIconsText">
+                            <Typography variant="body2" className="statusOngoing">Ongoing</Typography>
+                        </Box>
+                        <Box className="EventsIconsText">
+                            <Typography className="EventsTitle">Block W Parking</Typography>
+                        </Box>
+                        <Box className="EventsIconsText">
+                            <Typography variant="body2">To discuss new vehicle guidlines</Typography>
+                        </Box>
+                        <Box className="EventsIconsText">
+                            <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
+                            <Typography variant="body2">05-08-2022 - 08-08-2022 </Typography>
+                        </Box>
+                        <Divider style={{marginTop:10, marginRight:10}}/>
+                        <Box className="EventsIconsData">
+                            <Box className="EventsIconsDataBox">
+                                <DateRangeOutlinedIcon style={{color: "#ff8100"}}/>
+                                <Typography variant="body2">84</Typography>
+                            </Box>
+                            <Box className="EventsIconsDataBox">
+                                <CheckCircleOutlineOutlinedIcon style={{color: "green"}}/>
+                                <Typography variant="body2">29</Typography>
+                            </Box>
+                            <Box className="EventsIconsDataBox">
+                                <HighlightOffOutlinedIcon style={{color: "red"}}/>
+                                <Typography variant="body2">13</Typography>
+                            </Box>
+                        </Box>
+                    </Box>
+                </Grid>
+                <Grid item sm={4} md={4} xs={4}>
+                    <Box className="EventsCards">
+                        <Box className="EventsIconsText">
+                            <Typography variant="body2" className="statusOngoing">Ongoing</Typography>
+                        </Box>
+                        <Box className="EventsIconsText">
+                            <Typography className="EventsTitle">Block W Parking</Typography>
+                        </Box>
+                        <Box className="EventsIconsText">
+                            <Typography variant="body2">To discuss new vehicle guidlines</Typography>
+                        </Box>
+                        <Box className="EventsIconsText">
+                            <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
+                            <Typography variant="body2">05-08-2022 - 08-08-2022 </Typography>
+                        </Box>
+                        <Divider style={{marginTop:10, marginRight:10}}/>
+                        <Box className="EventsIconsData">
+                            <Box className="EventsIconsDataBox">
+                                <DateRangeOutlinedIcon style={{color: "#ff8100"}}/>
+                                <Typography variant="body2">84</Typography>
+                            </Box>
+                            <Box className="EventsIconsDataBox">
+                                <CheckCircleOutlineOutlinedIcon style={{color: "green"}}/>
+                                <Typography variant="body2">29</Typography>
+                            </Box>
+                            <Box className="EventsIconsDataBox">
+                                <HighlightOffOutlinedIcon style={{color: "red"}}/>
+                                <Typography variant="body2">13</Typography>
+                            </Box>
+                        </Box>
+                    </Box>
+                </Grid>
+                <Grid item sm={4} md={4} xs={4}>
+                    <Box className="EventsCards">
+                        <Box className="EventsIconsText">
+                            <Typography variant="body2" className="statusCompleted">Completed</Typography>
+                        </Box>
+                        <Box className="EventsIconsText">
+                            <Typography className="EventsTitle">Block W Parking</Typography>
+                        </Box>
+                        <Box className="EventsIconsText">
+                            <Typography variant="body2">To discuss new vehicle guidlines</Typography>
+                        </Box>
+                        <Box className="EventsIconsText">
+                            <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
+                            <Typography variant="body2">05-08-2022 - 08-08-2022 </Typography>
+                        </Box>
+                        <Divider style={{marginTop:10, marginRight:10}}/>
+                        <Box className="EventsIconsData">
+                            <Box className="EventsIconsDataBox">
+                                <DateRangeOutlinedIcon style={{color: "#ff8100"}}/>
+                                <Typography variant="body2">84</Typography>
+                            </Box>
+                            <Box className="EventsIconsDataBox">
+                                <CheckCircleOutlineOutlinedIcon style={{color: "green"}}/>
+                                <Typography variant="body2">29</Typography>
+                            </Box>
+                            <Box className="EventsIconsDataBox">
+                                <HighlightOffOutlinedIcon style={{color: "red"}}/>
+                                <Typography variant="body2">13</Typography>
+                            </Box>
+                        </Box>
+                    </Box>
+                </Grid>
+            </Grid>
+
+            <Box className="RecentItems">
+                <Typography className="Recenttitle">Recent Surveys</Typography>
+                <Typography className="ViewAll">View All</Typography>
+            </Box>
+            <Grid container spacing={4} style={{marginTop: 15, marginBottom:30}}>
+                <Grid item sm={4} md={4} xs={4}>
+                    <Box className="EventsCards">
+                        <Box className="EventsIconsText">
+                            <Typography variant="body2" className="statusOngoing">Ongoing</Typography>
+                        </Box>
+                        <Box className="EventsIconsText">
+                            <Typography className="EventsTitle">Block W Parking</Typography>
+                        </Box>
+                        <Box className="EventsIconsText">
+                            <Typography variant="body2">To discuss new vehicle guidlines</Typography>
+                        </Box>
+                        <Box className="EventsIconsText">
+                            <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
+                            <Typography variant="body2">05-08-2022 - 08-08-2022 </Typography>
+                        </Box>
+                        <Divider style={{marginTop:10, marginRight:10}}/>
+                        <Box className="EventsIconsData">
+                            <Box className="EventsIconsDataBox">
+                                <DateRangeOutlinedIcon style={{color: "#ff8100"}}/>
+                                <Typography variant="body2">84</Typography>
+                            </Box>
+                            <Box className="EventsIconsDataBox">
+                                <CheckCircleOutlineOutlinedIcon style={{color: "green"}}/>
+                                <Typography variant="body2">29</Typography>
+                            </Box>
+                            <Box className="EventsIconsDataBox">
+                                <HighlightOffOutlinedIcon style={{color: "red"}}/>
+                                <Typography variant="body2">13</Typography>
+                            </Box>
+                        </Box>
+                    </Box>
+                </Grid>
+                <Grid item sm={4} md={4} xs={4}>
+                    <Box className="EventsCards">
+                        <Box className="EventsIconsText">
+                            <Typography variant="body2" className="statusOngoing">Ongoing</Typography>
+                        </Box>
+                        <Box className="EventsIconsText">
+                            <Typography className="EventsTitle">Block W Parking</Typography>
+                        </Box>
+                        <Box className="EventsIconsText">
+                            <Typography variant="body2">To discuss new vehicle guidlines</Typography>
+                        </Box>
+                        <Box className="EventsIconsText">
+                            <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
+                            <Typography variant="body2">05-08-2022 - 08-08-2022 </Typography>
+                        </Box>
+                        <Divider style={{marginTop:10, marginRight:10}}/>
+                        <Box className="EventsIconsData">
+                            <Box className="EventsIconsDataBox">
+                                <DateRangeOutlinedIcon style={{color: "#ff8100"}}/>
+                                <Typography variant="body2">84</Typography>
+                            </Box>
+                            <Box className="EventsIconsDataBox">
+                                <CheckCircleOutlineOutlinedIcon style={{color: "green"}}/>
+                                <Typography variant="body2">29</Typography>
+                            </Box>
+                            <Box className="EventsIconsDataBox">
+                                <HighlightOffOutlinedIcon style={{color: "red"}}/>
+                                <Typography variant="body2">13</Typography>
+                            </Box>
+                        </Box>
+                    </Box>
+                </Grid>
+                <Grid item sm={4} md={4} xs={4}>
+                    <Box className="EventsCards">
+                        <Box className="EventsIconsText">
+                            <Typography variant="body2" className="statusOngoing">Ongoing</Typography>
+                        </Box>
+                        <Box className="EventsIconsText">
+                            <Typography className="EventsTitle">Block W Parking</Typography>
+                        </Box>
+                        <Box className="EventsIconsText">
+                            <Typography variant="body2">To discuss new vehicle guidlines</Typography>
+                        </Box>
+                        <Box className="EventsIconsText">
+                            <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
+                            <Typography variant="body2">05-08-2022 - 08-08-2022 </Typography>
+                        </Box>
+                        <Divider style={{marginTop:10, marginRight:10}}/>
+                        <Box className="EventsIconsData">
+                            <Box className="EventsIconsDataBox">
+                                <DateRangeOutlinedIcon style={{color: "#ff8100"}}/>
+                                <Typography variant="body2">84</Typography>
+                            </Box>
+                            <Box className="EventsIconsDataBox">
+                                <CheckCircleOutlineOutlinedIcon style={{color: "green"}}/>
+                                <Typography variant="body2">29</Typography>
+                            </Box>
+                            <Box className="EventsIconsDataBox">
+                                <HighlightOffOutlinedIcon style={{color: "red"}}/>
+                                <Typography variant="body2">13</Typography>
+                            </Box>
+                        </Box>
+                    </Box>
+                </Grid>
+            </Grid>
+        </Container>
+            </Grid>
+
+        </Box>
+    </Box>
+     
      </>
       );
   }
 }
 
+
+
+const dashBoard = {
+    SideBar: {
+        background: "#f9f6f6",
+        position:"relative",
+        paddingBottom: 150,
+    },
+}
 // Customizable Area End

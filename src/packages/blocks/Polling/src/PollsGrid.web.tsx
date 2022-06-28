@@ -45,7 +45,7 @@ export default class PollsGrid extends PollingController {
               </Box>
               <Box>
                   <FormControl className='YearMain'>
-                      <NativeSelect className='yearSelection' value={this.state.Year} onChange={this.handleChange} displayEmpty>
+                      <NativeSelect className='yearSelection' value={this.state.Year} onChange={this.handleChange} >
                            <option value="">This Week</option>
                               <option value={10}>Ten</option>
                               <option value={20}>Twenty</option>

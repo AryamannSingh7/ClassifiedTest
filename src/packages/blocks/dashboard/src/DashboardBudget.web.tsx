@@ -25,6 +25,8 @@ import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import TodayOutlinedIcon from '@material-ui/icons/TodayOutlined';
 import DashboardController, { Props } from "../../../blocks/dashboard/src/DashboardController";
+import DashboardHeader from "./DashboardHeader.web";
+import ChairmanSidebar from "./ChairmanSidebar.web";
 
 function createData(Name:any, Amount:any) {
     return { Name, Amount };
@@ -41,185 +43,186 @@ function createData(Name:any, Amount:any) {
 export default class DashboardBudget extends DashboardController {
     constructor(props: Props) {
       super(props);
-      this.state = {
-        dashboardData: [],
-        errorMsg: "",
-        token: "",
-        loading: false,
-        Year: "",
-        expanded: '',
-      };
-       this.handleChange = this.handleChange.bind(this)
+      
     }
-    handleChange = (event: any) => {
-        // console.log('click', event.target.value)
-        // this.setState({year: event.target.value});
-    };
   
 
     render() {
       return ( 
       <>
-      <Container>
-        <Box style={dashBoardBudget.navigation}>
-            <Box>
-                <Typography variant="body1" >
-                My Dashboard / <Box component="span" style={{color: "blue"}}>Budget Dashboard</Box>
-                </Typography>
-                <Typography variant="h5" style={dashBoardBudget.subHeading}>Budget Dashboard</Typography>
-            </Box>
-            <Box>
-                <FormControl style={dashBoard.YearMain} className='yearTab'>
-                    <NativeSelect className='yearSelection' value={this.state.Year} onChange={this.handleChange} displayEmpty notchedOutline>
-                         <option value="">None</option>
-                            <option value={10}>Ten</option>
-                            <option value={20}>Twenty</option>
-                            <option value={30}>Thirty</option>
-                    </NativeSelect>
-                </FormControl>
+        <Box>
+            {/* Dashboard Header -- */}
+            <DashboardHeader {...this.props}/>
+            <Box style={{display: "flex"}}>
+                
+                <Grid item xs={3} md={3} sm={3} className="SideBar">
+                    {/* Chairman Sidebar -- */}
+                    <ChairmanSidebar {...this.props}/>
+                </Grid>
+
+                <Grid xs={9} md={9} sm={9} spacing={4} style={{paddingTop: 35}}>
+                    <Container>
+                        <Box style={dashBoardBudget.navigation}>
+                            <Box>
+                                <Typography variant="body1" >
+                                My Dashboard / <Box component="span" style={{color: "blue"}}>Budget Dashboard</Box>
+                                </Typography>
+                                <Typography variant="h5" style={dashBoardBudget.PageHeading}>Budget Dashboard</Typography>
+                            </Box>
+                            <Box>
+                                <FormControl style={dashBoardBudget.YearMain} className='yearTab'>
+                                    <NativeSelect className='yearSelection' value={this.state.Year} onChange={this.handleChange}>
+                                        <option value="">None</option>
+                                            <option value={10}>Ten</option>
+                                            <option value={20}>Twenty</option>
+                                            <option value={30}>Thirty</option>
+                                    </NativeSelect>
+                                </FormControl>
+                            </Box>
+                        </Box>
+
+                        <Grid container spacing={4} style={{marginTop: 15}}>
+                            <Grid item sm={4}>
+                                <Box style={dashBoardBudget.Cards}>
+                                    <Box sx={{ml:1, mb:2}} style={dashBoardBudget.CardsIcons}><AccessTimeIcon/></Box>
+                                    <Typography style={dashBoardBudget.subHeading}>Collected vs Budget Amount</Typography>
+                                    <Box style={dashBoardBudget.bottomTwoSpan}>
+                                        <Typography variant="body2">Collected</Typography>
+                                        <Box component="span" style={dashBoardBudget.bottomColor}>SR 10000</Box>
+                                    </Box> 
+                                    <Box style={dashBoardBudget.bottomTwoSpan}>
+                                        <Typography variant="body2">Budget</Typography>
+                                        <Box component="span" style={dashBoardBudget.bottomColor}>SR 50000</Box>
+                                    </Box> 
+                                </Box>
+                            </Grid>
+                            <Grid item sm={4}>
+                                <Box style={dashBoardBudget.Cards}>
+                                    <Box sx={{ml:1, mb:2}} style={dashBoardBudget.CardsIcons}><PersonOutlineIcon/></Box>
+                                    <Typography style={dashBoardBudget.subHeading}>Total Rent Due vs Rent Collected</Typography>
+                                    <Box style={dashBoardBudget.bottomTwoSpan}>
+                                        <Typography variant="body2">Collected</Typography>
+                                        <Box component="span" style={dashBoardBudget.bottomColor}>SR 10000</Box>
+                                    </Box> 
+                                    <Box style={dashBoardBudget.bottomTwoSpan}>
+                                        <Typography variant="body2">Budget</Typography>
+                                        <Box component="span" style={dashBoardBudget.bottomColor}>SR 50000</Box>
+                                    </Box> 
+                                </Box>
+                            </Grid> 
+                            <Grid item sm={4}>
+                                <Box style={dashBoardBudget.Cards}>
+                                    <Box sx={{ml:1, mb:2}} style={dashBoardBudget.CardsIcons}><TodayOutlinedIcon/></Box>
+                                    <Typography style={dashBoardBudget.subHeading}>Number of members have not paid management fee</Typography>
+                                    <Box style={dashBoardBudget.bottomTwoSpan}>
+                                        <Box component="span" style={dashBoardBudget.bottomColor}>27</Box>
+                                        <Typography variant="body2">Members</Typography>
+                                    </Box> 
+                                </Box>
+                            </Grid>   
+
+
+                            <Grid item sm={4}>
+                                <Box style={dashBoardBudget.Cards}>
+                                    <Box sx={{ml:1, mb:2}} style={dashBoardBudget.CardsIcons}><TodayOutlinedIcon/></Box>
+                                    <Typography style={dashBoardBudget.subHeading}>Total Expenses</Typography>
+                                    <Box style={dashBoardBudget.bottomTwoSpan}>
+                                        <Box component="span" style={dashBoardBudget.bottomColor}>SR 10000</Box>
+                                    </Box> 
+                                </Box>
+                            </Grid>  
+                            <Grid item sm={4}>
+                                <Box style={dashBoardBudget.Cards}>
+                                    <Box sx={{ml:1, mb:2}} style={dashBoardBudget.CardsIcons}><TodayOutlinedIcon/></Box>
+                                    <Typography style={dashBoardBudget.subHeading}>Occupancy Rate</Typography>
+                                    <Box style={dashBoardBudget.bottomTwoSpan}>
+                                        <Box style={dashBoardBudget.cardBottom}>
+                                            <Typography variant="body2">Sold</Typography>
+                                            <Box component="span" style={dashBoardBudget.bottomColor}>75%</Box>
+                                        </Box>
+                                        <Box style={dashBoardBudget.cardBottom}>
+                                            <Typography variant="body2">Unsold</Typography>
+                                            <Box component="span" style={dashBoardBudget.bottomColor}>25%</Box>
+                                        </Box>
+                                    </Box> 
+                                </Box>
+                            </Grid>  
+                            <Grid item sm={4}>
+                                <Box style={dashBoardBudget.Cards}>
+                                    <Box sx={{ml:1, mb:2}} style={dashBoardBudget.CardsIcons}><TodayOutlinedIcon/></Box>
+                                    <Typography style={dashBoardBudget.subHeading}>View Approved Budget</Typography>
+                                    <Box style={dashBoardBudget.bottomTwoSpan}>
+                                        <Typography variant="body2">View Budget</Typography>
+                                    </Box> 
+                                </Box>
+                            </Grid>  
+                        </Grid>
+
+                        <Grid container spacing={4} style={{marginTop: 15, marginBottom:30}}>
+                            <Grid item sm={6}>
+                                <Box style={{marginTop: 25,marginBottom:50, background:"#fff", borderRadius:10}}>
+                                    <Box style={dashBoardBudget.TableHeader}>
+                                        <Typography variant="h5" style={dashBoardBudget.subHeading}>Cash Flow</Typography>
+                                    </Box>
+                                    <TableContainer >
+                                        <Table  aria-label="simple table">
+                                            <TableHead>
+                                                <TableRow>
+                                                    <TableCell style={{color:"grey"}}>Name</TableCell>
+                                                    <TableCell style={{color:"grey"}} align="right">Amount</TableCell>
+                                                </TableRow>
+                                            </TableHead>
+                                            <TableBody>
+                                                {rows.map((row) => (
+                                                    <TableRow key={row.Name}>
+                                                        <TableCell component="th" scope="row">{row.Name}</TableCell>
+                                                        <TableCell align="right" style={{fontWeight:600}}>SR {row.Amount}</TableCell>
+                                                    </TableRow>
+                                                ))}
+                                            </TableBody>
+                                        </Table>
+                                    </TableContainer>
+                                    <Box style={dashBoardBudget.TableFooter}>
+                                        <Typography variant="h5" style={dashBoardBudget.FooterTotal}>Net Income</Typography>
+                                        <Box component="span" style={dashBoardBudget.bottomColor}>SR 10005</Box>
+                                    </Box>
+                                </Box>
+                            </Grid>
+
+                            <Grid item sm={6}>
+                                <Box style={{marginTop: 25,marginBottom:50, background:"#fff", borderRadius:10}}>
+                                    <Box style={dashBoardBudget.TableHeader}>
+                                        <Typography variant="h5" style={dashBoardBudget.subHeading}>Track Collected Money</Typography>
+                                    </Box>
+                                    <TableContainer >
+                                        <Table  aria-label="simple table">
+                                            <TableHead>
+                                                <TableRow>
+                                                    <TableCell style={{color:"grey"}}>Name</TableCell>
+                                                    <TableCell style={{color:"grey"}} align="right">Amount</TableCell>
+                                                </TableRow>
+                                            </TableHead>
+                                            <TableBody>
+                                                {rows.map((row) => (
+                                                    <TableRow key={row.Name}>
+                                                        <TableCell component="th" scope="row">{row.Name}</TableCell>
+                                                        <TableCell align="right" style={{fontWeight:600}}>SR {row.Amount}</TableCell>
+                                                    </TableRow>
+                                                ))}
+                                            </TableBody>
+                                        </Table>
+                                    </TableContainer>
+                                    <Box style={dashBoardBudget.TableFooter}>
+                                        <Typography variant="h5" style={dashBoardBudget.FooterTotal}>Net Collection</Typography>
+                                        <Box component="span" style={dashBoardBudget.bottomColor}>SR 10005</Box>
+                                    </Box>
+                                </Box>
+                            </Grid>
+                        </Grid>
+                    </Container>
+                </Grid>
             </Box>
         </Box>
-
-        <Grid container spacing={4} >
-            <Grid item sm={4}>
-                <Box style={dashBoardBudget.Cards}>
-                    <Box sx={{ml:1, mb:2}} style={dashBoardBudget.CardsIcons}><AccessTimeIcon/></Box>
-                    <Typography style={dashBoardBudget.subHeading}>Collected vs Budget Amount</Typography>
-                    <Box style={dashBoardBudget.bottomTwoSpan}>
-                        <Typography variant="body2">Collected</Typography>
-                        <Box component="span" style={dashBoardBudget.bottomColor}>SR 10000</Box>
-                    </Box> 
-                    <Box style={dashBoardBudget.bottomTwoSpan}>
-                        <Typography variant="body2">Budget</Typography>
-                        <Box component="span" style={dashBoardBudget.bottomColor}>SR 50000</Box>
-                    </Box> 
-                </Box>
-            </Grid>
-            <Grid item sm={4}>
-                <Box style={dashBoardBudget.Cards}>
-                    <Box sx={{ml:1, mb:2}} style={dashBoardBudget.CardsIcons}><PersonOutlineIcon/></Box>
-                    <Typography style={dashBoardBudget.subHeading}>Total Rent Due vs Rent Collected</Typography>
-                    <Box style={dashBoardBudget.bottomTwoSpan}>
-                        <Typography variant="body2">Collected</Typography>
-                        <Box component="span" style={dashBoardBudget.bottomColor}>SR 10000</Box>
-                    </Box> 
-                    <Box style={dashBoardBudget.bottomTwoSpan}>
-                        <Typography variant="body2">Budget</Typography>
-                        <Box component="span" style={dashBoardBudget.bottomColor}>SR 50000</Box>
-                    </Box> 
-                </Box>
-            </Grid> 
-            <Grid item sm={4}>
-                <Box style={dashBoardBudget.Cards}>
-                    <Box sx={{ml:1, mb:2}} style={dashBoardBudget.CardsIcons}><TodayOutlinedIcon/></Box>
-                    <Typography style={dashBoardBudget.subHeading}>Number of members have not paid management fee</Typography>
-                    <Box style={dashBoardBudget.bottomTwoSpan}>
-                        <Box component="span" style={dashBoardBudget.bottomColor}>27</Box>
-                        <Typography variant="body2">Members</Typography>
-                    </Box> 
-                </Box>
-            </Grid>   
-
-
-            <Grid item sm={4}>
-                <Box style={dashBoardBudget.Cards}>
-                    <Box sx={{ml:1, mb:2}} style={dashBoardBudget.CardsIcons}><TodayOutlinedIcon/></Box>
-                    <Typography style={dashBoardBudget.subHeading}>Total Expenses</Typography>
-                    <Box style={dashBoardBudget.bottomTwoSpan}>
-                        <Box component="span" style={dashBoardBudget.bottomColor}>SR 10000</Box>
-                    </Box> 
-                </Box>
-            </Grid>  
-            <Grid item sm={4}>
-                <Box style={dashBoardBudget.Cards}>
-                    <Box sx={{ml:1, mb:2}} style={dashBoardBudget.CardsIcons}><TodayOutlinedIcon/></Box>
-                    <Typography style={dashBoardBudget.subHeading}>Occupancy Rate</Typography>
-                    <Box style={dashBoardBudget.bottomTwoSpan}>
-                        <Box style={dashBoardBudget.cardBottom}>
-                            <Typography variant="body2">Sold</Typography>
-                            <Box component="span" style={dashBoardBudget.bottomColor}>75%</Box>
-                        </Box>
-                        <Box style={dashBoardBudget.cardBottom}>
-                            <Typography variant="body2">Unsold</Typography>
-                            <Box component="span" style={dashBoardBudget.bottomColor}>25%</Box>
-                        </Box>
-                    </Box> 
-                </Box>
-            </Grid>  
-            <Grid item sm={4}>
-                <Box style={dashBoardBudget.Cards}>
-                    <Box sx={{ml:1, mb:2}} style={dashBoardBudget.CardsIcons}><TodayOutlinedIcon/></Box>
-                    <Typography style={dashBoardBudget.subHeading}>View Approved Budget</Typography>
-                    <Box style={dashBoardBudget.bottomTwoSpan}>
-                        <Typography variant="body2">View Budget</Typography>
-                    </Box> 
-                </Box>
-            </Grid>  
-        </Grid>
-
-        <Grid container spacing={4} style={{marginTop: 15, marginBottom:30}}>
-            <Grid item sm={6}>
-                <Box style={{marginTop: 25,marginBottom:50, background:"#fff", borderRadius:10}}>
-                    <Box style={dashBoardBudget.TableHeader}>
-                        <Typography variant="h5" style={dashBoardBudget.subHeading}>Cash Flow</Typography>
-                    </Box>
-                    <TableContainer >
-                        <Table  aria-label="simple table">
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell style={{color:"grey"}}>Name</TableCell>
-                                    <TableCell style={{color:"grey"}} align="right">Amount</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {rows.map((row) => (
-                                    <TableRow key={row.Name}>
-                                        <TableCell component="th" scope="row">{row.Name}</TableCell>
-                                        <TableCell align="right" style={{fontWeight:600}}>SR {row.Amount}</TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                    <Box style={dashBoardBudget.TableFooter}>
-                        <Typography variant="h5" style={dashBoardBudget.FooterTotal}>Net Income</Typography>
-                        <Box component="span" style={dashBoardBudget.bottomColor}>SR 10005</Box>
-                    </Box>
-                </Box>
-            </Grid>
-
-            <Grid item sm={6}>
-                <Box style={{marginTop: 25,marginBottom:50, background:"#fff", borderRadius:10}}>
-                    <Box style={dashBoardBudget.TableHeader}>
-                        <Typography variant="h5" style={dashBoardBudget.subHeading}>Track Collected Money</Typography>
-                    </Box>
-                    <TableContainer >
-                        <Table  aria-label="simple table">
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell style={{color:"grey"}}>Name</TableCell>
-                                    <TableCell style={{color:"grey"}} align="right">Amount</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {rows.map((row) => (
-                                    <TableRow key={row.Name}>
-                                        <TableCell component="th" scope="row">{row.Name}</TableCell>
-                                        <TableCell align="right" style={{fontWeight:600}}>SR {row.Amount}</TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                    <Box style={dashBoardBudget.TableFooter}>
-                        <Typography variant="h5" style={dashBoardBudget.FooterTotal}>Net Collection</Typography>
-                        <Box component="span" style={dashBoardBudget.bottomColor}>SR 10005</Box>
-                    </Box>
-                </Box>
-            </Grid>
-        </Grid>
-
-      </Container>
      </>
       );
     }
@@ -228,9 +231,18 @@ export default class DashboardBudget extends DashboardController {
   
   
 const dashBoardBudget = {
+    SideBar: {
+        background: "#f9f6f6",
+        position:"relative",
+        paddingBottom: 150,
+    },
     navigation:{
         display: "flex",
         justifyContent: "space-between",
+    },
+    PageHeading: {
+        fontWeight:600,
+        marginTop:15,
     },
     subHeading: {
         fontWeight:600,

@@ -20,4 +20,22 @@
     position: unset !important;
 }
 
+.SideBar {
+    background: #f9f6f6;
+    position:relative;
+    padding-bottom: 150px;
+}
+
+.SideBarBottom{
+    display: flex;
+    justify-content: space-between;
+    align-items:last baseline;
+    gap: 60px;
+    position: absolute;
+    bottom: 0;
+    padding-bottom: 20px;
+    margin-left:20px;
+    margin-right:25px;
+}
+
 

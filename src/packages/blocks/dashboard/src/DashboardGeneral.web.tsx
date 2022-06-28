@@ -24,165 +24,179 @@ import HighlightOffOutlinedIcon from '@material-ui/icons/HighlightOffOutlined';
 import CheckCircleOutlineOutlinedIcon from '@material-ui/icons/CheckCircleOutlineOutlined';
 
 import DashboardController, { Props } from "../../../blocks/dashboard/src/DashboardController";
+import DashboardHeader from "./DashboardHeader.web";
+import ChairmanSidebar from "./ChairmanSidebar.web";
 
 
 export default class DashboardGeneral extends DashboardController {
   constructor(props: Props) {
-    super(props);
-       this.handleChange = this.handleChange.bind(this) 
+    super(props); 
   }
     
   render() {
-    return ( 
+    return (
     <>
-    
-    <Container>
-        <Box style={dashBoard.navigation}>
-            <Box>
-                <Typography variant="body1" >
-                My Dashboard / <Box component="span" style={{color: "blue"}}>General Dashboard</Box>
-                </Typography>
-                <Typography variant="h5" style={dashBoard.subHeading}>General Dashboard</Typography>
-            </Box>
-            <Box>
-                <FormControl style={dashBoard.YearMain} className='yearTab'>
-                    <NativeSelect className='yearSelection' value={this.state.Year} onChange={this.handleChange} displayEmpty>
-                         <option value="">None</option>
-                            <option value={10}>Ten</option>
-                            <option value={20}>Twenty</option>
-                            <option value={30}>Thirty</option>
-                    </NativeSelect>
-                </FormControl>
-            </Box>
-        </Box>
-        <Grid container spacing={4} style={{marginTop: 15}}>
-            <Grid item sm={4}>
-                <Box style={dashBoard.Cards}>
-                    <Box sx={{ml:1, mb:2}} style={dashBoard.CardsIcons}><PersonOutlineIcon/></Box>
-                    <Typography style={dashBoard.subHeading}>Building Ownership Rate</Typography>
-                    <Box style={dashBoard.cardBottom}>
-                        <Typography variant="body2">Sold</Typography>
-                        <Box component="span" style={dashBoard.bottomColor}>75%</Box>
-                        <Typography variant="body2">Unsold</Typography>
-                        <Box component="span" style={dashBoard.bottomColor}>25%</Box>
-                        
-                    </Box> 
-                </Box>
-            </Grid>
-            <Grid item sm={4}>
-                <Box style={dashBoard.Cards}>
-                    <Box sx={{ml:1, mb:2}} style={dashBoard.CardsIcons}><PersonOutlineIcon/></Box>
-                    <Typography style={dashBoard.subHeading}>Building Ownership Rate</Typography>
-                    <Box style={dashBoard.bottomTwoSpan}>
-                        <Box component="span" style={dashBoard.bottomColor}>42/327</Box>
-                    </Box> 
-                </Box>
-            </Grid> 
-            <Grid item sm={4}>
-                <Box style={dashBoard.Cards}>
-                    <Box sx={{ml:1, mb:2}} style={dashBoard.CardsIcons}><PersonOutlineIcon/></Box>
-                    <Typography style={dashBoard.subHeading}>Building Ownership Rate</Typography>
-                    <Box style={dashBoard.bottomTwoSpan}>
-                        <Box component="span" style={dashBoard.bottomColor}>58%</Box>
-                    </Box> 
-                </Box>
-            </Grid>  
-            <Grid item sm={4}>
-                <Box style={dashBoard.Cards}>
-                    <Box sx={{ml:1, mb:2}} style={dashBoard.CardsIcons}><PersonOutlineIcon/></Box>
-                    <Typography style={dashBoard.subHeading}>Building Ownership Rate</Typography>
-                    <Box style={dashBoard.bottomTwoSpan}>
-                        <Box component="span" style={dashBoard.bottomColor}>195</Box>
-                    </Box> 
-                </Box>
-            </Grid> 
-            <Grid item sm={4}>
-                <Box style={dashBoard.Cards}>
-                    <Box sx={{ml:1, mb:2}} style={dashBoard.CardsIcons}><PersonOutlineIcon/></Box>
-                    <Typography style={dashBoard.subHeading}>Building Ownership Rate</Typography>
-                    <Box style={dashBoard.bottomTwoSpan}>
-                        <Box component="span" style={dashBoard.bottomColor}>195</Box>
-                    </Box> 
-                </Box>
-            </Grid> 
-            <Grid item sm={4}>
-                <Box style={dashBoard.Cards}>
-                    <Box sx={{ml:1, mb:2}} style={dashBoard.CardsIcons}><PersonOutlineIcon/></Box>
-                    <Typography style={dashBoard.subHeading}>Building Ownership Rate</Typography>
-                    <Box style={dashBoard.bottomTwoSpan}>
-                        <Box component="span" style={dashBoard.bottomColor}>195</Box>
-                    </Box> 
-                </Box>
-            </Grid> 
-            <Grid item sm={4}>
-                <Box style={dashBoard.Cards}>
-                    <Box sx={{ml:1, mb:2}} style={dashBoard.CardsIcons}><PersonOutlineIcon/></Box>
-                    <Typography style={dashBoard.subHeading}>Building Ownership Rate</Typography>
-                    <Box style={dashBoard.bottomTwoSpan}>
-                        <Box component="span" style={dashBoard.bottomColor}>195</Box>
-                    </Box> 
-                </Box>
-            </Grid> 
-        </Grid>
         <Box>
-            <Typography variant="h5" style={dashBoard.EventsHeading}>Upcoming Events</Typography>
-        </Box>
-        <Grid container spacing={4} style={{marginTop: 15, marginBottom:30}}>
-            <Grid item sm={6}>
-                <Box style={dashBoard.EventsCards}>
-                    <Box sx={{ml:1, mb:1}}>
-                        <Typography style={dashBoard.EventsTitle}>Meeting Title</Typography>
-                        <Typography>To discuss new vehicle guidlines</Typography>
-                    </Box>
-                    <Box style={dashBoard.EventsIconsText}>
-                        <RoomOutlinedIcon style={{color: "#054c94"}}/>
-                        <Box component="span">Center park common hall</Box>
-                    </Box>
-                    <Box style={dashBoard.EventsIconsText}>
-                        <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
-                        <Box component="span">05-08-2022 18:00 to 20:00 </Box>
-                    </Box>
-                    <Box style={dashBoard.EventsIconsData}>
-                        <Box style={dashBoard.EventsIconsDataBox}>
-                            <DateRangeOutlinedIcon style={{color: "#ff8100"}}/>
-                            <Box component="span">84</Box>
+            {/* Dashboard Header -- */}
+            <DashboardHeader {...this.props}/>
+            <Box style={{display: "flex"}}>
+                
+                <Grid item xs={3} md={3} sm={3} className="SideBar">
+                    {/* Chairman Sidebar -- */}
+                    <ChairmanSidebar {...this.props}/>
+                </Grid>
+
+                <Grid xs={9} md={9} sm={9} spacing={4} style={{paddingTop: 35}}>
+                    <Container>
+                        <Box style={dashBoard.navigation}>
+                            <Box>
+                                <Typography variant="body1" >
+                                My Dashboard / <Box component="span" style={{color: "blue"}}>General Dashboard</Box>
+                                </Typography>
+                                <Typography variant="h5" style={dashBoard.subHeading}>General Dashboard</Typography>
+                            </Box>
+                            <Box>
+                                <FormControl style={dashBoard.YearMain} className='yearTab'>
+                                    <NativeSelect className='yearSelection' value={this.state.Year} onChange={this.handleChange}>
+                                        <option value="">None</option>
+                                            <option value={10}>Ten</option>
+                                            <option value={20}>Twenty</option>
+                                            <option value={30}>Thirty</option>
+                                    </NativeSelect>
+                                </FormControl>
+                            </Box>
                         </Box>
-                        <Box style={dashBoard.EventsIconsDataBox}>
-                            <CheckCircleOutlineOutlinedIcon style={{color: "green"}}/>
-                            <Box component="span">29</Box>
-                        </Box>
-                        <Box style={dashBoard.EventsIconsDataBox}>
-                            <HighlightOffOutlinedIcon style={{color: "red"}}/>
-                            <Box component="span">13</Box>
-                        </Box>
-                    </Box>
-                </Box>
-            </Grid> 
-            <Grid item sm={6}>
-            <Box style={dashBoard.EventsCards}>
-                    <Box sx={{ml:1, mb:1}} style={dashBoard.facility}>
+                        <Grid container spacing={4} style={{marginTop: 15}}>
+                            <Grid item sm={4}>
+                                <Box style={dashBoard.Cards}>
+                                    <Box sx={{ml:1, mb:2}} style={dashBoard.CardsIcons}><PersonOutlineIcon/></Box>
+                                    <Typography style={dashBoard.subHeading}>Building Ownership Rate</Typography>
+                                    <Box style={dashBoard.cardBottom}>
+                                        <Typography variant="body2">Sold</Typography>
+                                        <Box component="span" style={dashBoard.bottomColor}>75%</Box>
+                                        <Typography variant="body2">Unsold</Typography>
+                                        <Box component="span" style={dashBoard.bottomColor}>25%</Box>
+                                        
+                                    </Box> 
+                                </Box>
+                            </Grid>
+                            <Grid item sm={4}>
+                                <Box style={dashBoard.Cards}>
+                                    <Box sx={{ml:1, mb:2}} style={dashBoard.CardsIcons}><PersonOutlineIcon/></Box>
+                                    <Typography style={dashBoard.subHeading}>Building Ownership Rate</Typography>
+                                    <Box style={dashBoard.bottomTwoSpan}>
+                                        <Box component="span" style={dashBoard.bottomColor}>42/327</Box>
+                                    </Box> 
+                                </Box>
+                            </Grid> 
+                            <Grid item sm={4}>
+                                <Box style={dashBoard.Cards}>
+                                    <Box sx={{ml:1, mb:2}} style={dashBoard.CardsIcons}><PersonOutlineIcon/></Box>
+                                    <Typography style={dashBoard.subHeading}>Building Ownership Rate</Typography>
+                                    <Box style={dashBoard.bottomTwoSpan}>
+                                        <Box component="span" style={dashBoard.bottomColor}>58%</Box>
+                                    </Box> 
+                                </Box>
+                            </Grid>  
+                            <Grid item sm={4}>
+                                <Box style={dashBoard.Cards}>
+                                    <Box sx={{ml:1, mb:2}} style={dashBoard.CardsIcons}><PersonOutlineIcon/></Box>
+                                    <Typography style={dashBoard.subHeading}>Building Ownership Rate</Typography>
+                                    <Box style={dashBoard.bottomTwoSpan}>
+                                        <Box component="span" style={dashBoard.bottomColor}>195</Box>
+                                    </Box> 
+                                </Box>
+                            </Grid> 
+                            <Grid item sm={4}>
+                                <Box style={dashBoard.Cards}>
+                                    <Box sx={{ml:1, mb:2}} style={dashBoard.CardsIcons}><PersonOutlineIcon/></Box>
+                                    <Typography style={dashBoard.subHeading}>Building Ownership Rate</Typography>
+                                    <Box style={dashBoard.bottomTwoSpan}>
+                                        <Box component="span" style={dashBoard.bottomColor}>195</Box>
+                                    </Box> 
+                                </Box>
+                            </Grid> 
+                            <Grid item sm={4}>
+                                <Box style={dashBoard.Cards}>
+                                    <Box sx={{ml:1, mb:2}} style={dashBoard.CardsIcons}><PersonOutlineIcon/></Box>
+                                    <Typography style={dashBoard.subHeading}>Building Ownership Rate</Typography>
+                                    <Box style={dashBoard.bottomTwoSpan}>
+                                        <Box component="span" style={dashBoard.bottomColor}>195</Box>
+                                    </Box> 
+                                </Box>
+                            </Grid> 
+                            <Grid item sm={4}>
+                                <Box style={dashBoard.Cards}>
+                                    <Box sx={{ml:1, mb:2}} style={dashBoard.CardsIcons}><PersonOutlineIcon/></Box>
+                                    <Typography style={dashBoard.subHeading}>Building Ownership Rate</Typography>
+                                    <Box style={dashBoard.bottomTwoSpan}>
+                                        <Box component="span" style={dashBoard.bottomColor}>195</Box>
+                                    </Box> 
+                                </Box>
+                            </Grid> 
+                        </Grid>
                         <Box>
-                            <Typography style={dashBoard.EventsTitle}>Facility Resrvation</Typography>
-                            <Typography>Patyment status : Paid</Typography>
+                            <Typography variant="h5" style={dashBoard.EventsHeading}>Upcoming Events</Typography>
                         </Box>
-                        <Typography style={dashBoard.PricePaid}>SR 250</Typography>
-                    </Box>
-                    <Box style={dashBoard.EventsIconsText}>
-                        <RoomOutlinedIcon style={{color: "#054c94"}}/>
-                        <Box component="span">Center park garden</Box>
-                    </Box>
-                    <Box style={dashBoard.EventsIconsText}>
-                        <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
-                        <Box component="span">12-08-2022 18:00 to 20:00</Box>
-                    </Box>
-                    <Box style={dashBoard.EventsIconsText}>
-                        <PersonOutlineIcon style={{color: "#054c94"}}/>
-                        <Box component="span">jhon doe</Box>
-                    </Box>
-                </Box>
-            </Grid>  
-        </Grid>
-    </Container>
+                        <Grid container spacing={4} style={{marginTop: 15, marginBottom:30}}>
+                            <Grid item sm={6}>
+                                <Box style={dashBoard.EventsCards}>
+                                    <Box sx={{ml:1, mb:1}}>
+                                        <Typography style={dashBoard.EventsTitle}>Meeting Title</Typography>
+                                        <Typography>To discuss new vehicle guidlines</Typography>
+                                    </Box>
+                                    <Box style={dashBoard.EventsIconsText}>
+                                        <RoomOutlinedIcon style={{color: "#054c94"}}/>
+                                        <Box component="span">Center park common hall</Box>
+                                    </Box>
+                                    <Box style={dashBoard.EventsIconsText}>
+                                        <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
+                                        <Box component="span">05-08-2022 18:00 to 20:00 </Box>
+                                    </Box>
+                                    <Box style={dashBoard.EventsIconsData}>
+                                        <Box style={dashBoard.EventsIconsDataBox}>
+                                            <DateRangeOutlinedIcon style={{color: "#ff8100"}}/>
+                                            <Box component="span">84</Box>
+                                        </Box>
+                                        <Box style={dashBoard.EventsIconsDataBox}>
+                                            <CheckCircleOutlineOutlinedIcon style={{color: "green"}}/>
+                                            <Box component="span">29</Box>
+                                        </Box>
+                                        <Box style={dashBoard.EventsIconsDataBox}>
+                                            <HighlightOffOutlinedIcon style={{color: "red"}}/>
+                                            <Box component="span">13</Box>
+                                        </Box>
+                                    </Box>
+                                </Box>
+                            </Grid> 
+                            <Grid item sm={6}>
+                            <Box style={dashBoard.EventsCards}>
+                                    <Box sx={{ml:1, mb:1}} style={dashBoard.facility}>
+                                        <Box>
+                                            <Typography style={dashBoard.EventsTitle}>Facility Resrvation</Typography>
+                                            <Typography>Patyment status : Paid</Typography>
+                                        </Box>
+                                        <Typography style={dashBoard.PricePaid}>SR 250</Typography>
+                                    </Box>
+                                    <Box style={dashBoard.EventsIconsText}>
+                                        <RoomOutlinedIcon style={{color: "#054c94"}}/>
+                                        <Box component="span">Center park garden</Box>
+                                    </Box>
+                                    <Box style={dashBoard.EventsIconsText}>
+                                        <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
+                                        <Box component="span">12-08-2022 18:00 to 20:00</Box>
+                                    </Box>
+                                    <Box style={dashBoard.EventsIconsText}>
+                                        <PersonOutlineIcon style={{color: "#054c94"}}/>
+                                        <Box component="span">jhon doe</Box>
+                                    </Box>
+                                </Box>
+                            </Grid>  
+                        </Grid>
+                    </Container>
+                </Grid>
+            </Box>
+        </Box>
    </>
     );
   }
@@ -278,7 +292,12 @@ const dashBoard = {
         padding: 6,
         borderRadius: 30,
         color: "green",
-    }
+    },
+    SideBar: {
+        background: "#f9f6f6",
+        position:"relative",
+        paddingBottom: 150,
+    },
   };
 
 // Customizable Area End
