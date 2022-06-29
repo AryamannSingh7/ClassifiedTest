@@ -15,7 +15,7 @@ import {
 //resources
 import { Landing_Banner, Tenant_Logo } from "../src/assets";
 //CSS
-//import "../../../web/src/assets/css/style.scss";
+import "../../../web/src/assets/css/style.scss";
 
 export default class LandingPage extends LandingPageController {
   constructor(props: Props) {

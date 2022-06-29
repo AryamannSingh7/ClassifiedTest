@@ -104,190 +104,250 @@ const routeMap = {
     component: ForgotPasswordOTP,
     path: "/ForgotPasswordOTP"
   },
-RolesPermissions2:{
- component:RolesPermissions2,
-path:"/RolesPermissions2"},
-Chatbot6:{
- component:Chatbot6,
-path:"/Chatbot6"},
-EmailNotifications:{
- component:EmailNotifications,
-path:"/EmailNotifications"},
-BroadcastMessage:{
- component:BroadcastMessage,
-path:"/BroadcastMessage"},
-BulkUploading:{
- component:BulkUploading,
-path:"/BulkUploading"},
-Location:{
- component:Location,
-path:"/Location"},
-SocialMediaAccountLoginScreen:{
- component:SocialMediaAccountLoginScreen,
-path:"/SocialMediaAccountLoginScreen"},
-Invitefriends:{
- component:Invitefriends,
-path:"/Invitefriends"},
-ReviewAndApproval:{
- component:ReviewAndApproval,
-path:"/ReviewAndApproval"},
-LanguageOptions:{
- component:LanguageOptions,
-path:"/LanguageOptions"},
-Polling:{
- component:Polling,
-path:"/Polling"},
-Customisableusersubscriptions:{
- component:Customisableusersubscriptions,
-path:"/Customisableusersubscriptions"},
-SubscriptionDetails:{
- component:SubscriptionDetails,
-path:"/SubscriptionDetails"},
-Interactivefaqs:{
- component:Interactivefaqs,
-path:"/Interactivefaqs"},
-AddInteractivefaqs:{
- component:AddInteractivefaqs,
-path:"/AddInteractivefaqs"},
-PhotoLibrary3:{
- component:PhotoLibrary3,
-path:"/PhotoLibrary3"},
-ExpenseTracking:{
- component:ExpenseTracking,
-path:"/ExpenseTracking"},
-Search:{
- component:Search,
-path:"/Search"},
-MultipleCurrencySupport:{
- component:MultipleCurrencySupport,
-path:"/MultipleCurrencySupport"},
-ForgotPassword:{
- component:ForgotPassword,
-path:"/ForgotPassword"},
-ForgotPasswordOTP:{
- component:ForgotPasswordOTP,
-path:"/ForgotPasswordOTP"},
-NewPassword:{
- component:NewPassword,
-path:"/NewPassword"},
-Feedback:{
- component:Feedback,
-path:"/Feedback"},
-Contactus:{
- component:Contactus,
-path:"/Contactus"},
-AddContactus:{
- component:AddContactus,
-path:"/AddContactus"},
-CountryCodeSelector:{
- component:CountryCodeSelector,
-path:"/CountryCodeSelector"},
-TaskAllocator:{
- component:TaskAllocator,
-path:"/TaskAllocator"},
-FriendList:{
- component:FriendList,
-path:"/FriendList"},
-FormApprovalWorkflow:{
- component:FormApprovalWorkflow,
-path:"/FormApprovalWorkflow"},
-AdminConsole3:{
- component:AdminConsole3,
-path:"/AdminConsole3"},
-OTPInputAuth:{
- component:OTPInputAuth,
-path:"/OTPInputAuth"},
-Maps:{
- component:Maps,
-path:"/Maps"},
-Notes:{
- component:Notes,
-path:"/Notes"},
-EmailAccountLoginBlock:{
- component:EmailAccountLoginBlock,
-path:"/EmailAccountLoginBlock"},
-TaxCalculator:{
- component:TaxCalculator,
-path:"/TaxCalculator"},
-Pushnotifications:{
- component:Pushnotifications,
-path:"/Pushnotifications"},
-BudgetingForecasting:{
- component:BudgetingForecasting,
-path:"/BudgetingForecasting"},
-Videos:{
- component:Videos,
-path:"/Videos"},
-LandingPage:{
- component:LandingPage,
-path:"/LandingPage"},
-ContentFlag:{
- component:ContentFlag,
-path:"/ContentFlag"},
-StoreCredits:{
- component:StoreCredits,
-path:"/StoreCredits"},
-InvoiceBilling:{
- component:InvoiceBilling,
-path:"/InvoiceBilling"},
-EmailAccountRegistration:{
- component:EmailAccountRegistration,
-path:"/EmailAccountRegistration"},
-ContentManagement:{
- component:ContentManagement,
-path:"/ContentManagement"},
-PricingEngine2:{
- component:PricingEngine2,
-path:"/PricingEngine2"},
-Chat9:{
- component:Chat9,
-path:"/Chat9"},
-CollectTransactionFees:{
- component:CollectTransactionFees,
-path:"/CollectTransactionFees"},
-Analytics:{
- component:Analytics,
-path:"/Analytics"},
-Customform:{
- component:Customform,
-path:"/Customform"},
-PhoneNumberInput:{
- component:PhoneNumberInput,
-path:"/PhoneNumberInput"},
-AdditionalDetailForm:{
- component:AdditionalDetailForm,
-path:"/AdditionalDetailForm"},
-Settings5:{
- component:Settings5,
-path:"/Settings5"},
-UserProfileBasicBlock:{
- component:UserProfileBasicBlock,
-path:"/UserProfileBasicBlock"},
-RequestManagement:{
- component:RequestManagement,
-path:"/RequestManagement"},
-LeadManagement:{
- component:LeadManagement,
-path:"/LeadManagement"},
-Dashboard:{
- component:Dashboard,
-path:"/Dashboard"},
-SocialMediaAccountRegistrationScreen:{
- component:SocialMediaAccountRegistrationScreen,
-path:"/SocialMediaAccountRegistrationScreen"},
-Notifications:{
- component:Notifications,
-path:"/Notifications"},
-MobileAccountLoginBlock:{
- component:MobileAccountLoginBlock,
-path:"/MobileAccountLoginBlock"},
+  RolesPermissions2: {
+    component: RolesPermissions2,
+    path: "/RolesPermissions2"
+  },
+  Chatbot6: {
+    component: Chatbot6,
+    path: "/Chatbot6"
+  },
+  EmailNotifications: {
+    component: EmailNotifications,
+    path: "/EmailNotifications"
+  },
+  BroadcastMessage: {
+    component: BroadcastMessage,
+    path: "/BroadcastMessage"
+  },
+  BulkUploading: {
+    component: BulkUploading,
+    path: "/BulkUploading"
+  },
+  Location: {
+    component: Location,
+    path: "/Location"
+  },
+  SocialMediaAccountLoginScreen: {
+    component: SocialMediaAccountLoginScreen,
+    path: "/SocialMediaAccountLoginScreen"
+  },
+  Invitefriends: {
+    component: Invitefriends,
+    path: "/Invitefriends"
+  },
+  ReviewAndApproval: {
+    component: ReviewAndApproval,
+    path: "/ReviewAndApproval"
+  },
+  LanguageOptions: {
+    component: LanguageOptions,
+    path: "/LanguageOptions"
+  },
+  Polling: {
+    component: Polling,
+    path: "/Polling"
+  },
+  Customisableusersubscriptions: {
+    component: Customisableusersubscriptions,
+    path: "/Customisableusersubscriptions"
+  },
+  SubscriptionDetails: {
+    component: SubscriptionDetails,
+    path: "/SubscriptionDetails"
+  },
+  Interactivefaqs: {
+    component: Interactivefaqs,
+    path: "/Interactivefaqs"
+  },
+  AddInteractivefaqs: {
+    component: AddInteractivefaqs,
+    path: "/AddInteractivefaqs"
+  },
+  PhotoLibrary3: {
+    component: PhotoLibrary3,
+    path: "/PhotoLibrary3"
+  },
+  ExpenseTracking: {
+    component: ExpenseTracking,
+    path: "/ExpenseTracking"
+  },
+  Search: {
+    component: Search,
+    path: "/Search"
+  },
+  MultipleCurrencySupport: {
+    component: MultipleCurrencySupport,
+    path: "/MultipleCurrencySupport"
+  },
+  ForgotPassword: {
+    component: ForgotPassword,
+    path: "/ForgotPassword"
+  },
+  ForgotPasswordOTP: {
+    component: ForgotPasswordOTP,
+    path: "/ForgotPasswordOTP"
+  },
+  NewPassword: {
+    component: NewPassword,
+    path: "/NewPassword"
+  },
+  Feedback: {
+    component: Feedback,
+    path: "/Feedback"
+  },
+  Contactus: {
+    component: Contactus,
+    path: "/Contactus"
+  },
+  AddContactus: {
+    component: AddContactus,
+    path: "/AddContactus"
+  },
+  CountryCodeSelector: {
+    component: CountryCodeSelector,
+    path: "/CountryCodeSelector"
+  },
+  TaskAllocator: {
+    component: TaskAllocator,
+    path: "/TaskAllocator"
+  },
+  FriendList: {
+    component: FriendList,
+    path: "/FriendList"
+  },
+  FormApprovalWorkflow: {
+    component: FormApprovalWorkflow,
+    path: "/FormApprovalWorkflow"
+  },
+  AdminConsole3: {
+    component: AdminConsole3,
+    path: "/AdminConsole3"
+  },
+  OTPInputAuth: {
+    component: OTPInputAuth,
+    path: "/OTPInputAuth"
+  },
+  Maps: {
+    component: Maps,
+    path: "/Maps"
+  },
+  Notes: {
+    component: Notes,
+    path: "/Notes"
+  },
+  EmailAccountLoginBlock: {
+    component: EmailAccountLoginBlock,
+    path: "/EmailAccountLoginBlock"
+  },
+  TaxCalculator: {
+    component: TaxCalculator,
+    path: "/TaxCalculator"
+  },
+  Pushnotifications: {
+    component: Pushnotifications,
+    path: "/Pushnotifications"
+  },
+  BudgetingForecasting: {
+    component: BudgetingForecasting,
+    path: "/BudgetingForecasting"
+  },
+  Videos: {
+    component: Videos,
+    path: "/Videos"
+  },
+  LandingPage: {
+    component: LandingPage,
+    path: "/LandingPage"
+  },
+  ContentFlag: {
+    component: ContentFlag,
+    path: "/ContentFlag"
+  },
+  StoreCredits: {
+    component: StoreCredits,
+    path: "/StoreCredits"
+  },
+  InvoiceBilling: {
+    component: InvoiceBilling,
+    path: "/InvoiceBilling"
+  },
+  EmailAccountRegistration: {
+    component: EmailAccountRegistration,
+    path: "/EmailAccountRegistration"
+  },
+  ContentManagement: {
+    component: ContentManagement,
+    path: "/ContentManagement"
+  },
+  PricingEngine2: {
+    component: PricingEngine2,
+    path: "/PricingEngine2"
+  },
+  Chat9: {
+    component: Chat9,
+    path: "/Chat9"
+  },
+  CollectTransactionFees: {
+    component: CollectTransactionFees,
+    path: "/CollectTransactionFees"
+  },
+  Analytics: {
+    component: Analytics,
+    path: "/Analytics"
+  },
+  Customform: {
+    component: Customform,
+    path: "/Customform"
+  },
+  PhoneNumberInput: {
+    component: PhoneNumberInput,
+    path: "/PhoneNumberInput"
+  },
+  AdditionalDetailForm: {
+    component: AdditionalDetailForm,
+    path: "/AdditionalDetailForm"
+  },
+  Settings5: {
+    component: Settings5,
+    path: "/Settings5"
+  },
+  UserProfileBasicBlock: {
+    component: UserProfileBasicBlock,
+    path: "/UserProfileBasicBlock"
+  },
+  RequestManagement: {
+    component: RequestManagement,
+    path: "/RequestManagement"
+  },
+  LeadManagement: {
+    component: LeadManagement,
+    path: "/LeadManagement"
+  },
+  Dashboard: {
+    component: Dashboard,
+    path: "/Dashboard"
+  },
+  SocialMediaAccountRegistrationScreen: {
+    component: SocialMediaAccountRegistrationScreen,
+    path: "/SocialMediaAccountRegistrationScreen"
+  },
+  Notifications: {
+    component: Notifications,
+    path: "/Notifications"
+  },
+  MobileAccountLoginBlock: {
+    component: MobileAccountLoginBlock,
+    path: "/MobileAccountLoginBlock"
+  },
 
-DashboardGeneral:{
-  component:DashboardGeneral,
- path:"/DashboardGeneral"},
+  DashboardGeneral: {
+    component: DashboardGeneral,
+    path: "/DashboardGeneral"
+  },
 
   Home: {
-component:Analytics,
+    component: Analytics,
     path: '/',
     exact: true
   },

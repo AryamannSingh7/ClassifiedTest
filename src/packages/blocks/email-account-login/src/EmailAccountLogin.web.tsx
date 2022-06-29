@@ -3,47 +3,23 @@ import React from "react";
 import {
   Box,
   Button,
+  Link
 } from "@material-ui/core";
-// import IconButton from '@mui/material/IconButton';
-// import Input from '@mui/material/Input';
-// import FilledInput from '@mui/material/FilledInput';
-// import OutlinedInput from '@mui/material/OutlinedInput';
-// import InputLabel from '@mui/material/InputLabel';
-// import InputAdornment from '@mui/material/InputAdornment';
-// import FormHelperText from '@mui/material/FormHelperText';
-// import FormControl from '@mui/material/FormControl';
-// import TextField from '@mui/material/TextField';
 
 //resources
-//import { Landing_Banner, Tenant_Logo } from "../src/assets";
-// Customizable Area End
+import Checkbox from '@material-ui/core/Checkbox';
+import CircleCheckedFilled from '@material-ui/icons/CheckCircle';
+import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
+import MailOutlineIcon from '@material-ui/icons/MailOutline';
+import LockOpenIcon from '@material-ui/icons/LockOpen';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
+import { Tenant_Logo } from "../src/assets";
 
 import EmailAccountLoginController, {
   Props
 } from "./EmailAccountLoginController";
-
-// const [values, setValues] = React.useState({
-//   amount: '',
-//   password: '',
-//   weight: '',
-//   weightRange: '',
-//   showPassword: false,
-// });
-
-// const handleChange = (prop:any) => (event:any) => {
-//   setValues({ ...values, [prop]: event.target.value });
-// };
-
-// const handleClickShowPassword = () => {
-//   setValues({
-//     ...values,
-//     showPassword: !values.showPassword,
-//   });
-// };
-
-// const handleMouseDownPassword = (event:any) => {
-//   event.preventDefault();
-// };
 
 export default class EmailAccountLogin extends EmailAccountLoginController {
   constructor(props: Props) {
@@ -53,37 +29,39 @@ export default class EmailAccountLogin extends EmailAccountLoginController {
     return (
       <>
         <Box className="login-wrapper">
+          <div className="backIcon"><KeyboardBackspaceIcon /></div>
           <Box className="header-block">
-            <img src={'#'} className="tenant-logo" alt="" />
+            <img src={Tenant_Logo} className="tenant-logo" alt="" />
             <h1>Welcome Back</h1>
             <p>Login with your account credentials </p>
           </Box>
-          <Box>
-            {/* <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
-              <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-password"
-                type={values.showPassword ? 'text' : 'password'}
-                value={values.password}
-                onChange={handleChange('password')}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {values.showPassword ? <VisibilityOff /> : <Visibility />} 
-                    </IconButton>
-                  </InputAdornment>
-                }
-                label="Password"
-              />
-            </FormControl> */}
-          </Box>
-          <Box className="customButton row-btn">
-            <Button variant="contained">login</Button>
+          <form className="commonForm">
+            <Box className="formGroup">
+              <input type="text" placeholder="Email ID" className="formInput" />
+              <span className="frmLeftIcons"><MailOutlineIcon /></span>
+            </Box>
+            <Box className="formGroup">
+              <input type="text" placeholder="Password" className="formInput" />
+              <span className="frmLeftIcons"><LockOpenIcon /></span>
+              <span className="frmrightIcons"><Visibility /></span>
+              {/* <span className="frmrightIcons"><VisibilityOffIcon /></span> */}
+            </Box>
+            <Box className="formGroup formCheckbox">
+              <div>
+                <Checkbox defaultChecked icon={<CircleUnchecked />}
+                  checkedIcon={<CircleCheckedFilled />} id="loginCheckbox"
+                />
+                <label htmlFor="loginCheckbox" className="checkboxLabel">Stay logged in</label>
+              </div>
+              <Link href="#" className="link">Forgot Password?</Link>
+            </Box>
+            <Box className="customButton">
+              <Button variant="contained">login</Button>
+            </Box>
+          </form>
+          <Box className="bottomBlock">
+            <Link href="#" className="link">Don't have an account ? </Link>
+            <Link href="#" className="link"> <span> register</span></Link>
           </Box>
         </Box>
       </>

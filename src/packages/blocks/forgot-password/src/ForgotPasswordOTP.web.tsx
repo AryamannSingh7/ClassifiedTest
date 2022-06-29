@@ -1,17 +1,14 @@
 import React from "react";
 
-// Customizable Area Start
+//components
 import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
+  Box,
   Button,
-  ScrollView,
-  TouchableWithoutFeedback,
-  Platform
-} from "react-native";
-// Customizable Area End
+} from "@material-ui/core";
+
+//resources
+import MailOutlineIcon from '@material-ui/icons/MailOutline';
+import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 
 import OTPInputAuthController, {
   Props
@@ -20,72 +17,34 @@ import OTPInputAuthController, {
 export default class ForgotPasswordOTP extends OTPInputAuthController {
   constructor(props: Props) {
     super(props);
-    // Customizable Area Start
-    // Customizable Area End
   }
 
   render() {
     return (
       <>
-      <h1>forgot password OTP</h1>
+        <Box className="login-wrapper">
+          <div className="backIcon"><KeyboardBackspaceIcon /></div>
+          <Box className="header-left-block header-block">
+            <h1>Enter OTP Code</h1>
+            <h6>Please enter the code send to the email address <span className="text">jo******52@gmail.com</span></h6>
+          </Box>
+          <form className="commonForm">
+            <Box className="formGroup">
+              <div className="otpInputGrp">
+                <input type="text" className="formOutlineInput" />
+                <input type="text" className="formOutlineInput" />
+                <input type="text" className="formOutlineInput" />
+                <input type="text" className="formOutlineInput" />
+                <input type="text" className="formOutlineInput" />
+                <input type="text" className="formOutlineInput" />
+              </div>
+            </Box>
+          </form>
+          <Box className="customButton row-btn">
+            <Button variant="contained">next</Button>
+          </Box>
+        </Box>
       </>
     );
   }
 }
-
-// Customizable Area Start
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    width: Platform.OS === "web" ? "75%" : "100%",
-    marginLeft: "auto",
-    marginRight: "auto",
-    maxWidth: 650,
-    backgroundColor: "#fff"
-  },
-  titleWhySignUp: {
-    marginBottom: 32,
-    fontSize: 16,
-    textAlign: "left",
-    marginVertical: 8
-  },
-  titleOtpInfo: {
-    marginBottom: 32,
-    fontSize: 16,
-    textAlign: "left",
-    marginVertical: 8
-  },
-
-  phoneInputMobile: {
-    flexDirection: "row",
-    fontSize: 16,
-    textAlign: "left",
-    backgroundColor: "#00000000",
-    marginBottom: 64,
-    borderWidth: 1,
-    borderColor: "#767676",
-    borderRadius: 2,
-    includeFontPadding: true,
-    padding: 10
-  },
-
-  phoneInputWeb: {
-    flex: 1,
-    flexDirection: "row",
-    marginBottom: 64,
-    fontSize: 18,
-    padding: 10,
-    borderBottomColor: "#767676",
-    borderBottomWidth: 1
-  },
-
-  bgRectBorder: {
-    borderWidth: 1,
-    borderColor: "#767676",
-    borderRadius: 2,
-    marginBottom: 10,
-    padding: 10
-  }
-});
-// Customizable Area End
