@@ -31,6 +31,8 @@ export interface S {
   enableReTypePasswordField: boolean;
   countryCodeSelected: string;
   phone: string;
+  error: string | null;
+
   // Customizable Area End
 }
 
@@ -92,6 +94,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
       data: [],
       passwordHelperText: "",
       enablePasswordField: true,
+      error: null,
       enableReTypePasswordField: true,
       countryCodeSelected: "",
       phone: ""
@@ -495,6 +498,13 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     },
     secureTextEntry: true
   };
+
+  createAccoun(attributes: any): boolean {
+    console.log(attributes)
+
+
+
+  }
 
   // Customizable Area End
 }

@@ -70,6 +70,12 @@ import Dashboard from "../../blocks/dashboard/src/Dashboard.web";
 import SocialMediaAccountRegistrationScreen from "../../blocks/social-media-account-registration/src/SocialMediaAccountRegistrationScreen";
 import Notifications from "../../blocks/notifications/src/Notifications";
 import MobileAccountLoginBlock from "../../blocks/mobile-account-login/src/MobileAccountLoginBlock";
+import Registration from "../../blocks/email-account-registration/src/Registration.web";
+import VerifyOTP from "../../blocks/email-account-registration/src/VerifyOTP.web";
+import SelectType from "../../blocks/email-account-registration/src/SelectType.web";
+import Address from "../../blocks/email-account-registration/src/Address.web";
+
+import  './assets/css/constants/base/global.scss'
 
 
 
@@ -261,6 +267,22 @@ component:Analytics,
     component: InfoPage,
     path: '/InfoPage'
   },
+  Register: {
+    component: Registration,
+    path: '/register'
+  },
+  VerifyOTP: {
+    component: VerifyOTP,
+    path: '/otp'
+  },
+  SelectType: {
+    component: SelectType,
+    path: '/selecttype'
+  },
+  AddressFill: {
+    component: Address,
+    path: '/addressfill'
+  },
 
   AlertWeb: {
     component: AlertBlock,
@@ -282,14 +304,14 @@ const firebaseAPI = firebase.initializeApp({
 });
 
 class App extends Component {
-   
+
   render() {
 
     const defaultAnalytics = firebaseAPI.analytics();
     defaultAnalytics.logEvent('APP_Loaded');
-    
+
     return (
-      <View style={{ height: '100%', width: '100%' }}>
+      <View style={{ height: '100%', width: '90%', marginLeft: '1rem', marginRight: '1rem' }}>
         {/* <TopNav /> */}
         {WebRoutesGenerator({ routeMap })}
         <ModalContainer />
