@@ -16,6 +16,9 @@
     "xcode": "yarn workspace mobile xcode"
   },
   "dependencies": {
+    "@material-ui/core": "^4.12.4",
+    "@material-ui/icons": "^4.11.3",
+    "@mui/utils": "^5.8.6",
     "@react-native-community/checkbox": "file:./packages/blocks/core/node_modules/@react-native-community/checkbox",
     "@react-native-community/netinfo": "file:./packages/blocks/core/node_modules/@react-native-community/netinfo",
     "@react-navigation/native": "file:./packages/blocks/core/node_modules/@react-navigation/native",

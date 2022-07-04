@@ -1,0 +1,1 @@
+export const Lock_Icon = require("../assets/password_icon.png");
