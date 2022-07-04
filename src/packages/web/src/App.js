@@ -79,7 +79,7 @@ import ChangeSuccessfully from "../../blocks/forgot-password/src/ChangeSuccessfu
 const routeMap = {
   LandingPage: {
     component: LandingPage,
-    path: '/LandingPage',
+    path: '/',
     exact: true
   },
   EmailAccountLogin: {
@@ -346,11 +346,11 @@ const routeMap = {
     path: "/DashboardGeneral"
   },
 
-  Home: {
-    component: Analytics,
-    path: '/',
-    exact: true
-  },
+  // Home: {
+  //   component: Analytics,
+  //   path: '/',
+  //   exact: true
+  // },
   ForgotPassword: {
     component: ForgotPassword,
     path: "/ForgotPassword"

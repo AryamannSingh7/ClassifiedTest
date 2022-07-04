@@ -9,7 +9,7 @@ import { runEngine } from "../../../framework/src/RunEngine";
 // Customizable Area Start
 import { imgPasswordInVisible, imgPasswordVisible } from "./assets";
 // Customizable Area End
-
+import * as Yup from 'yup';
 export const configJSON = require("./config");
 
 export interface Props {
@@ -34,6 +34,8 @@ interface S {
   labelRememberMe: string;
   btnTxtSocialLogin: string;
   labelOr: string;
+  error: string | null;
+  loading: boolean;
   // Customizable Area End
 }
 
@@ -81,7 +83,9 @@ export default class EmailAccountLoginController extends BlockComponent<
       btnTxtLogin: configJSON.btnTxtLogin,
       labelRememberMe: configJSON.labelRememberMe,
       btnTxtSocialLogin: configJSON.btnTxtSocialLogin,
-      labelOr: configJSON.labelOr
+      labelOr: configJSON.labelOr,
+      error: null,
+      loading: false
     };
 
     this.emailReg = new RegExp("");
@@ -238,13 +242,21 @@ export default class EmailAccountLoginController extends BlockComponent<
             this.saveLoggedInUserData(responseJson);
             this.sendLoginSuccessMessage();
             this.openInfoPage();
-          } else {
+            localStorage.setItem("userToken", responseJson?.meta?.token)
+            localStorage.setItem("userId", responseJson?.data?.id)
+           // window.location.replace("profile-dashboard");
+
+          } else if (responseJson?.errors) {
             //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-            this.sendLoginFailMessage();
+            // this.parseApiErrorResponse(responseJson);
+            // this.sendLoginFailMessage();
+            let error = Object.values(responseJson.errors[0])[0] as string;
+            this.setState({ error });
+          } else {
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
           }
 
-          this.parseApiCatchErrorResponse(errorReponse);
+          this.parseApiCatchErrorResponse(this.state.error);
         }
       }
     }
@@ -402,4 +414,65 @@ export default class EmailAccountLoginController extends BlockComponent<
     runEngine.sendMessage(getValidationsMsg.id, getValidationsMsg);
   }
 
+  doLogIn = (values: any): boolean => {
+    const header = {
+      "Content-Type": configJSON.loginApiContentType
+    };
+
+    const attrs = {
+
+
+      email: values.email,
+      password: values.password
+    };
+
+    const data = {
+      attributes: attrs
+    };
+
+    const httpBody = {
+      data: data
+    };
+
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+    this.apiEmailLoginCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      configJSON.signinAPiEndPoint
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestBodyMessage),
+      JSON.stringify(httpBody)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.loginAPiMethod
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+
+    return true;
+  };
+
+  LoginSchema() {
+    const validations = Yup.object().shape({
+      email: Yup.string()
+        .strict(true)
+        .lowercase(`Please enter all values in lowercase`)
+        .trim()
+        .required(`This field is required.`),
+      password: Yup.string().required(`This field is required`)
+    });
+    return validations
+  }
 }

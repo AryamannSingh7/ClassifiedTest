@@ -29,7 +29,7 @@ export default class ChangePassword extends ForgotPasswordController {
     return (
       <>
         <Box className="login-wrapper auth-wrapper">
-          <div className="backIcon"><KeyboardBackspaceIcon /></div>
+          <div className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></div>
           <Box className="header-left-block header-block">
             <h1>Change Password</h1>
             <h6>"You need to change your password. Please enter a new password"</h6>

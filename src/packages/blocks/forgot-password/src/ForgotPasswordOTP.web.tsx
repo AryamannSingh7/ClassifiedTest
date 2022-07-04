@@ -23,7 +23,7 @@ export default class ForgotPasswordOTP extends OTPInputAuthController {
     return (
       <>
         <Box className="login-wrapper">
-          <div className="backIcon"><KeyboardBackspaceIcon /></div>
+          <div className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></div>
           <Box className="header-left-block header-block">
             <h1>Enter OTP Code</h1>
             <h6>Please enter the code send to the email address <span className="text">jo******52@gmail.com</span></h6>

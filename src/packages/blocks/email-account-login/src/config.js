@@ -23,4 +23,6 @@ exports.labelTitle = "Log in";
 
 exports.imgPasswordInVisiblePath = "assets/ic_password_invisible.png";
 exports.imgPasswordVisiblePath = "assets/ic_password_visible.png";
+
+exports.signinAPiEndPoint = "bx_block_login/logins";
 // Customizable Area End

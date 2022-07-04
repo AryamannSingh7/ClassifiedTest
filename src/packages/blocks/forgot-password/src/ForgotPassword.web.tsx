@@ -28,7 +28,7 @@ export default class ForgotPassword extends ForgotPasswordController {
     return (
       <>
         <Box className="login-wrapper auth-wrapper">
-          <div className="backIcon"><KeyboardBackspaceIcon /></div>
+          <div className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></div>
           <Box className="header-block">
             <h1>Forgot Password</h1>
             <h6>One Time Password(OTP) will be sent to the regestered email or mobile.</h6>

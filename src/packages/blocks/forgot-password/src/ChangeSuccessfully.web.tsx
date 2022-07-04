@@ -40,7 +40,7 @@ export default class ChangeSuccessfully extends ForgotPasswordController {
     return (
       <>
         <Box className="login-wrapper">
-          <div className="backIcon"><KeyboardBackspaceIcon /></div>
+          <div className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></div>
           <div></div>
           <Box className="header-block">
             <img src={Lock_Icon} className="tenant-logo" alt="Lock_Icon" />
