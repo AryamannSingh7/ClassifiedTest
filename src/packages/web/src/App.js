@@ -86,7 +86,7 @@ import ChangeSuccessfully from "../../blocks/forgot-password/src/ChangeSuccessfu
 const routeMap = {
   LandingPage: {
     component: LandingPage,
-    path: '/LandingPage',
+    path: '/',
     exact: true
   },
   EmailAccountLogin: {
@@ -263,10 +263,10 @@ const routeMap = {
     component: Videos,
     path: "/Videos"
   },
-  LandingPage: {
-    component: LandingPage,
-    path: "/LandingPage"
-  },
+  // LandingPage: {
+  //   component: LandingPage,
+  //   path: "/LandingPage"
+  // },
   ContentFlag: {
     component: ContentFlag,
     path: "/ContentFlag"
@@ -353,11 +353,11 @@ const routeMap = {
     path: "/DashboardGeneral"
   },
 
-  Home: {
-    component: Analytics,
-    path: '/',
-    exact: true
-  },
+  // Home: {
+  //   component: Analytics,
+  //   path: '/',
+  //   exact: true
+  // },
   ForgotPassword: {
     component: ForgotPassword,
     path: "/ForgotPassword"
@@ -506,10 +506,10 @@ const routeMap = {
     component: Videos,
     path: "/Videos"
   },
-  LandingPage: {
-    component: LandingPage,
-    path: "/LandingPage"
-  },
+  // LandingPage: {
+  //   component: LandingPage,
+  //   path: "/LandingPage"
+  // },
   ContentFlag: {
     component: ContentFlag,
     path: "/ContentFlag"

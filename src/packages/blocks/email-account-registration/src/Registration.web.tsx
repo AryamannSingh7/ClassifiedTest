@@ -51,6 +51,7 @@ export default class Registration extends EmailAccountRegistrationController  {
           <Formik initialValues={{
             full_name: "",
             email: "",
+            phone: "",
             password: "",
             confirm_password: "",
 
@@ -145,7 +146,7 @@ export default class Registration extends EmailAccountRegistrationController  {
                     <MailOutlineIcon />
 
                     <Field
-                      name="name"
+                      name="email"
                       placeholder={"Email"}
                       style={{
                         border: "none",
@@ -206,7 +207,7 @@ export default class Registration extends EmailAccountRegistrationController  {
                     <MailOutlineIcon />
 
                     <Field
-                      name="email"
+                      name="phone"
                       placeholder={"Mobile"}
                       style={{
                         border: "none",

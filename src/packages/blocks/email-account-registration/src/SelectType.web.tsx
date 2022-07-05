@@ -75,7 +75,7 @@ export default class SelectType extends EmailAccountRegistrationController {
                 </p>
               </Box>
 
-              <input type="radio" />
+              <input type="radio" name="type" value='Owner Resident' onChange={(e)=>this.changeType(e.target.value)} />
 
             </Box>
             <Box
@@ -100,7 +100,7 @@ export default class SelectType extends EmailAccountRegistrationController {
                 </p>
               </Box>
 
-              <input type="radio" />
+              <input type="radio" name="type" value='Tenant' onChange={(e) => this.changeType(e.target.value)} />
 
             </Box>
             <Box
@@ -125,7 +125,7 @@ export default class SelectType extends EmailAccountRegistrationController {
                 </p>
               </Box>
 
-              <input type="radio" />
+              <input type="radio" name="type" value='Owner' onChange={(e) => this.changeType(e.target.value)} />
 
             </Box>
           </Grid>
@@ -149,6 +149,7 @@ export default class SelectType extends EmailAccountRegistrationController {
                 fontSize: 16,
                 marginTop: 30
               }}
+              onClick={this.updateType}
             >
               Next
             </Button>
