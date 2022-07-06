@@ -3,8 +3,8 @@
 @import url(//db.onlinewebfonts.com/c/8df141f447c5686cf9dbae8dabb1e71a?family=AllRoundGothicW01-Bold);
 @import url(//db.onlinewebfonts.com/c/dd266e8a31d9cbae26395f9d100e4e4b?family=AllRoundGothicW01-Book);
 
-$BOX_SHADOW: 0px 0px 4px 0px $WHITE;
-$BOX_SHADOW2: 0px 16px 20px 0px $GRAY_SHADE8;
+// $BOX_SHADOW: 0px 0px 4px 0px $WHITE;
+// $BOX_SHADOW2: 0px 16px 20px 0px $GRAY_SHADE8;
 $BOX_RADIUS: 20px;
 $BORDER_RADIUS: 15px;
 $FORM_BORDER_RADIUS: 8px;
@@ -12,10 +12,9 @@ $CUSTOM_RADIUS: 20px;
 $ROUND_BORDER_RADIUS: 50%;
 $drawerWidth: 240px;
 
-// font family
+// font families
 $MONTSERRAT: 'Montserrat', sans-serif;
 $POPPINS: 'Poppins', sans-serif;
-// $RIGHTEOUS: "Righteous", cursive;
 $RIGHTEOUS: 'AllRoundGothicW01-Medium';
 $ROUNDGOTHIC_BOLD: 'AllRoundGothicW01-Bold';
 $ROUNDGOTHIC_MEDIUM: 'AllRoundGothicW01-Medium';
@@ -25,51 +24,43 @@ $ROUNDGOTHIC_BOOK: 'AllRoundGothicW01-Book';
 @font-face {
   font-family: $ROUNDGOTHIC_BOLD;
   src: url('//db.onlinewebfonts.com/t/8df141f447c5686cf9dbae8dabb1e71a.eot');
-  src: url('//db.onlinewebfonts.com/t/8df141f447c5686cf9dbae8dabb1e71a.eot?#iefix')
-      format('embedded-opentype'),
-    url('//db.onlinewebfonts.com/t/8df141f447c5686cf9dbae8dabb1e71a.woff2')
-      format('woff2'),
-    url('//db.onlinewebfonts.com/t/8df141f447c5686cf9dbae8dabb1e71a.woff')
-      format('woff'),
-    url('//db.onlinewebfonts.com/t/8df141f447c5686cf9dbae8dabb1e71a.ttf')
-      format('truetype'),
-    url('//db.onlinewebfonts.com/t/8df141f447c5686cf9dbae8dabb1e71a.svg#AllRoundGothicW01-Bold')
-      format('svg');
+  src: url('//db.onlinewebfonts.com/t/8df141f447c5686cf9dbae8dabb1e71a.eot?#iefix') format('embedded-opentype'),
+    url('//db.onlinewebfonts.com/t/8df141f447c5686cf9dbae8dabb1e71a.woff2') format('woff2'),
+    url('//db.onlinewebfonts.com/t/8df141f447c5686cf9dbae8dabb1e71a.woff') format('woff'),
+    url('//db.onlinewebfonts.com/t/8df141f447c5686cf9dbae8dabb1e71a.ttf') format('truetype'),
+    url('//db.onlinewebfonts.com/t/8df141f447c5686cf9dbae8dabb1e71a.svg#AllRoundGothicW01-Bold') format('svg');
 }
 
 @font-face {
   font-family: $ROUNDGOTHIC_MEDIUM;
   src: url('//db.onlinewebfonts.com/t/ff9f9b187dc224f3f985a8fadbd88d45.eot');
-  src: url('//db.onlinewebfonts.com/t/ff9f9b187dc224f3f985a8fadbd88d45.eot?#iefix')
-      format('embedded-opentype'),
-    url('//db.onlinewebfonts.com/t/ff9f9b187dc224f3f985a8fadbd88d45.woff2')
-      format('woff2'),
-    url('//db.onlinewebfonts.com/t/ff9f9b187dc224f3f985a8fadbd88d45.woff')
-      format('woff'),
-    url('//db.onlinewebfonts.com/t/ff9f9b187dc224f3f985a8fadbd88d45.ttf')
-      format('truetype'),
-    url('//db.onlinewebfonts.com/t/ff9f9b187dc224f3f985a8fadbd88d45.svg#AllRoundGothicW01-Medium')
-      format('svg');
+  src: url('//db.onlinewebfonts.com/t/ff9f9b187dc224f3f985a8fadbd88d45.eot?#iefix') format('embedded-opentype'),
+    url('//db.onlinewebfonts.com/t/ff9f9b187dc224f3f985a8fadbd88d45.woff2') format('woff2'),
+    url('//db.onlinewebfonts.com/t/ff9f9b187dc224f3f985a8fadbd88d45.woff') format('woff'),
+    url('//db.onlinewebfonts.com/t/ff9f9b187dc224f3f985a8fadbd88d45.ttf') format('truetype'),
+    url('//db.onlinewebfonts.com/t/ff9f9b187dc224f3f985a8fadbd88d45.svg#AllRoundGothicW01-Medium') format('svg');
 }
 
 @font-face {
   font-family: $ROUNDGOTHIC_BOOK;
   src: url('//db.onlinewebfonts.com/t/dd266e8a31d9cbae26395f9d100e4e4b.eot');
-  src: url('//db.onlinewebfonts.com/t/dd266e8a31d9cbae26395f9d100e4e4b.eot?#iefix')
-      format('embedded-opentype'),
-    url('//db.onlinewebfonts.com/t/dd266e8a31d9cbae26395f9d100e4e4b.woff2')
-      format('woff2'),
-    url('//db.onlinewebfonts.com/t/dd266e8a31d9cbae26395f9d100e4e4b.woff')
-      format('woff'),
-    url('//db.onlinewebfonts.com/t/dd266e8a31d9cbae26395f9d100e4e4b.ttf')
-      format('truetype'),
-    url('//db.onlinewebfonts.com/t/dd266e8a31d9cbae26395f9d100e4e4b.svg#AllRoundGothicW01-Book')
-      format('svg');
+  src: url('//db.onlinewebfonts.com/t/dd266e8a31d9cbae26395f9d100e4e4b.eot?#iefix') format('embedded-opentype'),
+    url('//db.onlinewebfonts.com/t/dd266e8a31d9cbae26395f9d100e4e4b.woff2') format('woff2'),
+    url('//db.onlinewebfonts.com/t/dd266e8a31d9cbae26395f9d100e4e4b.woff') format('woff'),
+    url('//db.onlinewebfonts.com/t/dd266e8a31d9cbae26395f9d100e4e4b.ttf') format('truetype'),
+    url('//db.onlinewebfonts.com/t/dd266e8a31d9cbae26395f9d100e4e4b.svg#AllRoundGothicW01-Book') format('svg');
 }
 
 .errorMsg {
-  color: $RED !important;
+  color: $RED  !important;
   font-size: 13px;
   font-weight: 500 !important;
   // margin-left: 18px;
 }
+
+
+.text-center {
+  text-align: center;
+}
+
+$ROUNDGOTHIC_BOOK: 'AllRoundGothicW01-Book';

@@ -29,9 +29,13 @@ exports.errorAllFieldsAreMandatory = "All fields are mandatory.";
 exports.contentTypeApiAddDetail = "application/json";
 
 exports.accountsAPiEndPoint =
-  "account/accounts";
+  "account_block/accounts";
+exports.accountsUpdateAPiEndPoint =
+  "account_block/user_type";
 
 exports.apiMethodTypeAddDetail = "POST";
+exports.apiMethodTypeUpdateDetail = "PATCH";
+
 
 exports.errorEmailNotValid = "Email not valid.";
 exports.urlGetValidations =

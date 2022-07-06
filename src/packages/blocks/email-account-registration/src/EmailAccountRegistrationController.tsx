@@ -15,6 +15,8 @@ export const configJSON = require("./config");
 export interface Props {
   navigation: any;
   id: string;
+  history: any;
+
 }
 
 export interface S {
@@ -31,6 +33,9 @@ export interface S {
   enableReTypePasswordField: boolean;
   countryCodeSelected: string;
   phone: string;
+  error: string | null;
+  userType: string | null;
+
   // Customizable Area End
 }
 
@@ -50,6 +55,8 @@ export default class EmailAccountRegistrationController extends BlockComponent<
   passwordReg: RegExp;
   emailReg: RegExp;
   createAccountApiCallId: any;
+ changeUserTypeApiCallId:any;
+
   validationApiCallId: string = "";
 
   imgPasswordVisible: any;
@@ -92,9 +99,11 @@ export default class EmailAccountRegistrationController extends BlockComponent<
       data: [],
       passwordHelperText: "",
       enablePasswordField: true,
+      error: null,
       enableReTypePasswordField: true,
       countryCodeSelected: "",
-      phone: ""
+      phone: "",
+      userType:''
       // Customizable Area End
     };
 
@@ -159,16 +168,28 @@ export default class EmailAccountRegistrationController extends BlockComponent<
           }
         } else if (apiRequestCallId === this.createAccountApiCallId) {
           if (!responseJson.errors) {
-            const msg: Message = new Message(
-              getName(MessageEnum.AccoutResgistrationSuccess)
-            );
+            console.log(responseJson)
+            localStorage.setItem('res_token', responseJson.meta.token)
+            localStorage.setItem('res_user', responseJson.data.attributes)
+            localStorage.setItem('res_user_id', responseJson.data.id)
+            this.props.history.push('/selecttype')
 
-            msg.addData(
-              getName(MessageEnum.NavigationPropsMessage),
-              this.props
-            );
 
-            this.send(msg);
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        } else if (apiRequestCallId === this.changeUserTypeApiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            // localStorage.setItem('res_token', responseJson.meta.token)
+            // localStorage.setItem('res_user', responseJson.data.attributes)
+            // localStorage.setItem('res_user_id', responseJson.data.id)
+            // this.props.history.push('/selecttype')
+
+
           } else {
             //Check Error Response
             this.parseApiErrorResponse(responseJson);
@@ -496,5 +517,101 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     secureTextEntry: true
   };
 
+  createAccoun(attributes: any): boolean {
+
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail
+    };
+
+    const attrs = {
+      full_name: attributes.full_name,
+      last_name: attributes.lastName,
+      email: attributes.email,
+      password: attributes.password,
+      full_phone_number: "+" + 91 + attributes.phone,
+      password_confirmation: attributes.confirm_password
+    };
+
+    const data = {
+      type: "email_account",
+      attributes: attrs
+    };
+
+    const httpBody = {
+      data: data
+    };
+
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+    this.createAccountApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      configJSON.accountsAPiEndPoint
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestBodyMessage),
+      JSON.stringify(httpBody)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.apiMethodTypeAddDetail
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+
+
+
+  }
+
+
+  updateType=(): boolean=> {
+
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+    console.log(this.changeUserTypeApiCallId)
+    console.log(requestMessage.messageId)
+
+    this.changeUserTypeApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `${configJSON.accountsAPiEndPoint}?user_type=${this.state.userType}&id=${localStorage.getItem('res_user_id')}`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.apiMethodTypeUpdateDetail
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+
+
+
+  }
+
+  changeType(value:any){
+    this.setState({userType:value})
+
+  }
   // Customizable Area End
 }

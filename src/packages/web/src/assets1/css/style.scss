@@ -5,25 +5,20 @@
 
 body,
 html {
-  background-color: $SKYBLUE_SHADE4 !important;
   background-color: $LIGHT_GRAY;
   height: 100%;
-  width: 100%;
+  width: 100%;                                                                            
   margin: 0;
   padding: 0;
   font-family: $MONTSERRAT;
   // overflow: hidden;
   @include scrollbars();
 }
+
 // common css
 input[type="radio"],
 input[type="checkbox"] {
   display: none;
-  overflow: hidden;
-  @include scrollbars();
-  @include mq(tablet-portrait-large-up) {
-    background-color: $WHITE;
-  }
 }
 
 h1,
@@ -37,13 +32,6 @@ p {
   color: $DARK;
   font-family: $MONTSERRAT;
 }
-h1,
-.h1 {
-  color: $DARK;
-  font-size: 30px;
-  font-weight: 600;
-  padding-right: 10px;
-  font-family: $ROUNDGOTHIC_MEDIUM;
 h1 {
   color: $DARK;
   font-size: 26px;
@@ -53,27 +41,33 @@ h1 {
     font-size: 20px;
   }
 }
+
 h2 {
   color: $DARK;
   font-size: 28px;
   font-weight: 100;
   font-family: $RIGHTEOUS;
+
   @media screen and (max-width: 1024px) {
     font-size: 18px;
   }
 }
+
 h4 {
   color: $DARK;
   font-size: 22px;
   font-weight: 600;
+
   @media screen and (max-width: 1024px) {
     font-size: 19px;
   }
 }
+
 h5 {
   font-size: 20px;
   font-weight: 500;
   font-family: $MONTSERRAT;
+
   @media screen and (max-width: 1024px) {
     font-size: 16px;
   }
@@ -85,9 +79,9 @@ h6 {
   line-height: 12px;
 }
 
-// span {
-//   // color: $GRAY_SHADE1;
-// }
+span {
+  // color: $GRAY_SHADE1;
+}
 
 p {
   font-size: 18px;
@@ -100,6 +94,7 @@ p {
 a {
   text-decoration: none;
   font-family: $MONTSERRAT;
+
 }
 
 button,
@@ -116,6 +111,7 @@ ul {
   list-style: none;
   font-family: $MONTSERRAT;
 }
+
 .mainWrapper {
   height: 100%;
   width: 100%;
@@ -125,8 +121,12 @@ ul {
   margin: 20px;
   background-color: red;
 
+  // overflow: hidden;
+  // @media screen and (max-width: 768px) {
+  //   padding: 10px 10px 0 10px;
+  // }
   @include mq(tablet-portrait-large-up) {
     padding: 10px 10px 0 10px;
     background-color: red;
   }
-}}
+}
