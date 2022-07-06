@@ -3,6 +3,7 @@ import React from "react";
 // Customizable Area Start
 import { Container, Box, Button, Typography } from "@material-ui/core";
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
+import CustomButton from "../../../components/src/CustomButton.web";
 // Customizable Area End
 
 import AnalyticsController, {
@@ -10,6 +11,7 @@ import AnalyticsController, {
   configJSON
 } from "./AnalyticsController.web";
 //import CustomButton from "../../../components/src/CustomButton.web";
+
 
 export default class Analytics extends AnalyticsController {
   constructor(props: Props) {

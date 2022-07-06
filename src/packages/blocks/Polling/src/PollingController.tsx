@@ -8,10 +8,9 @@ import { runEngine } from "../../../framework/src/RunEngine";
 
 // Customizable Area Start
 import { imgPasswordInVisible, imgPasswordVisible } from "./assets";
-import { boolean, date } from "yup";
 
+import { boolean, date } from "yup";
 import {Editor, EditorState} from 'draft-js';
-import 'draft-js/dist/Draft.css';
 
 // Customizable Area End
 export const configJSON = require("./config");
@@ -32,6 +31,9 @@ interface S {
   selectedDate:any,
   checked: boolean,
   editorState:any,
+  PollData: any,
+  InitialPollData: any,
+  options: any,
   // Customizable Area End
 }
 
@@ -66,30 +68,85 @@ export default class PollingController extends BlockComponent<
       enableField: false,
       // Customizable Area Start
       Year: '',
-      selectedDate: new Date('2014-08-18T21:11:54'),
+      selectedDate: new Date(),
       checked: false,
-      editorState: EditorState.createEmpty()
+      editorState: EditorState.createEmpty(),
+
+      InitialPollData: { 
+        title:'',
+        startDate:'', 
+        endDate:'', 
+        description:'',
+        question:'',
+        // optionOne:'',
+        // optionTwo:'',
+      },
+
+      PollData: { 
+        title:'',
+        startDate:'', 
+        endDate:'', 
+        description:'',
+        question:'',
+        // optionOne:'',
+        // optionTwo:'',
+      },
+
+      options: [ {options1: "" }, {options2: "", } ],
+
+
       // Customizable Area End
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
 
     // Customizable Area Start
+    this.handlePollDataChange = this.handlePollDataChange.bind(this)
+    this.handlePollDataSubmit = this.handlePollDataSubmit.bind(this)
 
     // Customizable Area End
   }
 
-  onChange = (editorState:any) => {
-    this.setState({editorState});
-  }
+    // Customizable Area Start
 
-  handleDateChange = (date: Date | null) => {
-    // this.setState({selectedDate:  date});
-  };
+    handlePollDataChange = (event:any) => {
+      this.setState({ PollData: {...this.state.PollData, [event.target.name] : event.target.value}})
+    }
 
-  handleChange = (event: any) => {
-    console.log('click', event.target.value)
-    //this.setState({year: event.target.value});
-  };
+    handlePollDataSubmit = (event:any) => {
+      event.preventDefault()
+      console.log("Polls Data ==>", this.state.PollData)
+      console.log("Options Data ==>", this.state.options)
+        this.setState({PollData: this.state.InitialPollData})
+    }
+
+    // add field function
+
+    handleOptionsChange = (index:any, event:any) => {
+      const optionsValuse = [...this.state.options];
+      optionsValuse[index][event.target.name] = event.target.value;
+      this.setState({options: optionsValuse})
+    }
+
+    addOptionsFields = () => {
+      console.log("clicked---=-=-=-=-=")
+      this.setState({options : [...this.state.options, {options1: ""}]})
+    }
+    
+    onChange = (editorState:any) => {
+      this.setState({editorState});
+    }
+
+    handleDateChange = (date: Date | null) => {
+      this.setState({selectedDate:  date});
+    };
+  
+    handleChange = (event: any) => {
+      console.log('click', event.target.value)
+      //this.setState({year: event.target.value});
+    };
+  
+    // Customizable Area End
+
 
   async receive(from: string, message: Message) {
     runEngine.debugLog("Message Recived", message);
@@ -164,6 +221,4 @@ export default class PollingController extends BlockComponent<
     this.setState({ enableField: !this.state.enableField });
   };
 
-  // Customizable Area Start
-  // Customizable Area End
 }

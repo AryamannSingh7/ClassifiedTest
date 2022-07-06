@@ -62,14 +62,20 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
 
-  handleChange = (event: any) => {
-    console.log('click', event.target.value)
-    // this.setState({year: event.target.value});
+
+
+  // Customizable Area Start
+
+  handleChange = () => {
+    // console.log('click', event.target.value)
   };
 
   handleAccordinoChange = (panel:string) => (event:any, isExpanded:boolean) => {
     this.setState({expanded: isExpanded ? panel : ''});
   };
+  
+  // Customizable Area End
+
 
   async componentDidMount() {
     super.componentDidMount();
@@ -160,8 +166,5 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
     }
     // Customizable Area End
   }
-
-  // Customizable Area Start
-  // Customizable Area End
 
 }
