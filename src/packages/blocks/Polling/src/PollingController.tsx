@@ -49,6 +49,7 @@ export default class PollingController extends BlockComponent<
   SS
 > {
   // Customizable Area Start
+  getAllPolls:string;
   // Customizable Area End
 
   constructor(props: Props) {
@@ -106,8 +107,20 @@ export default class PollingController extends BlockComponent<
     // Customizable Area End
   }
 
+  async componentDidMount() {
     // Customizable Area Start
-
+    this.onGetPolls();
+ 
+    // Customizable Area End
+  }
+    // Customizable Area Start
+    onGetPolls = async () => {
+      this.getAllPolls = await this.apiCall({
+        contentType: configJSON.exampleApiContentType,
+        method: configJSON.httpGetMethod,
+        endPoint: configJSON.getAllPolls,
+      });
+    }
     handlePollDataChange = (event:any) => {
       this.setState({ PollData: {...this.state.PollData, [event.target.name] : event.target.value}})
     }
@@ -148,21 +161,67 @@ export default class PollingController extends BlockComponent<
     // Customizable Area End
 
 
+  //============================= API CALL BLOCK ==========================================================
+  apiCall = async (data: any) => {
+    const { contentType, method, endPoint, body } = data;
+    const token = localStorage.getItem('token')
+    const header = {
+      "Content-Type": contentType,
+      token
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      endPoint
+    );
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      method
+    );
+    body && requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestBodyMessage),
+      body
+    );
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return requestMessage.messageId;
+  };
+
+
+
+
   async receive(from: string, message: Message) {
-    runEngine.debugLog("Message Recived", message);
-
-    if (message.id === getName(MessageEnum.AccoutLoginSuccess)) {
-      let value = message.getData(getName(MessageEnum.AuthTokenDataMessage));
-
-      this.showAlert(
-        "Change Value",
-        "From: " + this.state.txtSavedValue + " To: " + value
+    if (getName(MessageEnum.RestAPIResponceMessage) === message.id) {
+      const apiRequestCallId = message.getData(
+        getName(MessageEnum.RestAPIResponceDataMessage)
       );
 
-      this.setState({ txtSavedValue: value });
-    }
+      var responseJson = message.getData(
+        getName(MessageEnum.RestAPIResponceSuccessMessage)
+      );
 
+      var errorReponse = message.getData(
+        getName(MessageEnum.RestAPIResponceErrorMessage)
+      );
     // Customizable Area Start
+    if (responseJson && responseJson.data) {
+      if (apiRequestCallId === this.getAllPolls) {
+       console.log(responseJson);
+       
+      }
+    }else if (responseJson && responseJson?.error || responseJson?.errors) {
+      if (apiRequestCallId === this.getAllPolls) {
+        console.log(responseJson);
+        
+       }
+      }
+  }
+    
     // Customizable Area End
   }
 

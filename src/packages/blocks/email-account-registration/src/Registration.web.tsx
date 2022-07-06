@@ -31,7 +31,7 @@ export default class Registration extends EmailAccountRegistrationController  {
 
       <Grid container>
         <Grid xs={12}>
-          <p className="text-center" style={{fontSize:'1.75rem',fontWeight:'700'}}>
+          <p className="text-center" style={{fontSize:'1.75rem',fontWeight:700}}>
             Client <br />
             Logo
 

@@ -54,7 +54,7 @@ export default class CreatePolls extends PollingController {
   render() {
     return ( 
       <>
-    <Box>
+    <Box style={{background: "#E5ECFF"}}>
         <DashboardHeader {...this.props}/>
       
         <Box style={{display: "flex"}}>

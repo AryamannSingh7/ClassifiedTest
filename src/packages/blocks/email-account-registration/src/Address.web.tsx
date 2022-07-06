@@ -31,7 +31,7 @@ export default class Address extends EmailAccountRegistrationController {
 
         <Grid container>
           <Grid xs={12}>
-            <p className="text-left" style={{ fontSize: '1.75rem', fontWeight: '700' }}>
+            <p className="text-left" style={{ fontSize: '1.75rem', fontWeight: 700 }}>
               Select Building and Unit
 
             </p>

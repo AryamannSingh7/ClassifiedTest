@@ -11,6 +11,7 @@ exports.exampleApiContentType = "application/json";
 exports.textInputPlaceHolder = "Enter Text";
 exports.labelTitleText = "Polling";
 exports.labelBodyText = "Polling Body";
+exports.getAllPolls = "/bx_block_polling/polls";
 
 exports.btnExampleTitle = "CLICK ME";
 // Customizable Area End
