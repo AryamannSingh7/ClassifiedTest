@@ -241,10 +241,10 @@ export default class EmailAccountLoginController extends BlockComponent<
             runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
             this.saveLoggedInUserData(responseJson);
             this.sendLoginSuccessMessage();
-            this.openInfoPage();
+            // this.openInfoPage();
             localStorage.setItem("userToken", responseJson?.meta?.token)
-            localStorage.setItem("userId", responseJson?.data?.id)
-           // window.location.replace("profile-dashboard");
+            localStorage.setItem("userId", responseJson?.meta?.id)
+           window.location.replace("/DashboardGeneral");
 
           } else if (responseJson?.errors) {
             //Check Error Response
@@ -420,13 +420,12 @@ export default class EmailAccountLoginController extends BlockComponent<
     };
 
     const attrs = {
-
-
       email: values.email,
       password: values.password
     };
 
     const data = {
+      type: "email_account",
       attributes: attrs
     };
 

@@ -33,6 +33,8 @@ interface S {
   token: any;
   enablePasswordField: Boolean;
   btnConfirmPasswordShowHide: Boolean;
+  error: string | null;
+  emailOtp:any
   // Customizable Area End
 }
 
@@ -54,6 +56,7 @@ export default class ForgotPasswordController extends BlockComponent<
   SS
 > {
   // Customizable Area Start
+  checkUserApiCallId:any
   validationAPICallId: any;
   requestEmailOtpCallId: any;
   requestPhoneOtpCallId: any;
@@ -61,6 +64,7 @@ export default class ForgotPasswordController extends BlockComponent<
   requestGoToConfirmationCallId: any;
   otpToken: any;
   isChangePassword: boolean;
+  verifyOtpApiCallId:any;
 
   //Properties from config
   labelTextIsAccountRecovery: string = configJSON.labelTextIsAccountRecovery;
@@ -166,7 +170,9 @@ export default class ForgotPasswordController extends BlockComponent<
       passwordSchema: passwordSchema,
       token: "",
       enablePasswordField: true,
-      btnConfirmPasswordShowHide: true
+      btnConfirmPasswordShowHide: true,
+      error: null,
+      emailOtp:null
     };
     // Customizable Area End
   }
@@ -287,42 +293,75 @@ export default class ForgotPasswordController extends BlockComponent<
         responseJson.meta &&
         responseJson.meta.token
       ) {
-        this.otpToken = responseJson.meta.token;
-
-        this.setState({ token: this.otpToken });
-
+        //this.otpToken = responseJson.meta.token;
+        this.setState({ token:responseJson.meta.token, emailOtp:responseJson.email_otp });
+        window.location.replace("/ForgotPasswordOTP");
         //navigate to OTP page
-        const msg: Message = new Message(
-          getName(MessageEnum.NavigationMobilePhoneOTPMessage)
-        );
+        // const msg: Message = new Message(
+        //   getName(MessageEnum.NavigationMobilePhoneOTPMessage)
+        // );
 
-        msg.addData(
-          getName(MessageEnum.AuthTokenDataMessage),
-          this.state.token
-        );
+        // msg.addData(
+        //   getName(MessageEnum.AuthTokenDataMessage),
+        //   this.state.token
+        // );
 
-        msg.addData(getName(MessageEnum.NavigationPropsMessage), this.props);
+        // msg.addData(getName(MessageEnum.NavigationPropsMessage), this.props);
 
-        msg.addData(
-          getName(MessageEnum.AuthTokenEmailMessage),
-          this.state.emailValue
-        );
+        // msg.addData(
+        //   getName(MessageEnum.AuthTokenEmailMessage),
+        //   this.state.emailValue
+        // );
 
-        msg.addData(getName(MessageEnum.EnterOTPAsForgotPasswordMessage), true);
+        // msg.addData(getName(MessageEnum.EnterOTPAsForgotPasswordMessage), true);
 
-        this.send(msg);
+        // this.send(msg);
       }
       //error handling
-      else if (responseJson && responseJson.errors) {
-        this.parseApiErrorResponse(responseJson);
+      
+      else if (responseJson?.errors) {
+        //Check Error Response
+        let error = Object.values(responseJson.errors[0])[0] as string;
+        this.setState({ error });
       } else {
-        var errorReponse = message.getData(
-          getName(MessageEnum.RestAPIResponceErrorMessage)
-        );
-
-        this.parseApiCatchErrorResponse(errorReponse);
+        this.setState({ error: responseJson?.error || "Something went wrong!" });
       }
-    } else if (
+      this.parseApiCatchErrorResponse(this.state.error);
+      
+    }  else if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.verifyOtpApiCallId !== null &&
+      this.verifyOtpApiCallId ===
+        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      var responseJson = message.getData(
+        getName(MessageEnum.RestAPIResponceSuccessMessage)
+      );
+
+      var errorReponse = message.getData(
+        getName(MessageEnum.RestAPIResponceErrorMessage)
+      );
+
+      if (responseJson?.messages) {
+        
+        // let params = new URL(document.location as any).searchParams;
+        // let token = params.get("token");
+        //window.location = "/new-password?token=" + token as any;
+       window.location ="/ChangePassword" as any
+       //window.location.replace("/ChangePassword") 
+      } else if (responseJson?.message) {
+        this.setState({ error: responseJson?.message });
+      } else if (responseJson?.errors) {
+          let error = `${Object.values(responseJson.errors[0])[0]}` as string;
+          this.setState({ error });
+      } else {
+          this.setState({ error: responseJson?.error || 'Something went wrong!' });
+      }
+      this.parseApiCatchErrorResponse(this.state.error);
+      
+    }
+    
+    else if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.requestPhoneOtpCallId !== null &&
       this.requestPhoneOtpCallId ===
@@ -439,9 +478,8 @@ export default class ForgotPasswordController extends BlockComponent<
     });
 
     const data = {
-      type: values.accountType ? values.accountType : "email_account",
       attributes: {
-        email: values.email ? values.email : ""
+        email: values.email
       }
     };
 
@@ -627,5 +665,131 @@ export default class ForgotPasswordController extends BlockComponent<
     );
     msg.addData(getName(MessageEnum.NavigationPropsMessage), this.props);
     this.send(msg);
+  }
+  EmailSchema() {
+    const validations = Yup.object().shape({
+      email: Yup.string()
+        .trim()
+        .required("This field is required.")
+    });
+    return validations
+  }
+
+
+  checkUser = (values: any): boolean => {
+    const header = {
+      "Content-Type": configJSON.forgotPasswordAPiContentType
+    };
+
+    const attrs = {
+      email: values.email,
+    };
+
+    const data = {
+      attributes: attrs
+    };
+
+    const httpBody = {
+      data: data
+    };
+
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+    this.requestEmailOtpCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      "bx_block_forgot_password/otps"
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestBodyMessage),
+      JSON.stringify(httpBody)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.httpPostMethod
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+
+    return true;
+  };
+
+  verifyOtp = (attributes: any): boolean => {
+          
+    const header = {
+      "Content-Type": configJSON.forgotPasswordAPiContentType,
+      token:this.state.token
+    };
+    attributes.pin ="11111"
+    const attrs = {
+      data: {
+        otp_code: attributes.pin,
+      }
+    };
+
+    const httpBody = attrs;
+
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+    
+    this.verifyOtpApiCallId = requestMessage.messageId;
+    
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      "bx_block_forgot_password/otp_confirmations"
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestBodyMessage),
+      JSON.stringify(httpBody)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.httpPostMethod
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  }
+  PhoneOtpSchema() {
+    const validations  = Yup.object().shape({
+      input1: Yup.number()
+        .min(1,("Invalid otp"))
+        .max(9, ("Invalid otp"))
+        .required(("This field is required.")),
+        input2: Yup.number()
+        .min(1,("Invalid otp"))
+        .max(9, ("Invalid otp"))
+        .required(("This field is required.")),
+        input3: Yup.number()
+        .min(1,("Invalid otp"))
+        .max(9, ("Invalid otp"))
+        .required(("This field is required.")),
+        input4: Yup.number()
+        .min(1,("Invalid otp"))
+        .max(9, ("Invalid otp"))
+        .required(("This field is required.")),
+        input5: Yup.number()
+        .min(1,("Invalid otp"))
+        .max(9, ("Invalid otp"))
+        .required(("This field is required.")),
+    });
+    return validations
   }
 }

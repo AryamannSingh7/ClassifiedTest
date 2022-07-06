@@ -1,5 +1,8 @@
+//@ts-ignore
+//@ts-nocheck
 import React from "react";
-
+import { Formik, Form, Field } from "formik";
+import { withRouter } from 'react-router';
 //components
 import {
   Box,
@@ -14,7 +17,7 @@ import OTPInputAuthController, {
   Props
 } from "../../otp-input-confirmation/src/OTPInputAuthController";
 
-export default class ForgotPasswordOTP extends OTPInputAuthController {
+class ForgotPasswordOTP extends OTPInputAuthController {
   constructor(props: Props) {
     super(props);
   }
@@ -28,23 +31,43 @@ export default class ForgotPasswordOTP extends OTPInputAuthController {
             <h1>Enter OTP Code</h1>
             <h6>Please enter the code send to the email address <span className="text">jo******52@gmail.com</span></h6>
           </Box>
-          <form className="commonForm">
+
+          <Formik
+          initialValues={{
+            input1:"",
+            input2:"",
+            input3:"",
+            input4:"",
+            input5:"",
+          }}
+         // validationSchema={this.PhoneOtpSchema()}
+          validateOnMount={true}
+          onSubmit={(values) => {
+            console.log("valus=========>",values)
+           this.verifyOtp(values)
+            // same shape as initial values  
+          }}
+        >
+          {({ values, touched, errors, isValid, setFieldValue,handleChange }) => (
+            <Form translate="yes" className="commonForm">
             <Box className="formGroup">
               <div className="otpInputGrp">
-                <input type="text" className="formOutlineInput" />
-                <input type="text" className="formOutlineInput" />
-                <input type="text" className="formOutlineInput" />
-                <input type="text" className="formOutlineInput" />
-                <input type="text" className="formOutlineInput" />
-                <input type="text" className="formOutlineInput" />
+                <Field type="text" minlength="1" name="input1" className="formOutlineInput" />
+                <Field type="text" name="input2" className="formOutlineInput" />
+                <Field type="text" name="input3" className="formOutlineInput" />
+                <Field type="text" name="input4" className="formOutlineInput" />
+                <Field type="text" name="input5" className="formOutlineInput" />
               </div>
             </Box>
-          </form>
-          <Box className="customButton row-btn">
-            <Button variant="contained">next</Button>
+            <Box className="customButton row-btn">
+            <Button type="submit" variant="contained">next</Button>
           </Box>
+            </Form>
+          )}
+        </Formik>  
         </Box>
       </>
     );
   }
 }
+export default withRouter(ForgotPasswordOTP)
