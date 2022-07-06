@@ -92,11 +92,17 @@ import CreateSurveys from "../../blocks/Polling/src/CreateSurveys.web";
 import PollPreview from "../../blocks/Polling/src/PollPreview.web";
 import SurveyPreview from "../../blocks/Polling/src/SurveyPreview.web";
 
+import LandingPage from "../../blocks/landingpage/src/LandingPage.web";
+import EmailAccountLogin from "../../blocks/email-account-login/src/EmailAccountLogin.web";
+import ForgotPassword from "../../blocks/forgot-password/src/ForgotPassword.web";
+import ForgotPasswordOTP from "../../blocks/forgot-password/src/ForgotPasswordOTP.web";
+import ChangePassword from "../../blocks/forgot-password/src/ChangePassword.web";
+import ChangeSuccessfully from "../../blocks/forgot-password/src/ChangeSuccessfully.web";
 
 const routeMap = {
   LandingPage: {
     component: LandingPage,
-    path: '/',
+    path: '/LandingPage',
     exact: true
   },
   EmailAccountLogin: {
@@ -273,10 +279,10 @@ const routeMap = {
     component: Videos,
     path: "/Videos"
   },
-  // LandingPage: {
-  //   component: LandingPage,
-  //   path: "/LandingPage"
-  // },
+  LandingPage: {
+    component: LandingPage,
+    path: "/LandingPage"
+  },
   ContentFlag: {
     component: ContentFlag,
     path: "/ContentFlag"
@@ -363,6 +369,11 @@ const routeMap = {
     path: "/DashboardGeneral"
   },
 
+  DashboardGeneral: {
+    component: DashboardGeneral,
+    path: "/DashboardGeneral"
+  },
+
   DashboardTicket: {
     component: DashboardTicket,
     path: "/DashboardTicket"
@@ -383,31 +394,11 @@ const routeMap = {
     path: "/BudgetDetails"
   },
 
-  CreatePolls: {
-    component: CreatePolls,
-    path: "/CreatePolls"
+  Home: {
+    component: Analytics,
+    path: '/',
+    exact: true
   },
-
-  CreateSurveys: {
-    component: CreateSurveys,
-    path: "/CreateSurveys"
-  },
-
-  PollPreview: {
-    component: PollPreview,
-    path: "/PollPreview"
-  },
-
-  SurveyPreview: {
-    component: SurveyPreview,
-    path: "/SurveyPreview"
-  },
-
-  // Home: {
-  //   component: Analytics,
-  //   path: '/',
-  //   exact: true
-  // },
   ForgotPassword: {
     component: ForgotPassword,
     path: "/ForgotPassword"
@@ -556,10 +547,10 @@ const routeMap = {
     component: Videos,
     path: "/Videos"
   },
-  // LandingPage: {
-  //   component: LandingPage,
-  //   path: "/LandingPage"
-  // },
+  LandingPage: {
+    component: LandingPage,
+    path: "/LandingPage"
+  },
   ContentFlag: {
     component: ContentFlag,
     path: "/ContentFlag"

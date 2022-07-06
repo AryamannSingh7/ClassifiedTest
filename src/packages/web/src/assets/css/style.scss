@@ -5,20 +5,12 @@
 
 body,
 html {
-  background-color: $SKYBLUE_SHADE4 !important;
   background-color: $LIGHT_GRAY;
   height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
   font-family: $MONTSERRAT;
-  // overflow: hidden;
-  @include scrollbars();
-}
-// common css
-input[type="radio"],
-input[type="checkbox"] {
-  display: none;
   overflow: hidden;
   @include scrollbars();
   @include mq(tablet-portrait-large-up) {
@@ -37,13 +29,6 @@ p {
   color: $DARK;
   font-family: $MONTSERRAT;
 }
-h1,
-.h1 {
-  color: $DARK;
-  font-size: 30px;
-  font-weight: 600;
-  padding-right: 10px;
-  font-family: $ROUNDGOTHIC_MEDIUM;
 h1 {
   color: $DARK;
   font-size: 26px;
@@ -129,4 +114,4 @@ ul {
     padding: 10px 10px 0 10px;
     background-color: red;
   }
-}}
+}
