@@ -13,15 +13,14 @@ import {
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 
-import OTPInputAuthController, {
-  Props
-} from "../../otp-input-confirmation/src/OTPInputAuthController";
+import ForgotPasswordController, { Props } from "./ForgotPasswordController";
+import OtpInput from 'react-otp-input';
 
-class ForgotPasswordOTP extends OTPInputAuthController {
+
+class ForgotPasswordOTP extends ForgotPasswordController {
   constructor(props: Props) {
     super(props);
   }
-
   render() {
     return (
       <>
@@ -31,16 +30,26 @@ class ForgotPasswordOTP extends OTPInputAuthController {
             <h1>Enter OTP Code</h1>
             <h6>Please enter the code send to the email address <span className="text">jo******52@gmail.com</span></h6>
           </Box>
+          <OtpInput
+            value={"11111"}
+            onChange={this.handleChange}
+            numInputs={5}
+            separator={<span>-</span>}
+      />
+       <Box className="customButton row-btn">
+            <Button  variant="contained" onClick={() => {this.verifyOtp() }}>next</Button>
+          </Box>
 
+{/* 
           <Formik
           initialValues={{
-            input1:"",
-            input2:"",
-            input3:"",
-            input4:"",
-            input5:"",
+            input1:"1",
+            input2:"1",
+            input3:"1",
+            input4:"1",
+            input5:"1",
           }}
-         // validationSchema={this.PhoneOtpSchema()}
+          validationSchema={this.PhoneOtpSchema()}
           validateOnMount={true}
           onSubmit={(values) => {
             console.log("valus=========>",values)
@@ -52,11 +61,11 @@ class ForgotPasswordOTP extends OTPInputAuthController {
             <Form translate="yes" className="commonForm">
             <Box className="formGroup">
               <div className="otpInputGrp">
-                <Field type="text" minlength="1" name="input1" className="formOutlineInput" />
-                <Field type="text" name="input2" className="formOutlineInput" />
-                <Field type="text" name="input3" className="formOutlineInput" />
-                <Field type="text" name="input4" className="formOutlineInput" />
-                <Field type="text" name="input5" className="formOutlineInput" />
+                <Field type="number" name="input1" className="formOutlineInput" />
+                <Field type="number" name="input2" className="formOutlineInput" />
+                <Field type="number" name="input3" className="formOutlineInput" />
+                <Field type="number" name="input4" className="formOutlineInput" />
+                <Field type="number" name="input5" className="formOutlineInput" />
               </div>
             </Box>
             <Box className="customButton row-btn">
@@ -64,7 +73,7 @@ class ForgotPasswordOTP extends OTPInputAuthController {
           </Box>
             </Form>
           )}
-        </Formik>  
+        </Formik>   */}
         </Box>
       </>
     );

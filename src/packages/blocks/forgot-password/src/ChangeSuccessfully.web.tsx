@@ -1,3 +1,5 @@
+//@ts-ignore
+//@ts-nocheck
 import React from "react";
 
 //components
@@ -17,7 +19,7 @@ import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import { Lock_Icon } from "../src/assets";
-
+import { withRouter } from 'react-router';
 import { Formik } from "formik";
 
 import * as Yup from "yup";
@@ -25,7 +27,7 @@ import * as Yup from "yup";
 
 import ForgotPasswordController, { Props } from "./ForgotPasswordController";
 
-export default class ChangeSuccessfully extends ForgotPasswordController {
+class ChangeSuccessfully extends ForgotPasswordController {
   // Customizable Area Start
   // Customizable Area End
 
@@ -48,10 +50,15 @@ export default class ChangeSuccessfully extends ForgotPasswordController {
             <h6>You have successfully changed your<br></br>password. Please use your new password when<br></br>logging in.</h6>
           </Box>
           <Box className="row-btn customButton">
-            <Button variant="contained">login</Button>
+            <Button variant="contained" onClick={() => {
+                    localStorage.removeItem("otpToken");
+                    localStorage.removeItem("emailOtp");
+                    this.props.history.push("/EmailAccountLogin");
+                  }}>login</Button>
           </Box>
         </Box>
       </>
     );
   }
 }
+export default withRouter(ChangeSuccessfully);
