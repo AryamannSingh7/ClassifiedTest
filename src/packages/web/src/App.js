@@ -88,6 +88,7 @@ import CreatePolls from "../../blocks/Polling/src/CreatePolls.web";
 import CreateSurveys from "../../blocks/Polling/src/CreateSurveys.web";
 import PollPreview from "../../blocks/Polling/src/PollPreview.web";
 import SurveyPreview from "../../blocks/Polling/src/SurveyPreview.web";
+import PollsallData from "../../blocks/Polling/src/PollsallData.web";
 
 const routeMap = {
   LandingPage: {
@@ -181,7 +182,14 @@ const routeMap = {
     component: SurveyPreview,
     path: "/SurveyPreview"
   },
+
+  PollsallData: {
+    component: PollsallData,
+    path: "/PollsallData"
+  },
   
+
+
   Customisableusersubscriptions: {
     component: Customisableusersubscriptions,
     path: "/Customisableusersubscriptions"

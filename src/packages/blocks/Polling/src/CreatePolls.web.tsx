@@ -29,7 +29,6 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 
-
 // Icons
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
@@ -87,14 +86,12 @@ export default class CreatePolls extends PollingController {
                                 />
 
                                 <Box className="DateSection">
-
-                                    <MuiPickersUtilsProvider utils={MomentUtils}>
+                                    {/* <MuiPickersUtilsProvider utils={MomentUtils}>
                                     <Grid container justifyContent="space-between">
                                         <KeyboardDatePicker
                                         className="DateBox"
                                         disableToolbar
                                         variant="inline"
-                                        // inputVariant="outlined"
                                         format="MM/DD/yyyy"
                                         margin="normal"
                                         id="date-picker-inline"
@@ -109,24 +106,19 @@ export default class CreatePolls extends PollingController {
                                         <KeyboardDatePicker
                                         className="DateBox"
                                         margin="normal"
-                                        // inputVariant="outlined"
                                         id="date-picker-dialog"
                                         label="End Date"
                                         format="MM/DD/yyyy"
                                         onChange={this.handleDateChange}
                                         value={this.state.selectedDate}
-                                        // onChange={handleDateChange}
                                         KeyboardButtonProps={{
                                             'aria-label': 'change date',
                                         }}
                                         fullWidth
                                         />
                                     </Grid>
-                                    </MuiPickersUtilsProvider>
+                                    </MuiPickersUtilsProvider> */}
 
-                                </Box>
-
-                                {/* <Box className="DateSection">
                                     <TextField label="Start Date" variant="outlined"
                                     name="startDate"
                                     value={this.state.PollData.startDate}
@@ -139,8 +131,8 @@ export default class CreatePolls extends PollingController {
                                     onChange={this.handlePollDataChange}
                                     required fullWidth
                                     />  
-                
-                                </Box> */}
+
+                                </Box>
 
                                 <Box className="anonymousSwitch">
                                     <Box className="infoIcon">
