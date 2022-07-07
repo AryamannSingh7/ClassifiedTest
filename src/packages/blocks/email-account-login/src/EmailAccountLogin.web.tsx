@@ -41,47 +41,42 @@ class EmailAccountLogin extends EmailAccountLoginController {
             <p>Login with your account credentials </p>
           </Box>
           <Formik
-          initialValues={{
-            email: "",
-            password: "",
-            showPassword: false,
-            stayIn:false
-          }}
-          validationSchema={this.LoginSchema()}
-          validateOnMount={true}
-          onSubmit={(values) => {
-            console.log("valus=========>",values)
-            // same shape as initial values
-             this.doLogIn(values);
-          }}
-        >
-          {({ values, touched, errors, isValid, setFieldValue,handleChange }) => (
-            <Form translate="yes" className="commonForm">
-            <Box className="formGroup">
-              <Field name="email" type="text" placeholder="Email ID" className="formInput" />
-              <span className="frmLeftIcons"><MailOutlineIcon /></span>
-            </Box>
-            {
-              errors.email && touched.email ? 
-              (
-              <Typography
-              style={{
-                color: "#F14E24",
-                fontFamily: "Poppins",
-                fontWeight: 300,
-                fontSize: 14,
-                marginTop: 5,
-                marginLeft: 10
-              }}
-              >{errors.email} </Typography>
+            initialValues={{
+              email: "",
+              password: "",
+              showPassword: false,
+              stayIn: false
+            }}
+            validationSchema={this.LoginSchema()}
+            validateOnMount={true}
+            onSubmit={(values) => {
+              console.log("valus=========>", values)
+              // same shape as initial values
+              this.doLogIn(values);
+            }}
+          >
+            {({ values, touched, errors, isValid, setFieldValue, handleChange }) => (
+              <Form translate="yes" className="commonForm">
+                <Box className="formGroup">
+                  <Field name="email" type="text" placeholder="Email ID" className="formInput" />
+                  <span className="frmLeftIcons"><MailOutlineIcon /></span>
+                  {
+                    errors.email && touched.email ?
+                      (
+                        <Typography className="text-error"
 
-              ) : null
-            }
-            <Box className="formGroup">
-              <Field name="password" type={values.showPassword ? "text" : "password"} placeholder="Password" className="formInput" />
-              <span className="frmLeftIcons"><LockOpenIcon /></span>
-              {/* <span className="frmrightIcons"><Visibility /></span> */}
-              {values.showPassword ? (
+                        >{errors.email} </Typography>
+
+                      ) : null
+                  }
+                </Box>
+
+                <Box className="formGroup">
+                  <Field name="password" type={values.showPassword ? "text" : "password"} placeholder="Password" className="formInput" />
+                  <span className="frmLeftIcons"><LockOpenIcon /></span>
+                  {/* <span className="frmrightIcons"><Visibility /></span> */}
+                  <span className="frmrightIcons">
+                    {values.showPassword ? (
                       <IconButton
                         onClick={() => setFieldValue("showPassword", false)}
                         style={{ padding: 0, backgroundColor: "transparent" }}
@@ -114,38 +109,30 @@ class EmailAccountLogin extends EmailAccountLoginController {
                         />
                       </IconButton>
                     )}
-              {/* <span className="frmrightIcons"><VisibilityOffIcon /></span> */}
-            </Box>
-            {
-              errors.password && touched.password ? 
-              (
-              <Typography 
-              style={{
-                color: "#F14E24",
-                fontFamily: "Poppins",
-                fontWeight: 300,
-                fontSize: 14,
-                marginTop: 5,
-                marginLeft: 10
-              }}
-              >{errors.password} </Typography>
-              ) : null
-            }
-            <Box className="formGroup formCheckbox">
-              <div>
-                <Checkbox name="stayIn" onChange={handleChange} value={values.stayIn}  icon={<CircleUnchecked />}
-                  checkedIcon={<CircleCheckedFilled />} id="loginCheckbox"
-                />
-                <label htmlFor="loginCheckbox" className="checkboxLabel">Stay logged in</label>
-              </div>
-              <Link href="/ForgotPassword" className="link">Forgot Password?</Link>
-            </Box>
-            <Box className="customButton">
-              <Button variant="contained" type="submit" >login</Button>
-            </Box>
-            </Form>
-          )}
-        </Formik>     
+                  </span>
+                  {/* <span className="frmrightIcons"><VisibilityOffIcon /></span> */}
+                  {
+                    errors.password && touched.password ?
+                      (
+                        <Typography className="text-error">{errors.password} </Typography>
+                      ) : null
+                  }
+                </Box>
+                <Box className="formGroup formCheckbox">
+                  <div>
+                    <Checkbox name="stayIn" onChange={handleChange} value={values.stayIn} icon={<CircleUnchecked />}
+                      checkedIcon={<CircleCheckedFilled />} id="loginCheckbox"
+                    />
+                    <label htmlFor="loginCheckbox" className="checkboxLabel">Stay logged in</label>
+                  </div>
+                  <Link href="/ForgotPassword" className="link">Forgot Password?</Link>
+                </Box>
+                <Box className="customButton">
+                  <Button variant="contained" type="submit" >login</Button>
+                </Box>
+              </Form>
+            )}
+          </Formik>
           <Box className="bottomBlock">
             <Link href="#" className="link">Don't have an account ? </Link>
             <Link href="#" className="link"> <span> register</span></Link>

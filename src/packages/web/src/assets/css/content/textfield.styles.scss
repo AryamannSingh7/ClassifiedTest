@@ -13,6 +13,7 @@
         & .formInputGrp {
             position: relative;
             margin-top: 15px;
+            margin-bottom: 5px;
         }
         & .formInput {
             width: 100%;
@@ -22,28 +23,35 @@
             border: 1px solid #f4f4f4;
             background-color: #f9f9f9;
             font-size: 16px;
+            outline: 0;
             &::placeholder {
                 color: #b9b9b9;
             }
         }
-        & .otpInputGrp
-        {
+        & .otpInputGrp {
             display: flex;
             justify-content: center;
         }
-        & .formOutlineInput {
-            width: 10%;
-            padding: 10px 0;
-            color: $DARK;
-            border: 0;
-            outline: 0;
-            font-size: 28px;
-            font-weight: bold;
-            margin: 0 10px;
-            border-bottom: 2px solid $DARK;
-            text-align: center;
+        &.otpBlock {
+            & > div {
+                justify-content: space-between;
+                width: 100%;
+            }
+            & .formOutlineInput {
+                & input {
+                    width: 10%;
+                    padding: 10px 0;
+                    color: $DARK;
+                    border: 0;
+                    outline: 0;
+                    font-size: 28px;
+                    font-weight: bold;
+                    margin: 0 10px;
+                    border-bottom: 2px solid $DARK;
+                    text-align: center;
+                }
+            }
         }
-        
         & .frmLeftIcons {
             position: absolute;
             left: 20px;

@@ -30,12 +30,16 @@ class ForgotPasswordOTP extends ForgotPasswordController {
             <h1>Enter OTP Code</h1>
             <h6>Please enter the code send to the email address <span className="text">jo******52@gmail.com</span></h6>
           </Box>
-          <OtpInput
-            value={"11111"}
-            onChange={this.handleChange}
-            numInputs={5}
-            separator={<span>-</span>}
-          />
+          <Box className="commonForm">
+            <Box className="formGroup otpBlock">
+              <OtpInput className="formOutlineInput"
+                value={"11111"}
+                onChange={this.handleChange}
+                numInputs={5}
+              // separator={<span>-</span>}
+              />
+            </Box>
+          </Box>
           <Box className="customButton row-btn">
             <Button variant="contained" onClick={() => { this.verifyOtp() }}>next</Button>
           </Box>
