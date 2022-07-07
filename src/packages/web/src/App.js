@@ -72,15 +72,12 @@ import SelectType from "../../blocks/email-account-registration/src/SelectType.w
 import Address from "../../blocks/email-account-registration/src/Address.web";
 
 import  './assets/css/constants/base/global.scss'
-
-import DashboardGeneral from "../../blocks/dashboard/src/DashboardGeneral.web";
 import LandingPage from "../../blocks/landingpage/src/LandingPage.web";
 import EmailAccountLogin from "../../blocks/email-account-login/src/EmailAccountLogin.web";
 import ForgotPassword from "../../blocks/forgot-password/src/ForgotPassword.web";
 import ForgotPasswordOTP from "../../blocks/forgot-password/src/ForgotPasswordOTP.web";
 import ChangePassword from "../../blocks/forgot-password/src/ChangePassword.web";
 import ChangeSuccessfully from "../../blocks/forgot-password/src/ChangeSuccessfully.web";
-
 import Dashboard from "../../blocks/dashboard/src/Dashboard.web";
 import DashboardGeneral from "../../blocks/dashboard/src/DashboardGeneral.web";
 import DashboardTicket from "../../blocks/dashboard/src/DashboardTicket.web";
@@ -92,17 +89,10 @@ import CreateSurveys from "../../blocks/Polling/src/CreateSurveys.web";
 import PollPreview from "../../blocks/Polling/src/PollPreview.web";
 import SurveyPreview from "../../blocks/Polling/src/SurveyPreview.web";
 
-import LandingPage from "../../blocks/landingpage/src/LandingPage.web";
-import EmailAccountLogin from "../../blocks/email-account-login/src/EmailAccountLogin.web";
-import ForgotPassword from "../../blocks/forgot-password/src/ForgotPassword.web";
-import ForgotPasswordOTP from "../../blocks/forgot-password/src/ForgotPasswordOTP.web";
-import ChangePassword from "../../blocks/forgot-password/src/ChangePassword.web";
-import ChangeSuccessfully from "../../blocks/forgot-password/src/ChangeSuccessfully.web";
-
 const routeMap = {
   LandingPage: {
     component: LandingPage,
-    path: '/LandingPage',
+    path: '/',
     exact: true
   },
   EmailAccountLogin: {
@@ -171,6 +161,27 @@ const routeMap = {
     component: Polling,
     path: "/Polling"
   },
+
+  CreatePolls: {
+    component: CreatePolls,
+    path: "/CreatePolls"
+  },
+
+  CreateSurveys: {
+    component: CreateSurveys,
+    path: "/CreateSurveys"
+  },
+
+  PollPreview: {
+    component: PollPreview,
+    path: "/PollPreview"
+  },
+
+  SurveyPreview: {
+    component: SurveyPreview,
+    path: "/SurveyPreview"
+  },
+  
   Customisableusersubscriptions: {
     component: Customisableusersubscriptions,
     path: "/Customisableusersubscriptions"
@@ -279,10 +290,7 @@ const routeMap = {
     component: Videos,
     path: "/Videos"
   },
-  LandingPage: {
-    component: LandingPage,
-    path: "/LandingPage"
-  },
+
   ContentFlag: {
     component: ContentFlag,
     path: "/ContentFlag"
@@ -547,10 +555,6 @@ const routeMap = {
     component: Videos,
     path: "/Videos"
   },
-  LandingPage: {
-    component: LandingPage,
-    path: "/LandingPage"
-  },
   ContentFlag: {
     component: ContentFlag,
     path: "/ContentFlag"
@@ -685,7 +689,7 @@ class App extends Component {
     defaultAnalytics.logEvent('APP_Loaded');
 
     return (
-      <View style={{ height: '100%', width: '90%', marginLeft: '1rem', marginRight: '1rem' }}>
+      <View style={{ height: '100%', width: '100%'}}>
         {/* <TopNav /> */}
         {WebRoutesGenerator({ routeMap })}
         <ModalContainer />

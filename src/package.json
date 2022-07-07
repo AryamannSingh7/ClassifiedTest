@@ -59,6 +59,7 @@
     "react-native-webview": "file:./packages/blocks/core/node_modules/react-native-webview",
     "react-navigation": "file:./packages/blocks/core/node_modules/react-navigation",
     "react-navigation-stack": "file:./packages/blocks/core/node_modules/react-navigation-stack",
+    "react-otp-input": "^2.4.0",
     "react-rte": "^0.16.3",
     "react-select": "^3.0.8",
     "recompose": "file:./packages/blocks/core/node_modules/recompose",
