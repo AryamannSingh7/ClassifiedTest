@@ -48,8 +48,6 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
       getName(MessageEnum.SessionResponseMessage)
     ];
 
-    this.handleChange = this.handleChange.bind(this);
-
     this.state = {
       dashboardData: [],
       errorMsg: "",
@@ -61,21 +59,6 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
-
-
-
-  // Customizable Area Start
-
-  handleChange = () => {
-    // console.log('click', event.target.value)
-  };
-
-  handleAccordinoChange = (panel:string) => (event:any, isExpanded:boolean) => {
-    this.setState({expanded: isExpanded ? panel : ''});
-  };
-  
-  // Customizable Area End
-
 
   async componentDidMount() {
     super.componentDidMount();
@@ -166,5 +149,17 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
     }
     // Customizable Area End
   }
+
+  // Customizable Area Start
+
+  handleChange = () => {
+    // console.log('click', event.target.value)
+  };
+
+  handleAccordinoChange = (panel:string) => (event:any, isExpanded:boolean) => {
+    this.setState({expanded: isExpanded ? panel : ''});
+  };
+
+  // Customizable Area End
 
 }

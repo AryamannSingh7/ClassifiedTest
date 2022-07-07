@@ -33,7 +33,7 @@ export default class SelectType extends EmailAccountRegistrationController {
 
         <Grid container>
           <Grid xs={12}>
-            <p className="text-left" style={{ fontSize: '2.5rem', fontWeight: '700' }}>
+            <p className="text-left" style={{ fontSize: '2.5rem', fontWeight: 700 }}>
               Please select your type
 
             </p>

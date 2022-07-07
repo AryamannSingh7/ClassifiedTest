@@ -15,8 +15,6 @@ export const configJSON = require("./config");
 export interface Props {
   navigation: any;
   id: string;
-  history: any;
-
 }
 
 export interface S {
@@ -172,7 +170,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             localStorage.setItem('res_token', responseJson.meta.token)
             localStorage.setItem('res_user', responseJson.data.attributes)
             localStorage.setItem('res_user_id', responseJson.data.id)
-            this.props.history.push('/selecttype')
+            // this.props.history.push('/selecttype')
 
 
           } else {

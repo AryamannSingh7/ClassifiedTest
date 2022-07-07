@@ -32,7 +32,7 @@ export default class VerofyOTP extends EmailAccountRegistrationController {
 
         <Grid container>
           <Grid xs={12}>
-            <p className="text-left" style={{ fontSize: '2.5rem', fontWeight: '700' }}>
+            <p className="text-left" style={{ fontSize: '2.5rem', fontWeight: 700 }}>
              Enter OTP Code
 
             </p>
@@ -55,7 +55,7 @@ export default class VerofyOTP extends EmailAccountRegistrationController {
         <Grid container>
           <Grid xs={12}>
             <div className="otp-input-wrapper">
-              <input type="text" maxlength="4" pattern="[0-9]*" autocomplete="off"/>
+              <input type="text" max="4" pattern="[0-9]*" />
                 <svg viewBox="0 0 240 1" xmlns="http://www.w3.org/2000/svg">
                   <line x1="0" y1="0" x2="240" y2="0" stroke="#3e3e3e" stroke-width="2" stroke-dasharray="44,22" />
                 </svg>
