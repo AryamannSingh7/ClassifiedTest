@@ -35,12 +35,12 @@ class ForgotPasswordOTP extends ForgotPasswordController {
             onChange={this.handleChange}
             numInputs={5}
             separator={<span>-</span>}
-      />
-       <Box className="customButton row-btn">
-            <Button  variant="contained" onClick={() => {this.verifyOtp() }}>next</Button>
+          />
+          <Box className="customButton row-btn">
+            <Button variant="contained" onClick={() => { this.verifyOtp() }}>next</Button>
           </Box>
 
-{/* 
+          {/* 
           <Formik
           initialValues={{
             input1:"1",
