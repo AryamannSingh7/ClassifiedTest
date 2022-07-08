@@ -12,6 +12,7 @@ import {
   Typography,
   TextField,
   Input,
+  Link,
   Button,
 } from "@material-ui/core";
 import Box from '@material-ui/core/Box';
@@ -47,9 +48,11 @@ export default class CreatePolls extends PollingController {
     super(props);
    
   }
-  handleChange = (event:any) => {
-    this.setState({checked: !this.state.checked})
-  };
+
+//   handleChange = (event:any) => {
+//     this.setState({checked: event.target.checked})
+//   };
+
   render() {
     return ( 
       <>
@@ -125,7 +128,7 @@ export default class CreatePolls extends PollingController {
                                     onChange={this.handlePollDataChange}
                                     required fullWidth
                                     />
-                                    <TextField label="End Date" variant="outlined"
+                                    <TextField label="End Date" variant="outlined" style={{marginLeft:35}}
                                     name="endDate"
                                     value={this.state.PollData.endDate}
                                     onChange={this.handlePollDataChange}
@@ -143,7 +146,9 @@ export default class CreatePolls extends PollingController {
                                     <Switch
                                         checked={this.state.checked}
                                         // onChange={this.handleChange}
-                                         onClick={this.handleChange}
+                                         onClick={(event: any) => 
+                                            this.setState({checked: event.target.checked})
+                                        }
                                         value="checked"
                                         color="primary"
                                         name="checked"
@@ -187,8 +192,8 @@ export default class CreatePolls extends PollingController {
                                     return(
                                         <TextField key={index}
                                         label={"option - " + (index + 1)} variant="outlined" 
-                                        name="options1"
-                                        value={inputfield.options1}
+                                        name="text"
+                                        value={inputfield.text}
                                         onChange={() => this.handleOptionsChange(index, event)}
                                         required fullWidth style={{marginTop:20}} 
                                         />  
@@ -207,7 +212,9 @@ export default class CreatePolls extends PollingController {
 
                         <Box className="BottomButton">
                             <Box className="Previewbtn"> 
-                                <Button variant="contained" color="primary">PREVIEW</Button>
+                                <Link href="/PollPreview">
+                                    <Button variant="contained" color="primary">PREVIEW</Button>
+                                </Link> 
                             </Box>
                             <Box className="Publishbtn">
                                 <Button type="submit" variant="outlined" color="primary">PUBLISH</Button>
