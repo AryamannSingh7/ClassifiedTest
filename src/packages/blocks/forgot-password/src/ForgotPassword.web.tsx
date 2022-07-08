@@ -38,50 +38,40 @@ class ForgotPassword extends ForgotPasswordController {
             <h6>One Time Password(OTP) will be sent to the regestered email.</h6>
           </Box>
           <Formik
-          initialValues={{
-            email: "",
-          }}
-          validationSchema={this.EmailSchema()}
-          validateOnMount={true}
-          onSubmit={(values) => {
-            console.log("valus=========>",values)
-            this.checkUser(values)
-            // same shape as initial values  
-          }}
-        >
-          {({ values, touched, errors, isValid, setFieldValue,handleChange }) => (
-            <Form translate="yes" className="commonForm">
-            <Box className="formGroup">
-              <label htmlFor="" className="textfieldLabel">Enter your regestered Email </label>
-              <div className="formInputGrp">
-                <Field type="email" name="email" placeholder="Email ID" className="formInput" />
-                <span className="frmLeftIcons"><MailOutlineIcon /></span>
-              </div>
-            </Box>
-            {
-              errors.email && touched.email ? 
-              (
-              <Typography
-              style={{
-                color: "#F14E24",
-                fontFamily: "Poppins",
-                fontWeight: 300,
-                fontSize: 14,
-                marginTop: 5,
-                marginLeft: 10
-              }}
-              >{errors.email} </Typography>
+            initialValues={{
+              email: "",
+            }}
+            validationSchema={this.EmailSchema()}
+            validateOnMount={true}
+            onSubmit={(values) => {
+              console.log("valus=========>", values)
+              this.checkUser(values)
+              // same shape as initial values  
+            }}
+          >
+            {({ values, touched, errors, isValid, setFieldValue, handleChange }) => (
+              <Form translate="yes" className="commonForm">
+                <Box className="formGroup">
+                  <label htmlFor="" className="textfieldLabel">Enter your regestered Email </label>
+                  <div className="formInputGrp">
+                    <Field type="email" name="email" placeholder="Email ID" className="formInput" />
+                    <span className="frmLeftIcons"><MailOutlineIcon /></span>
+                  </div>
 
-              ) : null
-            }
-          
-            <Box className="customButton">
-              <Button variant="contained" type="submit">next</Button>
-            </Box>
-           
-            </Form>
-          )}
-        </Formik>  
+                  {
+                    errors.email && touched.email ?
+                      (
+                        <Typography className="text-error">{errors.email} </Typography>
+                      ) : null
+                  }
+                </Box>
+                <Box className="customButton">
+                  <Button variant="contained" type="submit">next</Button>
+                </Box>
+
+              </Form>
+            )}
+          </Formik>
         </Box>
       </>
     )
