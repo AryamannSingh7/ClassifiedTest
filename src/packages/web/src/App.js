@@ -409,12 +409,6 @@ const routeMap = {
     component: BudgetDetails,
     path: "/BudgetDetails"
   },
-
-  Home: {
-    component: Analytics,
-    path: '/',
-    exact: true
-  },
   ForgotPassword: {
     component: ForgotPassword,
     path: "/ForgotPassword"
@@ -595,10 +589,10 @@ const routeMap = {
     component: CollectTransactionFees,
     path: "/CollectTransactionFees"
   },
-  Analytics: {
-    component: Analytics,
-    path: "/Analytics"
-  },
+  // Analytics: {
+  //   component: Analytics,
+  //   path: "/Analytics"
+  // },
   Customform: {
     component: Customform,
     path: "/Customform"
