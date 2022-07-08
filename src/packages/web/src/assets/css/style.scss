@@ -81,7 +81,7 @@ span {
 }
 
 p {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 100;
   @media screen and (max-width: 1024px) {
     font-size: 16px;
@@ -123,6 +123,16 @@ ul {
   }
 }
 
+.common-top-padding {
+  padding: 30px 60px 0 60px;
+}
+
+.common-bottom-padding {
+  padding: 0 60px 30px 60px;
+}
+.d-none {
+  display: none;
+}
 .text-error {
   color: $WARNING;
   font-size: 13px !important;

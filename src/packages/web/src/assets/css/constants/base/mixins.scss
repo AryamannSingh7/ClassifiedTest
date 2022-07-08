@@ -54,7 +54,7 @@
   }
 
   @else if $size ==tablet-landscape-up {
-    @media (min-width: 900px) {
+    @media (max-width: 959px) {
       @content;
     }
   }

@@ -1,97 +1,27 @@
 @import "../constants/base/colors.scss";
 @import "../constants/base/global.scss";
-.login-wrapper {
-  // display: flex;
-  // flex-direction: column;
-  // justify-content: space-between;
-  // background-color: #977878;
+.landing-wrapper {
   height: 100%;
   width: 100%;
   margin: 0 auto;
-  // padding: 30px;
   align-items: center;
   background-color: $WHITE;
-  // overflow-y: auto;
   position: relative;
-  @include mq(tablet-landscape-up) {
-    padding: 0;
-    // margin: 20px auto;
-  }
-  & .logo-block {
-    align-items: center;
-    & .head-logo {
-      height: 80px;
-      width: 80px;
-      object-fit: contain;
-    }
-    & h4 {
-      padding-left: 20px;
-      font-weight: 600;
-    }
-  }
-
-  & .auth-container {
-    height: 100%;
-    // display: flex;
-    // align-items: center;
-    & .auth-cols {
-      // background-color: #caa4a4;
-    }
-  }
-  & .main-content-block {
-    width: 450px;
-    margin: 0 auto;
-    @include mq(tablet-landscape-up) {
-      width: 90%;
-      margin: 0 auto;
-    }
-  }
   & .content-block {
     display: flex;
     flex-direction: column;
-    // align-items: center;
+    align-items: center;
     justify-content: space-between;
-    // padding: 30px;
     height: 100%;
   }
-  & .right-block {
-    padding: 30px 60px;
-
-    & .building-logo {
-      height: 93vh;
-      width: 100%;
-      object-fit: cover;
-      border-radius: 30px;
-    }
-  }
-  &.auth-wrapper {
-    justify-content: flex-start;
-    & .commonForm {
-      padding-top: 40px;
-    }
-    & .customButton {
-      padding-top: 50px;
-    }
-    & .header-block {
-      align-items: flex-start;
-    }
-  }
-  @include mq(tablet-landscape-up) {
-    width: 100%;
-    padding: 0;
-    margin: 20px auto;
-  }
   & .row-banner {
-    padding-bottom: 10px;
-    @include mq(tablet-landscape-up) {
-      width: 90%;
-    }
+    padding: 20px 0 10px 0;
     & .banner-img {
       width: 400px;
       height: 400px;
       object-fit: cover;
       border-radius: 10px;
-      @include mq(tablet-landscape-up) {
+      @include mq(tablet-portrait-large-up) {
         width: 100%;
         height: 250px;
       }
@@ -121,12 +51,14 @@
   }
   & .row-btn {
     margin-top: 70px;
+    
     display: flex;
     flex-direction: column;
     width: 100%;
-    @include mq(tablet-landscape-up) {
+    @include mq(tablet-portrait-large-up) {
       width: 90%;
-      margin-top: 30px;
+      margin-top: 20px;
+      padding-bottom: 20px;
     }
   }
   & .header-block {
@@ -135,9 +67,8 @@
     flex-direction: column;
     align-items: flex-start;
     padding-bottom: 50px;
-    @include mq(tablet-landscape-up) {
+    @include mq(tablet-portrait-large-up) {
       align-items: center;
-      padding-top: 50px;
     }
     &.header-left-block {
       align-items: flex-start;
@@ -151,12 +82,9 @@
     }
   }
   & .bottomBlock {
+    display: flex;
     flex-direction: column;
     align-items: center;
-    @include mq(tablet-landscape-up) {
-      margin-bottom: 30px;
-    }
-
     & .bottom-text {
       font-size: 11px;
       font-weight: 600;
@@ -183,13 +111,12 @@
     & .tenant-logo {
       width: 120px;
     }
-    @include mq(tablet-landscape-up) {
+    @include mq(tablet-portrait-large-up) {
       flex-direction: row;
       justify-content: center;
     }
     & .link {
       font-weight: 500;
-      white-space: nowrap;
     }
   }
   & .link {
