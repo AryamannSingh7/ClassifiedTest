@@ -25,7 +25,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 // Customizable Area End
 
-import ForgotPasswordController, { Props } from "./ForgotPasswordController";
+import ForgotPasswordController, { Props } from "./ForgotPasswordController.web";
 
 class ChangeSuccessfully extends ForgotPasswordController {
   // Customizable Area Start

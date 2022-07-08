@@ -25,7 +25,7 @@ import { Formik, Form, Field } from "formik";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import EmailAccountLoginController, {
   Props
-} from "./EmailAccountLoginController";
+} from "./EmailAccountLoginController.web";
 
 
 
