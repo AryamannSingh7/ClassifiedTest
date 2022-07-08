@@ -18,7 +18,7 @@ import { withRouter } from 'react-router';
 import { Input } from "react-native-elements";
 import * as Yup from "yup";
 import CountryCodeSelector from "../../country-code-selector/src/CountryCodeSelector";
-import ForgotPasswordController, { Props } from "./ForgotPasswordController";
+import ForgotPasswordController, { Props } from "./ForgotPasswordController.web";
 //Customizable Area End
 
 class ForgotPassword extends ForgotPasswordController {

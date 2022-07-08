@@ -19,7 +19,7 @@ import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 
-import ForgotPasswordController, { Props } from "./ForgotPasswordController";
+import ForgotPasswordController, { Props } from "./ForgotPasswordController.web";
 
 class ChangePassword extends ForgotPasswordController {
   constructor(props: Props) {

@@ -13,7 +13,7 @@ import {
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 
-import ForgotPasswordController, { Props } from "./ForgotPasswordController";
+import ForgotPasswordController, { Props } from "./ForgotPasswordController.web";
 import OtpInput from 'react-otp-input';
 
 
