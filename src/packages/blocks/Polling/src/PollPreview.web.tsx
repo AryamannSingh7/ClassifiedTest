@@ -11,6 +11,7 @@ import {
   Typography,
   TextField,
   Button,
+  Link,
 } from "@material-ui/core";
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -63,7 +64,10 @@ export default class PollPreview extends PollingController {
                             <Box className="createPSCards">
                                 <Box className="PollName">
                                         <Typography className="subHeading">Poll Name: </Typography>
-                                        <Typography className="PollNameText">Parking Allotment Rules</Typography>
+                                        <Typography className="PollNameText">
+                                            {this.state.PollData.title}
+                                            {/* Parking Allotment Rules */}
+                                            </Typography>
                                 </Box>
                                 
                                 <Box className="DateSection">
@@ -71,17 +75,16 @@ export default class PollPreview extends PollingController {
                                         <CalendarTodayOutlinedIcon style={{color:"grey", fontSize:22}}/>
                                         <Box>
                                             <Typography className="PollNamedate">Start Date</Typography>
-                                            <Typography className="PollNameText">June 7, 2022</Typography>
+                                            <Typography className="PollNameText">June 7, 2022{this.state.PollData.startDate}</Typography>
                                         </Box>    
                                     </Box>
                                     <Box className="datebox">
                                         <CalendarTodayOutlinedIcon style={{color:"grey", fontSize:22}}/>
                                         <Box>
                                             <Typography className="PollNamedate">End Date</Typography>
-                                            <Typography className="PollNameText">June 7, 2022</Typography>
+                                            <Typography className="PollNameText">June 7, 2022{this.state.PollData.endDate}</Typography>
                                         </Box>    
                                     </Box>
-                                
                                 </Box>
                                 <Box style={{marginTop:15}}>
                                     <Box className="infoIcon">
@@ -89,7 +92,10 @@ export default class PollPreview extends PollingController {
                                         <InfoIcon style={{color:"grey", fontSize:18}}/>
                                     </Box>
                                     <Box style={{marginTop:5}}>
-                                        <Typography variant="body2">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum.</Typography> 
+                                        <Typography variant="body2">
+                                           {this.state.PollData.description}
+                                            {/* There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum. */}
+                                        </Typography> 
                                     </Box>
                                 </Box>
                             </Box>
@@ -98,10 +104,18 @@ export default class PollPreview extends PollingController {
 
                         <Grid item sm={12} md={12} xs={12}>
                             <Box className="createPSCards">
-                                <Typography className="PollNameText">Should we need to charge for extra vehicle parking?</Typography>
+                                <Typography className="PollNameText">
+                                    {this.state.PollData.question}
+                                    {/* Should we need to charge for extra vehicle parking? */}
+                                </Typography>
 
-                                <TextField  value="Yes" variant="outlined" fullWidth style={{marginTop:20, fontWeight:600}} />
-                                <TextField  value="No" variant="outlined" fullWidth style={{marginTop:20}}/>
+                                {this.state.options.map((values:any) => {
+                                    <TextField  value={values.text} variant="outlined" fullWidth style={{marginTop:20}}/>
+                                })}
+
+                                {/* <TextField  value="Yes" variant="outlined" fullWidth style={{marginTop:20, fontWeight:600}} /> */}
+                                
+                                {/* <TextField  value="No" variant="outlined" fullWidth style={{marginTop:20}}/> */}
                             </Box>
         
                         </Grid>
@@ -109,7 +123,9 @@ export default class PollPreview extends PollingController {
                     </Grid>
 
                     <Box className="BottomButton">
-                        <Button variant="contained" color="primary">EDIT</Button>
+                        <Link href="/CreatePolls">
+                            <Button variant="contained" color="primary">EDIT</Button>
+                        </Link>
                         <Button variant="outlined" color="primary">PUBLISH</Button>
                     </Box>
                 </Container>

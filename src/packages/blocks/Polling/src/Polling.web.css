@@ -100,6 +100,7 @@
 .DateSection{
     margin-top: 20px;
     margin-bottom: 10px;
+    gap: 20px;
     
 }
 .DateSection .MuiFormControl-fullWidth {
@@ -119,7 +120,17 @@
 .DateBox .MuiInput-underline::before {
     border-bottom: none !important;
 }
-
+.targetaudience{
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.targetOne{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
 .anonymousSwitch{
     display: flex; 
     margin-top: 20px;
