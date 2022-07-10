@@ -745,7 +745,7 @@ export default class ForgotPasswordController extends BlockComponent<
     // attributes.pin =this.state.otp
     const attrs = {
       data: {
-        otp_code: this.state?.otp || "11111",
+        otp_code: this.state?.otp || "111111",
       }
     };
 

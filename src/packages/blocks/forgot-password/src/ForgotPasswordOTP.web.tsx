@@ -33,9 +33,9 @@ class ForgotPasswordOTP extends ForgotPasswordController {
           <Box className="commonForm">
             <Box className="formGroup otpBlock">
               <OtpInput className="formOutlineInput"
-                value={"11111"}
+                value={"111111"}
                 onChange={this.handleChange}
-                numInputs={5}
+                numInputs={6}
               // separator={<span>-</span>}
               />
             </Box>
