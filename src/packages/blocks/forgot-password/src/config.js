@@ -64,4 +64,6 @@ exports.buttonColorForOkButton = "#6200EE";
 exports.placeholderIsPassword = "password";
 exports.countryCodeSelectorPlaceholder = "Select Country";
 // Customizable Area Start
+exports.httpPutType="PUT";
+exports.updatePasswordAPIEndPoint="bx_block_forgot_password/passwords"
 // Customizable Area End

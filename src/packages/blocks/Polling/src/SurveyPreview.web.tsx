@@ -13,6 +13,7 @@ import {
   Typography,
   TextField,
   Input,
+  Link,
   Button,
 } from "@material-ui/core";
 import Box from '@material-ui/core/Box';
@@ -22,7 +23,7 @@ import NativeSelect from "@material-ui/core/NativeSelect";
 import Switch from '@material-ui/core/Switch';
 
 import 'date-fns';
-import DateFnsUtils from '@date-io/date-fns';
+// import DateFnsUtils from '@date-io/date-fns';
 
 import {
   MuiPickersUtilsProvider,
@@ -128,7 +129,9 @@ export default class SurveyPreview extends PollingController {
                     </Grid>
 
                     <Box className="BottomButton">
-                        <Button variant="contained" color="primary">EDIT</Button>
+                        <Link href="/CreateSurveys">
+                            <Button variant="contained" color="primary">EDIT</Button>
+                        </Link>
                         <Button variant="outlined" color="primary">PUBLISH</Button>
                     </Box>
                 </Container>

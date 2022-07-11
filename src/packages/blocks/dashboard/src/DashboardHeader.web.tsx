@@ -11,7 +11,7 @@ import DashboardTicket from "./DashboardTicket.web"
 import DashboardBudget from "./DashboardBudget.web"
 import BudgetDetails from "./BudgetDetails.web"
 import Polling from "../../Polling/src/Polling.web";
-import PollsGrid from "../../Polling/src/PollsGrid.web";
+import PollsGrid from "../../Polling/src/PollsallData.web";
 import SurveyGrid from "../../Polling/src/SurveyGrid.web";
 
 // Components imported end

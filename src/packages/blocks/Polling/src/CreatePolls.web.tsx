@@ -1,9 +1,9 @@
 // Customizable Area Start
-
+//@ts-ignore
+//@ts-nocheck
 
 import React from "react";
 import "./Polling.web.css"
-
 import {Editor, EditorState} from 'draft-js';
 import 'draft-js/dist/Draft.css';
 
@@ -12,6 +12,7 @@ import {
   Typography,
   TextField,
   Input,
+//   Link,
   Button,
 } from "@material-ui/core";
 import Box from '@material-ui/core/Box';
@@ -21,14 +22,13 @@ import NativeSelect from "@material-ui/core/NativeSelect";
 import Switch from '@material-ui/core/Switch';
 
 import 'date-fns';
-import DateFnsUtils from '@date-io/date-fns';
+// import DateFnsUtils from '@date-io/date-fns';
 import MomentUtils from '@date-io/moment';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardTimePicker,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
-
+// import {
+//   MuiPickersUtilsProvider,
+//   KeyboardTimePicker,
+//   KeyboardDatePicker,
+// } from '@material-ui/pickers';
 
 // Icons
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
@@ -40,17 +40,25 @@ import PollingController, {
   Props,
   configJSON,
 } from "./PollingController";
+import { withRouter } from "react-router-dom";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 
-export default class CreatePolls extends PollingController {
+class CreatePolls extends PollingController {
   constructor(props: Props) {
     super(props);
    
   }
-  handleChange = (event:any) => {
-    this.setState({checked: !this.state.checked})
-  };
+
+  componentDidMount() {
+    const PreviewPollData = localStorage.getItem('Polls_Data') && JSON.parse(localStorage.getItem('Polls_Data'));
+    if(PreviewPollData){
+        this.setState({PollData:PreviewPollData.PollFormData, options: PreviewPollData.PollOptions},
+            () => console.log("PreViewPollData [ PollData ]====>>>>>",  this.state.PollData, this.state.options)
+        )
+    }
+  }
+
   render() {
     return ( 
       <>
@@ -87,14 +95,12 @@ export default class CreatePolls extends PollingController {
                                 />
 
                                 <Box className="DateSection">
-
-                                    <MuiPickersUtilsProvider utils={MomentUtils}>
+                                    {/* <MuiPickersUtilsProvider utils={MomentUtils}>
                                     <Grid container justifyContent="space-between">
                                         <KeyboardDatePicker
                                         className="DateBox"
                                         disableToolbar
                                         variant="inline"
-                                        // inputVariant="outlined"
                                         format="MM/DD/yyyy"
                                         margin="normal"
                                         id="date-picker-inline"
@@ -109,38 +115,33 @@ export default class CreatePolls extends PollingController {
                                         <KeyboardDatePicker
                                         className="DateBox"
                                         margin="normal"
-                                        // inputVariant="outlined"
                                         id="date-picker-dialog"
                                         label="End Date"
                                         format="MM/DD/yyyy"
                                         onChange={this.handleDateChange}
                                         value={this.state.selectedDate}
-                                        // onChange={handleDateChange}
                                         KeyboardButtonProps={{
                                             'aria-label': 'change date',
                                         }}
                                         fullWidth
                                         />
                                     </Grid>
-                                    </MuiPickersUtilsProvider>
+                                    </MuiPickersUtilsProvider> */}
 
-                                </Box>
-
-                                {/* <Box className="DateSection">
                                     <TextField label="Start Date" variant="outlined"
                                     name="startDate"
                                     value={this.state.PollData.startDate}
                                     onChange={this.handlePollDataChange}
                                     required fullWidth
                                     />
-                                    <TextField label="End Date" variant="outlined"
+                                    <TextField label="End Date" variant="outlined" style={{marginLeft:35}}
                                     name="endDate"
                                     value={this.state.PollData.endDate}
                                     onChange={this.handlePollDataChange}
                                     required fullWidth
                                     />  
-                
-                                </Box> */}
+
+                                </Box>
 
                                 <Box className="anonymousSwitch">
                                     <Box className="infoIcon">
@@ -150,8 +151,9 @@ export default class CreatePolls extends PollingController {
                                     <Box style={{float:"right"}}>
                                     <Switch
                                         checked={this.state.checked}
-                                        // onChange={this.handleChange}
-                                         onClick={this.handleChange}
+                                         onClick={(event: any) => 
+                                            this.setState({checked: event.target.checked})
+                                        }
                                         value="checked"
                                         color="primary"
                                         name="checked"
@@ -195,8 +197,8 @@ export default class CreatePolls extends PollingController {
                                     return(
                                         <TextField key={index}
                                         label={"option - " + (index + 1)} variant="outlined" 
-                                        name="options1"
-                                        value={inputfield.options1}
+                                        name="text"
+                                        value={inputfield.text}
                                         onChange={() => this.handleOptionsChange(index, event)}
                                         required fullWidth style={{marginTop:20}} 
                                         />  
@@ -215,7 +217,14 @@ export default class CreatePolls extends PollingController {
 
                         <Box className="BottomButton">
                             <Box className="Previewbtn"> 
-                                <Button variant="contained" color="primary">PREVIEW</Button>
+                                {/* <Link href="/PollPreview"> */}
+                                    <Button variant="contained" color="primary"
+                                    onClick={async () => {
+                                        await this.handlePriviewData()
+                                        this.props.history.push("/PollPreview")
+                                    }}
+                                    >PREVIEW</Button>
+                                {/* </Link>  */}
                             </Box>
                             <Box className="Publishbtn">
                                 <Button type="submit" variant="outlined" color="primary">PUBLISH</Button>
@@ -233,13 +242,6 @@ export default class CreatePolls extends PollingController {
   }
 }
 
-
-const dashBoard = {
-    SideBar: {
-        background: "#f9f6f6",
-        position:"relative",
-        paddingBottom: 150,
-    },
-}
+export default withRouter(CreatePolls);
 
 // Customizable Area End

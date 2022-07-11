@@ -1,4 +1,13 @@
-
+.SideBar {
+    background: #f9f6f6;
+    position:relative;
+    padding-bottom: 150px,
+}
+.Dec-wrap{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
 .CreatePS{
     display: flex;
     flex-direction: column;
@@ -95,10 +104,13 @@
 .DateSection{
     margin-top: 20px;
     margin-bottom: 10px;
+    gap: 20px;
+    
 }
 .DateSection .MuiFormControl-fullWidth {
     width: 48%;
-    border: 1px solid lightgray;
+    gap:20px;
+    /* border: 1px solid lightgray; */
     border-radius: 5px;
 }
 
@@ -112,7 +124,17 @@
 .DateBox .MuiInput-underline::before {
     border-bottom: none !important;
 }
-
+.targetaudience{
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.targetOne{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
 .anonymousSwitch{
     display: flex; 
     margin-top: 20px;
@@ -232,6 +254,7 @@
 .RecentItems .ViewAll{
     text-align: center;
     font-size: 16px;
+    /* font-weight: bold; */
     color: #f27200;
 }
 
@@ -266,6 +289,7 @@
     align-items: center;
     gap: 15px;
     margin-right: 50px;
+    margin-top: 15px;
 }
 .datebox .PollNameText{
     font-weight: 600;
@@ -293,7 +317,9 @@
     color: #0582D7;
     font-weight: bold;
 }
-
+.link-decoration .MuiLink-underlineHover {
+    text-decoration: none !important;
+}
 .YearMain .MuiInput-underline::before{
     border-bottom: none !important;
 }

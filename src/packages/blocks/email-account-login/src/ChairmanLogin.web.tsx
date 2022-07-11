@@ -26,8 +26,15 @@ import { Visibility, VisibilityOff } from "@material-ui/icons";
 import EmailAccountLoginController, {
   Props
 } from "./EmailAccountLoginController.web";
-import Loader from "../../../components/src/Loader.web";
-class EmailAccountLogin extends EmailAccountLoginController {
+
+import { makeStyles } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+
+class ChairmanLogin extends EmailAccountLoginController {
   constructor(props: Props) {
     super(props);
   }
@@ -43,7 +50,7 @@ class EmailAccountLogin extends EmailAccountLoginController {
                   <img src={Building_Logo} className="head-logo" alt="" />
                   <h4>Building Name</h4>
                 </Box>
-                <Box className="main-content-block">
+                <Box className="main-content-block desktop-ui">
                   <Box className="header-block">
                     <Box display={{ xs: 'flex', md: 'none' }}>
                       <img src={Tenant_Logo} className="tenant-logo" alt="" />
@@ -67,7 +74,28 @@ class EmailAccountLogin extends EmailAccountLoginController {
                     }}
                   >
                     {({ values, touched, errors, isValid, setFieldValue, handleChange }) => (
-                      <Form translate="yes" className="commonForm">
+                      <Form translate="yes" className="commonForm ">
+                        <Box className="formGroup customSelect">
+                          <FormControl variant="outlined" >
+                            <span className="frmLeftIcons"><LockOpenIcon /></span>
+                            {/* <InputLabel id="demo-simple-select-outlined-label">Age</InputLabel> */}
+                            <Select
+                              labelId="demo-simple-select-outlined-label"
+                              id="demo-simple-select-outlined"
+                              value="10"
+                              label="Ten"
+                            >
+                              <MenuItem value="">
+                                <em>
+                                  None
+                                </em>
+                              </MenuItem>
+                              <MenuItem value={10}>Select User Type</MenuItem>
+                              <MenuItem value={20}>Twenty</MenuItem>
+                              <MenuItem value={30}>Thirty</MenuItem>
+                            </Select>
+                          </FormControl>
+                        </Box>
                         <Box className="formGroup">
                           <Field name="email" type="text" placeholder="Email ID" className="formInput" />
                           <span className="frmLeftIcons"><MailOutlineIcon /></span>
@@ -136,7 +164,7 @@ class EmailAccountLogin extends EmailAccountLoginController {
                             />
                             <label htmlFor="loginCheckbox" className="checkboxLabel">Stay logged in</label>
                           </div>
-                          <Link href="/ForgotPassword" className="link">Forgot Password?</Link>
+                          <Link href="/CharimanForgotPassword" className="link">Forgot Password?</Link>
                         </Box>
                         <Box className="customButton">
                           <Button variant="contained" type="submit" >login</Button>
@@ -159,16 +187,15 @@ class EmailAccountLogin extends EmailAccountLoginController {
             </Grid>
             <Grid item xs={12} md={6} display={{ xs: 'flex', lg: 'none' }} className="auth-cols">
               <Box className="right-block">
-                {/* <img src={Building1} className="building-logo" alt="" /> */}
+                <img src={Building1} className="building-logo" alt="" />
               </Box>
             </Grid>
           </Grid>
         </Box>
-        <Loader loading={this.state.loading} />
       </>
     );
   }
 }
-export default withRouter(EmailAccountLogin)
+export default withRouter(ChairmanLogin)
 
 // Customizable Area End
