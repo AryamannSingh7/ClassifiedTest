@@ -29,7 +29,6 @@
       font-weight: 600;
     }
   }
-
   & .auth-container {
     height: 100%;
     // display: flex;
@@ -109,7 +108,7 @@
   & h6 {
     margin: 10px 0;
     line-height: 20px;
-    text-align: center;
+    // text-align: center;
   }
   & .backIcon {
     cursor: pointer;
@@ -120,7 +119,7 @@
     }
   }
   & .row-btn {
-    margin-top: 70px;
+    margin-top: 50px;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -134,7 +133,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding-bottom: 50px;
+    padding-bottom: 30px;
     @include mq(tablet-landscape-up) {
       align-items: center;
       padding-top: 50px;
@@ -190,6 +189,16 @@
     & .link {
       font-weight: 500;
       white-space: nowrap;
+    }
+  }
+  & .passwordRow {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+    & .link {
+      & span {
+        text-transform: capitalize;
+      }
     }
   }
   & .link {
