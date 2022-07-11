@@ -34,11 +34,13 @@ interface S {
   editorState:any,
   PollData: any,
   InitialPollData: any,
+  Initialoptions:any,
   options: any,
   allPollsData: any,
   totalPollsCount: any,
   recentPolls: any,
   selectQuestion: any,
+  PreViewPollData:any,
   // Customizable Area End
 }
 
@@ -82,20 +84,19 @@ export default class PollingController extends BlockComponent<
         endDate:'', 
         description:'',
         question:'',
-        // optionOne:'',
-        // optionTwo:'',
       },
+      Initialoptions:[
+        {text: "",_destroy: "false"},
+        {text: "",_destroy: "false"}
+      ],
       PollData: { 
         title:'',
         startDate:'', 
         endDate:'', 
         description:'',
         question:'',
-        // optionOne:'',
-        // optionTwo:'',
       },
       options: [ 
-        // {options1: "" }, 
         {text: "",_destroy: "false"},
         {text: "",_destroy: "false"}
       ],
@@ -103,6 +104,7 @@ export default class PollingController extends BlockComponent<
       totalPollsCount: [],
       recentPolls: [],
       selectQuestion: [],
+      PreViewPollData: [],
       // Customizable Area End
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -178,7 +180,9 @@ export default class PollingController extends BlockComponent<
       event.preventDefault()
       console.log("Polls Data ==>", this.state.PollData)
       console.log("Options Data ==>", this.state.options)
-        this.setState({PollData: this.state.InitialPollData})
+      debugger
+        // this.setState({PollData: this.state.InitialPollData})
+        // this.setState({options: this.state.Initialoptions})
         let reqPayload = {
           "poll":
       {
@@ -190,21 +194,16 @@ export default class PollingController extends BlockComponent<
         "end_date": this.state.PollData.endDate,
         "question": this.state.PollData.question,
         "polling_options_attributes": this.state.options,
-        // "polling_options_attributes": {
-        //     "0": {
-        //           "text": "Yes",
-        //           "_destroy": "false"
-        //           },
-        //     "1": {
-        //           "text": "No",
-        //           "_destroy": "false"
-        //         }
-        //   }
       }
     }
     this.addPollData(reqPayload);
-    // console.log("Polls Data ==>", this.state.PollData)
-    console.log("Polls Data reqPayload ==>", reqPayload)
+    localStorage.removeItem('Polls_Data');
+
+    }
+
+
+    handlePriviewData = () => {
+       localStorage.setItem('Polls_Data', JSON.stringify({"PollFormData":this.state.PollData ,"PollOptions":this.state.options}))
     }
 
     changeLastDateFormate = (getDate:any) => {
@@ -221,7 +220,6 @@ export default class PollingController extends BlockComponent<
     }
 
     addOptionsFields = () => {
-      // console.log("clicked---=-=-=-=-=")
       this.setState({options : [...this.state.options, {text: "",_destroy: "false"}]})
     }
     
@@ -247,7 +245,7 @@ export default class PollingController extends BlockComponent<
     const { contentType, method, endPoint, body } = data;
     // console.log("Called 1",data);
     
-    const token = `eyJhbGciOiJIUzUxMiJ9.eyJpZCI6MjYsImV4cCI6MTY1NzM1MDk2OCwidG9rZW5fdHlwZSI6ImxvZ2luIn0.IfBz4FmLl2ObqtZ9feT837fWKwA8CYzD5sCyfWXQo93aa-6-5IfgjGN35JzkM81lijIYB2pjeD_wSuhgrKrrIQ`;
+    const token = `eyJhbGciOiJIUzUxMiJ9.eyJpZCI6MjgsImV4cCI6MTY1NzYyNjc2MywidG9rZW5fdHlwZSI6ImxvZ2luIn0.9Hvk36NG_aiqT7UEPhiDlD5UBxzXa-pIL46yDZVue7JsbiLg6wWHCsat0Sfj-D0lZSmbTI39Zn3Lih99uHRgAA`;
     const header = {
       "Content-Type": contentType,
       token

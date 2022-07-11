@@ -1,4 +1,6 @@
 // Customizable Area Start
+//@ts-ignore
+//@ts-nocheck
 
 import React from "react";
 import "./Polling.web.css"
@@ -35,6 +37,13 @@ export default class PollPreview extends PollingController {
     
   }
 
+  componentDidMount() {
+    const PreviewPollData = JSON.parse(localStorage.getItem('Polls_Data'));
+    this.setState({PreViewPollData:PreviewPollData},
+        () => console.log("PreViewPollData ====>>>>>",  this.state.PreViewPollData)
+    )
+  }
+
   render() {
     return ( 
       <>
@@ -48,7 +57,7 @@ export default class PollPreview extends PollingController {
             </Grid>
 
             <Grid xs={9} md={9} sm={9} spacing={4} style={{paddingTop: 35}}>
-            <Container>
+                <Container>
                     <Box className="navigation">
                         <Box>
                             <Typography variant="body1" >
@@ -65,7 +74,7 @@ export default class PollPreview extends PollingController {
                                 <Box className="PollName">
                                         <Typography className="subHeading">Poll Name: </Typography>
                                         <Typography className="PollNameText">
-                                            {this.state.PollData.title}
+                                            {this.state.PreViewPollData?.PollFormData?.title}
                                             {/* Parking Allotment Rules */}
                                             </Typography>
                                 </Box>
@@ -75,14 +84,18 @@ export default class PollPreview extends PollingController {
                                         <CalendarTodayOutlinedIcon style={{color:"grey", fontSize:22}}/>
                                         <Box>
                                             <Typography className="PollNamedate">Start Date</Typography>
-                                            <Typography className="PollNameText">June 7, 2022{this.state.PollData.startDate}</Typography>
+                                            <Typography className="PollNameText">
+                                                {/* June 7, 2022 */}
+                                                {this.state.PreViewPollData?.PollFormData?.startDate}</Typography>
                                         </Box>    
                                     </Box>
                                     <Box className="datebox">
                                         <CalendarTodayOutlinedIcon style={{color:"grey", fontSize:22}}/>
                                         <Box>
                                             <Typography className="PollNamedate">End Date</Typography>
-                                            <Typography className="PollNameText">June 7, 2022{this.state.PollData.endDate}</Typography>
+                                            <Typography className="PollNameText">
+                                                {/* June 7, 2022 */}
+                                            {this.state.PreViewPollData?.PollFormData?.endDate}</Typography>
                                         </Box>    
                                     </Box>
                                 </Box>
@@ -93,7 +106,7 @@ export default class PollPreview extends PollingController {
                                     </Box>
                                     <Box style={{marginTop:5}}>
                                         <Typography variant="body2">
-                                           {this.state.PollData.description}
+                                           {this.state.PreViewPollData?.PollFormData?.description}
                                             {/* There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum. */}
                                         </Typography> 
                                     </Box>
@@ -105,12 +118,14 @@ export default class PollPreview extends PollingController {
                         <Grid item sm={12} md={12} xs={12}>
                             <Box className="createPSCards">
                                 <Typography className="PollNameText">
-                                    {this.state.PollData.question}
+                                    {this.state.PreViewPollData?.PollFormData?.question}
                                     {/* Should we need to charge for extra vehicle parking? */}
                                 </Typography>
 
-                                {this.state.options.map((values:any) => {
-                                    <TextField  value={values.text} variant="outlined" fullWidth style={{marginTop:20}}/>
+                                {this.state.PreViewPollData?.PollOptions?.map((values:any) => {
+                                    return(
+                                        <TextField  value={values.text} name={values.text} variant="outlined" fullWidth style={{marginTop:20}}/>
+                                    )
                                 })}
 
                                 {/* <TextField  value="Yes" variant="outlined" fullWidth style={{marginTop:20, fontWeight:600}} /> */}
@@ -126,7 +141,7 @@ export default class PollPreview extends PollingController {
                         <Link href="/CreatePolls">
                             <Button variant="contained" color="primary">EDIT</Button>
                         </Link>
-                        <Button variant="outlined" color="primary">PUBLISH</Button>
+                        <Button type="submit" variant="outlined" color="primary" onClick={this.handlePollDataSubmit}>PUBLISH</Button>
                     </Box>
                 </Container>
             </Grid>
