@@ -8,11 +8,10 @@ import {
   Box,
   Button,
 } from "@material-ui/core";
-
+import Loader from "../../../components/src/Loader.web";
 //resources
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
-
 import ForgotPasswordController, { Props } from "./ForgotPasswordController.web";
 import OtpInput from 'react-otp-input';
 
@@ -33,9 +32,9 @@ class ForgotPasswordOTP extends ForgotPasswordController {
           <Box className="commonForm">
             <Box className="formGroup otpBlock">
               <OtpInput className="formOutlineInput"
-                value={"11111"}
+                value={"111111"}
                 onChange={this.handleChange}
-                numInputs={5}
+                numInputs={6}
               // separator={<span>-</span>}
               />
             </Box>
@@ -79,6 +78,7 @@ class ForgotPasswordOTP extends ForgotPasswordController {
           )}
         </Formik>   */}
         </Box>
+        <Loader loading={this.state.loading} />
       </>
     );
   }

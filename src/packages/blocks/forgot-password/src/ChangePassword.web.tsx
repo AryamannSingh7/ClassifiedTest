@@ -18,7 +18,7 @@ import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-
+import Loader from "../../../components/src/Loader.web";
 import ForgotPasswordController, { Props } from "./ForgotPasswordController.web";
 
 class ChangePassword extends ForgotPasswordController {
@@ -85,6 +85,7 @@ class ChangePassword extends ForgotPasswordController {
           </Formik>
 
         </Box>
+        <Loader loading={this.state.loading} />
       </>
     );
   }
