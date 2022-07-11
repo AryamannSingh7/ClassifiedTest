@@ -26,13 +26,13 @@ export default class VerofyOTP extends EmailAccountRegistrationController {
       <>
         <Grid container>
           <Grid xs={12}>
-            <ArrowBackIcon />
+            <ArrowBackIcon onClick={() => window.history.back()} />
           </Grid>
         </Grid>
 
         <Grid container>
           <Grid xs={12}>
-            <p className="text-left" style={{ fontSize: '2.5rem', fontWeight: 700 }}>
+            <p className="text-left" style={{ fontSize: '2.5rem', fontWeight: 700,marginTop:'2.5rem' }}>
              Enter OTP Code
 
             </p>
@@ -41,11 +41,11 @@ export default class VerofyOTP extends EmailAccountRegistrationController {
 
         <Grid container>
           <Grid xs={12}>
-            <p className="text-center">
-              PLease enter the code sent to the mail address
+            <p className="text-left" style={{ marginBottom: '1.5rem' }}>
+              Please enter the code sent to the mail address
 
               <span style={{ color: '#DD946A' }}>
-                jo******52@gmail.com
+                {this.state.email}
               </span>
 
             </p>
@@ -53,7 +53,7 @@ export default class VerofyOTP extends EmailAccountRegistrationController {
         </Grid>
 
         <Grid container>
-          <Grid xs={12}>
+          <Grid xs={12} style={{display:'flex'}} justifyContent="center">
             <div className="otp-input-wrapper">
               <input type="text" max="4" pattern="[0-9]*" />
                 <svg viewBox="0 0 240 1" xmlns="http://www.w3.org/2000/svg">
@@ -76,7 +76,6 @@ export default class VerofyOTP extends EmailAccountRegistrationController {
                 marginBottom: 14,
                 boxShadow: "none",
                 color: "#F7F7FC",
-                fontFamily: "Poppins",
                 fontWeight: 600,
                 fontSize: 16,
                 marginTop: 30
@@ -94,25 +93,23 @@ export default class VerofyOTP extends EmailAccountRegistrationController {
               <Typography
                 style={{
                   color: "#A0A3BD",
-                  fontFamily: "Poppins",
                   fontWeight: "normal",
                   fontSize: 12,
                   textAlign: "center"
                 }}
               >
-                Resend OTP in 0:30 Seconds
+                {/* Resend OTP in 0:30 Seconds */}
               </Typography>
               <Typography
                 style={{
                   fontSize: 14,
                   color: "#2B6FEC",
-                  fontFamily: "Poppins",
                   fontWeight: 500,
                   marginLeft: 5,
                   textTransform: "uppercase"
                 }}
               >
-                Resend
+                {/* Resend */}
               </Typography>
             </Box>
 

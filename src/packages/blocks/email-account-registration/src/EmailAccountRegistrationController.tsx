@@ -41,6 +41,9 @@ export interface S {
   selectBuilding: string;
   allUnit: [];
   selectUnit: string;
+  selectCode: string;
+  selectEmail: string;
+
 
 
   // Customizable Area End
@@ -126,6 +129,8 @@ export default class EmailAccountRegistrationController extends BlockComponent<
       selectBuilding: '',
       allUnit: [],
       selectUnit: '',
+      selectCode:'',
+      selectEmail:'',
       // Customizable Area End
     };
 
@@ -209,7 +214,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             // localStorage.setItem('res_token', responseJson.meta.token)
             // localStorage.setItem('res_user', responseJson.data.attributes)
             // localStorage.setItem('res_user_id', responseJson.data.id)
-            // this.props.history.push('/selecttype')
+            this.props.history.push('/selecttype')
 
 
           } else {
@@ -600,6 +605,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     const header = {
       "Content-Type": configJSON.contentTypeApiAddDetail
     };
+    this.setState({ selectEmail: attributes.email })
 
     const attrs = {
       full_name: attributes.full_name,

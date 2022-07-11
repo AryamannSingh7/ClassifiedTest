@@ -1,7 +1,7 @@
 import * as React from "react";
 // custom components
 import {
-  Button, Grid, Box, Typography, Link, IconButton
+  Button, Grid, Box, Typography, Link, IconButton, ListItemIcon, ListItemText
 } from "@material-ui/core";
 import "../assets/css/style.scss";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
@@ -15,6 +15,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import InboxIcon from '@material-ui/icons/Inbox';
+import { building, city, country, unit } from "./assets";
 
 
 
@@ -58,8 +60,10 @@ export default class Address extends EmailAccountRegistrationController {
 
         <Grid container>
           <Grid xs={12}>
-            <FormControl variant="outlined" >
-              <InputLabel id="demo-simple-select-outlined-label">Country</InputLabel>
+            <FormControl variant="outlined" fullWidth>
+              <InputLabel id="demo-simple-select-outlined-label" style={{display:'flex',alignItems:'center',gap:'1rem'}}>
+                <img src={country}/>
+                Country</InputLabel>
               <Select
                 name='selectCountry'
                 labelId="demo-simple-select-outlined-label"
@@ -67,6 +71,12 @@ export default class Address extends EmailAccountRegistrationController {
                 onChange={this.handleChange}
                 label="Country"
               >
+               <MenuItem>
+                  <ListItemIcon>
+                    <InboxIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Inbox" />
+                  </MenuItem>
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
@@ -82,8 +92,11 @@ export default class Address extends EmailAccountRegistrationController {
         </Grid>
         <Grid container>
           <Grid xs={12}>
-            <FormControl variant="outlined" >
-              <InputLabel id="demo-simple-select-outlined-label">City</InputLabel>
+            <FormControl variant="outlined" fullWidth>
+
+              <InputLabel id="demo-simple-select-outlined-label" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                <img src={city} />
+                City</InputLabel>
               <Select
                 name='selectCity'
                 labelId="demo-simple-select-outlined-label"
@@ -106,8 +119,10 @@ export default class Address extends EmailAccountRegistrationController {
         </Grid>
         <Grid container>
           <Grid xs={12}>
-            <FormControl variant="outlined" >
-              <InputLabel id="demo-simple-select-outlined-label">Building</InputLabel>
+            <FormControl variant="outlined" fullWidth>
+              <InputLabel id="demo-simple-select-outlined-label" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                <img src={building} />
+                Building</InputLabel>
               <Select
                 name='selectBuilding'
                 labelId="demo-simple-select-outlined-label"
@@ -130,8 +145,9 @@ export default class Address extends EmailAccountRegistrationController {
         </Grid>
         <Grid container>
           <Grid xs={12}>
-            <FormControl variant="outlined" >
-              <InputLabel id="demo-simple-select-outlined-label">Unit</InputLabel>
+            <FormControl variant="outlined" fullWidth>
+              <InputLabel id="demo-simple-select-outlined-label" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                <img src={unit} />Unit</InputLabel>
               <Select
                 name='selectUnit'
                 labelId="demo-simple-select-outlined-label"
@@ -166,10 +182,10 @@ export default class Address extends EmailAccountRegistrationController {
                 marginBottom: 14,
                 boxShadow: "none",
                 color: "#F7F7FC",
-                fontFamily: "Poppins",
                 fontWeight: 600,
                 fontSize: 16,
-                marginTop: 30
+                marginTop: 30,
+                width:'100%'
               }}
             >
               Next
