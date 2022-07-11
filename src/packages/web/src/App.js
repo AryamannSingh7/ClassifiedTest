@@ -74,10 +74,15 @@ import Address from "../../blocks/email-account-registration/src/Address.web";
 import  './assets/css/constants/base/global.scss'
 import LandingPage from "../../blocks/landingpage/src/LandingPage.web";
 import EmailAccountLogin from "../../blocks/email-account-login/src/EmailAccountLogin.web";
+import ChairmanLogin from "../../blocks/email-account-login/src/ChairmanLogin.web";
 import ForgotPassword from "../../blocks/forgot-password/src/ForgotPassword.web";
+import ChairmanForgotPassword from "../../blocks/forgot-password/src/ChairmanForgotPassword.web";
 import ForgotPasswordOTP from "../../blocks/forgot-password/src/ForgotPasswordOTP.web";
+import ChairmanForgotPasswordOTP from "../../blocks/forgot-password/src/ChairmanForgotPasswordOTP.web";
 import ChangePassword from "../../blocks/forgot-password/src/ChangePassword.web";
+import ChairmanChangePassword from "../../blocks/forgot-password/src/ChairmanChangePassword.web";
 import ChangeSuccessfully from "../../blocks/forgot-password/src/ChangeSuccessfully.web";
+import ChairmanChangeSuccessfully from "../../blocks/forgot-password/src/ChairmanChangeSuccessfully.web";
 import Dashboard from "../../blocks/dashboard/src/Dashboard.web";
 import DashboardGeneral from "../../blocks/dashboard/src/DashboardGeneral.web";
 import DashboardTicket from "../../blocks/dashboard/src/DashboardTicket.web";
@@ -96,6 +101,10 @@ const routeMap = {
     path: '/',
     exact: true
   },
+  ChairmanLogin: {
+    component: ChairmanLogin,
+    path: "/ChairmanLogin"
+  },
   EmailAccountLogin: {
     component: EmailAccountLogin,
     path: "/EmailAccountLogin"
@@ -105,18 +114,36 @@ const routeMap = {
     path: '/ChangeSuccessfully',
     exact: true
   },
+  ChairmanChangeSuccessfully: {
+    component: ChairmanChangeSuccessfully,
+    path: '/ChairmanChangeSuccessfully',
+    exact: true
+  },
   ChangePassword: {
     component: ChangePassword,
     path: '/ChangePassword',
     exact: true
   },
+  ChairmanChangePassword: {
+    component: ChairmanChangePassword,
+    path: "/ChairmanChangePassword"
+  },
   ForgotPassword: {
     component: ForgotPassword,
     path: "/ForgotPassword"
   },
+ 
+  ChairmanForgotPassword: {
+    component: ChairmanForgotPassword,
+    path: "/ChairmanForgotPassword"
+  },
   ForgotPasswordOTP: {
     component: ForgotPasswordOTP,
     path: "/ForgotPasswordOTP"
+  },
+  ChairmanForgotPasswordOTP: {
+    component:ChairmanForgotPasswordOTP,
+    path: "/ChairmanForgotPasswordOTP"
   },
   RolesPermissions2: {
     component: RolesPermissions2,
