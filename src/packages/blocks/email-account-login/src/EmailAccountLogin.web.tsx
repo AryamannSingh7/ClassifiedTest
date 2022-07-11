@@ -159,7 +159,7 @@ class EmailAccountLogin extends EmailAccountLoginController {
             </Grid>
             <Grid item xs={12} md={6} display={{ xs: 'flex', lg: 'none' }} className="auth-cols">
               <Box className="right-block">
-                <img src={Building1} className="building-logo" alt="" />
+                {/* <img src={Building1} className="building-logo" alt="" /> */}
               </Box>
             </Grid>
           </Grid>
