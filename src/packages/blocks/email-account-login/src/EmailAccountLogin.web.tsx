@@ -26,9 +26,7 @@ import { Visibility, VisibilityOff } from "@material-ui/icons";
 import EmailAccountLoginController, {
   Props
 } from "./EmailAccountLoginController.web";
-
-
-
+import Loader from "../../../components/src/Loader.web";
 class EmailAccountLogin extends EmailAccountLoginController {
   constructor(props: Props) {
     super(props);
@@ -166,6 +164,7 @@ class EmailAccountLogin extends EmailAccountLoginController {
             </Grid>
           </Grid>
         </Box>
+        <Loader loading={this.state.loading} />
       </>
     );
   }
