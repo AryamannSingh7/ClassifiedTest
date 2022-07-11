@@ -1,4 +1,8 @@
-
+.SideBar {
+    background: #f9f6f6;
+    position:relative;
+    padding-bottom: 150px,
+}
 .Dec-wrap{
     text-overflow: ellipsis;
     overflow: hidden;
