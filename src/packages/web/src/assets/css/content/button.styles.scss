@@ -19,3 +19,11 @@
         text-transform: uppercase;
     }
 }
+
+.desktop-ui {
+    & .customButton {
+        & .MuiButton-root {
+            border-radius: $FORM_BORDER_RADIUS;
+        }
+    }
+}
