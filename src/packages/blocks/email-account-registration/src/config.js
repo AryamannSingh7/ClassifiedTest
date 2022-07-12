@@ -1,7 +1,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-// Customizable Area Start
+
 exports.placeHolderEmail = "Email";
 
 exports.labelHeader = "Value proposition: why users should sign up.";
@@ -29,23 +29,9 @@ exports.errorAllFieldsAreMandatory = "All fields are mandatory.";
 exports.contentTypeApiAddDetail = "application/json";
 
 exports.accountsAPiEndPoint =
-  "account_block/accounts";
-exports.RequestAPiEndPoint =
-  "bx_block_request_management/requests";
-exports.accountsUpdateAPiEndPoint =
-  "account_block/user_type";
-exports.getCountryAPiEndPoint =
-  "bx_block_address/country_list";
-exports.getCityAPiEndPoint =
-  "bx_block_address/city_list";
-exports.getBuildingAPiEndPoint =
-  "bx_block_address/building_list";
-exports.getUnitAPiEndPoint =
-  "bx_block_address/apartment_list";
+  "account/accounts";
 
 exports.apiMethodTypeAddDetail = "POST";
-exports.apiMethodTypeUpdateDetail = "PATCH";
-
 
 exports.errorEmailNotValid = "Email not valid.";
 exports.urlGetValidations =
@@ -53,4 +39,3 @@ exports.urlGetValidations =
 exports.validationApiContentType = "application/json";
 
 exports.validationApiMethodType = "GET";
-// Customizable Area End

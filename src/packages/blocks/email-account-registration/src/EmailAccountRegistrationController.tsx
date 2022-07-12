@@ -407,7 +407,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     this.createAccountApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      configJSON.accountsAPiEndPoint
+      'account_block/accounts'
     );
 
     requestMessage.addData(
@@ -631,7 +631,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     this.createAccountApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      configJSON.accountsAPiEndPoint
+      'account_block/accounts'
     );
 
     requestMessage.addData(
@@ -685,7 +685,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     this.createRequestApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      configJSON.RequestAPiEndPoint
+      'bx_block_request_management/requests'
     );
 
     requestMessage.addData(
@@ -724,7 +724,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     this.changeUserTypeApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `${configJSON.accountsAPiEndPoint}?user_type=${this.state.userType}&id=${localStorage.getItem('res_user_id')}`
+      `account_block/accounts?user_type=${this.state.userType}&id=${localStorage.getItem('res_user_id')}`
     );
 
     requestMessage.addData(
@@ -736,7 +736,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
 
     requestMessage.addData(
       getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypeUpdateDetail
+      'PATCH'
     );
 
     runEngine.sendMessage(requestMessage.id, requestMessage);
@@ -790,7 +790,7 @@ this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e)
     this.getCountryApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `${configJSON.getCountryAPiEndPoint}`
+      `bx_block_address/country_list`
     );
 
     requestMessage.addData(
@@ -823,7 +823,7 @@ this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e)
     this.getCityApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `${configJSON.getCityAPiEndPoint}?country=${this.state.selectCountry}`
+      `bx_block_address/city_list?country=${this.state.selectCountry}`
     );
 
     requestMessage.addData(
@@ -856,7 +856,7 @@ this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e)
     this.getBuildingApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `${configJSON.getBuildingAPiEndPoint}?city=${this.state.selectCity}`
+      `bx_block_address/building_list?city=${this.state.selectCity}`
     );
 
     requestMessage.addData(
@@ -889,7 +889,7 @@ this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e)
     this.getUnitApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `${configJSON.getUnitAPiEndPoint}?id=${this.state.selectBuilding}`
+      `bx_block_address/apartment_list?id=${this.state.selectBuilding}`
     );
 
     requestMessage.addData(
