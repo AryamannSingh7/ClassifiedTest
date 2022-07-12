@@ -20,7 +20,7 @@ import * as Yup from "yup";
 import CountryCodeSelector from "../../country-code-selector/src/CountryCodeSelector";
 import ForgotPasswordController, { Props } from "./ForgotPasswordController.web";
 //Customizable Area End
-
+import Loader from "../../../components/src/Loader.web";
 class ForgotPassword extends ForgotPasswordController {
   constructor(props: Props) {
     super(props);
@@ -73,6 +73,7 @@ class ForgotPassword extends ForgotPasswordController {
             )}
           </Formik>
         </Box>
+        <Loader loading={this.state.loading} />
       </>
     )
   }

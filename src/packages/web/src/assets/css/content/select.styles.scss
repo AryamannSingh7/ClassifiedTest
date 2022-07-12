@@ -1,0 +1,28 @@
+@import "../constants/base/colors.scss";
+@import "../constants/base/global.scss";
+
+.customSelect {
+    & .MuiFormControl-root {
+        width: 100%;
+    }
+    & fieldset {
+        & legend {
+            display: none;
+        }
+        outline: 0;
+    }
+    & .MuiOutlinedInput-root
+    {
+        padding-left: 50px;
+        color: $LIGHT_GRAY_SHADE3;
+        border-radius: $FORM_BORDER_RADIUS;
+        border-color: #e9dede;
+        // background-color: #f9f9f9;
+        outline: 0;
+    }
+    & .MuiSelect-select {
+        background-color: #f9f9f9;
+    }
+}
+
+

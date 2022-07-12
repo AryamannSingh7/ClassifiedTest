@@ -36,6 +36,7 @@ interface S {
   error: string | null;
   emailOtp:any
   otp:any;
+  loading:boolean;
   // Customizable Area End
 }
 
@@ -175,7 +176,8 @@ export default class ForgotPasswordController extends BlockComponent<
       btnConfirmPasswordShowHide: true,
       error: null,
       emailOtp:null,
-      otp:null
+      otp:null,
+      loading:false
     };
     // Customizable Area End
   }
@@ -301,6 +303,7 @@ export default class ForgotPasswordController extends BlockComponent<
        // this.setState({ token:responseJson.meta.token, emailOtp:responseJson.email_otp });
        localStorage.setItem("otpToken", responseJson?.meta?.token)
        localStorage.setItem("emailOtp", responseJson?.email_otp)
+       this.setState({loading: false})
         window.location ="/ForgotPasswordOTP" as any ;
         //navigate to OTP page
         // const msg: Message = new Message(
@@ -332,6 +335,7 @@ export default class ForgotPasswordController extends BlockComponent<
       } else {
         this.setState({ error: responseJson?.error || "Something went wrong!" });
       }
+      this.setState({loading: false})
       this.parseApiCatchErrorResponse(this.state.error);
       
     }  else if (
@@ -353,6 +357,7 @@ export default class ForgotPasswordController extends BlockComponent<
         // let params = new URL(document.location as any).searchParams;
         // let token = params.get("token");
         //window.location = "/new-password?token=" + token as any;
+        this.setState({loading: false})
        window.location ="/ChangePassword" as any
        //window.location.replace("/ChangePassword") 
       // } else if (responseJson?.message) {
@@ -362,7 +367,7 @@ export default class ForgotPasswordController extends BlockComponent<
           this.setState({ error });
       } else {
           this.setState({ error: responseJson?.error || 'Something went wrong!' });
-      }
+      }this.setState({loading: false})
       this.parseApiCatchErrorResponse(this.state.error);
       
     }
@@ -432,6 +437,7 @@ export default class ForgotPasswordController extends BlockComponent<
 
       if (responseJson?.data) {
         console.log("responseJson===========>",responseJson)
+        this.setState({loading: false})
        window.location ="/ChangeSuccessfully" as any
        //window.location.replace("/ChangePassword") 
       } else if (responseJson?.message) {
@@ -443,6 +449,7 @@ export default class ForgotPasswordController extends BlockComponent<
         console.log("Something responseJson  ===========>",responseJson)
           this.setState({ error: responseJson?.error || 'Something went wrong!' });
       }
+      this.setState({loading: false})
       this.parseApiCatchErrorResponse(this.state.error);
      
     } else if (getName(MessageEnum.CountryCodeMessage) === message.id) {
@@ -705,7 +712,7 @@ export default class ForgotPasswordController extends BlockComponent<
     const httpBody = {
       data: data
     };
-
+    this.setState({loading: true})
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
     );
@@ -745,12 +752,12 @@ export default class ForgotPasswordController extends BlockComponent<
     // attributes.pin =this.state.otp
     const attrs = {
       data: {
-        otp_code: this.state?.otp || "11111",
+        otp_code: this.state?.otp || "111111",
       }
     };
 
     const httpBody = attrs;
-
+    this.setState({loading: true})
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
     );
@@ -821,6 +828,7 @@ export default class ForgotPasswordController extends BlockComponent<
           confirm_password: values.confirmPassword,
         },
       };
+      this.setState({loading: true})
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
