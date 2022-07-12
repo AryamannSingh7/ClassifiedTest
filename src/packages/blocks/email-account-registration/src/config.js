@@ -27,7 +27,7 @@ exports.errorBothPasswordsNotSame = "Passwords should be same.";
 exports.errorAllFieldsAreMandatory = "All fields are mandatory.";
 
 exports.contentTypeApiAddDetail = "application/json";
-
+// Customizable Area Start
 exports.accountsAPiEndPoint =
   "account_block/accounts";
 exports.accountsUpdateAPiEndPoint =
@@ -43,3 +43,4 @@ exports.urlGetValidations =
 exports.validationApiContentType = "application/json";
 
 exports.validationApiMethodType = "GET";
+// Customizable Area End
