@@ -244,15 +244,18 @@ export default class EmailAccountLoginController extends BlockComponent<
             // this.openInfoPage();
             localStorage.setItem("userToken", responseJson?.meta?.token)
             localStorage.setItem("userId", responseJson?.meta?.id)
+            this.setState({loading: false})
            window.location.replace("/DashboardGeneral");
-
+          
           } else if (responseJson?.errors) {
             //Check Error Response
             // this.parseApiErrorResponse(responseJson);
             // this.sendLoginFailMessage();
             let error = Object.values(responseJson.errors[0])[0] as string;
             this.setState({ error });
+            this.setState({loading: false})
           } else {
+            this.setState({loading: false})
             this.setState({ error: responseJson?.error || "Something went wrong!" });
           }
 
@@ -433,6 +436,7 @@ export default class EmailAccountLoginController extends BlockComponent<
       data: data
     };
 
+    this.setState({loading: true}) 
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
     );

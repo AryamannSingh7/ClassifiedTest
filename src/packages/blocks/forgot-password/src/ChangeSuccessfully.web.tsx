@@ -21,10 +21,9 @@ import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import { Lock_Icon } from "../src/assets";
 import { withRouter } from 'react-router';
 import { Formik } from "formik";
-
 import * as Yup from "yup";
 // Customizable Area End
-
+import Loader from "../../../components/src/Loader.web";
 import ForgotPasswordController, { Props } from "./ForgotPasswordController.web";
 
 class ChangeSuccessfully extends ForgotPasswordController {
@@ -57,6 +56,7 @@ class ChangeSuccessfully extends ForgotPasswordController {
                   }}>login</Button>
           </Box>
         </Box>
+        <Loader loading={this.state.loading} />
       </>
     );
   }
