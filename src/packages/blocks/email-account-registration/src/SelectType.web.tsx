@@ -10,6 +10,7 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import EmailAccountRegistrationController, { Props } from "./EmailAccountRegistrationController";
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import HomeIcon from '@material-ui/icons/Home';
+import { owner, resident_owner, tenet } from "./assets";
 
 
 
@@ -27,7 +28,7 @@ export default class SelectType extends EmailAccountRegistrationController {
       <>
         <Grid container>
           <Grid xs={12}>
-            <ArrowBackIcon />
+            <ArrowBackIcon onClick={() => window.history.back()} />
           </Grid>
         </Grid>
 
@@ -65,7 +66,7 @@ export default class SelectType extends EmailAccountRegistrationController {
               bgcolor="white"
               marginTop='1rem'
             >
-              <HomeIcon />
+              <img src={resident_owner}/>
               <Box>
                 <p>
                   Resident Owner
@@ -90,7 +91,8 @@ export default class SelectType extends EmailAccountRegistrationController {
               bgcolor="white"
               marginTop='1rem'
             >
-              <HomeIcon />
+              <img src={tenet} />
+
               <Box>
                 <p>
                   Tenant
@@ -115,7 +117,8 @@ export default class SelectType extends EmailAccountRegistrationController {
               bgcolor="white"
               marginTop='1rem'
             >
-              <HomeIcon />
+              <img src={owner} />
+
               <Box>
                 <p>
                   Owner
@@ -144,7 +147,6 @@ export default class SelectType extends EmailAccountRegistrationController {
                 marginBottom: 14,
                 boxShadow: "none",
                 color: "#F7F7FC",
-                fontFamily: "Poppins",
                 fontWeight: 600,
                 fontSize: 16,
                 marginTop: 30

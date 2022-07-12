@@ -39,7 +39,7 @@ class LandingPage extends React.Component {
                 onClick={() => { this.props.history.push('/EmailAccountLogin'); }}>
                 login</Button>
               <div className="mb"></div>
-              <Button variant="contained">register</Button>
+              <Button variant="contained" onClick={() => { this.props.history.push('/register'); }}>register</Button>
             </Box>
           </Box>
         </Box>
