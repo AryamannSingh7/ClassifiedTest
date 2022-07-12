@@ -113,7 +113,12 @@
     /* border: 1px solid lightgray; */
     border-radius: 5px;
 }
-
+.DateSectionPreviewpoll{
+    display: flex;
+    gap: 30px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
 .DateBox .MuiInputBase-root{
     align-items: baseline !important;
     flex-direction: row-reverse;
