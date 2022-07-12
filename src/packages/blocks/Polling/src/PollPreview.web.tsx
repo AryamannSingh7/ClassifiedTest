@@ -79,7 +79,7 @@ export default class PollPreview extends PollingController {
                                             </Typography>
                                 </Box>
                                 
-                                <Box className="DateSection">
+                                <Box className="DateSectionPreviewpoll">
                                     <Box className="datebox">
                                         <CalendarTodayOutlinedIcon style={{color:"grey", fontSize:22}}/>
                                         <Box>
