@@ -1,7 +1,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
+// Customizable Area Start
 exports.placeHolderEmail = "Email";
 
 exports.labelHeader = "Value proposition: why users should sign up.";
@@ -27,7 +27,7 @@ exports.errorBothPasswordsNotSame = "Passwords should be same.";
 exports.errorAllFieldsAreMandatory = "All fields are mandatory.";
 
 exports.contentTypeApiAddDetail = "application/json";
-// Customizable Area Start
+
 exports.accountsAPiEndPoint =
   "account_block/accounts";
 exports.accountsUpdateAPiEndPoint =
