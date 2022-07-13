@@ -107,6 +107,18 @@
       }
     }
   }
+  & .footer-block {
+    width: 90%;
+    margin: 0 auto;
+    @include mq(tablet-portrait-medium-up) {
+      width: 40%;
+    }
+    & .MuiButton-label
+    {
+      white-space: nowrap;
+    }
+    
+  }
   & .customButton {
     padding-top: 40px;
   }

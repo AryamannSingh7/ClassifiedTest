@@ -84,8 +84,8 @@ class ChangeSuccessfully extends ForgotPasswordController {
                     <h6>You have successfully changed your<br></br>password. Please use your new password when<br></br>logging in.</h6>
                   </Box>
                 </Box>
-                <Box className="desktop-ui">
-                  <Box className="row-btn customButton change-password-button-row">
+                <Box className="footer-block desktop-ui">
+                  <Box className="row-btn customButton">
                     <Button variant="contained" onClick={() => {
                       localStorage.removeItem("otpToken");
                       localStorage.removeItem("emailOtp");
