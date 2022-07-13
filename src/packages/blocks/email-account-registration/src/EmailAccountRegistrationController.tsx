@@ -78,6 +78,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
   getCityApiCallId: any;
   getBuildingApiCallId: any;
   getUnitApiCallId: any;
+  loading:boolean;
 
 
 
@@ -142,6 +143,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
       unitRegisterType:'',
       allComplex:[],
       selectComplex:null,
+      loading:false,
       // Customizable Area End
     };
 
@@ -210,9 +212,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             localStorage.setItem('res_token', responseJson.meta.token)
             localStorage.setItem('res_user', responseJson.data.attributes)
             localStorage.setItem('res_user_id', responseJson.data.id)
-            //@ts-ignore
-            //@ts-nocheck
-
+            this.setState({loading:false})
             this.props.history.push('/otp')
 
 
@@ -292,13 +292,10 @@ export default class EmailAccountRegistrationController extends BlockComponent<
           this.parseApiCatchErrorResponse(errorReponse);
         } else if (apiRequestCallId === this.changeUserTypeApiCallId) {
           if (!responseJson.errors) {
-            console.log(responseJson)
+            this.setState({loading:false})
             // localStorage.setItem('res_token', responseJson.meta.token)
             // localStorage.setItem('res_user', responseJson.data.attributes)
             // localStorage.setItem('res_user_id', responseJson.data.id)
-            //@ts-ignore
-            //@ts-nocheck
-
             this.props.history.push('/addressfill')
 
 
@@ -693,7 +690,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     const header = {
       "Content-Type": configJSON.contentTypeApiAddDetail
     };
-    this.setState({ selectEmail: attributes.email })
+    this.setState({ selectEmail: attributes.email,loading:true })
 
     const attrs = {
       full_name: attributes.full_name,
@@ -859,7 +856,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
   }
 
   createRequest=(attributes: any): boolean=> {
-
+console.log('hi')
     const header = {
       "Content-Type": configJSON.contentTypeApiAddDetail,
       "token": localStorage.getItem('res_token')
@@ -939,7 +936,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     );
     console.log(this.changeUserTypeApiCallId)
     console.log(requestMessage.messageId)
-
+this.setState({loading:true})
     this.changeUserTypeApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),

@@ -14,6 +14,8 @@ export const unit = require("../assets/unit.png");
 export const Linkage = require("../assets/linkage.png");
 export const manual = require("../assets/Manual.png");
 export const search = require("../assets/search.png");
+export const modalbuilding = require("../assets/modal-building.png");
+
 
 
 

@@ -36,7 +36,7 @@ import Select from '@material-ui/core/Select';
 
 class ChairmanLogin extends ChairmanAccountLoginController {
   constructor(props: Props) {
-    super(props);  
+    super(props);
   }
   // componentDidMount() {
   //   this.getUserType();
@@ -78,7 +78,7 @@ class ChairmanLogin extends ChairmanAccountLoginController {
                     onSubmit={(values) => {
                       console.log("valus=========>", values)
                       // same shape as initial values
-                      this.LogIn(values);
+                      this.loginChairmen(values);
                     }}
                   >
                     {({ values, touched, errors, isValid, setFieldValue, handleChange }) => (
