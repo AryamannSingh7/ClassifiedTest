@@ -70,7 +70,7 @@ class ChairmanLogin extends EmailAccountLoginController {
                     onSubmit={(values) => {
                       console.log("valus=========>", values)
                       // same shape as initial values
-                      this.doLogIn(values);
+                      this.loginChairmen(values);
                     }}
                   >
                     {({ values, touched, errors, isValid, setFieldValue, handleChange }) => (
