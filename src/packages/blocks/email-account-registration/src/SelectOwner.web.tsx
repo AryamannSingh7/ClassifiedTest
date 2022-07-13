@@ -16,8 +16,7 @@ import { withRouter } from 'react-router';
 
 
 
-
-class SelectType extends EmailAccountRegistrationController {
+class SelectOwner extends EmailAccountRegistrationController {
   constructor(props: Props) {
     super(props);
     // Customizable Area Start
@@ -68,17 +67,17 @@ class SelectType extends EmailAccountRegistrationController {
               bgcolor="white"
               marginTop='1rem'
             >
-              <img src={resident_owner}/>
+              <img src={resident_owner} />
               <Box>
                 <p>
-                  Resident Owner
+                Owner
                 </p>
                 <p>
-                  I am the owner of the unit and i am living in it
+                  I am the owner of the unit and but  i am not  living inside it
                 </p>
               </Box>
 
-              <input type="radio" name="type" value='Owner Resident' onChange={(e)=>this.changeType(e.target.value)} />
+              <input type="radio" name="type" value='Owner' onChange={(e) => this.changeType(e.target.value)} />
 
             </Box>
             <Box
@@ -97,42 +96,17 @@ class SelectType extends EmailAccountRegistrationController {
 
               <Box>
                 <p>
-                  Tenant
+                  Property Manager
                 </p>
                 <p>
-                  I am the redistering as somone who rented a unit
+                  I am managing a property on behalf of an owner
                 </p>
               </Box>
 
-              <input type="radio" name="type" value='Tenant' onChange={(e) => this.changeType(e.target.value)} />
+              <input type="radio" name="type" value='Property Manager' onChange={(e) => this.changeType(e.target.value)} />
 
             </Box>
-            <Box
-              display="flex"
-              justifyContent='space-between'
-              className='input'
 
-              alignItems="center"
-              height="56px"
-              border="0.1px solid rgb(209 209 209 / 44%)"
-              borderRadius="16px"
-              bgcolor="white"
-              marginTop='1rem'
-            >
-              <img src={owner} />
-
-              <Box>
-                <p>
-                  Owner
-                </p>
-                <p>
-                  I am the owner of the unit, but I am not living inside it
-                </p>
-              </Box>
-
-              <input type="radio" name="type" value='Owner' onChange={(e) => this.changeType(e.target.value)} />
-
-            </Box>
           </Grid>
         </Grid>
         <Grid container style={{ margin: '1rem', width: '90%' }}>
@@ -153,7 +127,7 @@ class SelectType extends EmailAccountRegistrationController {
                 fontSize: 16,
                 marginTop: 30
               }}
-              onClick={this.updateType}
+              onClick={this.updateTypeOwner}
             >
               Next
             </Button>
@@ -169,4 +143,4 @@ class SelectType extends EmailAccountRegistrationController {
   }
 
 }
-export default  withRouter(SelectType)
+export default withRouter(SelectOwner)
