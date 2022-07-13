@@ -74,6 +74,10 @@ import SelectOwner from "../../blocks/email-account-registration/src/SelectOwner
 
 import VerifyOTP from "../../blocks/email-account-registration/src/VerifyOTP.web";
 import SelectType from "../../blocks/email-account-registration/src/SelectType.web";
+import UnitRegister from "../../blocks/email-account-registration/src/UnitRegister.web";
+import RegisterUnitManually from "../../blocks/email-account-registration/src/RegisterUnitManually.web";
+
+
 import Address from "../../blocks/email-account-registration/src/Address.web";
 
 import  './assets/css/constants/base/global.scss'
@@ -694,6 +698,14 @@ const routeMap = {
   ManagerRegister: {
     component: ManagerRegistration,
     path: '/registermanager'
+  },
+  UnitRegister: {
+    component: UnitRegister,
+    path: '/registerunit'
+  },
+  RegisterUnitManually: {
+    component: RegisterUnitManually,
+    path: '/registerunitmanually'
   },
   VerifyOTP: {
     component: VerifyOTP,
