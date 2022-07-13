@@ -61,14 +61,14 @@ class ManagerRegistration extends EmailAccountRegistrationController {
               company_name:'',
               owner_phone:'',
               owner_email:'',
-              owner_name:'',
+              ownerName:'',
               showPassword: false,
               showConfirmPassword: false
 
 
 
             }}
-              onSubmit={(values) => { this.createAccoun(values) }}
+              onSubmit={(values) => { this.createAccountManager(values) }}
             >
               {({ values,
                 errors,
@@ -317,7 +317,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                         }}
                       />
                     </Box>
-                    {errors.email && touched.email ? (
+                    {errors.phone && touched.phone ? (
                       <Typography
                         style={{
                           color: "#F14E24",
@@ -328,7 +328,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                           marginLeft: 10
                         }}
                       >
-                        {errors.email}
+                        {errors.phone}
                       </Typography>
                     ) : null}
                     {this.state.error ? (
@@ -425,7 +425,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
 
 
                       <Field
-                        name="Owner_email"
+                        name="owner_email"
                         placeholder={"Email"}
                         style={{
                           border: "none",
