@@ -1,3 +1,7 @@
+//@ts-ignore
+//@ts-nocheck
+
+
 import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
@@ -43,6 +47,8 @@ export interface S {
   selectUnit: string;
   selectCode: string;
   selectEmail: string;
+  unitRegisterType:string;
+  allComplex:[]
 
 
 
@@ -65,9 +71,12 @@ export default class EmailAccountRegistrationController extends BlockComponent<
   passwordReg: RegExp;
   emailReg: RegExp;
   createAccountApiCallId: any;
+  createManagerAccountApiCallId:any;
+  createAccountOwnerApiCallId:any;
   createRequestApiCallId:any;
  changeUserTypeApiCallId:any;
   getCountryApiCallId: any;
+  getComplexApiCallId:any;
   getCityApiCallId: any;
   getBuildingApiCallId: any;
   getUnitApiCallId: any;
@@ -131,6 +140,8 @@ export default class EmailAccountRegistrationController extends BlockComponent<
       selectUnit: '',
       selectCode:'',
       selectEmail:'',
+      unitRegisterType:'',
+      allComplex:[],
       // Customizable Area End
     };
 
@@ -199,7 +210,37 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             localStorage.setItem('res_token', responseJson.meta.token)
             localStorage.setItem('res_user', responseJson.data.attributes)
             localStorage.setItem('res_user_id', responseJson.data.id)
-            this.props.history.push('/selecttype')
+            this.props.history.push('/otp')
+
+
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        } else if (apiRequestCallId === this.createManagerAccountApiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            localStorage.setItem('res_token', responseJson.meta.token)
+            localStorage.setItem('res_user', responseJson.data.attributes)
+            localStorage.setItem('res_user_id', responseJson.data.id)
+            this.props.history.push('/otp')
+
+
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        } else if (apiRequestCallId === this.createAccountOwnerApiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            localStorage.setItem('res_token', responseJson.meta.token)
+            localStorage.setItem('res_user', responseJson.data.attributes)
+            localStorage.setItem('res_user_id', responseJson.data.id)
+            this.props.history.push('/otp')
 
 
           } else {
@@ -243,6 +284,21 @@ export default class EmailAccountRegistrationController extends BlockComponent<
           if (!responseJson.errors) {
             console.log(responseJson)
             this.setState({ allContries: responseJson.data.countries })
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        } else if (apiRequestCallId === this.getComplexApiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            let temp=[]
+            responseJson.data.societies.map((item:any)=>
+              temp.push({ value: item.id, label: item.name })
+              )
+              // @ts-ignore
+            this.setState({ allComplex: temp })
           } else {
             //Check Error Response
             this.parseApiErrorResponse(responseJson);
@@ -656,6 +712,120 @@ export default class EmailAccountRegistrationController extends BlockComponent<
 
 
   }
+  createAccountOwner(attributes: any): boolean {
+
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail
+    };
+    this.setState({ selectEmail: attributes.email })
+
+    const attrs = {
+      full_name: attributes.full_name,
+      last_name: attributes.lastName,
+      email: attributes.email,
+      password: attributes.password,
+      full_phone_number: "+" + 91 + attributes.phone,
+      password_confirmation: attributes.confirm_password
+    };
+
+    const data = {
+      type: "email_account",
+      attributes: attrs
+    };
+
+    const httpBody = {
+      data: data
+    };
+
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+    this.createAccountOwnerApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      'account_block/accounts'
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestBodyMessage),
+      JSON.stringify(httpBody)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.apiMethodTypeAddDetail
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+
+
+
+  }
+
+  createAccountManager = (attributes: any)=>{
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail
+    };
+    this.setState({ selectEmail: attributes.email })
+
+    const attrs = {
+
+      email: attributes.email,
+      company_name: attributes.company_name,
+      manager_full_name: attributes.managerName,
+      owner_full_name: attributes.ownerName,
+      owner_phone_number: attributes.owner_phone,
+      owner_email: attributes.owner_email,
+      password: attributes.password,
+      full_phone_number: "+" + 91 + attributes.phone,
+      password_confirmation: attributes.confirm_password
+    };
+
+    const data = {
+      type: "email_account",
+      user_type: this.state.userType,
+      attributes: attrs
+    };
+
+    const httpBody = {
+      data: data
+    };
+
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+    this.createManagerAccountApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      'account_block/accounts'
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestBodyMessage),
+      JSON.stringify(httpBody)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.apiMethodTypeAddDetail
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+
+
+  }
 
   createRequest=(attributes: any): boolean=> {
 
@@ -710,7 +880,18 @@ export default class EmailAccountRegistrationController extends BlockComponent<
 
 
   }
+  updateTypeOwner=()=>{
+    if (this.state.userType){
 
+      if (this.state.userType === 'Owner'){
+        this.props.history.push('/registerowner')
+
+      }else{
+        this.props.history.push('/registermanager')
+
+      }
+    }
+  }
   updateType=(): boolean=> {
 
     const header = {
@@ -725,7 +906,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     this.changeUserTypeApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `account_block/accounts?user_type=${this.state.userType}&id=${localStorage.getItem('res_user_id')}`
+      `account_block/user_type?user_type=${this.state.userType}&id=${localStorage.getItem('res_user_id')}`
     );
 
     requestMessage.addData(
@@ -747,8 +928,13 @@ export default class EmailAccountRegistrationController extends BlockComponent<
 
   }
 
-  changeType(value:any){
-    this.setState({userType:value})
+  changeType(value: any) {
+    this.setState({ userType: value })
+
+  }
+
+  changeUnitType(value: any) {
+    this.setState({ unitRegisterType: value })
 
   }
   handleChange= (e: any) => {
@@ -908,5 +1094,50 @@ this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e)
     runEngine.sendMessage(requestMessage.id, requestMessage);
     return true;
   }
+  registerUnit=()=>{
+    if(this.state.unitRegisterType){
+      if (this.state.unitRegisterType == 'Manual')
+      {
+        this.props.history.push('/registerunitmanually')
+      }else{
+        this.props.history.push('/registerunitmanually')
+
+
+      }
+    }
+  }
+  getComplex() {
+
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      "token": localStorage.getItem('res_token')
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+
+    this.getComplexApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_society_management/society_managements`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.validationApiMethodType
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  }
+
   // Customizable Area End
 }

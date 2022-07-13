@@ -36,6 +36,7 @@ interface S {
   labelOr: string;
   error: string | null;
   loading: boolean;
+  userTypeData:any;
   // Customizable Area End
 }
 
@@ -45,7 +46,7 @@ interface SS {
   // Customizable Area End
 }
 
-export default class EmailAccountLoginController extends BlockComponent<
+export default class ChairmanAccountLoginController extends BlockComponent<
   Props,
   S,
   SS
@@ -54,6 +55,7 @@ export default class EmailAccountLoginController extends BlockComponent<
   // Customizable Area Start
   apiEmailLoginCallId: string = "";
   validationApiCallId: string = "";
+  getUserTypeApiCallId: string = "";
   emailReg: RegExp;
   labelTitle: string = "";
   // Customizable Area End
@@ -85,7 +87,8 @@ export default class EmailAccountLoginController extends BlockComponent<
       btnTxtSocialLogin: configJSON.btnTxtSocialLogin,
       labelOr: configJSON.labelOr,
       error: null,
-      loading: false
+      loading: false,
+      userTypeData:null
     };
 
     this.emailReg = new RegExp("");
@@ -100,6 +103,7 @@ export default class EmailAccountLoginController extends BlockComponent<
     this.callGetValidationApi();
     this.send(new Message(getName(MessageEnum.RequestUserCredentials)));
     // Customizable Area Start
+    this.getUserType();
     // Customizable Area End
   }
 
@@ -261,6 +265,34 @@ export default class EmailAccountLoginController extends BlockComponent<
 
           this.parseApiCatchErrorResponse(this.state.error);
         }
+        else if (apiRequestCallId === this.getUserTypeApiCallId) {
+            if (responseJson && responseJson?.data ) {
+              runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+              // this.saveLoggedInUserData(responseJson);
+              // this.sendLoginSuccessMessage();
+              // this.openInfoPage();
+              // localStorage.setItem("userToken", responseJson?.meta?.token)
+              // localStorage.setItem("userId", responseJson?.meta?.id)         
+            //  window.location.replace("/DashboardGeneral");
+            console.log("responseJson?.data========================>",responseJson?.data.roles)
+            this.setState({userTypeData :responseJson?.data.roles})
+          //   console.log("userTypeData========================>",this.state.userTypeData[0].name)
+            this.setState({loading: false})
+            } else if (responseJson?.errors) {
+              //Check Error Response
+              // this.parseApiErrorResponse(responseJson);
+              // this.sendLoginFailMessage();
+              let error = Object.values(responseJson.errors[0])[0] as string;
+              this.setState({ error });
+              this.setState({loading: false})
+            } else {
+              this.setState({loading: false})
+              this.setState({ error: responseJson?.error || "Something went wrong!" });
+            }
+  
+            this.parseApiCatchErrorResponse(this.state.error);
+          }
+  
       }
     }
     // Customizable Area End
@@ -417,7 +449,7 @@ export default class EmailAccountLoginController extends BlockComponent<
     runEngine.sendMessage(getValidationsMsg.id, getValidationsMsg);
   }
 
-  doLogIn = (values: any): boolean => {
+  LogIn = (values: any): boolean => {
     const header = {
       "Content-Type": configJSON.loginApiContentType
     };
@@ -429,14 +461,15 @@ export default class EmailAccountLoginController extends BlockComponent<
 
     const data = {
       type: "email_account",
-      attributes: attrs
+      attributes: attrs,
+      user_type:values.userType
     };
 
     const httpBody = {
       data: data
     };
 
-    this.setState({loading: true}) 
+    //this.setState({loading: true}) 
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
     );
@@ -478,4 +511,46 @@ export default class EmailAccountLoginController extends BlockComponent<
     });
     return validations
   }
+
+
+  getUserType = () => {
+    try {
+      const header = {
+        
+      };
+
+      //const id = localStorage.getItem("userId");
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+
+      this.getUserTypeApiCallId = requestMessage.messageId;
+    //   this.setState({ loading: true });
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        `${configJSON.getUserType}`
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        configJSON.validationApiMethodType
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+      return true;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 }
+
+
+
+

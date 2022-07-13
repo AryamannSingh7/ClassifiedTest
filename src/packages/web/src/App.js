@@ -67,8 +67,18 @@ import SocialMediaAccountRegistrationScreen from "../../blocks/social-media-acco
 import Notifications from "../../blocks/notifications/src/Notifications";
 import MobileAccountLoginBlock from "../../blocks/mobile-account-login/src/MobileAccountLoginBlock";
 import Registration from "../../blocks/email-account-registration/src/Registration.web";
+import OwnerRegistration from "../../blocks/email-account-registration/src/OwnerRegistration.web";
+import ManagerRegistration from "../../blocks/email-account-registration/src/ManagerRegistration.web";
+import SelectOwner from "../../blocks/email-account-registration/src/SelectOwner.web";
+
+
 import VerifyOTP from "../../blocks/email-account-registration/src/VerifyOTP.web";
 import SelectType from "../../blocks/email-account-registration/src/SelectType.web";
+import UnitRegister from "../../blocks/email-account-registration/src/UnitRegister.web";
+import RegisterUnitManually from "../../blocks/email-account-registration/src/RegisterUnitManually.web";
+import SearchComplex from "../../blocks/email-account-registration/src/SearchComplex.web";
+
+
 import Address from "../../blocks/email-account-registration/src/Address.web";
 
 import  './assets/css/constants/base/global.scss'
@@ -223,7 +233,7 @@ const routeMap = {
     component: PollsallData,
     path: "/PollsallData"
   },
-  
+
 
 
   Customisableusersubscriptions: {
@@ -686,6 +696,30 @@ const routeMap = {
   Register: {
     component: Registration,
     path: '/register'
+  },
+  OwnerRegister: {
+    component: OwnerRegistration,
+    path: '/registerowner'
+  },
+  OwnerSelect: {
+    component: SelectOwner,
+    path: '/selectowner'
+  },
+  ManagerRegister: {
+    component: ManagerRegistration,
+    path: '/registermanager'
+  },
+  UnitRegister: {
+    component: UnitRegister,
+    path: '/registerunit'
+  },
+  RegisterUnitManually: {
+    component: RegisterUnitManually,
+    path: '/registerunitmanually'
+  },
+  SearchComplex: {
+    component: SearchComplex,
+    path: '/SearchComplex'
   },
   VerifyOTP: {
     component: VerifyOTP,

@@ -13,6 +13,7 @@ import "../../../web/src/assets/css/style.scss";
 
 import {
     Typography,
+    Link
   } from "@material-ui/core";
 import Box from '@material-ui/core/Box';
 
@@ -22,24 +23,20 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 
 import DashboardOutlinedIcon from '@material-ui/icons/DashboardOutlined';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
+import ArrowForwardIosOutlinedIcon from '@material-ui/icons/ArrowForwardIosOutlined';
+import { withRouter } from "react-router-dom";
 import DashboardController, { Props } from "./DashboardController";
 
 const ItemsList = [
-    
-    "My Dashboards",
+
     "My Team",
     "Community Management",
     "Invoices & Receipts",
     "Meetings",
     "Buildings & Apartments",
-    "Poll/Survey",
-    "Documents & Reports",
-    "Chat",
-    "Help"
 ]
 
-export default class ChairmanSidebar extends DashboardController {
+class ChairmanSidebar extends DashboardController {
   constructor(props: Props) {
     super(props);
   }
@@ -48,25 +45,86 @@ export default class ChairmanSidebar extends DashboardController {
     return ( 
     <>
         <Box className='AccordinoList'>
+
+            <Accordion 
+                expanded={this.state.expanded == `panel2`} 
+                onChange={this.handleAccordinoChange(`panel2`)}
+                >
+                    <AccordionSummary
+                    expandIcon={
+                        <ArrowForwardIosOutlinedIcon 
+                            style={{ width: 16, height: 16}}
+                        />
+                    }
+                    aria-controls={"panel2bh-content"}
+                    id={"panel2bh-header"}
+                    style={dashBoard.ListItem}
+                    >
+                    <Typography><DashboardOutlinedIcon/></Typography>
+                    <Typography className="ListItemText">My Dashboard</Typography>
+                    </AccordionSummary>
+
+                    <AccordionDetails onClick={()=> this.props.history.push("/DashboardGeneral")}>
+                        <Typography variant="body2">General Dashboard</Typography>
+                    </AccordionDetails>
+                    <AccordionDetails onClick={()=> this.props.history.push("/DashboardTicket")}>
+                        <Typography variant="body2">Ticket Dashboard</Typography>        
+                    </AccordionDetails>
+                    <AccordionDetails onClick={()=> this.props.history.push("/DashboardBudget")}>
+                        <Typography variant="body2">Budget Dashboard</Typography>
+                    </AccordionDetails>
+                    <AccordionDetails onClick={()=> this.props.history.push("/DashboardActions")}>
+                        <Typography variant="body2">Action Assigned to me</Typography>
+                    </AccordionDetails>
+                </Accordion>
+
             {ItemsList.map((val, index) => 
                 <Accordion 
                 expanded={this.state.expanded == `panel + ${index}`} 
                 onChange={this.handleAccordinoChange(`panel + ${index}`)}
                 >
                 <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
+                expandIcon={<ArrowForwardIosOutlinedIcon 
+                    style={{ width: 16, height: 16}}
+                />}
                 aria-controls={"panel" + index + "bh-content"}
                 id={"panel" + index + "bh-header"}
-                style={dashBoard.ListItem}
+                className="ListItem"
                 >
                 <Typography><DashboardOutlinedIcon/></Typography>
-                <Typography style={dashBoard.ListItemText}>{val}</Typography>
+                <Typography className="ListItemText">{val}</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <Typography>sub headings</Typography>
+                    <Typography variant="body2">sub headings</Typography>
                 </AccordionDetails>
                 </Accordion>
             )}
+
+                <Box className="SingleLink">
+                    <Typography className="SingleLinkSize"><DashboardOutlinedIcon/></Typography>
+                    <div onClick={()=> this.props.history.push("/Polling")}>
+                        <Typography className="SingleLinkSize">Poll/Survey</Typography>
+                    </div>
+                </Box>
+                <Box className="SingleLink">
+                    <Typography className="SingleLinkSize"><DashboardOutlinedIcon/></Typography>
+                    <div onClick={()=> this.props.history.push("/Reports")}>
+                        <Typography className="SingleLinkSize">Documents & Reports</Typography>
+                    </div>
+                </Box>
+                <Box className="SingleLink">
+                    <Typography className="SingleLinkSize"><DashboardOutlinedIcon/></Typography>
+                    <div onClick={()=> this.props.history.push("/Chat")}>
+                        <Typography className="SingleLinkSize">Chat</Typography>
+                    </div>
+                </Box>
+                <Box className="SingleLink">
+                    <Typography className="SingleLinkSize"><DashboardOutlinedIcon/></Typography>
+                    <div onClick={()=> this.props.history.push("/Help")}>
+                        <Typography className="SingleLinkSize">Help</Typography>
+                    </div>
+                </Box>
+
         </Box>
 
         <Box className="SideBarBottom">
@@ -91,59 +149,17 @@ export default class ChairmanSidebar extends DashboardController {
   }
 }
 
+export default withRouter(ChairmanSidebar)
 
 const dashBoard = {
-    container: {
-         overflowX: "hidden",
-        overflowY: "auto"
-    },
-    Header: {
-        background: "#fff",
-        padding:20,
-    },
-    HeaderSecLft: {
-        display: "flex",
-        justifyContent: "start",
-        alignItems: "center",
-        gap: "20px",
-    },
-    HeaderSecRft: {
-        display: "flex",
-        justifyContent: "end",
-        alignItems: "center",
-        gap: "20px",
-    },
-    HeaderSecRtBox: {
-        display: "flex",
-        justifyContent: "start",
-        alignItems: "center",
-        gap: "20px",
-    },
     PremimumPlan:{
         background: "#ff8100",
         padding: 8,
         borderRadius: "5px",
         marginRight: 8,
     },
-    
-    SideBar: {
-        background: "#f9f6f6",
-        position:"relative",
-        paddingBottom: 150,
-    },
-    SideBarBottom: {
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems:"last baseline",
-        gap: 60,
-        position: "absolute",
-        bottom: 0,
-        paddingBottom: 20,
-        marginLeft:20,
-        marginRight:25,
-    },
     ListItem: {
-        color: "black",
+        // color: "black",
         marginTop:25,
     },
     ListItemText: {
