@@ -3,44 +3,26 @@
 // @ts-nocheck
 
 import React from "react";
+import './Dashboard.web.css'
 
-// Components imported start
-import DeshboardGeneral from "./DashboardGeneral.web";
-import DashboardActions from "./DashboardActions.web"
-import DashboardTicket from "./DashboardTicket.web"
-import DashboardBudget from "./DashboardBudget.web"
-import BudgetDetails from "./BudgetDetails.web"
-
-// Components imported end
-//images and Icons start
 import TenantLogo from "../assets/TenantLogo.png"
 import GlobalIcon from "../assets/globalicon.png"
 import BuildingLogo from "../assets/BuildingLogo.png"
+import ChairmanUser from "../assets/ChairmanUser.jpg"
 
+import "../../../web/src/assets/css/style.scss";
 
 //images and Icons end
 
 import {
-    Container,
     Typography,
-    List,
-    ListItem,
-    ListItemText,
-    Link,
-    FormControl,
-    MenuItem 
   } from "@material-ui/core";
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 
-import { makeStyles } from '@material-ui/core/styles';
-
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
-
-
-import Select, { SelectChangeEvent } from "@material-ui/core/Select";
 
 import { styled } from "@material-ui/styles";
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
@@ -48,11 +30,10 @@ import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import NotificationsNoneOutlinedIcon from '@material-ui/icons/NotificationsNoneOutlined';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import DashboardOutlinedIcon from '@material-ui/icons/DashboardOutlined';
-import NavigateNextOutlinedIcon from '@material-ui/icons/NavigateNextOutlined';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-import DashboardController, { Props } from "./DashboardController";
 
+import DashboardController, { Props } from "./DashboardController";
 
 
 const ItemsList = [
@@ -72,28 +53,8 @@ const ItemsList = [
 export default class Dashboard extends DashboardController {
   constructor(props: Props) {
     super(props);
-    this.state = {
-        dashboardData: [],
-        errorMsg: "",
-        token: "",
-        loading: false,
-        Year: "",
-        expanded: '',
-      };
-
-    //   this.handleChange = this.handleChange.bind(this)
   }
 
-  handleChange = (panel:string, isExpanded:boolean) => {
-    //   debugger
-    this.setState({expanded: isExpanded ? panel : ''});
-  };
-
-//   handleClick = () => {
-//       console.log("click view")
-//   }
-
-    
   render() {
     return ( 
     <>
@@ -105,20 +66,23 @@ export default class Dashboard extends DashboardController {
                         style={dashBoard.HeaderSecLft}
                     >
                         <img src={BuildingLogo} alt="BuildingLogo" width={70}/>
+                        {/* <buildingLogo/> */}
                         <Typography variant="h6">Building Name</Typography>
                     </Grid>
                     <Grid item xs={6} md={6} sm={6}
                         style={dashBoard.HeaderSecRft}
                     >
                         <img src={GlobalIcon} alt="GlobalIcon" />
+                        {/* <globalIcon/> */}
                         <NotificationsNoneOutlinedIcon/>
                         <Box 
                             style={dashBoard.HeaderSecRtBox}
                         >
-                            <img src="https://png.pngtree.com/png-vector/20190704/ourlarge/pngtree-businessman-user-avatar-free-vector-png-image_1538405.jpg" alt=""
+                            <img src={ChairmanUser} alt="ChairmanUser"
                             width={50}
                             style={{borderRadius: "50%"}}
                             />
+                            {/* <chairmanUser/> */}
                             <Box>
                                 <Typography variant="subtitle1">User Name</Typography>
                                 <Typography variant="body2">Chairman</Typography>
@@ -131,25 +95,14 @@ export default class Dashboard extends DashboardController {
                 </Grid>
             </Box>
         </Box>
-        <Box container spacing={4} style={{display: "flex"}}>
+        <Box style={{display: "flex"}}>
 
-            <Grid item xs={3} md={3} sm={3} style={dashBoard.SideBar}>
-                <Box>
-                    <List>
-                    {ItemsList.map((text, index) => (
-                    <ListItem key={text} style={dashBoard.ListItem}> 
-                        <DashboardOutlinedIcon />
-                        <ListItemText primary={text} onClick={() => {console.log('A')}} style={dashBoard.ListItemText} disableTypography />
-                        <Box style={{float: "right"}}>
-                            <NavigateNextOutlinedIcon />
-                        </Box>
-                    </ListItem>
-                    ))}
-
-
-                    {/* {ItemsList.map((val, index) => <Accordion
-                        expanded={this.state.expanded == 'panel' + index} 
-                        onChange={this.handleChange('panel'+ index)}
+            <Grid item xs={3} md={3} sm={3} className="SideBar">
+                <Box className='AccordinoList'>
+                    {ItemsList.map((val, index) => 
+                        <Accordion 
+                        expanded={this.state.expanded == `panel + ${index}`} 
+                        onChange={this.handleAccordinoChange(`panel + ${index}`)}
                         >
                         <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
@@ -164,10 +117,10 @@ export default class Dashboard extends DashboardController {
                             <Typography>sub headings</Typography>
                         </AccordionDetails>
                         </Accordion>
-                    )} */}
-                    </List>
+                    )}
                 </Box>
-                <Box style={dashBoard.SideBarBottom}>
+
+                <Box className="SideBarBottom">
                     <Box>
                         <Typography style={{fontSize:10, fontWeight: 600}}>
                             <Box component="span" style={dashBoard.PremimumPlan}>
@@ -178,44 +131,15 @@ export default class Dashboard extends DashboardController {
                         <Typography style={{fontSize:12, marginTop:10}}>Expires in 125 days</Typography>
                     </Box>
                     <Box>
+                        {/* <tenantLogo/> */}
                         <img src={TenantLogo} alt="TenantLogo"
                         width={110}
-                        // style={{color:"black"}}
                         />
                     </Box>
                 </Box> 
-                {/* {ItemsList.map((val, index) => <Accordion
-                expanded={expanded === 'panel' + index} 
-                onChange={this.handleChange('panel' + index)}
-                >
-                    <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel1bh-content"
-                    id="panel1bh-header"
-                    style={dashBoard.ListItem}
-                    >
-                    <Typography><DashboardOutlinedIcon/></Typography>
-                    <Typography style={dashBoard.ListItemText}>headings</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <Typography>sub headings</Typography>
-                    </AccordionDetails>
-                </Accordion>)}
-                */}
-            </Grid>
-
-            <Grid xs={9} md={9} sm={9} spacing={4} style={{paddingTop: 35, background:"#C8E3D4"}}>
-                        <DeshboardGeneral/>
-                    {/* <DashboardTicket/> */}
-                    {/* <DashboardBudget/> */}
-                    {/* <BudgetDetails/> */}
-                    {/* <DashboardActions/> */}
             </Grid>
         </Box> 
     </Box>
-
-    {/* <Container>
-    </Container> */}
    </>
     );
   }
@@ -229,7 +153,6 @@ const dashBoard = {
     },
     Header: {
         background: "#fff",
-        // marginBottom: "2em",
         padding:20,
     },
     HeaderSecLft: {
@@ -256,6 +179,7 @@ const dashBoard = {
         borderRadius: "5px",
         marginRight: 8,
     },
+    
     SideBar: {
         background: "#f9f6f6",
         position:"relative",
@@ -283,14 +207,3 @@ const dashBoard = {
   };
 
 // Customizable Area End
-
-// My Dashboards
-// My Team
-// Community Management
-// Invoices & Receipts
-// Meetings
-// Buildings & Apartments
-// Poll/Survey  -  (without arrow)
-// Documents & Reports  -  (without arrow)
-// Chat (Count)  -  (without arrow)
-// Help

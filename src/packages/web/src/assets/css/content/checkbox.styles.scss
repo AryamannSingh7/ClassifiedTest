@@ -1,0 +1,21 @@
+@import "../constants/base/colors.scss";
+@import "../constants/base/global.scss";
+
+.commonForm {
+    & .formCheckbox {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        & .MuiSvgIcon-root {
+            fill: $ORANGE;
+        }
+        & .checkboxLabel {
+            font-size: 14px;
+            color: #262a32;
+        }
+        & .link {
+            padding-left: 10px;
+        }
+    }
+}

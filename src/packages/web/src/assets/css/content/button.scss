@@ -1,0 +1,388 @@
+// @import '../constants/base/colors.scss';
+// @import '../constants/base/global.scss';
+
+// .customButton {
+//   & .MuiButton-root {
+//     border-radius: $FORM_BORDER_RADIUS;
+//     background-color: $GREEN;
+//     border: 2px solid $GREEN;
+
+//     &:hover {
+//       background-color: transparent;
+//       border-color: $GREEN;
+
+//       & .MuiButton-label {
+//         & span {
+//           color: $GREEN;
+//         }
+//       }
+
+//       & .plus_icon {
+//         &::before {
+//           background-color: $GREEN;
+//         }
+
+//         &::after {
+//           background-color: $GREEN;
+//         }
+//       }
+//     }
+
+//     & .MuiButton-label {
+//       & span {
+//         color: $WHITE;
+//         font-size: 15px;
+//         text-transform: capitalize;
+//         white-space: nowrap;
+//         padding-left: 10px;
+//         font-family: $POPPINS;
+//       }
+
+//       @media screen and (max-width: 767px) {
+//         display: flex;
+//         align-items: center;
+//         justify-content: center;
+//       }
+//     }
+
+//     & .plus_icon {
+//       &::before {
+//         content: ' ';
+//         width: 12px;
+//         height: 3px;
+//         background-color: $WHITE;
+//         display: block;
+//         position: absolute;
+//         transition: all 0.15s cubic-bezier(0.42, 0, 0.58, 1);
+//         opacity: 1;
+//         border-radius: 2px;
+//         transform: translate(-50%, -50%) rotate(90deg);
+//         left: 17px;
+//       }
+
+//       &::after {
+//         content: ' ';
+//         width: 12px;
+//         height: 3px;
+//         background-color: $WHITE;
+//         display: block;
+//         position: absolute;
+//         transition: all 0.15s cubic-bezier(0.42, 0, 0.58, 1);
+//         opacity: 1;
+//         border-radius: 2px;
+//         transform: translate(-50%, -50%);
+//         left: 17px;
+//       }
+//     }
+//   }
+
+//   &.TransparentButton {
+//     & .MuiButton-root {
+//       padding: 15px;
+//       opacity: 1;
+//       border: 1px solid $GREEN;
+//       background-color: rgba(32, 162, 88, 0.6);
+
+//       & .MuiButton-label {
+//         & span {
+//           color: $WHITE;
+//           font-size: 15px;
+//           text-transform: capitalize;
+//         }
+//       }
+//     }
+//   }
+// }
+
+// .greenFilledButton {
+//   & .MuiButton-root {
+//     border-radius: $FORM_BORDER_RADIUS;
+//     background-color: $GREEN;
+//     padding: 10px 30px;
+//     border: 2px solid $GREEN;
+
+//     @media screen and (max-width: 1440px) {
+//       padding: 5px 10px;
+//     }
+
+//     & .MuiButton-label {
+//       & span {
+//         color: $WHITE;
+//         font-size: 15px;
+//         font-weight: 600;
+//         text-transform: capitalize;
+//         white-space: nowrap;
+//         padding-left: 10px;
+//         font-family: $POPPINS;
+
+//         @media screen and (max-width: 1440px) {
+//           font-size: 13px;
+//           padding-left: 0;
+//         }
+//       }
+//     }
+
+//     &:hover {
+//       background-color: transparent !important;
+
+//       & .MuiButton-label {
+//         & span {
+//           color: $GREEN;
+//         }
+//       }
+//     }
+
+//     & .plus_icon {
+//       display: none;
+//     }
+//   }
+
+//   &.primaryBtn {
+//     & .MuiButton-root {
+//       background-color: $ORANGE;
+//       border-color: $ORANGE;
+//       padding: 15px;
+
+//       & .MuiButton-label {
+//         & span {
+//           color: $WHITE;
+//           font-size: 18px;
+//         }
+//       }
+//     }
+//   }
+// }
+
+// .greenOutlineButton {
+//   & .MuiButton-root {
+//     border-radius: $FORM_BORDER_RADIUS;
+//     border: 1px solid $GREEN_SHADE6;
+//     background-color: $GREEN_SHADE5;
+
+//     & .MuiButton-label {
+//       & span {
+//         color: $GREEN_SHADE6;
+//         font-size: 17px;
+//         text-transform: capitalize;
+//         padding-left: 0;
+//         font-weight: 800;
+//         padding: 3px 20px;
+//       }
+//     }
+
+//     & .plus_icon {
+//       display: none;
+//     }
+
+//     &:hover {
+//       background-color: $GREEN_SHADE5;
+//     }
+//   }
+
+//   &.reportsButton {
+//     & .MuiButton-root {
+//       background-color: transparent;
+//     }
+
+//     & .MuiButton-label {
+//       & span {
+//         color: $BLACK;
+//         font-size: 16px;
+//         padding: 3px 10px;
+//       }
+//     }
+//   }
+// }
+
+// .redOutlineButton {
+//   .customButton {
+//     & .MuiButton-root {
+//       border-radius: $FORM_BORDER_RADIUS;
+//       border: 1px solid $DANGER1;
+//       background-color: $DANGER2;
+
+//       & .MuiButton-label {
+//         & span {
+//           color: $DANGER1;
+//           font-size: 17px;
+//           text-transform: capitalize;
+//           padding-left: 0;
+//           font-weight: 800;
+//           padding: 3px 20px;
+//         }
+
+//         &:hover {
+//           span {
+//             color: $DANGER2;
+//           }
+//         }
+//       }
+
+//       & .plus_icon {
+//         display: none;
+//       }
+
+//       &:hover {
+//         background-color: $DANGER1;
+
+//         & .MuiButton-label {
+//           span {
+//             color: $DANGER2;
+//           }
+//         }
+//       }
+//     }
+//   }
+
+//   &.reportsButton {
+//     & .MuiButton-root {
+//       background-color: transparent;
+//     }
+
+//     & .MuiButton-label {
+//       & span {
+//         color: $BLACK;
+//         font-size: 16px;
+//         padding: 3px 10px;
+//       }
+//     }
+//   }
+// }
+
+// .greenOutlineGrayButton {
+//   & .MuiButton-root {
+//     // border-radius: $FORM_BORDER_RADIUS;
+//     border: 1px solid $GRAY_SHADE1;
+//     background-color: transparent;
+
+//     & .MuiButton-label {
+//       & span {
+//         color: $DARK;
+//         font-weight: 600;
+//         padding-left: 0;
+//       }
+//     }
+
+//     & .plus_icon {
+//       display: none;
+//     }
+//   }
+// }
+
+// .greenContained {
+//   // width: 100%;
+//   height: 100%;
+
+//   & .MuiButton-root {
+//     border-radius: $FORM_BORDER_RADIUS;
+//     border: 1px solid $GREEN_SHADE6;
+//     background-color: $GREEN;
+
+//     & .MuiButton-label {
+//       & span {
+//         color: $WHITE;
+//         font-size: 15px;
+//         text-transform: capitalize;
+//         font-weight: 600;
+//         padding: 0;
+//       }
+//     }
+
+//     & .plus_icon {
+//       display: none;
+//     }
+//   }
+// }
+
+// .grayButton {
+//   // width: 100%;
+//   height: 100%;
+
+//   & .MuiButton-root {
+//     border-radius: $FORM_BORDER_RADIUS;
+//     border: 1px solid transparent;
+//     background-color: #f8f8f8;
+
+//     & .MuiButton-label {
+//       & span {
+//         color: black;
+//         font-size: 15px;
+//         text-transform: capitalize;
+//         font-weight: 600;
+//         padding: 0;
+//       }
+//     }
+
+//     & .plus_icon {
+//       display: none;
+//     }
+
+//     &:hover {
+//       background-color: #f8f8f8;
+//     }
+//   }
+// }
+
+// .linkButton {
+//   & .MuiButton-root {
+//     border: none;
+//     background-color: transparent;
+//     box-shadow: none;
+
+//     @media screen and (max-width: 768px) {
+//       padding: 0;
+//     }
+
+//     & .MuiButton-label {
+//       & span {
+//         color: #f68880;
+//         font-size: 15px;
+//         text-transform: capitalize;
+//       }
+//     }
+
+//     & .MuiButton-contained {
+//       box-shadow: 0;
+//     }
+
+//     & .plus_icon {
+//       display: none;
+//     }
+
+//     &:hover {
+//       background-color: transparent;
+//     }
+//   }
+// }
+
+// .circleBtn {
+//   & .MuiButton-root {
+//     border-radius: 40px;
+//     padding: 10px 40px;
+//     border: 1px solid $GREEN_SHADE6;
+//     background-color: $GREEN;
+
+//     & .MuiButton-label {
+//       & span {
+//         color: $WHITE;
+//         font-size: 16px;
+//         text-transform: capitalize;
+//         font-weight: 500;
+//         padding: 0;
+//       }
+//     }
+
+//     & .plus_icon {
+//       display: none;
+//     }
+
+//     &:hover {
+//       background-color: transparent;
+//       border: 1px solid $GREEN;
+
+//       & span {
+//         color: $GREEN;
+//       }
+//     }
+//   }
+// }

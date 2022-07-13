@@ -1,0 +1,29 @@
+@import "../constants/base/colors.scss";
+@import "../constants/base/global.scss";
+
+.customButton {
+    & .MuiButton-contained {
+        width: 100%;
+        background-color: $BLUE;
+        color: $WHITE;
+        font-size: 15px;
+        &:hover {
+            background-color: transparent;
+            color: $DARK;
+        }
+    }
+    & .MuiButton-root {
+        font-weight: 600;
+        border-radius: 30px;
+        padding: 15px;
+        text-transform: uppercase;
+    }
+}
+
+.desktop-ui {
+    & .customButton {
+        & .MuiButton-root {
+            border-radius: $FORM_BORDER_RADIUS;
+        }
+    }
+}

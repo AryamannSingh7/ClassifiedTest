@@ -1,0 +1,137 @@
+@import "../constants/base/colors.scss";
+@import "../constants/base/global.scss";
+.landing-wrapper {
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  align-items: center;
+  background-color: $WHITE;
+  position: relative;
+  & .content-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+  }
+  & .row-banner {
+    padding: 20px 0 10px 0;
+    & .banner-img {
+      width: 400px;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 10px;
+      @include mq(tablet-portrait-large-up) {
+        width: 100%;
+        height: 250px;
+      }
+    }
+  }
+  & .tenant-logo {
+    width: 200px;
+    height: 65px;
+    object-fit: contain;
+  }
+  & h1 {
+    text-align: center;
+    margin: 20px 0;
+  }
+  & h6 {
+    margin: 10px 0;
+    line-height: 20px;
+    text-align: center;
+  }
+  & .backIcon {
+    cursor: pointer;
+    position: absolute;
+    left: 20px;
+    & .MuiSvgIcon-root {
+      font-size: 35px;
+    }
+  }
+  & .row-btn {
+    margin-top: 70px;
+    
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    @include mq(tablet-portrait-large-up) {
+      width: 90%;
+      margin-top: 20px;
+      padding-bottom: 20px;
+    }
+  }
+  & .header-block {
+    // padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-bottom: 50px;
+    @include mq(tablet-portrait-large-up) {
+      align-items: center;
+    }
+    &.header-left-block {
+      align-items: flex-start;
+    }
+    & h1 {
+      margin: 30px 0 5px 0;
+    }
+    & .text {
+      color: $ORANGE;
+      font-weight: bold;
+    }
+  }
+  & .bottomBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    & .bottom-text {
+      font-size: 11px;
+      font-weight: 600;
+      position: relative;
+      color: $DARK;
+      margin: 0;
+      &::after,
+      &::before {
+        position: absolute;
+        width: 100px;
+        height: 0px;
+        border: 1px solid $LIGHT_GRAY_SHADE1;
+        top: 45%;
+      }
+      &::after {
+        content: " ";
+        left: 95px;
+      }
+      &::before {
+        content: " ";
+        left: -115px;
+      }
+    }
+    & .tenant-logo {
+      width: 120px;
+    }
+    @include mq(tablet-portrait-large-up) {
+      flex-direction: row;
+      justify-content: center;
+    }
+    & .link {
+      font-weight: 500;
+    }
+  }
+  & .link {
+    color: $DARK;
+    font-weight: bold;
+    font-size: 14px;
+    &:hover {
+      text-decoration: none;
+      color: $BLUE;
+    }
+    & span {
+      text-transform: uppercase;
+      color: $ORANGE;
+      font-weight: bold;
+      padding-left: 5px;
+    }
+  }
+}
