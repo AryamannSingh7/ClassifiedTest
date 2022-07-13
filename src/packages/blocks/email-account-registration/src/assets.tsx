@@ -15,6 +15,7 @@ export const Linkage = require("../assets/linkage.png");
 export const manual = require("../assets/Manual.png");
 export const search = require("../assets/search.png");
 export const modalbuilding = require("../assets/modal-building.png");
+export const manager = require("../assets/manager.png");
 
 
 
