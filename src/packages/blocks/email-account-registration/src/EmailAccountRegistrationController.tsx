@@ -44,7 +44,8 @@ export interface S {
   selectCode: string;
   selectEmail: string;
   unitRegisterType:string;
-  allComplex:[]
+  allComplex:[];
+  selectComplex: any;
 
 
 
@@ -69,6 +70,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
   createAccountApiCallId: any;
   createManagerAccountApiCallId:any;
   createAccountOwnerApiCallId:any;
+  createRequestManaulApiCallId:any;
   createRequestApiCallId:any;
  changeUserTypeApiCallId:any;
   getCountryApiCallId: any;
@@ -76,6 +78,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
   getCityApiCallId: any;
   getBuildingApiCallId: any;
   getUnitApiCallId: any;
+
 
 
 
@@ -138,6 +141,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
       selectEmail:'',
       unitRegisterType:'',
       allComplex:[],
+      selectComplex:null,
       // Customizable Area End
     };
 
@@ -246,6 +250,22 @@ export default class EmailAccountRegistrationController extends BlockComponent<
 
           this.parseApiCatchErrorResponse(errorReponse);
         } else if (apiRequestCallId === this.createRequestApiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            // localStorage.setItem('res_token', responseJson.meta.token)
+            // localStorage.setItem('res_user', responseJson.data.attributes)
+            // localStorage.setItem('res_user_id', responseJson.data.id)
+            // this.props.history.push('/selecttype')
+            alert('request has been created')
+
+
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        } else if (apiRequestCallId === this.createRequestManaulApiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
             // localStorage.setItem('res_token', responseJson.meta.token)
@@ -843,7 +863,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     };
 
     const httpBody = {
-      data: data
+      data: attrs
     };
 
     const requestMessage = new Message(
@@ -1134,6 +1154,62 @@ this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e)
     runEngine.sendMessage(requestMessage.id, requestMessage);
     return true;
   }
+  handleInputChange = (newValue: string) => {
+    // localStorage.setItem('selectComplex', JSON.stringify(newValue))
+    this.setState({ selectComplex: newValue })
 
+
+
+  };
+  createRequestManual=(attributes:any)=>{
+
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      "token": localStorage.getItem('res_token')
+    };
+
+    const attrs = {
+      complex:this.state.selectComplex,
+      building_name: attributes.building,
+      unit:attributes.unit,
+    };
+
+    const data = {
+
+      attributes: attrs
+    };
+
+    const httpBody = {
+      data: attrs
+    };
+
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+    this.createRequestManaulApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      'bx_block_request_management/requests'
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestBodyMessage),
+      JSON.stringify(httpBody)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.apiMethodTypeAddDetail
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+
+  }
   // Customizable Area End
 }
