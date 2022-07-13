@@ -44,6 +44,7 @@ export interface S {
   selectCode: string;
   selectEmail: string;
   unitRegisterType:string;
+  allComplex:[]
 
 
 
@@ -71,6 +72,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
   createRequestApiCallId:any;
  changeUserTypeApiCallId:any;
   getCountryApiCallId: any;
+  getComplexApiCallId:any;
   getCityApiCallId: any;
   getBuildingApiCallId: any;
   getUnitApiCallId: any;
@@ -135,6 +137,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
       selectCode:'',
       selectEmail:'',
       unitRegisterType:'',
+      allComplex:[],
       // Customizable Area End
     };
 
@@ -277,6 +280,21 @@ export default class EmailAccountRegistrationController extends BlockComponent<
           if (!responseJson.errors) {
             console.log(responseJson)
             this.setState({ allContries: responseJson.data.countries })
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        } else if (apiRequestCallId === this.getComplexApiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            let temp=[]
+            responseJson.data.societies.map((item:any)=>
+              temp.push({ value: item.id, label: item.name })
+              )
+              // @ts-ignore
+            this.setState({ allComplex: temp })
           } else {
             //Check Error Response
             this.parseApiErrorResponse(responseJson);
@@ -1084,5 +1102,38 @@ this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e)
       }
     }
   }
+  getComplex() {
+
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      "token": localStorage.getItem('res_token')
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+
+    this.getComplexApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_society_management/society_managements`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.validationApiMethodType
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  }
+
   // Customizable Area End
 }
