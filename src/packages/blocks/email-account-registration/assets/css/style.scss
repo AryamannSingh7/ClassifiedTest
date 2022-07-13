@@ -28,3 +28,42 @@
   width: 240px;
   height: 2px;
 }
+
+.PrivateNotchedOutline-root-6 {
+  border: none !important;
+  border-color: transparent !important;
+}
+
+.select-type {
+  padding: 1rem;
+
+  .middle-section {
+    width: 60%;
+    color: #D3D3D3;
+
+    .title {
+      font-weight: bold;
+      margin-bottom: 0.58rem;
+      color: #D3D3D3;
+    }
+
+    .para {
+      color: #D3D3D3;
+    }
+  }
+
+  input[type='radio']:checked:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -2px;
+    left: -1px;
+    position: relative;
+    background-color: #ffa500;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+  }
+
+}

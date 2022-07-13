@@ -60,7 +60,7 @@ export default class Address extends EmailAccountRegistrationController {
 
         <Grid container style={{ margin: '1rem', width: '90%' }}>
           <Grid xs={12}>
-            <FormControl variant="outlined" fullWidth>
+            <FormControl variant="outlined" fullWidth >
               <InputLabel id="demo-simple-select-outlined-label" style={{display:'flex',alignItems:'center',gap:'1rem'}}>
                 <img src={country}/>
                 Country</InputLabel>
@@ -70,6 +70,7 @@ export default class Address extends EmailAccountRegistrationController {
                 id="demo-simple-select-outlined"
                 onChange={this.handleChange}
                 label="Country"
+                style={{ borderRadius: 25, border: '0px solid #e9dede', color:'#b5b5b5' }}
               >
                {/* <MenuItem>
                   <ListItemIcon>
@@ -103,6 +104,7 @@ export default class Address extends EmailAccountRegistrationController {
                 id="demo-simple-select-outlined"
                 onChange={this.handleChange}
                 label="City"
+                style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#b5b5b5' }}
               >
                 <MenuItem value="f">
                   <em>None</em>
@@ -129,6 +131,7 @@ export default class Address extends EmailAccountRegistrationController {
                 id="demo-simple-select-outlined"
                 onChange={this.handleChange}
                 label="Building"
+                style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#b5b5b5' }}
               >
                 <MenuItem value="f">
                   <em>None</em>
@@ -154,6 +157,7 @@ export default class Address extends EmailAccountRegistrationController {
                 id="demo-simple-select-outlined"
                 onChange={this.handleChange}
                 label="Unit"
+                style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#b5b5b5' }}
               >
                 <MenuItem value="f">
                   <em>None</em>
@@ -168,7 +172,7 @@ export default class Address extends EmailAccountRegistrationController {
             </FormControl>
           </Grid>
         </Grid>
-        <Grid container style={{ margin: '1rem', width: '90%' }}>
+        <Grid container style={{ margin: '1rem', width: '90%', position: 'absolute', bottom: 0 }}>
           <Grid xs={12}>
             <Button
             onClick={this.createRequest}
