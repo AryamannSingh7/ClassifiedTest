@@ -162,6 +162,20 @@
     padding: 10px;
     color:#054c94;
 }
+.dialogOption{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 15px;
+}
+.DialogIcons{
+    border: 1px solid #d9d4d3;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    padding: 20px;
+    color:#054c94;
+}
 
 .EventsHeading{
     font-weight:600;

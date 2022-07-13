@@ -1,7 +1,3 @@
-//@ts-ignore
-//@ts-nocheck
-
-
 import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
@@ -210,6 +206,9 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             localStorage.setItem('res_token', responseJson.meta.token)
             localStorage.setItem('res_user', responseJson.data.attributes)
             localStorage.setItem('res_user_id', responseJson.data.id)
+            //@ts-ignore
+            //@ts-nocheck
+
             this.props.history.push('/otp')
 
 
@@ -225,6 +224,9 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             localStorage.setItem('res_token', responseJson.meta.token)
             localStorage.setItem('res_user', responseJson.data.attributes)
             localStorage.setItem('res_user_id', responseJson.data.id)
+            //@ts-ignore
+            //@ts-nocheck
+
             this.props.history.push('/otp')
 
 
@@ -240,6 +242,9 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             localStorage.setItem('res_token', responseJson.meta.token)
             localStorage.setItem('res_user', responseJson.data.attributes)
             localStorage.setItem('res_user_id', responseJson.data.id)
+            //@ts-ignore
+            //@ts-nocheck
+
             this.props.history.push('/otp')
 
 
@@ -271,6 +276,9 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             // localStorage.setItem('res_token', responseJson.meta.token)
             // localStorage.setItem('res_user', responseJson.data.attributes)
             // localStorage.setItem('res_user_id', responseJson.data.id)
+            //@ts-ignore
+            //@ts-nocheck
+
             this.props.history.push('/addressfill')
 
 
@@ -329,6 +337,9 @@ export default class EmailAccountRegistrationController extends BlockComponent<
           if (!responseJson.errors) {
             console.log(responseJson)
             let temp = [responseJson.data.unit_apartments]
+            //@ts-ignore
+            //@ts-nocheck
+
             this.setState({ allUnit: [...temp] },()=>console.log(this.state.allUnit))
           } else {
             //Check Error Response
@@ -884,9 +895,15 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     if (this.state.userType){
 
       if (this.state.userType === 'Owner'){
+        //@ts-ignore
+        //@ts-nocheck
+
         this.props.history.push('/registerowner')
 
       }else{
+        //@ts-ignore
+        //@ts-nocheck
+
         this.props.history.push('/registermanager')
 
       }
@@ -946,6 +963,8 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     // @ts-nocheck
 this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e))
   }
+  //@ts-ignore
+  //@ts-nocheck
 
   getData(e){
     console.log(this.state)
@@ -1098,8 +1117,14 @@ this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e)
     if(this.state.unitRegisterType){
       if (this.state.unitRegisterType == 'Manual')
       {
+        //@ts-ignore
+        //@ts-nocheck
+
         this.props.history.push('/registerunitmanually')
       }else{
+        //@ts-ignore
+        //@ts-nocheck
+
         this.props.history.push('/registerunitmanually')
 
 
