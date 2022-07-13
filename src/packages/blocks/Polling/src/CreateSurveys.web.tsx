@@ -1,5 +1,6 @@
 // Customizable Area Start
-
+//@ts-ignore
+//@ts-nocheck
 
 import React from "react";
 import "./Polling.web.css"

@@ -83,6 +83,7 @@ import ChangePassword from "../../blocks/forgot-password/src/ChangePassword.web"
 import ChairmanChangePassword from "../../blocks/forgot-password/src/ChairmanChangePassword.web";
 import ChangeSuccessfully from "../../blocks/forgot-password/src/ChangeSuccessfully.web";
 import ChairmanChangeSuccessfully from "../../blocks/forgot-password/src/ChairmanChangeSuccessfully.web";
+import RegistrationRequest from "../../blocks/email-account-login/src/RegistrationRequest.web";
 import Dashboard from "../../blocks/dashboard/src/Dashboard.web";
 import DashboardGeneral from "../../blocks/dashboard/src/DashboardGeneral.web";
 import DashboardTicket from "../../blocks/dashboard/src/DashboardTicket.web";
@@ -148,6 +149,10 @@ const routeMap = {
   ChairmanForgotPasswordOTP: {
     component:ChairmanForgotPasswordOTP,
     path: "/ChairmanForgotPasswordOTP"
+  },
+  RegistrationRequest: {
+    component:RegistrationRequest,
+    path: "/RegistrationRequest"
   },
   RolesPermissions2: {
     component: RolesPermissions2,

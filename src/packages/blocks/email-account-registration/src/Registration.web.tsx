@@ -1,7 +1,7 @@
 import * as React from "react";
 // custom components
 import {
-  Button, Grid, Box, Typography, Link, IconButton
+  Button, Grid, Box, Typography, Link, IconButton, FormControl, InputLabel, Select, MenuItem
 } from "@material-ui/core";
 import "../assets/css/style.scss";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
@@ -10,10 +10,13 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import EmailAccountRegistrationController, { Props } from "./EmailAccountRegistrationController";
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import { CheckBox, Visibility, VisibilityOff } from "@material-ui/icons";
+import { company_logo, email, password, user } from "./assets";
+import {dailCode} from './code'
+import { withRouter } from 'react-router';
 
 
 
-export default class Registration extends EmailAccountRegistrationController  {
+class Registration extends EmailAccountRegistrationController  {
   constructor(props: Props) {
     super(props);
     // Customizable Area Start
@@ -23,9 +26,9 @@ export default class Registration extends EmailAccountRegistrationController  {
   render() {
   return (
     <>
-    <Grid container>
+    <Grid container style={{margin:'1rem'}}>
       <Grid xs={12}>
-          <ArrowBackIcon/>
+          <ArrowBackIcon onClick={() => window.history.back()} />
       </Grid>
     </Grid>
 
@@ -46,7 +49,7 @@ export default class Registration extends EmailAccountRegistrationController  {
         </Grid>
       </Grid>
 
-      <Grid container>
+      <Grid container style={{ margin: '1rem',width:'90%' }}>
         <Grid xs={12}>
           <Formik initialValues={{
             full_name: "",
@@ -82,7 +85,7 @@ export default class Registration extends EmailAccountRegistrationController  {
                     marginTop='1rem'
 
                   >
-                    <PermIdentityIcon />
+                    <img src={user}/>
 
                     <Field
                       name="full_name"
@@ -143,7 +146,8 @@ export default class Registration extends EmailAccountRegistrationController  {
                     marginTop='1rem'
 
                   >
-                    <MailOutlineIcon />
+                    <img src={email} />
+
 
                     <Field
                       name="email"
@@ -204,7 +208,31 @@ export default class Registration extends EmailAccountRegistrationController  {
                     borderRadius="16px"
                     bgcolor="white"
                   >
-                    <MailOutlineIcon />
+                    <Box>
+                      <FormControl variant="outlined" >
+                        {/* <InputLabel id="demo-simple-select-outlined-label"><img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AF.svg`} width='15' height='15' />
+                          sd</InputLabel> */}
+                        <Select
+                          name='selectCode'
+                          labelId="demo-simple-select-outlined-label"
+                          id="demo-simple-select-outlined"
+                          onChange={this.handleChange}
+                          label="Unit"
+                        >
+                          <MenuItem value="f">
+                            <em>None</em>
+                          </MenuItem>
+                          {dailCode.map((item) =>
+                            <MenuItem key={item.dial_code} value={item.dial_code}> <img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/${item.code}.svg`} width='15' height='15' />
+                              {item.dial_code}</MenuItem>
+
+                          )
+                          }
+
+                        </Select>
+                      </FormControl>
+
+                    </Box>
 
                     <Field
                       name="phone"
@@ -262,6 +290,7 @@ export default class Registration extends EmailAccountRegistrationController  {
                     borderRadius="16px"
                     bgcolor="white"
                   >
+                    <img src={password}/>
                     <Field
                       name="password"
                       placeholder="Password"
@@ -339,6 +368,8 @@ export default class Registration extends EmailAccountRegistrationController  {
                     borderRadius="16px"
                     bgcolor="white"
                   >
+                    <img src={password} />
+
                     <Field
                       name="confirm_password"
                       placeholder="Confirm Password"
@@ -394,7 +425,6 @@ export default class Registration extends EmailAccountRegistrationController  {
                     <Typography
                       style={{
                         color: "#F14E24",
-                        fontFamily: "Poppins",
                         fontWeight: 300,
                         fontSize: 14,
                         marginTop: 5,
@@ -418,7 +448,6 @@ export default class Registration extends EmailAccountRegistrationController  {
                       marginBottom: 14,
                       boxShadow: "none",
                       color: "#F7F7FC",
-                      fontFamily: "Poppins",
                       fontWeight: 600,
                       fontSize: 16,
                       marginTop: 30
@@ -436,7 +465,6 @@ export default class Registration extends EmailAccountRegistrationController  {
                     <Typography
                       style={{
                         color: "#A0A3BD",
-                        fontFamily: "Poppins",
                         fontWeight: "normal",
                         fontSize: 12,
                         textAlign: "center"
@@ -445,12 +473,11 @@ export default class Registration extends EmailAccountRegistrationController  {
                       Already have an account ?
                     </Typography>
                     <Link
-                      href="/login"
+                      href="/EmailAccountLogin"
                       underline="none"
                       style={{
                         fontSize: 14,
                         color: "#2B6FEC",
-                        fontFamily: "Poppins",
                         fontWeight: 500,
                         marginLeft: 5,
                         textTransform: "uppercase"
@@ -485,6 +512,9 @@ export default class Registration extends EmailAccountRegistrationController  {
 
                     </Typography>
                   </Box>
+                  <Box display='flex' justifyContent='center'>
+                    <img src={company_logo} width='125' height='125'/>
+                  </Box>
 
                 </Box>
               </Form>
@@ -496,3 +526,4 @@ export default class Registration extends EmailAccountRegistrationController  {
   )
                     }
 }
+export default withRouter(Registration)

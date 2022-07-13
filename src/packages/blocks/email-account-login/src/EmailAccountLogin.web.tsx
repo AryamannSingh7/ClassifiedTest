@@ -149,11 +149,11 @@ class EmailAccountLogin extends EmailAccountLoginController {
                       </Form>
                     )}
                   </Formik>
-                  {/* mobile footer block */}
-                  <Box className="bottomBlock common-bottom-padding" display={{ xs: 'flex', md: 'none' }}>
-                    <Link href="#" className="link">Don't have an account ? </Link>
-                    <Link href="#" className="link"> <span> register</span></Link>
-                  </Box>
+                </Box>
+                {/* mobile footer block */}
+                <Box className="bottomBlock common-bottom-padding" display={{ xs: 'flex', md: 'none' }}>
+                  <Link href="#" className="link">Don't have an account ? </Link>
+                  <Link to="/register" className="link"> <span> register</span></Link>
                 </Box>
                 {/* desktop footer block */}
                 <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>
