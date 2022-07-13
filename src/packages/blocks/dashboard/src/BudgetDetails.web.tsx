@@ -50,7 +50,7 @@ export default class BudgetDetails extends DashboardController {
     render() {
       return ( 
       <>
-        <Box>
+        <Box style={{background: "#E5ECFF"}}>
             {/* Dashboard Header -- */}
             <DashboardHeader {...this.props}/>
             <Box style={{display: "flex"}}>
