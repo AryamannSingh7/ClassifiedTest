@@ -181,36 +181,58 @@ export default class PollingController extends BlockComponent<
       console.log("Polls Data ==>", this.state.PollData)
       console.log("Options Data ==>", this.state.options)
       debugger
-        // this.setState({PollData: this.state.InitialPollData})
-        // this.setState({options: this.state.Initialoptions})
-        let reqPayload = {
-          "poll":
-      {
-        "title": this.state.PollData.title,
-        "description": this.state.PollData.description,
-        "poll_type": this.state.checked,
-        "schedule": "1",
-        "start_date": this.state.PollData.startDate,
-        "end_date": this.state.PollData.endDate,
-        "question": this.state.PollData.question,
-        "polling_options_attributes": this.state.options,
-      }
-    }
-    this.addPollData(reqPayload);
+        if(this.state.PreViewPollData.length || Object.keys(this.state.PreViewPollData).length){
+          let reqPayload = {
+            "poll":
+            {
+              "title": this.state.PreViewPollData.PollFormData.title,
+              "description": this.state.PreViewPollData.PollFormData.description,
+              "poll_type": this.state.PreViewPollData.PollType,
+              "schedule": "1",
+              "start_date": this.state.PreViewPollData.PollFormData.startDate,
+              "end_date": this.state.PreViewPollData.PollFormData.endDate,
+              "question": this.state.PreViewPollData.PollFormData.question,
+              "polling_options_attributes": this.state.PreViewPollData.PollOptions,
+            }
+          }
+          this.addPollData(reqPayload);
+          console.log("reqPayload=========", reqPayload)
+          this.setState({
+            PollData: this.state.InitialPollData,
+            options: this.state.Initialoptions,
+            checked: this.state.checked
+          })
+        } else{
+
+          let reqPayload = {
+            "poll":
+            {
+              "title": this.state.PollData.title,
+              "description": this.state.PollData.description,
+              "poll_type": this.state.checked,
+              "schedule": "1",
+              "start_date": this.state.PollData.startDate,
+              "end_date": this.state.PollData.endDate,
+              "question": this.state.PollData.question,
+              "polling_options_attributes": this.state.options,
+            }
+          }
+          this.addPollData(reqPayload);
+          console.log("reqPayload----------", reqPayload)
+          this.setState({
+            PollData: this.state.InitialPollData,
+            options: this.state.Initialoptions,
+            checked: this.state.checked
+          })
+        }
+        
+    // console.log("reqPayload----------", reqPayload)
     localStorage.removeItem('Polls_Data');
 
     }
 
-
     handlePriviewData = () => {
-       localStorage.setItem('Polls_Data', JSON.stringify({"PollFormData":this.state.PollData ,"PollOptions":this.state.options}))
-    }
-
-    changeLastDateFormate = (getDate:any) => {
-      let date = getDate;
-      let dateNew = new Date(date);
-      let formateDate = dateNew.getDate()+"-"+(dateNew.getMonth()+1)+"-"+dateNew.getFullYear();
-      return date = formateDate;
+       localStorage.setItem('Polls_Data', JSON.stringify({"PollFormData":this.state.PollData,"PollType":this.state.checked ,"PollOptions":this.state.options}))
     }
 
     handleOptionsChange = (index:any, event:any) => {
@@ -298,6 +320,7 @@ export default class PollingController extends BlockComponent<
       }
       if (apiRequestCallId === this.createPoll) {
         console.log('ADD Poll Data',responseJson);
+        this.getCreatePollResponse(responseJson)
      }
      if(apiRequestCallId === this.totalPollsCount){
       // console.log('Total Polls Data => ',responseJson);
@@ -329,7 +352,14 @@ export default class PollingController extends BlockComponent<
   }
 
 
+  
   /// Success Block
+
+  getCreatePollResponse = async (response: any) => {
+    // console.log('Success',response);
+    this.setState({PreViewPollData: response})
+  }
+
   getPollSuccessResponse = async (response: any) => {
     // console.log('Success',response);
     this.setState({allPollsData: response})
