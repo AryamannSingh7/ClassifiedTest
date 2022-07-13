@@ -11,14 +11,19 @@
   // padding: 30px;
   align-items: center;
   background-color: $WHITE;
-  // overflow-y: auto;
+  overflow-x: hidden;
   position: relative;
   @include mq(tablet-landscape-up) {
     padding: 0;
+    overflow-x: hidden;
     // margin: 20px auto;
   }
   & .logo-block {
-    align-items: center;
+    & a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
     & .head-logo {
       height: 80px;
       width: 80px;
@@ -34,7 +39,7 @@
     // display: flex;
     // align-items: center;
     & .auth-cols {
-      // background-color: #caa4a4;
+      padding: 0;
     }
   }
   & .main-content-block {
@@ -101,6 +106,11 @@
     height: 65px;
     object-fit: contain;
   }
+  & .lock-logo {
+    width: 100px;
+    height:100px;
+    object-fit: contain;
+  }
   & h1 {
     text-align: center;
     margin: 20px 0;
@@ -124,12 +134,18 @@
     flex-direction: column;
     width: 100%;
     @include mq(tablet-landscape-up) {
-      width: 90%;
+      // width: 90%;
       margin-top: 30px;
     }
   }
   & .header-block {
     // padding-top: 50px;
+    &.chairmanHeaderBlock {
+      align-items: center;
+      & h6 {
+        text-align: center;
+      }
+    }
     display: flex;
     flex-direction: column;
     align-items: flex-start;

@@ -87,7 +87,7 @@ class ChairmanForgotPasswordOTP extends ForgotPasswordController {
         </Box> */}
         <Box className="login-wrapper">
           <Grid container spacing={2} className="auth-container">
-            <Grid item xs={12} md={6} className="auth-cols">
+            <Grid item xs={12} md={7} className="auth-cols">
               <Box className="content-block">
                 <Box display={{ xs: 'flex', md: 'none' }} className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
                 <Box className="logo-block common-top-padding" display={{ xs: 'none', md: 'flex' }}>
@@ -123,8 +123,8 @@ class ChairmanForgotPasswordOTP extends ForgotPasswordController {
                     <Link className="link">Resend OTP in</Link>
                     <Link className="link"> <span> 00:30    </span></Link>
                     <Link className="link"> Seconds</Link>
-                  </Box>                                                                        
-                </Box>                                      
+                  </Box>
+                </Box>
                 {/* mobile footer block */}
                 <Box className="bottomBlock common-bottom-padding" display={{ xs: 'flex', md: 'none' }}>
                   <Link href="#" className="link">Don't have an account ? </Link>
@@ -137,8 +137,8 @@ class ChairmanForgotPasswordOTP extends ForgotPasswordController {
                 </Box>
               </Box>
             </Grid>
-            <Grid item xs={12} md={6} display={{ xs: 'flex', lg: 'none' }} className="auth-cols">
-              <Box className="right-block">
+            <Grid item xs={12} md={5} className="auth-cols">
+              <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
                 <img src={Building1} className="building-logo" alt="" />
               </Box>
             </Grid>
