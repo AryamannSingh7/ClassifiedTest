@@ -36,13 +36,13 @@ export default class Address extends EmailAccountRegistrationController {
   render() {
     return (
       <>
-        <Grid container>
+        <Grid container style={{ margin: '1rem', width: '90%' }}>
           <Grid xs={12}>
             <ArrowBackIcon />
           </Grid>
         </Grid>
 
-        <Grid container>
+        <Grid container style={{ margin: '1rem', width: '90%' }}>
           <Grid xs={12}>
             <p className="text-left" style={{ fontSize: '1.75rem', fontWeight: 700 }}>
               Select Building and Unit
@@ -50,7 +50,7 @@ export default class Address extends EmailAccountRegistrationController {
             </p>
           </Grid>
         </Grid>
-        <Grid container>
+        <Grid container style={{ margin: '1rem', width: '90%' }}>
           <Grid xs={12}>
             <p className="text-left">
               Please select the unit you would like to link with your account.If you have more than one Unit you can link the other ones later on.
@@ -58,7 +58,7 @@ export default class Address extends EmailAccountRegistrationController {
           </Grid>
         </Grid>
 
-        <Grid container>
+        <Grid container style={{ margin: '1rem', width: '90%' }}>
           <Grid xs={12}>
             <FormControl variant="outlined" fullWidth>
               <InputLabel id="demo-simple-select-outlined-label" style={{display:'flex',alignItems:'center',gap:'1rem'}}>
@@ -71,12 +71,12 @@ export default class Address extends EmailAccountRegistrationController {
                 onChange={this.handleChange}
                 label="Country"
               >
-               <MenuItem>
+               {/* <MenuItem>
                   <ListItemIcon>
                     <InboxIcon />
                   </ListItemIcon>
                   <ListItemText primary="Inbox" />
-                  </MenuItem>
+                  </MenuItem> */}
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
@@ -90,7 +90,7 @@ export default class Address extends EmailAccountRegistrationController {
             </FormControl>
           </Grid>
         </Grid>
-        <Grid container>
+        <Grid container style={{ margin: '1rem', width: '90%' }}>
           <Grid xs={12}>
             <FormControl variant="outlined" fullWidth>
 
@@ -117,7 +117,7 @@ export default class Address extends EmailAccountRegistrationController {
             </FormControl>
           </Grid>
         </Grid>
-        <Grid container>
+        <Grid container style={{ margin: '1rem', width: '90%' }}>
           <Grid xs={12}>
             <FormControl variant="outlined" fullWidth>
               <InputLabel id="demo-simple-select-outlined-label" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
@@ -143,7 +143,7 @@ export default class Address extends EmailAccountRegistrationController {
             </FormControl>
           </Grid>
         </Grid>
-        <Grid container>
+        <Grid container style={{ margin: '1rem', width: '90%' }}>
           <Grid xs={12}>
             <FormControl variant="outlined" fullWidth>
               <InputLabel id="demo-simple-select-outlined-label" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
@@ -168,7 +168,7 @@ export default class Address extends EmailAccountRegistrationController {
             </FormControl>
           </Grid>
         </Grid>
-        <Grid container>
+        <Grid container style={{ margin: '1rem', width: '90%' }}>
           <Grid xs={12}>
             <Button
             onClick={this.createRequest}

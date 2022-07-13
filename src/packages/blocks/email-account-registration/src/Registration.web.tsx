@@ -26,7 +26,7 @@ class Registration extends EmailAccountRegistrationController  {
   render() {
   return (
     <>
-    <Grid container>
+    <Grid container style={{margin:'1rem'}}>
       <Grid xs={12}>
           <ArrowBackIcon onClick={() => window.history.back()} />
       </Grid>
@@ -49,7 +49,7 @@ class Registration extends EmailAccountRegistrationController  {
         </Grid>
       </Grid>
 
-      <Grid container>
+      <Grid container style={{ margin: '1rem',width:'90%' }}>
         <Grid xs={12}>
           <Formik initialValues={{
             full_name: "",

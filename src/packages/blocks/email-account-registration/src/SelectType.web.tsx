@@ -26,13 +26,13 @@ export default class SelectType extends EmailAccountRegistrationController {
     return (
 
       <>
-        <Grid container>
+        <Grid container style={{ margin: '1rem', width: '90%' }}>
           <Grid xs={12}>
             <ArrowBackIcon onClick={() => window.history.back()} />
           </Grid>
         </Grid>
 
-        <Grid container>
+        <Grid container style={{ margin: '1rem', width: '90%' }}>
           <Grid xs={12}>
             <p className="text-left" style={{ fontSize: '2.5rem', fontWeight: 700 }}>
               Please select your type
@@ -41,7 +41,7 @@ export default class SelectType extends EmailAccountRegistrationController {
           </Grid>
         </Grid>
 
-        <Grid container>
+        <Grid container style={{ margin: '1rem', width: '90%' }}>
           <Grid xs={12}>
             <p className="text-left">
               Please select appropriate user type
@@ -52,7 +52,7 @@ export default class SelectType extends EmailAccountRegistrationController {
           </Grid>
         </Grid>
 
-        <Grid container>
+        <Grid container style={{ margin: '1rem', width: '90%' }}>
           <Grid xs={12}>
             <Box
               display="flex"
@@ -133,7 +133,7 @@ export default class SelectType extends EmailAccountRegistrationController {
             </Box>
           </Grid>
         </Grid>
-        <Grid container>
+        <Grid container style={{ margin: '1rem', width: '90%' }}>
           <Grid xs={12}>
             <Button
               fullWidth={true}
