@@ -199,7 +199,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             localStorage.setItem('res_token', responseJson.meta.token)
             localStorage.setItem('res_user', responseJson.data.attributes)
             localStorage.setItem('res_user_id', responseJson.data.id)
-            this.props.history.push('/selecttype')
+            this.props.history.push('/otp')
 
 
           } else {
@@ -710,7 +710,18 @@ export default class EmailAccountRegistrationController extends BlockComponent<
 
 
   }
+  updateTypeOwner=()=>{
+    if (this.state.userType){
 
+      if (this.state.userType === 'Owner'){
+        this.props.history.push('/registerowner')
+
+      }else{
+        this.props.history.push('/registermanager')
+
+      }
+    }
+  }
   updateType=(): boolean=> {
 
     const header = {
@@ -725,7 +736,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     this.changeUserTypeApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `account_block/accounts?user_type=${this.state.userType}&id=${localStorage.getItem('res_user_id')}`
+      `account_block/user_type?user_type=${this.state.userType}&id=${localStorage.getItem('res_user_id')}`
     );
 
     requestMessage.addData(

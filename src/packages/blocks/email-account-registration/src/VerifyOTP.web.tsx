@@ -10,10 +10,12 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import EmailAccountRegistrationController, { Props } from "./EmailAccountRegistrationController";
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import { CheckBox, Visibility, VisibilityOff } from "@material-ui/icons";
+import { withRouter } from 'react-router';
 
 
 
-export default class VerofyOTP extends EmailAccountRegistrationController {
+
+class VerofyOTP extends EmailAccountRegistrationController {
   constructor(props: Props) {
     super(props);
     // Customizable Area Start
@@ -24,13 +26,13 @@ export default class VerofyOTP extends EmailAccountRegistrationController {
     return (
 
       <>
-        <Grid container>
+        <Grid container style={{ margin: '1rem', width: '90%' }}>
           <Grid xs={12}>
             <ArrowBackIcon onClick={() => window.history.back()} />
           </Grid>
         </Grid>
 
-        <Grid container>
+        <Grid container style={{ margin: '1rem', width: '90%' }}>
           <Grid xs={12}>
             <p className="text-left" style={{ fontSize: '2.5rem', fontWeight: 700,marginTop:'2.5rem' }}>
              Enter OTP Code
@@ -39,7 +41,7 @@ export default class VerofyOTP extends EmailAccountRegistrationController {
           </Grid>
         </Grid>
 
-        <Grid container>
+        <Grid container style={{ margin: '1rem', width: '90%' }}>
           <Grid xs={12}>
             <p className="text-left" style={{ marginBottom: '1.5rem' }}>
               Please enter the code sent to the mail address
@@ -52,7 +54,7 @@ export default class VerofyOTP extends EmailAccountRegistrationController {
           </Grid>
         </Grid>
 
-        <Grid container>
+        <Grid container style={{ margin: '1rem', width: '90%' }}>
           <Grid xs={12} style={{display:'flex'}} justifyContent="center">
             <div className="otp-input-wrapper">
               <input type="text" max="4" pattern="[0-9]*" />
@@ -62,9 +64,10 @@ export default class VerofyOTP extends EmailAccountRegistrationController {
             </div>
           </Grid>
         </Grid>
-<Grid container>
+        <Grid container style={{ margin: '1rem', width: '90%' }}>
   <Grid xs={12}>
             <Button
+              onClick={() => this.props.history.push('/selecttype')}
             fullWidth={true}
               className={'btn'}
               variant="contained"
@@ -122,3 +125,4 @@ export default class VerofyOTP extends EmailAccountRegistrationController {
   }
 
 }
+export default withRouter(VerofyOTP)
