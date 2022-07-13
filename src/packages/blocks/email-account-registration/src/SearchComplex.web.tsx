@@ -59,7 +59,7 @@ class SearchComplex extends EmailAccountRegistrationController {
 
       <Grid container>
         <Grid xs={12}>
-          <Select options={this.state.allComplex}/>
+            <Select options={this.state.allComplex} onChange={this.handleInputChange}  />
         </Grid>
       </Grid>
 
@@ -71,5 +71,8 @@ class SearchComplex extends EmailAccountRegistrationController {
 
   }
 
+  componentDidMount(): Promise<void> {
+    this.getComplex();
+  }
 }
 export default withRouter(SearchComplex)

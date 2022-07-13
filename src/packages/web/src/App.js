@@ -710,7 +710,7 @@ const routeMap = {
   },
   SearchComplex: {
     component: SearchComplex,
-    path: '/SearchComplex'
+    path: '/searchComplex'
   },
   VerifyOTP: {
     component: VerifyOTP,
