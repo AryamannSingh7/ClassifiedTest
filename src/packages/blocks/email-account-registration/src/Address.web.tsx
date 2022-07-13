@@ -4,7 +4,7 @@
 import * as React from "react";
 // custom components
 import {
-  Button, Grid, Box, Typography, Link, IconButton, ListItemIcon, ListItemText
+  Button, Grid, Box, Typography, Link, IconButton, ListItemIcon, ListItemText, DialogContent, Dialog, DialogTitle, DialogActions
 } from "@material-ui/core";
 import "../assets/css/style.scss";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
@@ -19,7 +19,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InboxIcon from '@material-ui/icons/Inbox';
-import { building, city, country, unit } from "./assets";
+import { building, city, country, modalbuilding, unit } from "./assets";
 
 
 
@@ -178,7 +178,8 @@ export default class Address extends EmailAccountRegistrationController {
         <Grid container style={{ margin: '1rem', width: '90%', position: 'absolute', bottom: 0 }}>
           <Grid xs={12}>
             <Button
-            onClick={this.createRequest}
+            // onClick={this.createRequest}
+              onClick={() => { this.setState({ showDialog: true }) }}
               className={'btn'}
               variant="contained"
               type="submit"
@@ -199,6 +200,63 @@ export default class Address extends EmailAccountRegistrationController {
             </Button>
           </Grid>
         </Grid>
+
+        <Dialog
+        style={{padding:'1rem'}}
+          open={this.state.showDialog}
+          onClose={() => this.setState({ showDialog: false })}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <Grid container>
+            <Grid xs={12} style={{display:'flex'}} justifyContent='center'>
+              <img src={modalbuilding}/>
+            </Grid>
+          </Grid>
+          <DialogTitle id="alert-dialog-title">
+            Are you sure you want to register unit?
+          </DialogTitle>
+          <DialogContent>
+            Are you sure that you want to register A-104 unit of Central Park Heights?
+          </DialogContent>
+
+            <Grid container>
+              <Grid xs={12}>
+              <Box className="customButton">
+
+                <Button
+                  variant="contained"
+                  onClick={() => {this.setState({ showDialog: false },()=>this.createRequest)}}
+
+                >
+                  Yes Register
+                </Button>
+
+              </Box>
+
+
+
+              </Grid>
+            </Grid>
+            <Grid container>
+              <Grid xs={12}>
+              <Box className="customButton" style={{ display: 'flex', justifyContent: 'center' }}>
+
+                <Button
+                  onClick={this.createRequest}
+                  // onClick={() => { this.setState({ showDialog: false }, () => this.createRequest) }}
+
+                >
+                  No, Don’t Regsiter
+                </Button>
+
+              </Box>
+
+              </Grid>
+            </Grid>
+
+
+        </Dialog>
       </>
     )
   }

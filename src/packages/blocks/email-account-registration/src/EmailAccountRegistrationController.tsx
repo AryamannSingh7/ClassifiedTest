@@ -856,7 +856,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
   }
 
   createRequest=(attributes: any): boolean=> {
-
+console.log('hi')
     const header = {
       "Content-Type": configJSON.contentTypeApiAddDetail,
       "token": localStorage.getItem('res_token')
