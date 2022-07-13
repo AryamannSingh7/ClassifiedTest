@@ -36,6 +36,7 @@ interface S {
   labelOr: string;
   error: string | null;
   loading: boolean;
+  showDialog:boolean;
   // Customizable Area End
 }
 
@@ -85,7 +86,8 @@ export default class EmailAccountLoginController extends BlockComponent<
       btnTxtSocialLogin: configJSON.btnTxtSocialLogin,
       labelOr: configJSON.labelOr,
       error: null,
-      loading: false
+      loading: false,
+      showDialog:false
     };
 
     this.emailReg = new RegExp("");
