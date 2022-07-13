@@ -186,6 +186,8 @@ export default class ChairmanAccountLoginController extends BlockComponent<
   async receive(from: string, message: Message) {
 
     // Customizable Area Start
+console.log("message===========================================>",message)
+console.log("from===========================================>",from)
 
     if (getName(MessageEnum.ReciveUserCredentials) === message.id) {
       const userName = message.getData(getName(MessageEnum.LoginUserName));
@@ -449,7 +451,7 @@ export default class ChairmanAccountLoginController extends BlockComponent<
     runEngine.sendMessage(getValidationsMsg.id, getValidationsMsg);
   }
 
-  LogIn = (values: any): boolean => {
+  LogIn (values: any): boolean {
     const header = {
       "Content-Type": configJSON.loginApiContentType
     };
@@ -469,12 +471,13 @@ export default class ChairmanAccountLoginController extends BlockComponent<
       data: data
     };
 
-    //this.setState({loading: true}) 
+    this.setState({loading: true}) 
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
     );
 
     this.apiEmailLoginCallId = requestMessage.messageId;
+    console.log("apiEmailLoginCallId===============>",this.apiEmailLoginCallId)
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
       configJSON.signinAPiEndPoint
