@@ -1,4 +1,8 @@
-
+.SideBar {
+    background: #f9f6f6;
+    position:relative;
+    padding-bottom: 150px,
+}
 .Dec-wrap{
     text-overflow: ellipsis;
     overflow: hidden;
@@ -109,7 +113,12 @@
     /* border: 1px solid lightgray; */
     border-radius: 5px;
 }
-
+.DateSectionPreviewpoll{
+    display: flex;
+    gap: 30px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
 .DateBox .MuiInputBase-root{
     align-items: baseline !important;
     flex-direction: row-reverse;
@@ -217,25 +226,29 @@
 
 .statusOngoing{
     background: #ffdede;
-    padding-top:5px;
-    padding-bottom:5px;
-    padding-left:15px;
-    padding-right:15px;
+    padding: 5px 15px;
     border-radius: 30px;
     color: #f27200;
     display: initial;
 }
 .statusCompleted{
     background: #dcf5f0;
-    padding-top:5px;
-    padding-bottom:5px;
-    padding-left:15px;
-    padding-right:15px;
+    padding: 5px 15px;
     border-radius: 30px;
     color: green;
     display: initial;
 }
-
+.PreviewName{
+    display: flex;
+    justify-content: space-between;
+}
+.AnonymousPreviewPoll{
+    padding: 10px 15px;
+    border: 1px solid #005ff2;
+    border-radius: 30px;
+    color: #005ff2;
+    display: initial;
+}
 .RecentItems{
     display: flex;
     justify-content: space-between;

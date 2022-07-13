@@ -1,9 +1,9 @@
 // Customizable Area Start
-
+//@ts-ignore
+//@ts-nocheck
 
 import React from "react";
 import "./Polling.web.css"
-
 import {Editor, EditorState} from 'draft-js';
 import 'draft-js/dist/Draft.css';
 
@@ -12,7 +12,7 @@ import {
   Typography,
   TextField,
   Input,
-  Link,
+//   Link,
   Button,
 } from "@material-ui/core";
 import Box from '@material-ui/core/Box';
@@ -40,18 +40,24 @@ import PollingController, {
   Props,
   configJSON,
 } from "./PollingController";
+import { withRouter } from "react-router-dom";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 
-export default class CreatePolls extends PollingController {
+class CreatePolls extends PollingController {
   constructor(props: Props) {
     super(props);
    
   }
 
-//   handleChange = (event:any) => {
-//     this.setState({checked: event.target.checked})
-//   };
+  componentDidMount() {
+    const PreviewPollData = localStorage.getItem('Polls_Data') && JSON.parse(localStorage.getItem('Polls_Data'));
+    if(PreviewPollData){
+        this.setState({PollData:PreviewPollData.PollFormData, options: PreviewPollData.PollOptions,  checked: PreviewPollData.PollType},
+            () => console.log("PreViewPollData [ PollData ]====>>>>>",  this.state.PollData, this.state.options)
+        )
+    }
+  }
 
   render() {
     return ( 
@@ -145,9 +151,11 @@ export default class CreatePolls extends PollingController {
                                     <Box style={{float:"right"}}>
                                     <Switch
                                         checked={this.state.checked}
-                                        // onChange={this.handleChange}
                                          onClick={(event: any) => 
-                                            this.setState({checked: event.target.checked})
+                                            this.setState(
+                                                {checked: event.target.checked},
+                                               () => console.log("isCheck--", this.state.checked )
+                                            )
                                         }
                                         value="checked"
                                         color="primary"
@@ -212,9 +220,14 @@ export default class CreatePolls extends PollingController {
 
                         <Box className="BottomButton">
                             <Box className="Previewbtn"> 
-                                <Link href="/PollPreview">
-                                    <Button variant="contained" color="primary">PREVIEW</Button>
-                                </Link> 
+                                {/* <Link href="/PollPreview"> */}
+                                    <Button variant="contained" color="primary"
+                                    onClick={async () => {
+                                        await this.handlePriviewData()
+                                        this.props.history.push("/PollPreview")
+                                    }}
+                                    >PREVIEW</Button>
+                                {/* </Link>  */}
                             </Box>
                             <Box className="Publishbtn">
                                 <Button type="submit" variant="outlined" color="primary">PUBLISH</Button>
@@ -232,13 +245,6 @@ export default class CreatePolls extends PollingController {
   }
 }
 
-
-const dashBoard = {
-    SideBar: {
-        background: "#f9f6f6",
-        position:"relative",
-        paddingBottom: 150,
-    },
-}
+export default withRouter(CreatePolls);
 
 // Customizable Area End

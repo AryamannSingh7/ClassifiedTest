@@ -33,6 +33,18 @@ export interface S {
   phone: string;
   error: string | null;
   userType: string | null;
+  allContries: [];
+  selectCountry: string;
+  allCity: [];
+  selectCity: string;
+  allBuilding: [];
+  selectBuilding: string;
+  allUnit: [];
+  selectUnit: string;
+  selectCode: string;
+  selectEmail: string;
+
+
 
   // Customizable Area End
 }
@@ -53,7 +65,14 @@ export default class EmailAccountRegistrationController extends BlockComponent<
   passwordReg: RegExp;
   emailReg: RegExp;
   createAccountApiCallId: any;
+  createRequestApiCallId:any;
  changeUserTypeApiCallId:any;
+  getCountryApiCallId: any;
+  getCityApiCallId: any;
+  getBuildingApiCallId: any;
+  getUnitApiCallId: any;
+
+
 
   validationApiCallId: string = "";
 
@@ -101,7 +120,17 @@ export default class EmailAccountRegistrationController extends BlockComponent<
       enableReTypePasswordField: true,
       countryCodeSelected: "",
       phone: "",
-      userType:''
+      userType:'',
+      allContries: [],
+      selectCountry: '',
+      allCity: [],
+      selectCity: '',
+      allBuilding: [],
+      selectBuilding: '',
+      allUnit: [],
+      selectUnit: '',
+      selectCode:'',
+      selectEmail:'',
       // Customizable Area End
     };
 
@@ -170,7 +199,23 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             localStorage.setItem('res_token', responseJson.meta.token)
             localStorage.setItem('res_user', responseJson.data.attributes)
             localStorage.setItem('res_user_id', responseJson.data.id)
+            this.props.history.push('/selecttype')
+
+
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        } else if (apiRequestCallId === this.createRequestApiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            // localStorage.setItem('res_token', responseJson.meta.token)
+            // localStorage.setItem('res_user', responseJson.data.attributes)
+            // localStorage.setItem('res_user_id', responseJson.data.id)
             // this.props.history.push('/selecttype')
+            alert('request has been created')
 
 
           } else {
@@ -185,9 +230,50 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             // localStorage.setItem('res_token', responseJson.meta.token)
             // localStorage.setItem('res_user', responseJson.data.attributes)
             // localStorage.setItem('res_user_id', responseJson.data.id)
-            // this.props.history.push('/selecttype')
+            this.props.history.push('/addressfill')
 
 
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        } else if (apiRequestCallId === this.getCountryApiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            this.setState({ allContries: responseJson.data.countries })
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        } else if (apiRequestCallId === this.getCityApiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            this.setState({ allCity: responseJson.data.cities })
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        } else if (apiRequestCallId === this.getBuildingApiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            this.setState({ allBuilding: responseJson.data.buildings })
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        } else if (apiRequestCallId === this.getUnitApiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            let temp = [responseJson.data.unit_apartments]
+            this.setState({ allUnit: [...temp] },()=>console.log(this.state.allUnit))
           } else {
             //Check Error Response
             this.parseApiErrorResponse(responseJson);
@@ -322,7 +408,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     this.createAccountApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      configJSON.accountsAPiEndPoint
+      'account_block/accounts'
     );
 
     requestMessage.addData(
@@ -520,6 +606,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     const header = {
       "Content-Type": configJSON.contentTypeApiAddDetail
     };
+    this.setState({ selectEmail: attributes.email })
 
     const attrs = {
       full_name: attributes.full_name,
@@ -545,7 +632,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     this.createAccountApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      configJSON.accountsAPiEndPoint
+      'account_block/accounts'
     );
 
     requestMessage.addData(
@@ -570,6 +657,59 @@ export default class EmailAccountRegistrationController extends BlockComponent<
 
   }
 
+  createRequest=(attributes: any): boolean=> {
+
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      "token": localStorage.getItem('res_token')
+    };
+
+    const attrs = {
+      country: this.state.selectCountry,
+      city: this.state.selectCity,
+      building_name: this.state.selectBuilding,
+      apartment_name: this.state.selectUnit,
+    };
+
+    const data = {
+
+      attributes: attrs
+    };
+
+    const httpBody = {
+      data: data
+    };
+
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+    this.createRequestApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      'bx_block_request_management/requests'
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestBodyMessage),
+      JSON.stringify(httpBody)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.apiMethodTypeAddDetail
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+
+
+
+  }
 
   updateType=(): boolean=> {
 
@@ -585,7 +725,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     this.changeUserTypeApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `${configJSON.accountsAPiEndPoint}?user_type=${this.state.userType}&id=${localStorage.getItem('res_user_id')}`
+      `account_block/accounts?user_type=${this.state.userType}&id=${localStorage.getItem('res_user_id')}`
     );
 
     requestMessage.addData(
@@ -597,7 +737,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
 
     requestMessage.addData(
       getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypeUpdateDetail
+      'PATCH'
     );
 
     runEngine.sendMessage(requestMessage.id, requestMessage);
@@ -610,6 +750,163 @@ export default class EmailAccountRegistrationController extends BlockComponent<
   changeType(value:any){
     this.setState({userType:value})
 
+  }
+  handleChange= (e: any) => {
+    console.log(e.target.name)
+    console.log(e.target.value)
+
+
+    // @ts-ignore
+    // @ts-nocheck
+this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e))
+  }
+
+  getData(e){
+    console.log(this.state)
+
+    if (e.target.name == 'selectCountry'){
+      this.getCity()
+
+    } else if (e.target.name == 'selectCity') {
+      this.getBuilding()
+
+    } else if (e.target.name == 'selectBuilding') {
+      this.getUnit()
+
+    }
+
+  }
+
+  getCountry(){
+
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      "token": localStorage.getItem('res_token')
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+
+    this.getCountryApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_address/country_list`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.validationApiMethodType
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  }
+
+  getCity() {
+
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      "token": localStorage.getItem('res_token')
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+
+    this.getCityApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_address/city_list?country=${this.state.selectCountry}`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.validationApiMethodType
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  }
+
+  getBuilding() {
+
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      "token": localStorage.getItem('res_token')
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+
+    this.getBuildingApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_address/building_list?city=${this.state.selectCity}`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.validationApiMethodType
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  }
+
+  getUnit() {
+
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      "token": localStorage.getItem('res_token')
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+
+    this.getUnitApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_address/apartment_list?id=${this.state.selectBuilding}`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.validationApiMethodType
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
   }
   // Customizable Area End
 }

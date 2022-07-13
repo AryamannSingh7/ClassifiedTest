@@ -85,7 +85,10 @@ export default class Polling extends PollingController {
                                     <Typography variant="body2" className="bottomColor">{this.state.totalPollsCount.polls_count}</Typography>  
                                 </Box> 
                                 <Box className="bottomTwoSpan">
-                                    <Typography variant="body2">Last poll created on {this.changeLastDateFormate(this.state.totalPollsCount.last_poll_created_at)}</Typography> 
+                                    <Typography variant="body2">
+                                        Last poll created on {this.state.totalPollsCount.last_poll_created_at}
+                                        {/* {this.changeLastDateFormate(this.state.totalPollsCount.last_poll_created_at)} */}
+                                    </Typography> 
                                 </Box> 
                             </Box>
                         </Link>
