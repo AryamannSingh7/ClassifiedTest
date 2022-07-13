@@ -3,6 +3,7 @@
 //@ts-ignore
 
 import React from "react";
+import './Dashboard.web.css'
 import {
     Container,
     Typography,
@@ -51,10 +52,9 @@ export default class DashboardTicket extends DashboardController {
     render() {
       return ( 
       <>
-        <Box>
+        <Box style={{background: "#E5ECFF"}}>
             {/* Dashboard Header -- */}
             <DashboardHeader {...this.props}/>
-
             <Box style={{display: "flex"}}>
                 
                 <Grid item xs={3} md={3} sm={3} className="SideBar">
@@ -204,11 +204,6 @@ const dashBoardActions = {
         alignItems: "center",
         paddingLeft: 15,
         paddingRight: 55,
-    },
-    SideBar: {
-        background: "#f9f6f6",
-        position:"relative",
-        paddingBottom: 150,
     },
 };
   
