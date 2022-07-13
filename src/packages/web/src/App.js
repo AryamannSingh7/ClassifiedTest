@@ -96,19 +96,23 @@ import SurveyPreview from "../../blocks/Polling/src/SurveyPreview.web";
 import PollsallData from "../../blocks/Polling/src/PollsallData.web";
 
 const routeMap = {
+  //done
   LandingPage: {
     component: LandingPage,
     path: '/',
     exact: true
   },
+  //done
   ChairmanLogin: {
     component: ChairmanLogin,
     path: "/ChairmanLogin"
   },
+  //done
   EmailAccountLogin: {
     component: EmailAccountLogin,
     path: "/EmailAccountLogin"
   },
+  //done
   ChangeSuccessfully: {
     component: ChangeSuccessfully,
     path: '/ChangeSuccessfully',
@@ -119,6 +123,7 @@ const routeMap = {
     path: '/ChairmanChangeSuccessfully',
     exact: true
   },
+  //done
   ChangePassword: {
     component: ChangePassword,
     path: '/ChangePassword',
@@ -132,7 +137,6 @@ const routeMap = {
     component: ForgotPassword,
     path: "/ForgotPassword"
   },
- 
   ChairmanForgotPassword: {
     component: ChairmanForgotPassword,
     path: "/ChairmanForgotPassword"

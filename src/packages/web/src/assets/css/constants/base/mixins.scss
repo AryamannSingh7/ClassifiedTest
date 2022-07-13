@@ -42,7 +42,7 @@
   }
 
   @else if $size ==tablet-portrait-medium-up {
-    @media (min-width: 600px) {
+    @media (min-width: 960px) {
       @content;
     }
   }

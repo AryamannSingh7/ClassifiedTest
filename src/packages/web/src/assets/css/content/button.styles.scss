@@ -21,9 +21,11 @@
 }
 
 .desktop-ui {
-    & .customButton {
-        & .MuiButton-root {
-            border-radius: $FORM_BORDER_RADIUS;
+    @include mq(tablet-portrait-medium-up) {
+        & .customButton {
+            & .MuiButton-root {
+                border-radius: $FORM_BORDER_RADIUS;
+            }
         }
     }
 }

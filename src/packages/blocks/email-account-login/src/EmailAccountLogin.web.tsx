@@ -11,6 +11,8 @@ import {
   Grid
 } from "@material-ui/core";
 
+//images
+import { Tenant_Logo, Building_Logo, Landing_Banner, Building1 } from "../src/assets";
 //resources
 import Checkbox from '@material-ui/core/Checkbox';
 import CircleCheckedFilled from '@material-ui/icons/CheckCircle';
@@ -19,7 +21,6 @@ import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
-import { Tenant_Logo, Building_Logo, Landing_Banner, Building1 } from "../src/assets";
 import { withRouter } from 'react-router';
 import { Formik, Form, Field } from "formik";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
@@ -36,17 +37,21 @@ class EmailAccountLogin extends EmailAccountLoginController {
       <>
         <Box className="login-wrapper">
           <Grid container spacing={2} className="auth-container">
-            <Grid item xs={12} md={6} className="auth-cols">
+            <Grid item xs={12} md={7} className="auth-cols">
               <Box className="content-block">
                 <Box display={{ xs: 'flex', md: 'none' }} className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
                 <Box className="logo-block common-top-padding" display={{ xs: 'none', md: 'flex' }}>
-                  <img src={Building_Logo} className="head-logo" alt="" />
-                  <h4>Building Name</h4>
+                  <Link href="/EmailAccountLogin">
+                    <img src={Building_Logo} className="head-logo" alt="" />
+                    <h4>Building Name</h4>
+                  </Link>
                 </Box>
-                <Box className="main-content-block">
+                <Box className="main-content-block desktop-ui">
                   <Box className="header-block">
                     <Box display={{ xs: 'flex', md: 'none' }}>
-                      <img src={Tenant_Logo} className="tenant-logo" alt="" />
+                      <Link href="/EmailAccountLogin">
+                        <img src={Tenant_Logo} className="tenant-logo" alt="" />
+                      </Link>
                     </Box>
                     <h1>Welcome Back</h1>
                     <p>Login with your account credentials </p>
@@ -144,11 +149,11 @@ class EmailAccountLogin extends EmailAccountLoginController {
                       </Form>
                     )}
                   </Formik>
-                </Box>
-                {/* mobile footer block */}
-                <Box className="bottomBlock common-bottom-padding" display={{ xs: 'flex', md: 'none' }}>
-                  <Link href="#" className="link">Don't have an account ? </Link>
-                  <Link href="#" className="link"> <span> register</span></Link>
+                  {/* mobile footer block */}
+                  <Box className="bottomBlock common-bottom-padding" display={{ xs: 'flex', md: 'none' }}>
+                    <Link href="#" className="link">Don't have an account ? </Link>
+                    <Link href="#" className="link"> <span> register</span></Link>
+                  </Box>
                 </Box>
                 {/* desktop footer block */}
                 <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>
@@ -157,9 +162,9 @@ class EmailAccountLogin extends EmailAccountLoginController {
                 </Box>
               </Box>
             </Grid>
-            <Grid item xs={12} md={6} display={{ xs: 'flex', lg: 'none' }} className="auth-cols">
-              <Box className="right-block">
-                {/* <img src={Building1} className="building-logo" alt="" /> */}
+            <Grid item xs={12} md={5} className="auth-cols">
+              <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
+                <img src={Building1} className="building-logo" alt="" />
               </Box>
             </Grid>
           </Grid>
