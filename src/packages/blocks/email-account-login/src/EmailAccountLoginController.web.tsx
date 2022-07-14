@@ -36,6 +36,9 @@ interface S {
   labelOr: string;
   error: string | null;
   loading: boolean;
+  registrationRequest:any;
+  requestdeleteId:any;
+  showDialog:any;
   // Customizable Area End
 }
 
@@ -54,6 +57,8 @@ export default class EmailAccountLoginController extends BlockComponent<
   // Customizable Area Start
   apiEmailLoginCallId: string = "";
   validationApiCallId: string = "";
+  apiRegistrationRequestCallId: string = "";
+  deleteRequestCallId:string="";
   emailReg: RegExp;
   labelTitle: string = "";
   // Customizable Area End
@@ -85,7 +90,10 @@ export default class EmailAccountLoginController extends BlockComponent<
       btnTxtSocialLogin: configJSON.btnTxtSocialLogin,
       labelOr: configJSON.labelOr,
       error: null,
-      loading: false
+      loading: false,
+      registrationRequest:null,
+      requestdeleteId:null,
+      showDialog:false,
     };
 
     this.emailReg = new RegExp("");
@@ -244,8 +252,56 @@ export default class EmailAccountLoginController extends BlockComponent<
             // this.openInfoPage();
             localStorage.setItem("userToken", responseJson?.meta?.token)
             localStorage.setItem("userId", responseJson?.meta?.id)
+           window.location.replace("/RegistrationRequest");
+           this.setState({loading: false})
+          
+          } else if (responseJson?.errors) {
+            //Check Error Response
+            // this.parseApiErrorResponse(responseJson);
+            // this.sendLoginFailMessage();
+            let error = Object.values(responseJson.errors[0])[0] as string;
+            this.setState({ error });
             this.setState({loading: false})
-           window.location.replace("/DashboardGeneral");
+          } else {
+            this.setState({loading: false})
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
+          }
+
+          this.parseApiCatchErrorResponse(this.state.error);
+        }
+       else if (apiRequestCallId === this.deleteRequestCallId) {
+          if (responseJson && responseJson?.data ) {
+            runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+           window.location.replace("/");
+          
+          } else if (responseJson?.errors) {
+            let error = Object.values(responseJson.errors[0])[0] as string;
+            this.setState({ error });
+            this.setState({loading: false})
+          } else {
+            this.setState({loading: false})
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
+          }
+          this.parseApiCatchErrorResponse(this.state.error);
+        }
+
+        else if (apiRequestCallId === this.apiRegistrationRequestCallId) {
+          if (responseJson && responseJson?.data ) {
+            runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+            // this.saveLoggedInUserData(responseJson);
+            // this.sendLoginSuccessMessage();
+            // this.openInfoPage();
+            // localStorage.setItem("userToken", responseJson?.meta?.token)
+            // localStorage.setItem("userId", responseJson?.meta?.id)
+         const  registrationRequest = responseJson?.data[0]
+         console.log("registrationRequest?.type========>",registrationRequest?.type)
+           if(registrationRequest?.type === "request"){
+            this.setState({registrationRequest, requestdeleteId :registrationRequest.id,loading: false})
+          }
+           else {
+            //window.location.replace("/DashboardGeneral");
+           }
+           //window.location.replace("/DashboardGeneral");
           
           } else if (responseJson?.errors) {
             //Check Error Response
@@ -478,4 +534,77 @@ export default class EmailAccountLoginController extends BlockComponent<
     });
     return validations
   }
+
+  getRegistrationRequest = () => {
+    try {
+      const header = {
+        token :localStorage.getItem("userToken")
+      };
+
+      //const id = localStorage.getItem("userId");
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+
+      this.apiRegistrationRequestCallId = requestMessage.messageId;
+      this.setState({ loading: true });
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        `bx_block_request_management/requests`
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        configJSON.validationApiMethodType
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+      return true;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  deleteRequestById = () => {
+    try {
+      const header = {
+        token :localStorage.getItem("userToken")
+      };
+
+      //const id = localStorage.getItem("userId");
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+
+      this.deleteRequestCallId = requestMessage.messageId;
+      this.setState({ loading: true ,showDialog: false});
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        `bx_block_request_management/requests/${this.state?.requestdeleteId}`
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        configJSON.httpDelete
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+      return true;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 }

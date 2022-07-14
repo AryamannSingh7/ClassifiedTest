@@ -1,10 +1,14 @@
+//@ts-ignore
+//@ts-nocheck
+
+
 import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
+import { runEngine } from "../../../framework/src/RunEngine";
 import MessageEnum, {
   getName
 } from "../../../framework/src/Messages/MessageEnum";
-import { runEngine } from "../../../framework/src/RunEngine";
 
 // Customizable Area Start
 import { imgPasswordInVisible, imgPasswordVisible } from "./assets";
@@ -15,32 +19,43 @@ export const configJSON = require("./config");
 export interface Props {
   navigation: any;
   id: string;
-  // Customizable Area Start
-  // Customizable Area End
 }
 
-interface S {
+export interface S {
   // Customizable Area Start
-  password: string;
+  firstName: string;
+  lastName: string;
   email: string;
+  password: string;
+  otpAuthToken: string;
+  reTypePassword: string;
+  data: any[];
+  passwordHelperText: string;
   enablePasswordField: boolean;
-  checkedRememberMe: boolean;
-  placeHolderEmail: string;
-  placeHolderPassword: string;
-  imgPasswordVisible: any;
-  imgPasswordInVisible: any;
-  labelHeader: string;
-  btnTxtLogin: string;
-  labelRememberMe: string;
-  btnTxtSocialLogin: string;
-  labelOr: string;
+  enableReTypePasswordField: boolean;
+  countryCodeSelected: string;
+  phone: string;
   error: string | null;
-  loading: boolean;
-  userTypeData:any;
+  userType: string | null;
+  allContries: [];
+  selectCountry: string;
+  allCity: [];
+  selectCity: string;
+  allBuilding: [];
+  selectBuilding: string;
+  allUnit: [];
+  selectUnit: string;
+  selectCode: string;
+  selectEmail: string;
+  unitRegisterType:string;
+  allComplex:[]
+
+
+
   // Customizable Area End
 }
 
-interface SS {
+export interface SS {
   // Customizable Area Start
   id: any;
   // Customizable Area End
@@ -51,169 +66,118 @@ export default class ChairmanAccountLoginController extends BlockComponent<
   S,
   SS
 > {
-
   // Customizable Area Start
-  apiEmailLoginCallId: string = "";
-  validationApiCallId: string = "";
-  getUserTypeApiCallId: string = "";
+  arrayholder: any[];
+  passwordReg: RegExp;
   emailReg: RegExp;
-  labelTitle: string = "";
+  createAccountApiCallId: any;
+  createManagerAccountApiCallId:any;
+  createAccountOwnerApiCallId:any;
+  createRequestApiCallId:any;
+ changeUserTypeApiCallId:any;
+  getCountryApiCallId: any;
+  getComplexApiCallId:any;
+  getCityApiCallId: any;
+  getBuildingApiCallId: any;
+  getUnitApiCallId: any;
+  
+
+  apiChairmanEmailLoginCallId:any;
+  apiEmailLoginCallId: any;
+  validationApiCallId: any;
+  getUserTypeApiCallId:any;
+
+  validationApiCallId: string = "";
+
+  imgPasswordVisible: any;
+  imgPasswordInVisible: any;
+
+  labelHeader: any;
+  labelFirstName: string;
+  lastName: string;
+  labelEmail: string;
+  labelPassword: string;
+  labelRePassword: string;
+  labelLegalText: string;
+  labelLegalTermCondition: string;
+  labelLegalPrivacyPolicy: string;
+  btnTextSignUp: string;
+
+  currentCountryCode: any;
   // Customizable Area End
 
   constructor(props: Props) {
-
     super(props);
-    this.receive = this.receive.bind(this);
-  
-    // Customizable Area Start
     this.subScribedMessages = [
-      getName(MessageEnum.CountryCodeMessage),
       getName(MessageEnum.RestAPIResponceMessage),
-      getName(MessageEnum.ReciveUserCredentials)
-    ]
-    
+      getName(MessageEnum.NavigationPayLoadMessage),
+      getName(MessageEnum.CountryCodeMessage)
+    ];
+    this.receive = this.receive.bind(this);
+    this.isStringNullOrBlank = this.isStringNullOrBlank.bind(this);
+
+    runEngine.attachBuildingBlock(this, this.subScribedMessages);
+
     this.state = {
+      // Customizable Area Start
+      firstName: "",
+      lastName: "",
       email: "",
       password: "",
+      reTypePassword: "",
+      otpAuthToken: "",
+      data: [],
+      passwordHelperText: "",
       enablePasswordField: true,
-      checkedRememberMe: false,
-      placeHolderEmail: configJSON.placeHolderEmail,
-      placeHolderPassword: configJSON.placeHolderPassword,
-      imgPasswordVisible: configJSON.imgPasswordVisible,
-      imgPasswordInVisible: imgPasswordInVisible,
-      labelHeader: configJSON.labelHeader,
-      btnTxtLogin: configJSON.btnTxtLogin,
-      labelRememberMe: configJSON.labelRememberMe,
-      btnTxtSocialLogin: configJSON.btnTxtSocialLogin,
-      labelOr: configJSON.labelOr,
+      error: null,
+      enableReTypePasswordField: true,
+      countryCodeSelected: "",
+      phone: "",
+      userType:'',
+      allContries: [],
+      selectCountry: '',
+      allCity: [],
+      selectCity: '',
+      allBuilding: [],
+      selectBuilding: '',
+      allUnit: [],
+      selectUnit: '',
+      selectCode:'',
+      selectEmail:'',
+      unitRegisterType:'',
+      allComplex:[],
+      
       error: null,
       loading: false,
+      showDialog:false,
       userTypeData:null
+      // Customizable Area End
     };
 
-    this.emailReg = new RegExp("");
-    this.labelTitle = configJSON.labelTitle;
-    // Customizable Area End
-
-    runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
-
-  }
-
-  async componentDidMount() {
-    this.callGetValidationApi();
-    this.send(new Message(getName(MessageEnum.RequestUserCredentials)));
     // Customizable Area Start
-    this.getUserType();
+    this.arrayholder = [];
+    this.passwordReg = new RegExp("\\w+");
+    this.emailReg = new RegExp("\\w+");
+
+    this.imgPasswordVisible = imgPasswordVisible;
+    this.imgPasswordInVisible = imgPasswordInVisible;
+
+    this.labelHeader = configJSON.labelHeader;
+    this.labelFirstName = configJSON.labelFirstName;
+    this.lastName = configJSON.lastName;
+    this.labelEmail = configJSON.labelEmail;
+    this.labelPassword = configJSON.labelPassword;
+    this.labelRePassword = configJSON.labelRePassword;
+    this.labelLegalText = configJSON.labelLegalText;
+    this.labelLegalTermCondition = configJSON.labelLegalTermCondition;
+    this.labelLegalPrivacyPolicy = configJSON.labelLegalPrivacyPolicy;
+    this.btnTextSignUp = configJSON.btnTextSignUp;
     // Customizable Area End
   }
-
-  // Customizable Area Start
-  btnSocialLoginProps = {
-    onPress: () => this.goToSocialLogin()
-  };
-
-  btnEmailLogInProps = {
-    color: "#6200EE",
-    onPress: () => this.doEmailLogIn()
-  };
-
-  btnPasswordShowHideProps = {
-    onPress: () => {
-      this.setState({ enablePasswordField: !this.state.enablePasswordField });
-      this.txtInputPasswordProps.secureTextEntry = !this.state
-        .enablePasswordField;
-      this.btnPasswordShowHideImageProps.source = this.txtInputPasswordProps
-        .secureTextEntry
-        ? imgPasswordVisible
-        : imgPasswordInVisible;
-    }
-  };
-
-  CustomCheckBoxProps = {
-    onChangeValue: (value: boolean) => {
-      this.setState({ checkedRememberMe: value });
-      this.CustomCheckBoxProps.isChecked = value;
-    },
-    isChecked: false
-  };
-
-  btnForgotPasswordProps = {
-    onPress: () => this.goToForgotPassword()
-  };
-
-  txtInputPasswordProps = {
-    onChangeText: (text: string) => {
-      this.setState({ password: text });
-
-      //@ts-ignore
-      this.txtInputPasswordProps.value = text;
-    },
-    secureTextEntry: true
-  };
-
-  btnPasswordShowHideImageProps = {
-    source: imgPasswordVisible
-  };
-
-  btnRememberMeProps = {
-    onPress: () => {
-      this.setState({ checkedRememberMe: !this.CustomCheckBoxProps.isChecked });
-      this.CustomCheckBoxProps.isChecked = !this.CustomCheckBoxProps.isChecked;
-    }
-  };
-
-  txtInputEmailWebProps = {
-    onChangeText: (text: string) => {
-      this.setState({ email: text });
-
-      //@ts-ignore
-      this.txtInputEmailProps.value = text;
-    }
-  };
-
-  txtInputEmailMobileProps = {
-    ...this.txtInputEmailWebProps,
-    autoCompleteType: "email",
-    keyboardType: "email-address"
-  };
-
-  txtInputEmailProps = this.isPlatformWeb()
-    ? this.txtInputEmailWebProps
-    : this.txtInputEmailMobileProps;
-
-  // Customizable Area End
 
   async receive(from: string, message: Message) {
-
     // Customizable Area Start
-console.log("message===========================================>",message)
-console.log("from===========================================>",from)
-
-    if (getName(MessageEnum.ReciveUserCredentials) === message.id) {
-      const userName = message.getData(getName(MessageEnum.LoginUserName));
-
-      const password = message.getData(getName(MessageEnum.LoginPassword));
-
-      const countryCode = message.getData(
-        getName(MessageEnum.LoginCountryCode)
-      );
-
-      if (!countryCode && userName && password) {
-        this.setState({
-          email: userName,
-          password: password,
-          checkedRememberMe: true
-        });
-
-        //@ts-ignore
-        this.txtInputEmailProps.value = userName;
-
-        //@ts-ignore
-        this.txtInputPasswordProps.value = password;
-
-        this.CustomCheckBoxProps.isChecked = true;
-      }
-    } else if (getName(MessageEnum.RestAPIResponceMessage) === message.id) {
+    if (getName(MessageEnum.RestAPIResponceMessage) === message.id) {
       const apiRequestCallId = message.getData(
         getName(MessageEnum.RestAPIResponceDataMessage)
       );
@@ -226,37 +190,38 @@ console.log("from===========================================>",from)
         getName(MessageEnum.RestAPIResponceErrorMessage)
       );
 
-      if (apiRequestCallId != null) {
-        if (
-          apiRequestCallId === this.validationApiCallId &&
-          responseJson !== undefined
-        ) {
-          var arrayholder = responseJson.data;
+      if (apiRequestCallId && responseJson) {
+        if (apiRequestCallId === this.validationApiCallId) {
+          this.arrayholder = responseJson.data;
 
-          if (arrayholder && arrayholder.length !== 0) {
-            let regexData = arrayholder[0];
+          if (this.arrayholder && this.arrayholder.length !== 0) {
+            let regexData = this.arrayholder[0];
 
-            if (regexData && regexData.email_validation_regexp) {
+            if (regexData.password_validation_regexp) {
+              this.passwordReg = new RegExp(
+                regexData.password_validation_regexp
+              );
+            }
+
+            if (regexData.password_validation_rules) {
+              this.setState({
+                passwordHelperText: regexData.password_validation_rules
+              });
+            }
+
+            if (regexData.email_validation_regexp) {
               this.emailReg = new RegExp(regexData.email_validation_regexp);
             }
           }
-        }
-
-        if (apiRequestCallId === this.apiEmailLoginCallId) {
-          if (responseJson && responseJson.meta && responseJson.meta.token) {
-            runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-            this.saveLoggedInUserData(responseJson);
-            this.sendLoginSuccessMessage();
-            // this.openInfoPage();
-            localStorage.setItem("userToken", responseJson?.meta?.token)
-            localStorage.setItem("userId", responseJson?.meta?.id)
-            this.setState({loading: false})
-           window.location.replace("/DashboardGeneral");
-          
+        } 
+        else if (apiRequestCallId === this.getUserTypeApiCallId) {
+          if (responseJson && responseJson?.data ) {
+        
+          console.log("responseJson?.data========================>",responseJson?.data.roles)
+          this.setState({userTypeData :responseJson?.data.roles})
+        //   console.log("userTypeData========================>",this.state.userTypeData[0].name)
+          this.setState({loading: false})
           } else if (responseJson?.errors) {
-            //Check Error Response
-            // this.parseApiErrorResponse(responseJson);
-            // this.sendLoginFailMessage();
             let error = Object.values(responseJson.errors[0])[0] as string;
             this.setState({ error });
             this.setState({loading: false})
@@ -267,122 +232,275 @@ console.log("from===========================================>",from)
 
           this.parseApiCatchErrorResponse(this.state.error);
         }
-        else if (apiRequestCallId === this.getUserTypeApiCallId) {
-            if (responseJson && responseJson?.data ) {
-              runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-              // this.saveLoggedInUserData(responseJson);
-              // this.sendLoginSuccessMessage();
-              // this.openInfoPage();
-              // localStorage.setItem("userToken", responseJson?.meta?.token)
-              // localStorage.setItem("userId", responseJson?.meta?.id)         
-            //  window.location.replace("/DashboardGeneral");
-            console.log("responseJson?.data========================>",responseJson?.data.roles)
-            this.setState({userTypeData :responseJson?.data.roles})
-          //   console.log("userTypeData========================>",this.state.userTypeData[0].name)
+       else if (apiRequestCallId === this.apiEmailLoginCallId) {
+          if (responseJson && responseJson.meta && responseJson.meta.token) {
+           // runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+           // this.saveLoggedInUserData(responseJson);
+           // this.sendLoginSuccessMessage();
+            // this.openInfoPage();
+            localStorage.setItem("userToken", responseJson?.meta?.token)
+            localStorage.setItem("userId", responseJson?.meta?.id)
             this.setState({loading: false})
-            } else if (responseJson?.errors) {
-              //Check Error Response
-              // this.parseApiErrorResponse(responseJson);
-              // this.sendLoginFailMessage();
-              let error = Object.values(responseJson.errors[0])[0] as string;
-              this.setState({ error });
-              this.setState({loading: false})
-            } else {
-              this.setState({loading: false})
-              this.setState({ error: responseJson?.error || "Something went wrong!" });
-            }
-  
-            this.parseApiCatchErrorResponse(this.state.error);
+           window.location.replace("/DashboardGeneral");
+          
+          } else if (responseJson?.errors) {
+            //Check Error Response
+            // this.parseApiErrorResponse(responseJson);
+            // this.sendLoginFailMessage();
+            console.log("responseJson?.data========================>",responseJson?.errors)
+            let error = Object.values(responseJson.errors[0])[0] as string;
+            this.setState({ error });
+            this.setState({loading: false})
+          } else {
+            this.setState({loading: false})
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
           }
-  
+
+          this.parseApiCatchErrorResponse(this.state.error);
+        }
+
+        else if (apiRequestCallId === this.createAccountApiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            localStorage.setItem('res_token', responseJson.meta.token)
+            localStorage.setItem('res_user', responseJson.data.attributes)
+            localStorage.setItem('res_user_id', responseJson.data.id)
+            this.props.history.push('/otp')
+
+
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        } else if (apiRequestCallId === this.createManagerAccountApiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            localStorage.setItem('res_token', responseJson.meta.token)
+            localStorage.setItem('res_user', responseJson.data.attributes)
+            localStorage.setItem('res_user_id', responseJson.data.id)
+            this.props.history.push('/otp')
+
+
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        } else if (apiRequestCallId === this.createAccountOwnerApiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            localStorage.setItem('res_token', responseJson.meta.token)
+            localStorage.setItem('res_user', responseJson.data.attributes)
+            localStorage.setItem('res_user_id', responseJson.data.id)
+            this.props.history.push('/otp')
+
+
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        } else if (apiRequestCallId === this.createRequestApiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            // localStorage.setItem('res_token', responseJson.meta.token)
+            // localStorage.setItem('res_user', responseJson.data.attributes)
+            // localStorage.setItem('res_user_id', responseJson.data.id)
+            // this.props.history.push('/selecttype')
+            alert('request has been created')
+
+
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        } else if (apiRequestCallId === this.changeUserTypeApiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            // localStorage.setItem('res_token', responseJson.meta.token)
+            // localStorage.setItem('res_user', responseJson.data.attributes)
+            // localStorage.setItem('res_user_id', responseJson.data.id)
+            this.props.history.push('/addressfill')
+
+
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        } else if (apiRequestCallId === this.getCountryApiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            this.setState({ allContries: responseJson.data.countries })
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        } else if (apiRequestCallId === this.getComplexApiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            let temp=[]
+            responseJson.data.societies.map((item:any)=>
+              temp.push({ value: item.id, label: item.name })
+              )
+              // @ts-ignore
+            this.setState({ allComplex: temp })
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        } else if (apiRequestCallId === this.getCityApiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            this.setState({ allCity: responseJson.data.cities })
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        } else if (apiRequestCallId === this.getBuildingApiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            this.setState({ allBuilding: responseJson.data.buildings })
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        } else if (apiRequestCallId === this.getUnitApiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            let temp = [responseJson.data.unit_apartments]
+            this.setState({ allUnit: [...temp] },()=>console.log(this.state.allUnit))
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        }
+      }
+    }
+
+    if (getName(MessageEnum.NavigationPayLoadMessage) === message.id) {
+      const otpAuthTkn = message.getData(
+        getName(MessageEnum.AuthTokenDataMessage)
+      );
+      if (otpAuthTkn && otpAuthTkn.length > 0) {
+        this.setState({ otpAuthToken: otpAuthTkn });
+        runEngine.debugLog("otpAuthTkn", this.state.otpAuthToken);
+        runEngine.unSubscribeFromMessages(this as IBlock, [message.id]);
+      }
+    }
+
+    if (getName(MessageEnum.CountryCodeMessage) === message.id) {
+      var selectedCode = message.getData(
+        getName(MessageEnum.CountyCodeDataMessage)
+      );
+
+      if (selectedCode !== undefined) {
+        this.setState({
+          countryCodeSelected:
+            selectedCode.indexOf("+") > 0
+              ? selectedCode.split("+")[1]
+              : selectedCode
+        });
       }
     }
     // Customizable Area End
   }
 
-  sendLoginFailMessage() {
-    const msg: Message = new Message(getName(MessageEnum.LoginFaliureMessage));
-    this.send(msg);
-  }
-  
-  sendLoginSuccessMessage() {
-    const msg: Message = new Message(getName(MessageEnum.LoginSuccessMessage));
-
-    msg.addData(getName(MessageEnum.LoginUserName), this.state.email);
-    msg.addData(getName(MessageEnum.CountyCodeDataMessage), null);
-    msg.addData(getName(MessageEnum.LoginPassword), this.state.password);
-    msg.addData(
-      getName(MessageEnum.LoginIsRememberMe),
-      this.state.checkedRememberMe
-    );
-
-    this.send(msg);
-  }
-
-  saveLoggedInUserData(responseJson: any) {
-    if (responseJson && responseJson.meta && responseJson.meta.token) {
-      const msg: Message = new Message(getName(MessageEnum.SessionSaveMessage));
-
-      msg.addData(
-        getName(MessageEnum.SessionResponseData),
-        JSON.stringify(responseJson)
-      );
-      msg.addData(
-        getName(MessageEnum.SessionResponseToken),
-        responseJson.meta.token
-      );
-
-      this.send(msg);
-    }
-  }
-
-  openInfoPage() {
-    const msg: Message = new Message(getName(MessageEnum.AccoutLoginSuccess));
-
-    msg.addData(getName(MessageEnum.NavigationPropsMessage), this.props);
-
-    this.send(msg);
-  }
-
-  goToForgotPassword() {
+  // Customizable Area Start
+  goToPrivacyPolicy() {
     const msg: Message = new Message(
-      getName(MessageEnum.NavigationForgotPasswordMessage)
+      getName(MessageEnum.NavigationPrivacyPolicyMessage)
     );
     msg.addData(getName(MessageEnum.NavigationPropsMessage), this.props);
-    msg.addData(getName(MessageEnum.NavigationForgotPasswordPageInfo), "email");
     this.send(msg);
   }
 
-  goToSocialLogin() {
+  goToTermsAndCondition() {
     const msg: Message = new Message(
-      getName(MessageEnum.NavigationSocialLogInMessage)
+      getName(MessageEnum.NavigationTermAndConditionMessage)
     );
     msg.addData(getName(MessageEnum.NavigationPropsMessage), this.props);
     this.send(msg);
   }
 
-  doEmailLogIn(): boolean {
+  isStringNullOrBlank(str: string) {
+    return str === null || str.length === 0;
+  }
+
+  isValidEmail(email: string) {
+    return this.emailReg.test(email);
+  }
+
+  createAccount(): boolean {
     if (
-      this.state.email === null ||
-      this.state.email.length === 0 ||
-      !this.emailReg.test(this.state.email)
+      this.isStringNullOrBlank(this.state.firstName) ||
+      this.isStringNullOrBlank(this.state.lastName) ||
+      this.isStringNullOrBlank(this.state.email) ||
+      this.isStringNullOrBlank(this.state.password) ||
+      this.isStringNullOrBlank(this.state.reTypePassword)
     ) {
-      this.showAlert("Error", configJSON.errorEmailNotValid);
+      this.showAlert(
+        configJSON.errorTitle,
+        configJSON.errorAllFieldsAreMandatory
+      );
       return false;
     }
 
-    if (this.state.password === null || this.state.password.length === 0) {
-      this.showAlert("Error", configJSON.errorPasswordNotValid);
+    var phoneNumberError = this.validateCountryCodeAndPhoneNumber(
+      this.state.countryCodeSelected,
+      this.state.phone
+    );
+
+    if (phoneNumberError) {
+      this.showAlert(configJSON.errorTitle, phoneNumberError);
+      return false;
+    }
+
+    if (!this.isValidEmail(this.state.email)) {
+      this.showAlert(configJSON.errorTitle, configJSON.errorEmailNotValid);
+      return false;
+    }
+
+    if (!this.passwordReg.test(this.state.password)) {
+      this.showAlert(configJSON.errorTitle, configJSON.errorPasswordNotValid);
+      return false;
+    }
+
+    if (this.state.password !== this.state.reTypePassword) {
+      this.showAlert(
+        configJSON.errorTitle,
+        configJSON.errorBothPasswordsNotSame
+      );
       return false;
     }
 
     const header = {
-      "Content-Type": configJSON.loginApiContentType
+      "Content-Type": configJSON.contentTypeApiAddDetail
     };
 
     const attrs = {
+      first_name: this.state.firstName,
+      last_name: this.state.lastName,
       email: this.state.email,
-      password: this.state.password
+      password: this.state.password,
+      full_phone_number: "+" + this.state.countryCodeSelected + this.state.phone
     };
 
     const data = {
@@ -391,17 +509,17 @@ console.log("from===========================================>",from)
     };
 
     const httpBody = {
-      data: data
+      data: data,
+      token: this.state.otpAuthToken
     };
 
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
     );
-
-    this.apiEmailLoginCallId = requestMessage.messageId;
+    this.createAccountApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      configJSON.loginAPiEndPoint
+      'account_block/accounts'
     );
 
     requestMessage.addData(
@@ -416,16 +534,14 @@ console.log("from===========================================>",from)
 
     requestMessage.addData(
       getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.loginAPiMethod
+      configJSON.apiMethodTypeAddDetail
     );
 
     runEngine.sendMessage(requestMessage.id, requestMessage);
-
     return true;
   }
 
-  callGetValidationApi() {
-    
+  getValidations() {
     const headers = {
       "Content-Type": configJSON.validationApiContentType
     };
@@ -451,7 +567,634 @@ console.log("from===========================================>",from)
     runEngine.sendMessage(getValidationsMsg.id, getValidationsMsg);
   }
 
-  LogIn (values: any): boolean {
+  isNonNullAndEmpty(value: String) {
+    return (
+      value !== undefined &&
+      value !== null &&
+      value !== "null" &&
+      value.trim().length > 0
+    );
+  }
+
+  validateCountryCodeAndPhoneNumber(countryCode: string, phoneNumber: string) {
+    let error = null;
+
+    if (this.isNonNullAndEmpty(phoneNumber)) {
+      if (!this.isNonNullAndEmpty(String(countryCode))) {
+        error = configJSON.errorCountryCodeNotSelected;
+      }
+    } else if (this.isNonNullAndEmpty(countryCode)) {
+      if (!this.isNonNullAndEmpty(phoneNumber)) {
+        error = "Phone " + configJSON.errorBlankField;
+      }
+    }
+
+    return error;
+  }
+
+  imgEnableRePasswordFieldProps = {
+    source: imgPasswordVisible
+  };
+
+  btnConfirmPasswordShowHideProps = {
+    onPress: () => {
+      this.setState({
+        enableReTypePasswordField: !this.state.enableReTypePasswordField
+      });
+      this.txtInputConfirmPasswordProps.secureTextEntry = !this.state
+        .enableReTypePasswordField;
+      this.imgEnableRePasswordFieldProps.source = this
+        .txtInputConfirmPasswordProps.secureTextEntry
+        ? imgPasswordVisible
+        : imgPasswordInVisible;
+    }
+  };
+
+  imgEnablePasswordFieldProps = {
+    source: imgPasswordVisible
+  };
+
+  btnPasswordShowHideProps = {
+    onPress: () => {
+      this.setState({ enablePasswordField: !this.state.enablePasswordField });
+      this.txtInputPasswordProps.secureTextEntry = !this.state
+        .enablePasswordField;
+      this.imgEnablePasswordFieldProps.source = this.txtInputPasswordProps
+        .secureTextEntry
+        ? imgPasswordVisible
+        : imgPasswordInVisible;
+    }
+  };
+
+  btnSignUpProps = {
+    onPress: () => this.createAccount()
+  };
+
+  btnLegalPrivacyPolicyProps = {
+    onPress: () => this.goToPrivacyPolicy()
+  };
+
+  btnLegalTermsAndConditionProps = {
+    onPress: () => this.goToTermsAndCondition()
+  };
+
+  txtInputEmailWebPrpos = {
+    onChangeText: (text: string) => {
+      this.setState({ email: text });
+      //@ts-ignore
+      this.txtInputEmailPrpos.value = text;
+    }
+  };
+
+  txtInputEmailMobilePrpos = {
+    ...this.txtInputEmailWebPrpos,
+    keyboardType: "email-address"
+  };
+
+  txtInputEmailPrpos = this.isPlatformWeb()
+    ? this.txtInputEmailWebPrpos
+    : this.txtInputEmailMobilePrpos;
+
+  txtPhoneNumberWebProps = {
+    onChangeText: (text: string) => {
+      this.setState({ phone: text });
+
+      //@ts-ignore
+      this.txtPhoneNumberProps.value = text;
+    }
+  };
+
+  txtPhoneNumberMobileProps = {
+    ...this.txtPhoneNumberWebProps,
+    autoCompleteType: "tel",
+    keyboardType: "phone-pad"
+  };
+
+  txtPhoneNumberProps = this.isPlatformWeb()
+    ? this.txtPhoneNumberWebProps
+    : this.txtPhoneNumberMobileProps;
+
+  txtInputLastNamePrpos = {
+    onChangeText: (text: string) => {
+      this.setState({ lastName: text });
+
+      //@ts-ignore
+      this.txtInputLastNamePrpos.value = text;
+    }
+  };
+
+  txtInputFirstNamePrpos = {
+    onChangeText: (text: string) => {
+      this.setState({ firstName: text });
+
+      //@ts-ignore
+      this.txtInputFirstNamePrpos.value = text;
+    }
+  };
+
+  txtInputConfirmPasswordProps = {
+    onChangeText: (text: string) => {
+      this.setState({ reTypePassword: text });
+
+      //@ts-ignore
+      this.txtInputConfirmPasswordProps.value = text;
+    },
+    secureTextEntry: true
+  };
+
+  txtInputPasswordProps = {
+    onChangeText: (text: string) => {
+      this.setState({ password: text });
+
+      //@ts-ignore
+      this.txtInputPasswordProps.value = text;
+    },
+    secureTextEntry: true
+  };
+
+  createAccoun(attributes: any): boolean {
+
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail
+    };
+    this.setState({ selectEmail: attributes.email })
+
+    const attrs = {
+      full_name: attributes.full_name,
+      last_name: attributes.lastName,
+      email: attributes.email,
+      password: attributes.password,
+      full_phone_number: "+" + 91 + attributes.phone,
+      password_confirmation: attributes.confirm_password
+    };
+
+    const data = {
+      type: "email_account",
+      attributes: attrs
+    };
+
+    const httpBody = {
+      data: data
+    };
+
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+    this.createAccountApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      'account_block/accounts'
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestBodyMessage),
+      JSON.stringify(httpBody)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.apiMethodTypeAddDetail
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+
+
+
+  }
+  createAccountOwner(attributes: any): boolean {
+
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail
+    };
+    this.setState({ selectEmail: attributes.email })
+
+    const attrs = {
+      full_name: attributes.full_name,
+      last_name: attributes.lastName,
+      email: attributes.email,
+      password: attributes.password,
+      full_phone_number: "+" + 91 + attributes.phone,
+      password_confirmation: attributes.confirm_password
+    };
+
+    const data = {
+      type: "email_account",
+      attributes: attrs
+    };
+
+    const httpBody = {
+      data: data
+    };
+
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+    this.createAccountOwnerApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      'account_block/accounts'
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestBodyMessage),
+      JSON.stringify(httpBody)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.apiMethodTypeAddDetail
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+
+
+
+  }
+
+  createAccountManager = (attributes: any)=>{
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail
+    };
+    this.setState({ selectEmail: attributes.email })
+
+    const attrs = {
+
+      email: attributes.email,
+      company_name: attributes.company_name,
+      manager_full_name: attributes.managerName,
+      owner_full_name: attributes.ownerName,
+      owner_phone_number: attributes.owner_phone,
+      owner_email: attributes.owner_email,
+      password: attributes.password,
+      full_phone_number: "+" + 91 + attributes.phone,
+      password_confirmation: attributes.confirm_password
+    };
+
+    const data = {
+      type: "email_account",
+      user_type: this.state.userType,
+      attributes: attrs
+    };
+
+    const httpBody = {
+      data: data
+    };
+
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+    this.createManagerAccountApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      'account_block/accounts'
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestBodyMessage),
+      JSON.stringify(httpBody)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.apiMethodTypeAddDetail
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+
+
+  }
+
+  createRequest=(attributes: any): boolean=> {
+
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      "token": localStorage.getItem('res_token')
+    };
+
+    const attrs = {
+      country: this.state.selectCountry,
+      city: this.state.selectCity,
+      building_name: this.state.selectBuilding,
+      apartment_name: this.state.selectUnit,
+    };
+
+    const data = {
+
+      attributes: attrs
+    };
+
+    const httpBody = {
+      data: data
+    };
+
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+    this.createRequestApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      'bx_block_request_management/requests'
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestBodyMessage),
+      JSON.stringify(httpBody)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.apiMethodTypeAddDetail
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+
+
+
+  }
+  updateTypeOwner=()=>{
+    if (this.state.userType){
+
+      if (this.state.userType === 'Owner'){
+        this.props.history.push('/registerowner')
+
+      }else{
+        this.props.history.push('/registermanager')
+
+      }
+    }
+  }
+  updateType=(): boolean=> {
+
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+    console.log(this.changeUserTypeApiCallId)
+    console.log(requestMessage.messageId)
+
+    this.changeUserTypeApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `account_block/user_type?user_type=${this.state.userType}&id=${localStorage.getItem('res_user_id')}`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      'PATCH'
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+
+
+
+  }
+
+  changeType(value: any) {
+    this.setState({ userType: value })
+
+  }
+
+  changeUnitType(value: any) {
+    this.setState({ unitRegisterType: value })
+
+  }
+  handleChange= (e: any) => {
+    console.log(e.target.name)
+    console.log(e.target.value)
+
+
+    // @ts-ignore
+    // @ts-nocheck
+this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e))
+  }
+
+  getData(e){
+    console.log(this.state)
+
+    if (e.target.name == 'selectCountry'){
+      this.getCity()
+
+    } else if (e.target.name == 'selectCity') {
+      this.getBuilding()
+
+    } else if (e.target.name == 'selectBuilding') {
+      this.getUnit()
+
+    }
+
+  }
+
+  getCountry(){
+
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      "token": localStorage.getItem('res_token')
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+
+    this.getCountryApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_address/country_list`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.validationApiMethodType
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  }
+
+  getCity() {
+
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      "token": localStorage.getItem('res_token')
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+
+    this.getCityApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_address/city_list?country=${this.state.selectCountry}`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.validationApiMethodType
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  }
+
+  getBuilding() {
+
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      "token": localStorage.getItem('res_token')
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+
+    this.getBuildingApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_address/building_list?city=${this.state.selectCity}`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.validationApiMethodType
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  }
+
+  getUnit() {
+
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      "token": localStorage.getItem('res_token')
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+
+    this.getUnitApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_address/apartment_list?id=${this.state.selectBuilding}`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.validationApiMethodType
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  }
+  registerUnit=()=>{
+    if(this.state.unitRegisterType){
+      if (this.state.unitRegisterType == 'Manual')
+      {
+        this.props.history.push('/registerunitmanually')
+      }else{
+        this.props.history.push('/registerunitmanually')
+
+
+      }
+    }
+  }
+  getComplex() {
+
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      "token": localStorage.getItem('res_token')
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+
+    this.getComplexApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_society_management/society_managements`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.validationApiMethodType
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  }
+
+  doLogIn = (values: any): boolean => {
     const header = {
       "Content-Type": configJSON.loginApiContentType
     };
@@ -463,8 +1206,7 @@ console.log("from===========================================>",from)
 
     const data = {
       type: "email_account",
-      attributes: attrs,
-      user_type:values.userType
+      attributes: attrs
     };
 
     const httpBody = {
@@ -477,7 +1219,6 @@ console.log("from===========================================>",from)
     );
 
     this.apiEmailLoginCallId = requestMessage.messageId;
-    console.log("apiEmailLoginCallId===============>",this.apiEmailLoginCallId)
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
       configJSON.signinAPiEndPoint
@@ -503,19 +1244,6 @@ console.log("from===========================================>",from)
     return true;
   };
 
-  LoginSchema() {
-    const validations = Yup.object().shape({
-      email: Yup.string()
-        .strict(true)
-        .lowercase(`Please enter all values in lowercase`)
-        .trim()
-        .required(`This field is required.`),
-      password: Yup.string().required(`This field is required`)
-    });
-    return validations
-  }
-
-
   getUserType = () => {
     try {
       const header = {
@@ -528,7 +1256,7 @@ console.log("from===========================================>",from)
       );
 
       this.getUserTypeApiCallId = requestMessage.messageId;
-    //   this.setState({ loading: true });
+      this.setState({ loading: true });
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
@@ -551,9 +1279,19 @@ console.log("from===========================================>",from)
       console.log(error);
     }
   };
+ 
+  LoginSchema() {
+    const validations = Yup.object().shape({
+      email: Yup.string()
+        .strict(true)
+        .lowercase(`Please enter all values in lowercase`)
+        .trim()
+        .required(`This field is required.`),
+      password: Yup.string().required(`This field is required`),
+      userType: Yup.string().required(`This field is required`),
+    });
+    return validations
+  }
 
+  // Customizable Area End
 }
-
-
-
-

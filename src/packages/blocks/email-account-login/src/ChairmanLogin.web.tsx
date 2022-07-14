@@ -38,9 +38,9 @@ class ChairmanLogin extends ChairmanAccountLoginController {
   constructor(props: Props) {
     super(props);  
   }
-  // componentDidMount() {
-  //   this.getUserType();
-  // }
+  componentDidMount() {
+    this.getUserType();
+  }
 
   render() {
     console.log("render============>", this.state?.loading)
@@ -78,7 +78,7 @@ class ChairmanLogin extends ChairmanAccountLoginController {
                     onSubmit={(values) => {
                       console.log("valus=========>", values)
                       // same shape as initial values
-                      this.LogIn(values);
+                      this.doLogIn(values);
                     }}
                   >
                     {({ values, touched, errors, isValid, setFieldValue, handleChange }) => (

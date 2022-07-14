@@ -28,7 +28,17 @@ class RegistrationRequest extends EmailAccountLoginController {
   constructor(props: Props) {
     super(props);
   }
+  async componentDidMount() {
+    // Customizable Area Start
+    this.getRegistrationRequest();
+    // Customizable Area End
+  }
+
   render() {
+    console.log("getRegistrationRequest===================>",this.state?.registrationRequest?.attributes);
+    const building_name= this.state?.registrationRequest?.attributes?.building_name;
+    const apartment_name= this.state?.registrationRequest?.attributes?.apartment_name;
+    //console.log("getRegistrationRequest===================>",building_name ,apartment_name);
     return (
       <>
         <Box className="login-wrapper reg-wrapper">
@@ -53,8 +63,8 @@ class RegistrationRequest extends EmailAccountLoginController {
                       <Box className="reg-row">
                         <img src={Bank_Icon} className="bank-logo" alt="Tenant Logo" />
                         <Box className="reg-right-block">
-                          <h5>A-105</h5>
-                          <h6>Central Park Height</h6>
+                          <h5>{apartment_name}</h5>
+                          <h6>{building_name}</h6>
                         </Box>
                       </Box>
                     </Box>
@@ -109,7 +119,7 @@ class RegistrationRequest extends EmailAccountLoginController {
                   <Button variant="contained" onClick={() => this.setState({ showDialog: false })}>
                     No, DON'T DELETE
                   </Button>
-                  <Button onClick={() => this.setState({ showDialog: false })} variant='text'>
+                  <Button onClick={this.deleteRequestById()} variant='text'>
                     YES DELETE
                   </Button>
                 </DialogActions>
