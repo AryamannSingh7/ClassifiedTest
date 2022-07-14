@@ -1,5 +1,5 @@
-//@ts-ignore
-//@ts-nocheck
+// @ts-ignore
+// @ts-nocheck
 
 import * as React from "react";
 // custom components
@@ -13,15 +13,14 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import EmailAccountRegistrationController, { Props } from "./EmailAccountRegistrationController";
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import HomeIcon from '@material-ui/icons/Home';
-import { owner, resident_owner, tenet } from "./assets";
+import { Linkage, manual, owner, resident_owner, tenet } from "./assets";
 import { withRouter } from 'react-router';
-import Loader from "../../../components/src/Loader.web";
 
 
 
 
 
-class SelectType extends EmailAccountRegistrationController {
+class RegisterUnit extends EmailAccountRegistrationController {
   constructor(props: Props) {
     super(props);
     // Customizable Area Start
@@ -41,7 +40,7 @@ class SelectType extends EmailAccountRegistrationController {
         <Grid container style={{ margin: '1rem', width: '90%' }}>
           <Grid xs={12}>
             <p className="text-left" style={{ fontSize: '2.5rem', fontWeight: 700 }}>
-              Please select your type
+              Register a Unit
 
             </p>
           </Grid>
@@ -50,7 +49,7 @@ class SelectType extends EmailAccountRegistrationController {
         <Grid container style={{ margin: '1rem', width: '90%' }}>
           <Grid xs={12}>
             <p className="text-left">
-              Please select appropriate user type
+              Please select the appropriate registration type for the unit. If you have more than one unit, you will be able to register them on a later stage
 
 
 
@@ -63,80 +62,58 @@ class SelectType extends EmailAccountRegistrationController {
             <Box
               display="flex"
               justifyContent='space-between'
-              className='select-type'
+              className='input'
 
               alignItems="center"
+
               border="0.1px solid rgb(209 209 209 / 44%)"
               borderRadius="16px"
               bgcolor="white"
               marginTop='1rem'
             >
-              <img src={resident_owner}/>
-              <Box className="middle-section">
-                <p className="title">
-                  Resident Owner
+              <img src={Linkage} />
+              <Box>
+                <p style={{ fontWeight: 'bold', }}>
+                  Linkage
                 </p>
-                <p className="para">
-                  I am the owner of the unit and i am living in it
+                <p>
+                  Select this option if the building manager has requested you to register the unit, or you are aware that Tenant International ® platform is used in the building
                 </p>
               </Box>
 
-              <input type="radio" name="type" value='Owner Resident' onChange={(e)=>this.changeType(e.target.value)} />
+              <input type="radio" name="type" value='Linkage' onChange={(e) => this.changeUnitType(e.target.value)} />
 
             </Box>
             <Box
               display="flex"
               justifyContent='space-between'
-              className='select-type'
+              className='input'
 
               alignItems="center"
+
               border="0.1px solid rgb(209 209 209 / 44%)"
               borderRadius="16px"
               bgcolor="white"
               marginTop='1rem'
             >
-              <img src={tenet} />
+              <img src={manual} />
 
-              <Box className="middle-section">
-                <p className="title">
-                  Tenant
+              <Box>
+                <p style={{fontWeight:'bold',}}>
+                  Manual
                 </p>
-                <p className="para">
-                  I am the redistering as somone who rented a unit
-                </p>
-              </Box>
-
-              <input type="radio" name="type" value='Tenant' onChange={(e) => this.changeType(e.target.value)} />
-
-            </Box>
-            <Box
-              display="flex"
-              justifyContent='space-between'
-              className='select-type'
-
-              alignItems="center"
-              border="0.1px solid rgb(209 209 209 / 44%)"
-              borderRadius="16px"
-              bgcolor="white"
-              marginTop='1rem'
-            >
-              <img src={owner} />
-
-              <Box className="middle-section">
-                <p className="title">
-                  Owner
-                </p>
-                <p className="para">
-                  I am the owner of the unit, but I am not living inside it
+                <p>
+                  Select this option if the unit is in a building not managed by "Tenant International ®" platform
                 </p>
               </Box>
 
-              <input type="radio" name="type" value='Owner' onChange={(e) => this.changeType(e.target.value)} />
+              <input type="radio" name="type" value='Manual' onChange={(e) => this.changeUnitType(e.target.value)} />
 
             </Box>
+
           </Grid>
         </Grid>
-        <Grid container style={{ margin: '1rem', width: '90%',position:'absolute',bottom:0 }}>
+        <Grid container style={{ margin: '1rem', width: '90%' }}>
           <Grid xs={12}>
             <Button
               fullWidth={true}
@@ -154,7 +131,7 @@ class SelectType extends EmailAccountRegistrationController {
                 fontSize: 16,
                 marginTop: 30
               }}
-              onClick={this.updateType}
+              onClick={this.registerUnit}
             >
               Next
             </Button>
@@ -163,7 +140,6 @@ class SelectType extends EmailAccountRegistrationController {
 
           </Grid>
         </Grid>
-        <Loader loading={this.state.loading} />
       </>
 
     )
@@ -171,4 +147,4 @@ class SelectType extends EmailAccountRegistrationController {
   }
 
 }
-export default  withRouter(SelectType)
+export default withRouter(RegisterUnit)

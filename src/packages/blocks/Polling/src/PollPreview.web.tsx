@@ -71,12 +71,20 @@ export default class PollPreview extends PollingController {
 
                         <Grid item sm={12} md={12} xs={12}>
                             <Box className="createPSCards">
-                                <Box className="PollName">
+                                <Box className="PreviewName">
+                                    <Box className="PollName">
                                         <Typography className="subHeading">Poll Name: </Typography>
                                         <Typography className="PollNameText">
                                             {this.state.PreViewPollData?.PollFormData?.title}
-                                            {/* Parking Allotment Rules */}
-                                            </Typography>
+                                        </Typography>
+                                    </Box>
+                                    <Box>
+                                        {
+                                            (this.state.PreViewPollData?.PollType === true) ? 
+                                            <Typography variant="body2" className="AnonymousPreviewPoll">Anonymous Poll</Typography>
+                                             : ''
+                                        }
+                                    </Box>
                                 </Box>
                                 
                                 <Box className="DateSectionPreviewpoll">
@@ -107,19 +115,16 @@ export default class PollPreview extends PollingController {
                                     <Box style={{marginTop:5}}>
                                         <Typography variant="body2">
                                            {this.state.PreViewPollData?.PollFormData?.description}
-                                            {/* There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum. */}
                                         </Typography> 
                                     </Box>
                                 </Box>
                             </Box>
                         </Grid>
 
-
                         <Grid item sm={12} md={12} xs={12}>
                             <Box className="createPSCards">
                                 <Typography className="PollNameText">
                                     {this.state.PreViewPollData?.PollFormData?.question}
-                                    {/* Should we need to charge for extra vehicle parking? */}
                                 </Typography>
 
                                 {this.state.PreViewPollData?.PollOptions?.map((values:any) => {
@@ -128,10 +133,7 @@ export default class PollPreview extends PollingController {
                                     )
                                 })}
 
-                                {/* <TextField  value="Yes" variant="outlined" fullWidth style={{marginTop:20, fontWeight:600}} /> */}
-                                
-                                {/* <TextField  value="No" variant="outlined" fullWidth style={{marginTop:20}}/> */}
-                            </Box>
+                           </Box>
         
                         </Grid>
 
@@ -141,7 +143,12 @@ export default class PollPreview extends PollingController {
                         <Link href="/CreatePolls">
                             <Button variant="contained" color="primary">EDIT</Button>
                         </Link>
-                        <Button type="submit" variant="outlined" color="primary" onClick={this.handlePollDataSubmit}>PUBLISH</Button>
+                        <Button type="submit" variant="outlined" color="primary" 
+                        onClick={ (event) => {
+                            this.handlePollDataSubmit(event)
+                            this.props.history.push("/CreatePolls")
+                        }}
+                        >PUBLISH</Button>
                     </Box>
                 </Container>
             </Grid>

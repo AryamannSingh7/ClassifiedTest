@@ -57,16 +57,18 @@ class ChairmanChangeSuccessfully extends ForgotPasswordController {
         </Box> */}
         <Box className="login-wrapper">
           <Grid container spacing={2} className="auth-container">
-            <Grid item xs={12} md={6} className="auth-cols">
+            <Grid item xs={12} md={7} className="auth-cols">
               <Box className="content-block">
                 <Box display={{ xs: 'flex', md: 'none' }} className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
                 <Box className="logo-block common-top-padding" display={{ xs: 'none', md: 'flex' }}>
-                  <img src={Building_Logo} className="head-logo" alt="" />
-                  <h4>Building Name</h4>
+                  <Link href="/ChairmanLogin">
+                    <img src={Building_Logo} className="head-logo" alt="" />
+                    <h4>Building Name</h4>
+                  </Link>
                 </Box>
                 <Box className="main-content-block desktop-ui">
-                  <Box className="header-block">
-                    <img src={Lock_Icon} className="tenant-logo" alt="Lock_Icon" />
+                  <Box className="header-block chairmanHeaderBlock">
+                    <img src={Lock_Icon} className="lock-logo" alt="Lock_Icon" />
                     <h1>Password Changed<br></br>Successfully!</h1>
                     <h6>You have successfully changed your<br></br>password. Please use your new password when<br></br>logging in.</h6>
                   </Box>
@@ -90,8 +92,8 @@ class ChairmanChangeSuccessfully extends ForgotPasswordController {
                 </Box>
               </Box>
             </Grid>
-            <Grid item xs={12} md={6} display={{ xs: 'flex', lg: 'none' }} className="auth-cols">
-              <Box className="right-block">
+            <Grid item xs={12} md={5} className="auth-cols">
+              <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
                 <img src={Building1} className="building-logo" alt="" />
               </Box>
             </Grid>

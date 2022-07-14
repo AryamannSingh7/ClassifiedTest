@@ -67,8 +67,18 @@ import SocialMediaAccountRegistrationScreen from "../../blocks/social-media-acco
 import Notifications from "../../blocks/notifications/src/Notifications";
 import MobileAccountLoginBlock from "../../blocks/mobile-account-login/src/MobileAccountLoginBlock";
 import Registration from "../../blocks/email-account-registration/src/Registration.web";
+import OwnerRegistration from "../../blocks/email-account-registration/src/OwnerRegistration.web";
+import ManagerRegistration from "../../blocks/email-account-registration/src/ManagerRegistration.web";
+import SelectOwner from "../../blocks/email-account-registration/src/SelectOwner.web";
+
+
 import VerifyOTP from "../../blocks/email-account-registration/src/VerifyOTP.web";
 import SelectType from "../../blocks/email-account-registration/src/SelectType.web";
+import UnitRegister from "../../blocks/email-account-registration/src/UnitRegister.web";
+import RegisterUnitManually from "../../blocks/email-account-registration/src/RegisterUnitManually.web";
+import SearchComplex from "../../blocks/email-account-registration/src/SearchComplex.web";
+
+
 import Address from "../../blocks/email-account-registration/src/Address.web";
 
 import  './assets/css/constants/base/global.scss'
@@ -83,6 +93,7 @@ import ChangePassword from "../../blocks/forgot-password/src/ChangePassword.web"
 import ChairmanChangePassword from "../../blocks/forgot-password/src/ChairmanChangePassword.web";
 import ChangeSuccessfully from "../../blocks/forgot-password/src/ChangeSuccessfully.web";
 import ChairmanChangeSuccessfully from "../../blocks/forgot-password/src/ChairmanChangeSuccessfully.web";
+import RegistrationRequest from "../../blocks/email-account-login/src/RegistrationRequest.web";
 import Dashboard from "../../blocks/dashboard/src/Dashboard.web";
 import DashboardGeneral from "../../blocks/dashboard/src/DashboardGeneral.web";
 import DashboardTicket from "../../blocks/dashboard/src/DashboardTicket.web";
@@ -132,7 +143,7 @@ const routeMap = {
     component: ForgotPassword,
     path: "/ForgotPassword"
   },
- 
+
   ChairmanForgotPassword: {
     component: ChairmanForgotPassword,
     path: "/ChairmanForgotPassword"
@@ -144,6 +155,10 @@ const routeMap = {
   ChairmanForgotPasswordOTP: {
     component:ChairmanForgotPasswordOTP,
     path: "/ChairmanForgotPasswordOTP"
+  },
+  RegistrationRequest: {
+    component:RegistrationRequest,
+    path: "/RegistrationRequest"
   },
   RolesPermissions2: {
     component: RolesPermissions2,
@@ -214,7 +229,7 @@ const routeMap = {
     component: PollsallData,
     path: "/PollsallData"
   },
-  
+
 
 
   Customisableusersubscriptions: {
@@ -677,6 +692,30 @@ const routeMap = {
   Register: {
     component: Registration,
     path: '/register'
+  },
+  OwnerRegister: {
+    component: OwnerRegistration,
+    path: '/registerowner'
+  },
+  OwnerSelect: {
+    component: SelectOwner,
+    path: '/selectowner'
+  },
+  ManagerRegister: {
+    component: ManagerRegistration,
+    path: '/registermanager'
+  },
+  UnitRegister: {
+    component: UnitRegister,
+    path: '/registerunit'
+  },
+  RegisterUnitManually: {
+    component: RegisterUnitManually,
+    path: '/registerunitmanually'
+  },
+  SearchComplex: {
+    component: SearchComplex,
+    path: '/searchComplex'
   },
   VerifyOTP: {
     component: VerifyOTP,

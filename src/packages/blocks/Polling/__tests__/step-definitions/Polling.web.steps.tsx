@@ -1,3 +1,6 @@
+//@ts-ignore
+//@ts-nocheck
+
 import { defineFeature, loadFeature } from "jest-cucumber";
 import { shallow, ShallowWrapper } from "enzyme";
 

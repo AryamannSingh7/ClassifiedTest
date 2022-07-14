@@ -162,6 +162,20 @@
     padding: 10px;
     color:#054c94;
 }
+.dialogOption{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 15px;
+}
+.DialogIcons{
+    border: 1px solid #d9d4d3;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    padding: 20px;
+    color:#054c94;
+}
 
 .EventsHeading{
     font-weight:600;
@@ -226,25 +240,29 @@
 
 .statusOngoing{
     background: #ffdede;
-    padding-top:5px;
-    padding-bottom:5px;
-    padding-left:15px;
-    padding-right:15px;
+    padding: 5px 15px;
     border-radius: 30px;
     color: #f27200;
     display: initial;
 }
 .statusCompleted{
     background: #dcf5f0;
-    padding-top:5px;
-    padding-bottom:5px;
-    padding-left:15px;
-    padding-right:15px;
+    padding: 5px 15px;
     border-radius: 30px;
     color: green;
     display: initial;
 }
-
+.PreviewName{
+    display: flex;
+    justify-content: space-between;
+}
+.AnonymousPreviewPoll{
+    padding: 10px 15px;
+    border: 1px solid #005ff2;
+    border-radius: 30px;
+    color: #005ff2;
+    display: initial;
+}
 .RecentItems{
     display: flex;
     justify-content: space-between;

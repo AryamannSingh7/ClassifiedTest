@@ -23,7 +23,6 @@ import Switch from '@material-ui/core/Switch';
 
 import 'date-fns';
 // import DateFnsUtils from '@date-io/date-fns';
-import MomentUtils from '@date-io/moment';
 // import {
 //   MuiPickersUtilsProvider,
 //   KeyboardTimePicker,
@@ -53,7 +52,7 @@ class CreatePolls extends PollingController {
   componentDidMount() {
     const PreviewPollData = localStorage.getItem('Polls_Data') && JSON.parse(localStorage.getItem('Polls_Data'));
     if(PreviewPollData){
-        this.setState({PollData:PreviewPollData.PollFormData, options: PreviewPollData.PollOptions},
+        this.setState({PollData:PreviewPollData.PollFormData, options: PreviewPollData.PollOptions,  checked: PreviewPollData.PollType},
             () => console.log("PreViewPollData [ PollData ]====>>>>>",  this.state.PollData, this.state.options)
         )
     }
@@ -95,7 +94,9 @@ class CreatePolls extends PollingController {
                                 />
 
                                 <Box className="DateSection">
-                                    {/* <MuiPickersUtilsProvider utils={MomentUtils}>
+                                    {/* <MuiPickersUtilsProvider 
+                                    utils={MomentUtils}
+                                    >
                                     <Grid container justifyContent="space-between">
                                         <KeyboardDatePicker
                                         className="DateBox"
@@ -152,7 +153,10 @@ class CreatePolls extends PollingController {
                                     <Switch
                                         checked={this.state.checked}
                                          onClick={(event: any) => 
-                                            this.setState({checked: event.target.checked})
+                                            this.setState(
+                                                {checked: event.target.checked},
+                                               () => console.log("isCheck--", this.state.checked )
+                                            )
                                         }
                                         value="checked"
                                         color="primary"

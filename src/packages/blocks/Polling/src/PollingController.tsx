@@ -41,6 +41,8 @@ interface S {
   recentPolls: any,
   selectQuestion: any,
   PreViewPollData:any,
+  loading: boolean;
+  showDialog:boolean;
   // Customizable Area End
 }
 
@@ -105,6 +107,8 @@ export default class PollingController extends BlockComponent<
       recentPolls: [],
       selectQuestion: [],
       PreViewPollData: [],
+      loading: false,
+      showDialog:false,
       // Customizable Area End
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -121,7 +125,6 @@ export default class PollingController extends BlockComponent<
     this.onGetPolls();
     this.getTotalPollCount();
     this.getRecentPolls();
-    
     // Customizable Area End
   }
     // Customizable Area Start
@@ -180,37 +183,58 @@ export default class PollingController extends BlockComponent<
       event.preventDefault()
       console.log("Polls Data ==>", this.state.PollData)
       console.log("Options Data ==>", this.state.options)
-      debugger
-        // this.setState({PollData: this.state.InitialPollData})
-        // this.setState({options: this.state.Initialoptions})
-        let reqPayload = {
-          "poll":
-      {
-        "title": this.state.PollData.title,
-        "description": this.state.PollData.description,
-        "poll_type": this.state.checked,
-        "schedule": "1",
-        "start_date": this.state.PollData.startDate,
-        "end_date": this.state.PollData.endDate,
-        "question": this.state.PollData.question,
-        "polling_options_attributes": this.state.options,
-      }
-    }
-    this.addPollData(reqPayload);
+        if(this.state.PreViewPollData.length || Object.keys(this.state.PreViewPollData).length){
+          let reqPayload = {
+            "poll":
+            {
+              "title": this.state.PreViewPollData.PollFormData.title,
+              "description": this.state.PreViewPollData.PollFormData.description,
+              "poll_type": this.state.PreViewPollData.PollType,
+              "schedule": "1",
+              "start_date": this.state.PreViewPollData.PollFormData.startDate,
+              "end_date": this.state.PreViewPollData.PollFormData.endDate,
+              "question": this.state.PreViewPollData.PollFormData.question,
+              "polling_options_attributes": this.state.PreViewPollData.PollOptions,
+            }
+          }
+          this.addPollData(reqPayload);
+          console.log("reqPayload=========", reqPayload)
+          this.setState({
+            PollData: this.state.InitialPollData,
+            options: this.state.Initialoptions,
+            checked: this.state.checked
+          })
+        } else{
+
+          let reqPayload = {
+            "poll":
+            {
+              "title": this.state.PollData.title,
+              "description": this.state.PollData.description,
+              "poll_type": this.state.checked,
+              "schedule": "1",
+              "start_date": this.state.PollData.startDate,
+              "end_date": this.state.PollData.endDate,
+              "question": this.state.PollData.question,
+              "polling_options_attributes": this.state.options,
+            }
+          }
+          this.addPollData(reqPayload);
+          console.log("reqPayload----------", reqPayload)
+          this.setState({
+            PollData: this.state.InitialPollData,
+            options: this.state.Initialoptions,
+            checked: this.state.checked
+          })
+        }
+        
+    // console.log("reqPayload----------", reqPayload)
     localStorage.removeItem('Polls_Data');
 
     }
 
-
     handlePriviewData = () => {
-       localStorage.setItem('Polls_Data', JSON.stringify({"PollFormData":this.state.PollData ,"PollOptions":this.state.options}))
-    }
-
-    changeLastDateFormate = (getDate:any) => {
-      let date = getDate;
-      let dateNew = new Date(date);
-      let formateDate = dateNew.getDate()+"-"+(dateNew.getMonth()+1)+"-"+dateNew.getFullYear();
-      return date = formateDate;
+       localStorage.setItem('Polls_Data', JSON.stringify({"PollFormData":this.state.PollData,"PollType":this.state.checked ,"PollOptions":this.state.options}))
     }
 
     handleOptionsChange = (index:any, event:any) => {
@@ -245,7 +269,7 @@ export default class PollingController extends BlockComponent<
     const { contentType, method, endPoint, body } = data;
     // console.log("Called 1",data);
     
-    const token = `eyJhbGciOiJIUzUxMiJ9.eyJpZCI6MjgsImV4cCI6MTY1NzYyNjc2MywidG9rZW5fdHlwZSI6ImxvZ2luIn0.9Hvk36NG_aiqT7UEPhiDlD5UBxzXa-pIL46yDZVue7JsbiLg6wWHCsat0Sfj-D0lZSmbTI39Zn3Lih99uHRgAA`;
+    const token = `eyJhbGciOiJIUzUxMiJ9.eyJpZCI6MzgsImV4cCI6MTY1NzgwNDI0MiwidG9rZW5fdHlwZSI6ImxvZ2luIn0.CfMuBPIP9DmpgB60KkW7PcbqwDe2SqgYsE-qzTnAD9iR2xotl7_beWz_y0OP9mYE55JYzhHwjOXRNdQcX_OadA`;
     const header = {
       "Content-Type": contentType,
       token
@@ -295,9 +319,11 @@ export default class PollingController extends BlockComponent<
     if (responseJson || responseJson?.data) {
       if (apiRequestCallId === this.getAllPolls) {
          this.getPollSuccessResponse(responseJson)
+         this.setState({loading: false})
       }
       if (apiRequestCallId === this.createPoll) {
         console.log('ADD Poll Data',responseJson);
+        this.getCreatePollResponse(responseJson)
      }
      if(apiRequestCallId === this.totalPollsCount){
       // console.log('Total Polls Data => ',responseJson);
@@ -329,10 +355,18 @@ export default class PollingController extends BlockComponent<
   }
 
 
+  
   /// Success Block
+
+  getCreatePollResponse = async (response: any) => {
+    // console.log('Success',response);
+    this.setState({PreViewPollData: response})
+  }
+
   getPollSuccessResponse = async (response: any) => {
     // console.log('Success',response);
     this.setState({allPollsData: response})
+    console.log("allPollsData==========",  this.state.allPollsData)
   }
 
   getTotalPollsCountResponse = async (response: any) => {
@@ -343,6 +377,7 @@ export default class PollingController extends BlockComponent<
   getRecentPollsResponse = async (response: any) => {
     // console.log('get Recent Polls Response',response);
     this.setState({recentPolls: response})
+    console.log('get Recent Polls Response',this.state.recentPolls);
   }
   // Error Block
   
