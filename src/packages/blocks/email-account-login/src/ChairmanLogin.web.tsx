@@ -21,7 +21,7 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import { Tenant_Logo, Building_Logo, Landing_Banner, Building1 } from "../src/assets";
 import { withRouter } from 'react-router';
-import { Formik, Form, Field ,ErrorMessage} from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import ChairmanAccountLoginController, {
   Props
@@ -36,7 +36,7 @@ import Select from '@material-ui/core/Select';
 
 class ChairmanLogin extends ChairmanAccountLoginController {
   constructor(props: Props) {
-    super(props);  
+    super(props);
   }
   componentDidMount() {
     this.getUserType();
@@ -70,8 +70,8 @@ class ChairmanLogin extends ChairmanAccountLoginController {
                       email: "",
                       password: "",
                       showPassword: false,
-                      stayIn: false ,
-                      userType:"owner"
+                      stayIn: false,
+                      userType: "1"
                     }}
                     validationSchema={this.LoginSchema()}
                     validateOnMount={true}
@@ -91,17 +91,17 @@ class ChairmanLogin extends ChairmanAccountLoginController {
                               name="userType"
                               labelId="demo-simple-select-outlined-label"
                               id="demo-simple-select-outlined"
-                              label="Select User Type"
-                              onChange={handleChange("userType")}
+                              // label="Select User Type"
+                              onChange={(e) => {
+                                (e.target.value != "1") && setFieldValue("userType", e.target.value)
+                              }}
                               value={values.userType}
                             >
-                                {/* <MenuItem value="Select User Type">
-                                <em>
+                              <MenuItem disabled value="1">
                                 Select User Type
-                                </em>
-                              </MenuItem> */}
+                              </MenuItem>
                               {
-                                 this.state?.userTypeData?.map((val, index) => (
+                                this.state?.userTypeData?.map((val, index) => (
                                   <MenuItem
                                     key={index}
                                     value={val?.name}
@@ -110,9 +110,7 @@ class ChairmanLogin extends ChairmanAccountLoginController {
                                   </MenuItem>
                                 ))
                               }
-                              {/* <MenuItem value="">Select User Type</MenuItem>
-                              <MenuItem value={10}>{JSON.stringify(values.userType)}</MenuItem>
-                              <MenuItem value={10}>"hk"</MenuItem> */}
+                              
                             </Select>
                             <ErrorMessage className="text-error" component="Typography" name="userType" />
                           </FormControl>
