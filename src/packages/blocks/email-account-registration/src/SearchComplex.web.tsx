@@ -1,3 +1,5 @@
+// @ts-ignore
+// @ts-nocheck
 import * as React from "react";
 // custom components
 import {
@@ -71,8 +73,6 @@ class SearchComplex extends EmailAccountRegistrationController {
 
   }
 
-  componentDidMount(): Promise<void> {
-    this.getComplex();
-  }
+
 }
 export default withRouter(SearchComplex)

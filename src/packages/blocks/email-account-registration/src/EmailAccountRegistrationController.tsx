@@ -46,6 +46,7 @@ export interface S {
   unitRegisterType:string;
   allComplex:[];
   selectComplex: any;
+  loading: boolean;
 
 
 
@@ -78,7 +79,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
   getCityApiCallId: any;
   getBuildingApiCallId: any;
   getUnitApiCallId: any;
-  loading:boolean;
+
 
 
 
@@ -213,6 +214,8 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             localStorage.setItem('res_user', responseJson.data.attributes)
             localStorage.setItem('res_user_id', responseJson.data.id)
             this.setState({loading:false})
+             //@ts-ignore
+            //@ts-nocheck
             this.props.history.push('/otp')
 
 
@@ -296,6 +299,8 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             // localStorage.setItem('res_token', responseJson.meta.token)
             // localStorage.setItem('res_user', responseJson.data.attributes)
             // localStorage.setItem('res_user_id', responseJson.data.id)
+             //@ts-ignore
+            //@ts-nocheck
             this.props.history.push('/addressfill')
 
 
@@ -318,6 +323,8 @@ export default class EmailAccountRegistrationController extends BlockComponent<
         } else if (apiRequestCallId === this.getComplexApiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
+             //@ts-ignore
+            //@ts-nocheck
             let temp=[]
             responseJson.data.societies.map((item:any)=>
               temp.push({ value: item.id, label: item.name })

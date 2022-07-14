@@ -13,7 +13,7 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import EmailAccountRegistrationController, { Props } from "./EmailAccountRegistrationController";
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import HomeIcon from '@material-ui/icons/Home';
-import { owner, resident_owner, tenet } from "./assets";
+import { manager, owner, resident_owner, tenet } from "./assets";
 import { withRouter } from 'react-router';
 
 
@@ -61,21 +61,20 @@ class SelectOwner extends EmailAccountRegistrationController {
             <Box
               display="flex"
               justifyContent='space-between'
-              className='input'
+              className='select-type'
 
               alignItems="center"
-              height="56px"
               border="0.1px solid rgb(209 209 209 / 44%)"
               borderRadius="16px"
               bgcolor="white"
               marginTop='1rem'
             >
               <img src={resident_owner} />
-              <Box>
-                <p>
+              <Box className="middle-section">
+                <p className="title">
                 Owner
                 </p>
-                <p>
+                <p className="para">
                   I am the owner of the unit and but  i am not  living inside it
                 </p>
               </Box>
@@ -86,22 +85,21 @@ class SelectOwner extends EmailAccountRegistrationController {
             <Box
               display="flex"
               justifyContent='space-between'
-              className='input'
+              className='select-type'
 
               alignItems="center"
-              height="56px"
               border="0.1px solid rgb(209 209 209 / 44%)"
               borderRadius="16px"
               bgcolor="white"
               marginTop='1rem'
             >
-              <img src={tenet} />
+              <img src={manager} />
 
-              <Box>
-                <p>
+              <Box className="middle-section">
+                <p className="title">
                   Property Manager
                 </p>
-                <p>
+                <p className="para">
                   I am managing a property on behalf of an owner
                 </p>
               </Box>
