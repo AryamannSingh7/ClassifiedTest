@@ -57,7 +57,7 @@ class RegistrationRequest extends EmailAccountLoginController {
                     <Box className="header-block chairmanHeaderBlock">
                       <img src={Tenant_Logo} className="tenant-logo" alt="Tenant Logo" />
                       <h1>Regestration Request<br></br>Under process</h1>
-                      <h6>Yopur regestration request for A-104 of<br></br>central park Height is sent and under<br></br>process.You will receive notification<br></br>once it it processed.</h6>
+                      <h6>Your regestration request for {apartment_name} of<br></br>{building_name} is sent and under<br></br>process.You will receive notification<br></br>once it it processed.</h6>
                     </Box>
                     <Box className="reg-block">
                       <Box className="reg-row">
@@ -75,7 +75,7 @@ class RegistrationRequest extends EmailAccountLoginController {
                     <Button variant="contained" onClick={() => { this.setState({ showDialog: true }) }}>
                       Delete Registration REQUEST
                     </Button>
-                    <Button onClick={() => this.setState({ showDialog: false })} variant='text'>
+                    <Button onClick={() => this.clear()} variant='text'>
                       LOGOUT
                     </Button>
                   </Box>
@@ -112,14 +112,14 @@ class RegistrationRequest extends EmailAccountLoginController {
                 <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
                   Sure you want to delete request?
                 </DialogTitle>
-                <p>Are you sure that you want to delete the regestration reequest for the unit (A-104) of "Building/Complex name.</p>
+                <p>Are you sure that you want to delete the regestration request for the unit ({apartment_name}) of {building_name}.</p>
               </Box>
               <Box className="dialog-footer desktop-ui">
                 <DialogActions className="customButton">
                   <Button variant="contained" onClick={() => this.setState({ showDialog: false })}>
                     No, DON'T DELETE
                   </Button>
-                  <Button onClick={this.deleteRequestById()} variant='text'>
+                  <Button onClick={() => this.deleteRequestById()} variant='text'>
                     YES DELETE
                   </Button>
                 </DialogActions>

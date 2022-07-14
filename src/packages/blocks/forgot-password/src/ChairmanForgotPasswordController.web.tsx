@@ -357,8 +357,8 @@ export default class ChairmanForgotPasswordController extends BlockComponent<
         // let params = new URL(document.location as any).searchParams;
         // let token = params.get("token");
         //window.location = "/new-password?token=" + token as any;
-        this.setState({loading: false})
        window.location ="/ChairmanChangePassword" as any
+       this.setState({loading: false})
        //window.location.replace("/ChangePassword") 
       // } else if (responseJson?.message) {
       //   this.setState({ error: responseJson?.message });
@@ -437,8 +437,8 @@ export default class ChairmanForgotPasswordController extends BlockComponent<
 
       if (responseJson?.data) {
         console.log("responseJson===========>",responseJson)
-        this.setState({loading: false})
        window.location ="/ChairmanChangeSuccessfully" as any
+       this.setState({loading: false})
        //window.location.replace("/ChangePassword") 
       } else if (responseJson?.message) {
         this.setState({ error: responseJson?.message });

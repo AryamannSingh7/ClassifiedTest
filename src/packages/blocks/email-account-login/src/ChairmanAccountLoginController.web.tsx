@@ -11,9 +11,10 @@ import MessageEnum, {
 } from "../../../framework/src/Messages/MessageEnum";
 
 // Customizable Area Start
+import * as Yup from 'yup';
 import { imgPasswordInVisible, imgPasswordVisible } from "./assets";
 // Customizable Area End
-import * as Yup from 'yup';
+
 export const configJSON = require("./config");
 
 export interface Props {
@@ -35,23 +36,11 @@ export interface S {
   enableReTypePasswordField: boolean;
   countryCodeSelected: string;
   phone: string;
-  error: string | null;
   userType: string | null;
-  allContries: [];
-  selectCountry: string;
-  allCity: [];
-  selectCity: string;
-  allBuilding: [];
-  selectBuilding: string;
-  allUnit: [];
-  selectUnit: string;
-  selectCode: string;
-  selectEmail: string;
-  unitRegisterType:string;
-  allComplex:[]
-
-
-
+  error: string | null;
+  loading: boolean;
+  userTypeData:any;
+  
   // Customizable Area End
 }
 
@@ -61,7 +50,7 @@ export interface SS {
   // Customizable Area End
 }
 
-export default class ChairmanAccountLoginController extends BlockComponent<
+export default class EmailAccountRegistrationController extends BlockComponent<
   Props,
   S,
   SS
@@ -71,21 +60,10 @@ export default class ChairmanAccountLoginController extends BlockComponent<
   passwordReg: RegExp;
   emailReg: RegExp;
   createAccountApiCallId: any;
-  createManagerAccountApiCallId:any;
-  createAccountOwnerApiCallId:any;
-  createRequestApiCallId:any;
- changeUserTypeApiCallId:any;
-  getCountryApiCallId: any;
-  getComplexApiCallId:any;
-  getCityApiCallId: any;
-  getBuildingApiCallId: any;
-  getUnitApiCallId: any;
-  
 
-  apiChairmanEmailLoginCallId:any;
   apiEmailLoginCallId: any;
   validationApiCallId: any;
-  getUserTypeApiCallId:any;
+  getUserTypeApiCallId: any;
 
   validationApiCallId: string = "";
 
@@ -134,23 +112,9 @@ export default class ChairmanAccountLoginController extends BlockComponent<
       countryCodeSelected: "",
       phone: "",
       userType:'',
-      allContries: [],
-      selectCountry: '',
-      allCity: [],
-      selectCity: '',
-      allBuilding: [],
-      selectBuilding: '',
-      allUnit: [],
-      selectUnit: '',
-      selectCode:'',
-      selectEmail:'',
-      unitRegisterType:'',
-      allComplex:[],
-      
-      error: null,
       loading: false,
-      showDialog:false,
       userTypeData:null
+    
       // Customizable Area End
     };
 
@@ -214,9 +178,25 @@ export default class ChairmanAccountLoginController extends BlockComponent<
             }
           }
         } 
+      else if (apiRequestCallId === this.apiEmailLoginCallId) {
+          if (responseJson && responseJson.meta && responseJson.meta.token) {
+            localStorage.setItem("userToken", responseJson?.meta?.token)
+            localStorage.setItem("userId", responseJson?.meta?.id)
+            localStorage.setItem("userType", responseJson?.meta?.roles[0].name)
+          //this.props.history.push("/DashboardGeneral")
+           //window.location.replace("/RegistrationRequest");
+           this.setState({loading: false})
+          } else if (responseJson?.errors) {
+            let error = Object.values(responseJson.errors[0])[0] as string;
+            this.setState({ error });
+          } else {
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
+          }
+          this.setState({loading: false})
+          this.parseApiCatchErrorResponse(this.state.error);
+        }
         else if (apiRequestCallId === this.getUserTypeApiCallId) {
           if (responseJson && responseJson?.data ) {
-        
           console.log("responseJson?.data========================>",responseJson?.data.roles)
           this.setState({userTypeData :responseJson?.data.roles})
         //   console.log("userTypeData========================>",this.state.userTypeData[0].name)
@@ -224,174 +204,13 @@ export default class ChairmanAccountLoginController extends BlockComponent<
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
             this.setState({ error });
-            this.setState({loading: false})
           } else {
-            this.setState({loading: false})
             this.setState({ error: responseJson?.error || "Something went wrong!" });
           }
-
+          this.setState({loading: false})
           this.parseApiCatchErrorResponse(this.state.error);
         }
-       else if (apiRequestCallId === this.apiEmailLoginCallId) {
-          if (responseJson && responseJson.meta && responseJson.meta.token) {
-           // runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-           // this.saveLoggedInUserData(responseJson);
-           // this.sendLoginSuccessMessage();
-            // this.openInfoPage();
-            localStorage.setItem("userToken", responseJson?.meta?.token)
-            localStorage.setItem("userId", responseJson?.meta?.id)
-            this.setState({loading: false})
-           window.location.replace("/DashboardGeneral");
-          
-          } else if (responseJson?.errors) {
-            //Check Error Response
-            // this.parseApiErrorResponse(responseJson);
-            // this.sendLoginFailMessage();
-            console.log("responseJson?.data========================>",responseJson?.errors)
-            let error = Object.values(responseJson.errors[0])[0] as string;
-            this.setState({ error });
-            this.setState({loading: false})
-          } else {
-            this.setState({loading: false})
-            this.setState({ error: responseJson?.error || "Something went wrong!" });
-          }
-
-          this.parseApiCatchErrorResponse(this.state.error);
-        }
-
-        else if (apiRequestCallId === this.createAccountApiCallId) {
-          if (!responseJson.errors) {
-            console.log(responseJson)
-            localStorage.setItem('res_token', responseJson.meta.token)
-            localStorage.setItem('res_user', responseJson.data.attributes)
-            localStorage.setItem('res_user_id', responseJson.data.id)
-            this.props.history.push('/otp')
-
-
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-
-          this.parseApiCatchErrorResponse(errorReponse);
-        } else if (apiRequestCallId === this.createManagerAccountApiCallId) {
-          if (!responseJson.errors) {
-            console.log(responseJson)
-            localStorage.setItem('res_token', responseJson.meta.token)
-            localStorage.setItem('res_user', responseJson.data.attributes)
-            localStorage.setItem('res_user_id', responseJson.data.id)
-            this.props.history.push('/otp')
-
-
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-
-          this.parseApiCatchErrorResponse(errorReponse);
-        } else if (apiRequestCallId === this.createAccountOwnerApiCallId) {
-          if (!responseJson.errors) {
-            console.log(responseJson)
-            localStorage.setItem('res_token', responseJson.meta.token)
-            localStorage.setItem('res_user', responseJson.data.attributes)
-            localStorage.setItem('res_user_id', responseJson.data.id)
-            this.props.history.push('/otp')
-
-
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-
-          this.parseApiCatchErrorResponse(errorReponse);
-        } else if (apiRequestCallId === this.createRequestApiCallId) {
-          if (!responseJson.errors) {
-            console.log(responseJson)
-            // localStorage.setItem('res_token', responseJson.meta.token)
-            // localStorage.setItem('res_user', responseJson.data.attributes)
-            // localStorage.setItem('res_user_id', responseJson.data.id)
-            // this.props.history.push('/selecttype')
-            alert('request has been created')
-
-
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-
-          this.parseApiCatchErrorResponse(errorReponse);
-        } else if (apiRequestCallId === this.changeUserTypeApiCallId) {
-          if (!responseJson.errors) {
-            console.log(responseJson)
-            // localStorage.setItem('res_token', responseJson.meta.token)
-            // localStorage.setItem('res_user', responseJson.data.attributes)
-            // localStorage.setItem('res_user_id', responseJson.data.id)
-            this.props.history.push('/addressfill')
-
-
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-
-          this.parseApiCatchErrorResponse(errorReponse);
-        } else if (apiRequestCallId === this.getCountryApiCallId) {
-          if (!responseJson.errors) {
-            console.log(responseJson)
-            this.setState({ allContries: responseJson.data.countries })
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-
-          this.parseApiCatchErrorResponse(errorReponse);
-        } else if (apiRequestCallId === this.getComplexApiCallId) {
-          if (!responseJson.errors) {
-            console.log(responseJson)
-            let temp=[]
-            responseJson.data.societies.map((item:any)=>
-              temp.push({ value: item.id, label: item.name })
-              )
-              // @ts-ignore
-            this.setState({ allComplex: temp })
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-
-          this.parseApiCatchErrorResponse(errorReponse);
-        } else if (apiRequestCallId === this.getCityApiCallId) {
-          if (!responseJson.errors) {
-            console.log(responseJson)
-            this.setState({ allCity: responseJson.data.cities })
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-
-          this.parseApiCatchErrorResponse(errorReponse);
-        } else if (apiRequestCallId === this.getBuildingApiCallId) {
-          if (!responseJson.errors) {
-            console.log(responseJson)
-            this.setState({ allBuilding: responseJson.data.buildings })
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-
-          this.parseApiCatchErrorResponse(errorReponse);
-        } else if (apiRequestCallId === this.getUnitApiCallId) {
-          if (!responseJson.errors) {
-            console.log(responseJson)
-            let temp = [responseJson.data.unit_apartments]
-            this.setState({ allUnit: [...temp] },()=>console.log(this.state.allUnit))
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-
-          this.parseApiCatchErrorResponse(errorReponse);
-        }
+        
       }
     }
 
@@ -448,98 +267,6 @@ export default class ChairmanAccountLoginController extends BlockComponent<
     return this.emailReg.test(email);
   }
 
-  createAccount(): boolean {
-    if (
-      this.isStringNullOrBlank(this.state.firstName) ||
-      this.isStringNullOrBlank(this.state.lastName) ||
-      this.isStringNullOrBlank(this.state.email) ||
-      this.isStringNullOrBlank(this.state.password) ||
-      this.isStringNullOrBlank(this.state.reTypePassword)
-    ) {
-      this.showAlert(
-        configJSON.errorTitle,
-        configJSON.errorAllFieldsAreMandatory
-      );
-      return false;
-    }
-
-    var phoneNumberError = this.validateCountryCodeAndPhoneNumber(
-      this.state.countryCodeSelected,
-      this.state.phone
-    );
-
-    if (phoneNumberError) {
-      this.showAlert(configJSON.errorTitle, phoneNumberError);
-      return false;
-    }
-
-    if (!this.isValidEmail(this.state.email)) {
-      this.showAlert(configJSON.errorTitle, configJSON.errorEmailNotValid);
-      return false;
-    }
-
-    if (!this.passwordReg.test(this.state.password)) {
-      this.showAlert(configJSON.errorTitle, configJSON.errorPasswordNotValid);
-      return false;
-    }
-
-    if (this.state.password !== this.state.reTypePassword) {
-      this.showAlert(
-        configJSON.errorTitle,
-        configJSON.errorBothPasswordsNotSame
-      );
-      return false;
-    }
-
-    const header = {
-      "Content-Type": configJSON.contentTypeApiAddDetail
-    };
-
-    const attrs = {
-      first_name: this.state.firstName,
-      last_name: this.state.lastName,
-      email: this.state.email,
-      password: this.state.password,
-      full_phone_number: "+" + this.state.countryCodeSelected + this.state.phone
-    };
-
-    const data = {
-      type: "email_account",
-      attributes: attrs
-    };
-
-    const httpBody = {
-      data: data,
-      token: this.state.otpAuthToken
-    };
-
-    const requestMessage = new Message(
-      getName(MessageEnum.RestAPIRequestMessage)
-    );
-    this.createAccountApiCallId = requestMessage.messageId;
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      'account_block/accounts'
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestBodyMessage),
-      JSON.stringify(httpBody)
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypeAddDetail
-    );
-
-    runEngine.sendMessage(requestMessage.id, requestMessage);
-    return true;
-  }
 
   getValidations() {
     const headers = {
@@ -712,486 +439,22 @@ export default class ChairmanAccountLoginController extends BlockComponent<
     secureTextEntry: true
   };
 
-  createAccoun(attributes: any): boolean {
 
-    const header = {
-      "Content-Type": configJSON.contentTypeApiAddDetail
-    };
-    this.setState({ selectEmail: attributes.email })
-
-    const attrs = {
-      full_name: attributes.full_name,
-      last_name: attributes.lastName,
-      email: attributes.email,
-      password: attributes.password,
-      full_phone_number: "+" + 91 + attributes.phone,
-      password_confirmation: attributes.confirm_password
-    };
-
-    const data = {
-      type: "email_account",
-      attributes: attrs
-    };
-
-    const httpBody = {
-      data: data
-    };
-
-    const requestMessage = new Message(
-      getName(MessageEnum.RestAPIRequestMessage)
-    );
-    this.createAccountApiCallId = requestMessage.messageId;
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      'account_block/accounts'
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestBodyMessage),
-      JSON.stringify(httpBody)
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypeAddDetail
-    );
-
-    runEngine.sendMessage(requestMessage.id, requestMessage);
-    return true;
-
-
-
-  }
-  createAccountOwner(attributes: any): boolean {
-
-    const header = {
-      "Content-Type": configJSON.contentTypeApiAddDetail
-    };
-    this.setState({ selectEmail: attributes.email })
-
-    const attrs = {
-      full_name: attributes.full_name,
-      last_name: attributes.lastName,
-      email: attributes.email,
-      password: attributes.password,
-      full_phone_number: "+" + 91 + attributes.phone,
-      password_confirmation: attributes.confirm_password
-    };
-
-    const data = {
-      type: "email_account",
-      attributes: attrs
-    };
-
-    const httpBody = {
-      data: data
-    };
-
-    const requestMessage = new Message(
-      getName(MessageEnum.RestAPIRequestMessage)
-    );
-    this.createAccountOwnerApiCallId = requestMessage.messageId;
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      'account_block/accounts'
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestBodyMessage),
-      JSON.stringify(httpBody)
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypeAddDetail
-    );
-
-    runEngine.sendMessage(requestMessage.id, requestMessage);
-    return true;
-
-
-
-  }
-
-  createAccountManager = (attributes: any)=>{
-    const header = {
-      "Content-Type": configJSON.contentTypeApiAddDetail
-    };
-    this.setState({ selectEmail: attributes.email })
-
-    const attrs = {
-
-      email: attributes.email,
-      company_name: attributes.company_name,
-      manager_full_name: attributes.managerName,
-      owner_full_name: attributes.ownerName,
-      owner_phone_number: attributes.owner_phone,
-      owner_email: attributes.owner_email,
-      password: attributes.password,
-      full_phone_number: "+" + 91 + attributes.phone,
-      password_confirmation: attributes.confirm_password
-    };
-
-    const data = {
-      type: "email_account",
-      user_type: this.state.userType,
-      attributes: attrs
-    };
-
-    const httpBody = {
-      data: data
-    };
-
-    const requestMessage = new Message(
-      getName(MessageEnum.RestAPIRequestMessage)
-    );
-    this.createManagerAccountApiCallId = requestMessage.messageId;
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      'account_block/accounts'
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestBodyMessage),
-      JSON.stringify(httpBody)
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypeAddDetail
-    );
-
-    runEngine.sendMessage(requestMessage.id, requestMessage);
-    return true;
-
-
-  }
-
-  createRequest=(attributes: any): boolean=> {
-
-    const header = {
-      "Content-Type": configJSON.contentTypeApiAddDetail,
-      "token": localStorage.getItem('res_token')
-    };
-
-    const attrs = {
-      country: this.state.selectCountry,
-      city: this.state.selectCity,
-      building_name: this.state.selectBuilding,
-      apartment_name: this.state.selectUnit,
-    };
-
-    const data = {
-
-      attributes: attrs
-    };
-
-    const httpBody = {
-      data: data
-    };
-
-    const requestMessage = new Message(
-      getName(MessageEnum.RestAPIRequestMessage)
-    );
-    this.createRequestApiCallId = requestMessage.messageId;
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      'bx_block_request_management/requests'
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestBodyMessage),
-      JSON.stringify(httpBody)
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypeAddDetail
-    );
-
-    runEngine.sendMessage(requestMessage.id, requestMessage);
-    return true;
-
-
-
-  }
-  updateTypeOwner=()=>{
-    if (this.state.userType){
-
-      if (this.state.userType === 'Owner'){
-        this.props.history.push('/registerowner')
-
-      }else{
-        this.props.history.push('/registermanager')
-
-      }
-    }
-  }
-  updateType=(): boolean=> {
-
-    const header = {
-      "Content-Type": configJSON.contentTypeApiAddDetail
-    };
-    const requestMessage = new Message(
-      getName(MessageEnum.RestAPIRequestMessage)
-    );
-    console.log(this.changeUserTypeApiCallId)
-    console.log(requestMessage.messageId)
-
-    this.changeUserTypeApiCallId = requestMessage.messageId;
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `account_block/user_type?user_type=${this.state.userType}&id=${localStorage.getItem('res_user_id')}`
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
-
-
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      'PATCH'
-    );
-
-    runEngine.sendMessage(requestMessage.id, requestMessage);
-    return true;
-
-
-
-  }
-
-  changeType(value: any) {
-    this.setState({ userType: value })
-
-  }
-
-  changeUnitType(value: any) {
-    this.setState({ unitRegisterType: value })
-
-  }
-  handleChange= (e: any) => {
-    console.log(e.target.name)
-    console.log(e.target.value)
-
-
-    // @ts-ignore
-    // @ts-nocheck
-this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e))
-  }
-
-  getData(e){
-    console.log(this.state)
-
-    if (e.target.name == 'selectCountry'){
-      this.getCity()
-
-    } else if (e.target.name == 'selectCity') {
-      this.getBuilding()
-
-    } else if (e.target.name == 'selectBuilding') {
-      this.getUnit()
-
-    }
-
-  }
-
-  getCountry(){
-
-    const header = {
-      "Content-Type": configJSON.contentTypeApiAddDetail,
-      "token": localStorage.getItem('res_token')
-    };
-    const requestMessage = new Message(
-      getName(MessageEnum.RestAPIRequestMessage)
-    );
-
-
-    this.getCountryApiCallId = requestMessage.messageId;
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_address/country_list`
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
-
-
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.validationApiMethodType
-    );
-
-    runEngine.sendMessage(requestMessage.id, requestMessage);
-    return true;
-  }
-
-  getCity() {
-
-    const header = {
-      "Content-Type": configJSON.contentTypeApiAddDetail,
-      "token": localStorage.getItem('res_token')
-    };
-    const requestMessage = new Message(
-      getName(MessageEnum.RestAPIRequestMessage)
-    );
-
-
-    this.getCityApiCallId = requestMessage.messageId;
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_address/city_list?country=${this.state.selectCountry}`
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
-
-
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.validationApiMethodType
-    );
-
-    runEngine.sendMessage(requestMessage.id, requestMessage);
-    return true;
-  }
-
-  getBuilding() {
-
-    const header = {
-      "Content-Type": configJSON.contentTypeApiAddDetail,
-      "token": localStorage.getItem('res_token')
-    };
-    const requestMessage = new Message(
-      getName(MessageEnum.RestAPIRequestMessage)
-    );
-
-
-    this.getBuildingApiCallId = requestMessage.messageId;
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_address/building_list?city=${this.state.selectCity}`
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
-
-
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.validationApiMethodType
-    );
-
-    runEngine.sendMessage(requestMessage.id, requestMessage);
-    return true;
-  }
-
-  getUnit() {
-
-    const header = {
-      "Content-Type": configJSON.contentTypeApiAddDetail,
-      "token": localStorage.getItem('res_token')
-    };
-    const requestMessage = new Message(
-      getName(MessageEnum.RestAPIRequestMessage)
-    );
-
-
-    this.getUnitApiCallId = requestMessage.messageId;
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_address/apartment_list?id=${this.state.selectBuilding}`
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
-
-
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.validationApiMethodType
-    );
-
-    runEngine.sendMessage(requestMessage.id, requestMessage);
-    return true;
-  }
-  registerUnit=()=>{
-    if(this.state.unitRegisterType){
-      if (this.state.unitRegisterType == 'Manual')
-      {
-        this.props.history.push('/registerunitmanually')
-      }else{
-        this.props.history.push('/registerunitmanually')
-
-
-      }
-    }
-  }
-  getComplex() {
-
-    const header = {
-      "Content-Type": configJSON.contentTypeApiAddDetail,
-      "token": localStorage.getItem('res_token')
-    };
-    const requestMessage = new Message(
-      getName(MessageEnum.RestAPIRequestMessage)
-    );
-
-
-    this.getComplexApiCallId = requestMessage.messageId;
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_society_management/society_managements`
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
-
-
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.validationApiMethodType
-    );
-
-    runEngine.sendMessage(requestMessage.id, requestMessage);
-    return true;
+clear= () => {
+  localStorage.clear()
+  this.props.history.push("/");
+}
+
+  LoginSchema() {
+    const validations = Yup.object().shape({
+      email: Yup.string()
+        .strict(true)
+        .lowercase(`Please enter all values in lowercase`)
+        .trim()
+        .required(`This field is required.`),
+      password: Yup.string().required(`This field is required`)
+    });
+    return validations
   }
 
   doLogIn = (values: any): boolean => {
@@ -1206,7 +469,8 @@ this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e)
 
     const data = {
       type: "email_account",
-      attributes: attrs
+      attributes: attrs,
+      user_type:values.userType
     };
 
     const httpBody = {
@@ -1244,6 +508,7 @@ this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e)
     return true;
   };
 
+ 
   getUserType = () => {
     try {
       const header = {
@@ -1254,7 +519,6 @@ this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e)
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
-
       this.getUserTypeApiCallId = requestMessage.messageId;
       this.setState({ loading: true });
 
@@ -1279,19 +543,6 @@ this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e)
       console.log(error);
     }
   };
- 
-  LoginSchema() {
-    const validations = Yup.object().shape({
-      email: Yup.string()
-        .strict(true)
-        .lowercase(`Please enter all values in lowercase`)
-        .trim()
-        .required(`This field is required.`),
-      password: Yup.string().required(`This field is required`),
-      userType: Yup.string().required(`This field is required`),
-    });
-    return validations
-  }
-
+  
   // Customizable Area End
 }

@@ -1,221 +1,145 @@
+//@ts-ignore
+//@ts-nocheck
+
+
 import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
+import { runEngine } from "../../../framework/src/RunEngine";
 import MessageEnum, {
   getName
 } from "../../../framework/src/Messages/MessageEnum";
-import { runEngine } from "../../../framework/src/RunEngine";
 
 // Customizable Area Start
+import * as Yup from 'yup';
 import { imgPasswordInVisible, imgPasswordVisible } from "./assets";
 // Customizable Area End
-import * as Yup from 'yup';
+
 export const configJSON = require("./config");
 
 export interface Props {
   navigation: any;
   id: string;
-  // Customizable Area Start
-  // Customizable Area End
 }
 
-interface S {
+export interface S {
   // Customizable Area Start
-  password: string;
+  firstName: string;
+  lastName: string;
   email: string;
+  password: string;
+  otpAuthToken: string;
+  reTypePassword: string;
+  data: any[];
+  passwordHelperText: string;
   enablePasswordField: boolean;
-  checkedRememberMe: boolean;
-  placeHolderEmail: string;
-  placeHolderPassword: string;
-  imgPasswordVisible: any;
-  imgPasswordInVisible: any;
-  labelHeader: string;
-  btnTxtLogin: string;
-  labelRememberMe: string;
-  btnTxtSocialLogin: string;
-  labelOr: string;
+  enableReTypePasswordField: boolean;
+  countryCodeSelected: string;
+  phone: string;
   error: string | null;
-  loading: boolean;
-  registrationRequest:any;
-  requestdeleteId:any;
-  showDialog:any;
+  userType: string | null;
   // Customizable Area End
 }
 
-interface SS {
+export interface SS {
   // Customizable Area Start
   id: any;
   // Customizable Area End
 }
 
-export default class EmailAccountLoginController extends BlockComponent<
+export default class EmailAccountRegistrationController extends BlockComponent<
   Props,
   S,
   SS
 > {
-
   // Customizable Area Start
-  apiEmailLoginCallId: string = "";
-  validationApiCallId: string = "";
-  apiRegistrationRequestCallId: string = "";
-  deleteRequestCallId:string="";
+  arrayholder: any[];
+  passwordReg: RegExp;
+  emailReg: RegExp;
+  createAccountApiCallId: any;
+
+  apiEmailLoginCallId: any;
+  validationApiCallId: any;
+  apiRegistrationRequestCallId: any;
+  deleteRequestCallId:any;
   emailReg: RegExp;
   labelTitle: string = "";
+ 
+
+  validationApiCallId: string = "";
+
+  imgPasswordVisible: any;
+  imgPasswordInVisible: any;
+
+  labelHeader: any;
+  labelFirstName: string;
+  lastName: string;
+  labelEmail: string;
+  labelPassword: string;
+  labelRePassword: string;
+  labelLegalText: string;
+  labelLegalTermCondition: string;
+  labelLegalPrivacyPolicy: string;
+  btnTextSignUp: string;
+
+  currentCountryCode: any;
   // Customizable Area End
 
   constructor(props: Props) {
-
     super(props);
-    this.receive = this.receive.bind(this);
-  
-    // Customizable Area Start
     this.subScribedMessages = [
-      getName(MessageEnum.CountryCodeMessage),
       getName(MessageEnum.RestAPIResponceMessage),
-      getName(MessageEnum.ReciveUserCredentials)
-    ]
-    
+      getName(MessageEnum.NavigationPayLoadMessage),
+      getName(MessageEnum.CountryCodeMessage)
+    ];
+    this.receive = this.receive.bind(this);
+    this.isStringNullOrBlank = this.isStringNullOrBlank.bind(this);
+
+    runEngine.attachBuildingBlock(this, this.subScribedMessages);
+
     this.state = {
+      // Customizable Area Start
+      firstName: "",
+      lastName: "",
       email: "",
       password: "",
+      reTypePassword: "",
+      otpAuthToken: "",
+      data: [],
+      passwordHelperText: "",
       enablePasswordField: true,
-      checkedRememberMe: false,
-      placeHolderEmail: configJSON.placeHolderEmail,
-      placeHolderPassword: configJSON.placeHolderPassword,
-      imgPasswordVisible: configJSON.imgPasswordVisible,
-      imgPasswordInVisible: imgPasswordInVisible,
-      labelHeader: configJSON.labelHeader,
-      btnTxtLogin: configJSON.btnTxtLogin,
-      labelRememberMe: configJSON.labelRememberMe,
-      btnTxtSocialLogin: configJSON.btnTxtSocialLogin,
-      labelOr: configJSON.labelOr,
       error: null,
-      loading: false,
-      registrationRequest:null,
-      requestdeleteId:null,
-      showDialog:false,
+      enableReTypePasswordField: true,
+      countryCodeSelected: "",
+      phone: "",
+      userType:'',
+      // Customizable Area End
     };
 
-    this.emailReg = new RegExp("");
-    this.labelTitle = configJSON.labelTitle;
-    // Customizable Area End
-
-    runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
-
-  }
-
-  async componentDidMount() {
-    this.callGetValidationApi();
-    this.send(new Message(getName(MessageEnum.RequestUserCredentials)));
     // Customizable Area Start
+    this.arrayholder = [];
+    this.passwordReg = new RegExp("\\w+");
+    this.emailReg = new RegExp("\\w+");
+
+    this.imgPasswordVisible = imgPasswordVisible;
+    this.imgPasswordInVisible = imgPasswordInVisible;
+
+    this.labelHeader = configJSON.labelHeader;
+    this.labelFirstName = configJSON.labelFirstName;
+    this.lastName = configJSON.lastName;
+    this.labelEmail = configJSON.labelEmail;
+    this.labelPassword = configJSON.labelPassword;
+    this.labelRePassword = configJSON.labelRePassword;
+    this.labelLegalText = configJSON.labelLegalText;
+    this.labelLegalTermCondition = configJSON.labelLegalTermCondition;
+    this.labelLegalPrivacyPolicy = configJSON.labelLegalPrivacyPolicy;
+    this.btnTextSignUp = configJSON.btnTextSignUp;
     // Customizable Area End
   }
-
-  // Customizable Area Start
-  btnSocialLoginProps = {
-    onPress: () => this.goToSocialLogin()
-  };
-
-  btnEmailLogInProps = {
-    color: "#6200EE",
-    onPress: () => this.doEmailLogIn()
-  };
-
-  btnPasswordShowHideProps = {
-    onPress: () => {
-      this.setState({ enablePasswordField: !this.state.enablePasswordField });
-      this.txtInputPasswordProps.secureTextEntry = !this.state
-        .enablePasswordField;
-      this.btnPasswordShowHideImageProps.source = this.txtInputPasswordProps
-        .secureTextEntry
-        ? imgPasswordVisible
-        : imgPasswordInVisible;
-    }
-  };
-
-  CustomCheckBoxProps = {
-    onChangeValue: (value: boolean) => {
-      this.setState({ checkedRememberMe: value });
-      this.CustomCheckBoxProps.isChecked = value;
-    },
-    isChecked: false
-  };
-
-  btnForgotPasswordProps = {
-    onPress: () => this.goToForgotPassword()
-  };
-
-  txtInputPasswordProps = {
-    onChangeText: (text: string) => {
-      this.setState({ password: text });
-
-      //@ts-ignore
-      this.txtInputPasswordProps.value = text;
-    },
-    secureTextEntry: true
-  };
-
-  btnPasswordShowHideImageProps = {
-    source: imgPasswordVisible
-  };
-
-  btnRememberMeProps = {
-    onPress: () => {
-      this.setState({ checkedRememberMe: !this.CustomCheckBoxProps.isChecked });
-      this.CustomCheckBoxProps.isChecked = !this.CustomCheckBoxProps.isChecked;
-    }
-  };
-
-  txtInputEmailWebProps = {
-    onChangeText: (text: string) => {
-      this.setState({ email: text });
-
-      //@ts-ignore
-      this.txtInputEmailProps.value = text;
-    }
-  };
-
-  txtInputEmailMobileProps = {
-    ...this.txtInputEmailWebProps,
-    autoCompleteType: "email",
-    keyboardType: "email-address"
-  };
-
-  txtInputEmailProps = this.isPlatformWeb()
-    ? this.txtInputEmailWebProps
-    : this.txtInputEmailMobileProps;
-
-  // Customizable Area End
 
   async receive(from: string, message: Message) {
-
     // Customizable Area Start
-
-    if (getName(MessageEnum.ReciveUserCredentials) === message.id) {
-      const userName = message.getData(getName(MessageEnum.LoginUserName));
-
-      const password = message.getData(getName(MessageEnum.LoginPassword));
-
-      const countryCode = message.getData(
-        getName(MessageEnum.LoginCountryCode)
-      );
-
-      if (!countryCode && userName && password) {
-        this.setState({
-          email: userName,
-          password: password,
-          checkedRememberMe: true
-        });
-
-        //@ts-ignore
-        this.txtInputEmailProps.value = userName;
-
-        //@ts-ignore
-        this.txtInputPasswordProps.value = password;
-
-        this.CustomCheckBoxProps.isChecked = true;
-      }
-    } else if (getName(MessageEnum.RestAPIResponceMessage) === message.id) {
+    if (getName(MessageEnum.RestAPIResponceMessage) === message.id) {
       const apiRequestCallId = message.getData(
         getName(MessageEnum.RestAPIResponceDataMessage)
       );
@@ -228,226 +152,153 @@ export default class EmailAccountLoginController extends BlockComponent<
         getName(MessageEnum.RestAPIResponceErrorMessage)
       );
 
-      if (apiRequestCallId != null) {
-        if (
-          apiRequestCallId === this.validationApiCallId &&
-          responseJson !== undefined
-        ) {
-          var arrayholder = responseJson.data;
+      if (apiRequestCallId && responseJson) {
+        if (apiRequestCallId === this.validationApiCallId) {
+          this.arrayholder = responseJson.data;
 
-          if (arrayholder && arrayholder.length !== 0) {
-            let regexData = arrayholder[0];
+          if (this.arrayholder && this.arrayholder.length !== 0) {
+            let regexData = this.arrayholder[0];
 
-            if (regexData && regexData.email_validation_regexp) {
+            if (regexData.password_validation_regexp) {
+              this.passwordReg = new RegExp(
+                regexData.password_validation_regexp
+              );
+            }
+
+            if (regexData.password_validation_rules) {
+              this.setState({
+                passwordHelperText: regexData.password_validation_rules
+              });
+            }
+
+            if (regexData.email_validation_regexp) {
               this.emailReg = new RegExp(regexData.email_validation_regexp);
             }
           }
-        }
-
-        if (apiRequestCallId === this.apiEmailLoginCallId) {
+        } else if (apiRequestCallId === this.createAccountApiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            localStorage.setItem('res_token', responseJson.meta.token)
+            localStorage.setItem('res_user', responseJson.data.attributes)
+            localStorage.setItem('res_user_id', responseJson.data.id)
+            this.props.history.push('/otp')
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+          this.parseApiCatchErrorResponse(errorReponse);
+        } 
+      else if (apiRequestCallId === this.apiEmailLoginCallId) {
           if (responseJson && responseJson.meta && responseJson.meta.token) {
-            runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-            this.saveLoggedInUserData(responseJson);
-            this.sendLoginSuccessMessage();
-            // this.openInfoPage();
             localStorage.setItem("userToken", responseJson?.meta?.token)
             localStorage.setItem("userId", responseJson?.meta?.id)
-           window.location.replace("/RegistrationRequest");
+            this.getRegistrationRequest();
+          // this.props.history.push("/RegistrationRequest")
+           //window.location.replace("/RegistrationRequest");
            this.setState({loading: false})
-          
-          } else if (responseJson?.errors) {
-            //Check Error Response
-            // this.parseApiErrorResponse(responseJson);
-            // this.sendLoginFailMessage();
-            let error = Object.values(responseJson.errors[0])[0] as string;
-            this.setState({ error });
-            this.setState({loading: false})
-          } else {
-            this.setState({loading: false})
-            this.setState({ error: responseJson?.error || "Something went wrong!" });
-          }
-
-          this.parseApiCatchErrorResponse(this.state.error);
-        }
-       else if (apiRequestCallId === this.deleteRequestCallId) {
-          if (responseJson && responseJson?.data ) {
-            runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-           window.location.replace("/");
-          
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
             this.setState({ error });
-            this.setState({loading: false})
           } else {
-            this.setState({loading: false})
             this.setState({ error: responseJson?.error || "Something went wrong!" });
           }
+          this.setState({loading: false})
           this.parseApiCatchErrorResponse(this.state.error);
         }
-
+        else if (apiRequestCallId === this.deleteRequestCallId) {
+          if (responseJson.message && responseJson ) {
+          this.setState({loading: false,showDialog:false})
+          this.props.history.push("/")
+          } else if (responseJson?.errors) {
+            let error = Object.values(responseJson.errors[0])[0] as string;
+            this.setState({ error });
+          } else {
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
+          }
+          this.setState({loading: false,showDialog:false})
+          this.parseApiCatchErrorResponse(this.state.error);
+        }
         else if (apiRequestCallId === this.apiRegistrationRequestCallId) {
           if (responseJson && responseJson?.data ) {
-            runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-            // this.saveLoggedInUserData(responseJson);
-            // this.sendLoginSuccessMessage();
-            // this.openInfoPage();
-            // localStorage.setItem("userToken", responseJson?.meta?.token)
-            // localStorage.setItem("userId", responseJson?.meta?.id)
-         const  registrationRequest = responseJson?.data[0]
-         console.log("registrationRequest?.type========>",registrationRequest?.type)
-           if(registrationRequest?.type === "request"){
+            const  registrationRequest = responseJson?.data[0]
+            const status :any = registrationRequest?.attributes?.status;
+        if( status === "Requested"){
+            this.props.history.push("/RegistrationRequest");
             this.setState({registrationRequest, requestdeleteId :registrationRequest.id,loading: false})
           }
            else {
+            this.props.history.push("/DashboardGeneral")
             //window.location.replace("/DashboardGeneral");
+            this.setState({loading: false})
            }
-           //window.location.replace("/DashboardGeneral");
-          
+
           } else if (responseJson?.errors) {
-            //Check Error Response
-            // this.parseApiErrorResponse(responseJson);
-            // this.sendLoginFailMessage();
             let error = Object.values(responseJson.errors[0])[0] as string;
             this.setState({ error });
-            this.setState({loading: false})
           } else {
-            this.setState({loading: false})
             this.setState({ error: responseJson?.error || "Something went wrong!" });
           }
-
+          this.setState({loading: false})
           this.parseApiCatchErrorResponse(this.state.error);
         }
+      }
+    }
+
+    if (getName(MessageEnum.NavigationPayLoadMessage) === message.id) {
+      const otpAuthTkn = message.getData(
+        getName(MessageEnum.AuthTokenDataMessage)
+      );
+      if (otpAuthTkn && otpAuthTkn.length > 0) {
+        this.setState({ otpAuthToken: otpAuthTkn });
+        runEngine.debugLog("otpAuthTkn", this.state.otpAuthToken);
+        runEngine.unSubscribeFromMessages(this as IBlock, [message.id]);
+      }
+    }
+
+    if (getName(MessageEnum.CountryCodeMessage) === message.id) {
+      var selectedCode = message.getData(
+        getName(MessageEnum.CountyCodeDataMessage)
+      );
+
+      if (selectedCode !== undefined) {
+        this.setState({
+          countryCodeSelected:
+            selectedCode.indexOf("+") > 0
+              ? selectedCode.split("+")[1]
+              : selectedCode
+        });
       }
     }
     // Customizable Area End
   }
 
-  sendLoginFailMessage() {
-    const msg: Message = new Message(getName(MessageEnum.LoginFaliureMessage));
-    this.send(msg);
-  }
-  
-  sendLoginSuccessMessage() {
-    const msg: Message = new Message(getName(MessageEnum.LoginSuccessMessage));
-
-    msg.addData(getName(MessageEnum.LoginUserName), this.state.email);
-    msg.addData(getName(MessageEnum.CountyCodeDataMessage), null);
-    msg.addData(getName(MessageEnum.LoginPassword), this.state.password);
-    msg.addData(
-      getName(MessageEnum.LoginIsRememberMe),
-      this.state.checkedRememberMe
-    );
-
-    this.send(msg);
-  }
-
-  saveLoggedInUserData(responseJson: any) {
-    if (responseJson && responseJson.meta && responseJson.meta.token) {
-      const msg: Message = new Message(getName(MessageEnum.SessionSaveMessage));
-
-      msg.addData(
-        getName(MessageEnum.SessionResponseData),
-        JSON.stringify(responseJson)
-      );
-      msg.addData(
-        getName(MessageEnum.SessionResponseToken),
-        responseJson.meta.token
-      );
-
-      this.send(msg);
-    }
-  }
-
-  openInfoPage() {
-    const msg: Message = new Message(getName(MessageEnum.AccoutLoginSuccess));
-
-    msg.addData(getName(MessageEnum.NavigationPropsMessage), this.props);
-
-    this.send(msg);
-  }
-
-  goToForgotPassword() {
+  // Customizable Area Start
+  goToPrivacyPolicy() {
     const msg: Message = new Message(
-      getName(MessageEnum.NavigationForgotPasswordMessage)
+      getName(MessageEnum.NavigationPrivacyPolicyMessage)
     );
     msg.addData(getName(MessageEnum.NavigationPropsMessage), this.props);
-    msg.addData(getName(MessageEnum.NavigationForgotPasswordPageInfo), "email");
     this.send(msg);
   }
 
-  goToSocialLogin() {
+  goToTermsAndCondition() {
     const msg: Message = new Message(
-      getName(MessageEnum.NavigationSocialLogInMessage)
+      getName(MessageEnum.NavigationTermAndConditionMessage)
     );
     msg.addData(getName(MessageEnum.NavigationPropsMessage), this.props);
     this.send(msg);
   }
 
-  doEmailLogIn(): boolean {
-    if (
-      this.state.email === null ||
-      this.state.email.length === 0 ||
-      !this.emailReg.test(this.state.email)
-    ) {
-      this.showAlert("Error", configJSON.errorEmailNotValid);
-      return false;
-    }
-
-    if (this.state.password === null || this.state.password.length === 0) {
-      this.showAlert("Error", configJSON.errorPasswordNotValid);
-      return false;
-    }
-
-    const header = {
-      "Content-Type": configJSON.loginApiContentType
-    };
-
-    const attrs = {
-      email: this.state.email,
-      password: this.state.password
-    };
-
-    const data = {
-      type: "email_account",
-      attributes: attrs
-    };
-
-    const httpBody = {
-      data: data
-    };
-
-    const requestMessage = new Message(
-      getName(MessageEnum.RestAPIRequestMessage)
-    );
-
-    this.apiEmailLoginCallId = requestMessage.messageId;
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      configJSON.loginAPiEndPoint
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestBodyMessage),
-      JSON.stringify(httpBody)
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.loginAPiMethod
-    );
-
-    runEngine.sendMessage(requestMessage.id, requestMessage);
-
-    return true;
+  isStringNullOrBlank(str: string) {
+    return str === null || str.length === 0;
   }
 
-  callGetValidationApi() {
-    
+  isValidEmail(email: string) {
+    return this.emailReg.test(email);
+  }
+
+
+  getValidations() {
     const headers = {
       "Content-Type": configJSON.validationApiContentType
     };
@@ -471,6 +322,169 @@ export default class EmailAccountLoginController extends BlockComponent<
       configJSON.validationApiMethodType
     );
     runEngine.sendMessage(getValidationsMsg.id, getValidationsMsg);
+  }
+
+  isNonNullAndEmpty(value: String) {
+    return (
+      value !== undefined &&
+      value !== null &&
+      value !== "null" &&
+      value.trim().length > 0
+    );
+  }
+
+  validateCountryCodeAndPhoneNumber(countryCode: string, phoneNumber: string) {
+    let error = null;
+
+    if (this.isNonNullAndEmpty(phoneNumber)) {
+      if (!this.isNonNullAndEmpty(String(countryCode))) {
+        error = configJSON.errorCountryCodeNotSelected;
+      }
+    } else if (this.isNonNullAndEmpty(countryCode)) {
+      if (!this.isNonNullAndEmpty(phoneNumber)) {
+        error = "Phone " + configJSON.errorBlankField;
+      }
+    }
+
+    return error;
+  }
+
+  imgEnableRePasswordFieldProps = {
+    source: imgPasswordVisible
+  };
+
+  btnConfirmPasswordShowHideProps = {
+    onPress: () => {
+      this.setState({
+        enableReTypePasswordField: !this.state.enableReTypePasswordField
+      });
+      this.txtInputConfirmPasswordProps.secureTextEntry = !this.state
+        .enableReTypePasswordField;
+      this.imgEnableRePasswordFieldProps.source = this
+        .txtInputConfirmPasswordProps.secureTextEntry
+        ? imgPasswordVisible
+        : imgPasswordInVisible;
+    }
+  };
+
+  imgEnablePasswordFieldProps = {
+    source: imgPasswordVisible
+  };
+
+  btnPasswordShowHideProps = {
+    onPress: () => {
+      this.setState({ enablePasswordField: !this.state.enablePasswordField });
+      this.txtInputPasswordProps.secureTextEntry = !this.state
+        .enablePasswordField;
+      this.imgEnablePasswordFieldProps.source = this.txtInputPasswordProps
+        .secureTextEntry
+        ? imgPasswordVisible
+        : imgPasswordInVisible;
+    }
+  };
+
+  btnSignUpProps = {
+    onPress: () => this.createAccount()
+  };
+
+  btnLegalPrivacyPolicyProps = {
+    onPress: () => this.goToPrivacyPolicy()
+  };
+
+  btnLegalTermsAndConditionProps = {
+    onPress: () => this.goToTermsAndCondition()
+  };
+
+  txtInputEmailWebPrpos = {
+    onChangeText: (text: string) => {
+      this.setState({ email: text });
+      //@ts-ignore
+      this.txtInputEmailPrpos.value = text;
+    }
+  };
+
+  txtInputEmailMobilePrpos = {
+    ...this.txtInputEmailWebPrpos,
+    keyboardType: "email-address"
+  };
+
+  txtInputEmailPrpos = this.isPlatformWeb()
+    ? this.txtInputEmailWebPrpos
+    : this.txtInputEmailMobilePrpos;
+
+  txtPhoneNumberWebProps = {
+    onChangeText: (text: string) => {
+      this.setState({ phone: text });
+
+      //@ts-ignore
+      this.txtPhoneNumberProps.value = text;
+    }
+  };
+
+  txtPhoneNumberMobileProps = {
+    ...this.txtPhoneNumberWebProps,
+    autoCompleteType: "tel",
+    keyboardType: "phone-pad"
+  };
+
+  txtPhoneNumberProps = this.isPlatformWeb()
+    ? this.txtPhoneNumberWebProps
+    : this.txtPhoneNumberMobileProps;
+
+  txtInputLastNamePrpos = {
+    onChangeText: (text: string) => {
+      this.setState({ lastName: text });
+
+      //@ts-ignore
+      this.txtInputLastNamePrpos.value = text;
+    }
+  };
+
+  txtInputFirstNamePrpos = {
+    onChangeText: (text: string) => {
+      this.setState({ firstName: text });
+
+      //@ts-ignore
+      this.txtInputFirstNamePrpos.value = text;
+    }
+  };
+
+  txtInputConfirmPasswordProps = {
+    onChangeText: (text: string) => {
+      this.setState({ reTypePassword: text });
+
+      //@ts-ignore
+      this.txtInputConfirmPasswordProps.value = text;
+    },
+    secureTextEntry: true
+  };
+
+  txtInputPasswordProps = {
+    onChangeText: (text: string) => {
+      this.setState({ password: text });
+
+      //@ts-ignore
+      this.txtInputPasswordProps.value = text;
+    },
+    secureTextEntry: true
+  };
+
+
+clear= () => {
+  localStorage.clear()
+  this.props.history.push("/");
+}
+
+  LoginSchema() {
+    const validations = Yup.object().shape({
+      email: Yup.string()
+        .strict(true)
+        .lowercase(`Please enter all values in lowercase`)
+        .trim()
+        .required(`This field is required.`),
+      password: Yup.string().required(`This field is required`)
+    });
+    return validations
   }
 
   doLogIn = (values: any): boolean => {
@@ -523,18 +537,6 @@ export default class EmailAccountLoginController extends BlockComponent<
     return true;
   };
 
-  LoginSchema() {
-    const validations = Yup.object().shape({
-      email: Yup.string()
-        .strict(true)
-        .lowercase(`Please enter all values in lowercase`)
-        .trim()
-        .required(`This field is required.`),
-      password: Yup.string().required(`This field is required`)
-    });
-    return validations
-  }
-
   getRegistrationRequest = () => {
     try {
       const header = {
@@ -571,7 +573,10 @@ export default class EmailAccountLoginController extends BlockComponent<
     }
   };
 
+
   deleteRequestById = () => {
+    //console.log("this.state?.requestdeleteId deleleleleel}==========>",this.state?.requestdeleteId);
+    const id : any = this.state?.requestdeleteId;
     try {
       const header = {
         token :localStorage.getItem("userToken")
@@ -581,13 +586,12 @@ export default class EmailAccountLoginController extends BlockComponent<
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
-
       this.deleteRequestCallId = requestMessage.messageId;
-      this.setState({ loading: true ,showDialog: false});
+      this.setState({ loading: true });
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `bx_block_request_management/requests/${this.state?.requestdeleteId}`
+        `bx_block_request_management/requests/${id}`
       );
 
       requestMessage.addData(
@@ -606,5 +610,5 @@ export default class EmailAccountLoginController extends BlockComponent<
       console.log(error);
     }
   };
-
+  // Customizable Area End
 }

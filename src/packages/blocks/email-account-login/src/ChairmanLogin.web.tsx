@@ -43,7 +43,6 @@ class ChairmanLogin extends ChairmanAccountLoginController {
   }
 
   render() {
-    console.log("render============>", this.state?.loading)
     return (
       <>
         <Box className="login-wrapper">
