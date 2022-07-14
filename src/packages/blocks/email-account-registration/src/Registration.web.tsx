@@ -1,3 +1,6 @@
+//@ts-ignore
+//@ts-nocheck
+
 import * as React from "react";
 // custom components
 import {
@@ -13,6 +16,7 @@ import { CheckBox, Visibility, VisibilityOff } from "@material-ui/icons";
 import { company_logo, email, password, user } from "./assets";
 import {dailCode} from './code'
 import { withRouter } from 'react-router';
+import Loader from "../../../components/src/Loader.web";
 
 
 
@@ -51,7 +55,7 @@ class Registration extends EmailAccountRegistrationController  {
 
       <Grid container style={{ margin: '1rem',width:'90%' }}>
         <Grid xs={12}>
-          <Formik initialValues={{
+          <Formik  initialValues={{
             full_name: "",
             email: "",
             phone: "",
@@ -71,38 +75,22 @@ class Registration extends EmailAccountRegistrationController  {
               touched,
               isValid, handleChange,
               setFieldValue }) => (
-              <Form translate="yes" className=''>
-                <Box display="flex" flexDirection="column">
+              <Form className="commonForm"  translate="yes" >
+                <Box className='formGroup'>
                   <Box
-                    className='input'
-                    display="flex"
-                    overflow="hidden"
-                    alignItems="center"
-                    height="56px"
-                    border="0.1px solid rgb(209 209 209 / 44%)"
-                    borderRadius="16px"
-                    bgcolor="white"
-                    marginTop='1rem'
-
+                    className="formInputGrp"
                   >
-                    <img src={user}/>
+
 
                     <Field
+                      className="formInput"
                       name="full_name"
                       placeholder={"full Name"}
-                      style={{
-                        border: "none",
-                        height: "100%",
-                        width: "80%",
-                        color: "rgba(0, 0, 0, 0.6)",
-                        fontFamily: "Poppins",
-                        fontWeight: 400,
-                        fontSize: 16,
-                        marginRight: 10,
-                        marginLeft: 21,
-                        outline: "none"
-                      }}
+
                     />
+                    <span className="frmLeftIcons">
+                      <img src={user} />
+                    </span>
                   </Box>
                   {errors.full_name && touched.full_name ? (
                     <Typography
@@ -135,36 +123,19 @@ class Registration extends EmailAccountRegistrationController  {
 
                   {/* email */}
                   <Box
-                    className='input'
-                    display="flex"
-                    overflow="hidden"
-                    alignItems="center"
-                    height="56px"
-                    border="0.1px solid rgb(209 209 209 / 44%)"
-                    borderRadius="16px"
-                    bgcolor="white"
-                    marginTop='1rem'
-
+                    className="formInputGrp"
                   >
-                    <img src={email} />
 
 
                     <Field
                       name="email"
                       placeholder={"Email"}
-                      style={{
-                        border: "none",
-                        height: "100%",
-                        width: "80%",
-                        color: "rgba(0, 0, 0, 0.6)",
-                        fontFamily: "Poppins",
-                        fontWeight: 400,
-                        fontSize: 16,
-                        marginRight: 10,
-                        marginLeft: 21,
-                        outline: "none"
-                      }}
+                      className="formInput"
                     />
+                    <span className="frmLeftIcons">
+
+                      <img src={email} />
+                    </span>
                   </Box>
                   {errors.full_name && touched.full_name ? (
                     <Typography
@@ -281,33 +252,18 @@ class Registration extends EmailAccountRegistrationController  {
                   ) : null}
                   {/* pass */}
                   <Box
-                    display="flex"
-                    overflow="hidden"
-                    alignItems="center"
-                    height="56px"
-                    mt="20px"
-                    border="0.1px solid rgb(209 209 209 / 44%)"
-                    borderRadius="16px"
-                    bgcolor="white"
+                    className="formInputGrp"
                   >
-                    <img src={password}/>
+
                     <Field
+                      className="formInput"
                       name="password"
                       placeholder="Password"
                       type={values.showPassword ? "text" : "password"}
-                      style={{
-                        border: "none",
-                        height: "100%",
-                        width: "80%",
-                        color: "rgba(0, 0, 0, 0.6)",
-                        fontFamily: "Poppins",
-                        fontWeight: 400,
-                        fontSize: 16,
-                        marginRight: 10,
-                        marginLeft: 21,
-                        outline: "none"
-                      }}
+
                     />
+                    <span className="frmrightIcons">
+
                     {values.showPassword ? (
                       <IconButton
                         onClick={() => setFieldValue("showPassword", false)}
@@ -341,6 +297,11 @@ class Registration extends EmailAccountRegistrationController  {
                         />
                       </IconButton>
                     )}
+                      </span>
+
+                    <span className="frmLeftIcons">
+                      <img src={password} />
+                    </span>
                   </Box>
                   {errors.password && touched.password ? (
                     <Typography
@@ -359,34 +320,22 @@ class Registration extends EmailAccountRegistrationController  {
 
 {/* confirm */}
                   <Box
-                    display="flex"
-                    overflow="hidden"
-                    alignItems="center"
-                    height="56px"
-                    mt="20px"
-                    border="0.1px solid rgb(209 209 209 / 44%)"
-                    borderRadius="16px"
-                    bgcolor="white"
+                    className="formGroup"
                   >
+                    <span className="frmLeftIcons">
+
                     <img src={password} />
+                    </span>
 
                     <Field
+                      className="formInput"
                       name="confirm_password"
                       placeholder="Confirm Password"
                       type={values.showConfirmPassword ? "text" : "password"}
-                      style={{
-                        border: "none",
-                        height: "100%",
-                        width: "80%",
-                        color: "rgba(0, 0, 0, 0.6)",
-                        fontFamily: "Poppins",
-                        fontWeight: 400,
-                        fontSize: 16,
-                        marginRight: 10,
-                        marginLeft: 21,
-                        outline: "none"
-                      }}
+
                     />
+                    <span className="frmrightIcons">
+
                     {values.showConfirmPassword ? (
                       <IconButton
                         onClick={() => setFieldValue("showConfirmPassword", false)}
@@ -420,6 +369,7 @@ class Registration extends EmailAccountRegistrationController  {
                         />
                       </IconButton>
                     )}
+                      </span>
                   </Box>
                   {errors.password && touched.password ? (
                     <Typography
@@ -436,25 +386,17 @@ class Registration extends EmailAccountRegistrationController  {
                   ) : null}
 
 
+                  <Box className="customButton">
 
                   <Button
-                    className={'btn'}
                     variant="contained"
                     type="submit"
-                    style={{
-                      backgroundColor: "#2B6FEC",
-                      borderRadius: 16,
-                      height: 54,
-                      marginBottom: 14,
-                      boxShadow: "none",
-                      color: "#F7F7FC",
-                      fontWeight: 600,
-                      fontSize: 16,
-                      marginTop: 30
-                    }}
+
                   >
                     SIGN UP
                   </Button>
+
+                  </Box>
 
                   <Box
                     display="flex"
@@ -497,7 +439,6 @@ class Registration extends EmailAccountRegistrationController  {
                     <Typography
                       style={{
                         color: "#A0A3BD",
-                        fontFamily: "Poppins",
                         textAlign: "center",
                         fontWeight: "normal",
                         fontSize: 12
@@ -522,6 +463,7 @@ class Registration extends EmailAccountRegistrationController  {
           </Formik>
         </Grid>
       </Grid>
+      <Loader loading={this.state.loading} />
     </>
   )
                     }

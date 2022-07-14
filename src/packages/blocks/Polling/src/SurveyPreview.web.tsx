@@ -18,19 +18,6 @@ import {
 } from "@material-ui/core";
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import Select from "@material-ui/core/Select";
-import NativeSelect from "@material-ui/core/NativeSelect";
-import Switch from '@material-ui/core/Switch';
-
-import 'date-fns';
-// import DateFnsUtils from '@date-io/date-fns';
-
-import {
-  MuiPickersUtilsProvider,
-  KeyboardTimePicker,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
-
 
 // Icons
 import InfoIcon from '@material-ui/icons/Info';

@@ -1,4 +1,6 @@
 // Customizable Area Start
+//@ts-ignore
+//@ts-nocheck
 
 import React from "react";
 import "./Polling.web.css"
@@ -6,7 +8,11 @@ import {
   Container,
   Typography,
   Link,
+  Button,
   FormControl,
+  Dialog,
+  DialogActions,
+  DialogTitle,
 } from "@material-ui/core";
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -29,9 +35,10 @@ import Dashboard from "../../dashboard/src/Dashboard.web";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import "../../../web/src/assets/css/style.scss";
+import { withRouter } from 'react-router';
+import Loader from "../../../components/src/Loader.web";
 
-
-export default class Polling extends PollingController {
+class Polling extends PollingController {
   constructor(props: Props) {
     super(props);
   }
@@ -70,43 +77,73 @@ export default class Polling extends PollingController {
                 </Box>
                 <Grid container spacing={4} style={{marginTop: 15}} className="link-decoration">
                     <Grid item sm={4}>
-                        <Box className="CreatePS">
+                        <Box className="CreatePS" onClick={() => {  this.setState({ showDialog: true})}}>
                             <Box sx={{ml:1, mb:2}} className="CreatePSIcons"><PersonOutlineIcon/></Box>
                             <Typography  className="CreatePSHeading">Create a New Polls/Survey</Typography> 
                         </Box>
                     </Grid> 
 
+                    <Dialog
+                        open={this.state.showDialog}
+                        onClose={() => this.setState({ showDialog: false })}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
+                        >
+                        <DialogTitle id="alert-dialog-title" style={{textAlign:"center"}}>Choose Options</DialogTitle>
+                        <Box style={{ display: "flex", marginLeft: 50, marginRight: 50 }}>
+                            <DialogActions>
+                                <Button onClick={() => {
+                                    this.setState({ showDialog: false})
+                                    this.props.history.push("/CreatePolls")
+                                }} variant='text'>
+                                    <Box className="dialogOption">
+                                        <Box sx={{ml:1, mb:2}} className="DialogIcons">
+                                            <PersonOutlineIcon />
+                                        </Box>
+                                        <Typography variant="body2">Create Poll</Typography> 
+                                    </Box>
+                                </Button>
+                                <Button onClick={() => {
+                                    this.setState({ showDialog: false})
+                                    this.props.history.push("/CreateSurveys")
+                                }} variant='text'>
+                                    <Box className="dialogOption">
+                                        <Box sx={{ml:1, mb:2}} className="DialogIcons">
+                                            <PersonOutlineIcon />
+                                        </Box>
+                                        <Typography variant="body2">Create Survey</Typography> 
+                                    </Box>
+                                </Button>
+                            </DialogActions>
+                        </Box>
+                    </Dialog>
+
                     <Grid item sm={4}>
-                        <Link href="/PollsallData">
-                            <Box className="Cards">
-                                <Box sx={{ml:1, mb:2}} className="CardsIcons"><PersonOutlineIcon/></Box>
-                                <Typography className="subHeading">Polls Created</Typography>
-                                <Box className="bottomTwoSpan">
-                                    <Typography variant="body2" className="bottomColor">{this.state.totalPollsCount.polls_count}</Typography>  
-                                </Box> 
-                                <Box className="bottomTwoSpan">
-                                    <Typography variant="body2">
-                                        Last poll created on {this.state.totalPollsCount.last_poll_created_at}
-                                        {/* {this.changeLastDateFormate(this.state.totalPollsCount.last_poll_created_at)} */}
-                                    </Typography> 
-                                </Box> 
-                            </Box>
-                        </Link>
+                        <Box className="Cards" onClick={() => this.props.history.push("/PollsallData")}>
+                            <Box sx={{ml:1, mb:2}} className="CardsIcons"><PersonOutlineIcon/></Box>
+                            <Typography className="subHeading">Polls Created</Typography>
+                            <Box className="bottomTwoSpan">
+                                <Typography variant="body2" className="bottomColor">{this.state.totalPollsCount.polls_count}</Typography>  
+                            </Box> 
+                            <Box className="bottomTwoSpan">
+                                <Typography variant="body2">
+                                    Last poll created on {this.state.totalPollsCount.last_poll_created_at}
+                                </Typography> 
+                            </Box> 
+                        </Box>
                     </Grid>
 
                     <Grid item sm={4}>
-                        <Link href="/CreateSurveys">
-                            <Box className="Cards">
-                                <Box sx={{ml:1, mb:2}} className="CardsIcons"><PersonOutlineIcon/></Box>
-                                <Typography className="subHeading">Surveys Created</Typography>
-                                <Box className="bottomTwoSpan">
-                                    <Typography variant="body2" className="bottomColor">344</Typography>  
-                                </Box> 
-                                <Box className="bottomTwoSpan">
-                                    <Typography variant="body2">Last Survey created on 12-02-2022</Typography> 
-                                </Box> 
-                            </Box>
-                        </Link>
+                        <Box className="Cards" onClick={() => this.props.history.push("/CreateSurveys")}>
+                            <Box sx={{ml:1, mb:2}} className="CardsIcons"><PersonOutlineIcon/></Box>
+                            <Typography className="subHeading">Surveys Created</Typography>
+                            <Box className="bottomTwoSpan">
+                                <Typography variant="body2" className="bottomColor">344</Typography>  
+                            </Box> 
+                            <Box className="bottomTwoSpan">
+                                <Typography variant="body2">Last Survey created on 12-02-2022</Typography> 
+                            </Box> 
+                        </Box>
                     </Grid>
 
                 </Grid>
@@ -270,13 +307,13 @@ export default class Polling extends PollingController {
 
         </Box>
     </Box>
-     
+    <Loader loading={this.state.loading} />
      </>
       );
   }
 }
 
-
+export default withRouter (Polling)
 
 const dashBoard = {
     SideBar: {

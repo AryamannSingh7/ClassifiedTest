@@ -21,12 +21,12 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import { Tenant_Logo, Building_Logo, Landing_Banner, Building1 } from "../src/assets";
 import { withRouter } from 'react-router';
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field ,ErrorMessage} from "formik";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
-import EmailAccountLoginController, {
+import ChairmanAccountLoginController, {
   Props
-} from "./EmailAccountLoginController.web";
-
+} from "./ChairmanAccountLoginController.web";
+import Loader from "../../../components/src/Loader.web";
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -34,11 +34,16 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
-class ChairmanLogin extends EmailAccountLoginController {
+class ChairmanLogin extends ChairmanAccountLoginController {
   constructor(props: Props) {
     super(props);
   }
+  // componentDidMount() {
+  //   this.getUserType();
+  // }
+
   render() {
+    console.log("render============>", this.state?.loading)
     return (
       <>
         <Box className="login-wrapper">
@@ -65,14 +70,15 @@ class ChairmanLogin extends EmailAccountLoginController {
                       email: "",
                       password: "",
                       showPassword: false,
-                      stayIn: false
+                      stayIn: false ,
+                      userType:"owner"
                     }}
                     validationSchema={this.LoginSchema()}
                     validateOnMount={true}
                     onSubmit={(values) => {
                       console.log("valus=========>", values)
                       // same shape as initial values
-                      this.doLogIn(values);
+                      this.loginChairmen(values);
                     }}
                   >
                     {({ values, touched, errors, isValid, setFieldValue, handleChange }) => (
@@ -80,22 +86,35 @@ class ChairmanLogin extends EmailAccountLoginController {
                         <Box className="formGroup customSelect">
                           <FormControl variant="outlined" >
                             <span className="frmLeftIcons"><LockOpenIcon /></span>
-                            {/* <InputLabel id="demo-simple-select-outlined-label">Age</InputLabel> */}
+                            {/* <InputLabel id="demo-simple-select-outlined-label">Select User Type</InputLabel>  */}
                             <Select
+                              name="userType"
                               labelId="demo-simple-select-outlined-label"
                               id="demo-simple-select-outlined"
-                              value="10"
-                              label="Ten"
+                              label="Select User Type"
+                              onChange={handleChange("userType")}
+                              value={values.userType}
                             >
-                              <MenuItem value="">
+                                {/* <MenuItem value="Select User Type">
                                 <em>
-                                  None
+                                Select User Type
                                 </em>
-                              </MenuItem>
-                              <MenuItem value={10}>Select User Type</MenuItem>
-                              <MenuItem value={20}>Twenty</MenuItem>
-                              <MenuItem value={30}>Thirty</MenuItem>
+                              </MenuItem> */}
+                              {
+                                 this.state?.userTypeData?.map((val, index) => (
+                                  <MenuItem
+                                    key={index}
+                                    value={val?.name}
+                                  >
+                                    {val?.name}
+                                  </MenuItem>
+                                ))
+                              }
+                              {/* <MenuItem value="">Select User Type</MenuItem>
+                              <MenuItem value={10}>{JSON.stringify(values.userType)}</MenuItem>
+                              <MenuItem value={10}>"hk"</MenuItem> */}
                             </Select>
+                            <ErrorMessage className="text-error" component="Typography" name="userType" />
                           </FormControl>
                         </Box>
                         <Box className="formGroup">
@@ -193,6 +212,7 @@ class ChairmanLogin extends EmailAccountLoginController {
               </Box>
             </Grid>
           </Grid>
+          <Loader loading={this.state.loading} />
         </Box>
       </>
     );
