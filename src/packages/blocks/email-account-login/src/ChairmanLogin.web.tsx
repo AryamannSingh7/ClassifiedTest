@@ -70,7 +70,7 @@ class ChairmanLogin extends ChairmanAccountLoginController {
                       password: "",
                       showPassword: false,
                       stayIn: false,
-                      userType: "1"
+                      userType: " "
                     }}
                     validationSchema={this.LoginSchema()}
                     validateOnMount={true}
@@ -92,11 +92,11 @@ class ChairmanLogin extends ChairmanAccountLoginController {
                               id="demo-simple-select-outlined"
                               // label="Select User Type"
                               onChange={(e) => {
-                                (e.target.value != "1") && setFieldValue("userType", e.target.value)
+                                (e.target.value != " ") && setFieldValue("userType", e.target.value)
                               }}
                               value={values.userType}
                             >
-                              <MenuItem disabled value="1">
+                              <MenuItem disabled value=" ">
                                 Select User Type
                               </MenuItem>
                               {

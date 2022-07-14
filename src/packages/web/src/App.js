@@ -425,12 +425,6 @@ const routeMap = {
     component: MobileAccountLoginBlock,
     path: "/MobileAccountLoginBlock"
   },
-
-  DashboardGeneral: {
-    component: DashboardGeneral,
-    path: "/DashboardGeneral"
-  },
-
   DashboardGeneral: {
     component: DashboardGeneral,
     path: "/DashboardGeneral"
