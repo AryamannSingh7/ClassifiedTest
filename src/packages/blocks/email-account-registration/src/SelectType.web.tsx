@@ -15,6 +15,7 @@ import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import HomeIcon from '@material-ui/icons/Home';
 import { owner, resident_owner, tenet } from "./assets";
 import { withRouter } from 'react-router';
+import Loader from "../../../components/src/Loader.web";
 
 
 
@@ -62,21 +63,20 @@ class SelectType extends EmailAccountRegistrationController {
             <Box
               display="flex"
               justifyContent='space-between'
-              className='input'
+              className='select-type'
 
               alignItems="center"
-              height="56px"
               border="0.1px solid rgb(209 209 209 / 44%)"
               borderRadius="16px"
               bgcolor="white"
               marginTop='1rem'
             >
               <img src={resident_owner}/>
-              <Box>
-                <p>
+              <Box className="middle-section">
+                <p className="title">
                   Resident Owner
                 </p>
-                <p>
+                <p className="para">
                   I am the owner of the unit and i am living in it
                 </p>
               </Box>
@@ -87,10 +87,9 @@ class SelectType extends EmailAccountRegistrationController {
             <Box
               display="flex"
               justifyContent='space-between'
-              className='input'
+              className='select-type'
 
               alignItems="center"
-              height="56px"
               border="0.1px solid rgb(209 209 209 / 44%)"
               borderRadius="16px"
               bgcolor="white"
@@ -98,11 +97,11 @@ class SelectType extends EmailAccountRegistrationController {
             >
               <img src={tenet} />
 
-              <Box>
-                <p>
+              <Box className="middle-section">
+                <p className="title">
                   Tenant
                 </p>
-                <p>
+                <p className="para">
                   I am the redistering as somone who rented a unit
                 </p>
               </Box>
@@ -113,10 +112,9 @@ class SelectType extends EmailAccountRegistrationController {
             <Box
               display="flex"
               justifyContent='space-between'
-              className='input'
+              className='select-type'
 
               alignItems="center"
-              height="56px"
               border="0.1px solid rgb(209 209 209 / 44%)"
               borderRadius="16px"
               bgcolor="white"
@@ -124,11 +122,11 @@ class SelectType extends EmailAccountRegistrationController {
             >
               <img src={owner} />
 
-              <Box>
-                <p>
+              <Box className="middle-section">
+                <p className="title">
                   Owner
                 </p>
-                <p>
+                <p className="para">
                   I am the owner of the unit, but I am not living inside it
                 </p>
               </Box>
@@ -138,7 +136,7 @@ class SelectType extends EmailAccountRegistrationController {
             </Box>
           </Grid>
         </Grid>
-        <Grid container style={{ margin: '1rem', width: '90%' }}>
+        <Grid container style={{ margin: '1rem', width: '90%',position:'absolute',bottom:0 }}>
           <Grid xs={12}>
             <Button
               fullWidth={true}
@@ -165,6 +163,7 @@ class SelectType extends EmailAccountRegistrationController {
 
           </Grid>
         </Grid>
+        <Loader loading={this.state.loading} />
       </>
 
     )

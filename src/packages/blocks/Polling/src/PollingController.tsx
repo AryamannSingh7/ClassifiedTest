@@ -41,6 +41,8 @@ interface S {
   recentPolls: any,
   selectQuestion: any,
   PreViewPollData:any,
+  loading: boolean;
+  showDialog:boolean;
   // Customizable Area End
 }
 
@@ -105,6 +107,8 @@ export default class PollingController extends BlockComponent<
       recentPolls: [],
       selectQuestion: [],
       PreViewPollData: [],
+      loading: false,
+      showDialog:false,
       // Customizable Area End
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -121,7 +125,6 @@ export default class PollingController extends BlockComponent<
     this.onGetPolls();
     this.getTotalPollCount();
     this.getRecentPolls();
-    
     // Customizable Area End
   }
     // Customizable Area Start
@@ -180,7 +183,6 @@ export default class PollingController extends BlockComponent<
       event.preventDefault()
       console.log("Polls Data ==>", this.state.PollData)
       console.log("Options Data ==>", this.state.options)
-      debugger
         if(this.state.PreViewPollData.length || Object.keys(this.state.PreViewPollData).length){
           let reqPayload = {
             "poll":
@@ -267,7 +269,7 @@ export default class PollingController extends BlockComponent<
     const { contentType, method, endPoint, body } = data;
     // console.log("Called 1",data);
     
-    const token = `eyJhbGciOiJIUzUxMiJ9.eyJpZCI6MjgsImV4cCI6MTY1NzYyNjc2MywidG9rZW5fdHlwZSI6ImxvZ2luIn0.9Hvk36NG_aiqT7UEPhiDlD5UBxzXa-pIL46yDZVue7JsbiLg6wWHCsat0Sfj-D0lZSmbTI39Zn3Lih99uHRgAA`;
+    const token = `eyJhbGciOiJIUzUxMiJ9.eyJpZCI6MzgsImV4cCI6MTY1NzgwNDI0MiwidG9rZW5fdHlwZSI6ImxvZ2luIn0.CfMuBPIP9DmpgB60KkW7PcbqwDe2SqgYsE-qzTnAD9iR2xotl7_beWz_y0OP9mYE55JYzhHwjOXRNdQcX_OadA`;
     const header = {
       "Content-Type": contentType,
       token
@@ -317,6 +319,7 @@ export default class PollingController extends BlockComponent<
     if (responseJson || responseJson?.data) {
       if (apiRequestCallId === this.getAllPolls) {
          this.getPollSuccessResponse(responseJson)
+         this.setState({loading: false})
       }
       if (apiRequestCallId === this.createPoll) {
         console.log('ADD Poll Data',responseJson);
@@ -363,6 +366,7 @@ export default class PollingController extends BlockComponent<
   getPollSuccessResponse = async (response: any) => {
     // console.log('Success',response);
     this.setState({allPollsData: response})
+    console.log("allPollsData==========",  this.state.allPollsData)
   }
 
   getTotalPollsCountResponse = async (response: any) => {
@@ -373,6 +377,7 @@ export default class PollingController extends BlockComponent<
   getRecentPollsResponse = async (response: any) => {
     // console.log('get Recent Polls Response',response);
     this.setState({recentPolls: response})
+    console.log('get Recent Polls Response',this.state.recentPolls);
   }
   // Error Block
   

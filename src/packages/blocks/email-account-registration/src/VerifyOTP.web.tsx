@@ -67,7 +67,7 @@ class VerofyOTP extends EmailAccountRegistrationController {
             </div>
           </Grid>
         </Grid>
-        <Grid container style={{ margin: '1rem', width: '90%' }}>
+        <Grid container style={{ margin: '1rem', width: '90%', position: 'absolute', bottom: 0 }}>
   <Grid xs={12}>
             <Button
               onClick={() => this.props.history.push('/selecttype')}

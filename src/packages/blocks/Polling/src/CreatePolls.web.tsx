@@ -23,7 +23,6 @@ import Switch from '@material-ui/core/Switch';
 
 import 'date-fns';
 // import DateFnsUtils from '@date-io/date-fns';
-import MomentUtils from '@date-io/moment';
 // import {
 //   MuiPickersUtilsProvider,
 //   KeyboardTimePicker,
@@ -95,7 +94,9 @@ class CreatePolls extends PollingController {
                                 />
 
                                 <Box className="DateSection">
-                                    {/* <MuiPickersUtilsProvider utils={MomentUtils}>
+                                    {/* <MuiPickersUtilsProvider 
+                                    utils={MomentUtils}
+                                    >
                                     <Grid container justifyContent="space-between">
                                         <KeyboardDatePicker
                                         className="DateBox"

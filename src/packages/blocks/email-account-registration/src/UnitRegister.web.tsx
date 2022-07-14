@@ -62,7 +62,7 @@ class RegisterUnit extends EmailAccountRegistrationController {
             <Box
               display="flex"
               justifyContent='space-between'
-              className='input'
+              className='select-type'
 
               alignItems="center"
 
@@ -72,11 +72,11 @@ class RegisterUnit extends EmailAccountRegistrationController {
               marginTop='1rem'
             >
               <img src={Linkage} />
-              <Box>
-                <p style={{ fontWeight: 'bold', }}>
+              <Box className="middle-section">
+                <p className="title">
                   Linkage
                 </p>
-                <p>
+                <p className="para">
                   Select this option if the building manager has requested you to register the unit, or you are aware that Tenant International ® platform is used in the building
                 </p>
               </Box>
@@ -87,7 +87,7 @@ class RegisterUnit extends EmailAccountRegistrationController {
             <Box
               display="flex"
               justifyContent='space-between'
-              className='input'
+              className='select-type'
 
               alignItems="center"
 
@@ -98,11 +98,11 @@ class RegisterUnit extends EmailAccountRegistrationController {
             >
               <img src={manual} />
 
-              <Box>
-                <p style={{fontWeight:'bold',}}>
+              <Box className="middle-section">
+                <p className="title">
                   Manual
                 </p>
-                <p>
+                <p className="para">
                   Select this option if the unit is in a building not managed by "Tenant International ®" platform
                 </p>
               </Box>

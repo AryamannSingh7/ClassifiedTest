@@ -1,5 +1,5 @@
-//@ts-ignore
-//@ts-nocheck
+// @ts-ignore
+// @ts-nocheck
 import * as React from "react";
 // custom components
 import {
@@ -61,7 +61,7 @@ class SearchComplex extends EmailAccountRegistrationController {
 
       <Grid container>
         <Grid xs={12}>
-          <Select options={this.state.allComplex}/>
+            <Select options={this.state.allComplex} onChange={this.handleInputChange}  />
         </Grid>
       </Grid>
 
@@ -72,6 +72,7 @@ class SearchComplex extends EmailAccountRegistrationController {
     )
 
   }
+
 
 }
 export default withRouter(SearchComplex)
