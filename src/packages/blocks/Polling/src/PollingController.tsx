@@ -125,7 +125,6 @@ export default class PollingController extends BlockComponent<
     this.onGetPolls();
     this.getTotalPollCount();
     this.getRecentPolls();
-    
     // Customizable Area End
   }
     // Customizable Area Start
@@ -320,6 +319,7 @@ export default class PollingController extends BlockComponent<
     if (responseJson || responseJson?.data) {
       if (apiRequestCallId === this.getAllPolls) {
          this.getPollSuccessResponse(responseJson)
+         this.setState({loading: false})
       }
       if (apiRequestCallId === this.createPoll) {
         console.log('ADD Poll Data',responseJson);
@@ -366,6 +366,7 @@ export default class PollingController extends BlockComponent<
   getPollSuccessResponse = async (response: any) => {
     // console.log('Success',response);
     this.setState({allPollsData: response})
+    console.log("allPollsData==========",  this.state.allPollsData)
   }
 
   getTotalPollsCountResponse = async (response: any) => {
@@ -376,6 +377,7 @@ export default class PollingController extends BlockComponent<
   getRecentPollsResponse = async (response: any) => {
     // console.log('get Recent Polls Response',response);
     this.setState({recentPolls: response})
+    console.log('get Recent Polls Response',this.state.recentPolls);
   }
   // Error Block
   

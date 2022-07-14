@@ -21,6 +21,7 @@ import RoomOutlinedIcon from '@material-ui/icons/RoomOutlined';
 import DateRangeOutlinedIcon from '@material-ui/icons/DateRangeOutlined';
 import HighlightOffOutlinedIcon from '@material-ui/icons/HighlightOffOutlined';
 import CheckCircleOutlineOutlinedIcon from '@material-ui/icons/CheckCircleOutlineOutlined';
+import AccessTimeOutlinedIcon from '@material-ui/icons/AccessTimeOutlined';
 // Icons
 
 import PollingController, {
@@ -100,16 +101,16 @@ export default class PollsallData extends PollingController {
                                             <Divider style={{marginTop:10, marginRight:10}}/>
                                             <Box className="EventsIconsData">
                                                 <Box className="EventsIconsDataBox">
-                                                    <DateRangeOutlinedIcon style={{color: "#ff8100"}}/>
-                                                    <Typography variant="body2">84</Typography>
+                                                    <AccessTimeOutlinedIcon style={{color: "#ff8100"}}/>
+                                                    <Typography variant="body2">{data.awaited}</Typography>
                                                 </Box>
                                                 <Box className="EventsIconsDataBox">
                                                     <CheckCircleOutlineOutlinedIcon style={{color: "green"}}/>
-                                                    <Typography variant="body2">29</Typography>
+                                                    <Typography variant="body2">{data.completed_answers}</Typography>
                                                 </Box>
                                                 <Box className="EventsIconsDataBox">
                                                     <HighlightOffOutlinedIcon style={{color: "red"}}/>
-                                                    <Typography variant="body2">13</Typography>
+                                                    <Typography variant="body2">{data.rejected_answers}</Typography>
                                                 </Box>
                                             </Box>
                                         </Box>
