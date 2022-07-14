@@ -25,6 +25,7 @@ import RoomOutlinedIcon from '@material-ui/icons/RoomOutlined';
 import DateRangeOutlinedIcon from '@material-ui/icons/DateRangeOutlined';
 import HighlightOffOutlinedIcon from '@material-ui/icons/HighlightOffOutlined';
 import CheckCircleOutlineOutlinedIcon from '@material-ui/icons/CheckCircleOutlineOutlined';
+import AccessTimeOutlinedIcon from '@material-ui/icons/AccessTimeOutlined';
 // Icons
 
 import PollingController, {
@@ -158,7 +159,7 @@ class Polling extends PollingController {
                 <Grid container spacing={4} style={{marginTop: 15, marginBottom:30}}>
 
                     {
-                        this.state.allPollsData.map((data:any) => {
+                        this.state.recentPolls.map((data:any) => {
                             return(
                                 <>
                                 <Grid item sm={4} md={4} xs={4} key={data.id}>
@@ -179,16 +180,16 @@ class Polling extends PollingController {
                                         <Divider style={{marginTop:10, marginRight:10}}/>
                                         <Box className="EventsIconsData">
                                             <Box className="EventsIconsDataBox">
-                                                <DateRangeOutlinedIcon style={{color: "#ff8100"}}/>
-                                                <Typography variant="body2">84</Typography>
+                                                <AccessTimeOutlinedIcon style={{color: "#ff8100"}}/>
+                                                <Typography variant="body2">{data.awaited}</Typography>
                                             </Box>
                                             <Box className="EventsIconsDataBox">
                                                 <CheckCircleOutlineOutlinedIcon style={{color: "green"}}/>
-                                                <Typography variant="body2">29</Typography>
+                                                <Typography variant="body2">{data.completed_answers}</Typography>
                                             </Box>
                                             <Box className="EventsIconsDataBox">
                                                 <HighlightOffOutlinedIcon style={{color: "red"}}/>
-                                                <Typography variant="body2">13</Typography>
+                                                <Typography variant="body2">{data.rejected_answers}</Typography>
                                             </Box>
                                         </Box>
                                     </Box>
@@ -313,7 +314,7 @@ class Polling extends PollingController {
   }
 }
 
-export default withRouter (Polling)
+export default withRouter(Polling)
 
 const dashBoard = {
     SideBar: {

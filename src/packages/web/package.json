@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "@date-io/moment":  "file:../blocks/core/node_modules/@date-io/moment",
     "@firebase/analytics": "file:../blocks/core/node_modules/@firebase/analytics",
     "@material-ui/core": "file:../blocks/core/node_modules/@material-ui/core",
     "@material-ui/icons": "file:../blocks/core/node_modules/@material-ui/icons",
