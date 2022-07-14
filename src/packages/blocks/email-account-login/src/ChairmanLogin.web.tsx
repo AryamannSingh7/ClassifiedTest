@@ -185,7 +185,7 @@ class ChairmanLogin extends ChairmanAccountLoginController {
                             />
                             <label htmlFor="loginCheckbox" className="checkboxLabel">Stay logged in</label>
                           </div>
-                          <Link href="/CharimanForgotPassword" className="link">Forgot Password?</Link>
+                          <Link href="/ChairmanForgotPassword" className="link">Forgot Password?</Link>
                         </Box>
                         <Box className="customButton">
                           <Button variant="contained" type="submit" >login</Button>
