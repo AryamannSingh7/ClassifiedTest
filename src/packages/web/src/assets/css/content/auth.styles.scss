@@ -48,6 +48,10 @@
     @include mq(tablet-landscape-up) {
       width: 90%;
       margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
     }
   }
   & .content-block {
@@ -57,6 +61,9 @@
     justify-content: space-between;
     // padding: 30px;
     height: 100%;
+    @include mq(tablet-landscape-up) {
+      padding: 0 15px;
+    }
   }
   & .right-block {
     padding: 30px 60px;
@@ -69,16 +76,51 @@
     }
   }
   &.auth-wrapper {
-    justify-content: flex-start;
-    & .commonForm {
-      padding-top: 40px;
+    // justify-content: flex-start;
+    & .main-content-block {
+      justify-content: flex-start;
     }
-    & .customButton {
-      padding-top: 50px;
+    & .change-password-mainblock {
+      justify-content: center;
+    }
+    & .change-password-button-row {
+      width: 80%;
+      margin: 0 auto;
+      @include mq(tablet-portrait-medium-up) {
+        width: 40%;
+      }
+    }
+    & .commonForm {
+      // padding-top: 40px;
     }
     & .header-block {
       align-items: flex-start;
     }
+    & .login-button-row {
+      width: 90%;
+      margin: 0 auto;
+    }
+    & .header-block-changepassword {
+      align-items: center;
+      & h6 {
+        text-align: center;
+      }
+    }
+  }
+  & .footer-block {
+    width: 90%;
+    margin: 0 auto;
+    @include mq(tablet-portrait-medium-up) {
+      width: 40%;
+    }
+    & .MuiButton-label
+    {
+      white-space: nowrap;
+    }
+    
+  }
+  & .customButton {
+    padding-top: 40px;
   }
   @include mq(tablet-landscape-up) {
     width: 100%;
@@ -108,7 +150,7 @@
   }
   & .lock-logo {
     width: 100px;
-    height:100px;
+    height: 100px;
     object-fit: contain;
   }
   & h1 {
@@ -123,7 +165,7 @@
   & .backIcon {
     cursor: pointer;
     position: absolute;
-    left: 20px;
+    left: 15px;
     & .MuiSvgIcon-root {
       font-size: 35px;
     }
@@ -152,7 +194,7 @@
     padding-bottom: 30px;
     @include mq(tablet-landscape-up) {
       align-items: center;
-      padding-top: 50px;
+      padding-top: 70px;
     }
     &.header-left-block {
       align-items: flex-start;

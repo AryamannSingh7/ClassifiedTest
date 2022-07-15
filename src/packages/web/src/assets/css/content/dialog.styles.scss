@@ -1,0 +1,46 @@
+@import "../constants/base/colors.scss";
+@import "../constants/base/global.scss";
+// .dialog-wrapper {
+.diloag-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  & .MuiDialogTitle-root
+  {
+    padding: 16px 0;
+  }
+  .diloag-header {
+    padding-bottom: 20px;
+    text-align: center;
+    & .tenet-logo {
+      height: 60px;
+      width: 60px;
+      object-fit: contain;
+    }
+    & p{
+      padding-top: 10px;
+    }
+    & .alert-dialog-title {
+      & h2
+      {
+        font-size: 24px;
+        line-height: 25px;
+        font-weight: bold;
+      }
+      
+    }
+  }
+  .dialog-footer {
+    // padding-top: 20px;
+    & .MuiDialogActions-root {
+      flex-direction: column;
+      justify-content: center;
+    }
+    & button{
+      margin-bottom: 10px;
+    }
+  }
+  
+}

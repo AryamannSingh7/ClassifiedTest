@@ -21,12 +21,12 @@ import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 
-import ForgotPasswordController, { Props } from "./ForgotPasswordController.web";
+import ChairmanForgotPasswordController, { Props } from "./ChairmanForgotPasswordController.web";
 
 //resorces
 import { Tenant_Logo, Building_Logo, Landing_Banner, Building1 } from "../src/assets";
 
-class ChairmanChangePassword extends ForgotPasswordController {
+class ChairmanChangePassword extends ChairmanForgotPasswordController {
   constructor(props: Props) {
     super(props);
     this.isChangePassword = true;

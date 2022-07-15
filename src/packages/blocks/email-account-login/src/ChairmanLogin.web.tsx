@@ -21,7 +21,7 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import { Tenant_Logo, Building_Logo, Landing_Banner, Building1 } from "../src/assets";
 import { withRouter } from 'react-router';
-import { Formik, Form, Field ,ErrorMessage} from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import ChairmanAccountLoginController, {
   Props
@@ -38,12 +38,11 @@ class ChairmanLogin extends ChairmanAccountLoginController {
   constructor(props: Props) {
     super(props);
   }
-  // componentDidMount() {
-  //   this.getUserType();
-  // }
+  componentDidMount() {
+    this.getUserType();
+  }
 
   render() {
-    console.log("render============>", this.state?.loading)
     return (
       <>
         <Box className="login-wrapper">
@@ -70,15 +69,15 @@ class ChairmanLogin extends ChairmanAccountLoginController {
                       email: "",
                       password: "",
                       showPassword: false,
-                      stayIn: false ,
-                      userType:"owner"
+                      stayIn: false,
+                      userType: " "
                     }}
                     validationSchema={this.LoginSchema()}
                     validateOnMount={true}
                     onSubmit={(values) => {
                       console.log("valus=========>", values)
                       // same shape as initial values
-                      this.loginChairmen(values);
+                      this.doLogIn(values);
                     }}
                   >
                     {({ values, touched, errors, isValid, setFieldValue, handleChange }) => (
@@ -91,17 +90,17 @@ class ChairmanLogin extends ChairmanAccountLoginController {
                               name="userType"
                               labelId="demo-simple-select-outlined-label"
                               id="demo-simple-select-outlined"
-                              label="Select User Type"
-                              onChange={handleChange("userType")}
+                              // label="Select User Type"
+                              onChange={(e) => {
+                                (e.target.value != " ") && setFieldValue("userType", e.target.value)
+                              }}
                               value={values.userType}
                             >
-                                {/* <MenuItem value="Select User Type">
-                                <em>
+                              <MenuItem disabled value=" ">
                                 Select User Type
-                                </em>
-                              </MenuItem> */}
+                              </MenuItem>
                               {
-                                 this.state?.userTypeData?.map((val, index) => (
+                                this.state?.userTypeData?.map((val, index) => (
                                   <MenuItem
                                     key={index}
                                     value={val?.name}
@@ -110,9 +109,7 @@ class ChairmanLogin extends ChairmanAccountLoginController {
                                   </MenuItem>
                                 ))
                               }
-                              {/* <MenuItem value="">Select User Type</MenuItem>
-                              <MenuItem value={10}>{JSON.stringify(values.userType)}</MenuItem>
-                              <MenuItem value={10}>"hk"</MenuItem> */}
+                              
                             </Select>
                             <ErrorMessage className="text-error" component="Typography" name="userType" />
                           </FormControl>
@@ -185,7 +182,7 @@ class ChairmanLogin extends ChairmanAccountLoginController {
                             />
                             <label htmlFor="loginCheckbox" className="checkboxLabel">Stay logged in</label>
                           </div>
-                          <Link href="/CharimanForgotPassword" className="link">Forgot Password?</Link>
+                          <Link href="/ChairmanForgotPassword" className="link">Forgot Password?</Link>
                         </Box>
                         <Box className="customButton">
                           <Button variant="contained" type="submit" >login</Button>

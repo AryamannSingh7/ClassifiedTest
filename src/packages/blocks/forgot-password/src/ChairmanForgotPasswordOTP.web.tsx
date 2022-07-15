@@ -17,13 +17,13 @@ import {
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 
-import ForgotPasswordController, { Props } from "./ForgotPasswordController.web";
+import ChairmanForgotPasswordController, { Props } from "./ChairmanForgotPasswordController.web";
 import OtpInput from 'react-otp-input';
 
 //resorces
 import { Tenant_Logo, Building_Logo, Landing_Banner, Building1 } from "../src/assets";
 
-class ChairmanForgotPasswordOTP extends ForgotPasswordController {
+class ChairmanForgotPasswordOTP extends ChairmanForgotPasswordController {
   constructor(props: Props) {
     super(props);
   }
