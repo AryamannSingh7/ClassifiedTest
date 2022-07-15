@@ -202,60 +202,36 @@ export default class Address extends EmailAccountRegistrationController {
         </Grid>
 
         <Dialog
-        style={{padding:'1rem'}}
           open={this.state.showDialog}
           onClose={() => this.setState({ showDialog: false })}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
+          className="diloag-wrapper"
+          PaperProps={{
+            style: {
+              borderRadius: '15px',
+            },
+          }}
         >
-          <Grid container>
-            <Grid xs={12} style={{display:'flex'}} justifyContent='center'>
-              <img src={modalbuilding}/>
-            </Grid>
-          </Grid>
-          <DialogTitle id="alert-dialog-title">
-            Are you sure you want to register unit?
-          </DialogTitle>
-          <DialogContent>
-            Are you sure that you want to register A-104 unit of Central Park Heights?
-          </DialogContent>
-
-            <Grid container>
-              <Grid xs={12}>
-              <Box className="customButton">
-
-                <Button
-                  variant="contained"
-                  onClick={() => {this.setState({ showDialog: false },()=>this.createRequest)}}
-
-                >
+          <Box className="diloag-body">
+            <Box className="diloag-header">
+              <img src={building} className="tenet-logo" alt="" />
+              <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
+                Are you sure you want to register unit?
+              </DialogTitle>
+              <p>Are you sure that you want to delete the regestration request for the unit ({this.state.selectUnit}) of {this.state.selectBuilding}.</p>
+            </Box>
+            <Box className="dialog-footer desktop-ui">
+              <DialogActions className="customButton">
+                <Button variant="contained" onClick={() => this.createRequest()} >
                   Yes Register
                 </Button>
-
-              </Box>
-
-
-
-              </Grid>
-            </Grid>
-            <Grid container>
-              <Grid xs={12}>
-              <Box className="customButton" style={{ display: 'flex', justifyContent: 'center' }}>
-
-                <Button
-                  onClick={this.createRequest}
-                  // onClick={() => { this.setState({ showDialog: false }, () => this.createRequest) }}
-
-                >
+                <Button onClick={() => this.setState({ showDialog: false })}  variant='text'>
                   No, Don’t Regsiter
                 </Button>
-
-              </Box>
-
-              </Grid>
-            </Grid>
-
-
+              </DialogActions>
+            </Box>
+          </Box>
         </Dialog>
       </>
     )
