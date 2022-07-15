@@ -304,7 +304,9 @@ export default class ChairmanForgotPasswordController extends BlockComponent<
        localStorage.setItem("otpToken", responseJson?.meta?.token)
        localStorage.setItem("emailOtp", responseJson?.email_otp)
        this.setState({loading: false})
-        window.location ="/ChairmanForgotPasswordOTP" as any ;
+       //@ts-ignore
+        this.props.history.push("/ChairmanForgotPasswordOTP")
+        //window.location ="/ChairmanForgotPasswordOTP" as any ;
         //navigate to OTP page
         // const msg: Message = new Message(
         //   getName(MessageEnum.NavigationMobilePhoneOTPMessage)
@@ -357,11 +359,10 @@ export default class ChairmanForgotPasswordController extends BlockComponent<
         // let params = new URL(document.location as any).searchParams;
         // let token = params.get("token");
         //window.location = "/new-password?token=" + token as any;
-       window.location ="/ChairmanChangePassword" as any
-       this.setState({loading: false})
-       //window.location.replace("/ChangePassword") 
-      // } else if (responseJson?.message) {
-      //   this.setState({ error: responseJson?.message });
+        this.setState({loading: false})
+          //@ts-ignore
+          this.props.history.push("/ChairmanChangePassword")
+        //  window.location ="/ChairmanChangePassword" as any
       } else if (responseJson?.errors) {
           let error = `${Object.values(responseJson.errors[0])[0]}` as string;
           this.setState({ error });
@@ -371,7 +372,6 @@ export default class ChairmanForgotPasswordController extends BlockComponent<
       this.parseApiCatchErrorResponse(this.state.error);
       
     }
-    
     else if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.requestPhoneOtpCallId !== null &&
@@ -436,9 +436,10 @@ export default class ChairmanForgotPasswordController extends BlockComponent<
       );
 
       if (responseJson?.data) {
-        console.log("responseJson===========>",responseJson)
-       window.location ="/ChairmanChangeSuccessfully" as any
-       this.setState({loading: false})
+        this.setState({loading: false})
+        //@ts-ignore
+        this.props.history.push("/ChairmanChangeSuccessfully")
+        //window.location ="/ChairmanChangeSuccessfully" as any
        //window.location.replace("/ChangePassword") 
       } else if (responseJson?.message) {
         this.setState({ error: responseJson?.message });
@@ -828,14 +829,15 @@ export default class ChairmanForgotPasswordController extends BlockComponent<
           confirm_password: values.confirmPassword,
         },
       };
+    
       this.setState({loading: true})
+   
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
 
       this.requestChangePasswordCallId = requestMessage.messageId;
-      //this.setState({ loading: true });
-
+     
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
         `${configJSON.updatePasswordAPIEndPoint}`
