@@ -75,10 +75,12 @@
 
 .desktop-ui {
     & .commonForm {
-        & .formGroup {
-            border-radius: 15px;
-            & .formInput {
-                border-radius: $FORM_BORDER_RADIUS;
+        @include mq(tablet-portrait-medium-up) {
+            & .formGroup {
+                border-radius: 15px;
+                & .formInput {
+                    border-radius: $FORM_BORDER_RADIUS;
+                }
             }
         }
     }

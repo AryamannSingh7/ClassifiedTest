@@ -23,9 +23,9 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 // Customizable Area End
 
-import ForgotPasswordController, { Props } from "./ForgotPasswordController.web";
+import ChairmanForgotPasswordController, { Props } from "./ChairmanForgotPasswordController.web";
 
-class ChairmanChangeSuccessfully extends ForgotPasswordController {
+class ChairmanChangeSuccessfully extends ChairmanForgotPasswordController {
   // Customizable Area Start
   // Customizable Area End
 
@@ -76,7 +76,7 @@ class ChairmanChangeSuccessfully extends ForgotPasswordController {
                     <Button variant="contained" onClick={() => {
                       localStorage.removeItem("otpToken");
                       localStorage.removeItem("emailOtp");
-                      this.props.history.push("/EmailAccountLogin");
+                      this.props.history.push("/ChairmanLogin");
                     }}>login</Button>
                   </Box>
                 </Box>

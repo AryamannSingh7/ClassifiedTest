@@ -21,13 +21,13 @@ import { withRouter } from 'react-router';
 import { Input } from "react-native-elements";
 import * as Yup from "yup";
 import CountryCodeSelector from "../../country-code-selector/src/CountryCodeSelector";
-import ForgotPasswordController, { Props } from "./ForgotPasswordController.web";
+import ChairmanForgotPasswordController, { Props } from "./ChairmanForgotPasswordController.web";
 //Customizable Area End
 
 //resorces
 import { Tenant_Logo, Building_Logo, Landing_Banner, Building1 } from "../src/assets";
 
-class ChairmanForgotPassword extends ForgotPasswordController {
+class ChairmanForgotPassword extends ChairmanForgotPasswordController {
   constructor(props: Props) {
     super(props);
   }
@@ -135,8 +135,8 @@ class ChairmanForgotPassword extends ForgotPasswordController {
                           <Button variant="contained" type="submit">next</Button>
                         </Box>
                         <Box className="passwordRow">
-                          <Link href="#" className="link">Back to</Link>
-                          <Link href="#" className="link"> <span> Login</span></Link>
+                          Back to
+                          <Link href="ChairmanLogin" className="link"> <span> Login</span></Link>
                         </Box>
                       </Form>
                     )}
