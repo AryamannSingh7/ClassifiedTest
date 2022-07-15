@@ -19,7 +19,7 @@ import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 
 import ChairmanForgotPasswordController, { Props } from "./ChairmanForgotPasswordController.web";
 import OtpInput from 'react-otp-input';
-
+import Loader from "../../../components/src/Loader.web";
 //resorces
 import { Tenant_Logo, Building_Logo, Landing_Banner, Building1 } from "../src/assets";
 
@@ -144,6 +144,7 @@ class ChairmanForgotPasswordOTP extends ChairmanForgotPasswordController {
             </Grid>
           </Grid>
         </Box>
+        <Loader loading={this.state.loading} />
       </>
     );
   }

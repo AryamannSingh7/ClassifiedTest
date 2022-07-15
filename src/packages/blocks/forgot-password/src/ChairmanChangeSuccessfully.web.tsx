@@ -19,7 +19,7 @@ import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import { Lock_Icon } from "../src/assets";
 import { withRouter } from 'react-router';
 import { Formik } from "formik";
-
+import Loader from "../../../components/src/Loader.web";
 import * as Yup from "yup";
 // Customizable Area End
 
@@ -99,6 +99,7 @@ class ChairmanChangeSuccessfully extends ChairmanForgotPasswordController {
             </Grid>
           </Grid>
         </Box>
+        <Loader loading={this.state.loading} />
       </>
     );
   }

@@ -22,7 +22,7 @@ import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 
 import ChairmanForgotPasswordController, { Props } from "./ChairmanForgotPasswordController.web";
-
+import Loader from "../../../components/src/Loader.web";
 //resorces
 import { Tenant_Logo, Building_Logo, Landing_Banner, Building1 } from "../src/assets";
 
@@ -180,6 +180,7 @@ class ChairmanChangePassword extends ChairmanForgotPasswordController {
             </Grid>
           </Grid>
         </Box>
+        <Loader loading={this.state.loading} />
       </>
     );
   }

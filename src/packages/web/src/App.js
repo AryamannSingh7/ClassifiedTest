@@ -94,6 +94,7 @@ import ChairmanChangePassword from "../../blocks/forgot-password/src/ChairmanCha
 import ChangeSuccessfully from "../../blocks/forgot-password/src/ChangeSuccessfully.web";
 import ChairmanChangeSuccessfully from "../../blocks/forgot-password/src/ChairmanChangeSuccessfully.web";
 import RegistrationRequest from "../../blocks/email-account-login/src/RegistrationRequest.web";
+import RegistrationRequestSignup from "../../blocks/email-account-registration/src/RegistrationRequestSignup.web";
 import Dashboard from "../../blocks/dashboard/src/Dashboard.web";
 import DashboardGeneral from "../../blocks/dashboard/src/DashboardGeneral.web";
 import DashboardTicket from "../../blocks/dashboard/src/DashboardTicket.web";
@@ -161,8 +162,12 @@ const routeMap = {
     path: "/ChairmanForgotPasswordOTP"
   },
   RegistrationRequest: {
-    component:RegistrationRequest,
+    component: RegistrationRequest,
     path: "/RegistrationRequest"
+  },
+  RegistrationRequestSignup: {
+    component: RegistrationRequestSignup,
+    path: "/RegistrationRequestSignup"
   },
   RolesPermissions2: {
     component: RolesPermissions2,
