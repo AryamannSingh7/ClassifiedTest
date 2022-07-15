@@ -1,5 +1,6 @@
-// @ts-ignore
-// @ts-nocheck
+//@ts-ignore
+//@ts-nocheck
+
 import * as React from "react";
 // custom components
 import {

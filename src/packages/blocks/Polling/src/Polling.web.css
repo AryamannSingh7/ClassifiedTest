@@ -252,6 +252,13 @@
     color: green;
     display: initial;
 }
+.statusSkipped{
+    background: #dcf5f0;
+    padding: 5px 15px;
+    border-radius: 30px;
+    color: blue;
+    display: initial;
+}
 .PreviewName{
     display: flex;
     justify-content: space-between;
@@ -353,4 +360,15 @@
 
 .yearSelection .MuiInput-underline:hover:not(.Mui-disabled):before {
     border-bottom: none !important;
+}
+
+.TabsList .MuiTabs-flexContainer{
+    display: flex;
+    justify-content: space-evenly;
+}
+.AppBarbox .MuiPaper-elevation4{
+    box-shadow: none !important;
+}
+.TabsList .MuiTabs-scroller .PrivateTabIndicator-colorSecondary-4{
+    background-color: #E5ECFF !important;
 }
