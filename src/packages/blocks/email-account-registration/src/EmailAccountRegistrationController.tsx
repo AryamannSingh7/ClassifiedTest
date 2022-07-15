@@ -287,7 +287,10 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             // localStorage.setItem('res_user', responseJson.data.attributes)
             // localStorage.setItem('res_user_id', responseJson.data.id)
             // this.props.history.push('/selecttype')
-            alert('request has been created')
+            //@ts-ignore
+            //@ts-nocheck
+
+            this.props.history.push('/RegistrationRequestsignup')
 
 
           } else {
