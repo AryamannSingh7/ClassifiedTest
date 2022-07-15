@@ -159,7 +159,7 @@ class Polling extends PollingController {
                 <Grid container spacing={4} style={{marginTop: 15, marginBottom:30}}>
 
                     {
-                        this.state.recentPolls.map((data:any) => {
+                        this.state.recentPolls.length && this.state.recentPolls.map((data:any) => {
                             return(
                                 <>
                                 <Grid item sm={4} md={4} xs={4} key={data.id}>

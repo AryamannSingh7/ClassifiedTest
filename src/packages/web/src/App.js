@@ -94,7 +94,6 @@ import ChairmanChangePassword from "../../blocks/forgot-password/src/ChairmanCha
 import ChangeSuccessfully from "../../blocks/forgot-password/src/ChangeSuccessfully.web";
 import ChairmanChangeSuccessfully from "../../blocks/forgot-password/src/ChairmanChangeSuccessfully.web";
 import RegistrationRequest from "../../blocks/email-account-login/src/RegistrationRequest.web";
-import Dashboard from "../../blocks/dashboard/src/Dashboard.web";
 import DashboardGeneral from "../../blocks/dashboard/src/DashboardGeneral.web";
 import DashboardTicket from "../../blocks/dashboard/src/DashboardTicket.web";
 import DashboardActions from "../../blocks/dashboard/src/DashboardActions.web";
@@ -105,6 +104,8 @@ import CreateSurveys from "../../blocks/Polling/src/CreateSurveys.web";
 import PollPreview from "../../blocks/Polling/src/PollPreview.web";
 import SurveyPreview from "../../blocks/Polling/src/SurveyPreview.web";
 import PollsallData from "../../blocks/Polling/src/PollsallData.web";
+import PollsSurvey from "../../blocks/Polling/src/PollsSurvey.web"
+import SubmitPoll from "../../blocks/Polling/src/SubmitPoll.web"
 
 const routeMap = {
   LandingPage: {
@@ -230,6 +231,16 @@ const routeMap = {
     path: "/PollsallData"
   },
 
+  PollsSurvey: {
+    component: PollsSurvey,
+    path: "/PollsSurvey"
+  },
+
+  SubmitPoll: {
+    component: SubmitPoll,
+    path: "/SubmitPoll"
+  },
+  
 
 
   Customisableusersubscriptions: {
@@ -405,10 +416,7 @@ const routeMap = {
     component: LeadManagement,
     path: "/LeadManagement"
   },
-  Dashboard: {
-    component: Dashboard,
-    path: "/Dashboard"
-  },
+
   SocialMediaAccountRegistrationScreen: {
     component: SocialMediaAccountRegistrationScreen,
     path: "/SocialMediaAccountRegistrationScreen"
@@ -427,10 +435,6 @@ const routeMap = {
     path: "/DashboardGeneral"
   },
 
-  DashboardGeneral: {
-    component: DashboardGeneral,
-    path: "/DashboardGeneral"
-  },
 
   DashboardTicket: {
     component: DashboardTicket,
@@ -663,10 +667,7 @@ const routeMap = {
     component: LeadManagement,
     path: "/LeadManagement"
   },
-  Dashboard: {
-    component: Dashboard,
-    path: "/Dashboard"
-  },
+
   SocialMediaAccountRegistrationScreen: {
     component: SocialMediaAccountRegistrationScreen,
     path: "/SocialMediaAccountRegistrationScreen"
