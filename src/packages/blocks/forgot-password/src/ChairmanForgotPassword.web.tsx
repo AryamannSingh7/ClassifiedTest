@@ -18,6 +18,7 @@ import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 
 import { Formik, Form, Field } from "formik";
 import { withRouter } from 'react-router';
+import Loader from "../../../components/src/Loader.web";
 import { Input } from "react-native-elements";
 import * as Yup from "yup";
 import CountryCodeSelector from "../../country-code-selector/src/CountryCodeSelector";
@@ -161,6 +162,7 @@ class ChairmanForgotPassword extends ChairmanForgotPasswordController {
             </Grid>
           </Grid>
         </Box>
+        <Loader loading={this.state.loading} />
       </>
     )
   }
