@@ -76,6 +76,9 @@ import VerifyOTP from "../../blocks/email-account-registration/src/VerifyOTP.web
 import SelectType from "../../blocks/email-account-registration/src/SelectType.web";
 import UnitRegister from "../../blocks/email-account-registration/src/UnitRegister.web";
 import RegisterUnitManually from "../../blocks/email-account-registration/src/RegisterUnitManually.web";
+import RegistrationRequestSignup from "../../blocks/email-account-registration/src/RegistrationRequestSignup.web";
+
+
 import SearchComplex from "../../blocks/email-account-registration/src/SearchComplex.web";
 
 

@@ -1042,7 +1042,7 @@ this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e)
       this.getCity()
 
     } else if (e.target.name == 'selectCity') {
-      this.getBuilding()
+      this.getComplexbyCity()
 
     } else if (e.target.name == 'selectBuilding') {
       this.getUnit()
@@ -1232,6 +1232,38 @@ this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e)
     runEngine.sendMessage(requestMessage.id, requestMessage);
     return true;
   }
+  getComplexbyCity() {
+
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      "token": localStorage.getItem('res_token')
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+
+    this.getComplexApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_address/housing_complex_list?city=${this.state.selectCity}`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.validationApiMethodType
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  }
   handleInputChange = (newValue: string) => {
     // localStorage.setItem('selectComplex', JSON.stringify(newValue))
     this.setState({ selectComplex: newValue })
@@ -1292,10 +1324,10 @@ this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e)
   handleChangeOTP = (otp: any) => this.setState({ otp });
 
   verifyOtp = (attributes: any): boolean => {
-    console.log("this.state.token=========>", localStorage.getItem("emailOtp"), this.state.otp)
+
     const header = {
-      "Content-Type": configJSON.forgotPasswordAPiContentType,
-      token: localStorage.getItem("res_token")
+      "Content-Type": 'application/json',
+      "token": localStorage.getItem("res_token")
     };
     // attributes.pin =this.state.otp
     const attrs = {
@@ -1314,7 +1346,7 @@ this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e)
 
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      "bx_block_forgot_password/otp_confirmations"
+      "account_block/accounts/verify_user"
     );
 
     requestMessage.addData(
@@ -1329,7 +1361,7 @@ this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e)
 
     requestMessage.addData(
       getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.httpPostMethod
+      configJSON.apiMethodTypeAddDetail
     );
 
     runEngine.sendMessage(requestMessage.id, requestMessage);
