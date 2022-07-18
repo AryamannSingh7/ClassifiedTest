@@ -19,11 +19,12 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InboxIcon from '@material-ui/icons/Inbox';
-import { building, city, country, modalbuilding, unit } from "./assets";
+import { building, city, country, modalbuilding, search, unit } from "./assets";
+import { withRouter } from 'react-router';
 
 
 
-export default class Address extends EmailAccountRegistrationController {
+class Address extends EmailAccountRegistrationController {
   constructor(props: Props) {
     super(props);
     // Customizable Area Start
@@ -122,6 +123,20 @@ export default class Address extends EmailAccountRegistrationController {
             </FormControl>
           </Grid>
         </Grid>
+        <Box className="commonForm">
+          <Box className="formGroup">
+            <Box
+              className="formInputGrp"
+            >
+
+              <Select options={this.state.allComplex} className="formInput" style={{ border: 'none' }} placeholder="Search Complex" onChange={this.handleInputChange} />
+
+              <span className="frmLeftIcons" style={{ top: '1.5rem' }}>
+                <img src={search} />
+              </span>
+            </Box>
+          </Box>
+        </Box>
         <Grid container style={{ margin: '1rem', width: '90%' }}>
           <Grid xs={12}>
             <FormControl variant="outlined" fullWidth>
@@ -237,3 +252,4 @@ export default class Address extends EmailAccountRegistrationController {
     )
   }
 }
+export default withRouter(Address)

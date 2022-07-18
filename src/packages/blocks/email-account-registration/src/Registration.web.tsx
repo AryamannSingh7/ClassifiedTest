@@ -106,7 +106,7 @@ class Registration extends EmailAccountRegistrationController  {
                       {errors.full_name}
                     </Typography>
                   ) : null}
-                  {this.state.error ? (
+                  {/* {this.state.error ? (
                     <Typography
                       style={{
                         color: "#F14E24",
@@ -119,7 +119,7 @@ class Registration extends EmailAccountRegistrationController  {
                     >
                       {this.state.error}
                     </Typography>
-                  ) : null}
+                  ) : null} */}
 
                   {/* email */}
                   <Box
@@ -151,7 +151,7 @@ class Registration extends EmailAccountRegistrationController  {
                       {errors.full_name}
                     </Typography>
                   ) : null}
-                  {this.state.error ? (
+                  {/* {this.state.error ? (
                     <Typography
                       style={{
                         color: "#F14E24",
@@ -164,7 +164,7 @@ class Registration extends EmailAccountRegistrationController  {
                     >
                       {this.state.error}
                     </Typography>
-                  ) : null}
+                  ) : null} */}
 
                   {/* mobile */}
 
@@ -236,7 +236,7 @@ class Registration extends EmailAccountRegistrationController  {
                       {errors.email}
                     </Typography>
                   ) : null}
-                  {this.state.error ? (
+                  {/* {this.state.error ? (
                     <Typography
                       style={{
                         color: "#F14E24",
@@ -249,7 +249,7 @@ class Registration extends EmailAccountRegistrationController  {
                     >
                       {this.state.error}
                     </Typography>
-                  ) : null}
+                  ) : null} */}
                   {/* pass */}
                   <Box
                     className="formInputGrp"

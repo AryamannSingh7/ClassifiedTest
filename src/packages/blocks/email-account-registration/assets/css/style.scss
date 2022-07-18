@@ -72,3 +72,16 @@
   border: none !important;
   background-color: #f9f9f9 !important;
 }
+
+.MuiSelect-root {
+  display: flex !important;
+  align-items: center;
+}
+
+.MuiOutlinedInput-notchedOutline {
+  border-color: transparent !important;
+}
+
+.active-type {
+  color: #2B6FED !important;
+}

@@ -219,12 +219,15 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             this.props.history.push('/otp')
 
 
+          } else if (responseJson?.errors) {
+            let error = Object.values(responseJson.errors[0])[0] as string;
+            this.setState({ error });
           } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
           }
+          this.setState({ loading: false })
 
-          this.parseApiCatchErrorResponse(errorReponse);
+          this.parseApiCatchErrorResponse(this.state.error);
         } else if (apiRequestCallId === this.createManagerAccountApiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
@@ -272,6 +275,9 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             //@ts-nocheck
 
             this.props.history.push('/RegistrationRequestsignup')
+            //@ts-ignore
+            //@ts-nocheck
+            this.setState({ showDialog: false })
 
 
           } else {

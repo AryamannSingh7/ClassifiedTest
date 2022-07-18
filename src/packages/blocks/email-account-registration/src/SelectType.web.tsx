@@ -51,9 +51,6 @@ class SelectType extends EmailAccountRegistrationController {
           <Grid xs={12}>
             <p className="text-left">
               Please select appropriate user type
-
-
-
             </p>
           </Grid>
         </Grid>
@@ -72,8 +69,8 @@ class SelectType extends EmailAccountRegistrationController {
               marginTop='1rem'
             >
               <img src={resident_owner}/>
-              <Box className="middle-section">
-                <p className="title">
+              <Box className={"middle-section"}>
+                <p className={"title" + (this.state.userType == 'Owner Resident' ? ' active-type' :'')}>
                   Resident Owner
                 </p>
                 <p className="para">
@@ -98,7 +95,7 @@ class SelectType extends EmailAccountRegistrationController {
               <img src={tenet} />
 
               <Box className="middle-section">
-                <p className="title">
+                <p className={"title" + (this.state.userType == 'Tenant' ? ' active-type' : '')}>
                   Tenant
                 </p>
                 <p className="para">
@@ -120,10 +117,13 @@ class SelectType extends EmailAccountRegistrationController {
               bgcolor="white"
               marginTop='1rem'
             >
-              <img src={owner} />
+              {
+                this.state.userType == 'Owner' ? <img src={owner} /> : <img src={owner} />
+              }
+
 
               <Box className="middle-section">
-                <p className="title">
+                <p className={"title" + (this.state.userType == 'Owner' ? ' active-type' : '')}>
                   Owner
                 </p>
                 <p className="para">
