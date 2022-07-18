@@ -5,6 +5,7 @@ import { runEngine } from "../../../framework/src/RunEngine";
 import MessageEnum, {
   getName
 } from "../../../framework/src/Messages/MessageEnum";
+import * as Yup from 'yup';
 
 // Customizable Area Start
 import { imgPasswordInVisible, imgPasswordVisible } from "./assets";
@@ -216,8 +217,9 @@ export default class EmailAccountRegistrationController extends BlockComponent<
           if (!responseJson.errors) {
             console.log(responseJson)
             localStorage.setItem('res_token', responseJson.meta.token)
-            localStorage.setItem('res_user', responseJson.data.attributes)
+            localStorage.setItem('res_user', JSON.stringify(responseJson.data.attributes))
             localStorage.setItem('res_user_id', responseJson.data.id)
+            localStorage.setItem('user_email', responseJson.data.attributes.email)
             //@ts-ignore
             //@ts-nocheck
             this.setState({ loading: false })
@@ -275,10 +277,11 @@ export default class EmailAccountRegistrationController extends BlockComponent<
           this.parseApiCatchErrorResponse(errorReponse);
         } else if (apiRequestCallId === this.createAccountOwnerApiCallId) {
           if (!responseJson.errors) {
-            console.log(responseJson)
+            console.log(responseJson.data.attributes.email)
             localStorage.setItem('res_token', responseJson.meta.token)
-            localStorage.setItem('res_user', responseJson.data.attributes)
+            localStorage.setItem('res_user', JSON.stringify(responseJson.data.attributes))
             localStorage.setItem('res_user_id', responseJson.data.id)
+            localStorage.setItem('user_email', responseJson.data.attributes.email)
             //@ts-ignore
             //@ts-nocheck
 
@@ -852,6 +855,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     };
     this.setState({ selectEmail: attributes.email })
 
+
     const attrs = {
 
       email: attributes.email,
@@ -915,8 +919,9 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     const attrs = {
       country: this.state.selectCountry,
       city: this.state.selectCity,
-      building_name: this.state.selectBuilding,
-      apartment_name: this.state.selectUnit,
+      building_management_id: this.state.selectBuilding,
+      apartment_management_id: this.state.selectUnit,
+      society_management_id:this.state.selectComplex
     };
 
     const data = {
@@ -1335,50 +1340,70 @@ this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e)
   }
   handleChangeOTP = (otp: any) => this.setState({ otp });
 
-  verifyOtp = (attributes: any): boolean => {
+  verifyOtp = (): boolean => {
 
     const header = {
-      "Content-Type": 'application/json',
-      "token": localStorage.getItem("res_token")
+      "Content-Type": configJSON.contentTypeApiAddDetail
     };
-    // attributes.pin =this.state.otp
-    const attrs = {
-      data: {
-        otp_code: this.state?.otp || "111111",
-        email:this.state.selectEmail
-      }
+    const httpBody = {
+      otp: this.state?.otp || "111111",
+      email:localStorage.getItem('user_email')
     };
-
-    const httpBody = attrs;
-    this.setState({ loading: true })
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
     );
-
-    this.verifyOtpApiCallId = requestMessage.messageId;
-
+    console.log(this.changeUserTypeApiCallId)
+    console.log(requestMessage.messageId)
+    //@ts-ignore
+    //@ts-nocheck
+    this.setState({ loading: true })
+    this.changeUserTypeApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      "account_block/accounts/verify_user"
+      `account_block/accounts/verify_user`
     );
 
     requestMessage.addData(
       getName(MessageEnum.RestAPIRequestHeaderMessage),
       JSON.stringify(header)
     );
-
     requestMessage.addData(
       getName(MessageEnum.RestAPIRequestBodyMessage),
       JSON.stringify(httpBody)
     );
 
+
     requestMessage.addData(
       getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypeAddDetail
+      'POST'
     );
 
     runEngine.sendMessage(requestMessage.id, requestMessage);
     return true;
+
+
+
+  }
+
+  addressSchema() {
+    const validations = Yup.object().shape({
+
+      selectCountry: Yup.string().required(`This field is required`).trim(),
+      selectCity: Yup.string().required(`This field is required`).trim(),
+      selectBuilding: Yup.string().required(`This field is required`).trim(),
+      selectComplex: Yup.string().required(`This field is required`).trim(),
+      selectUnit: Yup.string().required(`This field is required`).trim(),
+
+    });
+    return validations
+  }
+  EmailSchema() {
+    const validations = Yup.object().shape({
+      email: Yup.string()
+        .trim()
+        .required("This field is required.")
+    });
+    return validations
   }
   // Customizable Area End
 }

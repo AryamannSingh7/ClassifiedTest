@@ -8,7 +8,7 @@ import {
 } from "@material-ui/core";
 import "../assets/css/style.scss";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import EmailAccountRegistrationController, { Props } from "./EmailAccountRegistrationController";
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
@@ -62,184 +62,171 @@ class Address extends EmailAccountRegistrationController {
             </p>
           </Grid>
         </Grid>
-
-        <Grid container style={{ margin: '1rem', width: '90%' }}>
-          <Grid xs={12}>
-            <Formik initialValues={{
-              selectCountry: "",
-              selectCity: "",
-              selectComplex: "",
-              selectBuilding: "",
-              selectUnit: "",
-
-
-
-            }}
-              onClick={() => { this.setState({ showDialog: true }) }}
-            >
-              {({ values,
-                errors,
-                touched,
-                isValid, handleChange,
-                setFieldValue }) => (
-                <Form className="commonForm" translate="yes" >
+        <Formik
+          initialValues={{
+            selectCountry: '',
+            selectCity: "",
+            selectComplex: "",
+            selectBuilding: "",
+            selectUnit: "",
+          }}
+          validationSchema={this.addressSchema()}
+          validateOnMount={true}
+          onSubmit={(values) => { console.log('dfdf'); this.setState({ showDialog: true }) }}
+        >
+          {({ values, touched, errors, isValid, setFieldValue, handleChange }) => (
+            <Form translate="yes" className="commonForm">
+              <Grid container style={{ margin: '1rem', width: '90%' }}>
+                <Grid xs={12}>
 
 
 
-                  </Form>)}
-                  </Formik>
+                  <FormControl variant="outlined" fullWidth >
+                    <InputLabel id="demo-simple-select-outlined-label" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                      <img src={country} />
+                      Country</InputLabel>
+                    <Select
 
-            <FormControl variant="outlined" fullWidth >
-              <InputLabel id="demo-simple-select-outlined-label" style={{display:'flex',alignItems:'center',gap:'1rem'}}>
-                <img src={country}/>
-                Country</InputLabel>
-              <Select
-                name='selectCountry'
-                labelId="demo-simple-select-outlined-label"
-                id="demo-simple-select-outlined"
-                onChange={this.handleChange}
-                label="Country"
-                style={{ borderRadius: 25, border: '0px solid #e9dede', color:'#b5b5b5' }}
-              >
-               {/* <MenuItem>
+                      name='selectCountry'
+                      labelId="demo-simple-select-outlined-label"
+                      id="demo-simple-select-outlined"
+                      onChange={(e) => { this.handleChange(e); setFieldValue("selectCountry", e.target.value) }}
+                      label="Country"
+                      style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#b5b5b5' }}
+                    >
+                      {/* <MenuItem>
                   <ListItemIcon>
                     <InboxIcon />
                   </ListItemIcon>
                   <ListItemText primary="Inbox" />
                   </MenuItem> */}
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                {this.state.allContries && this.state.allContries.map((item) =>
-                  <MenuItem key={item} value={item}>{item}</MenuItem>
+                      <MenuItem value="">
+                        <em>None</em>
+                      </MenuItem>
+                      {this.state.allContries && this.state.allContries.map((item) =>
+                        <MenuItem key={item} value={item}>{item}</MenuItem>
 
-                )
-                }
+                      )
+                      }
 
-              </Select>
-            </FormControl>
-          </Grid>
-        </Grid>
-        <Grid container style={{ margin: '1rem', width: '90%' }}>
-          <Grid xs={12}>
-            <FormControl variant="outlined" fullWidth>
+                    </Select>
+                  </FormControl>
+                  <ErrorMessage className="text-error" component="Typography" name="selectCountry" />
+                </Grid>
+              </Grid>
+              <Grid container style={{ margin: '1rem', width: '90%' }}>
+                <Grid xs={12}>
+                  <FormControl variant="outlined" fullWidth>
 
-              <InputLabel id="demo-simple-select-outlined-label" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                <img src={city} />
-                City</InputLabel>
-              <Select
-                name='selectCity'
-                labelId="demo-simple-select-outlined-label"
-                id="demo-simple-select-outlined"
-                onChange={this.handleChange}
-                label="City"
-                style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#b5b5b5' }}
-              >
-                <MenuItem value="f">
-                  <em>None</em>
-                </MenuItem>
-                {this.state.allCity && this.state.allCity.map((item) =>
-                  <MenuItem key={item} value={item}>{item}</MenuItem>
+                    <InputLabel id="demo-simple-select-outlined-label" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                      <img src={city} />
+                      City</InputLabel>
+                    <Select
+                      name='selectCity'
+                      labelId="demo-simple-select-outlined-label"
+                      id="demo-simple-select-outlined"
+                      onChange={(e) => { this.handleChange(e); setFieldValue("selectCity", e.target.value) }}
+                      label="City"
+                      style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#b5b5b5' }}
+                    >
+                      <MenuItem value="f">
+                        <em>None</em>
+                      </MenuItem>
+                      {this.state.allCity && this.state.allCity.map((item) =>
+                        <MenuItem key={item} value={item}>{item}</MenuItem>
 
-                )
-                }
+                      )
+                      }
 
-              </Select>
-            </FormControl>
-          </Grid>
-        </Grid>
-        <Box className="commonForm">
-          <Box className="formGroup">
-            <Box
-              className="formInputGrp"
-            >
+                    </Select>
+                  </FormControl>
+                  <ErrorMessage className="text-error" component="Typography" name="selectCity" />
 
-              <ReactSelect options={this.state.allComplex} className="formInput" style={{ border: 'none' }} placeholder="Search Complex" onChange={this.handleInputChangeCOm} />
+                </Grid>
+              </Grid>
+              <Box className="commonForm">
+                <Box className="formGroup">
+                  <Box
+                    className="formInputGrp"
+                  >
 
-              <span className="frmLeftIcons" style={{ top: '1.5rem' }}>
-                <img src={search} />
-              </span>
-            </Box>
-          </Box>
-        </Box>
-        <Grid container style={{ margin: '1rem', width: '90%' }}>
-          <Grid xs={12}>
-            <FormControl variant="outlined" fullWidth>
-              <InputLabel id="demo-simple-select-outlined-label" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                <img src={building} />
-                Building</InputLabel>
-              <Select
-                name='selectBuilding'
-                labelId="demo-simple-select-outlined-label"
-                id="demo-simple-select-outlined"
-                onChange={this.handleChange}
-                label="Building"
-                style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#b5b5b5' }}
-              >
-                <MenuItem value="f">
-                  <em>None</em>
-                </MenuItem>
-                {this.state.allBuilding && this.state.allBuilding.map((item) =>
-                  <MenuItem key={item.id} value={item.id}>{item.name}</MenuItem>
+                    <ReactSelect options={this.state.allComplex} className="formInput" style={{ border: 'none' }} placeholder="Search Complex" onChange={(e) => { this.handleInputChangeCOm(e); setFieldValue("selectComplex", e.value) }} />
 
-                )
-                }
+                    <span className="frmLeftIcons" style={{ top: '1.5rem' }}>
+                      <img src={search} />
+                    </span>
+                  </Box>
+                </Box>
+                <ErrorMessage className="text-error" component="Typography" name="selectComplex" />
 
-              </Select>
-            </FormControl>
-          </Grid>
-        </Grid>
-        <Grid container style={{ margin: '1rem', width: '90%' }}>
-          <Grid xs={12}>
-            <FormControl variant="outlined" fullWidth>
-              <InputLabel id="demo-simple-select-outlined-label" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                <img src={unit} />Unit</InputLabel>
-              <Select
-                name='selectUnit'
-                labelId="demo-simple-select-outlined-label"
-                id="demo-simple-select-outlined"
-                onChange={this.handleChange}
-                label="Unit"
-                style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#b5b5b5' }}
-              >
-                <MenuItem value="f">
-                  <em>None</em>
-                </MenuItem>
-                {this.state.allUnit && this.state.allUnit.map((item) =>
-                  <MenuItem key={item.id} value={item.id}>{item.apartment_name}</MenuItem>
+              </Box>
+              <Grid container style={{ margin: '1rem', width: '90%' }}>
+                <Grid xs={12}>
+                  <FormControl variant="outlined" fullWidth>
+                    <InputLabel id="demo-simple-select-outlined-label" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                      <img src={building} />
+                      Building</InputLabel>
+                    <Select
+                      name='selectBuilding'
+                      labelId="demo-simple-select-outlined-label"
+                      id="demo-simple-select-outlined"
+                      onChange={(e) => { this.handleChange(e); setFieldValue("selectBuilding", e.target.value) }}
+                      label="Building"
+                      style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#b5b5b5' }}
+                    >
+                      <MenuItem value="">
+                        <em>None</em>
+                      </MenuItem>
+                      {this.state.allBuilding && this.state.allBuilding.map((item) =>
+                        <MenuItem key={item.id} value={item.id}>{item.name}</MenuItem>
 
-                )
-                }
+                      )
+                      }
 
-              </Select>
-            </FormControl>
-          </Grid>
-        </Grid>
-        <Grid container style={{ margin: '1rem', width: '90%', position: 'absolute', bottom: 0 }}>
-          <Grid xs={12}>
-            <Button
-            // onClick={this.createRequest}
+                    </Select>
+                  </FormControl>
+                  <ErrorMessage className="text-error" component="Typography" name="selectBuilding" />
 
-              className={'btn'}
-              variant="contained"
-              type="submit"
-              style={{
-                backgroundColor: "#2B6FEC",
-                borderRadius: 16,
-                height: 54,
-                marginBottom: 14,
-                boxShadow: "none",
-                color: "#F7F7FC",
-                fontWeight: 600,
-                fontSize: 16,
-                marginTop: 30,
-                width:'100%'
-              }}
-            >
-              Next
-            </Button>
-          </Grid>
-        </Grid>
+                </Grid>
+              </Grid>
+              <Grid container style={{ margin: '1rem', width: '90%' }}>
+                <Grid xs={12}>
+                  <FormControl variant="outlined" fullWidth>
+                    <InputLabel id="demo-simple-select-outlined-label" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                      <img src={unit} />Unit</InputLabel>
+                    <Select
+                      name='selectUnit'
+                      labelId="demo-simple-select-outlined-label"
+                      id="demo-simple-select-outlined"
+                      onChange={(e) => { this.handleChange(e); setFieldValue("selectUnit", e.target.value) }}
+                      label="Unit"
+                      style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#b5b5b5' }}
+                    >
+                      <MenuItem value="f">
+                        <em>None</em>
+                      </MenuItem>
+                      {this.state.allUnit && this.state.allUnit.map((item) =>
+                        <MenuItem key={item.id} value={item.id}>{item.apartment_name}</MenuItem>
+
+                      )
+                      }
+
+                    </Select>
+                  </FormControl>
+                  <ErrorMessage className="text-error" component="Typography" name="selectUnit" />
+
+                </Grid>
+              </Grid>
+              <Box className="customButton">
+                <Button variant="contained" type="submit">next</Button>
+              </Box>
+
+            </Form>
+          )}
+        </Formik>
+
+
+
 
         <Dialog
           open={this.state.showDialog}
@@ -259,7 +246,7 @@ class Address extends EmailAccountRegistrationController {
               <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
                 Are you sure you want to register unit?
               </DialogTitle>
-              <p>Are you sure that you want to delete the regestration request for the unit ({this.state.selectUnit}) of {this.state.selectBuilding}.</p>
+              <p>Are you sure that you want to register {this.state.selectUnit} unit of {this.state.selectBuilding}</p>
             </Box>
             <Box className="dialog-footer desktop-ui">
               <DialogActions className="customButton">
