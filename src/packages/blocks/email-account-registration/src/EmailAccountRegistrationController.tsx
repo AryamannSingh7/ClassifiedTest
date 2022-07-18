@@ -1397,6 +1397,18 @@ this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e)
     });
     return validations
   }
+  signupSchema() {
+    const validations = Yup.object().shape({
+
+      selectCountry: Yup.string().required(`This field is required`).trim(),
+      selectCity: Yup.string().required(`This field is required`).trim(),
+      selectBuilding: Yup.string().required(`This field is required`).trim(),
+      selectComplex: Yup.string().required(`This field is required`).trim(),
+      selectUnit: Yup.string().required(`This field is required`).trim(),
+
+    });
+    return validations
+  }
   EmailSchema() {
     const validations = Yup.object().shape({
       email: Yup.string()
