@@ -702,9 +702,25 @@ export default class ChairmanForgotPasswordController extends BlockComponent<
       "Content-Type": configJSON.forgotPasswordAPiContentType
     };
 
-    const attrs = {
-      email: values.email,
+    let attrs :any;
+
+    if(values.email.includes("@")){
+      console.log("email id ==========>",values.email)
+       attrs = {
+        email: values.email,
+      };
+    }
+   else{
+    console.log("number phone ==========>",values.email)
+     attrs = {
+      full_phone_number: values.email,
     };
+   }
+
+
+    // const attrs = {
+    //   email: values.email,
+    // };
 
     const data = {
       attributes: attrs

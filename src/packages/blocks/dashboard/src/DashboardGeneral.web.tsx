@@ -58,10 +58,10 @@ export default class DashboardGeneral extends DashboardController {
                             <Box>
                                 <FormControl style={dashBoard.YearMain} className='yearTab'>
                                     <NativeSelect className='yearSelection' value={this.state.Year} onChange={this.handleChange}>
-                                        <option value="">None</option>
-                                            <option value={10}>Ten</option>
-                                            <option value={20}>Twenty</option>
-                                            <option value={30}>Thirty</option>
+                                        <option value="">2020</option>
+                                        <option value={10}>2021</option>
+                                        <option value={20}>2020</option>
+                                        <option value={30}>2019</option>
                                     </NativeSelect>
                                 </FormControl>
                             </Box>
@@ -83,7 +83,7 @@ export default class DashboardGeneral extends DashboardController {
                             <Grid item sm={4}>
                                 <Box style={dashBoard.Cards}>
                                     <Box sx={{ml:1, mb:2}} style={dashBoard.CardsIcons}><PersonOutlineIcon/></Box>
-                                    <Typography style={dashBoard.subHeading}>Building Ownership Rate</Typography>
+                                    <Typography style={dashBoard.subHeading}>Rented Out Apartments</Typography>
                                     <Box style={dashBoard.bottomTwoSpan}>
                                         <Box component="span" style={dashBoard.bottomColor}>42/327</Box>
                                     </Box> 
@@ -92,7 +92,7 @@ export default class DashboardGeneral extends DashboardController {
                             <Grid item sm={4}>
                                 <Box style={dashBoard.Cards}>
                                     <Box sx={{ml:1, mb:2}} style={dashBoard.CardsIcons}><PersonOutlineIcon/></Box>
-                                    <Typography style={dashBoard.subHeading}>Building Ownership Rate</Typography>
+                                    <Typography style={dashBoard.subHeading}>Management Fee Collected</Typography>
                                     <Box style={dashBoard.bottomTwoSpan}>
                                         <Box component="span" style={dashBoard.bottomColor}>58%</Box>
                                     </Box> 
@@ -101,7 +101,7 @@ export default class DashboardGeneral extends DashboardController {
                             <Grid item sm={4}>
                                 <Box style={dashBoard.Cards}>
                                     <Box sx={{ml:1, mb:2}} style={dashBoard.CardsIcons}><PersonOutlineIcon/></Box>
-                                    <Typography style={dashBoard.subHeading}>Building Ownership Rate</Typography>
+                                    <Typography style={dashBoard.subHeading}>Registered Residents/Owners</Typography>
                                     <Box style={dashBoard.bottomTwoSpan}>
                                         <Box component="span" style={dashBoard.bottomColor}>195</Box>
                                     </Box> 
@@ -110,7 +110,7 @@ export default class DashboardGeneral extends DashboardController {
                             <Grid item sm={4}>
                                 <Box style={dashBoard.Cards}>
                                     <Box sx={{ml:1, mb:2}} style={dashBoard.CardsIcons}><PersonOutlineIcon/></Box>
-                                    <Typography style={dashBoard.subHeading}>Building Ownership Rate</Typography>
+                                    <Typography style={dashBoard.subHeading}>Active Registered Members</Typography>
                                     <Box style={dashBoard.bottomTwoSpan}>
                                         <Box component="span" style={dashBoard.bottomColor}>195</Box>
                                     </Box> 
@@ -119,7 +119,7 @@ export default class DashboardGeneral extends DashboardController {
                             <Grid item sm={4}>
                                 <Box style={dashBoard.Cards}>
                                     <Box sx={{ml:1, mb:2}} style={dashBoard.CardsIcons}><PersonOutlineIcon/></Box>
-                                    <Typography style={dashBoard.subHeading}>Building Ownership Rate</Typography>
+                                    <Typography style={dashBoard.subHeading}>Members Never Logged in</Typography>
                                     <Box style={dashBoard.bottomTwoSpan}>
                                         <Box component="span" style={dashBoard.bottomColor}>195</Box>
                                     </Box> 
@@ -128,7 +128,7 @@ export default class DashboardGeneral extends DashboardController {
                             <Grid item sm={4}>
                                 <Box style={dashBoard.Cards}>
                                     <Box sx={{ml:1, mb:2}} style={dashBoard.CardsIcons}><PersonOutlineIcon/></Box>
-                                    <Typography style={dashBoard.subHeading}>Building Ownership Rate</Typography>
+                                    <Typography style={dashBoard.subHeading}>Overdue Management Fee</Typography>
                                     <Box style={dashBoard.bottomTwoSpan}>
                                         <Box component="span" style={dashBoard.bottomColor}>195</Box>
                                     </Box> 

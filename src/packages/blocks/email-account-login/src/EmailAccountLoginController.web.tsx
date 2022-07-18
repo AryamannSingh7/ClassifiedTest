@@ -64,7 +64,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
   deleteRequestCallId:any;
   emailReg: RegExp;
   labelTitle: string = "";
- 
+
 
   validationApiCallId: string = "";
 
@@ -187,11 +187,12 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             this.parseApiErrorResponse(responseJson);
           }
           this.parseApiCatchErrorResponse(errorReponse);
-        } 
+        }
       else if (apiRequestCallId === this.apiEmailLoginCallId) {
           if (responseJson && responseJson.meta && responseJson.meta.token) {
             localStorage.setItem("userToken", responseJson?.meta?.token)
             localStorage.setItem("userId", responseJson?.meta?.id)
+            this.setState({error:null})
             this.getRegistrationRequest();
           // this.props.history.push("/RegistrationRequest")
            //window.location.replace("/RegistrationRequest");
@@ -235,11 +236,12 @@ export default class EmailAccountRegistrationController extends BlockComponent<
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
             this.setState({ error });
+            // this.parseApiCatchErrorResponse(this.state.error);
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
+
           }
           this.setState({loading: false})
-          this.parseApiCatchErrorResponse(this.state.error);
         }
       }
     }
@@ -478,6 +480,7 @@ clear= () => {
   LoginSchema() {
     const validations = Yup.object().shape({
       email: Yup.string()
+        .email('Invalid email format')
         .strict(true)
         .lowercase(`Please enter all values in lowercase`)
         .trim()
@@ -506,7 +509,7 @@ clear= () => {
       data: data
     };
 
-    this.setState({loading: true}) 
+    this.setState({loading: true})
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
     );
