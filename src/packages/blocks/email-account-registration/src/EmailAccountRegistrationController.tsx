@@ -5,9 +5,8 @@ import { runEngine } from "../../../framework/src/RunEngine";
 import MessageEnum, {
   getName
 } from "../../../framework/src/Messages/MessageEnum";
-import * as Yup from 'yup';
-
 // Customizable Area Start
+
 import { imgPasswordInVisible, imgPasswordVisible } from "./assets";
 // Customizable Area End
 
