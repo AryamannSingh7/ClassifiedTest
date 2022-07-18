@@ -233,10 +233,10 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             this.setState({ error });
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
+            this.parseApiCatchErrorResponse(this.state.error);
           }
           this.setState({ loading: false })
 
-          this.parseApiCatchErrorResponse(this.state.error);
         } else if (apiRequestCallId === this.verifyOtpApiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
@@ -264,10 +264,10 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             this.setState({ error });
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
+            this.parseApiCatchErrorResponse(this.state.error);
           }
           this.setState({ loading: false })
 
-          this.parseApiCatchErrorResponse(this.state.error);
         } else if (apiRequestCallId === this.createManagerAccountApiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
