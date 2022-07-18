@@ -225,7 +225,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             this.setState({ loading: false })
             //@ts-ignore
             //@ts-nocheck
-            this,props.history.push('/otp')
+            this.props.history.push('/otp')
 
 
           } else if (responseJson?.errors) {
