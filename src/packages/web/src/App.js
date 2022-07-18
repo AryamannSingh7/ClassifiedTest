@@ -106,7 +106,7 @@ import SurveyPreview from "../../blocks/Polling/src/SurveyPreview.web";
 import PollsallData from "../../blocks/Polling/src/PollsallData.web";
 import PollsSurvey from "../../blocks/Polling/src/PollsSurvey.web"
 import SubmitPoll from "../../blocks/Polling/src/SubmitPoll.web"
-
+import RegistrationRequestSignup from "../../blocks/email-account-registration/src/RegistrationRequestSignup.web";
 const routeMap = {
   //done
   LandingPage: {
@@ -437,18 +437,10 @@ const routeMap = {
     component: MobileAccountLoginBlock,
     path: "/MobileAccountLoginBlock"
   },
-<<<<<<< HEAD
-=======
-
->>>>>>> 3290b3c25ffc83293c669b8d6850851d869c116a
   DashboardGeneral: {
     component: DashboardGeneral,
     path: "/DashboardGeneral"
   },
-<<<<<<< HEAD
-=======
-
->>>>>>> 3290b3c25ffc83293c669b8d6850851d869c116a
 
   DashboardTicket: {
     component: DashboardTicket,
