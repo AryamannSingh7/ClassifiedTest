@@ -700,10 +700,20 @@ export default class ForgotPasswordController extends BlockComponent<
     const header = {
       "Content-Type": configJSON.forgotPasswordAPiContentType
     };
+    let attrs :any;
 
-    const attrs = {
-      email: values.email,
+    if(values.email.includes("@")){
+      console.log("email id ==========>",values.email)
+       attrs = {
+        email: values.email,
+      };
+    }
+   else{
+    console.log("number phone ==========>",values.email)
+     attrs = {
+      full_phone_number: values.email,
     };
+   }
 
     const data = {
       attributes: attrs
