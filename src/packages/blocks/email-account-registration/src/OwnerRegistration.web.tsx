@@ -8,7 +8,7 @@ import {
 } from "@material-ui/core";
 import "../assets/css/style.scss";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import EmailAccountRegistrationController, { Props } from "./EmailAccountRegistrationController";
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
@@ -20,7 +20,7 @@ import Loader from "../../../components/src/Loader.web";
 
 
 
-class OwnerRegistration extends EmailAccountRegistrationController {
+class Registration extends EmailAccountRegistrationController {
   constructor(props: Props) {
     super(props);
     // Customizable Area Start
@@ -68,7 +68,9 @@ class OwnerRegistration extends EmailAccountRegistrationController {
 
 
             }}
-              onSubmit={(values) => { this.createAccoun(values) }}
+              validationSchema={this.signupSchema()}
+              validateOnMount={true}
+              onSubmit={(values) => { this.createAccountOwner(values) }}
             >
               {({ values,
                 errors,
@@ -92,34 +94,35 @@ class OwnerRegistration extends EmailAccountRegistrationController {
                         <img src={user} />
                       </span>
                     </Box>
+
                     {errors.full_name && touched.full_name ? (
                       <Typography
                         style={{
                           color: "#F14E24",
-                          fontFamily: "Poppins",
+
                           fontWeight: 300,
                           fontSize: 14,
                           marginTop: 5,
                           marginLeft: 10
                         }}
                       >
-                        {errors.full_name}
+                        <ErrorMessage className="text-error" component="Typography" name="full_name" />
                       </Typography>
                     ) : null}
-                    {this.state.error ? (
-                      <Typography
-                        style={{
-                          color: "#F14E24",
-                          fontFamily: "Poppins",
-                          fontWeight: 300,
-                          fontSize: 14,
-                          marginTop: 5,
-                          marginLeft: 10
-                        }}
-                      >
-                        {this.state.error}
-                      </Typography>
-                    ) : null}
+                    {/* {this.state.error ? (
+                    <Typography
+                      style={{
+                        color: "#F14E24",
+                        fontFamily: "Poppins",
+                        fontWeight: 300,
+                        fontSize: 14,
+                        marginTop: 5,
+                        marginLeft: 10
+                      }}
+                    >
+                      {this.state.error}
+                    </Typography>
+                  ) : null} */}
 
                     {/* email */}
                     <Box
@@ -148,23 +151,23 @@ class OwnerRegistration extends EmailAccountRegistrationController {
                           marginLeft: 10
                         }}
                       >
-                        {errors.full_name}
+                        <ErrorMessage className="text-error" component="Typography" name="email" />
                       </Typography>
                     ) : null}
-                    {this.state.error ? (
-                      <Typography
-                        style={{
-                          color: "#F14E24",
-                          fontFamily: "Poppins",
-                          fontWeight: 300,
-                          fontSize: 14,
-                          marginTop: 5,
-                          marginLeft: 10
-                        }}
-                      >
-                        {this.state.error}
-                      </Typography>
-                    ) : null}
+                    {/* {this.state.error ? (
+                    <Typography
+                      style={{
+                        color: "#F14E24",
+                        fontFamily: "Poppins",
+                        fontWeight: 300,
+                        fontSize: 14,
+                        marginTop: 5,
+                        marginLeft: 10
+                      }}
+                    >
+                      {this.state.error}
+                    </Typography>
+                  ) : null} */}
 
                     {/* mobile */}
 
@@ -222,34 +225,34 @@ class OwnerRegistration extends EmailAccountRegistrationController {
                         }}
                       />
                     </Box>
-                    {errors.email && touched.email ? (
+
+                    {errors.phone && touched.phone ? (
                       <Typography
                         style={{
                           color: "#F14E24",
-                          fontFamily: "Poppins",
                           fontWeight: 300,
                           fontSize: 14,
                           marginTop: 5,
                           marginLeft: 10
                         }}
                       >
-                        {errors.email}
+                        <ErrorMessage className="text-error" component="Typography" name="phone" />
                       </Typography>
                     ) : null}
-                    {this.state.error ? (
-                      <Typography
-                        style={{
-                          color: "#F14E24",
-                          fontFamily: "Poppins",
-                          fontWeight: 300,
-                          fontSize: 14,
-                          marginTop: 5,
-                          marginLeft: 10
-                        }}
-                      >
-                        {this.state.error}
-                      </Typography>
-                    ) : null}
+                    {/* {this.state.error ? (
+                    <Typography
+                      style={{
+                        color: "#F14E24",
+                        fontFamily: "Poppins",
+                        fontWeight: 300,
+                        fontSize: 14,
+                        marginTop: 5,
+                        marginLeft: 10
+                      }}
+                    >
+                      {this.state.error}
+                    </Typography>
+                  ) : null} */}
                     {/* pass */}
                     <Box
                       className="formInputGrp"
@@ -303,18 +306,18 @@ class OwnerRegistration extends EmailAccountRegistrationController {
                         <img src={password} />
                       </span>
                     </Box>
+
                     {errors.password && touched.password ? (
                       <Typography
                         style={{
                           color: "#F14E24",
-                          fontFamily: "Poppins",
                           fontWeight: 300,
                           fontSize: 14,
                           marginTop: 5,
                           marginLeft: 10
                         }}
                       >
-                        {errors.password}
+                        <ErrorMessage className="text-error" component="Typography" name="password" />
                       </Typography>
                     ) : null}
 
@@ -371,7 +374,8 @@ class OwnerRegistration extends EmailAccountRegistrationController {
                         )}
                       </span>
                     </Box>
-                    {errors.password && touched.password ? (
+
+                    {errors.confirm_password && touched.confirm_password ? (
                       <Typography
                         style={{
                           color: "#F14E24",
@@ -381,7 +385,7 @@ class OwnerRegistration extends EmailAccountRegistrationController {
                           marginLeft: 10
                         }}
                       >
-                        {errors.password}
+                        <ErrorMessage className="text-error" component="Typography" name="confirm_password" />
                       </Typography>
                     ) : null}
 
@@ -468,4 +472,4 @@ class OwnerRegistration extends EmailAccountRegistrationController {
     )
   }
 }
-export default withRouter(OwnerRegistration)
+export default withRouter(Registration)
