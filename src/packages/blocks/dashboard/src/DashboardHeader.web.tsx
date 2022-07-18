@@ -33,6 +33,7 @@ import "../../../web/src/assets/css/style.scss";
 import {
     Container,
     Typography,
+    Link,
     List,
     ListItem,
     ListItemText,
@@ -70,13 +71,18 @@ export default class DashboardHeader extends DashboardController {
                         style={dashBoard.HeaderSecLft}
                     >
                         <img src={BuildingLogo} alt="BuildingLogo" width={70}/>
-                        <Typography variant="h6">Building Name</Typography>
+                        <Link href="#" style={{textDecoration:'none'}}>
+                            <Typography variant="h6">Building Name</Typography>
+                        </Link>
+                        
                     </Grid>
                     <Grid item xs={6} md={6} sm={6}
                         style={dashBoard.HeaderSecRft}
                     >
-                        <img src={GlobalIcon} alt="GlobalIcon" />
-                        <NotificationsNoneOutlinedIcon/>
+                        <Link href="#"><img src={GlobalIcon} alt="GlobalIcon" /></Link>
+                        <Link href="#"><NotificationsNoneOutlinedIcon/></Link>
+                        {/* <img src={GlobalIcon} alt="GlobalIcon" /> */}
+                        
                         <Box 
                             style={dashBoard.HeaderSecRtBox}
                         >
