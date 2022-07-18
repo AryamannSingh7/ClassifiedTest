@@ -182,8 +182,8 @@ export default class EmailAccountRegistrationController extends BlockComponent<
           if (responseJson && responseJson.meta && responseJson.meta.token) {
             localStorage.setItem("userToken", responseJson?.meta?.token)
             localStorage.setItem("userId", responseJson?.meta?.id)
-            localStorage.setItem("userType", responseJson?.meta?.role[0].name)
-            this.props.history.push("/Dashboard")
+            localStorage.setItem("userType", responseJson?.meta?.role.name)
+            this.props.history.push("/DashboardGeneral")
            //window.location.replace("/RegistrationRequest");
            this.setState({loading: false})
           } else if (responseJson?.errors) {
@@ -454,7 +454,7 @@ clear= () => {
         .trim()
         .required(`This field is required.`),
       password: Yup.string().required(`This field is required`),
-      userType: Yup.string().required(`This field is required`).trim()
+      userType: Yup.string().required(`This field is required`).trim(),
     });
     return validations
   }
