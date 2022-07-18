@@ -31,7 +31,6 @@ export default class RestApiClientBlock<Entity> extends Block {
     console.log('API Rquest Message' + JSON.stringify(message));
     if (getName(MessageEnum.RestAPIRequestMessage) === message.id) {
       const uniqueApiCallId = message.messageId;
-      console.log(method,endpoint,headers,body,props)
       const {
         RestAPIRequestMethodMessage: method,
         RestAPIResponceEndPointMessage: endpoint,
@@ -62,23 +61,23 @@ export default class RestApiClientBlock<Entity> extends Block {
     );
 
     try {
-      let response:Response = new Response();
+      let response: Response = new Response();
       if (headers && body) {
-          response = await fetch(fullURL, {
+        response = await fetch(fullURL, {
           method: method.toUpperCase(),
           headers: headers.length ? JSON.parse(headers) : headers,
           body: body,
         });
       } else if (headers) {
-          response = await fetch(fullURL, {
+        response = await fetch(fullURL, {
           method: method.toUpperCase(),
           headers: headers.length ? JSON.parse(headers) : headers,
         });
       } else {
         response = await fetch(fullURL, {
-        method: method.toUpperCase()
-      });
-    }
+          method: method.toUpperCase()
+        });
+      }
 
       let responseJson = await response.json();
 
