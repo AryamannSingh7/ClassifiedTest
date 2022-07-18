@@ -162,10 +162,10 @@ class ChairmanChangePassword extends ChairmanForgotPasswordController {
 
                 </Box>
                 {/* mobile footer block */}
-                <Box className="bottomBlock common-bottom-padding" display={{ xs: 'flex', md: 'none' }}>
+                {/* <Box className="bottomBlock common-bottom-padding" display={{ xs: 'flex', md: 'none' }}>
                   <Link href="#" className="link">Don't have an account ? </Link>
                   <Link href="#" className="link"> <span> register</span></Link>
-                </Box>
+                </Box> */}
                 {/* desktop footer block */}
                 <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>
                   <h6 className="bottom-text">POWERED BY</h6>
