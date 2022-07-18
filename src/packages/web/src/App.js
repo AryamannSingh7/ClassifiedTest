@@ -76,6 +76,11 @@ import VerifyOTP from "../../blocks/email-account-registration/src/VerifyOTP.web
 import SelectType from "../../blocks/email-account-registration/src/SelectType.web";
 import UnitRegister from "../../blocks/email-account-registration/src/UnitRegister.web";
 import RegisterUnitManually from "../../blocks/email-account-registration/src/RegisterUnitManually.web";
+import RegisterAddressLink from "../../blocks/email-account-registration/src/RegisterAddressLink.web";
+
+import RegistrationRequestSignup from "../../blocks/email-account-registration/src/RegistrationRequestSignup.web";
+
+
 import SearchComplex from "../../blocks/email-account-registration/src/SearchComplex.web";
 
 
@@ -94,8 +99,6 @@ import ChairmanChangePassword from "../../blocks/forgot-password/src/ChairmanCha
 import ChangeSuccessfully from "../../blocks/forgot-password/src/ChangeSuccessfully.web";
 import ChairmanChangeSuccessfully from "../../blocks/forgot-password/src/ChairmanChangeSuccessfully.web";
 import RegistrationRequest from "../../blocks/email-account-login/src/RegistrationRequest.web";
-import RegistrationRequestSignup from "../../blocks/email-account-registration/src/RegistrationRequestSignup.web";
-import Dashboard from "../../blocks/dashboard/src/Dashboard.web";
 import DashboardGeneral from "../../blocks/dashboard/src/DashboardGeneral.web";
 import DashboardTicket from "../../blocks/dashboard/src/DashboardTicket.web";
 import DashboardActions from "../../blocks/dashboard/src/DashboardActions.web";
@@ -106,7 +109,8 @@ import CreateSurveys from "../../blocks/Polling/src/CreateSurveys.web";
 import PollPreview from "../../blocks/Polling/src/PollPreview.web";
 import SurveyPreview from "../../blocks/Polling/src/SurveyPreview.web";
 import PollsallData from "../../blocks/Polling/src/PollsallData.web";
-
+import PollsSurvey from "../../blocks/Polling/src/PollsSurvey.web"
+import SubmitPoll from "../../blocks/Polling/src/SubmitPoll.web"
 const routeMap = {
   //done
   LandingPage: {
@@ -237,6 +241,16 @@ const routeMap = {
   PollsallData: {
     component: PollsallData,
     path: "/PollsallData"
+  },
+
+  PollsSurvey: {
+    component: PollsSurvey,
+    path: "/PollsSurvey"
+  },
+
+  SubmitPoll: {
+    component: SubmitPoll,
+    path: "/SubmitPoll"
   },
 
 
@@ -414,10 +428,7 @@ const routeMap = {
     component: LeadManagement,
     path: "/LeadManagement"
   },
-  Dashboard: {
-    component: Dashboard,
-    path: "/Dashboard"
-  },
+
   SocialMediaAccountRegistrationScreen: {
     component: SocialMediaAccountRegistrationScreen,
     path: "/SocialMediaAccountRegistrationScreen"
@@ -430,10 +441,12 @@ const routeMap = {
     component: MobileAccountLoginBlock,
     path: "/MobileAccountLoginBlock"
   },
+
   DashboardGeneral: {
     component: DashboardGeneral,
     path: "/DashboardGeneral"
   },
+
 
   DashboardTicket: {
     component: DashboardTicket,
@@ -666,10 +679,7 @@ const routeMap = {
     component: LeadManagement,
     path: "/LeadManagement"
   },
-  Dashboard: {
-    component: Dashboard,
-    path: "/Dashboard"
-  },
+
   SocialMediaAccountRegistrationScreen: {
     component: SocialMediaAccountRegistrationScreen,
     path: "/SocialMediaAccountRegistrationScreen"
@@ -715,6 +725,10 @@ const routeMap = {
   RegisterUnitManually: {
     component: RegisterUnitManually,
     path: '/registerunitmanually'
+  },
+  RegisterUnitLink: {
+    component: RegisterAddressLink,
+    path: '/RegisterUnitLink'
   },
   SearchComplex: {
     component: SearchComplex,

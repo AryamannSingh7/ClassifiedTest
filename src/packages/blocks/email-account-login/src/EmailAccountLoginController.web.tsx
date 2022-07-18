@@ -478,6 +478,7 @@ clear= () => {
   LoginSchema() {
     const validations = Yup.object().shape({
       email: Yup.string()
+        .email('Invalid email format')
         .strict(true)
         .lowercase(`Please enter all values in lowercase`)
         .trim()

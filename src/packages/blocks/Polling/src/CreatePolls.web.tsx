@@ -6,13 +6,13 @@ import React from "react";
 import "./Polling.web.css"
 import {Editor, EditorState} from 'draft-js';
 import 'draft-js/dist/Draft.css';
-
+import RichTextEditor from "react-rte";
 import {
   Container,
   Typography,
   TextField,
   Input,
-//   Link,
+  InputAdornment,
   Button,
 } from "@material-ui/core";
 import Box from '@material-ui/core/Box';
@@ -20,8 +20,9 @@ import Grid from '@material-ui/core/Grid';
 import Select from "@material-ui/core/Select";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import Switch from '@material-ui/core/Switch';
-
+import { DateRangePicker, DateRange, Calendar  } from 'react-date-range';
 import 'date-fns';
+import Parser from 'html-react-parser';
 // import DateFnsUtils from '@date-io/date-fns';
 // import {
 //   MuiPickersUtilsProvider,
@@ -32,6 +33,7 @@ import 'date-fns';
 // Icons
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+import DateRangeOutlinedIcon from '@material-ui/icons/DateRangeOutlined';
 import InfoIcon from '@material-ui/icons/Info';
 // Icons
 
@@ -42,6 +44,8 @@ import PollingController, {
 import { withRouter } from "react-router-dom";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
+import TextEditor from "./TextEditor.web";
+
 
 class CreatePolls extends PollingController {
   constructor(props: Props) {
@@ -52,13 +56,20 @@ class CreatePolls extends PollingController {
   componentDidMount() {
     const PreviewPollData = localStorage.getItem('Polls_Data') && JSON.parse(localStorage.getItem('Polls_Data'));
     if(PreviewPollData){
-        this.setState({PollData:PreviewPollData.PollFormData, options: PreviewPollData.PollOptions,  checked: PreviewPollData.PollType},
+        this.setState({
+            PollData:PreviewPollData.PollFormData, 
+            options: PreviewPollData.PollOptions,  
+            checked: PreviewPollData.PollType,
+            textEditorVal:PreviewPollData.PollDescription
+        },
             () => console.log("PreViewPollData [ PollData ]====>>>>>",  this.state.PollData, this.state.options)
         )
     }
   }
 
   render() {
+    console.log("textEditorVal+++++++",this.state.textEditorVal);
+    console.log("polldata description------", this.state.PollData.description)
     return ( 
       <>
     <Box style={{background: "#E5ECFF"}}>
@@ -81,7 +92,7 @@ class CreatePolls extends PollingController {
                         </Box>
                     </Box>
 
-                    <form onSubmit={this.handlePollDataSubmit}>
+                    <form onSubmit={this.handlePriviewData}>
                         <Grid container spacing={4} style={{marginTop: 15}}>
                    
                         <Grid item sm={12} md={12} xs={12}>
@@ -94,52 +105,34 @@ class CreatePolls extends PollingController {
                                 />
 
                                 <Box className="DateSection">
-                                    {/* <MuiPickersUtilsProvider 
-                                    utils={MomentUtils}
-                                    >
-                                    <Grid container justifyContent="space-between">
-                                        <KeyboardDatePicker
-                                        className="DateBox"
-                                        disableToolbar
-                                        variant="inline"
-                                        format="MM/DD/yyyy"
-                                        margin="normal"
-                                        id="date-picker-inline"
-                                        label="Start Date"
-                                        value={this.state.selectedDate}
-                                        onChange={this.handleDateChange}
-                                        KeyboardButtonProps={{
-                                            'aria-label': 'change date',
-                                        }}
-                                        fullWidth
-                                        />
-                                        <KeyboardDatePicker
-                                        className="DateBox"
-                                        margin="normal"
-                                        id="date-picker-dialog"
-                                        label="End Date"
-                                        format="MM/DD/yyyy"
-                                        onChange={this.handleDateChange}
-                                        value={this.state.selectedDate}
-                                        KeyboardButtonProps={{
-                                            'aria-label': 'change date',
-                                        }}
-                                        fullWidth
-                                        />
-                                    </Grid>
-                                    </MuiPickersUtilsProvider> */}
 
-                                    <TextField label="Start Date" variant="outlined"
-                                    name="startDate"
+                                    <TextField 
+                                    label="Start Date" variant="outlined" 
+                                    type="date" name="startDate" required fullWidth
+                                    format='DD/MM/YYYY'
                                     value={this.state.PollData.startDate}
                                     onChange={this.handlePollDataChange}
-                                    required fullWidth
+                                    InputProps={{
+                                        startAdornment: (
+                                          <InputAdornment position="start">
+                                            <DateRangeOutlinedIcon />
+                                          </InputAdornment>
+                                        )
+                                      }}
                                     />
-                                    <TextField label="End Date" variant="outlined" style={{marginLeft:35}}
-                                    name="endDate"
+
+                                    <TextField label="End Date" variant="outlined"
+                                    type="date" name="endDate" required fullWidth
+                                    style={{marginLeft:35}}
                                     value={this.state.PollData.endDate}
                                     onChange={this.handlePollDataChange}
-                                    required fullWidth
+                                    InputProps={{
+                                        startAdornment: (
+                                          <InputAdornment position="start">
+                                            <DateRangeOutlinedIcon />
+                                          </InputAdornment>
+                                        )
+                                      }}
                                     />  
 
                                 </Box>
@@ -175,12 +168,16 @@ class CreatePolls extends PollingController {
                                     <InfoIcon style={{color:"grey", fontSize:18}}/>
                                 </Box>
 
-                                <TextField multiline rows={4}  label="Description" variant="outlined"
+                                <Box className="descriptionEditor">
+                                    <TextEditor markup="" value={this.state.textEditorVal} onChange={this.onChangeTextEditor} />
+                                </Box>
+
+                                {/* <TextField multiline rows={4}  label="Description" variant="outlined"
                                 name="description" 
                                 value={this.state.PollData.description}
                                 onChange={this.handlePollDataChange}
                                 required fullWidth style={{marginTop:20}}
-                                />
+                                /> */}
 
                                 <TextField  label="enter question" variant="outlined"
                                 name="question"
@@ -188,14 +185,6 @@ class CreatePolls extends PollingController {
                                 onChange={this.handlePollDataChange}
                                 required fullWidth style={{marginTop:20}}
                                 />
-
-                                {/* <TextField  label="Option - 1" variant="outlined"
-                                name="optionOne"
-                                value={this.state.PollData.optionOne}
-                                onChange={this.handlePollDataChange}
-                                required fullWidth style={{marginTop:20}} 
-                                /> */}
-
 
                                 {this.state.options.map((inputfield:any , index:any) => {
                                     return(
@@ -221,17 +210,16 @@ class CreatePolls extends PollingController {
 
                         <Box className="BottomButton">
                             <Box className="Previewbtn"> 
-                                {/* <Link href="/PollPreview"> */}
                                     <Button variant="contained" color="primary"
                                     onClick={async () => {
                                         await this.handlePriviewData()
                                         this.props.history.push("/PollPreview")
                                     }}
                                     >PREVIEW</Button>
-                                {/* </Link>  */}
                             </Box>
                             <Box className="Publishbtn">
-                                <Button type="submit" variant="outlined" color="primary">PUBLISH</Button>
+                                <Button type="submit" variant="outlined" color="primary"
+                                onClick={()=>this.props.history.push("/PollPreview")}>SAVE</Button>
                             </Box> 
                         </Box>
 
@@ -247,5 +235,6 @@ class CreatePolls extends PollingController {
 }
 
 export default withRouter(CreatePolls);
+
 
 // Customizable Area End

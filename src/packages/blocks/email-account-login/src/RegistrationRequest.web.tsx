@@ -36,8 +36,8 @@ class RegistrationRequest extends EmailAccountLoginController {
 
   render() {
     console.log("getRegistrationRequest===================>",this.state?.registrationRequest?.attributes);
-    const building_name= this.state?.registrationRequest?.attributes?.building_name;
-    const apartment_name= this.state?.registrationRequest?.attributes?.apartment_name;
+    const building_name= this.state?.registrationRequest?.attributes?.building_management?.name;
+    const apartment_name= this.state?.registrationRequest?.attributes?.apartment_management?.apartment_name;
     //console.log("getRegistrationRequest===================>",building_name ,apartment_name);
     return (
       <>

@@ -17,7 +17,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
-import Select  from '@material-ui/core/Select';
+import Select from '@material-ui/core/Select';
 import ReactSelect from 'react-select';
 import InboxIcon from '@material-ui/icons/Inbox';
 import { building, city, country, modalbuilding, search, unit } from "./assets";
@@ -25,19 +25,19 @@ import { withRouter } from 'react-router';
 
 
 
-class Address extends EmailAccountRegistrationController {
+class RegisterAddressLinkLink extends EmailAccountRegistrationController {
   constructor(props: Props) {
     super(props);
     // Customizable Area Start
     // Customizable Area End
   }
-    // Customizable Area Start
+  // Customizable Area Start
   componentDidMount() {
 
     this.getCountry()
 
   }
-    // Customizable Area End
+  // Customizable Area End
   render() {
     return (
       <>
@@ -50,7 +50,7 @@ class Address extends EmailAccountRegistrationController {
         <Grid container style={{ margin: '1rem', width: '90%' }}>
           <Grid xs={12}>
             <p className="text-left" style={{ fontSize: '1.75rem', fontWeight: 700 }}>
-              Select Building and Unit
+              Linking a Unit
 
             </p>
           </Grid>
@@ -58,7 +58,7 @@ class Address extends EmailAccountRegistrationController {
         <Grid container style={{ margin: '1rem', width: '90%' }}>
           <Grid xs={12}>
             <p className="text-left">
-              Please select the unit you would like to link with your account.If you have more than one Unit you can link the other ones later on.
+              Please select the appropriate details of the unit
             </p>
           </Grid>
         </Grid>
@@ -253,7 +253,7 @@ class Address extends EmailAccountRegistrationController {
                 <Button variant="contained" onClick={() => this.createRequest()} >
                   Yes Register
                 </Button>
-                <Button onClick={() => this.setState({ showDialog: false })}  variant='text'>
+                <Button onClick={() => this.setState({ showDialog: false })} variant='text'>
                   No, Don’t Regsiter
                 </Button>
               </DialogActions>
@@ -264,4 +264,4 @@ class Address extends EmailAccountRegistrationController {
     )
   }
 }
-export default withRouter(Address)
+export default withRouter(RegisterAddressLinkLink)

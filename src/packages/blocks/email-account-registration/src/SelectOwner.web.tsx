@@ -71,7 +71,7 @@ class SelectOwner extends EmailAccountRegistrationController {
             >
               <img src={resident_owner} />
               <Box className="middle-section">
-                <p className="title">
+                <p className={"title" + (this.state.userType == 'Owner' ? ' active-type' : '')}>
                 Owner
                 </p>
                 <p className="para">
@@ -96,7 +96,7 @@ class SelectOwner extends EmailAccountRegistrationController {
               <img src={manager} />
 
               <Box className="middle-section">
-                <p className="title">
+                <p className={"title" + (this.state.userType == 'Property Manager' ? ' active-type' : '')}>
                   Property Manager
                 </p>
                 <p className="para">
