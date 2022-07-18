@@ -224,7 +224,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             this.setState({ loading: false })
             //@ts-ignore
             //@ts-nocheck
-            this.props.history.push('/otp')
+            this,props.history.push('/otp')
 
 
           } else if (responseJson?.errors) {
@@ -244,7 +244,18 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             this.setState({ loading: false })
             //@ts-ignore
             //@ts-nocheck
-            this.props.history.push('/selecttype')
+            if (this.props.history.location.state?.data){
+              //@ts-ignore
+              //@ts-nocheck
+              this.props.history.push('/registerunit')
+            }else{
+              //@ts-ignore
+              //@ts-nocheck
+              this.props.history.push('/selecttype')
+            }
+            // //@ts-ignore
+            // //@ts-nocheck
+            // this.props.history.push('/selecttype')
 
 
           } else if (responseJson?.errors) {
@@ -284,7 +295,14 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             //@ts-ignore
             //@ts-nocheck
 
-            this.props.history.push('/otp')
+            this.props.history.push({
+              pathname: '/otp',
+              state: {
+                //@ts-ignore
+                //@ts-nocheck
+                data: this.props.history.location.state?.data,
+              },
+            })
 
 
           } else {
@@ -810,6 +828,9 @@ export default class EmailAccountRegistrationController extends BlockComponent<
 
     const data = {
       type: "email_account",
+      // @ts-ignore
+      // @ts-nocheck
+      "user_type": this.props.history.location.state?.data,
       attributes: attrs
     };
 
@@ -969,13 +990,23 @@ export default class EmailAccountRegistrationController extends BlockComponent<
         //@ts-ignore
         //@ts-nocheck
 
-        this.props.history.push('/registerowner')
+        this.props.history.push({
+          pathname: '/registerowner',
+          state: {
+            data: this.state.userType,
+          },
+        })
 
       }else{
         //@ts-ignore
         //@ts-nocheck
 
-        this.props.history.push('/registermanager')
+        this.props.history.push({
+          pathname: '/registermanager',
+          state: {
+            data: this.state.userType,
+          },
+        })
 
       }
     }
@@ -1202,7 +1233,7 @@ this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e)
         //@ts-ignore
         //@ts-nocheck
 
-        this.props.history.push('/registerunitmanually')
+        this.props.history.push('/RegisterUnitLink')
 
 
       }
@@ -1293,11 +1324,11 @@ this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e)
       "Content-Type": configJSON.contentTypeApiAddDetail,
       "token": localStorage.getItem('res_token')
     };
-
+console.log(this.state)
     const attrs = {
-      complex:this.state.selectComplex,
-      building_name: attributes.building,
-      unit:attributes.unit,
+      building_management_id: this.state.selectBuilding.id,
+      apartment_management_id: this.state.selectUnit.id,
+      society_management_id: this.state.selectComplex
     };
 
     const data = {
@@ -1389,6 +1420,17 @@ this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e)
 
       selectCountry: Yup.string().required(`This field is required`).trim(),
       selectCity: Yup.string().required(`This field is required`).trim(),
+      selectBuilding: Yup.string().required(`This field is required`).trim(),
+      selectComplex: Yup.string().required(`This field is required`).trim(),
+      selectUnit: Yup.string().required(`This field is required`).trim(),
+
+    });
+    return validations
+  }
+  addressSchemaManual() {
+    const validations = Yup.object().shape({
+
+
       selectBuilding: Yup.string().required(`This field is required`).trim(),
       selectComplex: Yup.string().required(`This field is required`).trim(),
       selectUnit: Yup.string().required(`This field is required`).trim(),

@@ -76,6 +76,8 @@ import VerifyOTP from "../../blocks/email-account-registration/src/VerifyOTP.web
 import SelectType from "../../blocks/email-account-registration/src/SelectType.web";
 import UnitRegister from "../../blocks/email-account-registration/src/UnitRegister.web";
 import RegisterUnitManually from "../../blocks/email-account-registration/src/RegisterUnitManually.web";
+import RegisterAddressLink from "../../blocks/email-account-registration/src/RegisterAddressLink.web";
+
 import RegistrationRequestSignup from "../../blocks/email-account-registration/src/RegistrationRequestSignup.web";
 
 
@@ -723,6 +725,10 @@ const routeMap = {
   RegisterUnitManually: {
     component: RegisterUnitManually,
     path: '/registerunitmanually'
+  },
+  RegisterUnitLink: {
+    component: RegisterAddressLink,
+    path: '/RegisterUnitLink'
   },
   SearchComplex: {
     component: SearchComplex,

@@ -73,7 +73,7 @@ class RegisterUnit extends EmailAccountRegistrationController {
             >
               <img src={Linkage} />
               <Box className="middle-section">
-                <p className="title">
+                <p className={"title" + (this.state.unitRegisterType == 'Linkage' ? ' active-type' : '')}>
                   Linkage
                 </p>
                 <p className="para">
@@ -99,7 +99,7 @@ class RegisterUnit extends EmailAccountRegistrationController {
               <img src={manual} />
 
               <Box className="middle-section">
-                <p className="title">
+                <p className={"title" + (this.state.unitRegisterType == 'Manual' ? ' active-type' : '')}>
                   Manual
                 </p>
                 <p className="para">

@@ -1,10 +1,10 @@
-//@ts-ignore
-//@ts-nocheck
+// @ts-ignore
+// @ts-nocheck
 
 import * as React from "react";
 // custom components
 import {
-  Button, Grid, Box, Typography, Link, IconButton, Dialog, DialogTitle, DialogActions, FormControl, InputLabel
+  Button, Grid, Box, Typography, Link, IconButton, ListItemIcon, ListItemText, DialogContent, Dialog, DialogTitle, DialogActions
 } from "@material-ui/core";
 import "../assets/css/style.scss";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
@@ -13,26 +13,33 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import EmailAccountRegistrationController, { Props } from "./EmailAccountRegistrationController";
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import { CheckBox, Visibility, VisibilityOff } from "@material-ui/icons";
-import { withRouter } from 'react-router';
-import { building, search, unit } from "./assets";
-import ReactSelect from 'react-select';
-import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import ReactSelect from 'react-select';
+import InboxIcon from '@material-ui/icons/Inbox';
+import { building, city, country, modalbuilding, search, unit } from "./assets";
+import { withRouter } from 'react-router';
 
 
 
-class RegisterUnitManually extends EmailAccountRegistrationController {
+class RegisterAddressLinkLink extends EmailAccountRegistrationController {
   constructor(props: Props) {
     super(props);
     // Customizable Area Start
     // Customizable Area End
   }
+  // Customizable Area Start
+  componentDidMount() {
 
+    this.getCountry()
+
+  }
+  // Customizable Area End
   render() {
-    console.log(JSON.parse(localStorage.getItem('searchComplex')))
-    let selectComplex = JSON.parse(localStorage.getItem('searchComplex'))
     return (
-
       <>
         <Grid container style={{ margin: '1rem', width: '90%' }}>
           <Grid xs={12}>
@@ -42,67 +49,34 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
 
         <Grid container style={{ margin: '1rem', width: '90%' }}>
           <Grid xs={12}>
-            <p className="text-left" style={{ fontSize: '2.5rem', fontWeight: 700, marginTop: '2.5rem' }}>
-              Register the Unit Manually
+            <p className="text-left" style={{ fontSize: '1.75rem', fontWeight: 700 }}>
+              Linking a Unit
 
             </p>
           </Grid>
         </Grid>
-
         <Grid container style={{ margin: '1rem', width: '90%' }}>
           <Grid xs={12}>
-            <p className="text-left" style={{ marginBottom: '1.5rem' }}>
-              Please select the location of the building
-
-
-              <span style={{ color: '#DD946A' }}>
-
-              </span>
-
+            <p className="text-left">
+              Please select the appropriate details of the unit
             </p>
           </Grid>
         </Grid>
-
-<Grid container>
-  <Grid xs={12}>
-            {/* <Button onClick={()=>this.props.history.push('/searchcomplex')} style={{
-              border: "none",
-              height: "100%",
-              width: "80%",
-              color: "rgba(0, 0, 0, 0.6)",
-              fontFamily: "Poppins",
-              fontWeight: 400,
-              fontSize: 16,
-              marginRight: 10,
-              marginLeft: 21,
-              outline: "none"
-}}>
-      <img src={search}/>
-      <span>
-
-                {selectComplex? selectComplex.label: 'Search Complex'}
-      </span>
-    </Button> */}
-
-
-
-  </Grid>
-</Grid>
         <Formik
           initialValues={{
-            // selectCountry: '',
-            // selectCity: "",
+            selectCountry: '',
+            selectCity: "",
             selectComplex: "",
             selectBuilding: "",
             selectUnit: "",
           }}
-          validationSchema={this.addressSchemaManual()}
-
+          validationSchema={this.addressSchema()}
+          validateOnMount={true}
           onSubmit={(values) => { console.log('dfdf'); this.setState({ showDialog: true }) }}
         >
           {({ values, touched, errors, isValid, setFieldValue, handleChange }) => (
             <Form translate="yes" className="commonForm">
-              {/* <Grid container style={{ margin: '1rem', width: '90%' }}>
+              <Grid container style={{ margin: '1rem', width: '90%' }}>
                 <Grid xs={12}>
 
 
@@ -120,7 +94,12 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                       label="Country"
                       style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#b5b5b5' }}
                     >
-
+                      {/* <MenuItem>
+                  <ListItemIcon>
+                    <InboxIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Inbox" />
+                  </MenuItem> */}
                       <MenuItem value="">
                         <em>None</em>
                       </MenuItem>
@@ -134,8 +113,8 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                   </FormControl>
                   <ErrorMessage className="text-error" component="Typography" name="selectCountry" />
                 </Grid>
-              </Grid> */}
-              {/* <Grid container style={{ margin: '1rem', width: '90%' }}>
+              </Grid>
+              <Grid container style={{ margin: '1rem', width: '90%' }}>
                 <Grid xs={12}>
                   <FormControl variant="outlined" fullWidth>
 
@@ -164,7 +143,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                   <ErrorMessage className="text-error" component="Typography" name="selectCity" />
 
                 </Grid>
-              </Grid> */}
+              </Grid>
               <Box className="commonForm">
                 <Box className="formGroup">
                   <Box
@@ -238,8 +217,8 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
 
                 </Grid>
               </Grid>
-              <Box className="customButton" >
-                <Button variant="contained" type="submit">SEND REGISTRATION REQUEST</Button>
+              <Box className="customButton">
+                <Button variant="contained" type="submit">next</Button>
               </Box>
 
             </Form>
@@ -267,11 +246,11 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
               <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
                 Are you sure you want to register unit?
               </DialogTitle>
-              <p>Are you sure that you want to delete the regestration request for the unit ({this.state.selectUnit.apartment_name}) of {this.state.selectBuilding.name}.</p>
+              <p>Are you sure that you want to register {this.state.selectUnit.apartment_name} unit of {this.state.selectBuilding.name}</p>
             </Box>
             <Box className="dialog-footer desktop-ui">
               <DialogActions className="customButton">
-                <Button variant="contained" onClick={() => this.createRequestManual(this.state.values)} >
+                <Button variant="contained" onClick={() => this.createRequest()} >
                   Yes Register
                 </Button>
                 <Button onClick={() => this.setState({ showDialog: false })} variant='text'>
@@ -282,12 +261,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
           </Box>
         </Dialog>
       </>
-
     )
-
-  }
-  componentDidMount(): Promise<void> {
-    this.getComplex();
   }
 }
-export default withRouter(RegisterUnitManually)
+export default withRouter(RegisterAddressLinkLink)
