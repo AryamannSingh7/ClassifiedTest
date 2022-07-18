@@ -109,7 +109,6 @@ import SurveyPreview from "../../blocks/Polling/src/SurveyPreview.web";
 import PollsallData from "../../blocks/Polling/src/PollsallData.web";
 import PollsSurvey from "../../blocks/Polling/src/PollsSurvey.web"
 import SubmitPoll from "../../blocks/Polling/src/SubmitPoll.web"
-import RegistrationRequestSignup from "../../blocks/email-account-registration/src/RegistrationRequestSignup.web";
 const routeMap = {
   //done
   LandingPage: {
