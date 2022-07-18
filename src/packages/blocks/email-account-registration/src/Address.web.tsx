@@ -17,7 +17,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import Select  from '@material-ui/core/Select';
+import ReactSelect from 'react-select';
 import InboxIcon from '@material-ui/icons/Inbox';
 import { building, city, country, modalbuilding, search, unit } from "./assets";
 import { withRouter } from 'react-router';
@@ -64,6 +65,30 @@ class Address extends EmailAccountRegistrationController {
 
         <Grid container style={{ margin: '1rem', width: '90%' }}>
           <Grid xs={12}>
+            <Formik initialValues={{
+              selectCountry: "",
+              selectCity: "",
+              selectComplex: "",
+              selectBuilding: "",
+              selectUnit: "",
+
+
+
+            }}
+              onClick={() => { this.setState({ showDialog: true }) }}
+            >
+              {({ values,
+                errors,
+                touched,
+                isValid, handleChange,
+                setFieldValue }) => (
+                <Form className="commonForm" translate="yes" >
+
+
+
+                  </Form>)}
+                  </Formik>
+
             <FormControl variant="outlined" fullWidth >
               <InputLabel id="demo-simple-select-outlined-label" style={{display:'flex',alignItems:'center',gap:'1rem'}}>
                 <img src={country}/>
@@ -129,7 +154,7 @@ class Address extends EmailAccountRegistrationController {
               className="formInputGrp"
             >
 
-              <Select options={this.state.allComplex} className="formInput" style={{ border: 'none' }} placeholder="Search Complex" onChange={this.handleInputChange} />
+              <ReactSelect options={this.state.allComplex} className="formInput" style={{ border: 'none' }} placeholder="Search Complex" onChange={this.handleInputChangeCOm} />
 
               <span className="frmLeftIcons" style={{ top: '1.5rem' }}>
                 <img src={search} />
@@ -194,7 +219,7 @@ class Address extends EmailAccountRegistrationController {
           <Grid xs={12}>
             <Button
             // onClick={this.createRequest}
-              onClick={() => { this.setState({ showDialog: true }) }}
+
               className={'btn'}
               variant="contained"
               type="submit"

@@ -26,11 +26,7 @@ class RegistrationRequestSignup extends EmailAccountRegistrationController {
   constructor(props: Props) {
     super(props);
   }
-  async componentDidMount() {
-    // Customizable Area Start
-    this.getRegistrationRequest();
-    // Customizable Area End
-  }
+
 
   render() {
     console.log("getRegistrationRequest===================>", this.state?.registrationRequest?.attributes);

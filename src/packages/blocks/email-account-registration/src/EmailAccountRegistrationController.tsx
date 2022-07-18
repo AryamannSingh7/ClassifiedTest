@@ -367,11 +367,11 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             //@ts-ignore
             //@ts-nocheck
             let temp=[]
-            responseJson.data.societies.map((item:any)=>
+            responseJson.data.housing_complexes.map((item:any)=>
               temp.push({ value: item.id, label: item.name })
               )
               // @ts-ignore
-            this.setState({ allComplex: temp })
+            this.setState({ allComplex: temp },()=>console.log(this.state.allComplex))
           } else {
             //Check Error Response
             this.parseApiErrorResponse(responseJson);
@@ -1024,6 +1024,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
 
   }
   handleChange= (e: any) => {
+    console.log(e)
     console.log(e.target.name)
     console.log(e.target.value)
 
@@ -1043,6 +1044,9 @@ this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e)
 
     } else if (e.target.name == 'selectCity') {
       this.getComplexbyCity()
+
+    } else if (e.target.name == 'selectComplex') {
+      this.getBuilding()
 
     } else if (e.target.name == 'selectBuilding') {
       this.getUnit()
@@ -1131,7 +1135,7 @@ this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e)
     this.getBuildingApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_address/building_list?city=${this.state.selectCity}`
+      `bx_block_address/building_list?society_management_id=${this.state.selectComplex}`
     );
 
     requestMessage.addData(
@@ -1271,6 +1275,14 @@ this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e)
 
 
   };
+  handleInputChangeCOm = (newValue: any) => {
+    console.log(newValue)
+    // localStorage.setItem('selectComplex', JSON.stringify(newValue))
+    this.setState({ selectComplex: newValue.value }, () => this.getData({target:{name:'selectComplex'}}))
+
+
+
+  };
   createRequestManual=(attributes:any)=>{
 
     const header = {
@@ -1333,6 +1345,7 @@ this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e)
     const attrs = {
       data: {
         otp_code: this.state?.otp || "111111",
+        email:this.state.selectEmail
       }
     };
 
