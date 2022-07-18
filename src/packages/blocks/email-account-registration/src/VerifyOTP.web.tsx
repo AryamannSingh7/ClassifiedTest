@@ -64,13 +64,13 @@ class VerofyOTP extends EmailAccountRegistrationController {
               <Box className="formGroup otpBlock">
                 <OtpInput className="formOutlineInput"
                   value={"111111"}
-                  onChange={this.handleChange}
+                  onChange={this.handleChangeOTP}
                   numInputs={6}
                 // separator={<span>-</span>}
                 />
               </Box>
               <Box className="customButton row-btn" style={{ margin: '1rem', width: '90%', position: 'absolute', bottom: 0,left:0 }} >
-                <Button variant="contained" onClick={() => this.props.history.push('/selecttype')}>SEND</Button>
+                <Button variant="contained" onClick={() => this.verifyOtp()}>SEND</Button>
               </Box>
               <Box className="passwordRow">
                 {/* <Link href="#" className="link"> <span>RESEND OTP</span></Link> */}

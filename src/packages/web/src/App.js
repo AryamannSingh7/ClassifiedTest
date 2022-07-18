@@ -248,7 +248,7 @@ const routeMap = {
     component: SubmitPoll,
     path: "/SubmitPoll"
   },
-  
+
 
 
   Customisableusersubscriptions: {
@@ -437,18 +437,12 @@ const routeMap = {
     component: MobileAccountLoginBlock,
     path: "/MobileAccountLoginBlock"
   },
-<<<<<<< HEAD
-=======
 
->>>>>>> 3290b3c25ffc83293c669b8d6850851d869c116a
   DashboardGeneral: {
     component: DashboardGeneral,
     path: "/DashboardGeneral"
   },
-<<<<<<< HEAD
-=======
 
->>>>>>> 3290b3c25ffc83293c669b8d6850851d869c116a
 
   DashboardTicket: {
     component: DashboardTicket,

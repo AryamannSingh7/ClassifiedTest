@@ -47,6 +47,7 @@ export interface S {
   allComplex:[];
   selectComplex: any;
   loading: boolean;
+  otp: any;
 
 
 
@@ -77,6 +78,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
   getCountryApiCallId: any;
   getComplexApiCallId:any;
   getCityApiCallId: any;
+  verifyOtpApiCallId:any;
   getBuildingApiCallId: any;
   getUnitApiCallId: any;
 
@@ -147,6 +149,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
       //@ts-ignore
       //@ts-nocheck
       loading:false,
+      otp: '',
       // Customizable Area End
     };
 
@@ -217,10 +220,30 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             localStorage.setItem('res_user_id', responseJson.data.id)
             //@ts-ignore
             //@ts-nocheck
-            this.setState({loading:false})
+            this.setState({ loading: false })
             //@ts-ignore
             //@ts-nocheck
             this.props.history.push('/otp')
+
+
+          } else if (responseJson?.errors) {
+            let error = Object.values(responseJson.errors[0])[0] as string;
+            this.setState({ error });
+          } else {
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
+          }
+          this.setState({ loading: false })
+
+          this.parseApiCatchErrorResponse(this.state.error);
+        } else if (apiRequestCallId === this.verifyOtpApiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            //@ts-ignore
+            //@ts-nocheck
+            this.setState({ loading: false })
+            //@ts-ignore
+            //@ts-nocheck
+            this.props.history.push('/select-type')
 
 
           } else if (responseJson?.errors) {
@@ -1265,6 +1288,52 @@ this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e)
     runEngine.sendMessage(requestMessage.id, requestMessage);
     return true;
 
+  }
+  handleChangeOTP = (otp: any) => this.setState({ otp });
+
+  verifyOtp = (attributes: any): boolean => {
+    console.log("this.state.token=========>", localStorage.getItem("emailOtp"), this.state.otp)
+    const header = {
+      "Content-Type": configJSON.forgotPasswordAPiContentType,
+      token: localStorage.getItem("res_token")
+    };
+    // attributes.pin =this.state.otp
+    const attrs = {
+      data: {
+        otp_code: this.state?.otp || "111111",
+      }
+    };
+
+    const httpBody = attrs;
+    this.setState({ loading: true })
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+    this.verifyOtpApiCallId = requestMessage.messageId;
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      "bx_block_forgot_password/otp_confirmations"
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestBodyMessage),
+      JSON.stringify(httpBody)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.httpPostMethod
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
   }
   // Customizable Area End
 }
