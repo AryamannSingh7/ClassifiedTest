@@ -118,7 +118,7 @@ class ForgotPassword extends ForgotPasswordController {
                         <Box className="formGroup">
                           <label htmlFor="" className="textfieldLabel">Enter your regestered Email or Mobile Number</label>
                           <div className="formInputGrp">
-                            <Field type="email" name="email" placeholder="Email ID or Mobile Number" className="formInput" />
+                            <Field type="text" name="email" placeholder="Email ID or Mobile Number" className="formInput" />
                             <span className="frmLeftIcons"><MailOutlineIcon /></span>
                           </div>
 
