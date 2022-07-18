@@ -6,7 +6,7 @@ import MessageEnum, {
   getName
 } from "../../../framework/src/Messages/MessageEnum";
 // Customizable Area Start
-
+import * as Yup from "yup";
 import { imgPasswordInVisible, imgPasswordVisible } from "./assets";
 // Customizable Area End
 
@@ -1399,11 +1399,11 @@ this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e)
   signupSchema() {
     const validations = Yup.object().shape({
 
-      selectCountry: Yup.string().required(`This field is required`).trim(),
-      selectCity: Yup.string().required(`This field is required`).trim(),
-      selectBuilding: Yup.string().required(`This field is required`).trim(),
-      selectComplex: Yup.string().required(`This field is required`).trim(),
-      selectUnit: Yup.string().required(`This field is required`).trim(),
+      full_name: Yup.string().required(`This field is required`).trim(),
+      email: Yup.string().required(`This field is required`).trim(),
+      phone: Yup.string().required(`This field is required`).trim(),
+      password: Yup.string().required(`This field is required`).trim(),
+      confirm_password: Yup.string().required(`This field is required`).trim(),
 
     });
     return validations

@@ -8,7 +8,7 @@ import {
 } from "@material-ui/core";
 import "../assets/css/style.scss";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import EmailAccountRegistrationController, { Props } from "./EmailAccountRegistrationController";
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
@@ -68,6 +68,8 @@ class Registration extends EmailAccountRegistrationController  {
 
 
           }}
+            validationSchema={this.signupSchema()}
+            validateOnMount={true}
             onSubmit={(values) => {this.createAccoun(values)}}
           >
             {({ values,
@@ -92,6 +94,7 @@ class Registration extends EmailAccountRegistrationController  {
                       <img src={user} />
                     </span>
                   </Box>
+                  <ErrorMessage className="text-error" component="Typography" name="full_name" />
                   {errors.full_name && touched.full_name ? (
                     <Typography
                       style={{
@@ -202,7 +205,7 @@ class Registration extends EmailAccountRegistrationController  {
 
                         </Select>
                       </FormControl>
-
+                      <ErrorMessage className="text-error" component="Typography" name="email" />
                     </Box>
 
                     <Field
@@ -222,6 +225,7 @@ class Registration extends EmailAccountRegistrationController  {
                       }}
                     />
                   </Box>
+                  <ErrorMessage className="text-error" component="Typography" name="phone" />
                   {errors.email && touched.email ? (
                     <Typography
                       style={{
@@ -303,6 +307,7 @@ class Registration extends EmailAccountRegistrationController  {
                       <img src={password} />
                     </span>
                   </Box>
+                  <ErrorMessage className="text-error" component="Typography" name="password" />
                   {errors.password && touched.password ? (
                     <Typography
                       style={{
@@ -371,6 +376,7 @@ class Registration extends EmailAccountRegistrationController  {
                     )}
                       </span>
                   </Box>
+                  <ErrorMessage className="text-error" component="Typography" name="confirm_password" />
                   {errors.password && touched.password ? (
                     <Typography
                       style={{
