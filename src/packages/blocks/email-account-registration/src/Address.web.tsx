@@ -43,7 +43,7 @@ class Address extends EmailAccountRegistrationController {
       <>
         <Grid container style={{ margin: '1rem', width: '90%' }}>
           <Grid xs={12}>
-            <ArrowBackIcon />
+            <ArrowBackIcon onClick={() => window.history.back()} />
           </Grid>
         </Grid>
 
@@ -178,7 +178,7 @@ class Address extends EmailAccountRegistrationController {
                         <em>None</em>
                       </MenuItem>
                       {this.state.allBuilding && this.state.allBuilding.map((item) =>
-                        <MenuItem key={item.id} value={item.id}>{item.name}</MenuItem>
+                        <MenuItem key={item.id} value={item}>{item.name}</MenuItem>
 
                       )
                       }
@@ -206,7 +206,7 @@ class Address extends EmailAccountRegistrationController {
                         <em>None</em>
                       </MenuItem>
                       {this.state.allUnit && this.state.allUnit.map((item) =>
-                        <MenuItem key={item.id} value={item.id}>{item.apartment_name}</MenuItem>
+                        <MenuItem key={item.id} value={item}>{item.apartment_name}</MenuItem>
 
                       )
                       }
@@ -246,7 +246,7 @@ class Address extends EmailAccountRegistrationController {
               <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
                 Are you sure you want to register unit?
               </DialogTitle>
-              <p>Are you sure that you want to register {this.state.selectUnit} unit of {this.state.selectBuilding}</p>
+              <p>Are you sure that you want to register {this.state.selectUnit.apartment_name} unit of {this.state.selectBuilding.name}</p>
             </Box>
             <Box className="dialog-footer desktop-ui">
               <DialogActions className="customButton">

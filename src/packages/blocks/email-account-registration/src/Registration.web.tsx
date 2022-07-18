@@ -94,19 +94,19 @@ class Registration extends EmailAccountRegistrationController  {
                       <img src={user} />
                     </span>
                   </Box>
-                  <ErrorMessage className="text-error" component="Typography" name="full_name" />
+
                   {errors.full_name && touched.full_name ? (
                     <Typography
                       style={{
                         color: "#F14E24",
-                        fontFamily: "Poppins",
+
                         fontWeight: 300,
                         fontSize: 14,
                         marginTop: 5,
                         marginLeft: 10
                       }}
                     >
-                      {errors.full_name}
+                      <ErrorMessage className="text-error" component="Typography" name="full_name" />
                     </Typography>
                   ) : null}
                   {/* {this.state.error ? (
@@ -151,7 +151,7 @@ class Registration extends EmailAccountRegistrationController  {
                         marginLeft: 10
                       }}
                     >
-                      {errors.full_name}
+                      <ErrorMessage className="text-error" component="Typography" name="email" />
                     </Typography>
                   ) : null}
                   {/* {this.state.error ? (
@@ -205,7 +205,7 @@ class Registration extends EmailAccountRegistrationController  {
 
                         </Select>
                       </FormControl>
-                      <ErrorMessage className="text-error" component="Typography" name="email" />
+
                     </Box>
 
                     <Field
@@ -225,19 +225,18 @@ class Registration extends EmailAccountRegistrationController  {
                       }}
                     />
                   </Box>
-                  <ErrorMessage className="text-error" component="Typography" name="phone" />
-                  {errors.email && touched.email ? (
+
+                  {errors.phone && touched.phone ? (
                     <Typography
                       style={{
                         color: "#F14E24",
-                        fontFamily: "Poppins",
                         fontWeight: 300,
                         fontSize: 14,
                         marginTop: 5,
                         marginLeft: 10
                       }}
                     >
-                      {errors.email}
+                      <ErrorMessage className="text-error" component="Typography" name="phone" />
                     </Typography>
                   ) : null}
                   {/* {this.state.error ? (
@@ -307,19 +306,18 @@ class Registration extends EmailAccountRegistrationController  {
                       <img src={password} />
                     </span>
                   </Box>
-                  <ErrorMessage className="text-error" component="Typography" name="password" />
+
                   {errors.password && touched.password ? (
                     <Typography
                       style={{
                         color: "#F14E24",
-                        fontFamily: "Poppins",
                         fontWeight: 300,
                         fontSize: 14,
                         marginTop: 5,
                         marginLeft: 10
                       }}
                     >
-                      {errors.password}
+                      <ErrorMessage className="text-error" component="Typography" name="password" />
                     </Typography>
                   ) : null}
 
@@ -376,8 +374,8 @@ class Registration extends EmailAccountRegistrationController  {
                     )}
                       </span>
                   </Box>
-                  <ErrorMessage className="text-error" component="Typography" name="confirm_password" />
-                  {errors.password && touched.password ? (
+
+                  {errors.confirm_password && touched.confirm_password ? (
                     <Typography
                       style={{
                         color: "#F14E24",
@@ -387,7 +385,7 @@ class Registration extends EmailAccountRegistrationController  {
                         marginLeft: 10
                       }}
                     >
-                      {errors.password}
+                      <ErrorMessage className="text-error" component="Typography" name="confirm_password" />
                     </Typography>
                   ) : null}
 

@@ -244,7 +244,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             this.setState({ loading: false })
             //@ts-ignore
             //@ts-nocheck
-            this.props.history.push('/select-type')
+            this.props.history.push('/selecttype')
 
 
           } else if (responseJson?.errors) {
@@ -918,8 +918,8 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     const attrs = {
       country: this.state.selectCountry,
       city: this.state.selectCity,
-      building_management_id: this.state.selectBuilding,
-      apartment_management_id: this.state.selectUnit,
+      building_management_id: this.state.selectBuilding.id,
+      apartment_management_id: this.state.selectUnit.id,
       society_management_id:this.state.selectComplex
     };
 
@@ -1172,7 +1172,7 @@ this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e)
     this.getUnitApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_address/apartment_list?id=${this.state.selectBuilding}`
+      `bx_block_address/apartment_list?id=${this.state.selectBuilding.id}`
     );
 
     requestMessage.addData(
@@ -1281,7 +1281,7 @@ this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e)
   };
   handleInputChangeCOm = (newValue: any) => {
     console.log(newValue)
-    // localStorage.setItem('selectComplex', JSON.stringify(newValue))
+
     this.setState({ selectComplex: newValue.value }, () => this.getData({target:{name:'selectComplex'}}))
 
 
@@ -1356,7 +1356,7 @@ this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e)
     //@ts-ignore
     //@ts-nocheck
     this.setState({ loading: true })
-    this.changeUserTypeApiCallId = requestMessage.messageId;
+    this.verifyOtpApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
       `account_block/accounts/verify_user`
