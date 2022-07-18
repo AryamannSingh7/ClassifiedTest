@@ -1,7 +1,3 @@
-
-//@ts-ignore
-//@ts-nocheck
-
 import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
@@ -48,8 +44,8 @@ export interface S {
   selectUnit: string;
   selectCode: string;
   selectEmail: string;
-  unitRegisterType:string;
-  allComplex:[];
+  unitRegisterType: string;
+  allComplex: [];
   selectComplex: any;
   loading: boolean;
   otp: any;
@@ -75,15 +71,15 @@ export default class EmailAccountRegistrationController extends BlockComponent<
   passwordReg: RegExp;
   emailReg: RegExp;
   createAccountApiCallId: any;
-  createManagerAccountApiCallId:any;
-  createAccountOwnerApiCallId:any;
-  createRequestManaulApiCallId:any;
-  createRequestApiCallId:any;
- changeUserTypeApiCallId:any;
+  createManagerAccountApiCallId: any;
+  createAccountOwnerApiCallId: any;
+  createRequestManaulApiCallId: any;
+  createRequestApiCallId: any;
+  changeUserTypeApiCallId: any;
   getCountryApiCallId: any;
-  getComplexApiCallId:any;
+  getComplexApiCallId: any;
   getCityApiCallId: any;
-  verifyOtpApiCallId:any;
+  verifyOtpApiCallId: any;
   getBuildingApiCallId: any;
   getUnitApiCallId: any;
 
@@ -137,7 +133,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
       enableReTypePasswordField: true,
       countryCodeSelected: "",
       phone: "",
-      userType:'',
+      userType: '',
       allContries: [],
       selectCountry: '',
       allCity: [],
@@ -146,14 +142,14 @@ export default class EmailAccountRegistrationController extends BlockComponent<
       selectBuilding: '',
       allUnit: [],
       selectUnit: '',
-      selectCode:'',
-      selectEmail:'',
-      unitRegisterType:'',
-      allComplex:[],
-      selectComplex:null,
+      selectCode: '',
+      selectEmail: '',
+      unitRegisterType: '',
+      allComplex: [],
+      selectComplex: null,
       //@ts-ignore
       //@ts-nocheck
-      loading:false,
+      loading: false,
       otp: '',
       // Customizable Area End
     };
@@ -229,7 +225,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             this.setState({ loading: false })
             //@ts-ignore
             //@ts-nocheck
-            this,props.history.push('/otp')
+            this, props.history.push('/otp')
 
 
           } else if (responseJson?.errors) {
@@ -249,11 +245,11 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             this.setState({ loading: false })
             //@ts-ignore
             //@ts-nocheck
-            if (this.props.history.location.state?.data){
+            if (this.props.history.location.state?.data) {
               //@ts-ignore
               //@ts-nocheck
               this.props.history.push('/registerunit')
-            }else{
+            } else {
               //@ts-ignore
               //@ts-nocheck
               this.props.history.push('/selecttype')
@@ -323,7 +319,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             // localStorage.setItem('res_user', responseJson.data.attributes)
             // localStorage.setItem('res_user_id', responseJson.data.id)
             // this.props.history.push('/selecttype')
-               //@ts-ignore
+            //@ts-ignore
             //@ts-nocheck
 
             this.props.history.push('/RegistrationRequestsignup')
@@ -361,7 +357,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
           if (!responseJson.errors) {
             //@ts-ignore
             //@ts-nocheck
-            this.setState({loading:false})
+            this.setState({ loading: false })
             // localStorage.setItem('res_token', responseJson.meta.token)
             // localStorage.setItem('res_user', responseJson.data.attributes)
             // localStorage.setItem('res_user_id', responseJson.data.id)
@@ -391,12 +387,12 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             console.log(responseJson)
             //@ts-ignore
             //@ts-nocheck
-            let temp=[]
-            responseJson.data.housing_complexes.map((item:any)=>
+            let temp = []
+            responseJson.data.housing_complexes.map((item: any) =>
               temp.push({ value: item.id, label: item.name })
-              )
-              // @ts-ignore
-            this.setState({ allComplex: temp },()=>console.log(this.state.allComplex))
+            )
+            // @ts-ignore
+            this.setState({ allComplex: temp }, () => console.log(this.state.allComplex))
           } else {
             //Check Error Response
             this.parseApiErrorResponse(responseJson);
@@ -430,7 +426,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             //@ts-ignore
             //@ts-nocheck
 
-            this.setState({ allUnit: [...temp] },()=>console.log(this.state.allUnit))
+            this.setState({ allUnit: [...temp] }, () => console.log(this.state.allUnit))
           } else {
             //Check Error Response
             this.parseApiErrorResponse(responseJson);
@@ -765,7 +761,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     };
     //@ts-ignore
     //@ts-nocheck
-    this.setState({ selectEmail: attributes.email,loading:true })
+    this.setState({ selectEmail: attributes.email, loading: true })
 
     const attrs = {
       full_name: attributes.full_name,
@@ -874,7 +870,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
 
   }
 
-  createAccountManager = (attributes: any)=>{
+  createAccountManager = (attributes: any) => {
     const header = {
       "Content-Type": configJSON.contentTypeApiAddDetail
     };
@@ -934,7 +930,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
 
   }
 
-  createRequest=(attributes: any): boolean=> {
+  createRequest = (attributes: any): boolean => {
 
     const header = {
       "Content-Type": configJSON.contentTypeApiAddDetail,
@@ -946,7 +942,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
       city: this.state.selectCity,
       building_management_id: this.state.selectBuilding.id,
       apartment_management_id: this.state.selectUnit.id,
-      society_management_id:this.state.selectComplex
+      society_management_id: this.state.selectComplex
     };
 
     const data = {
@@ -988,10 +984,10 @@ export default class EmailAccountRegistrationController extends BlockComponent<
 
 
   }
-  updateTypeOwner=()=>{
-    if (this.state.userType){
+  updateTypeOwner = () => {
+    if (this.state.userType) {
 
-      if (this.state.userType === 'Owner'){
+      if (this.state.userType === 'Owner') {
         //@ts-ignore
         //@ts-nocheck
 
@@ -1002,7 +998,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
           },
         })
 
-      }else{
+      } else {
         //@ts-ignore
         //@ts-nocheck
 
@@ -1016,7 +1012,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
       }
     }
   }
-  updateType=(): boolean=> {
+  updateType = (): boolean => {
 
     const header = {
       "Content-Type": configJSON.contentTypeApiAddDetail
@@ -1028,7 +1024,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     console.log(requestMessage.messageId)
     //@ts-ignore
     //@ts-nocheck
-    this.setState({loading:true})
+    this.setState({ loading: true })
     this.changeUserTypeApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
@@ -1063,7 +1059,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     this.setState({ unitRegisterType: value })
 
   }
-  handleChange= (e: any) => {
+  handleChange = (e: any) => {
     console.log(e)
     console.log(e.target.name)
     console.log(e.target.value)
@@ -1071,15 +1067,15 @@ export default class EmailAccountRegistrationController extends BlockComponent<
 
     // @ts-ignore
     // @ts-nocheck
-this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e))
+    this.setState({ ...this.state, [e.target.name]: e.target.value }, () => this.getData(e))
   }
   //@ts-ignore
   //@ts-nocheck
 
-  getData(e){
+  getData(e) {
     console.log(this.state)
 
-    if (e.target.name == 'selectCountry'){
+    if (e.target.name == 'selectCountry') {
       this.getCity()
 
     } else if (e.target.name == 'selectCity') {
@@ -1095,7 +1091,7 @@ this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e)
 
   }
 
-  getCountry(){
+  getCountry() {
 
     const header = {
       "Content-Type": configJSON.contentTypeApiAddDetail,
@@ -1226,15 +1222,14 @@ this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e)
     runEngine.sendMessage(requestMessage.id, requestMessage);
     return true;
   }
-  registerUnit=()=>{
-    if(this.state.unitRegisterType){
-      if (this.state.unitRegisterType == 'Manual')
-      {
+  registerUnit = () => {
+    if (this.state.unitRegisterType) {
+      if (this.state.unitRegisterType == 'Manual') {
         //@ts-ignore
         //@ts-nocheck
 
         this.props.history.push('/registerunitmanually')
-      }else{
+      } else {
         //@ts-ignore
         //@ts-nocheck
 
@@ -1318,18 +1313,18 @@ this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e)
   handleInputChangeCOm = (newValue: any) => {
     console.log(newValue)
 
-    this.setState({ selectComplex: newValue.value }, () => this.getData({target:{name:'selectComplex'}}))
+    this.setState({ selectComplex: newValue.value }, () => this.getData({ target: { name: 'selectComplex' } }))
 
 
 
   };
-  createRequestManual=(attributes:any)=>{
+  createRequestManual = (attributes: any) => {
 
     const header = {
       "Content-Type": configJSON.contentTypeApiAddDetail,
       "token": localStorage.getItem('res_token')
     };
-console.log(this.state)
+    console.log(this.state)
     const attrs = {
       building_management_id: this.state.selectBuilding.id,
       apartment_management_id: this.state.selectUnit.id,
@@ -1382,7 +1377,7 @@ console.log(this.state)
     };
     const httpBody = {
       otp: this.state?.otp || "111111",
-      email:localStorage.getItem('user_email')
+      email: localStorage.getItem('user_email')
     };
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
