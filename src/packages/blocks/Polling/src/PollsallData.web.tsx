@@ -79,7 +79,7 @@ export default class PollsallData extends PollingController {
                             </Link>
                         </Grid> 
 
-                        {
+                        {this.state.allPollsData.length ? 
                             this.state.allPollsData.map((data:any) => {
                                 return(
                                     <>
@@ -118,6 +118,9 @@ export default class PollsallData extends PollingController {
                                     </>
                                 )
                             })
+
+                            : 
+                            null
                         }
 
                         <Grid item sm={4} md={4} xs={4}>

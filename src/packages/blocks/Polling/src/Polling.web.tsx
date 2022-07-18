@@ -124,11 +124,13 @@ class Polling extends PollingController {
                             <Box sx={{ml:1, mb:2}} className="CardsIcons"><PersonOutlineIcon/></Box>
                             <Typography className="subHeading">Polls Created</Typography>
                             <Box className="bottomTwoSpan">
-                                <Typography variant="body2" className="bottomColor">{this.state.totalPollsCount.polls_count}</Typography>  
+                                <Typography variant="body2" className="bottomColor">
+                                    {this.state.totalPollsCount.polls_count ? this.state.totalPollsCount.polls_count : ''}
+                                </Typography>  
                             </Box> 
                             <Box className="bottomTwoSpan">
                                 <Typography variant="body2">
-                                    Last poll created on {this.state.totalPollsCount.last_poll_created_at}
+                                    Last poll created on {this.state.totalPollsCount.last_poll_created_at ? this.state.totalPollsCount.last_poll_created_at : ''}
                                 </Typography> 
                             </Box> 
                         </Box>
@@ -159,7 +161,8 @@ class Polling extends PollingController {
                 <Grid container spacing={4} style={{marginTop: 15, marginBottom:30}}>
 
                     {
-                        this.state.recentPolls.length && this.state.recentPolls.map((data:any) => {
+                        this.state.recentPolls.length ?
+                         this.state.recentPolls.map((data:any) => {
                             return(
                                 <>
                                 <Grid item sm={4} md={4} xs={4} key={data.id}>
@@ -197,6 +200,9 @@ class Polling extends PollingController {
                                 </>
                             )
                         })
+
+                        : 
+                        null
                     }
 
                 </Grid>

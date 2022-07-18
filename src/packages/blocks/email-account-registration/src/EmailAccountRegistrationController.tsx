@@ -5,8 +5,8 @@ import { runEngine } from "../../../framework/src/RunEngine";
 import MessageEnum, {
   getName
 } from "../../../framework/src/Messages/MessageEnum";
-
 // Customizable Area Start
+
 import { imgPasswordInVisible, imgPasswordVisible } from "./assets";
 // Customizable Area End
 
@@ -47,6 +47,7 @@ export interface S {
   allComplex:[];
   selectComplex: any;
   loading: boolean;
+  otp: any;
 
 
 
@@ -77,6 +78,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
   getCountryApiCallId: any;
   getComplexApiCallId:any;
   getCityApiCallId: any;
+  verifyOtpApiCallId:any;
   getBuildingApiCallId: any;
   getUnitApiCallId: any;
 
@@ -147,6 +149,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
       //@ts-ignore
       //@ts-nocheck
       loading:false,
+      otp: '',
       // Customizable Area End
     };
 
@@ -213,22 +216,46 @@ export default class EmailAccountRegistrationController extends BlockComponent<
           if (!responseJson.errors) {
             console.log(responseJson)
             localStorage.setItem('res_token', responseJson.meta.token)
-            localStorage.setItem('res_user', responseJson.data.attributes)
+            localStorage.setItem('res_user', JSON.stringify(responseJson.data.attributes))
             localStorage.setItem('res_user_id', responseJson.data.id)
+            localStorage.setItem('user_email', responseJson.data.attributes.email)
             //@ts-ignore
             //@ts-nocheck
-            this.setState({loading:false})
+            this.setState({ loading: false })
             //@ts-ignore
             //@ts-nocheck
             this.props.history.push('/otp')
 
 
+          } else if (responseJson?.errors) {
+            let error = Object.values(responseJson.errors[0])[0] as string;
+            this.setState({ error });
           } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
           }
+          this.setState({ loading: false })
 
-          this.parseApiCatchErrorResponse(errorReponse);
+          this.parseApiCatchErrorResponse(this.state.error);
+        } else if (apiRequestCallId === this.verifyOtpApiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            //@ts-ignore
+            //@ts-nocheck
+            this.setState({ loading: false })
+            //@ts-ignore
+            //@ts-nocheck
+            this.props.history.push('/select-type')
+
+
+          } else if (responseJson?.errors) {
+            let error = Object.values(responseJson.errors[0])[0] as string;
+            this.setState({ error });
+          } else {
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
+          }
+          this.setState({ loading: false })
+
+          this.parseApiCatchErrorResponse(this.state.error);
         } else if (apiRequestCallId === this.createManagerAccountApiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
@@ -249,10 +276,11 @@ export default class EmailAccountRegistrationController extends BlockComponent<
           this.parseApiCatchErrorResponse(errorReponse);
         } else if (apiRequestCallId === this.createAccountOwnerApiCallId) {
           if (!responseJson.errors) {
-            console.log(responseJson)
+            console.log(responseJson.data.attributes.email)
             localStorage.setItem('res_token', responseJson.meta.token)
-            localStorage.setItem('res_user', responseJson.data.attributes)
+            localStorage.setItem('res_user', JSON.stringify(responseJson.data.attributes))
             localStorage.setItem('res_user_id', responseJson.data.id)
+            localStorage.setItem('user_email', responseJson.data.attributes.email)
             //@ts-ignore
             //@ts-nocheck
 
@@ -276,6 +304,9 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             //@ts-nocheck
 
             this.props.history.push('/RegistrationRequestsignup')
+            //@ts-ignore
+            //@ts-nocheck
+            this.setState({ showDialog: false })
 
 
           } else {
@@ -291,7 +322,10 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             // localStorage.setItem('res_user', responseJson.data.attributes)
             // localStorage.setItem('res_user_id', responseJson.data.id)
             // this.props.history.push('/selecttype')
-            alert('request has been created')
+            //@ts-ignore
+            //@ts-nocheck
+
+            this.props.history.push('/RegistrationRequestsignup')
 
 
           } else {
@@ -335,11 +369,11 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             //@ts-ignore
             //@ts-nocheck
             let temp=[]
-            responseJson.data.societies.map((item:any)=>
+            responseJson.data.housing_complexes.map((item:any)=>
               temp.push({ value: item.id, label: item.name })
               )
               // @ts-ignore
-            this.setState({ allComplex: temp })
+            this.setState({ allComplex: temp },()=>console.log(this.state.allComplex))
           } else {
             //Check Error Response
             this.parseApiErrorResponse(responseJson);
@@ -820,6 +854,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     };
     this.setState({ selectEmail: attributes.email })
 
+
     const attrs = {
 
       email: attributes.email,
@@ -883,8 +918,9 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     const attrs = {
       country: this.state.selectCountry,
       city: this.state.selectCity,
-      building_name: this.state.selectBuilding,
-      apartment_name: this.state.selectUnit,
+      building_management_id: this.state.selectBuilding,
+      apartment_management_id: this.state.selectUnit,
+      society_management_id:this.state.selectComplex
     };
 
     const data = {
@@ -992,6 +1028,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
 
   }
   handleChange= (e: any) => {
+    console.log(e)
     console.log(e.target.name)
     console.log(e.target.value)
 
@@ -1010,6 +1047,9 @@ this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e)
       this.getCity()
 
     } else if (e.target.name == 'selectCity') {
+      this.getComplexbyCity()
+
+    } else if (e.target.name == 'selectComplex') {
       this.getBuilding()
 
     } else if (e.target.name == 'selectBuilding') {
@@ -1099,7 +1139,7 @@ this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e)
     this.getBuildingApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_address/building_list?city=${this.state.selectCity}`
+      `bx_block_address/building_list?society_management_id=${this.state.selectComplex}`
     );
 
     requestMessage.addData(
@@ -1200,9 +1240,49 @@ this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e)
     runEngine.sendMessage(requestMessage.id, requestMessage);
     return true;
   }
+  getComplexbyCity() {
+
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      "token": localStorage.getItem('res_token')
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+
+    this.getComplexApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_address/housing_complex_list?city=${this.state.selectCity}`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.validationApiMethodType
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  }
   handleInputChange = (newValue: string) => {
     // localStorage.setItem('selectComplex', JSON.stringify(newValue))
     this.setState({ selectComplex: newValue })
+
+
+
+  };
+  handleInputChangeCOm = (newValue: any) => {
+    console.log(newValue)
+    // localStorage.setItem('selectComplex', JSON.stringify(newValue))
+    this.setState({ selectComplex: newValue.value }, () => this.getData({target:{name:'selectComplex'}}))
 
 
 
@@ -1256,6 +1336,73 @@ this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e)
     runEngine.sendMessage(requestMessage.id, requestMessage);
     return true;
 
+  }
+  handleChangeOTP = (otp: any) => this.setState({ otp });
+
+  verifyOtp = (): boolean => {
+
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail
+    };
+    const httpBody = {
+      otp: this.state?.otp || "111111",
+      email:localStorage.getItem('user_email')
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+    console.log(this.changeUserTypeApiCallId)
+    console.log(requestMessage.messageId)
+    //@ts-ignore
+    //@ts-nocheck
+    this.setState({ loading: true })
+    this.changeUserTypeApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `account_block/accounts/verify_user`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestBodyMessage),
+      JSON.stringify(httpBody)
+    );
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      'POST'
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+
+
+
+  }
+
+  addressSchema() {
+    const validations = Yup.object().shape({
+
+      selectCountry: Yup.string().required(`This field is required`).trim(),
+      selectCity: Yup.string().required(`This field is required`).trim(),
+      selectBuilding: Yup.string().required(`This field is required`).trim(),
+      selectComplex: Yup.string().required(`This field is required`).trim(),
+      selectUnit: Yup.string().required(`This field is required`).trim(),
+
+    });
+    return validations
+  }
+  EmailSchema() {
+    const validations = Yup.object().shape({
+      email: Yup.string()
+        .trim()
+        .required("This field is required.")
+    });
+    return validations
   }
   // Customizable Area End
 }

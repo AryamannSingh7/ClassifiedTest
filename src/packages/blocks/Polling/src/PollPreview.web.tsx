@@ -27,11 +27,12 @@ import PollingController, {
   Props,
   configJSON,
 } from "./PollingController";
+import { withRouter } from "react-router-dom";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 
 
-export default class PollPreview extends PollingController {
+class PollPreview extends PollingController {
   constructor(props: Props) {
     super(props);
     
@@ -42,6 +43,10 @@ export default class PollPreview extends PollingController {
     this.setState({PreViewPollData:PreviewPollData},
         () => console.log("PreViewPollData ====>>>>>",  this.state.PreViewPollData)
     )
+    
+    // var htmlString = this.state.PreViewPollData?.PollFormData?.description
+    // var plainString = htmlString.replace(/<[^>]+>/g, '')
+    //     console.log("plainString*******", plainString)
   }
 
   render() {
@@ -143,9 +148,9 @@ export default class PollPreview extends PollingController {
                         <Link href="/CreatePolls">
                             <Button variant="contained" color="primary">EDIT</Button>
                         </Link>
-                        <Button type="submit" variant="outlined" color="primary" 
-                        onClick={ (event) => {
-                            this.handlePollDataSubmit(event)
+                        <Button variant="outlined" color="primary" 
+                        onClick={async (event) => {
+                            await this.handlePollDataSubmit(event)
                             this.props.history.push("/CreatePolls")
                         }}
                         >PUBLISH</Button>
@@ -159,7 +164,7 @@ export default class PollPreview extends PollingController {
   }
 }
 
-
+export default withRouter(PollPreview)
 
 const dashBoard = {
     SideBar: {

@@ -7,12 +7,9 @@ import MessageEnum, {
 import { runEngine } from "../../../framework/src/RunEngine";
 
 // Customizable Area Start
-import { imgPasswordInVisible, imgPasswordVisible } from "./assets";
-
-import { boolean, date } from "yup";
 import {Editor, EditorState} from 'draft-js';
-
-
+import { addDays } from 'date-fns'
+import Parser from 'html-react-parser';
 // Customizable Area End
 export const configJSON = require("./config");
 
@@ -37,6 +34,7 @@ interface S {
   Initialoptions:any,
   options: any,
   allPollsData: any,
+  dateSelection:any,
   totalPollsCount: any,
   recentPolls: any,
   selectQuestion: any,
@@ -47,6 +45,7 @@ interface S {
   index: any;
   value: any;
   TabValue:any;
+  textEditorVal:any;
   // Customizable Area End
 }
 
@@ -106,6 +105,13 @@ export default class PollingController extends BlockComponent<
         {text: "",_destroy: "false"},
         {text: "",_destroy: "false"}
       ],
+      dateSelection: [
+        {
+          startDate: new Date(),
+          endDate: new Date(),
+          key: 'selection'
+        }
+      ],
       allPollsData: [],
       totalPollsCount: [],
       recentPolls: [],
@@ -117,6 +123,7 @@ export default class PollingController extends BlockComponent<
       index: '',
       value: '',
       TabValue:0,
+      textEditorVal: ''
       // Customizable Area End
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -178,8 +185,12 @@ export default class PollingController extends BlockComponent<
 
     //==============================================
 
+    onChangeTextEditor = (value:any) => {
+      this.setState({textEditorVal:value})
+      this.state.PollData.description = this.state.textEditorVal
+    };
+
     handleTabChange = (event:any, newValue: number) => {
-      console.log("set value++++",newValue)
       this.setState({TabValue:newValue});
     };
     
@@ -190,7 +201,7 @@ export default class PollingController extends BlockComponent<
   
 
     handlePollDataChange = (event:any) => {
-      this.setState({ PollData: {...this.state.PollData, [event.target.name] : event.target.value}})
+      this.setState({ PollData: {...this.state.PollData, [event.target.name] : event.target.value}}) 
     }
 
     handlePollDataSubmit = (event:any) => {
@@ -248,7 +259,12 @@ export default class PollingController extends BlockComponent<
     }
 
     handlePriviewData = () => {
-       localStorage.setItem('Polls_Data', JSON.stringify({"PollFormData":this.state.PollData,"PollType":this.state.checked ,"PollOptions":this.state.options}))
+       localStorage.setItem('Polls_Data', JSON.stringify({
+       "PollFormData":this.state.PollData,
+       "PollType":this.state.checked ,
+       "PollOptions":this.state.options, 
+       "PollDescription":this.state.textEditorVal
+      }))
     }
 
     handleOptionsChange = (index:any, event:any) => {
@@ -282,8 +298,10 @@ export default class PollingController extends BlockComponent<
   apiCall = async (data: any) => {
     const { contentType, method, endPoint, body } = data;
     // console.log("Called 1",data);
+
+    const token = localStorage.getItem('userToken') ;
     
-    const token = `eyJhbGciOiJIUzUxMiJ9.eyJpZCI6MjMsImV4cCI6MTY1Nzk0MzExOCwidG9rZW5fdHlwZSI6ImxvZ2luIn0.Hnsean_2N6TraWiM7v_bM-7-aTEGA3dabCGD-IeQ1XSCu1tJxtaMfy54LJvD66fSI_ORdrLGmE5uy47Mz0A1ew`;
+    // const token = `eyJhbGciOiJIUzUxMiJ9.eyJpZCI6MjMsImV4cCI6MTY1ODE5OTI1NiwidG9rZW5fdHlwZSI6ImxvZ2luIn0.Gy8vGALd2bnW16xNt95zqusPOAzhSDfhw1w-f1Z7Vu2lvACKcHTmsj5SD0VqthWAOcqDgHuCvpiQrqmgOelSfA`;
     const header = {
       "Content-Type": contentType,
       token
