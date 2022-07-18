@@ -43,6 +43,10 @@ interface S {
   PreViewPollData:any,
   loading: boolean;
   showDialog:boolean;
+  children?: any;
+  index: any;
+  value: any;
+  TabValue:any;
   // Customizable Area End
 }
 
@@ -109,6 +113,10 @@ export default class PollingController extends BlockComponent<
       PreViewPollData: [],
       loading: false,
       showDialog:false,
+      children: '',
+      index: '',
+      value: '',
+      TabValue:0,
       // Customizable Area End
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -169,6 +177,12 @@ export default class PollingController extends BlockComponent<
     }
 
     //==============================================
+
+    handleTabChange = (event:any, newValue: number) => {
+      console.log("set value++++",newValue)
+      this.setState({TabValue:newValue});
+    };
+    
 
     handleQuestionSelect = (event:any) => {
       this.setState({selectQuestion: event.target.value})
@@ -269,7 +283,7 @@ export default class PollingController extends BlockComponent<
     const { contentType, method, endPoint, body } = data;
     // console.log("Called 1",data);
     
-    const token = `eyJhbGciOiJIUzUxMiJ9.eyJpZCI6MzgsImV4cCI6MTY1NzgwNDI0MiwidG9rZW5fdHlwZSI6ImxvZ2luIn0.CfMuBPIP9DmpgB60KkW7PcbqwDe2SqgYsE-qzTnAD9iR2xotl7_beWz_y0OP9mYE55JYzhHwjOXRNdQcX_OadA`;
+    const token = `eyJhbGciOiJIUzUxMiJ9.eyJpZCI6MjMsImV4cCI6MTY1Nzk0MzExOCwidG9rZW5fdHlwZSI6ImxvZ2luIn0.Hnsean_2N6TraWiM7v_bM-7-aTEGA3dabCGD-IeQ1XSCu1tJxtaMfy54LJvD66fSI_ORdrLGmE5uy47Mz0A1ew`;
     const header = {
       "Content-Type": contentType,
       token

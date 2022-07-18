@@ -183,7 +183,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             localStorage.setItem("userToken", responseJson?.meta?.token)
             localStorage.setItem("userId", responseJson?.meta?.id)
             localStorage.setItem("userType", responseJson?.meta?.roles[0].name)
-            this.props.history.push("//Dashboard")
+            this.props.history.push("/Dashboard")
            //window.location.replace("/RegistrationRequest");
            this.setState({loading: false})
           } else if (responseJson?.errors) {
@@ -477,7 +477,7 @@ clear= () => {
     const httpBody = {
       data: data
     };
-
+    localStorage.setItem("selectUserType",values.userType)
     this.setState({loading: true}) 
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)

@@ -144,6 +144,8 @@ export default class EmailAccountRegistrationController extends BlockComponent<
       unitRegisterType:'',
       allComplex:[],
       selectComplex:null,
+      //@ts-ignore
+      //@ts-nocheck
       loading:false,
       // Customizable Area End
     };
@@ -213,8 +215,10 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             localStorage.setItem('res_token', responseJson.meta.token)
             localStorage.setItem('res_user', responseJson.data.attributes)
             localStorage.setItem('res_user_id', responseJson.data.id)
+            //@ts-ignore
+            //@ts-nocheck
             this.setState({loading:false})
-             //@ts-ignore
+            //@ts-ignore
             //@ts-nocheck
             this.props.history.push('/otp')
 
@@ -307,11 +311,13 @@ export default class EmailAccountRegistrationController extends BlockComponent<
           this.parseApiCatchErrorResponse(errorReponse);
         } else if (apiRequestCallId === this.changeUserTypeApiCallId) {
           if (!responseJson.errors) {
+            //@ts-ignore
+            //@ts-nocheck
             this.setState({loading:false})
             // localStorage.setItem('res_token', responseJson.meta.token)
             // localStorage.setItem('res_user', responseJson.data.attributes)
             // localStorage.setItem('res_user_id', responseJson.data.id)
-             //@ts-ignore
+            //@ts-ignore
             //@ts-nocheck
             this.props.history.push('/addressfill')
 
@@ -335,7 +341,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
         } else if (apiRequestCallId === this.getComplexApiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
-             //@ts-ignore
+            //@ts-ignore
             //@ts-nocheck
             let temp=[]
             responseJson.data.societies.map((item:any)=>
@@ -709,6 +715,8 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     const header = {
       "Content-Type": configJSON.contentTypeApiAddDetail
     };
+    //@ts-ignore
+    //@ts-nocheck
     this.setState({ selectEmail: attributes.email,loading:true })
 
     const attrs = {
@@ -955,7 +963,9 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     );
     console.log(this.changeUserTypeApiCallId)
     console.log(requestMessage.messageId)
-this.setState({loading:true})
+    //@ts-ignore
+    //@ts-nocheck
+    this.setState({loading:true})
     this.changeUserTypeApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
