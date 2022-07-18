@@ -14,6 +14,7 @@ import EmailAccountRegistrationController, { Props } from "./EmailAccountRegistr
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import { CheckBox, Visibility, VisibilityOff } from "@material-ui/icons";
 import { withRouter } from 'react-router';
+import OtpInput from 'react-otp-input';
 
 
 
@@ -59,15 +60,25 @@ class VerofyOTP extends EmailAccountRegistrationController {
 
         <Grid container style={{ margin: '1rem', width: '90%' }}>
           <Grid xs={12} style={{display:'flex'}} justifyContent="center">
-            <div className="otp-input-wrapper">
-              <input type="text" max="4" pattern="[0-9]*" />
-                <svg viewBox="0 0 240 1" xmlns="http://www.w3.org/2000/svg">
-                  <line x1="0" y1="0" x2="240" y2="0" stroke="#3e3e3e" stroke-width="2" stroke-dasharray="44,22" />
-                </svg>
-            </div>
+            <Box className="commonForm">
+              <Box className="formGroup otpBlock">
+                <OtpInput className="formOutlineInput"
+                  value={"111111"}
+                  onChange={this.handleChangeOTP}
+                  numInputs={6}
+                // separator={<span>-</span>}
+                />
+              </Box>
+              <Box className="customButton row-btn" style={{ margin: '1rem', width: '90%', position: 'absolute', bottom: 0,left:0 }} >
+                <Button variant="contained" onClick={() => this.verifyOtp()}>SEND</Button>
+              </Box>
+              <Box className="passwordRow">
+                {/* <Link href="#" className="link"> <span>RESEND OTP</span></Link> */}
+              </Box>
+            </Box>
           </Grid>
         </Grid>
-        <Grid container style={{ margin: '1rem', width: '90%', position: 'absolute', bottom: 0 }}>
+        {/* <Grid container style={{ margin: '1rem', width: '90%', position: 'absolute', bottom: 0 }}>
   <Grid xs={12}>
             <Button
               onClick={() => this.props.history.push('/selecttype')}
@@ -104,7 +115,7 @@ class VerofyOTP extends EmailAccountRegistrationController {
                   textAlign: "center"
                 }}
               >
-                {/* Resend OTP in 0:30 Seconds */}
+                Resend OTP in 0:30 Seconds
               </Typography>
               <Typography
                 style={{
@@ -115,12 +126,12 @@ class VerofyOTP extends EmailAccountRegistrationController {
                   textTransform: "uppercase"
                 }}
               >
-                {/* Resend */}
+                Resend
               </Typography>
             </Box>
 
   </Grid>
-</Grid>
+</Grid> */}
       </>
 
     )

@@ -31,6 +31,7 @@ export default class RestApiClientBlock<Entity> extends Block {
     console.log('API Rquest Message' + JSON.stringify(message));
     if (getName(MessageEnum.RestAPIRequestMessage) === message.id) {
       const uniqueApiCallId = message.messageId;
+      console.log(method,endpoint,headers,body,props)
       const {
         RestAPIRequestMethodMessage: method,
         RestAPIResponceEndPointMessage: endpoint,

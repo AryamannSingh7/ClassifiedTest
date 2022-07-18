@@ -4,7 +4,7 @@
 import * as React from "react";
 // custom components
 import {
-  Button, Grid, Box, Typography, Link, IconButton
+  Button, Grid, Box, Typography, Link, IconButton, Dialog, DialogTitle, DialogActions
 } from "@material-ui/core";
 import "../assets/css/style.scss";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
@@ -83,7 +83,20 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                 {selectComplex? selectComplex.label: 'Search Complex'}
       </span>
     </Button> */}
-            <Select options={this.state.allComplex} onChange={this.handleInputChange} />
+            <Box className="commonForm">
+              <Box className="formGroup">
+                <Box
+                  className="formInputGrp"
+                >
+
+                  <Select options={this.state.allComplex} className="formInput" style={{border:'none'}}  placeholder="Search Complex" onChange={this.handleInputChange} />
+
+                  <span className="frmLeftIcons" style={{top:'1.5rem'}}>
+                    <img src={search} />
+                  </span>
+                </Box>
+      </Box>
+    </Box>
 
 
   </Grid>
@@ -101,7 +114,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
 
 
             }}
-              onSubmit={(values) => { this.createRequestManual(values) }}
+              onSubmit={(values) => { this.setState({ showDialog: true,values:values })}}
             >
               {({ values,
                 errors,
@@ -261,7 +274,38 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
             </Formik>
           </Grid>
         </Grid>
-
+        <Dialog
+          open={this.state.showDialog}
+          onClose={() => this.setState({ showDialog: false })}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+          className="diloag-wrapper"
+          PaperProps={{
+            style: {
+              borderRadius: '15px',
+            },
+          }}
+        >
+          <Box className="diloag-body">
+            <Box className="diloag-header">
+              <img src={building} className="tenet-logo" alt="" />
+              <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
+                Are you sure you want to register unit?
+              </DialogTitle>
+              <p>Are you sure that you want to delete the regestration request for the unit ({this.state.selectUnit}) of {this.state.selectBuilding}.</p>
+            </Box>
+            <Box className="dialog-footer desktop-ui">
+              <DialogActions className="customButton">
+                <Button variant="contained" onClick={() => this.createRequestManual(this.state.values)} >
+                  Yes Register
+                </Button>
+                <Button onClick={() => this.setState({ showDialog: false })} variant='text'>
+                  No, Don’t Regsiter
+                </Button>
+              </DialogActions>
+            </Box>
+          </Box>
+        </Dialog>
       </>
 
     )

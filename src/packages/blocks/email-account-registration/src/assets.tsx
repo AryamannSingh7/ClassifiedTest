@@ -6,7 +6,7 @@ export const password = require("../assets/password.svg");
 export const company_logo = require("../assets/company_logo.svg");
 export const owner = require("../assets/Group 7.png");
 export const resident_owner = require("../assets/Group 8.png");
-export const tenet = require("../assets/002-home copy 3.png");
+export const tenet = require("../assets/tenant.png");
 export const country = require("../assets/country.png");
 export const city = require("../assets/city.png");
 export const building = require("../assets/building.png");
@@ -17,6 +17,7 @@ export const search = require("../assets/search.png");
 export const modalbuilding = require("../assets/modal-building.png");
 export const manager = require("../assets/manager.png");
 export const request = require("../assets/request.png");
+
 
 
 
