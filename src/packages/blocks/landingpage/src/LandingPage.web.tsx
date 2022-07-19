@@ -23,6 +23,18 @@ class LandingPage extends React.Component {
   constructor(props: Props) {
     super(props);
   }
+  changeRoute(){
+    console.log(window.location.href)
+
+    if (window.location.href.includes('owner'))
+    {
+      this.props.history.push('/selectowner');
+
+    }else{
+      this.props.history.push('/register');
+    }
+
+  }
   render() {
     return (
       <>
@@ -39,7 +51,7 @@ class LandingPage extends React.Component {
                 onClick={() => { this.props.history.push('/EmailAccountLogin'); }}>
                 login</Button>
               <div className="mb"></div>
-              <Button variant="contained" onClick={() => { this.props.history.push('/register'); }}>register</Button>
+              <Button variant="contained" onClick={() => { this.changeRoute()  }}>register</Button>
             </Box>
           </Box>
         </Box>
