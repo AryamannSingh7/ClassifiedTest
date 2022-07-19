@@ -38,13 +38,13 @@ export interface S {
   error: string | null;
   userType: string | null;
   allContries: [];
-  selectCountry: any;
+  selectCountry: string;
   allCity: [];
-  selectCity: any;
+  selectCity: string;
   allBuilding: [];
-  selectBuilding: any;
+  selectBuilding: string;
   allUnit: [];
-  selectUnit: any;
+  selectUnit: string;
   selectCode: string;
   selectEmail: string;
   unitRegisterType: string;
@@ -225,21 +225,22 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             localStorage.setItem('user_email', responseJson.data.attributes.email)
             //@ts-ignore
             //@ts-nocheck
-            this.setState({ loading: false })
+            this.setState({ loading: false, error: null })
+
             //@ts-ignore
             //@ts-nocheck
-            this, props.history.push('/otp')
+            this.props.history.push('/otp')
 
 
           } else if (responseJson?.errors) {
-            let error = Object.values(responseJson.errors[0])[0] as string;
+            let error = responseJson.errors[0];
             this.setState({ error });
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
           }
+          this.parseApiCatchErrorResponse(this.state.error);
           this.setState({ loading: false })
 
-          this.parseApiCatchErrorResponse(this.state.error);
         } else if (apiRequestCallId === this.verifyOtpApiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
@@ -267,10 +268,10 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             this.setState({ error });
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
+            this.parseApiCatchErrorResponse(this.state.error);
           }
           this.setState({ loading: false })
 
-          this.parseApiCatchErrorResponse(this.state.error);
         } else if (apiRequestCallId === this.createManagerAccountApiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
@@ -943,7 +944,11 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     const attrs = {
       country: this.state.selectCountry,
       city: this.state.selectCity,
+      //@ts-ignore
+      //@ts-nocheck
       building_management_id: this.state.selectBuilding.id,
+      //@ts-ignore
+      //@ts-nocheck
       apartment_management_id: this.state.selectUnit.id,
       society_management_id: this.state.selectComplex
     };
@@ -1207,6 +1212,8 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     this.getUnitApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
+      //@ts-ignore
+      //@ts-nocheck
       `bx_block_address/apartment_list?id=${this.state.selectBuilding.id}`
     );
 
@@ -1328,8 +1335,11 @@ export default class EmailAccountRegistrationController extends BlockComponent<
       "token": localStorage.getItem('res_token')
     };
     console.log(this.state)
-    const attrs = {
+    const attrs = {//@ts-ignore
+      //@ts-nocheck
       building_management_id: this.state.selectBuilding.id,
+      //@ts-ignore
+      //@ts-nocheck
       apartment_management_id: this.state.selectUnit.id,
       society_management_id: this.state.selectComplex
     };
@@ -1447,8 +1457,18 @@ export default class EmailAccountRegistrationController extends BlockComponent<
       full_name: Yup.string().required(`This field is required`).trim(),
       email: Yup.string().required(`This field is required`).trim(),
       phone: Yup.string().required(`This field is required`).trim(),
-      password: Yup.string().required(`This field is required`).trim(),
-      confirm_password: Yup.string().required(`This field is required`).trim(),
+      password: Yup
+        .string()
+        .min(8, `Minimum Password length is 8.`)
+        .required(`New Password is required.`)
+        .matches(
+          /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,}$/,
+          `Password must contain atleast a capital letter, a lowercase letter, a number and a special character.`
+        ),
+      confirm_password: Yup
+        .string()
+        .oneOf([Yup.ref("password"), null], `Password must match`)
+        .required(`Confirm Password is required.`),
 
     });
     return validations

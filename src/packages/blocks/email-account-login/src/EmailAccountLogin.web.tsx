@@ -153,7 +153,7 @@ class EmailAccountLogin extends EmailAccountLoginController {
                 {/* mobile footer block */}
                 <Box className="bottomBlock common-bottom-padding" display={{ xs: 'flex', md: 'none' }}>
                   <Link href="#" className="link">Don't have an account ? </Link>
-                  <Link to="/register" className="link"> <span> register</span></Link>
+                  <Link href="/register" className="link"> <span> register</span></Link>
                 </Box>
                 {/* desktop footer block */}
                 <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>
