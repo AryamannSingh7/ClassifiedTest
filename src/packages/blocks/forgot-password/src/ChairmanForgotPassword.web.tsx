@@ -121,7 +121,7 @@ class ChairmanForgotPassword extends ChairmanForgotPasswordController {
                         <Box className="formGroup">
                           {/* <label htmlFor="" className="textfieldLabel">Enter your regestered Email </label> */}
                           <div className="formInputGrp">
-                            <Field type="email" name="email" placeholder="Email ID or Mobile Number" className="formInput" />
+                            <Field type="text" name="email" placeholder="Email ID or Mobile Number" className="formInput" />
                             <span className="frmLeftIcons"><MailOutlineIcon /></span>
                           </div>
 
@@ -144,10 +144,10 @@ class ChairmanForgotPassword extends ChairmanForgotPasswordController {
                   </Formik>
                 </Box>
                 {/* mobile footer block */}
-                <Box className="bottomBlock common-bottom-padding" display={{ xs: 'flex', md: 'none' }}>
+                {/* <Box className="bottomBlock common-bottom-padding" display={{ xs: 'flex', md: 'none' }}>
                   <Link href="#" className="link">Don't have an account ? </Link>
                   <Link href="#" className="link"> <span> register</span></Link>
-                </Box>
+                </Box> */}
                 {/* desktop footer block */}
                 <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>
                   <h6 className="bottom-text">POWERED BY</h6>
