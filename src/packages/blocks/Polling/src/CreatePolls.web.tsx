@@ -92,7 +92,12 @@ class CreatePolls extends PollingController {
                         </Box>
                     </Box>
 
-                    <form onSubmit={this.handlePriviewData}>
+                    <form onSubmit={() => 
+                        {
+                            this.handlePriviewData
+                            this.props.history.push("/PollPreview")
+                        }
+                    }>
                         <Grid container spacing={4} style={{marginTop: 15}}>
                    
                         <Grid item sm={12} md={12} xs={12}>
@@ -219,7 +224,8 @@ class CreatePolls extends PollingController {
                             </Box>
                             <Box className="Publishbtn">
                                 <Button type="submit" variant="outlined" color="primary"
-                                onClick={()=>this.props.history.push("/PollPreview")}>SAVE</Button>
+                                // onClick={()=>this.props.history.push("/PollPreview")}
+                                >SAVE</Button>
                             </Box> 
                         </Box>
 

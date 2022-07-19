@@ -174,7 +174,10 @@ class Polling extends PollingController {
                                             <Typography className="EventsTitle">{data.title}</Typography>
                                         </Box>
                                         <Box className="EventsIconsText">
-                                            <Typography variant="body2">{data.description}</Typography>
+                                            <Typography variant="body2"
+                                                dangerouslySetInnerHTML={{__html:data.description}}
+                                            />
+                                            {/* {data.description}</Typography> */}
                                         </Box>
                                         <Box className="EventsIconsText">
                                             <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
