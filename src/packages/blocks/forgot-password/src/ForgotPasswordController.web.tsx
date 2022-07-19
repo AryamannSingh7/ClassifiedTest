@@ -335,9 +335,8 @@ export default class ForgotPasswordController extends BlockComponent<
       } else {
         this.setState({ error: responseJson?.error || "Something went wrong!" });
       }
-      this.setState({loading: false})
       this.parseApiCatchErrorResponse(this.state.error);
-      
+      this.setState({loading: false , error:null})
     }  else if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.verifyOtpApiCallId !== null &&
@@ -367,9 +366,9 @@ export default class ForgotPasswordController extends BlockComponent<
           this.setState({ error });
       } else {
           this.setState({ error: responseJson?.error || 'Something went wrong!' });
-      }this.setState({loading: false})
+      }
       this.parseApiCatchErrorResponse(this.state.error);
-      
+      this.setState({loading: false , error:null})
     }
     
     else if (
@@ -449,9 +448,8 @@ export default class ForgotPasswordController extends BlockComponent<
         console.log("Something responseJson  ===========>",responseJson)
           this.setState({ error: responseJson?.error || 'Something went wrong!' });
       }
-      this.setState({loading: false})
       this.parseApiCatchErrorResponse(this.state.error);
-     
+      this.setState({loading: false , error:null})
     } else if (getName(MessageEnum.CountryCodeMessage) === message.id) {
       var selectedCode = message.getData(
         getName(MessageEnum.CountyCodeDataMessage)
