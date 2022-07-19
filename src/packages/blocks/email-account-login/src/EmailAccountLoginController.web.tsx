@@ -47,7 +47,7 @@ export interface SS {
   // Customizable Area End
 }
 
-export default class EmailAccountRegistrationController extends BlockComponent<
+export default class EmailAccountLoginController extends BlockComponent<
   Props,
   S,
   SS
@@ -192,7 +192,6 @@ export default class EmailAccountRegistrationController extends BlockComponent<
           if (responseJson && responseJson.meta && responseJson.meta.token) {
             localStorage.setItem("userToken", responseJson?.meta?.token)
             localStorage.setItem("userId", responseJson?.meta?.id)
-            this.setState({error:null})
             this.getRegistrationRequest();
           // this.props.history.push("/RegistrationRequest")
            //window.location.replace("/RegistrationRequest");
@@ -205,6 +204,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
           }
           this.setState({loading: false})
           this.parseApiCatchErrorResponse(this.state.error);
+          this.setState({error:null})
         }
         else if (apiRequestCallId === this.deleteRequestCallId) {
           if (responseJson.message && responseJson ) {
@@ -218,6 +218,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
           }
           this.setState({loading: false,showDialog:false})
           this.parseApiCatchErrorResponse(this.state.error);
+          this.setState({error:null})
         }
         else if (apiRequestCallId === this.apiRegistrationRequestCallId) {
           if (responseJson && responseJson?.data ) {
@@ -240,8 +241,9 @@ export default class EmailAccountRegistrationController extends BlockComponent<
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
 
-          }
-          this.setState({loading: false})
+          }  
+          this.parseApiCatchErrorResponse(this.state.error);
+          this.setState({loading: false ,error:null})
         }
       }
     }
