@@ -50,7 +50,7 @@ export interface SS {
   // Customizable Area End
 }
 
-export default class EmailAccountRegistrationController extends BlockComponent<
+export default class ChairmanAccountLoginController extends BlockComponent<
   Props,
   S,
   SS
@@ -192,8 +192,9 @@ export default class EmailAccountRegistrationController extends BlockComponent<
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
           }
-          this.setState({loading: false})
+         
           this.parseApiCatchErrorResponse(this.state.error);
+          this.setState({loading: false , error:null})
         }
         else if (apiRequestCallId === this.getUserTypeApiCallId) {
           if (responseJson && responseJson?.data ) {
@@ -207,8 +208,8 @@ export default class EmailAccountRegistrationController extends BlockComponent<
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
           }
-          this.setState({loading: false})
           this.parseApiCatchErrorResponse(this.state.error);
+          this.setState({loading: false , error:null})
         }
         
       }
