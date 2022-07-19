@@ -118,6 +118,11 @@ const routeMap = {
     path: '/',
     exact: true
   },
+  LandingPage2: {
+    component: LandingPage,
+    path: '/owner',
+    exact: true
+  },
   //done
   ChairmanLogin: {
     component: ChairmanLogin,
