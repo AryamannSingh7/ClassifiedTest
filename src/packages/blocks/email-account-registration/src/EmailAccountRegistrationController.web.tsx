@@ -35,13 +35,13 @@ export interface S {
   error: string | null;
   userType: string | null;
   allContries: [];
-  selectCountry: any;
+  selectCountry: string;
   allCity: [];
-  selectCity: any;
+  selectCity: string;
   allBuilding: [];
-  selectBuilding: any;
+  selectBuilding: string;
   allUnit: [];
-  selectUnit: any;
+  selectUnit: string;
   selectCode: string;
   selectEmail: string;
   unitRegisterType: string;
@@ -225,7 +225,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             this.setState({ loading: false })
             //@ts-ignore
             //@ts-nocheck
-            this, props.history.push('/otp')
+            this.props.history.push('/otp')
 
 
           } else if (responseJson?.errors) {
@@ -233,10 +233,10 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             this.setState({ error });
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
+            this.parseApiCatchErrorResponse(this.state.error);
           }
           this.setState({ loading: false })
 
-          this.parseApiCatchErrorResponse(this.state.error);
         } else if (apiRequestCallId === this.verifyOtpApiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
@@ -264,10 +264,10 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             this.setState({ error });
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
+            this.parseApiCatchErrorResponse(this.state.error);
           }
           this.setState({ loading: false })
 
-          this.parseApiCatchErrorResponse(this.state.error);
         } else if (apiRequestCallId === this.createManagerAccountApiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
@@ -940,7 +940,11 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     const attrs = {
       country: this.state.selectCountry,
       city: this.state.selectCity,
+      //@ts-ignore
+      //@ts-nocheck
       building_management_id: this.state.selectBuilding.id,
+      //@ts-ignore
+      //@ts-nocheck
       apartment_management_id: this.state.selectUnit.id,
       society_management_id: this.state.selectComplex
     };
@@ -1204,6 +1208,8 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     this.getUnitApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
+      //@ts-ignore
+      //@ts-nocheck
       `bx_block_address/apartment_list?id=${this.state.selectBuilding.id}`
     );
 
@@ -1325,8 +1331,11 @@ export default class EmailAccountRegistrationController extends BlockComponent<
       "token": localStorage.getItem('res_token')
     };
     console.log(this.state)
-    const attrs = {
+    const attrs = {//@ts-ignore
+      //@ts-nocheck
       building_management_id: this.state.selectBuilding.id,
+      //@ts-ignore
+      //@ts-nocheck
       apartment_management_id: this.state.selectUnit.id,
       society_management_id: this.state.selectComplex
     };

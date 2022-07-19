@@ -21,7 +21,7 @@ import { Formik, Form, Field } from "formik";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import Loader from "../../../components/src/Loader.web";
-import EmailAccountRegistrationController, { Props } from "./EmailAccountRegistrationController";
+import EmailAccountRegistrationController, { Props } from "./EmailAccountRegistrationController.web.tsx";
 class RegistrationRequestSignup extends EmailAccountRegistrationController {
   constructor(props: Props) {
     super(props);

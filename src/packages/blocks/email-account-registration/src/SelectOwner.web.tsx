@@ -10,7 +10,7 @@ import "../assets/css/style.scss";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { Formik, Form, Field } from "formik";
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
-import EmailAccountRegistrationController, { Props } from "./EmailAccountRegistrationController";
+import EmailAccountRegistrationController, { Props } from "./EmailAccountRegistrationController.web.tsx";
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import HomeIcon from '@material-ui/icons/Home';
 import { manager, owner, resident_owner, tenet } from "./assets";
