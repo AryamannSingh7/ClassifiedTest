@@ -1461,7 +1461,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
         .required("Mobile number is required.")
         .positive("Negative numbers are not allowed.")
         .integer("Number can't contain a decimal.")
-        .min(10000000, "Minimum 6 digits are required.")
+        .min(10000000, "Minimum 5 digits are required.")
         .max(9999999999999, "Maximum 11 digits are allowed."),
       password: Yup
         .string()

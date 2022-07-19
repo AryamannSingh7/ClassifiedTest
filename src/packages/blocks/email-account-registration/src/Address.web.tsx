@@ -84,7 +84,7 @@ class Address extends EmailAccountRegistrationController {
                   <FormControl variant="outlined" fullWidth >
                     <InputLabel id="demo-simple-select-outlined-label" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                       <img src={country} />
-                    Select Country</InputLabel>
+                      Select Country</InputLabel>
                     <Select
 
                       name='selectCountry'
