@@ -1456,10 +1456,17 @@ export default class EmailAccountRegistrationController extends BlockComponent<
 
       full_name: Yup.string().required(`This field is required`).trim(),
       email: Yup.string().required(`This field is required`).trim(),
-      phone: Yup.string().required(`This field is required`).trim(),
+      phone: Yup.number()
+        .typeError("Only numbers are allowed.")
+        .required("Mobile number is required.")
+        .positive("Negative numbers are not allowed.")
+        .integer("Number can't contain a decimal.")
+        .min(10000000, "Minimum 6 digits are required.")
+        .max(9999999999999, "Maximum 11 digits are allowed."),
       password: Yup
         .string()
         .min(8, `Minimum Password length is 8.`)
+        .max(16, `Maximum Password length is 16.`)
         .required(`New Password is required.`)
         .matches(
           /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,}$/,
