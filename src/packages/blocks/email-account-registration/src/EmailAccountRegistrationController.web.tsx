@@ -225,19 +225,20 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             localStorage.setItem('user_email', responseJson.data.attributes.email)
             //@ts-ignore
             //@ts-nocheck
-            this.setState({ loading: false })
+            this.setState({ loading: false, error: null })
+
             //@ts-ignore
             //@ts-nocheck
             this.props.history.push('/otp')
 
 
           } else if (responseJson?.errors) {
-            let error = Object.values(responseJson.errors[0])[0] as string;
+            let error = responseJson.errors[0];
             this.setState({ error });
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
-            this.parseApiCatchErrorResponse(this.state.error);
           }
+          this.parseApiCatchErrorResponse(this.state.error);
           this.setState({ loading: false })
 
         } else if (apiRequestCallId === this.verifyOtpApiCallId) {
@@ -1456,8 +1457,18 @@ export default class EmailAccountRegistrationController extends BlockComponent<
       full_name: Yup.string().required(`This field is required`).trim(),
       email: Yup.string().required(`This field is required`).trim(),
       phone: Yup.string().required(`This field is required`).trim(),
-      password: Yup.string().required(`This field is required`).trim(),
-      confirm_password: Yup.string().required(`This field is required`).trim(),
+      password: Yup
+        .string()
+        .min(8, `Minimum Password length is 8.`)
+        .required(`New Password is required.`)
+        .matches(
+          /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,}$/,
+          `Password must contain atleast a capital letter, a lowercase letter, a number and a special character.`
+        ),
+      confirm_password: Yup
+        .string()
+        .oneOf([Yup.ref("password"), null], `Password must match`)
+        .required(`Confirm Password is required.`),
 
     });
     return validations
