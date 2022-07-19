@@ -4,6 +4,7 @@
 
 import React from "react";
 import "./Polling.web.css"
+import DOMPurify from 'dompurify'
 
 import {Editor, EditorState} from 'draft-js';
 import 'draft-js/dist/Draft.css';
@@ -118,9 +119,11 @@ class PollPreview extends PollingController {
                                         <InfoIcon style={{color:"grey", fontSize:18}}/>
                                     </Box>
                                     <Box style={{marginTop:5}}>
-                                        <Typography variant="body2">
-                                           {this.state.PreViewPollData?.PollFormData?.description}
-                                        </Typography> 
+                                        <Typography variant="body2"
+                                        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(this.state.PreViewPollData?.PollFormData?.description) }}
+                                        />
+                                           {/* {this.state.PreViewPollData?.PollFormData?.description} */}
+                                        {/* </Typography>  */}
                                     </Box>
                                 </Box>
                             </Box>

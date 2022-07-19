@@ -16,15 +16,16 @@
     "xcode": "yarn workspace mobile xcode"
   },
   "dependencies": {
+    "@date-io/date-fns": "^2.14.0",
     "@material-ui/core": "^4.12.4",
     "@material-ui/icons": "^4.11.3",
     "@mui/utils": "^5.8.6",
-    "@date-io/date-fns": "^2.14.0",
     "@react-native-community/checkbox": "file:./packages/blocks/core/node_modules/@react-native-community/checkbox",
     "@react-native-community/netinfo": "file:./packages/blocks/core/node_modules/@react-native-community/netinfo",
     "@react-navigation/native": "file:./packages/blocks/core/node_modules/@react-navigation/native",
     "@unimodules/core": "file:./packages/blocks/core/node_modules/@unimodules/core",
     "@unimodules/react-native-adapter": "file:./packages/blocks/core/node_modules/@unimodules/react-native-adapter",
+    "dompurify": "^2.3.10",
     "draft-js": "^0.11.7",
     "formik": "file:./packages/blocks/core/node_modules/formik",
     "html-react-parser": "^1.2.4",
