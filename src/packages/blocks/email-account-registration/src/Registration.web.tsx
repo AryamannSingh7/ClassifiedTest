@@ -87,7 +87,7 @@ class Registration extends EmailAccountRegistrationController  {
                     <Field
                       className="formInput"
                       name="full_name"
-                      placeholder={"full Name"}
+                      placeholder={"Full Name"}
 
                     />
                     <span className="frmLeftIcons">
@@ -132,7 +132,7 @@ class Registration extends EmailAccountRegistrationController  {
 
                     <Field
                       name="email"
-                      placeholder={"Email"}
+                      placeholder={"Email ID"}
                       className="formInput"
                     />
                     <span className="frmLeftIcons">
@@ -192,6 +192,7 @@ class Registration extends EmailAccountRegistrationController  {
                           id="demo-simple-select-outlined"
                           onChange={this.handleChange}
                           label="Unit"
+                          value="+91"
                         >
                           <MenuItem value="f">
                             <em>None</em>
@@ -423,10 +424,11 @@ class Registration extends EmailAccountRegistrationController  {
                       underline="none"
                       style={{
                         fontSize: 14,
-                        color: "#2B6FEC",
+                        color: "#FC8434",
                         fontWeight: 500,
                         marginLeft: 5,
-                        textTransform: "uppercase"
+                        textTransform: "uppercase",
+                        fontWeight:'bold'
                       }}
                     >
                       Login
