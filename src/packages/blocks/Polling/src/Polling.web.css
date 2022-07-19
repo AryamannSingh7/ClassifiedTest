@@ -41,7 +41,7 @@
     padding-bottom: 40px;
     background: #fff;
     border-radius: 10px;
-    min-height: 125px;
+    min-height: 105px;
 }
 .CreatePSsingle .CreatePSHeading{
     font-weight:600;
@@ -103,7 +103,7 @@
     background: #f2f2f2;
 }
 .DateSection{
-    margin-top: 20px;
+    margin-top: 30px;
     margin-bottom: 10px;
     gap: 20px;
     
