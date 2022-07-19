@@ -35,13 +35,13 @@ export interface S {
   error: string | null;
   userType: string | null;
   allContries: [];
-  selectCountry: string;
+  selectCountry: any;
   allCity: [];
-  selectCity: string;
+  selectCity: any;
   allBuilding: [];
-  selectBuilding: string;
+  selectBuilding: any;
   allUnit: [];
-  selectUnit: string;
+  selectUnit: any;
   selectCode: string;
   selectEmail: string;
   unitRegisterType: string;
