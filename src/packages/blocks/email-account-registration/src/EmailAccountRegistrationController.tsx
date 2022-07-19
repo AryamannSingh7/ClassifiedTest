@@ -1,3 +1,7 @@
+
+//@ts-ignore
+//@ts-nocheck
+
 import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
