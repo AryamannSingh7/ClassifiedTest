@@ -92,7 +92,10 @@ export default class PollsallData extends PollingController {
                                                 <Typography className="EventsTitle">{data.title}</Typography>
                                             </Box>
                                             <Box className="EventsIconsText">
-                                                <Typography variant="body2" className="Dec-wrap">{data.description}</Typography>
+                                                <Typography variant="body2" className="Dec-wrap"
+                                                    dangerouslySetInnerHTML={{__html:data.description}}
+                                                />
+                                                    {/* {data.description}</Typography> */}
                                             </Box>
                                             <Box className="EventsIconsText">
                                                 <DateRangeOutlinedIcon style={{color: "#054c94"}}/>

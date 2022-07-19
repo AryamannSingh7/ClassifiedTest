@@ -940,7 +940,11 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     const attrs = {
       country: this.state.selectCountry,
       city: this.state.selectCity,
+      //@ts-ignore
+      //@ts-nocheck
       building_management_id: this.state.selectBuilding.id,
+      //@ts-ignore
+      //@ts-nocheck
       apartment_management_id: this.state.selectUnit.id,
       society_management_id:this.state.selectComplex
     };
@@ -1204,6 +1208,8 @@ this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e)
     this.getUnitApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
+      //@ts-ignore
+      //@ts-nocheck
       `bx_block_address/apartment_list?id=${this.state.selectBuilding.id}`
     );
 
@@ -1326,8 +1332,11 @@ this.setState({...this.state,[e.target.name]:e.target.value},()=>this.getData(e)
       "token": localStorage.getItem('res_token')
     };
 console.log(this.state)
-    const attrs = {
+    const attrs = {//@ts-ignore
+      //@ts-nocheck
       building_management_id: this.state.selectBuilding.id,
+      //@ts-ignore
+      //@ts-nocheck
       apartment_management_id: this.state.selectUnit.id,
       society_management_id: this.state.selectComplex
     };
