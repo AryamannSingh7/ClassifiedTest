@@ -183,9 +183,16 @@ export default class ChairmanAccountLoginController extends BlockComponent<
             localStorage.setItem("userToken", responseJson?.meta?.token)
             localStorage.setItem("userId", responseJson?.meta?.id)
             localStorage.setItem("userType", responseJson?.meta?.role.name)
-            this.props.history.push("/DashboardGeneral")
-           //window.location.replace("/RegistrationRequest");
-           this.setState({loading: false})
+
+            if(localStorage.getItem("userType") === "Owner"){
+              this.props.history.push("/OwnerDashboard")
+              this.setState({loading: false})
+            }else{
+              this.props.history.push("/DashboardGeneral")
+            //window.location.replace("/RegistrationRequest");
+            this.setState({loading: false})
+            }
+            
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
             this.setState({ error });

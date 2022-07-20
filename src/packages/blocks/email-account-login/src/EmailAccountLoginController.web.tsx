@@ -192,6 +192,7 @@ export default class EmailAccountLoginController extends BlockComponent<
           if (responseJson && responseJson.meta && responseJson.meta.token) {
             localStorage.setItem("userToken", responseJson?.meta?.token)
             localStorage.setItem("userId", responseJson?.meta?.id)
+            localStorage.setItem("userType", responseJson?.meta?.role[0]?.name)
             this.getRegistrationRequest();
           // this.props.history.push("/RegistrationRequest")
            //window.location.replace("/RegistrationRequest");
@@ -228,8 +229,12 @@ export default class EmailAccountLoginController extends BlockComponent<
             this.props.history.push("/RegistrationRequest");
             this.setState({registrationRequest, requestdeleteId :registrationRequest.id,loading: false})
           }
-           else {
-            this.props.history.push("/DashboardGeneral")
+           else if(localStorage.getItem("userType") === "Owner"){
+            this.props.history.push("/OwnerDashboard")
+            //window.location.replace("/DashboardGeneral");
+            this.setState({loading: false})
+           }else {
+            this.props.history.push("/ResidentDashboard")
             //window.location.replace("/DashboardGeneral");
             this.setState({loading: false})
            }
