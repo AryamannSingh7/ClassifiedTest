@@ -15,7 +15,7 @@ exports.labelTitleText = "Polling";
 exports.labelBodyText = "Polling Body";
 exports.getAllPolls = "/bx_block_polling/polls";
 exports.getTotalPollsCount = "/bx_block_polling/polls/total_polls";
-exports.getRecentPolls = "/bx_block_polling/polls/recent_polls";
+exports.getRecentPolls = "/society_managements/4/bx_block_polling/polls/recent_polls";
 
 exports.btnExampleTitle = "CLICK ME";
 // Customizable Area End

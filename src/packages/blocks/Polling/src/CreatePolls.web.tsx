@@ -92,11 +92,11 @@ class CreatePolls extends PollingController {
                         </Box>
                     </Box>
 
-                    <form onSubmit={() => 
-                        {
-                            this.handlePollDataSubmit
-                            this.props.history.push("/PollPreview")
-                        }
+                    <form onSubmit={this.handlePollDataSubmit
+                        // {
+                        //     this.handlePollDataSubmit
+                        //     // this.props.history.push("/PollPreview")
+                        // }
                     }>
                         <Grid container spacing={4} style={{marginTop: 15}}>
                    
