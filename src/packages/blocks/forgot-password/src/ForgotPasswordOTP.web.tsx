@@ -28,6 +28,8 @@ class ForgotPasswordOTP extends ForgotPasswordController {
     super(props);
   }
   render() {
+    const  emailMask  = localStorage.getItem("emailMask")
+    const phoneNumber = localStorage.getItem("phoneNumberMask")
     return (
       <>
         {/* <Box className="login-wrapper">
@@ -69,8 +71,16 @@ class ForgotPasswordOTP extends ForgotPasswordController {
                       </Link>
                     </Box> */}
                     <h1>Enter OTP Code</h1>
-                    <h6>Please enter the code send to the email<br></br>address <span className="text">jo******52@gmail.com</span></h6>
-                  </Box>
+                    {
+                        emailMask ? (<>
+                          Please enter the code send to the email<br></br>address <span className="text">{emailMask}</span>
+                          </>
+                        )
+                         :<>
+                        Please enter the code send to the phone<br></br>number <span className="text">{phoneNumber}</span>    
+                        </>
+                       }
+                       </Box>
                   <Box className="commonForm">
                     <Box className="formGroup otpBlock">
                       <OtpInput className="formOutlineInput"

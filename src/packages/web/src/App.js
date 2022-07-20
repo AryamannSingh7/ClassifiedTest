@@ -111,6 +111,11 @@ import SurveyPreview from "../../blocks/Polling/src/SurveyPreview.web";
 import PollsallData from "../../blocks/Polling/src/PollsallData.web";
 import PollsSurvey from "../../blocks/Polling/src/PollsSurvey.web"
 import SubmitPoll from "../../blocks/Polling/src/SubmitPoll.web"
+import OwnerDashboard from "../../blocks/dashboard/src/OwnerDashboard.web"
+import ResidentDashboard from "../../blocks/dashboard/src/ResidentDashboard.web"
+
+
+
 const routeMap = {
   //done
   LandingPage: {
@@ -258,7 +263,15 @@ const routeMap = {
     path: "/SubmitPoll"
   },
 
-
+  OwnerDashboard: {
+    component: OwnerDashboard,
+    path: "/OwnerDashboard"
+  },
+  ResidentDashboard: {
+    component: ResidentDashboard,
+    path: "/ResidentDashboard"
+  },
+  
 
   Customisableusersubscriptions: {
     component: Customisableusersubscriptions,

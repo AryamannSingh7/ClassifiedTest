@@ -304,7 +304,9 @@ export default class ForgotPasswordController extends BlockComponent<
        localStorage.setItem("otpToken", responseJson?.meta?.token)
        localStorage.setItem("emailOtp", responseJson?.email_otp)
        this.setState({loading: false})
-        window.location ="/ForgotPasswordOTP" as any ;
+        //@ts-ignore
+        this.props.history.push("/ForgotPasswordOTP")
+       /// window.location ="/ForgotPasswordOTP" as any ;
         //navigate to OTP page
         // const msg: Message = new Message(
         //   getName(MessageEnum.NavigationMobilePhoneOTPMessage)
@@ -357,7 +359,9 @@ export default class ForgotPasswordController extends BlockComponent<
         // let token = params.get("token");
         //window.location = "/new-password?token=" + token as any;
         this.setState({loading: false})
-       window.location ="/ChangePassword" as any
+         //@ts-ignore
+         this.props.history.push("/ChangePassword")
+      // window.location ="/ChangePassword" as any
        //window.location.replace("/ChangePassword") 
       // } else if (responseJson?.message) {
       //   this.setState({ error: responseJson?.message });
@@ -437,7 +441,9 @@ export default class ForgotPasswordController extends BlockComponent<
       if (responseJson?.data) {
         console.log("responseJson===========>",responseJson)
         this.setState({loading: false})
-       window.location ="/ChangeSuccessfully" as any
+        //@ts-ignore
+        this.props.history.push("/ChangeSuccessfully")
+     //  window.location ="/ChangeSuccessfully" as any
        //window.location.replace("/ChangePassword") 
       } else if (responseJson?.message) {
         this.setState({ error: responseJson?.message });
@@ -693,6 +699,27 @@ export default class ForgotPasswordController extends BlockComponent<
     return validations
   }
 
+  maskCodeEmail =(email : any )=>{
+  let str : any = email
+  str = str.split('');
+  let finalArr :any=[];
+  let len = str.indexOf('@');
+  str.forEach((item : any,pos : any)=>{
+  (pos>=3 && pos<=len-2) ? finalArr.push('*') : finalArr.push(str[pos]);
+})
+  return finalArr.join('');
+}
+maskCodePhone =(email : any )=>{
+  let str : any = email
+  str = str.split('');
+  let finalArr :any=[];
+  let len = str.length;
+  str.forEach((item : any,pos : any)=>{
+  (pos>=0 && pos<=len-4) ? finalArr.push('*') : finalArr.push(str[pos]);
+})
+  return finalArr.join('');
+}
+
 
   checkUser = (values: any): boolean => {
     const header = {
@@ -701,13 +728,18 @@ export default class ForgotPasswordController extends BlockComponent<
     let attrs :any;
 
     if(values.email.includes("@")){
-      console.log("email id ==========>",values.email)
-       attrs = {
+      localStorage.removeItem("phoneNumberMask")
+      const emailMask  :any = this.maskCodeEmail(values.email)
+      localStorage.setItem("emailMask", emailMask)
+  
+    attrs = {
         email: values.email,
       };
     }
    else{
-    console.log("number phone ==========>",values.email)
+    localStorage.removeItem("emailMask")
+    const phoneNumberMask  :any = this.maskCodePhone(values.email)
+    localStorage.setItem("phoneNumberMask", phoneNumberMask)
      attrs = {
       full_phone_number: values.email,
     };

@@ -186,6 +186,7 @@ export default class PollingController extends BlockComponent<
     //==============================================
 
     onChangeTextEditor = (value:any) => {
+      console.log("%%%%%%%%5", value)
       this.setState({textEditorVal:value})
       this.state.PollData.description = this.state.textEditorVal
     };
@@ -210,6 +211,7 @@ export default class PollingController extends BlockComponent<
       console.log("Options Data ==>", this.state.options)
         if(this.state.PreViewPollData.length || Object.keys(this.state.PreViewPollData).length){
           let reqPayload = {
+            "society_id": 4,
             "poll":
             {
               "title": this.state.PreViewPollData.PollFormData.title,
@@ -232,6 +234,7 @@ export default class PollingController extends BlockComponent<
         } else{
 
           let reqPayload = {
+            "society_id": 4,
             "poll":
             {
               "title": this.state.PollData.title,
