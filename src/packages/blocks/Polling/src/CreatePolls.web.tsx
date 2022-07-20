@@ -69,7 +69,7 @@ class CreatePolls extends PollingController {
 
   render() {
     console.log("textEditorVal+++++++",this.state.textEditorVal);
-    console.log("polldata description------", this.state.PollData.description)
+    // console.log("polldata description------", this.state.PollData.description)
     return ( 
       <>
     <Box style={{background: "#E5ECFF"}}>
@@ -175,7 +175,7 @@ class CreatePolls extends PollingController {
 
                                 <Box className="descriptionEditor">
                                     <TextEditor 
-                                    markup=""
+                                    markup={this.state.textEditorVal}
                                     value={this.state.textEditorVal} 
                                     onChange={this.onChangeTextEditor} />
                                 </Box>
