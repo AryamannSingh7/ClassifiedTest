@@ -705,7 +705,16 @@ export default class ChairmanForgotPasswordController extends BlockComponent<
   })
     return finalArr.join('');
   }
-  
+  maskCodePhone =(email : any )=>{
+    let str : any = email
+    str = str.split('');
+    let finalArr :any=[];
+    let len = str.length;
+    str.forEach((item : any,pos : any)=>{
+    (pos>=0 && pos<=len-4) ? finalArr.push('*') : finalArr.push(str[pos]);
+  })
+    return finalArr.join('');
+  }
 
   checkUser = (values: any): boolean => {
     const header = {
@@ -715,15 +724,18 @@ export default class ChairmanForgotPasswordController extends BlockComponent<
     let attrs :any;
 
     if(values.email.includes("@")){
+      localStorage.removeItem("phoneNumberMask")
       const emailMask  :any = this.maskCodeEmail(values.email)
       localStorage.setItem("emailMask", emailMask)
-      // console.log("email id ==========>",emailMask)
+  
     attrs = {
         email: values.email,
       };
     }
    else{
-    console.log("number phone ==========>",values.email)
+    localStorage.removeItem("emailMask")
+    const phoneNumberMask  :any = this.maskCodePhone(values.email)
+    localStorage.setItem("phoneNumberMask", phoneNumberMask)
      attrs = {
       full_phone_number: values.email,
     };
