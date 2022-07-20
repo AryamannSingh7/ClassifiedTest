@@ -210,6 +210,7 @@ export default class PollingController extends BlockComponent<
       console.log("Options Data ==>", this.state.options)
         if(this.state.PreViewPollData.length || Object.keys(this.state.PreViewPollData).length){
           let reqPayload = {
+            "society_id": 4,
             "poll":
             {
               "title": this.state.PreViewPollData.PollFormData.title,
@@ -232,6 +233,7 @@ export default class PollingController extends BlockComponent<
         } else{
 
           let reqPayload = {
+            "society_id": 4,
             "poll":
             {
               "title": this.state.PollData.title,
