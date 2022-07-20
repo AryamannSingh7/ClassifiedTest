@@ -264,7 +264,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
 
 
           } else if (responseJson?.errors) {
-            let error = Object.values(responseJson.errors[0])[0] as string;
+            let error = responseJson.errors[0];
             this.setState({ error });
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
@@ -284,10 +284,14 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             this.props.history.push('/otp')
 
 
+          } else if (responseJson?.errors) {
+            let error = Object.values(responseJson.errors[0])[0] as string;
+            this.setState({ error });
           } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
+            this.parseApiCatchErrorResponse(this.state.error);
           }
+          this.setState({ loading: false })
 
           this.parseApiCatchErrorResponse(errorReponse);
         } else if (apiRequestCallId === this.createAccountOwnerApiCallId) {
@@ -1447,6 +1451,45 @@ export default class EmailAccountRegistrationController extends BlockComponent<
       selectBuilding: Yup.string().required(`This field is required`).trim(),
       selectComplex: Yup.string().required(`This field is required`).trim(),
       selectUnit: Yup.string().required(`This field is required`).trim(),
+
+    });
+    return validations
+  }
+  signupSchemaManager() {
+    const validations = Yup.object().shape({
+      full_name: Yup.string().required(`This field is required`).trim(),
+      company_name: Yup.string().required(`This field is required`).trim(),
+      managerName: Yup.string().required(`This field is required`).trim(),
+      ownerName: Yup.string().required(`This field is required`).trim(),
+      email: Yup.string().required(`This field is required`).trim(),
+      owner_email: Yup.string().required(`This field is required`).trim(),
+      phone: Yup.number()
+        .typeError("Only numbers are allowed.")
+        .required("Mobile number is required.")
+        .positive("Negative numbers are not allowed.")
+        .integer("Number can't contain a decimal.")
+        .min(10000000, "Minimum 5 digits are required.")
+        .max(9999999999999, "Maximum 11 digits are allowed."),
+      owner_phone: Yup.number()
+        .typeError("Only numbers are allowed.")
+        .required("Mobile number is required.")
+        .positive("Negative numbers are not allowed.")
+        .integer("Number can't contain a decimal.")
+        .min(10000000, "Minimum 5 digits are required.")
+        .max(9999999999999, "Maximum 11 digits are allowed."),
+      password: Yup
+        .string()
+        .min(8, `Minimum Password length is 8.`)
+        .max(16, `Maximum Password length is 16.`)
+        .required(`New Password is required.`)
+        .matches(
+          /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,}$/,
+          `Password must contain atleast a capital letter, a lowercase letter, a number and a special character.`
+        ),
+      confirm_password: Yup
+        .string()
+        .oneOf([Yup.ref("password"), null], `Password must match`)
+        .required(`Confirm Password is required.`),
 
     });
     return validations
