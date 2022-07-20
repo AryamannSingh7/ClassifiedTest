@@ -186,6 +186,7 @@ export default class PollingController extends BlockComponent<
     //==============================================
 
     onChangeTextEditor = (value:any) => {
+      console.log("%%%%%%%%5", value)
       this.setState({textEditorVal:value})
       this.state.PollData.description = this.state.textEditorVal
     };
