@@ -94,7 +94,7 @@ class CreatePolls extends PollingController {
 
                     <form onSubmit={() => 
                         {
-                            this.handlePriviewData
+                            this.handlePollDataSubmit
                             this.props.history.push("/PollPreview")
                         }
                     }>
@@ -174,7 +174,10 @@ class CreatePolls extends PollingController {
                                 </Box>
 
                                 <Box className="descriptionEditor">
-                                    <TextEditor markup="" value={this.state.textEditorVal} onChange={this.onChangeTextEditor} />
+                                    <TextEditor 
+                                    markup=""
+                                    value={this.state.textEditorVal} 
+                                    onChange={this.onChangeTextEditor} />
                                 </Box>
 
                                 {/* <TextField multiline rows={4}  label="Description" variant="outlined"
@@ -225,7 +228,7 @@ class CreatePolls extends PollingController {
                             <Box className="Publishbtn">
                                 <Button type="submit" variant="outlined" color="primary"
                                 // onClick={()=>this.props.history.push("/PollPreview")}
-                                >SAVE</Button>
+                                >PUBLISH</Button>
                             </Box> 
                         </Box>
 

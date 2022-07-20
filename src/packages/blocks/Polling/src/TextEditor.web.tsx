@@ -24,7 +24,19 @@ export default class TextEditor extends Component {
     value: this.value
   };
 
+  componentDidMount(){
+    const previewData = JSON.parse(localStorage.getItem('Polls_Data'));
+    if(previewData){
+      const previewDescription = RichTextEditor.createValueFromString(previewData.PollDescription, 'html');
+      this.setState({ value : previewDescription });
+      console.log("this.state.value+*+*++*+*", this.state.value)
+      console.log("previewDescription+*+*++*+*", previewDescription)
+    }
+    
+  }
+
   onChange = (value) => {
+    console.log(value, 'hellow')
     this.setState({ value  });
     if (this.props.onChange) {
       this.props.onChange(value.toString("html"));
