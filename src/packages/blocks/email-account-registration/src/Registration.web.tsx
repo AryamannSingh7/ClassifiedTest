@@ -192,13 +192,13 @@ class Registration extends EmailAccountRegistrationController  {
                           id="demo-simple-select-outlined"
                           onChange={this.handleChange}
                           label="Unit"
-                          value="+91"
+                          value="+966"
                         >
                           <MenuItem value="f">
                             <em>None</em>
                           </MenuItem>
                           {dailCode.map((item) =>
-                            <MenuItem key={item.dial_code} value={item.dial_code}> <img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/${item.code}.svg`} width='15' height='15' />
+                            <MenuItem key={item.dial_code} value={item.dial_code}> <img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/${item.code}.svg`} width='15' height='15' style={{ marginRight: '5px' }} />
                               {item.dial_code}</MenuItem>
 
                           )
@@ -217,7 +217,6 @@ class Registration extends EmailAccountRegistrationController  {
                         height: "100%",
                         width: "80%",
                         color: "rgba(0, 0, 0, 0.6)",
-                        fontFamily: "Poppins",
                         fontWeight: 400,
                         fontSize: 16,
                         marginRight: 10,

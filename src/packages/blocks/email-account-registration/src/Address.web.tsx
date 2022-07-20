@@ -150,7 +150,7 @@ class Address extends EmailAccountRegistrationController {
                     className="formInputGrp"
                   >
 
-                    <ReactSelect options={this.state.allComplex} className="formInput" style={{ border: 'none' }} placeholder="Search Complex" onChange={(e) => { this.handleInputChangeCOm(e); setFieldValue("selectComplex", e.value) }} />
+                    <ReactSelect options={this.state.allComplex} className="formInput ReactSelect" style={{ border: 'none' }} placeholder="Search Complex" onChange={(e) => { this.handleInputChangeCOm(e); setFieldValue("selectComplex", e.value) }} />
 
                     <span className="frmLeftIcons" style={{ top: '1.5rem' }}>
                       <img src={search} />
