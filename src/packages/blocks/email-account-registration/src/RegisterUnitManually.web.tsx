@@ -219,8 +219,8 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                 <Grid xs={12} className='commonForm'>
                   <FormControl variant="outlined" fullWidth className="formInputGrp" style={{position:'relative'}}>
                     <InputLabel id="demo-simple-select-outlined-label" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                      <img src={unit} />Unit</InputLabel> */}
-                    {/* <Select
+                      <img src={unit} />Unit</InputLabel>
+                    <Select
                       name='selectUnit'
                       labelId="demo-simple-select-outlined-label"
                       id="demo-simple-select-outlined"
