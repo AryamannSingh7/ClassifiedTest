@@ -69,7 +69,7 @@ class CreatePolls extends PollingController {
 
   render() {
     console.log("textEditorVal+++++++",this.state.textEditorVal);
-    console.log("polldata description------", this.state.PollData.description)
+    // console.log("polldata description------", this.state.PollData.description)
     return ( 
       <>
     <Box style={{background: "#E5ECFF"}}>
@@ -175,17 +175,10 @@ class CreatePolls extends PollingController {
 
                                 <Box className="descriptionEditor">
                                     <TextEditor 
-                                    markup=""
-                                    value={this.state.textEditorVal} 
-                                    onChange={this.onChangeTextEditor} />
+                                        markup={this.state.textEditorVal}
+                                        onChange={this.onChangeTextEditor} 
+                                    />
                                 </Box>
-
-                                {/* <TextField multiline rows={4}  label="Description" variant="outlined"
-                                name="description" 
-                                value={this.state.PollData.description}
-                                onChange={this.handlePollDataChange}
-                                required fullWidth style={{marginTop:20}}
-                                /> */}
 
                                 <TextField  label="enter question" variant="outlined"
                                 name="question"

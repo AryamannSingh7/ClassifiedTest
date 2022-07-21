@@ -211,11 +211,9 @@ export default class PollingController extends BlockComponent<
       this.setState({ PollData: {...this.state.PollData, [event.target.name] : event.target.value}}) 
     }
 
-    handlePollDataSubmit = (event:any) => {
+    handlePollDataSubmit =  (event:any) => {
       event.preventDefault()
         const societyID = localStorage.getItem("society_id")
-        // console.log("societyID++++ ==>", societyID)
-
         if(this.state.PreViewPollData.length || Object.keys(this.state.PreViewPollData).length){
           let reqPayload = {
             "society_id": societyID,
@@ -236,7 +234,8 @@ export default class PollingController extends BlockComponent<
           this.setState({
             PollData: this.state.InitialPollData,
             options: this.state.Initialoptions,
-            checked: this.state.checked
+            checked: this.state.checked,
+            textEditorVal : this.state.initialtextEditorVal,
           })
         } else{
 
@@ -254,6 +253,7 @@ export default class PollingController extends BlockComponent<
               "polling_options_attributes": this.state.options,
             }
           }
+
           this.addPollData(reqPayload);
           console.log("reqPayload----------", reqPayload)
           this.setState({
