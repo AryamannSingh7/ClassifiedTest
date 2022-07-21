@@ -1076,11 +1076,14 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     console.log(e)
     console.log(e.target.name)
     console.log(e.target.value)
+    if (e.target.value){
+      // @ts-ignore
+      // @ts-nocheck
+      this.setState({ ...this.state, [e.target.name]: e.target.value }, () => this.getData(e))
+    }
 
 
-    // @ts-ignore
-    // @ts-nocheck
-    this.setState({ ...this.state, [e.target.name]: e.target.value }, () => this.getData(e))
+
   }
   //@ts-ignore
   //@ts-nocheck

@@ -129,7 +129,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                       label="City"
                       style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#b5b5b5' }}
                     >
-                      <MenuItem value="f">
+                      <MenuItem value="">
                         <em>None</em>
                       </MenuItem>
                       {this.state.allCity && this.state.allCity.map((item) =>
@@ -202,7 +202,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                       label="Unit"
                       style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#b5b5b5' }}
                     >
-                      <MenuItem value="f">
+                      <MenuItem value="">
                         <em>None</em>
                       </MenuItem>
                       {this.state.allUnit && this.state.allUnit.map((item) =>

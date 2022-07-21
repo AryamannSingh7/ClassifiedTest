@@ -194,7 +194,7 @@ class Registration extends EmailAccountRegistrationController {
                             label="Unit"
                             value="+966"
                           >
-                            <MenuItem value="f">
+                            <MenuItem value="">
                               <em>None</em>
                             </MenuItem>
                             {dailCode.map((item) =>

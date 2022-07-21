@@ -288,7 +288,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                             onChange={this.handleChange}
                             label="Unit"
                           >
-                            <MenuItem value="f">
+                            <MenuItem value="">
                               <em>None</em>
                             </MenuItem>
                             {dailCode.map((item) =>
@@ -497,7 +497,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                             onChange={this.handleChange}
                             label="Unit"
                           >
-                            <MenuItem value="f">
+                            <MenuItem value="">
                               <em>None</em>
                             </MenuItem>
                             {dailCode.map((item) =>
