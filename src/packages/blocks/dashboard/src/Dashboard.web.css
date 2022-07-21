@@ -29,9 +29,9 @@
     color: black;
 }
 
-.AccordinoList .MuiTypography-body1 :hover{
+/* .AccordinoList .MuiTypography-body1 :hover{
     cursor: pointer;
-}
+} */
 .SingleLink{
     display: flex;
     padding: 0 15px;
@@ -41,7 +41,13 @@
 .SingleLink .SingleLinkSize{
     font-size:14px;
 }
-
+.SingleLink:hover{
+    cursor: pointer;
+    
+}
+/* .SingleLink .SingleLinkSize:hover{
+    color: red;
+} */
 .AccordinoList .ListItem{
     margin-top:25px;
 }

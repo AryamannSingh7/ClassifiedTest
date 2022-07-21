@@ -24,6 +24,22 @@ export default class TextEditor extends Component {
     value: this.value
   };
 
+  componentDidMount(){
+    const previewData = JSON.parse(localStorage.getItem('Polls_Data'));
+    if(previewData){
+      const previewDescription = RichTextEditor.createValueFromString(previewData.PollDescription, 'html');
+      this.setState({ value : previewDescription });
+      console.log("this.state.value111111111", this.state.value)
+    }
+  }
+
+  componentDidUpdate(prevProps:any){
+    if(prevProps.value !== this.props.value){
+      this.setState({ value: RichTextEditor.createValueFromString(this.props.value, "html") });
+    }
+    
+  }
+
   onChange = (value) => {
     this.setState({ value  });
     if (this.props.onChange) {
@@ -32,6 +48,7 @@ export default class TextEditor extends Component {
   };
 
   render() {
+    console.log("this.state.value22222222", this.state.value)
     return <RichTextEditor 
     toolbarConfig={toolbarConfig}
     value={this.state.value} 

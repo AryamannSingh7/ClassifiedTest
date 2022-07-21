@@ -69,7 +69,7 @@ class CreatePolls extends PollingController {
 
   render() {
     console.log("textEditorVal+++++++",this.state.textEditorVal);
-    console.log("polldata description------", this.state.PollData.description)
+    // console.log("polldata description------", this.state.PollData.description)
     return ( 
       <>
     <Box style={{background: "#E5ECFF"}}>
@@ -92,11 +92,11 @@ class CreatePolls extends PollingController {
                         </Box>
                     </Box>
 
-                    <form onSubmit={() => 
-                        {
-                            this.handlePriviewData
-                            this.props.history.push("/PollPreview")
-                        }
+                    <form onSubmit={this.handlePollDataSubmit
+                        // {
+                        //     this.handlePollDataSubmit
+                        //     // this.props.history.push("/PollPreview")
+                        // }
                     }>
                         <Grid container spacing={4} style={{marginTop: 15}}>
                    
@@ -174,7 +174,10 @@ class CreatePolls extends PollingController {
                                 </Box>
 
                                 <Box className="descriptionEditor">
-                                    <TextEditor markup="" value={this.state.textEditorVal} onChange={this.onChangeTextEditor} />
+                                    <TextEditor 
+                                    markup={this.state.textEditorVal}
+                                    value={this.state.textEditorVal} 
+                                    onChange={this.onChangeTextEditor} />
                                 </Box>
 
                                 {/* <TextField multiline rows={4}  label="Description" variant="outlined"
@@ -225,7 +228,7 @@ class CreatePolls extends PollingController {
                             <Box className="Publishbtn">
                                 <Button type="submit" variant="outlined" color="primary"
                                 // onClick={()=>this.props.history.push("/PollPreview")}
-                                >SAVE</Button>
+                                >PUBLISH</Button>
                             </Box> 
                         </Box>
 

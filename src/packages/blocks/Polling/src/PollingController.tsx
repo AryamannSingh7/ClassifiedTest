@@ -46,6 +46,7 @@ interface S {
   value: any;
   TabValue:any;
   textEditorVal:any;
+  initialtextEditorVal:any;
   // Customizable Area End
 }
 
@@ -123,7 +124,8 @@ export default class PollingController extends BlockComponent<
       index: '',
       value: '',
       TabValue:0,
-      textEditorVal: ''
+      textEditorVal: '',
+      initialtextEditorVal: ''
       // Customizable Area End
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -145,40 +147,44 @@ export default class PollingController extends BlockComponent<
     // Customizable Area Start
 
     getRecentPolls = async () => {
+      const societyID = localStorage.getItem("society_id")
       this.getRecentPollsData = await this.apiCall({
         contentType: configJSON.exampleApiContentType,
         method: configJSON.httpGetMethod,
-        endPoint: configJSON.getRecentPolls,
+        endPoint: `/society_managements/${societyID}/bx_block_polling/polls/recent_polls`
       });
     }
 
     //==============================================
 
     getTotalPollCount = async () => {
+      const societyID = localStorage.getItem("society_id")
       this.totalPollsCount = await this.apiCall({
         contentType: configJSON.exampleApiContentType,
         method: configJSON.httpGetMethod,
-        endPoint: configJSON.getTotalPollsCount,
+        endPoint: `/society_managements/${societyID}/bx_block_polling/polls/total_polls`,
       });
     }
 
     //==============================================
 
     onGetPolls = async () => {
+      const societyID = localStorage.getItem("society_id")
       this.getAllPolls = await this.apiCall({
         contentType: configJSON.exampleApiContentType,
         method: configJSON.httpGetMethod,
-        endPoint: configJSON.getAllPolls,
+        endPoint: `/society_managements/${societyID}/bx_block_polling/polls`,
       });
     }
 
     //==============================================
 
     addPollData = async (data:any) => {
+      const societyID = localStorage.getItem("society_id")
       this.createPoll = await this.apiCall({
         contentType: configJSON.exampleApiContentType,
         method: configJSON.httpPostMethod,
-        endPoint: configJSON.getAllPolls,
+        endPoint: `/society_managements/${societyID}/bx_block_polling/polls`,
         body:JSON.stringify(data)
       });
     }
@@ -186,6 +192,7 @@ export default class PollingController extends BlockComponent<
     //==============================================
 
     onChangeTextEditor = (value:any) => {
+      console.log("%%%%%%%%5", value)
       this.setState({textEditorVal:value})
       this.state.PollData.description = this.state.textEditorVal
     };
@@ -204,12 +211,12 @@ export default class PollingController extends BlockComponent<
       this.setState({ PollData: {...this.state.PollData, [event.target.name] : event.target.value}}) 
     }
 
-    handlePollDataSubmit = (event:any) => {
+    handlePollDataSubmit =  (event:any) => {
       event.preventDefault()
-      console.log("Polls Data ==>", this.state.PollData)
-      console.log("Options Data ==>", this.state.options)
+        const societyID = localStorage.getItem("society_id")
         if(this.state.PreViewPollData.length || Object.keys(this.state.PreViewPollData).length){
           let reqPayload = {
+            "society_id": societyID,
             "poll":
             {
               "title": this.state.PreViewPollData.PollFormData.title,
@@ -227,11 +234,13 @@ export default class PollingController extends BlockComponent<
           this.setState({
             PollData: this.state.InitialPollData,
             options: this.state.Initialoptions,
-            checked: this.state.checked
+            checked: this.state.checked,
+            textEditorVal : this.state.initialtextEditorVal,
           })
         } else{
 
           let reqPayload = {
+            "society_id": societyID,
             "poll":
             {
               "title": this.state.PollData.title,
@@ -244,12 +253,14 @@ export default class PollingController extends BlockComponent<
               "polling_options_attributes": this.state.options,
             }
           }
+
           this.addPollData(reqPayload);
           console.log("reqPayload----------", reqPayload)
           this.setState({
             PollData: this.state.InitialPollData,
             options: this.state.Initialoptions,
-            checked: this.state.checked
+            checked: this.state.checked,
+            textEditorVal : this.state.initialtextEditorVal,
           })
         }
         
