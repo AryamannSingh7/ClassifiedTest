@@ -188,12 +188,12 @@ class Registration extends EmailAccountRegistrationController  {
                         {/* <InputLabel id="demo-simple-select-outlined-label"><img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AF.svg`} width='15' height='15' />
                           sd</InputLabel> */}
                         <Select
-                          name='selectCode'
+                          name='selectCodeselectCode'
                           labelId="demo-simple-select-outlined-label"
                           id="demo-simple-select-outlined"
                           onChange={this.handleChange}
                           label="Unit"
-                          value="+966"
+                          value={this.state.selectCode}
                         >
                           <MenuItem value="f">
                             <em>None</em>
