@@ -91,32 +91,31 @@ class Polling extends PollingController {
                         onClose={() => this.setState({ showDialog: false })}
                         aria-labelledby="alert-dialog-title"
                         aria-describedby="alert-dialog-description"
+                        className="DialogMainBox"
                         >
                         <DialogTitle id="alert-dialog-title" style={{textAlign:"center"}}>Choose Options</DialogTitle>
                         <Box style={{ display: "flex", marginLeft: 50, marginRight: 50 }}>
                             <DialogActions>
-                                <Button onClick={() => {
-                                    this.setState({ showDialog: false})
-                                    this.props.history.push("/CreatePolls")
-                                }} variant='text'>
-                                    <Box className="dialogOption">
-                                        <Box sx={{ml:1, mb:2}} className="DialogIcons">
-                                            <PersonOutlineIcon />
-                                        </Box>
-                                        <Typography variant="body2">Create Poll</Typography> 
-                                    </Box>
-                                </Button>
-                                <Button onClick={() => {
-                                    this.setState({ showDialog: false})
-                                    this.props.history.push("/CreateSurveys")
-                                }} variant='text'>
-                                    <Box className="dialogOption">
-                                        <Box sx={{ml:1, mb:2}} className="DialogIcons">
-                                            <PersonOutlineIcon />
-                                        </Box>
-                                        <Typography variant="body2">Create Survey</Typography> 
-                                    </Box>
-                                </Button>
+                                <div 
+                                    onClick={() => {
+                                        this.setState({ showDialog: false})
+                                        this.props.history.push("/CreatePolls")
+                                    }} 
+                                    className="dialogOption"
+                                >
+                                    <PersonOutlineIcon className="DialogIcons"/>
+                                    <p>Create Poll</p> 
+                                </div>
+                                <div 
+                                    onClick={() => {
+                                        this.setState({ showDialog: false})
+                                        this.props.history.push("/CreateSurveys")
+                                    }} 
+                                    className="dialogOption"
+                                >
+                                    <PersonOutlineIcon className="DialogIcons"/>
+                                    <p>Create Survey</p> 
+                                </div>
                             </DialogActions>
                         </Box>
                     </Dialog>
