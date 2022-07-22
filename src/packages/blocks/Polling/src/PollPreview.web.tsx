@@ -121,9 +121,10 @@ class PollPreview extends PollingController {
                                     <Box style={{marginTop:5}}>
                                         <Typography variant="body2"
                                         dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(this.state.PreViewPollData?.PollFormData?.description) }}
+                                        
                                         />
-                                           {/* {this.state.PreViewPollData?.PollFormData?.description} */}
-                                        {/* </Typography>  */}
+                                           {/* {this.state.PreViewPollData?.PollFormData?.description}
+                                        </Typography>  */}
                                     </Box>
                                 </Box>
                             </Box>

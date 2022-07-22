@@ -71,9 +71,9 @@ class Polling extends PollingController {
                         <FormControl className='YearMain'>
                             <NativeSelect className='yearSelection' value={this.state.Year} onChange={this.handleChange}>
                                 <option value="">This Week</option>
-                                    <option value={10}>Ten</option>
-                                    <option value={20}>Twenty</option>
-                                    <option value={30}>Thirty</option>
+                                    <option value={10}>This Week</option>
+                                    <option value={20}>This Month</option>
+                                    <option value={30}>This Year</option>
                             </NativeSelect>
                         </FormControl>
                     </Box>

@@ -14,7 +14,7 @@ import EmailAccountRegistrationController, { Props } from "./EmailAccountRegistr
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import { CheckBox, Visibility, VisibilityOff } from "@material-ui/icons";
 import { withRouter } from 'react-router';
-import { building, search, unit } from "./assets";
+import { building, city, country, Map, search, unit } from "./assets";
 import ReactSelect from 'react-select';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -62,6 +62,11 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
             </p>
           </Grid>
         </Grid>
+        <Grid container>
+          <Grid xs={12} className='flex' justifyContent="center">
+            <img src={Map}/>
+          </Grid>
+        </Grid>
 
 <Grid container>
   <Grid xs={12}>
@@ -90,8 +95,8 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
 </Grid>
         <Formik
           initialValues={{
-            // selectCountry: '',
-            // selectCity: "",
+            selectCountry: '',
+            selectCity: "",
             selectComplex: "",
             selectBuilding: "",
             selectUnit: "",
@@ -102,7 +107,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
         >
           {({ values, touched, errors, isValid, setFieldValue, handleChange }) => (
             <Form translate="yes" className="commonForm">
-              {/* <Grid container style={{ margin: '1rem', width: '90%' }}>
+              <Grid container style={{ margin: '1rem', width: '90%' }}>
                 <Grid xs={12}>
 
 
@@ -134,8 +139,8 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                   </FormControl>
                   <ErrorMessage className="text-error" component="Typography" name="selectCountry" />
                 </Grid>
-              </Grid> */}
-              {/* <Grid container style={{ margin: '1rem', width: '90%' }}>
+              </Grid>
+              <Grid container style={{ margin: '1rem', width: '90%' }}>
                 <Grid xs={12}>
                   <FormControl variant="outlined" fullWidth>
 
@@ -150,7 +155,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                       label="City"
                       style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#b5b5b5' }}
                     >
-                      <MenuItem value="f">
+                      <MenuItem value="">
                         <em>None</em>
                       </MenuItem>
                       {this.state.allCity && this.state.allCity.map((item) =>
@@ -164,14 +169,14 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                   <ErrorMessage className="text-error" component="Typography" name="selectCity" />
 
                 </Grid>
-              </Grid> */}
+              </Grid>
               <Box className="commonForm">
                 <Box className="formGroup">
                   <Box
                     className="formInputGrp"
                   >
 
-                    <ReactSelect options={this.state.allComplex} className="formInput" style={{ border: 'none' }} placeholder="Search Complex" onChange={(e) => { this.handleInputChangeCOm(e); setFieldValue("selectComplex", e.value) }} />
+                    <ReactSelect options={this.state.allComplex} className="formInput ReactSelect" style={{ border: 'none' }} placeholder="Search Complex" onChange={(e) => { this.handleInputChangeCOm(e); setFieldValue("selectComplex", e.value) }} />
 
                     <span className="frmLeftIcons" style={{ top: '1.5rem' }}>
                       <img src={search} />
@@ -211,8 +216,8 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                 </Grid>
               </Grid>
               <Grid container style={{ margin: '1rem', width: '90%' }}>
-                <Grid xs={12}>
-                  <FormControl variant="outlined" fullWidth>
+                <Grid xs={12} className='commonForm'>
+                  <FormControl variant="outlined" fullWidth className="formInputGrp" style={{position:'relative'}}>
                     <InputLabel id="demo-simple-select-outlined-label" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                       <img src={unit} />Unit</InputLabel>
                     <Select
@@ -223,7 +228,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                       label="Unit"
                       style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#b5b5b5' }}
                     >
-                      <MenuItem value="f">
+                      <MenuItem value="">
                         <em>None</em>
                       </MenuItem>
                       {this.state.allUnit && this.state.allUnit.map((item) =>
@@ -233,6 +238,15 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                       }
 
                     </Select>
+                    {/* <Field
+                      name="selectUnit"
+                      placeholder={"Search Unit"}
+                      className="formInput1"
+                    />
+                    <span className="frmLeftIcons1">
+
+                      <img src={unit} />
+                    </span> */}
                   </FormControl>
                   <ErrorMessage className="text-error" component="Typography" name="selectUnit" />
 
