@@ -1,0 +1,51 @@
+@import "../constants/base/colors.scss";
+@import "../constants/base/global.scss";
+.card {
+  // &.incident-card {
+  &.MuiCard-root {
+    box-shadow: 4px 0px 14px 0 #ececec;
+    border-radius: 15px;
+    & h4 {
+      font-size: 1rem;
+      font-weight: bold;
+      color: #181d25;
+      margin-bottom: 5px;
+    }
+    & .sub-title {
+      margin-top: 5px;
+      font-weight: 300;
+    }
+    & span {
+      font-size: 1rem;
+      color: #8c8e92;
+      margin-bottom: 10px;
+    }
+    & hr {
+      border: 1px solid #ececec;
+    }
+  }
+  & .MuiCardActions-root {
+    padding: 0;
+    padding-top: 5px;
+    &.card-footer {
+      display: flex;
+      // flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      & .sub-title {
+        margin: 0;
+      }
+      & .MuiButtonBase-root {
+        & span {
+          margin: 0;
+        }
+      }
+      & .customButton {
+        margin-bottom: 0;
+        padding-top: 0;
+      }
+    }
+  }
+  margin-bottom: 25px;
+ 
+}

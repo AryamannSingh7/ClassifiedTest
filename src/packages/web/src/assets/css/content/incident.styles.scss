@@ -1,0 +1,57 @@
+@import "../constants/base/colors.scss";
+@import "../constants/base/global.scss";
+.incident-wrapper {
+  margin: 0 auto;
+  @include mq(tablet-portrait-medium-up) {
+    overflow: hidden;
+  }
+  & .content-block {
+    padding: 0;
+  }
+  & .content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 25px 20px 25px;
+    border-bottom: 2px solid #f2efef;
+    & .blocks {
+      display: flex;
+      align-items: center;
+      & .MuiSvgIcon-root {
+        height: 1.5em;
+        width: 1.5em;
+      }
+      & .MuiButton-text {
+        padding: 0;
+        min-width: auto;
+      }
+    }
+    & h4 {
+      padding-left: 10px;
+    }
+    & .icons {
+      padding: 0 5px;
+    }
+  }
+  .content-block-wrapper {
+    padding: 0 25px;
+    &.common-incident-block {
+      @include mq(tablet-portrait-medium-up) {
+        width: 450px;
+        margin: 0 auto;
+      }
+    }
+    & .incident-content-wrapper {
+      margin-top: 25px;
+      // max-height: 400px;
+      // padding: 10px;
+      // overflow-y: scroll;
+      @include mq(tablet-landscape-up) {
+        // max-height: 500px;
+      }
+    }
+  }
+  & .customButton {
+    margin-bottom: 20px;
+  }
+}

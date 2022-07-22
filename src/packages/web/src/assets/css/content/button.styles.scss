@@ -7,6 +7,52 @@
         background-color: $BLUE;
         color: $WHITE;
         font-size: 15px;
+        &.contain {
+            padding: 5px 15px;
+            box-shadow: none;
+            & span {
+                font-size: 12px;
+                font-weight: 600;
+                white-space: nowrap;
+                text-transform: capitalize;
+            }
+        }
+        &.success {
+            background-color: $GREEN_SHADE1;
+            & span {
+                color: $GREEN;
+            }
+            &:hover {
+                background-color: $GREEN;
+                & span {
+                    color: $GREEN_SHADE1;
+                }
+            }
+        }
+        &.warning {
+            background-color: $ORANGE_SHADE1;
+            & span {
+                color: $ORANGE;
+            }
+            &:hover {
+                background-color: $ORANGE;
+                & span {
+                    color: $GREEN_SHADE1;
+                }
+            }
+        }
+        &.danger {
+            background-color: $DANGER_SHADE1;
+            & span {
+                color: $WARNING;
+            }
+            &:hover {
+                background-color: $WARNING;
+                & span {
+                    color: $DANGER_SHADE1;
+                }
+            }
+        }
         @include mq(tablet-landscape-up) {
             font-size: 14px;
         }

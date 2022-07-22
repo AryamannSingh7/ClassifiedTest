@@ -154,7 +154,7 @@ const routeMap = {
     path: '/ChairmanChangeSuccessfully',
     exact: true
   },
-  //done
+  //done0
   ChangePassword: {
     component: ChangePassword,
     path: '/ChangePassword',
