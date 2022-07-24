@@ -11,3 +11,7 @@ export const Building1 = require("../assets/building1.png");
 export const Building2 = require("../assets/building2.png");
 export const Tenant_Logo = require("../assets/TenantLogo.png");
 export const Landing_Banner = require("../assets/landing_banner.png");
+export const Grid_Icon = require("../assets/grid-icon.png");
+export const Filter_Icon = require("../assets/filter-icon.png");
+export const Back_Icon = require("../assets/back-icon.png");
+export const Upload_Icon = require("../assets/upload-icon.png");

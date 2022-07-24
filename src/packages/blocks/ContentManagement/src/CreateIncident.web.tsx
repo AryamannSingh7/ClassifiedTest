@@ -16,19 +16,24 @@ import {
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
 import { Input } from "react-native-elements";
 import * as Yup from "yup";
 import CountryCodeSelector from "../../country-code-selector/src/CountryCodeSelector";
 import IncidentController, { Props } from "./IncidentController.web";
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 //Customizable Area End
 
 //resorces
-import { Tenant_Logo, Building_Logo, Landing_Banner, Building1 } from "../src/assets";
+import { Tenant_Logo, Upload_Icon, Building_Logo, Landing_Banner, Building1 } from "../src/assets";
+import { Visibility, VisibilityOff } from "@material-ui/icons";
+import LockOpenIcon from '@material-ui/icons/LockOpen';
 
-class CreateIncident extends IncidentController{
+class CreateIncident extends IncidentController {
   constructor(props: Props) {
     super(props);
   }
@@ -38,71 +43,17 @@ class CreateIncident extends IncidentController{
 
     return (
       <>
-        {/* <Box className="login-wrapper auth-wrapper">
-          <div className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></div>
-          <Box className="header-block">
-            <h1>Forgot Password</h1>
-            <h6>One Time Password(OTP) will be sent to the regestered email.</h6>
-          </Box>
-          <Formik
-            initialValues={{
-              email: "",
-            }}
-            validationSchema={this.EmailSchema()}
-            validateOnMount={true}
-            onSubmit={(values) => {
-              console.log("valus=========>", values)
-              this.checkUser(values)
-              // same shape as initial values  
-            }}
-          >
-            {({ values, touched, errors, isValid, setFieldValue, handleChange }) => (
-              <Form translate="yes" className="commonForm">
-                <Box className="formGroup">
-                  <label htmlFor="" className="textfieldLabel">Enter your regestered Email </label>
-                  <div className="formInputGrp">
-                    <Field type="email" name="email" placeholder="Email ID" className="formInput" />
-                    <span className="frmLeftIcons"><MailOutlineIcon /></span>
-                  </div>
-
-                  {
-                    errors.email && touched.email ?
-                      (
-                        <Typography className="text-error">{errors.email} </Typography>
-                      ) : null
-                  }
-                </Box>
-                <Box className="customButton">
-                  <Button variant="contained" type="submit">next</Button>
-                </Box>
-
-              </Form>
-            )}
-          </Formik>
-        </Box> */}
-
-        <Box className="login-wrapper">
+        <Box className="login-wrapper incident-wrapper">
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
               <Box className="content-block">
-                <Box display={{ xs: 'flex', md: 'none' }} className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
-                <Box className="logo-block common-top-padding" display={{ xs: 'none', md: 'flex' }}>
-                  <Link href="/ChairmanLogin">
-                    <img src={Building_Logo} className="head-logo" alt="" />
-                    <h4>Building Name</h4>
-                  </Link>
-                </Box>
-                <Box className="main-content-block desktop-ui">
-                  {/* <Box className="header-block">
-                    <Box display={{ xs: 'flex', md: 'none' }}>
-                      <img src={Tenant_Logo} className="tenant-logo" alt="" />
-                    </Box>
-                    <h1>Welcome Back</h1>
-                    <p>Login with your account credentials </p>
-                  </Box> */}
-                  <Box className="header-block">
-                    <h6>Create Incident</h6>
+                <Box className="content-header">
+                  <Box className="left-block blocks">
+                    <Box display={{ xs: 'flex', md: 'none' }} className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
+                    <h4>Add New Incident</h4>
                   </Box>
+                </Box>
+                <Box className="content-block-wrapper common-incident-block desktop-ui">
                   <Formik
                     initialValues={{
                       email: "",
@@ -112,38 +63,101 @@ class CreateIncident extends IncidentController{
                     onSubmit={(values) => {
                       console.log("valus=========>", values)
                       this.checkUser(values)
-                      // same shape as initial values  
                     }}
                   >
                     {({ values, touched, errors, isValid, setFieldValue, handleChange }) => (
                       <Form translate="yes" className="commonForm">
+                        <h4 className="frm-title">Incident Details</h4>
+                        <Box className="formGroup customSelect">
+                          <FormControl variant="outlined" >
+                            <span className="frmLeftIcons"><LockOpenIcon /></span>
+                            {/* <InputLabel id="demo-simple-select-outlined-label">Select User Type</InputLabel>  */}
+                            <Select
+                              name="userType"
+                              labelId="demo-simple-select-outlined-label"
+                              id="demo-simple-select-outlined"
+                              // label="Select User Type"
+                              onChange={(e) => {
+                                (e.target.value != " ") && setFieldValue("userType", e.target.value)
+                              }}
+                              value={values.userType}
+                            >
+                              <MenuItem disabled value=" ">
+                                Select User Type
+                              </MenuItem>
+                              {
+                                this.state?.userTypeData?.map((val, index) => (
+                                  <MenuItem
+                                    key={index}
+                                    value={val?.name}
+                                  >
+                                    {val?.name}
+                                  </MenuItem>
+                                ))
+                              }
+                            </Select>
+                            <ErrorMessage className="text-error" component="Typography" name="userType" />
+                          </FormControl>
+                        </Box>
+                        <Box className="formGroup customSelect">
+                          <FormControl variant="outlined" >
+                            <span className="frmLeftIcons"><LockOpenIcon /></span>
+                            {/* <InputLabel id="demo-simple-select-outlined-label">Select User Type</InputLabel>  */}
+                            <Select
+                              name="userType"
+                              labelId="demo-simple-select-outlined-label"
+                              id="demo-simple-select-outlined"
+                              // label="Select User Type"
+                              onChange={(e) => {
+                                (e.target.value != " ") && setFieldValue("userType", e.target.value)
+                              }}
+                              value={values.userType}
+                            >
+                              <MenuItem disabled value=" ">
+                                Select User Type
+                              </MenuItem>
+                              {
+                                this.state?.userTypeData?.map((val, index) => (
+                                  <MenuItem
+                                    key={index}
+                                    value={val?.name}
+                                  >
+                                    {val?.name}
+                                  </MenuItem>
+                                ))
+                              }
+                            </Select>
+                            <ErrorMessage className="text-error" component="Typography" name="userType" />
+                          </FormControl>
+                        </Box>
                         <Box className="formGroup">
-                          {/* <label htmlFor="" className="textfieldLabel">Enter your regestered Email </label> */}
-                          <div className="formInputGrp">
-                            <Field type="text" name="email" placeholder="Email ID or Mobile Number" className="formInput" />
-                            <span className="frmLeftIcons"><MailOutlineIcon /></span>
-                          </div>
-
-                          {
-                            errors.email && touched.email ?
-                              (
-                                <Typography className="text-error">{errors.email} </Typography>
-                              ) : null
-                          }
+                          <Field name="incidentTitle" type="text" placeholder="Incident Title" className="formInput" />
+                          <span className="frmLeftIcons"><MailOutlineIcon /></span>
                         </Box>
-                        <Box className="customButton">
-                          <Button variant="contained" type="submit">next</Button>
+                        <Box className="formGroup">
+                          <Field name="incidentDes" type="text" placeholder="Add description" className="formInput" />
+                          <span className="frmLeftIcons"><MailOutlineIcon /></span>
                         </Box>
-                       
+                        <Box className="formGroup customFileupload">
+                          <Button
+                            variant="contained"
+                            component="label"
+                          >
+                            <img src={Upload_Icon} className="upload-icon" alt="upload-icon" />
+                            Add Image / Video
+                            <input
+                              type="file"
+                              hidden
+                            />
+                          </Button>
+                        </Box>
                       </Form>
                     )}
                   </Formik>
+                  <Box className="customButton">
+                    <Button variant="contained" type="submit">preview</Button>
+                  </Box>
                 </Box>
-                {/* mobile footer block */}
-                {/* <Box className="bottomBlock common-bottom-padding" display={{ xs: 'flex', md: 'none' }}>
-                  <Link href="#" className="link">Don't have an account ? </Link>
-                  <Link href="#" className="link"> <span> register</span></Link>
-                </Box> */}
                 {/* desktop footer block */}
                 <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>
                   <h6 className="bottom-text">POWERED BY</h6>

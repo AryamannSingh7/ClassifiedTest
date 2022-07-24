@@ -113,11 +113,9 @@
     @include mq(tablet-portrait-medium-up) {
       width: 40%;
     }
-    & .MuiButton-label
-    {
+    & .MuiButton-label {
       white-space: nowrap;
     }
-    
   }
   & .customButton {
     padding-top: 40px;
@@ -167,7 +165,9 @@
     position: absolute;
     left: 15px;
     & .MuiSvgIcon-root {
-      font-size: 35px;
+      // font-size: 45px;
+      height: 1.5em;
+      width: 1.5em;
     }
   }
   & .row-btn {
