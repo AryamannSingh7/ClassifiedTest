@@ -18,3 +18,5 @@ export const Upload_Icon = require("../assets/upload-icon.png");
 export const Calender_Icon = require("../assets/calender-icon.png");
 export const User_Icon = require("../assets/user-icon.png");
 export const Info_Icon = require("../assets/info-icon.png");
+export const Tick_Circle_Icon = require("../assets/tick-circle-icon.png");
+export const Clipboard_Icon = require("../assets/clipboard-icon.png");

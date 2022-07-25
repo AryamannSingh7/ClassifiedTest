@@ -26,9 +26,9 @@ import IncidentController, { Props } from "./IncidentController.web";
 //Customizable Area End
 
 //resorces
-import { Tenant_Logo, Building_Logo, Landing_Banner, Building1 } from "../src/assets";
+import { Tenant_Logo, Building_Logo, Tick_Circle_Icon, Building1 } from "../src/assets";
 
-class IncidentReportedSuccessfully extends IncidentController{
+class IncidentReportedSuccessfully extends IncidentController {
   constructor(props: Props) {
     super(props);
   }
@@ -38,7 +38,7 @@ class IncidentReportedSuccessfully extends IncidentController{
 
     return (
       <>
-       <Box className="login-wrapper auth-wrapper">
+        <Box className="login-wrapper auth-wrapper">
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
               <Box className="content-block">
@@ -51,14 +51,9 @@ class IncidentReportedSuccessfully extends IncidentController{
                 </Box>
                 <Box className="main-content-block change-password-mainblock">
                   <Box className="header-block header-block-changepassword">
-                    {/* <Box display={{ xs: 'flex', md: 'none' }}>
-                      <Link href="/EmailAccountLogin">
-                        <img src={Tenant_Logo} className="tenant-logo" alt="" />
-                      </Link>
-                    </Box> */}
-                    {/* <img src={Lock_Icon} className="lock-logo" alt="Lock_Icon" /> */}
-                    <h1>Password Changed<br></br>Successfully!</h1>
-                    <h6>You have successfully changed your<br></br>password. Please use your new password when<br></br>logging in.</h6>
+                    <img src={Tick_Circle_Icon} className="lock-logo" alt="Lock_Icon" />
+                    <h1>Incident Reported<br></br>Successfully</h1>
+                    <h6>You incident has been reported successfully.Your ticket id for reported reported incident is<br></br><span className="id-title">12345678</span></h6>
                   </Box>
                 </Box>
                 <Box className="footer-block desktop-ui">
@@ -67,7 +62,7 @@ class IncidentReportedSuccessfully extends IncidentController{
                       localStorage.removeItem("otpToken");
                       localStorage.removeItem("emailOtp");
                       this.props.history.push("/EmailAccountLogin");
-                    }}>login</Button>
+                    }}>view ticket</Button>
                   </Box>
                 </Box>
                 {/* desktop footer block */}

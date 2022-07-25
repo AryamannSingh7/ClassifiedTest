@@ -6,15 +6,12 @@ import React from "react";
 import {
   Box,
   Button,
-  Link,
   Typography,
-  IconButton,
   Grid,
   Card,
   CardContent,
   CardActions,
-  Menu,
-  MenuItem
+  TextareaAutosize
 } from "@material-ui/core";
 
 //resources
@@ -31,7 +28,17 @@ import IncidentController, { Props } from "./IncidentController.web";
 //Customizable Area End
 
 //resorces
-import { Tenant_Logo, Building1, Grid_Icon, Filter_Icon, User_Icon, Calender_Icon, Info_Icon } from "../src/assets";
+import {
+  Tenant_Logo,
+  Building1,
+  Grid_Icon,
+  Filter_Icon,
+  User_Icon,
+  Calender_Icon,
+  Info_Icon,
+  Clipboard_Icon
+}
+  from "../src/assets";
 
 class IncidentDetails extends IncidentController {
   constructor(props: Props) {
@@ -173,6 +180,18 @@ class IncidentDetails extends IncidentController {
                             <h5>Reported By:</h5>
                             <h4 className="title">Mr. Ali Khan</h4>
                           </Box>
+                        </Box>
+                      </CardContent>
+                    </Card>
+                    <Card className="incident-card reporting-card card">
+                      <CardContent className="commonForm">
+                        <Box className="formGroup textarea">
+                          <img src={Clipboard_Icon} className="clipboard-icon" alt="Clipboard_Icon" />
+                          <TextareaAutosize
+                            maxRows={10}
+                            aria-label="maximum height"
+                            placeholder="Add Discription"
+                          />
                         </Box>
                       </CardContent>
                     </Card>
