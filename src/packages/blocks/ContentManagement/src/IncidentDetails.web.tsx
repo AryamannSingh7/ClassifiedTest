@@ -31,9 +31,7 @@ import IncidentController, { Props } from "./IncidentController.web";
 //Customizable Area End
 
 //resorces
-// import { Tenant_Logo, Building_Logo, Landing_Banner, Building1 } from "../src/assets";
-//resorces
-import { Tenant_Logo, Building1, Grid_Icon, Filter_Icon, User_Icon, Calender_Icon } from "../src/assets";
+import { Tenant_Logo, Building1, Grid_Icon, Filter_Icon, User_Icon, Calender_Icon, Info_Icon } from "../src/assets";
 
 class IncidentDetails extends IncidentController {
   constructor(props: Props) {
@@ -65,51 +63,73 @@ class IncidentDetails extends IncidentController {
                 </Box>
                 <Box className="content-block-wrapper common-incident-block">
                   <Box className="incident-content-wrapper">
+                    <Card className="incident-card confirmation-card card">
+                      <CardContent className="confirmation-card-content">
+                        <Box className="info-row">
+                          <img src={Info_Icon} className="info-icon" alt="info-icon" />
+                        </Box>
+                        <Typography component="h4">
+                          Is raised incident<br></br>resolved?
+                        </Typography>
+                        <Typography component="p">
+                          Lorem Ipsum is simply dummy text of the printing and typesetting industry and typesetting industry.
+                        </Typography>
+                        <Box className="customButton">
+                          <Box className="formGroup">
+                            <Button variant="outlined" type="submit" >reject course</Button>
+                            <Button variant="contained" type="submit" >confirm course</Button>
+                          </Box>
+                        </Box>
+                      </CardContent>
+                    </Card>
                     <Box className="incident-rows">
                       <h4>Incident Details</h4>
-                      <Box className="customButton">
+                      {/* <Box className="customButton">
                         <Button variant="contained" className="contain danger" type="submit" >Unresolved</Button>
+                      </Box> */}
+                      <Box className="customButton">
+                        <Button variant="contained" className="contain warning" type="submit" >Unresolved</Button>
                       </Box>
                     </Box>
                     <Card className="incident-card card">
                       <CardContent>
-                        <Typography component="span">
+                        <Typography className="title-span" component="span">
                           Affected Area:
                         </Typography>
                         <Typography className="sub-title" component="h4">
                           Own Apartment
                         </Typography>
-                        <Typography component="span">
+                        <Typography className="title-span" component="span">
                           Incident is related to::
                         </Typography>
                         <Typography className="sub-title" component="h4">
                           Plumbing
                         </Typography>
-                        <Typography component="span">
+                        <Typography className="title-span" component="span">
                           Incident Number:
                         </Typography>
                         <Typography className="sub-title" component="h4">
                           123765
                         </Typography>
-                        <Typography component="span">
+                        <Typography className="title-span" component="span">
                           Expected Resolution Date:
                         </Typography>
                         <Typography className="sub-title" component="h4">
                           12-03-2021 13:45
                         </Typography>
-                        <Typography component="span">
+                        <Typography className="title-span" component="span">
                           Latest update from management:
                         </Typography>
                         <Typography className="sub-title" component="h4">
                           Waiting forspare part to be delivered from Italy
                         </Typography>
-                        <Typography component="span">
+                        <Typography className="title-span" component="span">
                           Ackwnolodged by Manager:
                         </Typography>
                         <Typography className="sub-title" component="h4">
                           Yes
                         </Typography>
-                        <Typography component="span">
+                        <Typography className="title-span" component="span">
                           Photos
                         </Typography>
                         <CardActions className="card-img-row">
@@ -158,7 +178,7 @@ class IncidentDetails extends IncidentController {
                     </Card>
                   </Box>
                   <Box className="customButton" display={{ xs: 'flex', md: 'none' }}>
-                    <Button variant="contained" type="submit" >start/ view ticket conversation                                                              </Button>
+                    <Button variant="contained" type="submit" >start/ view ticket conversation</Button>
                   </Box>
                 </Box>
                 <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>
