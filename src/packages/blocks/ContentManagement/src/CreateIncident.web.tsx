@@ -58,7 +58,8 @@ class CreateIncident extends IncidentController {
                     initialValues={{
                       email: "",
                     }}
-                    //validationSchema={this.EmailSchema()}
+                    //validati
+                    onSchema={this.EmailSchema()}
                     validateOnMount={true}
                     onSubmit={(values) => {
                       console.log("valus=========>", values)
@@ -163,7 +164,7 @@ class CreateIncident extends IncidentController {
                   <h6 className="bottom-text">POWERED BY</h6>
                   <img src={Tenant_Logo} className="tenant-logo" alt="" />
                 </Box>
-              </Box>
+              </Box> 
             </Grid>
             <Grid item xs={12} md={5} className="auth-cols">
               <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>

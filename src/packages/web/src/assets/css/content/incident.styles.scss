@@ -39,13 +39,28 @@
       @include mq(tablet-portrait-medium-up) {
         width: 450px;
         margin: 0 auto;
+        overflow-y: scroll;
+      }
+      & .customButton {
+        & .MuiButton-label {
+          white-space: nowrap;
+          font-size: 12px;
+          font-weight: 700;
+        }
       }
     }
     & .incident-content-wrapper {
       margin-top: 25px;
-      // max-height: 400px;
-      // padding: 10px;
-      // overflow-y: scroll;
+      & .incident-rows {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        align-items: center;
+        & .customButton {
+          padding: 0;
+          margin: 0;
+        }
+      }
       @include mq(tablet-landscape-up) {
         // max-height: 500px;
       }

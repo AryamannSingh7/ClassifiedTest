@@ -15,3 +15,5 @@ export const Grid_Icon = require("../assets/grid-icon.png");
 export const Filter_Icon = require("../assets/filter-icon.png");
 export const Back_Icon = require("../assets/back-icon.png");
 export const Upload_Icon = require("../assets/upload-icon.png");
+export const Calender_Icon = require("../assets/calender-icon.png");
+export const User_Icon = require("../assets/user-icon.png");
