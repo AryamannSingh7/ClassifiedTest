@@ -193,6 +193,7 @@ export default class EmailAccountLoginController extends BlockComponent<
             localStorage.setItem("userToken", responseJson?.meta?.token)
             localStorage.setItem("userId", responseJson?.meta?.id)
             localStorage.setItem("userType", responseJson?.meta?.role[0]?.name)
+            localStorage.setItem("society_id", responseJson.meta?.society_id)
             this.getRegistrationRequest();
           // this.props.history.push("/RegistrationRequest")
            //window.location.replace("/RegistrationRequest");

@@ -38,6 +38,7 @@ class IncidentListing extends IncidentController {
     super(props);
   }
   render() {
+    console.log("this.state.anchorEl=======>",this.state.anchorEl)
     const { navigation } = this.props;
     return (
       <>
@@ -52,11 +53,42 @@ class IncidentListing extends IncidentController {
                   </Box>
                   <Box className="incident-right-block blocks">
                     <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-                      <Button>
+                      <Button aria-controls="simple-menu" aria-haspopup="true" onClick={(e : any) => this.handleClick(e)}>
                         <img src={Grid_Icon} className="grid-icon icons" alt="" />
                       </Button>
+                      {/* <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+                        Open Menu
+                      </Button> */}
+                      <Menu
+                        id="simple-menu"
+                        anchorEl={this.state.anchorEl}
+                        keepMounted
+                        open={Boolean(this.state.anchorEl)}
+                        onClose={() =>this.handleClose()}
+                      >
+                        <MenuItem onClick={(e) =>this.handleClose(e,"Ascending")}>Ascending</MenuItem>
+                        <MenuItem onClick={(e) =>this.handleClose(e,"Descending")}>Descending</MenuItem>
+                      </Menu>
                     </Box>
-                    <Button><img src={Filter_Icon} className="filter-icon icons" alt="" /></Button>
+                
+                      <Button aria-controls="fade-menu" aria-haspopup="true" onClick={(e : any) => this.handleClick_1(e)}>
+                      <img src={Filter_Icon} className="filter-icon icons" alt="" />
+                      </Button>
+                      {/* <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+                        Open Menu
+                      </Button> */}
+                      <Menu
+                        id="fade-menu"
+                        anchorEl={this.state.anchorEl_1}
+                        keepMounted
+                        open={Boolean(this.state.anchorEl_1)}
+                        onClose={() =>this.handleClose_1()}
+                      >
+                        <MenuItem onClick={(e) =>this.handleClose_1(e,"Ascending")}>resvloed</MenuItem>
+                        <MenuItem onClick={(e) =>this.handleClose_1(e,"Descending")}>unresoved</MenuItem>
+                        <MenuItem onClick={(e) =>this.handleClose_1(e,"Descending")}>pending</MenuItem>
+                      </Menu>
+                
                   </Box>
                 </Box>
                 <Box className="content-block-wrapper common-incident-block">

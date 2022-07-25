@@ -45,9 +45,9 @@
     cursor: pointer;
     
 }
-.SingleLink .SingleLinkSize:hover{
+/* .SingleLink .SingleLinkSize:hover{
     color: red;
-}
+} */
 .AccordinoList .ListItem{
     margin-top:25px;
 }
