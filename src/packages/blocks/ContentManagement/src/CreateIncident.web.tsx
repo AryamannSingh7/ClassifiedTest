@@ -37,7 +37,10 @@ class CreateIncident extends IncidentController {
   constructor(props: Props) {
     super(props);
   }
-
+  componentDidMount() {
+    this.getCommonArea();
+    this.getIncidentRelated();
+  }
   render() {
     const { navigation } = this.props;
 
@@ -56,13 +59,16 @@ class CreateIncident extends IncidentController {
                 <Box className="content-block-wrapper common-incident-block desktop-ui">
                   <Formik
                     initialValues={{
-                      email: "",
+                      commonArea:" ",
+                      incidentRelated :" ",
+                      incidentTitle : "",
+                      description : ""
                     }}
-                    //validationSchema={this.EmailSchema()}
-                    validateOnMount={true}
-                    onSubmit={(values) => {
+                    validationSchema={this.createIncidentSchema()}
+                      validateOnMount={true}
+                      onSubmit={(values) => {
                       console.log("valus=========>", values)
-                      this.checkUser(values)
+                      localStorage.setItem("incidentPreview", JSON.stringify(values))
                     }}
                   >
                     {({ values, touched, errors, isValid, setFieldValue, handleChange }) => (
@@ -71,22 +77,20 @@ class CreateIncident extends IncidentController {
                         <Box className="formGroup customSelect">
                           <FormControl variant="outlined" >
                             <span className="frmLeftIcons"><LockOpenIcon /></span>
-                            {/* <InputLabel id="demo-simple-select-outlined-label">Select User Type</InputLabel>  */}
                             <Select
-                              name="userType"
+                              name="commonArea"
                               labelId="demo-simple-select-outlined-label"
                               id="demo-simple-select-outlined"
-                              // label="Select User Type"
                               onChange={(e) => {
-                                (e.target.value != " ") && setFieldValue("userType", e.target.value)
+                                (e.target.value != " ") && setFieldValue("commonArea", e.target.value)
                               }}
-                              value={values.userType}
+                              value={values.commonArea}
                             >
                               <MenuItem disabled value=" ">
-                                Select User Type
+                              Common Area
                               </MenuItem>
                               {
-                                this.state?.userTypeData?.map((val, index) => (
+                                this.state?.commonAreaData?.map((val, index) => (
                                   <MenuItem
                                     key={index}
                                     value={val?.name}
@@ -96,28 +100,26 @@ class CreateIncident extends IncidentController {
                                 ))
                               }
                             </Select>
-                            <ErrorMessage className="text-error" component="Typography" name="userType" />
+                            <ErrorMessage className="text-error" component="Typography" name="commonArea" />
                           </FormControl>
                         </Box>
                         <Box className="formGroup customSelect">
                           <FormControl variant="outlined" >
                             <span className="frmLeftIcons"><LockOpenIcon /></span>
-                            {/* <InputLabel id="demo-simple-select-outlined-label">Select User Type</InputLabel>  */}
-                            <Select
-                              name="userType"
+                             <Select
+                              name="incidentRelated"
                               labelId="demo-simple-select-outlined-label"
                               id="demo-simple-select-outlined"
-                              // label="Select User Type"
                               onChange={(e) => {
-                                (e.target.value != " ") && setFieldValue("userType", e.target.value)
+                                (e.target.value != " ") && setFieldValue("incidentRelated", e.target.value)
                               }}
-                              value={values.userType}
+                              value={values.incidentRelated}
                             >
                               <MenuItem disabled value=" ">
-                                Select User Type
+                                Incident is related to
                               </MenuItem>
                               {
-                                this.state?.userTypeData?.map((val, index) => (
+                                this.state?.incidentRelatedData?.map((val, index) => (
                                   <MenuItem
                                     key={index}
                                     value={val?.name}
@@ -127,16 +129,18 @@ class CreateIncident extends IncidentController {
                                 ))
                               }
                             </Select>
-                            <ErrorMessage className="text-error" component="Typography" name="userType" />
+                            <ErrorMessage className="text-error" component="Typography" name="incidentRelated" />
                           </FormControl>
                         </Box>
                         <Box className="formGroup">
                           <Field name="incidentTitle" type="text" placeholder="Incident Title" className="formInput" />
                           <span className="frmLeftIcons"><MailOutlineIcon /></span>
+                          <ErrorMessage className="text-error" component="Typography" name="incidentTitle" />
                         </Box>
                         <Box className="formGroup">
-                          <Field name="incidentDes" type="text" placeholder="Add description" className="formInput" />
+                          <Field name="description" type="text" placeholder="Add description" className="formInput" />
                           <span className="frmLeftIcons"><MailOutlineIcon /></span>
+                          <ErrorMessage className="text-error" component="Typography" name="description" />
                         </Box>
                         <Box className="formGroup customFileupload">
                           <Button
@@ -151,12 +155,13 @@ class CreateIncident extends IncidentController {
                             />
                           </Button>
                         </Box>
+                        <Box className="customButton">
+                       <Button variant="contained" type="submit">preview</Button>
+                      </Box>
                       </Form>
                     )}
                   </Formik>
-                  <Box className="customButton">
-                    <Button variant="contained" type="submit">preview</Button>
-                  </Box>
+               
                 </Box>
                 {/* desktop footer block */}
                 <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>

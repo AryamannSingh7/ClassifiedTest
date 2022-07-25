@@ -40,7 +40,8 @@ export interface S {
   error: string | null;
   loading: boolean;
   userTypeData:any;
-  
+  anchorEl :any ;
+  anchorEl_1 :any ;
   // Customizable Area End
 }
 
@@ -61,10 +62,11 @@ export default class IncidentController extends BlockComponent<
   emailReg: RegExp;
   createAccountApiCallId: any;
 
-  apiEmailLoginCallId: any;
+  apicreateIncidentCallId: any;
   validationApiCallId: any;
-  getUserTypeApiCallId: any;
-
+  getIncidentListingApiCallId: any;
+  getCommonAreaApiCallId : any ;
+  getIncidentRelatedApiCallId:any;
   validationApiCallId: string = "";
 
   imgPasswordVisible: any;
@@ -113,8 +115,10 @@ export default class IncidentController extends BlockComponent<
       phone: "",
       userType:'',
       loading: false,
-      userTypeData:null
-    
+      commonAreaData:null,
+      incidentRelatedData:null,
+      anchorEl:null,
+      anchorEl_1:null
       // Customizable Area End
     };
 
@@ -178,12 +182,9 @@ export default class IncidentController extends BlockComponent<
             }
           }
         } 
-      else if (apiRequestCallId === this.apiEmailLoginCallId) {
+      else if (apiRequestCallId === this.apicreateIncidentCallId) {
           if (responseJson && responseJson.meta && responseJson.meta.token) {
-            localStorage.setItem("userToken", responseJson?.meta?.token)
-            localStorage.setItem("userId", responseJson?.meta?.id)
-            localStorage.setItem("userType", responseJson?.meta?.role.name)
-            localStorage.setItem("society_id", responseJson.meta?.society_id)
+            
             if(localStorage.getItem("userType") === "Owner"){
               this.props.history.push("/OwnerDashboard")
               this.setState({loading: false})
@@ -203,10 +204,10 @@ export default class IncidentController extends BlockComponent<
           this.parseApiCatchErrorResponse(this.state.error);
           this.setState({loading: false , error:null})
         }
-        else if (apiRequestCallId === this.getUserTypeApiCallId) {
+        else if (apiRequestCallId === this.getIncidentListingApiCallId) {
           if (responseJson && responseJson?.data ) {
-          console.log("responseJson?.data========================>",responseJson?.data.roles)
-          this.setState({userTypeData :responseJson?.data.roles})
+          console.log("getIncidentListingApiCallId ========================>",responseJson)
+          //this.setState({userTypeData :responseJson?.data.roles})
         //   console.log("userTypeData========================>",this.state.userTypeData[0].name)
           this.setState({loading: false})
           } else if (responseJson?.errors) {
@@ -218,7 +219,36 @@ export default class IncidentController extends BlockComponent<
           this.parseApiCatchErrorResponse(this.state.error);
           this.setState({loading: false , error:null})
         }
+        else if (apiRequestCallId === this.getCommonAreaApiCallId) {
+          if (responseJson && responseJson?.data ) {
+          console.log("getCommonAreaApiCallId  getIncidentRelatedApiCallId========================>",responseJson)
+          this.setState({commonAreaData :responseJson?.data.common_areas})
         
+          this.setState({loading: false})
+          } else if (responseJson?.errors) {
+            let error = Object.values(responseJson.errors[0])[0] as string;
+            this.setState({ error });
+          } else {
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
+          }
+          this.parseApiCatchErrorResponse(this.state.error);
+          this.setState({loading: false , error:null})
+        }
+        else if (apiRequestCallId === this.getIncidentRelatedApiCallId) {
+          if (responseJson && responseJson?.data ) {
+          console.log("getIncidentRelatedApiCallId========================>",responseJson)
+          this.setState({incidentRelatedData :responseJson?.data.incident_relateds})
+        
+          this.setState({loading: false})
+          } else if (responseJson?.errors) {
+            let error = Object.values(responseJson.errors[0])[0] as string;
+            this.setState({ error });
+          } else {
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
+          }
+          this.parseApiCatchErrorResponse(this.state.error);
+          this.setState({loading: false , error:null})
+        }
       }
     }
 
@@ -453,49 +483,41 @@ clear= () => {
   this.props.history.push("/");
 }
 
-  LoginSchema() {
-    const validations = Yup.object().shape({
-      email: Yup.string()
-        .email('Invalid email format')
-        .strict(true)
-        .lowercase(`Please enter all values in lowercase`)
-        .trim()
-        .required(`This field is required.`),
-      password: Yup.string().required(`This field is required`),
-      userType: Yup.string().required(`This field is required`).trim(),
-    });
-    return validations
-  }
+  
 
-  doLogIn = (values: any): boolean => {
+  createIncident = (values: any): boolean => {
+    
     const header = {
-      "Content-Type": configJSON.loginApiContentType
+      "Content-Type": configJSON.validationApiContentType,
+      token :localStorage.getItem("userToken")
     };
 
-    const attrs = {
-      email: values.email,
-      password: values.password
-    };
+    console.log("values create==================>",values);
+    const formData = new FormData();
+  //  if(this.state.selectedFile){
+  //   formData.append('company[logo]',this.state.selectedFile);
+  //  }
+    //console.log("this.state.selectedFile==================>",this.state.selectedFile);
+   
+   formData.append('company[name]', values.company);
+   formData.append('company[employer_name]', values.employer);
+   formData.append('company[email]', values.email);
+   formData.append('company[full_contact_number]', values.contact);
+   formData.append('company[country]', values.country);
+   formData.append('company[state]', values.state);
+   formData.append('company[city]', values.city_district);
 
-    const data = {
-      type: "email_account",
-      attributes: attrs,
-      user_type:values.userType
-    };
+const httpBody = formData;
 
-    const httpBody = {
-      data: data
-    };
-    localStorage.setItem("selectUserType",values.userType)
     this.setState({loading: true}) 
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
     );
 
-    this.apiEmailLoginCallId = requestMessage.messageId;
+    this.apicreateIncidentCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      configJSON.signinAPiEndPoint
+      configJSON.createIncident
     );
 
     requestMessage.addData(
@@ -510,7 +532,7 @@ clear= () => {
 
     requestMessage.addData(
       getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.loginAPiMethod
+      configJSON.exampleAPiMethod
     );
 
     runEngine.sendMessage(requestMessage.id, requestMessage);
@@ -519,22 +541,23 @@ clear= () => {
   };
 
  
-  getUserType = () => {
+  getIncidentListing= () => {
     try {
       const header = {
-        
+        "Content-Type": configJSON.validationApiContentType,
+        token :localStorage.getItem("userToken")
       };
 
       //const id = localStorage.getItem("userId");
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
-      this.getUserTypeApiCallId = requestMessage.messageId;
+      this.getIncidentListingApiCallId = requestMessage.messageId;
       this.setState({ loading: true });
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `${configJSON.getUserType}`
+        `bx_block_custom_form/incidents?sort_type=${'asc'}&filter_by=${'Unresolved'}`
       );
 
       requestMessage.addData(
@@ -554,5 +577,106 @@ clear= () => {
     }
   };
   
+  getCommonArea = () => {
+    try {
+      const header = {
+        "Content-Type": configJSON.validationApiContentType,
+        token :localStorage.getItem("userToken")
+      };
+
+      //const id = localStorage.getItem("userId");
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+      this.getCommonAreaApiCallId = requestMessage.messageId;
+      this.setState({ loading: true });
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        `bx_block_custom_form/incidents/common_area_list?society_management_id=4`
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        configJSON.validationApiMethodType
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+      return true;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  getIncidentRelated = () => {
+    try {
+      const header = {
+        "Content-Type": configJSON.validationApiContentType,
+        token :localStorage.getItem("userToken")
+      };
+
+      //const id = localStorage.getItem("userId");
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+      this.getIncidentRelatedApiCallId = requestMessage.messageId;
+      this.setState({ loading: true });
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        configJSON.incidentRelated
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        configJSON.validationApiMethodType
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+      return true;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+  handleClick = (event) => {
+    this.setState({anchorEl:event.currentTarget})
+  };
+  handleClose = (e, v) => {
+   
+    this.setState({anchorEl:null})
+   //setAnchorEl(null);
+  };
+  
+  handleClick_1 = (event) => {
+    this.setState({anchorEl_1:event.currentTarget})
+  };
+   
+  handleClose_1 = (e, v) => {
+    this.setState({anchorEl_1:null})
+  };
+
+  
+  createIncidentSchema() {
+    const validations = Yup.object().shape({
+      commonArea: Yup.string().required(`This field is required`).trim(),
+      incidentRelated: Yup.string().required(`This field is required`).trim(),
+      incidentTitle: Yup.string().required(`This field is required`),
+      description: Yup.string().required(`This field is required`),
+    });
+    return validations
+  }
+
   // Customizable Area End
 }
