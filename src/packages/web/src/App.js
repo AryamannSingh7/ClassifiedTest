@@ -114,6 +114,8 @@ import SubmitPoll from "../../blocks/Polling/src/SubmitPoll.web"
 import OwnerDashboard from "../../blocks/dashboard/src/OwnerDashboard.web"
 import ResidentDashboard from "../../blocks/dashboard/src/ResidentDashboard.web"
 import PollVoteSubmitted from "../../blocks/Polling/src/PollVoteSubmitted.web"
+import PollResponseCompleted from "../../blocks/Polling/src/PollResponseCompleted.web"
+
 
 
 const routeMap = {
@@ -266,6 +268,11 @@ const routeMap = {
   PollVoteSubmitted: {
     component: PollVoteSubmitted,
     path: "/PollVoteSubmitted"
+  },
+
+  PollResponseCompleted: {
+    component: PollResponseCompleted,
+    path: "/PollResponseCompleted"
   },
   
   OwnerDashboard: {

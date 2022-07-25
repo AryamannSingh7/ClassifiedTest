@@ -427,7 +427,7 @@
 }
 .progressbarYES progress[value]::-webkit-progress-value {
     border-radius: 5rem;  
-    background-color:green;
+    background-color:rgb(11, 22, 121);
 }
 .progressbarYES progress:before {
     content: attr(data-label);

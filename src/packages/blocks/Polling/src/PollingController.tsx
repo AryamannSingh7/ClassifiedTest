@@ -47,6 +47,7 @@ interface S {
   TabValue:any;
   textEditorVal:any;
   initialtextEditorVal:any;
+  liveOldPolls: any;
   // Customizable Area End
 }
 
@@ -66,6 +67,7 @@ export default class PollingController extends BlockComponent<
   createPoll:string;
   totalPollsCount: string;
   getRecentPollsData: string;
+  liveOldPolls: string;
   // Customizable Area End
 
   constructor(props: Props) {
@@ -118,6 +120,7 @@ export default class PollingController extends BlockComponent<
       recentPolls: [],
       selectQuestion: [],
       PreViewPollData: [],
+      liveOldPolls:[],
       loading: false,
       showDialog:false,
       children: '',
@@ -142,6 +145,7 @@ export default class PollingController extends BlockComponent<
     this.onGetPolls();
     this.getTotalPollCount();
     this.getRecentPolls();
+    this.liveAndOldData();
     // Customizable Area End
   }
     // Customizable Area Start
@@ -189,6 +193,17 @@ export default class PollingController extends BlockComponent<
       });
     }
 
+    //==============================================
+
+    liveAndOldData = async () => {
+      const societyID = localStorage.getItem("society_id")
+      this.liveOldPolls = await this.apiCall({
+        contentType: configJSON.exampleApiContentType,
+        method: configJSON.httpGetMethod,
+        endPoint: `/society_managements/${societyID}/bx_block_polling/polls/live_and_old_polls`,
+      });
+    }
+  
     //==============================================
 
     onChangeTextEditor = (value:any) => {
@@ -376,7 +391,11 @@ export default class PollingController extends BlockComponent<
       // console.log("Recent Polls ==>>>", responseJson)
       this.getRecentPollsResponse(responseJson)
      }
-      
+     if(apiRequestCallId === this.liveOldPolls) {
+      // console.log("Recent Polls ==>>>", responseJson)
+      this.getLiveOldPolls(responseJson)
+     }
+     
     }
 //Error Block    
     else if (responseJson && responseJson?.error || responseJson?.errors) {
@@ -422,6 +441,13 @@ export default class PollingController extends BlockComponent<
     this.setState({recentPolls: response})
     console.log('get Recent Polls Response',this.state.recentPolls);
   }
+
+  getLiveOldPolls = async (response: any) => {
+    // console.log('get Recent Polls Response',response);
+    this.setState({liveOldPolls: response})
+    console.log('get Live Ols Polls Response',this.state.liveOldPolls.polls.data);
+  }
+
   // Error Block
   
   getPollErrorResponse = async (response: any) => {

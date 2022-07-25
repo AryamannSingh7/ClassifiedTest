@@ -126,8 +126,8 @@ class PollVoteSubmitted extends PollingController {
        
         <Grid container spacing={2} style={{ background: "#E5ECFF", marginLeft: '1rem',marginTop:'1.5rem', width: '90%', alignItems:'baseline'}}>
             <Grid xs={12}>
-                <Box className="progressbarNO">
-                    <span>Yes</span>
+                <Box className="progressbarYES">
+                    <span>No</span>
                     <progress className="progress" data-label="30%" value="30" max="100"></progress>
                 </Box>
             </Grid>

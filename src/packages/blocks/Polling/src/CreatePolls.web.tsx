@@ -175,9 +175,8 @@ class CreatePolls extends PollingController {
 
                                 <Box className="descriptionEditor">
                                     <TextEditor 
-                                        markup={this.state.textEditorVal}
-                                        onChange={this.onChangeTextEditor} 
-                                    />
+                                    markup={this.state.textEditorVal}
+                                    onChange={this.onChangeTextEditor} />
                                 </Box>
 
                                 <TextField  label="enter question" variant="outlined"
