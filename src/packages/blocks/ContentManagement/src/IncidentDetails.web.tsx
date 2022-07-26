@@ -103,37 +103,37 @@ class IncidentDetails extends IncidentController {
                         <Typography className="title-span" component="span">
                           Affected Area:
                         </Typography>
-                        <Typography className="sub-title" component="h4">
+                        <Typography className="sub-title" component="h5">
                           Own Apartment
                         </Typography>
                         <Typography className="title-span" component="span">
                           Incident is related to::
                         </Typography>
-                        <Typography className="sub-title" component="h4">
+                        <Typography className="sub-title" component="h5">
                           Plumbing
                         </Typography>
                         <Typography className="title-span" component="span">
                           Incident Number:
                         </Typography>
-                        <Typography className="sub-title" component="h4">
+                        <Typography className="sub-title" component="h5">
                           123765
                         </Typography>
                         <Typography className="title-span" component="span">
                           Expected Resolution Date:
                         </Typography>
-                        <Typography className="sub-title" component="h4">
+                        <Typography className="sub-title" component="h5">
                           12-03-2021 13:45
                         </Typography>
                         <Typography className="title-span" component="span">
                           Latest update from management:
                         </Typography>
-                        <Typography className="sub-title" component="h4">
+                        <Typography className="sub-title" component="h5">
                           Waiting forspare part to be delivered from Italy
                         </Typography>
                         <Typography className="title-span" component="span">
                           Ackwnolodged by Manager:
                         </Typography>
-                        <Typography className="sub-title" component="h4">
+                        <Typography className="sub-title" component="h5">
                           Yes
                         </Typography>
                         <Typography className="title-span" component="span">
@@ -151,15 +151,6 @@ class IncidentDetails extends IncidentController {
                           <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
                         </CardActions>
                         <hr />
-                        <CardActions className="card-footer">
-                          <Typography className="sub-title" component="h4">
-                            Own apartment
-                          </Typography>
-                          <Box className="customButton">
-                            <Button variant="contained" className="contain success" type="submit" >Resolved</Button>
-                          </Box>
-                          {/* <Button className="success">Resolved</Button> */}
-                        </CardActions>
                       </CardContent>
                     </Card>
                     <Box className="incident-rows">
@@ -196,7 +187,7 @@ class IncidentDetails extends IncidentController {
                       </CardContent>
                     </Card>
                   </Box>
-                  <Box className="customButton" display={{ xs: 'flex', md: 'none' }}>
+                  <Box className="customButton">
                     <Button variant="contained" type="submit" >start/ view ticket conversation</Button>
                   </Box>
                 </Box>

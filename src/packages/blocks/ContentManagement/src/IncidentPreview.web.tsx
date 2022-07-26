@@ -71,37 +71,37 @@ class IncidentPreview extends IncidentController {
                         <Typography component="span">
                           Affected Area:
                         </Typography>
-                        <Typography className="sub-title" component="h4">
+                        <Typography className="sub-title" component="h5">
                           Own Apartment
                         </Typography>
                         <Typography component="span">
                           Incident is related to::
                         </Typography>
-                        <Typography className="sub-title" component="h4">
+                        <Typography className="sub-title" component="h5">
                           Plumbing
                         </Typography>
                         <Typography component="span">
                           Incident Number:
                         </Typography>
-                        <Typography className="sub-title" component="h4">
+                        <Typography className="sub-title" component="h5">
                           123765
                         </Typography>
                         <Typography component="span">
                           Expected Resolution Date:
                         </Typography>
-                        <Typography className="sub-title" component="h4">
+                        <Typography className="sub-title" component="h5">
                           12-03-2021 13:45
                         </Typography>
                         <Typography component="span">
                           Latest update from management:
                         </Typography>
-                        <Typography className="sub-title" component="h4">
+                        <Typography className="sub-title" component="h5">
                           Waiting forspare part to be delivered from Italy
                         </Typography>
                         <Typography component="span">
                           Ackwnolodged by Manager:
                         </Typography>
-                        <Typography className="sub-title" component="h4">
+                        <Typography className="sub-title" component="h5">
                           Yes
                         </Typography>
                         <Typography component="span">
@@ -122,7 +122,7 @@ class IncidentPreview extends IncidentController {
                       </CardContent>
                     </Card>
                   </Box>
-                  <Box className="customButton" display={{ xs: 'flex', md: 'none' }}>
+                  <Box className="customButton">
                     <Button variant="contained" type="submit" >submit</Button>
                   </Box>
                 </Box>
