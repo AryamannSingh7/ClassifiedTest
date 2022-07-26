@@ -14,7 +14,7 @@ import EmailAccountRegistrationController, { Props } from "./EmailAccountRegistr
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import { CheckBox, Visibility, VisibilityOff } from "@material-ui/icons";
 import { withRouter } from 'react-router';
-import { building, city, country, Map, search, unit } from "./assets";
+import { building, Building1, city, country, Map, search, unit } from "./assets";
 import ReactSelect from 'react-select';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -34,6 +34,10 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
     return (
 
       <>
+        <Grid container spacing={2} className="auth-container">
+          <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset' }}>
+            <div style={{ margin: 'auto' }}>
+
         <Grid container style={{ margin: '1rem', width: '90%' }}>
           <Grid xs={12}>
             <ArrowBackIcon onClick={() => window.history.back()} />
@@ -259,6 +263,15 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
             </Form>
           )}
         </Formik>
+              </div>
+              </Grid>
+          <Grid item xs={12} md={5} className="auth-cols">
+            <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
+              <img src={Building1} className="building-logo" alt="" />
+            </Box>
+          </Grid>
+              </Grid>
+
 
 
 
@@ -301,7 +314,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
 
   }
   componentDidMount(): Promise<void> {
-    this.getComplex();
+    this.getCountry();
   }
 }
 export default withRouter(RegisterUnitManually)

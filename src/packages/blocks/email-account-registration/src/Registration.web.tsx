@@ -17,6 +17,8 @@ import { Building1, company_logo, company_logo2, email, password, user } from ".
 import {dailCode} from './code'
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
+// import "../../../web/src/assets/css/content/auth.styles.scss";
+
 
 
 
@@ -31,7 +33,7 @@ class Registration extends EmailAccountRegistrationController  {
   return (
     <>
       <Grid container spacing={2} className="auth-container">
-        <Grid item xs={12} md={7} className="auth-cols">
+        <Grid item xs={12} md={7} className="auth-cols" >
           <Grid container style={{ margin: '1rem' }}>
             <Grid xs={12}>
               <ArrowBackIcon onClick={() => window.history.back()} />
@@ -56,7 +58,7 @@ class Registration extends EmailAccountRegistrationController  {
             </Grid>
           </Grid>
 
-          <Grid container style={{ margin: '0 auto', width: '450px' }}>
+          <Grid container className="main-content-block">
             <Grid xs={12}>
               <Formik initialValues={{
                 full_name: "",

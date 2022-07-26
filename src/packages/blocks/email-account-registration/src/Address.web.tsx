@@ -20,7 +20,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select  from '@material-ui/core/Select';
 import ReactSelect from 'react-select';
 import InboxIcon from '@material-ui/icons/Inbox';
-import { building, city, country, modalbuilding, search, unit } from "./assets";
+import { building, Building1, city, country, modalbuilding, search, unit } from "./assets";
 import { withRouter } from 'react-router';
 
 
@@ -41,13 +41,17 @@ class Address extends EmailAccountRegistrationController {
   render() {
     return (
       <>
-        <Grid container style={{ margin: '1rem', width: '90%' }}>
+        <Grid container spacing={2} className="auth-container">
+          <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset' }}>
+          <div style={{ margin: 'auto' }}>
+
+        <Grid container className="main-content-block">
           <Grid xs={12}>
             <ArrowBackIcon onClick={() => window.history.back()} />
           </Grid>
         </Grid>
 
-        <Grid container style={{ margin: '1rem', width: '90%' }}>
+        <Grid container className="main-content-block">
           <Grid xs={12}>
             <p className="text-left" style={{ fontSize: '1.75rem', fontWeight: 700 }}>
               Select Building and Unit
@@ -55,7 +59,7 @@ class Address extends EmailAccountRegistrationController {
             </p>
           </Grid>
         </Grid>
-        <Grid container style={{ margin: '1rem', width: '90%' }}>
+        <Grid container className="main-content-block">
           <Grid xs={12}>
             <p className="text-left">
               Please select the unit you would like to link with your account.If you have more than one Unit you can link the other ones later on.
@@ -76,7 +80,7 @@ class Address extends EmailAccountRegistrationController {
         >
           {({ values, touched, errors, isValid, setFieldValue, handleChange }) => (
             <Form translate="yes" className="commonForm">
-              <Grid container style={{ margin: '1rem', width: '90%' }}>
+              <Grid container className="main-content-block">
                 <Grid xs={12}>
 
 
@@ -114,7 +118,7 @@ class Address extends EmailAccountRegistrationController {
                   <ErrorMessage className="text-error" component="Typography" name="selectCountry" />
                 </Grid>
               </Grid>
-              <Grid container style={{ margin: '1rem', width: '90%' }}>
+              <Grid container className="main-content-block">
                 <Grid xs={12}>
                   <FormControl variant="outlined" fullWidth>
 
@@ -160,7 +164,7 @@ class Address extends EmailAccountRegistrationController {
                 <ErrorMessage className="text-error" component="Typography" name="selectComplex" />
 
               </Box>
-              <Grid container style={{ margin: '1rem', width: '90%' }}>
+              <Grid container className="main-content-block">
                 <Grid xs={12}>
                   <FormControl variant="outlined" fullWidth>
                     <InputLabel id="demo-simple-select-outlined-label" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
@@ -189,7 +193,7 @@ class Address extends EmailAccountRegistrationController {
 
                 </Grid>
               </Grid>
-              <Grid container style={{ margin: '1rem', width: '90%' }}>
+              <Grid container className="main-content-block">
                 <Grid xs={12}>
                   <FormControl variant="outlined" fullWidth>
                     <InputLabel id="demo-simple-select-outlined-label" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
@@ -224,6 +228,14 @@ class Address extends EmailAccountRegistrationController {
             </Form>
           )}
         </Formik>
+            </div>
+            </Grid>
+          <Grid item xs={12} md={5} className="auth-cols">
+            <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
+              <img src={Building1} className="building-logo" alt="" />
+            </Box>
+          </Grid>
+          </Grid>
 
 
 

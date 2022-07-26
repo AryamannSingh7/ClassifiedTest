@@ -13,7 +13,7 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import EmailAccountRegistrationController, { Props } from "./EmailAccountRegistrationController.web.tsx";
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import HomeIcon from '@material-ui/icons/Home';
-import { owner, resident_owner, tenet } from "./assets";
+import { Building1, owner, resident_owner, tenet } from "./assets";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
 
@@ -32,13 +32,17 @@ class SelectType extends EmailAccountRegistrationController {
     return (
 
       <>
-        <Grid container style={{ margin: '1rem', width: '90%' }}>
+        <Grid container spacing={2} className="auth-container">
+          <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset' }}>
+        <div style={{ margin: 'auto' }}>
+
+        <Grid container className="main-content-block">
           <Grid xs={12}>
             <ArrowBackIcon onClick={() => window.history.back()} />
           </Grid>
         </Grid>
 
-        <Grid container style={{ margin: '1rem', width: '90%' }}>
+        <Grid container className="main-content-block">
           <Grid xs={12}>
             <p className="text-left" style={{ fontSize: '2.5rem', fontWeight: 700 }}>
               Please select your type
@@ -47,7 +51,7 @@ class SelectType extends EmailAccountRegistrationController {
           </Grid>
         </Grid>
 
-        <Grid container style={{ margin: '1rem', width: '90%' }}>
+        <Grid container className="main-content-block">
           <Grid xs={12}>
             <p className="text-left">
               Please select appropriate user type
@@ -55,7 +59,7 @@ class SelectType extends EmailAccountRegistrationController {
           </Grid>
         </Grid>
 
-        <Grid container style={{ margin: '1rem', width: '90%' }}>
+        <Grid container className="main-content-block">
           <Grid xs={12}>
             <Box
               display="flex"
@@ -70,15 +74,16 @@ class SelectType extends EmailAccountRegistrationController {
             >
               <img src={resident_owner}/>
               <Box className={"middle-section"}>
-                <p className={"title" + (this.state.userType == 'Owner Resident' ? ' active-type' :'')}>
+                      <label for="radCreateMode" className={"title" + (this.state.userType == 'Owner Resident' ? ' active-type' :'')}>
                   Resident Owner
-                </p>
-                <p className="para">
+                </label>
+                      <br />
+                      <label className="para" for="radCreateMode">
                   I am the owner of the unit and i am living in it
-                </p>
+                      </label>
               </Box>
 
-              <input type="radio" name="type" value='Owner Resident' onChange={(e)=>this.changeType(e.target.value)} />
+                    <input type="radio" id="radCreateMode" name="type" value='Owner Resident' onChange={(e)=>this.changeType(e.target.value)} />
 
             </Box>
             <Box
@@ -95,15 +100,16 @@ class SelectType extends EmailAccountRegistrationController {
               <img src={tenet} />
 
               <Box className="middle-section">
-                <p className={"title" + (this.state.userType == 'Tenant' ? ' active-type' : '')}>
+                      <label for="radCreateMode2" className={"title" + (this.state.userType == 'Tenant' ? ' active-type' : '')}>
                   Tenant
-                </p>
-                <p className="para">
+                </label>
+                      <br />
+                      <label className="para" for="radCreateMode2">
                   I am the redistering as somone who rented a unit
-                </p>
+                      </label>
               </Box>
 
-              <input type="radio" name="type" value='Tenant' onChange={(e) => this.changeType(e.target.value)} />
+                    <input type="radio" id="radCreateMode2" name="type" value='Tenant' onChange={(e) => this.changeType(e.target.value)} />
 
             </Box>
             <Box
@@ -123,20 +129,21 @@ class SelectType extends EmailAccountRegistrationController {
 
 
               <Box className="middle-section">
-                <p className={"title" + (this.state.userType == 'Owner' ? ' active-type' : '')}>
+                      <label for="radCreateMode3" className={"title" + (this.state.userType == 'Owner' ? ' active-type' : '')}>
                   Owner
-                </p>
-                <p className="para">
+                      </label>
+                      <br/>
+                      <label className="para" for="radCreateMode3">
                   I am the owner of the unit, but I am not living inside it
-                </p>
+                      </label>
               </Box>
 
-              <input type="radio" name="type" value='Owner' onChange={(e) => this.changeType(e.target.value)} />
+                    <input type="radio" id="radCreateMode3" name="type" value='Owner' onChange={(e) => this.changeType(e.target.value)} />
 
             </Box>
           </Grid>
         </Grid>
-        <Grid container style={{ margin: '1rem', width: '90%',position:'absolute',bottom:0 }}>
+        <Grid container >
           <Grid xs={12}>
             <Button
               fullWidth={true}
@@ -164,6 +171,14 @@ class SelectType extends EmailAccountRegistrationController {
           </Grid>
         </Grid>
         <Loader loading={this.state.loading} />
+      </div>
+</Grid>
+          <Grid item xs={12} md={5} className="auth-cols">
+            <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
+              <img src={Building1} className="building-logo" alt="" />
+            </Box>
+          </Grid>
+</Grid>
       </>
 
     )

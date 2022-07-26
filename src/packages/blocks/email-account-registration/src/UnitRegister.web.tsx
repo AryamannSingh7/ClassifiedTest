@@ -13,7 +13,7 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import EmailAccountRegistrationController, { Props } from "./EmailAccountRegistrationController.web.tsx";
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import HomeIcon from '@material-ui/icons/Home';
-import { Linkage, manual, owner, resident_owner, tenet } from "./assets";
+import { Building1, Linkage, manual, owner, resident_owner, tenet } from "./assets";
 import { withRouter } from 'react-router';
 
 
@@ -31,13 +31,17 @@ class RegisterUnit extends EmailAccountRegistrationController {
     return (
 
       <>
-        <Grid container style={{ margin: '1rem', width: '90%' }}>
+        <Grid container spacing={2} className="auth-container">
+          <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset' }}>
+            <div style={{ margin: 'auto' }}>
+
+        <Grid container className="main-content-block">
           <Grid xs={12}>
             <ArrowBackIcon onClick={() => window.history.back()} />
           </Grid>
         </Grid>
 
-        <Grid container style={{ margin: '1rem', width: '90%' }}>
+        <Grid container className="main-content-block">
           <Grid xs={12}>
             <p className="text-left" style={{ fontSize: '2.5rem', fontWeight: 700 }}>
               Register a Unit
@@ -46,7 +50,7 @@ class RegisterUnit extends EmailAccountRegistrationController {
           </Grid>
         </Grid>
 
-        <Grid container style={{ margin: '1rem', width: '90%' }}>
+        <Grid container className="main-content-block">
           <Grid xs={12}>
             <p className="text-left">
               Please select the appropriate registration type for the unit. If you have more than one unit, you will be able to register them on a later stage
@@ -57,7 +61,7 @@ class RegisterUnit extends EmailAccountRegistrationController {
           </Grid>
         </Grid>
 
-        <Grid container style={{ margin: '1rem', width: '90%' }}>
+        <Grid container className="main-content-block">
           <Grid xs={12}>
             <Box
               display="flex"
@@ -73,15 +77,16 @@ class RegisterUnit extends EmailAccountRegistrationController {
             >
               <img src={Linkage} />
               <Box className="middle-section">
-                <p className={"title" + (this.state.unitRegisterType == 'Linkage' ? ' active-type' : '')}>
+                      <label for="radCreateMode" className={"title" + (this.state.unitRegisterType == 'Linkage' ? ' active-type' : '')}>
                   Linkage
-                </p>
-                <p className="para">
+                      </label>
+                      <br/>
+                      <label for="radCreateMode"  className="para">
                   Select this option if the building manager has requested you to register the unit, or you are aware that Tenant International ® platform is used in the building
-                </p>
+                      </label>
               </Box>
 
-              <input type="radio" name="type" value='Linkage' onChange={(e) => this.changeUnitType(e.target.value)} />
+                    <input id="radCreateMode" type="radio" name="type" value='Linkage' onChange={(e) => this.changeUnitType(e.target.value)} />
 
             </Box>
             <Box
@@ -99,21 +104,21 @@ class RegisterUnit extends EmailAccountRegistrationController {
               <img src={manual} />
 
               <Box className="middle-section">
-                <p className={"title" + (this.state.unitRegisterType == 'Manual' ? ' active-type' : '')}>
+                      <label for="radCreateMode2" className={"title" + (this.state.unitRegisterType == 'Manual' ? ' active-type' : '')}>
                   Manual
-                </p>
-                <p className="para">
+                      </label><br/>
+                      <label for="radCreateMode2" className="para">
                   Select this option if the unit is in a building not managed by "Tenant International ®" platform
-                </p>
+                      </label>
               </Box>
 
-              <input type="radio" name="type" value='Manual' onChange={(e) => this.changeUnitType(e.target.value)} />
+                    <input id="radCreateMode2" type="radio" name="type" value='Manual' onChange={(e) => this.changeUnitType(e.target.value)} />
 
             </Box>
 
           </Grid>
         </Grid>
-        <Grid container style={{ margin: '1rem', width: '90%' }}>
+        <Grid container className="main-content-block">
           <Grid xs={12}>
             <Button
               fullWidth={true}
@@ -140,6 +145,14 @@ class RegisterUnit extends EmailAccountRegistrationController {
 
           </Grid>
         </Grid>
+              </div>
+              </Grid>
+          <Grid item xs={12} md={5} className="auth-cols">
+            <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
+              <img src={Building1} className="building-logo" alt="" />
+            </Box>
+          </Grid>
+              </Grid>
       </>
 
     )

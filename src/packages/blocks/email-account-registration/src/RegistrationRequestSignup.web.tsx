@@ -15,7 +15,7 @@ import {
 } from "@material-ui/core";
 
 //resources
-import { Delete_Icon,  Landing_Banner, request } from "./assets";
+import { Building1, Delete_Icon,  Landing_Banner, request } from "./assets";
 import { withRouter } from 'react-router';
 import { Formik, Form, Field } from "formik";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
@@ -80,7 +80,7 @@ class RegistrationRequestSignup extends EmailAccountRegistrationController {
             </Grid>
             <Grid item xs={12} md={5} className="auth-cols">
               <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
-                {/* <img src={Building1} className="building-logo" alt="" /> */}
+                <img src={Building1} className="building-logo" alt="" />
               </Box>
             </Grid>
           </Grid>

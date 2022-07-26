@@ -123,3 +123,16 @@
     height: 100%;
   }
 }
+
+.main-content-block {
+  width: 350px !important;
+  margin: 0 auto;
+  // @include mq(tablet-landscape-up) {
+  //   width: 90%;
+  //   margin: 0 auto;
+  //   display: flex;
+  //   flex-direction: column;
+  //   justify-content: space-between;
+  //   height: 100%;
+  // }
+}

@@ -15,6 +15,7 @@ import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import { CheckBox, Visibility, VisibilityOff } from "@material-ui/icons";
 import { withRouter } from 'react-router';
 import OtpInput from 'react-otp-input';
+import { Building1 } from "./assets";
 
 
 
@@ -30,22 +31,25 @@ class VerofyOTP extends EmailAccountRegistrationController {
     return (
 
       <>
-        <Grid container style={{ margin: '1rem', width: '90%' }}>
+        <Grid container spacing={2} className="auth-container">
+          <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset' }}>
+
+        <Grid container className="main-content-block">
           <Grid xs={12}>
             <ArrowBackIcon onClick={() => window.history.back()} />
           </Grid>
         </Grid>
+<div style={{margin:'auto'}}>
 
-        <Grid container style={{ margin: '1rem', width: '90%' }}>
+        <Grid container className="main-content-block">
           <Grid xs={12}>
-            <p className="text-left" style={{ fontSize: '2.5rem', fontWeight: 700,marginTop:'2.5rem' }}>
+                <p className="text-left" style={{ fontSize: '2.5rem', fontWeight: 700}}>
              Enter OTP Code
 
             </p>
           </Grid>
         </Grid>
-
-        <Grid container style={{ margin: '1rem', width: '90%' }}>
+        <Grid container className="main-content-block">
           <Grid xs={12}>
             <p className="text-left" style={{ marginBottom: '1.5rem' }}>
               Please enter the code sent to the mail address
@@ -57,8 +61,7 @@ class VerofyOTP extends EmailAccountRegistrationController {
             </p>
           </Grid>
         </Grid>
-
-        <Grid container style={{ margin: '1rem', width: '90%' }}>
+            <Grid container className="main-content-block">
           <Grid xs={12} style={{display:'flex'}} justifyContent="center">
             <Box className="commonForm">
               <Box className="formGroup otpBlock">
@@ -69,7 +72,7 @@ class VerofyOTP extends EmailAccountRegistrationController {
                 // separator={<span>-</span>}
                 />
               </Box>
-              <Box className="customButton row-btn" style={{ margin: '1rem', width: '90%', position: 'absolute', bottom: 0,left:0 }} >
+              <Box className="customButton row-btn"  >
                 <Button variant="contained" onClick={() => this.verifyOtp()}>SEND</Button>
               </Box>
               <Box className="passwordRow">
@@ -78,60 +81,17 @@ class VerofyOTP extends EmailAccountRegistrationController {
             </Box>
           </Grid>
         </Grid>
-        {/* <Grid container style={{ margin: '1rem', width: '90%', position: 'absolute', bottom: 0 }}>
-  <Grid xs={12}>
-            <Button
-              onClick={() => this.props.history.push('/selecttype')}
-            fullWidth={true}
-              className={'btn'}
-              variant="contained"
-              type="submit"
-              style={{
-                backgroundColor: "#2B6FEC",
-                borderRadius: 16,
-                height: 54,
-                marginBottom: 14,
-                boxShadow: "none",
-                color: "#F7F7FC",
-                fontWeight: 600,
-                fontSize: 16,
-                marginTop: 30
-              }}
-            >
-              Next
-            </Button>
+</div>
 
-            <Box
-              display="flex"
-              mt="25px"
-              alignItems="flex-start"
-              justifyContent="center"
-            >
-              <Typography
-                style={{
-                  color: "#A0A3BD",
-                  fontWeight: "normal",
-                  fontSize: 12,
-                  textAlign: "center"
-                }}
-              >
-                Resend OTP in 0:30 Seconds
-              </Typography>
-              <Typography
-                style={{
-                  fontSize: 14,
-                  color: "#2B6FEC",
-                  fontWeight: 500,
-                  marginLeft: 5,
-                  textTransform: "uppercase"
-                }}
-              >
-                Resend
-              </Typography>
+
+            </Grid>
+          <Grid item xs={12} md={5} className="auth-cols">
+            <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
+              <img src={Building1} className="building-logo" alt="" />
             </Box>
+          </Grid>
+            </Grid>
 
-  </Grid>
-</Grid> */}
       </>
 
     )
