@@ -4,7 +4,7 @@
 import * as React from "react";
 // custom components
 import {
-  Button, Grid, Box,
+  Button, Grid, Box, TextField,
 } from "@material-ui/core";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
@@ -17,7 +17,7 @@ import Loader from "../../../components/src/Loader.web";
 import "./Polling.web.css"
 
 
-class SubmitPoll extends PollingController {
+class PollVoteSubmitted extends PollingController {
   constructor(props: Props) {
     super(props);
   }
@@ -41,12 +41,12 @@ class SubmitPoll extends PollingController {
           <Grid xs={12} style={{ display:"flex", alignItems:"center", justifyContent:"space-between"}}>
           <Grid xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
                 <ArrowBackIcon onClick={() => window.history.back()} />
-                <p style={{ fontSize: '1rem', fontWeight: 600 }}>
+                <p style={{ fontSize: '1.3rem', fontWeight: 600 }}>
                 Poll title
                 </p>
             </Grid>
             <Box className="EventsIconsText">
-                <p className="statusOngoing" style={{fontWeight: 600}}>Ongoing</p>
+                <p className="statusCompleted" style={{fontWeight: 600}}>Submitted</p>
             </Box>
           </Grid>
         </Grid>
@@ -62,33 +62,37 @@ class SubmitPoll extends PollingController {
 
                     <Box marginTop='1rem'>
                         <p>Survey</p>
-                        <p style={{color:"black", fontSize:'1.2rem', marginTop:10}}>Lorem ipsum dolor sit amet consectetur</p>
+                        <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}>Lorem ipsum dolor sit amet consectetur</p>
                     </Box>
                     <Box marginTop='1rem'>
                         <p>End Date:</p>
-                        <p style={{color:"black", fontSize:'1.2rem', marginTop:10}}>14-07-2022</p>
+                        <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}>14-07-2022</p>
                     </Box>
                     <Box marginTop='1rem'>
                         <p>Building:</p>
-                        <p style={{color:"black", fontSize:'1.2rem', marginTop:10}}>Building-1</p>
+                        <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}>Building-1</p>
                     </Box>
                 </Box>
+              </Grid>
+              <Grid xs={12}>
                 <Box marginTop='1.5rem'>
                     <p style={{ fontSize: '1rem', fontWeight: 600 }}>
                     Publishing Details
                     </p>
                 </Box>
+              </Grid>
+              <Grid xs={12}>
                 <Box
                 borderRadius="15px"
                 bgcolor="white"
-                marginTop='1rem'
+                marginTop='1.5em'
                 padding='1rem'
                 >
                     <Box display='flex' marginTop='1rem'>
                         <AccountCircleOutlinedIcon style={{color:'#054c94'}}/>
                         <Box marginLeft='0.5rem'>
                             <p>Published By:</p>
-                            <p style={{color:"black", fontSize:'1.2rem', marginTop:10}}>Mr. Jhon Andrew</p>
+                            <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}>Mr. Jhon Andrew</p>
                         </Box>
                     </Box>
                    
@@ -96,89 +100,43 @@ class SubmitPoll extends PollingController {
                         <DateRangeOutlinedIcon style={{color:'#054c94'}}/>
                         <Box marginLeft='0.5rem'>
                             <p>Published Date:</p>
-                            <p style={{color:"black", fontSize:'1.2rem', marginTop:10}}>15-07-2022</p>
+                            <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}>15-07-2022</p>
                         </Box>
                     </Box>
 
                 </Box>
+              </Grid>
+              <Grid xs={12}>
                 <Box marginTop='1.5rem'>
                     <p style={{ fontSize: '1rem', fontWeight: 600 }}>
                     Are you coming to the DJ party ?
                     </p>
                 </Box>
-            </Grid>
+              </Grid>
         </Grid>
 
-        <Grid container spacing={2} style={{ marginLeft: '1rem',marginTop:'1.5rem', width: '90%', alignItems:'baseline'}}>
-            <Grid xs={1}>
-                <input type="radio" name="type" value='Yes'/>
-            </Grid>
-            <Grid xs={11}>
-                <Box
-                    style={{
-                        backgroundColor: "#2B6FEC",
-                        borderRadius: '5rem',
-                        marginBottom: 14,
-                        boxShadow: "none",
-                        color: "#F7F7FC",
-                        fontWeight: 600,
-                        fontSize: '1rem',
-                        padding: '1rem'
-                    }}
-                    >
-                    Yes
+        <Grid container spacing={2} style={{ background: "#E5ECFF", marginLeft: '1rem',marginTop:'1.5rem', width: '90%', alignItems:'baseline'}}>
+            <Grid xs={12}>
+                <Box className="progressbarYES">
+                    <span>Yes</span>
+                    <progress className="progress" data-label="70%" value="70" max="100"></progress>
                 </Box>
-
             </Grid>
         </Grid>
-        <Grid container spacing={2} style={{ marginLeft: '1rem',marginTop:'1.5rem', width: '90%', alignItems:'baseline'}}>
-            <Grid xs={1}>
-                <input type="radio" name="type" value='No'/>
-                {/* <input type="radio" name="type" value='Owner' onChange={(e) => this.changeType(e.target.value)} /> */}
-            </Grid>
-            <Grid xs={11}>
-                <Box
-                    style={{
-                        backgroundColor: "#2B6FEC",
-                        borderRadius: '5rem',
-                        marginBottom: 14,
-                        boxShadow: "none",
-                        color: "#F7F7FC",
-                        fontWeight: 600,
-                        fontSize: '1rem',
-                        padding: '1rem'
-                    }}
-                    >
-                    No
+       
+        <Grid container spacing={2} style={{ background: "#E5ECFF", marginLeft: '1rem',marginTop:'1.5rem', width: '90%', alignItems:'baseline'}}>
+            <Grid xs={12}>
+                <Box className="progressbarYES">
+                    <span>No</span>
+                    <progress className="progress" data-label="30%" value="30" max="100"></progress>
                 </Box>
-
             </Grid>
         </Grid>
+       
         <Grid container style={{ margin: '1rem', width: '90%' }}>
-          <Grid xs={12}>
-            <Button
-              fullWidth={true}
-              className={'btn'}
-              variant="contained"
-              type="submit"
-              style={{
-                backgroundColor: "#2B6FEC",
-                borderRadius: '5rem',
-                height: 54,
-                marginBottom: 14,
-                boxShadow: "none",
-                color: "#F7F7FC",
-                fontWeight: 600,
-                fontSize: 16,
-                marginTop: 30
-              }}
-              onClick={() => this.props.history.push("/PollVoteSubmitted")}
-            >
-              VOTE NOW
-            </Button>
-
-
-
+          <Grid xs={12} style={{display:"flex"}}>
+            <p style={{color:"black", fontSize:'0.9rem', marginTop:10}}>Your Vote:</p>
+            <p style={{color:"red", fontSize:'0.9rem', fontWeight: 600 , marginTop:10}}>NO</p>
           </Grid>
         </Grid>
     </Box>
@@ -187,6 +145,6 @@ class SubmitPoll extends PollingController {
     );
   }
 }
-export default withRouter(SubmitPoll)
+export default withRouter(PollVoteSubmitted)
 
 // Customizable Area End

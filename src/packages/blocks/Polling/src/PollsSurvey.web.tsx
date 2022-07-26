@@ -2,6 +2,7 @@
 //@ts-nocheck
 
 import * as React from "react";
+import DOMPurify from 'dompurify'
 // custom components
 import {
   Button, Grid, Box, Divider, AppBar, Tabs, Tab
@@ -21,7 +22,9 @@ class PollsSurvey extends PollingController {
   constructor(props: Props) {
     super(props);
   }
+
   render() {
+    console.log("liveOldPolls++++++!!!!!!!!!!!!!!!!!!!+",this.state.liveOldPolls?.polls?.data);
     return (
         <>
     
@@ -34,7 +37,7 @@ class PollsSurvey extends PollingController {
           </Grid>
         </Grid>
 
-    <Box style={{background: "#E5ECFF", height:'100%'}}>
+    <Box style={{background: "#E5ECFF"}}>
 
     <Grid style={{ marginLeft: '1rem', marginRight: '1rem', width:'90%'}}>
       <Grid item xs={12} className="AppBarbox">
@@ -74,7 +77,7 @@ class PollsSurvey extends PollingController {
         </AppBar>
       </Grid>
     </Grid>
-        <Grid container style={{ marginLeft: '1rem', marginRight: '1rem', width: '90%' }}>
+        <Grid container style={{ marginLeft: '1rem', marginRight: '1rem', marginBottom:'1rem',width: '90%' }}>
           <Grid xs={12}>
             <TabPanel value={this.state.TabValue} index={0}>
               <Box
@@ -86,7 +89,7 @@ class PollsSurvey extends PollingController {
                 marginTop='2rem'
                 padding='1rem'
               >
-                <Box>
+                <Box style={{minWidth:"100%"}}>
                   <Box marginTop='1rem'><p>Survey</p></Box>
                   <Box marginTop='1rem'><h4>Event Planning Survey</h4></Box>
                   <Box marginTop='0.4rem'><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta, quis! Eum exercitationem</p>
@@ -105,7 +108,10 @@ class PollsSurvey extends PollingController {
                 </Box>
               </Box>
 
-              <Box
+              {this.state.liveOldPolls?.polls?.data?.length ? this.state.liveOldPolls?.polls?.data?.map((item) => {
+
+                return(
+                  <Box
                   display="flex"
                   justifyContent='space-between'
                   alignItems="center"
@@ -113,25 +119,40 @@ class PollsSurvey extends PollingController {
                   bgcolor="white"
                   marginTop='2rem'
                   padding='1rem'
-                >
-                  <Box>
-                    <Box marginTop='1rem'><p>Survey</p></Box>
-                    <Box marginTop='1rem'><h4>Event Planning Survey</h4></Box>
-                    <Box marginTop='0.4rem'><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta, quis! Eum exercitationem</p>
+                  key={item.id}
+                  onClick={() => this.props.history.push("/SubmitPoll")}
+                  >
+                    <Box style={{minWidth:"100%"}}>
+                      <Box marginTop='1rem'><p>Poll</p></Box>
+                      <Box marginTop='1rem'><h4>{item.attributes.title}</h4></Box>
+                      <Box marginTop='0.4rem'>
+                        <p
+                          dangerouslySetInnerHTML={
+                            { __html: DOMPurify.sanitize(item.attributes.description) }
+                          }
+                        ></p>
+                      </Box>
+                      <Box marginTop='1rem'><p style={{color:"black"}}>Building: {item.attributes.building_name}</p></Box>
+                      <Divider style={{marginTop:'0.6rem', marginRight:10}}/>
+                      <Box display='flex' justifyContent='space-between' marginTop='0.6rem'>
+                          <Box className="EventsIconsDataBox">
+                              <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
+                              <p style={{color:"black"}}>{item.attributes.start_date}</p>
+                          </Box>
+                          <Box className="EventsIconsText">
+                              <p className="statusOngoing" style={{fontWeight: 600}}>Ongoing</p>
+                          </Box>
+                      </Box>
                     </Box>
-                    <Box marginTop='1rem'><p style={{color:"black"}}>Building: Building-1</p></Box>
-                    <Divider style={{marginTop:'0.6rem', marginRight:10}}/>
-                    <Box display='flex' justifyContent='space-between' marginTop='0.6rem'>
-                        <Box className="EventsIconsDataBox">
-                            <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
-                            <p style={{color:"black"}}>14-07-2022</p>
-                        </Box>
-                        <Box className="EventsIconsText">
-                            <p className="statusOngoing" style={{fontWeight: 600}}>Ongoing</p>
-                        </Box>
-                    </Box>
-                  </Box>
                 </Box>
+                )
+
+              })
+            :
+            ""  
+            }
+
+             
             </TabPanel>
           </Grid>
           <Grid xs={12}>
@@ -145,7 +166,7 @@ class PollsSurvey extends PollingController {
                   marginTop='2rem'
                   padding='1rem'
                 >
-                  <Box>
+                  <Box style={{minWidth:"100%"}}>
                     <Box marginTop='1rem'><p>Survey</p></Box>
                     <Box marginTop='1rem'><h4>Event Planning Survey</h4></Box>
                     <Box marginTop='0.4rem'><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta, quis! Eum exercitationem</p>
@@ -173,7 +194,7 @@ class PollsSurvey extends PollingController {
                   marginTop='2rem'
                   padding='1rem'
                 >
-                  <Box>
+                  <Box style={{minWidth:"100%"}}>
                     <Box marginTop='1rem'><p>Survey</p></Box>
                     <Box marginTop='1rem'><h4>Event Planning Survey</h4></Box>
                     <Box marginTop='0.4rem'><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta, quis! Eum exercitationem</p>
