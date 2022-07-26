@@ -18,8 +18,8 @@ export const modalbuilding = require("../assets/modal-building.png");
 export const manager = require("../assets/manager.png");
 export const request = require("../assets/request.png");
 export const Map = require("../assets/Map.png");
-
-
+export const company_logo2 = require("../assets/company_logo.svg");
+export const Building1 = require("../assets/building1.png");
 
 
 
