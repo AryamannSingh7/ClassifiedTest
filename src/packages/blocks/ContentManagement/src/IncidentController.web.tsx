@@ -117,6 +117,7 @@ export default class IncidentController extends BlockComponent<
       loading: false,
       commonAreaData:null,
       incidentRelatedData:null,
+      incidentListing: null,
       anchorEl:null,
       anchorEl_1:null
       // Customizable Area End
@@ -207,8 +208,7 @@ export default class IncidentController extends BlockComponent<
         else if (apiRequestCallId === this.getIncidentListingApiCallId) {
           if (responseJson && responseJson?.data ) {
           console.log("getIncidentListingApiCallId ========================>",responseJson)
-          //this.setState({userTypeData :responseJson?.data.roles})
-        //   console.log("userTypeData========================>",this.state.userTypeData[0].name)
+          this.setState({incidentListing :responseJson?.data})
           this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
@@ -650,6 +650,7 @@ const httpBody = formData;
   };
 
 
+  
   handleClick = (event) => {
     this.setState({anchorEl:event.currentTarget})
   };

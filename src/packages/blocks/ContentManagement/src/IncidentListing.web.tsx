@@ -37,8 +37,11 @@ class IncidentListing extends IncidentController {
   constructor(props: Props) {
     super(props);
   }
+  componentDidMount() {
+    this.getIncidentListing();
+  }
   render() {
-    console.log("this.state.anchorEl=======>",this.state.anchorEl)
+    console.log("incidentListing========================>",this.state?.incidentListing)
     const { navigation } = this.props;
     return (
       <>
@@ -56,9 +59,6 @@ class IncidentListing extends IncidentController {
                       <Button aria-controls="simple-menu" aria-haspopup="true" onClick={(e : any) => this.handleClick(e)}>
                         <img src={Grid_Icon} className="grid-icon icons" alt="" />
                       </Button>
-                      {/* <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-                        Open Menu
-                      </Button> */}
                       <Menu
                         id="simple-menu"
                         anchorEl={this.state.anchorEl}
@@ -74,9 +74,6 @@ class IncidentListing extends IncidentController {
                       <Button aria-controls="fade-menu" aria-haspopup="true" onClick={(e : any) => this.handleClick_1(e)}>
                       <img src={Filter_Icon} className="filter-icon icons" alt="" />
                       </Button>
-                      {/* <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-                        Open Menu
-                      </Button> */}
                       <Menu
                         id="fade-menu"
                         anchorEl={this.state.anchorEl_1}
@@ -93,29 +90,49 @@ class IncidentListing extends IncidentController {
                 </Box>
                 <Box className="content-block-wrapper common-incident-block">
                   <Box className="incident-content-wrapper">
-                    <Card className="incident-card card">
-                      <CardContent>
-                        <Typography component="h4">
-                          Incident Title
-                        </Typography>
-                        <Typography component="span">
-                          Incident is related to:
-                        </Typography>
-                        <Typography className="sub-title" component="h4">
-                          Plumbing
-                        </Typography>
-                        <hr />
-                        <CardActions className="card-footer">
-                          <Typography className="sub-title" component="h4">
-                            Own apartment
+                   {
+                      this.state?.incidentListing?.map((val ,index) =>(
+                        <>
+                        <Card className="incident-card card" key={index}>
+                        <CardContent>
+                          <Typography component="h4">
+                           {val?.attributes?.incident_title} 
                           </Typography>
-                          <Box className="customButton">
-                            <Button variant="contained" className="contain success" type="submit" >Resolved</Button>
+                          <Typography component="span">
+                            Incident is related to:
+                          </Typography>
+                          <Typography className="sub-title" component="h4">
+                            {val?.attributes?.incident_related?.name} 
+                          </Typography>
+                          <hr />
+                          <CardActions className="card-footer">
+                            <Typography className="sub-title" component="h4">
+                             {val?.attributes?.apartment_management || 'own apartment'} 
+                            </Typography>
+                            
+                          {
+                              val?.attributes?.incident_status === "resolved" ?
+                              <Box className="customButton">
+                              <Button variant="contained" className="contain success" type="submit" >Resolved</Button>
+                            </Box> 
+                            :
+                              ( val?.attributes?.incident_status === "pending_confirmation"  )  ? 
+                              <Box className="customButton">
+                              <Button variant="contained" className="contain warning" type="submit" >Pending Confirmation</Button>
+                            </Box> 
+                            :
+                            <Box className="customButton">
+                            <Button variant="contained" className="contain danger" type="submit" >Unresolved</Button>
                           </Box>
-                          {/* <Button className="success">Resolved</Button> */}
-                        </CardActions>
-                      </CardContent>
-                    </Card>
+                          }
+                            {/* <Button className="success">Resolved</Button> */}
+                          </CardActions>
+                        </CardContent>
+                      </Card>
+                      </>
+                      )) 
+                   }
+                 
                     <Card className="incident-card card">
                       <CardContent>
                         <Typography component="h4">
@@ -165,10 +182,9 @@ class IncidentListing extends IncidentController {
 
                     </Card>
                   </Box>
-                  <Box className="customButton" display={{ xs: 'flex', md: 'none' }}>
+                  {/* <Box className="customButton" display={{ xs: 'flex', md: 'none' }}>
                     <Button variant="contained" type="submit" >login</Button>
-                  </Box>
-
+                  </Box> */}
                 </Box>
                 <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>
                   <h6 className="bottom-text">POWERED BY</h6>
