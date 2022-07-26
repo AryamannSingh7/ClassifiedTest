@@ -48,6 +48,8 @@ interface S {
   textEditorVal:any;
   initialtextEditorVal:any;
   liveOldPolls: any;
+  pollPreviewAnswer:any;
+  submitPollOption:any;
   // Customizable Area End
 }
 
@@ -68,6 +70,7 @@ export default class PollingController extends BlockComponent<
   totalPollsCount: string;
   getRecentPollsData: string;
   liveOldPolls: string;
+  pollPreviewAnswer: string;
   // Customizable Area End
 
   constructor(props: Props) {
@@ -115,12 +118,14 @@ export default class PollingController extends BlockComponent<
           key: 'selection'
         }
       ],
+      submitPollOption: [],
       allPollsData: [],
       totalPollsCount: [],
       recentPolls: [],
       selectQuestion: [],
       PreViewPollData: [],
       liveOldPolls:[],
+      pollPreviewAnswer:[],
       loading: false,
       showDialog:false,
       children: '',
@@ -145,10 +150,21 @@ export default class PollingController extends BlockComponent<
     this.onGetPolls();
     this.getTotalPollCount();
     this.getRecentPolls();
-    this.liveAndOldData();
+    this.apiCallFunction();
+    // this.liveAndOldData();
+    // this.getPollPreviewAnswer();
+    
     // Customizable Area End
+
   }
     // Customizable Area Start
+
+    apiCallFunction = async () =>  {
+      await this.liveAndOldData();
+      if(window.location.search !== ""){
+        await this.getPollPreviewAnswer();
+      }
+    }
 
     getRecentPolls = async () => {
       const societyID = localStorage.getItem("society_id")
@@ -206,8 +222,19 @@ export default class PollingController extends BlockComponent<
   
     //==============================================
 
+    getPollPreviewAnswer = async () => {
+      const societyID = localStorage.getItem("society_id")
+      const pollID =  window.location.search ? window.location.search.split("=")[1] : null;
+      this.pollPreviewAnswer = await this.apiCall({
+        contentType: configJSON.exampleApiContentType,
+        method: configJSON.httpGetMethod,
+        endPoint: `/society_managements/${societyID}/bx_block_polling/polls/${pollID}/poll_preview`,
+      });
+    }
+
+    //==============================================
+
     onChangeTextEditor = (value:any) => {
-      console.log("%%%%%%%%5", value)
       this.setState({textEditorVal:value})
       this.state.PollData.description = this.state.textEditorVal
     };
@@ -327,7 +354,6 @@ export default class PollingController extends BlockComponent<
 
     const token = localStorage.getItem('userToken') ;
     
-    // const token = `eyJhbGciOiJIUzUxMiJ9.eyJpZCI6MjMsImV4cCI6MTY1ODE5OTI1NiwidG9rZW5fdHlwZSI6ImxvZ2luIn0.Gy8vGALd2bnW16xNt95zqusPOAzhSDfhw1w-f1Z7Vu2lvACKcHTmsj5SD0VqthWAOcqDgHuCvpiQrqmgOelSfA`;
     const header = {
       "Content-Type": contentType,
       token
@@ -372,7 +398,6 @@ export default class PollingController extends BlockComponent<
       );
     // Customizable Area Start
 
-    // console.log('responseJson>>>>',responseJson);
     
     if (responseJson || responseJson?.data) {
       if (apiRequestCallId === this.getAllPolls) {
@@ -380,20 +405,19 @@ export default class PollingController extends BlockComponent<
          this.setState({loading: false})
       }
       if (apiRequestCallId === this.createPoll) {
-        console.log('ADD Poll Data',responseJson);
         this.getCreatePollResponse(responseJson)
      }
      if(apiRequestCallId === this.totalPollsCount){
-      // console.log('Total Polls Data => ',responseJson);
       this.getTotalPollsCountResponse(responseJson)
      }
      if(apiRequestCallId === this.getRecentPollsData) {
-      // console.log("Recent Polls ==>>>", responseJson)
       this.getRecentPollsResponse(responseJson)
      }
      if(apiRequestCallId === this.liveOldPolls) {
-      // console.log("Recent Polls ==>>>", responseJson)
       this.getLiveOldPolls(responseJson)
+     }
+     if(apiRequestCallId === this.pollPreviewAnswer) {
+      this.getPollPreviewAnswerData(responseJson)
      }
      
     }
@@ -407,9 +431,8 @@ export default class PollingController extends BlockComponent<
         this.getPollErrorResponse(responseJson)
        }
        if (apiRequestCallId === this.createPoll) {
-        console.log('ADD Poll Error Data',responseJson);
-        
-     }
+        // console.log('ADD Poll Error Data',responseJson);  
+      }
       }
   }
     
@@ -437,17 +460,19 @@ export default class PollingController extends BlockComponent<
   }
 
   getRecentPollsResponse = async (response: any) => {
-    // console.log('get Recent Polls Response',response);
     this.setState({recentPolls: response})
-    console.log('get Recent Polls Response',this.state.recentPolls);
   }
 
   getLiveOldPolls = async (response: any) => {
-    // console.log('get Recent Polls Response',response);
-    this.setState({liveOldPolls: response})
-    console.log('get Live Ols Polls Response',this.state.liveOldPolls.polls.data);
+    this.setState({liveOldPolls: response.polls.data})
+    console.log('get Live Ols Polls Response',this.state.liveOldPolls);
   }
 
+  getPollPreviewAnswerData = async (response: any) => {
+    this.setState({pollPreviewAnswer: response})
+    console.log('get poll preview answer Response==>>>',this.state.pollPreviewAnswer);
+  }
+  
   // Error Block
   
   getPollErrorResponse = async (response: any) => {

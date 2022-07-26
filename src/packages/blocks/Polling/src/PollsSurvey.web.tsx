@@ -24,7 +24,8 @@ class PollsSurvey extends PollingController {
   }
 
   render() {
-    console.log("liveOldPolls++++++!!!!!!!!!!!!!!!!!!!+",this.state.liveOldPolls?.polls?.data);
+    console.log("liveOldPolls++++++!!!!!!!!!!!!!!!!!!!+",this.state.liveOldPolls);
+    console.log("this.state.pollPreviewAnswer2222222222222", this.state.pollPreviewAnswer)
     return (
         <>
     
@@ -108,7 +109,7 @@ class PollsSurvey extends PollingController {
                 </Box>
               </Box>
 
-              {this.state.liveOldPolls?.polls?.data?.length ? this.state.liveOldPolls?.polls?.data?.map((item) => {
+              {this.state.liveOldPolls?.length ? this.state.liveOldPolls?.map((item) => {
 
                 return(
                   <Box
@@ -120,7 +121,7 @@ class PollsSurvey extends PollingController {
                   marginTop='2rem'
                   padding='1rem'
                   key={item.id}
-                  onClick={() => this.props.history.push("/SubmitPoll")}
+                  onClick={() => this.props.history.push("/SubmitPoll?id="+item.id)}
                   >
                     <Box style={{minWidth:"100%"}}>
                       <Box marginTop='1rem'><p>Poll</p></Box>
@@ -137,7 +138,7 @@ class PollsSurvey extends PollingController {
                       <Box display='flex' justifyContent='space-between' marginTop='0.6rem'>
                           <Box className="EventsIconsDataBox">
                               <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
-                              <p style={{color:"black"}}>{item.attributes.start_date}</p>
+                              <p style={{color:"black"}}>{item.attributes.end_date}</p>
                           </Box>
                           <Box className="EventsIconsText">
                               <p className="statusOngoing" style={{fontWeight: 600}}>Ongoing</p>
@@ -149,7 +150,34 @@ class PollsSurvey extends PollingController {
 
               })
             :
-            ""  
+
+            <Box
+                display="flex"
+                justifyContent='space-between'
+                alignItems="center"
+                borderRadius="15px"
+                bgcolor="white"
+                marginTop='2rem'
+                padding='1rem'
+              >
+                <Box style={{minWidth:"100%"}}>
+                  <Box marginTop='1rem'><p>Survey</p></Box>
+                  <Box marginTop='1rem'><h4>Event Planning Survey</h4></Box>
+                  <Box marginTop='0.4rem'><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta, quis! Eum exercitationem</p>
+                  </Box>
+                  <Box marginTop='1rem'><p style={{color:"black"}}>Building: Building-1</p></Box>
+                  <Divider style={{marginTop:'0.6rem', marginRight:10}}/>
+                  <Box display='flex' justifyContent='space-between' marginTop='0.6rem'>
+                      <Box className="EventsIconsDataBox">
+                          <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
+                          <p style={{color:"black"}}>14-07-2022</p>
+                      </Box>
+                      <Box className="EventsIconsText">
+                          <p className="statusCompleted" style={{fontWeight: 600}}>Submitted</p>
+                      </Box>
+                  </Box>
+                </Box>
+              </Box>  
             }
 
              

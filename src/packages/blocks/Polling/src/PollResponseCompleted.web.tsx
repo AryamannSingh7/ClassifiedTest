@@ -51,7 +51,7 @@ class PollResponseCompleted extends PollingController {
                 </Box>
                 <Box className="footer-block">
                   <Box className="row-btn customButton desktop-ui">
-                    <Button variant="contained" onClick={() => this.props.history.push('/')}>
+                    <Button variant="contained" onClick={() => this.props.history.push('/PollVoteSubmitted')}>
                       Okay
                     </Button>
                   </Box>
