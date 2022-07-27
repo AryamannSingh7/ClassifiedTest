@@ -291,6 +291,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                             id="demo-simple-select-outlined"
                             onChange={this.handleChange}
                             label="Unit"
+                                value={this.state.selectCode}
                           >
                             <MenuItem value="">
                               <em>None</em>

@@ -197,7 +197,7 @@ class Registration extends EmailAccountRegistrationController {
                             id="demo-simple-select-outlined"
                             onChange={this.handleChange}
                             label="Unit"
-                            value="+966"
+                                value={this.state.selectCode}
                           >
                             <MenuItem value="">
                               <em>None</em>
