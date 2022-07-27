@@ -45,13 +45,14 @@ export interface S {
   selectBuilding: string;
   allUnit: [];
   selectUnit: string;
-  selectCode: string;
   selectEmail: string;
   unitRegisterType: string;
   allComplex: [];
   selectComplex: any;
   loading: boolean;
   otp: any;
+  selectCode: string;
+
 
 
 
@@ -145,7 +146,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
       selectBuilding: '',
       allUnit: [],
       selectUnit: '',
-      selectCode: '',
+      selectCode: '+966',
       selectEmail: '',
       unitRegisterType: '',
       allComplex: [],
@@ -776,7 +777,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
       last_name: attributes.lastName,
       email: attributes.email,
       password: attributes.password,
-      full_phone_number: "+" + 91 + attributes.phone,
+      full_phone_number: this.state.selectCode + attributes.phone,
       password_confirmation: attributes.confirm_password
     };
 
@@ -831,7 +832,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
       last_name: attributes.lastName,
       email: attributes.email,
       password: attributes.password,
-      full_phone_number: "+" + 91 + attributes.phone,
+      full_phone_number:this.state.selectCode + attributes.phone,
       password_confirmation: attributes.confirm_password
     };
 
@@ -891,10 +892,10 @@ export default class EmailAccountRegistrationController extends BlockComponent<
       company_name: attributes.company_name,
       manager_full_name: attributes.managerName,
       owner_full_name: attributes.ownerName,
-      owner_phone_number: attributes.owner_phone,
+      owner_phone_number: this.state.selectCode + attributes.owner_phone,
       owner_email: attributes.owner_email,
       password: attributes.password,
-      full_phone_number: "+" + 91 + attributes.phone,
+      full_phone_number:  this.state.selectCode + attributes.phone,
       password_confirmation: attributes.confirm_password
     };
 
@@ -1075,11 +1076,14 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     console.log(e)
     console.log(e.target.name)
     console.log(e.target.value)
+    if (e.target.value){
+      // @ts-ignore
+      // @ts-nocheck
+      this.setState({ ...this.state, [e.target.name]: e.target.value }, () => this.getData(e))
+    }
 
 
-    // @ts-ignore
-    // @ts-nocheck
-    this.setState({ ...this.state, [e.target.name]: e.target.value }, () => this.getData(e))
+
   }
   //@ts-ignore
   //@ts-nocheck

@@ -13,7 +13,7 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import EmailAccountRegistrationController, { Props } from "./EmailAccountRegistrationController.web.tsx";
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import { CheckBox, Visibility, VisibilityOff } from "@material-ui/icons";
-import { company_logo, email, password, user } from "./assets";
+import { Building1, company_logo, email, password, user } from "./assets";
 import { dailCode } from './code'
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
@@ -30,6 +30,11 @@ class Registration extends EmailAccountRegistrationController {
   render() {
     return (
       <>
+        <Grid container spacing={2} className="auth-container">
+          <Grid item xs={12} md={7} className="auth-cols" >
+
+
+
         <Grid container style={{ margin: '1rem' }}>
           <Grid xs={12}>
             <ArrowBackIcon onClick={() => window.history.back()} />
@@ -53,7 +58,7 @@ class Registration extends EmailAccountRegistrationController {
           </Grid>
         </Grid>
 
-        <Grid container style={{ margin: '1rem', width: '90%' }}>
+          <Grid container className="main-content-block">
           <Grid xs={12}>
             <Formik initialValues={{
               full_name: "",
@@ -192,9 +197,9 @@ class Registration extends EmailAccountRegistrationController {
                             id="demo-simple-select-outlined"
                             onChange={this.handleChange}
                             label="Unit"
-                            value="+966"
+                                value={this.state.selectCode}
                           >
-                            <MenuItem value="f">
+                            <MenuItem value="">
                               <em>None</em>
                             </MenuItem>
                             {dailCode.map((item) =>
@@ -470,6 +475,13 @@ class Registration extends EmailAccountRegistrationController {
           </Grid>
         </Grid>
         <Loader loading={this.state.loading} />
+            </Grid>
+          <Grid item xs={12} md={5} className="auth-cols">
+            <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
+              <img src={Building1} className="building-logo" alt="" />
+            </Box>
+          </Grid>
+            </Grid>
       </>
     )
   }

@@ -20,7 +20,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import ReactSelect from 'react-select';
 import InboxIcon from '@material-ui/icons/Inbox';
-import { building, city, country, modalbuilding, search, unit } from "./assets";
+import { building, Building1, city, country, modalbuilding, search, unit } from "./assets";
 import { withRouter } from 'react-router';
 
 
@@ -41,6 +41,9 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
   render() {
     return (
       <>
+        <Grid container spacing={2} className="auth-container">
+          <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset' }}>
+            <div style={{ margin: 'auto' }}>
         <Grid container style={{ margin: '1rem', width: '90%' }}>
           <Grid xs={12}>
             <ArrowBackIcon onClick={() => window.history.back()} />
@@ -129,7 +132,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                       label="City"
                       style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#b5b5b5' }}
                     >
-                      <MenuItem value="f">
+                      <MenuItem value="">
                         <em>None</em>
                       </MenuItem>
                       {this.state.allCity && this.state.allCity.map((item) =>
@@ -202,7 +205,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                       label="Unit"
                       style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#b5b5b5' }}
                     >
-                      <MenuItem value="f">
+                      <MenuItem value="">
                         <em>None</em>
                       </MenuItem>
                       {this.state.allUnit && this.state.allUnit.map((item) =>
@@ -224,6 +227,14 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
             </Form>
           )}
         </Formik>
+              </div>
+              </Grid>
+          <Grid item xs={12} md={5} className="auth-cols">
+            <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
+              <img src={Building1} className="building-logo" alt="" />
+            </Box>
+          </Grid>
+              </Grid>
 
 
 
