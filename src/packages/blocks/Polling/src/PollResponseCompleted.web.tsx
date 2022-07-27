@@ -7,12 +7,10 @@ import {
   Box,
   Button,
   Link,
-  Typography,
   Grid
 } from "@material-ui/core";
 
 //resorces
-import { Tenant_Logo, Building_Logo, Landing_Banner, Building1 } from "../src/assets";
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 //resources
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
@@ -51,7 +49,9 @@ class PollResponseCompleted extends PollingController {
                 </Box>
                 <Box className="footer-block">
                   <Box className="row-btn customButton desktop-ui">
-                    <Button variant="contained" onClick={() => this.props.history.push('/PollVoteSubmitted')}>
+                    <Button variant="contained" 
+                    onClick={this.getFinalPollAnswerView}
+                    >
                       Okay
                     </Button>
                   </Box>
