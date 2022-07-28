@@ -64,7 +64,8 @@ export default class ChairmanAccountLoginController extends BlockComponent<
   apiEmailLoginCallId: any;
   validationApiCallId: any;
   getUserTypeApiCallId: any;
-
+  apiRegistrationRequestCallId:any ;
+  deleteRequestCallId:any;
   validationApiCallId: string = "";
 
   imgPasswordVisible: any;
@@ -184,14 +185,16 @@ export default class ChairmanAccountLoginController extends BlockComponent<
             localStorage.setItem("userId", responseJson?.meta?.id)
             localStorage.setItem("userType", responseJson?.meta?.role.name)
             localStorage.setItem("society_id", responseJson.meta?.society_id)
-            if(localStorage.getItem("userType") === "Owner"){
-              this.props.history.push("/OwnerDashboard")
-              this.setState({loading: false})
-            }else{
-              this.props.history.push("/DashboardGeneral")
-            //window.location.replace("/RegistrationRequest");
-            this.setState({loading: false})
-            }
+            this.getRegistrationRequest();
+             this.setState({loading: false})
+            // if(localStorage.getItem("userType") === "Owner"){
+            //   this.props.history.push("/OwnerDashboard")
+            //   this.setState({loading: false})
+            // }else{
+            //   this.props.history.push("/DashboardGeneral")
+            // //window.location.replace("/RegistrationRequest");
+            // this.setState({loading: false})
+            // }
             
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
@@ -202,6 +205,51 @@ export default class ChairmanAccountLoginController extends BlockComponent<
          
           this.parseApiCatchErrorResponse(this.state.error);
           this.setState({loading: false , error:null})
+        }
+        else if (apiRequestCallId === this.apiRegistrationRequestCallId) {
+          if (responseJson && responseJson?.data ) {
+            const  registrationRequest = responseJson?.data[0]
+            const status :any = registrationRequest?.attributes?.status;
+        if( status === "Requested"){
+            this.props.history.push("/ChairmanRegistrationRequest");
+            this.setState({registrationRequest, requestdeleteId :registrationRequest.id,loading: false})
+          }
+           else if(localStorage.getItem("userType") === "Owner"){
+            this.props.history.push("/OwnerDashboard")
+            this.setState({loading: false})
+           }else if (localStorage.getItem("userType") === "Resident"){
+            this.props.history.push("/ResidentDashboard")
+            this.setState({loading: false})
+           }
+           else{
+            this.props.history.push("/DashboardGeneral")
+            this.setState({loading: false})
+           }
+
+          } else if (responseJson?.errors) {
+            let error = Object.values(responseJson.errors[0])[0] as string;
+            this.setState({ error });
+            // this.parseApiCatchErrorResponse(this.state.error);
+          } else {
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
+
+          }  
+          this.parseApiCatchErrorResponse(this.state.error);
+          this.setState({loading: false ,error:null})
+        }
+        else if (apiRequestCallId === this.deleteRequestCallId) {
+          if (responseJson.message && responseJson ) {
+          this.setState({loading: false,showDialog:false})
+          this.props.history.push("/ChairmanLogin")
+          } else if (responseJson?.errors) {
+            let error = Object.values(responseJson.errors[0])[0] as string;
+            this.setState({ error });
+          } else {
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
+          }
+          this.setState({loading: false,showDialog:false})
+          this.parseApiCatchErrorResponse(this.state.error);
+          this.setState({error:null})
         }
         else if (apiRequestCallId === this.getUserTypeApiCallId) {
           if (responseJson && responseJson?.data ) {
@@ -450,7 +498,7 @@ export default class ChairmanAccountLoginController extends BlockComponent<
 
 clear= () => {
   localStorage.clear()
-  this.props.history.push("/");
+  this.props.history.push("/ChairmanLogin");
 }
 
   LoginSchema() {
@@ -554,5 +602,77 @@ clear= () => {
     }
   };
   
+  getRegistrationRequest = () => {
+    try {
+      const header = {
+        token :localStorage.getItem("userToken")
+      };
+
+      //const id = localStorage.getItem("userId");
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+
+      this.apiRegistrationRequestCallId = requestMessage.messageId;
+      this.setState({ loading: true });
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        `bx_block_request_management/requests`
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        configJSON.validationApiMethodType
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+      return true;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  deleteRequestById = () => {
+    //console.log("this.state?.requestdeleteId deleleleleel}==========>",this.state?.requestdeleteId);
+    const id : any = this.state?.requestdeleteId;
+    try {
+      const header = {
+        token :localStorage.getItem("userToken")
+      };
+
+      //const id = localStorage.getItem("userId");
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+      this.deleteRequestCallId = requestMessage.messageId;
+      this.setState({ loading: true });
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        `bx_block_request_management/requests/${id}`
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        configJSON.httpDelete
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+      return true;
+    } catch (error) {
+      console.log(error);
+    }
+  };
   // Customizable Area End
 }

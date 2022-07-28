@@ -57,19 +57,22 @@ p {
   margin: 0;
   color: $DARK_SHADE1;
   font-weight: 100;
-  font-family: $Gotham_Medium;
 }
 
 h1 {
   font-size: 28px;
   // font-weight: 600;
+  font-family: $Gotham_Medium;
   padding-right: 10px;
+  @include mq(tablet-portrait-large-up) {
+    font-size: 24px;
+  }
 }
 h2 {
-  font-size: 28px;
-  // @include mq(tablet-portrait-large-up) {
-  //   font-size: 17px;
-  // }
+  font-size: 26px;
+  @include mq(tablet-portrait-large-up) {
+    font-size: 25px;
+  }
 }
 h4 {
   font-family: $Gotham_Medium;
@@ -91,7 +94,7 @@ h5 {
 h6 {
   // color: $GRAY_SHADE3;
   font-size: 15px;
-  // font-weight: 400;
+  font-family: $Gotham_Light;
   line-height: 12px;
 }
 
@@ -112,15 +115,16 @@ p {
 }
 a {
   text-decoration: none;
+  font-family: $Gotham_Light;
 }
 
 button,
-a,
 label {
   cursor: pointer;
   margin-bottom: 0;
   // font-family: $MONTSERRAT;
-  font-family: $Gotham_Medium;
+  font-family: $Gotham_Light;
+  font-weight: 500;
 }
 
 ul {
