@@ -69,7 +69,7 @@ class RegistrationRequestSignup extends EmailAccountRegistrationController {
                 <Box className="footer-block">
                   <Box className="row-btn customButton desktop-ui">
                     <Button variant="contained" onClick={() => this.props.history.push('/')}>
-                      Close
+                      Okay
                     </Button>
                     {/* <Button onClick={() => this.clear()} variant='text'>
                       LOGOUT
