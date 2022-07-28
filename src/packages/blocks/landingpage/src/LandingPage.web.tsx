@@ -23,14 +23,13 @@ class LandingPage extends React.Component {
   constructor(props: Props) {
     super(props);
   }
-  changeRoute(){
+  changeRoute() {
     console.log(window.location.href)
 
-    if (window.location.href.includes('owner'))
-    {
+    if (window.location.href.includes('owner')) {
       this.props.history.push('/selectowner');
 
-    }else{
+    } else {
       this.props.history.push('/register');
     }
 
@@ -43,15 +42,17 @@ class LandingPage extends React.Component {
             <div className="row-banner">
               <img src={Landing_Banner} className="banner-img" alt="" />
             </div>
-            <img src={Tenant_Logo} className="tenant-logo" alt="" />
-            <h1>Manage your home  on<br></br>one platform</h1>
-            <p>Your gateway to peaceful living...</p>
+            <Box className="content-section">
+              <img src={Tenant_Logo} className="tenant-logo" alt="" />
+              <h1>Manage your home  on<br></br>one platform</h1>
+              <p>Your gateway to peaceful living...</p>
+            </Box>
             <Box className="customButton row-btn">
               <Button size="large" variant="outlined"
                 onClick={() => { this.props.history.push('/EmailAccountLogin'); }}>
                 login</Button>
               <div className="mb"></div>
-              <Button variant="contained" onClick={() => { this.changeRoute()  }}>register</Button>
+              <Button variant="contained" onClick={() => { this.changeRoute() }}>register</Button>
             </Box>
           </Box>
         </Box>
