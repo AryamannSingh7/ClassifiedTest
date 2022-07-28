@@ -13,6 +13,11 @@
     align-items: center;
     justify-content: space-between;
     height: 100%;
+   
+    @include mq(phone-only) {
+      width: 450px;
+      margin: 0 auto;
+    }
   }
   & .row-banner {
     padding: 20px 0 10px 0;
@@ -51,7 +56,7 @@
   }
   & .row-btn {
     margin-top: 70px;
-    
+    padding-bottom: 20px;
     display: flex;
     flex-direction: column;
     width: 100%;
