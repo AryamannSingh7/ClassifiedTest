@@ -64,12 +64,15 @@ h1 {
   font-size: 28px;
   // font-weight: 600;
   padding-right: 10px;
+  @include mq(tablet-portrait-large-up) {
+    font-size: 24px;
+  }
 }
 h2 {
-  font-size: 28px;
-  // @include mq(tablet-portrait-large-up) {
-  //   font-size: 17px;
-  // }
+  font-size: 26px;
+  @include mq(tablet-portrait-large-up) {
+    font-size: 25px;
+  }
 }
 h4 {
   font-family: $Gotham_Medium;
