@@ -52,6 +52,11 @@
       @content;
     }
   }
+  @else if $size ==tablet-portrait-tablet-up {
+    @media (max-width: 1024px) {
+      @content;
+    }
+  }
 
   @else if $size ==tablet-landscape-up {
     @media (max-width: 959px) {

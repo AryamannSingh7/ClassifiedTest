@@ -127,7 +127,6 @@ class ChairmanLogin extends ChairmanAccountLoginController {
                               ) : null
                           }
                         </Box>
-
                         <Box className="formGroup">
                           <Field name="password" type={values.showPassword ? "text" : "password"} placeholder="Password" className="formInput" />
                           <span className="frmLeftIcons"><LockOpenIcon /></span>

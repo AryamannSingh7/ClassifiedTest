@@ -1,0 +1,15 @@
+$Gotham_Light: "GothamLight";
+$Gotham_Medium: "GothamMedium";
+$Gotham_Bold: "GothamBold";
+@font-face {
+    font-family: $Gotham_Light;
+    src: url(../../fonts/Gotham-Font/Gotham-Light.otf);
+}
+@font-face {
+    font-family: $Gotham_Medium;
+    src: url(../../fonts/Gotham-Font/GothamMedium.ttf);
+}
+@font-face {
+    font-family: $Gotham_Bold;
+    src: url(../../fonts/Gotham-Font/Gotham-Bold.otf);
+}

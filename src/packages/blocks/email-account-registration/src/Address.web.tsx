@@ -43,17 +43,17 @@ class Address extends EmailAccountRegistrationController {
       <>
         <Grid container spacing={2} className="auth-container">
           <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset' }}>
-          <div style={{ margin: 'auto' }}>
-
-        <Grid container className="main-content-block">
+        <Grid container className="main-content-block" style={{marginBottom:10}}>
           <Grid xs={12}>
             <ArrowBackIcon onClick={() => window.history.back()} />
           </Grid>
         </Grid>
+          <div style={{ margin: 'auto' }}>
+
 
         <Grid container className="main-content-block">
           <Grid xs={12}>
-            <p className="text-left" style={{ fontSize: '1.75rem', fontWeight: 700 }}>
+            <p className="text-left" style={{ fontSize: '1.75rem', fontWeight: 700,marginBottom:20 }}>
               Select Building and Unit
 
             </p>
@@ -61,7 +61,7 @@ class Address extends EmailAccountRegistrationController {
         </Grid>
         <Grid container className="main-content-block">
           <Grid xs={12}>
-            <p className="text-left">
+            <p className="text-left" style={{marginBottom:15}}>
               Please select the unit you would like to link with your account.If you have more than one Unit you can link the other ones later on.
             </p>
           </Grid>
@@ -222,7 +222,7 @@ class Address extends EmailAccountRegistrationController {
                 </Grid>
               </Grid>
               <Box className="customButton">
-                <Button variant="contained" type="submit">next</Button>
+                      <Button variant="contained" type="submit">SEND REGISTRATION REQUEST</Button>
               </Box>
 
             </Form>

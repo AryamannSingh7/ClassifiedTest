@@ -13,6 +13,7 @@ import MessageEnum, {
 // Customizable Area Start
 import * as Yup from 'yup';
 import { imgPasswordInVisible, imgPasswordVisible } from "./assets";
+import { valueContainerCSS } from "react-select/src/components/containers";
 // Customizable Area End
 
 export const configJSON = require("./config");
@@ -36,8 +37,12 @@ export interface S {
   enableReTypePasswordField: boolean;
   countryCodeSelected: string;
   phone: string;
-  error: string | null;
   userType: string | null;
+  error: string | null;
+  loading: boolean;
+  userTypeData:any;
+  anchorEl :any ;
+  anchorEl_1 :any ;
   // Customizable Area End
 }
 
@@ -47,7 +52,7 @@ export interface SS {
   // Customizable Area End
 }
 
-export default class EmailAccountLoginController extends BlockComponent<
+export default class IncidentController extends BlockComponent<
   Props,
   S,
   SS
@@ -58,14 +63,11 @@ export default class EmailAccountLoginController extends BlockComponent<
   emailReg: RegExp;
   createAccountApiCallId: any;
 
-  apiEmailLoginCallId: any;
+  apicreateIncidentCallId: any;
   validationApiCallId: any;
-  apiRegistrationRequestCallId: any;
-  deleteRequestCallId:any;
-  emailReg: RegExp;
-  labelTitle: string = "";
-
-
+  getIncidentListingApiCallId: any;
+  getCommonAreaApiCallId : any ;
+  getIncidentRelatedApiCallId:any;
   validationApiCallId: string = "";
 
   imgPasswordVisible: any;
@@ -113,6 +115,12 @@ export default class EmailAccountLoginController extends BlockComponent<
       countryCodeSelected: "",
       phone: "",
       userType:'',
+      loading: false,
+      commonAreaData:null,
+      incidentRelatedData:null,
+      incidentListing: null,
+      anchorEl:null,
+      anchorEl_1:null,
       // Customizable Area End
     };
 
@@ -175,81 +183,64 @@ export default class EmailAccountLoginController extends BlockComponent<
               this.emailReg = new RegExp(regexData.email_validation_regexp);
             }
           }
-        } else if (apiRequestCallId === this.createAccountApiCallId) {
-          if (!responseJson.errors) {
-            console.log(responseJson)
-            localStorage.setItem('res_token', responseJson.meta.token)
-            localStorage.setItem('res_user', responseJson.data.attributes)
-            localStorage.setItem('res_user_id', responseJson.data.id)
-            this.props.history.push('/otp')
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-          this.parseApiCatchErrorResponse(errorReponse);
-        }
-      else if (apiRequestCallId === this.apiEmailLoginCallId) {
-          if (responseJson && responseJson.meta && responseJson.meta.token) {
-            localStorage.setItem("userToken", responseJson?.meta?.token)
-            localStorage.setItem("userId", responseJson?.meta?.id)
-            localStorage.setItem("userType", responseJson?.meta?.role[0]?.name)
-            localStorage.setItem("society_id", responseJson.meta?.society_id)
-            this.getRegistrationRequest();
-          // this.props.history.push("/RegistrationRequest")
-           //window.location.replace("/RegistrationRequest");
-           this.setState({loading: false})
+        } 
+      else if (apiRequestCallId === this.apicreateIncidentCallId) {
+          if (responseJson && responseJson.data && responseJson.meta) {
+              this.props.history.push("/IncidentReportedSuccessfully")
+            this.setState({loading: false})      
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
             this.setState({ error });
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
           }
-          this.setState({loading: false})
+         
           this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({error:null})
+          this.setState({loading: false , error:null})
         }
-        else if (apiRequestCallId === this.deleteRequestCallId) {
-          if (responseJson.message && responseJson ) {
-          this.setState({loading: false,showDialog:false})
-          this.props.history.push("/")
-          } else if (responseJson?.errors) {
-            let error = Object.values(responseJson.errors[0])[0] as string;
-            this.setState({ error });
-          } else {
-            this.setState({ error: responseJson?.error || "Something went wrong!" });
-          }
-          this.setState({loading: false,showDialog:false})
-          this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({error:null})
-        }
-        else if (apiRequestCallId === this.apiRegistrationRequestCallId) {
+        else if (apiRequestCallId === this.getIncidentListingApiCallId) {
           if (responseJson && responseJson?.data ) {
-            const  registrationRequest = responseJson?.data[0]
-            const status :any = registrationRequest?.attributes?.status;
-        if( status === "Requested"){
-            this.props.history.push("/RegistrationRequest");
-            this.setState({registrationRequest, requestdeleteId :registrationRequest.id,loading: false})
-          }
-           else if(localStorage.getItem("userType") === "Owner"){
-            this.props.history.push("/OwnerDashboard")
-            //window.location.replace("/DashboardGeneral");
-            this.setState({loading: false})
-           }else {
-            this.props.history.push("/ResidentDashboard")
-            //window.location.replace("/DashboardGeneral");
-            this.setState({loading: false})
-           }
-
+          console.log("getIncidentListingApiCallId ========================>",responseJson)
+          this.setState({incidentListing :responseJson?.data})
+          this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
             this.setState({ error });
-            // this.parseApiCatchErrorResponse(this.state.error);
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
-
-          }  
+          }
           this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({loading: false ,error:null})
+          this.setState({loading: false , error:null})
+        }
+        else if (apiRequestCallId === this.getCommonAreaApiCallId) {
+          if (responseJson && responseJson?.data ) {
+          console.log("getCommonAreaApiCallId  getIncidentRelatedApiCallId========================>",responseJson)
+          this.setState({commonAreaData :responseJson?.data.common_areas})
+        
+          this.setState({loading: false})
+          } else if (responseJson?.errors) {
+            let error = Object.values(responseJson.errors[0])[0] as string;
+            this.setState({ error });
+          } else {
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
+          }
+          this.parseApiCatchErrorResponse(this.state.error);
+          this.setState({loading: false , error:null})
+        }
+        else if (apiRequestCallId === this.getIncidentRelatedApiCallId) {
+          if (responseJson && responseJson?.data ) {
+          console.log("getIncidentRelatedApiCallId========================>",responseJson)
+          this.setState({incidentRelatedData :responseJson?.data.incident_relateds})
+        
+          this.setState({loading: false})
+          } else if (responseJson?.errors) {
+            let error = Object.values(responseJson.errors[0])[0] as string;
+            this.setState({ error });
+          } else {
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
+          }
+          this.parseApiCatchErrorResponse(this.state.error);
+          this.setState({loading: false , error:null})
         }
       }
     }
@@ -485,47 +476,35 @@ clear= () => {
   this.props.history.push("/");
 }
 
-  LoginSchema() {
-    const validations = Yup.object().shape({
-      email: Yup.string()
-        .email('Invalid email format')
-        .strict(true)
-        .lowercase(`Please enter all values in lowercase`)
-        .trim()
-        .required(`This field is required.`),
-      password: Yup.string().required(`This field is required`)
-    });
-    return validations
-  }
+  
 
-  doLogIn = (values: any): boolean => {
+  createIncident = (incidentFromData: any): boolean => {
+    
     const header = {
-      "Content-Type": configJSON.loginApiContentType
+      token :localStorage.getItem("userToken")
     };
-
-    const attrs = {
-      email: values.email,
-      password: values.password
-    };
-
-    const data = {
-      type: "email_account",
-      attributes: attrs
-    };
-
-    const httpBody = {
-      data: data
-    };
-
-    this.setState({loading: true})
+    const incidentRelated =incidentFromData.incidentRelated.split(" ");
+    console.log("values create==================>",incidentFromData ,incidentRelated);
+    const formData = new FormData();
+   formData.append('incident[common_area_id]', incidentFromData?.commonArea);
+   formData.append('incident[incident_related_id]', incidentRelated[0]);
+   formData.append('incident[incident_title]', incidentFromData.incidentTitle);
+   formData.append('incident[description]', incidentFromData.description);
+  // formData.append('incident[image][]', incidentFromData.media);
+   
+   console.log("formData.getAll('description')==================>",formData.get('commonArea'))
+   const httpBody = formData;
+   console.log("httpBody httpBody==================>",httpBody);
+   
+    this.setState({loading: true}) 
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
     );
 
-    this.apiEmailLoginCallId = requestMessage.messageId;
+    this.apicreateIncidentCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      configJSON.signinAPiEndPoint
+      configJSON.createIncident
     );
 
     requestMessage.addData(
@@ -540,7 +519,7 @@ clear= () => {
 
     requestMessage.addData(
       getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.loginAPiMethod
+      configJSON.exampleAPiMethod
     );
 
     runEngine.sendMessage(requestMessage.id, requestMessage);
@@ -548,9 +527,11 @@ clear= () => {
     return true;
   };
 
-  getRegistrationRequest = () => {
+ 
+  getIncidentListing= () => {
     try {
       const header = {
+        "Content-Type": configJSON.validationApiContentType,
         token :localStorage.getItem("userToken")
       };
 
@@ -558,13 +539,84 @@ clear= () => {
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
-
-      this.apiRegistrationRequestCallId = requestMessage.messageId;
+      this.getIncidentListingApiCallId = requestMessage.messageId;
       this.setState({ loading: true });
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `bx_block_request_management/requests`
+        `bx_block_custom_form/incidents?sort_type=${'asc'}&filter_by=${'Unresolved'}`
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        configJSON.validationApiMethodType
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+      return true;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
+  getCommonArea = () => {
+    try {
+      const header = {
+        "Content-Type": configJSON.validationApiContentType,
+        token :localStorage.getItem("userToken")
+      };
+
+      //const id = localStorage.getItem("userId");
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+      this.getCommonAreaApiCallId = requestMessage.messageId;
+      this.setState({ loading: true });
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        `bx_block_custom_form/incidents/common_area_list?society_management_id=4`
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        configJSON.validationApiMethodType
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+      return true;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  getIncidentRelated = () => {
+    try {
+      const header = {
+        "Content-Type": configJSON.validationApiContentType,
+        token :localStorage.getItem("userToken")
+      };
+
+      //const id = localStorage.getItem("userId");
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+      this.getIncidentRelatedApiCallId = requestMessage.messageId;
+      this.setState({ loading: true });
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        configJSON.incidentRelated
       );
 
       requestMessage.addData(
@@ -585,41 +637,68 @@ clear= () => {
   };
 
 
-  deleteRequestById = () => {
-    //console.log("this.state?.requestdeleteId deleleleleel}==========>",this.state?.requestdeleteId);
-    const id : any = this.state?.requestdeleteId;
-    try {
-      const header = {
-        token :localStorage.getItem("userToken")
-      };
-
-      //const id = localStorage.getItem("userId");
-      const requestMessage = new Message(
-        getName(MessageEnum.RestAPIRequestMessage)
-      );
-      this.deleteRequestCallId = requestMessage.messageId;
-      this.setState({ loading: true });
-
-      requestMessage.addData(
-        getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `bx_block_request_management/requests/${id}`
-      );
-
-      requestMessage.addData(
-        getName(MessageEnum.RestAPIRequestHeaderMessage),
-        JSON.stringify(header)
-      );
-
-      requestMessage.addData(
-        getName(MessageEnum.RestAPIRequestMethodMessage),
-        configJSON.httpDelete
-      );
-
-      runEngine.sendMessage(requestMessage.id, requestMessage);
-      return true;
-    } catch (error) {
-      console.log(error);
-    }
+  
+  handleClick = (event) => {
+    this.setState({anchorEl:event.currentTarget})
   };
+  handleClose = (e, v) => {
+   
+    this.setState({anchorEl:null})
+   //setAnchorEl(null);
+  };
+  
+  handleClick_1 = (event) => {
+    this.setState({anchorEl_1:event.currentTarget})
+  };
+   
+  handleClose_1 = (e, v) => {
+    this.setState({anchorEl_1:null})
+  };
+  handleSelectMedia = (
+    e: any,
+    existingMedia: any[],
+    setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
+    setFieldError: (field: string, message: string) => void
+  ) => {
+    let media = [];
+    let files = e.target.files;
+    console.log("filessss=====>",files);
+
+    for (let i = 0; i < files.length; i += 1) {
+      if(files[i] && !["image/jpg", "image/jpeg", "image/gif", "image/png","video/mp4","video/x-m4v" ].includes(files[i].type)){
+        console.log("type=====>",files[i].type);
+         setFieldError('media','Only image and video are supported.');
+         return ;
+      } 
+      media.push({
+        file: {
+          lastModified: files[i].lastModified,
+          lastModifiedDate: files[i].lastModifiedDate,
+          name: files[i].name,
+          size: files[i].size,
+          type: files[i].type
+        },
+        url: URL.createObjectURL(files[i])
+      });
+    }
+    
+    e.target.value = "";
+    console.log("media======>",media)
+    setFieldValue("media", media);
+  };
+  
+createIncidentSchema() {
+    const validations = Yup.object().shape({
+      commonArea: Yup.string().required(`This field is required`).trim(),
+      incidentRelated: Yup.string().required(`This field is required`).trim(),
+      incidentTitle: Yup.string().required(`This field is required`).max(50, "Too Long!"),
+      description: Yup.string().required(`This field is required`).max(200, "Too Long!"),
+      // media: Yup.array()
+      // .required(`This field is required.`)   
+    });
+       
+    return validations ;
+  }
+
   // Customizable Area End
 }

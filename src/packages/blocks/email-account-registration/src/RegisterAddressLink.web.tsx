@@ -255,9 +255,9 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
             <Box className="diloag-header">
               <img src={building} className="tenet-logo" alt="" />
               <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
-                Are you sure you want to register unit?
+                sure  want to register this unit?
               </DialogTitle>
-              <p>Are you sure that you want to register {this.state.selectUnit.apartment_name} unit of {this.state.selectBuilding.name}</p>
+              <p>Are you sure that you want to register  the unit {this.state.selectUnit.apartment_name} of {this.state.selectBuilding.name} as a unit that you own or manage?</p>
             </Box>
             <Box className="dialog-footer desktop-ui">
               <DialogActions className="customButton">

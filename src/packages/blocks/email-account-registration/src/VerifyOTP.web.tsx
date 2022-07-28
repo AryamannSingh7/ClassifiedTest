@@ -73,7 +73,7 @@ class VerofyOTP extends EmailAccountRegistrationController {
                 />
               </Box>
               <Box className="customButton row-btn"  >
-                <Button variant="contained" onClick={() => this.verifyOtp()}>SEND</Button>
+                <Button variant="contained" onClick={() => this.verifyOtp()}>NEXT</Button>
               </Box>
               <Box className="passwordRow">
                 {/* <Link href="#" className="link"> <span>RESEND OTP</span></Link> */}

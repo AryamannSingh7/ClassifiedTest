@@ -40,12 +40,13 @@ class Registration extends EmailAccountRegistrationController {
             <ArrowBackIcon onClick={() => window.history.back()} />
           </Grid>
         </Grid>
-
+        <Box display='flex' justifyContent='center'>
+          <img src={company_logo} width='125' height='125' />
+        </Box>
         <Grid container>
           <Grid xs={12}>
             <p className="text-center" style={{ fontSize: '1.75rem', fontWeight: 700 }}>
-              Client <br />
-              Logo
+              Welcome
 
             </p>
           </Grid>
@@ -53,7 +54,7 @@ class Registration extends EmailAccountRegistrationController {
         <Grid container>
           <Grid xs={12}>
             <p className="text-center">
-              Create an account with your credentials
+              Owner Sign up
             </p>
           </Grid>
         </Grid>

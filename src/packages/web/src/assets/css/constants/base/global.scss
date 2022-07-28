@@ -1,12 +1,9 @@
 @import './colors.scss';
-@import url(//db.onlinewebfonts.com/c/ff9f9b187dc224f3f985a8fadbd88d45?family=AllRoundGothicW01-Medium);
-@import url(//db.onlinewebfonts.com/c/8df141f447c5686cf9dbae8dabb1e71a?family=AllRoundGothicW01-Bold);
-@import url(//db.onlinewebfonts.com/c/dd266e8a31d9cbae26395f9d100e4e4b?family=AllRoundGothicW01-Book);
 
-// $BOX_SHADOW: 0px 0px 4px 0px $WHITE;
-// $BOX_SHADOW2: 0px 16px 20px 0px $GRAY_SHADE8;
 $BORDER_RADIUS: 10px;
 $FORM_BORDER_RADIUS: 10px;
+// $BOX_SHADOW: 0px 0px 4px 0px $WHITE;
+// $BOX_SHADOW2: 0px 16px 20px 0px $GRAY_SHADE8;
 // $CUSTOM_RADIUS: 20px;
 // $ROUND_BORDER_RADIUS: 50%;
 // $drawerWidth: 240px;
@@ -31,6 +28,4 @@ $ROUNDGOTHIC_BOOK: 'AllRoundGothicW01-Book';
   position: absolute;
   top: 27%;
   left: 4%;
-
-
 }
