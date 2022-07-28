@@ -99,6 +99,7 @@ import ChairmanChangePassword from "../../blocks/forgot-password/src/ChairmanCha
 import ChangeSuccessfully from "../../blocks/forgot-password/src/ChangeSuccessfully.web";
 import ChairmanChangeSuccessfully from "../../blocks/forgot-password/src/ChairmanChangeSuccessfully.web";
 import RegistrationRequest from "../../blocks/email-account-login/src/RegistrationRequest.web";
+import ChairmanRegistrationRequest from "../../blocks/email-account-login/src/ChairmanRegistrationRequest.web";
 import DashboardGeneral from "../../blocks/dashboard/src/DashboardGeneral.web";
 import DashboardTicket from "../../blocks/dashboard/src/DashboardTicket.web";
 import DashboardActions from "../../blocks/dashboard/src/DashboardActions.web";
@@ -183,6 +184,10 @@ const routeMap = {
   RegistrationRequest: {
     component: RegistrationRequest,
     path: "/RegistrationRequest"
+  },
+  ChairmanRegistrationRequest: {
+    component: ChairmanRegistrationRequest,
+    path: "/ChairmanRegistrationRequest"
   },
   RegistrationRequestSignup: {
     component: RegistrationRequestSignup,
