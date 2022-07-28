@@ -49,7 +49,7 @@ class ChairmanLogin extends ChairmanAccountLoginController {
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
               <Box className="content-block">
-                <Box display={{ xs: 'flex', md: 'none' }} className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
+                <Box className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
                 <Box className="logo-block common-top-padding" display={{ xs: 'none', md: 'flex' }}>
                   <Link href="/ChairmanLogin">
                     <img src={Building_Logo} className="head-logo" alt="" />
@@ -196,7 +196,7 @@ class ChairmanLogin extends ChairmanAccountLoginController {
                   <Link href="#" className="link"> <span> register</span></Link>
                 </Box> */}
                 {/* desktop footer block */}
-                <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>
+                <Box className="footer-main-block bottomBlock">
                   <h6 className="bottom-text">POWERED BY</h6>
                   <img src={Tenant_Logo} className="tenant-logo" alt="" />
                 </Box>

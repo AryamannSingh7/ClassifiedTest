@@ -37,54 +37,12 @@ class ForgotPassword extends ForgotPasswordController {
 
     return (
       <>
-        {/* <Box className="login-wrapper auth-wrapper">
-          <div className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></div>
-          <Box className="header-block">
-            <h1>Forgot Password</h1>
-            <h6>One Time Password(OTP) will be sent to the regestered email.</h6>
-          </Box>
-          <Formik
-            initialValues={{
-              email: "",
-            }}
-            validationSchema={this.EmailSchema()}
-            validateOnMount={true}
-            onSubmit={(values) => {
-              console.log("valus=========>", values)
-              this.checkUser(values)
-              // same shape as initial values  
-            }}
-          >
-            {({ values, touched, errors, isValid, setFieldValue, handleChange }) => (
-              <Form translate="yes" className="commonForm">
-                <Box className="formGroup">
-                  <label htmlFor="" className="textfieldLabel">Enter your regestered Email </label>
-                  <div className="formInputGrp">
-                    <Field type="email" name="email" placeholder="Email ID" className="formInput" />
-                    <span className="frmLeftIcons"><MailOutlineIcon /></span>
-                  </div>
-
-                  {
-                    errors.email && touched.email ?
-                      (
-                        <Typography className="text-error">{errors.email} </Typography>
-                      ) : null
-                  }
-                </Box>
-                <Box className="customButton">
-                  <Button variant="contained" type="submit">next</Button>
-                </Box>
-
-              </Form>
-            )}
-          </Formik>
-        </Box> */}
-
+      
         <Box className="login-wrapper auth-wrapper">
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
               <Box className="content-block">
-                <Box display={{ xs: 'flex', md: 'none' }} className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
+                <Box className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
                 <Box className="logo-block common-top-padding" display={{ xs: 'none', md: 'flex' }}>
                   <Link href="/EmailAccountLogin">
                     <img src={Building_Logo} className="head-logo" alt="" />
@@ -99,7 +57,7 @@ class ForgotPassword extends ForgotPasswordController {
                       </Link>
                     </Box> */}
                     <h1>Forgot Password</h1>
-                    <h6>One Time Password(OTP) will be sent<br></br>to the regestered email.</h6>
+                    <h6>One Time Password(OTP) will be sent to the regestered email.</h6>
                   </Box>
                   <Formik
                     initialValues={{
@@ -138,7 +96,7 @@ class ForgotPassword extends ForgotPasswordController {
                   </Formik>
                 </Box>
                 {/* desktop footer block */}
-                <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>
+                <Box className="footer-main-block bottomBlock">
                   <h6 className="bottom-text">POWERED BY</h6>
                   <img src={Tenant_Logo} className="tenant-logo" alt="" />
                 </Box>
