@@ -422,7 +422,7 @@
     border: 1px solid #c5c1c1;
 }
 .progressbarYES progress[value]::-webkit-progress-bar {
-    background-color: transparent;
+    background-color: rgb(172, 169, 169);
     border-radius: 5rem;  
 }
 .progressbarYES progress[value]::-webkit-progress-value {
