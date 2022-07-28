@@ -32,18 +32,18 @@ class SelectOwner extends EmailAccountRegistrationController {
       <>
         <Grid container spacing={2} className="auth-container">
           <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset' }}>
-            <div style={{ margin: 'auto' }}>
-
         <Grid container className="main-content-block">
           <Grid xs={12}>
             <ArrowBackIcon onClick={() => window.history.back()} />
           </Grid>
         </Grid>
+            <div style={{ margin: 'auto' }}>
+
 
         <Grid container className="main-content-block">
           <Grid xs={12}>
-            <p className="text-left" style={{ fontSize: '2.5rem', fontWeight: 700 }}>
-              Please select your type
+            <p className="text-left" style={{ fontSize: '2rem', fontWeight: 700,marginBottom:10 }}>
+              Sign  up
 
             </p>
           </Grid>
@@ -52,7 +52,7 @@ class SelectOwner extends EmailAccountRegistrationController {
         <Grid container className="main-content-block">
           <Grid xs={12}>
             <p className="text-left">
-              Please select appropriate user type
+              Please select your   type
 
 
 
