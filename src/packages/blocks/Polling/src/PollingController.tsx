@@ -54,6 +54,7 @@ interface S {
   pollOptionAnswer:any;
   pollPreviewAnswerID:any;
   finalPollAnswer:any;
+  dateErrors:any;
   // Customizable Area End
 }
 
@@ -146,7 +147,8 @@ export default class PollingController extends BlockComponent<
       value: '',
       TabValue:0,
       textEditorVal: '',
-      initialtextEditorVal: ''
+      initialtextEditorVal: '',
+      dateErrors: ""
       // Customizable Area End
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -317,15 +319,39 @@ export default class PollingController extends BlockComponent<
     handleQuestionSelect = (event:any) => {
       this.setState({selectQuestion: event.target.value})
     };
+
+    createPollValidate = () => {
+      const {title, startDate, endDate, description, question} = this.state.PollData;
+      if(title == ""){
+        this.setState({dateErrors: "title error"})
+      }
+      if(description == "" || description.length >= 200){
+        this.setState({dateErrors: "description error"})
+      }
+      if(question == "" || question.length >= 50){
+        this.setState({dateErrors: "question error"})
+      }
+      if(startDate == ""){
+        this.setState({dateErrors: "startDate error"})
+      }
+      if(endDate == ""){
+        this.setState({dateErrors: "endDate error"})
+      }
+    }
   
 
     handlePollDataChange = (event:any) => {
+      if(this.state.PollData.startDate.length > 10 || this.state.PollData.endDate.length > 10){
+          this.setState({dateErrors: "Please enter only 4 digits year"})
+      }
       this.setState({ PollData: {...this.state.PollData, [event.target.name] : event.target.value}}) 
+      console.log("?????????????????????????", this.state.PollData.startDate.length)
     }
 
     handlePollDataSubmit =  (event:any) => {
       event.preventDefault()
         const societyID = localStorage.getItem("society_id")
+        // this.createPollValidate()
         if(this.state.PreViewPollData.length || Object.keys(this.state.PreViewPollData).length){
           let reqPayload = {
             "society_id": societyID,

@@ -17,22 +17,10 @@ import {
 } from "@material-ui/core";
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import Select from "@material-ui/core/Select";
-import NativeSelect from "@material-ui/core/NativeSelect";
 import Switch from '@material-ui/core/Switch';
-import { DateRangePicker, DateRange, Calendar  } from 'react-date-range';
+// import { DateRangePicker, DateRange, Calendar  } from 'react-date-range';
 import 'date-fns';
-import Parser from 'html-react-parser';
-// import DateFnsUtils from '@date-io/date-fns';
-// import {
-//   MuiPickersUtilsProvider,
-//   KeyboardTimePicker,
-//   KeyboardDatePicker,
-// } from '@material-ui/pickers';
-
 // Icons
-import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
-import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import DateRangeOutlinedIcon from '@material-ui/icons/DateRangeOutlined';
 import InfoIcon from '@material-ui/icons/Info';
 // Icons
@@ -141,7 +129,7 @@ class CreatePolls extends PollingController {
                                     />  
 
                                 </Box>
-
+                                <p style={{color:"red"}}>{this.state.dateErrors}</p>
                                 <Box className="anonymousSwitch">
                                     <Box className="infoIcon">
                                         <Typography variant="subtitle1">Make it anonymous poll</Typography>  

@@ -4,12 +4,11 @@
 
 import React from "react";
 import './Dashboard.web.css'
+import {ticket_calendar, ticket, ticketclock} from "./assets"
 import {
     Container,
     Typography,
-    Link,
     FormControl,
-    MenuItem,
     TableContainer,
     Table,
     TableBody,
@@ -74,10 +73,10 @@ export default class DashboardTicket extends DashboardController {
                             <Box>
                                 <FormControl style={dashBoardActions.YearMain} className='yearTab'>
                                     <NativeSelect className='yearSelection' value={this.state.Year} onChange={this.handleChange}>
-                                        <option value="">None</option>
-                                            <option value={10}>Ten</option>
-                                            <option value={20}>Twenty</option>
-                                            <option value={30}>Thirty</option>
+                                        <option value={2022}>2022</option>
+                                        <option value={2021}>2021</option>
+                                        <option value={2020}>2020</option>
+                                        <option value={2019}>2019</option>
                                     </NativeSelect>
                                 </FormControl>
                             </Box>
@@ -86,7 +85,9 @@ export default class DashboardTicket extends DashboardController {
                         <Grid container spacing={4} >
                             <Grid item sm={4}>
                                 <Box style={dashBoardActions.Cards}>
-                                    <Box sx={{ml:1, mb:2}} style={dashBoardActions.CardsIcons}><AccessTimeIcon/></Box>
+                                    <Box sx={{ml:1, mb:2}} style={dashBoardActions.CardsIcons}>
+                                        <img src={ticketclock} alt="ticketclock" width={25}/>
+                                    </Box>
                                     <Typography style={dashBoardActions.subHeading}>Avereage Resolution Time</Typography>
                                     <Box style={dashBoardActions.bottomTwoSpan}>
                                         <Box component="span" style={dashBoardActions.bottomColor}>2</Box>
@@ -96,7 +97,9 @@ export default class DashboardTicket extends DashboardController {
                             </Grid>
                             <Grid item sm={4}>
                                 <Box style={dashBoardActions.Cards}>
-                                    <Box sx={{ml:1, mb:2}} style={dashBoardActions.CardsIcons}><PersonOutlineIcon/></Box>
+                                    <Box sx={{ml:1, mb:2}} style={dashBoardActions.CardsIcons}>
+                                        <img src={ticket} alt="ticket" />
+                                    </Box>
                                     <Typography style={dashBoardActions.subHeading}>Ticket generated in 2022</Typography>
                                     <Box style={dashBoardActions.bottomTwoSpan}>
                                         <Box component="span" style={dashBoardActions.bottomColor}>73</Box>
@@ -106,7 +109,9 @@ export default class DashboardTicket extends DashboardController {
                             </Grid> 
                             <Grid item sm={4}>
                                 <Box style={dashBoardActions.Cards}>
-                                    <Box sx={{ml:1, mb:2}} style={dashBoardActions.CardsIcons}><TodayOutlinedIcon/></Box>
+                                    <Box sx={{ml:1, mb:2}} style={dashBoardActions.CardsIcons}>
+                                    <img src={ticket_calendar} alt="ticket_calendar" width={25} />
+                                    </Box>
                                     <Typography style={dashBoardActions.subHeading}>Ticket tooks more than X days</Typography>
                                     <Box style={dashBoardActions.bottomTwoSpan}>
                                         <Box component="span" style={dashBoardActions.bottomColor}>12</Box>
@@ -186,7 +191,7 @@ const dashBoardActions = {
         borderRadius: "50%",
         width: 25,
         height: 25,
-        padding: 10,
+        padding: 15,
         color:"#054c94",
     },
     bottomColor:{

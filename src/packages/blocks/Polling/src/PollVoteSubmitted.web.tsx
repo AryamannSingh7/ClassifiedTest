@@ -29,7 +29,7 @@ class PollVoteSubmitted extends PollingController {
     
         <Grid container style={{ margin: '1rem', width: '90%' }}>
           <Grid xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
-            <ArrowBackIcon onClick={() => window.history.push("/PollsSurvey")} />
+            <ArrowBackIcon onClick={() => this.props.history.push("/PollsSurvey")} />
             <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
               {this.state.pollPreviewAnswer?.poll?.data.attributes.title}
             </p>

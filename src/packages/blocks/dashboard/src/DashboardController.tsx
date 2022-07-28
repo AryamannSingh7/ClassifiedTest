@@ -150,10 +150,10 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
     // Customizable Area End
   }
 
-  // Customizable Area Start
+   // Customizable Area Start
 
-  handleChange = () => {
-    // console.log('click', event.target.value)
+   handleChange = (event:any) => {
+    this.setState({Year: event.target.value});
   };
 
   handleAccordinoChange = (panel:string) => (event:any, isExpanded:boolean) => {

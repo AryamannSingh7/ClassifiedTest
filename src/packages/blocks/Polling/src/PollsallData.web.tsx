@@ -5,7 +5,7 @@
 import React from "react";
 import "./Polling.web.css"
 import DOMPurify from 'dompurify'
-
+import {pollandsurvey} from "./assets"
 import {
   Container,
   Typography,
@@ -75,7 +75,9 @@ export default class PollsallData extends PollingController {
                         <Grid item sm={4}>
                             <Link href="/CreatePolls">
                                 <Box className="CreatePSsingle">
-                                    <Box sx={{ml:1, mb:2}} className="CreatePSIcons"><PersonOutlineIcon/></Box>
+                                    <Box sx={{ml:1, mb:2}}>
+                                    <img src={pollandsurvey} alt="pollandsurvey" />
+                                    </Box>
                                     <Typography  className="CreatePSHeading">Create a New Poll</Typography> 
                                 </Box>
                             </Link>

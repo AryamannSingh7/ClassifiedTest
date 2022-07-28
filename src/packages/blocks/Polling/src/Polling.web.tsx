@@ -22,8 +22,9 @@ import Select from "@material-ui/core/Select";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import Divider from '@material-ui/core/Divider';
 // Icons
+
+import {pollandsurvey, pollcreate, surveycreate} from "./assets"
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
-import RoomOutlinedIcon from '@material-ui/icons/RoomOutlined';
 import DateRangeOutlinedIcon from '@material-ui/icons/DateRangeOutlined';
 import HighlightOffOutlinedIcon from '@material-ui/icons/HighlightOffOutlined';
 import CheckCircleOutlineOutlinedIcon from '@material-ui/icons/CheckCircleOutlineOutlined';
@@ -34,7 +35,6 @@ import PollingController, {
   Props,
   configJSON,
 } from "./PollingController";
-import Dashboard from "../../dashboard/src/Dashboard.web";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import "../../../web/src/assets/css/style.scss";
@@ -81,7 +81,9 @@ class Polling extends PollingController {
                 <Grid container spacing={4} style={{marginTop: 15}} className="link-decoration">
                     <Grid item sm={4}>
                         <Box className="CreatePS" onClick={() => {  this.setState({ showDialog: true})}}>
-                            <Box sx={{ml:1, mb:2}} className="CreatePSIcons"><PersonOutlineIcon/></Box>
+                            <Box sx={{ml:1, mb:2}} >
+                                <img src={pollandsurvey} alt="pollandsurvey" />
+                            </Box>
                             <Typography  className="CreatePSHeading">Create a New Polls/Survey</Typography> 
                         </Box>
                     </Grid> 
@@ -103,7 +105,8 @@ class Polling extends PollingController {
                                     }} 
                                     className="dialogOption"
                                 >
-                                    <PersonOutlineIcon className="DialogIcons"/>
+                                    <img src={pollcreate} alt="pollcreate" className="DialogIcons"/>
+                                    {/* <PersonOutlineIcon className="DialogIcons"/> */}
                                     <p>Create Poll</p> 
                                 </div>
                                 <div 
@@ -113,7 +116,8 @@ class Polling extends PollingController {
                                     }} 
                                     className="dialogOption"
                                 >
-                                    <PersonOutlineIcon className="DialogIcons"/>
+                                    <img src={surveycreate} alt="surveycreate" className="DialogIcons"/>
+                                    {/* <PersonOutlineIcon className="DialogIcons"/> */}
                                     <p>Create Survey</p> 
                                 </div>
                             </DialogActions>
@@ -122,7 +126,9 @@ class Polling extends PollingController {
 
                     <Grid item sm={4}>
                         <Box className="Cards" onClick={() => this.props.history.push("/PollsallData")}>
-                            <Box sx={{ml:1, mb:2}} className="CardsIcons"><PersonOutlineIcon/></Box>
+                            <Box sx={{ml:1, mb:2}} className="CardsIcons">
+                                <img src={pollcreate} alt="pollcreate" />
+                            </Box>
                             <Typography className="subHeading">Polls Created</Typography>
                             <Box className="bottomTwoSpan">
                                 <Typography variant="body2" className="bottomColor">
@@ -139,7 +145,9 @@ class Polling extends PollingController {
 
                     <Grid item sm={4}>
                         <Box className="Cards" onClick={() => this.props.history.push("/CreateSurveys")}>
-                            <Box sx={{ml:1, mb:2}} className="CardsIcons"><PersonOutlineIcon/></Box>
+                            <Box sx={{ml:1, mb:2}} className="CardsIcons">
+                            <img src={surveycreate} alt="surveycreate" />
+                            </Box>
                             <Typography className="subHeading">Surveys Created</Typography>
                             <Box className="bottomTwoSpan">
                                 <Typography variant="body2" className="bottomColor">344</Typography>  
