@@ -11,11 +11,13 @@
             fill: $ORANGE;
         }
         & .checkboxLabel {
-            font-size: 14px;
+            font-size: 13px;
             color: #262a32;
+            font-family: $Gotham_Light;
         }
         & .link {
             padding-left: 10px;
+            font-family: $Gotham_Medium;
         }
     }
 }

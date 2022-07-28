@@ -28,35 +28,15 @@ class ForgotPasswordOTP extends ForgotPasswordController {
     super(props);
   }
   render() {
-    const  emailMask  = localStorage.getItem("emailMask")
+    const emailMask = localStorage.getItem("emailMask")
     const phoneNumber = localStorage.getItem("phoneNumberMask")
     return (
       <>
-        {/* <Box className="login-wrapper">
-          <div className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></div>
-          <Box className="header-left-block header-block">
-            <h1>Enter OTP Code</h1>
-            <h6>Please enter the code send to the email address <span className="text">jo******52@gmail.com</span></h6>
-          </Box>
-          <Box className="commonForm">
-            <Box className="formGroup otpBlock">
-              <OtpInput className="formOutlineInput"
-                value={"111111"}
-                onChange={this.handleChange}
-                numInputs={6}
-              // separator={<span>-</span>}
-              />
-            </Box>
-          </Box>
-          <Box className="customButton row-btn">
-            <Button variant="contained" onClick={() => { this.verifyOtp() }}>next</Button>
-          </Box>
-        </Box> */}
         <Box className="login-wrapper auth-wrapper">
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
               <Box className="content-block">
-                <Box display={{ xs: 'flex', md: 'none' }} className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
+                <Box className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
                 <Box className="logo-block common-top-padding" display={{ xs: 'none', md: 'flex' }}>
                   <Link href="/EmailAccountLogin">
                     <img src={Building_Logo} className="head-logo" alt="" />
@@ -72,15 +52,15 @@ class ForgotPasswordOTP extends ForgotPasswordController {
                     </Box> */}
                     <h1>Enter OTP Code</h1>
                     {
-                        emailMask ? (<>
-                          Please enter the code send to the email<br></br>address <span className="text">{emailMask}</span>
-                          </>
-                        )
-                         :<>
-                        Please enter the code send to the phone<br></br>number <span className="text">{phoneNumber}</span>    
+                      emailMask ? (<>
+                        <h6>Please enter the code send to the email<br></br>address <span className="text">{emailMask}</span></h6>
+                      </>
+                      )
+                        : <>
+                          <h6>Please enter the code send to the phone<br></br>number <span className="text">{phoneNumber}</span></h6>
                         </>
-                       }
-                       </Box>
+                    }
+                  </Box>
                   <Box className="commonForm">
                     <Box className="formGroup otpBlock">
                       <OtpInput className="formOutlineInput"
@@ -99,7 +79,7 @@ class ForgotPasswordOTP extends ForgotPasswordController {
                   </Box>
                 </Box>
                 {/* desktop footer block */}
-                <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>
+                <Box className="footer-main-block bottomBlock">
                   <h6 className="bottom-text">POWERED BY</h6>
                   <img src={Tenant_Logo} className="tenant-logo" alt="" />
                 </Box>

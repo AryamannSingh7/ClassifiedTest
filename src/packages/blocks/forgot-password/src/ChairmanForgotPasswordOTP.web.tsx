@@ -28,7 +28,7 @@ class ChairmanForgotPasswordOTP extends ChairmanForgotPasswordController {
     super(props);
   }
   render() {
-    const  emailMask  = localStorage.getItem("emailMask")
+    const emailMask = localStorage.getItem("emailMask")
     const phoneNumber = localStorage.getItem("phoneNumberMask")
     return (
       <>
@@ -91,32 +91,28 @@ class ChairmanForgotPasswordOTP extends ChairmanForgotPasswordController {
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
               <Box className="content-block">
-                <Box display={{ xs: 'flex', md: 'none' }} className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
+                <Box className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
                 <Box className="logo-block common-top-padding" display={{ xs: 'none', md: 'flex' }}>
-                  <img src={Building_Logo} className="head-logo" alt="" />
-                  <h4>Building Name</h4>
+                  <Link>
+                    <img src={Building_Logo} className="head-logo" alt="" />
+                    <h4>Building Name</h4>
+                  </Link>
                 </Box>
                 <Box className="main-content-block desktop-ui">
-                  {/* <Box className="header-block">
-                    <Box display={{ xs: 'flex', md: 'none' }}>
-                      <img src={Tenant_Logo} className="tenant-logo" alt="" />
-                    </Box>
-                    <h1>Welcome Back</h1>
-                    <p>Login with your account credentials </p>
-                  </Box> */}
+
                   <Box className="header-left-block header-block">
                     <h1>Enter OTP</h1>
-                    <h6> 
+                    <h6>
                       {
                         emailMask ? (<>
                           Please enter the code send to the email<br></br>address <span className="text">{emailMask}</span>
-                          </>
-                        )
-                         :<>
-                        Please enter the code send to the phone<br></br>number <span className="text">{phoneNumber}</span>    
                         </>
-                       }
-                      </h6>
+                        )
+                          : <>
+                            Please enter the code send to the phone<br></br>number <span className="text">{phoneNumber}</span>
+                          </>
+                      }
+                    </h6>
                   </Box>
                   <Box className="commonForm">
                     <Box className="formGroup otpBlock">
@@ -143,7 +139,7 @@ class ChairmanForgotPasswordOTP extends ChairmanForgotPasswordController {
                   <Link href="#" className="link"> <span> register</span></Link>
                 </Box> */}
                 {/* desktop footer block */}
-                <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>
+                <Box className="footer-main-block bottomBlock">
                   <h6 className="bottom-text">POWERED BY</h6>
                   <img src={Tenant_Logo} className="tenant-logo" alt="" />
                 </Box>
