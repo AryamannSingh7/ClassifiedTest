@@ -115,6 +115,9 @@ import OwnerDashboard from "../../blocks/dashboard/src/OwnerDashboard.web"
 import ResidentDashboard from "../../blocks/dashboard/src/ResidentDashboard.web"
 import PollVoteSubmitted from "../../blocks/Polling/src/PollVoteSubmitted.web"
 import PollResponseCompleted from "../../blocks/Polling/src/PollResponseCompleted.web"
+import VeichleList from "../../blocks/customform/src/VeichleList.web"
+import NewVeichleList from "../../blocks/customform/src/NewVehicle.web"
+
 
 
 
@@ -128,6 +131,16 @@ const routeMap = {
   LandingPage2: {
     component: LandingPage,
     path: '/owner',
+    exact: true
+  },
+  VeichleList: {
+    component: VeichleList,
+    path: '/VeichleList',
+    exact: true
+  },
+  NewVeichleList: {
+    component: NewVeichleList,
+    path: '/NewVeichleList',
     exact: true
   },
   //done
@@ -274,7 +287,7 @@ const routeMap = {
     component: PollResponseCompleted,
     path: "/PollResponseCompleted"
   },
-  
+
   OwnerDashboard: {
     component: OwnerDashboard,
     path: "/OwnerDashboard"
@@ -283,7 +296,7 @@ const routeMap = {
     component: ResidentDashboard,
     path: "/ResidentDashboard"
   },
-  
+
 
   Customisableusersubscriptions: {
     component: Customisableusersubscriptions,
