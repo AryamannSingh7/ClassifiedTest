@@ -119,7 +119,9 @@ class ChairmanSidebar extends DashboardController {
                     </div>
                 </Box>
                 <Box className="SingleLink">
-                    <Typography className="SingleLinkSize"><DashboardOutlinedIcon/></Typography>
+                    <Typography className="SingleLinkSize">
+                        <DashboardOutlinedIcon/>
+                    </Typography>
                     <div onClick={()=> this.props.history.push("/Help")}>
                         <Typography className="SingleLinkSize">Help</Typography>
                     </div>

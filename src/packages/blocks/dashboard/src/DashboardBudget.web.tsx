@@ -3,6 +3,8 @@
 //@ts-ignore
 
 import React from "react";
+import {riyal, expense, statistic, removeuser, approvedbudget, keyrented} from "./assets"
+
 import {
     Container,
     Typography,
@@ -72,10 +74,10 @@ export default class DashboardBudget extends DashboardController {
                             <Box>
                                 <FormControl style={dashBoardBudget.YearMain} className='yearTab'>
                                     <NativeSelect className='yearSelection' value={this.state.Year} onChange={this.handleChange}>
-                                        <option value="">None</option>
-                                            <option value={10}>Ten</option>
-                                            <option value={20}>Twenty</option>
-                                            <option value={30}>Thirty</option>
+                                        <option value={2022}>2022</option>
+                                        <option value={2021}>2021</option>
+                                        <option value={2020}>2020</option>
+                                        <option value={2019}>2019</option>
                                     </NativeSelect>
                                 </FormControl>
                             </Box>
@@ -84,7 +86,9 @@ export default class DashboardBudget extends DashboardController {
                         <Grid container spacing={4} style={{marginTop: 15}}>
                             <Grid item sm={4}>
                                 <Box style={dashBoardBudget.Cards}>
-                                    <Box sx={{ml:1, mb:2}} style={dashBoardBudget.CardsIcons}><AccessTimeIcon/></Box>
+                                    <Box sx={{ml:1, mb:2}} style={dashBoardBudget.CardsIcons}>
+                                        <img src={riyal} alt="riyal" width={25}/>
+                                    </Box>
                                     <Typography style={dashBoardBudget.subHeading}>Collected vs Budget Amount</Typography>
                                     <Box style={dashBoardBudget.bottomTwoSpan}>
                                         <Typography variant="body2">Collected</Typography>
@@ -98,7 +102,9 @@ export default class DashboardBudget extends DashboardController {
                             </Grid>
                             <Grid item sm={4}>
                                 <Box style={dashBoardBudget.Cards}>
-                                    <Box sx={{ml:1, mb:2}} style={dashBoardBudget.CardsIcons}><PersonOutlineIcon/></Box>
+                                    <Box sx={{ml:1, mb:2}} style={dashBoardBudget.CardsIcons}>
+                                        <img src={keyrented} alt="keyrented"/>
+                                    </Box>
                                     <Typography style={dashBoardBudget.subHeading}>Total Rent Due vs Rent Collected</Typography>
                                     <Box style={dashBoardBudget.bottomTwoSpan}>
                                         <Typography variant="body2">Collected</Typography>
@@ -112,7 +118,9 @@ export default class DashboardBudget extends DashboardController {
                             </Grid> 
                             <Grid item sm={4}>
                                 <Box style={dashBoardBudget.Cards}>
-                                    <Box sx={{ml:1, mb:2}} style={dashBoardBudget.CardsIcons}><TodayOutlinedIcon/></Box>
+                                    <Box sx={{ml:1, mb:2}} style={dashBoardBudget.CardsIcons}>
+                                        <img src={removeuser} alt="removeuser" width={25}/>
+                                    </Box>
                                     <Typography style={dashBoardBudget.subHeading}>Number of members have not paid management fee</Typography>
                                     <Box style={dashBoardBudget.bottomTwoSpan}>
                                         <Box component="span" style={dashBoardBudget.bottomColor}>27</Box>
@@ -124,7 +132,9 @@ export default class DashboardBudget extends DashboardController {
 
                             <Grid item sm={4}>
                                 <Box style={dashBoardBudget.Cards}>
-                                    <Box sx={{ml:1, mb:2}} style={dashBoardBudget.CardsIcons}><TodayOutlinedIcon/></Box>
+                                    <Box sx={{ml:1, mb:2}} style={dashBoardBudget.CardsIcons}>
+                                        <img src={expense} alt="expense" width={25}/>
+                                    </Box>
                                     <Typography style={dashBoardBudget.subHeading}>Total Expenses</Typography>
                                     <Box style={dashBoardBudget.bottomTwoSpan}>
                                         <Box component="span" style={dashBoardBudget.bottomColor}>SR 10000</Box>
@@ -133,7 +143,9 @@ export default class DashboardBudget extends DashboardController {
                             </Grid>  
                             <Grid item sm={4}>
                                 <Box style={dashBoardBudget.Cards}>
-                                    <Box sx={{ml:1, mb:2}} style={dashBoardBudget.CardsIcons}><TodayOutlinedIcon/></Box>
+                                    <Box sx={{ml:1, mb:2}} style={dashBoardBudget.CardsIcons}>
+                                        <img src={statistic} alt="statistic" width={25}/>
+                                    </Box>
                                     <Typography style={dashBoardBudget.subHeading}>Occupancy Rate</Typography>
                                     <Box style={dashBoardBudget.bottomTwoSpan}>
                                         <Box style={dashBoardBudget.cardBottom}>
@@ -149,7 +161,9 @@ export default class DashboardBudget extends DashboardController {
                             </Grid>  
                             <Grid item sm={4}>
                                 <Box style={dashBoardBudget.Cards}>
-                                    <Box sx={{ml:1, mb:2}} style={dashBoardBudget.CardsIcons}><TodayOutlinedIcon/></Box>
+                                    <Box sx={{ml:1, mb:2}} style={dashBoardBudget.CardsIcons}>
+                                        <img src={approvedbudget} alt="approvedbudget" width={25}/>
+                                    </Box>
                                     <Typography style={dashBoardBudget.subHeading}>View Approved Budget</Typography>
                                     <Box style={dashBoardBudget.bottomTwoSpan}>
                                         <Typography variant="body2">View Budget</Typography>
@@ -270,7 +284,7 @@ const dashBoardBudget = {
         borderRadius: "50%",
         width: 25,
         height: 25,
-        padding: 10,
+        padding: 15,
         color:"#054c94",
     },
     bottomColor:{

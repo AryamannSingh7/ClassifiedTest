@@ -4,7 +4,7 @@
 
 import React from "react";
 import './Dashboard.web.css'
-
+import {keyhand, keyrented, money, location, account, registered, activemembers, members, overdue, Cardcalendar, awated, Check_Mark, xmark } from "./assets"
 import {
     Container,
     Typography,
@@ -14,14 +14,7 @@ import {
 import Box from '@material-ui/core/Box';
 import Select from "@material-ui/core/Select";
 import NativeSelect from "@material-ui/core/NativeSelect";
-
 import Grid from '@material-ui/core/Grid';
-
-import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
-import RoomOutlinedIcon from '@material-ui/icons/RoomOutlined';
-import DateRangeOutlinedIcon from '@material-ui/icons/DateRangeOutlined';
-import HighlightOffOutlinedIcon from '@material-ui/icons/HighlightOffOutlined';
-import CheckCircleOutlineOutlinedIcon from '@material-ui/icons/CheckCircleOutlineOutlined';
 
 import DashboardController, { Props } from "../../../blocks/dashboard/src/DashboardController";
 import DashboardHeader from "./DashboardHeader.web";
@@ -57,11 +50,14 @@ export default class DashboardGeneral extends DashboardController {
                             </Box>
                             <Box>
                                 <FormControl style={dashBoard.YearMain} className='yearTab'>
-                                    <NativeSelect className='yearSelection' value={this.state.Year} onChange={this.handleChange}>
-                                        <option value="">2020</option>
-                                        <option value={10}>2021</option>
-                                        <option value={20}>2020</option>
-                                        <option value={30}>2019</option>
+                                    <NativeSelect className='yearSelection' 
+                                        value={this.state.Year} 
+                                        onChange={this.handleChange}
+                                    >
+                                        <option value={2022}>2022</option>
+                                        <option value={2021}>2021</option>
+                                        <option value={2020}>2020</option>
+                                        <option value={2019}>2019</option>
                                     </NativeSelect>
                                 </FormControl>
                             </Box>
@@ -69,8 +65,12 @@ export default class DashboardGeneral extends DashboardController {
                         <Grid container spacing={4} style={{marginTop: 15}}>
                             <Grid item sm={4}>
                                 <Box style={dashBoard.Cards}>
-                                    <Box sx={{ml:1, mb:2}} style={dashBoard.CardsIcons}><PersonOutlineIcon/></Box>
+                                    <Box sx={{ml:1, mb:2}} style={dashBoard.CardsIcons}>
+                                        {/* <img src={keyhand} alt="keyhand" /> */}
+                                        <img src={keyhand} alt="keyhand" />
+                                    </Box>
                                     <Typography style={dashBoard.subHeading}>Building Ownership Rate</Typography>
+                                  
                                     <Box style={dashBoard.cardBottom}>
                                         <Typography variant="body2">Sold</Typography>
                                         <Box component="span" style={dashBoard.bottomColor}>75%</Box>
@@ -82,7 +82,9 @@ export default class DashboardGeneral extends DashboardController {
                             </Grid>
                             <Grid item sm={4}>
                                 <Box style={dashBoard.Cards}>
-                                    <Box sx={{ml:1, mb:2}} style={dashBoard.CardsIcons}><PersonOutlineIcon/></Box>
+                                    <Box sx={{ml:1, mb:2}} style={dashBoard.CardsIcons}>
+                                        <img src={keyrented} alt="keyrented" width={32}/>
+                                    </Box>
                                     <Typography style={dashBoard.subHeading}>Rented Out Apartments</Typography>
                                     <Box style={dashBoard.bottomTwoSpan}>
                                         <Box component="span" style={dashBoard.bottomColor}>42/327</Box>
@@ -91,7 +93,9 @@ export default class DashboardGeneral extends DashboardController {
                             </Grid> 
                             <Grid item sm={4}>
                                 <Box style={dashBoard.Cards}>
-                                    <Box sx={{ml:1, mb:2}} style={dashBoard.CardsIcons}><PersonOutlineIcon/></Box>
+                                    <Box sx={{ml:1, mb:2}} style={dashBoard.CardsIcons}>
+                                        <img src={money} alt="money" width={28}/>
+                                    </Box>
                                     <Typography style={dashBoard.subHeading}>Management Fee Collected</Typography>
                                     <Box style={dashBoard.bottomTwoSpan}>
                                         <Box component="span" style={dashBoard.bottomColor}>58%</Box>
@@ -100,7 +104,9 @@ export default class DashboardGeneral extends DashboardController {
                             </Grid>  
                             <Grid item sm={4}>
                                 <Box style={dashBoard.Cards}>
-                                    <Box sx={{ml:1, mb:2}} style={dashBoard.CardsIcons}><PersonOutlineIcon/></Box>
+                                    <Box sx={{ml:1, mb:2}} style={dashBoard.CardsIcons}>
+                                        <img src={registered} alt="registered" />
+                                    </Box>
                                     <Typography style={dashBoard.subHeading}>Registered Residents/Owners</Typography>
                                     <Box style={dashBoard.bottomTwoSpan}>
                                         <Box component="span" style={dashBoard.bottomColor}>195</Box>
@@ -109,7 +115,9 @@ export default class DashboardGeneral extends DashboardController {
                             </Grid> 
                             <Grid item sm={4}>
                                 <Box style={dashBoard.Cards}>
-                                    <Box sx={{ml:1, mb:2}} style={dashBoard.CardsIcons}><PersonOutlineIcon/></Box>
+                                    <Box sx={{ml:1, mb:2}} style={dashBoard.CardsIcons}>
+                                        <img src={activemembers} alt="activemembers" />
+                                    </Box>
                                     <Typography style={dashBoard.subHeading}>Active Registered Members</Typography>
                                     <Box style={dashBoard.bottomTwoSpan}>
                                         <Box component="span" style={dashBoard.bottomColor}>195</Box>
@@ -118,7 +126,9 @@ export default class DashboardGeneral extends DashboardController {
                             </Grid> 
                             <Grid item sm={4}>
                                 <Box style={dashBoard.Cards}>
-                                    <Box sx={{ml:1, mb:2}} style={dashBoard.CardsIcons}><PersonOutlineIcon/></Box>
+                                    <Box sx={{ml:1, mb:2}} style={dashBoard.CardsIcons}>
+                                        <img src={members} alt="members" />
+                                    </Box>
                                     <Typography style={dashBoard.subHeading}>Members Never Logged in</Typography>
                                     <Box style={dashBoard.bottomTwoSpan}>
                                         <Box component="span" style={dashBoard.bottomColor}>195</Box>
@@ -127,7 +137,9 @@ export default class DashboardGeneral extends DashboardController {
                             </Grid> 
                             <Grid item sm={4}>
                                 <Box style={dashBoard.Cards}>
-                                    <Box sx={{ml:1, mb:2}} style={dashBoard.CardsIcons}><PersonOutlineIcon/></Box>
+                                    <Box sx={{ml:1, mb:2}} style={dashBoard.CardsIcons}>
+                                        <img src={overdue} alt="overdue" width={25}/>
+                                    </Box>
                                     <Typography style={dashBoard.subHeading}>Overdue Management Fee</Typography>
                                     <Box style={dashBoard.bottomTwoSpan}>
                                         <Box component="span" style={dashBoard.bottomColor}>195</Box>
@@ -146,24 +158,24 @@ export default class DashboardGeneral extends DashboardController {
                                         <Typography>To discuss new vehicle guidlines</Typography>
                                     </Box>
                                     <Box style={dashBoard.EventsIconsText}>
-                                        <RoomOutlinedIcon style={{color: "#054c94"}}/>
+                                        <img src={location} alt="location" />
                                         <Box component="span">Center park common hall</Box>
                                     </Box>
                                     <Box style={dashBoard.EventsIconsText}>
-                                        <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
+                                        <img src={Cardcalendar} alt="Cardcalendar" />
                                         <Box component="span">05-08-2022 18:00 to 20:00 </Box>
                                     </Box>
                                     <Box style={dashBoard.EventsIconsData}>
                                         <Box style={dashBoard.EventsIconsDataBox}>
-                                            <DateRangeOutlinedIcon style={{color: "#ff8100"}}/>
+                                            <img src={awated} alt="awated" />
                                             <Box component="span">84</Box>
                                         </Box>
                                         <Box style={dashBoard.EventsIconsDataBox}>
-                                            <CheckCircleOutlineOutlinedIcon style={{color: "green"}}/>
+                                            <img src={Check_Mark} alt="Check_Mark" />
                                             <Box component="span">29</Box>
                                         </Box>
                                         <Box style={dashBoard.EventsIconsDataBox}>
-                                            <HighlightOffOutlinedIcon style={{color: "red"}}/>
+                                            <img src={xmark} alt="xmark" />
                                             <Box component="span">13</Box>
                                         </Box>
                                     </Box>
@@ -179,15 +191,15 @@ export default class DashboardGeneral extends DashboardController {
                                         <Typography style={dashBoard.PricePaid}>SR 250</Typography>
                                     </Box>
                                     <Box style={dashBoard.EventsIconsText}>
-                                        <RoomOutlinedIcon style={{color: "#054c94"}}/>
+                                        <img src={location} alt="location" />
                                         <Box component="span">Center park garden</Box>
                                     </Box>
                                     <Box style={dashBoard.EventsIconsText}>
-                                        <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
+                                        <img src={Cardcalendar} alt="Cardcalendar" />
                                         <Box component="span">12-08-2022 18:00 to 20:00</Box>
                                     </Box>
                                     <Box style={dashBoard.EventsIconsText}>
-                                        <PersonOutlineIcon style={{color: "#054c94"}}/>
+                                        <img src={account} alt="account" />
                                         <Box component="span">jhon doe</Box>
                                     </Box>
                                 </Box>
@@ -238,7 +250,7 @@ const dashBoard = {
         borderRadius: "50%",
         width: 25,
         height: 25,
-        padding: 10,
+        padding: 15,
         color:"#054c94",
     },
     EventsHeading:{
