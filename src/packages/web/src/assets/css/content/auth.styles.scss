@@ -67,7 +67,9 @@
   }
   & .right-block {
     padding: 30px 60px;
-
+    @include mq(tablet-portrait-tablet-up) {
+      padding: 30px;
+    }
     & .building-logo {
       height: 93vh;
       width: 100%;
@@ -102,11 +104,12 @@
     }
     & .header-block-changepassword {
       align-items: center;
-      & h6 {
+      & p {
+        margin: 20px 0;
         text-align: center;
       }
       & .id-title {
-        font-weight: bold;
+        font-family: $Gotham_Medium;
       }
     }
   }

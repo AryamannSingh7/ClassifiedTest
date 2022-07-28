@@ -141,12 +141,12 @@ class IncidentListing extends IncidentController {
                         <Typography component="span">
                           Incident is related to:
                         </Typography>
-                        <Typography className="sub-title" component="h4">
+                        <Typography className="sub-title" component="h5">
                           Plumbing
                         </Typography>
                         <hr />
                         <CardActions className="card-footer">
-                          <Typography className="sub-title" component="h4">
+                          <Typography className="sub-title" component="h5">
                             Own apartment
                           </Typography>
                           <Box className="customButton">
@@ -165,12 +165,12 @@ class IncidentListing extends IncidentController {
                         <Typography component="span">
                           Incident is related to:
                         </Typography>
-                        <Typography className="sub-title" component="h4">
+                        <Typography className="sub-title" component="h5">
                           Plumbing
                         </Typography>
                         <hr />
                         <CardActions className="card-footer">
-                          <Typography className="sub-title" component="h4">
+                          <Typography className="sub-title" component="h5">
                             Own apartment
                           </Typography>
                           <Box className="customButton">

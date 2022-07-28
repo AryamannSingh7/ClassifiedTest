@@ -74,7 +74,7 @@ class IncidentPreview extends IncidentController {
                         <Typography component="span">
                           Affected Area:
                         </Typography>
-                        <Typography className="sub-title" component="h4">
+                        <Typography className="sub-title" component="h5">
                           Own Apartment
                         </Typography>
                         <Typography component="span">

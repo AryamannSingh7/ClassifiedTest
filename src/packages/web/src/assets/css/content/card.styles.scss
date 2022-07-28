@@ -7,22 +7,65 @@
     border: 2px solid #ececec;
     border-radius: 15px;
     & h4 {
-      font-size: 1rem;
-      font-weight: bold;
+      font-size: 17px;
+      // font-weight: bold;
       color: #181d25;
       margin-bottom: 5px;
     }
     & .sub-title {
       margin-top: 5px;
-      font-weight: 300;
+      // font-weight: 300;
     }
     & .title-span {
       font-size: 0.9rem;
-      color: #8c8e92;
+      color: $GRAY_SHADE2;
       margin-bottom: 10px;
     }
     & hr {
       border: 1px solid #ececec;
+    }
+    & span {
+      &.MuiTypography-body1 {
+        font-family: $Gotham_Light;
+        font-size: 16px;
+        font-weight: 500;
+        color: $GRAY_SHADE2;
+        @include mq(tablet-portrait-large-up) {
+          font-size: 14px;
+        }
+      }
+    }
+    & p {
+      &.MuiTypography-body1 {
+        font-family: $Gotham_Light;
+        font-size: 15px;
+        font-weight: 500;
+        color: $DARK_SHADE1;
+        @include mq(tablet-portrait-large-up) {
+          font-size: 16px;
+        }
+      }
+    }
+    & h4 {
+      &.MuiTypography-body1 {
+        font-family: $Gotham_Medium;
+        font-size: 19px;
+        font-weight: 600;
+        @include mq(tablet-portrait-large-up) {
+          font-size: 17px;
+        }
+      }
+    }
+    & h5 {
+      &.MuiTypography-body1 {
+        font-family: $Gotham_Light;
+        font-weight: 600;
+        // opacity: 0.85;
+        font-size: 17px;
+        @include mq(tablet-portrait-large-up) {
+          font-size: 15px;
+        }
+      }
     }
   }
   & .MuiCardActions-root {
@@ -108,19 +151,17 @@
         & .formGroup {
           display: flex;
           justify-content: center;
-          & .MuiButtonBase-root
-          {
+          & .MuiButtonBase-root {
             width: auto;
             margin-right: 5px;
             padding: 10px 15px;
           }
-         
+
           & .MuiButton-label {
             font-size: 11px;
           }
         }
       }
     }
-    
   }
 }
