@@ -13,6 +13,7 @@ import MessageEnum, {
 // Customizable Area Start
 import * as Yup from 'yup';
 import { imgPasswordInVisible, imgPasswordVisible } from "./assets";
+import { valueContainerCSS } from "react-select/src/components/containers";
 // Customizable Area End
 
 export const configJSON = require("./config");
@@ -119,7 +120,7 @@ export default class IncidentController extends BlockComponent<
       incidentRelatedData:null,
       incidentListing: null,
       anchorEl:null,
-      anchorEl_1:null
+      anchorEl_1:null,
       // Customizable Area End
     };
 
@@ -184,17 +185,9 @@ export default class IncidentController extends BlockComponent<
           }
         } 
       else if (apiRequestCallId === this.apicreateIncidentCallId) {
-          if (responseJson && responseJson.meta && responseJson.meta.token) {
-            
-            if(localStorage.getItem("userType") === "Owner"){
-              this.props.history.push("/OwnerDashboard")
-              this.setState({loading: false})
-            }else{
-              this.props.history.push("/DashboardGeneral")
-            //window.location.replace("/RegistrationRequest");
-            this.setState({loading: false})
-            }
-            
+          if (responseJson && responseJson.data && responseJson.meta) {
+              this.props.history.push("/IncidentReportedSuccessfully")
+            this.setState({loading: false})      
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
             this.setState({ error });
@@ -485,30 +478,24 @@ clear= () => {
 
   
 
-  createIncident = (values: any): boolean => {
+  createIncident = (incidentFromData: any): boolean => {
     
     const header = {
-      "Content-Type": configJSON.validationApiContentType,
       token :localStorage.getItem("userToken")
     };
-
-    console.log("values create==================>",values);
+    const incidentRelated =incidentFromData.incidentRelated.split(" ");
+    console.log("values create==================>",incidentFromData ,incidentRelated);
     const formData = new FormData();
-  //  if(this.state.selectedFile){
-  //   formData.append('company[logo]',this.state.selectedFile);
-  //  }
-    //console.log("this.state.selectedFile==================>",this.state.selectedFile);
+   formData.append('incident[common_area_id]', incidentFromData?.commonArea);
+   formData.append('incident[incident_related_id]', incidentRelated[0]);
+   formData.append('incident[incident_title]', incidentFromData.incidentTitle);
+   formData.append('incident[description]', incidentFromData.description);
+  // formData.append('incident[image][]', incidentFromData.media);
    
-   formData.append('company[name]', values.company);
-   formData.append('company[employer_name]', values.employer);
-   formData.append('company[email]', values.email);
-   formData.append('company[full_contact_number]', values.contact);
-   formData.append('company[country]', values.country);
-   formData.append('company[state]', values.state);
-   formData.append('company[city]', values.city_district);
-
-const httpBody = formData;
-
+   console.log("formData.getAll('description')==================>",formData.get('commonArea'))
+   const httpBody = formData;
+   console.log("httpBody httpBody==================>",httpBody);
+   
     this.setState({loading: true}) 
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
@@ -667,16 +654,50 @@ const httpBody = formData;
   handleClose_1 = (e, v) => {
     this.setState({anchorEl_1:null})
   };
+  handleSelectMedia = (
+    e: any,
+    existingMedia: any[],
+    setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
+    setFieldError: (field: string, message: string) => void
+  ) => {
+    let media = [];
+    let files = e.target.files;
+    console.log("filessss=====>",files);
 
+    for (let i = 0; i < files.length; i += 1) {
+      if(files[i] && !["image/jpg", "image/jpeg", "image/gif", "image/png","video/mp4","video/x-m4v" ].includes(files[i].type)){
+        console.log("type=====>",files[i].type);
+         setFieldError('media','Only image and video are supported.');
+         return ;
+      } 
+      media.push({
+        file: {
+          lastModified: files[i].lastModified,
+          lastModifiedDate: files[i].lastModifiedDate,
+          name: files[i].name,
+          size: files[i].size,
+          type: files[i].type
+        },
+        url: URL.createObjectURL(files[i])
+      });
+    }
+    
+    e.target.value = "";
+    console.log("media======>",media)
+    setFieldValue("media", media);
+  };
   
-  createIncidentSchema() {
+createIncidentSchema() {
     const validations = Yup.object().shape({
       commonArea: Yup.string().required(`This field is required`).trim(),
       incidentRelated: Yup.string().required(`This field is required`).trim(),
-      incidentTitle: Yup.string().required(`This field is required`),
-      description: Yup.string().required(`This field is required`),
+      incidentTitle: Yup.string().required(`This field is required`).max(50, "Too Long!"),
+      description: Yup.string().required(`This field is required`).max(200, "Too Long!"),
+      // media: Yup.array()
+      // .required(`This field is required.`)   
     });
-    return validations
+       
+    return validations ;
   }
 
   // Customizable Area End

@@ -62,16 +62,19 @@ class CreateIncident extends IncidentController {
                       commonArea:" ",
                       incidentRelated :" ",
                       incidentTitle : "",
-                      description : ""
+                      description : "",
+                      media : []
                     }}
                     validationSchema={this.createIncidentSchema()}
                       validateOnMount={true}
                       onSubmit={(values) => {
                       console.log("valus=========>", values)
                       localStorage.setItem("incidentPreview", JSON.stringify(values))
+                      this.setState({loading: true})
+                      this.props.history.push("/IncidentPreview")
                     }}
                   >
-                    {({ values, touched, errors, isValid, setFieldValue, handleChange }) => (
+                    {({ values, touched, errors, isValid, setFieldError,setFieldValue, handleChange}) => (
                       <Form translate="yes" className="commonForm">
                         <h4 className="frm-title">Incident Details</h4>
                         <Box className="formGroup customSelect">
@@ -93,7 +96,7 @@ class CreateIncident extends IncidentController {
                                 this.state?.commonAreaData?.map((val, index) => (
                                   <MenuItem
                                     key={index}
-                                    value={val?.name}
+                                    value={val?.id}
                                   >
                                     {val?.name}
                                   </MenuItem>
@@ -122,7 +125,7 @@ class CreateIncident extends IncidentController {
                                 this.state?.incidentRelatedData?.map((val, index) => (
                                   <MenuItem
                                     key={index}
-                                    value={val?.name}
+                                    value={ `${val?.id} ${val?.name}`}
                                   >
                                     {val?.name}
                                   </MenuItem>
@@ -150,10 +153,22 @@ class CreateIncident extends IncidentController {
                             <img src={Upload_Icon} className="upload-icon" alt="upload-icon" />
                             Add Image / Video
                             <input
+                              name='media'
                               type="file"
                               hidden
+                              multiple
+                              accept="image/*,video/*"
+                              onChange={(e: any) =>
+                                this.handleSelectMedia(
+                                  e,
+                                  values.media,
+                                  setFieldValue,
+                                  setFieldError
+                                )
+                              }
                             />
                           </Button>
+                          <ErrorMessage className="text-error" component="Typography" name="media" />
                         </Box>
                         <Box className="customButton">
                        <Button variant="contained" type="submit">preview</Button>

@@ -14,7 +14,8 @@ import {
   CardContent,
   CardActions,
   Menu,
-  MenuItem
+  MenuItem,
+  Avatar
 } from "@material-ui/core";
 
 //resources
@@ -40,7 +41,9 @@ class IncidentPreview extends IncidentController {
 
   render() {
     const { navigation } = this.props;
-
+    const incidentFromData = JSON.parse( localStorage.getItem("incidentPreview"))
+   const incidentRelated =incidentFromData.incidentRelated.split(" ");
+    //console.log("from===============>",incidentFromData,incidentFromData.incidentRelated,incidentFromData?.media[0]?.url);
     return (
       <>
         <Box className="login-wrapper incident-wrapper">
@@ -75,47 +78,32 @@ class IncidentPreview extends IncidentController {
                           Own Apartment
                         </Typography>
                         <Typography component="span">
-                          Incident is related to::
+                          Incident is related to:
                         </Typography>
                         <Typography className="sub-title" component="h4">
-                          Plumbing
+                          {incidentRelated[1]}
                         </Typography>
                         <Typography component="span">
-                          Incident Number:
+                          Incident Title:
                         </Typography>
                         <Typography className="sub-title" component="h4">
-                          123765
+                        {incidentFromData.incidentTitle}
                         </Typography>
                         <Typography component="span">
-                          Expected Resolution Date:
+                          Description:
                         </Typography>
                         <Typography className="sub-title" component="h4">
-                          12-03-2021 13:45
-                        </Typography>
-                        <Typography component="span">
-                          Latest update from management:
-                        </Typography>
-                        <Typography className="sub-title" component="h4">
-                          Waiting forspare part to be delivered from Italy
-                        </Typography>
-                        <Typography component="span">
-                          Ackwnolodged by Manager:
-                        </Typography>
-                        <Typography className="sub-title" component="h4">
-                          Yes
+                        {incidentFromData.description}
                         </Typography>
                         <Typography component="span">
                           Photos
                         </Typography>
                         <CardActions className="card-img-row">
-                          <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
-                          <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
-                          <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
-                          <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
-                          <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
-                          <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
-                          <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
-                          <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
+                        {
+                           incidentFromData?.media?.map((val, index) => (
+                          <Box><img src={val.url} className="card-img" alt="card-img"  key={index} /></Box>
+                                ))
+                              }
                           <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
                         </CardActions>
                         <hr />
@@ -123,7 +111,7 @@ class IncidentPreview extends IncidentController {
                     </Card>
                   </Box>
                   <Box className="customButton" display={{ xs: 'flex', md: 'none' }}>
-                    <Button variant="contained" type="submit" >submit</Button>
+                    <Button variant="contained" onClick={()=> this.createIncident(incidentFromData)}>submit</Button>
                   </Box>
                 </Box>
                 <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>
