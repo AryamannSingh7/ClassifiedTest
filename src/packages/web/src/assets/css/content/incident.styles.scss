@@ -1,0 +1,102 @@
+@import "../constants/base/colors.scss";
+@import "../constants/base/global.scss";
+.incident-wrapper {
+  margin: 0 auto;
+  @include mq(tablet-portrait-medium-up) {
+    overflow: hidden;
+  }
+  & .content-block {
+    padding: 0;
+  }
+  & .content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 25px 20px 25px;
+    border-bottom: 2px solid #f2efef;
+    & .blocks {
+      display: flex;
+      align-items: center;
+      & .MuiSvgIcon-root {
+        height: 1.5em;
+        width: 1.5em;
+      }
+      & .MuiButton-text {
+        padding: 0;
+        min-width: auto;
+      }
+    }
+    & h4 {
+      padding-left: 10px;
+    }
+    & .icons {
+      padding: 0 5px;
+    }
+  }
+  .content-block-wrapper {
+    padding: 0 25px;
+    &.common-incident-block {
+      @include mq(tablet-portrait-medium-up) {
+        width: 450px;
+        overflow-y: scroll;
+        /* width */
+        margin: 10px auto;
+      }
+      & .customButton {
+        & .MuiButton-label {
+          white-space: nowrap;
+          font-size: 12px;
+          font-weight: 700;
+        }
+      }
+    }
+    & .incident-content-wrapper {
+      margin-top: 25px;
+      & .incident-rows {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        align-items: center;
+        & .customButton {
+          padding: 0;
+          margin: 0;
+        }
+      }
+      @include mq(tablet-landscape-up) {
+        // max-height: 500px;
+      }
+    }
+  }
+  & .customButton {
+    margin-bottom: 20px;
+  }
+
+  &::-webkit-scrollbar,
+  .common-incident-block::-webkit-scrollbar {
+    width: 8px;
+    border-radius: 100%;
+    cursor: pointer;
+    scroll-margin: 10px;
+  }
+  /* Track */
+  &::-webkit-scrollbar-track,
+  .common-incident-block::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    scroll-margin: 10px;
+    cursor: pointer;
+  } 
+  /* Handle */
+  &::-webkit-scrollbar-thumb,
+  .common-incident-block::-webkit-scrollbar-thumb {
+    background: #ececec;
+    scroll-margin: 10px;
+    cursor: pointer;
+  }
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover,
+  .common-incident-block::-webkit-scrollbar-thumb:hover {
+    background: $BLUE;
+    scroll-margin: 10px;
+    cursor: pointer;
+  }
+}

@@ -67,7 +67,9 @@
   }
   & .right-block {
     padding: 30px 60px;
-
+    @include mq(tablet-portrait-tablet-up) {
+      padding: 30px;
+    }
     & .building-logo {
       height: 93vh;
       width: 100%;
@@ -102,8 +104,12 @@
     }
     & .header-block-changepassword {
       align-items: center;
-      & h6 {
+      & p {
+        margin: 20px 0;
         text-align: center;
+      }
+      & .id-title {
+        font-family: $Gotham_Medium;
       }
     }
   }
@@ -113,11 +119,9 @@
     @include mq(tablet-portrait-medium-up) {
       width: 40%;
     }
-    & .MuiButton-label
-    {
+    & .MuiButton-label {
       white-space: nowrap;
     }
-    
   }
   & .customButton {
     padding-top: 40px;
@@ -167,7 +171,9 @@
     position: absolute;
     left: 15px;
     & .MuiSvgIcon-root {
-      font-size: 35px;
+      // font-size: 45px;
+      height: 1.5em;
+      width: 1.5em;
     }
   }
   & .row-btn {

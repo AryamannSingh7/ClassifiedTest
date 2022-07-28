@@ -119,6 +119,11 @@ import VeichleList from "../../blocks/customform/src/VeichleList.web"
 import NewVeichleList from "../../blocks/customform/src/NewVehicle.web"
 
 
+import CreateIncident from "../../blocks/ContentManagement/src/CreateIncident.web";
+import IncidentDetails from "../../blocks/ContentManagement/src/IncidentDetails.web";
+import IncidentListing from "../../blocks/ContentManagement/src/IncidentListing.web";
+import IncidentReportedSuccessfully from "../../blocks/ContentManagement/src/IncidentReportedSuccessfully.web";
+import IncidentPreview from "../../blocks/ContentManagement/src/IncidentPreview.web";
 
 
 const routeMap = {
@@ -164,7 +169,7 @@ const routeMap = {
     path: '/ChairmanChangeSuccessfully',
     exact: true
   },
-  //done
+  //done0
   ChangePassword: {
     component: ChangePassword,
     path: '/ChangePassword',
@@ -197,6 +202,31 @@ const routeMap = {
   RegistrationRequestSignup: {
     component: RegistrationRequestSignup,
     path: "/RegistrationRequestSignup"
+  },
+  CreateIncident: {
+    component: CreateIncident,
+    path: '/CreateIncident',
+    exact: true
+  },
+  IncidentDetails: {
+    component: IncidentDetails,
+    path: '/IncidentDetails',
+    exact: true
+  },
+  IncidentListing: {
+    component: IncidentListing,
+    path: '/IncidentListing',
+    exact: true
+  },
+  IncidentPreview: {
+    component: IncidentPreview,
+    path: '/IncidentPreview',
+    exact: true
+  },
+  IncidentReportedSuccessfully: {
+    component: IncidentReportedSuccessfully,
+    path: '/IncidentReportedSuccessfully',
+    exact: true
   },
   RolesPermissions2: {
     component: RolesPermissions2,

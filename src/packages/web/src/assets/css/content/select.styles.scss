@@ -16,8 +16,7 @@
         }
         outline: 0;
     }
-    & .MuiOutlinedInput-input
-    {
+    & .MuiOutlinedInput-input {
         padding-left: 0;
         padding-right: 0;
     }
@@ -30,7 +29,7 @@
         padding-left: 50px;
         color: $LIGHT_GRAY_SHADE3;
         border-radius: $FORM_BORDER_RADIUS;
-        border-color: #e9dede;
+        border: 1px solid $DANGER_SHADE1;
         background-color: #f9f9f9;
         outline: 0;
         &:hover {
@@ -38,8 +37,6 @@
                 border-color: #e9dede;
             }
         }
-    }
-    & .MuiOutlinedInput-root {
         & .MuiOutlinedInput-notchedOutline {
             border-color: #e9dede;
             // background-color: #f9f9f9;
@@ -54,8 +51,16 @@
             }
         }
     }
-
     .MuiSelect-outlined {
         // z-index: 9;
+    }
+}
+.desktop-ui {
+    @include mq(tablet-portrait-large-up) {
+        & .customSelect {
+            & .MuiOutlinedInput-root {
+                border-radius: 25px;
+            }
+        }
     }
 }
