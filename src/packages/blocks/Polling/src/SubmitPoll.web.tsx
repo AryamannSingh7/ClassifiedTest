@@ -24,6 +24,7 @@ class SubmitPoll extends PollingController {
   }
   render() {
     console.log("000000000000000000000", this.state.pollPreviewAnswer.poll?.data)
+    console.log("111111111111111111111111111110", this.state.pollOptionAnswer)
     return (
         <>
     
@@ -48,7 +49,9 @@ class SubmitPoll extends PollingController {
                 </p>
             </Grid>
             <Box className="EventsIconsText">
-                <p className="statusOngoing" style={{fontWeight: 600}}>Ongoing</p>
+                <p className="statusOngoing" style={{fontWeight: 600}}>
+                  {this.state.pollPreviewAnswer.poll?.data?.attributes.status}
+                </p>
             </Box>
           </Grid>
         </Grid>
@@ -69,7 +72,6 @@ class SubmitPoll extends PollingController {
                           { __html: DOMPurify.sanitize(this.state.pollPreviewAnswer.poll?.data?.attributes.description) }
                         }
                         >
-                          {/* {this.state.pollPreviewAnswer.poll?.data?.attributes.description} */}
                         </p>
                     </Box>
                     <Box marginTop='1rem'>
@@ -126,12 +128,16 @@ class SubmitPoll extends PollingController {
         </Grid>
 
         {
-          this.state.pollPreviewAnswer.poll?.data?.attributes.polling_options.map((data) => {
+          this.state.pollPreviewAnswer.poll?.data?.attributes.polling_options.map((data, i) => {
             return (
               <Grid container spacing={2}  key={data.id}
               style={{ marginLeft: '1rem',marginTop:'1.5rem', width: '90%', alignItems:'baseline'}}>
                 <Grid xs={1}>
-                    <input type="radio" name="type" value={data.text}/>
+                    <input type="radio" 
+                      name="options" value={data.id} 
+                      // checked={this.state.pollOptionAnswer}
+                      onChange={(e) => this.getPollSelectedAnswer(e.target.value)}
+                    />
                 </Grid>
                 <Grid xs={11}>
                     <Box
@@ -197,7 +203,7 @@ class SubmitPoll extends PollingController {
                 fontSize: 16,
                 marginTop: 30
               }}
-              onClick={() => this.props.history.push("/PollResponseCompleted")}
+              onClick={this.handlePollAnswerSubmited}
             >
               VOTE NOW
             </Button>

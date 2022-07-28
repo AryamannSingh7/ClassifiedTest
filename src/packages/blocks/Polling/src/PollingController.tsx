@@ -47,9 +47,13 @@ interface S {
   TabValue:any;
   textEditorVal:any;
   initialtextEditorVal:any;
-  liveOldPolls: any;
+  livePollsData:any;
+  oldPollsData:any;
   pollPreviewAnswer:any;
   submitPollOption:any;
+  pollOptionAnswer:any;
+  pollPreviewAnswerID:any;
+  finalPollAnswer:any;
   // Customizable Area End
 }
 
@@ -69,8 +73,10 @@ export default class PollingController extends BlockComponent<
   createPoll:string;
   totalPollsCount: string;
   getRecentPollsData: string;
-  liveOldPolls: string;
+  getLivePolls: string;
+  getOldPolls:string;
   pollPreviewAnswer: string;
+  submitPollAnswer:string;
   // Customizable Area End
 
   constructor(props: Props) {
@@ -124,8 +130,15 @@ export default class PollingController extends BlockComponent<
       recentPolls: [],
       selectQuestion: [],
       PreViewPollData: [],
-      liveOldPolls:[],
+      livePollsData:[],
+      oldPollsData:[],
       pollPreviewAnswer:[],
+      pollOptionAnswer: "",
+      // [
+      //   {poll_id: "", polling_option_id: ""}
+      // ]
+      finalPollAnswer:[],
+      pollPreviewAnswerID: "",
       loading: false,
       showDialog:false,
       children: '',
@@ -147,6 +160,7 @@ export default class PollingController extends BlockComponent<
 
   async componentDidMount() {
     // Customizable Area Start
+    
     this.onGetPolls();
     this.getTotalPollCount();
     this.getRecentPolls();
@@ -160,9 +174,11 @@ export default class PollingController extends BlockComponent<
     // Customizable Area Start
 
     apiCallFunction = async () =>  {
-      await this.liveAndOldData();
+      await this.livePollsData();
+      await this.oldPollsData();
       if(window.location.search !== ""){
         await this.getPollPreviewAnswer();
+        console.log("pollPreviewAnswerID qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq", this.state.pollPreviewAnswerID)
       }
     }
 
@@ -211,20 +227,32 @@ export default class PollingController extends BlockComponent<
 
     //==============================================
 
-    liveAndOldData = async () => {
+    oldPollsData = async () => {
       const societyID = localStorage.getItem("society_id")
-      this.liveOldPolls = await this.apiCall({
+      this.getOldPolls = await this.apiCall({
         contentType: configJSON.exampleApiContentType,
         method: configJSON.httpGetMethod,
-        endPoint: `/society_managements/${societyID}/bx_block_polling/polls/live_and_old_polls`,
+        endPoint: `/society_managements/${societyID}/bx_block_polling/polls/old_polls`,
       });
     }
-  
+
+    //==============================================
+
+    livePollsData = async () => {
+      const societyID = localStorage.getItem("society_id")
+      this.getLivePolls = await this.apiCall({
+        contentType: configJSON.exampleApiContentType,
+        method: configJSON.httpGetMethod,
+        endPoint: `/society_managements/${societyID}/bx_block_polling/polls/live_polls`,
+      });
+    }
+
     //==============================================
 
     getPollPreviewAnswer = async () => {
       const societyID = localStorage.getItem("society_id")
       const pollID =  window.location.search ? window.location.search.split("=")[1] : null;
+      this.setState({pollPreviewAnswerID:pollID})
       this.pollPreviewAnswer = await this.apiCall({
         contentType: configJSON.exampleApiContentType,
         method: configJSON.httpGetMethod,
@@ -233,6 +261,48 @@ export default class PollingController extends BlockComponent<
     }
 
     //==============================================
+
+    addPollAnswerData = async (data:any) => {
+      const societyID = localStorage.getItem("society_id")
+      this.submitPollAnswer = await this.apiCall({
+        contentType: configJSON.exampleApiContentType,
+        method: configJSON.httpPostMethod,
+        endPoint: `/society_managements/${societyID}/bx_block_polling/answers`,
+        body:JSON.stringify(data)
+      });
+    }
+
+    //==============================================
+
+    getPollSelectedAnswer = (value:any) => {
+      console.log("poll option answer##################", value)
+      this.setState({pollOptionAnswer:value})
+    }
+
+    handlePollAnswerSubmited = () => {
+      let reqPayload = {
+        "answer":{
+              "poll_id": this.state.pollPreviewAnswerID,
+              "polling_option_id": this.state.pollOptionAnswer,
+              "status": "completed"
+        }
+      }
+      this.addPollAnswerData(reqPayload);
+      //@ts-ignore
+      this.props.history.push("/PollResponseCompleted?id="+ this.state.pollPreviewAnswerID)
+    }
+
+    getFinalPollAnswerView = () => {
+      //@ts-ignore
+      this.props.history.push('/PollVoteSubmitted?id='+ this.state.pollPreviewAnswerID)
+      this.getPollPreviewAnswer();
+    }
+
+    handleOptionsChange = (index:any, event:any) => {
+      const optionsValuse = [...this.state.options];
+      optionsValuse[index][event.target.name] = event.target.value;
+      this.setState({options: optionsValuse})
+    }
 
     onChangeTextEditor = (value:any) => {
       this.setState({textEditorVal:value})
@@ -305,9 +375,7 @@ export default class PollingController extends BlockComponent<
             textEditorVal : this.state.initialtextEditorVal,
           })
         }
-        
-    // console.log("reqPayload----------", reqPayload)
-    localStorage.removeItem('Polls_Data');
+      localStorage.removeItem('Polls_Data');
 
     }
 
@@ -318,12 +386,6 @@ export default class PollingController extends BlockComponent<
        "PollOptions":this.state.options, 
        "PollDescription":this.state.textEditorVal
       }))
-    }
-
-    handleOptionsChange = (index:any, event:any) => {
-      const optionsValuse = [...this.state.options];
-      optionsValuse[index][event.target.name] = event.target.value;
-      this.setState({options: optionsValuse})
     }
 
     addOptionsFields = () => {
@@ -413,11 +475,17 @@ export default class PollingController extends BlockComponent<
      if(apiRequestCallId === this.getRecentPollsData) {
       this.getRecentPollsResponse(responseJson)
      }
-     if(apiRequestCallId === this.liveOldPolls) {
-      this.getLiveOldPolls(responseJson)
+     if(apiRequestCallId === this.getOldPolls) {
+      this.getOldPollsData(responseJson)
+     }
+     if(apiRequestCallId === this.getLivePolls) {
+      this.getLivePollsData(responseJson)
      }
      if(apiRequestCallId === this.pollPreviewAnswer) {
       this.getPollPreviewAnswerData(responseJson)
+     }
+     if(apiRequestCallId === this.submitPollAnswer) {
+      this.getSubmitPollAnswer(responseJson)
      }
      
     }
@@ -463,16 +531,23 @@ export default class PollingController extends BlockComponent<
     this.setState({recentPolls: response})
   }
 
-  getLiveOldPolls = async (response: any) => {
-    this.setState({liveOldPolls: response.polls.data})
-    console.log('get Live Ols Polls Response',this.state.liveOldPolls);
+  getLivePollsData = async (response: any) => {
+    this.setState({livePollsData: response.polls?.data})
+  }
+
+  getOldPollsData = async (response: any) => {
+    this.setState({oldPollsData: response.polls?.data})
   }
 
   getPollPreviewAnswerData = async (response: any) => {
     this.setState({pollPreviewAnswer: response})
-    console.log('get poll preview answer Response==>>>',this.state.pollPreviewAnswer);
   }
-  
+
+  getSubmitPollAnswer = async (response: any) => {
+    this.setState({finalPollAnswer: response})
+    console.log('get poll answer Response==>>>',this.state.finalPollAnswer);
+  }
+
   // Error Block
   
   getPollErrorResponse = async (response: any) => {
