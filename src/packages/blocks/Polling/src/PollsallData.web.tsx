@@ -32,6 +32,7 @@ import PollingController, {
 } from "./PollingController";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
+import { Style } from "@material-ui/icons";
 
 export default class PollsallData extends PollingController {
   constructor(props: Props) {
@@ -63,10 +64,9 @@ export default class PollsallData extends PollingController {
                         <Box>
                             <FormControl className='YearMain'>
                                 <NativeSelect className='yearSelection' value={this.state.Year} onChange={this.handleChange} >
-                                    <option value="">This Week</option>
-                                        <option value={10}>Ten</option>
-                                        <option value={20}>Twenty</option>
-                                        <option value={30}>Thirty</option>
+                                    <option value="This Week">This Week</option>
+                                    <option value="This Month">This Month</option>
+                                    <option value="This Year">This Year</option>
                                 </NativeSelect>
                             </FormControl>
                         </Box>
@@ -96,11 +96,15 @@ export default class PollsallData extends PollingController {
                                                 <Typography className="EventsTitle">{data.title}</Typography>
                                             </Box>
                                             <Box className="EventsIconsText">
-                                                <Typography variant="body2" className="Dec-wrap"
-                                                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(data.description) }}
-                                                />
-                                                    {/* {data.description}
-                                                </Typography> */}
+                                                <p 
+                                                className="textwrap"
+                                                // style={{textOverflow:"ellipsis",overflow:"hidden", whiteSpace:"nowrap"}}
+                                                dangerouslySetInnerHTML={
+                                                    { __html: DOMPurify.sanitize(data.description) }
+                                                }
+                                                
+                                                >
+                                                </p> 
                                             </Box>
                                             <Box className="EventsIconsText">
                                                 <DateRangeOutlinedIcon style={{color: "#054c94"}}/>

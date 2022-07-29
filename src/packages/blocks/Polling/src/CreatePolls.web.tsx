@@ -33,7 +33,7 @@ import { withRouter } from "react-router-dom";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import TextEditor from "./TextEditor.web";
-
+import Loader from "../../../components/src/Loader.web";
 
 class CreatePolls extends PollingController {
   constructor(props: Props) {
@@ -80,11 +80,11 @@ class CreatePolls extends PollingController {
                         </Box>
                     </Box>
 
-                    <form onSubmit={this.handlePollDataSubmit
-                        // {
-                        //     this.handlePollDataSubmit
-                        //     // this.props.history.push("/PollPreview")
-                        // }
+                    <form onSubmit={async () =>
+                        {
+                             this.handlePollDataSubmit()
+                             this.props.history.push("/Polling")
+                        }
                     }>
                         <Grid container spacing={4} style={{marginTop: 15}}>
                    
@@ -94,32 +94,38 @@ class CreatePolls extends PollingController {
                                 name="title"
                                 value={this.state.PollData.title}
                                 onChange={this.handlePollDataChange}
-                                required fullWidth
+                                 fullWidth
+                                inputProps={{ maxLength: 50 }}
                                 />
-
+                                <p style={{color:"red"}}>{this.state.pollTitleError}</p>
                                 <Box className="DateSection">
 
                                     <TextField 
                                     label="Start Date" variant="outlined" 
-                                    type="date" name="startDate" required fullWidth
+                                    type="date" name="startDate"  fullWidth
                                     format='DD/MM/YYYY'
                                     value={this.state.PollData.startDate}
                                     onChange={this.handlePollDataChange}
                                     InputProps={{
+                                        // min: "2019-01-24",
+                                        max: "5000-05-31",
                                         startAdornment: (
                                           <InputAdornment position="start">
                                             <DateRangeOutlinedIcon />
                                           </InputAdornment>
-                                        )
-                                      }}
+                                        ),
+                                      }
+                                    }
                                     />
 
                                     <TextField label="End Date" variant="outlined"
-                                    type="date" name="endDate" required fullWidth
+                                    type="date" name="endDate"  fullWidth
                                     style={{marginLeft:35}}
                                     value={this.state.PollData.endDate}
                                     onChange={this.handlePollDataChange}
                                     InputProps={{
+                                        // min: "2019-01-24",
+                                        max: "5000-05-31",
                                         startAdornment: (
                                           <InputAdornment position="start">
                                             <DateRangeOutlinedIcon />
@@ -129,7 +135,7 @@ class CreatePolls extends PollingController {
                                     />  
 
                                 </Box>
-                                <p style={{color:"red"}}>{this.state.dateErrors}</p>
+                                <p style={{color:"red"}}>{this.state.pollDateError}</p>
                                 <Box className="anonymousSwitch">
                                     <Box className="infoIcon">
                                         <Typography variant="subtitle1">Make it anonymous poll</Typography>  
@@ -166,13 +172,16 @@ class CreatePolls extends PollingController {
                                     markup={this.state.textEditorVal}
                                     onChange={this.onChangeTextEditor} />
                                 </Box>
+                                <p style={{color:"red"}}>{this.state.pollDescriptionError}</p>
 
                                 <TextField  label="enter question" variant="outlined"
                                 name="question"
                                 value={this.state.PollData.question}
                                 onChange={this.handlePollDataChange}
-                                required fullWidth style={{marginTop:20}}
+                                 fullWidth style={{marginTop:20}}
+                                inputProps={{ maxLength: 100 }}
                                 />
+                                <p style={{color:"red"}}>{this.state.pollQuestionError}</p>
 
                                 {this.state.options.map((inputfield:any , index:any) => {
                                     return(
@@ -181,11 +190,12 @@ class CreatePolls extends PollingController {
                                         name="text"
                                         value={inputfield.text}
                                         onChange={() => this.handleOptionsChange(index, event)}
-                                        required fullWidth style={{marginTop:20}} 
+                                         fullWidth style={{marginTop:20}} 
                                         />  
                                     ) 
                                 })   
                                 }
+                                <p style={{color:"red"}}>{this.state.pollOptionasError}</p>
 
                                 <Button variant="outlined" color="primary" 
                                 onClick={() => this.addOptionsFields()}
@@ -218,6 +228,7 @@ class CreatePolls extends PollingController {
             </Grid>
         </Box>
     </Box>
+    <Loader loading={this.state.loading} />
      </>
       );
   }
