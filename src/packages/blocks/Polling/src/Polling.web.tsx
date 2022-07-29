@@ -69,11 +69,11 @@ class Polling extends PollingController {
                     </Box>
                     <Box>
                         <FormControl className='YearMain'>
-                            <NativeSelect className='yearSelection' value={this.state.Year} onChange={this.handleChange}>
-                                <option value="">This Week</option>
-                                    <option value={10}>This Week</option>
-                                    <option value={20}>This Month</option>
-                                    <option value={30}>This Year</option>
+                            <NativeSelect className='yearSelection' 
+                            value={this.state.Year} onChange={this.handleChange}>
+                                <option value="This Week">This Week</option>
+                                <option value="This Month">This Month</option>
+                                <option value="This Year">This Year</option>
                             </NativeSelect>
                         </FormControl>
                     </Box>
@@ -183,7 +183,7 @@ class Polling extends PollingController {
                                             <Typography className="EventsTitle">{data.title}</Typography>
                                         </Box>
                                         <Box className="EventsIconsText">
-                                            <Typography variant="body2" className="Dec-wrap"
+                                            <Typography variant="body2" className="textwrap"
                                             dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(data.description) }}
                                             />
                                             {/* {data.description}</Typography> */}

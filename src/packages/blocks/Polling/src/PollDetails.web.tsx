@@ -6,9 +6,6 @@ import React from "react";
 import "./Polling.web.css"
 import DOMPurify from 'dompurify'
 
-import {Editor, EditorState} from 'draft-js';
-import 'draft-js/dist/Draft.css';
-
 import {
   Container,
   Typography,
@@ -33,7 +30,7 @@ import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 
 
-class PollPreview extends PollingController {
+class PollDetails extends PollingController {
   constructor(props: Props) {
     super(props);
     
@@ -44,10 +41,6 @@ class PollPreview extends PollingController {
     this.setState({PreViewPollData:PreviewPollData},
         () => console.log("PreViewPollData ====>>>>>",  this.state.PreViewPollData)
     )
-    
-    // var htmlString = this.state.PreViewPollData?.PollFormData?.description
-    // var plainString = htmlString.replace(/<[^>]+>/g, '')
-    //     console.log("plainString*******", plainString)
   }
 
   render() {
@@ -125,8 +118,6 @@ class PollPreview extends PollingController {
                                         }
                                         
                                         />
-                                           {/* {this.state.PreViewPollData?.PollFormData?.description}
-                                        </Typography>  */}
                                     </Box>
                                 </Box>
                             </Box>
@@ -138,30 +129,19 @@ class PollPreview extends PollingController {
                                     {this.state.PreViewPollData?.PollFormData?.question}
                                 </Typography>
 
-                                {this.state.PreViewPollData?.PollOptions?.map((values:any) => {
-                                    return(
-                                        <TextField  value={values.text} name={values.text} variant="outlined" fullWidth style={{marginTop:20}}/>
-                                    )
-                                })}
+                                {
+                                    this.state.PreViewPollData?.PollOptions?.map((values:any) => {
+                                        return(
+                                            <TextField  value={values.text} name={values.text} variant="outlined" fullWidth style={{marginTop:20}}/>
+                                        )
+                                    })
+                                }
 
                            </Box>
         
                         </Grid>
 
                     </Grid>
-
-                    <Box className="BottomButton">
-                        <Link href="/CreatePolls">
-                            <Button variant="contained" color="primary">EDIT</Button>
-                        </Link>
-                        <Button variant="outlined" color="primary" 
-                            // onClick={this.handlePollDataSubmit}
-                        onClick={async (event) => {
-                            await this.handlePollDataSubmit(event)
-                            this.props.history.push("/Polling")
-                        }}
-                        >PUBLISH</Button>
-                    </Box>
                 </Container>
             </Grid>
         </Box>
@@ -172,7 +152,7 @@ class PollPreview extends PollingController {
   }
 }
 
-export default withRouter(PollPreview)
+export default withRouter(PollDetails)
 
 const dashBoard = {
     SideBar: {
