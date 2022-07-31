@@ -8,4 +8,10 @@ export const Building1 = require("../assets/building1.png");
 export const ListCopy = require("../assets/List Copy.png");
 export const Car = require("../assets/Car Copy.png");
 export const user = require("../assets/user.svg");
+export const palette = require("../assets/palette.png");
+export const upload = require("../assets/Upload.png");
+export const NoVehicles = require("../assets/NoVehicles.png");
+
+
+
 

@@ -12,7 +12,7 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import HomeIcon from '@material-ui/icons/Home';
-import { Building1, Car, ListCopy, owner, resident_owner, tenet, user } from "./assets";
+import { Building1, Car, ListCopy, owner, palette, resident_owner, tenet, upload, user } from "./assets";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
 import VeichleListController from "./VeichleListController.web";
@@ -43,24 +43,25 @@ class NewVeichleList extends VeichleListController {
                 <Grid xs={12}>
                   <Formik initialValues={{
                     full_name: "",
-                    email: "",
-                    phone: "",
-                    password: "",
-                    confirm_password: "",
-
-                    showPassword: false,
-                    showConfirmPassword: false
+                    plateNumber: "",
+                    carManufacturer: "",
+                    carModle: "",
+                    carColor: "",
+                    bannerUrl:'',
+                    banner:''
 
 
 
                   }}
-
+                    validationSchema={this.addVehicleSchema()}
+                    validateOnMount={true}
+                    onSubmit={(values) => { this.createVehicle(values) }}
                   >
                     {({ values,
                       errors,
                       touched,
                       isValid, handleChange,
-                      setFieldValue }) => (
+                      setFieldValue, setFieldError }) => (
                       <Form className="commonForm" translate="yes" >
                         <Box className='formGroup'>
                           <Box
@@ -108,14 +109,14 @@ class NewVeichleList extends VeichleListController {
                     </Typography>
                   ) : null} */}
 
-                          {/* email */}
+                          {/* plate number */}
                           <Box
                             className="formInputGrp"
                           >
 
 
                             <Field
-                              name="email"
+                              name="plateNumber"
                               placeholder={"Plate Number"}
                               className="formInput"
                             />
@@ -124,7 +125,7 @@ class NewVeichleList extends VeichleListController {
                               <img src={ListCopy} />
                             </span>
                           </Box>
-                          {errors.full_name && touched.full_name ? (
+                          {errors.plateNumber && touched.plateNumber ? (
                             <Typography
                               style={{
                                 color: "#F14E24",
@@ -135,7 +136,7 @@ class NewVeichleList extends VeichleListController {
                                 marginLeft: 10
                               }}
                             >
-                              <ErrorMessage className="text-error" component="Typography" name="email" />
+                              <ErrorMessage className="text-error" component="Typography" name="plateNumber" />
                             </Typography>
                           ) : null}
                           {/* {this.state.error ? (
@@ -153,13 +154,13 @@ class NewVeichleList extends VeichleListController {
                     </Typography>
                   ) : null} */}
 
-                          {/* mobile */}
+                          {/* car manufacture */}
 
                           <Box
                             className="formInputGrp"
                           >
                             <Field
-                              name="email"
+                              name="carManufacturer"
                               placeholder={"Car Manufacturer "}
                               className="formInput"
                             />
@@ -168,7 +169,7 @@ class NewVeichleList extends VeichleListController {
                               <img src={Car} />
                             </span>
                           </Box>
-                          {errors.full_name && touched.full_name ? (
+                          {errors.carManufacturer && touched.carManufacturer ? (
                             <Typography
                               style={{
                                 color: "#F14E24",
@@ -179,18 +180,18 @@ class NewVeichleList extends VeichleListController {
                                 marginLeft: 10
                               }}
                             >
-                              <ErrorMessage className="text-error" component="Typography" name="email" />
+                              <ErrorMessage className="text-error" component="Typography" name="carManufacturer" />
                             </Typography>
                           ) : null}
 
 
-                          {/* mobile */}
+                          {/* car model */}
 
                           <Box
                             className="formInputGrp"
                           >
                             <Field
-                              name="email"
+                              name="carModle"
                               placeholder={"Car Model  "}
                               className="formInput"
                             />
@@ -199,7 +200,7 @@ class NewVeichleList extends VeichleListController {
                               <img src={Car} />
                             </span>
                           </Box>
-                          {errors.full_name && touched.full_name ? (
+                          {errors.carModle && touched.carModle ? (
                             <Typography
                               style={{
                                 color: "#F14E24",
@@ -210,27 +211,27 @@ class NewVeichleList extends VeichleListController {
                                 marginLeft: 10
                               }}
                             >
-                              <ErrorMessage className="text-error" component="Typography" name="email" />
+                              <ErrorMessage className="text-error" component="Typography" name="carModle" />
                             </Typography>
                           ) : null}
 
 
-                          {/* mobile */}
+                          {/* car color */}
 
                           <Box
                             className="formInputGrp"
                           >
                             <Field
-                              name="email"
+                              name="carColor"
                               placeholder={"Car Color"}
                               className="formInput"
                             />
                             <span className="frmLeftIcons">
 
-                              <img src={Car} />
+                              <img src={palette} />
                             </span>
                           </Box>
-                          {errors.full_name && touched.full_name ? (
+                          {errors.carColor && touched.carColor ? (
                             <Typography
                               style={{
                                 color: "#F14E24",
@@ -241,27 +242,45 @@ class NewVeichleList extends VeichleListController {
                                 marginLeft: 10
                               }}
                             >
-                              <ErrorMessage className="text-error" component="Typography" name="email" />
+                              <ErrorMessage className="text-error" component="Typography" name="carColor" />
                             </Typography>
                           ) : null}
 
 
-                          {/* mobile */}
-
-                          <Box
-                            className="formInputGrp"
-                          >
-                            <Field
-                              name="email"
-                              placeholder={"Car Manufacturer "}
-                              className="formInput"
+                          <Box style={{display:'flex',justifyContent:'center',flexDirection:'column',
+                        alignItems:'center',
+                        padding:'4rem',
+                            border:'1px dotted #00000036',
+                            marginBottom:10,
+                            borderRadius: 15, backgroundImage: values.bannerUrl
+                              ? `url(${values.bannerUrl})`
+                              : ""
+}}>
+                            <img src={upload} width='25' height='25'/>
+                            <label for="file1"
+                            style={{ color:'rgb(33 33 33 / 33%)'}}>
+                              Upload car registration image
+                            </label>
+                            <input
+                            id="file1"
+                              type="file"
+                              onChange={(e: any) => {
+                                this.handleSelectBanner(
+                                  e,
+                                  setFieldValue,
+                                  setFieldError
+                                );
+                              }}
+                              style={{
+                                position: "absolute",
+                                zIndex: 2,
+                                cursor: "pointer",
+                                opacity: 0
+                              }}
+                              accept="image/png, image/jpeg, image/jpg"
                             />
-                            <span className="frmLeftIcons">
-
-                              <img src={Car} />
-                            </span>
                           </Box>
-                          {errors.full_name && touched.full_name ? (
+                          {errors.banner && touched.banner ? (
                             <Typography
                               style={{
                                 color: "#F14E24",
@@ -272,7 +291,20 @@ class NewVeichleList extends VeichleListController {
                                 marginLeft: 10
                               }}
                             >
-                              <ErrorMessage className="text-error" component="Typography" name="email" />
+                              <ErrorMessage className="text-error" component="Typography" name="banner" />
+                            </Typography>
+                          ) : null}
+                          {errors.bannerUrl && touched.bannerUrl ? (
+                            <Typography
+                              style={{
+                                color: "#F14E24",
+                                fontFamily: "Poppins",
+                                fontWeight: 300,
+                                fontSize: 14,
+                                marginTop: 5
+                              }}
+                            >
+                              {errors.bannerUrl}
                             </Typography>
                           ) : null}
 
@@ -285,7 +317,7 @@ class NewVeichleList extends VeichleListController {
                               type="submit"
 
                             >
-                              SIGN UP
+                              SUBMIT
                             </Button>
 
                           </Box>

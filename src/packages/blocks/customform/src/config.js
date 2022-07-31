@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 // Customizable Area Start
+exports.endPointApiCreateVehicle ='bx_block_vehicle/vehicles';
 exports.validationApiContentType = "application/json";
 exports.validationApiMethodType = "GET";
 exports.exampleAPiEndPoint = "EXAMPLE_URL";

@@ -12,11 +12,13 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import HomeIcon from '@material-ui/icons/Home';
-import { Building1, owner, resident_owner, tenet } from "./assets";
+import { Building1, NoVehicles, owner, resident_owner, tenet } from "./assets";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
 import VeichleListController from "./VeichleListController.web";
 import '../assets/css/style.scss';
+
+
 
 
 
@@ -43,7 +45,7 @@ class VeichleList extends VeichleListController {
                   <ArrowBackIcon onClick={() => window.history.back()} />
                 </Grid>
               </Grid>
-              <Grid container>
+              {/* <Grid container>
                 <Grid xs={12}>
                   <div className="card">
                     <div className="status">
@@ -65,9 +67,9 @@ class VeichleList extends VeichleListController {
                 </Grid>
                 <Grid xs={12}>
                   <div className="card">
-                    {/* <div className="status">
+                    <div className="status">
                       Pending Approval
-                    </div> */}
+                    </div>
                     <div className="card-content">
 
                     <img src={Building1} />
@@ -83,7 +85,10 @@ class VeichleList extends VeichleListController {
                   </div>
                 </Grid>
 
-              </Grid>
+              </Grid> */}
+
+<NoVehicle props={this.props}/>
+{/*
               <Grid container >
                 <Grid xs={12}>
                   <Button
@@ -106,11 +111,8 @@ class VeichleList extends VeichleListController {
                   >
                     REGISTER ANOTHER VEHICLE
                   </Button>
-
-
-
-                </Grid>
-              </Grid>
+</Grid>
+              </Grid> */}
               </div>
             </Grid>
           <Grid item xs={12} md={5} className="auth-cols">
@@ -127,3 +129,58 @@ class VeichleList extends VeichleListController {
 
 }
 export default withRouter(VeichleList)
+
+function NoVehicle({props}){
+return <>
+  <Grid container>
+    <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom:10 }}>
+
+      <img src={NoVehicles} />
+    </Grid>
+  </Grid>
+  <Grid container>
+    <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
+
+      <p style={{ fontWeight: 600, fontSize: '1.25rem' }}>
+        No Vehicle
+        <br />
+        Registered
+      </p>
+    </Grid>
+  </Grid>
+  <Grid container>
+    <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
+      <p style={{ fontWeight: 400, fontSize: '0.8rem',textAlign:'center' }}>
+        Looks like you havn’t registered any vehicle!
+        You can register a new vehicle by tapping the below button.
+      </p>
+    </Grid>
+  </Grid>
+  <Grid container >
+    <Grid xs={12}>
+      <Button
+        fullWidth={true}
+        className={'btn'}
+        variant="contained"
+        type="submit"
+        onClick={() => props.history.push("/newVeichleList")}
+        style={{
+          backgroundColor: "#2B6FEC",
+          borderRadius: 16,
+          height: 54,
+          marginBottom: 14,
+          boxShadow: "none",
+          color: "#F7F7FC",
+          fontWeight: 600,
+          fontSize: 16,
+          marginTop: 30
+        }}
+
+      >
+        REGISTER VEHICLE
+      </Button>
+    </Grid>
+  </Grid>
+</>
+}
+

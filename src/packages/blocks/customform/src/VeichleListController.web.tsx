@@ -7,6 +7,7 @@ import MessageEnum, {
 import { runEngine } from "../../../framework/src/RunEngine";
 
 // Customizable Area Start
+import * as Yup from 'yup';
 export const Colors = {
   inputLabel: "rgba(31, 31, 34, 0.6)",
   inputTextColor: "rgb(31, 31, 34)",
@@ -47,6 +48,8 @@ interface S {
   token: string;
   lat: any;
   long: any;
+  error: string | null;
+  loading:boolean;
   // Customizable Area End
 }
 
@@ -55,6 +58,9 @@ interface SS {
 }
 
 export default class VeichleListController extends BlockComponent<Props, S, SS> {
+    // Customizable Area Start
+  createVehicleApiCallId:string='';
+      // Customizable Area End
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
@@ -78,6 +84,8 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
       showSuccessModal: false,
       lat: 0,
       long: 0,
+      error:null,
+      loading:false,
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -167,6 +175,28 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
               selectedServices: selectedServices,
             });
           }
+        } if (apiRequestCallId === this.createVehicleApiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            //@ts-ignore
+            //@ts-nocheck
+            this.setState({ loading: false })
+            //@ts-ignore
+            //@ts-nocheck
+            if (this.props.history.location.state?.data) {
+              //@ts-ignore
+              //@ts-nocheck
+              this.props.history.push('/veichleList')
+            }
+                    } else if (responseJson?.errors) {
+            let error = responseJson.errors[0];
+            this.setState({ error });
+          } else {
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
+            this.parseApiCatchErrorResponse(this.state.error);
+          }
+          this.setState({ loading: false })
+
         }
       }
     }
@@ -373,6 +403,98 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
   hideModal = () => {
     this.setState({ showSuccessModal: false }, () => {
     });
+  };
+
+  addVehicleSchema(){
+    const validations = Yup.object().shape({
+
+      full_name: Yup.string().required(`This field is required`).trim(),
+      plateNumber: Yup.string().required(`This field is required`).trim(),
+      carManufacturer: Yup.string().required(`This field is required`).trim(), carModle: Yup.string().required(`This field is required`).trim(), carColor: Yup.string().required(`This field is required`).trim(),
+      banner: Yup.mixed(),
+      bannerUrl: Yup.string().nullable(true).required(`Please select banner image.`)
+
+    });
+    return validations
+  }
+  createVehicle=async(values:any)=>{
+    console.log(values)
+    try {
+      const header = {
+
+        token: localStorage.getItem("userToken")
+      };
+      const formData = new FormData();
+      formData.append("vehicle[owner_name]", values.full_name)
+      formData.append("vehicle[owner_name]", values.plateNumber)
+      formData.append("vehicle[owner_name]", values.carManufacturer)
+      formData.append("vehicle[owner_name]", values.carModle)
+      formData.append("vehicle[owner_name]", values.carColor)
+      let blob = await fetch(values.bannerUrl).then(r => r.blob());
+      formData.append(
+        "vehicle[registration_card_copy]",
+        blob
+      );
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+
+      this.createVehicleApiCallId = requestMessage.messageId;
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        configJSON.endPointApiCreateVehicle
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestBodyMessage),
+        formData
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        configJSON.exampleAPiMethod
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+      return true;
+
+    } catch (error) {
+      // this.setState({ loading: false })
+      console.log(error);
+    }
+
+}
+  handleSelectBanner = (
+    e: any,
+    setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
+    setFieldError: (field: string, message: string) => void,
+  ) => {
+
+    let file = e?.target?.files[0];
+
+    if (file && !['image/png', 'image/jpeg', 'image/jpg'].includes(file.type)) {
+      return setFieldError('banner', 'Only png and jpeg are supported.')
+    }
+
+    setFieldValue("banner", file ? {
+      lastModified: file.lastModified,
+      lastModifiedDate: file.lastModifiedDate,
+      name: file.name,
+      size: file.size,
+      type: file.type
+    } : '');
+    setFieldValue("bannerUrl", file ? URL.createObjectURL(file) : "");
+    if (file) {
+      e.target.value = "";
+
+    }
+
   };
   // Customizable Area End
 }
