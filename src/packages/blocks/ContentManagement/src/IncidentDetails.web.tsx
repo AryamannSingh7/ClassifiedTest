@@ -44,10 +44,16 @@ class IncidentDetails extends IncidentController {
   constructor(props: Props) {
     super(props);
   }
+  componentDidMount() {
+    this.getIncidentDetailsById(this.props.history.location?.id);
+  }
 
   render() {
     const { navigation } = this.props;
-
+    console.log("this.props.history=========>",this.props.history.location.id)
+    console.log("getIncidentDetails========================>",this.state?.getIncidentDetails)
+    const id  = this.state?.getIncidentDetails?.id ;
+    const attributes  = this.state?.getIncidentDetails?.attributes;
     return (
       <>
         <Box className="login-wrapper incident-wrapper">
@@ -59,43 +65,41 @@ class IncidentDetails extends IncidentController {
                     <Box display={{ xs: 'flex', md: 'none' }} className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
                     <h4>Incident Title</h4>
                   </Box>
-                  <Box className="incident-right-block blocks">
-                    <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-                      <Button>
-                        <img src={Grid_Icon} className="grid-icon icons" alt="" />
-                      </Button>
-                    </Box>
-                    <Button><img src={Filter_Icon} className="filter-icon icons" alt="" /></Button>
-                  </Box>
                 </Box>
                 <Box className="content-block-wrapper common-incident-block">
                   <Box className="incident-content-wrapper">
-                    <Card className="incident-card confirmation-card card">
-                      <CardContent className="confirmation-card-content">
-                        <Box className="info-row">
-                          <img src={Info_Icon} className="info-icon" alt="info-icon" />
-                        </Box>
-                        <Typography component="h4">
-                          Is raised incident<br></br>resolved?
-                        </Typography>
-                        <Typography component="p">
-                          Lorem Ipsum is simply dummy text of the printing and typesetting industry and typesetting industry.
-                        </Typography>
-                        <Box className="customButton">
-                          <Box className="formGroup">
-                            <Button variant="outlined" type="submit" >reject course</Button>
-                            <Button variant="contained" type="submit" >confirm course</Button>
-                          </Box>
-                        </Box>
-                      </CardContent>
-                    </Card>
+                    {
+                     attributes?.resolved_on ?
+                     <Card className="incident-card confirmation-card card">
+                     <CardContent className="confirmation-card-content">
+                       <Box className="info-row">
+                         <img src={Info_Icon} className="info-icon" alt="info-icon" />
+                       </Box>
+                       <Typography component="h4">
+                         Is raised incident<br></br>resolved?
+                       </Typography>
+                       <Typography component="p">
+                         Lorem Ipsum is simply dummy text of the printing and typesetting industry and type setting industry.
+                       </Typography>
+                       <Box className="customButton">
+                         <Box className="formGroup">
+                           <Button variant="outlined" type="submit" >reject course</Button>
+                           <Button variant="contained" type="submit" >confirm course</Button>
+                         </Box>
+                       </Box>
+                     </CardContent>
+                   </Card> :
+                   null
+                    }
+                   
                     <Box className="incident-rows">
                       <h4>Incident Details</h4>
                       {/* <Box className="customButton">
                         <Button variant="contained" className="contain danger" type="submit" >Unresolved</Button>
                       </Box> */}
+                  
                       <Box className="customButton">
-                        <Button variant="contained" className="contain warning" type="submit" >Unresolved</Button>
+                        <Button variant="contained" className={attributes?.incident_status === 'Pending Confirmation' ? "contain warning" :attributes?.incident_status === 'Resolved' ?'contain success' :'contain danger'}  > {attributes?.incident_status}</Button>
                       </Box>
                     </Box>
                     <Card className="incident-card card">
@@ -110,31 +114,31 @@ class IncidentDetails extends IncidentController {
                           Incident is related to::
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                          Plumbing
+                          Plumbing {attributes?.incident_related?.name}
                         </Typography>
                         <Typography className="title-span" component="span">
                           Incident Number:
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                          123765
+                          123765 {id}
                         </Typography>
                         <Typography className="title-span" component="span">
                           Expected Resolution Date:
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                          12-03-2021 13:45
+                          12-03-2021 13:45 {attributes?.expected_resolution_date}
                         </Typography>
                         <Typography className="title-span" component="span">
                           Latest update from management:
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                          Waiting forspare part to be delivered from Italy
+                          Waiting forspare part to be delivered from Italy {attributes?.last_update_from_management}
                         </Typography>
                         <Typography className="title-span" component="span">
                           Ackwnolodged by Manager:
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                          Yes
+                          Yes {attributes?.acknoledged_by_manager}
                         </Typography>
                         <Typography className="title-span" component="span">
                           Photos
@@ -162,16 +166,25 @@ class IncidentDetails extends IncidentController {
                           <img src={User_Icon} className="icons" alt="" />
                           <Box className="reporting-right-block">
                             <h5>Reported By:</h5>
-                            <h4 className="title">Mr. Ali Khan</h4>
+                            <h4 className="title">Mr. Ali Khan {attributes?.reported_by?.full_name}</h4>
                           </Box>
                         </Box>
                         <Box className="reporting-row">
                           <img src={Calender_Icon} className="icons" alt="" />
                           <Box className="reporting-right-block">
-                            <h5>Reported By:</h5>
-                            <h4 className="title">Mr. Ali Khan</h4>
+                            <h5>Reported On:</h5>
+                            <h4 className="title">Mr. Ali Khan{attributes?.reported_on}</h4>
                           </Box>
                         </Box>
+                       { attributes?.resolved_on ? 
+                          <Box className="reporting-row">
+                          <img src={Calender_Icon} className="icons" alt="" />
+                          <Box className="reporting-right-block">
+                            <h5>Resolved On:</h5>
+                            <h4 className="title">{attributes?.resolved_on}</h4>
+                          </Box>
+                        </Box> : null
+                       }
                       </CardContent>
                     </Card>
                     <Card className="incident-card reporting-card card">
