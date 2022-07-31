@@ -99,6 +99,7 @@ import ChairmanChangePassword from "../../blocks/forgot-password/src/ChairmanCha
 import ChangeSuccessfully from "../../blocks/forgot-password/src/ChangeSuccessfully.web";
 import ChairmanChangeSuccessfully from "../../blocks/forgot-password/src/ChairmanChangeSuccessfully.web";
 import RegistrationRequest from "../../blocks/email-account-login/src/RegistrationRequest.web";
+import ChairmanRegistrationRequest from "../../blocks/email-account-login/src/ChairmanRegistrationRequest.web";
 import DashboardGeneral from "../../blocks/dashboard/src/DashboardGeneral.web";
 import DashboardTicket from "../../blocks/dashboard/src/DashboardTicket.web";
 import DashboardActions from "../../blocks/dashboard/src/DashboardActions.web";
@@ -117,8 +118,13 @@ import PollVoteSubmitted from "../../blocks/Polling/src/PollVoteSubmitted.web"
 import PollResponseCompleted from "../../blocks/Polling/src/PollResponseCompleted.web"
 import VeichleList from "../../blocks/customform/src/VeichleList.web"
 import NewVeichleList from "../../blocks/customform/src/NewVehicle.web"
+import PollDetails from "../../blocks/Polling/src/PollDetails.web"
 
-
+import CreateIncident from "../../blocks/ContentManagement/src/CreateIncident.web";
+import IncidentDetails from "../../blocks/ContentManagement/src/IncidentDetails.web";
+import IncidentListing from "../../blocks/ContentManagement/src/IncidentListing.web";
+import IncidentReportedSuccessfully from "../../blocks/ContentManagement/src/IncidentReportedSuccessfully.web";
+import IncidentPreview from "../../blocks/ContentManagement/src/IncidentPreview.web";
 
 
 const routeMap = {
@@ -164,7 +170,7 @@ const routeMap = {
     path: '/ChairmanChangeSuccessfully',
     exact: true
   },
-  //done
+  //done0
   ChangePassword: {
     component: ChangePassword,
     path: '/ChangePassword',
@@ -194,9 +200,38 @@ const routeMap = {
     component: RegistrationRequest,
     path: "/RegistrationRequest"
   },
+  ChairmanRegistrationRequest: {
+    component: ChairmanRegistrationRequest,
+    path: "/ChairmanRegistrationRequest"
+  },
   RegistrationRequestSignup: {
     component: RegistrationRequestSignup,
     path: "/RegistrationRequestSignup"
+  },
+  CreateIncident: {
+    component: CreateIncident,
+    path: '/CreateIncident',
+    exact: true
+  },
+  IncidentDetails: {
+    component: IncidentDetails,
+    path: '/IncidentDetails',
+    exact: true
+  },
+  IncidentListing: {
+    component: IncidentListing,
+    path: '/IncidentListing',
+    exact: true
+  },
+  IncidentPreview: {
+    component: IncidentPreview,
+    path: '/IncidentPreview',
+    exact: true
+  },
+  IncidentReportedSuccessfully: {
+    component: IncidentReportedSuccessfully,
+    path: '/IncidentReportedSuccessfully',
+    exact: true
   },
   RolesPermissions2: {
     component: RolesPermissions2,
@@ -281,6 +316,12 @@ const routeMap = {
   PollVoteSubmitted: {
     component: PollVoteSubmitted,
     path: "/PollVoteSubmitted"
+  },
+  
+
+  PollDetails: {
+    component: PollDetails,
+    path: "/PollDetails"
   },
 
   PollResponseCompleted: {

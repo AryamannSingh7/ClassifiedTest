@@ -118,9 +118,11 @@ class PollPreview extends PollingController {
                                         <Typography variant="subtitle1">Description</Typography>  
                                         <InfoIcon style={{color:"grey", fontSize:18}}/>
                                     </Box>
-                                    <Box style={{marginTop:5}}>
+                                    <Box style={{marginTop:5, overflowWrap:"break-word"}}>
                                         <Typography variant="body2"
-                                        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(this.state.PreViewPollData?.PollFormData?.description) }}
+                                        dangerouslySetInnerHTML={
+                                            { __html: DOMPurify.sanitize(this.state.PreViewPollData?.PollFormData?.description) }
+                                        }
                                         
                                         />
                                            {/* {this.state.PreViewPollData?.PollFormData?.description}
@@ -153,9 +155,10 @@ class PollPreview extends PollingController {
                             <Button variant="contained" color="primary">EDIT</Button>
                         </Link>
                         <Button variant="outlined" color="primary" 
+                            // onClick={this.handlePollDataSubmit}
                         onClick={async (event) => {
                             await this.handlePollDataSubmit(event)
-                            this.props.history.push("/CreatePolls")
+                            this.props.history.push("/Polling")
                         }}
                         >PUBLISH</Button>
                     </Box>
@@ -163,6 +166,7 @@ class PollPreview extends PollingController {
             </Grid>
         </Box>
     </Box>
+    
      </>
       );
   }

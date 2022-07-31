@@ -3,16 +3,16 @@
     position:relative;
     padding-bottom: 150px,
 }
-.Dec-wrap{
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
+.textwrap{
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
 }
 .CreatePS{
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 2.5rem;
+    padding-top: 1.6rem;
     padding-bottom: 3rem;
     background: #fff;
     border-radius: 10px;
@@ -37,8 +37,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 50px;
-    padding-bottom: 40px;
+    padding-top: 3rem;
+    padding-bottom: 4rem;
     background: #fff;
     border-radius: 10px;
     min-height: 105px;
@@ -94,6 +94,7 @@
     font-weight: 600;
     color: black;
     font-size: 16px;
+    overflow-wrap: break-word;
 }
 .createPSCards .MuiOutlinedInput-input {
     padding: 18.5px 14px;
@@ -205,6 +206,10 @@
 .EventsIconsText .EventsTitle{
     font-weight:600;
     font-size:14px;
+
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .EventsIconsText{
@@ -243,6 +248,9 @@
 .YearMain .yearSelection{
     font-size: 12px;
     font-weight: 600;
+}
+.YearMain .MuiInput-underline::before{
+    border-bottom: none !important;
 }
 .facility{
     display: flex;
@@ -422,7 +430,7 @@
     border: 1px solid #c5c1c1;
 }
 .progressbarYES progress[value]::-webkit-progress-bar {
-    background-color: transparent;
+    background-color: rgb(172, 169, 169);
     border-radius: 5rem;  
 }
 .progressbarYES progress[value]::-webkit-progress-value {

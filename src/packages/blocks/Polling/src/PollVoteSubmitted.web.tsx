@@ -2,6 +2,7 @@
 //@ts-nocheck
 
 import * as React from "react";
+import DOMPurify from 'dompurify'
 // custom components
 import {
   Button, Grid, Box, TextField,
@@ -22,14 +23,15 @@ class PollVoteSubmitted extends PollingController {
     super(props);
   }
   render() {
+    console.log("preview submitted answer 888888888888888888", this.state.pollPreviewAnswer?.poll?.data)
     return (
         <>
     
         <Grid container style={{ margin: '1rem', width: '90%' }}>
           <Grid xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
-            <ArrowBackIcon onClick={() => window.history.back()} />
+            <ArrowBackIcon onClick={() => this.props.history.push("/PollsSurvey")} />
             <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
-              Poll title
+              {this.state.pollPreviewAnswer?.poll?.data.attributes.title}
             </p>
           </Grid>
         </Grid>
@@ -42,7 +44,7 @@ class PollVoteSubmitted extends PollingController {
           <Grid xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
                 <ArrowBackIcon onClick={() => window.history.back()} />
                 <p style={{ fontSize: '1.3rem', fontWeight: 600 }}>
-                Poll title
+                {this.state.pollPreviewAnswer?.poll?.data.attributes.title}
                 </p>
             </Grid>
             <Box className="EventsIconsText">
@@ -61,16 +63,25 @@ class PollVoteSubmitted extends PollingController {
                 >
 
                     <Box marginTop='1rem'>
-                        <p>Survey</p>
-                        <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}>Lorem ipsum dolor sit amet consectetur</p>
+                        <p>Poll</p>
+                        <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}
+                          dangerouslySetInnerHTML={
+                            { __html: DOMPurify.sanitize(this.state.pollPreviewAnswer?.poll?.data.attributes.description) }
+                          }
+                        >  
+                        </p>
                     </Box>
                     <Box marginTop='1rem'>
                         <p>End Date:</p>
-                        <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}>14-07-2022</p>
+                        <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}>
+                          {this.state.pollPreviewAnswer?.poll?.data.attributes.end_date}
+                        </p>
                     </Box>
                     <Box marginTop='1rem'>
                         <p>Building:</p>
-                        <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}>Building-1</p>
+                        <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}>
+                          {this.state.pollPreviewAnswer?.poll?.data.attributes.building_name}
+                        </p>
                     </Box>
                 </Box>
               </Grid>
@@ -92,7 +103,9 @@ class PollVoteSubmitted extends PollingController {
                         <AccountCircleOutlinedIcon style={{color:'#054c94'}}/>
                         <Box marginLeft='0.5rem'>
                             <p>Published By:</p>
-                            <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}>Mr. Jhon Andrew</p>
+                            <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}>
+                            {this.state.pollPreviewAnswer?.poll?.data.attributes.publish_by}
+                            </p>
                         </Box>
                     </Box>
                    
@@ -100,7 +113,9 @@ class PollVoteSubmitted extends PollingController {
                         <DateRangeOutlinedIcon style={{color:'#054c94'}}/>
                         <Box marginLeft='0.5rem'>
                             <p>Published Date:</p>
-                            <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}>15-07-2022</p>
+                            <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}>
+                              {this.state.pollPreviewAnswer?.poll?.data.attributes.publish_date}
+                            </p>
                         </Box>
                     </Box>
 
@@ -109,34 +124,41 @@ class PollVoteSubmitted extends PollingController {
               <Grid xs={12}>
                 <Box marginTop='1.5rem'>
                     <p style={{ fontSize: '1rem', fontWeight: 600 }}>
-                    Are you coming to the DJ party ?
+                    {this.state.pollPreviewAnswer?.poll?.data.attributes.question}
                     </p>
                 </Box>
               </Grid>
         </Grid>
 
-        <Grid container spacing={2} style={{ background: "#E5ECFF", marginLeft: '1rem',marginTop:'1.5rem', width: '90%', alignItems:'baseline'}}>
-            <Grid xs={12}>
-                <Box className="progressbarYES">
-                    <span>Yes</span>
-                    <progress className="progress" data-label="70%" value="70" max="100"></progress>
-                </Box>
+        {this.state.pollPreviewAnswer?.poll?.data.attributes.polling_options.length ? 
+          this.state.pollPreviewAnswer?.poll?.data.attributes.polling_options.map((item) => {
+          return(
+            <Grid container spacing={2} style={{ background: "#E5ECFF", marginLeft: '1rem',marginTop:'1.5rem', width: '90%', alignItems:'baseline'}}>
+              <Grid xs={12}>
+                  <Box className="progressbarYES">
+                      <span>{item.text}</span>
+                      <progress 
+                        className="progress" 
+                        data-label={item.answer_percentage + "%"}
+                        value={item.answer_percentage} 
+                        max="100"
+                      >
+                      </progress>
+                  </Box>
+              </Grid>
             </Grid>
-        </Grid>
-       
-        <Grid container spacing={2} style={{ background: "#E5ECFF", marginLeft: '1rem',marginTop:'1.5rem', width: '90%', alignItems:'baseline'}}>
-            <Grid xs={12}>
-                <Box className="progressbarYES">
-                    <span>No</span>
-                    <progress className="progress" data-label="30%" value="30" max="100"></progress>
-                </Box>
-            </Grid>
-        </Grid>
-       
+          )
+        })
+        :
+        "No options are available"
+        }
+
         <Grid container style={{ margin: '1rem', width: '90%' }}>
           <Grid xs={12} style={{display:"flex"}}>
             <p style={{color:"black", fontSize:'0.9rem', marginTop:10}}>Your Vote:</p>
-            <p style={{color:"red", fontSize:'0.9rem', fontWeight: 600 , marginTop:10}}>NO</p>
+            <p style={{color:"red", fontSize:'0.9rem', fontWeight: 600 , marginTop:10}}>
+              {this.state.pollPreviewAnswer?.poll?.data.attributes.your_answer}
+            </p>
           </Grid>
         </Grid>
     </Box>

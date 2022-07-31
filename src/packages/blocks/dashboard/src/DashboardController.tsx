@@ -150,10 +150,11 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
     // Customizable Area End
   }
 
-  // Customizable Area Start
+<<<<<<< HEAD
+   // Customizable Area Start
 
-  handleChange = () => {
-    // console.log('click', event.target.value)
+   handleChange = (event:any) => {
+    this.setState({Year: event.target.value});
   };
 
   handleAccordinoChange = (panel:string) => (event:any, isExpanded:boolean) => {
@@ -161,5 +162,19 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
   };
 
   // Customizable Area End
+=======
+    // Customizable Area Start
+
+    handleChange = (event:any) => {
+      console.log("year", event.target.value)
+      this.setState({Year: event.target.value});
+    };
+  
+    handleAccordinoChange = (panel:string) => (event:any, isExpanded:boolean) => {
+      this.setState({expanded: isExpanded ? panel : ''});
+    };
+  
+    // Customizable Area End
+>>>>>>> 0961e06c257b049cf0cf99c2cc57060c5d250790
 
 }

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,700;1,100;1,200;1,300;1,500;1,700&family=Righteous&display=swap" rel="stylesheet');
+@import "../css/content/font.styles.scss";
 @import "./constants/base/colors.scss";
 @import "./constants/base/";
 @import "./content/";
@@ -10,7 +10,9 @@ html {
   width: 100%;
   margin: 0;
   padding: 0;
-  font-family: $MONTSERRAT;
+  // font-family: $MONTSERRAT;
+  font-family: $Gotham_Medium;
+  font-weight: 100;
   overflow-y: auto;
   @include scrollbars();
   @include mq(tablet-portrait-large-up) {
@@ -18,6 +20,33 @@ html {
   }
 }
 
+body::-webkit-scrollbar {
+  width: 8px;
+  border-radius: 100%;
+  cursor: pointer;
+  scroll-margin: 10px;
+}
+
+/* Track */
+body::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  scroll-margin: 10px;
+  cursor: pointer;
+}
+
+/* Handle */
+body::-webkit-scrollbar-thumb {
+  background: #ececec;
+  scroll-margin: 10px;
+  cursor: pointer;
+}
+
+/* Handle on hover */
+body::-webkit-scrollbar-thumb:hover {
+  background: $BLUE;
+  scroll-margin: 10px;
+  cursor: pointer;
+}
 h1,
 h2,
 h3,
@@ -26,80 +55,84 @@ h5,
 h6,
 p {
   margin: 0;
-  color: $DARK;
-  font-family: $MONTSERRAT;
+  color: $DARK_SHADE1;
+  font-weight: 100;
 }
+
 h1 {
-  color: $DARK;
   font-size: 28px;
-  font-weight: 600;
+  // font-weight: 600;
+  font-family: $Gotham_Medium;
   padding-right: 10px;
-  @media screen and (max-width: 1024px) {
+  @include mq(tablet-portrait-large-up) {
     font-size: 24px;
   }
 }
 h2 {
-  color: $DARK;
-  font-size: 28px;
-  font-weight: 100;
-  font-family: $RIGHTEOUS;
-  @media screen and (max-width: 1024px) {
-    font-size: 18px;
+  font-size: 26px;
+  @include mq(tablet-portrait-large-up) {
+    font-size: 25px;
   }
 }
 h4 {
-  color: $DARK;
-  font-size: 22px;
+  font-family: $Gotham_Medium;
+  font-size: 19px;
   font-weight: 600;
-  @media screen and (max-width: 1024px) {
-    font-size: 19px;
+  @include mq(tablet-portrait-large-up) {
+    font-size: 17px;
   }
 }
 h5 {
-  font-size: 20px;
-  font-weight: 500;
-  font-family: $MONTSERRAT;
-  @media screen and (max-width: 1024px) {
-    font-size: 16px;
+  font-family: $Gotham_Light;
+  font-weight: 600;
+  // opacity: 0.85;
+  font-size: 17px;
+  @include mq(tablet-portrait-large-up) {
+    font-size: 15px;
   }
 }
 h6 {
   // color: $GRAY_SHADE3;
   font-size: 15px;
-  font-weight: 400;
+  font-family: $Gotham_Light;
   line-height: 12px;
 }
 
 // span {
-//   // color: $GRAY_SHADE1;
+//   color: $GRAY_SHADE2 !important;
+//   font-size: 14px !important;
+//   font-family: $Gotham_Light !important;
 // }
 
 p {
+  font-family: $Gotham_Light;
   font-size: 16px;
-  font-weight: 100;
-  @media screen and (max-width: 1024px) {
-    font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  @include mq(tablet-portrait-large-up) {
+    font-size: 14px;
   }
 }
-
 a {
   text-decoration: none;
-  font-family: $MONTSERRAT;
+  font-family: $Gotham_Light;
 }
 
 button,
-a,
 label {
   cursor: pointer;
   margin-bottom: 0;
-  font-family: $MONTSERRAT;
+  // font-family: $MONTSERRAT;
+  font-family: $Gotham_Light;
+  font-weight: 500;
 }
 
 ul {
   margin: 0;
   padding: 0;
   list-style: none;
-  font-family: $MONTSERRAT;
+  // font-family: $MONTSERRAT;
+  font-family: $Gotham_Medium;
 }
 .mainWrapper {
   height: 100%;
@@ -130,7 +163,7 @@ ul {
   color: $WARNING;
   font-size: 13px !important;
   margin-bottom: 10px !important;
-  font-weight: 600 !important;
+  // font-weight: 600 !important;
   display: flex;
   margin-left: 15px;
   margin-top: 5px !important;

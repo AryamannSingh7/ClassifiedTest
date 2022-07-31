@@ -15,45 +15,18 @@ import PollsGrid from "../../Polling/src/PollsallData.web";
 import SurveyGrid from "../../Polling/src/SurveyGrid.web";
 
 // Components imported end
-//images and Icons start
-// import tenantLogo from "./assets"
-// import globalIcon from "./assets"
-// import buildingLogo from "./assets"
-// import chairmanUser from "./assets"
 
-import TenantLogo from "../assets/TenantLogo.png"
-import GlobalIcon from "../assets/globalicon.png"
-import BuildingLogo from "../assets/BuildingLogo.png"
-import ChairmanUser from "../assets/ChairmanUser.jpg"
-
+import {buildingLogo, chairmanUser, globalIcon, notification} from "./assets"
 import "../../../web/src/assets/css/style.scss";
-
-//images and Icons end
-
 import {
-    Container,
     Typography,
     Link,
-    List,
-    ListItem,
-    ListItemText,
   } from "@material-ui/core";
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 
-import Accordion from '@material-ui/core/Accordion';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-
-import { styled } from "@material-ui/styles";
-import { createTheme, ThemeProvider } from "@material-ui/core/styles";
-
 import NotificationsNoneOutlinedIcon from '@material-ui/icons/NotificationsNoneOutlined';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import DashboardOutlinedIcon from '@material-ui/icons/DashboardOutlined';
-import NavigateNextOutlinedIcon from '@material-ui/icons/NavigateNextOutlined';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
 
 import DashboardController, { Props } from "./DashboardController";
 
@@ -70,7 +43,7 @@ export default class DashboardHeader extends DashboardController {
                     <Grid item xs={6} md={6} sm={6}
                         style={dashBoard.HeaderSecLft}
                     >
-                        <img src={BuildingLogo} alt="BuildingLogo" width={70}/>
+                        <img src={buildingLogo} alt="BuildingLogo" width={70}/>
                         <Link href="#" style={{textDecoration:'none'}}>
                             <Typography variant="h6">Building Name</Typography>
                         </Link>
@@ -79,14 +52,14 @@ export default class DashboardHeader extends DashboardController {
                     <Grid item xs={6} md={6} sm={6}
                         style={dashBoard.HeaderSecRft}
                     >
-                        <Link href="#"><img src={GlobalIcon} alt="GlobalIcon" /></Link>
-                        <Link href="#"><NotificationsNoneOutlinedIcon/></Link>
+                        <Link href="#"><img src={globalIcon} alt="GlobalIcon" /></Link>
+                        <Link href="#"><img src={notification} alt="GlobalIcon" /></Link>
                         {/* <img src={GlobalIcon} alt="GlobalIcon" /> */}
                         
                         <Box 
                             style={dashBoard.HeaderSecRtBox}
                         >
-                            <img src={ChairmanUser} alt="ChairmanUser"
+                            <img src={chairmanUser} alt="ChairmanUser"
                             width={50}
                             style={{borderRadius: "50%"}}
                             />
@@ -95,7 +68,10 @@ export default class DashboardHeader extends DashboardController {
                                 <Typography variant="body2">Chairman</Typography>
                             </Box>
                         </Box>
+                        <Link href="#">
                         <KeyboardArrowDownIcon/>
+                        </Link>
+                        
                     </Grid>
                 </Grid>
             </Box>
