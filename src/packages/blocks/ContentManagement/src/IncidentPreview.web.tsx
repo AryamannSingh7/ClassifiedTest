@@ -42,7 +42,7 @@ class IncidentPreview extends IncidentController {
   render() {
     const { navigation } = this.props;
     const incidentFromData = JSON.parse( localStorage.getItem("incidentPreview"))
-   const incidentRelated =incidentFromData.incidentRelated.split(" ");
+   const incidentRelated =incidentFromData?.incidentRelated?.split(" ");
     //console.log("from===============>",incidentFromData,incidentFromData.incidentRelated,incidentFromData?.media[0]?.url);
     if (!incidentFromData) {
       this.props.history.replace("/CreateIncident");
