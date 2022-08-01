@@ -29,8 +29,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
   }
 
   render() {
-    console.log(JSON.parse(localStorage.getItem('searchComplex')))
-    let selectComplex = JSON.parse(localStorage.getItem('searchComplex'))
+
     return (
 
       <>
@@ -222,7 +221,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
               <Grid container style={{ margin: '1rem', width: '90%' }}>
                 <Grid xs={12} className='commonForm'>
                   <FormControl variant="outlined" fullWidth className="formInputGrp" style={{position:'relative'}}>
-                    <InputLabel id="demo-simple-select-outlined-label" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    {/* <InputLabel id="demo-simple-select-outlined-label" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                       <img src={unit} />Unit</InputLabel>
                     <Select
                       name='selectUnit'
@@ -241,16 +240,19 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                       )
                       }
 
-                    </Select>
-                    {/* <Field
+                    </Select> */}
+                    <Field
                       name="selectUnit"
                       placeholder={"Search Unit"}
                       className="formInput1"
+                      style={{border:0}}
+                            value={this.state.selectUnit}
+                            onChange={(e) => { this.handleChange2(e); setFieldValue("selectUnit", e.target.value) }}
                     />
                     <span className="frmLeftIcons1">
 
                       <img src={unit} />
-                    </span> */}
+                    </span>
                   </FormControl>
                   <ErrorMessage className="text-error" component="Typography" name="selectUnit" />
 

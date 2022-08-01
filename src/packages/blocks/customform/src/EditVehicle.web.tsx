@@ -24,14 +24,20 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 
 
 
-class NewVeichleList extends VeichleListController {
+class EditVeichleList extends VeichleListController {
   constructor(props: Props) {
     super(props);
     // Customizable Area Start
     // Customizable Area End
   }
 
+  async componentDidMount() {
+    this.getCar()
+
+  }
+
   render() {
+    let item = JSON.parse(localStorage.getItem('selectCar'))
     return (
 
       <>
@@ -42,12 +48,12 @@ class NewVeichleList extends VeichleListController {
               <Grid container className="main-content-block">
                 <Grid xs={12}>
                   <Formik initialValues={{
-                    full_name: "",
-                    plateNumber: "",
-                    carManufacturer: "",
-                    carModle: "",
-                    carColor: "",
-                    bannerUrl:'',
+                    full_name: item.attributes.owner_name,
+                    plateNumber: item.attributes.plate_number,
+                    carManufacturer: item.attributes.company_name,
+                    carModle: item.attributes.model_number,
+                    carColor: item.attributes.color,
+                    bannerUrl: `https://ti1finalleap-158677-ruby.b158677.dev.eastus.az.svc.builder.cafe/${item.attributes.registration_card_copy}`,
                     banner:''
 
 
@@ -344,4 +350,4 @@ class NewVeichleList extends VeichleListController {
   }
 
 }
-export default withRouter(NewVeichleList)
+export default withRouter(EditVeichleList)

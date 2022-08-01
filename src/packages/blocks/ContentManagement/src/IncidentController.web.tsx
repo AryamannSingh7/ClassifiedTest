@@ -43,6 +43,9 @@ export interface S {
   userTypeData:any;
   anchorEl :any ;
   anchorEl_1 :any ;
+  getIncidentDetails : any;
+  sortBy : any ;
+  status : any;
   // Customizable Area End
 }
 
@@ -66,6 +69,7 @@ export default class IncidentController extends BlockComponent<
   apicreateIncidentCallId: any;
   validationApiCallId: any;
   getIncidentListingApiCallId: any;
+  getIncidentDetailsByIdApiCallId : any ;
   getCommonAreaApiCallId : any ;
   getIncidentRelatedApiCallId:any;
   validationApiCallId: string = "";
@@ -121,6 +125,9 @@ export default class IncidentController extends BlockComponent<
       incidentListing: null,
       anchorEl:null,
       anchorEl_1:null,
+      getIncidentDetails:null,
+      sortBy : "" ,
+      status : "",
       // Customizable Area End
     };
 
@@ -143,6 +150,16 @@ export default class IncidentController extends BlockComponent<
     this.labelLegalPrivacyPolicy = configJSON.labelLegalPrivacyPolicy;
     this.btnTextSignUp = configJSON.btnTextSignUp;
     // Customizable Area End
+  }
+
+  async componentDidUpdate(prevProps: any, prevState: any) {
+    if (
+      prevState.sortBy !== this.state.sortBy ||
+      prevState.status !== this.state.status 
+
+    ) {
+     this.getIncidentListing(this.state.sortBy ,this.state.status)
+    }
   }
 
   async receive(from: string, message: Message) {
@@ -186,6 +203,8 @@ export default class IncidentController extends BlockComponent<
         } 
       else if (apiRequestCallId === this.apicreateIncidentCallId) {
           if (responseJson && responseJson.data && responseJson.meta) {
+            console.log("apicreateIncidentCallId===========>",responseJson)
+            localStorage.setItem("createIncidentId",responseJson.data.id)
               this.props.history.push("/IncidentReportedSuccessfully")
             this.setState({loading: false})      
           } else if (responseJson?.errors) {
@@ -205,6 +224,24 @@ export default class IncidentController extends BlockComponent<
           this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
+            this.setState({ error });
+          } else {
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
+          }
+          this.parseApiCatchErrorResponse(this.state.error);
+          this.setState({loading: false , error:null})
+        }
+        else if (apiRequestCallId === this.getIncidentDetailsByIdApiCallId) {
+          if (responseJson && responseJson?.data ) {
+          console.log("getIncidentDetailsByIdApiCallId ========================>",responseJson)
+          this.setState({getIncidentDetails :responseJson?.data})
+          console.log("responseJson getIncidentDetails========================>",this.state?.getIncidentDetails)
+          this.setState({loading: false})
+          } else if (responseJson?.errors) {
+            let error = responseJson.errors[0] as string;
+            if(error === 'Record not found'){
+              this.props.history.push("/IncidentListing")
+            }
             this.setState({ error });
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
@@ -476,23 +513,30 @@ clear= () => {
   this.props.history.push("/");
 }
 
+getIncidentDetails= (id) => {
+  this.props.history.push({
+    pathname: "/IncidentDetails",
+    id,
+});
   
+  //this.getIncidentDetailsById(id)
+}
 
-  createIncident = (incidentFromData: any): boolean => {
+
+  createIncident = (incidentFromData: any ,incidentRelated : any): boolean => {
     
     const header = {
       token :localStorage.getItem("userToken")
     };
-    const incidentRelated =incidentFromData.incidentRelated.split(" ");
     console.log("values create==================>",incidentFromData ,incidentRelated);
     const formData = new FormData();
    formData.append('incident[common_area_id]', incidentFromData?.commonArea);
    formData.append('incident[incident_related_id]', incidentRelated[0]);
    formData.append('incident[incident_title]', incidentFromData.incidentTitle);
    formData.append('incident[description]', incidentFromData.description);
-  // formData.append('incident[image][]', incidentFromData.media);
+   formData.append('incident[image][]', incidentFromData.media);
    
-   console.log("formData.getAll('description')==================>",formData.get('commonArea'))
+   console.log("formData.getAll('description')==================>",formData.get('incident[common_area_id]'))
    const httpBody = formData;
    console.log("httpBody httpBody==================>",httpBody);
    
@@ -514,7 +558,7 @@ clear= () => {
 
     requestMessage.addData(
       getName(MessageEnum.RestAPIRequestBodyMessage),
-      JSON.stringify(httpBody)
+      httpBody
     );
 
     requestMessage.addData(
@@ -528,7 +572,7 @@ clear= () => {
   };
 
  
-  getIncidentListing= () => {
+  getIncidentListing= (sortBy : any ,status : any)  => {
     try {
       const header = {
         "Content-Type": configJSON.validationApiContentType,
@@ -541,10 +585,12 @@ clear= () => {
       );
       this.getIncidentListingApiCallId = requestMessage.messageId;
       this.setState({ loading: true });
-
+     
+     const  getSortByOrStatus = `bx_block_custom_form/incidents?sort_type=${sortBy}&filter_by=${status}`
+       
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `bx_block_custom_form/incidents?sort_type=${'asc'}&filter_by=${'Unresolved'}`
+        getSortByOrStatus
       );
 
       requestMessage.addData(
@@ -570,7 +616,7 @@ clear= () => {
         "Content-Type": configJSON.validationApiContentType,
         token :localStorage.getItem("userToken")
       };
-
+      const society_id = localStorage.getItem("society_id")
       //const id = localStorage.getItem("userId");
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
@@ -580,7 +626,7 @@ clear= () => {
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `bx_block_custom_form/incidents/common_area_list?society_management_id=4`
+        `bx_block_custom_form/incidents/common_area_list?society_management_id=${society_id}`
       );
 
       requestMessage.addData(
@@ -636,15 +682,55 @@ clear= () => {
     }
   };
 
+  getIncidentDetailsById= (id : any) => {
+    try {
+      const header = {
+        "Content-Type": configJSON.validationApiContentType,
+        token :localStorage.getItem("userToken")
+      };
+      //const id = localStorage.getItem("userId");
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+      this.getIncidentDetailsByIdApiCallId = requestMessage.messageId;
+      this.setState({ loading: true });
 
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        `bx_block_custom_form/incidents/${id}`
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        configJSON.validationApiMethodType
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+      return true;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
   
   handleClick = (event) => {
-    this.setState({anchorEl:event.currentTarget})
+    this.setState({anchorEl:event.currentTarget })
   };
   handleClose = (e, v) => {
-   
-    this.setState({anchorEl:null})
-   //setAnchorEl(null);
+    let sortBy : any ;
+    console.log("v=========>",v)
+    if(v === undefined || v === null){
+      sortBy =this.state.sortBy
+    }
+    else {
+      sortBy =v;
+    }
+    this.setState({anchorEl:null,sortBy : sortBy})
   };
   
   handleClick_1 = (event) => {
@@ -652,9 +738,17 @@ clear= () => {
   };
    
   handleClose_1 = (e, v) => {
-    this.setState({anchorEl_1:null})
+   let status : any ;
+    if(v === undefined || v === null){
+      status =this.state.status;
+    }
+    else {
+      status =v;
+    }
+    this.setState({anchorEl_1:null ,status :status})
   };
-  handleSelectMedia = (
+  
+  handleSelectMedia  =   (
     e: any,
     existingMedia: any[],
     setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
@@ -670,6 +764,12 @@ clear= () => {
          setFieldError('media','Only image and video are supported.');
          return ;
       } 
+      else if(files[i] && files[i].size >= 10e6){
+         console.log("size=====>",files[i].size);
+        setFieldError('media','size is less than 10 mb.');
+        return ;
+      }
+      console.log("media push =====>",files[i]);
       media.push({
         file: {
           lastModified: files[i].lastModified,
@@ -693,8 +793,10 @@ createIncidentSchema() {
       incidentRelated: Yup.string().required(`This field is required`).trim(),
       incidentTitle: Yup.string().required(`This field is required`).max(50, "Too Long!"),
       description: Yup.string().required(`This field is required`).max(200, "Too Long!"),
-      // media: Yup.array()
-      // .required(`This field is required.`)   
+
+      media: Yup.array()
+      .min(1, ("Only image and video are supported"))
+      .required(`This field is required.`)   
     });
        
     return validations ;
