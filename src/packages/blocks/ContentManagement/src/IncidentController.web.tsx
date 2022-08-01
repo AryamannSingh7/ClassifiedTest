@@ -723,8 +723,12 @@ getIncidentDetails= (id) => {
   };
   handleClose = (e, v) => {
     let sortBy : any ;
+    console.log("v=========>",v)
     if(v === undefined || v === null){
       sortBy =this.state.sortBy
+    }
+    else {
+      sortBy =v;
     }
     this.setState({anchorEl:null,sortBy : sortBy})
   };
@@ -737,6 +741,9 @@ getIncidentDetails= (id) => {
    let status : any ;
     if(v === undefined || v === null){
       status =this.state.status;
+    }
+    else {
+      status =v;
     }
     this.setState({anchorEl_1:null ,status :status})
   };
