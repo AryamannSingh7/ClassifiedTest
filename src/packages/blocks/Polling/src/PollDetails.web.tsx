@@ -71,10 +71,18 @@ class PollDetails extends PollingController {
                                             {this.state.pollPreviewAnswer?.poll?.data?.attributes.title}
                                         </Typography>
                                     </Box>
+                                    <Box>
+                                        <p className="AnonymousPreviewPoll">
+                                            Anonymous Poll</p>
+                                        <p className="statusOngoing" style={{fontWeight: 600, marginLeft:"1rem"}}>
+                                        Ongoing
+                                        </p>   
+                                    </Box>
                                     {/* <Box>
                                         {
                                             (this.state.PreViewPollData?.PollType === true) ? 
-                                            <Typography variant="body2" className="AnonymousPreviewPoll">Anonymous Poll</Typography>
+                                            <Typography variant="body2" className="AnonymousPreviewPoll">
+                                            Anonymous Poll</Typography>
                                              : ''
                                         }
                                     </Box> */}
