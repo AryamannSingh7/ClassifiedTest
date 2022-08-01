@@ -153,7 +153,6 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
     // Customizable Area Start
 
     handleChange = (event:any) => {
-      console.log("year", event.target.value)
       this.setState({Year: event.target.value});
     };
 
