@@ -50,6 +50,7 @@ interface S {
   long: any;
   error: string | null;
   loading:boolean;
+  allVehcile:any[];
   // Customizable Area End
 }
 
@@ -60,6 +61,7 @@ interface SS {
 export default class VeichleListController extends BlockComponent<Props, S, SS> {
     // Customizable Area Start
   createVehicleApiCallId:string='';
+  getVehicleListApiCallId:string='';
       // Customizable Area End
   constructor(props: Props) {
     super(props);
@@ -86,6 +88,7 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
       long: 0,
       error:null,
       loading:false,
+      allVehcile:[],
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -197,6 +200,16 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
           }
           this.setState({ loading: false })
 
+        } if (apiRequestCallId === this.getVehicleListApiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            this.setState({ allVehcile: responseJson.vehicle.data })
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
         }
       }
     }
@@ -204,15 +217,7 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
   }
 
   // Customizable Area Start
-  async componentDidMount() {
-    super.componentDidMount();
-    this.getToken();
-    if (this.isPlatformWeb() === false) {
-      this.props.navigation.addListener("willFocus", () => {
-        this.getToken();
-      });
-    }
-  }
+
 
   getToken = () => {
     const msg: Message = new Message(
@@ -417,6 +422,7 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
     });
     return validations
   }
+
   createVehicle=async(values:any)=>{
     console.log(values)
     try {
@@ -496,5 +502,66 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
     }
 
   };
+  getVehicle() {
+
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      "token": localStorage.getItem('userToken')
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+
+    this.getVehicleListApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_vehicle/vehicles`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.validationApiMethodType
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  }
+  addVehicle(item:any){
+    console.log(item)
+    localStorage.setItem('selectCar',JSON.stringify(item))
+    // @ts-nocheck
+    // @ts-ignore
+    this.props.history.push('/viewVehicle')
+
+  }
+  getCar(){
+    // @ts-nocheck
+    // @ts-ignore
+    let item = JSON.parse(localStorage.getItem('selectCar'))
+    if(item){
+
+    }
+  }
+  checkVehicle(){
+    console.log('ds')
+if(this.state.allVehcile.length<1){
+// @ts-nocheck
+    // @ts-ignore
+  this.props.history.push("/newVeichleList")
+}else{
+  // @ts-nocheck
+    // @ts-ignore
+  this.setState({showDailog:true},()=>console.log(this.state))
+}
+
+  }
   // Customizable Area End
 }

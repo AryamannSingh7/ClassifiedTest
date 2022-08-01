@@ -118,6 +118,9 @@ import PollVoteSubmitted from "../../blocks/Polling/src/PollVoteSubmitted.web"
 import PollResponseCompleted from "../../blocks/Polling/src/PollResponseCompleted.web"
 import VeichleList from "../../blocks/customform/src/VeichleList.web"
 import NewVeichleList from "../../blocks/customform/src/NewVehicle.web"
+import EditVeichleList from "../../blocks/customform/src/EditVehicle.web"
+import ViewVeichle from "../../blocks/customform/src/ViewVehicle.web"
+
 import PollDetails from "../../blocks/Polling/src/PollDetails.web"
 
 import CreateIncident from "../../blocks/ContentManagement/src/CreateIncident.web";
@@ -147,6 +150,16 @@ const routeMap = {
   NewVeichleList: {
     component: NewVeichleList,
     path: '/NewVeichleList',
+    exact: true
+  },
+  EditVeichleList: {
+    component: EditVeichleList,
+    path: '/editVehicle',
+    exact: true
+  },
+  ViewVeichle: {
+    component: ViewVeichle,
+    path: '/viewVehicle',
     exact: true
   },
   //done
@@ -317,7 +330,7 @@ const routeMap = {
     component: PollVoteSubmitted,
     path: "/PollVoteSubmitted"
   },
-  
+
 
   PollDetails: {
     component: PollDetails,

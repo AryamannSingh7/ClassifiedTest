@@ -11,6 +11,8 @@ export const user = require("../assets/user.svg");
 export const palette = require("../assets/palette.png");
 export const upload = require("../assets/Upload.png");
 export const NoVehicles = require("../assets/NoVehicles.png");
+export const edit = require("../assets/edit.png");
+export const deleteIcon = require("../assets/delete.png");
 
 
 
