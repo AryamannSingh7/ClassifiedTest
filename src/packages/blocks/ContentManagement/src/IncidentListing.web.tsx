@@ -42,6 +42,7 @@ class IncidentListing extends IncidentController {
   }
   render() {
     const { navigation } = this.props;
+    console.log("this.state?.incidentListing==========>",this.state?.incidentListing)
     return (
       <>
         <Box className="login-wrapper incident-wrapper">
@@ -106,7 +107,7 @@ class IncidentListing extends IncidentController {
                           <hr />
                           <CardActions className="card-footer">
                             <Typography className="sub-title" component="h4">
-                             {val?.attributes?.apartment_management || 'own apartment'} 
+                             {val?.attributes?.common_area?.name } 
                             </Typography>
                             
                           {
