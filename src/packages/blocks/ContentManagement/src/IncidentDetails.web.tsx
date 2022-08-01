@@ -50,10 +50,10 @@ class IncidentDetails extends IncidentController {
 
   render() {
     const { navigation } = this.props;
-    console.log("this.props.history=========>",this.props.history.location.id)
-    console.log("getIncidentDetails========================>",this.state?.getIncidentDetails)
-    const id  = this.state?.getIncidentDetails?.id ;
-    const attributes  = this.state?.getIncidentDetails?.attributes;
+    console.log("this.props.history=========>", this.props.history.location.id)
+    console.log("getIncidentDetails========================>", this.state?.getIncidentDetails)
+    const id = this.state?.getIncidentDetails?.id;
+    const attributes = this.state?.getIncidentDetails?.attributes;
     return (
       <>
         <Box className="login-wrapper incident-wrapper">
@@ -69,37 +69,37 @@ class IncidentDetails extends IncidentController {
                 <Box className="content-block-wrapper common-incident-block">
                   <Box className="incident-content-wrapper">
                     {
-                     attributes?.resolved_on ?
-                     <Card className="incident-card confirmation-card card">
-                     <CardContent className="confirmation-card-content">
-                       <Box className="info-row">
-                         <img src={Info_Icon} className="info-icon" alt="info-icon" />
-                       </Box>
-                       <Typography component="h4">
-                         Is raised incident<br></br>resolved?
-                       </Typography>
-                       <Typography component="p">
-                         Lorem Ipsum is simply dummy text of the printing and typesetting industry and type setting industry.
-                       </Typography>
-                       <Box className="customButton">
-                         <Box className="formGroup">
-                           <Button variant="outlined" type="submit" >reject course</Button>
-                           <Button variant="contained" type="submit" >confirm course</Button>
-                         </Box>
-                       </Box>
-                     </CardContent>
-                   </Card> :
-                   null
+                      attributes?.resolved_on ?
+                        <Card className="incident-card confirmation-card card">
+                          <CardContent className="confirmation-card-content">
+                            <Box className="info-row">
+                              <img src={Info_Icon} className="info-icon" alt="info-icon" />
+                            </Box>
+                            <Typography component="h4">
+                              Is raised incident<br></br>resolved?
+                            </Typography>
+                            <Typography component="p">
+                              Lorem Ipsum is simply dummy text of the printing and typesetting industry and type setting industry.
+                            </Typography>
+                            <Box className="customButton">
+                              <Box className="formGroup">
+                                <Button variant="outlined" type="submit" >reject course</Button>
+                                <Button variant="contained" type="submit" >confirm course</Button>
+                              </Box>
+                            </Box>
+                          </CardContent>
+                        </Card> :
+                        null
                     }
-                   
+
                     <Box className="incident-rows">
                       <h4>Incident Details</h4>
                       {/* <Box className="customButton">
                         <Button variant="contained" className="contain danger" type="submit" >Unresolved</Button>
                       </Box> */}
-                  
+
                       <Box className="customButton">
-                        <Button variant="contained" className={attributes?.incident_status === 'Pending Confirmation' ? "contain warning" :attributes?.incident_status === 'Resolved' ?'contain success' :'contain danger'}  > {attributes?.incident_status}</Button>
+                        <Button variant="contained" className={attributes?.incident_status === 'Pending Confirmation' ? "contain warning" : attributes?.incident_status === 'Resolved' ? 'contain success' : 'contain danger'}  > {attributes?.incident_status}</Button>
                       </Box>
                     </Box>
                     <Card className="incident-card card">
@@ -176,29 +176,31 @@ class IncidentDetails extends IncidentController {
                             <h4 className="title">Mr. Ali Khan{attributes?.reported_on}</h4>
                           </Box>
                         </Box>
-                       { attributes?.resolved_on ? 
+                        {attributes?.resolved_on ?
                           <Box className="reporting-row">
-                          <img src={Calender_Icon} className="icons" alt="" />
-                          <Box className="reporting-right-block">
-                            <h5>Resolved On:</h5>
-                            <h4 className="title">{attributes?.resolved_on}</h4>
-                          </Box>
-                        </Box> : null
-                       }
+                            <img src={Calender_Icon} className="icons" alt="" />
+                            <Box className="reporting-right-block">
+                              <h5>Resolved On:</h5>
+                              <h4 className="title">{attributes?.resolved_on}</h4>
+                            </Box>
+                          </Box> : null
+                        }
                       </CardContent>
                     </Card>
-                    <Card className="incident-card reporting-card card">
-                      <CardContent className="commonForm">
-                        <Box className="formGroup textarea">
-                          <img src={Clipboard_Icon} className="clipboard-icon" alt="Clipboard_Icon" />
-                          <TextareaAutosize
-                            maxRows={10}
-                            aria-label="maximum height"
-                            placeholder="Add Discription"
-                          />
-                        </Box>
-                      </CardContent>
-                    </Card>
+                    {/* <Card className="incident-card reporting-card card">*/}
+                    <Box className="commonForm">
+                      <Box className="formGroup textarea">
+                        <img src={Clipboard_Icon} className="clipboard-icon" alt="Clipboard_Icon" />
+                        <TextareaAutosize
+                          maxRows={10}
+                          aria-label="maximum height"
+                          placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+                          // defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+                          disabled
+                        />
+                      </Box>
+                    </Box>
+                    {/*</Card> */}
                   </Box>
                   <Box className="customButton">
                     <Button variant="contained" type="submit" >start/ view ticket conversation</Button>

@@ -1,6 +1,9 @@
 @import "../constants/base/colors.scss";
 @import "../constants/base/global.scss";
 .card {
+  & .costom-card-content {
+    cursor: pointer;
+  }
   // &.incident-card {
   &.MuiCard-root {
     box-shadow: 4px 0px 14px 0 #ececec;
