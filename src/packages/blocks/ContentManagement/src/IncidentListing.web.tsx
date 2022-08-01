@@ -38,10 +38,9 @@ class IncidentListing extends IncidentController {
     super(props);
   }
   componentDidMount() {
-    this.getIncidentListing();
+    this.getIncidentListing(this.state.sortBy ,this.state.status)
   }
   render() {
-    console.log("incidentListing========================>",this.state?.incidentListing)
     const { navigation } = this.props;
     return (
       <>
@@ -66,8 +65,8 @@ class IncidentListing extends IncidentController {
                         open={Boolean(this.state.anchorEl)}
                         onClose={() =>this.handleClose()}
                       >
-                        <MenuItem onClick={(e) =>this.handleClose(e,"Ascending")}>Ascending</MenuItem>
-                        <MenuItem onClick={(e) =>this.handleClose(e,"Descending")}>Descending</MenuItem>
+                        <MenuItem onClick={(e) =>this.handleClose(e,"asc")}>Ascending</MenuItem>
+                        <MenuItem onClick={(e) =>this.handleClose(e,"desc")}>Descending</MenuItem>
                       </Menu>
                     </Box>
                 
@@ -81,9 +80,9 @@ class IncidentListing extends IncidentController {
                         open={Boolean(this.state.anchorEl_1)}
                         onClose={() =>this.handleClose_1()}
                       >
-                        <MenuItem onClick={(e) =>this.handleClose_1(e,"Ascending")}>resvloed</MenuItem>
-                        <MenuItem onClick={(e) =>this.handleClose_1(e,"Descending")}>unresoved</MenuItem>
-                        <MenuItem onClick={(e) =>this.handleClose_1(e,"Descending")}>pending</MenuItem>
+                        <MenuItem onClick={(e) =>this.handleClose_1(e,"Unresolved")}>Unresolved</MenuItem>
+                        <MenuItem onClick={(e) =>this.handleClose_1(e,"Resolved")}>Resolved</MenuItem>
+                        <MenuItem onClick={(e) =>this.handleClose_1(e,"Pending Confirmation")}>Pending Confirmation</MenuItem>
                       </Menu>
                 
                   </Box>
@@ -93,7 +92,7 @@ class IncidentListing extends IncidentController {
                    {
                       this.state?.incidentListing?.map((val ,index) =>(
                         <>
-                        <Card className="incident-card card" key={index}>
+                        <Card className="incident-card card" key={index} onClick={()=>this.getIncidentDetails(val.id)}>
                         <CardContent>
                           <Typography component="h4">
                            {val?.attributes?.incident_title} 
@@ -111,12 +110,12 @@ class IncidentListing extends IncidentController {
                             </Typography>
                             
                           {
-                              val?.attributes?.incident_status === "resolved" ?
+                              val?.attributes?.incident_status === "Resolved" ?
                               <Box className="customButton">
                               <Button variant="contained" className="contain success" type="submit" >Resolved</Button>
                             </Box> 
                             :
-                              ( val?.attributes?.incident_status === "pending_confirmation"  )  ? 
+                              ( val?.attributes?.incident_status === "Pending Confirmation"  )  ? 
                               <Box className="customButton">
                               <Button variant="contained" className="contain warning" type="submit" >Pending Confirmation</Button>
                             </Box> 
@@ -132,59 +131,10 @@ class IncidentListing extends IncidentController {
                       </>
                       )) 
                    }
-                 
-                    <Card className="incident-card card">
-                      <CardContent>
-                        <Typography component="h4">
-                          Incident Title
-                        </Typography>
-                        <Typography component="span">
-                          Incident is related to:
-                        </Typography>
-                        <Typography className="sub-title" component="h5">
-                          Plumbing
-                        </Typography>
-                        <hr />
-                        <CardActions className="card-footer">
-                          <Typography className="sub-title" component="h5">
-                            Own apartment
-                          </Typography>
-                          <Box className="customButton">
-                            <Button variant="contained" className="contain warning" type="submit" >Pending Confirmation</Button>
-                          </Box>
-                          {/* <Button className="success">Resolved</Button> */}
-                        </CardActions>
-                      </CardContent>
-
-                    </Card>
-                    <Card className="incident-card card">
-                      <CardContent>
-                        <Typography component="h4">
-                          Incident Title
-                        </Typography>
-                        <Typography component="span">
-                          Incident is related to:
-                        </Typography>
-                        <Typography className="sub-title" component="h5">
-                          Plumbing
-                        </Typography>
-                        <hr />
-                        <CardActions className="card-footer">
-                          <Typography className="sub-title" component="h5">
-                            Own apartment
-                          </Typography>
-                          <Box className="customButton">
-                            <Button variant="contained" className="contain danger" type="submit" >Unresolved</Button>
-                          </Box>
-                          {/* <Button className="success">Resolved</Button> */}
-                        </CardActions>
-                      </CardContent>
-
-                    </Card>
                   </Box>
-                  {/* <Box className="customButton" display={{ xs: 'flex', md: 'none' }}>
-                    <Button variant="contained" type="submit" >login</Button>
-                  </Box> */}
+                  <Box className="customButton" display={{ xs: 'flex', md: 'none' }}>
+                    <Button variant="contained" onClick={()=>{this.setState({ loading: true });  this.props.history.push("/CreateIncident") }} >Add Incident</Button>
+                  </Box>
                 </Box>
                 <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>
                   <h6 className="bottom-text">POWERED BY</h6>

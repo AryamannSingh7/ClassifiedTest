@@ -42,8 +42,13 @@ class IncidentPreview extends IncidentController {
   render() {
     const { navigation } = this.props;
     const incidentFromData = JSON.parse( localStorage.getItem("incidentPreview"))
-   const incidentRelated =incidentFromData.incidentRelated.split(" ");
+   const incidentRelated =incidentFromData?.incidentRelated?.split(" ");
     //console.log("from===============>",incidentFromData,incidentFromData.incidentRelated,incidentFromData?.media[0]?.url);
+    if (!incidentFromData) {
+      this.props.history.replace("/CreateIncident");
+      return null;
+    }
+
     return (
       <>
         <Box className="login-wrapper incident-wrapper">
@@ -111,7 +116,7 @@ class IncidentPreview extends IncidentController {
                     </Card>
                   </Box>
                   <Box className="customButton" display={{ xs: 'flex', md: 'none' }}>
-                    <Button variant="contained" onClick={()=> this.createIncident(incidentFromData)}>submit</Button>
+                    <Button variant="contained" onClick={()=> this.createIncident(incidentFromData ,incidentRelated)}>submit</Button>
                   </Box>
                 </Box>
                 <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>

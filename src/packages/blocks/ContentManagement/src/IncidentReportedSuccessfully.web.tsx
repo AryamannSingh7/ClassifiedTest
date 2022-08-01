@@ -34,15 +34,20 @@ class IncidentReportedSuccessfully extends IncidentController {
   }
 
   render() {
-    const { navigation } = this.props;
-
+   const { navigation } = this.props;
+   const id = localStorage?.getItem("createIncidentId")
+   console.log("id=====>",id );
+    if (!id) {
+      this.props.history.replace("/CreateIncident");
+      return null;
+    }
     return (
       <>
         <Box className="login-wrapper auth-wrapper">
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
               <Box className="content-block">
-                <Box display={{ xs: 'flex', md: 'none' }} className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
+                {/* <Box display={{ xs: 'flex', md: 'none' }} className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box> */}
                 <Box className="logo-block common-top-padding" display={{ xs: 'none', md: 'flex' }}>
                   <Link href="/EmailAccountLogin">
                     <img src={Building_Logo} className="head-logo" alt="" />
@@ -53,15 +58,15 @@ class IncidentReportedSuccessfully extends IncidentController {
                   <Box className="header-block header-block-changepassword">
                     <img src={Tick_Circle_Icon} className="lock-logo" alt="Lock_Icon" />
                     <h1>Incident Reported<br></br>Successfully</h1>
-                    <p>You incident has been reported successfully.Your ticket id for reported reported incident is<br></br><span className="id-title">12345678</span></p>
+                    <p>You incident has been reported successfully.Your ticket id for reported reported incident is<br></br><span className="id-title">{id}</span></p>
                   </Box>
                 </Box>
                 <Box className="footer-block desktop-ui">
                   <Box className="row-btn customButton">
                     <Button variant="contained" onClick={() => {
-                      localStorage.removeItem("otpToken");
-                      localStorage.removeItem("emailOtp");
-                      this.props.history.push("/EmailAccountLogin");
+                      localStorage.removeItem("createIncidentId");
+                      localStorage.removeItem("incidentPreview");
+                      this.props.history.push("/IncidentListing");
                     }}>view ticket</Button>
                   </Box>
                 </Box>
