@@ -73,9 +73,10 @@ class PollDetails extends PollingController {
                                     </Box>
                                     <Box>
                                         <p className="AnonymousPreviewPoll">
-                                            Anonymous Poll</p>
+                                            Anonymous Poll
+                                        </p>
                                         <p className="statusOngoing" style={{fontWeight: 600, marginLeft:"1rem"}}>
-                                        Ongoing
+                                            Ongoing
                                         </p>   
                                     </Box>
                                     {/* <Box>
@@ -125,9 +126,8 @@ class PollDetails extends PollingController {
                             </Box>
                         </Grid>
                     </Grid>
-
-                   
-                    <Grid style={{marginTop: "2rem"}} className="createPSCards">
+                    
+                    <Grid style={{marginTop: "2rem", marginBottom:"5rem"}} className="createPSCards">
                         <Grid item sm={12} md={12} xs={12}>
                             <Grid className="GenerateReport">
                                 <Box>
@@ -136,7 +136,7 @@ class PollDetails extends PollingController {
                                     </Typography>
                                 </Box>
                                 <Box>
-                                    <Link href="/CreatePolls">
+                                    <Link href="#">
                                         <Button variant="contained" color="primary">GENERATE REPORT</Button>
                                     </Link>
                                 </Box>
