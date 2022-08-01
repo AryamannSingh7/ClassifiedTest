@@ -24,7 +24,7 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import ChairmanForgotPasswordController, { Props } from "./ChairmanForgotPasswordController.web";
 import Loader from "../../../components/src/Loader.web";
 //resorces
-import { Tenant_Logo, Building_Logo, Landing_Banner, Building1 } from "../src/assets";
+import { Tenant_Logo, Building_Logo, Lock_User_Icon, Landing_Banner, Building1 } from "../src/assets";
 
 class ChairmanChangePassword extends ChairmanForgotPasswordController {
   constructor(props: Props) {
@@ -35,70 +35,16 @@ class ChairmanChangePassword extends ChairmanForgotPasswordController {
   render() {
     return (
       <>
-        {/* <Box className="login-wrapper auth-wrapper">
-          <div className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></div>
-          <Box className="header-left-block header-block">
-            <h1>Change Password</h1>
-            <h6>"You need to change your password. Please enter a new password"</h6>
-          </Box>
-          <Formik
-            initialValues={{
-              confirmPassword: "",
-              confirmShowPassword: false,
-              newShowPassword: false,
-              newPassword: ""
-            }}
-            validationSchema={this.changePasswordValidations()}
-            validateOnMount={true}
-            onSubmit={(values) => {
-              console.log("valus=========>", values)
-              this.changePassword(values)
-              // same shape as initial values  
-            }}
-          >
-            {({ values, touched, errors, isValid, setFieldValue, handleChange }) => (
-              <Form translate="yes" className="commonForm">
-                <Box className="formGroup">
-                  <div className="formInputGrp">
-                    <Field type={values.newShowPassword ? "text" : "password"} name="newPassword" placeholder="New Password" className="formInput" />
-                    <span className="frmLeftIcons"><MailOutlineIcon /></span>
-                    {
-                      values.newShowPassword ? <span className="frmrightIcons"><Visibility onClick={() => setFieldValue("newShowPassword", false)} /></span>
-                        : <span className="frmrightIcons"><VisibilityOffIcon onClick={() => setFieldValue("newShowPassword", true)} /></span>
-                    }
-                    <span className="frmrightIcons"><VisibilityOffIcon /></span> 
-                  </div>
-                  <ErrorMessage className="text-error" component="Typography" name="newPassword" />
-                </Box>
-                <Box className="formGroup">
-                  <div className="formInputGrp">
-                    <Field type={values.confirmShowPassword ? "text" : "password"} name="confirmPassword" placeholder="Confirm Password" className="formInput" />
-                    <span className="frmLeftIcons"><MailOutlineIcon /></span>
-                    {
-                      values.confirmShowPassword ? <span className="frmrightIcons"><Visibility onClick={() => setFieldValue("confirmShowPassword", false)} /></span>
-                        : <span className="frmrightIcons"><VisibilityOffIcon onClick={() => setFieldValue("confirmShowPassword", true)} /></span>
-                    }
-                    <span className="frmrightIcons"><VisibilityOffIcon /></span>
-                  </div>
-                  <ErrorMessage className="text-error" component="Typography" name="confirmPassword" />
-                </Box>
-                <Box className="customButton">
-                  <Button variant="contained" type="submit" >change password</Button>
-                </Box>
-              </Form>
-            )}
-          </Formik>
-
-        </Box> */}
-
         <Box className="login-wrapper">
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
               <Box className="content-block">
-                <Box display={{ xs: 'flex', md: 'none' }} className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
+                <Box className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
                 <Box className="logo-block common-top-padding" display={{ xs: 'none', md: 'flex' }}>
-                  <img src={Building_Logo} className="head-logo" alt="" />
-                  <h4>Building Name</h4>
+                  <Link href="/ChairmanLogin">
+                    <img src={Building_Logo} className="head-logo" alt="" />
+                    <h4>Building Name</h4>
+                  </Link>
                 </Box>
                 <Box className="main-content-block desktop-ui">
                   {/* <Box className="header-block">
@@ -132,7 +78,9 @@ class ChairmanChangePassword extends ChairmanForgotPasswordController {
                         <Box className="formGroup">
                           <div className="formInputGrp">
                             <Field type={values.newShowPassword ? "text" : "password"} name="newPassword" placeholder="New Password" className="formInput" />
-                            <span className="frmLeftIcons"><LockIcon /></span>
+                            <span className="frmLeftIcons">
+                              <img src={Lock_User_Icon} className="frm-icons" alt="Email Icon" />
+                            </span>
                             {
                               values.newShowPassword ? <span className="frmrightIcons"><Visibility onClick={() => setFieldValue("newShowPassword", false)} /></span>
                                 : <span className="frmrightIcons"><VisibilityOffIcon onClick={() => setFieldValue("newShowPassword", true)} /></span>
@@ -144,7 +92,9 @@ class ChairmanChangePassword extends ChairmanForgotPasswordController {
                         <Box className="formGroup">
                           <div className="formInputGrp">
                             <Field type={values.confirmShowPassword ? "text" : "password"} name="confirmPassword" placeholder="Confirm Password" className="formInput" />
-                            <span className="frmLeftIcons"><LockIcon /></span>
+                            <span className="frmLeftIcons">
+                              <img src={Lock_User_Icon} className="frm-icons" alt="Email Icon" />
+                            </span>
                             {
                               values.confirmShowPassword ? <span className="frmrightIcons"><Visibility onClick={() => setFieldValue("confirmShowPassword", false)} /></span>
                                 : <span className="frmrightIcons"><VisibilityOffIcon onClick={() => setFieldValue("confirmShowPassword", true)} /></span>

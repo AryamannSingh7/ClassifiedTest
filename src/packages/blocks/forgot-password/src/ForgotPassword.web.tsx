@@ -13,7 +13,7 @@ import {
 } from "@material-ui/core";
 
 //images
-import { Tenant_Logo, Building_Logo, Landing_Banner, Building1 } from "../src/assets";
+import { Tenant_Logo, Building_Logo, Lock_User_Icon, Building1 } from "../src/assets";
 
 //resources
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
@@ -37,7 +37,7 @@ class ForgotPassword extends ForgotPasswordController {
 
     return (
       <>
-      
+
         <Box className="login-wrapper auth-wrapper">
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
@@ -77,7 +77,9 @@ class ForgotPassword extends ForgotPasswordController {
                           <label htmlFor="" className="textfieldLabel">Enter your regestered Email or Mobile Number</label>
                           <div className="formInputGrp">
                             <Field type="text" name="email" placeholder="Email ID or Mobile Number" className="formInput" />
-                            <span className="frmLeftIcons"><MailOutlineIcon /></span>
+                            <span className="frmLeftIcons">
+                              <img src={Lock_User_Icon} className="frm-icons" alt="Email Icon" />
+                            </span>
                           </div>
 
                           {
