@@ -37,6 +37,11 @@ class NewVeichleList extends VeichleListController {
       <>
         <Grid container spacing={2} className="auth-container">
           <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset' }}>
+            <Grid container className="main-content-block">
+              <Grid xs={12}>
+                <ArrowBackIcon onClick={() => window.history.back()} />
+              </Grid>
+            </Grid>
             <div style={{ margin: 'auto' }}>
 
               <Grid container className="main-content-block">
