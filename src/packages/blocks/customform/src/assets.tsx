@@ -21,6 +21,9 @@ export const CarBlue = require("../assets/CarBlue.png");
 export const List = require("../assets/List.png");
 export const paletteBlue = require("../assets/paletteBlue.png");
 export const Rc = require("../assets/Registration-Certificate.png");
+export const CarFront = require("../assets/carFront.png");
+export const Tick = require("../assets/tick.png");
+
 
 
 

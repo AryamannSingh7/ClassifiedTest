@@ -4,6 +4,20 @@
   padding: 0.5rem;
   border-radius: 15px;
 
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+
+    .status {
+      color: #FC8434;
+      font-weight: 400;
+      background-color: #fff1ceb0;
+      padding: 0.5rem 1rem 0.5rem 1rem;
+      border-radius: 15px;
+    }
+  }
+
   .status {
     color: #FC8434;
     font-weight: 600;

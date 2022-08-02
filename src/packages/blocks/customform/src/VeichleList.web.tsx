@@ -33,7 +33,7 @@ class VeichleList extends VeichleListController {
   }
 
   async componentDidMount() {
-    // this.getVehicle()
+    this.getVehicle()
 
   }
 
@@ -52,7 +52,7 @@ class VeichleList extends VeichleListController {
               </Grid>
 
               {
-                this.state.allVehcile.length==0 ?
+                this.state.allVehcile.length>=0 ?
                 <>
                     <Grid container>
                       {
