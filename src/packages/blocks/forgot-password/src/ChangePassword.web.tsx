@@ -24,7 +24,9 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import Loader from "../../../components/src/Loader.web";
 import ForgotPasswordController, { Props } from "./ForgotPasswordController.web";
 //images
-import { Tenant_Logo, Building_Logo, Landing_Banner, Building1 } from "../src/assets";
+import { 
+  Tenant_Logo, Building_Logo, Lock_User_Icon, Building1 
+} from "../src/assets";
 
 class ChangePassword extends ForgotPasswordController {
   constructor(props: Props) {
@@ -77,7 +79,9 @@ class ChangePassword extends ForgotPasswordController {
                         <Box className="formGroup">
                           <div className="formInputGrp">
                             <Field type={values.newShowPassword ? "text" : "password"} name="newPassword" placeholder="New Password" className="formInput" />
-                            <span className="frmLeftIcons"><MailOutlineIcon /></span>
+                            <span className="frmLeftIcons">
+                              <img src={Lock_User_Icon} className="frm-icons" alt="Lock Icon" />
+                            </span>
                             {
                               values.newShowPassword ? <span className="frmrightIcons"><Visibility onClick={() => setFieldValue("newShowPassword", false)} /></span>
                                 : <span className="frmrightIcons"><VisibilityOffIcon onClick={() => setFieldValue("newShowPassword", true)} /></span>
@@ -89,7 +93,9 @@ class ChangePassword extends ForgotPasswordController {
                         <Box className="formGroup">
                           <div className="formInputGrp">
                             <Field type={values.confirmShowPassword ? "text" : "password"} name="confirmPassword" placeholder="Confirm Password" className="formInput" />
-                            <span className="frmLeftIcons"><MailOutlineIcon /></span>
+                            <span className="frmLeftIcons">
+                              <img src={Lock_User_Icon} className="frm-icons" alt="Lock Icon" />
+                            </span>
                             {
                               values.confirmShowPassword ? <span className="frmrightIcons"><Visibility onClick={() => setFieldValue("confirmShowPassword", false)} /></span>
                                 : <span className="frmrightIcons"><VisibilityOffIcon onClick={() => setFieldValue("confirmShowPassword", true)} /></span>

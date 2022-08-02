@@ -435,7 +435,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             //@ts-ignore
             //@ts-nocheck
 
-            this.setState({ allUnit: [...temp] }, () => console.log(this.state.allUnit))
+            this.setState({ allUnit: responseJson.data.unit_apartments }, () => console.log(this.state.allUnit[0]))
           } else {
             //Check Error Response
             this.parseApiErrorResponse(responseJson);

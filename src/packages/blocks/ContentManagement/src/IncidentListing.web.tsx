@@ -38,10 +38,11 @@ class IncidentListing extends IncidentController {
     super(props);
   }
   componentDidMount() {
-    this.getIncidentListing(this.state.sortBy ,this.state.status)
+    this.getIncidentListing(this.state.sortBy, this.state.status)
   }
   render() {
     const { navigation } = this.props;
+    console.log("this.state?.incidentListing==========>",this.state?.incidentListing)
     return (
       <>
         <Box className="login-wrapper incident-wrapper">
@@ -50,12 +51,12 @@ class IncidentListing extends IncidentController {
               <Box className="content-block">
                 <Box className="content-header">
                   <Box className="left-block blocks">
-                    <Box display={{ xs: 'flex', md: 'none' }} className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
+                    <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
                     <h4>Incidents</h4>
                   </Box>
                   <Box className="incident-right-block blocks">
                     <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-                      <Button aria-controls="simple-menu" aria-haspopup="true" onClick={(e : any) => this.handleClick(e)}>
+                      <Button aria-controls="simple-menu" aria-haspopup="true" onClick={(e: any) => this.handleClick(e)}>
                         <img src={Grid_Icon} className="grid-icon icons" alt="" />
                       </Button>
                       <Menu
@@ -63,77 +64,76 @@ class IncidentListing extends IncidentController {
                         anchorEl={this.state.anchorEl}
                         keepMounted
                         open={Boolean(this.state.anchorEl)}
-                        onClose={() =>this.handleClose()}
+                        onClose={() => this.handleClose()}
                       >
-                        <MenuItem onClick={(e) =>this.handleClose(e,"asc")}>Ascending</MenuItem>
-                        <MenuItem onClick={(e) =>this.handleClose(e,"desc")}>Descending</MenuItem>
+                        <MenuItem onClick={(e) => this.handleClose(e, "asc")}>Ascending</MenuItem>
+                        <MenuItem onClick={(e) => this.handleClose(e, "desc")}>Descending</MenuItem>
                       </Menu>
                     </Box>
-                
-                      <Button aria-controls="fade-menu" aria-haspopup="true" onClick={(e : any) => this.handleClick_1(e)}>
+
+                    <Button aria-controls="fade-menu" aria-haspopup="true" onClick={(e: any) => this.handleClick_1(e)}>
                       <img src={Filter_Icon} className="filter-icon icons" alt="" />
-                      </Button>
-                      <Menu
-                        id="fade-menu"
-                        anchorEl={this.state.anchorEl_1}
-                        keepMounted
-                        open={Boolean(this.state.anchorEl_1)}
-                        onClose={() =>this.handleClose_1()}
-                      >
-                        <MenuItem onClick={(e) =>this.handleClose_1(e,"Unresolved")}>Unresolved</MenuItem>
-                        <MenuItem onClick={(e) =>this.handleClose_1(e,"Resolved")}>Resolved</MenuItem>
-                        <MenuItem onClick={(e) =>this.handleClose_1(e,"Pending Confirmation")}>Pending Confirmation</MenuItem>
-                      </Menu>
-                
+                    </Button>
+                    <Menu
+                      id="fade-menu"
+                      anchorEl={this.state.anchorEl_1}
+                      keepMounted
+                      open={Boolean(this.state.anchorEl_1)}
+                      onClose={() => this.handleClose_1()}
+                    >
+                      <MenuItem onClick={(e) => this.handleClose_1(e, "Unresolved")}>Unresolved</MenuItem>
+                      <MenuItem onClick={(e) => this.handleClose_1(e, "Resolved")}>Resolved</MenuItem>
+                      <MenuItem onClick={(e) => this.handleClose_1(e, "Pending Confirmation")}>Pending Confirmation</MenuItem>
+                    </Menu>
+
                   </Box>
                 </Box>
                 <Box className="content-block-wrapper common-incident-block">
                   <Box className="incident-content-wrapper">
-                   {
-                      this.state?.incidentListing?.map((val ,index) =>(
+                    {
+                      this.state?.incidentListing?.map((val, index) => (
                         <>
-                        <Card className="incident-card card" key={index} onClick={()=>this.getIncidentDetails(val.id)}>
-                        <CardContent>
-                          <Typography component="h4">
-                           {val?.attributes?.incident_title} 
-                          </Typography>
-                          <Typography component="span">
-                            Incident is related to:
-                          </Typography>
-                          <Typography className="sub-title" component="h4">
-                            {val?.attributes?.incident_related?.name} 
-                          </Typography>
-                          <hr />
-                          <CardActions className="card-footer">
-                            <Typography className="sub-title" component="h4">
-                             {val?.attributes?.apartment_management || 'own apartment'} 
-                            </Typography>
-                            
-                          {
-                              val?.attributes?.incident_status === "Resolved" ?
-                              <Box className="customButton">
-                              <Button variant="contained" className="contain success" type="submit" >Resolved</Button>
-                            </Box> 
-                            :
-                              ( val?.attributes?.incident_status === "Pending Confirmation"  )  ? 
-                              <Box className="customButton">
-                              <Button variant="contained" className="contain warning" type="submit" >Pending Confirmation</Button>
-                            </Box> 
-                            :
-                            <Box className="customButton">
-                            <Button variant="contained" className="contain danger" type="submit" >Unresolved</Button>
-                          </Box>
-                          }
-                            {/* <Button className="success">Resolved</Button> */}
-                          </CardActions>
-                        </CardContent>
-                      </Card>
-                      </>
-                      )) 
-                   }
+                          <Card className="incident-card card" key={index} onClick={() => this.getIncidentDetails(val.id)}>
+                            <CardContent className="costom-card-content">
+                              <Typography component="h4">
+                                {val?.attributes?.incident_title}
+                              </Typography>
+                              <Typography component="span">
+                                Incident is related to:
+                              </Typography>
+                              <Typography className="sub-title" component="h5">
+                                {val?.attributes?.incident_related?.name}
+                              </Typography>
+                              <hr />
+                              <CardActions className="card-footer">
+                                <Typography className="sub-title" component="h5">
+                                {val?.attributes?.common_area?.name } 
+                                </Typography>
+                                {
+                                  val?.attributes?.incident_status === "Resolved" ?
+                                    <Box className="customButton">
+                                      <Button variant="contained" className="contain success" type="submit" >Resolved</Button>
+                                    </Box>
+                                    :
+                                    (val?.attributes?.incident_status === "Pending Confirmation") ?
+                                      <Box className="customButton">
+                                        <Button variant="contained" className="contain warning" type="submit" >Pending Confirmation</Button>
+                                      </Box>
+                                      :
+                                      <Box className="customButton">
+                                        <Button variant="contained" className="contain danger" type="submit" >Unresolved</Button>
+                                      </Box>
+                                }
+                                {/* <Button className="success">Resolved</Button> */}
+                              </CardActions>
+                            </CardContent>
+                          </Card>
+                        </>
+                      ))
+                    }
                   </Box>
-                  <Box className="customButton" display={{ xs: 'flex', md: 'none' }}>
-                    <Button variant="contained" onClick={()=>{this.setState({ loading: true });  this.props.history.push("/CreateIncident") }} >Add Incident</Button>
+                  <Box className="customButton">
+                    <Button variant="contained" onClick={() => { this.setState({ loading: true }); this.props.history.push("/CreateIncident") }} >Add Incident</Button>
                   </Box>
                 </Box>
                 <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>
