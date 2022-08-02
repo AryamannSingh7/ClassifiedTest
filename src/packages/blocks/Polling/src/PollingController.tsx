@@ -59,6 +59,7 @@ interface S {
   pollDescriptionError: String;
   pollQuestionError: String;
   pollOptionasError: String;
+  generatePollReport:any;
   // Customizable Area End
 }
 
@@ -82,6 +83,7 @@ export default class PollingController extends BlockComponent<
   getOldPolls:string;
   pollPreviewAnswer: string;
   submitPollAnswer:string;
+  getGenerateReport:string;
   // Customizable Area End
 
   constructor(props: Props) {
@@ -157,6 +159,7 @@ export default class PollingController extends BlockComponent<
       pollDescriptionError: "",
       pollQuestionError: "",
       pollOptionasError: "",
+      generatePollReport:[],
       // Customizable Area End
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -186,6 +189,7 @@ export default class PollingController extends BlockComponent<
       await this.oldPollsData();
       if(window.location.search !== ""){
         await this.getPollPreviewAnswer();
+        await this.getPollGenerateReport()
       }
     }
 
@@ -280,6 +284,21 @@ export default class PollingController extends BlockComponent<
     }
 
     //==============================================
+
+    getPollGenerateReport = async () => {
+      const societyID = localStorage.getItem("society_id")
+      const pollID =  window.location.search ? window.location.search.split("=")[1] : null;
+      this.setState({pollPreviewAnswerID:pollID})
+      this.getGenerateReport = await this.apiCall({
+        contentType: configJSON.exampleApiContentType,
+        method: configJSON.httpGetMethod,
+        endPoint: `/society_managements/${societyID}/bx_block_polling/polls/${pollID}/generate_report`,
+      });
+    }
+    
+
+    //==============================================
+    
 
     getPollSelectedAnswer = (value:any) => {
       console.log("poll option answer##################", value)
@@ -549,7 +568,9 @@ export default class PollingController extends BlockComponent<
      if(apiRequestCallId === this.submitPollAnswer) {
       this.getSubmitPollAnswer(responseJson)
      }
-     
+     if(apiRequestCallId === this.getGenerateReport) {
+      this.getGeneratePollReport(responseJson)
+     }
     }
 //Error Block    
     else if (responseJson && responseJson?.error || responseJson?.errors) {
@@ -607,8 +628,14 @@ export default class PollingController extends BlockComponent<
 
   getSubmitPollAnswer = async (response: any) => {
     this.setState({finalPollAnswer: response})
-    console.log('get poll answer Response==>>>',this.state.finalPollAnswer);
+    // console.log('get poll answer Response==>>>',this.state.finalPollAnswer);
   }
+
+  getGeneratePollReport = async (response: any) => {
+    this.setState({generatePollReport: response})
+    console.log('get generatePollReport Response==>>>',this.state.generatePollReport);
+  }
+  
 
   // Error Block
   

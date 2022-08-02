@@ -122,7 +122,7 @@ import EditVeichleList from "../../blocks/customform/src/EditVehicle.web"
 import ViewVeichle from "../../blocks/customform/src/ViewVehicle.web"
 
 import PollDetails from "../../blocks/Polling/src/PollDetails.web"
-
+import PollReport from "../../blocks/Polling/src/PollReport.web"
 import CreateIncident from "../../blocks/ContentManagement/src/CreateIncident.web";
 import IncidentDetails from "../../blocks/ContentManagement/src/IncidentDetails.web";
 import IncidentListing from "../../blocks/ContentManagement/src/IncidentListing.web";
@@ -337,6 +337,11 @@ const routeMap = {
     path: "/PollDetails"
   },
 
+  PollReport: {
+    component: PollReport,
+    path: "/PollReport"
+  },
+  
   PollResponseCompleted: {
     component: PollResponseCompleted,
     path: "/PollResponseCompleted"
