@@ -35,9 +35,9 @@ class RegistrationRequest extends EmailAccountLoginController {
   }
 
   render() {
-    console.log("getRegistrationRequest===================>",this.state?.registrationRequest?.attributes);
-    const building_name= this.state?.registrationRequest?.attributes?.building_management?.name;
-    const apartment_name= this.state?.registrationRequest?.attributes?.apartment_management?.apartment_name;
+    console.log("getRegistrationRequest===================>", this.state?.registrationRequest?.attributes);
+    const building_name = this.state?.registrationRequest?.attributes?.building_management?.name;
+    const apartment_name = this.state?.registrationRequest?.attributes?.apartment_management?.apartment_name;
     //console.log("getRegistrationRequest===================>",building_name ,apartment_name);
     return (
       <>
@@ -128,45 +128,6 @@ class RegistrationRequest extends EmailAccountLoginController {
           </Dialog>
         </Box>
 
-        {/* <Box className="login-wrapper auth-wrapper">
-          <Grid container spacing={2} className="auth-container">
-            <Grid item xs={12} md={7} className="auth-cols">
-              <Box className="content-block">
-                <Box display={{ xs: 'flex', md: 'none' }} className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
-                <Box className="logo-block common-top-padding" display={{ xs: 'none', md: 'flex' }}>
-                  <Link href="/EmailAccountLogin">
-                    <img src={Building_Logo} className="head-logo" alt="" />
-                    <h4>Building Name</h4>
-                  </Link>
-                </Box>
-                <Box className="main-content-block desktop-ui">
-                  <Box className="header-block header-block-changepassword">
-                    <Box display={{ xs: 'flex', md: 'none' }}>
-                      <Link href="/EmailAccountLogin">
-                        <img src={Tenant_Logo} className="tenant-logo" alt="" />
-                      </Link>
-                    </Box>
-                    <img src={Lock_Icon} className="lock-logo" alt="Lock_Icon" />
-                    <h1>Password Changed<br></br>Successfully!</h1>
-                    <h6>You have successfully changed your<br></br>password. Please use your new password when<br></br>logging in.</h6>
-                  </Box>
-                </Box>
-                <Box className="desktop-ui">
-                  
-                </Box>
-                <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>
-                  <h6 className="bottom-text">POWERED BY</h6>
-                  <img src={Tenant_Logo} className="tenant-logo" alt="" />
-                </Box>
-              </Box>
-            </Grid>
-            <Grid item xs={12} md={5} className="auth-cols">
-              <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
-                <img src={Building1} className="building-logo" alt="" />
-              </Box>
-            </Grid>
-          </Grid>
-        </Box> */}
         < Loader loading={this.state.loading} />
       </>
     );

@@ -80,25 +80,33 @@ class IncidentPreview extends IncidentController {
                           Affected Area:
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                          Own Apartment
+                         {incidentFromData?.commonArea?.name}
                         </Typography>
                         <Typography component="span">
                           Incident is related to:
                         </Typography>
-                        <Typography className="sub-title" component="h4">
+                        <Typography className="sub-title" component="h5">
                           {incidentRelated[1]}
                         </Typography>
                         <Typography component="span">
                           Incident Title:
                         </Typography>
-                        <Typography className="sub-title" component="h4">
-                        {incidentFromData.incidentTitle}
+                        <Typography className="sub-title" component="h5">
+                        {incidentFromData?.incidentTitle}
                         </Typography>
+
                         <Typography component="span">
-                          Description:
+                          Building:
                         </Typography>
-                        <Typography className="sub-title" component="h4">
-                        {incidentFromData.description}
+                        <Typography className="sub-title" component="h5">
+                        {incidentFromData?.myApartment?.attributes?.building_management}
+                        </Typography>
+
+                        <Typography component="span">
+                          Unit:
+                        </Typography>
+                        <Typography className="sub-title" component="h5">
+                        {incidentFromData?.myApartment?.attributes?.apartment_name}
                         </Typography>
                         <Typography component="span">
                           Photos
@@ -109,9 +117,14 @@ class IncidentPreview extends IncidentController {
                           <Box><img src={val.url} className="card-img" alt="card-img"  key={index} /></Box>
                                 ))
                               }
-                          <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
                         </CardActions>
                         <hr />
+                        <Typography component="span">
+                          Description:
+                        </Typography>
+                        <Typography className="sub-title" component="h5">
+                        {incidentFromData.description}
+                        </Typography>
                       </CardContent>
                     </Card>
                   </Box>
