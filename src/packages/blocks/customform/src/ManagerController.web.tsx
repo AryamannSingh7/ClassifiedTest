@@ -560,7 +560,7 @@ export default class ManagerController extends BlockComponent<Props, S, SS> {
     localStorage.setItem('selectCar',JSON.stringify(item))
     // @ts-nocheck
     // @ts-ignore
-    this.props.history.push('/viewVehicle')
+    this.props.history.push('/mvv')
 
   }
   getCar(){
