@@ -17,13 +17,6 @@ import Grid from '@material-ui/core/Grid';
 import Select from "@material-ui/core/Select";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import Divider from '@material-ui/core/Divider';
-// Icons
-
-import DateRangeOutlinedIcon from '@material-ui/icons/DateRangeOutlined';
-import HighlightOffOutlinedIcon from '@material-ui/icons/HighlightOffOutlined';
-import CheckCircleOutlineOutlinedIcon from '@material-ui/icons/CheckCircleOutlineOutlined';
-import AccessTimeOutlinedIcon from '@material-ui/icons/AccessTimeOutlined';
-// Icons
 
 import PollingController, {
   Props,
