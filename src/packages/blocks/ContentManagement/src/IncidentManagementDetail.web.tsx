@@ -40,9 +40,9 @@ import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 
 //resorces
-import { Users_Icon, Bank_Icon, Box_Icon, Building1 } from "../src/assets";
+import { Users_Icon, Bank_Icon, Box_Icon, Building1 } from "./assets";
 
-class IncidentManagement extends IncidentManagementController {
+class IncidentManagementDetail extends IncidentManagementController {
   constructor(props: Props) {
     super(props);
   }
@@ -391,4 +391,4 @@ const dashBoard = {
 
 // Customizable Area End
 
-export default withRouter(IncidentManagement)
+export default withRouter(IncidentManagementDetail)
