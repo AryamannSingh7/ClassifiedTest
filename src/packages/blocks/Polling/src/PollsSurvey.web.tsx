@@ -11,7 +11,6 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import DateRangeOutlinedIcon from '@material-ui/icons/DateRangeOutlined';
 import { withRouter } from 'react-router';
 import TabPanel from "./TabPanel.web";
-import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import { Building1, Building_Logo } from "./assets";
 import PollingController, {
   Props

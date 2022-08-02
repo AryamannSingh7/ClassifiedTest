@@ -5,7 +5,7 @@
 import React from "react";
 import "./Polling.web.css"
 import DOMPurify from 'dompurify'
-
+import {pollandsurvey, xmark, CheckMark, awated, Cardcalendar} from "./assets"
 import {
   Container,
   Typography,
@@ -36,14 +36,8 @@ class PollDetails extends PollingController {
     
   }
 
-  componentDidMount() {
-    const PreviewPollData = JSON.parse(localStorage.getItem('Polls_Data'));
-    this.setState({PreViewPollData:PreviewPollData},
-        () => console.log("PreViewPollData ====>>>>>",  this.state.PreViewPollData)
-    )
-  }
-
   render() {
+    console.log("poll pollPreviewAnswer #######", this.state.pollPreviewAnswer?.poll?.data)
     return ( 
       <>
     <Box style={{background: "#E5ECFF"}}>
@@ -60,9 +54,9 @@ class PollDetails extends PollingController {
                     <Box className="navigation">
                         <Box>
                             <Typography variant="body1" >
-                            Poll and survey / Create a Poll / <Box component="span" style={{color: "blue"}}>Poll Preview</Box>
+                            Poll and survey / Create a Poll / <Box component="span" style={{color: "blue"}}>Poll Details</Box>
                             </Typography>
-                            <Typography variant="h5" className="subHeading">Poll Preview</Typography>
+                            <Typography variant="h5" className="subHeading">Poll Details</Typography>
                         </Box>
                     </Box>
 
@@ -74,16 +68,25 @@ class PollDetails extends PollingController {
                                     <Box className="PollName">
                                         <Typography className="subHeading">Poll Name: </Typography>
                                         <Typography className="PollNameText">
-                                            {this.state.PreViewPollData?.PollFormData?.title}
+                                            {this.state.pollPreviewAnswer?.poll?.data?.attributes.title}
                                         </Typography>
                                     </Box>
                                     <Box>
+                                        <p className="AnonymousPreviewPoll">
+                                            Anonymous Poll
+                                        </p>
+                                        <p className="statusOngoing" style={{fontWeight: 600, marginLeft:"1rem"}}>
+                                            Ongoing
+                                        </p>   
+                                    </Box>
+                                    {/* <Box>
                                         {
                                             (this.state.PreViewPollData?.PollType === true) ? 
-                                            <Typography variant="body2" className="AnonymousPreviewPoll">Anonymous Poll</Typography>
+                                            <Typography variant="body2" className="AnonymousPreviewPoll">
+                                            Anonymous Poll</Typography>
                                              : ''
                                         }
-                                    </Box>
+                                    </Box> */}
                                 </Box>
                                 
                                 <Box className="DateSectionPreviewpoll">
@@ -93,7 +96,7 @@ class PollDetails extends PollingController {
                                             <Typography className="PollNamedate">Start Date</Typography>
                                             <Typography className="PollNameText">
                                                 {/* June 7, 2022 */}
-                                                {this.state.PreViewPollData?.PollFormData?.startDate}</Typography>
+                                                {this.state.pollPreviewAnswer?.poll?.data?.attributes?.start_date}</Typography>
                                         </Box>    
                                     </Box>
                                     <Box className="datebox">
@@ -102,7 +105,7 @@ class PollDetails extends PollingController {
                                             <Typography className="PollNamedate">End Date</Typography>
                                             <Typography className="PollNameText">
                                                 {/* June 7, 2022 */}
-                                            {this.state.PreViewPollData?.PollFormData?.endDate}</Typography>
+                                            {this.state.pollPreviewAnswer?.poll?.data?.attributes?.end_date}</Typography>
                                         </Box>    
                                     </Box>
                                 </Box>
@@ -114,7 +117,7 @@ class PollDetails extends PollingController {
                                     <Box style={{marginTop:5, overflowWrap:"break-word"}}>
                                         <Typography variant="body2"
                                         dangerouslySetInnerHTML={
-                                            { __html: DOMPurify.sanitize(this.state.PreViewPollData?.PollFormData?.description) }
+                                            { __html: DOMPurify.sanitize(this.state.pollPreviewAnswer?.poll?.data?.attributes?.description) }
                                         }
                                         
                                         />
@@ -122,25 +125,67 @@ class PollDetails extends PollingController {
                                 </Box>
                             </Box>
                         </Grid>
-
+                    </Grid>
+                    
+                    <Grid style={{marginTop: "2rem", marginBottom:"5rem"}} className="createPSCards">
                         <Grid item sm={12} md={12} xs={12}>
-                            <Box className="createPSCards">
-                                <Typography className="PollNameText">
-                                    {this.state.PreViewPollData?.PollFormData?.question}
-                                </Typography>
-
-                                {
-                                    this.state.PreViewPollData?.PollOptions?.map((values:any) => {
-                                        return(
-                                            <TextField  value={values.text} name={values.text} variant="outlined" fullWidth style={{marginTop:20}}/>
-                                        )
-                                    })
-                                }
-
-                           </Box>
-        
+                            <Grid className="GenerateReport">
+                                <Box>
+                                    <Typography className="PollNameText">
+                                        {this.state.pollPreviewAnswer?.poll?.data?.attributes?.question}
+                                    </Typography>
+                                </Box>
+                                <Box>
+                                    <Link href="#">
+                                        <Button variant="contained" color="primary">GENERATE REPORT</Button>
+                                    </Link>
+                                </Box>
+                            </Grid>
                         </Grid>
 
+                        {this.state.pollPreviewAnswer?.poll?.data?.attributes?.polling_options.length ? 
+                            this.state.pollPreviewAnswer?.poll?.data?.attributes?.polling_options.map((val) => {
+                                return(
+                                    <Grid className="AnswersCount">
+                                        <Grid sm={6} md={6} xs={6} style={{marginTop: "1.5rem"}}>
+                                            <Box className="progressbarNO">
+                                                <span>{val.text}</span>
+                                                <progress 
+                                                    className="progress" 
+                                                    data-label={val.answer_percentage + "%"}
+                                                    value={val.answer_percentage}
+                                                    max="100"
+                                                >
+                                                </progress>
+                                            </Box>
+                                        </Grid>
+                                        <Grid sm={2} md={2} xs={2} style={{marginTop: "1.5rem"}}>
+                                            <Box className="VoteCount">
+                                                <p>{val.answer_count} PEOPLE VOTED</p>
+                                            </Box>
+                                        </Grid>
+                                    </Grid>
+                                )
+                            })
+                            :
+                            "No Options Are Available"
+                        }
+                        
+                       
+
+                        <Grid sm={5} md={5} xs={5} style={{marginTop: "1.5rem"}}>
+                            <Box className="VoteCountBottom">
+                                <Box className="VoteCountBottomBox">
+                                    <img src={awated} alt="awated" />
+                                    <p>88 Awaited</p>
+                                </Box>
+                                <Box className="VoteCountBottomBox">
+                                    <img src={CheckMark} alt="CheckMark" />
+                                    <p>124 Response Received</p>
+                                </Box>
+                            </Box>
+                        </Grid>
+                  
                     </Grid>
                 </Container>
             </Grid>

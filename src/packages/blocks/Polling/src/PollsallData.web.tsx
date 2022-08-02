@@ -5,7 +5,7 @@
 import React from "react";
 import "./Polling.web.css"
 import DOMPurify from 'dompurify'
-import {pollandsurvey} from "./assets"
+import {pollandsurvey, xmark, CheckMark, awated, Cardcalendar} from "./assets"
 import {
   Container,
   Typography,
@@ -18,8 +18,7 @@ import Select from "@material-ui/core/Select";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import Divider from '@material-ui/core/Divider';
 // Icons
-import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
-import RoomOutlinedIcon from '@material-ui/icons/RoomOutlined';
+
 import DateRangeOutlinedIcon from '@material-ui/icons/DateRangeOutlined';
 import HighlightOffOutlinedIcon from '@material-ui/icons/HighlightOffOutlined';
 import CheckCircleOutlineOutlinedIcon from '@material-ui/icons/CheckCircleOutlineOutlined';
@@ -33,8 +32,9 @@ import PollingController, {
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import { Style } from "@material-ui/icons";
+import { withRouter } from 'react-router';
 
-export default class PollsallData extends PollingController {
+class PollsallData extends PollingController {
   constructor(props: Props) {
     super(props);
   }
@@ -87,8 +87,11 @@ export default class PollsallData extends PollingController {
                             this.state.allPollsData.map((data:any) => {
                                 return(
                                     <>
-                                    <Grid item sm={4} md={4} xs={4} key={data.id}>
-                                        <Box className="EventsCards">
+                                    <Grid item sm={4} md={4} xs={4} >
+                                        <Box className="EventsCards"
+                                        key={data.id}
+                                        onClick={() => this.props.history.push("/PollDetails?id="+data.id)}
+                                        >
                                             <Box className="EventsIconsText">
                                                 <Typography variant="body2" className="statusOngoing">{data.status}</Typography>
                                             </Box>
@@ -107,21 +110,22 @@ export default class PollsallData extends PollingController {
                                                 </p> 
                                             </Box>
                                             <Box className="EventsIconsText">
-                                                <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
+                                                {/* <DateRangeOutlinedIcon style={{color: "#054c94"}}/> */}
+                                                <img src={Cardcalendar} alt="Cardcalendar" />
                                                 <Typography variant="body2">{data.start_date} - {data.end_date} </Typography>
                                             </Box>
                                             <Divider style={{marginTop:10, marginRight:10}}/>
                                             <Box className="EventsIconsData">
                                                 <Box className="EventsIconsDataBox">
-                                                    <AccessTimeOutlinedIcon style={{color: "#ff8100"}}/>
+                                                    <img src={awated} alt="awated" />
                                                     <Typography variant="body2">{data.awaited}</Typography>
                                                 </Box>
                                                 <Box className="EventsIconsDataBox">
-                                                    <CheckCircleOutlineOutlinedIcon style={{color: "green"}}/>
+                                                    <img src={CheckMark} alt="CheckMark" />
                                                     <Typography variant="body2">{data.completed_answers}</Typography>
                                                 </Box>
                                                 <Box className="EventsIconsDataBox">
-                                                    <HighlightOffOutlinedIcon style={{color: "red"}}/>
+                                                    <img src={xmark} alt="xmark" />
                                                     <Typography variant="body2">{data.rejected_answers}</Typography>
                                                 </Box>
                                             </Box>
@@ -147,21 +151,21 @@ export default class PollsallData extends PollingController {
                                     <Typography variant="body2">To discuss new vehicle guidlines</Typography>
                                 </Box>
                                 <Box className="EventsIconsText">
-                                    <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
+                                    <img src={Cardcalendar} alt="Cardcalendar" />
                                     <Typography variant="body2">05-08-2022 - 08-08-2022 </Typography>
                                 </Box>
                                 <Divider style={{marginTop:10, marginRight:10}}/>
                                 <Box className="EventsIconsData">
                                     <Box className="EventsIconsDataBox">
-                                        <DateRangeOutlinedIcon style={{color: "#ff8100"}}/>
+                                        <img src={awated} alt="awated" />
                                         <Typography variant="body2">84</Typography>
                                     </Box>
                                     <Box className="EventsIconsDataBox">
-                                        <CheckCircleOutlineOutlinedIcon style={{color: "green"}}/>
+                                        <img src={CheckMark} alt="CheckMark" />
                                         <Typography variant="body2">29</Typography>
                                     </Box>
                                     <Box className="EventsIconsDataBox">
-                                        <HighlightOffOutlinedIcon style={{color: "red"}}/>
+                                        <img src={xmark} alt="xmark" />
                                         <Typography variant="body2">13</Typography>
                                     </Box>
                                 </Box>
@@ -178,5 +182,7 @@ export default class PollsallData extends PollingController {
       );
   }
 }
+
+export default withRouter(PollsallData)
 
 // Customizable Area End

@@ -12,7 +12,10 @@ import {
 } from "@material-ui/core";
 
 //images
-import { Tenant_Logo, Building_Logo, Landing_Banner, Building1 } from "../src/assets";
+import { 
+  Tenant_Logo, Building_Logo, Landing_Banner, Building1,
+  Email_Icon, Lock_User_Icon
+} from "../src/assets";
 //resources
 import Checkbox from '@material-ui/core/Checkbox';
 import CircleCheckedFilled from '@material-ui/icons/CheckCircle';
@@ -75,7 +78,9 @@ class EmailAccountLogin extends EmailAccountLoginController {
                       <Form translate="yes" className="commonForm">
                         <Box className="formGroup">
                           <Field name="email" type="text" placeholder="Email ID" className="formInput" />
-                          <span className="frmLeftIcons"><MailOutlineIcon /></span>
+                          <span className="frmLeftIcons">
+                            <img src={Email_Icon} className="frm-icons" alt="Email Icon" />
+                          </span>
                           {
                             errors.email && touched.email ?
                               (
@@ -89,7 +94,9 @@ class EmailAccountLogin extends EmailAccountLoginController {
 
                         <Box className="formGroup">
                           <Field name="password" type={values.showPassword ? "text" : "password"} placeholder="Password" className="formInput" />
-                          <span className="frmLeftIcons"><LockOpenIcon /></span>
+                          <span className="frmLeftIcons">
+                            <img src={Lock_User_Icon} className="frm-icons" alt="Email Icon" />
+                          </span>
                           {/* <span className="frmrightIcons"><Visibility /></span> */}
                           <span className="frmrightIcons">
                             {values.showPassword ? (

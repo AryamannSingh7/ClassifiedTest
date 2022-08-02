@@ -291,7 +291,7 @@ export default class PollingController extends BlockComponent<
         "answer":{
               "poll_id": this.state.pollPreviewAnswerID,
               "polling_option_id": this.state.pollOptionAnswer,
-              "status": "completed"
+              "status": true
         }
       }
       this.addPollAnswerData(reqPayload);

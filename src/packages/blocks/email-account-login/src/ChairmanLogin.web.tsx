@@ -19,7 +19,9 @@ import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
-import { Tenant_Logo, Building_Logo, Landing_Banner, Building1 } from "../src/assets";
+import {
+  Tenant_Logo, Building_Logo, Email_Icon, User_Icon, Lock_User_Icon, Building1
+} from "../src/assets";
 import { withRouter } from 'react-router';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
@@ -84,7 +86,9 @@ class ChairmanLogin extends ChairmanAccountLoginController {
                       <Form translate="yes" className="commonForm ">
                         <Box className="formGroup customSelect">
                           <FormControl variant="outlined" >
-                            <span className="frmLeftIcons"><LockOpenIcon /></span>
+                            <span className="frmLeftIcons">
+                              <img src={User_Icon} className="frm-icons" alt="Email Icon" />
+                            </span>
                             {/* <InputLabel id="demo-simple-select-outlined-label">Select User Type</InputLabel>  */}
                             <Select
                               name="userType"
@@ -116,7 +120,9 @@ class ChairmanLogin extends ChairmanAccountLoginController {
                         </Box>
                         <Box className="formGroup">
                           <Field name="email" type="text" placeholder="Email ID" className="formInput" />
-                          <span className="frmLeftIcons"><MailOutlineIcon /></span>
+                          <span className="frmLeftIcons">
+                            <img src={Email_Icon} className="frm-icons" alt="Email Icon" />
+                          </span>
                           {
                             errors.email && touched.email ?
                               (
@@ -129,7 +135,9 @@ class ChairmanLogin extends ChairmanAccountLoginController {
                         </Box>
                         <Box className="formGroup">
                           <Field name="password" type={values.showPassword ? "text" : "password"} placeholder="Password" className="formInput" />
-                          <span className="frmLeftIcons"><LockOpenIcon /></span>
+                          <span className="frmLeftIcons">
+                            <img src={Lock_User_Icon} className="frm-icons" alt="Email Icon" />
+                          </span>
                           {/* <span className="frmrightIcons"><Visibility /></span> */}
                           <span className="frmrightIcons">
                             {values.showPassword ? (
