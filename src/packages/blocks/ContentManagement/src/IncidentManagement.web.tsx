@@ -35,7 +35,10 @@ import Loader from "../../../components/src/Loader.web";
 import { Input } from "react-native-elements";
 import * as Yup from "yup";
 import CountryCodeSelector from "../../country-code-selector/src/CountryCodeSelector";
-import IncidentController, { Props } from "./IncidentController.web";
+import IncidentManagementController, { Props } from "./IncidentManagementController.web";
+import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
+import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
+
 //Customizable Area End
 
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
@@ -43,7 +46,7 @@ import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 //resorces
 import { Users_Icon, Bank_Icon, Box_Icon, Building1 } from "../src/assets";
 
-class IncidentManagement extends IncidentController {
+class IncidentManagement extends IncidentManagementController {
   constructor(props: Props) {
     super(props);
   }
