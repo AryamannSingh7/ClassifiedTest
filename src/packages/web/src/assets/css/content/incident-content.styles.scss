@@ -26,4 +26,17 @@
       }
     }
   }
+  & .incident-button-row {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 80px;
+    padding-right: 50px;
+    &.customButton {
+      & .MuiButton-root {
+        padding: 10px 20px;
+        width: auto;
+        margin-left: 10px;
+      }
+    }
+  }
 }

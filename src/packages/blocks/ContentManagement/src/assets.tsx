@@ -25,3 +25,4 @@ export const House_Icon = require("../assets/house-icon.png");
 export const Users_Icon = require("../assets/users-icon.png");
 export const Bank_Icon = require("../assets/bank-icon.png");
 export const Box_Icon = require("../assets/box-icon.png");
+export const Close_Icon = require("../assets/icon-close.png");

@@ -10,7 +10,10 @@ import {
   Card,
   CardContent,
   CardActions,
-  Button
+  Button,
+  Dialog,
+  DialogActions,
+  DialogTitle,
 } from "@material-ui/core";
 
 import '../../dashboard/src/Dashboard.web.css'
@@ -21,6 +24,8 @@ import {
   from "../../dashboard/src/assets"
 
 import { Formik, Form, Field, ErrorMessage } from "formik";
+
+import CloseIcon from '@material/icons/Close';
 
 import Box from '@material-ui/core/Box';
 import Select from "@material-ui/core/Select";
@@ -40,7 +45,7 @@ import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 
 //resorces
-import { Users_Icon, Bank_Icon, Box_Icon, Building1 } from "./assets";
+import { Close_Icon, Bank_Icon, Box_Icon, Building1 } from "./assets";
 
 class IncidentManagementDetail extends IncidentManagementController {
   constructor(props: Props) {
@@ -62,9 +67,9 @@ class IncidentManagementDetail extends IncidentManagementController {
                 <Box style={dashBoard.navigation}>
                   <Box>
                     <Typography variant="body1" >
-                      My Dashboard / General Dashboard /<Box component="span" style={{ color: "blue" }}> Incidents</Box>
+                      My Dashboard / General Dashboard / Incidents/<Box component="span" style={{ color: "blue" }}> Incidents Detail</Box>
                     </Typography>
-                    <Typography variant="h5" style={dashBoard.subHeading}>Incidents</Typography>
+                    <Typography variant="h5" style={dashBoard.subHeading}>Incidents Details</Typography>
                   </Box>
                   <Box>
                     <FormControl style={dashBoard.YearMain} className='yearTab'>
@@ -80,209 +85,160 @@ class IncidentManagementDetail extends IncidentManagementController {
                     </FormControl>
                   </Box>
                 </Box>
-                <Box className="sorting-header">
-                  <Box className="formGroup customSelect">
-                    <FormControl variant="outlined" >
-                      <Select
-                        name="commonArea"
-                        labelId="demo-simple-select-outlined-label"
-                        id="demo-simple-select-outlined"
-                        // onChange={(e) => {
-                        //   (e.target.value != " ") && setFieldValue("commonArea", e.target.value)
-                        // }}
-                        // value={values.commonArea}
-                        value="1"
-                      >
-                        <MenuItem value="1">
-                          Select Building
-                        </MenuItem>
-                        <MenuItem value="2">
-                          test 2
-                        </MenuItem>
-                        <MenuItem value="3">
-                          test 3
-                        </MenuItem>
-                        {/* {
-                        this.state?.commonAreaData?.map((val, index) => (
-                          <MenuItem
-                            key={index}
-                            value={val?.id}
+                <Box className="incident-detail-card-block">
+                  <Card className="incident-detail-card card">
+                    <Box className="card-header">
+                      <Typography component="h4">
+                        Plumbing
+                      </Typography>
+                      <Box className="formGroup customSelect">
+                        <FormControl variant="outlined" >
+                          <Select
+                            name="commonArea"
+                            labelId="demo-simple-select-outlined-label"
+                            id="demo-simple-select-outlined"
+                            value="1"
                           >
-                            {val?.name}
+                            <MenuItem value="1">
+                              Select Status
+                            </MenuItem>
+                            <MenuItem value="2">
+                              test 2
+                            </MenuItem>
+                            <MenuItem value="3">
+                              test 3
+                            </MenuItem>
+                          </Select>
+                        </FormControl>
+                      </Box>
+                    </Box>
+                    <CardContent className="card-content">
+                      <Box className="row-block">
+                        <Box className="card-rows">
+                          <h5>Affected Area: </h5>
+                          <h4>Own Apartment</h4>
+                        </Box>
+                        <Box className="card-rows">
+                          <h5>Incident is related to: </h5>
+                          <h4>Plumbing</h4>
+                        </Box>
+                        <Box className="card-rows">
+                          <h5>Incident Number: </h5>
+                          <h4>123456</h4>
+                        </Box>
+                        <Box className="card-rows">
+                          <h5>Building: </h5>
+                          <h4>Building</h4>
+                        </Box>
+                        <Box className="card-rows">
+                          <h5>Unit: </h5>
+                          <h4>Building</h4>
+                        </Box>
+                        <Box className="card-rows">
+                          <h5>Acknowledge by Manager: </h5>
+                          <h4>Building</h4>
+                        </Box>
+                        <Box className="card-rows">
+                          <h5>Latest update from management: </h5>
+                          <h4>Building</h4>
+                        </Box>
+                        <Box className="card-rows">
+                          <h5>Description: </h5>
+                          <h4>Building</h4>
+                        </Box>
+                        <Box className="card-rows">
+                          <h5>Photos: </h5>
+                        </Box>
+                      </Box>
+                      <Box className="photos-row">
+                        <img src={Building1} className="" />
+                        <img src={Building1} className="" />
+                        <img src={Building1} className="" />
+                        <img src={Building1} className="" />
+                        <img src={Building1} className="" />
+                      </Box>
+                      <Box className="incident-button-row customButton">
+                        <Button variant="outlined"
+                          onClick={() => { this.setState({ showDialog: true }) }}
+                          type="submit">assign incident to provider</Button>
+                        <Button variant="contained" type="submit">start/view ticket conversation</Button>
+                      </Box>
+                    </CardContent>
+                  </Card>
+                </Box>
+              </Container>
+
+              <Dialog
+                open={this.state.showDialog}
+                onClose={() => this.setState({ showDialog: false })}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                className="diloag-wrapper"
+                PaperProps={{
+                  style: {
+                    borderRadius: '15px',
+                  },
+                }}
+              >
+                <Box className="provider-dialouge-body desktop-ui">
+                  <Box className="dialouge-header">
+                    <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
+                      Assign Incident to Provider
+                    </DialogTitle>
+                    <Button>
+                      <img src={Close_Icon} className="close-icon" />
+                    </Button>
+                  </Box>
+                  <Box className="diloag-content">
+                    <Box className="formGroup customSelect">
+                      <FormControl variant="outlined" >
+                        <Select
+                          name="commonArea"
+                          labelId="demo-simple-select-outlined-label"
+                          id="demo-simple-select-outlined"
+                          value="1"
+                        >
+                          <MenuItem value="1">
+                            Select Status
                           </MenuItem>
-                        ))
-                      } */}
-                      </Select>
-                      {/* <ErrorMessage className="text-error" component="Typography" name="commonArea" /> */}
-                    </FormControl>
-                  </Box>
-                  <Box className="formGroup customSelect">
-                    <FormControl variant="outlined" >
-                      <Select
-                        name="commonArea"
-                        labelId="demo-simple-select-outlined-label"
-                        id="demo-simple-select-outlined"
-                        value="1"
-                      >
-                        <MenuItem value="1">
-                          Select Unit
-                        </MenuItem>
-                        <MenuItem value="2">
-                          test 2
-                        </MenuItem>
-                        <MenuItem value="3">
-                          test 3
-                        </MenuItem>
-                      </Select>
-                    </FormControl>
-                  </Box>
-                  <Box className="formGroup customSelect">
-                    <FormControl variant="outlined" >
-                      <Select
-                        name="commonArea"
-                        labelId="demo-simple-select-outlined-label"
-                        id="demo-simple-select-outlined"
-                        value="1"
-                      >
-                        <MenuItem value="1">
-                          Select Status
-                        </MenuItem>
-                        <MenuItem value="2">
-                          test 2
-                        </MenuItem>
-                        <MenuItem value="3">
-                          test 3
-                        </MenuItem>
-                      </Select>
-                    </FormControl>
-                  </Box>
-                  <Box className="customButton">
-                    <Button variant="contained" type="submit">Search</Button>
+                          <MenuItem value="2">
+                            test 2
+                          </MenuItem>
+                          <MenuItem value="3">
+                            test 3
+                          </MenuItem>
+                        </Select>
+                      </FormControl>
+                    </Box>
+                    <Box className="formGroup customSelect">
+                      <FormControl variant="outlined" >
+                        <Select
+                          name="commonArea"
+                          labelId="demo-simple-select-outlined-label"
+                          id="demo-simple-select-outlined"
+                          value="1"
+                        >
+                          <MenuItem value="1">
+                            Select Status
+                          </MenuItem>
+                          <MenuItem value="2">
+                            test 2
+                          </MenuItem>
+                          <MenuItem value="3">
+                            test 3
+                          </MenuItem>
+                        </Select>
+                      </FormControl>
+                    </Box>
+                    <Box className="customButton">
+                      <Button variant="outlined"
+                        onClick={() => { this.setState({ showDialog: true }) }}
+                        type="submit">cencel</Button>
+                      <Button variant="contained" type="submit">assign incident</Button>
+                    </Box>
                   </Box>
                 </Box>
-                <Grid container spacing={2} style={{ marginTop: 15, marginBottom: 15 }}>
-                  <Grid item sm={4}>
-                    <Card className="management-card card">
-                      <CardContent className="costom-card-content">
-                        <Box className="customButton">
-                          <Button variant="contained" className="contain danger" type="submit">Ongoing</Button>
-                        </Box>
-                        <Typography component="h4">
-                          Plumbing
-                        </Typography>
-                        <Box className="card-rows">
-                          <img src={Bank_Icon} alt="Bank Icon" />
-                          <h5>Building 1</h5>
-                        </Box>
-                        <Box className="card-rows">
-                          <img src={Box_Icon} alt="Bank Icon" />
-                          <h5>A-101</h5>
-                        </Box>
-                        <Box className="card-rows">
-                          <img src={Users_Icon} alt="Bank Icon" />
-                          <h5>John Doe</h5>
-                        </Box>
-                      </CardContent>
-                    </Card>
-                  </Grid>
-                  <Grid item sm={4}>
-                    <Card className="management-card card">
-                      <CardContent className="costom-card-content">
-                        <Box className="customButton">
-                          <Button variant="contained" className="contain success" type="submit">Resolved</Button>
-                        </Box>
-                        <Typography component="h4">
-                          Plumbing
-                        </Typography>
-                        <Box className="card-rows">
-                          <img src={Bank_Icon} alt="Bank Icon" />
-                          <h5>Building 1</h5>
-                        </Box>
-                        <Box className="card-rows">
-                          <img src={Box_Icon} alt="Bank Icon" />
-                          <h5>A-101</h5>
-                        </Box>
-                        <Box className="card-rows">
-                          <img src={Users_Icon} alt="Bank Icon" />
-                          <h5>John Doe</h5>
-                        </Box>
-                      </CardContent>
-                    </Card>
-                  </Grid>
-                  <Grid item sm={4}>
-                    <Card className="management-card card">
-                      <CardContent className="costom-card-content">
-                        <Box className="customButton">
-                          <Button variant="contained" className="contain warning" type="submit">Pending Confirmation</Button>
-                        </Box>
-                        <Typography component="h4">
-                          Plumbing
-                        </Typography>
-                        <Box className="card-rows">
-                          <img src={Bank_Icon} alt="Bank Icon" />
-                          <h5>Building 1</h5>
-                        </Box>
-                        <Box className="card-rows">
-                          <img src={Box_Icon} alt="Bank Icon" />
-                          <h5>A-101</h5>
-                        </Box>
-                        <Box className="card-rows">
-                          <img src={Users_Icon} alt="Bank Icon" />
-                          <h5>John Doe</h5>
-                        </Box>
-                      </CardContent>
-                    </Card>
-                  </Grid>
-                  <Grid item sm={4}>
-                    <Card className="management-card card">
-                      <CardContent className="costom-card-content">
-                        <Box className="customButton">
-                          <Button variant="contained" className="contain success" type="submit">Ongoing</Button>
-                        </Box>
-                        <Typography component="h4">
-                          Plumbing
-                        </Typography>
-                        <Box className="card-rows">
-                          <img src={Bank_Icon} alt="Bank Icon" />
-                          <h5>Building 1</h5>
-                        </Box>
-                        <Box className="card-rows">
-                          <img src={Box_Icon} alt="Bank Icon" />
-                          <h5>A-101</h5>
-                        </Box>
-                        <Box className="card-rows">
-                          <img src={Users_Icon} alt="Bank Icon" />
-                          <h5>John Doe</h5>
-                        </Box>
-                      </CardContent>
-                    </Card>
-                  </Grid>
-                  <Grid item sm={4}>
-                    <Card className="management-card card">
-                      <CardContent className="costom-card-content">
-                        <Box className="customButton">
-                          <Button variant="contained" className="contain success" type="submit">Ongoing</Button>
-                        </Box>
-                        <Typography component="h4">
-                          Plumbing
-                        </Typography>
-                        <Box className="card-rows">
-                          <img src={Bank_Icon} alt="Bank Icon" />
-                          <h5>Building 1</h5>
-                        </Box>
-                        <Box className="card-rows">
-                          <img src={Box_Icon} alt="Bank Icon" />
-                          <h5>A-101</h5>
-                        </Box>
-                        <Box className="card-rows">
-                          <img src={Users_Icon} alt="Bank Icon" />
-                          <h5>John Doe</h5>
-                        </Box>
-                      </CardContent>
-                    </Card>
-                  </Grid>
-                </Grid>
-              </Container>
+              </Dialog>
             </Grid>
           </Box>
         </Box>
