@@ -26,3 +26,4 @@ export const Users_Icon = require("../assets/users-icon.png");
 export const Bank_Icon = require("../assets/bank-icon.png");
 export const Box_Icon = require("../assets/box-icon.png");
 export const success = require("../assets/success.svg");
+export const Close_Icon = require("../assets/icon-close.png");
