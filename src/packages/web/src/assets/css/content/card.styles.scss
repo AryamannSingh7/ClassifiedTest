@@ -107,6 +107,30 @@
     }
   }
   margin-bottom: 25px;
+  &.management-card {
+    margin: 0;
+    &.MuiCard-root {
+      box-shadow: 3px 0px 14px 0px #cccccc5c;
+    }
+    & .MuiCardContent-root:last-child {
+      padding-bottom: 0;
+    }
+    & h4 {
+      margin-top: 10px;
+    }
+    & .MuiButton-root {
+      width: auto;
+    }
+    & .card-rows {
+      display: flex;
+      align-items: center;
+      margin: 10px 0;
+
+      & h5 {
+        padding-left: 10px;
+      }
+    }
+  }
   &.reporting-card {
     & .reporting-row {
       display: flex;

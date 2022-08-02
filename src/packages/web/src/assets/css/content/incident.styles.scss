@@ -70,11 +70,30 @@
     {
       padding-top: 30px;
     }
+    & .video-img
+    {
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      & .img-layer
+      {
+        height: 60px;
+        width: 60px;
+        background-color: red;
+        z-index: 999;
+      }
+      & .play-icon
+      {
+        position: absolute;
+      }
+    }
   }
   & .customButton {
     margin-bottom: 20px;
   }
-
+  
   &::-webkit-scrollbar,
   .common-incident-block::-webkit-scrollbar {
     width: 8px;

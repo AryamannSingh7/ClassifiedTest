@@ -22,3 +22,6 @@ export const Tick_Circle_Icon = require("../assets/tick-circle-icon.png");
 export const Clipboard_Icon = require("../assets/clipboard-icon.png");
 export const Warning_Icon = require("../assets/warning-icon.png");
 export const House_Icon = require("../assets/house-icon.png");
+export const Users_Icon = require("../assets/users-icon.png");
+export const Bank_Icon = require("../assets/bank-icon.png");
+export const Box_Icon = require("../assets/box-icon.png");
