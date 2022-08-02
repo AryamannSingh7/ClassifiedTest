@@ -189,6 +189,7 @@ class FaqChairman extends FaqChairmanController {
                     padding: "15px 26px 15px 12px",
                     fontFamily: "GothamMedium",
                     color: "gray",
+                    background: "white",
                   }}
                 >
                   <option aria-label="None">Select Category</option>
@@ -263,6 +264,7 @@ class FaqChairman extends FaqChairmanController {
                     padding: "15px 26px 15px 12px",
                     fontFamily: "GothamMedium",
                     color: "gray",
+                    background: "white",
                   }}
                 >
                   <option aria-label="None">Select Category</option>

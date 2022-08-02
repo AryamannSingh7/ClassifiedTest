@@ -18,6 +18,7 @@ export interface Props {
   classes: any;
   // Customizable Area End
 }
+
 interface S {
   // Customizable Area Start
   expanded: string | boolean;
@@ -27,8 +28,14 @@ interface S {
   isAddCategoryModalOpen: boolean;
   isDeleteAllCategoryModalOpen: boolean;
   isDeleteQuestionModalOpen: boolean;
+
+  faqList: any[];
+  catagoriesList: any[];
+
+  selectedCategory: string;
   // Customizable Area End
 }
+
 interface SS {
   id: any;
 }
@@ -56,6 +63,11 @@ export default class FaqChairmanController extends BlockComponent<
       isAddCategoryModalOpen: false,
       isDeleteAllCategoryModalOpen: false,
       isDeleteQuestionModalOpen: false,
+
+      faqList: [],
+      catagoriesList: [],
+
+      selectedCategory: "",
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -67,12 +79,7 @@ export default class FaqChairmanController extends BlockComponent<
   }
 
   // Customizable Area Start
-  async componentDidMount(): Promise<void> {
-    
-  }
-
-
-
+  async componentDidMount(): Promise<void> {}
 
   handleChange = (panel: string) => () => {
     this.setState({

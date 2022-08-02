@@ -127,6 +127,8 @@ import IncidentReportedSuccessfully from '../../blocks/ContentManagement/src/Inc
 import IncidentPreview from '../../blocks/ContentManagement/src/IncidentPreview.web';
 
 import FaqChairman from '../../blocks/contactus/src/FaqChairman.web';
+import FaqOwner from '../../blocks/contactus/src/FaqOwner.web';
+import FaqResident from '../../blocks/contactus/src/FaqResident.web';
 import ContactUsChairman from '../../blocks/contactus/src/ContactUs.web';
 import SubscriptionDetail from '../../blocks/contactus/src/SubscriptionDetails.web';
 
@@ -353,6 +355,14 @@ const routeMap = {
   FaqChairman: {
     component: FaqChairman,
     path: '/FaqChairman'
+  },
+  FaqOwner: {
+    component: FaqOwner,
+    path: '/FaqOwner'
+  },
+  FaqResident: {
+    component: FaqResident,
+    path: '/FaqResident'
   },
   ContactUsChairman: {
     component: ContactUsChairman,

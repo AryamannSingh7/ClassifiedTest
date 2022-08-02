@@ -31,6 +31,7 @@ export const FaqChairmanStyleWeb: any = {
       fontFamily: "GothamMedium",
       color: "gray",
       marginBottom: "15px",
+      background: "white",
     },
     "& .contact-us-form .textarea-input": {
       borderRadius: 4,
@@ -181,6 +182,57 @@ export const FaqChairmanStyleWeb: any = {
       alignItems: "center",
       flexDirection: "column",
       borderRadius: "5px",
+    },
+  },
+  faqOwner: {
+    "& .backIcon": {
+      display: "flex",
+      alignItems: "center",
+      fontWeight: "600",
+      cursor: "pointer",
+      marginBottom: "18px",
+      background: "#FFFFFF",
+      padding: "20px",
+    },
+    "& .backIcon svg": {
+      marginRight: "18px",
+    },
+    "& .faq-item": {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      padding: "20px",
+      margin: "10px 0",
+      background: "white",
+      cursor: "pointer",
+      borderRadius: "8px",
+    },
+    "& .faq-ans": {
+      padding: "20px",
+      margin: "10px 0",
+      background: "white",
+      cursor: "pointer",
+      borderRadius: "8px",
+    },
+    "& .faq-item p": {
+      fontWeight: "600",
+    },
+    "& .faq-ans span": {
+      display: "block",
+      marginBottom: "20px",
+    },
+    "& .faq-step button": {
+      color: "#FFFFFF",
+      background: "#2B6FEC",
+      padding: "15px",
+      borderRadius: "25px",
+    },
+    "& .faq-list": {
+      overflowY: "auto",
+      height: "85vh",
+    },
+    "& .right-image": {
+      padding: "25px 60px",
     },
   },
 };
