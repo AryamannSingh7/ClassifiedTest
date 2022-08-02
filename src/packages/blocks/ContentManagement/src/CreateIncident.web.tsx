@@ -47,6 +47,7 @@ class CreateIncident extends IncidentController {
     super(props);
   }
   componentDidMount() {
+    this.getMyApartmentList();
     this.getCommonArea();
     this.getIncidentRelated();
   }
@@ -72,7 +73,8 @@ class CreateIncident extends IncidentController {
                       incidentRelated: " ",
                       incidentTitle: "",
                       description: "",
-                      media: []
+                      media: [],
+                      myApartment:" "
                     }}
                     validationSchema={this.createIncidentSchema()}
                     validateOnMount={true}
@@ -86,6 +88,37 @@ class CreateIncident extends IncidentController {
                     {({ values, touched, errors, isValid, setFieldError, setFieldValue, handleChange }) => (
                       <Form translate="yes" className="commonForm">
                         <h5 className="frm-title incident-preview-title">Incident Details</h5>
+                        <Box className="formGroup customSelect">
+                          <FormControl variant="outlined" >
+                            <span className="frmLeftIcons">
+                              <img src={House_Icon} className="frm-icons" alt="House Icon" />
+                            </span>
+                            <Select
+                              name="myApartment"
+                              labelId="demo-simple-select-outlined-label"
+                              id="demo-simple-select-outlined"
+                              onChange={(e) => {
+                                (e.target.value != " ") && setFieldValue("myApartment", e.target.value)
+                              }}
+                              value={values.myApartment}
+                            >
+                              <MenuItem disabled value=" ">
+                               Select Unit
+                              </MenuItem>
+                              {
+                                this.state?.myApartmentList?.map((val, index) => (
+                                  <MenuItem
+                                    key={index}
+                                    value={val}
+                                  >
+                                    {`${val?.attributes?.building_management} ${val?.attributes?.apartment_name}`}
+                                  </MenuItem>
+                                ))
+                              }
+                            </Select>
+                            <ErrorMessage className="text-error" component="Typography" name="myApartment" />
+                          </FormControl>
+                        </Box>
                         <Box className="formGroup customSelect">
                           <FormControl variant="outlined" >
                             <span className="frmLeftIcons">
@@ -107,7 +140,7 @@ class CreateIncident extends IncidentController {
                                 this.state?.commonAreaData?.map((val, index) => (
                                   <MenuItem
                                     key={index}
-                                    value={val?.id}
+                                    value={val}
                                   >
                                     {val?.name}
                                   </MenuItem>
@@ -158,15 +191,17 @@ class CreateIncident extends IncidentController {
                         <Box className="formGroup textarea">
                           <img src={Clipboard_Icon} className="clipboard-icon" alt="Clipboard_Icon" />
                           <TextareaAutosize
+                            name="description"
                             maxRows={10}
                             aria-label="maximum height"
-                            placeholder="Lorem ipsum dolor"
+                            placeholder="Add Description"
+                            onChange={handleChange}
+                            value={values.description}
                           />
                         </Box>
+                        <ErrorMessage className="text-error" component="Typography" name="description" />
                         {/* <Box className="formGroup">
                           <Field name="description" type="text" placeholder="Add description" className="formInput" />
-                          <span className="frmLeftIcons"><MailOutlineIcon /></span>
-                          <ErrorMessage className="text-error" component="Typography" name="description" />
                         </Box> */}
                         <Box className="formGroup customFileupload">
                           <Button

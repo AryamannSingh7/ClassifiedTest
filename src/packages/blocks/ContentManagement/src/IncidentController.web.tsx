@@ -46,6 +46,7 @@ export interface S {
   getIncidentDetails : any;
   sortBy : any ;
   status : any;
+  myApartmentList:any;
   // Customizable Area End
 }
 
@@ -72,6 +73,7 @@ export default class IncidentController extends BlockComponent<
   getIncidentDetailsByIdApiCallId : any ;
   getCommonAreaApiCallId : any ;
   getIncidentRelatedApiCallId:any;
+  getMyApartmentListApiCallId:any;
   validationApiCallId: string = "";
 
   imgPasswordVisible: any;
@@ -128,6 +130,7 @@ export default class IncidentController extends BlockComponent<
       getIncidentDetails:null,
       sortBy : "" ,
       status : "",
+      myApartmentList:[]
       // Customizable Area End
     };
 
@@ -202,7 +205,7 @@ export default class IncidentController extends BlockComponent<
           }
         } 
       else if (apiRequestCallId === this.apicreateIncidentCallId) {
-          if (responseJson && responseJson.data && responseJson.meta) {
+          if (responseJson && responseJson.data) {
             console.log("apicreateIncidentCallId===========>",responseJson)
             localStorage.setItem("createIncidentId",responseJson.data.id)
               this.props.history.push("/IncidentReportedSuccessfully")
@@ -251,7 +254,7 @@ export default class IncidentController extends BlockComponent<
         }
         else if (apiRequestCallId === this.getCommonAreaApiCallId) {
           if (responseJson && responseJson?.data ) {
-          console.log("getCommonAreaApiCallId  getIncidentRelatedApiCallId========================>",responseJson)
+          console.log("getCommonAreaApiCallId  ========================>",responseJson)
           this.setState({commonAreaData :responseJson?.data.common_areas})
         
           this.setState({loading: false})
@@ -268,6 +271,21 @@ export default class IncidentController extends BlockComponent<
           if (responseJson && responseJson?.data ) {
           console.log("getIncidentRelatedApiCallId========================>",responseJson)
           this.setState({incidentRelatedData :responseJson?.data.incident_relateds})
+        
+          this.setState({loading: false})
+          } else if (responseJson?.errors) {
+            let error = Object.values(responseJson.errors[0])[0] as string;
+            this.setState({ error });
+          } else {
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
+          }
+          this.parseApiCatchErrorResponse(this.state.error);
+          this.setState({loading: false , error:null})
+        }
+        else if (apiRequestCallId === this.getMyApartmentListApiCallId) {
+          if (responseJson && responseJson?.data ) {
+          console.log("getMyApartmentListApiCallId========================>",responseJson)
+          this.setState({myApartmentList :responseJson?.data})
         
           this.setState({loading: false})
           } else if (responseJson?.errors) {
@@ -530,13 +548,13 @@ getIncidentDetails= (id) => {
     };
     console.log("values create==================>",incidentFromData ,incidentRelated);
     const formData = new FormData();
-   formData.append('incident[common_area_id]', incidentFromData?.commonArea);
+   formData.append('incident[common_area_id]', incidentFromData?.commonArea?.id);
    formData.append('incident[incident_related_id]', incidentRelated[0]);
    formData.append('incident[incident_title]', incidentFromData.incidentTitle);
    formData.append('incident[description]', incidentFromData.description);
    formData.append('incident[image][]', incidentFromData.media);
-   
-   console.log("formData.getAll('description')==================>",formData.get('incident[common_area_id]'))
+   formData.append('incident[apartment_management_id]', incidentFromData.myApartment.id);
+   console.log("formData.getAll('apartment_management_id')==================>",formData.get('incident[apartment_management_id]'))
    const httpBody = formData;
    console.log("httpBody httpBody==================>",httpBody);
    
@@ -610,6 +628,42 @@ getIncidentDetails= (id) => {
     }
   };
   
+  getMyApartmentList = () => {
+    try {
+      const header = {
+        "Content-Type": configJSON.validationApiContentType,
+        token :localStorage.getItem("userToken")
+      };
+
+      //const id = localStorage.getItem("userId");
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+      this.getMyApartmentListApiCallId = requestMessage.messageId;
+      this.setState({ loading: true });
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        `account_block/accounts/my_apartments`
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        configJSON.validationApiMethodType
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+      return true;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   getCommonArea = () => {
     try {
       const header = {
@@ -793,7 +847,7 @@ createIncidentSchema() {
       incidentRelated: Yup.string().required(`This field is required`).trim(),
       incidentTitle: Yup.string().required(`This field is required`).max(50, "Too Long!"),
       description: Yup.string().required(`This field is required`).max(200, "Too Long!"),
-
+      myApartment:Yup.string().required(`This field is required`).trim(),
       media: Yup.array()
       .min(1, ("Only image and video are supported"))
       .required(`This field is required.`)   
