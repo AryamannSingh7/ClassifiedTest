@@ -14,6 +14,7 @@ import MessageEnum, {
 import * as Yup from 'yup';
 import { imgPasswordInVisible, imgPasswordVisible } from "./assets";
 import { valueContainerCSS } from "react-select/src/components/containers";
+import { truncateSync } from "fs";
 // Customizable Area End
 
 export const configJSON = require("./config");
@@ -47,6 +48,9 @@ export interface S {
   sortBy : any ;
   status : any;
   myApartmentList:any;
+  upload:any;
+  notImageOrVideoError:any,
+  sizeError:any
   // Customizable Area End
 }
 
@@ -130,7 +134,10 @@ export default class IncidentController extends BlockComponent<
       getIncidentDetails:null,
       sortBy : "" ,
       status : "",
-      myApartmentList:[]
+      myApartmentList:[],
+      upload:false,
+      notImageOrVideoError:false,
+      sizeError:false
       // Customizable Area End
     };
 
@@ -242,9 +249,7 @@ export default class IncidentController extends BlockComponent<
           this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = responseJson.errors[0] as string;
-            if(error === 'Record not found'){
               this.props.history.push("/IncidentListing")
-            }
             this.setState({ error });
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
@@ -531,6 +536,12 @@ clear= () => {
   this.props.history.push("/");
 }
 
+onSubmit =(values)=>{
+  localStorage.setItem("incidentPreview", JSON.stringify(values))
+  console.log("onsbumit=========>", values);
+    this.setState({ loading: true })
+    this.props.history.push("/IncidentPreview")
+}
 getIncidentDetails= (id) => {
   this.props.history.push({
     pathname: "/IncidentDetails",
@@ -811,34 +822,43 @@ getIncidentDetails= (id) => {
     let media = [];
     let files = e.target.files;
     console.log("filessss=====>",files);
-
-    for (let i = 0; i < files.length; i += 1) {
-      if(files[i] && !["image/jpg", "image/jpeg", "image/gif", "image/png","video/mp4","video/x-m4v" ].includes(files[i].type)){
-        console.log("type=====>",files[i].type);
-         setFieldError('media','Only image and video are supported.');
-         return ;
-      } 
-      else if(files[i] && files[i].size >= 10e6){
-         console.log("size=====>",files[i].size);
-        setFieldError('media','size is less than 10 mb.');
-        return ;
-      }
-      console.log("media push =====>",files[i]);
-      media.push({
-        file: {
-          lastModified: files[i].lastModified,
-          lastModifiedDate: files[i].lastModifiedDate,
-          name: files[i].name,
-          size: files[i].size,
-          type: files[i].type
-        },
-        url: URL.createObjectURL(files[i])
-      });
-    }
+  
     
-    e.target.value = "";
-    console.log("media======>",media)
-    setFieldValue("media", media);
+if(files.length !== 0){
+  for (let i = 0; i < files.length; i += 1) {
+    if(files[i] && !["image/jpg", "image/jpeg", "image/gif", "image/png" ].includes(files[i].type))
+    {
+      console.log("type=====>",files[i].type);
+      this.setState({upload: false,sizeError : false,notImageOrVideoError:true});
+       return ;
+    } 
+    else if(files[i] && files[i].size >= 10e6)
+    {
+       console.log("size=====>",files[i].size);
+       this.setState({upload: false , sizeError : true ,notImageOrVideoError:false});
+      return ;
+    }
+    console.log("media push =====>",files[i]);
+    media.push({
+      file: {
+        lastModified: files[i].lastModified,
+        lastModifiedDate: files[i].lastModifiedDate,
+        name: files[i].name,
+        size: files[i].size,
+        type: files[i].type
+      },
+      url: URL.createObjectURL(files[i])
+    });
+  }
+  e.target.value = "";
+  this.setState({upload: true});
+  console.log("media======>",media)
+  setFieldValue("media", media);
+}
+else {
+  this.setState({upload: false,sizeError : false,notImageOrVideoError:false});
+}
+   
   };
   
 createIncidentSchema() {
@@ -849,7 +869,7 @@ createIncidentSchema() {
       description: Yup.string().required(`This field is required`).max(200, "Too Long!"),
       myApartment:Yup.string().required(`This field is required`).trim(),
       media: Yup.array()
-      .min(1, ("Only image and video are supported"))
+      .min(1, ("Atleast one image required"))
       .required(`This field is required.`)   
     });
        

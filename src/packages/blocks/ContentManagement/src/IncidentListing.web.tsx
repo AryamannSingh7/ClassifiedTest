@@ -103,7 +103,20 @@ class IncidentListing extends IncidentController {
                               </Typography>
                               <Typography className="sub-title" component="h5">
                                 {val?.attributes?.incident_related?.name}
-                              </Typography>
+                              </Typography>      
+                        <Typography component="span">
+                          Building:
+                        </Typography>
+                        <Typography className="sub-title" component="h5">
+                        {val?.attributes?.apartment_management?.building_name}
+                        </Typography>
+
+                        <Typography component="span">
+                          Unit:
+                        </Typography>
+                        <Typography className="sub-title" component="h5">
+                        {val?.attributes?.apartment_management?.apartment_name}
+                        </Typography>
                               <hr />
                               <CardActions className="card-footer">
                                 <Typography className="sub-title" component="h5">

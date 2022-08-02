@@ -96,7 +96,6 @@ class IncidentDetails extends IncidentController {
                         </Card> :
                         null
                     }
-
                     <Box className="incident-rows">
                       <h4>Incident Details</h4>
                       {/* <Box className="customButton">
@@ -113,19 +112,19 @@ class IncidentDetails extends IncidentController {
                           Affected Area:
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                          Own Apartment
+                        {attributes?.common_area?.name}
                         </Typography>
                         <Typography className="title-span" component="span">
                           Incident is related to::
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                          Plumbing {attributes?.incident_related?.name}
+                        {attributes?.incident_related?.name}
                         </Typography>
                         <Typography className="title-span" component="span">
                           Incident Number:
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                          123765 {id}
+                         {id}
                         </Typography>
                         <Typography className="title-span" component="span">
                           Expected Resolution Date:
@@ -151,6 +150,7 @@ class IncidentDetails extends IncidentController {
                         <CardActions className="card-img-row">
                           <Box className="video-img" onClick={() => { this.setState({ showDialog: true }) }}>
                             <PlayCircleOutlineIcon className="play-icon" />
+                           
                             <Box className="img-layer"></Box>
                             <img src={Building1} className="card-img" alt="card-img" />
                           </Box>
@@ -176,14 +176,14 @@ class IncidentDetails extends IncidentController {
                           <img src={User_Icon} className="icons" alt="" />
                           <Box className="reporting-right-block">
                             <h5>Reported By:</h5>
-                            <h4 className="title">Mr. Ali Khan {attributes?.reported_by?.full_name}</h4>
+                            <h4 className="title">{attributes?.reported_by?.full_name}</h4>
                           </Box>
                         </Box>
                         <Box className="reporting-row">
                           <img src={Calender_Icon} className="icons" alt="" />
                           <Box className="reporting-right-block">
                             <h5>Reported On:</h5>
-                            <h4 className="title">Mr. Ali Khan{attributes?.reported_on}</h4>
+                            <h4 className="title">{attributes?.reported_on}</h4>
                           </Box>
                         </Box>
                         {attributes?.resolved_on ?
@@ -204,9 +204,9 @@ class IncidentDetails extends IncidentController {
                         <TextareaAutosize
                           maxRows={10}
                           aria-label="maximum height"
-                          placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
-                          // defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+                         // defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
                           disabled
+                          value={attributes?.description}
                         />
                       </Box>
                     </Box>

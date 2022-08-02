@@ -37,7 +37,8 @@ import {
   Clipboard_Icon,
   Warning_Icon,
   House_Icon,
-  Building1
+  Building1,
+  success
 } from "../src/assets";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import LockOpenIcon from '@material-ui/icons/LockOpen';
@@ -78,12 +79,17 @@ class CreateIncident extends IncidentController {
                     }}
                     validationSchema={this.createIncidentSchema()}
                     validateOnMount={true}
-                    onSubmit={(values) => {
-                      console.log("valus=========>", values)
-                      localStorage.setItem("incidentPreview", JSON.stringify(values))
-                      this.setState({ loading: true })
-                      this.props.history.push("/IncidentPreview")
-                    }}
+                    onSubmit={(values) => 
+                        !this.state?.sizeError && !this.state?.notImageOrVideoError ? 
+                        (
+                         this.onSubmit(values)
+                        )
+                        :
+                        (
+                          console.log("valus=========>", values)
+                        )
+                           
+                    }
                   >
                     {({ values, touched, errors, isValid, setFieldError, setFieldValue, handleChange }) => (
                       <Form translate="yes" className="commonForm">
@@ -226,7 +232,25 @@ class CreateIncident extends IncidentController {
                               }
                             />
                           </Button>
-                          <ErrorMessage className="text-error" component="Typography" name="media" />
+                          {this.state?.upload ?
+                          <>
+                             <span className="text-success">
+                             uploaded successful
+                           </span>
+                           {/* <Box><img src={success} className="card-img" alt="card-img"  /></Box> */}
+                           </>
+                           : this.state.notImageOrVideoError ? 
+                           <span className="text-error">
+                            Only image and video are supported.
+                         </span>
+                           :
+                           this.state.sizeError ? 
+                           <span className="text-error">
+                           size is less than 10 mb.
+                        </span>
+                           :null
+                          }
+                          {/* <ErrorMessage className="text-error" component="Typography" name="media" /> */}
                         </Box>
                         <Box className="customButton">
                           <Button variant="contained" type="submit">preview</Button>

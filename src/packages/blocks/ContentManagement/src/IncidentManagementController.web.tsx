@@ -70,7 +70,7 @@ export default class IncidentManagementController extends BlockComponent<
   validationApiCallId: any;
   getIncidentListingApiCallId: any;
   getIncidentDetailsByIdApiCallId : any ;
-  getCommonAreaApiCallId : any ;
+  getBuildingNameApiCallId : any ;
   getIncidentRelatedApiCallId:any;
   validationApiCallId: string = "";
 
@@ -241,11 +241,10 @@ export default class IncidentManagementController extends BlockComponent<
           this.parseApiCatchErrorResponse(this.state.error);
           this.setState({loading: false , error:null})
         }
-        else if (apiRequestCallId === this.getCommonAreaApiCallId) {
+        else if (apiRequestCallId === this.getBuildingNameApiCallId) {
           if (responseJson && responseJson?.data ) {
-          console.log("getCommonAreaApiCallId  getIncidentRelatedApiCallId========================>",responseJson)
-          this.setState({commonAreaData :responseJson?.data.common_areas})
-        
+          console.log("getBuildingNameApiCallId  ========================>",responseJson)
+          this.setState({buildingNameData :responseJson?.data?.buildings})
           this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
@@ -602,7 +601,7 @@ getIncidentDetails= (id) => {
     }
   };
   
-  getCommonArea = () => {
+  getBuildingName = () => {
     try {
       const header = {
         "Content-Type": configJSON.validationApiContentType,
@@ -613,12 +612,12 @@ getIncidentDetails= (id) => {
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
-      this.getCommonAreaApiCallId = requestMessage.messageId;
+      this.getBuildingNameApiCallId = requestMessage.messageId;
       this.setState({ loading: true });
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `bx_block_custom_form/incidents/common_area_list?society_management_id=${society_id}`
+        `bx_block_settings/building_managements`
       );
 
       requestMessage.addData(
@@ -638,7 +637,7 @@ getIncidentDetails= (id) => {
     }
   };
 
-  getIncidentRelated = () => {
+  getUnit = () => {
     try {
       const header = {
         "Content-Type": configJSON.validationApiContentType,
@@ -654,7 +653,7 @@ getIncidentDetails= (id) => {
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        configJSON.incidentRelated
+        `bx_block_address/apartment_list?id=3`
       );
 
       requestMessage.addData(
@@ -779,16 +778,11 @@ getIncidentDetails= (id) => {
     setFieldValue("media", media);
   };
   
-createIncidentSchema() {
+searchIncidentSchema() {
     const validations = Yup.object().shape({
-      commonArea: Yup.string().required(`This field is required`).trim(),
-      incidentRelated: Yup.string().required(`This field is required`).trim(),
-      incidentTitle: Yup.string().required(`This field is required`).max(50, "Too Long!"),
-      description: Yup.string().required(`This field is required`).max(200, "Too Long!"),
-
-      media: Yup.array()
-      .min(1, ("Only image and video are supported"))
-      .required(`This field is required.`)   
+      buildingName: Yup.string().required(`This field is required`).trim(),
+      unit: Yup.string().required(`This field is required`).trim(),
+      status: Yup.string().required(`This field is required`).trim(),
     });
        
     return validations ;

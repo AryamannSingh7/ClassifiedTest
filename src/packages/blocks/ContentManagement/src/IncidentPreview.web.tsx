@@ -117,7 +117,6 @@ class IncidentPreview extends IncidentController {
                           <Box><img src={val.url} className="card-img" alt="card-img"  key={index} /></Box>
                                 ))
                               }
-                          <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
                         </CardActions>
                         <hr />
                         <Typography component="span">

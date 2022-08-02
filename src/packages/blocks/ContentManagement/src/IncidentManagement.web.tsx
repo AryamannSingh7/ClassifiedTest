@@ -46,6 +46,11 @@ class IncidentManagement extends IncidentManagementController {
   constructor(props: Props) {
     super(props);
   }
+  componentDidMount() {
+    this.getBuildingName();
+   // this.getCommonArea();
+   // this.getIncidentRelated();
+  }
   render() {
     return (
       <>
@@ -80,86 +85,120 @@ class IncidentManagement extends IncidentManagementController {
                     </FormControl>
                   </Box>
                 </Box>
-                <Box className="sorting-header">
-                  <Box className="formGroup customSelect">
-                    <FormControl variant="outlined" >
-                      <Select
-                        name="commonArea"
-                        labelId="demo-simple-select-outlined-label"
-                        id="demo-simple-select-outlined"
-                        // onChange={(e) => {
-                        //   (e.target.value != " ") && setFieldValue("commonArea", e.target.value)
-                        // }}
-                        // value={values.commonArea}
-                        value="1"
-                      >
-                        <MenuItem value="1">
-                          Select Building
-                        </MenuItem>
-                        <MenuItem value="2">
-                          test 2
-                        </MenuItem>
-                        <MenuItem value="3">
-                          test 3
-                        </MenuItem>
-                        {/* {
-                        this.state?.commonAreaData?.map((val, index) => (
-                          <MenuItem
-                            key={index}
-                            value={val?.id}
-                          >
-                            {val?.name}
-                          </MenuItem>
-                        ))
-                      } */}
-                      </Select>
-                      {/* <ErrorMessage className="text-error" component="Typography" name="commonArea" /> */}
-                    </FormControl>
-                  </Box>
-                  <Box className="formGroup customSelect">
-                    <FormControl variant="outlined" >
-                      <Select
-                        name="commonArea"
-                        labelId="demo-simple-select-outlined-label"
-                        id="demo-simple-select-outlined"
-                        value="1"
-                      >
-                        <MenuItem value="1">
-                          Select Unit
-                        </MenuItem>
-                        <MenuItem value="2">
-                          test 2
-                        </MenuItem>
-                        <MenuItem value="3">
-                          test 3
-                        </MenuItem>
-                      </Select>
-                    </FormControl>
-                  </Box>
-                  <Box className="formGroup customSelect">
-                    <FormControl variant="outlined" >
-                      <Select
-                        name="commonArea"
-                        labelId="demo-simple-select-outlined-label"
-                        id="demo-simple-select-outlined"
-                        value="1"
-                      >
-                        <MenuItem value="1">
-                          Select Status
-                        </MenuItem>
-                        <MenuItem value="2">
-                          test 2
-                        </MenuItem>
-                        <MenuItem value="3">
-                          test 3
-                        </MenuItem>
-                      </Select>
-                    </FormControl>
-                  </Box>
-                  <Box className="customButton">
-                    <Button variant="contained" type="submit">Search</Button>
-                  </Box>
-                </Box>
+                <Formik
+                    initialValues={{
+                      buildingName: " ",
+                      unit: " ",
+                      status: " ",
+                    }}
+                    validationSchema={this.searchIncidentSchema()}
+                    validateOnMount={true}
+                    onSubmit={(values) => {
+                      console.log("valus=========>", values)
+                      // localStorage.setItem("incidentPreview", JSON.stringify(values))
+                      // this.setState({ loading: true })
+                      // this.props.history.push("/IncidentPreview")
+                    }}
+                  >
+                    {({ values, touched, errors, isValid, setFieldError, setFieldValue, handleChange }) => (
+                      <Form translate="yes" className="commonForm">
+                          <Box className="sorting-header">
+                          <Box className="formGroup customSelect">
+                            <FormControl variant="outlined" >
+                              <Select
+                                name="buildingName"
+                                labelId="demo-simple-select-outlined-label"
+                                id="demo-simple-select-outlined"
+                                onChange={(e) => {
+                                  (e.target.value != " ") && setFieldValue("buildingName", e.target.value)
+                                 
+                                }}
+                                value={values.buildingName}
+                              >
+                               <MenuItem disabled value=" ">
+                               Select Building
+                              </MenuItem>
+                                {
+                                this.state?.buildingNameData?.map((val, index) => (
+                                  <MenuItem
+                                    key={index}
+                                    value={`${val?.id} ${val?.name}`}
+                                  >
+                                    {val?.name}
+                                  </MenuItem>
+                                ))
+                              }
+                              </Select>
+                              <ErrorMessage className="text-error" component="Typography" name="buildingName" />
+                            </FormControl>
+                          </Box>
+                          <Box className="formGroup customSelect">
+                            <FormControl variant="outlined" >
+                              <Select
+                                name="unit"
+                                labelId="demo-simple-select-outlined-label"
+                                id="demo-simple-select-outlined"
+                                onChange={(e) => {
+                                  (e.target.value != " ") && setFieldValue("unit", e.target.value)
+                                }}
+                                value={values.unit}
+                              >
+                                 {
+                                   values?.buildingName?
+                                   <MenuItem disabled value=" ">
+                                  Select Unit
+                                </MenuItem>
+                                  :
+                                    this.state?.buildingNameData?.map((val, index) => (
+                                      <MenuItem
+                                        key={index}
+                                        value={val?.name}
+                                      >
+                                        {val?.name}
+                                      </MenuItem>
+                                    ))
+                                  
+                                 }
+                              </Select>
+                              <ErrorMessage className="text-error" component="Typography" name="unit" />
+                            </FormControl>
+                          </Box>
+                          <Box className="formGroup customSelect">
+                            <FormControl variant="outlined" >
+                              <Select
+                                name="status"
+                                labelId="demo-simple-select-outlined-label"
+                                id="demo-simple-select-outlined"
+                                onChange={(e) => {
+                                  (e.target.value != " ") && setFieldValue("status", e.target.value)
+                                }}
+                                value={values.status}
+                              >
+                                <MenuItem disabled value=" ">
+                                  Select Status
+                                </MenuItem>
+                                {
+                                this.state?.buildingNameData?.map((val, index) => (
+                                  <MenuItem
+                                    key={index}
+                                    value={val?.name}
+                                  >
+                                    {val?.name}
+                                  </MenuItem>
+                                ))
+                              }
+                              </Select>
+                              <ErrorMessage className="text-error" component="Typography" name="status" />
+                            </FormControl>
+                          </Box>
+                          <Box className="customButton">
+                            <Button variant="contained" type="submit">Search</Button>
+                          </Box>
+                          </Box>
+                      </Form>
+                    )}
+                  </Formik>
+             
                 <Grid container spacing={2} style={{ marginTop: 15, marginBottom: 15 }}>
                   <Grid item sm={4}>
                     <Card className="management-card card">
