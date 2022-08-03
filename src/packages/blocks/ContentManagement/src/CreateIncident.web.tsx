@@ -37,8 +37,10 @@ import {
   Clipboard_Icon,
   Warning_Icon,
   House_Icon,
+  Box_Icon,
   Building1,
-  success
+  Checkmark_Icon,
+  Error_Icon
 } from "../src/assets";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import LockOpenIcon from '@material-ui/icons/LockOpen';
@@ -64,7 +66,7 @@ class CreateIncident extends IncidentController {
                 <Box className="content-header">
                   <Box className="left-block blocks">
                     <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
-                    <h5>Add New Incident</h5>
+                    <h4>Add New Incident</h4>
                   </Box>
                 </Box>
                 <Box className="content-block-wrapper common-incident-block desktop-ui">
@@ -75,20 +77,20 @@ class CreateIncident extends IncidentController {
                       incidentTitle: "",
                       description: "",
                       media: [],
-                      myApartment:" "
+                      myApartment: " "
                     }}
                     validationSchema={this.createIncidentSchema()}
                     validateOnMount={true}
-                    onSubmit={(values) => 
-                        !this.state?.sizeError && !this.state?.notImageOrVideoError ? 
+                    onSubmit={(values) =>
+                      !this.state?.sizeError && !this.state?.notImageOrVideoError ?
                         (
-                         this.onSubmit(values)
+                          this.onSubmit(values)
                         )
                         :
                         (
                           console.log("valus=========>", values)
                         )
-                           
+
                     }
                   >
                     {({ values, touched, errors, isValid, setFieldError, setFieldValue, handleChange }) => (
@@ -97,7 +99,7 @@ class CreateIncident extends IncidentController {
                         <Box className="formGroup customSelect">
                           <FormControl variant="outlined" >
                             <span className="frmLeftIcons">
-                              <img src={House_Icon} className="frm-icons" alt="House Icon" />
+                              <img src={Box_Icon} className="frm-icons" alt="House Icon" />
                             </span>
                             <Select
                               name="myApartment"
@@ -109,7 +111,7 @@ class CreateIncident extends IncidentController {
                               value={values.myApartment}
                             >
                               <MenuItem disabled value=" ">
-                               Select Unit
+                                Select Unit
                               </MenuItem>
                               {
                                 this.state?.myApartmentList?.map((val, index) => (
@@ -233,22 +235,31 @@ class CreateIncident extends IncidentController {
                             />
                           </Button>
                           {this.state?.upload ?
-                          <>
-                             <span className="text-success">
-                             uploaded successful
-                           </span>
-                           {/* <Box><img src={success} className="card-img" alt="card-img"  /></Box> */}
-                           </>
-                           : this.state.notImageOrVideoError ? 
-                           <span className="text-error">
-                            Only image and video are supported.
-                         </span>
-                           :
-                           this.state.sizeError ? 
-                           <span className="text-error">
-                           size is less than 10 mb.
-                        </span>
-                           :null
+                            <>
+                              <Box className="result-disp-row">
+                                <img src={Checkmark_Icon} className="successful-icon" alt="card-img" />
+                                <span className="text-success">
+                                  uploaded successful
+                                </span>
+                              </Box>
+                            </>
+                            : this.state.notImageOrVideoError ?
+                              <Box className="result-disp-row">
+                                <img src={Error_Icon} className="error-icon" alt="card-img" />
+                                <span className="text-error">
+                                  Only image and video are supported.
+                                </span>
+                              </Box>
+                              :
+                              this.state.sizeError ?
+                                <Box className="result-disp-row">
+                                  <img src={Error_Icon} className="error-icon" alt="card-img" />
+                                  <span className="text-error">
+                                    size is less than 10 mb.
+                                  </span>
+                                </Box>
+                                : null
+
                           }
                           {/* <ErrorMessage className="text-error" component="Typography" name="media" /> */}
                         </Box>

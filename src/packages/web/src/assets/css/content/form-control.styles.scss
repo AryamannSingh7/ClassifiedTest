@@ -81,6 +81,26 @@
       margin-bottom: 10px;
     }
     &.customFileupload {
+      & .result-disp-row {
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+        & .successful-icon {
+          height: 25px;
+          width: 25px;
+          object-fit: contain;
+        }
+        & .error-icon {
+          height: 35px;
+          width: 35px;
+          object-fit: contain;
+        }
+        & .text-success
+        {
+          margin-left: 10px;
+          text-transform: capitalize;
+        }
+      }
       & .MuiButtonBase-root {
         width: 100%;
         // padding: 20px;
@@ -124,15 +144,15 @@
       height: 70px !important;
       background-color: $WHITE;
       border: 0;
-      color: #b5b5b5;
+      color: $LIGHT_GRAY_SHADE3;
       outline: 0;
       font-size: 15px;
       padding: 0 20px 0 45px;
-      font-weight: 500;
+      font-weight: 600;
       font-family: $Gotham_Light;
       line-height: 17px;
       &::placeholder {
-        color: #b5b5b5;
+        color: $LIGHT_GRAY_SHADE3;
         font-weight: 500;
         font-family: $Gotham_Light;
       }

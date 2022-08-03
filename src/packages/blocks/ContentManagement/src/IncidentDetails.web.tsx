@@ -42,6 +42,7 @@ import {
   Calender_Icon,
   Info_Icon,
   Clipboard_Icon,
+  Close_Icon
 }
   from "../src/assets";
 class IncidentDetails extends IncidentController {
@@ -59,9 +60,9 @@ class IncidentDetails extends IncidentController {
     const id = this.state?.getIncidentDetails?.id;
     const attributes = this.state?.getIncidentDetails?.attributes;
     let d = new Date(attributes?.reported_on)
-   // const reported_on =`${d.getUTCDate()}-${d.getUTCMonth()}-${d.getUTCFullYear()} ${d.getUTCHours()}${d.getUTCMinutes()}`
- const  reported_on = moment().format(attributes?.reported_on);
-   console.log("reported_on========================>",reported_on)
+    // const reported_on =`${d.getUTCDate()}-${d.getUTCMonth()}-${d.getUTCFullYear()} ${d.getUTCHours()}${d.getUTCMinutes()}`
+    const reported_on = moment(attributes?.reported_on).format("DD-MM-YYYY HH:mm:ss")
+    console.log("reported_on========================>", reported_on)
     return (
       <>
         <Box className="login-wrapper incident-wrapper">
@@ -70,7 +71,7 @@ class IncidentDetails extends IncidentController {
               <Box className="content-block">
                 <Box className="content-header">
                   <Box className="left-block blocks">
-                    <Box display={{ xs: 'flex', md: 'none' }} className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
+                    <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
                     <h4>Incident Title</h4>
                   </Box>
                 </Box>
@@ -84,15 +85,17 @@ class IncidentDetails extends IncidentController {
                               <img src={Info_Icon} className="info-icon" alt="info-icon" />
                             </Box>
                             <Typography component="h4">
-                              Is raised incident<br></br>resolved?
+                              Is your raised incident<br></br>resolved?
                             </Typography>
                             <Typography component="p">
-                              Lorem Ipsum is simply dummy text of the printing and typesetting industry and type setting industry.
+                              Plumber is claiming to have resolved
+                              you incident for ticket id: 1234567890.
+                              Please confirm if it is resolved.
                             </Typography>
                             <Box className="customButton">
                               <Box className="formGroup">
-                                <Button variant="outlined" onClick={()=> this.confirmOrRejectIncident(this.props.history.location.id,"reject")} >reject course</Button>
-                                <Button variant="contained" onClick={()=> this.confirmOrRejectIncident(this.props.history.location.id,"confirm")} >confirm course</Button>
+                                <Button variant="outlined" onClick={() => this.confirmOrRejectIncident(this.props.history.location.id, "reject")} >reject course</Button>
+                                <Button variant="contained" onClick={() => this.confirmOrRejectIncident(this.props.history.location.id, "confirm")} >confirm course</Button>
                               </Box>
                             </Box>
                           </CardContent>
@@ -148,38 +151,37 @@ class IncidentDetails extends IncidentController {
                           Yes {attributes?.acknoledged_by_manager}
                         </Typography>
                         {
-                          this.state?.attattachments ?
-                          <>
-                          <Typography className="title-span" component="span">
-                          Photos
-                        </Typography>
-                        <CardActions className="card-img-row">
-                        {
-                           attributes?.attachments?.map((val, index) => (
-                          <Box className="video-img" onClick={() => { this.setState({ showDialog: true }) }}>
-                            <img src={val.url} className="card-img" alt="card-img"  key={index} /></Box>
-                                ))
-                              }
+                          attributes?.attachments.length !== 0 ?
+                            <>
+                              <Typography className="title-span" component="span">
+                                Photos
+                              </Typography>
+                              <CardActions className="card-img-row">
+                                {
+                                  attributes?.attachments?.map((val, index) => (
+                                    <Box className="video-img" onClick={() => { this.setState({ showDialog: true, image: val }) }}>
+                                      <PlayCircleOutlineIcon className="play-icon" />
+                                      <img src={val} className="card-img" alt="card-img" key={index} />
+                                      <Box className="img-layer"></Box>
+                                    </Box>
+                                  ))
+                                }
 
-                          {/* <Box className="video-img" onClick={() => { this.setState({ showDialog: true }) }}>
-                            <PlayCircleOutlineIcon className="play-icon" />
-
-                            <Box className="img-layer"></Box>
-                          </Box> */}
-                          {/* <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
-                          <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
-                          <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
-                          <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
-                          <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
-                          <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
-                          <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
-                          <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
-                          <Box><img src={Building1} className="card-img" alt="card-img" /></Box> */}
-                        </CardActions> 
-                        <hr />
-                        </>
-                        :
-                        null
+                                {/* <Box className="video-img" onClick={() => { this.setState({ showDialog: true }) }}>
+                                  <PlayCircleOutlineIcon className="play-icon" />
+                                  <img src={Building1} className="card-img" alt="card-img" />
+                                  <Box className="img-layer"></Box>
+                                </Box>
+                                <Box className="video-img" onClick={() => { this.setState({ showDialog: true }) }}>
+                                  <PlayCircleOutlineIcon className="play-icon" />
+                                  <img src={Building1} className="card-img" alt="card-img" />
+                                  <Box className="img-layer"></Box>
+                                </Box> */}
+                              </CardActions>
+                              <hr />
+                            </>
+                            :
+                            null
                         }
                       </CardContent>
                     </Card>
@@ -260,24 +262,20 @@ class IncidentDetails extends IncidentController {
             <Box className="diloag-body">
               <Box className="diloag-header">
                 <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
-                  video1
+                  Image
                 </DialogTitle>
-                <iframe className="incident-dialog-video"
+                <Button onClick={() => { this.setState({ showDialog: false }) }}>
+                  <img src={Close_Icon} className="close-icon" />
+                </Button>
+              </Box>
+              {/* <iframe className="incident-dialog-video"
                   src="https://www.youtube.com/embed/tQG6jYy9xto" title="YouTube video player"
                   frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen></iframe>
-                <img src={Building1} className="incident-dialog-photo" alt="Incident photo" />
+                  allowfullscreen></iframe> */}
+              <Box className="diloag-content">
+                <img src={this.state?.image} className="incident-dialog-photo" alt="Incident photo" />
               </Box>
-              {/* <Box className="dialog-footer desktop-ui">
-                <DialogActions className="customButton">
-                <Button variant="contained" onClick={() => this.setState({ showDialog: false })}>
-                    No, DON'T DELETE
-                  </Button>
-                  <Button onClick={() => this.deleteRequestById()} variant='text'>
-                    YES DELETE
-                  </Button>
-                </DialogActions>
-              </Box> */}
+
             </Box>
           </Dialog>
         </Box>
