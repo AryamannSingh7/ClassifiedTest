@@ -1,6 +1,3 @@
-// @ts-ignore
-// @ts-nocheck
-
 import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
@@ -62,7 +59,7 @@ interface SS {
   id: any;
 }
 
-export default class VeichleListController extends BlockComponent<Props, S, SS> {
+export default class ManagerController extends BlockComponent<Props, S, SS> {
     // Customizable Area Start
   createVehicleApiCallId:string='';
   getVehicleListApiCallId:string='';
@@ -213,7 +210,7 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
         } if (apiRequestCallId === this.getVehicleListApiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
-            this.setState({ allVehcile: responseJson.vehicle.data }, () => console.log(this.state.allVehcile))
+            this.setState({ allVehcile: responseJson.vehicle.data })
           } else {
             //Check Error Response
             this.parseApiErrorResponse(responseJson);
@@ -447,7 +444,7 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
     return validations
   }
 
-  createVehicle = async (values: any) => {
+  createVehicle=async(values:any)=>{
     console.log(values)
     try {
       const header = {
@@ -499,62 +496,7 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
       console.log(error);
     }
 
-  }
-
-  updateVehicle = async (values: any) => {
-    console.log(values)
-    let item = JSON.parse(localStorage.getItem('selectCar'))
-    try {
-      const header = {
-
-        token: localStorage.getItem("userToken")
-      };
-      const formData = new FormData();
-      formData.append("vehicle[owner_name]", values.full_name)
-      formData.append("vehicle[plate_number]", values.plateNumber)
-      formData.append("vehicle[company_name]", values.carManufacturer)
-      formData.append("vehicle[model_number]", values.carModle)
-      formData.append("vehicle[color]", values.color)
-      let blob = await fetch(values.bannerUrl).then(r => r.blob());
-      formData.append(
-        "vehicle[registration_card_copy]",
-        blob
-      );
-      const requestMessage = new Message(
-        getName(MessageEnum.RestAPIRequestMessage)
-      );
-
-      this.createVehicleApiCallId = requestMessage.messageId;
-
-      requestMessage.addData(
-        getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `${configJSON.endPointApiCreateVehicle}/${item.id}`
-      );
-
-      requestMessage.addData(
-        getName(MessageEnum.RestAPIRequestHeaderMessage),
-        JSON.stringify(header)
-      );
-
-      requestMessage.addData(
-        getName(MessageEnum.RestAPIRequestBodyMessage),
-        formData
-      );
-
-      requestMessage.addData(
-        getName(MessageEnum.RestAPIRequestMethodMessage),
-        'PUT'
-      );
-
-      runEngine.sendMessage(requestMessage.id, requestMessage);
-      return true;
-
-    } catch (error) {
-      // this.setState({ loading: false })
-      console.log(error);
-    }
-
-  }
+}
   handleSelectBanner = (
     e: any,
     setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
@@ -618,7 +560,7 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
     localStorage.setItem('selectCar',JSON.stringify(item))
     // @ts-nocheck
     // @ts-ignore
-    this.props.history.push('/viewVehicle')
+    this.props.history.push('/mvv')
 
   }
   getCar(){

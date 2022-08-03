@@ -119,16 +119,23 @@ import PollResponseCompleted from "../../blocks/Polling/src/PollResponseComplete
 import VeichleList from "../../blocks/customform/src/VeichleList.web"
 import NewVeichleList from "../../blocks/customform/src/NewVehicle.web"
 import EditVeichleList from "../../blocks/customform/src/EditVehicle.web"
+import EditRequest from "../../blocks/customform/src/EditRequest.web"
+import NewRequest from "../../blocks/customform/src/NewRequest.web"
+import ManagerList from "../../blocks/customform/src/ManagerList.web"
+
 import ViewVeichle from "../../blocks/customform/src/ViewVehicle.web"
+import ManagerViewVehicle from "../../blocks/customform/src/ManagerViewVehicle.web"
+
 
 import PollDetails from "../../blocks/Polling/src/PollDetails.web"
-
+import PollReport from "../../blocks/Polling/src/PollReport.web"
 import CreateIncident from "../../blocks/ContentManagement/src/CreateIncident.web";
 import IncidentDetails from "../../blocks/ContentManagement/src/IncidentDetails.web";
 import IncidentListing from "../../blocks/ContentManagement/src/IncidentListing.web";
 import IncidentReportedSuccessfully from "../../blocks/ContentManagement/src/IncidentReportedSuccessfully.web";
 import IncidentPreview from "../../blocks/ContentManagement/src/IncidentPreview.web";
 import IncidentManagement from "../../blocks/ContentManagement/src/IncidentManagement.web";
+import IncidentManagementDetail from "../../blocks/ContentManagement/src/IncidentManagementDetail.web";
 
 
 const routeMap = {
@@ -156,6 +163,26 @@ const routeMap = {
   EditVeichleList: {
     component: EditVeichleList,
     path: '/editVehicle',
+    exact: true
+  },
+  EditRequest: {
+    component: EditRequest,
+    path: '/editRequest',
+    exact: true
+  },
+  NewRequest: {
+    component: NewRequest,
+    path: '/NewRequest',
+    exact: true
+  },
+  ManagerList: {
+    component: ManagerList,
+    path: '/mv',
+    exact: true
+  },
+  ManagerViewVehicle: {
+    component: ManagerViewVehicle,
+    path: '/mvv',
     exact: true
   },
   ViewVeichle: {
@@ -252,6 +279,11 @@ const routeMap = {
     path: '/IncidentManagement',
     exact: true
   },
+  IncidentManagementDetail: {
+    component: IncidentManagementDetail,
+    path: '/IncidentManagementDetail',
+    exact: true
+  },
   RolesPermissions2: {
     component: RolesPermissions2,
     path: "/RolesPermissions2"
@@ -343,6 +375,11 @@ const routeMap = {
     path: "/PollDetails"
   },
 
+  PollReport: {
+    component: PollReport,
+    path: "/PollReport"
+  },
+  
   PollResponseCompleted: {
     component: PollResponseCompleted,
     path: "/PollResponseCompleted"

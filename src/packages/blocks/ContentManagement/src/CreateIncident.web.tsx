@@ -37,7 +37,8 @@ import {
   Clipboard_Icon,
   Warning_Icon,
   House_Icon,
-  Building1
+  Building1,
+  success
 } from "../src/assets";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import LockOpenIcon from '@material-ui/icons/LockOpen';
@@ -47,6 +48,7 @@ class CreateIncident extends IncidentController {
     super(props);
   }
   componentDidMount() {
+    this.getMyApartmentList();
     this.getCommonArea();
     this.getIncidentRelated();
   }
@@ -72,20 +74,57 @@ class CreateIncident extends IncidentController {
                       incidentRelated: " ",
                       incidentTitle: "",
                       description: "",
-                      media: []
+                      media: [],
+                      myApartment:" "
                     }}
                     validationSchema={this.createIncidentSchema()}
                     validateOnMount={true}
-                    onSubmit={(values) => {
-                      console.log("valus=========>", values)
-                      localStorage.setItem("incidentPreview", JSON.stringify(values))
-                      this.setState({ loading: true })
-                      this.props.history.push("/IncidentPreview")
-                    }}
+                    onSubmit={(values) => 
+                        !this.state?.sizeError && !this.state?.notImageOrVideoError ? 
+                        (
+                         this.onSubmit(values)
+                        )
+                        :
+                        (
+                          console.log("valus=========>", values)
+                        )
+                           
+                    }
                   >
                     {({ values, touched, errors, isValid, setFieldError, setFieldValue, handleChange }) => (
                       <Form translate="yes" className="commonForm">
                         <h5 className="frm-title incident-preview-title">Incident Details</h5>
+                        <Box className="formGroup customSelect">
+                          <FormControl variant="outlined" >
+                            <span className="frmLeftIcons">
+                              <img src={House_Icon} className="frm-icons" alt="House Icon" />
+                            </span>
+                            <Select
+                              name="myApartment"
+                              labelId="demo-simple-select-outlined-label"
+                              id="demo-simple-select-outlined"
+                              onChange={(e) => {
+                                (e.target.value != " ") && setFieldValue("myApartment", e.target.value)
+                              }}
+                              value={values.myApartment}
+                            >
+                              <MenuItem disabled value=" ">
+                               Select Unit
+                              </MenuItem>
+                              {
+                                this.state?.myApartmentList?.map((val, index) => (
+                                  <MenuItem
+                                    key={index}
+                                    value={val}
+                                  >
+                                    {`${val?.attributes?.building_management} ${val?.attributes?.apartment_name}`}
+                                  </MenuItem>
+                                ))
+                              }
+                            </Select>
+                            <ErrorMessage className="text-error" component="Typography" name="myApartment" />
+                          </FormControl>
+                        </Box>
                         <Box className="formGroup customSelect">
                           <FormControl variant="outlined" >
                             <span className="frmLeftIcons">
@@ -107,7 +146,7 @@ class CreateIncident extends IncidentController {
                                 this.state?.commonAreaData?.map((val, index) => (
                                   <MenuItem
                                     key={index}
-                                    value={val?.id}
+                                    value={val}
                                   >
                                     {val?.name}
                                   </MenuItem>
@@ -158,15 +197,17 @@ class CreateIncident extends IncidentController {
                         <Box className="formGroup textarea">
                           <img src={Clipboard_Icon} className="clipboard-icon" alt="Clipboard_Icon" />
                           <TextareaAutosize
+                            name="description"
                             maxRows={10}
                             aria-label="maximum height"
-                            placeholder="Lorem ipsum dolor"
+                            placeholder="Add Description"
+                            onChange={handleChange}
+                            value={values.description}
                           />
                         </Box>
+                        <ErrorMessage className="text-error" component="Typography" name="description" />
                         {/* <Box className="formGroup">
                           <Field name="description" type="text" placeholder="Add description" className="formInput" />
-                          <span className="frmLeftIcons"><MailOutlineIcon /></span>
-                          <ErrorMessage className="text-error" component="Typography" name="description" />
                         </Box> */}
                         <Box className="formGroup customFileupload">
                           <Button
@@ -191,7 +232,25 @@ class CreateIncident extends IncidentController {
                               }
                             />
                           </Button>
-                          <ErrorMessage className="text-error" component="Typography" name="media" />
+                          {this.state?.upload ?
+                          <>
+                             <span className="text-success">
+                             uploaded successful
+                           </span>
+                           {/* <Box><img src={success} className="card-img" alt="card-img"  /></Box> */}
+                           </>
+                           : this.state.notImageOrVideoError ? 
+                           <span className="text-error">
+                            Only image and video are supported.
+                         </span>
+                           :
+                           this.state.sizeError ? 
+                           <span className="text-error">
+                           size is less than 10 mb.
+                        </span>
+                           :null
+                          }
+                          {/* <ErrorMessage className="text-error" component="Typography" name="media" /> */}
                         </Box>
                         <Box className="customButton">
                           <Button variant="contained" type="submit">preview</Button>

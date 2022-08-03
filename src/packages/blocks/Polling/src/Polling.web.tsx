@@ -106,7 +106,6 @@ class Polling extends PollingController {
                                     className="dialogOption"
                                 >
                                     <img src={pollcreate} alt="pollcreate" className="DialogIcons"/>
-                                    {/* <PersonOutlineIcon className="DialogIcons"/> */}
                                     <p>Create Poll</p> 
                                 </div>
                                 <div 
@@ -117,7 +116,6 @@ class Polling extends PollingController {
                                     className="dialogOption"
                                 >
                                     <img src={surveycreate} alt="surveycreate" className="DialogIcons"/>
-                                    {/* <PersonOutlineIcon className="DialogIcons"/> */}
                                     <p>Create Survey</p> 
                                 </div>
                             </DialogActions>

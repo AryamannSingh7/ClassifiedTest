@@ -107,6 +107,92 @@
     }
   }
   margin-bottom: 25px;
+  &.management-card {
+    margin: 0;
+    &.MuiCard-root {
+      box-shadow: 3px 0px 14px 0px #cccccc5c;
+    }
+    & .MuiCardContent-root:last-child {
+      padding-bottom: 0;
+    }
+    & h4 {
+      margin-top: 10px;
+    }
+    & h5 {
+      margin-bottom: 10px;
+    }
+    & .MuiButton-root {
+      width: auto;
+    }
+    & .card-rows {
+      display: flex;
+      align-items: center;
+      margin: 10px 0;
+      & h5 {
+        padding-left: 10px;
+        margin-bottom: 10px;
+      }
+    }
+  }
+  &.incident-detail-card {
+    & .MuiCardContent-root {
+      padding: 0;
+    }
+    &.MuiCard-root {
+      padding: 0 !important;
+      padding-bottom: 15px !important;
+    }
+    & .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #e6e6e6;
+      padding-bottom: 15px;
+      padding: 15px;
+    }
+    & .MuiOutlinedInput-input {
+      padding: 10px 60px 10px 14px;
+    }
+    & .customSelect {
+      margin-right: 10px;
+      margin-bottom: 0;
+      & .MuiOutlinedInput-root {
+        padding-left: 0;
+        background-color: #fde8e7;
+      }
+      & .MuiInputBase-input {
+        color: $WARNING_SHADE1;
+        font-weight: bold;
+      }
+      & .MuiSelect-icon {
+        color: $WARNING_SHADE1;
+      }
+    }
+    & .customButton {
+      & .MuiButton-root {
+        padding: 5px 15px;
+      }
+    }
+    & .card-content {
+      padding: 20px 20px 0 20px;
+      display: flex;
+      flex-direction: column;
+    }
+    & .row-block {
+      display: flex;
+      flex-direction: column;
+    }
+    & .card-rows {
+      display: flex;
+      margin: 10px 0;
+      & h4 {
+        padding-left: 20px;
+      }
+    }
+    & .photos-row {
+      display: flex;
+    }
+  }
   &.reporting-card {
     & .reporting-row {
       display: flex;

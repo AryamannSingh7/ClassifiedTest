@@ -66,7 +66,7 @@ class EditVeichleList extends VeichleListController {
                   }}
                     validationSchema={this.addVehicleSchema()}
                     validateOnMount={true}
-                    onSubmit={(values) => { this.createVehicle(values) }}
+                    onSubmit={(values) => { this.updateVehicle(values) }}
                   >
                     {({ values,
                       errors,

@@ -15,29 +15,23 @@ import {
 } from "@material-ui/core";
 
 //resources
-import { Tenant_Logo, Delete_Icon, Bank_Icon, Building_Logo, Landing_Banner, Building1 } from "../src/assets";
+import { Building1, CarFront, Delete_Icon, Landing_Banner, request } from "./assets";
 import { withRouter } from 'react-router';
 import { Formik, Form, Field } from "formik";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
-import EmailAccountLoginController, {
-  Props
-} from "./EmailAccountLoginController.web";
 import Loader from "../../../components/src/Loader.web";
-class RegistrationRequest extends EmailAccountLoginController {
+import VeichleListController from "./VeichleListController.web";
+class NewRequest extends VeichleListController {
   constructor(props: Props) {
     super(props);
   }
-  async componentDidMount() {
-    // Customizable Area Start
-    this.getRegistrationRequest();
-    // Customizable Area End
-  }
+
 
   render() {
     console.log("getRegistrationRequest===================>", this.state?.registrationRequest?.attributes);
-    const building_name = this.state?.registrationRequest?.attributes?.building_management?.name;
-    const apartment_name = this.state?.registrationRequest?.attributes?.apartment_management?.apartment_name;
+    const building_name = this.state?.registrationRequest?.attributes?.building_name;
+    const apartment_name = this.state?.registrationRequest?.attributes?.apartment_name;
     //console.log("getRegistrationRequest===================>",building_name ,apartment_name);
     return (
       <>
@@ -48,36 +42,40 @@ class RegistrationRequest extends EmailAccountLoginController {
               <Box className="content-block">
                 <Box className="logo-block common-top-padding" display={{ xs: 'none', md: 'flex' }}>
                   <Link href="/EmailAccountLogin">
-                    <img src={Building_Logo} className="head-logo" alt="" />
+                    {/* <img src={Building_Logo} className="head-logo" alt="" /> */}
                     <h4>Building Name</h4>
                   </Link>
                 </Box>
                 <Box className="main-content-block">
                   <Box className="reg-content-block">
                     <Box className="header-block chairmanHeaderBlock">
-                      <img src={Tenant_Logo} className="tenant-logo" alt="Tenant Logo" />
-                      <h1>Regestration Request<br></br>Under process</h1>
-                      <h6>Your regestration request for {apartment_name} of<br></br>{building_name} is sent and under<br></br>process.You will receive notification<br></br>once it it processed.</h6>
+                      {/* <img src={Tenant_Logo} className="tenant-logo" alt="Tenant Logo" /> */}
+                      <img src={CarFront} className="bank-logo" alt="Tenant Logo" />
+                      <h1>Vehicle Request
+                        Added</h1>
+                      <h6>Your new vehicle request added successfully.
+                        Request has been sent to the building/complex manager for approval. You will be notified when your request is approved</h6>
                     </Box>
-                    <Box className="reg-block">
+                    {/* <Box className="reg-block">
+
                       <Box className="reg-row">
-                        <img src={Bank_Icon} className="bank-logo" alt="Tenant Logo" />
+                        <img src={request} className="bank-logo" alt="Tenant Logo" />
                         <Box className="reg-right-block">
                           <h5>{apartment_name}</h5>
                           <h6>{building_name}</h6>
                         </Box>
                       </Box>
-                    </Box>
+                    </Box> */}
                   </Box>
                 </Box>
                 <Box className="footer-block">
                   <Box className="row-btn customButton desktop-ui">
-                    <Button variant="contained" onClick={() => { this.setState({ showDialog: true }) }}>
-                      Delete Registration REQUEST
+                    <Button variant="contained" onClick={() => this.props.history.push('/')}>
+                      Okay
                     </Button>
-                    <Button onClick={() => this.clear()} variant='text'>
+                    {/* <Button onClick={() => this.clear()} variant='text'>
                       LOGOUT
-                    </Button>
+                    </Button> */}
                   </Box>
                 </Box>
               </Box>
@@ -94,7 +92,7 @@ class RegistrationRequest extends EmailAccountLoginController {
             <h6>You have successfully changed your<br></br>password. Please use your new password when<br></br>logging in.</h6>
           </Box> */}
 
-          <Dialog
+          {/* <Dialog
             open={this.state.showDialog}
             onClose={() => this.setState({ showDialog: false })}
             aria-labelledby="alert-dialog-title"
@@ -125,14 +123,53 @@ class RegistrationRequest extends EmailAccountLoginController {
                 </DialogActions>
               </Box>
             </Box>
-          </Dialog>
+          </Dialog> */}
         </Box>
 
+        {/* <Box className="login-wrapper auth-wrapper">
+          <Grid container spacing={2} className="auth-container">
+            <Grid item xs={12} md={7} className="auth-cols">
+              <Box className="content-block">
+                <Box display={{ xs: 'flex', md: 'none' }} className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
+                <Box className="logo-block common-top-padding" display={{ xs: 'none', md: 'flex' }}>
+                  <Link href="/EmailAccountLogin">
+                    <img src={Building_Logo} className="head-logo" alt="" />
+                    <h4>Building Name</h4>
+                  </Link>
+                </Box>
+                <Box className="main-content-block desktop-ui">
+                  <Box className="header-block header-block-changepassword">
+                    <Box display={{ xs: 'flex', md: 'none' }}>
+                      <Link href="/EmailAccountLogin">
+                        <img src={Tenant_Logo} className="tenant-logo" alt="" />
+                      </Link>
+                    </Box>
+                    <img src={Lock_Icon} className="lock-logo" alt="Lock_Icon" />
+                    <h1>Password Changed<br></br>Successfully!</h1>
+                    <h6>You have successfully changed your<br></br>password. Please use your new password when<br></br>logging in.</h6>
+                  </Box>
+                </Box>
+                <Box className="desktop-ui">
+
+                </Box>
+                <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>
+                  <h6 className="bottom-text">POWERED BY</h6>
+                  <img src={Tenant_Logo} className="tenant-logo" alt="" />
+                </Box>
+              </Box>
+            </Grid>
+            <Grid item xs={12} md={5} className="auth-cols">
+              <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
+                <img src={Building1} className="building-logo" alt="" />
+              </Box>
+            </Grid>
+          </Grid>
+        </Box> */}
         < Loader loading={this.state.loading} />
       </>
     );
   }
 }
-export default withRouter(RegistrationRequest)
+export default withRouter(NewRequest)
 
 // Customizable Area End
