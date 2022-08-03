@@ -37,6 +37,7 @@ import {
   Clipboard_Icon,
   Warning_Icon,
   House_Icon,
+  Box_Icon,
   Building1,
   success
 } from "../src/assets";
@@ -97,7 +98,7 @@ class CreateIncident extends IncidentController {
                         <Box className="formGroup customSelect">
                           <FormControl variant="outlined" >
                             <span className="frmLeftIcons">
-                              <img src={House_Icon} className="frm-icons" alt="House Icon" />
+                              <img src={Box_Icon} className="frm-icons" alt="House Icon" />
                             </span>
                             <Select
                               name="myApartment"

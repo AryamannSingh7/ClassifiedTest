@@ -84,10 +84,12 @@ class IncidentDetails extends IncidentController {
                               <img src={Info_Icon} className="info-icon" alt="info-icon" />
                             </Box>
                             <Typography component="h4">
-                              Is raised incident<br></br>resolved?
+                              Is your raised incident<br></br>resolved?
                             </Typography>
                             <Typography component="p">
-                              Lorem Ipsum is simply dummy text of the printing and typesetting industry and type setting industry.
+                              Plumber is claiming to have resolved
+                              you incident for ticket id: 1234567890.
+                              Please confirm if it is resolved.
                             </Typography>
                             <Box className="customButton">
                               <Box className="formGroup">
@@ -157,24 +159,21 @@ class IncidentDetails extends IncidentController {
                                 {
                                   attributes?.attachments?.map((val, index) => (
                                     <Box className="video-img" onClick={() => { this.setState({ showDialog: true }) }}>
-                                      <img src={val.url} className="card-img" alt="card-img" key={index} /></Box>
+                                      <img src={val.url} className="card-img" alt="card-img" key={index} />
+                                    </Box>
                                   ))
                                 }
 
-                                {/* <Box className="video-img" onClick={() => { this.setState({ showDialog: true }) }}>
-                            <PlayCircleOutlineIcon className="play-icon" />
-
-                            <Box className="img-layer"></Box>
-                          </Box> */}
-                                <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
-                                <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
-                                <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
-                                <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
-                                <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
-                                <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
-                                <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
-                                <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
-                                <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
+                                <Box className="video-img" onClick={() => { this.setState({ showDialog: true }) }}>
+                                  <PlayCircleOutlineIcon className="play-icon" />
+                                  <img src={Building1} className="card-img" alt="card-img" />
+                                  <Box className="img-layer"></Box>
+                                </Box>
+                                <Box className="video-img" onClick={() => { this.setState({ showDialog: true }) }}>
+                                  <PlayCircleOutlineIcon className="play-icon" />
+                                  <img src={Building1} className="card-img" alt="card-img" />
+                                  <Box className="img-layer"></Box>
+                                </Box>
                               </CardActions>
                               <hr />
                             </>

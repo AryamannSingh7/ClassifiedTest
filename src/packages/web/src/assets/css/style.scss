@@ -38,7 +38,6 @@ h1 {
   // font-weight: 600;
   font-family: $Gotham_Medium;
   padding-right: 10px;
-
   @include mq(tablet-portrait-large-up) {
     font-size: 24px;
   }
@@ -46,9 +45,15 @@ h1 {
 
 h2 {
   font-size: 26px;
-
   @include mq(tablet-portrait-large-up) {
     font-size: 25px;
+  }
+}
+
+h3 {
+  font-size: 24px;
+  @include mq(tablet-portrait-large-up) {
+    font-size: 20px;
   }
 }
 

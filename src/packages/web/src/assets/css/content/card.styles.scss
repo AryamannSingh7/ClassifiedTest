@@ -241,11 +241,23 @@
           object-fit: contain;
         }
       }
-      & h4 {
-        margin: 10px 0;
+      & h3
+      {
+        &.MuiTypography-body1 {
+          margin: 10px 0;
+          font-size: 24px;
+          @include mq(tablet-portrait-large-up) {
+            font-size: 20px;
+          }
+        }
       }
       & p {
         font-size: 14px;
+        font-weight: 600;
+        @include mq(tablet-portrait-medium-up) {
+          width: 70%;
+          margin: 0 auto;
+        }
       }
       & .customButton {
         & .formGroup {
