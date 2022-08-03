@@ -75,10 +75,10 @@ class ViewVeichle extends VeichleListController {
                       <img src={Building1} />
                       <div className="content">
                         <p className="title">
-                          Dubai 60833
+                          {item.attributes.company_name}
                         </p>
                         <p className="sub-title">
-                          Bentley SUV WHite
+                          {item.attributes.model_number}
                         </p>
                       </div>
                     </div>
