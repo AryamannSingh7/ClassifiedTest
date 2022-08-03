@@ -45,14 +45,14 @@ class VeichleList extends VeichleListController {
           <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset' }}>
             <div style={{ margin: 'auto' }}>
 
-              <Grid container className="main-content-block">
+              <Grid container>
                 <Grid xs={12}>
                   <ArrowBackIcon onClick={() => window.history.back()} />
                 </Grid>
               </Grid>
 
               {
-                this.state.allVehcile.length>=0 ?
+                this.state.allVehcile.length>0 ?
                 <>
                     <Grid container>
                       {

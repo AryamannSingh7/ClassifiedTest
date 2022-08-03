@@ -11,11 +11,11 @@ import { withRouter } from 'react-router';
 
 
 class OwnerDashboard extends  React.Component {
-  
+
   render() {
     return (
         <>
-    
+
         <Grid container style={{ margin: '1rem', width: '90%' }}>
           <Grid xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
             <ArrowBackIcon onClick={() => window.history.back()} />
@@ -26,6 +26,10 @@ class OwnerDashboard extends  React.Component {
             <Grid style={{textAlign: "center", marginTop: "50%"}}>
                 <h1>Owner Dashboard</h1>
                 <h3>Comming Soon</h3>
+
+            <Button variant="contained" onClick={()=>this.props.history.push('/veichleList')} >
+              Vehicle
+            </Button>
             </Grid>
         </Box>
 
