@@ -133,13 +133,17 @@ class SubmitPoll extends PollingController {
               <Grid container spacing={2}  key={data.id}
               style={{ marginLeft: '1rem',marginTop:'1.5rem', width: '90%', alignItems:'baseline'}}>
                 <Grid xs={1}>
-                    <input type="radio" 
+                    <input type="radio" id={data.id} 
                       name="options" value={data.id} 
                       // checked={this.state.pollOptionAnswer}
                       onChange={(e) => this.getPollSelectedAnswer(e.target.value)}
                     />
                 </Grid>
                 <Grid xs={11}>
+                    <label 
+                      className="para" 
+                      for={data.id}
+                    >
                     <Box
                         style={{
                             backgroundColor: "#2B6FEC",
@@ -151,10 +155,10 @@ class SubmitPoll extends PollingController {
                             fontSize: '1rem',
                             padding: '1rem'
                         }}
-                        >
-                        {data.text}
+                        >  
+                          {data.text}
                     </Box>
-    
+                  </label>
                 </Grid>
               </Grid>
   
