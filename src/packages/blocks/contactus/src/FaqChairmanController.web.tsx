@@ -32,7 +32,20 @@ interface S {
   faqList: any[];
   catagoriesList: any[];
 
-  selectedCategory: string;
+  selectedCategoryId: string;
+  selectedCategoryName: string;
+
+  categoryName: string;
+
+  selectedFaqId: string;
+
+  editCategoryId: string;
+  editQuestion: string;
+  editAnswer: string;
+
+  createCategoryId: string;
+  createQuestion: string;
+  createAnswer: string;
   // Customizable Area End
 }
 
@@ -45,6 +58,13 @@ export default class FaqChairmanController extends BlockComponent<
   S,
   SS
 > {
+  FaqCategoryCallId: any;
+  CreateFaqCategoryCallId: any;
+  DeleteFaqCategoryCallId: any;
+  EditFaqCallId: any;
+  DeleteFaqCallId: any;
+  CreateFaqCallId: any;
+
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
@@ -67,7 +87,20 @@ export default class FaqChairmanController extends BlockComponent<
       faqList: [],
       catagoriesList: [],
 
-      selectedCategory: "",
+      selectedCategoryId: "",
+      selectedCategoryName: "",
+
+      categoryName: "",
+
+      selectedFaqId: "",
+
+      editCategoryId: "",
+      editQuestion: "",
+      editAnswer: "",
+
+      createCategoryId: "",
+      createQuestion: "",
+      createAnswer: "",
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -75,11 +108,448 @@ export default class FaqChairmanController extends BlockComponent<
 
   async receive(from: string, message: Message) {
     // Customizable Area Start
+    // Get FAQ Category
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.FaqCategoryCallId !== null &&
+      this.FaqCategoryCallId ===
+        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.FaqCategoryCallId = null;
+
+      var responseJson = message.getData(
+        getName(MessageEnum.RestAPIResponceSuccessMessage)
+      );
+
+      if (responseJson.data) {
+        this.setState({
+          ...this.state,
+          catagoriesList: responseJson.data,
+          selectedCategoryId:
+            responseJson.data.length > 0 ? responseJson.data[0].id : "",
+          selectedCategoryName:
+            responseJson.data.length > 0
+              ? responseJson.data[0].attributes.name
+              : "",
+          faqList:
+            responseJson.data.length > 0
+              ? responseJson.data[0].attributes.FAQ
+              : [],
+        });
+      }
+
+      var errorReponse = message.getData(
+        getName(MessageEnum.RestAPIResponceErrorMessage)
+      );
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        this.parseApiErrorResponse(responseJson);
+      }
+      this.parseApiCatchErrorResponse(errorReponse);
+    }
+
+    // Create Category
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.CreateFaqCategoryCallId !== null &&
+      this.CreateFaqCategoryCallId ===
+        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.CreateFaqCategoryCallId = null;
+
+      var responseJson = message.getData(
+        getName(MessageEnum.RestAPIResponceSuccessMessage)
+      );
+
+      console.log(responseJson.data);
+
+      if (responseJson.data) {
+      }
+
+      var errorReponse = message.getData(
+        getName(MessageEnum.RestAPIResponceErrorMessage)
+      );
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        this.parseApiErrorResponse(responseJson);
+      }
+      this.parseApiCatchErrorResponse(errorReponse);
+    }
+
+    // Delete Category
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.DeleteFaqCategoryCallId !== null &&
+      this.DeleteFaqCategoryCallId ===
+        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.DeleteFaqCategoryCallId = null;
+
+      var responseJson = message.getData(
+        getName(MessageEnum.RestAPIResponceSuccessMessage)
+      );
+
+      console.log(responseJson.data);
+
+      if (responseJson.data) {
+      }
+
+      var errorReponse = message.getData(
+        getName(MessageEnum.RestAPIResponceErrorMessage)
+      );
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        this.parseApiErrorResponse(responseJson);
+      }
+      this.parseApiCatchErrorResponse(errorReponse);
+    }
+
+    // Edit Faq
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.EditFaqCallId !== null &&
+      this.EditFaqCallId ===
+        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.EditFaqCallId = null;
+
+      var responseJson = message.getData(
+        getName(MessageEnum.RestAPIResponceSuccessMessage)
+      );
+
+      console.log(responseJson.data);
+
+      if (responseJson.data) {
+      }
+
+      var errorReponse = message.getData(
+        getName(MessageEnum.RestAPIResponceErrorMessage)
+      );
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        this.parseApiErrorResponse(responseJson);
+      }
+      this.parseApiCatchErrorResponse(errorReponse);
+    }
+
+    // Delete Faq
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.DeleteFaqCallId !== null &&
+      this.DeleteFaqCallId ===
+        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.DeleteFaqCallId = null;
+
+      var responseJson = message.getData(
+        getName(MessageEnum.RestAPIResponceSuccessMessage)
+      );
+
+      console.log(responseJson.data);
+
+      if (responseJson.data) {
+      }
+
+      var errorReponse = message.getData(
+        getName(MessageEnum.RestAPIResponceErrorMessage)
+      );
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        this.parseApiErrorResponse(responseJson);
+      }
+      this.parseApiCatchErrorResponse(errorReponse);
+    }
+
+    // Create Faq
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.CreateFaqCallId !== null &&
+      this.CreateFaqCallId ===
+        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.CreateFaqCallId = null;
+
+      var responseJson = message.getData(
+        getName(MessageEnum.RestAPIResponceSuccessMessage)
+      );
+
+      console.log(responseJson.data);
+
+      if (responseJson.data) {
+      }
+
+      var errorReponse = message.getData(
+        getName(MessageEnum.RestAPIResponceErrorMessage)
+      );
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        this.parseApiErrorResponse(responseJson);
+      }
+      this.parseApiCatchErrorResponse(errorReponse);
+    }
+
     // Customizable Area End
   }
 
   // Customizable Area Start
-  async componentDidMount(): Promise<void> {}
+  async componentDidMount(): Promise<void> {
+    this.getFaqCategory();
+  }
+
+  // Get FAQ Category API
+  getFaqCategory = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.FaqCategoryCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      configJSON.FaqCategoryAPIEndPoint
+    );
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.apiMethodTypeGet
+    );
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  // Create FAQ Category API
+  createCategory = () => {
+    const body = {
+      data: {
+        attributes: {
+          name: this.state.categoryName,
+          society_id: localStorage.getItem("society_id"),
+        },
+      },
+    };
+
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.CreateFaqCategoryCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      configJSON.CreateFaqCategoryAPIEndPoint
+    );
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIRequestBodyMessage),
+      JSON.stringify(body)
+    );
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.apiMethodTypePost
+    );
+
+    // runEngine.sendMessage(apiRequest.id, apiRequest);
+    // return true;
+  };
+
+  // Delete FAQ Category API
+  deleteCategory = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.DeleteFaqCategoryCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `${configJSON.DeleteFaqCategoryAPIEndPoint}/${
+        this.state.selectedCategoryId
+      }`
+    );
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.apiMethodTypeDelete
+    );
+
+    // runEngine.sendMessage(apiRequest.id, apiRequest);
+    // return true;
+  };
+
+  // Edit FAQ API
+  editFaq = () => {
+    const body = {
+      data: {
+        attributes: {
+          title: this.state.editQuestion,
+          content: this.state.editAnswer,
+          interactive_faq_category_id: this.state.editCategoryId,
+        },
+      },
+    };
+
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.EditFaqCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `${configJSON.EditFaqAPIEndPoint}/${this.state.selectedFaqId}`
+    );
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.apiMethodTypePut
+    );
+
+    // runEngine.sendMessage(apiRequest.id, apiRequest);
+    // return true;
+  };
+
+  // Delete FAQ API
+  deleteFaq = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.DeleteFaqCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `${configJSON.DeleteFaqAPIEndPoint}/${this.state.selectedFaqId}`
+    );
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.apiMethodTypeDelete
+    );
+
+    // runEngine.sendMessage(apiRequest.id, apiRequest);
+    // return true;
+  };
+
+  // Create FAQ API
+  createFaq = () => {
+    const body = {
+      data: {
+        attributes: {
+          title: this.state.createQuestion,
+          content: this.state.createAnswer,
+          interactive_faq_category_id: this.state.createCategoryId,
+        },
+      },
+    };
+
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.CreateFaqCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      configJSON.CreateFaqAPIEndPoint
+    );
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIRequestBodyMessage),
+      JSON.stringify(body)
+    );
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.apiMethodTypePost
+    );
+
+    // runEngine.sendMessage(apiRequest.id, apiRequest);
+    // return true;
+  };
+
+  // State Handle Function
+  selectEditFaq = (faq: any) => {
+    this.setState(
+      {
+        ...this.state,
+        selectedFaqId: faq.id,
+        editCategoryId: faq.interactive_faq_category_id,
+        editQuestion: faq.title,
+        editAnswer: faq.content,
+      },
+      () => {
+        this.handleEditQuestionModal();
+      }
+    );
+  };
+
+  selectDeleteFaq = (faq: any) => {
+    this.setState(
+      {
+        ...this.state,
+        selectedFaqId: faq.id,
+      },
+      () => {
+        this.handleDeleteQuestionModal();
+      }
+    );
+  };
 
   handleChange = (panel: string) => () => {
     this.setState({

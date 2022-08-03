@@ -139,6 +139,9 @@ export const FaqChairmanStyleWeb: any = {
     "& .faq-box .MuiAccordionSummary-root.Mui-expanded": {
       minHeight: "70px",
     },
+    "& .faq-box .MuiAccordionSummary-content p": {
+      fontWeight: "600",
+    },
     "& .faq-box .MuiAccordionSummary-root": {
       minHeight: "70px",
     },
@@ -182,6 +185,7 @@ export const FaqChairmanStyleWeb: any = {
       alignItems: "center",
       flexDirection: "column",
       borderRadius: "5px",
+      marginTop: "30px",
     },
   },
   faqOwner: {
