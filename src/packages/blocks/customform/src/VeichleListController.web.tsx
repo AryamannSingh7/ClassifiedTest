@@ -65,6 +65,7 @@ interface SS {
 export default class VeichleListController extends BlockComponent<Props, S, SS> {
     // Customizable Area Start
   createVehicleApiCallId:string='';
+  updateVehicleApiCallId: string = '';
   getVehicleListApiCallId:string='';
   deleteVehicleAPICallId:string='';
       // Customizable Area End
@@ -226,8 +227,22 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
             console.log(responseJson)
             //@ts-ignore
             //@ts-nocheck
-            this.props.history.push('/veichleList')
             localStorage.removeItem('selectCar')
+            this.props.history.push('/veichleList')
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        }
+        if (apiRequestCallId === this.updateVehicleApiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            //@ts-ignore
+            //@ts-nocheck
+            localStorage.removeItem('selectCar')
+            this.props.history.push('/editRequest')
           } else {
             //Check Error Response
             this.parseApiErrorResponse(responseJson);
@@ -459,11 +474,11 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
       formData.append("vehicle[plate_number]", values.plateNumber)
       formData.append("vehicle[company_name]", values.carManufacturer)
       formData.append("vehicle[model_number]", values.carModle)
-      formData.append("vehicle[color]", values.color)
+      formData.append("vehicle[color]", values.carColor)
       let blob = await fetch(values.bannerUrl).then(r => r.blob());
       formData.append(
         "vehicle[registration_card_copy]",
-        values.banner
+        blob
       );
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
@@ -514,7 +529,7 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
       formData.append("vehicle[plate_number]", values.plateNumber)
       formData.append("vehicle[company_name]", values.carManufacturer)
       formData.append("vehicle[model_number]", values.carModle)
-      formData.append("vehicle[color]", values.color)
+      formData.append("vehicle[color]", values.carColor)
       let blob = await fetch(values.bannerUrl).then(r => r.blob());
       formData.append(
         "vehicle[registration_card_copy]",
@@ -524,7 +539,7 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
         getName(MessageEnum.RestAPIRequestMessage)
       );
 
-      this.createVehicleApiCallId = requestMessage.messageId;
+      this.updateVehicleApiCallId = requestMessage.messageId;
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
@@ -631,7 +646,7 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
   }
   checkVehicle(){
     console.log(this.state.allVehcile.length)
-if(this.state.allVehcile.length<3){
+if(this.state.allVehcile.length<2){
 // @ts-nocheck
     // @ts-ignore
   this.props.history.push("/newVeichleList")

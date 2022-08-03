@@ -51,8 +51,9 @@ class EditRequest extends VeichleListController {
                     <Box className="header-block chairmanHeaderBlock">
                       {/* <img src={Tenant_Logo} className="tenant-logo" alt="Tenant Logo" /> */}
                       <img src={Tick} className="bank-logo" alt="Tenant Logo" />
-                      <h1>Registration Request Sent</h1>
-                      <h6>Your registration request sent to the management of the selected building. You will be notified and given access to the platform once approved.</h6>
+                      <h1>Edited Details
+                        Request Sent</h1>
+                      <h6>Your edited details request has been sent to manager for review. Thank You!</h6>
                     </Box>
                     {/* <Box className="reg-block">
 
@@ -68,7 +69,7 @@ class EditRequest extends VeichleListController {
                 </Box>
                 <Box className="footer-block">
                   <Box className="row-btn customButton desktop-ui">
-                    <Button variant="contained" onClick={() => this.props.history.push('/')}>
+                    <Button variant="contained" onClick={() => this.props.history.push('/VeichleList')}>
                       Okay
                     </Button>
                     {/* <Button onClick={() => this.clear()} variant='text'>
