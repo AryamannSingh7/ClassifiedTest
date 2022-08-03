@@ -11,12 +11,17 @@ import {
   Card,
   CardContent,
   CardActions,
-  TextareaAutosize
+  TextareaAutosize,
+  Dialog,
+  DialogActions,
+  DialogTitle,
 } from "@material-ui/core";
 
 //resources
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
+import SmartDisplayIcon from '@material-ui/icons/SmartDisplay';
+import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 
 import { Formik, Form, Field } from "formik";
 import { withRouter } from 'react-router';
@@ -36,7 +41,7 @@ import {
   User_Icon,
   Calender_Icon,
   Info_Icon,
-  Clipboard_Icon
+  Clipboard_Icon,
 }
   from "../src/assets";
 
@@ -91,7 +96,6 @@ class IncidentDetails extends IncidentController {
                         </Card> :
                         null
                     }
-
                     <Box className="incident-rows">
                       <h4>Incident Details</h4>
                       {/* <Box className="customButton">
@@ -108,19 +112,19 @@ class IncidentDetails extends IncidentController {
                           Affected Area:
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                          Own Apartment
+                        {attributes?.common_area?.name}
                         </Typography>
                         <Typography className="title-span" component="span">
                           Incident is related to::
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                          Plumbing {attributes?.incident_related?.name}
+                        {attributes?.incident_related?.name}
                         </Typography>
                         <Typography className="title-span" component="span">
                           Incident Number:
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                          123765 {id}
+                         {id}
                         </Typography>
                         <Typography className="title-span" component="span">
                           Expected Resolution Date:
@@ -144,6 +148,12 @@ class IncidentDetails extends IncidentController {
                           Photos
                         </Typography>
                         <CardActions className="card-img-row">
+                          <Box className="video-img" onClick={() => { this.setState({ showDialog: true }) }}>
+                            <PlayCircleOutlineIcon className="play-icon" />
+                           
+                            <Box className="img-layer"></Box>
+                            <img src={Building1} className="card-img" alt="card-img" />
+                          </Box>
                           <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
                           <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
                           <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
@@ -166,14 +176,14 @@ class IncidentDetails extends IncidentController {
                           <img src={User_Icon} className="icons" alt="" />
                           <Box className="reporting-right-block">
                             <h5>Reported By:</h5>
-                            <h4 className="title">Mr. Ali Khan {attributes?.reported_by?.full_name}</h4>
+                            <h4 className="title">{attributes?.reported_by?.full_name}</h4>
                           </Box>
                         </Box>
                         <Box className="reporting-row">
                           <img src={Calender_Icon} className="icons" alt="" />
                           <Box className="reporting-right-block">
                             <h5>Reported On:</h5>
-                            <h4 className="title">Mr. Ali Khan{attributes?.reported_on}</h4>
+                            <h4 className="title">{attributes?.reported_on}</h4>
                           </Box>
                         </Box>
                         {attributes?.resolved_on ?
@@ -194,9 +204,9 @@ class IncidentDetails extends IncidentController {
                         <TextareaAutosize
                           maxRows={10}
                           aria-label="maximum height"
-                          placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
-                          // defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+                         // defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
                           disabled
+                          value={attributes?.description}
                         />
                       </Box>
                     </Box>
@@ -219,6 +229,38 @@ class IncidentDetails extends IncidentController {
               </Box>
             </Grid>
           </Grid>
+          <Dialog
+            open={this.state.showDialog}
+            onClose={() => this.setState({ showDialog: false })}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+            className="diloag-wrapper"
+            PaperProps={{
+              style: {
+                borderRadius: '15px',
+              },
+            }}
+          >
+            <Box className="diloag-body">
+              <Box className="diloag-header">
+                <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
+                  video1
+                </DialogTitle>
+                <iframe width="560" height="315"
+                  src="https://www.youtube.com/embed/tQG6jYy9xto" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </Box>
+              {/* <Box className="dialog-footer desktop-ui">
+                <DialogActions className="customButton">
+                <Button variant="contained" onClick={() => this.setState({ showDialog: false })}>
+                    No, DON'T DELETE
+                  </Button>
+                  <Button onClick={() => this.deleteRequestById()} variant='text'>
+                    YES DELETE
+                  </Button>
+                </DialogActions>
+              </Box> */}
+            </Box>
+          </Dialog>
         </Box>
         <Loader loading={this.state.loading} />
       </>

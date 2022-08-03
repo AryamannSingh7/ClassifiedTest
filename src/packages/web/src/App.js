@@ -135,6 +135,7 @@ import IncidentListing from "../../blocks/ContentManagement/src/IncidentListing.
 import IncidentReportedSuccessfully from "../../blocks/ContentManagement/src/IncidentReportedSuccessfully.web";
 import IncidentPreview from "../../blocks/ContentManagement/src/IncidentPreview.web";
 import IncidentManagement from "../../blocks/ContentManagement/src/IncidentManagement.web";
+import IncidentManagementDetail from "../../blocks/ContentManagement/src/IncidentManagementDetail.web";
 
 
 const routeMap = {
@@ -276,6 +277,11 @@ const routeMap = {
   IncidentManagement: {
     component: IncidentManagement,
     path: '/IncidentManagement',
+    exact: true
+  },
+  IncidentManagementDetail: {
+    component: IncidentManagementDetail,
+    path: '/IncidentManagementDetail',
     exact: true
   },
   RolesPermissions2: {
