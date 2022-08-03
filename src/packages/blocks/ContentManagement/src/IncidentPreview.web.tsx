@@ -60,14 +60,14 @@ class IncidentPreview extends IncidentController {
                     <Box display={{ xs: 'flex', md: 'none' }} className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
                     <h4>Incident Preview</h4>
                   </Box>
-                  <Box className="incident-right-block blocks">
+                  {/* <Box className="incident-right-block blocks">
                     <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
                       <Button>
                         <img src={Grid_Icon} className="grid-icon icons" alt="" />
                       </Button>
                     </Box>
                     <Button><img src={Filter_Icon} className="filter-icon icons" alt="" /></Button>
-                  </Box>
+                  </Box> */}
                 </Box>
                 <Box className="content-block-wrapper common-incident-block">
                   <Box className="incident-content-wrapper">
