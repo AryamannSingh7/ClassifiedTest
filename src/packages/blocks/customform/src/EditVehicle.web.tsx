@@ -43,9 +43,13 @@ class EditVeichleList extends VeichleListController {
       <>
         <Grid container spacing={2} className="auth-container">
           <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset' }}>
-            <Grid container className="main-content-block">
-              <Grid xs={12}>
+            <Grid container>
+              <Grid xs={12} style={{ display: 'flex', alignContent: 'center' }}>
                 <ArrowBackIcon onClick={() => window.history.back()} />
+                <p style={{ fontWeight: 600, fontSize: '1.25rem' }}>
+
+                  Edit Vehicle Details
+                </p>
               </Grid>
             </Grid>
             <div style={{ margin: 'auto' }}>
@@ -58,7 +62,7 @@ class EditVeichleList extends VeichleListController {
                     carManufacturer: item.attributes.company_name,
                     carModle: item.attributes.model_number,
                     carColor: item.attributes.color,
-                    bannerUrl: `https://ti1finalleap-158677-ruby.b158677.dev.eastus.az.svc.builder.cafe/${item.attributes.registration_card_copy}`,
+                    bannerUrl: item.attributes.registration_card_copy,
                     banner:''
 
 
@@ -263,6 +267,7 @@ class EditVeichleList extends VeichleListController {
                         padding:'4rem',
                             border:'1px dotted #00000036',
                             marginBottom:10,
+                            backgroundSize:'cover',
                             borderRadius: 15, backgroundImage: values.bannerUrl
                               ? `url(${values.bannerUrl})`
                               : ""

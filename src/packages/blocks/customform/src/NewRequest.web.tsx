@@ -70,7 +70,7 @@ class NewRequest extends VeichleListController {
                 </Box>
                 <Box className="footer-block">
                   <Box className="row-btn customButton desktop-ui">
-                    <Button variant="contained" onClick={() => this.props.history.push('/')}>
+                    <Button variant="contained" onClick={() => this.props.history.push('/VeichleList')}>
                       Okay
                     </Button>
                     {/* <Button onClick={() => this.clear()} variant='text'>

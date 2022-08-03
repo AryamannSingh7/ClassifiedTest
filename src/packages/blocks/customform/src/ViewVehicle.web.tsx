@@ -72,7 +72,7 @@ class ViewVeichle extends VeichleListController {
                     </div>
                     <div className="card-content">
 
-                      <img src={Building1} />
+                      <img src="https://img.freepik.com/premium-photo/generic-brandless-modern-sport-car-with-fire-smoke_110488-1759.jpg" />
                       <div className="content">
                         <p className="title">
                           {item.attributes.company_name}
@@ -146,7 +146,7 @@ class ViewVeichle extends VeichleListController {
               </Grid>
               <Grid container>
                 <Grid xs={12}>
-                  <img src={Rc}/>
+                  <img src={item.attributes.registration_card_copy} width='350'/>
                 </Grid>
               </Grid>
 

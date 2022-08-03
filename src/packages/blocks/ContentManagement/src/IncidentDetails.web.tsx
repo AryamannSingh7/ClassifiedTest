@@ -16,7 +16,7 @@ import {
   DialogActions,
   DialogTitle,
 } from "@material-ui/core";
-
+import moment from 'moment';
 //resources
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
@@ -44,7 +44,6 @@ import {
   Clipboard_Icon,
 }
   from "../src/assets";
-
 class IncidentDetails extends IncidentController {
   constructor(props: Props) {
     super(props);
@@ -59,6 +58,10 @@ class IncidentDetails extends IncidentController {
     console.log("getIncidentDetails========================>", this.state?.getIncidentDetails)
     const id = this.state?.getIncidentDetails?.id;
     const attributes = this.state?.getIncidentDetails?.attributes;
+    let d = new Date(attributes?.reported_on)
+   // const reported_on =`${d.getUTCDate()}-${d.getUTCMonth()}-${d.getUTCFullYear()} ${d.getUTCHours()}${d.getUTCMinutes()}`
+ const  reported_on = moment().format(attributes?.reported_on);
+   console.log("reported_on========================>",reported_on)
     return (
       <>
         <Box className="login-wrapper incident-wrapper">
@@ -74,7 +77,7 @@ class IncidentDetails extends IncidentController {
                 <Box className="content-block-wrapper common-incident-block">
                   <Box className="incident-content-wrapper">
                     {
-                      attributes?.resolved_on ?
+                      attributes?.incident_status === 'Pending Confirmation' ?
                         <Card className="incident-card confirmation-card card">
                           <CardContent className="confirmation-card-content">
                             <Box className="info-row">
@@ -88,8 +91,8 @@ class IncidentDetails extends IncidentController {
                             </Typography>
                             <Box className="customButton">
                               <Box className="formGroup">
-                                <Button variant="outlined" type="submit" >reject course</Button>
-                                <Button variant="contained" type="submit" >confirm course</Button>
+                                <Button variant="outlined" onClick={()=> this.confirmOrRejectIncident(this.props.history.location.id,"reject")} >reject course</Button>
+                                <Button variant="contained" onClick={()=> this.confirmOrRejectIncident(this.props.history.location.id,"confirm")} >confirm course</Button>
                               </Box>
                             </Box>
                           </CardContent>
@@ -112,19 +115,19 @@ class IncidentDetails extends IncidentController {
                           Affected Area:
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                        {attributes?.common_area?.name}
+                          {attributes?.common_area?.name}
                         </Typography>
                         <Typography className="title-span" component="span">
                           Incident is related to::
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                        {attributes?.incident_related?.name}
+                          {attributes?.incident_related?.name}
                         </Typography>
                         <Typography className="title-span" component="span">
                           Incident Number:
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                         {id}
+                          {id}
                         </Typography>
                         <Typography className="title-span" component="span">
                           Expected Resolution Date:
@@ -144,16 +147,26 @@ class IncidentDetails extends IncidentController {
                         <Typography className="sub-title" component="h5">
                           Yes {attributes?.acknoledged_by_manager}
                         </Typography>
-                        <Typography className="title-span" component="span">
+                        {
+                          this.state?.attattachments ?
+                          <>
+                          <Typography className="title-span" component="span">
                           Photos
                         </Typography>
                         <CardActions className="card-img-row">
+                        {
+                           attributes?.attachments?.map((val, index) => (
                           <Box className="video-img" onClick={() => { this.setState({ showDialog: true }) }}>
+                            <img src={val.url} className="card-img" alt="card-img"  key={index} /></Box>
+                                ))
+                              }
+
+                          {/* <Box className="video-img" onClick={() => { this.setState({ showDialog: true }) }}>
                             <PlayCircleOutlineIcon className="play-icon" />
-                           
+
                             <Box className="img-layer"></Box>
-                            <img src={Building1} className="card-img" alt="card-img" />
-                          </Box>
+                          </Box> */}
+                          {/* <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
                           <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
                           <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
                           <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
@@ -161,10 +174,13 @@ class IncidentDetails extends IncidentController {
                           <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
                           <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
                           <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
-                          <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
-                          <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
-                        </CardActions>
+                          <Box><img src={Building1} className="card-img" alt="card-img" /></Box> */}
+                        </CardActions> 
                         <hr />
+                        </>
+                        :
+                        null
+                        }
                       </CardContent>
                     </Card>
                     <Box className="incident-rows">
@@ -176,7 +192,7 @@ class IncidentDetails extends IncidentController {
                           <img src={User_Icon} className="icons" alt="" />
                           <Box className="reporting-right-block">
                             <h5>Reported By:</h5>
-                            <h4 className="title">{attributes?.reported_by?.full_name}</h4>
+                            <h4 className="title">Mr. {attributes?.reported_by?.full_name}</h4>
                           </Box>
                         </Box>
                         <Box className="reporting-row">
@@ -204,7 +220,7 @@ class IncidentDetails extends IncidentController {
                         <TextareaAutosize
                           maxRows={10}
                           aria-label="maximum height"
-                         // defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+                          // defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
                           disabled
                           value={attributes?.description}
                         />
@@ -246,8 +262,11 @@ class IncidentDetails extends IncidentController {
                 <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
                   video1
                 </DialogTitle>
-                <iframe width="560" height="315"
-                  src="https://www.youtube.com/embed/tQG6jYy9xto" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe className="incident-dialog-video"
+                  src="https://www.youtube.com/embed/tQG6jYy9xto" title="YouTube video player"
+                  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen></iframe>
+                <img src={Building1} className="incident-dialog-photo" alt="Incident photo" />
               </Box>
               {/* <Box className="dialog-footer desktop-ui">
                 <DialogActions className="customButton">

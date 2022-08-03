@@ -46,8 +46,12 @@ class VeichleList extends VeichleListController {
             <div style={{ margin: 'auto' }}>
 
               <Grid container>
-                <Grid xs={12}>
+                <Grid xs={12} style={{display:'flex',alignContent:'center'}}>
                   <ArrowBackIcon onClick={() => window.history.back()} />
+                  <p style={{ fontWeight: 600, fontSize: '1.25rem' }}>
+
+                  My Vehicles
+                  </p>
                 </Grid>
               </Grid>
 
@@ -64,7 +68,7 @@ class VeichleList extends VeichleListController {
                               </div>
                               <div className="card-content">
 
-                                <img src={Building1} />
+                                <img src='https://img.freepik.com/premium-photo/generic-brandless-modern-sport-car-with-fire-smoke_110488-1759.jpg' />
                                 <div className="content">
                                   <p className="title">
                                     {item.attributes.company_name}
@@ -98,7 +102,8 @@ class VeichleList extends VeichleListController {
                             color: "#F7F7FC",
                             fontWeight: 600,
                             fontSize: 16,
-                            marginTop: 30
+                            marginTop: 30,
+
                           }}
 
                         >
