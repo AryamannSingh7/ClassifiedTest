@@ -60,7 +60,7 @@ class IncidentDetails extends IncidentController {
     const attributes = this.state?.getIncidentDetails?.attributes;
     let d = new Date(attributes?.reported_on)
     // const reported_on =`${d.getUTCDate()}-${d.getUTCMonth()}-${d.getUTCFullYear()} ${d.getUTCHours()}${d.getUTCMinutes()}`
-    const reported_on = moment().format(attributes?.reported_on);
+    const reported_on = moment(attributes?.reported_on).format("DD-MM-YYYY HH:mm:ss")
     console.log("reported_on========================>", reported_on)
     return (
       <>
@@ -150,7 +150,7 @@ class IncidentDetails extends IncidentController {
                           Yes {attributes?.acknoledged_by_manager}
                         </Typography>
                         {
-                          true ?
+                          attributes?.attachments.length !== 0 ?
                             <>
                               <Typography className="title-span" component="span">
                                 Photos
@@ -158,13 +158,15 @@ class IncidentDetails extends IncidentController {
                               <CardActions className="card-img-row">
                                 {
                                   attributes?.attachments?.map((val, index) => (
-                                    <Box className="video-img" onClick={() => { this.setState({ showDialog: true }) }}>
-                                      <img src={val.url} className="card-img" alt="card-img" key={index} />
+                                    <Box className="video-img" onClick={() => { this.setState({ showDialog: true, image: val }) }}>
+                                       <PlayCircleOutlineIcon className="play-icon" />
+                                      <img src={val} className="card-img" alt="card-img" key={index} />
+                                      <Box className="img-layer"></Box>
                                     </Box>
                                   ))
                                 }
 
-                                <Box className="video-img" onClick={() => { this.setState({ showDialog: true }) }}>
+                                {/* <Box className="video-img" onClick={() => { this.setState({ showDialog: true }) }}>
                                   <PlayCircleOutlineIcon className="play-icon" />
                                   <img src={Building1} className="card-img" alt="card-img" />
                                   <Box className="img-layer"></Box>
@@ -173,7 +175,7 @@ class IncidentDetails extends IncidentController {
                                   <PlayCircleOutlineIcon className="play-icon" />
                                   <img src={Building1} className="card-img" alt="card-img" />
                                   <Box className="img-layer"></Box>
-                                </Box>
+                                </Box> */}
                               </CardActions>
                               <hr />
                             </>
@@ -259,13 +261,14 @@ class IncidentDetails extends IncidentController {
             <Box className="diloag-body">
               <Box className="diloag-header">
                 <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
-                  video1
+                  Image
                 </DialogTitle>
-                <iframe className="incident-dialog-video"
+                
+                {/* <iframe className="incident-dialog-video"
                   src="https://www.youtube.com/embed/tQG6jYy9xto" title="YouTube video player"
                   frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen></iframe>
-                <img src={Building1} className="incident-dialog-photo" alt="Incident photo" />
+                  allowfullscreen></iframe> */}
+                <img src={this.state?.image} className="incident-dialog-photo" alt="Incident photo" />
               </Box>
               {/* <Box className="dialog-footer desktop-ui">
                 <DialogActions className="customButton">
