@@ -22,6 +22,12 @@ export interface Props {
 interface S {
   // Customizable Area Start
   faqStep: number;
+
+  faqList: any[];
+  catagoriesList: any[];
+
+  question: string;
+  answer: string;
   // Customizable Area End
 }
 
@@ -29,7 +35,12 @@ interface SS {
   id: any;
 }
 
-export default class FaqResidentController extends BlockComponent<Props, S, SS> {
+export default class FaqResidentController extends BlockComponent<
+  Props,
+  S,
+  SS
+> {
+  FaqCategoryCallId: any;
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
@@ -42,6 +53,12 @@ export default class FaqResidentController extends BlockComponent<Props, S, SS> 
 
     this.state = {
       faqStep: 1,
+
+      faqList: [],
+      catagoriesList: [],
+
+      question: "",
+      answer: "",
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -49,11 +66,73 @@ export default class FaqResidentController extends BlockComponent<Props, S, SS> 
 
   async receive(from: string, message: Message) {
     // Customizable Area Start
+    // Get FAQ Category
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.FaqCategoryCallId !== null &&
+      this.FaqCategoryCallId ===
+        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.FaqCategoryCallId = null;
+
+      var responseJson = message.getData(
+        getName(MessageEnum.RestAPIResponceSuccessMessage)
+      );
+
+      if (responseJson.data) {
+        this.setState({
+          ...this.state,
+          catagoriesList: responseJson.data,
+        });
+      }
+
+      var errorReponse = message.getData(
+        getName(MessageEnum.RestAPIResponceErrorMessage)
+      );
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        this.parseApiErrorResponse(responseJson);
+      }
+      this.parseApiCatchErrorResponse(errorReponse);
+    }
     // Customizable Area End
   }
 
   // Customizable Area Start
-  async componentDidMount(): Promise<void> {}
+  async componentDidMount(): Promise<void> {
+    this.getFaqCategory();
+  }
+
+  // Get FAQ Category API
+  getFaqCategory = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.FaqCategoryCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      configJSON.FaqCategoryAPIEndPoint
+    );
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.apiMethodTypeGet
+    );
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
 
   changeFaqState = (number: number) => {
     this.setState({

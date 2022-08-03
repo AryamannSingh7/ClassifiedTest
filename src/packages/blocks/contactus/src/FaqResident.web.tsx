@@ -1,7 +1,6 @@
 // Customizable Area Start
 //@ts-nocheck
 //@ts-ignore
-
 import React from "react";
 import { Button, Container, withStyles } from "@material-ui/core";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
@@ -40,113 +39,28 @@ class FaqResident extends FaqResidentController {
                     </Box>
                     <Container>
                       <Box className="faq-list">
-                        <div
-                          className="faq-item"
-                          onClick={() => this.changeFaqState(2)}
-                        >
-                          <p>Vehicles</p>
-                          <NavigateNextIcon />
-                        </div>
-                        <div className="faq-item" onClick={() => {}}>
-                          <p>Vehicles</p>
-                          <NavigateNextIcon />
-                        </div>
-                        <div className="faq-item" onClick={() => {}}>
-                          <p>Vehicles</p>
-                          <NavigateNextIcon />
-                        </div>
-                        <div className="faq-item" onClick={() => {}}>
-                          <p>Vehicles</p>
-                          <NavigateNextIcon />
-                        </div>
-                        <div className="faq-item" onClick={() => {}}>
-                          <p>Vehicles</p>
-                          <NavigateNextIcon />
-                        </div>
-                        <div className="faq-item" onClick={() => {}}>
-                          <p>Vehicles</p>
-                          <NavigateNextIcon />
-                        </div>
-                        <div className="faq-item" onClick={() => {}}>
-                          <p>Vehicles</p>
-                          <NavigateNextIcon />
-                        </div>
-                        <div className="faq-item" onClick={() => {}}>
-                          <p>Vehicles</p>
-                          <NavigateNextIcon />
-                        </div>
-                        <div className="faq-item" onClick={() => {}}>
-                          <p>Vehicles</p>
-                          <NavigateNextIcon />
-                        </div>
-                        <div className="faq-item" onClick={() => {}}>
-                          <p>Vehicles</p>
-                          <NavigateNextIcon />
-                        </div>
-                        <div className="faq-item" onClick={() => {}}>
-                          <p>Vehicles</p>
-                          <NavigateNextIcon />
-                        </div>
-                        <div className="faq-item" onClick={() => {}}>
-                          <p>Vehicles</p>
-                          <NavigateNextIcon />
-                        </div>
-                        <div className="faq-item" onClick={() => {}}>
-                          <p>Vehicles</p>
-                          <NavigateNextIcon />
-                        </div>
-                        <div className="faq-item" onClick={() => {}}>
-                          <p>Vehicles</p>
-                          <NavigateNextIcon />
-                        </div>
-                        <div className="faq-item" onClick={() => {}}>
-                          <p>Vehicles</p>
-                          <NavigateNextIcon />
-                        </div>
-                        <div className="faq-item" onClick={() => {}}>
-                          <p>Vehicles</p>
-                          <NavigateNextIcon />
-                        </div>
-                        <div className="faq-item" onClick={() => {}}>
-                          <p>Vehicles</p>
-                          <NavigateNextIcon />
-                        </div>
-                        <div className="faq-item" onClick={() => {}}>
-                          <p>Vehicles</p>
-                          <NavigateNextIcon />
-                        </div>
-                        <div className="faq-item" onClick={() => {}}>
-                          <p>Vehicles</p>
-                          <NavigateNextIcon />
-                        </div>
-                        <div className="faq-item" onClick={() => {}}>
-                          <p>Vehicles</p>
-                          <NavigateNextIcon />
-                        </div>
-                        <div className="faq-item" onClick={() => {}}>
-                          <p>Vehicles</p>
-                          <NavigateNextIcon />
-                        </div>
-                        <div className="faq-item" onClick={() => {}}>
-                          <p>Vehicles</p>
-                          <NavigateNextIcon />
-                        </div>
-                        <div className="faq-item" onClick={() => {}}>
-                          <p>Vehicles</p>
-                          <NavigateNextIcon />
-                        </div>
-                        <div className="faq-item" onClick={() => {}}>
-                          <p>Vehicles</p>
-                          <NavigateNextIcon />
-                        </div>
-                        <div className="faq-item" onClick={() => {}}>
-                          <p>Vehicles</p>
-                          <NavigateNextIcon />
-                        </div>
-                        <div className="faq-item" onClick={() => {}}>
-                          <p>Vehicles</p>
-                          <NavigateNextIcon />
-                        </div>
+                        {this.state.catagoriesList.map((category: any) => {
+                          return (
+                            <div
+                              key={category.id}
+                              className="faq-item"
+                              onClick={() => {
+                                this.setState(
+                                  {
+                                    ...this.state,
+                                    faqList: category.attributes.FAQ,
+                                  },
+                                  () => {
+                                    this.changeFaqState(2);
+                                  }
+                                );
+                              }}
+                            >
+                              <p>{category.attributes.name}</p>
+                              <NavigateNextIcon />
+                            </div>
+                          );
+                        })}
                       </Box>
                     </Container>
                   </>
@@ -162,29 +76,29 @@ class FaqResident extends FaqResidentController {
                     </Box>
                     <Container>
                       <Box className="faq-list">
-                        <div
-                          className="faq-item"
-                          onClick={() => this.changeFaqState(3)}
-                        >
-                          <p>Vehicles registration process</p>
-                          <NavigateNextIcon />
-                        </div>
-                        <div className="faq-item" onClick={() => {}}>
-                          <p>Vehicles registration process</p>
-                          <NavigateNextIcon />
-                        </div>
-                        <div className="faq-item" onClick={() => {}}>
-                          <p>Vehicles registration process</p>
-                          <NavigateNextIcon />
-                        </div>
-                        <div className="faq-item" onClick={() => {}}>
-                          <p>Vehicles registration process</p>
-                          <NavigateNextIcon />
-                        </div>
-                        <div className="faq-item" onClick={() => {}}>
-                          <p>Vehicles registration process</p>
-                          <NavigateNextIcon />
-                        </div>
+                        {this.state.faqList.map((faq: any) => {
+                          return (
+                            <div
+                              key={faq.id}
+                              className="faq-item"
+                              onClick={() => {
+                                this.setState(
+                                  {
+                                    ...this.state,
+                                    question: faq.title,
+                                    answer: faq.content,
+                                  },
+                                  () => {
+                                    this.changeFaqState(3);
+                                  }
+                                );
+                              }}
+                            >
+                              <p>{faq.title}</p>
+                              <NavigateNextIcon />
+                            </div>
+                          );
+                        })}
                       </Box>
                     </Container>
                   </>
@@ -201,14 +115,8 @@ class FaqResident extends FaqResidentController {
                     <Container>
                       <Box className="faq-list">
                         <div className="faq-ans" onClick={() => {}}>
-                          <span>Vehicles registration process</span>
-                          <p>
-                            Lorem ipsum is a placeholder text commonly used to
-                            demonstrate the visual form of a document or a
-                            typeface without relying on meaningful content.
-                            Lorem ipsum may be used as a placeholder before
-                            final copy is available.
-                          </p>
+                          <span>{this.state.question}</span>
+                          <p>{this.state.answer}</p>
                         </div>
                         <Button
                           fullWidth
