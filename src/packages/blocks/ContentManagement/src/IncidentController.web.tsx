@@ -218,7 +218,7 @@ export default class IncidentController extends BlockComponent<
               this.props.history.push("/IncidentReportedSuccessfully")
             this.setState({loading: false})      
           } else if (responseJson?.errors) {
-            let error = Object.values(responseJson.errors[0])[0] as string;
+            let error = responseJson.errors[0]
             this.setState({ error });
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
@@ -623,15 +623,15 @@ confirmOrRejectIncident =(id,val)=>{
     const header = {
       token :localStorage.getItem("userToken")
     };
-    console.log("values create==================>",incidentFromData ,incidentRelated);
+    console.log("values create==================>",incidentFromData.media[0].file );
     const formData = new FormData();
    formData.append('incident[common_area_id]', incidentFromData?.commonArea?.id);
    formData.append('incident[incident_related_id]', incidentRelated[0]);
    formData.append('incident[incident_title]', incidentFromData.incidentTitle);
    formData.append('incident[description]', incidentFromData.description);
-   formData.append('incident[image][]', incidentFromData.media);
+   formData.append('incident[attachments][]', incidentFromData.media[0].file);
    formData.append('incident[apartment_management_id]', incidentFromData.myApartment.id);
-   console.log("formData.getAll('apartment_management_id')==================>",formData.get('incident[apartment_management_id]'))
+   console.log("formData.getAll('apartment_management_id')==================>",JSON.stringify(formData.get('incident[attachments]')))
    const httpBody = formData;
    console.log("httpBody httpBody==================>",httpBody);
    
@@ -934,9 +934,9 @@ createIncidentSchema() {
       incidentTitle: Yup.string().required(`This field is required`).max(50, "Too Long!"),
       description: Yup.string().required(`This field is required`).max(200, "Too Long!"),
       myApartment:Yup.string().required(`This field is required`).trim(),
-      media: Yup.array()
-      .min(1, ("Atleast one image required"))
-      .required(`This field is required.`)   
+      //media: Yup.array()
+      // .min(1, ("Atleast one image required"))
+      // .required(`This field is required.`)   
     });
        
     return validations ;

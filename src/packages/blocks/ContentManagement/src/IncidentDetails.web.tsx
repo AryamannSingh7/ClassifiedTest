@@ -16,7 +16,7 @@ import {
   DialogActions,
   DialogTitle,
 } from "@material-ui/core";
-
+import moment from 'moment';
 //resources
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
@@ -44,7 +44,6 @@ import {
   Clipboard_Icon,
 }
   from "../src/assets";
-
 class IncidentDetails extends IncidentController {
   constructor(props: Props) {
     super(props);
@@ -59,6 +58,10 @@ class IncidentDetails extends IncidentController {
     console.log("getIncidentDetails========================>", this.state?.getIncidentDetails)
     const id = this.state?.getIncidentDetails?.id;
     const attributes = this.state?.getIncidentDetails?.attributes;
+    let d = new Date(attributes?.reported_on)
+   // const reported_on =`${d.getUTCDate()}-${d.getUTCMonth()}-${d.getUTCFullYear()} ${d.getUTCHours()}${d.getUTCMinutes()}`
+ const  reported_on = moment().format(attributes?.reported_on);
+   console.log("reported_on========================>",reported_on)
     return (
       <>
         <Box className="login-wrapper incident-wrapper">
@@ -144,16 +147,26 @@ class IncidentDetails extends IncidentController {
                         <Typography className="sub-title" component="h5">
                           Yes {attributes?.acknoledged_by_manager}
                         </Typography>
-                        <Typography className="title-span" component="span">
+                        {
+                          this.state?.attattachments ?
+                          <>
+                          <Typography className="title-span" component="span">
                           Photos
                         </Typography>
                         <CardActions className="card-img-row">
+                        {
+                           attributes?.attachments?.map((val, index) => (
                           <Box className="video-img" onClick={() => { this.setState({ showDialog: true }) }}>
+                            <img src={val.url} className="card-img" alt="card-img"  key={index} /></Box>
+                                ))
+                              }
+
+                          {/* <Box className="video-img" onClick={() => { this.setState({ showDialog: true }) }}>
                             <PlayCircleOutlineIcon className="play-icon" />
                            
                             <Box className="img-layer"></Box>
-                            <img src={Building1} className="card-img" alt="card-img" />
-                          </Box>
+                          </Box> */}
+                          {/* <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
                           <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
                           <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
                           <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
@@ -161,10 +174,13 @@ class IncidentDetails extends IncidentController {
                           <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
                           <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
                           <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
-                          <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
-                          <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
-                        </CardActions>
+                          <Box><img src={Building1} className="card-img" alt="card-img" /></Box> */}
+                        </CardActions> 
                         <hr />
+                        </>
+                        :
+                        null
+                        }
                       </CardContent>
                     </Card>
                     <Box className="incident-rows">
