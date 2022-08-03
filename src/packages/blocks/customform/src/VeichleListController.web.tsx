@@ -217,7 +217,7 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
             this.setState({ allVehcile: responseJson.vehicle.data }, () => console.log(this.state.allVehcile))
           } else {
             //Check Error Response
-            this.parseApiErrorResponse(responseJson);
+            // this.parseApiErrorResponse(responseJson);
           }
 
           this.parseApiCatchErrorResponse(errorReponse);
