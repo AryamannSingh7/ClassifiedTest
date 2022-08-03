@@ -42,6 +42,7 @@ import {
   Calender_Icon,
   Info_Icon,
   Clipboard_Icon,
+  Close_Icon
 }
   from "../src/assets";
 class IncidentDetails extends IncidentController {
@@ -70,7 +71,7 @@ class IncidentDetails extends IncidentController {
               <Box className="content-block">
                 <Box className="content-header">
                   <Box className="left-block blocks">
-                    <Box display={{ xs: 'flex', md: 'none' }} className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
+                    <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
                     <h4>Incident Title</h4>
                   </Box>
                 </Box>
@@ -159,7 +160,7 @@ class IncidentDetails extends IncidentController {
                                 {
                                   attributes?.attachments?.map((val, index) => (
                                     <Box className="video-img" onClick={() => { this.setState({ showDialog: true, image: val }) }}>
-                                       <PlayCircleOutlineIcon className="play-icon" />
+                                      <PlayCircleOutlineIcon className="play-icon" />
                                       <img src={val} className="card-img" alt="card-img" key={index} />
                                       <Box className="img-layer"></Box>
                                     </Box>
@@ -263,23 +264,18 @@ class IncidentDetails extends IncidentController {
                 <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
                   Image
                 </DialogTitle>
-                
-                {/* <iframe className="incident-dialog-video"
+                <Button onClick={() => { this.setState({ showDialog: false }) }}>
+                  <img src={Close_Icon} className="close-icon" />
+                </Button>
+              </Box>
+              {/* <iframe className="incident-dialog-video"
                   src="https://www.youtube.com/embed/tQG6jYy9xto" title="YouTube video player"
                   frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowfullscreen></iframe> */}
+              <Box className="diloag-content">
                 <img src={this.state?.image} className="incident-dialog-photo" alt="Incident photo" />
               </Box>
-              {/* <Box className="dialog-footer desktop-ui">
-                <DialogActions className="customButton">
-                <Button variant="contained" onClick={() => this.setState({ showDialog: false })}>
-                    No, DON'T DELETE
-                  </Button>
-                  <Button onClick={() => this.deleteRequestById()} variant='text'>
-                    YES DELETE
-                  </Button>
-                </DialogActions>
-              </Box> */}
+
             </Box>
           </Dialog>
         </Box>

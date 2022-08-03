@@ -153,12 +153,12 @@ ul {
 
 .text-error {
   color: $WARNING;
-  font-size: 13px !important;
+  font-size: 14px !important;
   margin-bottom: 10px !important;
-  // font-weight: 600 !important;
   display: flex;
   margin-left: 15px;
   margin-top: 5px !important;
+  font-weight: 600;
 }
 
 .text-success {

@@ -25,5 +25,6 @@ export const House_Icon = require("../assets/house-icon.svg");
 export const Users_Icon = require("../assets/users-icon.png");
 export const Bank_Icon = require("../assets/bank-icon.svg");
 export const Box_Icon = require("../assets/box-icon.svg");
-export const success = require("../assets/success.svg");
+export const Checkmark_Icon = require("../assets/checkmark-icon.png");
+export const Error_Icon = require("../assets/error-icon.png");
 export const Close_Icon = require("../assets/icon-close.png");

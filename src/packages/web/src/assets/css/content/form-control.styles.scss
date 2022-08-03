@@ -81,6 +81,26 @@
       margin-bottom: 10px;
     }
     &.customFileupload {
+      & .result-disp-row {
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+        & .successful-icon {
+          height: 25px;
+          width: 25px;
+          object-fit: contain;
+        }
+        & .error-icon {
+          height: 35px;
+          width: 35px;
+          object-fit: contain;
+        }
+        & .text-success
+        {
+          margin-left: 10px;
+          text-transform: capitalize;
+        }
+      }
       & .MuiButtonBase-root {
         width: 100%;
         // padding: 20px;

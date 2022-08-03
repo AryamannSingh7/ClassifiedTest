@@ -2,17 +2,28 @@
 @import "../constants/base/global.scss";
 // .dialog-wrapper {
 .diloag-body {
-  padding: 20px;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  // justify-content: space-between;
+  align-items: space-between;
   & .MuiDialogTitle-root {
     padding: 16px 0;
   }
   .diloag-header {
-    padding-bottom: 20px;
-    text-align: center;
+    // padding-bottom: 20px;
+    // text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+    & .close-icon {
+      height: 30px;
+      width: 30px;
+      object-fit: contain;
+    }
     & .tenet-logo {
       height: 60px;
       width: 60px;
@@ -33,6 +44,24 @@
       height: 300px;
       width: 100%;
       object-fit: cover;
+      border-radius: 10px;
+    }
+  }
+  & .MuiDialogTitle-root {
+    padding: 0;
+  }
+  & .MuiOutlinedInput-input {
+    padding: 10px 32px 10px 14px;
+  }
+  & .diloag-content {
+    padding: 15px;
+    & .customSelect {
+      margin-bottom: 15px;
+    }
+    & .incident-dialog-photo {
+      height: 300px;
+      width: 100%;
+      object-fit: contain;
       border-radius: 10px;
     }
   }
