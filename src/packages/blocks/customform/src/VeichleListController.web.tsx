@@ -589,6 +589,7 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
       size: file.size,
       type: file.type
     } : '');
+    console.log('file',URL.createObjectURL(file))
     setFieldValue("bannerUrl", file ? URL.createObjectURL(file) : "");
     if (file) {
       e.target.value = "";

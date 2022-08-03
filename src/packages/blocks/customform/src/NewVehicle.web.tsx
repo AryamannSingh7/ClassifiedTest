@@ -37,9 +37,13 @@ class NewVeichleList extends VeichleListController {
       <>
         <Grid container spacing={2} className="auth-container">
           <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset' }}>
-            <Grid container className="main-content-block">
-              <Grid xs={12}>
+            <Grid container>
+              <Grid xs={12} style={{ display: 'flex', alignContent: 'center' }}>
                 <ArrowBackIcon onClick={() => window.history.back()} />
+                <p style={{ fontWeight: 600, fontSize: '1.25rem' }}>
+
+                  Register vehicle
+                </p>
               </Grid>
             </Grid>
             <div style={{ margin: 'auto' }}>
@@ -257,6 +261,7 @@ class NewVeichleList extends VeichleListController {
                         padding:'4rem',
                             border:'1px dotted #00000036',
                             marginBottom:10,
+                            backgroundSize:'cover',
                             borderRadius: 15, backgroundImage: values.bannerUrl
                               ? `url(${values.bannerUrl})`
                               : ""
