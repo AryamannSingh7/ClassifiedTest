@@ -28,6 +28,13 @@
         font-weight: bold;
       }
     }
+    & .incident-dialog-video,
+    & .incident-dialog-photo {
+      height: 300px;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+    }
   }
   .dialog-footer {
     // padding-top: 20px;

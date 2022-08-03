@@ -74,7 +74,7 @@ class IncidentDetails extends IncidentController {
                 <Box className="content-block-wrapper common-incident-block">
                   <Box className="incident-content-wrapper">
                     {
-                      attributes?.resolved_on ?
+                      attributes?.incident_status === "resolved" ?
                         <Card className="incident-card confirmation-card card">
                           <CardContent className="confirmation-card-content">
                             <Box className="info-row">
@@ -112,19 +112,19 @@ class IncidentDetails extends IncidentController {
                           Affected Area:
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                        {attributes?.common_area?.name}
+                          {attributes?.common_area?.name}
                         </Typography>
                         <Typography className="title-span" component="span">
                           Incident is related to::
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                        {attributes?.incident_related?.name}
+                          {attributes?.incident_related?.name}
                         </Typography>
                         <Typography className="title-span" component="span">
                           Incident Number:
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                         {id}
+                          {id}
                         </Typography>
                         <Typography className="title-span" component="span">
                           Expected Resolution Date:
@@ -150,7 +150,7 @@ class IncidentDetails extends IncidentController {
                         <CardActions className="card-img-row">
                           <Box className="video-img" onClick={() => { this.setState({ showDialog: true }) }}>
                             <PlayCircleOutlineIcon className="play-icon" />
-                           
+
                             <Box className="img-layer"></Box>
                             <img src={Building1} className="card-img" alt="card-img" />
                           </Box>
@@ -204,7 +204,7 @@ class IncidentDetails extends IncidentController {
                         <TextareaAutosize
                           maxRows={10}
                           aria-label="maximum height"
-                         // defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+                          // defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
                           disabled
                           value={attributes?.description}
                         />
@@ -246,8 +246,11 @@ class IncidentDetails extends IncidentController {
                 <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
                   video1
                 </DialogTitle>
-                <iframe width="560" height="315"
-                  src="https://www.youtube.com/embed/tQG6jYy9xto" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe className="incident-dialog-video"
+                  src="https://www.youtube.com/embed/tQG6jYy9xto" title="YouTube video player"
+                  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen></iframe>
+                <img src={Building1} className="incident-dialog-photo" alt="Incident photo" />
               </Box>
               {/* <Box className="dialog-footer desktop-ui">
                 <DialogActions className="customButton">
