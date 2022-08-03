@@ -629,9 +629,9 @@ confirmOrRejectIncident =(id,val)=>{
    formData.append('incident[incident_related_id]', incidentRelated[0]);
    formData.append('incident[incident_title]', incidentFromData.incidentTitle);
    formData.append('incident[description]', incidentFromData.description);
-   formData.append('incident[attachments][]', incidentFromData.media[0].file);
+   formData.append('incident[attachments]', incidentFromData.media[0].file);
    formData.append('incident[apartment_management_id]', incidentFromData.myApartment.id);
-   console.log("formData.getAll('apartment_management_id')==================>",JSON.stringify(formData.get('incident[attachments]')))
+   console.log("formData.getAll('apartment_management_id')==================>",formData.get('incident[attachments]'))
    const httpBody = formData;
    console.log("httpBody httpBody==================>",httpBody);
    
