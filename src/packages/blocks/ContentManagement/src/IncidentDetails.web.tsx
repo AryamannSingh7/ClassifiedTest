@@ -74,7 +74,7 @@ class IncidentDetails extends IncidentController {
                 <Box className="content-block-wrapper common-incident-block">
                   <Box className="incident-content-wrapper">
                     {
-                      attributes?.incident_status === "resolved" ?
+                      attributes?.incident_status === 'Pending Confirmation' ?
                         <Card className="incident-card confirmation-card card">
                           <CardContent className="confirmation-card-content">
                             <Box className="info-row">
@@ -88,8 +88,8 @@ class IncidentDetails extends IncidentController {
                             </Typography>
                             <Box className="customButton">
                               <Box className="formGroup">
-                                <Button variant="outlined" type="submit" >reject course</Button>
-                                <Button variant="contained" type="submit" >confirm course</Button>
+                                <Button variant="outlined" onClick={()=> this.confirmOrRejectIncident(this.props.history.location.id,"reject")} >reject course</Button>
+                                <Button variant="contained" onClick={()=> this.confirmOrRejectIncident(this.props.history.location.id,"confirm")} >confirm course</Button>
                               </Box>
                             </Box>
                           </CardContent>
@@ -176,7 +176,7 @@ class IncidentDetails extends IncidentController {
                           <img src={User_Icon} className="icons" alt="" />
                           <Box className="reporting-right-block">
                             <h5>Reported By:</h5>
-                            <h4 className="title">{attributes?.reported_by?.full_name}</h4>
+                            <h4 className="title">Mr. {attributes?.reported_by?.full_name}</h4>
                           </Box>
                         </Box>
                         <Box className="reporting-row">
