@@ -70,7 +70,7 @@ export default class IncidentController extends BlockComponent<
   passwordReg: RegExp;
   emailReg: RegExp;
   createAccountApiCallId: any;
-
+  apiupdateIncidentCallId:any;
   apicreateIncidentCallId: any;
   validationApiCallId: any;
   getIncidentListingApiCallId: any;
@@ -216,6 +216,21 @@ export default class IncidentController extends BlockComponent<
             console.log("apicreateIncidentCallId===========>",responseJson)
             localStorage.setItem("createIncidentId",responseJson.data.id)
               this.props.history.push("/IncidentReportedSuccessfully")
+            this.setState({loading: false})      
+          } else if (responseJson?.errors) {
+            let error = responseJson.errors[0]
+            this.setState({ error });
+          } else {
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
+          }
+         
+          this.parseApiCatchErrorResponse(this.state.error);
+          this.setState({loading: false , error:null})
+        }
+        else if (apiRequestCallId === this.apiupdateIncidentCallId) {
+          if (responseJson && responseJson.data) {
+            console.log("apiupdateIncidentCallId===========>",responseJson)
+              this.props.history.push("/IncidentListing")
             this.setState({loading: false})      
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
@@ -551,21 +566,72 @@ getIncidentDetails= (id) => {
   //this.getIncidentDetailsById(id)
 }
 
+confirmOrRejectIncident =(id,val)=>{
+  const header = {
+    token :localStorage.getItem("userToken")
+  };
+  const formData = new FormData();
+  if(val === "confirm"){
+    formData.append('incident[mark_resolved_by_reporter]', true);
+    formData.append('incident[incident_status]', 'Resolved');
+  }else{
+    formData.append('incident[mark_resolved_by_reporter]', false);
+    formData.append('incident[incident_status]', 'Unresolved');
+  }
+ 
+ 
+ console.log("formData.getAll('apartment_management_id')==================>",formData.get('incident[incident_status]'))
+ const httpBody = formData;
+ console.log("httpBody httpBody==================>",httpBody);
+ 
+  this.setState({loading: true}) 
+  const requestMessage = new Message(
+    getName(MessageEnum.RestAPIRequestMessage)
+  );
+
+  this.apiupdateIncidentCallId = requestMessage.messageId;
+  requestMessage.addData(
+    getName(MessageEnum.RestAPIResponceEndPointMessage),
+    `${configJSON.updateIncident}${id}`
+  );
+
+  requestMessage.addData(
+    getName(MessageEnum.RestAPIRequestHeaderMessage),
+    JSON.stringify(header)
+  );
+
+  requestMessage.addData(
+    getName(MessageEnum.RestAPIRequestBodyMessage),
+    httpBody
+  );
+
+  requestMessage.addData(
+    getName(MessageEnum.RestAPIRequestMethodMessage),
+    configJSON.PatchAPiMethod
+  );
+
+  runEngine.sendMessage(requestMessage.id, requestMessage);
+
+  return true;
+
+}
+
+
 
   createIncident = (incidentFromData: any ,incidentRelated : any): boolean => {
     
     const header = {
       token :localStorage.getItem("userToken")
     };
-    console.log("values create==================>",incidentFromData ,incidentRelated);
+    console.log("values create==================>",incidentFromData.media[0].file );
     const formData = new FormData();
    formData.append('incident[common_area_id]', incidentFromData?.commonArea?.id);
    formData.append('incident[incident_related_id]', incidentRelated[0]);
    formData.append('incident[incident_title]', incidentFromData.incidentTitle);
    formData.append('incident[description]', incidentFromData.description);
-   formData.append('incident[image][]', incidentFromData.media);
+   formData.append('incident[attachments]', incidentFromData.media[0].file);
    formData.append('incident[apartment_management_id]', incidentFromData.myApartment.id);
-   console.log("formData.getAll('apartment_management_id')==================>",formData.get('incident[apartment_management_id]'))
+   console.log("formData.getAll('apartment_management_id')==================>",formData.get('incident[attachments]'))
    const httpBody = formData;
    console.log("httpBody httpBody==================>",httpBody);
    
@@ -851,7 +917,7 @@ if(files.length !== 0){
     });
   }
   e.target.value = "";
-  this.setState({upload: true});
+  this.setState({upload: true ,sizeError : false,notImageOrVideoError:false});
   console.log("media======>",media)
   setFieldValue("media", media);
 }
@@ -868,9 +934,9 @@ createIncidentSchema() {
       incidentTitle: Yup.string().required(`This field is required`).max(50, "Too Long!"),
       description: Yup.string().required(`This field is required`).max(200, "Too Long!"),
       myApartment:Yup.string().required(`This field is required`).trim(),
-      media: Yup.array()
-      .min(1, ("Atleast one image required"))
-      .required(`This field is required.`)   
+      //media: Yup.array()
+      // .min(1, ("Atleast one image required"))
+      // .required(`This field is required.`)   
     });
        
     return validations ;
