@@ -536,14 +536,13 @@
     align-items: center;
     justify-content: right;
 }
-
 .DialogTable .MuiDialog-paper{
     margin: 0px;
 }
 .DialogTable .MuiDialog-container{
     height: auto;
 }
-.DialogTable .MuiPaper-elevation24 {
+.DialogTable .MuiPaper-elevation24{
     box-shadow: none;
 }
 .DialogTable .MuiPaper-rounded{

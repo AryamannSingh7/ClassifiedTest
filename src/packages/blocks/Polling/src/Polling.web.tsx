@@ -79,7 +79,7 @@ class Polling extends PollingController {
                     </Box>
                 </Box>
                 <Grid container spacing={4} style={{marginTop: 15}} className="link-decoration">
-                    <Grid item sm={4}>
+                    <Grid item sm={6} md={4} xs={12}>
                         <Box className="CreatePS" onClick={() => {  this.setState({ showDialog: true})}}>
                             <Box sx={{ml:1, mb:2}} >
                                 <img src={pollandsurvey} alt="pollandsurvey" />
@@ -94,7 +94,8 @@ class Polling extends PollingController {
                         aria-labelledby="alert-dialog-title"
                         aria-describedby="alert-dialog-description"
                         className="DialogMainBox"
-                        >
+                        scroll="paper"
+                    >
                         <DialogTitle id="alert-dialog-title" style={{textAlign:"center"}}>Choose Options</DialogTitle>
                         <Box style={{ display: "flex", marginLeft: 50, marginRight: 50 }}>
                             <DialogActions>
@@ -106,13 +107,13 @@ class Polling extends PollingController {
                                     className="dialogOption"
                                 >
                                     <img src={pollcreate} alt="pollcreate" className="DialogIcons"/>
-                                    <p>Create Poll</p> 
+                                    <p>Create Poll</p>
                                 </div>
                                 <div 
                                     onClick={() => {
                                         this.setState({ showDialog: false})
                                         this.props.history.push("/CreateSurveys")
-                                    }} 
+                                    }}
                                     className="dialogOption"
                                 >
                                     <img src={surveycreate} alt="surveycreate" className="DialogIcons"/>
@@ -122,7 +123,7 @@ class Polling extends PollingController {
                         </Box>
                     </Dialog>
 
-                    <Grid item sm={4}>
+                    <Grid item sm={6} md={4} xs={12}>
                         <Box className="Cards" onClick={() => this.props.history.push("/PollsallData")}>
                             <Box sx={{ml:1, mb:2}} className="CardsIcons">
                                 <img src={pollcreate} alt="pollcreate" />
@@ -141,7 +142,7 @@ class Polling extends PollingController {
                         </Box>
                     </Grid>
 
-                    <Grid item sm={4}>
+                    <Grid item sm={6} md={4} xs={12}>
                         <Box className="Cards" onClick={() => this.props.history.push("/CreateSurveys")}>
                             <Box sx={{ml:1, mb:2}} className="CardsIcons">
                             <img src={surveycreate} alt="surveycreate" />
@@ -172,8 +173,10 @@ class Polling extends PollingController {
                          this.state.recentPolls.map((data:any) => {
                             return(
                                 <>
-                                <Grid item sm={4} md={4} xs={4} key={data.id}>
-                                    <Box className="EventsCards">
+                                <Grid item sm={6} md={4} xs={12} key={data.id}>
+                                    <Box className="EventsCards"
+                                    onClick={() => this.props.history.push("/PollDetails?id=" + data.id)}
+                                    >
                                         <Box className="EventsIconsText">
                                             <Typography variant="body2" className="statusOngoing">{data.status}</Typography>
                                         </Box>
@@ -222,7 +225,7 @@ class Polling extends PollingController {
                     <Typography className="ViewAll">View All</Typography>
                 </Box>
                 <Grid container spacing={4} style={{marginTop: 15, marginBottom:30}}>
-                    <Grid item sm={4} md={4} xs={4}>
+                    <Grid item sm={6} md={4} xs={12}>
                         <Box className="EventsCards">
                             <Box className="EventsIconsText">
                                 <Typography variant="body2" className="statusOngoing">Ongoing</Typography>
@@ -254,7 +257,7 @@ class Polling extends PollingController {
                             </Box>
                         </Box>
                     </Grid>
-                    <Grid item sm={4} md={4} xs={4}>
+                    <Grid item sm={6} md={4} xs={12}>
                         <Box className="EventsCards">
                             <Box className="EventsIconsText">
                                 <Typography variant="body2" className="statusOngoing">Ongoing</Typography>
@@ -286,7 +289,7 @@ class Polling extends PollingController {
                             </Box>
                         </Box>
                     </Grid>
-                    <Grid item sm={4} md={4} xs={4}>
+                    <Grid item sm={6} md={4} xs={12}>
                         <Box className="EventsCards">
                             <Box className="EventsIconsText">
                                 <Typography variant="body2" className="statusOngoing">Ongoing</Typography>
