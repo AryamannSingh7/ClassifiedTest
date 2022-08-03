@@ -3,6 +3,16 @@
 .card {
   & .costom-card-content {
     cursor: pointer;
+    & .card-listing-row {
+      display: flex;
+      justify-content: space-between;
+      padding-top: 8px;
+      & span,
+      & h5
+      {
+        width: 50%;
+      }
+    }
   }
   // &.incident-card {
   &.MuiCard-root {
@@ -98,6 +108,7 @@
     overflow-x: scroll;
     width: 100%;
     padding-bottom: 10px;
+    @include scrollbars();
     & .card-img {
       height: 60px;
       width: 60px;

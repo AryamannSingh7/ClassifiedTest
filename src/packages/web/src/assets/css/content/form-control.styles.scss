@@ -124,15 +124,15 @@
       height: 70px !important;
       background-color: $WHITE;
       border: 0;
-      color: #b5b5b5;
+      color: $LIGHT_GRAY_SHADE3;
       outline: 0;
       font-size: 15px;
       padding: 0 20px 0 45px;
-      font-weight: 500;
+      font-weight: 600;
       font-family: $Gotham_Light;
       line-height: 17px;
       &::placeholder {
-        color: #b5b5b5;
+        color: $LIGHT_GRAY_SHADE3;
         font-weight: 500;
         font-family: $Gotham_Light;
       }

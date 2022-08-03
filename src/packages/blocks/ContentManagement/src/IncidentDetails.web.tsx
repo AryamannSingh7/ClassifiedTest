@@ -59,9 +59,9 @@ class IncidentDetails extends IncidentController {
     const id = this.state?.getIncidentDetails?.id;
     const attributes = this.state?.getIncidentDetails?.attributes;
     let d = new Date(attributes?.reported_on)
-   // const reported_on =`${d.getUTCDate()}-${d.getUTCMonth()}-${d.getUTCFullYear()} ${d.getUTCHours()}${d.getUTCMinutes()}`
- const  reported_on = moment().format(attributes?.reported_on);
-   console.log("reported_on========================>",reported_on)
+    // const reported_on =`${d.getUTCDate()}-${d.getUTCMonth()}-${d.getUTCFullYear()} ${d.getUTCHours()}${d.getUTCMinutes()}`
+    const reported_on = moment().format(attributes?.reported_on);
+    console.log("reported_on========================>", reported_on)
     return (
       <>
         <Box className="login-wrapper incident-wrapper">
@@ -91,8 +91,8 @@ class IncidentDetails extends IncidentController {
                             </Typography>
                             <Box className="customButton">
                               <Box className="formGroup">
-                                <Button variant="outlined" onClick={()=> this.confirmOrRejectIncident(this.props.history.location.id,"reject")} >reject course</Button>
-                                <Button variant="contained" onClick={()=> this.confirmOrRejectIncident(this.props.history.location.id,"confirm")} >confirm course</Button>
+                                <Button variant="outlined" onClick={() => this.confirmOrRejectIncident(this.props.history.location.id, "reject")} >reject course</Button>
+                                <Button variant="contained" onClick={() => this.confirmOrRejectIncident(this.props.history.location.id, "confirm")} >confirm course</Button>
                               </Box>
                             </Box>
                           </CardContent>
@@ -148,38 +148,38 @@ class IncidentDetails extends IncidentController {
                           Yes {attributes?.acknoledged_by_manager}
                         </Typography>
                         {
-                          this.state?.attattachments ?
-                          <>
-                          <Typography className="title-span" component="span">
-                          Photos
-                        </Typography>
-                        <CardActions className="card-img-row">
-                        {
-                           attributes?.attachments?.map((val, index) => (
-                          <Box className="video-img" onClick={() => { this.setState({ showDialog: true }) }}>
-                            <img src={val.url} className="card-img" alt="card-img"  key={index} /></Box>
-                                ))
-                              }
+                          true ?
+                            <>
+                              <Typography className="title-span" component="span">
+                                Photos
+                              </Typography>
+                              <CardActions className="card-img-row">
+                                {
+                                  attributes?.attachments?.map((val, index) => (
+                                    <Box className="video-img" onClick={() => { this.setState({ showDialog: true }) }}>
+                                      <img src={val.url} className="card-img" alt="card-img" key={index} /></Box>
+                                  ))
+                                }
 
-                          {/* <Box className="video-img" onClick={() => { this.setState({ showDialog: true }) }}>
+                                {/* <Box className="video-img" onClick={() => { this.setState({ showDialog: true }) }}>
                             <PlayCircleOutlineIcon className="play-icon" />
 
                             <Box className="img-layer"></Box>
                           </Box> */}
-                          {/* <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
-                          <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
-                          <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
-                          <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
-                          <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
-                          <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
-                          <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
-                          <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
-                          <Box><img src={Building1} className="card-img" alt="card-img" /></Box> */}
-                        </CardActions> 
-                        <hr />
-                        </>
-                        :
-                        null
+                                <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
+                                <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
+                                <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
+                                <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
+                                <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
+                                <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
+                                <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
+                                <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
+                                <Box><img src={Building1} className="card-img" alt="card-img" /></Box>
+                              </CardActions>
+                              <hr />
+                            </>
+                            :
+                            null
                         }
                       </CardContent>
                     </Card>
