@@ -33,6 +33,7 @@ class VeichleList extends VeichleListController {
   }
 
   async componentDidMount() {
+
     this.getVehicle()
 
   }
@@ -42,11 +43,9 @@ class VeichleList extends VeichleListController {
 
       <>
         <Grid container spacing={2} className="auth-container">
-          <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset' }}>
-            <div style={{ margin: 'auto' }}>
-
+          <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset',overflowY:'auto',overflowX:'hidden' }}>
               <Grid container>
-                <Grid xs={12} style={{display:'flex',alignContent:'center'}}>
+                <Grid xs={12} style={{display:'flex',alignItems:'center'}}>
                   <ArrowBackIcon onClick={() => window.history.back()} />
                   <p style={{ fontWeight: 600, fontSize: '1.25rem' }}>
 
@@ -55,10 +54,12 @@ class VeichleList extends VeichleListController {
                 </Grid>
               </Grid>
 
+
+
               {
                 this.state.allVehcile.length>0 ?
                 <>
-                    <Grid container>
+                    <Grid container style={{height:'74vh'}}>
                       {
                         this.state.allVehcile.map((item,i)=><>
                           <Grid xs={12} >
@@ -113,7 +114,9 @@ class VeichleList extends VeichleListController {
                     </Grid>
                 </>
                 :
+                <div style={{margin:'auto'}}>
                   <NoVehicle props={this.props} />
+                  </div>
               }
               {/* <Grid container>
                 <Grid xs={12}>
@@ -183,7 +186,7 @@ class VeichleList extends VeichleListController {
                   </Button>
 </Grid>
               </Grid> */}
-              </div>
+
             </Grid>
           <Grid item xs={12} md={5} className="auth-cols">
             <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>

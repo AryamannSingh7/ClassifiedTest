@@ -223,10 +223,10 @@ class ViewVeichle extends VeichleListController {
           <Box className="dialog-footer desktop-ui">
             <DialogActions className="customButton">
               <Button variant="contained" onClick={() => this.deleteRequest()} >
-                Yes Register
+                yes, delete
               </Button>
               <Button onClick={() => this.setState({ showDialog: false })} variant='text'>
-                No, Don’t Regsiter
+                No, don’t delete
               </Button>
             </DialogActions>
           </Box>

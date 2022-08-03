@@ -4,7 +4,7 @@
 import * as React from "react";
 // custom components
 import {
-  Button, Grid, Box, Typography, Link, IconButton, Dialog, DialogActions, Container
+  Button, Box, Grid, Typography, Dialog, Avatar, DialogActions , Container, TextField
 } from "@material-ui/core";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { Formik, Form, Field } from "formik";
@@ -80,7 +80,7 @@ class ManagerViewVeichle extends ManagerController {
                                 {item.attributes.company_name}
                       </h4>
                     <div className="status">
-                      Pending Approval
+                      {item.attributes.status}
                     </div>
                     </div>
                   <div className="details">
@@ -157,7 +157,7 @@ class ManagerViewVeichle extends ManagerController {
                                 <img src={CarBlue}/> <p style={{fontWeight:600,whiteSpace:'nowrap',marginLeft:10}}>Registration Card</p>
                                 </div>
                                 <Box className="row-btn customButton desktop-ui">
-                                  <Button variant="contained" style={{width:100}}>
+                                  <Button variant="contained" style={{ width: 100 }} onClick={() => this.setState({ showDialogPhoto:true})}>
                                     View
                                   </Button>
                                 </Box>
@@ -215,12 +215,12 @@ class ManagerViewVeichle extends ManagerController {
           </Grid>
                   <div style={{display:'flex',justifyContent:'flex-end',width:'100%'}}>
                     <Box className="row-btn customButton desktop-ui">
-                      <Button  style={{ width: 150, marginRight: 15 }} variant='text'>
+                      <Button style={{ width: 150, marginRight: 15 }} onClick={() => this.setState({ showDialogDelete: true })} variant='text' disabled={item.attributes.status == 'rejected'}>
                         Reject
                       </Button>
                     </Box>
                     <Box className="row-btn customButton desktop-ui">
-                      <Button variant="contained" style={{ width: 150 }} onClick={() => this.setState({ showDialog: true })}>
+                      <Button variant="contained" style={{ width: 150 }} onClick={() => this.setState({ showDialog: true })} disabled={item.attributes.status == 'approved'} >
                         Accept
                       </Button>
                     </Box>
@@ -232,7 +232,59 @@ class ManagerViewVeichle extends ManagerController {
         </Box>
 
         </Box>
+        <Dialog
+          open={this.state.showDialogPhoto}
+          onClose={() => this.setState({ showDialogPhoto: false })}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+          className="diloag-wrapper"
+          PaperProps={{
+            style: {
+              borderRadius: '15px',
+              padding: '2rem'
+            },
+          }}
+        >
+          <img src={item.attributes.registration_card_copy} style={{ width: '600px', height: '56rem', borderRadius: 0 }} />
+          </Dialog>
+        <Dialog
+          open={this.state.showDialogDelete}
+          onClose={() => this.setState({ showDialogDelete: false })}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+          className="diloag-wrapper"
+          PaperProps={{
+            style: {
+              borderRadius: '15px',
+              padding: '2rem'
+            },
+          }}
+        >
+          <Grid container>
+            <Grid xs={12}>
+              <TextField
+                multiline
+                rows={4}
+                id="outlined-multiline-static"
+                label="add notes"
+                // value={this.state.name}
+                // onChange={this.handleChange('name')}
+                margin="normal"
+              />
 
+            </Grid>
+          </Grid>
+          <Box className="dialog-footer desktop-ui">
+            <DialogActions className="customButton">
+              <Button onClick={() => this.setState({ showDialogDelete: false })}>
+                CLOSE
+              </Button>
+              <Button variant="contained" onClick={() => this.rejectRequest()} >
+                CONFRIM
+              </Button>
+            </DialogActions>
+          </Box>
+          </Dialog>
         <Dialog
           open={this.state.showDialog}
           onClose={() => this.setState({ showDialog: false })}
@@ -273,7 +325,7 @@ class ManagerViewVeichle extends ManagerController {
               <Button  onClick={() => this.setState({ showDialog: false })}>
                 CLOSE
               </Button>
-              <Button variant="contained" onClick={() => this.deleteRequest()} >
+              <Button variant="contained" onClick={() => this.acceptRequest()} >
                 CONFRIM
               </Button>
             </DialogActions>

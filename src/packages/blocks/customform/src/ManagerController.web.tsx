@@ -1,3 +1,5 @@
+//@ts-ignore
+//@ts-nocheck
 import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
@@ -52,6 +54,7 @@ interface S {
   loading:boolean;
   allVehcile:any[];
   showDialog:boolean;
+  showDialogPhoto:boolean;
   // Customizable Area End
 }
 
@@ -64,6 +67,7 @@ export default class ManagerController extends BlockComponent<Props, S, SS> {
   createVehicleApiCallId:string='';
   getVehicleListApiCallId:string='';
   deleteVehicleAPICallId:string='';
+  acceptRequestAPICallId:string='';
       // Customizable Area End
   constructor(props: Props) {
     super(props);
@@ -91,7 +95,8 @@ export default class ManagerController extends BlockComponent<Props, S, SS> {
       error:null,
       loading:false,
       allVehcile:[],
-      showDialog:false
+      showDialog:false,
+      showDialogPhoto:false
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -221,10 +226,24 @@ export default class ManagerController extends BlockComponent<Props, S, SS> {
         if (apiRequestCallId === this.deleteVehicleAPICallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
+            localStorage.removeItem('selectCar')
             //@ts-ignore
             //@ts-nocheck
             this.props.history.push('/veichleList')
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        }
+        if (apiRequestCallId === this.acceptRequestAPICallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            //@ts-ignore
+            //@ts-nocheck
             localStorage.removeItem('selectCar')
+            this.props.history.push('/mv')
           } else {
             //Check Error Response
             this.parseApiErrorResponse(responseJson);
@@ -613,6 +632,93 @@ if(this.state.allVehcile.length<3){
     requestMessage.addData(
       getName(MessageEnum.RestAPIRequestMethodMessage),
       'DELETE'
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  }
+  acceptRequest() {
+    // @ts-nocheck
+    // @ts-ignore
+    let item = JSON.parse(localStorage.getItem('selectCar'))
+    const header = {
+      "token": localStorage.getItem('userToken')
+    };
+
+    const httpBody = {
+      "vehicle": {
+        "status": true
+      }
+    }
+
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+
+    this.acceptRequestAPICallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_vehicle/vehicles/${item.id}/verify_vehicles`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestBodyMessage),
+      JSON.stringify(httpBody)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      'PUT'
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  }
+
+  rejectRequest() {
+    // @ts-nocheck
+    // @ts-ignore
+    let item = JSON.parse(localStorage.getItem('selectCar'))
+    const header = {
+      "token": localStorage.getItem('userToken')
+    };
+
+    const httpBody = {
+      "vehicle": {
+        "status": true
+      }
+    }
+
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+
+    this.acceptRequestAPICallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_vehicle/vehicles/${item.id}/verify_vehicles`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestBodyMessage),
+      JSON.stringify(httpBody)
+    );
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      'PUT'
     );
 
     runEngine.sendMessage(requestMessage.id, requestMessage);

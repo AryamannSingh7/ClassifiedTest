@@ -71,9 +71,9 @@ class ManagerList extends ManagerController {
                     <FormControl className='yearTab' style={dashBoardBudget.YearMain}>
                       <NativeSelect className='yearSelection' value={this.state.Year} onChange={this.handleChange}>
                         <option value="">None</option>
-                        <option value={10}>Ten</option>
-                        <option value={20}>Twenty</option>
-                        <option value={30}>Thirty</option>
+                        <option value={10}>Pending</option>
+                        <option value={20}>Approval</option>
+
                       </NativeSelect>
                     </FormControl>
                     <FormControl className='yearTab' style={dashBoardBudget.YearMain}>
@@ -115,7 +115,7 @@ class ManagerList extends ManagerController {
                                     </div>
                                     <div className="card-content">
 
-                                      <img src={Building1} />
+                                      <img src='https://img.freepik.com/premium-photo/generic-brandless-modern-sport-car-with-fire-smoke_110488-1759.jpg' />
                                       <div className="content">
                                         <p className="title">
                                           {item.attributes.company_name}
