@@ -103,20 +103,23 @@ class IncidentListing extends IncidentController {
                               </Typography>
                               <Typography className="sub-title" component="h5">
                                 {val?.attributes?.incident_related?.name}
-                              </Typography>      
-                        <Typography component="span">
-                          Building:
-                        </Typography>
-                        <Typography className="sub-title" component="h5">
-                        {val?.attributes?.apartment_management?.building_name}
-                        </Typography>
-
-                        <Typography component="span">
-                          Unit:
-                        </Typography>
-                        <Typography className="sub-title" component="h5">
-                        {val?.attributes?.apartment_management?.apartment_name}
-                        </Typography>
+                              </Typography>
+                              <Box className="card-listing-row">
+                                <Typography component="span">
+                                  Building:
+                                </Typography>
+                                <Typography component="span">
+                                  Unit:
+                                </Typography>
+                              </Box>
+                              <Box className="card-listing-row">
+                                <Typography className="sub-title" component="h5">
+                                  {val?.attributes?.apartment_management?.building_name}Building
+                                </Typography>
+                                <Typography className="sub-title" component="h5">
+                                  {val?.attributes?.apartment_management?.apartment_name}Building
+                                </Typography>
+                              </Box>
                               <hr />
                               <CardActions className="card-footer">
                                 <Typography className="sub-title" component="h5">
