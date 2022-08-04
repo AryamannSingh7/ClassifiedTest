@@ -155,6 +155,11 @@ export const FaqChairmanStyleWeb: any = {
     "& .faq-box .MuiTypography-root": {
       width: "93%",
     },
+    "& .faq-box .MuiAccordionSummary-content .MuiBox-root": {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+    },
     "& .bottom-buttons": {
       display: "flex",
       justifyContent: "space-between",
