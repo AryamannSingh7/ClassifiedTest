@@ -1,3 +1,7 @@
+// @import "../../../../web/src/assets/css/constants/base/global.scss";
+// @import "../../../../web/src/assets/css/constants/base/colors.scss";
+@import "../../../../web/src/assets/css/constants/base/mixins.scss";
+
 .otp-input-wrapper {
   width: 240px;
   text-align: left;
@@ -127,4 +131,11 @@
 .main-content-block {
   width: 450px;
   margin: 0 auto;
+}
+
+
+@media only screen and (max-width: 600px) {
+  .auth-container .auth-cols:nth-child(2) {
+    height: auto;
+  }
 }
