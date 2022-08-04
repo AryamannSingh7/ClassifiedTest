@@ -33,9 +33,11 @@ class FaqOwner extends FaqOwnerController {
                     <Box
                       display={{ xs: "flex", md: "flex" }}
                       className="backIcon"
-                      onClick={() => window.history.back()}
                     >
-                      <KeyboardBackspaceIcon /> FAQs
+                      <KeyboardBackspaceIcon
+                        onClick={() => window.history.back()}
+                      />
+                      FAQs
                     </Box>
                     <Container>
                       <Box className="faq-list">
@@ -70,9 +72,11 @@ class FaqOwner extends FaqOwnerController {
                     <Box
                       display={{ xs: "flex", md: "flex" }}
                       className="backIcon"
-                      onClick={() => this.changeFaqState(1)}
                     >
-                      <KeyboardBackspaceIcon /> Vehicle's FAQs
+                      <KeyboardBackspaceIcon
+                        onClick={() => this.changeFaqState(1)}
+                      />
+                      Vehicle's FAQs
                     </Box>
                     <Container>
                       <Box className="faq-list">
@@ -108,9 +112,11 @@ class FaqOwner extends FaqOwnerController {
                     <Box
                       display={{ xs: "flex", md: "flex" }}
                       className="backIcon"
-                      onClick={() => this.changeFaqState(2)}
                     >
-                      <KeyboardBackspaceIcon /> Vehicle's FAQs
+                      <KeyboardBackspaceIcon
+                        onClick={() => this.changeFaqState(2)}
+                      />
+                      Vehicle's FAQs
                     </Box>
                     <Container>
                       <Box className="faq-list">
