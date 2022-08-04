@@ -139,3 +139,13 @@
     height: auto;
   }
 }
+
+input#mobile {
+  background-image: url('../../assets/numpad.png');
+  background-repeat: no-repeat;
+  text-indent: 31px;
+}
+
+input#mobile:focus {
+  background-image: none;
+}
