@@ -1,12 +1,33 @@
 .card {
   margin-top: 1rem;
-  border: 1px solid #181d251a;
-  padding: 0.5rem;
+  padding-top: 0.5rem;
   border-radius: 15px;
+  box-shadow: 2px 0px 10px #5c66ad3b;
+  margin-bottom: 0;
+
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+
+    .status {
+      color: #FC8434;
+      font-weight: 400;
+      background-color: #fff1ceb0;
+      padding: 0.5rem 1rem 0.5rem 1rem;
+      border-radius: 15px;
+
+    }
+  }
 
   .status {
     color: #FC8434;
-    font-weight: 600;
+    font-weight: 400;
+    background-color: #fff1ceb0;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    border-radius: 15px;
+    margin-left: 1rem;
+    width: fit-content;
   }
 }
 
@@ -32,6 +53,18 @@
 
   .sub-title {
     color: #181d257a;
-    margin-top: 0.25rem;
   }
+}
+
+.diloag-wrapper {
+  padding: 2rem;
+}
+
+.MuiDialogActions-root {
+  flex-direction: column;
+}
+
+.auth-container {
+  padding: 0.5rem 1rem 1rem 0.5rem;
+  background-color: white;
 }

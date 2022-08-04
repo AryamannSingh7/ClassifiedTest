@@ -17,13 +17,6 @@ import Grid from '@material-ui/core/Grid';
 import Select from "@material-ui/core/Select";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import Divider from '@material-ui/core/Divider';
-// Icons
-
-import DateRangeOutlinedIcon from '@material-ui/icons/DateRangeOutlined';
-import HighlightOffOutlinedIcon from '@material-ui/icons/HighlightOffOutlined';
-import CheckCircleOutlineOutlinedIcon from '@material-ui/icons/CheckCircleOutlineOutlined';
-import AccessTimeOutlinedIcon from '@material-ui/icons/AccessTimeOutlined';
-// Icons
 
 import PollingController, {
   Props,
@@ -72,7 +65,7 @@ class PollsallData extends PollingController {
                         </Box>
                     </Box>
                     <Grid container spacing={4} style={{marginTop: 15}} className="link-decoration">
-                        <Grid item sm={4}>
+                        <Grid item sm={6} md={4} xs={12}>
                             <Link href="/CreatePolls">
                                 <Box className="CreatePSsingle">
                                     <Box sx={{ml:1, mb:2}}>
@@ -87,7 +80,7 @@ class PollsallData extends PollingController {
                             this.state.allPollsData.map((data:any) => {
                                 return(
                                     <>
-                                    <Grid item sm={4} md={4} xs={4} >
+                                    <Grid item sm={6} md={4} xs={12} >
                                         <Box className="EventsCards"
                                         key={data.id}
                                         onClick={() => this.props.history.push("/PollDetails?id="+data.id)}
@@ -173,9 +166,7 @@ class PollsallData extends PollingController {
                         </Grid>
                         </Grid>
                 </Container>
-
                 </Grid>
-
             </Box>
         </Box>
      </>

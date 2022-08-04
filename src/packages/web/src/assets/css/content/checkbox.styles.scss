@@ -12,8 +12,9 @@
         }
         & .checkboxLabel {
             font-size: 13px;
-            color: #262a32;
+            color: $DARK;
             font-family: $Gotham_Light;
+            font-weight: bold;
         }
         & .link {
             padding-left: 10px;

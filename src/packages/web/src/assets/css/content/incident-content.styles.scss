@@ -1,0 +1,42 @@
+@import "../constants/base/colors.scss";
+@import "../constants/base/global.scss";
+.incident-Listing-wrapper {
+  .MuiContainer-maxWidthLg {
+    max-width: 1400px;
+  }
+  & .sorting-header {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    & .MuiOutlinedInput-input {
+      padding: 10px 32px 10px 14px;
+    }
+    & .customSelect {
+      margin-right: 10px;
+      margin-bottom: 0;
+      & .MuiOutlinedInput-root {
+        padding-left: 0;
+        background-color: $WHITE;
+      }
+    }
+    & .customButton {
+      & .MuiButton-root {
+        padding: 5px 15px;
+      }
+    }
+  }
+  & .incident-button-row {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 80px;
+    padding-right: 50px;
+    &.customButton {
+      & .MuiButton-root {
+        padding: 10px 20px;
+        width: auto;
+        margin-left: 10px;
+      }
+    }
+  }
+}

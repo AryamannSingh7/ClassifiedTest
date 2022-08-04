@@ -1,3 +1,6 @@
+// @ts-ignore
+// @ts-nocheck
+
 import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
@@ -51,6 +54,7 @@ interface S {
   error: string | null;
   loading:boolean;
   allVehcile:any[];
+  showDialog:boolean;
   // Customizable Area End
 }
 
@@ -61,7 +65,9 @@ interface SS {
 export default class VeichleListController extends BlockComponent<Props, S, SS> {
     // Customizable Area Start
   createVehicleApiCallId:string='';
+  updateVehicleApiCallId: string = '';
   getVehicleListApiCallId:string='';
+  deleteVehicleAPICallId:string='';
       // Customizable Area End
   constructor(props: Props) {
     super(props);
@@ -89,6 +95,7 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
       error:null,
       loading:false,
       allVehcile:[],
+      showDialog:false
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -181,15 +188,19 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
         } if (apiRequestCallId === this.createVehicleApiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
-            //@ts-ignore
-            //@ts-nocheck
-            this.setState({ loading: false })
-            //@ts-ignore
-            //@ts-nocheck
-            if (this.props.history.location.state?.data) {
+            if(localStorage.getItem('selectCar')){
+              localStorage.removeItem('selectCar')
               //@ts-ignore
               //@ts-nocheck
-              this.props.history.push('/veichleList')
+              this.props.history.push('/editRequest')
+            }else{
+
+              //@ts-ignore
+              //@ts-nocheck
+              this.setState({ loading: false })
+              //@ts-ignore
+              //@ts-nocheck
+              this.props.history.push('/NewRequest')
             }
                     } else if (responseJson?.errors) {
             let error = responseJson.errors[0];
@@ -203,7 +214,35 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
         } if (apiRequestCallId === this.getVehicleListApiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
-            this.setState({ allVehcile: responseJson.vehicle.data })
+            this.setState({ allVehcile: responseJson.vehicle.data }, () => console.log(this.state.allVehcile))
+          } else {
+            //Check Error Response
+            // this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        }
+        if (apiRequestCallId === this.deleteVehicleAPICallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            //@ts-ignore
+            //@ts-nocheck
+            localStorage.removeItem('selectCar')
+            this.props.history.push('/veichleList')
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        }
+        if (apiRequestCallId === this.updateVehicleApiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            //@ts-ignore
+            //@ts-nocheck
+            localStorage.removeItem('selectCar')
+            this.props.history.push('/editRequest')
           } else {
             //Check Error Response
             this.parseApiErrorResponse(responseJson);
@@ -423,7 +462,7 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
     return validations
   }
 
-  createVehicle=async(values:any)=>{
+  createVehicle = async (values: any) => {
     console.log(values)
     try {
       const header = {
@@ -432,10 +471,10 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
       };
       const formData = new FormData();
       formData.append("vehicle[owner_name]", values.full_name)
-      formData.append("vehicle[owner_name]", values.plateNumber)
-      formData.append("vehicle[owner_name]", values.carManufacturer)
-      formData.append("vehicle[owner_name]", values.carModle)
-      formData.append("vehicle[owner_name]", values.carColor)
+      formData.append("vehicle[plate_number]", values.plateNumber)
+      formData.append("vehicle[company_name]", values.carManufacturer)
+      formData.append("vehicle[model_number]", values.carModle)
+      formData.append("vehicle[color]", values.carColor)
       let blob = await fetch(values.bannerUrl).then(r => r.blob());
       formData.append(
         "vehicle[registration_card_copy]",
@@ -475,7 +514,62 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
       console.log(error);
     }
 
-}
+  }
+
+  updateVehicle = async (values: any) => {
+    console.log(values)
+    let item = JSON.parse(localStorage.getItem('selectCar'))
+    try {
+      const header = {
+
+        token: localStorage.getItem("userToken")
+      };
+      const formData = new FormData();
+      formData.append("vehicle[owner_name]", values.full_name)
+      formData.append("vehicle[plate_number]", values.plateNumber)
+      formData.append("vehicle[company_name]", values.carManufacturer)
+      formData.append("vehicle[model_number]", values.carModle)
+      formData.append("vehicle[color]", values.carColor)
+      let blob = await fetch(values.bannerUrl).then(r => r.blob());
+      formData.append(
+        "vehicle[registration_card_copy]",
+        blob
+      );
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+
+      this.updateVehicleApiCallId = requestMessage.messageId;
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        `${configJSON.endPointApiCreateVehicle}/${item.id}`
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestBodyMessage),
+        formData
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        'PUT'
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+      return true;
+
+    } catch (error) {
+      // this.setState({ loading: false })
+      console.log(error);
+    }
+
+  }
   handleSelectBanner = (
     e: any,
     setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
@@ -495,6 +589,7 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
       size: file.size,
       type: file.type
     } : '');
+    console.log('file',URL.createObjectURL(file))
     setFieldValue("bannerUrl", file ? URL.createObjectURL(file) : "");
     if (file) {
       e.target.value = "";
@@ -551,17 +646,51 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
     }
   }
   checkVehicle(){
-    console.log('ds')
-if(this.state.allVehcile.length<1){
+    console.log(this.state.allVehcile.length)
+if(this.state.allVehcile.length<2){
 // @ts-nocheck
     // @ts-ignore
   this.props.history.push("/newVeichleList")
 }else{
   // @ts-nocheck
     // @ts-ignore
-  this.setState({showDailog:true},()=>console.log(this.state))
+  this.setState({ showDialog:true},()=>console.log(this.state))
 }
 
+  }
+  deleteRequest(){
+    // @ts-nocheck
+    // @ts-ignore
+    let item = JSON.parse(localStorage.getItem('selectCar'))
+    const header = {
+
+      "token": localStorage.getItem('userToken')
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+
+    this.deleteVehicleAPICallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_vehicle/vehicles/${item.id}`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      'DELETE'
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
   }
   // Customizable Area End
 }

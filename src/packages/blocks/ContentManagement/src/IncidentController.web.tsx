@@ -14,6 +14,7 @@ import MessageEnum, {
 import * as Yup from 'yup';
 import { imgPasswordInVisible, imgPasswordVisible } from "./assets";
 import { valueContainerCSS } from "react-select/src/components/containers";
+import { truncateSync } from "fs";
 // Customizable Area End
 
 export const configJSON = require("./config");
@@ -46,6 +47,11 @@ export interface S {
   getIncidentDetails : any;
   sortBy : any ;
   status : any;
+  myApartmentList:any;
+  upload:any;
+  notImageOrVideoError:any,
+  sizeError:any,
+  image : any
   // Customizable Area End
 }
 
@@ -65,13 +71,14 @@ export default class IncidentController extends BlockComponent<
   passwordReg: RegExp;
   emailReg: RegExp;
   createAccountApiCallId: any;
-
+  apiupdateIncidentCallId:any;
   apicreateIncidentCallId: any;
   validationApiCallId: any;
   getIncidentListingApiCallId: any;
   getIncidentDetailsByIdApiCallId : any ;
   getCommonAreaApiCallId : any ;
   getIncidentRelatedApiCallId:any;
+  getMyApartmentListApiCallId:any;
   validationApiCallId: string = "";
 
   imgPasswordVisible: any;
@@ -128,6 +135,11 @@ export default class IncidentController extends BlockComponent<
       getIncidentDetails:null,
       sortBy : "" ,
       status : "",
+      myApartmentList:[],
+      upload:false,
+      notImageOrVideoError:false,
+      sizeError:false,
+      image:[]
       // Customizable Area End
     };
 
@@ -202,10 +214,25 @@ export default class IncidentController extends BlockComponent<
           }
         } 
       else if (apiRequestCallId === this.apicreateIncidentCallId) {
-          if (responseJson && responseJson.data && responseJson.meta) {
+          if (responseJson && responseJson.data) {
             console.log("apicreateIncidentCallId===========>",responseJson)
             localStorage.setItem("createIncidentId",responseJson.data.id)
               this.props.history.push("/IncidentReportedSuccessfully")
+            this.setState({loading: false})      
+          } else if (responseJson?.errors) {
+            let error = responseJson.errors[0]
+            this.setState({ error });
+          } else {
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
+          }
+         
+          this.parseApiCatchErrorResponse(this.state.error);
+          this.setState({loading: false , error:null})
+        }
+        else if (apiRequestCallId === this.apiupdateIncidentCallId) {
+          if (responseJson && responseJson.data) {
+            console.log("apiupdateIncidentCallId===========>",responseJson)
+              this.props.history.push("/IncidentListing")
             this.setState({loading: false})      
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
@@ -239,9 +266,7 @@ export default class IncidentController extends BlockComponent<
           this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = responseJson.errors[0] as string;
-            if(error === 'Record not found'){
               this.props.history.push("/IncidentListing")
-            }
             this.setState({ error });
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
@@ -251,7 +276,7 @@ export default class IncidentController extends BlockComponent<
         }
         else if (apiRequestCallId === this.getCommonAreaApiCallId) {
           if (responseJson && responseJson?.data ) {
-          console.log("getCommonAreaApiCallId  getIncidentRelatedApiCallId========================>",responseJson)
+          console.log("getCommonAreaApiCallId  ========================>",responseJson)
           this.setState({commonAreaData :responseJson?.data.common_areas})
         
           this.setState({loading: false})
@@ -268,6 +293,21 @@ export default class IncidentController extends BlockComponent<
           if (responseJson && responseJson?.data ) {
           console.log("getIncidentRelatedApiCallId========================>",responseJson)
           this.setState({incidentRelatedData :responseJson?.data.incident_relateds})
+        
+          this.setState({loading: false})
+          } else if (responseJson?.errors) {
+            let error = Object.values(responseJson.errors[0])[0] as string;
+            this.setState({ error });
+          } else {
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
+          }
+          this.parseApiCatchErrorResponse(this.state.error);
+          this.setState({loading: false , error:null})
+        }
+        else if (apiRequestCallId === this.getMyApartmentListApiCallId) {
+          if (responseJson && responseJson?.data ) {
+          console.log("getMyApartmentListApiCallId========================>",responseJson)
+          this.setState({myApartmentList :responseJson?.data})
         
           this.setState({loading: false})
           } else if (responseJson?.errors) {
@@ -513,6 +553,12 @@ clear= () => {
   this.props.history.push("/");
 }
 
+onSubmit =(values)=>{
+  localStorage.setItem("incidentPreview", JSON.stringify(values))
+  console.log("onsbumit=========>", values);
+    this.setState({ loading: true })
+    this.props.history.push("/IncidentPreview")
+}
 getIncidentDetails= (id) => {
   this.props.history.push({
     pathname: "/IncidentDetails",
@@ -522,24 +568,84 @@ getIncidentDetails= (id) => {
   //this.getIncidentDetailsById(id)
 }
 
+confirmOrRejectIncident =(id,val)=>{
+  const header = {
+    token :localStorage.getItem("userToken")
+  };
+  const formData = new FormData();
+  if(val === "confirm"){
+    formData.append('incident[mark_resolved_by_reporter]', true);
+    formData.append('incident[incident_status]', 'Resolved');
+  }else{
+    formData.append('incident[mark_resolved_by_reporter]', false);
+    formData.append('incident[incident_status]', 'Unresolved');
+  }
+ 
+ 
+ console.log("formData.getAll('apartment_management_id')==================>",formData.get('incident[incident_status]'))
+ const httpBody = formData;
+ console.log("httpBody httpBody==================>",httpBody);
+ 
+  this.setState({loading: true}) 
+  const requestMessage = new Message(
+    getName(MessageEnum.RestAPIRequestMessage)
+  );
 
-  createIncident = (incidentFromData: any ,incidentRelated : any): boolean => {
-    
-    const header = {
+  this.apiupdateIncidentCallId = requestMessage.messageId;
+  requestMessage.addData(
+    getName(MessageEnum.RestAPIResponceEndPointMessage),
+    `${configJSON.updateIncident}${id}`
+  );
+
+  requestMessage.addData(
+    getName(MessageEnum.RestAPIRequestHeaderMessage),
+    JSON.stringify(header)
+  );
+
+  requestMessage.addData(
+    getName(MessageEnum.RestAPIRequestBodyMessage),
+    httpBody
+  );
+
+  requestMessage.addData(
+    getName(MessageEnum.RestAPIRequestMethodMessage),
+    configJSON.PatchAPiMethod
+  );
+
+  runEngine.sendMessage(requestMessage.id, requestMessage);
+
+  return true;
+
+}
+
+
+
+  createIncident = async(incidentFromData: any ,incidentRelated : any): boolean => {
+  try   
+   {
+     const header = {
       token :localStorage.getItem("userToken")
     };
-    console.log("values create==================>",incidentFromData ,incidentRelated);
+   // console.log("values create==================>",incidentFromData.media[0].file );
     const formData = new FormData();
-   formData.append('incident[common_area_id]', incidentFromData?.commonArea);
+   formData.append('incident[common_area_id]', incidentFromData?.commonArea?.id);
    formData.append('incident[incident_related_id]', incidentRelated[0]);
    formData.append('incident[incident_title]', incidentFromData.incidentTitle);
    formData.append('incident[description]', incidentFromData.description);
-   formData.append('incident[image][]', incidentFromData.media);
+  //  formData.append('incident[attachments]', incidentFromData.media[0].file);
+   formData.append('incident[apartment_management_id]', incidentFromData.myApartment.id);
    
-   console.log("formData.getAll('description')==================>",formData.get('incident[common_area_id]'))
+   for (let j = 0; j < incidentFromData.media.length; j += 1) {
+    let blob = await fetch(incidentFromData.media[j].url).then(r => r.blob());
+    formData.append(
+      "incident[attachments][]",
+      blob
+    );
+    console.log("incident[attachments][] ==================>",incidentFromData.media[j].file);
+  }
+   
+   console.log("formData.getAll('apartment_management_id')==================>",formData.get('incident[attachments][]'))
    const httpBody = formData;
-   console.log("httpBody httpBody==================>",httpBody);
-   
     this.setState({loading: true}) 
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
@@ -569,6 +675,11 @@ getIncidentDetails= (id) => {
     runEngine.sendMessage(requestMessage.id, requestMessage);
 
     return true;
+    }
+    catch (error) {
+      this.setState({loading: false})
+      console.log(error);
+    }
   };
 
  
@@ -610,6 +721,42 @@ getIncidentDetails= (id) => {
     }
   };
   
+  getMyApartmentList = () => {
+    try {
+      const header = {
+        "Content-Type": configJSON.validationApiContentType,
+        token :localStorage.getItem("userToken")
+      };
+
+      //const id = localStorage.getItem("userId");
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+      this.getMyApartmentListApiCallId = requestMessage.messageId;
+      this.setState({ loading: true });
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        `account_block/accounts/my_apartments`
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        configJSON.validationApiMethodType
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+      return true;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   getCommonArea = () => {
     try {
       const header = {
@@ -757,34 +904,43 @@ getIncidentDetails= (id) => {
     let media = [];
     let files = e.target.files;
     console.log("filessss=====>",files);
-
-    for (let i = 0; i < files.length; i += 1) {
-      if(files[i] && !["image/jpg", "image/jpeg", "image/gif", "image/png","video/mp4","video/x-m4v" ].includes(files[i].type)){
-        console.log("type=====>",files[i].type);
-         setFieldError('media','Only image and video are supported.');
-         return ;
-      } 
-      else if(files[i] && files[i].size >= 10e6){
-         console.log("size=====>",files[i].size);
-        setFieldError('media','size is less than 10 mb.');
-        return ;
-      }
-      console.log("media push =====>",files[i]);
-      media.push({
-        file: {
-          lastModified: files[i].lastModified,
-          lastModifiedDate: files[i].lastModifiedDate,
-          name: files[i].name,
-          size: files[i].size,
-          type: files[i].type
-        },
-        url: URL.createObjectURL(files[i])
-      });
-    }
+  
     
-    e.target.value = "";
-    console.log("media======>",media)
-    setFieldValue("media", media);
+if(files.length !== 0){
+  for (let i = 0; i < files.length; i += 1) {
+    if(files[i] && !["image/jpg", "image/jpeg", "image/gif", "image/png" ].includes(files[i].type))
+    {
+      console.log("type=====>",files[i].type);
+      this.setState({upload: false,sizeError : false,notImageOrVideoError:true});
+       return ;
+    } 
+    else if(files[i] && files[i].size >= 10e6)
+    {
+       console.log("size=====>",files[i].size);
+       this.setState({upload: false , sizeError : true ,notImageOrVideoError:false});
+      return ;
+    }
+    console.log("media push =====>",files[i]);
+    media.push({
+      file: {
+        lastModified: files[i].lastModified,
+        lastModifiedDate: files[i].lastModifiedDate,
+        name: files[i].name,
+        size: files[i].size,
+        type: files[i].type
+      },
+      url: URL.createObjectURL(files[i])
+    });
+  }
+  e.target.value = "";
+  this.setState({upload: true ,sizeError : false,notImageOrVideoError:false});
+  console.log("media======>",media)
+  setFieldValue("media", media);
+}
+else {
+  this.setState({upload: false,sizeError : false,notImageOrVideoError:false});
+}
+   
   };
   
 createIncidentSchema() {
@@ -793,10 +949,10 @@ createIncidentSchema() {
       incidentRelated: Yup.string().required(`This field is required`).trim(),
       incidentTitle: Yup.string().required(`This field is required`).max(50, "Too Long!"),
       description: Yup.string().required(`This field is required`).max(200, "Too Long!"),
-
-      media: Yup.array()
-      .min(1, ("Only image and video are supported"))
-      .required(`This field is required.`)   
+      myApartment:Yup.string().required(`This field is required`).trim(),
+      //media: Yup.array()
+      // .min(1, ("Atleast one image required"))
+      // .required(`This field is required.`)   
     });
        
     return validations ;

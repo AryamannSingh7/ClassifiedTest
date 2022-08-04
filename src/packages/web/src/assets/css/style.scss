@@ -13,40 +13,13 @@ html {
   // font-family: $MONTSERRAT;
   font-family: $Gotham_Medium;
   font-weight: 100;
-  overflow-y: auto;
   @include scrollbars();
+
   @include mq(tablet-portrait-large-up) {
     background-color: $WHITE;
   }
 }
 
-body::-webkit-scrollbar {
-  width: 8px;
-  border-radius: 100%;
-  cursor: pointer;
-  scroll-margin: 10px;
-}
-
-/* Track */
-body::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  scroll-margin: 10px;
-  cursor: pointer;
-}
-
-/* Handle */
-body::-webkit-scrollbar-thumb {
-  background: #ececec;
-  scroll-margin: 10px;
-  cursor: pointer;
-}
-
-/* Handle on hover */
-body::-webkit-scrollbar-thumb:hover {
-  background: $BLUE;
-  scroll-margin: 10px;
-  cursor: pointer;
-}
 h1,
 h2,
 h3,
@@ -68,29 +41,42 @@ h1 {
     font-size: 24px;
   }
 }
+
 h2 {
   font-size: 26px;
   @include mq(tablet-portrait-large-up) {
     font-size: 25px;
   }
 }
+
+h3 {
+  font-size: 24px;
+  @include mq(tablet-portrait-large-up) {
+    font-size: 20px;
+  }
+}
+
 h4 {
   font-family: $Gotham_Medium;
   font-size: 19px;
   font-weight: 600;
+
   @include mq(tablet-portrait-large-up) {
     font-size: 17px;
   }
 }
+
 h5 {
   font-family: $Gotham_Light;
   font-weight: 600;
   // opacity: 0.85;
   font-size: 17px;
+
   @include mq(tablet-portrait-large-up) {
     font-size: 15px;
   }
 }
+
 h6 {
   // color: $GRAY_SHADE3;
   font-size: 15px;
@@ -109,10 +95,12 @@ p {
   font-size: 16px;
   font-weight: 500;
   line-height: 1.5;
+
   @include mq(tablet-portrait-large-up) {
     font-size: 14px;
   }
 }
+
 a {
   text-decoration: none;
   font-family: $Gotham_Light;
@@ -134,6 +122,7 @@ ul {
   // font-family: $MONTSERRAT;
   font-family: $Gotham_Medium;
 }
+
 .mainWrapper {
   height: 100%;
   width: 100%;
@@ -156,11 +145,23 @@ ul {
 .common-bottom-padding {
   padding: 0 60px 30px 60px;
 }
+
 .d-none {
   display: none;
 }
+
 .text-error {
   color: $WARNING;
+  font-size: 14px !important;
+  margin-bottom: 10px !important;
+  display: flex;
+  margin-left: 15px;
+  margin-top: 5px !important;
+  font-weight: 600;
+}
+
+.text-success {
+  color: $GREEN;
   font-size: 13px !important;
   margin-bottom: 10px !important;
   // font-weight: 600 !important;

@@ -16,6 +16,7 @@
     padding-bottom: 3rem;
     background: #fff;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .CreatePSIcons{
@@ -51,6 +52,7 @@
 .navigation{
     display: flex;
     justify-content: space-between;
+    align-items: flex-end;
 }
 
 .navigation .subHeading{
@@ -155,6 +157,7 @@
     padding-bottom: 25px;
     background: #fff;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .CardsIcons{
@@ -201,6 +204,7 @@
     padding-bottom: 15px;
     background: #fff;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .EventsIconsText .EventsTitle{
@@ -523,4 +527,90 @@
 .VoteCountBottomBox p{
     font-weight: 700;
     margin-left: 0.5rem;
+}
+.DialogTable{
+    overflow-y: scroll;
+}
+.DialogTable .MuiDialog-scrollPaper {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+.DialogTable .MuiDialog-paper{
+    margin: 0px;
+}
+.DialogTable .MuiDialog-container{
+    height: auto;
+}
+.DialogTable .MuiPaper-elevation24{
+    box-shadow: none;
+}
+.DialogTable .MuiPaper-rounded{
+    border-radius: 0;
+}
+
+.tableHeading .MuiTypography-root{
+    display: flex;
+    justify-content: space-between;
+}
+.tableTopSearch{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem;
+}
+.tableBorder{
+    margin-left: 1rem;
+    margin-right: 1rem;
+    border: 1px solid rgb(190, 190, 190);
+    border-radius: 5px;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+}
+.searchBox{
+    position: relative;
+    border-radius: 5px;
+    border: 1px solid lightgray;
+    width: 40%;
+}
+.searchIcon{
+    height: 100%;
+    position: absolute;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    color: grey;
+}
+
+.PollResponseMain{
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    background: #fff;
+    border-radius: 10px;
+}
+
+.TableHeader{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    padding: 1rem;
+}
+.downloadReport .MuiButtonBase-root,
+.downloadReport .MuiButton-root {
+    color: white;
+    background: #3f51b5;
+    padding: 0.8rem;
+    border-radius: 5px;
+    font-weight: 600;
+}
+.reportbtn{
+    color: white;
+    background: #3f51b5;
+    padding: 0.8rem;
+    border-radius: 5px;
+    font-weight: 700;
+    cursor: pointer;
 }

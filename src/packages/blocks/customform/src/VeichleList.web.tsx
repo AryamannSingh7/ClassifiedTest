@@ -12,7 +12,7 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import HomeIcon from '@material-ui/icons/Home';
-import { Building1, NoVehicles, owner, resident_owner, tenet } from "./assets";
+import { Building1, info, NoVehicles, owner, resident_owner, tenet } from "./assets";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
 import VeichleListController from "./VeichleListController.web";
@@ -33,6 +33,7 @@ class VeichleList extends VeichleListController {
   }
 
   async componentDidMount() {
+
     this.getVehicle()
 
   }
@@ -42,18 +43,23 @@ class VeichleList extends VeichleListController {
 
       <>
         <Grid container spacing={2} className="auth-container">
-          <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset' }}>
-            <div style={{ margin: 'auto' }}>
-
-              <Grid container className="main-content-block">
-                <Grid xs={12}>
+          <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset',overflowY:'auto',overflowX:'hidden' }}>
+              <Grid container>
+                <Grid xs={12} style={{display:'flex',alignItems:'center'}}>
                   <ArrowBackIcon onClick={() => window.history.back()} />
+                  <p style={{ fontWeight: 600, fontSize: '1.25rem' }}>
+
+                  My Vehicles
+                  </p>
                 </Grid>
               </Grid>
+
+
+
               {
-                this.state.allVehcile ?
+                this.state.allVehcile.length>0 ?
                 <>
-                    <Grid container>
+                    <Grid container style={{height:'74vh'}}>
                       {
                         this.state.allVehcile.map((item,i)=><>
                           <Grid xs={12} >
@@ -63,7 +69,7 @@ class VeichleList extends VeichleListController {
                               </div>
                               <div className="card-content">
 
-                                <img src={Building1} />
+                                <img src='https://img.freepik.com/premium-photo/generic-brandless-modern-sport-car-with-fire-smoke_110488-1759.jpg' />
                                 <div className="content">
                                   <p className="title">
                                     {item.attributes.company_name}
@@ -97,7 +103,8 @@ class VeichleList extends VeichleListController {
                             color: "#F7F7FC",
                             fontWeight: 600,
                             fontSize: 16,
-                            marginTop: 30
+                            marginTop: 30,
+
                           }}
 
                         >
@@ -105,8 +112,11 @@ class VeichleList extends VeichleListController {
                         </Button>
                       </Grid>
                     </Grid>
-                </>:
+                </>
+                :
+                <div style={{margin:'auto'}}>
                   <NoVehicle props={this.props} />
+                  </div>
               }
               {/* <Grid container>
                 <Grid xs={12}>
@@ -176,7 +186,7 @@ class VeichleList extends VeichleListController {
                   </Button>
 </Grid>
               </Grid> */}
-              </div>
+
             </Grid>
           <Grid item xs={12} md={5} className="auth-cols">
             <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
@@ -193,19 +203,20 @@ class VeichleList extends VeichleListController {
           PaperProps={{
             style: {
               borderRadius: '15px',
+              padding:'2rem'
             },
           }}
         >
           <Grid container>
             <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
 
-              <img src={NoVehicles} />
+              <img src={info} />
             </Grid>
           </Grid>
           <Grid container>
             <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
 
-              <p style={{ fontWeight: 600, fontSize: '1.25rem' }}>
+              <p style={{ fontWeight: 600, fontSize: '1.25rem',textAlign:'center' }}>
                 Unable to add vehicle
                 <br />
                 request
@@ -220,7 +231,7 @@ class VeichleList extends VeichleListController {
             </Grid>
           </Grid>
           <Grid container >
-            <Grid xs={12}>
+            <Grid xs={12} style={{display:'flex',justifyContent:'center'}}>
               <Button
                 fullWidth={true}
                 className={'btn'}
@@ -236,7 +247,8 @@ class VeichleList extends VeichleListController {
                   color: "#F7F7FC",
                   fontWeight: 600,
                   fontSize: 16,
-                  marginTop: 30
+                  marginTop: 30,
+                  maxWidth:'14rem'
                 }}
 
               >
