@@ -114,10 +114,10 @@ class IncidentListing extends IncidentController {
                               </Box>
                               <Box className="card-listing-row">
                                 <Typography className="sub-title" component="h5">
-                                  {val?.attributes?.apartment_management?.building_name}Building
+                                  {val?.attributes?.apartment_management?.building_name}
                                 </Typography>
                                 <Typography className="sub-title" component="h5">
-                                  {val?.attributes?.apartment_management?.apartment_name}Building
+                                  {val?.attributes?.apartment_management?.apartment_name}
                                 </Typography>
                               </Box>
                               <hr />

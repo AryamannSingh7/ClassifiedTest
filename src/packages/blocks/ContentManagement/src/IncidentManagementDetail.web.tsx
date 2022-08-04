@@ -138,7 +138,7 @@ class IncidentManagementDetail extends IncidentManagementController {
                         </Box>
                         <Box className="card-rows">
                           <h5>Unit: </h5>
-                          <h4>Building{val?.attributes?.apartment_management?.apartment_name}</h4>
+                          <h4>Building{attributes?.apartment_management?.apartment_name}</h4>
                         </Box>
                         <Box className="card-rows">
                           <h5>Acknowledge by Manager: </h5>
@@ -150,7 +150,7 @@ class IncidentManagementDetail extends IncidentManagementController {
                         </Box>
                         <Box className="card-rows">
                           <h5>Description: </h5>
-                          <h4>Building</h4>
+                          <h4>{attributes?.description}</h4>
                         </Box>
                         <Box className="card-rows">
                           <h5>Photos: </h5>
@@ -176,7 +176,7 @@ class IncidentManagementDetail extends IncidentManagementController {
                       </Box>
                       <Box className="incident-button-row customButton">
                         <Button variant="outlined"
-                          onClick={() => { this.setState({ showDialog: true }) }}
+                          onClick={() => { this.setState({ showDialog: false }) }}
                           type="submit">assign incident to provider</Button>
                         <Button variant="contained" type="submit">start/view ticket conversation</Button>
                       </Box>

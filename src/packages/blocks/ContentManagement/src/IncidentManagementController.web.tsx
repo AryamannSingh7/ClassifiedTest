@@ -259,10 +259,9 @@ export default class IncidentManagementController extends BlockComponent<
           console.log("responseJson getIncidentDetails========================>",this.state?.getIncidentDetails)
           this.setState({loading: false})
           } else if (responseJson?.errors) {
+            console.log("responseJson?.errors====>",responseJson?.errors)
+            this.props.history.push("/IncidentManagementDetail")
             let error = responseJson.errors[0] as string;
-            if(error === 'Record not found'){
-              this.props.history.push("/IncidentListing")
-            }
             this.setState({ error });
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
@@ -787,7 +786,7 @@ onChange =(e)=>{
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `bx_block_custom_form/incidents${id}`
+        `bx_block_custom_form/incidents/${id}`
       );
 
       requestMessage.addData(
