@@ -136,6 +136,8 @@ import IncidentReportedSuccessfully from "../../blocks/ContentManagement/src/Inc
 import IncidentPreview from "../../blocks/ContentManagement/src/IncidentPreview.web";
 import IncidentManagement from "../../blocks/ContentManagement/src/IncidentManagement.web";
 import IncidentManagementDetail from "../../blocks/ContentManagement/src/IncidentManagementDetail.web";
+import NeighboursListing from "../../blocks/search/src/NeighboursListing.web";
+import NeighboursDetails from "../../blocks/search/src/NeighboursDetails.web";
 
 
 const routeMap = {
@@ -148,6 +150,16 @@ const routeMap = {
   LandingPage2: {
     component: LandingPage,
     path: '/owner',
+    exact: true
+  },
+  NeighboursListing: {
+    component: NeighboursListing,
+    path: '/NeighboursListing',
+    exact: true
+  },
+  NeighboursDetails: {
+    component: NeighboursDetails,
+    path: '/NeighboursDetails',
     exact: true
   },
   VeichleList: {
