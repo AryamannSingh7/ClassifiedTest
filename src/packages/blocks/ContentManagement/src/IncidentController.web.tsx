@@ -50,7 +50,8 @@ export interface S {
   myApartmentList:any;
   upload:any;
   notImageOrVideoError:any,
-  sizeError:any
+  sizeError:any,
+  image : any
   // Customizable Area End
 }
 
@@ -137,7 +138,8 @@ export default class IncidentController extends BlockComponent<
       myApartmentList:[],
       upload:false,
       notImageOrVideoError:false,
-      sizeError:false
+      sizeError:false,
+      image:[]
       // Customizable Area End
     };
 
@@ -618,23 +620,32 @@ confirmOrRejectIncident =(id,val)=>{
 
 
 
-  createIncident = (incidentFromData: any ,incidentRelated : any): boolean => {
-    
-    const header = {
+  createIncident = async(incidentFromData: any ,incidentRelated : any): boolean => {
+  try   
+   {
+     const header = {
       token :localStorage.getItem("userToken")
     };
-    console.log("values create==================>",incidentFromData.media[0].file );
+   // console.log("values create==================>",incidentFromData.media[0].file );
     const formData = new FormData();
    formData.append('incident[common_area_id]', incidentFromData?.commonArea?.id);
    formData.append('incident[incident_related_id]', incidentRelated[0]);
    formData.append('incident[incident_title]', incidentFromData.incidentTitle);
    formData.append('incident[description]', incidentFromData.description);
-   formData.append('incident[attachments]', incidentFromData.media[0].file);
+  //  formData.append('incident[attachments]', incidentFromData.media[0].file);
    formData.append('incident[apartment_management_id]', incidentFromData.myApartment.id);
-   console.log("formData.getAll('apartment_management_id')==================>",formData.get('incident[attachments]'))
-   const httpBody = formData;
-   console.log("httpBody httpBody==================>",httpBody);
    
+   for (let j = 0; j < incidentFromData.media.length; j += 1) {
+    let blob = await fetch(incidentFromData.media[j].url).then(r => r.blob());
+    formData.append(
+      "incident[attachments][]",
+      blob
+    );
+    console.log("incident[attachments][] ==================>",incidentFromData.media[j].file);
+  }
+   
+   console.log("formData.getAll('apartment_management_id')==================>",formData.get('incident[attachments][]'))
+   const httpBody = formData;
     this.setState({loading: true}) 
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
@@ -664,6 +675,11 @@ confirmOrRejectIncident =(id,val)=>{
     runEngine.sendMessage(requestMessage.id, requestMessage);
 
     return true;
+    }
+    catch (error) {
+      this.setState({loading: false})
+      console.log(error);
+    }
   };
 
  
