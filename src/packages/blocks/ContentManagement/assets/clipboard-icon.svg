@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="filter_1">
+      <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.65882355 0 0 0 0 0.65882355 0 0 0 0 0.65882355 0 0 0 1 0" color-interpolation-filters="sRGB" />
+    </filter>
+  </defs>
+  <g id="Clipboard-Copy" filter="url(#filter_1)">
+    <path d="M24 0L24 24L0 24L0 0L24 0Z" id="Vector" fill="none" fill-rule="evenodd" stroke="none" />
+    <g id="Group" transform="translate(4.800003 2.7400055)">
+      <path d="M10.3857 1.54999L12.34 1.54999C13.48 1.54999 14.4 2.47 14.4 3.61L14.4 16.46C14.4 17.6 13.48 18.52 12.34 18.52L2.06 18.52C0.919998 18.52 0 17.6 0 16.46L0 3.61C0 2.47 0.919998 1.54999 2.06 1.54999L4.12 1.54999" id="Vector" fill="none" stroke="#9C9C9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M5.14999 3.09C4.57999 3.09 4.12 2.63 4.12 2.06L4.12 1.03C4.12 0.459999 4.57999 0 5.14999 0L9.25999 0C9.82999 0 10.29 0.459999 10.29 1.03L10.29 2.06C10.28 2.63 9.81999 3.09 9.25999 3.09L5.14999 3.09Z" id="Vector" fill="none" stroke="#9C9C9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M3.09 6.17999L4.12 6.17999" id="Vector" fill="none" fill-rule="evenodd" stroke="#9C9C9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M3.09 10.29L11.31 10.29" id="Vector" fill="none" fill-rule="evenodd" stroke="#9C9C9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M3.09 14.4L11.31 14.4" id="Vector" fill="none" fill-rule="evenodd" stroke="#9C9C9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+    </g>
+  </g>
+</svg>

@@ -20,34 +20,6 @@ html {
   }
 }
 
-body::-webkit-scrollbar {
-  width: 8px;
-  border-radius: 100%;
-  cursor: pointer;
-  scroll-margin: 10px;
-}
-
-/* Track */
-body::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  scroll-margin: 10px;
-  cursor: pointer;
-}
-
-/* Handle */
-body::-webkit-scrollbar-thumb {
-  background: #ececec;
-  scroll-margin: 10px;
-  cursor: pointer;
-}
-
-/* Handle on hover */
-body::-webkit-scrollbar-thumb:hover {
-  background: $BLUE;
-  scroll-margin: 10px;
-  cursor: pointer;
-}
-
 h1,
 h2,
 h3,
@@ -65,7 +37,6 @@ h1 {
   // font-weight: 600;
   font-family: $Gotham_Medium;
   padding-right: 10px;
-
   @include mq(tablet-portrait-large-up) {
     font-size: 24px;
   }
@@ -73,9 +44,15 @@ h1 {
 
 h2 {
   font-size: 26px;
-
   @include mq(tablet-portrait-large-up) {
     font-size: 25px;
+  }
+}
+
+h3 {
+  font-size: 24px;
+  @include mq(tablet-portrait-large-up) {
+    font-size: 20px;
   }
 }
 
@@ -175,12 +152,12 @@ ul {
 
 .text-error {
   color: $WARNING;
-  font-size: 13px !important;
+  font-size: 14px !important;
   margin-bottom: 10px !important;
-  // font-weight: 600 !important;
   display: flex;
   margin-left: 15px;
   margin-top: 5px !important;
+  font-weight: 600;
 }
 
 .text-success {

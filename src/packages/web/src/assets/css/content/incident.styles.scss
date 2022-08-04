@@ -36,6 +36,7 @@
   .content-block-wrapper {
     padding: 0 25px;
     &.common-incident-block {
+      @include scrollbars();
       @include mq(tablet-portrait-medium-up) {
         width: 450px;
         overflow-y: scroll;
@@ -66,60 +67,33 @@
         // max-height: 500px;
       }
     }
-    & .incident-preview-title
-    {
+    & .incident-preview-title {
       padding-top: 30px;
     }
-    & .video-img
-    {
+    & .video-img {
       position: relative;
       cursor: pointer;
       display: flex;
       justify-content: center;
       align-items: center;
-      & .img-layer
-      {
+      & .img-layer {
+        position: absolute;
+        left: 0;
+        top: 0;
         height: 60px;
         width: 60px;
-        background-color: red;
-        z-index: 999;
+        background-color: rgba(0, 0, 0, 0.3);
+        border-radius: 10px;
+        z-index: 1;
       }
-      & .play-icon
-      {
+      & .play-icon {
         position: absolute;
+        z-index:2;
+        color: $WHITE;
       }
     }
   }
   & .customButton {
     margin-bottom: 20px;
-  }
-  
-  &::-webkit-scrollbar,
-  .common-incident-block::-webkit-scrollbar {
-    width: 8px;
-    border-radius: 100%;
-    cursor: pointer;
-    scroll-margin: 10px;
-  }
-  /* Track */
-  &::-webkit-scrollbar-track,
-  .common-incident-block::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    scroll-margin: 10px;
-    cursor: pointer;
-  } 
-  /* Handle */
-  &::-webkit-scrollbar-thumb,
-  .common-incident-block::-webkit-scrollbar-thumb {
-    background: #ececec;
-    scroll-margin: 10px;
-    cursor: pointer;
-  }
-  /* Handle on hover */
-  &::-webkit-scrollbar-thumb:hover,
-  .common-incident-block::-webkit-scrollbar-thumb:hover {
-    background: $BLUE;
-    scroll-margin: 10px;
-    cursor: pointer;
   }
 }
