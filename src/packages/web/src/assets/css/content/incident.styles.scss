@@ -37,11 +37,10 @@
     padding: 0 25px;
     &.common-incident-block {
       @include scrollbars();
+      overflow-y: scroll;
+      margin: 10px auto;
       @include mq(tablet-portrait-medium-up) {
         width: 450px;
-        overflow-y: scroll;
-        /* width */
-        margin: 10px auto;
       }
       & .customButton {
         & .MuiButton-label {
@@ -70,7 +69,6 @@
     & .incident-preview-title {
       padding-top: 30px;
     }
-  
   }
   & .customButton {
     margin-bottom: 20px;

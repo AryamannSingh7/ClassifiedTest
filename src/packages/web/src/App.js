@@ -139,7 +139,6 @@ import IncidentManagementDetail from "../../blocks/ContentManagement/src/Inciden
 import NeighboursListing from "../../blocks/search/src/NeighboursListing.web";
 import NeighboursDetails from "../../blocks/search/src/NeighboursDetails.web";
 
-
 const routeMap = {
   //done
   LandingPage: {
