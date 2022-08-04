@@ -33,6 +33,7 @@ import NativeSelect from "@material-ui/core/NativeSelect";
 import Grid from '@material-ui/core/Grid';
 
 //resources
+import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import { withRouter } from 'react-router';
@@ -90,7 +91,7 @@ class IncidentManagementDetail extends IncidentManagementController {
                     </FormControl>
                   </Box>
                 </Box>
-                <Box className="incident-detail-card-block">
+                <Box className="content-block-wrapper incident-detail-card-block">
                   <Card className="incident-detail-card card">
                     <Box className="card-header">
                       <Typography component="h4">
@@ -156,11 +157,22 @@ class IncidentManagementDetail extends IncidentManagementController {
                         </Box>
                       </Box>
                       <Box className="photos-row">
-                        <img src={Building1} className="" />
-                        <img src={Building1} className="" />
-                        <img src={Building1} className="" />
-                        <img src={Building1} className="" />
-                        <img src={Building1} className="" />
+                        <Box className="video-img"> 
+                          <FullscreenIcon className="play-icon" />
+                          <img src={Building1} className="card-img" alt="card-img" />
+                          <Box className="img-layer"></Box>
+                        </Box>
+                        <Box className="video-img"> 
+                          <FullscreenIcon className="play-icon" />
+                          <img src={Building1} className="card-img" alt="card-img" />
+                          <Box className="img-layer"></Box>
+                        </Box>
+                        <Box className="video-img"> 
+                          <FullscreenIcon className="play-icon" />
+                          <img src={Building1} className="card-img" alt="card-img" />
+                          <Box className="img-layer"></Box>
+                        </Box>
+                        
                       </Box>
                       <Box className="incident-button-row customButton">
                         <Button variant="outlined"
@@ -241,6 +253,38 @@ class IncidentManagementDetail extends IncidentManagementController {
                         type="submit">cencel</Button>
                       <Button variant="contained" type="submit">assign incident</Button>
                     </Box>
+                  </Box>
+                </Box>
+              </Dialog>
+
+              {/* view large image dialog */}
+              <Dialog
+                open={this.state.showDialog}
+                onClose={() => this.setState({ showDialog: false })}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                className="diloag-wrapper"
+                PaperProps={{
+                  style: {
+                    borderRadius: '15px',
+                  },
+                }}
+              >
+                <Box className="diloag-body">
+                  <Box className="diloag-header">
+                    <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
+                      Image
+                    </DialogTitle>
+                    <Button onClick={() => { this.setState({ showDialog: false }) }}>
+                      <img src={Close_Icon} className="close-icon" />
+                    </Button>
+                  </Box>
+                  {/* <iframe className="incident-dialog-video"
+                  src="https://www.youtube.com/embed/tQG6jYy9xto" title="YouTube video player"
+                  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen></iframe> */}
+                  <Box className="diloag-content">
+                    <img src={this.state?.image} className="incident-dialog-photo" alt="Incident photo" />
                   </Box>
                 </Box>
               </Dialog>
