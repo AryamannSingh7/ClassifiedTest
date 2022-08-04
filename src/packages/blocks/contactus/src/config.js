@@ -29,4 +29,20 @@ exports.labelTitleText = "contactus";
 exports.labelBodyText = "contactus Body";
 
 exports.btnExampleTitle = "CLICK ME";
+
+exports.ApiContentType = "application/json";
+
+exports.apiMethodTypeGet = "GET";
+exports.apiMethodTypePost = "POST";
+exports.apiMethodTypeDelete = "DELETE";
+exports.apiMethodTypePut = "PUT";
+
+exports.FaqCategoryAPIEndPoint = "bx_block_interactive_faqs/interactive_faq_categories";
+exports.CreateFaqCategoryAPIEndPoint = "bx_block_interactive_faqs/interactive_faq_categories";
+exports.DeleteFaqCategoryAPIEndPoint = "bx_block_interactive_faqs/interactive_faq_categories";
+exports.EditFaqAPIEndPoint = "bx_block_interactive_faqs/interactive_faqs";
+exports.DeleteFaqAPIEndPoint = "bx_block_interactive_faqs/interactive_faqs";
+exports.CreateFaqAPIEndPoint = "bx_block_interactive_faqs/interactive_faqs";
+exports.CategoryByIdAPIEndPoint = "bx_block_interactive_faqs/interactive_faq_categories";
+
 // Customizable Area End
