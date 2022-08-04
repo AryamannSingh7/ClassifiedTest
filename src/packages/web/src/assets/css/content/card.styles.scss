@@ -110,11 +110,10 @@
     padding-bottom: 10px;
     @include scrollbars();
     & .card-img {
-      height: 60px;
-      width: 60px;
+      height: 75px;
+      width: 75px;
       object-fit: cover;
       border-radius: 10px;
-      // margin-right: 5px;
     }
   }
   margin-bottom: 25px;

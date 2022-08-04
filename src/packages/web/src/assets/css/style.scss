@@ -170,3 +170,34 @@ ul {
   margin-left: 15px;
   margin-top: 5px !important;
 }
+
+.backIcons {
+  cursor: pointer;
+}
+
+.video-img {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+  & .img-layer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 75px;
+    width: 75px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    z-index: 1;
+  }
+  & .play-icon {
+    background-color: $BLUE;
+    position: absolute;
+    z-index: 2;
+    color: $WHITE;
+    border-radius: 50%;
+    padding: 3px;
+  }
+}

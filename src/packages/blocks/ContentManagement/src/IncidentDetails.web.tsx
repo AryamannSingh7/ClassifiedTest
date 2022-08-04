@@ -23,6 +23,8 @@ import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import SmartDisplayIcon from '@material-ui/icons/SmartDisplay';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 
+import FullscreenIcon from '@material-ui/icons/Fullscreen';
+
 import { Formik, Form, Field } from "formik";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
@@ -160,7 +162,8 @@ class IncidentDetails extends IncidentController {
                                 {
                                   attributes?.attachments?.map((val, index) => (
                                     <Box className="video-img" onClick={() => { this.setState({ showDialog: true, image: val }) }}>
-                                      <PlayCircleOutlineIcon className="play-icon" />
+                                      <FullscreenIcon className="play-icon" />
+
                                       <img src={val} className="card-img" alt="card-img" key={index} />
                                       <Box className="img-layer"></Box>
                                     </Box>
