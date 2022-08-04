@@ -64,6 +64,7 @@ export default class FaqChairmanController extends BlockComponent<
   EditFaqCallId: any;
   DeleteFaqCallId: any;
   CreateFaqCallId: any;
+  CategoryByIdCallId: any;
 
   constructor(props: Props) {
     super(props);
@@ -162,9 +163,20 @@ export default class FaqChairmanController extends BlockComponent<
         getName(MessageEnum.RestAPIResponceSuccessMessage)
       );
 
-      console.log(responseJson.data);
-
       if (responseJson.data) {
+        this.setState(
+          {
+            ...this.state,
+            catagoriesList: [...this.state.catagoriesList, responseJson.data],
+            selectedCategoryId: responseJson.data.id,
+            selectedCategoryName: responseJson.data.attributes.name,
+            faqList: responseJson.data.attributes.FAQ,
+            categoryName: "",
+          },
+          () => {
+            this.handleAddCategoryModal();
+          }
+        );
       }
 
       var errorReponse = message.getData(
@@ -191,10 +203,8 @@ export default class FaqChairmanController extends BlockComponent<
         getName(MessageEnum.RestAPIResponceSuccessMessage)
       );
 
-      console.log(responseJson.data);
-
-      if (responseJson.data) {
-      }
+      this.getFaqCategory();
+      this.handleDeleteAllCategoryModal();
 
       var errorReponse = message.getData(
         getName(MessageEnum.RestAPIResponceErrorMessage)
@@ -220,9 +230,19 @@ export default class FaqChairmanController extends BlockComponent<
         getName(MessageEnum.RestAPIResponceSuccessMessage)
       );
 
-      console.log(responseJson.data);
-
-      if (responseJson.data) {
+      if (responseJson) {
+        this.setState(
+          {
+            ...this.state,
+            editCategoryId: "",
+            editQuestion: "",
+            editAnswer: "",
+          },
+          () => {
+            this.getCategoryByCategoryId();
+            this.handleEditQuestionModal();
+          }
+        );
       }
 
       var errorReponse = message.getData(
@@ -249,9 +269,9 @@ export default class FaqChairmanController extends BlockComponent<
         getName(MessageEnum.RestAPIResponceSuccessMessage)
       );
 
-      console.log(responseJson.data);
-
-      if (responseJson.data) {
+      if (responseJson) {
+        this.getCategoryByCategoryId();
+        this.handleDeleteQuestionModal();
       }
 
       var errorReponse = message.getData(
@@ -278,9 +298,56 @@ export default class FaqChairmanController extends BlockComponent<
         getName(MessageEnum.RestAPIResponceSuccessMessage)
       );
 
-      console.log(responseJson.data);
+      if (responseJson.data) {
+        this.setState(
+          {
+            ...this.state,
+            createCategoryId: "",
+            createQuestion: "",
+            createAnswer: "",
+          },
+          () => {
+            this.getCategoryByCategoryId();
+            this.handleAddQuestionModal();
+          }
+        );
+        // this.getFaqCategory();
+      }
+
+      var errorReponse = message.getData(
+        getName(MessageEnum.RestAPIResponceErrorMessage)
+      );
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        this.parseApiErrorResponse(responseJson);
+      }
+      this.parseApiCatchErrorResponse(errorReponse);
+    }
+
+    // Get Category Id
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.CategoryByIdCallId !== null &&
+      this.CategoryByIdCallId ===
+        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.CategoryByIdCallId = null;
+
+      var responseJson = message.getData(
+        getName(MessageEnum.RestAPIResponceSuccessMessage)
+      );
 
       if (responseJson.data) {
+        const data = this.state.catagoriesList.map((category: any) =>
+          category.id === responseJson.data.id ? responseJson.data : category
+        );
+
+        this.setState({
+          ...this.state,
+          catagoriesList: data,
+          faqList: responseJson.data.attributes.FAQ,
+        });
       }
 
       var errorReponse = message.getData(
@@ -372,8 +439,8 @@ export default class FaqChairmanController extends BlockComponent<
       configJSON.apiMethodTypePost
     );
 
-    // runEngine.sendMessage(apiRequest.id, apiRequest);
-    // return true;
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
   };
 
   // Delete FAQ Category API
@@ -404,8 +471,8 @@ export default class FaqChairmanController extends BlockComponent<
       configJSON.apiMethodTypeDelete
     );
 
-    // runEngine.sendMessage(apiRequest.id, apiRequest);
-    // return true;
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
   };
 
   // Edit FAQ API
@@ -435,6 +502,11 @@ export default class FaqChairmanController extends BlockComponent<
     );
 
     apiRequest.addData(
+      getName(MessageEnum.RestAPIRequestBodyMessage),
+      JSON.stringify(body)
+    );
+
+    apiRequest.addData(
       getName(MessageEnum.RestAPIRequestHeaderMessage),
       JSON.stringify(header)
     );
@@ -444,8 +516,8 @@ export default class FaqChairmanController extends BlockComponent<
       configJSON.apiMethodTypePut
     );
 
-    // runEngine.sendMessage(apiRequest.id, apiRequest);
-    // return true;
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
   };
 
   // Delete FAQ API
@@ -474,8 +546,8 @@ export default class FaqChairmanController extends BlockComponent<
       configJSON.apiMethodTypeDelete
     );
 
-    // runEngine.sendMessage(apiRequest.id, apiRequest);
-    // return true;
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
   };
 
   // Create FAQ API
@@ -519,8 +591,38 @@ export default class FaqChairmanController extends BlockComponent<
       configJSON.apiMethodTypePost
     );
 
-    // runEngine.sendMessage(apiRequest.id, apiRequest);
-    // return true;
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  // Get Category Id API
+  getCategoryByCategoryId = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.CategoryByIdCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `${configJSON.CategoryByIdAPIEndPoint}/${this.state.selectedCategoryId}`
+    );
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.apiMethodTypeGet
+    );
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
   };
 
   // State Handle Function
@@ -554,7 +656,7 @@ export default class FaqChairmanController extends BlockComponent<
   handleChange = (panel: string) => () => {
     this.setState({
       ...this.state,
-      expanded: panel,
+      expanded: panel.toString(),
     });
   };
 

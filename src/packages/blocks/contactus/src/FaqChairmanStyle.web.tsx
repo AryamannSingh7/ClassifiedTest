@@ -159,7 +159,7 @@ export const FaqChairmanStyleWeb: any = {
       display: "flex",
       justifyContent: "space-between",
       alignItems: "center",
-      marginTop: "30px",
+      margin: "30px 0",
     },
     "& .bottom-buttons button:first-child": {
       color: "#FF4C67",
@@ -178,7 +178,7 @@ export const FaqChairmanStyleWeb: any = {
     },
     "& .empty-box": {
       width: "100%",
-      height: "700px",
+      height: "500px",
       background: "white",
       display: "flex",
       justifyContent: "center",

@@ -43,4 +43,6 @@ exports.DeleteFaqCategoryAPIEndPoint = "bx_block_interactive_faqs/interactive_fa
 exports.EditFaqAPIEndPoint = "bx_block_interactive_faqs/interactive_faqs";
 exports.DeleteFaqAPIEndPoint = "bx_block_interactive_faqs/interactive_faqs";
 exports.CreateFaqAPIEndPoint = "bx_block_interactive_faqs/interactive_faqs";
+exports.CategoryByIdAPIEndPoint = "bx_block_interactive_faqs/interactive_faq_categories";
+
 // Customizable Area End

@@ -73,12 +73,17 @@ class FaqChairman extends FaqChairmanController {
                         <Tab
                           key={category.id}
                           onClick={() => {
-                            this.setState({
-                              ...this.state,
-                              faqList: category.attributes.FAQ,
-                              selectedCategoryId: category.id,
-                              selectedCategoryName: category.attributes.name,
-                            });
+                            this.setState(
+                              {
+                                ...this.state,
+                                faqList: category.attributes.FAQ,
+                                selectedCategoryId: category.id,
+                                selectedCategoryName: category.attributes.name,
+                              },
+                              () => {
+                                this.getCategoryByCategoryId();
+                              }
+                            );
                           }}
                           label={category.attributes.name}
                           className={
@@ -145,7 +150,6 @@ class FaqChairman extends FaqChairmanController {
                 <Box className="bottom-buttons">
                   {this.state.selectedCategoryName ? (
                     <Button
-                      disabled={this.state.faqList.length === 0}
                       variant="outlined"
                       onClick={() => this.handleDeleteAllCategoryModal()}
                     >
@@ -425,7 +429,6 @@ class FaqChairman extends FaqChairmanController {
                 variant="contained"
                 onClick={() => {
                   this.createCategory();
-                  this.handleAddCategoryModal();
                 }}
                 color="primary"
               >
@@ -479,7 +482,6 @@ class FaqChairman extends FaqChairmanController {
                     variant="contained"
                     onClick={() => {
                       this.deleteCategory();
-                      this.handleDeleteAllCategoryModal();
                     }}
                     color="primary"
                   >
@@ -526,7 +528,9 @@ class FaqChairman extends FaqChairmanController {
                   <Button
                     style={{ width: "200px" }}
                     variant="contained"
-                    onClick={() => {}}
+                    onClick={() => {
+                      this.deleteFaq();
+                    }}
                     color="primary"
                   >
                     Yes Delete
