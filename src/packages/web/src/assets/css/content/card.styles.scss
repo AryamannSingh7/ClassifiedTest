@@ -3,6 +3,16 @@
 .card {
   & .costom-card-content {
     cursor: pointer;
+    & .card-listing-row {
+      display: flex;
+      justify-content: space-between;
+      padding-top: 8px;
+      & span,
+      & h5
+      {
+        width: 50%;
+      }
+    }
   }
   // &.incident-card {
   &.MuiCard-root {
@@ -98,6 +108,7 @@
     overflow-x: scroll;
     width: 100%;
     padding-bottom: 10px;
+    @include scrollbars();
     & .card-img {
       height: 60px;
       width: 60px;
@@ -230,11 +241,23 @@
           object-fit: contain;
         }
       }
-      & h4 {
-        margin: 10px 0;
+      & h3
+      {
+        &.MuiTypography-body1 {
+          margin: 10px 0;
+          font-size: 24px;
+          @include mq(tablet-portrait-large-up) {
+            font-size: 20px;
+          }
+        }
       }
       & p {
         font-size: 14px;
+        font-weight: 600;
+        @include mq(tablet-portrait-medium-up) {
+          width: 70%;
+          margin: 0 auto;
+        }
       }
       & .customButton {
         & .formGroup {
