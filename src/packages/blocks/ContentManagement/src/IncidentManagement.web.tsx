@@ -47,11 +47,13 @@ class IncidentManagement extends IncidentManagementController {
     super(props);
   }
   componentDidMount() {
+    this.getIncidentListing();
     this.getBuildingName();
-   // this.getCommonArea();
-   // this.getIncidentRelated();
   }
+ 
   render() {
+    console.log("this.state.buildingName=================>/",this.state.buildingName);
+    const statusArray=["Unresolved", "Resolved", "Pending Confirmation"]
     return (
       <>
         <Box className="incident-Listing-wrapper desktop-ui" style={{ background: "#E5ECFF" }}>
@@ -85,35 +87,15 @@ class IncidentManagement extends IncidentManagementController {
                     </FormControl>
                   </Box>
                 </Box>
-                <Formik
-                    initialValues={{
-                      buildingName: " ",
-                      unit: " ",
-                      status: " ",
-                    }}
-                    validationSchema={this.searchIncidentSchema()}
-                    validateOnMount={true}
-                    onSubmit={(values) => {
-                      console.log("valus=========>", values)
-                      // localStorage.setItem("incidentPreview", JSON.stringify(values))
-                      // this.setState({ loading: true })
-                      // this.props.history.push("/IncidentPreview")
-                    }}
-                  >
-                    {({ values, touched, errors, isValid, setFieldError, setFieldValue, handleChange }) => (
-                      <Form translate="yes" className="commonForm">
-                          <Box className="sorting-header">
+                <Box className="sorting-header">
                           <Box className="formGroup customSelect">
                             <FormControl variant="outlined" >
                               <Select
                                 name="buildingName"
                                 labelId="demo-simple-select-outlined-label"
                                 id="demo-simple-select-outlined"
-                                onChange={(e) => {
-                                  (e.target.value != " ") && setFieldValue("buildingName", e.target.value)
-                                 
-                                }}
-                                value={values.buildingName}
+                                onChange={(e) => {this.onChange(e)}}
+                                value={this.state.buildingName}
                               >
                                <MenuItem disabled value=" ">
                                Select Building
@@ -122,204 +104,102 @@ class IncidentManagement extends IncidentManagementController {
                                 this.state?.buildingNameData?.map((val, index) => (
                                   <MenuItem
                                     key={index}
-                                    value={`${val?.id} ${val?.name}`}
+                                    value={`${val?.id},${val?.name}`}
                                   >
                                     {val?.name}
                                   </MenuItem>
                                 ))
                               }
                               </Select>
-                              <ErrorMessage className="text-error" component="Typography" name="buildingName" />
                             </FormControl>
                           </Box>
-                          <Box className="formGroup customSelect">
+                         <Box className="formGroup customSelect">
                             <FormControl variant="outlined" >
                               <Select
-                                name="unit"
+                                name="unitName"
                                 labelId="demo-simple-select-outlined-label"
                                 id="demo-simple-select-outlined"
-                                onChange={(e) => {
-                                  (e.target.value != " ") && setFieldValue("unit", e.target.value)
-                                }}
-                                value={values.unit}
+                                onChange={(e) => {this.onChange(e)}}
+                                value={this.state.unitName}
                               >
-                                 {
-                                   values?.buildingName?
                                    <MenuItem disabled value=" ">
                                   Select Unit
                                 </MenuItem>
-                                  :
-                                    this.state?.buildingNameData?.map((val, index) => (
+                                {
+                                    this.state?.unitNameData?.map((val, index) => (
                                       <MenuItem
                                         key={index}
-                                        value={val?.name}
+                                        value={val?.apartment_name}
+                                        disabled ={this.state.buildingName ? false:true }
                                       >
-                                        {val?.name}
+                                        {val?.apartment_name}
                                       </MenuItem>
                                     ))
-                                  
-                                 }
+                                }
                               </Select>
-                              <ErrorMessage className="text-error" component="Typography" name="unit" />
                             </FormControl>
                           </Box>
+                            
                           <Box className="formGroup customSelect">
                             <FormControl variant="outlined" >
                               <Select
                                 name="status"
                                 labelId="demo-simple-select-outlined-label"
                                 id="demo-simple-select-outlined"
-                                onChange={(e) => {
-                                  (e.target.value != " ") && setFieldValue("status", e.target.value)
-                                }}
-                                value={values.status}
+                                 onChange={(e) => {this.onChange(e)}}
+                                value={this.state.status}
                               >
                                 <MenuItem disabled value=" ">
                                   Select Status
                                 </MenuItem>
                                 {
-                                this.state?.buildingNameData?.map((val, index) => (
+                                statusArray?.map((val, index) => (
                                   <MenuItem
                                     key={index}
-                                    value={val?.name}
+                                    value={val}
                                   >
-                                    {val?.name}
+                                    {val}
                                   </MenuItem>
                                 ))
                               }
                               </Select>
-                              <ErrorMessage className="text-error" component="Typography" name="status" />
+
                             </FormControl>
                           </Box>
                           <Box className="customButton">
-                            <Button variant="contained" type="submit">Search</Button>
+                            <Button variant="contained" onClick={()=> this.serachHandle()}>Search</Button>
                           </Box>
                           </Box>
-                      </Form>
-                    )}
-                  </Formik>
-             
                 <Grid container spacing={2} style={{ marginTop: 15, marginBottom: 15 }}>
-                  <Grid item sm={4}>
-                    <Card className="management-card card">
-                      <CardContent className="costom-card-content">
-                        <Box className="customButton">
-                          <Button variant="contained" className="contain danger" type="submit">Ongoing</Button>
-                        </Box>
-                        <Typography component="h4">
-                          Plumbing
-                        </Typography>
-                        <Box className="card-rows">
-                          <img src={Bank_Icon} alt="Bank Icon" />
-                          <h5>Building 1</h5>
-                        </Box>
-                        <Box className="card-rows">
-                          <img src={Box_Icon} alt="Bank Icon" />
-                          <h5>A-101</h5>
-                        </Box>
-                        <Box className="card-rows">
-                          <img src={Users_Icon} alt="Bank Icon" />
-                          <h5>John Doe</h5>
-                        </Box>
-                      </CardContent>
-                    </Card>
-                  </Grid>
-                  <Grid item sm={4}>
-                    <Card className="management-card card">
-                      <CardContent className="costom-card-content">
-                        <Box className="customButton">
-                          <Button variant="contained" className="contain success" type="submit">Resolved</Button>
-                        </Box>
-                        <Typography component="h4">
-                          Plumbing
-                        </Typography>
-                        <Box className="card-rows">
-                          <img src={Bank_Icon} alt="Bank Icon" />
-                          <h5>Building 1</h5>
-                        </Box>
-                        <Box className="card-rows">
-                          <img src={Box_Icon} alt="Bank Icon" />
-                          <h5>A-101</h5>
-                        </Box>
-                        <Box className="card-rows">
-                          <img src={Users_Icon} alt="Bank Icon" />
-                          <h5>John Doe</h5>
-                        </Box>
-                      </CardContent>
-                    </Card>
-                  </Grid>
-                  <Grid item sm={4}>
-                    <Card className="management-card card">
-                      <CardContent className="costom-card-content">
-                        <Box className="customButton">
-                          <Button variant="contained" className="contain warning" type="submit">Pending Confirmation</Button>
-                        </Box>
-                        <Typography component="h4">
-                          Plumbing
-                        </Typography>
-                        <Box className="card-rows">
-                          <img src={Bank_Icon} alt="Bank Icon" />
-                          <h5>Building 1</h5>
-                        </Box>
-                        <Box className="card-rows">
-                          <img src={Box_Icon} alt="Bank Icon" />
-                          <h5>A-101</h5>
-                        </Box>
-                        <Box className="card-rows">
-                          <img src={Users_Icon} alt="Bank Icon" />
-                          <h5>John Doe</h5>
-                        </Box>
-                      </CardContent>
-                    </Card>
-                  </Grid>
-                  <Grid item sm={4}>
-                    <Card className="management-card card">
-                      <CardContent className="costom-card-content">
-                        <Box className="customButton">
-                          <Button variant="contained" className="contain success" type="submit">Ongoing</Button>
-                        </Box>
-                        <Typography component="h4">
-                          Plumbing
-                        </Typography>
-                        <Box className="card-rows">
-                          <img src={Bank_Icon} alt="Bank Icon" />
-                          <h5>Building 1</h5>
-                        </Box>
-                        <Box className="card-rows">
-                          <img src={Box_Icon} alt="Bank Icon" />
-                          <h5>A-101</h5>
-                        </Box>
-                        <Box className="card-rows">
-                          <img src={Users_Icon} alt="Bank Icon" />
-                          <h5>John Doe</h5>
-                        </Box>
-                      </CardContent>
-                    </Card>
-                  </Grid>
-                  <Grid item sm={4}>
-                    <Card className="management-card card">
-                      <CardContent className="costom-card-content">
-                        <Box className="customButton">
-                          <Button variant="contained" className="contain success" type="submit">Ongoing</Button>
-                        </Box>
-                        <Typography component="h4">
-                          Plumbing
-                        </Typography>
-                        <Box className="card-rows">
-                          <img src={Bank_Icon} alt="Bank Icon" />
-                          <h5>Building 1</h5>
-                        </Box>
-                        <Box className="card-rows">
-                          <img src={Box_Icon} alt="Bank Icon" />
-                          <h5>A-101</h5>
-                        </Box>
-                        <Box className="card-rows">
-                          <img src={Users_Icon} alt="Bank Icon" />
-                          <h5>John Doe</h5>
-                        </Box>
-                      </CardContent>
-                    </Card>
-                  </Grid>
+                  {
+                    this.state?.incidentListing?.map((val ,index)=>(
+                      <Grid item sm={4} key={index} onClick={() => this.getIncidentDetails(val.id)}>
+                      <Card className="management-card card" key={index}>
+                        <CardContent className="costom-card-content">
+                          <Box className="customButton">
+                            <Button variant="contained" className={val?.attributes?.incident_status === 'Pending Confirmation' ? "contain warning" : val?.attributes?.incident_status === 'Resolved' ? 'contain success' : 'contain danger'} type="submit">
+                              {val?.attributes?.incident_status}</Button>
+                          </Box>
+                          <Typography component="h4">
+                          {val?.attributes?.incident_related?.name}
+                          </Typography>
+                          <Box className="card-rows">
+                            <img src={Bank_Icon} alt="Bank Icon" />
+                            <h5>Building 1  {val?.attributes?.apartment_management?.building_name}</h5>
+                          </Box>
+                          <Box className="card-rows">
+                            <img src={Box_Icon} alt="Bank Icon" />
+                            <h5>{val?.attributes?.apartment_management?.apartment_name}</h5>
+                          </Box>
+                          <Box className="card-rows">
+                            <img src={Users_Icon} alt="Bank Icon" />
+                            <h5>{val?.attributes?.reported_by?.full_name}</h5>
+                          </Box>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                    ))
+                  }
                 </Grid>
               </Container>
             </Grid>
