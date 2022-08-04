@@ -24,25 +24,31 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 
 
 
-class NewVeichleList extends VeichleListController {
+class EditVeichleList extends VeichleListController {
   constructor(props: Props) {
     super(props);
     // Customizable Area Start
     // Customizable Area End
   }
 
+  async componentDidMount() {
+    this.getCar()
+
+  }
+
   render() {
+    let item = JSON.parse(localStorage.getItem('selectCar'))
     return (
 
       <>
         <Grid container spacing={2} className="auth-container">
           <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset' }}>
             <Grid container>
-              <Grid xs={12} style={{ display: 'flex', alignItems: 'center' }}>
+              <Grid xs={12} style={{ display: 'flex', alignContent: 'center' }}>
                 <ArrowBackIcon onClick={() => window.history.back()} />
                 <p style={{ fontWeight: 600, fontSize: '1.25rem' }}>
 
-                  Register vehicle
+                  Edit Vehicle Details
                 </p>
               </Grid>
             </Grid>
@@ -51,12 +57,12 @@ class NewVeichleList extends VeichleListController {
               <Grid container className="main-content-block">
                 <Grid xs={12}>
                   <Formik initialValues={{
-                    full_name: "",
-                    plateNumber: "",
-                    carManufacturer: "",
-                    carModle: "",
-                    carColor: "",
-                    bannerUrl:'',
+                    full_name: item.attributes.owner_name,
+                    plateNumber: item.attributes.plate_number,
+                    carManufacturer: item.attributes.company_name,
+                    carModle: item.attributes.model_number,
+                    carColor: item.attributes.color,
+                    bannerUrl: item.attributes.registration_card_copy,
                     banner:''
 
 
@@ -64,7 +70,7 @@ class NewVeichleList extends VeichleListController {
                   }}
                     validationSchema={this.addVehicleSchema()}
                     validateOnMount={true}
-                    onSubmit={(values) => { this.createVehicle(values) }}
+                    onSubmit={(values) => { this.updateVehicle(values) }}
                   >
                     {({ values,
                       errors,
@@ -354,4 +360,4 @@ class NewVeichleList extends VeichleListController {
   }
 
 }
-export default withRouter(NewVeichleList)
+export default withRouter(EditVeichleList)

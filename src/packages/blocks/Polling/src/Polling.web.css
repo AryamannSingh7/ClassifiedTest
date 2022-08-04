@@ -16,6 +16,7 @@
     padding-bottom: 3rem;
     background: #fff;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .CreatePSIcons{
@@ -51,6 +52,7 @@
 .navigation{
     display: flex;
     justify-content: space-between;
+    align-items: flex-end;
 }
 
 .navigation .subHeading{
@@ -155,6 +157,7 @@
     padding-bottom: 25px;
     background: #fff;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .CardsIcons{
@@ -201,6 +204,7 @@
     padding-bottom: 15px;
     background: #fff;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .EventsIconsText .EventsTitle{
@@ -260,21 +264,21 @@
 
 .statusOngoing{
     background: #ffdede;
-    padding: 5px 15px;
+    padding: 10px 20px;
     border-radius: 30px;
     color: #f27200;
     display: initial;
 }
 .statusCompleted{
     background: #cbe1dc;
-    padding: 5px 15px;
+    padding: 10px 20px;
     border-radius: 30px;
     color: green;
     display: initial;
 }
 .statusSkipped{
     background: #dcf5f0;
-    padding: 5px 15px;
+    padding: 10px 20px;
     border-radius: 30px;
     color: blue;
     display: initial;
@@ -284,7 +288,7 @@
     justify-content: space-between;
 }
 .AnonymousPreviewPoll{
-    padding: 10px 15px;
+    padding: 8px 15px;
     border: 1px solid #005ff2;
     border-radius: 30px;
     color: #005ff2;
@@ -448,34 +452,39 @@
 
 /* Progress bar for [ "NO" ] */
 
+.AnswersCount{
+    display: flex;
+    /* margin-top: 1.5rem; */
+}
+
 .progressbarNO {
     display: block;
     position: relative;
+    margin-bottom: 1.5rem;
 }
 .progressbarNO span{
     position: absolute;
     display: inline-block;
-    color: #fff;
+    color: rgb(255, 255, 255);
     text-align: right;
     top: 1rem;
     left: 2rem;
     font-size: 1rem;
     font-weight: 600;
 }
-
 .progress {
     width:100%;
     height: 3rem;
-    border-radius: 5rem;   
+    border-radius: 5px;   
     border: 1px solid #c5c1c1;
 }
 .progressbarNO progress[value]::-webkit-progress-bar {
-    background-color: transparent;
-    border-radius: 5rem;  
+    background-color: rgb(172, 169, 169);
+    border-radius: 5px;  
 }
 .progressbarNO progress[value]::-webkit-progress-value {
-    border-radius: 5rem;  
-    background-color:red;
+    background-color:#0a33a5;
+    border-radius: 5px;  
 }
 .progressbarNO progress:before {
     content: attr(data-label);
@@ -484,4 +493,124 @@
     right: 2rem;
     font-size: 1rem;
     font-weight: 600;
+}
+
+.GenerateReport{
+    display: flex;
+    justify-content: space-between;
+}
+.VoteCount{
+    border: 1px solid blue;
+    color: blue;
+    border-radius: 5px;
+    margin-left: 1rem;
+    text-align: center;
+}
+.VoteCount p{
+    color: blue;
+    padding: .7rem;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.VoteCountBottom{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.VoteCountBottomBox{
+    display: flex;
+    align-items: center;
+    gap:5px;
+}
+.VoteCountBottomBox p{
+    font-weight: 700;
+    margin-left: 0.5rem;
+}
+.DialogTable{
+    overflow-y: scroll;
+}
+.DialogTable .MuiDialog-scrollPaper {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+.DialogTable .MuiDialog-paper{
+    margin: 0px;
+}
+.DialogTable .MuiDialog-container{
+    height: auto;
+}
+.DialogTable .MuiPaper-elevation24{
+    box-shadow: none;
+}
+.DialogTable .MuiPaper-rounded{
+    border-radius: 0;
+}
+
+.tableHeading .MuiTypography-root{
+    display: flex;
+    justify-content: space-between;
+}
+.tableTopSearch{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem;
+}
+.tableBorder{
+    margin-left: 1rem;
+    margin-right: 1rem;
+    border: 1px solid rgb(190, 190, 190);
+    border-radius: 5px;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+}
+.searchBox{
+    position: relative;
+    border-radius: 5px;
+    border: 1px solid lightgray;
+    width: 40%;
+}
+.searchIcon{
+    height: 100%;
+    position: absolute;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    color: grey;
+}
+
+.PollResponseMain{
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    background: #fff;
+    border-radius: 10px;
+}
+
+.TableHeader{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    padding: 1rem;
+}
+.downloadReport .MuiButtonBase-root,
+.downloadReport .MuiButton-root {
+    color: white;
+    background: #3f51b5;
+    padding: 0.8rem;
+    border-radius: 5px;
+    font-weight: 600;
+}
+.reportbtn{
+    color: white;
+    background: #3f51b5;
+    padding: 0.8rem;
+    border-radius: 5px;
+    font-weight: 700;
+    cursor: pointer;
 }

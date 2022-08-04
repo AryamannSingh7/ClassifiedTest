@@ -13,7 +13,6 @@ html {
   // font-family: $MONTSERRAT;
   font-family: $Gotham_Medium;
   font-weight: 100;
-  overflow-y: auto;
   @include scrollbars();
 
   @include mq(tablet-portrait-large-up) {

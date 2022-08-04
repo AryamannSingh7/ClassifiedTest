@@ -76,7 +76,7 @@ class Address extends EmailAccountRegistrationController {
           }}
           validationSchema={this.addressSchema()}
           validateOnMount={true}
-          onSubmit={(values) => { console.log('dfdf'); this.setState({ showDialog: true }) }}
+          onSubmit={(values) => {this.setState({ showDialog: true }) }}
         >
           {({ values, touched, errors, isValid, setFieldValue, handleChange }) => (
             <Form translate="yes" className="commonForm">

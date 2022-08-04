@@ -9,7 +9,7 @@ replicaCount: 2
 appExtConfig:
   extval1: "example1"
   EXTVAL2: "example2"
-  REACT_APP_API_PATH: "https://backend-url-value-not-set.example.com"
+  REACT_APP_API_PATH: "https://ti1finalleap-158677-ruby.b158677.stage.eastus.az.svc.builder.ai"
 
 probes:
   livenessProbe:

@@ -435,7 +435,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             //@ts-ignore
             //@ts-nocheck
 
-            this.setState({ allUnit: [...temp] }, () => console.log(this.state.allUnit))
+            this.setState({ allUnit: responseJson.data.unit_apartments }, () => console.log(this.state.allUnit[0]))
           } else {
             //Check Error Response
             this.parseApiErrorResponse(responseJson);
@@ -1072,24 +1072,31 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     this.setState({ unitRegisterType: value })
 
   }
+  handleChange2 = (e: any) => {
+
+    if (e.target.value) {
+      // @ts-ignore
+      // @ts-nocheck
+      this.setState({ ...this.state, [e.target.name]: e.target.value })
+    }
+
+  }
   handleChange = (e: any) => {
-    console.log(e)
-    console.log(e.target.name)
-    console.log(e.target.value)
-    if (e.target.value){
+
+    if (e.target.value) {
       // @ts-ignore
       // @ts-nocheck
       this.setState({ ...this.state, [e.target.name]: e.target.value }, () => this.getData(e))
     }
-
-
 
   }
   //@ts-ignore
   //@ts-nocheck
 
   getData(e) {
-    console.log(this.state)
+    console.log(e)
+    console.log(e.target.name)
+    console.log(e.target.value)
 
     if (e.target.name == 'selectCountry') {
       this.getCity()
@@ -1346,9 +1353,11 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     const attrs = {//@ts-ignore
       //@ts-nocheck
       building_management_id: this.state.selectBuilding.id,
+      country:this.state.selectCountry,
+      city:this.state.selectCity,
       //@ts-ignore
       //@ts-nocheck
-      apartment_management_id: this.state.selectUnit.id,
+      unit_name: this.state.selectUnit,
       society_management_id: this.state.selectComplex
     };
 
