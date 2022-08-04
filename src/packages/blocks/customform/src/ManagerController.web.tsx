@@ -68,6 +68,8 @@ export default class ManagerController extends BlockComponent<Props, S, SS> {
   getVehicleListApiCallId:string='';
   deleteVehicleAPICallId:string='';
   acceptRequestAPICallId:string='';
+  getIncidentRelatedApiCallId: any;
+  getBuildingNameApiCallId: any;
       // Customizable Area End
   constructor(props: Props) {
     super(props);
@@ -250,6 +252,33 @@ export default class ManagerController extends BlockComponent<Props, S, SS> {
           }
 
           this.parseApiCatchErrorResponse(errorReponse);
+        } if (apiRequestCallId === this.getBuildingNameApiCallId) {
+          if (responseJson && responseJson?.data) {
+            console.log("getBuildingNameApiCallId  ========================>", responseJson)
+            this.setState({ buildingNameData: responseJson?.data?.buildings })
+            this.setState({ loading: false })
+          } else if (responseJson?.errors) {
+            let error = Object.values(responseJson.errors[0])[0] as string;
+            this.setState({ error });
+          } else {
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
+          }
+          this.parseApiCatchErrorResponse(this.state.error);
+          this.setState({ loading: false, error: null })
+        }if (apiRequestCallId === this.getIncidentRelatedApiCallId) {
+          if (responseJson && responseJson?.data) {
+            console.log("getIncidentRelatedApiCallId========================>", responseJson)
+            this.setState({ incidentRelatedData: responseJson?.data.incident_relateds })
+
+            this.setState({ loading: false })
+          } else if (responseJson?.errors) {
+            let error = Object.values(responseJson.errors[0])[0] as string;
+            this.setState({ error });
+          } else {
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
+          }
+          this.parseApiCatchErrorResponse(this.state.error);
+          this.setState({ loading: false, error: null })
         }
       }
     }
@@ -642,12 +671,14 @@ if(this.state.allVehcile.length<3){
     // @ts-ignore
     let item = JSON.parse(localStorage.getItem('selectCar'))
     const header = {
-      "token": localStorage.getItem('userToken')
+      "token": localStorage.getItem('userToken'),
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
     };
 
     const httpBody = {
-      "vehicle": {
-        "status": true
+      vehicle: {
+        status: true
       }
     }
 
@@ -724,5 +755,84 @@ if(this.state.allVehcile.length<3){
     runEngine.sendMessage(requestMessage.id, requestMessage);
     return true;
   }
+  searchIncidentSchema() {
+    const validations = Yup.object().shape({
+      buildingName: Yup.string().required(`This field is required`).trim(),
+      unit: Yup.string().required(`This field is required`).trim(),
+      status: Yup.string().required(`This field is required`).trim(),
+    });
+
+    return validations;
+  }
+  getBuildingName = () => {
+    try {
+      const header = {
+        "Content-Type": configJSON.validationApiContentType,
+        token: localStorage.getItem("userToken")
+      };
+      const society_id = localStorage.getItem("society_id")
+      //const id = localStorage.getItem("userId");
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+      this.getBuildingNameApiCallId = requestMessage.messageId;
+      this.setState({ loading: true });
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        `bx_block_settings/building_managements`
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        configJSON.validationApiMethodType
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+      return true;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  getUnit = () => {
+    try {
+      const header = {
+        "Content-Type": configJSON.validationApiContentType,
+        token: localStorage.getItem("userToken")
+      };
+
+      //const id = localStorage.getItem("userId");
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+      this.getIncidentRelatedApiCallId = requestMessage.messageId;
+      this.setState({ loading: true });
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        `bx_block_address/apartment_list?id=3`
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        configJSON.validationApiMethodType
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+      return true;
+    } catch (error) {
+      console.log(error);
+    }
+  };
   // Customizable Area End
 }
