@@ -52,7 +52,12 @@ class IncidentManagementDetail extends IncidentManagementController {
   constructor(props: Props) {
     super(props);
   }
+  componentDidMount() {
+    this.getIncidentDetailsById(this.props.history.location?.id);
+  }
   render() {
+    const id = this.state?.getIncidentDetails?.id;
+    const attributes = this.state?.getIncidentDetails?.attributes;
     return (
       <>
         <Box className="incident-Listing-wrapper desktop-ui" style={{ background: "#E5ECFF" }}>
@@ -90,7 +95,7 @@ class IncidentManagementDetail extends IncidentManagementController {
                   <Card className="incident-detail-card card">
                     <Box className="card-header">
                       <Typography component="h4">
-                        Plumbing
+                        Plumbing {attributes?.incident_related?.incident_title}
                       </Typography>
                       <Box className="formGroup customSelect">
                         <FormControl variant="outlined" >
@@ -117,23 +122,23 @@ class IncidentManagementDetail extends IncidentManagementController {
                       <Box className="row-block">
                         <Box className="card-rows">
                           <h5>Affected Area: </h5>
-                          <h4>Own Apartment</h4>
+                          <h4>{attributes?.common_area?.name}</h4>
                         </Box>
                         <Box className="card-rows">
                           <h5>Incident is related to: </h5>
-                          <h4>Plumbing</h4>
+                          <h4>Plumbing {attributes?.incident_related?.name}</h4>
                         </Box>
                         <Box className="card-rows">
                           <h5>Incident Number: </h5>
-                          <h4>123456</h4>
+                          <h4>{id}</h4>
                         </Box>
                         <Box className="card-rows">
                           <h5>Building: </h5>
-                          <h4>Building</h4>
+                          <h4>Building {attributes?.apartment_management?.building_name}</h4>
                         </Box>
                         <Box className="card-rows">
                           <h5>Unit: </h5>
-                          <h4>Building</h4>
+                          <h4>Building{val?.attributes?.apartment_management?.apartment_name}</h4>
                         </Box>
                         <Box className="card-rows">
                           <h5>Acknowledge by Manager: </h5>

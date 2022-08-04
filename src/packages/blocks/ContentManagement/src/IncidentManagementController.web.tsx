@@ -46,6 +46,7 @@ export interface S {
   getIncidentDetails : any;
   sortBy : any ;
   status : any;
+  buildingName:any;
   // Customizable Area End
 }
 
@@ -71,8 +72,10 @@ export default class IncidentManagementController extends BlockComponent<
   getIncidentListingApiCallId: any;
   getIncidentDetailsByIdApiCallId : any ;
   getBuildingNameApiCallId : any ;
+  getUnitRelatedApiCallId:any ;
   getIncidentRelatedApiCallId:any;
   validationApiCallId: string = "";
+  searchIncidentListingApiCallId:any
 
   imgPasswordVisible: any;
   imgPasswordInVisible: any;
@@ -128,6 +131,10 @@ export default class IncidentManagementController extends BlockComponent<
       getIncidentDetails:null,
       sortBy : "" ,
       status : "",
+      buildingName : " ",
+      unitName : " ",
+      status :" ",
+      serachBuildingName:""
       // Customizable Area End
     };
 
@@ -152,7 +159,15 @@ export default class IncidentManagementController extends BlockComponent<
     // Customizable Area End
   }
 
-
+  // async componentDidUpdate(prevProps: any, prevState: any) {
+  //   if (
+  //     prevState.serachBuildingName !== this.state.serachBuildingName ||
+  //     prevState.unitName !== this.state.unitName   ||
+  //     prevState.status !== this.state.status       
+  //   ) {
+  //    this.getIncidentListing(this.state.serachBuildingName ,this.state.unitName,this.state.status)
+  //   }
+  // }
 
   async receive(from: string, message: Message) {
     // Customizable Area Start
@@ -209,6 +224,20 @@ export default class IncidentManagementController extends BlockComponent<
           this.parseApiCatchErrorResponse(this.state.error);
           this.setState({loading: false , error:null})
         }
+        else if (apiRequestCallId === this.searchIncidentListingApiCallId) {
+          if (responseJson && responseJson?.data ) {
+          console.log("searchIncidentListingApiCallId ========================>",responseJson)
+          this.setState({SearchIncident :responseJson?.data})
+          this.setState({loading: false})
+          } else if (responseJson?.errors) {
+            let error = Object.values(responseJson.errors[0])[0] as string;
+            this.setState({ error });
+          } else {
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
+          }
+          this.parseApiCatchErrorResponse(this.state.error);
+          this.setState({loading: false , error:null})
+        }
         else if (apiRequestCallId === this.getIncidentListingApiCallId) {
           if (responseJson && responseJson?.data ) {
           console.log("getIncidentListingApiCallId ========================>",responseJson)
@@ -234,6 +263,20 @@ export default class IncidentManagementController extends BlockComponent<
             if(error === 'Record not found'){
               this.props.history.push("/IncidentListing")
             }
+            this.setState({ error });
+          } else {
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
+          }
+          this.parseApiCatchErrorResponse(this.state.error);
+          this.setState({loading: false , error:null})
+        }
+        else if (apiRequestCallId === this.getUnitRelatedApiCallId) {
+          if (responseJson && responseJson?.data ) {
+          console.log("getUnitRelatedApiCallId  ========================>",responseJson)
+         this.setState({unitNameData :responseJson?.data?.unit_apartments})
+          this.setState({loading: false})
+          } else if (responseJson?.errors) {
+            let error = Object.values(responseJson.errors[0])[0] as string;
             this.setState({ error });
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
@@ -506,13 +549,30 @@ clear= () => {
 
 getIncidentDetails= (id) => {
   this.props.history.push({
-    pathname: "/IncidentDetails",
+    pathname: "/IncidentManagementDetail",
     id,
 });
-  
-  //this.getIncidentDetailsById(id)
 }
 
+serachHandle=()=>{
+  this.searchIncidentListing(this.state.serachBuildingName ,this.state.unitName,this.state.status)
+}
+
+onChange =(e)=>{
+  if(e.target.name === 'buildingName'){
+    console.log("==================>",e.target?.value)
+    const array = e.target?.value?.split(",");
+    const id = array [0]
+    const name = array[1] 
+    this.getUnit(id)
+    this.setState({ buildingName:e.target?.value})
+    this.setState({ serachBuildingName:name})
+  }
+  else {
+    console.log("==================>",e.target?.value)
+    this.setState({ [e.target.name]:e.target.value})
+  }
+}
 
   createIncident = (incidentFromData: any ,incidentRelated : any): boolean => {
     
@@ -563,7 +623,7 @@ getIncidentDetails= (id) => {
   };
 
  
-  getIncidentListing= (sortBy : any ,status : any)  => {
+  getIncidentListing= ()  => {
     try {
       const header = {
         "Content-Type": configJSON.validationApiContentType,
@@ -577,7 +637,46 @@ getIncidentDetails= (id) => {
       this.getIncidentListingApiCallId = requestMessage.messageId;
       this.setState({ loading: true });
      
-     const  getSortByOrStatus = `bx_block_custom_form/incidents?sort_type=${sortBy}&filter_by=${status}`
+     const  url = `bx_block_custom_form/incidents`
+       
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        url
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        configJSON.validationApiMethodType
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+      return true;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  searchIncidentListing= (serachBuildingName : any ,unitName : any,status:any)  => {
+    try {
+      console.log("serachBuildingName unitName status ======>", status ,unitName ,serachBuildingName)
+      const header = {
+        "Content-Type": configJSON.validationApiContentType,
+        token :localStorage.getItem("userToken")
+      };
+
+      //const id = localStorage.getItem("userId");
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+      this.searchIncidentListingApiCallId = requestMessage.messageId;
+      this.setState({ loading: true });
+     
+     const  getSortByOrStatus = `bx_block_custom_form/incidents?search_building=${serachBuildingName}&search_unit=${unitName}`
        
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
@@ -637,7 +736,7 @@ getIncidentDetails= (id) => {
     }
   };
 
-  getUnit = () => {
+  getUnit = (id) => {
     try {
       const header = {
         "Content-Type": configJSON.validationApiContentType,
@@ -648,12 +747,12 @@ getIncidentDetails= (id) => {
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
-      this.getIncidentRelatedApiCallId = requestMessage.messageId;
+      this.getUnitRelatedApiCallId = requestMessage.messageId;
       this.setState({ loading: true });
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `bx_block_address/apartment_list?id=3`
+        `bx_block_address/apartment_list?id=${id}`
       );
 
       requestMessage.addData(
@@ -688,7 +787,7 @@ getIncidentDetails= (id) => {
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `bx_block_custom_form/incidents/${id}`
+        `bx_block_custom_form/incidents${id}`
       );
 
       requestMessage.addData(

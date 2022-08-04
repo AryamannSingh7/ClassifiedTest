@@ -57,14 +57,8 @@ class IncidentDetails extends IncidentController {
 
   render() {
     const { navigation } = this.props;
-    console.log("this.props.history=========>", this.props.history.location.id)
-    console.log("getIncidentDetails========================>", this.state?.getIncidentDetails)
     const id = this.state?.getIncidentDetails?.id;
     const attributes = this.state?.getIncidentDetails?.attributes;
-    let d = new Date(attributes?.reported_on)
-    // const reported_on =`${d.getUTCDate()}-${d.getUTCMonth()}-${d.getUTCFullYear()} ${d.getUTCHours()}${d.getUTCMinutes()}`
-    const reported_on = moment(attributes?.reported_on).format("DD-MM-YYYY HH:mm:ss")
-    console.log("reported_on========================>", reported_on)
     return (
       <>
         <Box className="login-wrapper incident-wrapper">
@@ -91,7 +85,7 @@ class IncidentDetails extends IncidentController {
                             </Typography>
                             <Typography component="p">
                               Plumber is claiming to have resolved
-                              you incident for ticket id: 1234567890.
+                              you incident for ticket id: {id}.
                               Please confirm if it is resolved.
                             </Typography>
                             <Box className="customButton">
