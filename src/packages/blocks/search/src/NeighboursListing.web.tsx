@@ -5,44 +5,41 @@ import React from "react";
 //components
 import {
   Box,
-  Button,
-  Typography,
   Grid,
+  Button,
   Card,
   CardContent,
   CardActions,
-  TextareaAutosize,
-  Dialog,
-  DialogActions,
-  DialogTitle,
+  Typography
 } from "@material-ui/core";
-import moment from 'moment';
+
+import { Formik, Form, Field, ErrorMessage } from "formik";
 //resources
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
-import SmartDisplayIcon from '@material-ui/icons/SmartDisplay';
-import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 
-import { Formik, Form, Field } from "formik";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
-import { Input } from "react-native-elements";
-import * as Yup from "yup";
-import CountryCodeSelector from "../../country-code-selector/src/CountryCodeSelector";
 import NeighboursController, { Props } from "./NeighboursController.web";
-//Customizable Area End
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 //resorces
 import {
   Tenant_Logo,
   Building1,
-  Grid_Icon,
-  Filter_Icon,
-  User_Icon,
-  Calender_Icon,
-  Info_Icon,
-  Clipboard_Icon,
-  Close_Icon
+  Search_Icon,
+  Building_Icon,
+  User1_Img,
+  User2_Img,
+  User3_Img,
+  Chat_Icon,
+  Contact_Icon,
+  Email_Msg_Icon,
+  Chat_Disable_Icon,
+  Contact_Disable_Icon,
+  Email_Disable_Icon
 }
   from "../src/assets";
 class NeighboursListing extends NeighboursController {
@@ -50,7 +47,7 @@ class NeighboursListing extends NeighboursController {
     super(props);
   }
   componentDidMount() {
-  //  this.getIncidentDetailsById(this.props.history.location?.id);
+    //  this.getIncidentDetailsById(this.props.history.location?.id);
   }
 
   render() {
@@ -58,24 +55,201 @@ class NeighboursListing extends NeighboursController {
 
     return (
       <>
-        <Box className="login-wrapper incident-wrapper">
+        <Box className="login-wrapper incident-wrapper neighbour-listing-wrapper">
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
               <Box className="content-block">
                 <Box className="content-header">
                   <Box className="left-block blocks">
                     <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
-                    <h4>NeighboursListing</h4>
+                    <h4>My Neighbours</h4>
                   </Box>
+                  <Button>
+                    <img src={Search_Icon} className="Search_Icon" alt="Search Icon" />
+                  </Button>
                 </Box>
-       
-                <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>
+                <Box className="content-block-wrapper common-incident-block desktop-ui">
+                  <Box className="commonForm neighbour-form">
+                    <Formik>
+                      <Box className="formGroup customSelect">
+                        <FormControl variant="outlined" >
+                          <span className="frmLeftIcons">
+                            <img src={Building_Icon} className="frm-icons" alt="House Icon" />
+                          </span>
+                          <Select
+                            name="myApartment"
+                            labelId="demo-simple-select-outlined-label"
+                            id="demo-simple-select-outlined"
+                            // onChange={(e) => {
+                            //   (e.target.value != " ") && setFieldValue("myApartment", e.target.value)
+                            // }}
+                            value="Select Park"
+                          >
+                            <MenuItem value="1">
+                              Central Park
+                            </MenuItem>
+                            <MenuItem value="2">
+                              Central Park2
+                            </MenuItem>
+                          </Select>
+                          <ErrorMessage className="text-error" component="Typography" name="myApartment" />
+                        </FormControl>
+                      </Box>
+                    </Formik>
+                  </Box>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12} md={6}>
+                      <Card className="neighbour-card card">
+                        <CardContent className="card-content">
+                          <img src={User1_Img} className="info-icon" alt="info-icon" />
+                          <Typography component="h4">
+                            Yasaman Foroutan
+                          </Typography>
+                          <Typography component="h5">
+                            B-1405
+                          </Typography>
+                          <Box className="social-raw">
+                            <Box className="blocks">
+                              <img src={Chat_Icon} className="icons" alt="info-icon" />
+                            </Box>
+                            <Box className="blocks">
+                              <img src={Contact_Icon} className="icons" alt="info-icon" />
+                            </Box>
+                            <Box className="blocks">
+                              <img src={Email_Msg_Icon} className="icons" alt="info-icon" />
+                            </Box>
+                          </Box>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                      <Card className="neighbour-card card">
+                        <CardContent>
+                          <img src={User1_Img} className="info-icon" alt="info-icon" />
+                          <Typography component="h4">
+                            Yasaman Foroutan
+                          </Typography>
+                          <Typography component="h5">
+                            B-1405
+                          </Typography>
+                          <Box className="social-raw">
+                            <Box className="blocks">
+                              <img src={Chat_Disable_Icon} className="icons" alt="info-icon" />
+                            </Box>
+                            <Box className="blocks">
+                              <img src={Contact_Disable_Icon} className="icons" alt="info-icon" />
+                            </Box>
+                            <Box className="blocks">
+                              <img src={Email_Disable_Icon} className="icons" alt="info-icon" />
+                            </Box>
+                          </Box>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                      <Card className="neighbour-card card">
+                        <CardContent>
+                          <img src={User1_Img} className="info-icon" alt="info-icon" />
+                          <Typography component="h4">
+                            Yasaman Foroutan
+                          </Typography>
+                          <Typography component="h5">
+                            B-1405
+                          </Typography>
+                          <Box className="social-raw">
+                            <Box className="blocks">
+                              <img src={Chat_Icon} className="icons" alt="info-icon" />
+                            </Box>
+                            <Box className="blocks">
+                              <img src={Contact_Icon} className="icons" alt="info-icon" />
+                            </Box>
+                            <Box className="blocks">
+                              <img src={Email_Msg_Icon} className="icons" alt="info-icon" />
+                            </Box>
+                          </Box>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                      <Card className="neighbour-card card">
+                        <CardContent>
+                          <img src={User1_Img} className="info-icon" alt="info-icon" />
+                          <Typography component="h4">
+                            Yasaman Foroutan
+                          </Typography>
+                          <Typography component="h5">
+                            B-1405
+                          </Typography>
+                          <Box className="social-raw">
+                            <Box className="blocks">
+                              <img src={Chat_Icon} className="icons" alt="info-icon" />
+                            </Box>
+                            <Box className="blocks">
+                              <img src={Contact_Icon} className="icons" alt="info-icon" />
+                            </Box>
+                            <Box className="blocks">
+                              <img src={Email_Msg_Icon} className="icons" alt="info-icon" />
+                            </Box>
+                          </Box>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                      <Card className="neighbour-card card">
+                        <CardContent>
+                          <img src={User1_Img} className="info-icon" alt="info-icon" />
+                          <Typography component="h4">
+                            Yasaman Foroutan
+                          </Typography>
+                          <Typography component="h5">
+                            B-1405
+                          </Typography>
+                          <Box className="social-raw">
+                            <Box className="blocks">
+                              <img src={Chat_Icon} className="icons" alt="info-icon" />
+                            </Box>
+                            <Box className="blocks">
+                              <img src={Contact_Icon} className="icons" alt="info-icon" />
+                            </Box>
+                            <Box className="blocks">
+                              <img src={Email_Msg_Icon} className="icons" alt="info-icon" />
+                            </Box>
+                          </Box>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                      <Card className="neighbour-card card">
+                        <CardContent>
+                          <img src={User1_Img} className="info-icon" alt="info-icon" />
+                          <Typography component="h4">
+                            Yasaman Foroutan
+                          </Typography>
+                          <Typography component="h5">
+                            B-1405
+                          </Typography>
+                          <Box className="social-raw">
+                            <Box className="blocks">
+                              <img src={Chat_Icon} className="icons" alt="info-icon" />
+                            </Box>
+                            <Box className="blocks">
+                              <img src={Contact_Icon} className="icons" alt="info-icon" />
+                            </Box>
+                            <Box className="blocks">
+                              <img src={Email_Msg_Icon} className="icons" alt="info-icon" />
+                            </Box>
+                          </Box>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                  </Grid>
+                </Box>
+                <Box className="footer-main-block bottomBlock">
                   <h6 className="bottom-text">POWERED BY</h6>
                   <img src={Tenant_Logo} className="tenant-logo" alt="" />
                 </Box>
               </Box>
             </Grid>
-            {/* desktop footer block */}
             <Grid item xs={12} md={5} className="auth-cols">
               <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
                 <img src={Building1} className="building-logo" alt="" />
