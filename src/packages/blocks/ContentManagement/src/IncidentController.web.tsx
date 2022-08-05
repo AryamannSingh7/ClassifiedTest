@@ -51,7 +51,7 @@ export interface S {
   upload:any;
   notImageOrVideoError:any,
   sizeError:any,
-  image : any
+  file : any
   // Customizable Area End
 }
 
@@ -139,6 +139,7 @@ export default class IncidentController extends BlockComponent<
       upload:false,
       notImageOrVideoError:false,
       sizeError:false,
+      file :{}
       // Customizable Area End
     };
 

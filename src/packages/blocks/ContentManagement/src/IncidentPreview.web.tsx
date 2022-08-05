@@ -30,6 +30,7 @@ import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
 import { Input } from "react-native-elements";
 import * as Yup from "yup";
+import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import CountryCodeSelector from "../../country-code-selector/src/CountryCodeSelector";
 import IncidentController, { Props } from "./IncidentController.web";
 //Customizable Area End
@@ -46,7 +47,7 @@ class IncidentPreview extends IncidentController {
     const { navigation } = this.props;
     const incidentFromData = JSON.parse(localStorage.getItem("incidentPreview"))
     const incidentRelated = incidentFromData?.incidentRelated?.split(" ");
-    //console.log("from===============>",incidentFromData,incidentFromData.incidentRelated,incidentFromData?.media[0]?.url);
+    console.log("this.state?.file?.type===============>",this.state?.file);
     if (!incidentFromData) {
       this.props.history.replace("/CreateIncident");
       return null;
@@ -113,20 +114,18 @@ class IncidentPreview extends IncidentController {
                                 {
                                   incidentFromData?.media?.map((val, index) => (
                                     val?.file.type === "video/mp4" || val?.file.type ==="video/x-m4v" ? 
-                                    <>
-                                    {/* <video width="320" height="240" autoplay >
-                                    <source src={val.url} type={val.file.type} />
-                                  </video> */}
-                                   <Box onClick={() => { this.setState({ showDialog: false }) }}>
-                                    <iframe className="incident-dialog-video"
-                                     src={val.url} title="video"
-                                    frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowfullscreen></iframe>
+
+                                   <Box key={index} onClick={() => { this.setState({ showDialog: true , file : {url :val.url ,type : val?.file.type ,name:val?.file?.name}  }) }}>
+                                     <video className="incident-dialog-video" autoPlay  >
+                                          <source src={val.url} type={val.file.type} />
+                                    </video>
                                     </Box>
-                                    </>
                                     :
-                                    <Box><img src={val.url} className="card-img" alt="card-img" key={index} /></Box>
-                                  ))
+                                    <Box key={index} onClick={() => { this.setState({ showDialog: true , file : {url :val.url ,type : val?.file.type ,name:val?.file?.name}  }) }}>
+                                      <img src={val.url} className="card-img" alt="card-img"  />
+                                      <FullscreenIcon className="play-icon" />
+                                    </Box>
+                                  ))  
                                 }
                               </CardActions>
                             </>
@@ -174,20 +173,23 @@ class IncidentPreview extends IncidentController {
             <Box className="diloag-body">
               <Box className="diloag-header">
                 <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
-                  Image
+                 { this.state?.file?.name}
                 </DialogTitle>
                 <Button onClick={() => { this.setState({ showDialog: false }) }}>
                   <img src={Close_Icon} className="close-icon" onClick={() => { this.setState({ showDialog: false }) }} />
                 </Button>
               </Box>
-              {/* <iframe className="incident-dialog-video"
-                  src="https://www.youtube.com/embed/tQG6jYy9xto" title="YouTube video player"
-                  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen></iframe> */}
-              <Box className="diloag-content">
-                <img src={this.state?.image?.url} className="incident-dialog-photo" alt="image" />
-              </Box>
-
+              {
+               this.state?.file?.type === "video/mp4" ||  this.state?.file?.type ==="video/x-m4v" ? 
+                  <video className="incident-dialog-video" autoPlay controls >
+                      <source src={this.state?.file?.url} type={this.state?.file?.type} />
+                </video>
+                :
+                <Box>
+                  <img src={this.state?.file?.url} className="card-img" alt="card-img"  />
+                  <FullscreenIcon className="play-icon" />
+                </Box>
+               }
             </Box>
           </Dialog>
         </Box>

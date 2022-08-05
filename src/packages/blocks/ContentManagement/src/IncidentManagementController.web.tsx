@@ -129,12 +129,10 @@ export default class IncidentManagementController extends BlockComponent<
       anchorEl:null,
       anchorEl_1:null,
       getIncidentDetails:null,
-      sortBy : "" ,
-      status : "",
       buildingName : " ",
       unitName : " ",
       status :" ",
-      serachBuildingName:"",
+      serachBuildingName:" ",
       statusDetail:" "
       // Customizable Area End
     };
@@ -255,9 +253,9 @@ export default class IncidentManagementController extends BlockComponent<
         }
         else if (apiRequestCallId === this.getIncidentDetailsByIdApiCallId) {
           if (responseJson && responseJson?.data ) {
-          console.log("getIncidentDetailsByIdApiCallId ========================>",responseJson)
-          this.setState({getIncidentDetails :responseJson?.data})
-          console.log("responseJson getIncidentDetails========================>",this.state?.getIncidentDetails)
+         // console.log("getIncidentDetailsByIdApiCallId ========================>",responseJson)
+          this.setState({getIncidentDetails :responseJson?.data , statusDetail:responseJson?.data?.attributes?.incident_status})
+          console.log("responseJson getIncidentDetails========================>",this.state?.statusDetail)
           this.setState({loading: false})
           } else if (responseJson?.errors) {
             console.log("responseJson?.errors====>",responseJson?.errors)
@@ -288,21 +286,6 @@ export default class IncidentManagementController extends BlockComponent<
           if (responseJson && responseJson?.data ) {
           console.log("getBuildingNameApiCallId  ========================>",responseJson)
           this.setState({buildingNameData :responseJson?.data?.buildings})
-          this.setState({loading: false})
-          } else if (responseJson?.errors) {
-            let error = Object.values(responseJson.errors[0])[0] as string;
-            this.setState({ error });
-          } else {
-            this.setState({ error: responseJson?.error || "Something went wrong!" });
-          }
-          this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({loading: false , error:null})
-        }
-        else if (apiRequestCallId === this.getIncidentRelatedApiCallId) {
-          if (responseJson && responseJson?.data ) {
-          console.log("getIncidentRelatedApiCallId========================>",responseJson)
-          this.setState({incidentRelatedData :responseJson?.data.incident_relateds})
-        
           this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
@@ -555,12 +538,11 @@ getIncidentDetails= (id) => {
 }
 
 serachHandle=()=>{
-  this.searchIncidentListing(this.state.serachBuildingName ,this.state.unitName,this.state.status)
+  this.getIncidentListing(this.state.serachBuildingName ,this.state.unitName,this.state.status)
 }
 
 onChange =(e)=>{
   if(e.target.name === 'buildingName'){
-    console.log("==================>",e.target?.value)
     const array = e.target?.value?.split(",");
     const id = array [0]
     const name = array[1] 
@@ -569,7 +551,6 @@ onChange =(e)=>{
     this.setState({ serachBuildingName:name})
   }
   else {
-    console.log("==================>",e.target?.value)
     this.setState({ [e.target.name]:e.target.value})
   }
 }
@@ -623,7 +604,7 @@ onChange =(e)=>{
   };
 
  
-  getIncidentListing= ()  => {
+  getIncidentListing= (serachBuildingName : any , unitName : any, status:any)  => {
     try {
       const header = {
         "Content-Type": configJSON.validationApiContentType,
@@ -637,11 +618,12 @@ onChange =(e)=>{
       this.getIncidentListingApiCallId = requestMessage.messageId;
       this.setState({ loading: true });
      
-     const  url = `bx_block_custom_form/incidents`
-       
+     //const  url = `bx_block_custom_form/incidents`
+     const  getSortByOrStatus = `bx_block_custom_form/incidents?search_building=${this.state?.serachBuildingName}&search_unit=${this.state?.unitName}`
+    
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        url
+        getSortByOrStatus
       );
 
       requestMessage.addData(
@@ -807,85 +789,5 @@ onChange =(e)=>{
     }
   };
   
-  
-  handleClick = (event) => {
-    this.setState({anchorEl:event.currentTarget })
-  };
-  handleClose = (e, v) => {
-    let sortBy : any ;
-    console.log("v=========>",v)
-    if(v === undefined || v === null){
-      sortBy =this.state.sortBy
-    }
-    else {
-      sortBy =v;
-    }
-    this.setState({anchorEl:null,sortBy : sortBy})
-  };
-  
-  handleClick_1 = (event) => {
-    this.setState({anchorEl_1:event.currentTarget})
-  };
-   
-  handleClose_1 = (e, v) => {
-   let status : any ;
-    if(v === undefined || v === null){
-      status =this.state.status;
-    }
-    else {
-      status =v;
-    }
-    this.setState({anchorEl_1:null ,status :status})
-  };
-  
-  handleSelectMedia  =   (
-    e: any,
-    existingMedia: any[],
-    setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
-    setFieldError: (field: string, message: string) => void
-  ) => {
-    let media = [];
-    let files = e.target.files;
-    console.log("filessss=====>",files);
-
-    for (let i = 0; i < files.length; i += 1) {
-      if(files[i] && !["image/jpg", "image/jpeg", "image/gif", "image/png","video/mp4","video/x-m4v" ].includes(files[i].type)){
-        console.log("type=====>",files[i].type);
-         setFieldError('media','Only image and video are supported.');
-         return ;
-      } 
-      else if(files[i] && files[i].size >= 10e6){
-         console.log("size=====>",files[i].size);
-        setFieldError('media','size is less than 10 mb.');
-        return ;
-      }
-      console.log("media push =====>",files[i]);
-      media.push({
-        file: {
-          lastModified: files[i].lastModified,
-          lastModifiedDate: files[i].lastModifiedDate,
-          name: files[i].name,
-          size: files[i].size,
-          type: files[i].type
-        },
-        url: URL.createObjectURL(files[i])
-      });
-    }
-    
-    e.target.value = "";
-    console.log("media======>",media)
-    setFieldValue("media", media);
-  };
-  
-searchIncidentSchema() {
-    const validations = Yup.object().shape({
-      buildingName: Yup.string().required(`This field is required`).trim(),
-      unit: Yup.string().required(`This field is required`).trim(),
-      status: Yup.string().required(`This field is required`).trim(),
-    });
-       
-    return validations ;
-  }
-
   // Customizable Area End
 }

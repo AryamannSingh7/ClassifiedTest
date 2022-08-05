@@ -60,9 +60,10 @@ class IncidentManagementDetail extends IncidentManagementController {
   this.props.history.push("/IncidentManagement") 
 }
   render() {
-    const statusArray=["Unresolved", "Resolved", "Pending Confirmation"]
+    const statusArray=["Unresolved","Resolved","Pending Confirmation"]
     const id = this.state?.getIncidentDetails?.id;
     const attributes = this.state?.getIncidentDetails?.attributes;
+    console.log("-==================>",attributes)
     return (
       <>
         <Box className="incident-Listing-wrapper desktop-ui" style={{ background: "#E5ECFF" }}>
@@ -100,7 +101,7 @@ class IncidentManagementDetail extends IncidentManagementController {
                   <Card className="incident-detail-card card">
                     <Box className="card-header">
                       <Typography component="h4">
-                        Plumbing {attributes?.incident_related?.incident_title}
+                        {attributes?.incident_related?.incident_title}
                       </Typography>
                       <Box className="formGroup customSelect">
                         <FormControl variant="outlined" >
@@ -108,8 +109,9 @@ class IncidentManagementDetail extends IncidentManagementController {
                            name="statusDetail"
                            labelId="demo-simple-select-outlined-label"
                            id="demo-simple-select-outlined"
-                            onChange={(e) => {this.onChange(e)}}
-                           value={this.state.statusDetail}
+                           onChange={(e) => {this.onChange(e)}}
+                           value={this.state?.statusDetail}
+                           className={this.state?.statusDetail === 'Pending Confirmation' ? "contain warning" : this.state?.statusDetail === 'Resolved' ? 'contain success' : 'contain danger'} 
                           >
                             <MenuItem disabled value=" ">
                                   Select Status
@@ -136,7 +138,7 @@ class IncidentManagementDetail extends IncidentManagementController {
                         </Box>
                         <Box className="card-rows">
                           <h5>Incident is related to: </h5>
-                          <h4>Plumbing {attributes?.incident_related?.name}</h4>
+                          <h4>{attributes?.incident_related?.name}</h4>
                         </Box>
                         <Box className="card-rows">
                           <h5>Incident Number: </h5>
@@ -144,19 +146,19 @@ class IncidentManagementDetail extends IncidentManagementController {
                         </Box>
                         <Box className="card-rows">
                           <h5>Building: </h5>
-                          <h4>Building {attributes?.apartment_management?.building_name}</h4>
+                          <h4>{attributes?.apartment_management?.building_name}</h4>
                         </Box>
                         <Box className="card-rows">
                           <h5>Unit: </h5>
-                          <h4>Building{attributes?.apartment_management?.apartment_name}</h4>
+                          <h4>{attributes?.apartment_management?.apartment_name}</h4>
                         </Box>
                         <Box className="card-rows">
                           <h5>Acknowledge by Manager: </h5>
-                          <h4>Building</h4>
+                          <h4>No</h4>
                         </Box>
                         <Box className="card-rows">
                           <h5>Latest update from management: </h5>
-                          <h4>Building</h4>
+                          <h4>10-10-2020</h4>
                         </Box>
                         <Box className="card-rows">
                           <h5>Description: </h5>
@@ -260,7 +262,7 @@ class IncidentManagementDetail extends IncidentManagementController {
                     <Box className="customButton">
                       <Button variant="outlined"
                         onClick={() => { this.setState({ showDialog: true }) }}
-                        type="submit">cencel</Button>
+                        type="submit">cancel</Button>
                       <Button variant="contained" type="submit">assign incident</Button>
                     </Box>
                   </Box>
