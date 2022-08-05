@@ -194,6 +194,7 @@ class Registration extends EmailAccountRegistrationController  {
                             <Select
                               name='selectCode'
                               labelId="demo-simple-select-outlined-label"
+
                               id="demo-simple-select-outlined"
                               onChange={this.handleChange}
                               label="Unit"
@@ -216,10 +217,11 @@ class Registration extends EmailAccountRegistrationController  {
 
                         <Field
                           name="phone"
+                          id="mobile"
                           placeholder={"Mobile"}
                           style={{
                             border: "none",
-                            height: "100%",
+                            height: "42%",
                             width: "80%",
                             color: "rgba(0, 0, 0, 0.6)",
                             fontWeight: 400,

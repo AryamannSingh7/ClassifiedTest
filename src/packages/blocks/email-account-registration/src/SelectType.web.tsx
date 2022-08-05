@@ -105,7 +105,7 @@ class SelectType extends EmailAccountRegistrationController {
                 </label>
                       <br />
                       <label className="para" for="radCreateMode2">
-                  I am the redistering as somone who rented a unit
+                  I am registering as somone who rented a unit
                       </label>
               </Box>
 

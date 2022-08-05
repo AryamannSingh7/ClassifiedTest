@@ -221,7 +221,7 @@ class Address extends EmailAccountRegistrationController {
 
                 </Grid>
               </Grid>
-              <Box className="customButton">
+              <Box className="customButton" style={{marginTop:10}}>
                       <Button variant="contained" type="submit">SEND REGISTRATION REQUEST</Button>
               </Box>
 

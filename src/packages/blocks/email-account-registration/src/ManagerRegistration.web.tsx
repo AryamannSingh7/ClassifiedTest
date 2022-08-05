@@ -309,11 +309,12 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                       </Box>
 
                       <Field
+                      id="mobile"
                         name="phone"
                         placeholder={"Mobile"}
                         style={{
                           border: "none",
-                          height: "100%",
+                          height: "42%",
                           width: "80%",
                           color: "rgba(0, 0, 0, 0.6)",
                           fontFamily: "Poppins",
@@ -518,11 +519,12 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                       </Box>
 
                       <Field
+                      id="mobile"
                         name="owner_phone"
                         placeholder={"Mobile"}
                         style={{
                           border: "none",
-                          height: "100%",
+                          height: "42%",
                           width: "80%",
                           color: "rgba(0, 0, 0, 0.6)",
                           fontFamily: "Poppins",

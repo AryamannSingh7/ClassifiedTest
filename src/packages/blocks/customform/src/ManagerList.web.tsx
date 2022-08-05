@@ -21,12 +21,14 @@ import {
   FormControl,
   NativeSelect,
   TableBody,
+  Select,
+  MenuItem,
 } from "@material-ui/core";
 
 //resources
 import { Building1, CarBlue, CarFront, Delete_Icon, Landing_Banner, request, userBlue } from "./assets";
 import { withRouter } from 'react-router';
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import Loader from "../../../components/src/Loader.web";
@@ -38,6 +40,7 @@ class ManagerList extends ManagerController {
     super(props);
   }
   async componentDidMount() {
+    this.getBuildingName();
     this.getVehicle()
 
   }
@@ -67,37 +70,119 @@ class ManagerList extends ManagerController {
                     <Typography variant="h5" style={dashBoardBudget.subHeading}>Vehicles</Typography>
                   </Box>
                 </Box>
-                  <Box style={{display:'flex'}}>
-                    <FormControl className='yearTab' style={dashBoardBudget.YearMain}>
-                      <NativeSelect className='yearSelection' value={this.state.Year} onChange={this.handleChange}>
-                        <option value="">None</option>
-                        <option value={10}>Pending</option>
-                        <option value={20}>Approval</option>
+                <Formik
+                  initialValues={{
+                    buildingName: " ",
+                    unit: " ",
+                    status: " ",
+                  }}
+                  validationSchema={this.searchIncidentSchema()}
+                  validateOnMount={true}
+                  onSubmit={(values) => {
+                    console.log("valus=========>", values)
+                    // localStorage.setItem("incidentPreview", JSON.stringify(values))
+                    // this.setState({ loading: true })
+                    // this.props.history.push("/IncidentPreview")
+                  }}
+                >
+                  {({ values, touched, errors, isValid, setFieldError, setFieldValue, handleChange }) => (
+                    <Form translate="yes" className="commonForm">
+                      <Box className="sorting-header">
+                        <Box className="formGroup customSelect">
+                          <FormControl variant="outlined" >
+                            <Select
+                              name="buildingName"
+                              labelId="demo-simple-select-outlined-label"
+                              id="demo-simple-select-outlined"
+                              onChange={(e) => {
+                                (e.target.value != " ") && setFieldValue("buildingName", e.target.value)
 
-                      </NativeSelect>
-                    </FormControl>
-                    <FormControl className='yearTab' style={dashBoardBudget.YearMain}>
-                      <NativeSelect className='yearSelection' value={this.state.Year} onChange={this.handleChange}>
-                        <option value="">None</option>
-                        <option value={10}>Ten</option>
-                        <option value={20}>Twenty</option>
-                        <option value={30}>Thirty</option>
-                      </NativeSelect>
-                    </FormControl>
-                    <FormControl className='yearTab' style={dashBoardBudget.YearMain}>
-                      <NativeSelect className='yearSelection' value={this.state.Year} onChange={this.handleChange}>
-                        <option value="">None</option>
-                        <option value={10}>Ten</option>
-                        <option value={20}>Twenty</option>
-                        <option value={30}>Thirty</option>
-                      </NativeSelect>
-                    </FormControl>
-                  <Box className="row-btn customButton desktop-ui">
-                    <Button variant="contained">
-                      Search
-                    </Button>
-                    </Box>
-                    </Box>
+                              }}
+                              value={values.buildingName}
+                            >
+                              <MenuItem disabled value=" ">
+                                Select Building
+                              </MenuItem>
+                              {
+                                this.state?.buildingNameData?.map((val, index) => (
+                                  <MenuItem
+                                    key={index}
+                                    value={`${val?.id} ${val?.name}`}
+                                  >
+                                    {val?.name}
+                                  </MenuItem>
+                                ))
+                              }
+                            </Select>
+                            <ErrorMessage className="text-error" component="Typography" name="buildingName" />
+                          </FormControl>
+                        </Box>
+                        <Box className="formGroup customSelect">
+                          <FormControl variant="outlined" >
+                            <Select
+                              name="unit"
+                              labelId="demo-simple-select-outlined-label"
+                              id="demo-simple-select-outlined"
+                              onChange={(e) => {
+                                (e.target.value != " ") && setFieldValue("unit", e.target.value)
+                              }}
+                              value={values.unit}
+                            >
+                              {
+                                values?.buildingName ?
+                                  <MenuItem disabled value=" ">
+                                    Select Unit
+                                  </MenuItem>
+                                  :
+                                  this.state?.buildingNameData?.map((val, index) => (
+                                    <MenuItem
+                                      key={index}
+                                      value={val?.name}
+                                    >
+                                      {val?.name}
+                                    </MenuItem>
+                                  ))
+
+                              }
+                            </Select>
+                            <ErrorMessage className="text-error" component="Typography" name="unit" />
+                          </FormControl>
+                        </Box>
+                        <Box className="formGroup customSelect">
+                          <FormControl variant="outlined" >
+                            <Select
+                              name="status"
+                              labelId="demo-simple-select-outlined-label"
+                              id="demo-simple-select-outlined"
+                              onChange={(e) => {
+                                (e.target.value != " ") && setFieldValue("status", e.target.value)
+                              }}
+                              value={values.status}
+                            >
+                              <MenuItem disabled value=" ">
+                                Select Status
+                              </MenuItem>
+                              {
+                                this.state?.buildingNameData?.map((val, index) => (
+                                  <MenuItem
+                                    key={index}
+                                    value={val?.name}
+                                  >
+                                    {val?.name}
+                                  </MenuItem>
+                                ))
+                              }
+                            </Select>
+                            <ErrorMessage className="text-error" component="Typography" name="status" />
+                          </FormControl>
+                        </Box>
+                        <Box className="customButton">
+                          <Button variant="contained" type="submit">Search</Button>
+                        </Box>
+                      </Box>
+                    </Form>
+                  )}
+                </Formik>
 
              <Grid container>
               <Grid xs={12}>
@@ -108,7 +193,7 @@ class ManagerList extends ManagerController {
                           <Grid container >
                             {
                               this.state.allVehcile.map((item, i) => <>
-                                <Grid xs={3} style={{ margin: 10 }} >
+                                <Grid xs={4} style={{ margin: 10 }} >
                                   <div className="card" style={{ cursor: 'pointer',maxWidth:450,background:'white' }} onClick={() => this.addVehicle(item)}>
                                     <div className="status">
                                       {item.attributes.status}

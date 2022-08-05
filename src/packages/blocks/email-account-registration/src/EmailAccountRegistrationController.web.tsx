@@ -1482,7 +1482,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
         .positive("Negative numbers are not allowed.")
         .integer("Number can't contain a decimal.")
         .min(10000000, "Minimum 5 digits are required.")
-        .max(9999999999999, "Maximum 11 digits are allowed.")
+        .max(999999999, "Maximum 11 digits are allowed.")
 ,
       owner_phone: Yup.number()
         .typeError("Only numbers are allowed.")
@@ -1490,7 +1490,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
         .positive("Negative numbers are not allowed.")
         .integer("Number can't contain a decimal.")
         .min(10000000, "Minimum 5 digits are required.")
-        .max(9999999999999, "Maximum 11 digits are allowed."),
+        .max(99999999999, "Maximum 11 digits are allowed."),
       password: Yup
         .string()
         .min(8, `Minimum Password length is 8.`)
@@ -1519,7 +1519,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
         .positive("Negative numbers are not allowed.")
         .integer("Number can't contain a decimal.")
         .min(10000000, "Minimum 5 digits are required.")
-        .max(9999999999999, "Maximum 11 digits are allowed."),
+        .max(99999999999, "Maximum 11 digits are allowed."),
       password: Yup
         .string()
         .min(8, `Minimum Password length is 8.`)

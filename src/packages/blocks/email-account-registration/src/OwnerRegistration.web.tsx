@@ -35,7 +35,7 @@ class Registration extends EmailAccountRegistrationController {
 
 
 
-        <Grid container style={{ margin: '1rem' }}>
+        <Grid container>
           <Grid xs={12}>
             <ArrowBackIcon onClick={() => window.history.back()} />
           </Grid>
@@ -218,9 +218,10 @@ class Registration extends EmailAccountRegistrationController {
                       <Field
                         name="phone"
                         placeholder={"Mobile"}
+                        id="mobile"
                         style={{
                           border: "none",
-                          height: "100%",
+                          height: "42%",
                           width: "80%",
                           color: "rgba(0, 0, 0, 0.6)",
                           fontWeight: 400,

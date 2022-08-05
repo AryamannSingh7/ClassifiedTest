@@ -24,8 +24,8 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import Loader from "../../../components/src/Loader.web";
 import ForgotPasswordController, { Props } from "./ForgotPasswordController.web";
 //images
-import { 
-  Tenant_Logo, Building_Logo, Lock_User_Icon, Building1 
+import {
+  Tenant_Logo, Building_Logo, Lock_User_Icon, Building1
 } from "../src/assets";
 
 class ChangePassword extends ForgotPasswordController {
@@ -57,7 +57,7 @@ class ChangePassword extends ForgotPasswordController {
                       </Link>
                     </Box> */}
                     <h1>Change Password</h1>
-                    <h6>"You need to change your password. Please enter a new password"</h6>
+                    <h6>You need to change your password. Please enter a new password</h6>
                   </Box>
                   <Formik
                     initialValues={{
@@ -71,7 +71,7 @@ class ChangePassword extends ForgotPasswordController {
                     onSubmit={(values) => {
                       console.log("valus=========>", values)
                       this.changePassword(values)
-                      // same shape as initial values  
+                      // same shape as initial values
                     }}
                   >
                     {({ values, touched, errors, isValid, setFieldValue, handleChange }) => (

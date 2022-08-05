@@ -68,3 +68,9 @@
   padding: 0.5rem 1rem 1rem 0.5rem;
   background-color: white;
 }
+
+@media only screen and (max-width: 600px) {
+  .auth-container .auth-cols:nth-child(2) {
+    height: auto;
+  }
+}

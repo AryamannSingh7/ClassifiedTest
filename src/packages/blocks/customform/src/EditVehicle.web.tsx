@@ -62,7 +62,7 @@ class EditVeichleList extends VeichleListController {
                     carManufacturer: item.attributes.company_name,
                     carModle: item.attributes.model_number,
                     carColor: item.attributes.color,
-                    bannerUrl: item.attributes.registration_card_copy,
+                    bannerUrl: item.attributes.registration_card_copy.url,
                     banner:''
 
 
