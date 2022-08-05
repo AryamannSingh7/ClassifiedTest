@@ -15,7 +15,10 @@ import {
   CardActions,
   Menu,
   MenuItem,
-  Avatar
+  Avatar,
+  Dialog,
+  DialogActions,
+  DialogTitle,
 } from "@material-ui/core";
 
 //resources
@@ -32,7 +35,7 @@ import IncidentController, { Props } from "./IncidentController.web";
 //Customizable Area End
 
 //resorces
-import { Tenant_Logo, Building1, Grid_Icon, Filter_Icon, User_Icon, Calender_Icon } from "../src/assets";
+import { Tenant_Logo, Building1, Close_Icon,Grid_Icon, Filter_Icon, User_Icon, Calender_Icon } from "../src/assets";
 
 class IncidentPreview extends IncidentController {
   constructor(props: Props) {
@@ -109,13 +112,22 @@ class IncidentPreview extends IncidentController {
                               <CardActions className="card-img-row">
                                 {
                                   incidentFromData?.media?.map((val, index) => (
+                                    val?.file.type === "video/mp4" || val?.file.type ==="video/x-m4v" ? 
+                                    <>
+                                    {/* <video width="320" height="240" autoplay >
+                                    <source src={val.url} type={val.file.type} />
+                                  </video> */}
+                                   <Box onClick={() => { this.setState({ showDialog: false }) }}>
+                                    <iframe className="incident-dialog-video"
+                                     src={val.url} title="video"
+                                    frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen></iframe>
+                                    </Box>
+                                    </>
+                                    :
                                     <Box><img src={val.url} className="card-img" alt="card-img" key={index} /></Box>
                                   ))
                                 }
-                                <iframe className="incident-dialog-video"
-                                  src="https://www.youtube.com/embed/tQG6jYy9xto" title="YouTube video player"
-                                  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                  allowfullscreen></iframe>
                               </CardActions>
                             </>
                             : null
@@ -147,6 +159,37 @@ class IncidentPreview extends IncidentController {
               </Box>
             </Grid>
           </Grid>
+          <Dialog
+            open={this.state.showDialog}
+            onClose={() => this.setState({ showDialog: false })}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+            className="diloag-wrapper"
+            PaperProps={{
+              style: {
+                borderRadius: '15px',
+              },
+            }}
+          >
+            <Box className="diloag-body">
+              <Box className="diloag-header">
+                <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
+                  Image
+                </DialogTitle>
+                <Button onClick={() => { this.setState({ showDialog: false }) }}>
+                  <img src={Close_Icon} className="close-icon" onClick={() => { this.setState({ showDialog: false }) }} />
+                </Button>
+              </Box>
+              {/* <iframe className="incident-dialog-video"
+                  src="https://www.youtube.com/embed/tQG6jYy9xto" title="YouTube video player"
+                  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen></iframe> */}
+              <Box className="diloag-content">
+                <img src={this.state?.image?.url} className="incident-dialog-photo" alt="image" />
+              </Box>
+
+            </Box>
+          </Dialog>
         </Box>
         <Loader loading={this.state.loading} />
       </>
