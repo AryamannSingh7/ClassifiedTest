@@ -17,7 +17,10 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
+  IconButton,
 } from "@material-ui/core";
+import MuiDialogTitle from "@material-ui/core/DialogTitle";
+import CloseIcon from "@material-ui/icons/Close";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import EditIcon from "@material-ui/icons/Edit";
@@ -150,6 +153,7 @@ class FaqChairman extends FaqChairmanController {
                 <Box className="bottom-buttons">
                   {this.state.selectedCategoryName ? (
                     <Button
+                      className="remove-cat-button"
                       variant="outlined"
                       onClick={() => this.handleDeleteAllCategoryModal()}
                     >
@@ -174,9 +178,25 @@ class FaqChairman extends FaqChairmanController {
             onClose={() => this.handleAddQuestionModal()}
             open={this.state.isAddQuestionModalOpen}
           >
-            <DialogTitle onClose={() => this.handleAddQuestionModal()}>
+            <MuiDialogTitle
+              disableTypography
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                padding: "6px 24px ",
+              }}
+            >
+              <Typography variant="h6" style={{ fontWeight: "600" }}>
+                Add Questions
+              </Typography>
+              <IconButton onClick={() => this.handleAddQuestionModal()}>
+                <CloseIcon />
+              </IconButton>
+            </MuiDialogTitle>
+            {/* <DialogTitle onClose={() => this.handleAddQuestionModal()}>
               Add Questions
-            </DialogTitle>
+            </DialogTitle> */}
             <DialogContent dividers>
               <FormControl fullWidth>
                 <select
@@ -229,6 +249,13 @@ class FaqChairman extends FaqChairmanController {
                     outline: "none",
                   }}
                 />
+                {this.state.createQuestion.length > 500 && (
+                  <span
+                    style={{ color: "red", fontSize: "12px", marginTop: "5px" }}
+                  >
+                    Maximum length of title should be 500 character
+                  </span>
+                )}
               </FormControl>
               <FormControl fullWidth>
                 <textarea
@@ -252,7 +279,7 @@ class FaqChairman extends FaqChairmanController {
                 />
               </FormControl>
             </DialogContent>
-            <DialogActions>
+            <DialogActions style={{ flexDirection: "row" }}>
               <Button
                 style={{ width: "150px" }}
                 variant="outlined"
@@ -269,6 +296,7 @@ class FaqChairman extends FaqChairmanController {
                 disabled={
                   this.state.createAnswer.length === 0 ||
                   this.state.createQuestion.length === 0 ||
+                  this.state.createQuestion.length > 500 ||
                   this.state.createCategoryId.length === 0
                 }
               >
@@ -281,9 +309,22 @@ class FaqChairman extends FaqChairmanController {
             onClose={() => this.handleEditQuestionModal()}
             open={this.state.isEditQuestionModalOpen}
           >
-            <DialogTitle onClose={() => this.handleEditQuestionModal()}>
-              Edit Questions
-            </DialogTitle>
+            <MuiDialogTitle
+              disableTypography
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                padding: "6px 24px ",
+              }}
+            >
+              <Typography variant="h6" style={{ fontWeight: "600" }}>
+                Edit Questions
+              </Typography>
+              <IconButton onClick={() => this.handleEditQuestionModal()}>
+                <CloseIcon />
+              </IconButton>
+            </MuiDialogTitle>
             <DialogContent dividers>
               <FormControl fullWidth>
                 <select
@@ -336,6 +377,13 @@ class FaqChairman extends FaqChairmanController {
                     outline: "none",
                   }}
                 />
+                {this.state.editQuestion.length > 500 && (
+                  <span
+                    style={{ color: "red", fontSize: "12px", marginTop: "5px" }}
+                  >
+                    Maximum length of title should be 500 character
+                  </span>
+                )}
               </FormControl>
               <FormControl fullWidth>
                 <textarea
@@ -359,7 +407,7 @@ class FaqChairman extends FaqChairmanController {
                 />
               </FormControl>
             </DialogContent>
-            <DialogActions>
+            <DialogActions style={{ flexDirection: "row" }}>
               <Button
                 style={{ width: "150px" }}
                 variant="outlined"
@@ -376,6 +424,7 @@ class FaqChairman extends FaqChairmanController {
                 disabled={
                   this.state.editAnswer.length === 0 ||
                   this.state.editQuestion.length === 0 ||
+                  this.state.editQuestion.length > 500 ||
                   this.state.editCategoryId.length === 0
                 }
               >
@@ -389,9 +438,25 @@ class FaqChairman extends FaqChairmanController {
             onClose={() => this.handleAddCategoryModal()}
             open={this.state.isAddCategoryModalOpen}
           >
-            <DialogTitle onClose={() => this.handleAddCategoryModal()}>
+            <MuiDialogTitle
+              disableTypography
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                padding: "6px 24px ",
+              }}
+            >
+              <Typography variant="h6" style={{ fontWeight: "600" }}>
+                Add Category
+              </Typography>
+              <IconButton onClick={() => this.handleAddCategoryModal()}>
+                <CloseIcon />
+              </IconButton>
+            </MuiDialogTitle>
+            {/* <DialogTitle onClose={() => this.handleAddCategoryModal()}>
               Add Category
-            </DialogTitle>
+            </DialogTitle> */}
             <DialogContent dividers>
               <FormControl fullWidth>
                 <input
@@ -414,7 +479,7 @@ class FaqChairman extends FaqChairmanController {
                 />
               </FormControl>
             </DialogContent>
-            <DialogActions>
+            <DialogActions style={{ flexDirection: "row" }}>
               <Button
                 style={{ width: "150px" }}
                 variant="outlined"
@@ -468,7 +533,9 @@ class FaqChairman extends FaqChairmanController {
                 >
                   All FAQ related this category will be deleted permanently.
                 </Typography>
-                <DialogActions style={{ justifyContent: "center" }}>
+                <DialogActions
+                  style={{ flexDirection: "row", justifyContent: "center" }}
+                >
                   <Button
                     style={{ width: "200px" }}
                     variant="outlined"
@@ -516,7 +583,9 @@ class FaqChairman extends FaqChairmanController {
                 >
                   Are you sure want to delete the question?
                 </Typography>
-                <DialogActions style={{ justifyContent: "center" }}>
+                <DialogActions
+                  style={{ flexDirection: "row", justifyContent: "center" }}
+                >
                   <Button
                     style={{ width: "200px" }}
                     variant="outlined"

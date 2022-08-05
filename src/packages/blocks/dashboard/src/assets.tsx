@@ -26,5 +26,6 @@ export const expense = require("../assets/expense.png")
 export const statistic = require("../assets/statistic.png")
 export const removeuser = require("../assets/remove-user.png")
 export const approvedbudget = require("../assets/approvedbudget.png")
+export const chatIcon = require("../assets/chat.png")
 
 
