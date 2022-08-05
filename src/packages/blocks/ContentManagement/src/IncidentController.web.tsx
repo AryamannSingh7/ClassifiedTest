@@ -907,7 +907,7 @@ confirmOrRejectIncident =(id,val)=>{
     
 if(files.length !== 0){
   for (let i = 0; i < files.length; i += 1) {
-    if(files[i] && !["image/jpg", "image/jpeg", "image/gif", "image/png" ].includes(files[i].type))
+    if(files[i] && !["image/jpg", "image/jpeg", "image/gif", "image/png","video/mp4","video/x-m4v" ].includes(files[i].type))
     {
       console.log("type=====>",files[i].type);
       this.setState({upload: false,sizeError : false,notImageOrVideoError:true});
