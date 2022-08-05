@@ -230,9 +230,12 @@ export const FaqChairmanStyleWeb: any = {
       background: "white",
       cursor: "pointer",
       borderRadius: "8px",
+      wordBreak: "break-all",
     },
     "& .faq-item p": {
       fontWeight: "600",
+      width: "95%",
+      wordBreak: "break-all",
     },
     "& .faq-ans span": {
       display: "block",
