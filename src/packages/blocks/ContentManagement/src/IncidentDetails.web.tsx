@@ -56,6 +56,7 @@ class IncidentDetails extends IncidentController {
   }
 
   render() {
+    console.log(",image: val===========>",this.state.image)
     const { navigation } = this.props;
     const id = this.state?.getIncidentDetails?.id;
     const attributes = this.state?.getIncidentDetails?.attributes;
@@ -155,10 +156,10 @@ class IncidentDetails extends IncidentController {
                               <CardActions className="card-img-row">
                                 {
                                   attributes?.attachments?.map((val, index) => (
-                                    <Box className="video-img" onClick={() => { this.setState({ showDialog: true, image: val }) }}>
+                                    <Box className="video-img" onClick={() => { this.setState({ showDialog: true, image: "hello" } , console.log(",image: val",this.state.image)) }}>
                                       <FullscreenIcon className="play-icon" />
 
-                                      <img src={val} className="card-img" alt="card-img" key={index} />
+                                      <img src={val?.url} className="card-img" alt="card-img" key={index} />
                                       <Box className="img-layer"></Box>
                                     </Box>
                                   ))
@@ -262,7 +263,7 @@ class IncidentDetails extends IncidentController {
                   Image
                 </DialogTitle>
                 <Button onClick={() => { this.setState({ showDialog: false }) }}>
-                  <img src={Close_Icon} className="close-icon" />
+                  <img src={Close_Icon} className="close-icon" onClick={() => { this.setState({ showDialog: false }) }} />
                 </Button>
               </Box>
               {/* <iframe className="incident-dialog-video"
@@ -270,7 +271,7 @@ class IncidentDetails extends IncidentController {
                   frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowfullscreen></iframe> */}
               <Box className="diloag-content">
-                <img src={this.state?.image} className="incident-dialog-photo" alt="Incident photo" />
+                <img src={this.state?.image?.url} className="incident-dialog-photo" alt="image" />
               </Box>
 
             </Box>

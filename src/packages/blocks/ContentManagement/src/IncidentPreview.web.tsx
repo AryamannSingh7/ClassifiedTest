@@ -100,16 +100,22 @@ class IncidentPreview extends IncidentController {
                         <Typography className="sub-title" component="h5">
                           {incidentFromData?.myApartment?.attributes?.apartment_name}
                         </Typography>
-                        <Typography component="span">
-                          Photos
-                        </Typography>
-                        <CardActions className="card-img-row">
-                          {
-                            incidentFromData?.media?.map((val, index) => (
-                              <Box><img src={val.url} className="card-img" alt="card-img" key={index} /></Box>
-                            ))
-                          }
-                        </CardActions>
+                        {
+                           incidentFromData?.media.length !==0 ?  
+                           <>
+                           <Typography component="span">
+                           Photos
+                         </Typography>
+                         <CardActions className="card-img-row">
+                           {
+                             incidentFromData?.media?.map((val, index) => (
+                               <Box><img src={val.url} className="card-img" alt="card-img" key={index} /></Box>
+                             ))
+                           }
+                         </CardActions>
+                         </>
+                           : null
+                        }
                         <hr />
                         <Typography component="span">
                           Description:

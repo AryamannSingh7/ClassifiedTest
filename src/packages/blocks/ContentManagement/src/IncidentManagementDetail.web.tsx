@@ -53,9 +53,14 @@ class IncidentManagementDetail extends IncidentManagementController {
     super(props);
   }
   componentDidMount() {
-    this.getIncidentDetailsById(this.props.history.location?.id);
-  }
+   const  id = localStorage.getItem("incidentManagementDetail")
+   if(id)
+    this.getIncidentDetailsById(id);
+  else
+  this.props.history.push("/IncidentManagement") 
+}
   render() {
+    const statusArray=["Unresolved", "Resolved", "Pending Confirmation"]
     const id = this.state?.getIncidentDetails?.id;
     const attributes = this.state?.getIncidentDetails?.attributes;
     return (
@@ -100,20 +105,25 @@ class IncidentManagementDetail extends IncidentManagementController {
                       <Box className="formGroup customSelect">
                         <FormControl variant="outlined" >
                           <Select
-                            name="commonArea"
-                            labelId="demo-simple-select-outlined-label"
-                            id="demo-simple-select-outlined"
-                            value="1"
+                           name="statusDetail"
+                           labelId="demo-simple-select-outlined-label"
+                           id="demo-simple-select-outlined"
+                            onChange={(e) => {this.onChange(e)}}
+                           value={this.state.statusDetail}
                           >
-                            <MenuItem value="1">
-                              Select Status
-                            </MenuItem>
-                            <MenuItem value="2">
-                              test 2
-                            </MenuItem>
-                            <MenuItem value="3">
-                              test 3
-                            </MenuItem>
+                            <MenuItem disabled value=" ">
+                                  Select Status
+                                </MenuItem>
+                                {
+                                statusArray?.map((val, index) => (
+                                  <MenuItem
+                                    key={index}
+                                    value={val}
+                                  >
+                                    {val}
+                                  </MenuItem>
+                                ))
+                              }
                           </Select>
                         </FormControl>
                       </Box>

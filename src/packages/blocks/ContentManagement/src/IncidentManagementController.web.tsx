@@ -134,7 +134,8 @@ export default class IncidentManagementController extends BlockComponent<
       buildingName : " ",
       unitName : " ",
       status :" ",
-      serachBuildingName:""
+      serachBuildingName:"",
+      statusDetail:" "
       // Customizable Area End
     };
 
@@ -547,9 +548,9 @@ clear= () => {
 }
 
 getIncidentDetails= (id) => {
+ localStorage.setItem("incidentManagementDetail",id)
   this.props.history.push({
     pathname: "/IncidentManagementDetail",
-    id,
 });
 }
 

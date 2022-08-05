@@ -139,7 +139,6 @@ export default class IncidentController extends BlockComponent<
       upload:false,
       notImageOrVideoError:false,
       sizeError:false,
-      image:[]
       // Customizable Area End
     };
 
