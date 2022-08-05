@@ -146,7 +146,7 @@ class ViewVeichle extends VeichleListController {
               </Grid>
               <Grid container>
                 <Grid xs={12}>
-                  <img src={item.attributes.registration_card_copy} width='350'/>
+                  <img src={item.attributes.registration_card_copy.url} width='350'/>
                 </Grid>
               </Grid>
 
