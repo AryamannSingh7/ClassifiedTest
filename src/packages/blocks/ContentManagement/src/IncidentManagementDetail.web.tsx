@@ -47,6 +47,7 @@ import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 
 //resorces
 import { Close_Icon, Bank_Icon, Box_Icon, Building1 } from "./assets";
+import IncidentChatDrawer from "./IncidentChatDrawer.web";
 
 class IncidentManagementDetail extends IncidentManagementController {
   constructor(props: Props) {
@@ -301,7 +302,8 @@ class IncidentManagementDetail extends IncidentManagementController {
             </Grid>
           </Box>
         </Box>
-        <Loader loading={this.state.loading} />
+        <IncidentChatDrawer />
+        {/* <Loader loading={this.state.loading} /> */}
       </>
     )
   }

@@ -60,7 +60,6 @@ h4 {
   font-family: $Gotham_Medium;
   font-size: 19px;
   font-weight: 600;
-
   @include mq(tablet-portrait-large-up) {
     font-size: 17px;
   }

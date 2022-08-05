@@ -15,13 +15,15 @@ import PollsGrid from "../../Polling/src/PollsallData.web";
 import SurveyGrid from "../../Polling/src/SurveyGrid.web";
 
 // Components imported end
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
 
-import {buildingLogo, chairmanUser, globalIcon, notification} from "./assets"
+import { buildingLogo, chairmanUser, globalIcon, notification } from "./assets"
 import "../../../web/src/assets/css/style.scss";
 import {
     Typography,
     Link,
-  } from "@material-ui/core";
+} from "@material-ui/core";
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 
@@ -31,60 +33,60 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import DashboardController, { Props } from "./DashboardController";
 
 export default class DashboardHeader extends DashboardController {
-  constructor(props: Props) {
-    super(props);
-  }
+    constructor(props: Props) {
+        super(props);
+    }
+    render() {
 
-  render() {
-    return ( 
-    <>
-            <Box style={dashBoard.Header}>
-                <Grid container spacing={2}>
-                    <Grid item xs={6} md={6} sm={6}
-                        style={dashBoard.HeaderSecLft}
-                    >
-                        <img src={buildingLogo} alt="BuildingLogo" width={70}/>
-                        <Link href="#" style={{textDecoration:'none'}}>
-                            <Typography variant="h6">Building Name</Typography>
-                        </Link>
-                        
-                    </Grid>
-                    <Grid item xs={6} md={6} sm={6}
-                        style={dashBoard.HeaderSecRft}
-                    >
-                        <Link href="#"><img src={globalIcon} alt="GlobalIcon" /></Link>
-                        <Link href="#"><img src={notification} alt="GlobalIcon" /></Link>
-                        {/* <img src={GlobalIcon} alt="GlobalIcon" /> */}
-                        
-                        <Box 
-                            style={dashBoard.HeaderSecRtBox}
+        return (
+            <>
+                <Box style={dashBoard.Header}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={6} md={6} sm={6}
+                            style={dashBoard.HeaderSecLft}
                         >
-                            <img src={chairmanUser} alt="ChairmanUser"
-                            width={50}
-                            style={{borderRadius: "50%"}}
-                            />
-                            <Box>
-                                <Typography variant="subtitle1">User Name</Typography>
-                                <Typography variant="body2">Chairman</Typography>
+                            <img src={buildingLogo} alt="BuildingLogo" width={70} />
+                            <Link href="#" style={{ textDecoration: 'none' }}>
+                                <Typography variant="h6">Building Name</Typography>
+                            </Link>
+
+                        </Grid>
+                        <Grid item xs={6} md={6} sm={6}
+                            style={dashBoard.HeaderSecRft}
+                        >
+                            <Link href="#"><img src={globalIcon} alt="GlobalIcon" /></Link>
+                            <Link href="#"><img src={notification} alt="GlobalIcon" /></Link>
+                            {/* <img src={GlobalIcon} alt="GlobalIcon" /> */}
+
+                            <Box
+                                style={dashBoard.HeaderSecRtBox}
+                            >
+                                <img src={chairmanUser} alt="ChairmanUser"
+                                    width={50}
+                                    style={{ borderRadius: "50%" }}
+                                />
+                                <Box>
+                                    <Typography variant="subtitle1">User Name</Typography>
+                                    <Typography variant="body2">Chairman</Typography>
+                                </Box>
                             </Box>
-                        </Box>
-                        <Link href="#">
-                        <KeyboardArrowDownIcon/>
-                        </Link>
-                        
+                            <Link href="#">
+                                <KeyboardArrowDownIcon />
+                            </Link>
+
+                        </Grid>
                     </Grid>
-                </Grid>
-            </Box>
-   </>
-    );
-  }
+                </Box>
+            </>
+        );
+    }
 }
 
 
 const dashBoard = {
     Header: {
         background: "#fff",
-        padding:20,
+        padding: 20,
     },
     HeaderSecLft: {
         display: "flex",
@@ -104,37 +106,37 @@ const dashBoard = {
         alignItems: "center",
         gap: "20px",
     },
-    PremimumPlan:{
+    PremimumPlan: {
         background: "#ff8100",
         padding: 8,
         borderRadius: "5px",
         marginRight: 8,
     },
-    
+
     SideBar: {
         background: "#f9f6f6",
-        position:"relative",
+        position: "relative",
         paddingBottom: 150,
     },
     SideBarBottom: {
         display: "flex",
         justifyContent: "space-between",
-        alignItems:"last baseline",
+        alignItems: "last baseline",
         gap: 60,
         position: "absolute",
         bottom: 0,
         paddingBottom: 20,
-        marginLeft:20,
-        marginRight:25,
+        marginLeft: 20,
+        marginRight: 25,
     },
     ListItem: {
         color: "black",
-        marginTop:25,
+        marginTop: 25,
     },
     ListItemText: {
-        marginLeft:15,
-        fontSize:14,
+        marginLeft: 15,
+        fontSize: 14,
     }
-  };
+};
 
 // Customizable Area End
