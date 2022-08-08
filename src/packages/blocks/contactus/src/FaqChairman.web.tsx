@@ -14,7 +14,6 @@ import {
   AccordionSummary,
   AccordionDetails,
   Dialog,
-  DialogTitle,
   DialogContent,
   DialogActions,
   IconButton,
@@ -34,6 +33,7 @@ import { FaqChairmanStyleWeb } from "./FaqChairmanStyle.web";
 
 import CommentImage from "../assets/comment.png";
 import QuestionImage from "../assets/question.png";
+import "./DialogStyle.web.css";
 
 class FaqChairman extends FaqChairmanController {
   constructor(props: Props) {
@@ -194,9 +194,6 @@ class FaqChairman extends FaqChairmanController {
                 <CloseIcon />
               </IconButton>
             </MuiDialogTitle>
-            {/* <DialogTitle onClose={() => this.handleAddQuestionModal()}>
-              Add Questions
-            </DialogTitle> */}
             <DialogContent dividers>
               <FormControl fullWidth>
                 <select
