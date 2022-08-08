@@ -10,6 +10,9 @@
   & .MuiDialogTitle-root {
     padding: 16px 0;
   }
+  & .diloag-content-body {
+    padding: 15px;
+  }
   .diloag-header {
     // padding-bottom: 20px;
     // text-align: center;
@@ -17,8 +20,10 @@
     justify-content: space-between;
     align-items: center;
     padding: 15px;
-    margin-bottom: 20px;
     border-bottom: 1px solid #ccc;
+    .MuiButton-text {
+      min-width: auto;
+    }
     & .close-icon {
       height: 30px;
       width: 30px;
@@ -35,16 +40,27 @@
     & .alert-dialog-title {
       & h2 {
         font-size: 24px;
-        line-height: 25px;
+        line-height: 28px;
         font-weight: bold;
+        width: 400px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        @include mq(tablet-portrait-large-up) {
+          width: 100px;
+        }
       }
     }
-    & .incident-dialog-video,
-    & .incident-dialog-photo {
-      height: 300px;
+  }
+  & .incident-dialog-video,
+  & .incident-dialog-photo {
+    height: 350px;
+    width: 500px;
+    object-fit: cover;
+    border-radius: 10px;
+    @include mq(tablet-portrait-large-up) {
+      height: 200px;
       width: 100%;
-      object-fit: cover;
-      border-radius: 10px;
     }
   }
   & .MuiDialogTitle-root {
@@ -60,7 +76,7 @@
     }
     & .incident-dialog-photo {
       height: 300px;
-      width: 100%;
+      width: 500px;
       object-fit: contain;
       border-radius: 10px;
     }

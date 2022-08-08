@@ -26,7 +26,7 @@ import IncidentController, { Props } from "./IncidentController.web";
 //Customizable Area End
 
 //resorces
-import { Tenant_Logo, Building_Logo, Tick_Circle_Icon, Building1 } from "../src/assets";
+import { Tenant_Logo, Building_Logo, Tick_Icon, Building1 } from "../src/assets";
 
 class IncidentReportedSuccessfully extends IncidentController {
   constructor(props: Props) {
@@ -47,7 +47,7 @@ class IncidentReportedSuccessfully extends IncidentController {
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
               <Box className="content-block">
-                {/* <Box display={{ xs: 'flex', md: 'none' }} className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box> */}
+                <Box className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
                 <Box className="logo-block common-top-padding" display={{ xs: 'none', md: 'flex' }}>
                   <Link href="/EmailAccountLogin">
                     <img src={Building_Logo} className="head-logo" alt="" />
@@ -56,9 +56,9 @@ class IncidentReportedSuccessfully extends IncidentController {
                 </Box>
                 <Box className="main-content-block change-password-mainblock">
                   <Box className="header-block header-block-changepassword">
-                    <img src={Tick_Circle_Icon} className="lock-logo" alt="Lock_Icon" />
+                    <img src={Tick_Icon} className="lock-logo" alt="Lock_Icon" />
                     <h1>Incident Reported<br></br>Successfully</h1>
-                    <p>You incident has been reported successfully.Your ticket id for reported reported incident is<br></br><span className="id-title">{id}</span></p>
+                    <p>Your incident has been reported successfully. Your ticket id for reported incident is<br></br><span className="id-title">{id}</span></p>
                   </Box>
                 </Box>
                 <Box className="footer-block desktop-ui">

@@ -37,11 +37,10 @@
     padding: 0 25px;
     &.common-incident-block {
       @include scrollbars();
+      overflow-y: scroll;
+      margin: 10px auto;
       @include mq(tablet-portrait-medium-up) {
         width: 450px;
-        overflow-y: scroll;
-        /* width */
-        margin: 10px auto;
       }
       & .customButton {
         & .MuiButton-label {
@@ -63,34 +62,18 @@
           margin: 0;
         }
       }
+      // & .incident-sub-row {
+      //   display: flex;
+      //   flex-direction: row;
+      //   justify-content: space-between;
+      //   margin: 20px 0;
+      // }
       @include mq(tablet-landscape-up) {
         // max-height: 500px;
       }
     }
     & .incident-preview-title {
       padding-top: 30px;
-    }
-    & .video-img {
-      position: relative;
-      cursor: pointer;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      & .img-layer {
-        position: absolute;
-        left: 0;
-        top: 0;
-        height: 60px;
-        width: 60px;
-        background-color: rgba(0, 0, 0, 0.3);
-        border-radius: 10px;
-        z-index: 1;
-      }
-      & .play-icon {
-        position: absolute;
-        z-index:2;
-        color: $WHITE;
-      }
     }
   }
   & .customButton {
