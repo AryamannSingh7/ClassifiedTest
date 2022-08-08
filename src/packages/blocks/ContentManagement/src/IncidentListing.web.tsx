@@ -114,10 +114,10 @@ class IncidentListing extends IncidentController {
                               </Box>
                               <Box className="card-listing-row">
                                 <Typography className="sub-title" component="h5">
-                                  {val?.attributes?.apartment_management?.building_name}Building
+                                  {val?.attributes?.apartment_management?.building_name}
                                 </Typography>
                                 <Typography className="sub-title" component="h5">
-                                  {val?.attributes?.apartment_management?.apartment_name}Building
+                                  {val?.attributes?.apartment_management?.apartment_name}
                                 </Typography>
                               </Box>
                               <hr />
@@ -149,10 +149,10 @@ class IncidentListing extends IncidentController {
                     }
                   </Box>
                   <Box className="customButton">
-                    <Button variant="contained" onClick={() => { this.setState({ loading: true }); this.props.history.push("/CreateIncident") }} >Add Incident</Button>
+                    <Button variant="contained" onClick={() => { this.setState({ loading: true }); this.props.history.push("/CreateIncident") }} >Add New Incident</Button>
                   </Box>
                 </Box>
-                <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>
+                <Box className="footer-main-block bottomBlock">
                   <h6 className="bottom-text">POWERED BY</h6>
                   <img src={Tenant_Logo} className="tenant-logo" alt="" />
                 </Box>

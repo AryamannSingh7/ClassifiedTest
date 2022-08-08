@@ -8,8 +8,7 @@
       justify-content: space-between;
       padding-top: 8px;
       & span,
-      & h5
-      {
+      & h5 {
         width: 50%;
       }
     }
@@ -109,12 +108,12 @@
     width: 100%;
     padding-bottom: 10px;
     @include scrollbars();
+    & .incident-dialog-video,
     & .card-img {
-      height: 60px;
-      width: 60px;
+      height: 75px;
+      width: 75px;
       object-fit: cover;
       border-radius: 10px;
-      // margin-right: 5px;
     }
   }
   margin-bottom: 25px;
@@ -205,6 +204,7 @@
     }
   }
   &.reporting-card {
+    margin-bottom: 20px;
     & .reporting-row {
       display: flex;
       margin-bottom: 15px;
@@ -241,8 +241,7 @@
           object-fit: contain;
         }
       }
-      & h3
-      {
+      & h3 {
         &.MuiTypography-body1 {
           margin: 10px 0;
           font-size: 24px;
@@ -271,6 +270,109 @@
 
           & .MuiButton-label {
             font-size: 11px;
+          }
+        }
+      }
+    }
+  }
+  &.neighbour-card {
+    box-shadow: none;
+    border: 0;
+    margin-bottom: 10px;
+    & .MuiCardContent-root {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    & h4 {
+      &.MuiTypography-body1 {
+        margin: 10px 0;
+        font-size: 17px;
+        @include mq(tablet-portrait-large-up) {
+          font-size: 15px;
+        }
+      }
+    }
+    & .social-raw {
+      display: flex;
+      background-color: #f6f6f6;
+      padding: 12px;
+      border-radius: 20px;
+      margin-top: 10px;
+      & .blocks {
+        border-right: 2px solid #d7dbe4;
+        &:last-child {
+          border-right: 0;
+        }
+        & .icons {
+          height: 18px;
+          width: 18px;
+          object-fit: contain;
+          border-radius: 0;
+        }
+        padding: 0 10px;
+      }
+    }
+  }
+  &.neighbour-detail-card {
+    width: 450px;
+    margin: 0 auto;
+    @include mq(tablet-portrait-large-up) {
+      width: 100%;
+    }
+    & .card-content {
+      padding: 0;
+      & .bio-content-row {
+        // width: 100%;
+        padding: 16px;
+
+        & .social-raw {
+          position: relative;
+          &::before {
+            content: " ";
+            position: absolute;
+            top: 20px;
+            left: -100%;
+            border-bottom: 1px solid #f6f6f6;
+            width: 100%;
+          }
+          &::after {
+            content: " ";
+            position: absolute;
+            top: 20px;
+            right: -100%;
+            border-bottom: 1px solid #f6f6f6;
+            width: 100%;
+          }
+        }
+        & .bio-row {
+          & .customButton {
+            display: flex;
+            padding-top: 0;
+            & .contain {
+              margin-right: 10px;
+            }
+            & .MuiButton-root {
+              border-radius: 20px;
+              padding: 10px;
+            }
+          }
+        }
+        & .social-data-row {
+          & .icons-row {
+            & .MuiButtonBase-root {
+              padding: 0;
+              &:hover {
+                background-color: transparent;
+              }
+            }
+            display: flex;
+            & .icon {
+              margin-right: 5px;
+              height: 45px;
+              width: 45px;
+              object-fit: contain;
+            }
           }
         }
       }

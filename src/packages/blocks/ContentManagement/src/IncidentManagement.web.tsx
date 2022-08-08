@@ -47,11 +47,13 @@ class IncidentManagement extends IncidentManagementController {
     super(props);
   }
   componentDidMount() {
+    this.getIncidentListing();
     this.getBuildingName();
-   // this.getCommonArea();
-   // this.getIncidentRelated();
   }
+
   render() {
+    console.log("this.state.buildingName=================>/", this.state.buildingName);
+    const statusArray = ["Unresolved", "Resolved", "Pending Confirmation"]
     return (
       <>
         <Box className="incident-Listing-wrapper desktop-ui" style={{ background: "#E5ECFF" }}>
@@ -111,7 +113,7 @@ class IncidentManagement extends IncidentManagementController {
                                 id="demo-simple-select-outlined"
                                 onChange={(e) => {
                                   (e.target.value != " ") && setFieldValue("buildingName", e.target.value)
-
+                                 
                                 }}
                                 value={values.buildingName}
                               >
@@ -157,7 +159,7 @@ class IncidentManagement extends IncidentManagementController {
                                         {val?.name}
                                       </MenuItem>
                                     ))
-
+                                  
                                  }
                               </Select>
                               <ErrorMessage className="text-error" component="Typography" name="unit" />
@@ -198,7 +200,7 @@ class IncidentManagement extends IncidentManagementController {
                       </Form>
                     )}
                   </Formik>
-
+             
                 <Grid container spacing={2} style={{ marginTop: 15, marginBottom: 15 }}>
                   <Grid item sm={4}>
                     <Card className="management-card card">
