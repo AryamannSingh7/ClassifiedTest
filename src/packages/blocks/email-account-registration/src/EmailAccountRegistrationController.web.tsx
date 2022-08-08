@@ -959,7 +959,6 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     };
 
     const data = {
-
       attributes: attrs
     };
 
@@ -998,6 +997,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
 
   }
   updateTypeOwner = () => {
+    console.log(this.state.userType)
     if (this.state.userType) {
 
       if (this.state.userType === 'Owner') {
@@ -1011,12 +1011,37 @@ export default class EmailAccountRegistrationController extends BlockComponent<
           },
         })
 
-      } else {
+      }
+      if (this.state.userType === 'Property Manager') {
         //@ts-ignore
         //@ts-nocheck
 
         this.props.history.push({
           pathname: '/registermanager',
+          state: {
+            data: this.state.userType,
+          },
+        })
+
+      }
+      if (this.state.userType === 'Tenant') {
+        //@ts-ignore
+        //@ts-nocheck
+
+        this.props.history.push({
+          pathname: '/register',
+          state: {
+            data: this.state.userType,
+          },
+        })
+
+      }
+      if (this.state.userType === 'Owner Resident') {
+        //@ts-ignore
+        //@ts-nocheck
+
+        this.props.history.push({
+          pathname: '/register',
           state: {
             data: this.state.userType,
           },

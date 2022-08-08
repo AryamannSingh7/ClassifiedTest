@@ -24,14 +24,14 @@ class LandingPage extends React.Component {
     super(props);
   }
   changeRoute() {
-    console.log(window.location.href)
+    // console.log(window.location.href)
+    this.props.history.push('/selecttype')
+    // if (window.location.href.includes('owner')) {
+    //   this.props.history.push('/selectowner');
 
-    if (window.location.href.includes('owner')) {
-      this.props.history.push('/selectowner');
-
-    } else {
-      this.props.history.push('/register');
-    }
+    // } else {
+    //   this.props.history.push('/register');
+    // }
 
   }
   render() {

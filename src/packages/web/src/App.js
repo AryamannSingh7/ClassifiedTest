@@ -32,7 +32,7 @@ import Search from "../../blocks/search/src/Search";
 import MultipleCurrencySupport from "../../blocks/multiplecurrencysupport/src/MultipleCurrencySupport";
 import NewPassword from "../../blocks/forgot-password/src/NewPassword";
 import Feedback from "../../blocks/Feedback/src/Feedback";
-import Contactus from "../../blocks/contactus/src/Contactus";
+// import Contactus from "../../blocks/contactus/src/Contactus";
 import AddContactus from "../../blocks/contactus/src/AddContactus";
 import CountryCodeSelector from "../../blocks/country-code-selector/src/CountryCodeSelector";
 import TaskAllocator from "../../blocks/TaskAllocator/src/TaskAllocator";
@@ -384,7 +384,7 @@ const routeMap = {
     component: PollReport,
     path: "/PollReport"
   },
-  
+
   PollResponseCompleted: {
     component: PollResponseCompleted,
     path: '/PollResponseCompleted'
@@ -468,10 +468,10 @@ const routeMap = {
     component: Feedback,
     path: '/Feedback'
   },
-  Contactus: {
-    component: Contactus,
-    path: '/Contactus'
-  },
+  // Contactus: {
+  //   component: Contactus,
+  //   path: '/Contactus'
+  // },
   AddContactus: {
     component: AddContactus,
     path: '/AddContactus'
@@ -723,10 +723,10 @@ const routeMap = {
     component: Feedback,
     path: '/Feedback'
   },
-  Contactus: {
-    component: Contactus,
-    path: '/Contactus'
-  },
+  // Contactus: {
+  //   component: Contactus,
+  //   path: '/Contactus'
+  // },
   AddContactus: {
     component: AddContactus,
     path: '/AddContactus'
