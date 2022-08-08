@@ -137,6 +137,15 @@ import IncidentPreview from "../../blocks/ContentManagement/src/IncidentPreview.
 import IncidentManagement from "../../blocks/ContentManagement/src/IncidentManagement.web";
 import IncidentManagementDetail from "../../blocks/ContentManagement/src/IncidentManagementDetail.web";
 
+import NeighboursDetails from '../../blocks/search/src/NeighboursDetails.web';
+import NeighboursListing from '../../blocks/search/src/NeighboursListing.web';
+
+import FaqChairman from '../../blocks/contactus/src/FaqChairman.web';
+import FaqOwner from '../../blocks/contactus/src/FaqOwner.web';
+import FaqResident from '../../blocks/contactus/src/FaqResident.web';
+import ContactUsChairman from '../../blocks/contactus/src/ContactUs.web';
+import SubscriptionDetail from '../../blocks/contactus/src/SubscriptionDetails.web';
+
 
 const routeMap = {
   //done
