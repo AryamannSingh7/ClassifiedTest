@@ -1,5 +1,5 @@
 // @import "../../../../web/src/assets/css/constants/base/global.scss";
-// @import "../../../../web/src/assets/css/constants/base/colors.scss";
+@import "../../../../web/src/assets/css/constants/base/colors.scss";
 @import "../../../../web/src/assets/css/constants/base/mixins.scss";
 
 .otp-input-wrapper {
@@ -148,4 +148,9 @@ input#mobile {
 
 input#mobile:focus {
   background-image: none;
+}
+
+.text {
+  color: $ORANGE;
+  font-weight: bold;
 }
