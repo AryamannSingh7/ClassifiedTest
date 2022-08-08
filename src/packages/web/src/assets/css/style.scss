@@ -191,11 +191,15 @@ ul {
     z-index: 1;
   }
   & .play-icon {
-    background-color: $BLUE;
+    // background-color: $BLUE;
     position: absolute;
     z-index: 2;
     color: $WHITE;
     border-radius: 50%;
     padding: 3px;
   }
+}
+.mt-20
+{
+  margin-top: 20px;
 }

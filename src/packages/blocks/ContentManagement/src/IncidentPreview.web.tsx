@@ -36,7 +36,7 @@ import IncidentController, { Props } from "./IncidentController.web";
 //Customizable Area End
 
 //resorces
-import { Tenant_Logo, Building1, Close_Icon,Grid_Icon, Filter_Icon, User_Icon, Calender_Icon } from "../src/assets";
+import { Tenant_Logo, Building1, Close_Icon, Grid_Icon, Filter_Icon, User_Icon, Calender_Icon } from "../src/assets";
 
 class IncidentPreview extends IncidentController {
   constructor(props: Props) {
@@ -47,7 +47,7 @@ class IncidentPreview extends IncidentController {
     const { navigation } = this.props;
     const incidentFromData = JSON.parse(localStorage.getItem("incidentPreview"))
     const incidentRelated = incidentFromData?.incidentRelated?.split(" ");
-    console.log("this.state?.file?.type===============>",this.state?.file);
+    console.log("this.state?.file?.type===============>", this.state?.file);
     if (!incidentFromData) {
       this.props.history.replace("/CreateIncident");
       return null;
@@ -113,19 +113,21 @@ class IncidentPreview extends IncidentController {
                               <CardActions className="card-img-row">
                                 {
                                   incidentFromData?.media?.map((val, index) => (
-                                    val?.file.type === "video/mp4" || val?.file.type ==="video/x-m4v" ? 
-
-                                   <Box key={index} onClick={() => { this.setState({ showDialog: true , file : {url :val.url ,type : val?.file.type ,name:val?.file?.name}  }) }}>
-                                     <video className="incident-dialog-video" autoPlay  >
+                                    val?.file.type === "video/mp4" || val?.file.type === "video/x-m4v" ?
+                                      <Box className="video-img" key={index} onClick={() => { this.setState({ showDialog: true, file: { url: val.url, type: val?.file.type, name: val?.file?.name } }) }}>
+                                        <Box className="img-layer"></Box>
+                                        <video className="incident-dialog-video" autoPlay  >
                                           <source src={val.url} type={val.file.type} />
-                                    </video>
-                                    </Box>
-                                    :
-                                    <Box key={index} onClick={() => { this.setState({ showDialog: true , file : {url :val.url ,type : val?.file.type ,name:val?.file?.name}  }) }}>
-                                      <img src={val.url} className="card-img" alt="card-img"  />
-                                      <FullscreenIcon className="play-icon" />
-                                    </Box>
-                                  ))  
+                                        </video>
+                                        <FullscreenIcon className="play-icon" />
+                                      </Box>
+                                      :
+                                      <Box className="video-img" key={index} onClick={() => { this.setState({ showDialog: true, file: { url: val.url, type: val?.file.type, name: val?.file?.name } }) }}>
+                                        <Box className="img-layer"></Box>
+                                        <img src={val.url} className="card-img" alt="card-img" />
+                                        <FullscreenIcon className="play-icon" />
+                                      </Box>
+                                  ))
                                 }
                               </CardActions>
                             </>
@@ -173,23 +175,25 @@ class IncidentPreview extends IncidentController {
             <Box className="diloag-body">
               <Box className="diloag-header">
                 <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
-                 { this.state?.file?.name}
+                  {this.state?.file?.name}
                 </DialogTitle>
                 <Button onClick={() => { this.setState({ showDialog: false }) }}>
                   <img src={Close_Icon} className="close-icon" onClick={() => { this.setState({ showDialog: false }) }} />
                 </Button>
               </Box>
-              {
-               this.state?.file?.type === "video/mp4" ||  this.state?.file?.type ==="video/x-m4v" ? 
-                  <video className="incident-dialog-video" autoPlay controls >
+              <Box className="diloag-content-body">
+                {
+                  this.state?.file?.type === "video/mp4" || this.state?.file?.type === "video/x-m4v" ?
+                    <video className="incident-dialog-video" autoPlay controls >
                       <source src={this.state?.file?.url} type={this.state?.file?.type} />
-                </video>
-                :
-                <Box>
-                  <img src={this.state?.file?.url} className="card-img" alt="card-img"  />
-                  <FullscreenIcon className="play-icon" />
-                </Box>
-               }
+                    </video>
+                    :
+                    <Box>
+                      <img src={this.state?.file?.url} className="incident-dialog-photo" alt="card-img" />
+                      {/* <FullscreenIcon className="play-icon" /> */}
+                    </Box>
+                }
+              </Box>
             </Box>
           </Dialog>
         </Box>

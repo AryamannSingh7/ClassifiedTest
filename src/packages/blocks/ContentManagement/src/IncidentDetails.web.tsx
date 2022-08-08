@@ -56,7 +56,7 @@ class IncidentDetails extends IncidentController {
   }
 
   render() {
-    console.log(",image: val===========>",this.state?.file)
+    console.log(",image: val===========>", this.state?.file)
     const { navigation } = this.props;
     const id = this.state?.getIncidentDetails?.id;
     const attributes = this.state?.getIncidentDetails?.attributes;
@@ -81,11 +81,13 @@ class IncidentDetails extends IncidentController {
                             <Box className="info-row">
                               <img src={Info_Icon} className="info-icon" alt="info-icon" />
                             </Box>
+
                             <Typography component="h4">
                               Is your raised incident<br></br>resolved?
                             </Typography>
+
                             <Typography component="p">
-                            {attributes?.incident_related?.name} is claiming to have resolved
+                              {attributes?.incident_related?.name} is claiming to have resolved
                               you incident for ticket id {id}.
                               Please confirm if it is resolved.
                             </Typography>
@@ -99,7 +101,7 @@ class IncidentDetails extends IncidentController {
                         </Card> :
                         null
                     }
-                    <Box className="incident-rows">
+                    <Box className="incident-rows mt-20">
                       <h4>Incident Details</h4>
                       <Box className="customButton">
                         <Button variant="contained" className={attributes?.incident_status === 'Pending Confirmation' ? "contain warning" : attributes?.incident_status === 'Resolved' ? 'contain success' : 'contain danger'}  > {attributes?.incident_status}</Button>
@@ -164,18 +166,20 @@ class IncidentDetails extends IncidentController {
                               <CardActions className="card-img-row">
                                 {
                                   attributes?.attachments?.map((val, index) => (
-                                    val?.content_type === "video/mp4" || val?.content_type ==="video/x-m4v" ? 
-
-                                   <Box key={index} onClick={() => { this.setState({ showDialog: true , file : {url :val.url ,type : val?.content_type ,name:val?.file_name}  }) }}>
-                                     <video className="incident-dialog-video" autoPlay >
+                                    val?.content_type === "video/mp4" || val?.content_type === "video/x-m4v" ?
+                                      <Box className="video-img" key={index} onClick={() => { this.setState({ showDialog: true, file: { url: val.url, type: val?.content_type, name: val?.file_name } }) }}>
+                                        <Box className="img-layer"></Box>
+                                        <video className="incident-dialog-video" autoPlay >
                                           <source src={val?.url} type={val?.file?.type} />
-                                    </video>
-                                    </Box>
-                                    :
-                                    <Box key={index} onClick={() => { this.setState({ showDialog: true , file : {url :val.url ,type : val?.content_type ,name:val?.file_name}  }) }}>
-                                      <img src={val.url} className="card-img" alt="card-img"  />
-                                      <FullscreenIcon className="play-icon" />
-                                    </Box>
+                                        </video>
+                                        <PlayCircleOutlineIcon className="play-icon" />
+                                      </Box>
+                                      :
+                                      <Box className="video-img" key={index} onClick={() => { this.setState({ showDialog: true, file: { url: val.url, type: val?.content_type, name: val?.file_name } }) }}>
+                                        <Box className="img-layer"></Box>
+                                        <img src={val.url} className="card-img" alt="card-img" />
+                                        <FullscreenIcon className="play-icon" />
+                                      </Box>
                                   ))
                                 }
 
@@ -197,7 +201,7 @@ class IncidentDetails extends IncidentController {
                         }
                       </CardContent>
                     </Card>
-                    <Box className="incident-rows">
+                    <Box className="incident-rows mt-20">
                       <h4>Reporting Details</h4>
                     </Box>
                     <Card className="incident-card reporting-card card">
@@ -274,24 +278,24 @@ class IncidentDetails extends IncidentController {
             <Box className="diloag-body">
               <Box className="diloag-header">
                 <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
-                { this.state?.file?.name}
+                  {this.state?.file?.name}
                 </DialogTitle>
                 <Button onClick={() => { this.setState({ showDialog: false }) }}>
                   <img src={Close_Icon} className="close-icon" onClick={() => { this.setState({ showDialog: false }) }} />
                 </Button>
               </Box>
-              {
-               this.state?.file?.type === "video/mp4" ||  this.state?.file?.type ==="video/x-m4v" ? 
-                  <video className="incident-dialog-video" autoplay controls >
+              <Box className="diloag-content-body">
+                {
+                  this.state?.file?.type === "video/mp4" || this.state?.file?.type === "video/x-m4v" ?
+                    <video className="incident-dialog-video" autoplay controls >
                       <source src={this.state?.file?.url} type={this.state?.file?.type} />
-                </video>
-                :
-                <Box>
-                  <img src={this.state?.file?.url} className="card-img" alt="card-img"  />
-                  <FullscreenIcon className="play-icon" />
-                </Box>
-               }
-
+                    </video>
+                    :
+                    <Box>
+                      <img src={this.state?.file?.url} className="incident-dialog-photo" alt="card-img" />
+                    </Box>
+                }
+              </Box>
             </Box>
           </Dialog>
         </Box>
