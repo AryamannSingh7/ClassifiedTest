@@ -26,8 +26,19 @@ class VerofyOTP extends EmailAccountRegistrationController {
     // Customizable Area Start
     // Customizable Area End
   }
+  maskCodeEmail = (email: any) => {
+    let str: any = email
+    str = str.split('');
+    let finalArr: any = [];
+    let len = str.indexOf('@');
+    str.forEach((item: any, pos: any) => {
+      (pos >= 3 && pos <= len - 2) ? finalArr.push('*') : finalArr.push(str[pos]);
+    })
+    return finalArr.join('');
+  }
 
   render() {
+   const  user_email = localStorage.getItem('user_email')
     return (
 
       <>
@@ -54,8 +65,8 @@ class VerofyOTP extends EmailAccountRegistrationController {
             <p className="text-left" style={{ marginBottom: '1.5rem' }}>
               Please enter the code sent to the mail address
 
-              <span style={{ color: '#DD946A' }}>
-                {this.state.email}
+              <span className="text">
+                   {"  "}   {this.maskCodeEmail(user_email)}
               </span>
 
             </p>

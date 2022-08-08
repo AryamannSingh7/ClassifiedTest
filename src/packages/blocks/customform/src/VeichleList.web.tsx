@@ -42,7 +42,7 @@ class VeichleList extends VeichleListController {
     return (
 
       <>
-        <Grid container spacing={2} className="auth-container">
+        <Grid container className="auth-container">
           <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset',overflowY:'auto',overflowX:'hidden' }}>
               <Grid container>
                 <Grid xs={12} style={{display:'flex',alignItems:'center'}}>
@@ -59,7 +59,7 @@ class VeichleList extends VeichleListController {
               {
                 this.state.allVehcile.length>0 ?
                 <>
-                    <Grid container style={{height:'74vh'}}>
+                  <Grid container style={{ height:'79vh'}}>
                       {
                         this.state.allVehcile.map((item,i)=><>
                           <Grid xs={12} >
@@ -114,7 +114,7 @@ class VeichleList extends VeichleListController {
                     </Grid>
                 </>
                 :
-                <div style={{margin:'auto'}}>
+                <div >
                   <NoVehicle props={this.props} />
                   </div>
               }
@@ -257,6 +257,7 @@ class VeichleList extends VeichleListController {
             </Grid>
           </Grid>
           </Dialog>
+        <Loader loading={this.state.loading} />
       </>
 
     )
@@ -268,6 +269,8 @@ export default withRouter(VeichleList)
 
 function NoVehicle({props}){
 return <>
+<div style={{height:'81vh',display:'flex',flexDirection:'column',justifyContent:'center'}}>
+
   <Grid container>
     <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom:10 }}>
 
@@ -292,8 +295,9 @@ return <>
       </p>
     </Grid>
   </Grid>
+</div>
   <Grid container >
-    <Grid xs={12}>
+    <Grid xs={12} style={{display:'flex',justifyContent:'center'}}>
       <Button
         fullWidth={true}
         className={'btn'}
@@ -304,12 +308,11 @@ return <>
           backgroundColor: "#2B6FEC",
           borderRadius: 16,
           height: 54,
-          marginBottom: 14,
           boxShadow: "none",
           color: "#F7F7FC",
           fontWeight: 600,
           fontSize: 16,
-          marginTop: 30
+          maxWidth:350
         }}
 
       >

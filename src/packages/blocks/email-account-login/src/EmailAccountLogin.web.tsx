@@ -155,7 +155,7 @@ class EmailAccountLogin extends EmailAccountLoginController {
                         </Box>
                         <Box className="bottomBlock link-block">
                           <Link href="#" className="link">Don't have an account ? </Link>
-                          <Link href="/selectype" className="link"> <span> register</span></Link>
+                          <Link href="/selecttype" className="link"> <span> register</span></Link>
                         </Box>
                       </Form>
                     )}
