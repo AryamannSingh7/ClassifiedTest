@@ -12,7 +12,7 @@ import {
 } from "@material-ui/core";
 
 //images
-import { 
+import {
   Tenant_Logo, Building_Logo, Landing_Banner, Building1,
   Email_Icon, Lock_User_Icon
 } from "../src/assets";
@@ -155,7 +155,7 @@ class EmailAccountLogin extends EmailAccountLoginController {
                         </Box>
                         <Box className="bottomBlock link-block">
                           <Link href="#" className="link">Don't have an account ? </Link>
-                          <Link href="/register" className="link"> <span> register</span></Link>
+                          <Link href="/selectype" className="link"> <span> register</span></Link>
                         </Box>
                       </Form>
                     )}

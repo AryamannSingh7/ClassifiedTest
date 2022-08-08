@@ -13,7 +13,7 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import EmailAccountRegistrationController, { Props } from "./EmailAccountRegistrationController.web.tsx";
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import HomeIcon from '@material-ui/icons/Home';
-import { Building1, owner, resident_owner, tenet } from "./assets";
+import { Building1, manager, owner, resident_owner, tenet } from "./assets";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
 
@@ -141,6 +141,32 @@ class SelectType extends EmailAccountRegistrationController {
                     <input type="radio" id="radCreateMode3" name="type" value='Owner' onChange={(e) => this.changeType(e.target.value)} />
 
             </Box>
+                  <Box
+                    display="flex"
+                    justifyContent='space-between'
+                    className='select-type'
+
+                    alignItems="center"
+                    border="0.1px solid rgb(209 209 209 / 44%)"
+                    borderRadius="16px"
+                    bgcolor="white"
+                    marginTop='1rem'
+                  >
+                    <img src={manager} />
+
+                    <Box className="middle-section">
+                      <label for="radCreateMode2" className={"title" + (this.state.userType == 'Property Manager' ? ' active-type' : '')}>
+                        Property Manager
+                      </label>
+                      <br />
+                      <label for="radCreateMode2" className="para">
+                        I am managing a property on behalf of an owner
+                      </label>
+                    </Box>
+
+                    <input type="radio" id="radCreateMode2" name="type" value='Property Manager' onChange={(e) => this.changeType(e.target.value)} />
+
+                  </Box>
           </Grid>
         </Grid>
         <Grid container >
@@ -161,7 +187,7 @@ class SelectType extends EmailAccountRegistrationController {
                 fontSize: 16,
                 marginTop: 30
               }}
-              onClick={this.updateType}
+                    onClick={this.updateTypeOwner}
             >
               Next
             </Button>
