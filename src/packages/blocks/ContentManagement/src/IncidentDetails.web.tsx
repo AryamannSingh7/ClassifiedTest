@@ -23,6 +23,8 @@ import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import SmartDisplayIcon from '@material-ui/icons/SmartDisplay';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 
+import FullscreenIcon from '@material-ui/icons/Fullscreen';
+
 import { Formik, Form, Field } from "formik";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
@@ -54,15 +56,10 @@ class IncidentDetails extends IncidentController {
   }
 
   render() {
+    console.log(",image: val===========>", this.state?.file)
     const { navigation } = this.props;
-    console.log("this.props.history=========>", this.props.history.location.id)
-    console.log("getIncidentDetails========================>", this.state?.getIncidentDetails)
     const id = this.state?.getIncidentDetails?.id;
     const attributes = this.state?.getIncidentDetails?.attributes;
-    let d = new Date(attributes?.reported_on)
-    // const reported_on =`${d.getUTCDate()}-${d.getUTCMonth()}-${d.getUTCFullYear()} ${d.getUTCHours()}${d.getUTCMinutes()}`
-    const reported_on = moment(attributes?.reported_on).format("DD-MM-YYYY HH:mm:ss")
-    console.log("reported_on========================>", reported_on)
     return (
       <>
         <Box className="login-wrapper incident-wrapper">
@@ -84,12 +81,14 @@ class IncidentDetails extends IncidentController {
                             <Box className="info-row">
                               <img src={Info_Icon} className="info-icon" alt="info-icon" />
                             </Box>
+
                             <Typography component="h4">
                               Is your raised incident<br></br>resolved?
                             </Typography>
+
                             <Typography component="p">
-                              Plumber is claiming to have resolved
-                              you incident for ticket id: 1234567890.
+                              {attributes?.incident_related?.name} is claiming to have resolved
+                              you incident for ticket id {id}.
                               Please confirm if it is resolved.
                             </Typography>
                             <Box className="customButton">
@@ -102,12 +101,8 @@ class IncidentDetails extends IncidentController {
                         </Card> :
                         null
                     }
-                    <Box className="incident-rows">
+                    <Box className="incident-rows mt-20">
                       <h4>Incident Details</h4>
-                      {/* <Box className="customButton">
-                        <Button variant="contained" className="contain danger" type="submit" >Unresolved</Button>
-                      </Box> */}
-
                       <Box className="customButton">
                         <Button variant="contained" className={attributes?.incident_status === 'Pending Confirmation' ? "contain warning" : attributes?.incident_status === 'Resolved' ? 'contain success' : 'contain danger'}  > {attributes?.incident_status}</Button>
                       </Box>
@@ -138,6 +133,18 @@ class IncidentDetails extends IncidentController {
                         <Typography className="sub-title" component="h5">
                           12-03-2021 13:45 {attributes?.expected_resolution_date}
                         </Typography>
+                        <Typography component="span">
+                          Building:
+                        </Typography>
+                        <Typography className="sub-title" component="h5">
+                          {attributes?.apartment_management?.building_name}
+                        </Typography>
+                        <Typography component="span">
+                          Unit:
+                        </Typography>
+                        <Typography className="sub-title" component="h5">
+                          {attributes?.apartment_management?.apartment_name}
+                        </Typography>
                         <Typography className="title-span" component="span">
                           Latest update from management:
                         </Typography>
@@ -159,11 +166,20 @@ class IncidentDetails extends IncidentController {
                               <CardActions className="card-img-row">
                                 {
                                   attributes?.attachments?.map((val, index) => (
-                                    <Box className="video-img" onClick={() => { this.setState({ showDialog: true, image: val }) }}>
-                                      <PlayCircleOutlineIcon className="play-icon" />
-                                      <img src={val} className="card-img" alt="card-img" key={index} />
-                                      <Box className="img-layer"></Box>
-                                    </Box>
+                                    val?.content_type === "video/mp4" || val?.content_type === "video/x-m4v" ?
+                                      <Box className="video-img" key={index} onClick={() => { this.setState({ showDialog: true, file: { url: val.url, type: val?.content_type, name: val?.file_name } }) }}>
+                                        <Box className="img-layer"></Box>
+                                        <video className="incident-dialog-video" autoPlay >
+                                          <source src={val?.url} type={val?.file?.type} />
+                                        </video>
+                                        <PlayCircleOutlineIcon className="play-icon" />
+                                      </Box>
+                                      :
+                                      <Box className="video-img" key={index} onClick={() => { this.setState({ showDialog: true, file: { url: val.url, type: val?.content_type, name: val?.file_name } }) }}>
+                                        <Box className="img-layer"></Box>
+                                        <img src={val.url} className="card-img" alt="card-img" />
+                                        <FullscreenIcon className="play-icon" />
+                                      </Box>
                                   ))
                                 }
 
@@ -185,7 +201,7 @@ class IncidentDetails extends IncidentController {
                         }
                       </CardContent>
                     </Card>
-                    <Box className="incident-rows">
+                    <Box className="incident-rows mt-20">
                       <h4>Reporting Details</h4>
                     </Box>
                     <Card className="incident-card reporting-card card">
@@ -262,20 +278,24 @@ class IncidentDetails extends IncidentController {
             <Box className="diloag-body">
               <Box className="diloag-header">
                 <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
-                  Image
+                  {this.state?.file?.name}
                 </DialogTitle>
                 <Button onClick={() => { this.setState({ showDialog: false }) }}>
-                  <img src={Close_Icon} className="close-icon" />
+                  <img src={Close_Icon} className="close-icon" onClick={() => { this.setState({ showDialog: false }) }} />
                 </Button>
               </Box>
-              {/* <iframe className="incident-dialog-video"
-                  src="https://www.youtube.com/embed/tQG6jYy9xto" title="YouTube video player"
-                  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen></iframe> */}
-              <Box className="diloag-content">
-                <img src={this.state?.image} className="incident-dialog-photo" alt="Incident photo" />
+              <Box className="diloag-content-body">
+                {
+                  this.state?.file?.type === "video/mp4" || this.state?.file?.type === "video/x-m4v" ?
+                    <video className="incident-dialog-video" autoplay controls >
+                      <source src={this.state?.file?.url} type={this.state?.file?.type} />
+                    </video>
+                    :
+                    <Box>
+                      <img src={this.state?.file?.url} className="incident-dialog-photo" alt="card-img" />
+                    </Box>
+                }
               </Box>
-
             </Box>
           </Dialog>
         </Box>

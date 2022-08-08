@@ -46,6 +46,7 @@ export interface S {
   getIncidentDetails : any;
   sortBy : any ;
   status : any;
+  buildingName:any;
   // Customizable Area End
 }
 
@@ -71,8 +72,10 @@ export default class IncidentManagementController extends BlockComponent<
   getIncidentListingApiCallId: any;
   getIncidentDetailsByIdApiCallId : any ;
   getBuildingNameApiCallId : any ;
+  getUnitRelatedApiCallId:any ;
   getIncidentRelatedApiCallId:any;
   validationApiCallId: string = "";
+  searchIncidentListingApiCallId:any
 
   imgPasswordVisible: any;
   imgPasswordInVisible: any;
@@ -126,8 +129,11 @@ export default class IncidentManagementController extends BlockComponent<
       anchorEl:null,
       anchorEl_1:null,
       getIncidentDetails:null,
-      sortBy : "" ,
-      status : "",
+      buildingName : " ",
+      unitName : " ",
+      status :" ",
+      serachBuildingName:" ",
+      statusDetail:" "
       // Customizable Area End
     };
 
@@ -152,7 +158,15 @@ export default class IncidentManagementController extends BlockComponent<
     // Customizable Area End
   }
 
-
+  // async componentDidUpdate(prevProps: any, prevState: any) {
+  //   if (
+  //     prevState.serachBuildingName !== this.state.serachBuildingName ||
+  //     prevState.unitName !== this.state.unitName   ||
+  //     prevState.status !== this.state.status       
+  //   ) {
+  //    this.getIncidentListing(this.state.serachBuildingName ,this.state.unitName,this.state.status)
+  //   }
+  // }
 
   async receive(from: string, message: Message) {
     // Customizable Area Start
@@ -209,6 +223,20 @@ export default class IncidentManagementController extends BlockComponent<
           this.parseApiCatchErrorResponse(this.state.error);
           this.setState({loading: false , error:null})
         }
+        else if (apiRequestCallId === this.searchIncidentListingApiCallId) {
+          if (responseJson && responseJson?.data ) {
+          console.log("searchIncidentListingApiCallId ========================>",responseJson)
+          this.setState({SearchIncident :responseJson?.data})
+          this.setState({loading: false})
+          } else if (responseJson?.errors) {
+            let error = Object.values(responseJson.errors[0])[0] as string;
+            this.setState({ error });
+          } else {
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
+          }
+          this.parseApiCatchErrorResponse(this.state.error);
+          this.setState({loading: false , error:null})
+        }
         else if (apiRequestCallId === this.getIncidentListingApiCallId) {
           if (responseJson && responseJson?.data ) {
           console.log("getIncidentListingApiCallId ========================>",responseJson)
@@ -225,15 +253,28 @@ export default class IncidentManagementController extends BlockComponent<
         }
         else if (apiRequestCallId === this.getIncidentDetailsByIdApiCallId) {
           if (responseJson && responseJson?.data ) {
-          console.log("getIncidentDetailsByIdApiCallId ========================>",responseJson)
-          this.setState({getIncidentDetails :responseJson?.data})
-          console.log("responseJson getIncidentDetails========================>",this.state?.getIncidentDetails)
+         // console.log("getIncidentDetailsByIdApiCallId ========================>",responseJson)
+          this.setState({getIncidentDetails :responseJson?.data , statusDetail:responseJson?.data?.attributes?.incident_status})
+          console.log("responseJson getIncidentDetails========================>",this.state?.statusDetail)
           this.setState({loading: false})
           } else if (responseJson?.errors) {
+            console.log("responseJson?.errors====>",responseJson?.errors)
+            this.props.history.push("/IncidentManagementDetail")
             let error = responseJson.errors[0] as string;
-            if(error === 'Record not found'){
-              this.props.history.push("/IncidentListing")
-            }
+            this.setState({ error });
+          } else {
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
+          }
+          this.parseApiCatchErrorResponse(this.state.error);
+          this.setState({loading: false , error:null})
+        }
+        else if (apiRequestCallId === this.getUnitRelatedApiCallId) {
+          if (responseJson && responseJson?.data ) {
+          console.log("getUnitRelatedApiCallId  ========================>",responseJson)
+         this.setState({unitNameData :responseJson?.data?.unit_apartments})
+          this.setState({loading: false})
+          } else if (responseJson?.errors) {
+            let error = Object.values(responseJson.errors[0])[0] as string;
             this.setState({ error });
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
@@ -245,21 +286,6 @@ export default class IncidentManagementController extends BlockComponent<
           if (responseJson && responseJson?.data ) {
           console.log("getBuildingNameApiCallId  ========================>",responseJson)
           this.setState({buildingNameData :responseJson?.data?.buildings})
-          this.setState({loading: false})
-          } else if (responseJson?.errors) {
-            let error = Object.values(responseJson.errors[0])[0] as string;
-            this.setState({ error });
-          } else {
-            this.setState({ error: responseJson?.error || "Something went wrong!" });
-          }
-          this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({loading: false , error:null})
-        }
-        else if (apiRequestCallId === this.getIncidentRelatedApiCallId) {
-          if (responseJson && responseJson?.data ) {
-          console.log("getIncidentRelatedApiCallId========================>",responseJson)
-          this.setState({incidentRelatedData :responseJson?.data.incident_relateds})
-        
           this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
@@ -505,14 +531,29 @@ clear= () => {
 }
 
 getIncidentDetails= (id) => {
+ localStorage.setItem("incidentManagementDetail",id)
   this.props.history.push({
-    pathname: "/IncidentDetails",
-    id,
+    pathname: "/IncidentManagementDetail",
 });
-  
-  //this.getIncidentDetailsById(id)
 }
 
+serachHandle=()=>{
+  this.getIncidentListing(this.state.serachBuildingName ,this.state.unitName,this.state.status)
+}
+
+onChange =(e)=>{
+  if(e.target.name === 'buildingName'){
+    const array = e.target?.value?.split(",");
+    const id = array [0]
+    const name = array[1] 
+    this.getUnit(id)
+    this.setState({ buildingName:e.target?.value})
+    this.setState({ serachBuildingName:name})
+  }
+  else {
+    this.setState({ [e.target.name]:e.target.value})
+  }
+}
 
   createIncident = (incidentFromData: any ,incidentRelated : any): boolean => {
     
@@ -563,7 +604,7 @@ getIncidentDetails= (id) => {
   };
 
  
-  getIncidentListing= (sortBy : any ,status : any)  => {
+  getIncidentListing= (serachBuildingName : any , unitName : any, status:any)  => {
     try {
       const header = {
         "Content-Type": configJSON.validationApiContentType,
@@ -577,7 +618,47 @@ getIncidentDetails= (id) => {
       this.getIncidentListingApiCallId = requestMessage.messageId;
       this.setState({ loading: true });
      
-     const  getSortByOrStatus = `bx_block_custom_form/incidents?sort_type=${sortBy}&filter_by=${status}`
+     //const  url = `bx_block_custom_form/incidents`
+     const  getSortByOrStatus = `bx_block_custom_form/incidents?search_building=${this.state?.serachBuildingName}&search_unit=${this.state?.unitName}&filter_by=${this.state?.status}`
+    
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        getSortByOrStatus
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        configJSON.validationApiMethodType
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+      return true;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  searchIncidentListing= (serachBuildingName : any ,unitName : any,status:any)  => {
+    try {
+      console.log("serachBuildingName unitName status ======>", status ,unitName ,serachBuildingName)
+      const header = {
+        "Content-Type": configJSON.validationApiContentType,
+        token :localStorage.getItem("userToken")
+      };
+
+      //const id = localStorage.getItem("userId");
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+      this.searchIncidentListingApiCallId = requestMessage.messageId;
+      this.setState({ loading: true });
+     
+     const  getSortByOrStatus = `bx_block_custom_form/incidents?search_building=${serachBuildingName}&search_unit=${unitName}`
        
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
@@ -637,7 +718,7 @@ getIncidentDetails= (id) => {
     }
   };
 
-  getUnit = () => {
+  getUnit = (id) => {
     try {
       const header = {
         "Content-Type": configJSON.validationApiContentType,
@@ -648,12 +729,12 @@ getIncidentDetails= (id) => {
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
-      this.getIncidentRelatedApiCallId = requestMessage.messageId;
+      this.getUnitRelatedApiCallId = requestMessage.messageId;
       this.setState({ loading: true });
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `bx_block_address/apartment_list?id=3`
+        `bx_block_address/apartment_list?id=${id}`
       );
 
       requestMessage.addData(
@@ -708,85 +789,5 @@ getIncidentDetails= (id) => {
     }
   };
   
-  
-  handleClick = (event) => {
-    this.setState({anchorEl:event.currentTarget })
-  };
-  handleClose = (e, v) => {
-    let sortBy : any ;
-    console.log("v=========>",v)
-    if(v === undefined || v === null){
-      sortBy =this.state.sortBy
-    }
-    else {
-      sortBy =v;
-    }
-    this.setState({anchorEl:null,sortBy : sortBy})
-  };
-  
-  handleClick_1 = (event) => {
-    this.setState({anchorEl_1:event.currentTarget})
-  };
-   
-  handleClose_1 = (e, v) => {
-   let status : any ;
-    if(v === undefined || v === null){
-      status =this.state.status;
-    }
-    else {
-      status =v;
-    }
-    this.setState({anchorEl_1:null ,status :status})
-  };
-  
-  handleSelectMedia  =   (
-    e: any,
-    existingMedia: any[],
-    setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
-    setFieldError: (field: string, message: string) => void
-  ) => {
-    let media = [];
-    let files = e.target.files;
-    console.log("filessss=====>",files);
-
-    for (let i = 0; i < files.length; i += 1) {
-      if(files[i] && !["image/jpg", "image/jpeg", "image/gif", "image/png","video/mp4","video/x-m4v" ].includes(files[i].type)){
-        console.log("type=====>",files[i].type);
-         setFieldError('media','Only image and video are supported.');
-         return ;
-      } 
-      else if(files[i] && files[i].size >= 10e6){
-         console.log("size=====>",files[i].size);
-        setFieldError('media','size is less than 10 mb.');
-        return ;
-      }
-      console.log("media push =====>",files[i]);
-      media.push({
-        file: {
-          lastModified: files[i].lastModified,
-          lastModifiedDate: files[i].lastModifiedDate,
-          name: files[i].name,
-          size: files[i].size,
-          type: files[i].type
-        },
-        url: URL.createObjectURL(files[i])
-      });
-    }
-    
-    e.target.value = "";
-    console.log("media======>",media)
-    setFieldValue("media", media);
-  };
-  
-searchIncidentSchema() {
-    const validations = Yup.object().shape({
-      buildingName: Yup.string().required(`This field is required`).trim(),
-      unit: Yup.string().required(`This field is required`).trim(),
-      status: Yup.string().required(`This field is required`).trim(),
-    });
-       
-    return validations ;
-  }
-
   // Customizable Area End
 }

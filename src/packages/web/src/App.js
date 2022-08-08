@@ -137,12 +137,6 @@ import IncidentPreview from "../../blocks/ContentManagement/src/IncidentPreview.
 import IncidentManagement from "../../blocks/ContentManagement/src/IncidentManagement.web";
 import IncidentManagementDetail from "../../blocks/ContentManagement/src/IncidentManagementDetail.web";
 
-import FaqChairman from '../../blocks/contactus/src/FaqChairman.web';
-import FaqOwner from '../../blocks/contactus/src/FaqOwner.web';
-import FaqResident from '../../blocks/contactus/src/FaqResident.web';
-import ContactUsChairman from '../../blocks/contactus/src/ContactUs.web';
-import SubscriptionDetail from '../../blocks/contactus/src/SubscriptionDetails.web';
-
 
 const routeMap = {
   //done
@@ -154,6 +148,16 @@ const routeMap = {
   LandingPage2: {
     component: LandingPage,
     path: '/owner',
+    exact: true
+  },
+  NeighboursListing: {
+    component: NeighboursListing,
+    path: '/NeighboursListing',
+    exact: true
+  },
+  NeighboursDetails: {
+    component: NeighboursDetails,
+    path: '/NeighboursDetails',
     exact: true
   },
   VeichleList: {
@@ -337,7 +341,7 @@ const routeMap = {
 
   CreatePolls: {
     component: CreatePolls,
-    path: '/CreatePolls'
+    path: "/CreatePolls"
   },
 
   CreateSurveys: {
