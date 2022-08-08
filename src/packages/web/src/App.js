@@ -1,141 +1,137 @@
 // App.js - WEB
-import React, { Component } from "react";
-import { View } from "react-native";
-import firebase from 'firebase'
-import { connect } from 'react-firebase'
+import React, { Component } from 'react';
+import { View } from 'react-native';
+import firebase from 'firebase';
+import { connect } from 'react-firebase';
 
-import WebRoutesGenerator from "../../components/src/NativeWebRouteWrapper";
-import { ModalContainer } from "react-router-modal";
-import HomeScreen from "../../components/src/HomeScreen";
-import TopNav from "../../components/src/TopNav";
+import WebRoutesGenerator from '../../components/src/NativeWebRouteWrapper';
+import { ModalContainer } from 'react-router-modal';
+import HomeScreen from '../../components/src/HomeScreen';
+import TopNav from '../../components/src/TopNav';
 
-import InfoPage from '../../blocks/info-page/src/InfoPageBlock'
-import AlertBlock from '../../blocks/alert/src/AlertBlock.web'
-import RolesPermissions2 from "../../blocks/RolesPermissions2/src/RolesPermissions2";
-import Chatbot6 from "../../blocks/Chatbot6/src/Chatbot6";
-import EmailNotifications from "../../blocks/EmailNotifications/src/EmailNotifications";
-import BroadcastMessage from "../../blocks/BroadcastMessage/src/BroadcastMessage";
-import BulkUploading from "../../blocks/BulkUploading/src/BulkUploading";
-import Location from "../../blocks/location/src/Location";
-import SocialMediaAccountLoginScreen from "../../blocks/social-media-account-login/src/SocialMediaAccountLoginScreen";
-import Invitefriends from "../../blocks/invitefriends/src/Invitefriends";
-import ReviewAndApproval from "../../blocks/ReviewAndApproval/src/ReviewAndApproval";
-import LanguageOptions from "../../blocks/LanguageOptions/src/LanguageOptions";
-import Polling from "../../blocks/Polling/src/Polling";
-import Customisableusersubscriptions from "../../blocks/customisableusersubscriptions/src/Customisableusersubscriptions";
-import SubscriptionDetails from "../../blocks/customisableusersubscriptions/src/SubscriptionDetails";
-import Interactivefaqs from "../../blocks/interactivefaqs/src/Interactivefaqs";
-import AddInteractivefaqs from "../../blocks/interactivefaqs/src/AddInteractivefaqs";
-import PhotoLibrary3 from "../../blocks/PhotoLibrary3/src/PhotoLibrary3";
-import ExpenseTracking from "../../blocks/ExpenseTracking/src/ExpenseTracking";
-import Search from "../../blocks/search/src/Search";
-import MultipleCurrencySupport from "../../blocks/multiplecurrencysupport/src/MultipleCurrencySupport";
-import NewPassword from "../../blocks/forgot-password/src/NewPassword";
-import Feedback from "../../blocks/Feedback/src/Feedback";
+import InfoPage from '../../blocks/info-page/src/InfoPageBlock';
+import AlertBlock from '../../blocks/alert/src/AlertBlock.web';
+import RolesPermissions2 from '../../blocks/RolesPermissions2/src/RolesPermissions2';
+import Chatbot6 from '../../blocks/Chatbot6/src/Chatbot6';
+import EmailNotifications from '../../blocks/EmailNotifications/src/EmailNotifications';
+import BroadcastMessage from '../../blocks/BroadcastMessage/src/BroadcastMessage';
+import BulkUploading from '../../blocks/BulkUploading/src/BulkUploading';
+import Location from '../../blocks/location/src/Location';
+import SocialMediaAccountLoginScreen from '../../blocks/social-media-account-login/src/SocialMediaAccountLoginScreen';
+import Invitefriends from '../../blocks/invitefriends/src/Invitefriends';
+import ReviewAndApproval from '../../blocks/ReviewAndApproval/src/ReviewAndApproval';
+import LanguageOptions from '../../blocks/LanguageOptions/src/LanguageOptions';
+import Polling from '../../blocks/Polling/src/Polling';
+import Customisableusersubscriptions from '../../blocks/customisableusersubscriptions/src/Customisableusersubscriptions';
+import SubscriptionDetails from '../../blocks/customisableusersubscriptions/src/SubscriptionDetails';
+import Interactivefaqs from '../../blocks/interactivefaqs/src/Interactivefaqs';
+import AddInteractivefaqs from '../../blocks/interactivefaqs/src/AddInteractivefaqs';
+import PhotoLibrary3 from '../../blocks/PhotoLibrary3/src/PhotoLibrary3';
+import ExpenseTracking from '../../blocks/ExpenseTracking/src/ExpenseTracking';
+import Search from '../../blocks/search/src/Search';
+import MultipleCurrencySupport from '../../blocks/multiplecurrencysupport/src/MultipleCurrencySupport';
+import NewPassword from '../../blocks/forgot-password/src/NewPassword';
+import Feedback from '../../blocks/Feedback/src/Feedback';
 // import Contactus from "../../blocks/contactus/src/Contactus";
-import AddContactus from "../../blocks/contactus/src/AddContactus";
-import CountryCodeSelector from "../../blocks/country-code-selector/src/CountryCodeSelector";
-import TaskAllocator from "../../blocks/TaskAllocator/src/TaskAllocator";
-import FriendList from "../../blocks/FriendList/src/FriendList";
-import FormApprovalWorkflow from "../../blocks/FormApprovalWorkflow/src/FormApprovalWorkflow";
-import AdminConsole3 from "../../blocks/AdminConsole3/src/AdminConsole3";
-import OTPInputAuth from "../../blocks/otp-input-confirmation/src/OTPInputAuth";
-import Maps from "../../blocks/maps/src/Maps";
-import Notes from "../../blocks/Notes/src/Notes";
-import EmailAccountLoginBlock from "../../blocks/email-account-login/src/EmailAccountLoginBlock";
-import TaxCalculator from "../../blocks/TaxCalculator/src/TaxCalculator";
-import Pushnotifications from "../../blocks/pushnotifications/src/Pushnotifications";
-import BudgetingForecasting from "../../blocks/BudgetingForecasting/src/BudgetingForecasting";
-import Videos from "../../blocks/videos/src/Videos";
-import ContentFlag from "../../blocks/ContentFlag/src/ContentFlag";
-import StoreCredits from "../../blocks/StoreCredits/src/StoreCredits";
-import InvoiceBilling from "../../blocks/InvoiceBilling/src/InvoiceBilling";
-import EmailAccountRegistration from "../../blocks/email-account-registration/src/EmailAccountRegistration";
-import ContentManagement from "../../blocks/ContentManagement/src/ContentManagement";
-import PricingEngine2 from "../../blocks/PricingEngine2/src/PricingEngine2";
-import Chat9 from "../../blocks/Chat9/src/Chat9";
-import CollectTransactionFees from "../../blocks/CollectTransactionFees/src/CollectTransactionFees";
-import Analytics from "../../blocks/analytics/src/Analytics";
-import Customform from "../../blocks/customform/src/Customform";
-import PhoneNumberInput from "../../blocks/mobile-account-registration/src/PhoneNumberInput";
-import AdditionalDetailForm from "../../blocks/mobile-account-registration/src/AdditionalDetailForm";
-import Settings5 from "../../blocks/Settings5/src/Settings5";
-import UserProfileBasicBlock from "../../blocks/user-profile-basic/src/UserProfileBasicBlock";
-import RequestManagement from "../../blocks/RequestManagement/src/RequestManagement";
-import LeadManagement from "../../blocks/LeadManagement/src/LeadManagement";
-import SocialMediaAccountRegistrationScreen from "../../blocks/social-media-account-registration/src/SocialMediaAccountRegistrationScreen";
-import Notifications from "../../blocks/notifications/src/Notifications";
-import MobileAccountLoginBlock from "../../blocks/mobile-account-login/src/MobileAccountLoginBlock";
-import Registration from "../../blocks/email-account-registration/src/Registration.web";
-import OwnerRegistration from "../../blocks/email-account-registration/src/OwnerRegistration.web";
-import ManagerRegistration from "../../blocks/email-account-registration/src/ManagerRegistration.web";
-import SelectOwner from "../../blocks/email-account-registration/src/SelectOwner.web";
+import AddContactus from '../../blocks/contactus/src/AddContactus';
+import CountryCodeSelector from '../../blocks/country-code-selector/src/CountryCodeSelector';
+import TaskAllocator from '../../blocks/TaskAllocator/src/TaskAllocator';
+import FriendList from '../../blocks/FriendList/src/FriendList';
+import FormApprovalWorkflow from '../../blocks/FormApprovalWorkflow/src/FormApprovalWorkflow';
+import AdminConsole3 from '../../blocks/AdminConsole3/src/AdminConsole3';
+import OTPInputAuth from '../../blocks/otp-input-confirmation/src/OTPInputAuth';
+import Maps from '../../blocks/maps/src/Maps';
+// import Notes from "../../blocks/Notes/src/Notes";
+import EmailAccountLoginBlock from '../../blocks/email-account-login/src/EmailAccountLoginBlock';
+import TaxCalculator from '../../blocks/TaxCalculator/src/TaxCalculator';
+import Pushnotifications from '../../blocks/pushnotifications/src/Pushnotifications';
+import BudgetingForecasting from '../../blocks/BudgetingForecasting/src/BudgetingForecasting';
+import Videos from '../../blocks/videos/src/Videos';
+import ContentFlag from '../../blocks/ContentFlag/src/ContentFlag';
+import StoreCredits from '../../blocks/StoreCredits/src/StoreCredits';
+import InvoiceBilling from '../../blocks/InvoiceBilling/src/InvoiceBilling';
+import EmailAccountRegistration from '../../blocks/email-account-registration/src/EmailAccountRegistration';
+import ContentManagement from '../../blocks/ContentManagement/src/ContentManagement';
+import PricingEngine2 from '../../blocks/PricingEngine2/src/PricingEngine2';
+import Chat9 from '../../blocks/Chat9/src/Chat9';
+import CollectTransactionFees from '../../blocks/CollectTransactionFees/src/CollectTransactionFees';
+import Analytics from '../../blocks/analytics/src/Analytics';
+import Customform from '../../blocks/customform/src/Customform';
+import PhoneNumberInput from '../../blocks/mobile-account-registration/src/PhoneNumberInput';
+import AdditionalDetailForm from '../../blocks/mobile-account-registration/src/AdditionalDetailForm';
+import Settings5 from '../../blocks/Settings5/src/Settings5';
+import UserProfileBasicBlock from '../../blocks/user-profile-basic/src/UserProfileBasicBlock';
+import RequestManagement from '../../blocks/RequestManagement/src/RequestManagement';
+import LeadManagement from '../../blocks/LeadManagement/src/LeadManagement';
+import SocialMediaAccountRegistrationScreen from '../../blocks/social-media-account-registration/src/SocialMediaAccountRegistrationScreen';
+import Notifications from '../../blocks/notifications/src/Notifications';
+import MobileAccountLoginBlock from '../../blocks/mobile-account-login/src/MobileAccountLoginBlock';
+import Registration from '../../blocks/email-account-registration/src/Registration.web';
+import OwnerRegistration from '../../blocks/email-account-registration/src/OwnerRegistration.web';
+import ManagerRegistration from '../../blocks/email-account-registration/src/ManagerRegistration.web';
+import SelectOwner from '../../blocks/email-account-registration/src/SelectOwner.web';
 
+import VerifyOTP from '../../blocks/email-account-registration/src/VerifyOTP.web';
+import SelectType from '../../blocks/email-account-registration/src/SelectType.web';
+import UnitRegister from '../../blocks/email-account-registration/src/UnitRegister.web';
+import RegisterUnitManually from '../../blocks/email-account-registration/src/RegisterUnitManually.web';
+import RegisterAddressLink from '../../blocks/email-account-registration/src/RegisterAddressLink.web';
 
-import VerifyOTP from "../../blocks/email-account-registration/src/VerifyOTP.web";
-import SelectType from "../../blocks/email-account-registration/src/SelectType.web";
-import UnitRegister from "../../blocks/email-account-registration/src/UnitRegister.web";
-import RegisterUnitManually from "../../blocks/email-account-registration/src/RegisterUnitManually.web";
-import RegisterAddressLink from "../../blocks/email-account-registration/src/RegisterAddressLink.web";
+import RegistrationRequestSignup from '../../blocks/email-account-registration/src/RegistrationRequestSignup.web';
 
-import RegistrationRequestSignup from "../../blocks/email-account-registration/src/RegistrationRequestSignup.web";
+import SearchComplex from '../../blocks/email-account-registration/src/SearchComplex.web';
 
+import Address from '../../blocks/email-account-registration/src/Address.web';
 
-import SearchComplex from "../../blocks/email-account-registration/src/SearchComplex.web";
+import './assets/css/constants/base/global.scss';
+import LandingPage from '../../blocks/landingpage/src/LandingPage.web';
+import EmailAccountLogin from '../../blocks/email-account-login/src/EmailAccountLogin.web';
+import ChairmanLogin from '../../blocks/email-account-login/src/ChairmanLogin.web';
+import ForgotPassword from '../../blocks/forgot-password/src/ForgotPassword.web';
+import ChairmanForgotPassword from '../../blocks/forgot-password/src/ChairmanForgotPassword.web';
+import ForgotPasswordOTP from '../../blocks/forgot-password/src/ForgotPasswordOTP.web';
+import ChairmanForgotPasswordOTP from '../../blocks/forgot-password/src/ChairmanForgotPasswordOTP.web';
+import ChangePassword from '../../blocks/forgot-password/src/ChangePassword.web';
+import ChairmanChangePassword from '../../blocks/forgot-password/src/ChairmanChangePassword.web';
+import ChangeSuccessfully from '../../blocks/forgot-password/src/ChangeSuccessfully.web';
+import ChairmanChangeSuccessfully from '../../blocks/forgot-password/src/ChairmanChangeSuccessfully.web';
+import RegistrationRequest from '../../blocks/email-account-login/src/RegistrationRequest.web';
+import ChairmanRegistrationRequest from '../../blocks/email-account-login/src/ChairmanRegistrationRequest.web';
+import DashboardGeneral from '../../blocks/dashboard/src/DashboardGeneral.web';
+import DashboardTicket from '../../blocks/dashboard/src/DashboardTicket.web';
+import DashboardActions from '../../blocks/dashboard/src/DashboardActions.web';
+import DashboardBudget from '../../blocks/dashboard/src/DashboardBudget.web';
+import BudgetDetails from '../../blocks/dashboard/src/BudgetDetails.web';
+import CreatePolls from '../../blocks/Polling/src/CreatePolls.web';
+import CreateSurveys from '../../blocks/Polling/src/CreateSurveys.web';
+import PollPreview from '../../blocks/Polling/src/PollPreview.web';
+import SurveyPreview from '../../blocks/Polling/src/SurveyPreview.web';
+import PollsallData from '../../blocks/Polling/src/PollsallData.web';
+import PollsSurvey from '../../blocks/Polling/src/PollsSurvey.web';
+import SubmitPoll from '../../blocks/Polling/src/SubmitPoll.web';
+import OwnerDashboard from '../../blocks/dashboard/src/OwnerDashboard.web';
+import ResidentDashboard from '../../blocks/dashboard/src/ResidentDashboard.web';
+import PollVoteSubmitted from '../../blocks/Polling/src/PollVoteSubmitted.web';
+import PollResponseCompleted from '../../blocks/Polling/src/PollResponseCompleted.web';
+import VeichleList from '../../blocks/customform/src/VeichleList.web';
+import NewVeichleList from '../../blocks/customform/src/NewVehicle.web';
+import EditVeichleList from '../../blocks/customform/src/EditVehicle.web';
+import EditRequest from '../../blocks/customform/src/EditRequest.web';
+import NewRequest from '../../blocks/customform/src/NewRequest.web';
+import ManagerList from '../../blocks/customform/src/ManagerList.web';
 
+import ViewVeichle from '../../blocks/customform/src/ViewVehicle.web';
+import ManagerViewVehicle from '../../blocks/customform/src/ManagerViewVehicle.web';
 
-import Address from "../../blocks/email-account-registration/src/Address.web";
-
-import  './assets/css/constants/base/global.scss'
-import LandingPage from "../../blocks/landingpage/src/LandingPage.web";
-import EmailAccountLogin from "../../blocks/email-account-login/src/EmailAccountLogin.web";
-import ChairmanLogin from "../../blocks/email-account-login/src/ChairmanLogin.web";
-import ForgotPassword from "../../blocks/forgot-password/src/ForgotPassword.web";
-import ChairmanForgotPassword from "../../blocks/forgot-password/src/ChairmanForgotPassword.web";
-import ForgotPasswordOTP from "../../blocks/forgot-password/src/ForgotPasswordOTP.web";
-import ChairmanForgotPasswordOTP from "../../blocks/forgot-password/src/ChairmanForgotPasswordOTP.web";
-import ChangePassword from "../../blocks/forgot-password/src/ChangePassword.web";
-import ChairmanChangePassword from "../../blocks/forgot-password/src/ChairmanChangePassword.web";
-import ChangeSuccessfully from "../../blocks/forgot-password/src/ChangeSuccessfully.web";
-import ChairmanChangeSuccessfully from "../../blocks/forgot-password/src/ChairmanChangeSuccessfully.web";
-import RegistrationRequest from "../../blocks/email-account-login/src/RegistrationRequest.web";
-import ChairmanRegistrationRequest from "../../blocks/email-account-login/src/ChairmanRegistrationRequest.web";
-import DashboardGeneral from "../../blocks/dashboard/src/DashboardGeneral.web";
-import DashboardTicket from "../../blocks/dashboard/src/DashboardTicket.web";
-import DashboardActions from "../../blocks/dashboard/src/DashboardActions.web";
-import DashboardBudget from "../../blocks/dashboard/src/DashboardBudget.web";
-import BudgetDetails from "../../blocks/dashboard/src/BudgetDetails.web";
-import CreatePolls from "../../blocks/Polling/src/CreatePolls.web";
-import CreateSurveys from "../../blocks/Polling/src/CreateSurveys.web";
-import PollPreview from "../../blocks/Polling/src/PollPreview.web";
-import SurveyPreview from "../../blocks/Polling/src/SurveyPreview.web";
-import PollsallData from "../../blocks/Polling/src/PollsallData.web";
-import PollsSurvey from "../../blocks/Polling/src/PollsSurvey.web"
-import SubmitPoll from "../../blocks/Polling/src/SubmitPoll.web"
-import OwnerDashboard from "../../blocks/dashboard/src/OwnerDashboard.web"
-import ResidentDashboard from "../../blocks/dashboard/src/ResidentDashboard.web"
-import PollVoteSubmitted from "../../blocks/Polling/src/PollVoteSubmitted.web"
-import PollResponseCompleted from "../../blocks/Polling/src/PollResponseCompleted.web"
-import VeichleList from "../../blocks/customform/src/VeichleList.web"
-import NewVeichleList from "../../blocks/customform/src/NewVehicle.web"
-import EditVeichleList from "../../blocks/customform/src/EditVehicle.web"
-import EditRequest from "../../blocks/customform/src/EditRequest.web"
-import NewRequest from "../../blocks/customform/src/NewRequest.web"
-import ManagerList from "../../blocks/customform/src/ManagerList.web"
-
-import ViewVeichle from "../../blocks/customform/src/ViewVehicle.web"
-import ManagerViewVehicle from "../../blocks/customform/src/ManagerViewVehicle.web"
-
-
-import PollDetails from "../../blocks/Polling/src/PollDetails.web"
-import PollReport from "../../blocks/Polling/src/PollReport.web"
-import CreateIncident from "../../blocks/ContentManagement/src/CreateIncident.web";
-import IncidentDetails from "../../blocks/ContentManagement/src/IncidentDetails.web";
-import IncidentListing from "../../blocks/ContentManagement/src/IncidentListing.web";
-import IncidentReportedSuccessfully from "../../blocks/ContentManagement/src/IncidentReportedSuccessfully.web";
-import IncidentPreview from "../../blocks/ContentManagement/src/IncidentPreview.web";
-import IncidentManagement from "../../blocks/ContentManagement/src/IncidentManagement.web";
-import IncidentManagementDetail from "../../blocks/ContentManagement/src/IncidentManagementDetail.web";
+import PollDetails from '../../blocks/Polling/src/PollDetails.web';
+import PollReport from '../../blocks/Polling/src/PollReport.web';
+import CreateIncident from '../../blocks/ContentManagement/src/CreateIncident.web';
+import IncidentDetails from '../../blocks/ContentManagement/src/IncidentDetails.web';
+import IncidentListing from '../../blocks/ContentManagement/src/IncidentListing.web';
+import IncidentReportedSuccessfully from '../../blocks/ContentManagement/src/IncidentReportedSuccessfully.web';
+import IncidentPreview from '../../blocks/ContentManagement/src/IncidentPreview.web';
+import IncidentManagement from '../../blocks/ContentManagement/src/IncidentManagement.web';
+import IncidentManagementDetail from '../../blocks/ContentManagement/src/IncidentManagementDetail.web';
 
 import FaqChairman from '../../blocks/contactus/src/FaqChairman.web';
 import FaqOwner from '../../blocks/contactus/src/FaqOwner.web';
@@ -143,6 +139,9 @@ import FaqResident from '../../blocks/contactus/src/FaqResident.web';
 import ContactUsChairman from '../../blocks/contactus/src/ContactUs.web';
 import SubscriptionDetail from '../../blocks/contactus/src/SubscriptionDetails.web';
 
+import DocumentChairman from '../../blocks/Notes/src/DocumentChairman.web';
+import DocumentListChairman from '../../blocks/Notes/src/DocumentListChairman.web';
+import DocumentViewChairman from '../../blocks/Notes/src/DocumentViewChairman.web';
 
 const routeMap = {
   //done
@@ -382,7 +381,7 @@ const routeMap = {
 
   PollReport: {
     component: PollReport,
-    path: "/PollReport"
+    path: '/PollReport'
   },
 
   PollResponseCompleted: {
@@ -398,7 +397,7 @@ const routeMap = {
     component: ResidentDashboard,
     path: '/ResidentDashboard'
   },
-  // Faq
+  // Chairman Help
   FaqChairman: {
     component: FaqChairman,
     path: '/FaqChairman'
@@ -418,6 +417,23 @@ const routeMap = {
   SubscriptionDetail: {
     component: SubscriptionDetail,
     path: '/SubscriptionDetail'
+  },
+
+  // Chairman Document & Report
+  DocumentChairman: {
+    component: DocumentChairman,
+    path: '/DocumentChairman',
+    exact: true
+  },
+  DocumentListChairman: {
+    component: DocumentListChairman,
+    path: '/DocumentChairman/:name',
+    exact: true
+  },
+  DocumentViewChairman: {
+    component: DocumentViewChairman,
+    path: '/DocumentChairman/:name/:id/view',
+    exact: true
   },
 
   Customisableusersubscriptions: {
@@ -504,10 +520,10 @@ const routeMap = {
     component: Maps,
     path: '/Maps'
   },
-  Notes: {
-    component: Notes,
-    path: '/Notes'
-  },
+  // Notes: {
+  //   component: Notes,
+  //   path: '/Notes'
+  // },
   EmailAccountLoginBlock: {
     component: EmailAccountLoginBlock,
     path: '/EmailAccountLoginBlock'
@@ -759,10 +775,10 @@ const routeMap = {
     component: Maps,
     path: '/Maps'
   },
-  Notes: {
-    component: Notes,
-    path: '/Notes'
-  },
+  // Notes: {
+  //   component: Notes,
+  //   path: '/Notes'
+  // },
   TaxCalculator: {
     component: TaxCalculator,
     path: '/TaxCalculator'
