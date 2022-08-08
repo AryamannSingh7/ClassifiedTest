@@ -142,6 +142,7 @@
   & .link-block {
     text-align: center;
     padding-top: 20px;
+    padding-bottom: 10px;
   }
   @include mq(tablet-landscape-up) {
     width: 100%;

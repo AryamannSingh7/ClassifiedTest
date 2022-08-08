@@ -149,7 +149,7 @@ class IncidentListing extends IncidentController {
                     }
                   </Box>
                   <Box className="customButton">
-                    <Button variant="contained" onClick={() => { this.setState({ loading: true }); this.props.history.push("/CreateIncident") }} >Add Incident</Button>
+                    <Button variant="contained" onClick={() => { this.setState({ loading: true }); this.props.history.push("/CreateIncident") }} >Add New Incident</Button>
                   </Box>
                 </Box>
                 <Box className="footer-main-block bottomBlock">
