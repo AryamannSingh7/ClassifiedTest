@@ -154,6 +154,13 @@ export const FaqChairmanStyleWeb: any = {
     },
     "& .faq-box .MuiTypography-root": {
       width: "93%",
+      maxWidth: "93%",
+      wordBreak: "break-word",
+    },
+    "& .faq-box .MuiAccordionDetails-root": {
+      width: "100%",
+      maxWidth: "100%",
+      wordBreak: "break-word",
     },
     "& .faq-box .MuiAccordionSummary-content .MuiBox-root": {
       display: "flex",
@@ -169,6 +176,7 @@ export const FaqChairmanStyleWeb: any = {
     "& .bottom-buttons button:first-child": {
       color: "#FF4C67",
       borderColor: "#FF4C67",
+      fontWeight: "600",
     },
     "& .bottom-buttons button:last-child": {
       color: "#FFFFFF",
@@ -222,9 +230,12 @@ export const FaqChairmanStyleWeb: any = {
       background: "white",
       cursor: "pointer",
       borderRadius: "8px",
+      wordBreak: "break-all",
     },
     "& .faq-item p": {
       fontWeight: "600",
+      width: "95%",
+      wordBreak: "break-all",
     },
     "& .faq-ans span": {
       display: "block",

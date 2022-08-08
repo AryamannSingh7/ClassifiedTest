@@ -128,7 +128,7 @@ class FaqResident extends FaqResidentController {
                           fullWidth
                           variant="contained"
                           disableElevation
-                          onClick={() => this.changeFaqState(1)}
+                          onClick={() => this.changeFaqState(2)}
                         >
                           Close
                         </Button>
