@@ -60,7 +60,6 @@ h4 {
   font-family: $Gotham_Medium;
   font-size: 19px;
   font-weight: 600;
-
   @include mq(tablet-portrait-large-up) {
     font-size: 17px;
   }
@@ -168,4 +167,39 @@ ul {
   display: flex;
   margin-left: 15px;
   margin-top: 5px !important;
+}
+
+.backIcons {
+  cursor: pointer;
+}
+
+.video-img {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+  & .img-layer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 75px;
+    width: 75px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    z-index: 1;
+  }
+  & .play-icon {
+    // background-color: $BLUE;
+    position: absolute;
+    z-index: 2;
+    color: $WHITE;
+    border-radius: 50%;
+    padding: 3px;
+  }
+}
+.mt-20
+{
+  margin-top: 20px;
 }

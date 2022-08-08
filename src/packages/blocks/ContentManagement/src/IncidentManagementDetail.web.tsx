@@ -33,6 +33,7 @@ import NativeSelect from "@material-ui/core/NativeSelect";
 import Grid from '@material-ui/core/Grid';
 
 //resources
+import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import { withRouter } from 'react-router';
@@ -46,12 +47,24 @@ import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 
 //resorces
 import { Close_Icon, Bank_Icon, Box_Icon, Building1 } from "./assets";
+import IncidentChatDrawer from "./IncidentChatDrawer.web";
 
 class IncidentManagementDetail extends IncidentManagementController {
   constructor(props: Props) {
     super(props);
   }
+  componentDidMount() {
+   const  id = localStorage.getItem("incidentManagementDetail")
+   if(id)
+    this.getIncidentDetailsById(id);
+  else
+  this.props.history.push("/IncidentManagement") 
+}
   render() {
+    const statusArray=["Unresolved","Resolved","Pending Confirmation"]
+    const id = this.state?.getIncidentDetails?.id;
+    const attributes = this.state?.getIncidentDetails?.attributes;
+    console.log("-==================>",attributes)
     return (
       <>
         <Box className="incident-Listing-wrapper desktop-ui" style={{ background: "#E5ECFF" }}>
@@ -85,29 +98,35 @@ class IncidentManagementDetail extends IncidentManagementController {
                     </FormControl>
                   </Box>
                 </Box>
-                <Box className="incident-detail-card-block">
+                <Box className="content-block-wrapper incident-detail-card-block">
                   <Card className="incident-detail-card card">
                     <Box className="card-header">
                       <Typography component="h4">
-                        Plumbing
+                        {attributes?.incident_related?.incident_title}
                       </Typography>
                       <Box className="formGroup customSelect">
                         <FormControl variant="outlined" >
                           <Select
-                            name="commonArea"
-                            labelId="demo-simple-select-outlined-label"
-                            id="demo-simple-select-outlined"
-                            value="1"
+                           name="statusDetail"
+                           labelId="demo-simple-select-outlined-label"
+                           id="demo-simple-select-outlined"
+                           onChange={(e) => {this.onChange(e)}}
+                           value={this.state?.statusDetail}
+                           className={this.state?.statusDetail === 'Pending Confirmation' ? "contain warning" : this.state?.statusDetail === 'Resolved' ? 'contain success' : 'contain danger'} 
                           >
-                            <MenuItem value="1">
-                              Select Status
-                            </MenuItem>
-                            <MenuItem value="2">
-                              test 2
-                            </MenuItem>
-                            <MenuItem value="3">
-                              test 3
-                            </MenuItem>
+                            <MenuItem disabled value=" ">
+                                  Select Status
+                                </MenuItem>
+                                {
+                                statusArray?.map((val, index) => (
+                                  <MenuItem
+                                    key={index}
+                                    value={val}
+                                  >
+                                    {val}
+                                  </MenuItem>
+                                ))
+                              }
                           </Select>
                         </FormControl>
                       </Box>
@@ -116,50 +135,61 @@ class IncidentManagementDetail extends IncidentManagementController {
                       <Box className="row-block">
                         <Box className="card-rows">
                           <h5>Affected Area: </h5>
-                          <h4>Own Apartment</h4>
+                          <h4>{attributes?.common_area?.name}</h4>
                         </Box>
                         <Box className="card-rows">
                           <h5>Incident is related to: </h5>
-                          <h4>Plumbing</h4>
+                          <h4>{attributes?.incident_related?.name}</h4>
                         </Box>
                         <Box className="card-rows">
                           <h5>Incident Number: </h5>
-                          <h4>123456</h4>
+                          <h4>{id}</h4>
                         </Box>
                         <Box className="card-rows">
                           <h5>Building: </h5>
-                          <h4>Building</h4>
+                          <h4>{attributes?.apartment_management?.building_name}</h4>
                         </Box>
                         <Box className="card-rows">
                           <h5>Unit: </h5>
-                          <h4>Building</h4>
+                          <h4>{attributes?.apartment_management?.apartment_name}</h4>
                         </Box>
                         <Box className="card-rows">
                           <h5>Acknowledge by Manager: </h5>
-                          <h4>Building</h4>
+                          <h4>No</h4>
                         </Box>
                         <Box className="card-rows">
                           <h5>Latest update from management: </h5>
-                          <h4>Building</h4>
+                          <h4>10-10-2020</h4>
                         </Box>
                         <Box className="card-rows">
                           <h5>Description: </h5>
-                          <h4>Building</h4>
+                          <h4>{attributes?.description}</h4>
                         </Box>
                         <Box className="card-rows">
                           <h5>Photos: </h5>
                         </Box>
                       </Box>
                       <Box className="photos-row">
-                        <img src={Building1} className="" />
-                        <img src={Building1} className="" />
-                        <img src={Building1} className="" />
-                        <img src={Building1} className="" />
-                        <img src={Building1} className="" />
+                        <Box className="video-img"> 
+                          <FullscreenIcon className="play-icon" />
+                          <img src={Building1} className="card-img" alt="card-img" />
+                          <Box className="img-layer"></Box>
+                        </Box>
+                        <Box className="video-img"> 
+                          <FullscreenIcon className="play-icon" />
+                          <img src={Building1} className="card-img" alt="card-img" />
+                          <Box className="img-layer"></Box>
+                        </Box>
+                        <Box className="video-img"> 
+                          <FullscreenIcon className="play-icon" />
+                          <img src={Building1} className="card-img" alt="card-img" />
+                          <Box className="img-layer"></Box>
+                        </Box>
+                        
                       </Box>
                       <Box className="incident-button-row customButton">
                         <Button variant="outlined"
-                          onClick={() => { this.setState({ showDialog: true }) }}
+                          onClick={() => { this.setState({ showDialog: false }) }}
                           type="submit">assign incident to provider</Button>
                         <Button variant="contained" type="submit">start/view ticket conversation</Button>
                       </Box>
@@ -233,16 +263,49 @@ class IncidentManagementDetail extends IncidentManagementController {
                     <Box className="customButton">
                       <Button variant="outlined"
                         onClick={() => { this.setState({ showDialog: true }) }}
-                        type="submit">cencel</Button>
+                        type="submit">cancel</Button>
                       <Button variant="contained" type="submit">assign incident</Button>
                     </Box>
+                  </Box>
+                </Box>
+              </Dialog>
+
+              {/* view large image dialog */}
+              <Dialog
+                open={this.state.showDialog}
+                onClose={() => this.setState({ showDialog: false })}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                className="diloag-wrapper"
+                PaperProps={{
+                  style: {
+                    borderRadius: '15px',
+                  },
+                }}
+              >
+                <Box className="diloag-body">
+                  <Box className="diloag-header">
+                    <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
+                      Image
+                    </DialogTitle>
+                    <Button onClick={() => { this.setState({ showDialog: false }) }}>
+                      <img src={Close_Icon} className="close-icon" />
+                    </Button>
+                  </Box>
+                  {/* <iframe className="incident-dialog-video"
+                  src="https://www.youtube.com/embed/tQG6jYy9xto" title="YouTube video player"
+                  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen></iframe> */}
+                  <Box className="diloag-content">
+                    <img src={this.state?.image} className="incident-dialog-photo" alt="Incident photo" />
                   </Box>
                 </Box>
               </Dialog>
             </Grid>
           </Box>
         </Box>
-        <Loader loading={this.state.loading} />
+        <IncidentChatDrawer />
+        {/* <Loader loading={this.state.loading} /> */}
       </>
     )
   }
