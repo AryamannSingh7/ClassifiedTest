@@ -93,8 +93,8 @@ class IncidentDetails extends IncidentController {
                             </Typography>
                             <Box className="customButton">
                               <Box className="formGroup">
-                                <Button variant="outlined" onClick={() => this.confirmOrRejectIncident(this.props.history.location.id, "reject")} >reject course</Button>
-                                <Button variant="contained" onClick={() => this.confirmOrRejectIncident(this.props.history.location.id, "confirm")} >confirm course</Button>
+                                <Button variant="outlined" onClick={() => this.confirmOrRejectIncident(this.props.history.location.id, "reject")} >reject closure</Button>
+                                <Button variant="contained" onClick={() => this.confirmOrRejectIncident(this.props.history.location.id, "confirm")} >confirm closure</Button>
                               </Box>
                             </Box>
                           </CardContent>
