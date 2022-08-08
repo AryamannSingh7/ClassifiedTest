@@ -619,7 +619,7 @@ onChange =(e)=>{
       this.setState({ loading: true });
      
      //const  url = `bx_block_custom_form/incidents`
-     const  getSortByOrStatus = `bx_block_custom_form/incidents?search_building=${this.state?.serachBuildingName}&search_unit=${this.state?.unitName}`
+     const  getSortByOrStatus = `bx_block_custom_form/incidents?search_building=${this.state?.serachBuildingName}&search_unit=${this.state?.unitName}&filter_by=${this.state?.status}`
     
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
