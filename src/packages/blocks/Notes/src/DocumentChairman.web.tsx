@@ -100,7 +100,7 @@ class DocumentChairman extends DocumentChairmanController {
                       </Link>
                     </Grid>
                     <Grid item xs={12} md={6} lg={4}>
-                      <Link href="/DocumentChairman/BuildingPlans">
+                      <Link href="/DocumentChairman/Building-Plans">
                         <Box className="item">
                           <div className="heading">
                             <img src={Document} />

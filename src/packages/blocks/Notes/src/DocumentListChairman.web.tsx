@@ -51,6 +51,8 @@ class DocumentListChairman extends DocumentListChairmanController {
   render() {
     const { classes } = this.props;
 
+    console.log(this.state);
+
     return (
       <>
         <Box
@@ -67,173 +69,200 @@ class DocumentListChairman extends DocumentListChairmanController {
 
             <Grid item xs={9} md={9} sm={9} style={{ paddingTop: 35 }}>
               <Container>
-                <Box className="navigation">
+                {this.state.docName.toLowerCase() !== "resolutions" &&
+                this.state.docName.toLowerCase() !== "policy" &&
+                this.state.docName.toLowerCase() !== "guidelines" &&
+                this.state.docName.toLowerCase() !== "roles" &&
+                this.state.docName.toLowerCase() !== "building-plans" ? (
+                  <p>Wrong url</p>
+                ) : (
                   <Box>
-                    <Typography variant="body1">
-                      Documents /{" "}
-                      <Box component="span" style={{ color: "blue" }}>
-                        {this.state.docName}
+                    <Box className="navigation">
+                      <Box>
+                        <Typography variant="body1">
+                          Documents /{" "}
+                          <Box component="span" style={{ color: "blue" }}>
+                            {this.state.docName}
+                          </Box>
+                        </Typography>
+                        <Box className="top-heading">
+                          <Typography variant="h5" className="sub-heading">
+                            {this.state.docName}
+                          </Typography>
+                          {this.state.docName.toLowerCase() ===
+                          "resolutions" ? (
+                            <Button
+                              variant="contained"
+                              onClick={() => this.handleAddResolutionsModal()}
+                            >
+                              Add New Resolution
+                            </Button>
+                          ) : (
+                            <Button
+                              variant="contained"
+                              onClick={() => this.handleAddDocumentModal()}
+                            >
+                              Upload Documents
+                            </Button>
+                          )}
+                        </Box>
                       </Box>
-                    </Typography>
-                    <Box className="top-heading">
-                      <Typography variant="h5" className="sub-heading">
-                        {this.state.docName}
-                      </Typography>
+                    </Box>
+                    <Box
+                      className={`document-box ${
+                        this.state.docName.toLowerCase() === "resolutions"
+                          ? "resolutions"
+                          : ""
+                      }`}
+                    >
                       {this.state.docName.toLowerCase() === "resolutions" ? (
-                        <Button
-                          variant="contained"
-                          onClick={() => this.handleAddResolutionsModal()}
-                        >
-                          Add New Resolution
-                        </Button>
+                        <Grid container spacing={2}>
+                          <Grid item xs={12} md={6} lg={4}>
+                            <Card className="card-item">
+                              <div className="heading">
+                                <h4>Resolution Title</h4>
+                                <div className="menu">
+                                  <Menu
+                                    menuButton={
+                                      <IconButton>
+                                        <MoreVertIcon />
+                                      </IconButton>
+                                    }
+                                  >
+                                    <MenuItem>Download</MenuItem>
+                                    <MenuItem>Delete</MenuItem>
+                                    <MenuItem>Share</MenuItem>
+                                  </Menu>
+                                </div>
+                              </div>
+                              <div className="res-info">
+                                <div className="info-item">
+                                  <p>Date & Time</p>
+                                  <span>Date & Time</span>
+                                </div>
+                                <div className="info-item">
+                                  <p>Building</p>
+                                  <span>Building</span>
+                                </div>
+                              </div>
+                              <div className="item">
+                                <div className="item-title">
+                                  <img src={Document} />
+                                  <h6>Policy</h6>
+                                </div>
+                                <div className="icons">
+                                  <img src={ShareImage} />
+                                  <img src={DownloadImage} />
+                                </div>
+                              </div>
+                            </Card>
+                          </Grid>
+                          <Grid item xs={12} md={6} lg={4}>
+                            <Card className="card-item">
+                              <div className="heading">
+                                <h4>Resolution Title</h4>
+                                <div className="menu">
+                                  <Menu
+                                    menuButton={
+                                      <IconButton>
+                                        <MoreVertIcon />
+                                      </IconButton>
+                                    }
+                                  >
+                                    <MenuItem>Download</MenuItem>
+                                    <MenuItem>Delete</MenuItem>
+                                    <MenuItem>Share</MenuItem>
+                                  </Menu>
+                                </div>
+                              </div>
+                              <div className="res-info">
+                                <div className="info-item">
+                                  <p>Date & Time</p>
+                                  <span>Date & Time</span>
+                                </div>
+                                <div className="info-item">
+                                  <p>Building</p>
+                                  <span>Building</span>
+                                </div>
+                              </div>
+                              <div className="item">
+                                <div className="item-title">
+                                  <img src={Document} />
+                                  <h6>Policy</h6>
+                                </div>
+                                <div className="icons">
+                                  <img src={ShareImage} />
+                                  <img src={DownloadImage} />
+                                </div>
+                              </div>
+                            </Card>
+                          </Grid>
+                        </Grid>
                       ) : (
-                        <Button
-                          variant="contained"
-                          onClick={() => this.handleAddDocumentModal()}
-                        >
-                          Upload Documents
-                        </Button>
+                        <Grid container spacing={2}>
+                          {this.state.documentList.length === 0 && (
+                            <span>No Document Available!!</span>
+                          )}
+                          {this.state.documentList.map((document: any) => {
+                            return (
+                              <Grid item xs={12} md={12} lg={12}>
+                                <Box className="item">
+                                  <Link
+                                    href={`/DocumentChairman/${
+                                      this.state.docName
+                                    }/${document.id}/view`}
+                                  >
+                                    <div className="heading">
+                                      <img src={Document} />
+                                      <h4>{document.attributes.title}</h4>
+                                    </div>
+                                  </Link>
+                                  <div className="menu">
+                                    <Menu
+                                      menuButton={
+                                        <IconButton>
+                                          <MoreVertIcon />
+                                        </IconButton>
+                                      }
+                                    >
+                                      <MenuItem>
+                                        <Link
+                                          href={
+                                            document.attributes.images[0]
+                                              .download_url
+                                          }
+                                          target="_blank"
+                                        >
+                                          Download
+                                        </Link>
+                                      </MenuItem>
+                                      <MenuItem
+                                        onClick={() => {
+                                          this.setState(
+                                            {
+                                              ...this.state,
+                                              selectedDocumentId: document.id,
+                                            },
+                                            () => {
+                                              this.handleDeleteDocumentModal();
+                                            }
+                                          );
+                                        }}
+                                      >
+                                        Delete
+                                      </MenuItem>
+                                      <MenuItem>Share</MenuItem>
+                                    </Menu>
+                                  </div>
+                                </Box>
+                              </Grid>
+                            );
+                          })}
+                        </Grid>
                       )}
                     </Box>
                   </Box>
-                </Box>
-                <Box
-                  className={`document-box ${
-                    this.state.docName.toLowerCase() === "resolutions"
-                      ? "resolutions"
-                      : ""
-                  }`}
-                >
-                  {this.state.docName.toLowerCase() === "resolutions" ? (
-                    <Grid container spacing={2}>
-                      <Grid item xs={12} md={6} lg={4}>
-                        <Card className="card-item">
-                          <div className="heading">
-                            <h4>Resolution Title</h4>
-                            <div className="menu">
-                              <Menu
-                                menuButton={
-                                  <IconButton>
-                                    <MoreVertIcon />
-                                  </IconButton>
-                                }
-                              >
-                                <MenuItem>Download</MenuItem>
-                                <MenuItem>Delete</MenuItem>
-                                <MenuItem>Share</MenuItem>
-                              </Menu>
-                            </div>
-                          </div>
-                          <div className="res-info">
-                            <div className="info-item">
-                              <p>Date & Time</p>
-                              <span>Date & Time</span>
-                            </div>
-                            <div className="info-item">
-                              <p>Building</p>
-                              <span>Building</span>
-                            </div>
-                          </div>
-                          <div className="item">
-                            <div className="item-title">
-                              <img src={Document} />
-                              <h6>Policy</h6>
-                            </div>
-                            <div className="icons">
-                              <img src={ShareImage} />
-                              <img src={DownloadImage} />
-                            </div>
-                          </div>
-                        </Card>
-                      </Grid>
-                      <Grid item xs={12} md={6} lg={4}>
-                        <Card className="card-item">
-                          <div className="heading">
-                            <h4>Resolution Title</h4>
-                            <div className="menu">
-                              <Menu
-                                menuButton={
-                                  <IconButton>
-                                    <MoreVertIcon />
-                                  </IconButton>
-                                }
-                              >
-                                <MenuItem>Download</MenuItem>
-                                <MenuItem>Delete</MenuItem>
-                                <MenuItem>Share</MenuItem>
-                              </Menu>
-                            </div>
-                          </div>
-                          <div className="res-info">
-                            <div className="info-item">
-                              <p>Date & Time</p>
-                              <span>Date & Time</span>
-                            </div>
-                            <div className="info-item">
-                              <p>Building</p>
-                              <span>Building</span>
-                            </div>
-                          </div>
-                          <div className="item">
-                            <div className="item-title">
-                              <img src={Document} />
-                              <h6>Policy</h6>
-                            </div>
-                            <div className="icons">
-                              <img src={ShareImage} />
-                              <img src={DownloadImage} />
-                            </div>
-                          </div>
-                        </Card>
-                      </Grid>
-                    </Grid>
-                  ) : (
-                    <Grid container spacing={2}>
-                      <Grid item xs={12} md={12} lg={12}>
-                        <Box className="item">
-                          <div className="heading">
-                            <img src={Document} />
-                            <h4>Policy</h4>
-                          </div>
-                          <div className="menu">
-                            <Menu
-                              menuButton={
-                                <IconButton>
-                                  <MoreVertIcon />
-                                </IconButton>
-                              }
-                            >
-                              <MenuItem>Download</MenuItem>
-                              <MenuItem>Delete</MenuItem>
-                              <MenuItem>Share</MenuItem>
-                            </Menu>
-                          </div>
-                        </Box>
-                      </Grid>
-                      <Grid item xs={12} md={12} lg={12}>
-                        <Box className="item">
-                          <div className="heading">
-                            <img src={Document} />
-                            <h4>Policy</h4>
-                          </div>
-                          <div className="menu">
-                            <Menu
-                              menuButton={
-                                <IconButton>
-                                  <MoreVertIcon />
-                                </IconButton>
-                              }
-                            >
-                              <MenuItem>Download</MenuItem>
-                              <MenuItem>Delete</MenuItem>
-                              <MenuItem>Share</MenuItem>
-                            </Menu>
-                          </div>
-                        </Box>
-                      </Grid>
-                    </Grid>
-                  )}
-                </Box>
+                )}
               </Container>
             </Grid>
           </Box>
@@ -254,6 +283,13 @@ class DocumentListChairman extends DocumentListChairmanController {
           <DialogContent dividers>
             <FormControl fullWidth>
               <input
+                value={this.state.title}
+                onChange={(e: any) => {
+                  this.setState({
+                    ...Box.state,
+                    title: e.target.value,
+                  });
+                }}
                 placeholder="Title"
                 className="dialog-input"
                 style={{
@@ -279,6 +315,8 @@ class DocumentListChairman extends DocumentListChairmanController {
                 onChange={this.onChangeFile.bind(this)}
                 accept=".pdf"
               />
+              {this.state.file && <span>{this.state.file.name}</span>}
+              <span />
             </FormControl>
           </DialogContent>
           <DialogActions className="dialog-button-group">
@@ -290,8 +328,11 @@ class DocumentListChairman extends DocumentListChairmanController {
               Cancel
             </Button>
             <Button
+              disabled={
+                this.state.title.length === 0 || this.state.file === null
+              }
               variant="contained"
-              onClick={() => this.handleAddDocumentModal()}
+              onClick={() => this.createDocument()}
               color="primary"
             >
               Create
@@ -323,7 +364,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                 <Button
                   variant="contained"
                   onClick={() => {
-                    this.handleDeleteDocumentModal();
+                    this.deleteCategory();
                   }}
                   color="primary"
                 >
