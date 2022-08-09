@@ -1,0 +1,193 @@
+@import "../constants/base/colors.scss";
+@import "../constants/base/global.scss";
+.chatRightDrawer {
+    & .MuiDrawer-paper {
+        overflow: hidden;
+    }
+    & h4 {
+        &.MuiTypography-body1 {
+            font-family: $Gotham_Medium;
+            font-size: 19px;
+            font-weight: 600;
+            @include mq(tablet-portrait-large-up) {
+                font-size: 17px;
+            }
+        }
+    }
+    & h6 {
+        &.MuiTypography-body1 {
+            font-family: $Gotham_Medium;
+            font-size: 16px;
+            font-weight: 600;
+            @include mq(tablet-portrait-large-up) {
+                font-size: 14px;
+            }
+        }
+    }
+    & span {
+        &.MuiTypography-body1 {
+            font-family: $Gotham_Light;
+            font-size: 14px;
+            color: $LIGHT_GRAY_SHADE3;
+            @include mq(tablet-portrait-large-up) {
+                font-size: 13px;
+            }
+        }
+    }
+    & .ToolbarHeader {
+        justify-content: flex-end;
+        background-color: transparent;
+    }
+    & .MuiAppBar-colorPrimary {
+        color: #fff;
+        background-color: transparent;
+        box-shadow: none;
+    }
+    & .MuiIconButton-label {
+        color: $BLUE;
+    }
+    & .drawerHeader {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 15px;
+        border-bottom: 1px solid $DANGER_SHADE1;
+    }
+    & .drawerMainContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+        & .content-header {
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid $DANGER_SHADE1;
+        }
+        & .content-footer {
+            padding: 10px 15px;
+            & .formGroup {
+                margin-bottom: 0;
+                padding-right: 15px;
+                & .MuiButtonBase-root {
+                    padding: 0;
+                    min-width: auto;
+                    &.frmRightIcons {
+                        & .MuiButton-label {
+                            transform: rotate(40deg);
+                        }
+                    }
+                    & .MuiButton-label {
+                        color: $DARK;
+                    }
+                    &:hover {
+                        background-color: transparent;
+                    }
+                }
+            }
+            & .frm-row {
+                display: flex;
+                align-items: center;
+                & .SendIconBtn {
+                    height: 50px;
+                    width: 50px;
+                    min-width: 50px;
+                    border-radius: 50%;
+                    background-color: $BLUE;
+                    & .MuiButton-label {
+                        color: $WHITE;
+                    }
+                }
+            }
+           
+        }
+        & .main-content {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            height: 100%;
+            max-height: 700px;
+            overflow-y: scroll;
+            @include scrollbars();
+            & .receive-row {
+                display: flex;
+                align-items: flex-start;
+                margin: 10px 0;
+                & .profile-img {
+                    height: 60px;
+                    width: 60px;
+                    object-fit: cover;
+                    border-radius: 50%;
+                }
+                & .receive-block {
+                    width: 250px;
+                    margin-left: 10px;
+                    & .receive-box {
+                        padding: 15px;
+                        width: 100%;
+                        border-radius: 0 10px 10px 10px;
+                        background-color: $LIGHT_GRAY_SHADE5;
+                        margin-bottom: 5px;
+                    }
+                    & span {
+                        &.MuiTypography-body1 {
+                            font-size: 13px;
+                            color: $DARK;
+                        }
+                    }
+                }
+            }
+            & .sent-row {
+                justify-content: flex-end;
+                & .receive-block {
+                    & span {
+                        &.MuiTypography-body1 {
+                            display: flex;
+                            justify-content: flex-end;
+                        }
+                    }
+                }
+            }
+            & .date-row {
+                margin: 10px 0;
+                display: flex;
+                width: 100%;
+                justify-content: center;
+                & h6 {
+                    padding: 3px 50px;
+                    font-size: 13px;
+                    border-radius: 20px;
+                    background-color: $LIGHT_GRAY_SHADE5;
+                    position: relative;
+                    &::before,
+                    &::after {
+                        content: " ";
+                        position: absolute;
+                        top: 15px;
+                        border-bottom: 1px solid #f6f6f6;
+                        width: 100%;
+                    }
+                    &::before {
+                        left: -100%;
+                    }
+                    &::after {
+                        right: -100%;
+                    }
+                }
+            }
+            & .correct-icon {
+                color: $BLUE;
+                height: 60px;
+                width: 60px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                background-color: transparent;
+            }
+        }
+    }
+}

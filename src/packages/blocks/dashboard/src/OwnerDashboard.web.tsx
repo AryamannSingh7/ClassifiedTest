@@ -250,7 +250,7 @@ class OwnerDashboard extends React.Component {
                     </Link>
                   </Grid>
                   <Grid item xs={12} sm={6}>
-                    <Link href="">
+                    <Link href="/IncidentListing">
                       <DashboardCard
                         image={keyhand}
                         heading="Incidents"
@@ -305,7 +305,7 @@ class OwnerDashboard extends React.Component {
                     <Typography variant="h5">Personal Categories</Typography>
                   </Grid>
                   <Grid item xs={12} sm={6}>
-                    <Link href="">
+                    <Link href="/veichleList">
                       <DashboardCard
                         image={keyhand}
                         heading="My Vehicles"

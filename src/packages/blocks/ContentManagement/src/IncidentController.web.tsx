@@ -51,7 +51,7 @@ export interface S {
   upload:any;
   notImageOrVideoError:any,
   sizeError:any,
-  image : any
+  file : any
   // Customizable Area End
 }
 
@@ -139,7 +139,7 @@ export default class IncidentController extends BlockComponent<
       upload:false,
       notImageOrVideoError:false,
       sizeError:false,
-      image:[]
+      file :{}
       // Customizable Area End
     };
 
@@ -908,7 +908,7 @@ confirmOrRejectIncident =(id,val)=>{
     
 if(files.length !== 0){
   for (let i = 0; i < files.length; i += 1) {
-    if(files[i] && !["image/jpg", "image/jpeg", "image/gif", "image/png" ].includes(files[i].type))
+    if(files[i] && !["image/jpg", "image/jpeg", "image/gif", "image/png","video/mp4","video/x-m4v" ].includes(files[i].type))
     {
       console.log("type=====>",files[i].type);
       this.setState({upload: false,sizeError : false,notImageOrVideoError:true});
