@@ -33,8 +33,9 @@
   -moz-border-radius: 5px;
   -ms-border-radius: 5px;
   -o-border-radius: 5px;
-  font-family: "GothamMedium";
+  /* font-family: "GothamMedium"; */
   outline: none;
+  color: #494949;
 }
 
 .add-faq-dialog .dialog-input {
@@ -52,8 +53,8 @@
   border: 1px solid lightgray;
   font-size: 16px;
   padding: 15px 26px 15px 12px;
-  font-family: "GothamMedium";
-  color: gray;
+  /* font-family: "GothamMedium"; */
+  color: #494949;
   background-color: white;
 }
 
@@ -62,8 +63,8 @@
   border: 1px solid lightgray;
   font-size: 16px;
   padding: 15px 26px 15px 12px;
-  font-family: "GothamMedium";
-  color: black;
+  /* font-family: "GothamMedium"; */
+  color: #494949;
   background-color: white;
   height: 100px;
   outline: none;
