@@ -37,8 +37,57 @@
   outline: none;
 }
 
+.add-faq-dialog .dialog-input {
+  margin-top: 26px;
+}
+
+.add-faq-dialog .error {
+  margin-top: 5px;
+  color: red;
+  font-size: 12px;
+}
+
+.dialog-select-input {
+  border-radius: 5px;
+  border: 1px solid lightgray;
+  font-size: 16px;
+  padding: 15px 26px 15px 12px;
+  font-family: "GothamMedium";
+  color: gray;
+  background-color: white;
+}
+
+.dialog-textarea-input {
+  border-radius: 5px;
+  border: 1px solid lightgray;
+  font-size: 16px;
+  padding: 15px 26px 15px 12px;
+  font-family: "GothamMedium";
+  color: black;
+  background-color: white;
+  height: 100px;
+  outline: none;
+}
+
+.add-faq-dialog .dialog-textarea-input {
+  margin-top: 26px;
+}
+
 .dialog-button-group {
   flex-direction: row;
+}
+
+.delete-dialog .comment-image {
+  margin-bottom: 10px;
+}
+
+.delete-dialog h6 {
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.delete-dialog p {
+  color: gray;
 }
 
 .dialog-button-group button {
@@ -63,12 +112,14 @@
   color: gray;
 }
 
-.delete-document .dialog-button-group {
+.delete-document .dialog-button-group,
+.delete-dialog .dialog-button-group {
   flex-direction: row;
   justify-content: center;
 }
 
-.delete-document .dialog-button-group button {
+.delete-document .dialog-button-group button,
+.delete-dialog .dialog-button-group button {
   width: 200px;
 }
 

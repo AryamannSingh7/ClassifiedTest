@@ -81,6 +81,7 @@ class FaqChairman extends FaqChairmanController {
                                 ...this.state,
                                 faqList: category.attributes.FAQ,
                                 selectedCategoryId: category.id,
+                                createCategoryId: category.id,
                                 selectedCategoryName: category.attributes.name,
                               },
                               () => {
@@ -175,21 +176,12 @@ class FaqChairman extends FaqChairmanController {
           </Box>
 
           <Dialog
+            className="add-faq-dialog"
             onClose={() => this.handleAddQuestionModal()}
             open={this.state.isAddQuestionModalOpen}
           >
-            <MuiDialogTitle
-              disableTypography
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                padding: "6px 24px ",
-              }}
-            >
-              <Typography variant="h6" style={{ fontWeight: "600" }}>
-                Add Questions
-              </Typography>
+            <MuiDialogTitle disableTypography className="dialog-heading">
+              <Typography variant="h6">Add Questions</Typography>
               <IconButton onClick={() => this.handleAddQuestionModal()}>
                 <CloseIcon />
               </IconButton>
@@ -197,6 +189,7 @@ class FaqChairman extends FaqChairmanController {
             <DialogContent dividers>
               <FormControl fullWidth>
                 <select
+                  className="dialog-select-input"
                   onChange={(e: any) => {
                     this.setState({
                       ...this.state,
@@ -204,15 +197,6 @@ class FaqChairman extends FaqChairmanController {
                     });
                   }}
                   value={this.state.createCategoryId}
-                  style={{
-                    borderRadius: 4,
-                    border: "1px solid #ced4da",
-                    fontSize: 16,
-                    padding: "15px 26px 15px 12px",
-                    fontFamily: "GothamMedium",
-                    color: "gray",
-                    background: "white",
-                  }}
                 >
                   <option aria-label="None" value="">
                     Select Category
@@ -236,26 +220,17 @@ class FaqChairman extends FaqChairmanController {
                   }}
                   value={this.state.createQuestion}
                   placeholder="Title Questions"
-                  style={{
-                    borderRadius: 4,
-                    border: "1px solid #ced4da",
-                    fontSize: 16,
-                    padding: "15px 26px 15px 12px",
-                    marginTop: "26px",
-                    fontFamily: "GothamMedium",
-                    outline: "none",
-                  }}
+                  className="dialog-input"
                 />
                 {this.state.createQuestion.length > 500 && (
-                  <span
-                    style={{ color: "red", fontSize: "12px", marginTop: "5px" }}
-                  >
+                  <span className="error">
                     Maximum length of title should be 500 character
                   </span>
                 )}
               </FormControl>
               <FormControl fullWidth>
                 <textarea
+                  className="dialog-textarea-input"
                   onChange={(e: any) => {
                     this.setState({
                       ...this.state,
@@ -264,21 +239,11 @@ class FaqChairman extends FaqChairmanController {
                   }}
                   value={this.state.createAnswer}
                   placeholder="Answer"
-                  style={{
-                    borderRadius: 4,
-                    border: "1px solid #ced4da",
-                    fontSize: 16,
-                    padding: "10px 26px 10px 12px",
-                    marginTop: "26px",
-                    height: "100px",
-                    outline: "none",
-                  }}
                 />
               </FormControl>
             </DialogContent>
-            <DialogActions style={{ flexDirection: "row" }}>
+            <DialogActions className="dialog-button-group">
               <Button
-                style={{ width: "150px" }}
                 variant="outlined"
                 onClick={() => this.handleAddQuestionModal()}
                 color="primary"
@@ -286,7 +251,6 @@ class FaqChairman extends FaqChairmanController {
                 Cancel
               </Button>
               <Button
-                style={{ width: "150px" }}
                 variant="contained"
                 onClick={() => this.createFaq()}
                 color="primary"
@@ -303,21 +267,12 @@ class FaqChairman extends FaqChairmanController {
           </Dialog>
 
           <Dialog
+            className="add-faq-dialog"
             onClose={() => this.handleEditQuestionModal()}
             open={this.state.isEditQuestionModalOpen}
           >
-            <MuiDialogTitle
-              disableTypography
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                padding: "6px 24px ",
-              }}
-            >
-              <Typography variant="h6" style={{ fontWeight: "600" }}>
-                Edit Questions
-              </Typography>
+            <MuiDialogTitle className="dialog-heading" disableTypography>
+              <Typography variant="h6">Edit Questions</Typography>
               <IconButton onClick={() => this.handleEditQuestionModal()}>
                 <CloseIcon />
               </IconButton>
@@ -325,21 +280,13 @@ class FaqChairman extends FaqChairmanController {
             <DialogContent dividers>
               <FormControl fullWidth>
                 <select
+                  className="dialog-select-input"
                   value={this.state.editCategoryId}
                   onChange={(e: any) => {
                     this.setState({
                       ...this.state,
                       editCategoryId: e.target.value,
                     });
-                  }}
-                  style={{
-                    borderRadius: 4,
-                    border: "1px solid #ced4da",
-                    fontSize: 16,
-                    padding: "15px 26px 15px 12px",
-                    fontFamily: "GothamMedium",
-                    color: "gray",
-                    background: "white",
                   }}
                 >
                   <option aria-label="None" value="">
@@ -356,6 +303,7 @@ class FaqChairman extends FaqChairmanController {
               </FormControl>
               <FormControl fullWidth>
                 <input
+                  className="dialog-input"
                   onChange={(e: any) => {
                     this.setState({
                       ...this.state,
@@ -364,26 +312,16 @@ class FaqChairman extends FaqChairmanController {
                   }}
                   value={this.state.editQuestion}
                   placeholder="Title Questions"
-                  style={{
-                    borderRadius: 4,
-                    border: "1px solid #ced4da",
-                    fontSize: 16,
-                    padding: "15px 26px 15px 12px",
-                    marginTop: "26px",
-                    fontFamily: "GothamMedium",
-                    outline: "none",
-                  }}
                 />
                 {this.state.editQuestion.length > 500 && (
-                  <span
-                    style={{ color: "red", fontSize: "12px", marginTop: "5px" }}
-                  >
+                  <span className="error">
                     Maximum length of title should be 500 character
                   </span>
                 )}
               </FormControl>
               <FormControl fullWidth>
                 <textarea
+                  className="dialog-textarea-input"
                   onChange={(e: any) => {
                     this.setState({
                       ...this.state,
@@ -392,21 +330,11 @@ class FaqChairman extends FaqChairmanController {
                   }}
                   value={this.state.editAnswer}
                   placeholder="Answer"
-                  style={{
-                    borderRadius: 4,
-                    border: "1px solid #ced4da",
-                    fontSize: 16,
-                    padding: "10px 26px 10px 12px",
-                    marginTop: "26px",
-                    height: "100px",
-                    outline: "none",
-                  }}
                 />
               </FormControl>
             </DialogContent>
-            <DialogActions style={{ flexDirection: "row" }}>
+            <DialogActions className="dialog-button-group">
               <Button
-                style={{ width: "150px" }}
                 variant="outlined"
                 onClick={() => this.handleEditQuestionModal()}
                 color="primary"
@@ -414,7 +342,6 @@ class FaqChairman extends FaqChairmanController {
                 Cancel
               </Button>
               <Button
-                style={{ width: "150px" }}
                 variant="contained"
                 onClick={() => this.editFaq()}
                 color="primary"
@@ -435,25 +362,12 @@ class FaqChairman extends FaqChairmanController {
             onClose={() => this.handleAddCategoryModal()}
             open={this.state.isAddCategoryModalOpen}
           >
-            <MuiDialogTitle
-              disableTypography
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                padding: "6px 24px ",
-              }}
-            >
-              <Typography variant="h6" style={{ fontWeight: "600" }}>
-                Add Category
-              </Typography>
+            <MuiDialogTitle className="dialog-heading" disableTypography>
+              <Typography variant="h6">Add Category</Typography>
               <IconButton onClick={() => this.handleAddCategoryModal()}>
                 <CloseIcon />
               </IconButton>
             </MuiDialogTitle>
-            {/* <DialogTitle onClose={() => this.handleAddCategoryModal()}>
-              Add Category
-            </DialogTitle> */}
             <DialogContent dividers>
               <FormControl fullWidth>
                 <input
@@ -465,20 +379,12 @@ class FaqChairman extends FaqChairmanController {
                     });
                   }}
                   placeholder="Category Title"
-                  style={{
-                    borderRadius: 4,
-                    border: "1px solid #ced4da",
-                    fontSize: 16,
-                    padding: "15px 26px 15px 12px",
-                    fontFamily: "GothamMedium",
-                    outline: "none",
-                  }}
+                  className="dialog-input"
                 />
               </FormControl>
             </DialogContent>
-            <DialogActions style={{ flexDirection: "row" }}>
+            <DialogActions className="dialog-button-group">
               <Button
-                style={{ width: "150px" }}
                 variant="outlined"
                 onClick={() => this.handleAddCategoryModal()}
                 color="primary"
@@ -487,7 +393,6 @@ class FaqChairman extends FaqChairmanController {
               </Button>
               <Button
                 disabled={this.state.categoryName.length === 0}
-                style={{ width: "150px" }}
                 variant="contained"
                 onClick={() => {
                   this.createCategory();
@@ -500,6 +405,7 @@ class FaqChairman extends FaqChairmanController {
           </Dialog>
 
           <Dialog
+            className="delete-dialog"
             fullWidth
             onClose={() => this.handleDeleteAllCategoryModal()}
             open={this.state.isDeleteAllCategoryModalOpen}
@@ -507,34 +413,22 @@ class FaqChairman extends FaqChairmanController {
             <DialogContent style={{ margin: "15px 0" }}>
               <Box textAlign="center">
                 <img
+                  className="comment-image"
                   src={CommentImage}
                   alt="comment"
-                  style={{ marginBottom: "10px" }}
                 />
-                <Typography
-                  variant="h6"
-                  style={{ fontWeight: "600", marginBottom: "15px" }}
-                >
+                <Typography variant="h6">
                   Do you want to delete the category?
                 </Typography>
-                <Typography
-                  variant="body1"
-                  style={{ color: "gray", marginBottom: "0px" }}
-                >
+                <Typography variant="body1" style={{ marginBottom: "0px" }}>
                   Are you sure want to delete the category "
                   {this.state.selectedCategoryName}"?
                 </Typography>
-                <Typography
-                  variant="body1"
-                  style={{ color: "gray", marginBottom: "15px" }}
-                >
+                <Typography variant="body1" style={{ marginBottom: "15px" }}>
                   All FAQ related this category will be deleted permanently.
                 </Typography>
-                <DialogActions
-                  style={{ flexDirection: "row", justifyContent: "center" }}
-                >
+                <DialogActions className="dialog-button-group">
                   <Button
-                    style={{ width: "200px" }}
                     variant="outlined"
                     onClick={() => this.handleDeleteAllCategoryModal()}
                     color="primary"
@@ -542,7 +436,6 @@ class FaqChairman extends FaqChairmanController {
                     No, Don't Delete
                   </Button>
                   <Button
-                    style={{ width: "200px" }}
                     variant="contained"
                     onClick={() => {
                       this.deleteCategory();
@@ -557,6 +450,7 @@ class FaqChairman extends FaqChairmanController {
           </Dialog>
 
           <Dialog
+            className="delete-dialog"
             fullWidth
             onClose={() => this.handleDeleteQuestionModal()}
             open={this.state.isDeleteQuestionModalOpen}
@@ -564,27 +458,18 @@ class FaqChairman extends FaqChairmanController {
             <DialogContent style={{ margin: "15px 0" }}>
               <Box textAlign="center">
                 <img
+                  className="comment-image"
                   src={CommentImage}
                   alt="comment"
-                  style={{ marginBottom: "10px" }}
                 />
-                <Typography
-                  variant="h6"
-                  style={{ fontWeight: "600", marginBottom: "15px" }}
-                >
+                <Typography variant="h6">
                   Do you want to delete the question?
                 </Typography>
-                <Typography
-                  variant="body1"
-                  style={{ color: "gray", marginBottom: "15px" }}
-                >
+                <Typography variant="body1" style={{ marginBottom: "15px" }}>
                   Are you sure want to delete the question?
                 </Typography>
-                <DialogActions
-                  style={{ flexDirection: "row", justifyContent: "center" }}
-                >
+                <DialogActions className="dialog-button-group">
                   <Button
-                    style={{ width: "200px" }}
                     variant="outlined"
                     onClick={() => this.handleDeleteQuestionModal()}
                     color="primary"
@@ -592,7 +477,6 @@ class FaqChairman extends FaqChairmanController {
                     No, Don't Delete
                   </Button>
                   <Button
-                    style={{ width: "200px" }}
                     variant="contained"
                     onClick={() => {
                       this.deleteFaq();
