@@ -7,7 +7,6 @@ import {
   Button,
   Container,
   IconButton,
-  // Menu,
   Link,
   MenuItem,
   Typography,
@@ -40,7 +39,9 @@ import UploadImage from "../assets/upload.png";
 import DeleteImage from "../assets/delete.png";
 import ShareImage from "../assets/share.png";
 import DownloadImage from "../assets/download.png";
-import { MenuBookTwoTone } from "@material-ui/icons";
+
+import { Menu } from "@szhsin/react-menu";
+import "@szhsin/react-menu/dist/core.css";
 
 class DocumentListChairman extends DocumentListChairmanController {
   constructor(props: Props) {
@@ -78,7 +79,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                       <Typography variant="h5" className="sub-heading">
                         {this.state.docName}
                       </Typography>
-                      {this.state.docName === "resolutions" ? (
+                      {this.state.docName.toLowerCase() === "resolutions" ? (
                         <Button
                           variant="contained"
                           onClick={() => this.handleAddResolutionsModal()}
@@ -98,19 +99,29 @@ class DocumentListChairman extends DocumentListChairmanController {
                 </Box>
                 <Box
                   className={`document-box ${
-                    this.state.docName === "resolutions" ? "resolutions" : ""
+                    this.state.docName.toLowerCase() === "resolutions"
+                      ? "resolutions"
+                      : ""
                   }`}
                 >
-                  {this.state.docName === "resolutions" ? (
+                  {this.state.docName.toLowerCase() === "resolutions" ? (
                     <Grid container spacing={2}>
                       <Grid item xs={12} md={6} lg={4}>
                         <Card className="card-item">
                           <div className="heading">
                             <h4>Resolution Title</h4>
                             <div className="menu">
-                              <IconButton onClick={() => {}}>
-                                <MoreVertIcon />
-                              </IconButton>
+                              <Menu
+                                menuButton={
+                                  <IconButton>
+                                    <MoreVertIcon />
+                                  </IconButton>
+                                }
+                              >
+                                <MenuItem>Download</MenuItem>
+                                <MenuItem>Delete</MenuItem>
+                                <MenuItem>Share</MenuItem>
+                              </Menu>
                             </div>
                           </div>
                           <div className="res-info">
@@ -140,105 +151,17 @@ class DocumentListChairman extends DocumentListChairmanController {
                           <div className="heading">
                             <h4>Resolution Title</h4>
                             <div className="menu">
-                              <IconButton onClick={() => {}}>
-                                <MoreVertIcon />
-                              </IconButton>
-                            </div>
-                          </div>
-                          <div className="res-info">
-                            <div className="info-item">
-                              <p>Date & Time</p>
-                              <span>Date & Time</span>
-                            </div>
-                            <div className="info-item">
-                              <p>Building</p>
-                              <span>Building</span>
-                            </div>
-                          </div>
-                          <div className="item">
-                            <div className="item-title">
-                              <img src={Document} />
-                              <h6>Policy</h6>
-                            </div>
-                            <div className="icons">
-                              <img src={ShareImage} />
-                              <img src={DownloadImage} />
-                            </div>
-                          </div>
-                        </Card>
-                      </Grid>
-                      <Grid item xs={12} md={6} lg={4}>
-                        <Card className="card-item">
-                          <div className="heading">
-                            <h4>Resolution Title</h4>
-                            <div className="menu">
-                              <IconButton onClick={() => {}}>
-                                <MoreVertIcon />
-                              </IconButton>
-                            </div>
-                          </div>
-                          <div className="res-info">
-                            <div className="info-item">
-                              <p>Date & Time</p>
-                              <span>Date & Time</span>
-                            </div>
-                            <div className="info-item">
-                              <p>Building</p>
-                              <span>Building</span>
-                            </div>
-                          </div>
-                          <div className="item">
-                            <div className="item-title">
-                              <img src={Document} />
-                              <h6>Policy</h6>
-                            </div>
-                            <div className="icons">
-                              <img src={ShareImage} />
-                              <img src={DownloadImage} />
-                            </div>
-                          </div>
-                        </Card>
-                      </Grid>
-                      <Grid item xs={12} md={6} lg={4}>
-                        <Card className="card-item">
-                          <div className="heading">
-                            <h4>Resolution Title</h4>
-                            <div className="menu">
-                              <IconButton onClick={() => {}}>
-                                <MoreVertIcon />
-                              </IconButton>
-                            </div>
-                          </div>
-                          <div className="res-info">
-                            <div className="info-item">
-                              <p>Date & Time</p>
-                              <span>Date & Time</span>
-                            </div>
-                            <div className="info-item">
-                              <p>Building</p>
-                              <span>Building</span>
-                            </div>
-                          </div>
-                          <div className="item">
-                            <div className="item-title">
-                              <img src={Document} />
-                              <h6>Policy</h6>
-                            </div>
-                            <div className="icons">
-                              <img src={ShareImage} />
-                              <img src={DownloadImage} />
-                            </div>
-                          </div>
-                        </Card>
-                      </Grid>
-                      <Grid item xs={12} md={6} lg={4}>
-                        <Card className="card-item">
-                          <div className="heading">
-                            <h4>Resolution Title</h4>
-                            <div className="menu">
-                              <IconButton onClick={() => {}}>
-                                <MoreVertIcon />
-                              </IconButton>
+                              <Menu
+                                menuButton={
+                                  <IconButton>
+                                    <MoreVertIcon />
+                                  </IconButton>
+                                }
+                              >
+                                <MenuItem>Download</MenuItem>
+                                <MenuItem>Delete</MenuItem>
+                                <MenuItem>Share</MenuItem>
+                              </Menu>
                             </div>
                           </div>
                           <div className="res-info">
@@ -273,9 +196,17 @@ class DocumentListChairman extends DocumentListChairmanController {
                             <h4>Policy</h4>
                           </div>
                           <div className="menu">
-                            <IconButton onClick={() => {}}>
-                              <MoreVertIcon />
-                            </IconButton>
+                            <Menu
+                              menuButton={
+                                <IconButton>
+                                  <MoreVertIcon />
+                                </IconButton>
+                              }
+                            >
+                              <MenuItem>Download</MenuItem>
+                              <MenuItem>Delete</MenuItem>
+                              <MenuItem>Share</MenuItem>
+                            </Menu>
                           </div>
                         </Box>
                       </Grid>
@@ -285,7 +216,19 @@ class DocumentListChairman extends DocumentListChairmanController {
                             <img src={Document} />
                             <h4>Policy</h4>
                           </div>
-                          <div className="menu">ss</div>
+                          <div className="menu">
+                            <Menu
+                              menuButton={
+                                <IconButton>
+                                  <MoreVertIcon />
+                                </IconButton>
+                              }
+                            >
+                              <MenuItem>Download</MenuItem>
+                              <MenuItem>Delete</MenuItem>
+                              <MenuItem>Share</MenuItem>
+                            </Menu>
+                          </div>
                         </Box>
                       </Grid>
                     </Grid>

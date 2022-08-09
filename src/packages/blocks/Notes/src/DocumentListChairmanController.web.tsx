@@ -73,7 +73,7 @@ export default class DocumentListChairmanController extends BlockComponent<
     const document_name = this.props.navigation.getParam("name");
     this.setState({
       ...this.state,
-      docName: document_name.toLowerCase(),
+      docName: document_name,
     });
   }
 
