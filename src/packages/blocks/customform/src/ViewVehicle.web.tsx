@@ -72,7 +72,7 @@ class ViewVeichle extends VeichleListController {
                     </div>
                     <div className="card-content">
 
-                      <img src="https://img.freepik.com/premium-photo/generic-brandless-modern-sport-car-with-fire-smoke_110488-1759.jpg" />
+                      <img src="https://img.freepik.com/premium-photo/generic-brandless-modern-sport-car-with-fire-smoke_110488-1759.jpg" style={{marginRight:5}} />
                       <div className="content">
                         <p className="title">
                           {item.attributes.company_name}
@@ -90,7 +90,7 @@ class ViewVeichle extends VeichleListController {
                           <img src={userBlue} width='25' height='25' style={{ marginRight: 10 }} />
                           <p>   Owner Name :</p>
                         </div>
-                        <div style={{ marginLeft: 35, marginBottom: 20 }}>
+                        <div style={{ marginLeft: 35, marginBottom: 20, fontWeight: 'bold' }}>
 
                           {item.attributes.owner_name}
                         </div>
@@ -101,7 +101,7 @@ class ViewVeichle extends VeichleListController {
                           <img src={CarBlue} width='25' height='25' style={{ marginRight: 10 }} />
                           <p> Car Manufacturer:</p>
                         </div>
-                        <div style={{ marginLeft: 35, marginBottom: 20 }}>
+                        <div style={{ marginLeft: 35, marginBottom: 20, fontWeight: 'bold' }}>
 
                           {item.attributes.company_name}
                         </div>
@@ -112,7 +112,7 @@ class ViewVeichle extends VeichleListController {
                           <img src={List} width='25' height='25' style={{ marginRight: 10 }} />
                           <p> Plate Number:</p>
                         </div>
-                        <div style={{ marginLeft: 35, marginBottom: 20 }}>
+                        <div style={{ marginLeft: 35, marginBottom: 20, fontWeight: 'bold' }}>
 
                           {item.attributes.plate_number}
                         </div>
@@ -123,7 +123,7 @@ class ViewVeichle extends VeichleListController {
                           <img src={paletteBlue} width='25' height='25' style={{ marginRight: 10 }} />
                           <p> Car Color:</p>
                         </div>
-                        <div style={{ marginLeft: 35, marginBottom: 20 }}>
+                        <div style={{ marginLeft: 35, marginBottom: 20,fontWeight:'bold' }}>
 
                           {item.attributes.color}
                         </div>
