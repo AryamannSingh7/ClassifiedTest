@@ -23,6 +23,7 @@
     "@react-native-community/checkbox": "file:./packages/blocks/core/node_modules/@react-native-community/checkbox",
     "@react-native-community/netinfo": "file:./packages/blocks/core/node_modules/@react-native-community/netinfo",
     "@react-navigation/native": "file:./packages/blocks/core/node_modules/@react-navigation/native",
+    "@szhsin/react-menu": "^2.1.0",
     "@unimodules/core": "file:./packages/blocks/core/node_modules/@unimodules/core",
     "@unimodules/react-native-adapter": "file:./packages/blocks/core/node_modules/@unimodules/react-native-adapter",
     "dompurify": "^2.3.10",

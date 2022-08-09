@@ -1,0 +1,189 @@
+.add-document .image-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border: 2px dashed lightgray;
+  margin-top: 20px;
+  padding: 50px 20px;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+.dialog-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 24px;
+}
+
+.dialog-heading h6 {
+  font-weight: 600;
+}
+
+.dialog-input {
+  padding: 15px 26px 15px 12px;
+  border: 1px solid lightgray;
+  font-size: 16px;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  /* font-family: "GothamMedium"; */
+  outline: none;
+  color: #494949;
+}
+
+.add-faq-dialog .dialog-input {
+  margin-top: 26px;
+}
+
+.add-faq-dialog .error {
+  margin-top: 5px;
+  color: red;
+  font-size: 12px;
+}
+
+.dialog-select-input {
+  border-radius: 5px;
+  border: 1px solid lightgray;
+  font-size: 16px;
+  padding: 15px 26px 15px 12px;
+  /* font-family: "GothamMedium"; */
+  color: #494949;
+  background-color: white;
+}
+
+.dialog-textarea-input {
+  border-radius: 5px;
+  border: 1px solid lightgray;
+  font-size: 16px;
+  padding: 15px 26px 15px 12px;
+  /* font-family: "GothamMedium"; */
+  color: #494949;
+  background-color: white;
+  height: 100px;
+  outline: none;
+}
+
+.add-faq-dialog .dialog-textarea-input {
+  margin-top: 26px;
+}
+
+.dialog-button-group {
+  flex-direction: row;
+}
+
+.delete-dialog .comment-image {
+  margin-bottom: 10px;
+}
+
+.delete-dialog h6 {
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.delete-dialog p {
+  color: gray;
+}
+
+.dialog-button-group button {
+  width: 150px;
+}
+
+.delete-document .MuiDialogContent-root {
+  margin: 20px;
+}
+
+.delete-document .MuiDialogContent-root img {
+  margin-bottom: 20px;
+}
+
+.delete-document h6 {
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.delete-document p {
+  margin-bottom: 15px;
+  color: gray;
+}
+
+.delete-document .dialog-button-group,
+.delete-dialog .dialog-button-group {
+  flex-direction: row;
+  justify-content: center;
+}
+
+.delete-document .dialog-button-group button,
+.delete-dialog .dialog-button-group button {
+  width: 200px;
+}
+
+.resolutions .choose-meeting {
+  border: 1px dashed #2b6fec;
+  color: #2b6fec;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.resolutions .change-meeting {
+  border: 1px solid #2b6fec;
+  color: #2b6fec;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.resolutions .change-meeting span:first-child {
+  color: black;
+}
+
+.resolutions .change-meeting span:last-child {
+  cursor: pointer;
+}
+
+.select-meeting .list-heading span {
+  font-weight: 600;
+}
+
+.select-meeting .dialog-button-group {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 16px 24px;
+}
+
+.select-meeting .dialog-button-group .selected-meeting {
+  font-weight: 600;
+}
+
+.select-meeting .dialog-button-group .button-group button {
+  margin-left: 10px;
+}
+
+.szh-menu-container ul {
+  left: -100px !important;
+  top: -20px !important;
+}
+
+.szh-menu-container ul li {
+  padding: 8px 32px;
+}

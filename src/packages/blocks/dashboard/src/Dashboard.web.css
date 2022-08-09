@@ -1,91 +1,86 @@
-.yearTab .MuiInput-underline::before{
-    border-bottom: none !important;
+.yearTab .MuiInput-underline::before {
+  border-bottom: none !important;
 }
 
 .yearSelection .MuiInput-underline:hover:not(.Mui-disabled):before {
-    border-bottom: none !important;
+  border-bottom: none !important;
 }
 
 .yearSelection .MuiInput-underline:hover:not(.Mui-disabled):before {
-    border-bottom: none !important;
+  border-bottom: none !important;
 }
 
-.AccordinoList .MuiPaper-elevation1{
-    box-shadow: none !important;
+.AccordinoList .MuiPaper-elevation1 {
+  box-shadow: none !important;
 }
-.AccordinoList .MuiPaper-root{
-    background-color: transparent !important;
+.AccordinoList .MuiPaper-root {
+  background-color: transparent !important;
 }
-.AccordinoList .MuiAccordion-root{
-    position: unset !important;
+.AccordinoList .MuiAccordion-root {
+  position: unset !important;
 }
 
-.AccordinoList .MuiButtonBase-root{
-    display: flex;
-    padding: 0 15px;
-    color: black;
+.AccordinoList .MuiButtonBase-root {
+  display: flex;
+  padding: 0 15px;
+  color: black;
 }
-.AccordinoList .MuiTypography-body1{
-    color: black;
+.AccordinoList .MuiTypography-body1 {
+  color: black;
 }
 
 /* .AccordinoList .MuiTypography-body1 :hover{
     cursor: pointer;
 } */
-.SingleLink{
-    display: flex;
-    padding: 0 15px;
-    gap: 15px;
-    margin-top:40px;
+.SingleLink {
+  display: flex;
+  padding: 0 15px;
+  gap: 15px;
+  margin-top: 20px;
 }
-.SingleLink .SingleLinkSize{
-    font-size:14px;
+.SingleLink .SingleLinkSize {
+  font-size: 14px;
 }
-.SingleLink:hover{
-    cursor: pointer;
-    
+.SingleLink:hover {
+  cursor: pointer;
 }
 /* .SingleLink .SingleLinkSize:hover{
     color: red;
 } */
-.AccordinoList .ListItem{
-    margin-top:25px;
+.AccordinoList .ListItem {
+  margin-top: 20px;
 }
 
-.AccordinoList .ListItemText{
-    margin-left:15px;
-    font-size:14px;
+.AccordinoList .ListItemText {
+  margin-left: 15px;
+  font-size: 14px;
 }
 
 .SideBar {
-    background: #f9f6f6;
-    position:relative;
-    padding-bottom: 150px;
+  background: #f9f6f6;
+  position: relative;
+  padding-bottom: 150px;
 }
 
-.SideBarBottom{
-    display: flex;
-    justify-content: space-between;
-    align-items:last baseline;
-    gap: 60px;
-    position: absolute;
-    bottom: 0;
-    padding-bottom: 20px;
-    margin-left:20px;
-    margin-right:25px;
+.SideBarBottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: last baseline;
+  gap: 60px;
+  position: absolute;
+  bottom: 0;
+  padding-bottom: 20px;
+  margin-left: 20px;
+  margin-right: 25px;
 }
 
-.AccordinoList .PremimumPlan{
-    background: #ff8100;
-    padding: 8px;
-    border-radius: 5px;
-    margin-right: 8px;
+.AccordinoList .PremimumPlan {
+  background: #ff8100;
+  padding: 8px;
+  border-radius: 5px;
+  margin-right: 8px;
 }
 
 .AccordinoList .MuiAccordionSummary-expandIcon.Mui-expanded {
-    transform: rotate(90deg);
+  transform: rotate(90deg);
 }
-
-
-
-
