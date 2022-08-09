@@ -128,6 +128,8 @@ export default class FaqChairmanController extends BlockComponent<
           catagoriesList: responseJson.data,
           selectedCategoryId:
             responseJson.data.length > 0 ? responseJson.data[0].id : "",
+          createCategoryId:
+            responseJson.data.length > 0 ? responseJson.data[0].id : "",
           selectedCategoryName:
             responseJson.data.length > 0
               ? responseJson.data[0].attributes.name
@@ -171,7 +173,6 @@ export default class FaqChairmanController extends BlockComponent<
             selectedCategoryId: responseJson.data.id,
             selectedCategoryName: responseJson.data.attributes.name,
             faqList: responseJson.data.attributes.FAQ,
-            categoryName: "",
           },
           () => {
             this.handleAddCategoryModal();
@@ -302,9 +303,6 @@ export default class FaqChairmanController extends BlockComponent<
         this.setState(
           {
             ...this.state,
-            createCategoryId: "",
-            createQuestion: "",
-            createAnswer: "",
           },
           () => {
             this.getCategoryByCategoryId();
@@ -663,6 +661,8 @@ export default class FaqChairmanController extends BlockComponent<
   handleAddQuestionModal = () => {
     this.setState({
       ...this.state,
+      createQuestion: "",
+      createAnswer: "",
       isAddQuestionModalOpen: !this.state.isAddQuestionModalOpen,
     });
   };
@@ -677,6 +677,7 @@ export default class FaqChairmanController extends BlockComponent<
   handleAddCategoryModal = () => {
     this.setState({
       ...this.state,
+      categoryName: "",
       isAddCategoryModalOpen: !this.state.isAddCategoryModalOpen,
     });
   };

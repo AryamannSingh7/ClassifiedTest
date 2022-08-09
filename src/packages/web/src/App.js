@@ -41,7 +41,7 @@ import FormApprovalWorkflow from "../../blocks/FormApprovalWorkflow/src/FormAppr
 import AdminConsole3 from "../../blocks/AdminConsole3/src/AdminConsole3";
 import OTPInputAuth from "../../blocks/otp-input-confirmation/src/OTPInputAuth";
 import Maps from "../../blocks/maps/src/Maps";
-import Notes from "../../blocks/Notes/src/Notes";
+// import Notes from "../../blocks/Notes/src/Notes";
 import EmailAccountLoginBlock from "../../blocks/email-account-login/src/EmailAccountLoginBlock";
 import TaxCalculator from "../../blocks/TaxCalculator/src/TaxCalculator";
 import Pushnotifications from "../../blocks/pushnotifications/src/Pushnotifications";
@@ -140,12 +140,15 @@ import IncidentManagementDetail from "../../blocks/ContentManagement/src/Inciden
 import NeighboursDetails from '../../blocks/search/src/NeighboursDetails.web';
 import NeighboursListing from '../../blocks/search/src/NeighboursListing.web';
 
-import FaqChairman from '../../blocks/contactus/src/FaqChairman.web';
-import FaqOwner from '../../blocks/contactus/src/FaqOwner.web';
-import FaqResident from '../../blocks/contactus/src/FaqResident.web';
-import ContactUsChairman from '../../blocks/contactus/src/ContactUs.web';
-import SubscriptionDetail from '../../blocks/contactus/src/SubscriptionDetails.web';
+import FaqChairman from "../../blocks/contactus/src/FaqChairman.web";
+import FaqOwner from "../../blocks/contactus/src/FaqOwner.web";
+import FaqResident from "../../blocks/contactus/src/FaqResident.web";
+import ContactUsChairman from "../../blocks/contactus/src/ContactUs.web";
+import SubscriptionDetail from "../../blocks/contactus/src/SubscriptionDetails.web";
 
+import DocumentChairman from "../../blocks/Notes/src/DocumentChairman.web";
+import DocumentListChairman from "../../blocks/Notes/src/DocumentListChairman.web";
+import DocumentViewChairman from "../../blocks/Notes/src/DocumentViewChairman.web";
 
 const routeMap = {
   //done
@@ -411,7 +414,7 @@ const routeMap = {
     component: ResidentDashboard,
     path: '/ResidentDashboard'
   },
-  // Faq
+  // Chairman Help
   FaqChairman: {
     component: FaqChairman,
     path: '/FaqChairman'
@@ -432,7 +435,22 @@ const routeMap = {
     component: SubscriptionDetail,
     path: '/SubscriptionDetail'
   },
-
+  // Chairman Document
+  DocumentChairman: {
+    component: DocumentChairman,
+    path: '/DocumentChairman',
+    exact: true
+  },
+  DocumentListChairman: {
+    component: DocumentListChairman,
+    path: '/DocumentChairman/:name',
+    exact: true
+  },
+  DocumentViewChairman: {
+    component: DocumentViewChairman,
+    path: '/DocumentChairman/:name/:id/view',
+    exact: true
+  },
   Customisableusersubscriptions: {
     component: Customisableusersubscriptions,
     path: '/Customisableusersubscriptions'
@@ -517,10 +535,10 @@ const routeMap = {
     component: Maps,
     path: '/Maps'
   },
-  Notes: {
-    component: Notes,
-    path: '/Notes'
-  },
+  // Notes: {
+  //   component: Notes,
+  //   path: '/Notes'
+  // },
   EmailAccountLoginBlock: {
     component: EmailAccountLoginBlock,
     path: '/EmailAccountLoginBlock'
@@ -772,10 +790,10 @@ const routeMap = {
     component: Maps,
     path: '/Maps'
   },
-  Notes: {
-    component: Notes,
-    path: '/Notes'
-  },
+  // Notes: {
+  //   component: Notes,
+  //   path: '/Notes'
+  // },
   TaxCalculator: {
     component: TaxCalculator,
     path: '/TaxCalculator'

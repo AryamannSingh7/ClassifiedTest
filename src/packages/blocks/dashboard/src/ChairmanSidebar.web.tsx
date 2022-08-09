@@ -85,6 +85,7 @@ class ChairmanSidebar extends DashboardController {
 
           {ItemsList.map((val, index) => (
             <Accordion
+              key={index}
               expanded={this.state.expanded == `panel + ${index}`}
               onChange={this.handleAccordinoChange(`panel + ${index}`)}
             >
@@ -117,16 +118,40 @@ class ChairmanSidebar extends DashboardController {
               <Typography className="SingleLinkSize">Poll/Survey</Typography>
             </div>
           </Box>
-          <Box className="SingleLink">
-            <Typography className="SingleLinkSize">
-              <DashboardOutlinedIcon />
-            </Typography>
-            <div onClick={() => this.props.history.push("/Reports")}>
-              <Typography className="SingleLinkSize">
+          {/*  Documents & Reports */}
+          <Accordion
+            expanded={this.state.expanded == `panel4`}
+            onChange={this.handleAccordinoChange(`panel4`)}
+          >
+            <AccordionSummary
+              expandIcon={
+                <ArrowForwardIosOutlinedIcon
+                  style={{ width: 16, height: 16 }}
+                />
+              }
+              style={dashBoard.ListItem}
+            >
+              <Typography>
+                <DashboardOutlinedIcon />
+              </Typography>
+              <Typography className="ListItemText">
                 Documents & Reports
               </Typography>
-            </div>
-          </Box>
+            </AccordionSummary>
+            <AccordionDetails
+              style={dashBoard.Item}
+              onClick={() => this.props.history.push("/DocumentChairman")}
+            >
+              <Typography variant="body2">Document</Typography>
+            </AccordionDetails>
+            <AccordionDetails
+              style={dashBoard.Item}
+              onClick={() => this.props.history.push("/ReportChairman")}
+            >
+              <Typography variant="body2">Report</Typography>
+            </AccordionDetails>
+          </Accordion>
+          {/* Chat */}
           <Box className="SingleLink">
             <Typography className="SingleLinkSize">
               <DashboardOutlinedIcon />
@@ -135,7 +160,7 @@ class ChairmanSidebar extends DashboardController {
               <Typography className="SingleLinkSize">Chat</Typography>
             </div>
           </Box>
-
+          {/* Help */}
           <Accordion
             expanded={this.state.expanded == `panel3`}
             onChange={this.handleAccordinoChange(`panel3`)}
@@ -146,8 +171,6 @@ class ChairmanSidebar extends DashboardController {
                   style={{ width: 16, height: 16 }}
                 />
               }
-              aria-controls={"panel3bh-content"}
-              id={"panel3bh-header"}
               style={dashBoard.ListItem}
             >
               <Typography>
@@ -176,14 +199,6 @@ class ChairmanSidebar extends DashboardController {
               <Typography variant="body2">Contact Us</Typography>
             </AccordionDetails>
           </Accordion>
-          {/* <Box className="SingleLink">
-            <Typography className="SingleLinkSize">
-              <DashboardOutlinedIcon />
-            </Typography>
-            <div onClick={() => this.props.history.push("/Help")}>
-              <Typography className="SingleLinkSize">Help</Typography>
-            </div>
-          </Box> */}
         </Box>
 
         <Box className="SideBarBottom">
@@ -218,7 +233,7 @@ const dashBoard = {
   },
   ListItem: {
     // color: "black",
-    marginTop: 25,
+    marginTop: "20px",
   },
   ListItemText: {
     marginLeft: 15,
