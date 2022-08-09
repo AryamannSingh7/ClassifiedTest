@@ -43,15 +43,15 @@ class NewRequest extends VeichleListController {
                 <Box className="logo-block common-top-padding" display={{ xs: 'none', md: 'flex' }}>
                   <Link href="/EmailAccountLogin">
                     {/* <img src={Building_Logo} className="head-logo" alt="" /> */}
-                    <h4>Building Name</h4>
+                    {/* <h4>Building Name</h4> */}
                   </Link>
                 </Box>
                 <Box className="main-content-block">
                   <Box className="reg-content-block">
                     <Box className="header-block chairmanHeaderBlock">
                       {/* <img src={Tenant_Logo} className="tenant-logo" alt="Tenant Logo" /> */}
-                      <img src={CarFront} className="bank-logo" alt="Tenant Logo" />
-                      <h1>Vehicle Request
+                      <img src={CarFront} className="bank-logo" style={{fontWeight:'bold'}} alt="Tenant Logo" />
+                      <h1 style={{ fontWeight: 'bold' }}>Vehicle Request
                         Added</h1>
                       <h6>Your new vehicle request added successfully.
                         Request has been sent to the building/complex manager for approval. You will be notified when your request is approved</h6>

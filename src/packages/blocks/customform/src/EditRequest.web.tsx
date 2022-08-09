@@ -15,7 +15,7 @@ import {
 } from "@material-ui/core";
 
 //resources
-import { Building1, Delete_Icon, Landing_Banner, request, Tick } from "./assets";
+import { Building1, Delete_Icon, info, Landing_Banner, request, Tick } from "./assets";
 import { withRouter } from 'react-router';
 import { Formik, Form, Field } from "formik";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
@@ -43,15 +43,15 @@ class EditRequest extends VeichleListController {
                 <Box className="logo-block common-top-padding" display={{ xs: 'none', md: 'flex' }}>
                   <Link href="/EmailAccountLogin">
                     {/* <img src={Building_Logo} className="head-logo" alt="" /> */}
-                    <h4>Building Name</h4>
+                    {/* <h4>Building Name</h4> */}
                   </Link>
                 </Box>
                 <Box className="main-content-block">
                   <Box className="reg-content-block">
                     <Box className="header-block chairmanHeaderBlock">
                       {/* <img src={Tenant_Logo} className="tenant-logo" alt="Tenant Logo" /> */}
-                      <img src={Tick} className="bank-logo" alt="Tenant Logo" />
-                      <h1>Edited Details
+                      <img src={info} className="bank-logo" alt="Tenant Logo" />
+                      <h1 style={{ fontWeight: 'bold' }}>Edited Details
                         Request Sent</h1>
                       <h6>Your edited details request has been sent to manager for review. Thank You!</h6>
                     </Box>
