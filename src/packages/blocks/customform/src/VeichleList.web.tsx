@@ -59,7 +59,7 @@ class VeichleList extends VeichleListController {
               {
                 this.state.allVehcile.length>0 ?
                 <>
-                  <Grid container style={{ height:'79vh'}}>
+                  <Grid container style={{ height:'79vh',display:'block'}}>
                       {
                         this.state.allVehcile.map((item,i)=><>
                           <Grid xs={12} >
