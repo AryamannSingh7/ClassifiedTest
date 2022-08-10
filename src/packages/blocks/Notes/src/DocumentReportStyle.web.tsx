@@ -48,6 +48,7 @@ export const DocumentReportStyleWeb: any = {
       fontWeight: "600",
       fontSize: "16px",
       marginLeft: "10px",
+      textTransform: "capitalize",
     },
     "& .document-box .item button.color-btn": {
       padding: "5px 11px",
@@ -57,7 +58,7 @@ export const DocumentReportStyleWeb: any = {
       background: "#FEF9F3",
       color: "#FD9048",
     },
-    "& .document-box a": {
+    "& .document-box a, & .navigation a": {
       textDecoration: "none !important",
     },
     "& .document-box iframe": {
@@ -106,6 +107,64 @@ export const DocumentReportStyleWeb: any = {
     "& .document-box.resolutions .item": {
       minHeight: "20px",
       marginTop: "15px",
+    },
+    "& .szh-menu-container ul li a": {
+      textDecoration: "none",
+      color: "black",
+      fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+      // fontWeight: "bold",
+    },
+  },
+  personalDocument: {
+    "& .menu": {
+      display: "flex",
+      alignItems: "center",
+      fontWeight: "600",
+      cursor: "pointer",
+      marginBottom: "18px",
+      background: "#FFFFFF",
+      padding: "10px 20px",
+    },
+    "& .right-image": {
+      padding: "25px 60px",
+    },
+    "& .content-area": {
+      overflowY: "auto",
+      overflowX: "hidden",
+      height: "85vh",
+    },
+    "& .document-box .item": {
+      minHeight: "34px",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      flexDirection: "row",
+      padding: 15,
+      borderRadius: 10,
+      // border: "2px solid lightgray",
+      background: "white",
+    },
+    "& .document-box .item .heading": {
+      display: "flex",
+      alignItems: "center",
+      flexDirection: "row",
+    },
+    "& .document-box .item .heading h4": {
+      fontWeight: "600",
+      fontSize: "16px",
+      marginLeft: "10px",
+      textTransform: "capitalize",
+    },
+    "& .document-box .item button.color-btn": {
+      padding: "5px 11px",
+      minWidth: "60px",
+      borderRadius: "25px",
+      fontWeight: "600",
+      background: "#FEF9F3",
+      color: "#FD9048",
+    },
+    "& .document-box a": {
+      textDecoration: "none !important",
     },
   },
 };

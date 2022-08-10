@@ -149,6 +149,8 @@ import SubscriptionDetail from "../../blocks/contactus/src/SubscriptionDetails.w
 import DocumentChairman from "../../blocks/Notes/src/DocumentChairman.web";
 import DocumentListChairman from "../../blocks/Notes/src/DocumentListChairman.web";
 import DocumentViewChairman from "../../blocks/Notes/src/DocumentViewChairman.web";
+import PersonalDocument from "../../blocks/Notes/src/PersonalDocument.web";
+import PersonalDocumentList from "../../blocks/Notes/src/PersonalDocumentList.web";
 
 const routeMap = {
   //done
@@ -449,6 +451,17 @@ const routeMap = {
   DocumentViewChairman: {
     component: DocumentViewChairman,
     path: '/DocumentChairman/:name/:id/view',
+    exact: true
+  },
+  // Owner Personal Document
+  PersonalDocumentOwner: {
+    component: PersonalDocument,
+    path: '/PersonalDocument',
+    exact: true
+  },
+  PersonalDocumentList: {
+    component: PersonalDocumentList,
+    path: '/PersonalDocument/:name',
     exact: true
   },
   Customisableusersubscriptions: {

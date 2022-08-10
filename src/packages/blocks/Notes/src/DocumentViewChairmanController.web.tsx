@@ -5,6 +5,7 @@ import MessageEnum, {
   getName,
 } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
+import { useRef } from "react";
 
 // Customizable Area Start
 // Customizable Area End
@@ -21,7 +22,10 @@ export interface Props {
 
 interface S {
   // Customizable Area Start
-  docName: string;
+  documentId: string;
+  documentType: string;
+
+  document: any;
   // Customizable Area End
 }
 
@@ -34,6 +38,8 @@ export default class DocumentViewChairmanController extends BlockComponent<
   S,
   SS
 > {
+  GetDocumentCallId: any;
+
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
@@ -45,7 +51,10 @@ export default class DocumentViewChairmanController extends BlockComponent<
     ];
 
     this.state = {
-      docName: "",
+      documentId: "",
+      documentType: "",
+
+      document: null,
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -53,18 +62,85 @@ export default class DocumentViewChairmanController extends BlockComponent<
 
   async receive(from: string, message: Message) {
     // Customizable Area Start
+    // Get Document
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.GetDocumentCallId !== null &&
+      this.GetDocumentCallId ===
+        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.GetDocumentCallId = null;
+
+      var responseJson = message.getData(
+        getName(MessageEnum.RestAPIResponceSuccessMessage)
+      );
+
+      if (responseJson.data) {
+        this.setState({
+          ...this.state,
+          document: responseJson.data,
+        });
+      }
+
+      var errorReponse = message.getData(
+        getName(MessageEnum.RestAPIResponceErrorMessage)
+      );
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        this.parseApiErrorResponse(responseJson);
+      }
+      this.parseApiCatchErrorResponse(errorReponse);
+    }
     // Customizable Area End
   }
 
   // Customizable Area Start
   async componentDidMount(): Promise<void> {
-    const document_name = this.props.navigation.getParam("name");
-    this.setState({
-      ...this.state,
-      docName: document_name,
-    });
+    const documentId = this.props.navigation.getParam("id");
+    const documentType = this.props.navigation.getParam("name");
+    this.setState(
+      {
+        ...this.state,
+        documentId: documentId,
+        documentType: documentType,
+      },
+      () => {
+        this.getDocument();
+      }
+    );
   }
 
-  // Get FAQ Category API
+  onDocumentLoadSuccess = () => {};
+
+  // Get Document API
+  getDocument = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.GetDocumentCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `${configJSON.GetDocumentAPIEndPoint}/${this.state.documentId}`
+    );
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.apiMethodTypeGet
+    );
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
   // Customizable Area End
 }

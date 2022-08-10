@@ -62,7 +62,11 @@ class DocumentChairman extends DocumentChairmanController {
                             <img src={Document} />
                             <h4>Policy</h4>
                           </div>
-                          <Button className="color-btn">04</Button>
+                          {this.state.policy > 0 && (
+                            <Button className="color-btn">
+                              {this.state.policy}
+                            </Button>
+                          )}
                         </Box>
                       </Link>
                     </Grid>
@@ -73,7 +77,11 @@ class DocumentChairman extends DocumentChairmanController {
                             <img src={Document} />
                             <h4>Guidelines</h4>
                           </div>
-                          {/* <Button className="color-btn">04</Button> */}
+                          {this.state.guidelines > 0 && (
+                            <Button className="color-btn">
+                              {this.state.guidelines}
+                            </Button>
+                          )}
                         </Box>
                       </Link>
                     </Grid>
@@ -84,7 +92,11 @@ class DocumentChairman extends DocumentChairmanController {
                             <img src={Document} />
                             <h4>Roles</h4>
                           </div>
-                          <Button className="color-btn">04</Button>
+                          {this.state.roles > 0 && (
+                            <Button className="color-btn">
+                              {this.state.roles}
+                            </Button>
+                          )}
                         </Box>
                       </Link>
                     </Grid>
@@ -95,18 +107,26 @@ class DocumentChairman extends DocumentChairmanController {
                             <img src={Document} />
                             <h4>Resolution</h4>
                           </div>
-                          <Button className="color-btn">04</Button>
+                          {this.state.resolution > 0 && (
+                            <Button className="color-btn">
+                              {this.state.resolution}
+                            </Button>
+                          )}
                         </Box>
                       </Link>
                     </Grid>
                     <Grid item xs={12} md={6} lg={4}>
-                      <Link href="/DocumentChairman/BuildingPlans">
+                      <Link href="/DocumentChairman/Building-Plans">
                         <Box className="item">
                           <div className="heading">
                             <img src={Document} />
                             <h4>Building Plans</h4>
                           </div>
-                          <Button className="color-btn">04</Button>
+                          {this.state.buildingPlans > 0 && (
+                            <Button className="color-btn">
+                              {this.state.buildingPlans}
+                            </Button>
+                          )}
                         </Box>
                       </Link>
                     </Grid>

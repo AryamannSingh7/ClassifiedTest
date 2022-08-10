@@ -187,3 +187,22 @@
 .szh-menu-container ul li {
   padding: 8px 32px;
 }
+
+.share-box {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 50px;
+}
+
+.share-box button {
+  margin: 10px 32px 10px 0;
+}
+
+.share-box button svg {
+  width: 60px;
+  height: 60px;
+  border-radius: 5px;
+}
