@@ -1119,9 +1119,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
   //@ts-nocheck
 
   getData(e) {
-    console.log(e)
-    console.log(e.target.name)
-    console.log(e.target.value)
+
 
     if (e.target.name == 'selectCountry') {
       this.getCity()

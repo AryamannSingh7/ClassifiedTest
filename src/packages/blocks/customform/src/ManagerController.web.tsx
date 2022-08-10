@@ -834,5 +834,32 @@ if(this.state.allVehcile.length<3){
       console.log(error);
     }
   };
+  handleChange = (e: any) => {
+
+    if (e.target.value) {
+      // @ts-ignore
+      // @ts-nocheck
+      this.setState({ ...this.state, [e.target.name]: e.target.value }, () => this.getData(e))
+    }
+
+  }
+  getData(e) {
+
+
+    if (e.target.name == 'selectCountry') {
+      this.getCity()
+
+    } else if (e.target.name == 'selectCity') {
+      this.getComplexbyCity()
+
+    } else if (e.target.name == 'selectComplex') {
+      this.getBuilding()
+
+    } else if (e.target.name == 'selectBuilding') {
+      this.getUnit()
+
+    }
+
+  }
   // Customizable Area End
 }

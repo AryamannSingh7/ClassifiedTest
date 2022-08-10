@@ -124,7 +124,7 @@ class ManagerList extends ManagerController {
                               labelId="demo-simple-select-outlined-label"
                               id="demo-simple-select-outlined"
                               onChange={(e) => {
-                                (e.target.value != " ") && setFieldValue("unit", e.target.value)
+                                (e.target.value != " ") && setFieldValue("unit", e.target.value) &&
                               }}
                               value={values.unit}
                             >
@@ -162,16 +162,16 @@ class ManagerList extends ManagerController {
                               <MenuItem disabled value=" ">
                                 Select Status
                               </MenuItem>
-                              {
-                                this.state?.buildingNameData?.map((val, index) => (
-                                  <MenuItem
-                                    key={index}
-                                    value={val?.name}
-                                  >
-                                    {val?.name}
-                                  </MenuItem>
-                                ))
-                              }
+                              <MenuItem disabled value="Pending">
+                                Pending
+                              </MenuItem>
+                              <MenuItem disabled value="Pending Approved">
+                                Pending Approved
+                              </MenuItem>
+                              <MenuItem disabled value="Rejected">
+                                Rejected
+                              </MenuItem>
+
                             </Select>
                             <ErrorMessage className="text-error" component="Typography" name="status" />
                           </FormControl>
@@ -200,7 +200,7 @@ class ManagerList extends ManagerController {
                                     </div>
                                     <div className="card-content">
 
-                                      <img src='https://img.freepik.com/premium-photo/generic-brandless-modern-sport-car-with-fire-smoke_110488-1759.jpg' />
+                                      <img src='https://img.freepik.com/premium-photo/generic-brandless-modern-sport-car-with-fire-smoke_110488-1759.jpg' style={{marginRight:10}}/>
                                       <div className="content">
                                         <p className="title">
                                           {item.attributes.company_name}
