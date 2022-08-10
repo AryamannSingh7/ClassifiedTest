@@ -91,11 +91,11 @@ class ManagerList extends ManagerController {
                         <Box className="formGroup customSelect">
                           <FormControl variant="outlined" >
                             <Select
-                              name="buildingName"
+                              name="selectBuilding"
                               labelId="demo-simple-select-outlined-label"
                               id="demo-simple-select-outlined"
                               onChange={(e) => {
-                                (e.target.value != " ") && setFieldValue("buildingName", e.target.value)
+                                (e.target.value != " ") && setFieldValue("buildingName", e.target.value) && this.handleChange(e)
 
                               }}
                               value={values.buildingName}
@@ -129,17 +129,17 @@ class ManagerList extends ManagerController {
                               value={values.unit}
                             >
                               {
-                                values?.buildingName ?
+                                ! (values?.buildingName) ?
                                   <MenuItem disabled value=" ">
                                     Select Unit
                                   </MenuItem>
                                   :
-                                  this.state?.buildingNameData?.map((val, index) => (
+                                  this.state?.allUnit?.map((val, index) => (
                                     <MenuItem
                                       key={index}
-                                      value={val?.name}
+                                      value={val?.apartment_name}
                                     >
-                                      {val?.name}
+                                      {val?.apartment_name}
                                     </MenuItem>
                                   ))
 
@@ -159,19 +159,19 @@ class ManagerList extends ManagerController {
                               }}
                               value={values.status}
                             >
-                              <MenuItem disabled value=" ">
+                              <MenuItem  value=" ">
                                 Select Status
                               </MenuItem>
-                              {
-                                this.state?.buildingNameData?.map((val, index) => (
-                                  <MenuItem
-                                    key={index}
-                                    value={val?.name}
-                                  >
-                                    {val?.name}
-                                  </MenuItem>
-                                ))
-                              }
+                              <MenuItem  value="Pending">
+                                Pending
+                              </MenuItem>
+                              <MenuItem  value="Pending Approved">
+                                Pending Approved
+                              </MenuItem>
+                              <MenuItem  value="Rejected">
+                                Rejected
+                              </MenuItem>
+
                             </Select>
                             <ErrorMessage className="text-error" component="Typography" name="status" />
                           </FormControl>
@@ -200,7 +200,7 @@ class ManagerList extends ManagerController {
                                     </div>
                                     <div className="card-content">
 
-                                      <img src='https://img.freepik.com/premium-photo/generic-brandless-modern-sport-car-with-fire-smoke_110488-1759.jpg' />
+                                      <img src='https://img.freepik.com/premium-photo/generic-brandless-modern-sport-car-with-fire-smoke_110488-1759.jpg' style={{marginRight:10}}/>
                                       <div className="content">
                                         <p className="title">
                                           {item.attributes.company_name}

@@ -59,7 +59,7 @@ class VeichleList extends VeichleListController {
               {
                 this.state.allVehcile.length>0 ?
                 <>
-                  <Grid container style={{ height:'79vh'}}>
+                  <Grid container style={{ height:'79vh',display:'block'}}>
                       {
                         this.state.allVehcile.map((item,i)=><>
                           <Grid xs={12} >
@@ -69,7 +69,7 @@ class VeichleList extends VeichleListController {
                               </div>
                               <div className="card-content">
 
-                                <img src='https://img.freepik.com/premium-photo/generic-brandless-modern-sport-car-with-fire-smoke_110488-1759.jpg' />
+                                <img src='https://img.freepik.com/premium-photo/generic-brandless-modern-sport-car-with-fire-smoke_110488-1759.jpg' style={{ marginRight: 5 }} />
                                 <div className="content">
                                   <p className="title">
                                     {item.attributes.company_name}
