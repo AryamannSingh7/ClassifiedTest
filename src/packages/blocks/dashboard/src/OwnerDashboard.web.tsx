@@ -345,7 +345,7 @@ class OwnerDashboard extends React.Component {
                     </Link>
                   </Grid>
                   <Grid item xs={12} sm={6}>
-                    <Link href="">
+                    <Link href="/PersonalDocument">
                       <DashboardCard
                         image={keyhand}
                         heading="Personal Documents"

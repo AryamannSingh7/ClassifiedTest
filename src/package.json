@@ -62,6 +62,7 @@
     "react-navigation": "file:./packages/blocks/core/node_modules/react-navigation",
     "react-navigation-stack": "file:./packages/blocks/core/node_modules/react-navigation-stack",
     "react-otp-input": "^2.4.0",
+    "react-pdf": "^5.7.2",
     "react-rte": "^0.16.3",
     "react-select": "^3.0.8",
     "react-share": "^4.4.0",
