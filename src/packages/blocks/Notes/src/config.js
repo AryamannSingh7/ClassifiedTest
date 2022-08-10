@@ -27,4 +27,5 @@ exports.BuildingPlansDocumentAPIEndPoint = "bx_block_my_document/building_plan_d
 exports.CreateDocumentAPIEndPoint = "bx_block_my_document/building_documents";
 exports.DeleteDocumentAPIEndPoint = "bx_block_my_document/building_documents";
 exports.GetDocumentAPIEndPoint = "bx_block_my_document/building_documents";
+exports.GetDocumentCountAPIEndPoint = "bx_block_my_document/document_count";
 // Customizable Area End

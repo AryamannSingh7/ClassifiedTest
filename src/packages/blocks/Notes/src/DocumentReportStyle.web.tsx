@@ -58,7 +58,7 @@ export const DocumentReportStyleWeb: any = {
       background: "#FEF9F3",
       color: "#FD9048",
     },
-    "& .document-box a": {
+    "& .document-box a, & .navigation a": {
       textDecoration: "none !important",
     },
     "& .document-box iframe": {
