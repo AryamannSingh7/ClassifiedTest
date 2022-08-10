@@ -218,7 +218,13 @@ export default class ManagerController extends BlockComponent<Props, S, SS> {
         } if (apiRequestCallId === this.getVehicleListApiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
-            this.setState({ allVehcile: responseJson.vehicle.data })
+            if (responseJson.vehicle.data == null){
+              this.setState({ allVehcile: [] })
+
+            }else{
+
+              this.setState({ allVehcile: responseJson.vehicle.data })
+            }
           } else {
             //Check Error Response
             this.parseApiErrorResponse(responseJson);
@@ -721,11 +727,9 @@ if(this.state.allVehcile.length<3){
       "token": localStorage.getItem('userToken')
     };
 
-    const httpBody = {
-      "vehicle": {
-        "status": true
-      }
-    }
+    const formData = new FormData();
+    formData.append("vehicle[status]", 'Rejected')
+    formData.append("vehicle[description]", '')
 
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
@@ -735,7 +739,7 @@ if(this.state.allVehcile.length<3){
     this.acceptRequestAPICallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_vehicle/vehicles/${item.id}/verify_vehicles`
+      `bx_block_vehicle/vehicles/${item.id}`
     );
 
     requestMessage.addData(
@@ -744,7 +748,7 @@ if(this.state.allVehcile.length<3){
     );
     requestMessage.addData(
       getName(MessageEnum.RestAPIRequestBodyMessage),
-      JSON.stringify(httpBody)
+      formData
     );
 
 
@@ -847,6 +851,38 @@ if(this.state.allVehcile.length<3){
       //@ts-ignore
       //@ts-nocheck
       `bx_block_address/apartment_list?id=${id}`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.validationApiMethodType
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  }
+  getVehicle2(value) {
+
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      "token": localStorage.getItem('userToken')
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+
+    this.getVehicleListApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_vehicle/vehicles?search_building=${value.buildingName}&search_unit=${value.unit}&filter_by=${value.status}`
     );
 
     requestMessage.addData(

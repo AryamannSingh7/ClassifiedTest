@@ -110,7 +110,7 @@ class ManagerViewVeichle extends ManagerController {
 
                         <div style={{ display: 'flex', fontWeight: 500 }}>
                           {/* <img src={List} width='25' height='25' style={{ marginRight: 10 }} /> */}
-                                  <p> Unit NUmber:</p>   A-101
+                                  <p> Unit Number:</p>   A-101
                         </div>
                         <div style={{ marginLeft: 35, marginBottom: 20 }}>
 
@@ -245,8 +245,8 @@ class ManagerViewVeichle extends ManagerController {
             },
           }}
         >
-          {/* <img src={item.attributes.registration_card_copy} style={{ width: '600px', height: '56rem', borderRadius: 0 }} /> */}
-          <iframe src='https://yuppgg-68443-ruby.b68443.dev.eastus.az.svc.builder.cafe/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBa2NEIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--670a8cdc5598c28e801317f826ac739e28a142c8/mohit.pdf' style={{ width: '600px', height: '56rem' }} />
+          <img src={item.attributes.registration_card_copy} style={{ width: '600px', height: '56rem', borderRadius: 0 }} />
+          {/* <iframe src='https://yuppgg-68443-ruby.b68443.dev.eastus.az.svc.builder.cafe/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBa2NEIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--670a8cdc5598c28e801317f826ac739e28a142c8/mohit.pdf' style={{ width: '600px', height: '56rem' }} /> */}
           </Dialog>
         <Dialog
           open={this.state.showDialogDelete}
