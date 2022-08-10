@@ -39,9 +39,31 @@ import UploadImage from "../assets/upload.png";
 import DeleteImage from "../assets/delete.png";
 import ShareImage from "../assets/share.png";
 import DownloadImage from "../assets/download.png";
+import BuildingLogo from "../assets/building.png";
 
 import { Menu } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/core.css";
+
+import {
+  EmailShareButton,
+  FacebookShareButton,
+  LinkedinShareButton,
+  PinterestShareButton,
+  RedditShareButton,
+  TelegramShareButton,
+  TumblrShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+  EmailIcon,
+  FacebookIcon,
+  LinkedinIcon,
+  PinterestIcon,
+  RedditIcon,
+  TelegramIcon,
+  TumblrIcon,
+  TwitterIcon,
+  WhatsappIcon,
+} from "react-share";
 
 class DocumentListChairman extends DocumentListChairmanController {
   constructor(props: Props) {
@@ -50,6 +72,10 @@ class DocumentListChairman extends DocumentListChairmanController {
 
   render() {
     const { classes } = this.props;
+
+    const sharePopupWidth = 500;
+    const sharePopupHeight = 700;
+    const shareTitle = "TI 1 Final Leap";
 
     console.log(this.state);
 
@@ -251,7 +277,25 @@ class DocumentListChairman extends DocumentListChairmanController {
                                       >
                                         Delete
                                       </MenuItem>
-                                      <MenuItem>Share</MenuItem>
+                                      <MenuItem
+                                        onClick={() => {
+                                          this.setState(
+                                            {
+                                              ...this.state,
+                                              shareUrl:
+                                                document.attributes.images[0]
+                                                  .url,
+                                              shareQuote:
+                                                document.attributes.title,
+                                            },
+                                            () => {
+                                              this.handleShareModal();
+                                            }
+                                          );
+                                        }}
+                                      >
+                                        Share
+                                      </MenuItem>
                                     </Menu>
                                   </div>
                                 </Box>
@@ -271,7 +315,7 @@ class DocumentListChairman extends DocumentListChairmanController {
         <Dialog
           fullWidth
           onClose={() => this.handleAddDocumentModal()}
-          open={this.state.idAddDocumentModalOpen}
+          open={this.state.isAddDocumentModalOpen}
           className="add-document"
         >
           <MuiDialogTitle disableTypography className="dialog-heading">
@@ -344,7 +388,7 @@ class DocumentListChairman extends DocumentListChairmanController {
           className="delete-document"
           fullWidth
           onClose={() => this.handleDeleteDocumentModal()}
-          open={this.state.idDeleteDocumentModalOpen}
+          open={this.state.isDeleteDocumentModalOpen}
         >
           <DialogContent>
             <Box textAlign="center">
@@ -378,7 +422,7 @@ class DocumentListChairman extends DocumentListChairmanController {
         <Dialog
           fullWidth
           onClose={() => this.handleAddResolutionsModal()}
-          open={this.state.idAddResolutionModalOpen}
+          open={this.state.isAddResolutionModalOpen}
           className="add-document resolutions"
         >
           <MuiDialogTitle disableTypography className="dialog-heading">
@@ -451,7 +495,7 @@ class DocumentListChairman extends DocumentListChairmanController {
           fullWidth
           maxWidth="md"
           onClose={() => this.handleSelectMeetingModal()}
-          open={this.state.idSelectMeetingModalOpen}
+          open={this.state.isSelectMeetingModalOpen}
           className="select-meeting"
         >
           <MuiDialogTitle disableTypography className="dialog-heading">
@@ -499,6 +543,105 @@ class DocumentListChairman extends DocumentListChairmanController {
               </Button>
             </div>
           </DialogActions>
+        </Dialog>
+
+        <Dialog
+          fullWidth
+          onClose={() => this.handleShareModal()}
+          open={this.state.isShareModalOpen}
+          className="select-meeting"
+        >
+          <MuiDialogTitle disableTypography className="dialog-heading">
+            <Typography variant="h6">Share</Typography>
+            <IconButton onClick={() => this.handleShareModal()}>
+              <CloseIcon />
+            </IconButton>
+          </MuiDialogTitle>
+          <DialogContent>
+            <div className="share-box">
+              <FacebookShareButton
+                quote={this.state.shareQuote}
+                url={this.state.shareUrl}
+                title={shareTitle}
+                windowWidth={sharePopupWidth}
+                windowHeight={sharePopupHeight}
+              >
+                <FacebookIcon />
+              </FacebookShareButton>
+              <TwitterShareButton
+                quote={this.state.shareQuote}
+                url={this.state.shareUrl}
+                title={shareTitle}
+                windowWidth={sharePopupWidth}
+                windowHeight={sharePopupHeight}
+              >
+                <TwitterIcon />
+              </TwitterShareButton>
+              <WhatsappShareButton
+                quote={this.state.shareQuote}
+                url={this.state.shareUrl}
+                title={shareTitle}
+                windowWidth={sharePopupWidth}
+                windowHeight={sharePopupHeight}
+                separator=":: "
+              >
+                <WhatsappIcon />
+              </WhatsappShareButton>
+              <LinkedinShareButton
+                quote={this.state.shareQuote}
+                url={this.state.shareUrl}
+                title={shareTitle}
+                windowWidth={sharePopupWidth}
+                windowHeight={sharePopupHeight}
+              >
+                <LinkedinIcon />
+              </LinkedinShareButton>
+              <PinterestShareButton
+                quote={this.state.shareQuote}
+                url={this.state.shareUrl}
+                windowWidth={sharePopupWidth}
+                windowHeight={sharePopupHeight}
+              >
+                <PinterestIcon size="2.5rem" />
+              </PinterestShareButton>
+              <EmailShareButton
+                quote={this.state.shareQuote}
+                url={this.state.shareUrl}
+                title={shareTitle}
+                windowWidth={sharePopupWidth}
+                windowHeight={sharePopupHeight}
+              >
+                <EmailIcon />
+              </EmailShareButton>
+              <RedditShareButton
+                quote={this.state.shareQuote}
+                url={this.state.shareUrl}
+                title={shareTitle}
+                windowWidth={sharePopupWidth}
+                windowHeight={sharePopupHeight}
+              >
+                <RedditIcon />
+              </RedditShareButton>
+              <TelegramShareButton
+                quote={this.state.shareQuote}
+                url={this.state.shareUrl}
+                title={shareTitle}
+                windowWidth={sharePopupWidth}
+                windowHeight={sharePopupHeight}
+              >
+                <TelegramIcon />
+              </TelegramShareButton>
+              <TumblrShareButton
+                quote={this.state.shareQuote}
+                url={this.state.shareUrl}
+                title={shareTitle}
+                windowWidth={sharePopupWidth}
+                windowHeight={sharePopupHeight}
+              >
+                <TumblrIcon />
+              </TumblrShareButton>
+            </div>
+          </DialogContent>
         </Dialog>
       </>
     );

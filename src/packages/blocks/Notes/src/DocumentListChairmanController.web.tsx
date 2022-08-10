@@ -24,10 +24,11 @@ interface S {
 
   docName: string;
 
-  idAddDocumentModalOpen: boolean;
-  idDeleteDocumentModalOpen: boolean;
-  idAddResolutionModalOpen: boolean;
-  idSelectMeetingModalOpen: boolean;
+  isAddDocumentModalOpen: boolean;
+  isDeleteDocumentModalOpen: boolean;
+  isAddResolutionModalOpen: boolean;
+  isSelectMeetingModalOpen: boolean;
+  isShareModalOpen: boolean;
 
   documentList: any[];
 
@@ -35,6 +36,9 @@ interface S {
   file: any;
 
   selectedDocumentId: string;
+
+  shareUrl: string;
+  shareQuote: string;
   // Customizable Area End
 }
 
@@ -64,10 +68,11 @@ export default class DocumentListChairmanController extends BlockComponent<
     this.state = {
       docName: "",
 
-      idAddDocumentModalOpen: false,
-      idDeleteDocumentModalOpen: false,
-      idAddResolutionModalOpen: false,
-      idSelectMeetingModalOpen: false,
+      isAddDocumentModalOpen: false,
+      isDeleteDocumentModalOpen: false,
+      isAddResolutionModalOpen: false,
+      isSelectMeetingModalOpen: false,
+      isShareModalOpen: false,
 
       documentList: [],
 
@@ -75,6 +80,9 @@ export default class DocumentListChairmanController extends BlockComponent<
       file: null,
 
       selectedDocumentId: "",
+
+      shareUrl: "",
+      shareQuote: "",
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -348,28 +356,35 @@ export default class DocumentListChairmanController extends BlockComponent<
       ...this.state,
       title: "",
       file: null,
-      idAddDocumentModalOpen: !this.state.idAddDocumentModalOpen,
+      isAddDocumentModalOpen: !this.state.isAddDocumentModalOpen,
     });
   };
 
   handleDeleteDocumentModal = () => {
     this.setState({
       ...this.state,
-      idDeleteDocumentModalOpen: !this.state.idDeleteDocumentModalOpen,
+      isDeleteDocumentModalOpen: !this.state.isDeleteDocumentModalOpen,
     });
   };
 
   handleAddResolutionsModal = () => {
     this.setState({
       ...this.state,
-      idAddResolutionModalOpen: !this.state.idAddResolutionModalOpen,
+      isAddResolutionModalOpen: !this.state.isAddResolutionModalOpen,
     });
   };
 
   handleSelectMeetingModal = () => {
     this.setState({
       ...this.state,
-      idSelectMeetingModalOpen: !this.state.idSelectMeetingModalOpen,
+      isSelectMeetingModalOpen: !this.state.isSelectMeetingModalOpen,
+    });
+  };
+
+  handleShareModal = () => {
+    this.setState({
+      ...this.state,
+      isShareModalOpen: !this.state.isShareModalOpen,
     });
   };
   // Customizable Area End
