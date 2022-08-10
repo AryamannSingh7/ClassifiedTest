@@ -70,6 +70,7 @@ export default class ManagerController extends BlockComponent<Props, S, SS> {
   acceptRequestAPICallId:string='';
   getIncidentRelatedApiCallId: any;
   getBuildingNameApiCallId: any;
+  getUnitApiCallId:any;
       // Customizable Area End
   constructor(props: Props) {
     super(props);
@@ -127,7 +128,7 @@ export default class ManagerController extends BlockComponent<Props, S, SS> {
         getName(MessageEnum.RestAPIResponceErrorMessage)
       );
 
-      console.log("API REQUEST CALL ID: ", apiRequestCallId);
+      console.log("API REQUEST CALL ID: ", apiRequestCallId, this.getUnitApiCallId);
 
       if (apiRequestCallId && responseJson) {
         if (apiRequestCallId === this.state.postSellerDetailsMessageId) {
@@ -265,20 +266,20 @@ export default class ManagerController extends BlockComponent<Props, S, SS> {
           }
           this.parseApiCatchErrorResponse(this.state.error);
           this.setState({ loading: false, error: null })
-        }if (apiRequestCallId === this.getIncidentRelatedApiCallId) {
-          if (responseJson && responseJson?.data) {
-            console.log("getIncidentRelatedApiCallId========================>", responseJson)
-            this.setState({ incidentRelatedData: responseJson?.data.incident_relateds })
+        } if (apiRequestCallId === this.getUnitApiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            let temp = [responseJson.data.unit_apartments]
+            //@ts-ignore
+            //@ts-nocheck
 
-            this.setState({ loading: false })
-          } else if (responseJson?.errors) {
-            let error = Object.values(responseJson.errors[0])[0] as string;
-            this.setState({ error });
+            this.setState({ allUnit: responseJson.data.unit_apartments,loading:false }, () => console.log(this.state.allUnit))
           } else {
-            this.setState({ error: responseJson?.error || "Something went wrong!" });
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
           }
-          this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({ loading: false, error: null })
+
+          this.parseApiCatchErrorResponse(errorReponse);
         }
       }
     }
@@ -799,67 +800,69 @@ if(this.state.allVehcile.length<3){
       console.log(error);
     }
   };
-  getUnit = () => {
-    try {
-      const header = {
-        "Content-Type": configJSON.validationApiContentType,
-        token: localStorage.getItem("userToken")
-      };
 
-      //const id = localStorage.getItem("userId");
-      const requestMessage = new Message(
-        getName(MessageEnum.RestAPIRequestMessage)
-      );
-      this.getIncidentRelatedApiCallId = requestMessage.messageId;
-      this.setState({ loading: true });
-
-      requestMessage.addData(
-        getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `bx_block_address/apartment_list?id=3`
-      );
-
-      requestMessage.addData(
-        getName(MessageEnum.RestAPIRequestHeaderMessage),
-        JSON.stringify(header)
-      );
-
-      requestMessage.addData(
-        getName(MessageEnum.RestAPIRequestMethodMessage),
-        configJSON.validationApiMethodType
-      );
-
-      runEngine.sendMessage(requestMessage.id, requestMessage);
-      return true;
-    } catch (error) {
-      console.log(error);
-    }
-  };
   handleChange = (e: any) => {
 
-    if (e.target.value) {
+    if (e.target.name !== 'selectBuilding') {
       // @ts-ignore
       // @ts-nocheck
       this.setState({ ...this.state, [e.target.name]: e.target.value }, () => this.getData(e))
+    }else{
+      const array = e.target?.value?.split(",");
+      const id = array[0]
+      const name = array[1]
+      this.getUnit(id)
+      this.setState({ buildingName: e.target?.value })
+      this.setState({ selectBuilding: name })
+
+
     }
 
   }
   getData(e) {
 
 
-    if (e.target.name == 'selectCountry') {
-      this.getCity()
-
-    } else if (e.target.name == 'selectCity') {
-      this.getComplexbyCity()
-
-    } else if (e.target.name == 'selectComplex') {
-      this.getBuilding()
-
-    } else if (e.target.name == 'selectBuilding') {
+ if (e.target.name == 'selectBuilding') {
       this.getUnit()
 
     }
 
+  }
+
+  getUnit(id) {
+
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      "token": localStorage.getItem('userToken')
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+
+    this.getUnitApiCallId = requestMessage.messageId;
+    console.log(this.state.selectBuilding)
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      //@ts-ignore
+      //@ts-nocheck
+      `bx_block_address/apartment_list?id=${id}`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.validationApiMethodType
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
   }
   // Customizable Area End
 }

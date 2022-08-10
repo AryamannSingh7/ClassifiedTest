@@ -60,7 +60,7 @@ class ManagerViewVeichle extends ManagerController {
                 <Box style={dashBoardBudget.navigation}>
                   <Box>
                     <Typography variant="body1" >
-                      My Dashboard / General Dashboard / Vehicles <Box component="span" style={{ color: "blue" }}>Vehicles Details</Box>
+                      My Dashboard / General Dashboard / Vehicles /<Box component="span" style={{ color: "blue" }}>Vehicles Details</Box>
                     </Typography>
                     <Typography variant="h5" style={dashBoardBudget.subHeading}>Vehicles Details</Typography>
                   </Box>
@@ -245,7 +245,8 @@ class ManagerViewVeichle extends ManagerController {
             },
           }}
         >
-          <img src={item.attributes.registration_card_copy} style={{ width: '600px', height: '56rem', borderRadius: 0 }} />
+          {/* <img src={item.attributes.registration_card_copy} style={{ width: '600px', height: '56rem', borderRadius: 0 }} /> */}
+          <iframe src='https://yuppgg-68443-ruby.b68443.dev.eastus.az.svc.builder.cafe/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBa2NEIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--670a8cdc5598c28e801317f826ac739e28a142c8/mohit.pdf' style={{ width: '600px', height: '56rem' }} />
           </Dialog>
         <Dialog
           open={this.state.showDialogDelete}

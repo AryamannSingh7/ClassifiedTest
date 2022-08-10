@@ -91,11 +91,11 @@ class ManagerList extends ManagerController {
                         <Box className="formGroup customSelect">
                           <FormControl variant="outlined" >
                             <Select
-                              name="buildingName"
+                              name="selectBuilding"
                               labelId="demo-simple-select-outlined-label"
                               id="demo-simple-select-outlined"
                               onChange={(e) => {
-                                (e.target.value != " ") && setFieldValue("buildingName", e.target.value)
+                                (e.target.value != " ") && setFieldValue("buildingName", e.target.value) && this.handleChange(e)
 
                               }}
                               value={values.buildingName}
@@ -124,22 +124,22 @@ class ManagerList extends ManagerController {
                               labelId="demo-simple-select-outlined-label"
                               id="demo-simple-select-outlined"
                               onChange={(e) => {
-                                (e.target.value != " ") && setFieldValue("unit", e.target.value) &&
+                                (e.target.value != " ") && setFieldValue("unit", e.target.value)
                               }}
                               value={values.unit}
                             >
                               {
-                                values?.buildingName ?
+                                ! (values?.buildingName) ?
                                   <MenuItem disabled value=" ">
                                     Select Unit
                                   </MenuItem>
                                   :
-                                  this.state?.buildingNameData?.map((val, index) => (
+                                  this.state?.allUnit?.map((val, index) => (
                                     <MenuItem
                                       key={index}
-                                      value={val?.name}
+                                      value={val?.apartment_name}
                                     >
-                                      {val?.name}
+                                      {val?.apartment_name}
                                     </MenuItem>
                                   ))
 
@@ -159,16 +159,16 @@ class ManagerList extends ManagerController {
                               }}
                               value={values.status}
                             >
-                              <MenuItem disabled value=" ">
+                              <MenuItem  value=" ">
                                 Select Status
                               </MenuItem>
-                              <MenuItem disabled value="Pending">
+                              <MenuItem  value="Pending">
                                 Pending
                               </MenuItem>
-                              <MenuItem disabled value="Pending Approved">
+                              <MenuItem  value="Pending Approved">
                                 Pending Approved
                               </MenuItem>
-                              <MenuItem disabled value="Rejected">
+                              <MenuItem  value="Rejected">
                                 Rejected
                               </MenuItem>
 
