@@ -10,6 +10,7 @@ import {
   withStyles,
   Box,
   Grid,
+  Link,
 } from "@material-ui/core";
 import DocumentViewChairmanController, {
   Props,
@@ -18,6 +19,8 @@ import { DocumentReportStyleWeb } from "./DocumentReportStyle.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 
+import { Document, Page } from "react-pdf";
+
 class DocumentViewChairman extends DocumentViewChairmanController {
   constructor(props: Props) {
     super(props);
@@ -25,6 +28,17 @@ class DocumentViewChairman extends DocumentViewChairmanController {
 
   render() {
     const { classes } = this.props;
+
+    // console.log(
+    //   `${this.state.document &&
+    //     this.state.document.attributes.images[0]
+    //       .url}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`
+    // );
+    console.log(
+      `${this.state.document &&
+        this.state.document.attributes.images[0]
+          .url}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`
+    );
 
     return (
       <>
@@ -45,23 +59,53 @@ class DocumentViewChairman extends DocumentViewChairmanController {
                 <Box className="navigation">
                   <Box>
                     <Typography variant="body1">
-                      Documents / {this.state.docName} /{" "}
+                      Documents / {this.state.documentType} /{" "}
                       <Box component="span" style={{ color: "blue" }}>
-                        name
+                        {this.state.document &&
+                          this.state.document.attributes.title}
                       </Box>
                     </Typography>
                     <Box className="top-heading">
                       <Typography variant="h5" className="sub-heading">
-                        name
+                        {this.state.document &&
+                          this.state.document.attributes.title}
                       </Typography>
-                      <Button variant="contained">Download</Button>
+                      <Link
+                        href={
+                          this.state.document &&
+                          this.state.document.attributes.images[0].download_url
+                        }
+                        target="_blank"
+                      >
+                        <Button variant="contained">Download</Button>
+                      </Link>
                     </Box>
                   </Box>
                 </Box>
                 <Box className="document-box">
+                  {/* <Document
+                    file={
+                      this.state.document &&
+                      this.state.document.attributes.images[0].url
+                    }
+                    // file="http://www.africau.edu/images/default/sample.pdf"
+                    options={{
+                      workerSrc:
+                        "https://unpkg.com/pdfjs-dist@2.3.200/build/pdf.worker.min.js",
+                    }}
+                  >
+                    <Page pageNumber={1} />
+                  </Document> */}
                   <iframe
-                    src="http://www.africau.edu/images/default/sample.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH"
-                    title="W3Schools Free Online Web Tutorials"
+                    allowpaymentrequest="true"
+                    // src="http://www.africau.edu/images/default/sample.pdf"
+                    src={`https://ti1finalleap-158677-ruby.b158677.dev.eastus.az.svc.builder.cafe/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBWDQ9IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--e1510203706bf9010404c335ff0eb1f8d5ae62cd/SQL%20-%20Quick%20Guide.pdf&output=embed&embed_domain=localhost`}
+                    // src={`${this.state.document &&
+                    //   this.state.document.attributes.images[0]
+                    //     .url}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
+                    // title="Document"
+                    // seamless
+                    // type="application/pdf"
                   />
                 </Box>
               </Container>
