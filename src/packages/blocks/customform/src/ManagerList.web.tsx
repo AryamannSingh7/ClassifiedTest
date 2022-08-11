@@ -78,12 +78,8 @@ class ManagerList extends ManagerController {
                   }}
                   validationSchema={this.searchIncidentSchema()}
                   validateOnMount={true}
-                  onSubmit={(values) => {
-                    console.log("valus=========>", values)
-                    // localStorage.setItem("incidentPreview", JSON.stringify(values))
-                    // this.setState({ loading: true })
-                    // this.props.history.push("/IncidentPreview")
-                  }}
+                  onSubmit={(values) => this.getVehicle2(values)
+                  }
                 >
                   {({ values, touched, errors, isValid, setFieldError, setFieldValue, handleChange }) => (
                     <Form translate="yes" className="commonForm">

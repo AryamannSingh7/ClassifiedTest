@@ -67,6 +67,11 @@ class ChairmanSidebar extends DashboardController {
               <Typography variant="body2">General Dashboard</Typography>
             </AccordionDetails>
             <AccordionDetails
+              onClick={() => this.props.history.push("/mv")}
+            >
+              <Typography variant="body2">Vehicle</Typography>
+            </AccordionDetails>
+            <AccordionDetails
               onClick={() => this.props.history.push("/DashboardTicket")}
             >
               <Typography variant="body2">Ticket Dashboard</Typography>
