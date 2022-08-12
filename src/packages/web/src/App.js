@@ -152,6 +152,9 @@ import DocumentViewChairman from "../../blocks/Notes/src/DocumentViewChairman.we
 import PersonalDocument from "../../blocks/Notes/src/PersonalDocuments.web";
 import PersonalDocumentList from "../../blocks/Notes/src/PersonalDocumentList.web";
 import ViewPersonalDocument from "../../blocks/Notes/src/ViewPersonalDocument.web";
+import BuildingDocuments from "../../blocks/Notes/src/BuildingDocuments.web";
+import BuildingDocumentList from "../../blocks/Notes/src/BuildingDocumentList.web";
+import ViewBuildingDocument from "../../blocks/Notes/src/ViewBuildingDocument.web";
 
 const routeMap = {
   //done
@@ -455,7 +458,7 @@ const routeMap = {
     exact: true
   },
   // Owner Personal Document
-  PersonalDocumentOwner: {
+  PersonalDocument: {
     component: PersonalDocument,
     path: '/PersonalDocument',
     exact: true
@@ -468,6 +471,21 @@ const routeMap = {
   ViewPersonalDocument: {
     component: ViewPersonalDocument,
     path: '/PersonalDocument/:name/:id/view',
+    exact: true
+  },
+  BuildingDocuments: {
+    component: BuildingDocuments,
+    path: '/BuildingDocuments',
+    exact: true
+  },
+  BuildingDocumentList: {
+    component: BuildingDocumentList,
+    path: '/BuildingDocuments/:name',
+    exact: true
+  },
+  ViewBuildingDocument: {
+    component: ViewBuildingDocument,
+    path: '/BuildingDocuments/:name/:id/view',
     exact: true
   },
   Customisableusersubscriptions: {

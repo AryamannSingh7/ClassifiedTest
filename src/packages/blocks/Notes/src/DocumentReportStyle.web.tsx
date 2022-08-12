@@ -254,4 +254,160 @@ export const DocumentReportStyleWeb: any = {
       border: "0",
     },
   },
+  buildingDocument: {
+    "& .menu": {
+      display: "flex",
+      alignItems: "center",
+      fontWeight: "600",
+      cursor: "pointer",
+      marginBottom: "18px",
+      background: "#FFFFFF",
+      padding: "10px 20px",
+    },
+    "& .right-image": {
+      padding: "25px 60px",
+    },
+    "& .content-area": {
+      overflowY: "auto",
+      overflowX: "hidden",
+      height: "85vh",
+    },
+    "& .document-box .item": {
+      minHeight: "34px",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      flexDirection: "row",
+      padding: 15,
+      borderRadius: 10,
+      // border: "2px solid lightgray",
+      background: "white",
+    },
+    "& .document-box .item .heading": {
+      display: "flex",
+      alignItems: "center",
+      flexDirection: "row",
+    },
+    "& .document-box .item .heading h4": {
+      fontWeight: "600",
+      fontSize: "16px",
+      marginLeft: "10px",
+      textTransform: "capitalize",
+    },
+    "& .document-box .item button.color-btn": {
+      padding: "5px 11px",
+      minWidth: "60px",
+      borderRadius: "25px",
+      fontWeight: "600",
+      background: "#FEF9F3",
+      color: "#FD9048",
+    },
+    "& a": {
+      textDecoration: "none !important",
+    },
+    "& .list .personal-documents .empty-list": {
+      background: "white",
+      height: "calc(100% - 40px)",
+    },
+    "& .list .personal-documents .empty-list .content-box": {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      textAlign: "center",
+      flexDirection: "column",
+      height: "100%",
+      padding: "20px",
+    },
+    "& .document .left-side": {
+      display: "flex",
+      alignItems: "center",
+    },
+    "& .document .left-side img": {
+      width: "35px",
+      marginRight: "10px",
+    },
+    "& .document-box .card-item": {
+      boxShadow: "none",
+      padding: "10px 20px 20px",
+    },
+    "& .document-box .card-item .heading": {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      marginBottom: "10px",
+    },
+    "& .document-box .card-item .res-info": {
+      width: "100%",
+      display: "flex",
+      marginBottom: "10px",
+    },
+    "& .document-box .card-item .res-info span": {
+      color: "black",
+    },
+    "& .document-box .card-item .res-info p": {
+      color: "darkgray",
+    },
+    "& .document-box .card-item .res-info .info-item": {
+      width: "50%",
+    },
+    "& .document-box .meeting-item .item-title,& .document-box .meeting-item .icons": {
+      display: "flex",
+      alignItems: "center",
+      flexDirection: "row",
+    },
+    "& .document-box .meeting-item .icons img": {
+      margin: "0 5px",
+      cursor: "pointer",
+      width: "20px",
+    },
+    "& .document-box .card-item .item-title h6": {
+      fontWeight: "600",
+      fontSize: "16px",
+      marginLeft: "5px",
+    },
+    "& .document-box .meeting-item": {
+      minHeight: "34px",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      flexDirection: "row",
+      padding: 15,
+      borderRadius: 10,
+      border: "2px solid lightgray",
+    },
+    "& .menu.building-document-menu": {
+      justifyContent: "space-between",
+    },
+    "& .document-view iframe": {
+      width: "100%",
+      height: "95%",
+      border: "0",
+    },
+    "& .view .item-title h6": {
+      fontWeight: "600",
+      marginLeft: "10px",
+    },
+    "& .view": {
+      marginTop: "15px",
+      marginBottom: "15px",
+    },
+    "& .meeting-details": {
+      
+    },
+    "& .meeting-details .card": {
+      padding: "15px",
+      marginBottom: "10px",
+      marginTop: "10px",
+    },
+    "& .meeting-details p": {
+      color: "darkgray",
+      paddingTop: "5px",
+    },
+    "& .meeting-details p:first-child": {
+      paddingTop: "0",
+    },
+    "& .meeting-details span": {
+      color: "black",
+    },
+  },
 };
