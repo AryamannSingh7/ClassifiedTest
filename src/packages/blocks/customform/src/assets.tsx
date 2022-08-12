@@ -23,6 +23,8 @@ export const paletteBlue = require("../assets/paletteBlue.png");
 export const Rc = require("../assets/Registration-Certificate.png");
 export const CarFront = require("../assets/carFront.png");
 export const Tick = require("../assets/tick.png");
+export const Building = require("../assets/building.png");
+
 
 
 
