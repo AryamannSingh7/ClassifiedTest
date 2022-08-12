@@ -22,7 +22,7 @@
 
   .status {
     color: #FC8434;
-    font-weight: 400;
+    font-weight: 600;
     background-color: #fff1ceb0;
     padding: 0.5rem 1rem 0.5rem 1rem;
     border-radius: 15px;
@@ -75,4 +75,12 @@
 .sorting-header {
   display: flex;
   gap: 15px;
+}
+
+.customSelect .MuiOutlinedInput-root {
+  padding-left: 15px;
+}
+
+.details {
+  padding: 1rem;
 }
