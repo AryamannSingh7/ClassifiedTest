@@ -8,7 +8,6 @@ import {
   Container,
   IconButton,
   Link,
-  Typography,
   withStyles,
   Box,
   Grid,
@@ -20,7 +19,7 @@ import { DocumentReportStyleWeb } from "./DocumentReportStyle.web";
 import Document from "../assets/document.png";
 import PersonalDocumentController, {
   Props,
-} from "./PersonalDocumentController.web";
+} from "./PersonalDocumentsController.web";
 
 class PersonalDocument extends PersonalDocumentController {
   constructor(props: Props) {

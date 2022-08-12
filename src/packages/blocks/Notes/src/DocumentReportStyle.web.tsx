@@ -125,6 +125,9 @@ export const DocumentReportStyleWeb: any = {
       background: "#FFFFFF",
       padding: "10px 20px",
     },
+    "& .menu.personal-document-menu": {
+      justifyContent: "space-between",
+    },
     "& .right-image": {
       padding: "25px 60px",
     },
@@ -163,8 +166,87 @@ export const DocumentReportStyleWeb: any = {
       background: "#FEF9F3",
       color: "#FD9048",
     },
-    "& .document-box a": {
+    "& a": {
       textDecoration: "none !important",
+    },
+    "& .document .left-side": {
+      display: "flex",
+      alignItems: "center",
+    },
+    "& .document .left-side h4": {
+      display: "block",
+    },
+    "& .document .left-side img": {
+      width: "45px",
+      marginRight: "10px",
+    },
+    "& .document .left-side .info .more-info": {
+      display: "flex",
+      alignItems: "center",
+    },
+    "& .document .left-side .info .more-info span": {
+      color: "orange",
+      marginRight: "5px",
+    },
+    "& .document .left-side .info .more-info p": {
+      marginRight: "10px",
+    },
+    "& .upload-button": {
+      position: "sticky",
+      left: 0,
+      right: 0,
+      bottom: 0,
+      background: "white",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: "10px 0",
+      boxShadow: "rgba(0, 0, 0, 0.05) 0px 0px 0px 1px",
+    },
+    "& .upload-button button": {
+      background: "#2b6fec",
+      color: "white",
+      padding: "12px 50px",
+      borderRadius: "25px",
+    },
+    "& .upload-button .MuiGrid-container": {
+      width: "fit-content",
+    },
+    "& .list": {
+      position: "relative",
+      width: "100%",
+    },
+    "& .list > .MuiGrid-root": {
+      alignContent: "flex-start",
+    },
+    "& .list .personal-documents": {
+      minHeight: "calc(100% - 70px)",
+    },
+    "& .list .personal-documents .empty-list": {
+      background: "white",
+      height: "calc(100% - 70px)",
+    },
+    "& .list .personal-documents .empty-list .content-box": {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      textAlign: "center",
+      flexDirection: "column",
+      height: "100%",
+      padding: "20px",
+    },
+    "& .list .personal-documents .content-box h3": {
+      fontWeight: "600",
+      marginBottom: "15px",
+    },
+    "& .document-view": {
+      background: "white",
+      padding: "15px",
+    },
+    "& .document-view iframe": {
+      width: "100%",
+      height: "95%",
+      border: "0",
     },
   },
 };

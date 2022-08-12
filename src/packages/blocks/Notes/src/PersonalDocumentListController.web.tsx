@@ -21,6 +21,15 @@ export interface Props {
 
 interface S {
   // Customizable Area Start
+  isAddDocumentModalOpen: boolean;
+  isDeleteDocumentModalOpen: boolean;
+  isShareModalOpen: boolean;
+
+  shareUrl: string;
+  shareQuote: string;
+
+  title: string;
+  file: any;
   // Customizable Area End
 }
 
@@ -43,7 +52,17 @@ export default class PersonalDocumentListController extends BlockComponent<
       getName(MessageEnum.RestAPIRequestMessage),
     ];
 
-    this.state = {};
+    this.state = {
+      isAddDocumentModalOpen: false,
+      isDeleteDocumentModalOpen: false,
+      isShareModalOpen: false,
+
+      shareUrl: "",
+      shareQuote: "",
+
+      title: "",
+      file: null,
+    };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
@@ -57,14 +76,6 @@ export default class PersonalDocumentListController extends BlockComponent<
 
   // Customizable Area Start
   async componentDidMount(): Promise<void> {
-    const document_name = this.props.navigation.getParam("name");
-    this.setState(
-      {
-        ...this.state,
-        docName: document_name,
-      },
-      () => {}
-    );
   }
 
   onChangeFile = (event: any) => {
@@ -78,12 +89,21 @@ export default class PersonalDocumentListController extends BlockComponent<
   handleAddDocumentModal = () => {
     this.setState({
       ...this.state,
+      isAddDocumentModalOpen: !this.state.isAddDocumentModalOpen,
     });
   };
 
   handleDeleteDocumentModal = () => {
     this.setState({
       ...this.state,
+      isDeleteDocumentModalOpen: !this.state.isDeleteDocumentModalOpen,
+    });
+  };
+
+  handleShareModal = () => {
+    this.setState({
+      ...this.state,
+      isShareModalOpen: !this.state.isShareModalOpen,
     });
   };
   // Customizable Area End

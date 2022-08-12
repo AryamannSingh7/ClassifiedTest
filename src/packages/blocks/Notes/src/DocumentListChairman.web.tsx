@@ -39,7 +39,6 @@ import UploadImage from "../assets/upload.png";
 import DeleteImage from "../assets/delete.png";
 import ShareImage from "../assets/share.png";
 import DownloadImage from "../assets/download.png";
-import BuildingLogo from "../assets/building.png";
 
 import { Menu } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/core.css";
@@ -76,8 +75,6 @@ class DocumentListChairman extends DocumentListChairmanController {
     const sharePopupWidth = 500;
     const sharePopupHeight = 700;
     const shareTitle = "TI 1 Final Leap";
-
-    console.log(this.state);
 
     return (
       <>
