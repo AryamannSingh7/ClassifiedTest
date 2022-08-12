@@ -280,8 +280,9 @@ class ManagerViewVeichle extends ManagerController {
           }}
         >
           <Grid container>
-            <Grid xs={12}>
+            <Grid xs={12} >
               <TextField
+              style={{width:'100%'}}
                 multiline
                 rows={4}
                 id="outlined-multiline-static"
@@ -293,12 +294,12 @@ class ManagerViewVeichle extends ManagerController {
 
             </Grid>
           </Grid>
-          <Box className="dialog-footer desktop-ui">
-            <DialogActions className="customButton">
-              <Button onClick={() => this.setState({ showDialogDelete: false })}>
+          <Box className="">
+            <DialogActions className="customButton" style={{flexDirection:'row'}}>
+              <Button style={{ width: '15rem', borderRadius: 10, border: '1px solid #5000f4' }} onClick={() => this.setState({ showDialogDelete: false })}>
                 CLOSE
               </Button>
-              <Button variant="contained" onClick={() => this.rejectRequest()} >
+              <Button variant="contained" style={{borderRadius:10}} onClick={() => this.rejectRequest()} >
                 CONFRIM
               </Button>
             </DialogActions>
@@ -339,12 +340,12 @@ class ManagerViewVeichle extends ManagerController {
               </p>
             </Grid>
           </Grid>
-          <Box className="dialog-footer desktop-ui">
-            <DialogActions className="customButton">
-              <Button  onClick={() => this.setState({ showDialog: false })}>
+          <Box >
+            <DialogActions className="customButton" style={{flexDirection:'row'}}>
+              <Button style={{ width: '15rem', borderRadius: 10, border: '1px solid #5000f4' }}   onClick={() => this.setState({ showDialog: false })}>
                 CLOSE
               </Button>
-              <Button variant="contained" onClick={() => this.acceptRequest()} >
+              <Button variant="contained" style={{borderRadius:10}} onClick={() => this.acceptRequest()} >
                 CONFRIM
               </Button>
             </DialogActions>
