@@ -86,6 +86,12 @@ export const DocumentReportStyleWeb: any = {
       width: "100%",
       display: "flex",
     },
+    "& .document-box .card-item .res-info span": {
+      color: "black",
+    },
+    "& .document-box .card-item .res-info p": {
+      color: "darkgray",
+    },
     "& .document-box .card-item .res-info .info-item": {
       width: "50%",
     },
@@ -112,7 +118,6 @@ export const DocumentReportStyleWeb: any = {
       textDecoration: "none",
       color: "black",
       fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-      // fontWeight: "bold",
     },
   },
   personalDocument: {

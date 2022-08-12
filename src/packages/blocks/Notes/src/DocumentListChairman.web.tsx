@@ -39,6 +39,8 @@ import UploadImage from "../assets/upload.png";
 import DeleteImage from "../assets/delete.png";
 import ShareImage from "../assets/share.png";
 import DownloadImage from "../assets/download.png";
+import buildingLogo from "../assets/building.png";
+import PdfImage from "../assets/pdf.png";
 
 import { Menu } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/core.css";
@@ -170,7 +172,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                               </div>
                               <div className="item">
                                 <div className="item-title">
-                                  <img src={Document} />
+                                  <img src={PdfImage} />
                                   <h6>Policy</h6>
                                 </div>
                                 <div className="icons">
@@ -210,7 +212,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                               </div>
                               <div className="item">
                                 <div className="item-title">
-                                  <img src={Document} />
+                                  <img src={PdfImage} />
                                   <h6>Policy</h6>
                                 </div>
                                 <div className="icons">
@@ -596,6 +598,8 @@ class DocumentListChairman extends DocumentListChairmanController {
               <PinterestShareButton
                 quote={this.state.shareQuote}
                 url={this.state.shareUrl}
+                title={shareTitle}
+                media={buildingLogo}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
               >
