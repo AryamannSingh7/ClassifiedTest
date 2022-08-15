@@ -24,6 +24,12 @@ export const Rc = require("../assets/Registration-Certificate.png");
 export const CarFront = require("../assets/carFront.png");
 export const Tick = require("../assets/tick.png");
 export const Building = require("../assets/building.png");
+export const Hash = require("../assets/Hash.png");
+export const Hyperlink = require("../assets/Hyperlink.png");
+export const User3 = require("../assets/User 3.png");
+
+
+
 
 
 

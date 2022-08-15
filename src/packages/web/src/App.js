@@ -118,12 +118,16 @@ import PollVoteSubmitted from "../../blocks/Polling/src/PollVoteSubmitted.web"
 import PollResponseCompleted from "../../blocks/Polling/src/PollResponseCompleted.web"
 import VeichleList from "../../blocks/customform/src/VeichleList.web"
 import NewVeichleList from "../../blocks/customform/src/NewVehicle.web"
+import NewFamily from "../../blocks/customform/src/NewFamily.web"
 import EditVeichleList from "../../blocks/customform/src/EditVehicle.web"
+import EditFamily from "../../blocks/customform/src/EditFamily.web"
 import EditRequest from "../../blocks/customform/src/EditRequest.web"
 import NewRequest from "../../blocks/customform/src/NewRequest.web"
 import ManagerList from "../../blocks/customform/src/ManagerList.web"
 
 import ViewVeichle from "../../blocks/customform/src/ViewVehicle.web"
+import FamilyList from "../../blocks/customform/src/FamilyList.web"
+
 import ManagerViewVehicle from "../../blocks/customform/src/ManagerViewVehicle.web"
 
 
@@ -179,14 +183,29 @@ const routeMap = {
     path: '/VeichleList',
     exact: true
   },
+  FamilyList: {
+    component: FamilyList,
+    path: '/FamilyList',
+    exact: true
+  },
   NewVeichleList: {
     component: NewVeichleList,
     path: '/NewVeichleList',
     exact: true
   },
+  NewFamily: {
+    component: NewFamily,
+    path: '/NewFamily',
+    exact: true
+  },
   EditVeichleList: {
     component: EditVeichleList,
     path: '/editVehicle',
+    exact: true
+  },
+  EditFamily: {
+    component: EditFamily,
+    path: '/EditFamily',
     exact: true
   },
   EditRequest: {
