@@ -31,11 +31,14 @@ interface S {
   isShareModalOpen: boolean;
 
   documentList: any[];
+  resolutionList: any[];
+  meetingsList: any[];
 
   title: string;
   file: any;
 
   selectedDocumentId: string;
+  selectedMeeting: any;
 
   shareUrl: string;
   shareQuote: string;
@@ -54,6 +57,10 @@ export default class DocumentListChairmanController extends BlockComponent<
   ChairmanDocumentsCallId: any;
   CreateDocumentCallId: any;
   DeleteDocumentCallId: any;
+  ResolutionsCallId: any;
+  DeleteResolutionCallId: any;
+  MeetingsCallId: any;
+  CreateResolutionCallId: any;
 
   constructor(props: Props) {
     super(props);
@@ -75,11 +82,14 @@ export default class DocumentListChairmanController extends BlockComponent<
       isShareModalOpen: false,
 
       documentList: [],
+      resolutionList: [],
+      meetingsList: [],
 
       title: "",
       file: null,
 
       selectedDocumentId: "",
+      selectedMeeting: null,
 
       shareUrl: "",
       shareQuote: "",
@@ -196,6 +206,131 @@ export default class DocumentListChairmanController extends BlockComponent<
       }
       this.parseApiCatchErrorResponse(errorReponse);
     }
+
+    // Get Meetings
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.MeetingsCallId !== null &&
+      this.MeetingsCallId ===
+        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.MeetingsCallId = null;
+
+      var responseJson = message.getData(
+        getName(MessageEnum.RestAPIResponceSuccessMessage)
+      );
+
+      if (responseJson.code === 200) {
+        this.setState({
+          ...this.state,
+          meetingsList: responseJson.meeting.data,
+        });
+      }
+
+      var errorReponse = message.getData(
+        getName(MessageEnum.RestAPIResponceErrorMessage)
+      );
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        this.parseApiErrorResponse(responseJson);
+      }
+      this.parseApiCatchErrorResponse(errorReponse);
+    }
+
+    // Get Resolutions
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.ResolutionsCallId !== null &&
+      this.ResolutionsCallId ===
+        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.ResolutionsCallId = null;
+
+      var responseJson = message.getData(
+        getName(MessageEnum.RestAPIResponceSuccessMessage)
+      );
+
+      if (responseJson.code === 200) {
+        this.setState({
+          ...this.state,
+          resolutionList: responseJson.resolution.data,
+        });
+      }
+
+      var errorReponse = message.getData(
+        getName(MessageEnum.RestAPIResponceErrorMessage)
+      );
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        this.parseApiErrorResponse(responseJson);
+      }
+      this.parseApiCatchErrorResponse(errorReponse);
+    }
+
+    // Delete Resolutions
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.DeleteResolutionCallId !== null &&
+      this.DeleteResolutionCallId ===
+        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.DeleteResolutionCallId = null;
+
+      var responseJson = message.getData(
+        getName(MessageEnum.RestAPIResponceSuccessMessage)
+      );
+
+      this.getResolutions();
+      // this.handleDeleteDocumentModal();
+
+      var errorReponse = message.getData(
+        getName(MessageEnum.RestAPIResponceErrorMessage)
+      );
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        this.parseApiErrorResponse(responseJson);
+      }
+      this.parseApiCatchErrorResponse(errorReponse);
+    }
+
+    // Create Resolution
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.CreateResolutionCallId !== null &&
+      this.CreateResolutionCallId ===
+        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.CreateResolutionCallId = null;
+
+      var responseJson = message.getData(
+        getName(MessageEnum.RestAPIResponceSuccessMessage)
+      );
+
+      if (responseJson.code === 200) {
+        this.setState(
+          {
+            ...this.state,
+            resolutionList: [...this.state.resolutionList, responseJson.resolution.data],
+          },
+          () => {
+            this.handleAddResolutionsModal();
+          }
+        );
+      }
+
+      var errorReponse = message.getData(
+        getName(MessageEnum.RestAPIResponceErrorMessage)
+      );
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        this.parseApiErrorResponse(responseJson);
+      }
+      this.parseApiCatchErrorResponse(errorReponse);
+    }
     // Customizable Area End
   }
 
@@ -218,11 +353,144 @@ export default class DocumentListChairmanController extends BlockComponent<
         ) {
           this.getDocuments(document_name.toLowerCase());
         } else if (document_name.toLowerCase() === "resolutions") {
-          console.log("resolutions");
+          this.getMeetings();
+          this.getResolutions();
         }
       }
     );
   }
+
+  // Get Meetings API
+  getMeetings = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const society_id = localStorage.getItem("society_id");
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.MeetingsCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `society_managements/${society_id}/bx_block_meeting/meetings`
+    );
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.apiMethodTypeGet
+    );
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  // Get Resolutions API
+  getResolutions = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const society_id = localStorage.getItem("society_id");
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.ResolutionsCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `society_managements/${society_id}/bx_block_my_document/resolutions`
+    );
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.apiMethodTypeGet
+    );
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  // Delete Resolution API
+  deleteResolution = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const society_id = localStorage.getItem("society_id");
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.DeleteResolutionCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `society_managements/${society_id}/bx_block_my_document/resolutions/${
+        this.state.selectedDocumentId
+      }`
+    );
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.apiMethodTypeDelete
+    );
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  // Create Resolution API
+  createResolution = () => {
+    var data = new FormData();
+    data.append("resolution[title]", this.state.title);
+    data.append("resolution[:image]", this.state.file);
+    data.append("resolution[meeting_id]", this.state.selectedMeeting.id);
+
+    const header = {
+      token: localStorage.getItem("userToken"),
+    };
+
+    const society_id = localStorage.getItem("society_id");
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.CreateResolutionCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `society_managements/${society_id}/bx_block_my_document/resolutions`
+    );
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestBodyMessage), data);
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.apiMethodTypePost
+    );
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
 
   // Get Document API
   getDocuments = (documentType: string) => {
@@ -351,6 +619,7 @@ export default class DocumentListChairmanController extends BlockComponent<
     });
   };
 
+  // Handle State
   handleAddDocumentModal = () => {
     this.setState({
       ...this.state,
@@ -370,6 +639,9 @@ export default class DocumentListChairmanController extends BlockComponent<
   handleAddResolutionsModal = () => {
     this.setState({
       ...this.state,
+      title: "",
+      file: null,
+      selectedMeeting: null,
       isAddResolutionModalOpen: !this.state.isAddResolutionModalOpen,
     });
   };

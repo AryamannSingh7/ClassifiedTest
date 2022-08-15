@@ -225,3 +225,7 @@
   color: darkgray;
   border: 0;
 }
+
+.select-meeting .MuiListItemText-root {
+  max-width: 275px;
+}

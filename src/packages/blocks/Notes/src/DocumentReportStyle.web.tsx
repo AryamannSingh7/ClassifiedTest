@@ -81,6 +81,7 @@ export const DocumentReportStyleWeb: any = {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
+      textTransform: "capitalize",
     },
     "& .document-box .card-item .res-info": {
       width: "100%",
@@ -107,8 +108,9 @@ export const DocumentReportStyleWeb: any = {
     },
     "& .document-box .card-item .item-title h6": {
       fontWeight: "600",
-      fontSize: "16px",
+      fontSize: "14px",
       marginLeft: "5px",
+      textTransform: "capitalize",
     },
     "& .document-box.resolutions .item": {
       minHeight: "20px",
@@ -335,6 +337,7 @@ export const DocumentReportStyleWeb: any = {
       alignItems: "center",
       justifyContent: "space-between",
       marginBottom: "10px",
+      textTransform: "capitalize",
     },
     "& .document-box .card-item .res-info": {
       width: "100%",
@@ -362,8 +365,9 @@ export const DocumentReportStyleWeb: any = {
     },
     "& .document-box .card-item .item-title h6": {
       fontWeight: "600",
-      fontSize: "16px",
+      fontSize: "14px",
       marginLeft: "5px",
+      textTransform: "capitalize",
     },
     "& .document-box .meeting-item": {
       minHeight: "34px",
@@ -391,9 +395,7 @@ export const DocumentReportStyleWeb: any = {
       marginTop: "15px",
       marginBottom: "15px",
     },
-    "& .meeting-details": {
-      
-    },
+    "& .meeting-details": {},
     "& .meeting-details .card": {
       padding: "15px",
       marginBottom: "10px",
