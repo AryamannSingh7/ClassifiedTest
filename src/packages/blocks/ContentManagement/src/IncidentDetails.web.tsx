@@ -169,7 +169,7 @@ class IncidentDetails extends IncidentController {
                                     val?.content_type === "video/mp4" || val?.content_type === "video/x-m4v" ?
                                       <Box className="video-img" key={index} onClick={() => { this.setState({ showDialog: true, file: { url: val.url, type: val?.content_type, name: val?.file_name } }) }}>
                                         <Box className="img-layer"></Box>
-                                        <video className="incident-dialog-video" autoPlay >
+                                        <video className="incident-dialog-video"  >
                                           <source src={val?.url} type={val?.file?.type} />
                                         </video>
                                         <PlayCircleOutlineIcon className="play-icon" />
@@ -287,7 +287,7 @@ class IncidentDetails extends IncidentController {
               <Box className="diloag-content-body">
                 {
                   this.state?.file?.type === "video/mp4" || this.state?.file?.type === "video/x-m4v" ?
-                    <video className="incident-dialog-video" autoplay controls >
+                    <video className="incident-dialog-video"  controls >
                       <source src={this.state?.file?.url} type={this.state?.file?.type} />
                     </video>
                     :
