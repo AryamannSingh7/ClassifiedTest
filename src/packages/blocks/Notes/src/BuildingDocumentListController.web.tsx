@@ -21,15 +21,14 @@ export interface Props {
 
 interface S {
   // Customizable Area Start
-  isAddDocumentModalOpen: boolean;
-  isDeleteDocumentModalOpen: boolean;
   isShareModalOpen: boolean;
 
   shareUrl: string;
   shareQuote: string;
 
-  title: string;
-  file: any;
+  documentType: string;
+
+  documentsList: any[];
   // Customizable Area End
 }
 
@@ -42,6 +41,9 @@ export default class BuildingDocumentListController extends BlockComponent<
   S,
   SS
 > {
+  DocumentsCallId: any;
+  ResolutionsCallId: any;
+
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
@@ -53,15 +55,14 @@ export default class BuildingDocumentListController extends BlockComponent<
     ];
 
     this.state = {
-      isAddDocumentModalOpen: false,
-      isDeleteDocumentModalOpen: false,
       isShareModalOpen: false,
 
       shareUrl: "",
       shareQuote: "",
 
-      title: "",
-      file: null,
+      documentType: "",
+
+      documentsList: [],
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -69,37 +70,167 @@ export default class BuildingDocumentListController extends BlockComponent<
 
   async receive(from: string, message: Message) {
     // Customizable Area Start
+    // Get Document
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.DocumentsCallId !== null &&
+      this.DocumentsCallId ===
+        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.DocumentsCallId = null;
+
+      var responseJson = message.getData(
+        getName(MessageEnum.RestAPIResponceSuccessMessage)
+      );
+
+      if (responseJson.data) {
+        this.setState({
+          ...this.state,
+          documentsList: responseJson.data,
+        });
+      }
+
+      var errorReponse = message.getData(
+        getName(MessageEnum.RestAPIResponceErrorMessage)
+      );
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        this.parseApiErrorResponse(responseJson);
+      }
+      this.parseApiCatchErrorResponse(errorReponse);
+    }
+
+    // Get Resolutions
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.ResolutionsCallId !== null &&
+      this.ResolutionsCallId ===
+        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.ResolutionsCallId = null;
+
+      var responseJson = message.getData(
+        getName(MessageEnum.RestAPIResponceSuccessMessage)
+      );
+
+      if (responseJson.code === 200) {
+        this.setState({
+          ...this.state,
+          documentsList: responseJson.resolution.data,
+        });
+      }
+
+      var errorReponse = message.getData(
+        getName(MessageEnum.RestAPIResponceErrorMessage)
+      );
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        this.parseApiErrorResponse(responseJson);
+      }
+      this.parseApiCatchErrorResponse(errorReponse);
+    }
     // Customizable Area End
   }
 
-  upload: any;
-
   // Customizable Area Start
   async componentDidMount(): Promise<void> {
+    const document_type = this.props.navigation.getParam("name");
+
+    this.setState(
+      {
+        ...this.state,
+        documentType: document_type,
+      },
+      () => {
+        if (
+          document_type.toLowerCase() === "policy" ||
+          document_type.toLowerCase() === "guidelines" ||
+          document_type.toLowerCase() === "roles" ||
+          document_type.toLowerCase() === "building-plans"
+        ) {
+          this.getDocuments(document_type.toLowerCase());
+        } else if (document_type.toLowerCase() === "resolutions") {
+          this.getResolutions();
+        }
+      }
+    );
   }
 
-  onChangeFile = (event: any) => {
-    event.stopPropagation();
-    event.preventDefault();
-    var file = event.target.files[0];
+  // Get Document API
+  getDocuments = (documentType: string) => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
 
-    console.log(file);
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.DocumentsCallId = apiRequest.messageId;
+
+    var APIEndpoint: string = "";
+    if (documentType === "policy") {
+      APIEndpoint = configJSON.PolicyDocumentAPIEndPoint;
+    } else if (documentType === "guidelines") {
+      APIEndpoint = configJSON.GuidelinesDocumentAPIEndPoint;
+    } else if (documentType === "roles") {
+      APIEndpoint = configJSON.RolesDocumentAPIEndPoint;
+    } else if (documentType === "building-plans") {
+      APIEndpoint = configJSON.BuildingPlansDocumentAPIEndPoint;
+    }
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      APIEndpoint
+    );
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.apiMethodTypeGet
+    );
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
   };
 
-  handleAddDocumentModal = () => {
-    this.setState({
-      ...this.state,
-      isAddDocumentModalOpen: !this.state.isAddDocumentModalOpen,
-    });
+  // Get Resolutions API
+  getResolutions = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const society_id = localStorage.getItem("society_id");
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.ResolutionsCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `society_managements/${society_id}/bx_block_my_document/resolutions`
+    );
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.apiMethodTypeGet
+    );
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
   };
 
-  handleDeleteDocumentModal = () => {
-    this.setState({
-      ...this.state,
-      isDeleteDocumentModalOpen: !this.state.isDeleteDocumentModalOpen,
-    });
-  };
-
+  // Handle State
   handleShareModal = () => {
     this.setState({
       ...this.state,

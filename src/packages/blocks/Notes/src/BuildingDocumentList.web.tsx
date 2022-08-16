@@ -57,179 +57,108 @@ class BuildingDocumentList extends BuildingDocumentListController {
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box display={{ xs: "flex", md: "flex" }} className="menu">
-                <Link
-                  href={
-                    localStorage.getItem("userType") === "Owner"
-                      ? "/OwnerDashboard"
-                      : ""
-                  }
-                >
+                <Link href="/BuildingDocuments">
                   <IconButton>
                     <KeyboardBackspaceIcon />
                   </IconButton>
                 </Link>{" "}
-                Rent Contract
+                {this.state.documentType.toLowerCase() === "building-plans"
+                  ? "Building Plans"
+                  : this.state.documentType}
               </Box>
               <Container className="content-area document-box list">
                 <div className="personal-documents">
-                  {/* <div className="empty-list">
-                    <div className="content-box">
-                      <img src={NoPdf} />
-                      <h3>No Document Found</h3>
+                  {this.state.documentsList.length === 0 && (
+                    <div className="empty-list">
+                      <div className="content-box">
+                        <img src={NoPdf} />
+                        <h3>No Document Found</h3>
+                      </div>
                     </div>
-                  </div> */}
-                  <Grid container spacing={2} className="">
-                    <Grid item xs={12} md={6} lg={6}>
-                      <Card className="card-item">
-                        <div className="heading">
-                          <h4>Resolution Title</h4>
-                        </div>
-                        <div className="res-info">
-                          <div className="info-item">
-                            <p>Date & Time</p>
-                            <span>Date & Time</span>
-                          </div>
-                          <div className="info-item">
-                            <p>Building</p>
-                            <span>Building</span>
-                          </div>
-                        </div>
-                        <div className="meeting-item">
-                          <div className="item-title">
-                            <img src={PdfImage} />
-                            <h6>Policy</h6>
-                          </div>
-                          <div className="icons">
-                            <img src={ShareImage} />
-                            <img src={DownloadImage} />
-                          </div>
-                        </div>
-                      </Card>
-                    </Grid>
-                    <Grid item xs={12} md={6} lg={6}>
-                      <Card className="card-item">
-                        <div className="heading">
-                          <h4>Resolution Title</h4>
-                        </div>
-                        <div className="res-info">
-                          <div className="info-item">
-                            <p>Date & Time</p>
-                            <span>Date & Time</span>
-                          </div>
-                          <div className="info-item">
-                            <p>Building</p>
-                            <span>Building</span>
-                          </div>
-                        </div>
-                        <div className="meeting-item">
-                          <div className="item-title">
-                            <img src={PdfImage} />
-                            <h6>Policy</h6>
-                          </div>
-                          <div className="icons">
-                            <img src={ShareImage} />
-                            <img src={DownloadImage} />
-                          </div>
-                        </div>
-                      </Card>
-                    </Grid>
-                    <Grid item xs={12} md={6} lg={6}>
-                      <Card className="card-item">
-                        <div className="heading">
-                          <h4>Resolution Title</h4>
-                        </div>
-                        <div className="res-info">
-                          <div className="info-item">
-                            <p>Date & Time</p>
-                            <span>Date & Time</span>
-                          </div>
-                          <div className="info-item">
-                            <p>Building</p>
-                            <span>Building</span>
-                          </div>
-                        </div>
-                        <div className="meeting-item">
-                          <div className="item-title">
-                            <img src={PdfImage} />
-                            <h6>Policy</h6>
-                          </div>
-                          <div className="icons">
-                            <img src={ShareImage} />
-                            <img src={DownloadImage} />
-                          </div>
-                        </div>
-                      </Card>
-                    </Grid>
-
-                    <Grid item xs={12} md={12} lg={12}>
-                      <Box className="item document">
-                        <Link href="/PersonalDocument/Rent-Contact/12/view">
-                          <div className="left-side">
-                            <div className="image">
-                              <img src={PdfImage} />
-                            </div>
-                            <div className="info">
-                              <h4>Rent Contract</h4>
-                              {/* <div className="more-info">
-                                <p>
-                                  <span>55</span>pages
-                                </p>
-                                <p>
-                                  <span>5</span>MB
-                                </p>
-                                <p>08/12/2022</p>
-                              </div> */}
-                            </div>
-                          </div>
-                        </Link>
-                      </Box>
-                    </Grid>
-                    <Grid item xs={12} md={12} lg={12}>
-                      <Box className="item document">
-                        <Link href="/PersonalDocument/Rent-Contact/12/view">
-                          <div className="left-side">
-                            <div className="image">
-                              <img src={PdfImage} />
-                            </div>
-                            <div className="info">
-                              <h4>Rent Contract</h4>
-                              {/* <div className="more-info">
-                                <p>
-                                  <span>55</span>pages
-                                </p>
-                                <p>
-                                  <span>5</span>MB
-                                </p>
-                                <p>08/12/2022</p>
-                              </div> */}
-                            </div>
-                          </div>
-                        </Link>
-                      </Box>
-                    </Grid>
-                    <Grid item xs={12} md={12} lg={12}>
-                      <Box className="item document">
-                        <Link href="/PersonalDocument/Rent-Contact/12/view">
-                          <div className="left-side">
-                            <div className="image">
-                              <img src={PdfImage} />
-                            </div>
-                            <div className="info">
-                              <h4>Rent Contract</h4>
-                              {/* <div className="more-info">
-                                <p>
-                                  <span>55</span>pages
-                                </p>
-                                <p>
-                                  <span>5</span>MB
-                                </p>
-                                <p>08/12/2022</p>
-                              </div> */}
-                            </div>
-                          </div>
-                        </Link>
-                      </Box>
-                    </Grid>
+                  )}
+                  <Grid container spacing={2}>
+                    {this.state.documentType.toLowerCase() === "resolutions" ? (
+                      <>
+                        {this.state.documentsList.map((document: any) => {
+                          const date = document.attributes.meeting_date_time.split(
+                            " "
+                          )[0];
+                          return (
+                            <Grid item xs={12} md={6} lg={6} key={document.id}>
+                              <Card className="card-item">
+                                <div className="heading">
+                                  <h4>{document.attributes.title}</h4>
+                                </div>
+                                <div className="res-info">
+                                  <div className="info-item">
+                                    <p>Date & Time</p>
+                                    <span>
+                                      {document.attributes.meeting_date_time}
+                                    </span>
+                                  </div>
+                                  <div className="info-item">
+                                    <p>Building</p>
+                                    <span>
+                                      {document.attributes.buidling_name}
+                                    </span>
+                                  </div>
+                                </div>
+                                <div className="meeting-item">
+                                  <div className="item-title">
+                                    <img src={PdfImage} />
+                                    <h6>Meeting Minutes {date}</h6>
+                                  </div>
+                                  <div className="icons">
+                                    <img src={ShareImage} />
+                                    <img src={DownloadImage} />
+                                  </div>
+                                </div>
+                              </Card>
+                            </Grid>
+                          );
+                        })}
+                      </>
+                    ) : (
+                      <>
+                        {this.state.documentsList.map((document: any) => {
+                          return (
+                            <Grid
+                              item
+                              xs={12}
+                              md={12}
+                              lg={12}
+                              key={document.id}
+                            >
+                              <Box className="item document">
+                                <Link
+                                  href={`/BuildingDocuments/${
+                                    this.state.documentType
+                                  }/${document.id}/view`}
+                                >
+                                  <div className="left-side">
+                                    <div className="image">
+                                      <img src={PdfImage} />
+                                    </div>
+                                    <div className="info">
+                                      <h4>{document.attributes.title}</h4>
+                                      {/* <div className="more-info">
+                                        <p>
+                                          <span>55</span>pages
+                                        </p>
+                                        <p>
+                                          <span>5</span>MB
+                                        </p>
+                                        <p>08/12/2022</p>
+                                      </div> */}
+                                    </div>
+                                  </div>
+                                </Link>
+                              </Box>
+                            </Grid>
+                          );
+                        })}
+                      </>
+                    )}
                   </Grid>
                 </div>
               </Container>

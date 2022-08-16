@@ -240,7 +240,7 @@ class OwnerDashboard extends React.Component {
                     </Link>
                   </Grid>
                   <Grid item xs={12} sm={6}>
-                    <Link href="">
+                    <Link href="/BuildingDocuments">
                       <DashboardCard
                         image={keyhand}
                         heading="Building Documents"

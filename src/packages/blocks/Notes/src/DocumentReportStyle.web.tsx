@@ -182,6 +182,7 @@ export const DocumentReportStyleWeb: any = {
     },
     "& .document .left-side h4": {
       display: "block",
+      textTransform: "capitalize",
     },
     "& .document .left-side img": {
       width: "45px",
@@ -323,6 +324,9 @@ export const DocumentReportStyleWeb: any = {
     "& .document .left-side": {
       display: "flex",
       alignItems: "center",
+    },
+    "& .document .left-side h4": {
+      textTransform: "capitalize",
     },
     "& .document .left-side img": {
       width: "35px",

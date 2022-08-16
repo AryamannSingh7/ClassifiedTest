@@ -82,7 +82,7 @@ export default class DocumentChairmanController extends BlockComponent<
           policy: responseJson.data.policy_count,
           guidelines: responseJson.data.guideline_count,
           roles: responseJson.data.role_count,
-          resolution: 0,
+          resolution: responseJson.data.resolution_count,
           buildingPlans: responseJson.data.building_plan_count,
         });
       }

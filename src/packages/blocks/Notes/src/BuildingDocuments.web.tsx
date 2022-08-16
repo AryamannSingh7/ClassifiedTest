@@ -29,6 +29,8 @@ class BuildingDocuments extends BuildingDocumentController {
   render() {
     const { classes } = this.props;
 
+    console.log(this.state);
+
     return (
       <>
         <Box
@@ -54,14 +56,18 @@ class BuildingDocuments extends BuildingDocumentController {
               <Container className="content-area document-box">
                 <Grid container spacing={2}>
                   <Grid item xs={12} md={12} lg={12}>
-                    <Link href="/BuildingDocuments/Rent-Contact">
+                    <Link href="/BuildingDocuments/Policy">
                       <Box className="item">
                         <div className="heading">
                           <img src={Document} />
                           <h4>Policy</h4>
                         </div>
                         <div>
-                          <Button className="color-btn">04</Button>
+                          {this.state.policy > 0 && (
+                            <Button className="color-btn">
+                              {this.state.policy}
+                            </Button>
+                          )}
                           <IconButton>
                             <ChevronRightIcon />
                           </IconButton>
@@ -70,14 +76,18 @@ class BuildingDocuments extends BuildingDocumentController {
                     </Link>
                   </Grid>
                   <Grid item xs={12} md={12} lg={12}>
-                    <Link href="/PersonalDocument/Rent-Contact">
+                    <Link href="/BuildingDocuments/Resolutions">
                       <Box className="item">
                         <div className="heading">
                           <img src={Document} />
                           <h4>Resolutions</h4>
                         </div>
                         <div>
-                          <Button className="color-btn">04</Button>
+                          {this.state.resolution > 0 && (
+                            <Button className="color-btn">
+                              {this.state.resolution}
+                            </Button>
+                          )}
                           <IconButton>
                             <ChevronRightIcon />
                           </IconButton>
@@ -86,14 +96,18 @@ class BuildingDocuments extends BuildingDocumentController {
                     </Link>
                   </Grid>
                   <Grid item xs={12} md={12} lg={12}>
-                    <Link href="/PersonalDocument/Rent-Contact">
+                    <Link href="/BuildingDocuments/Roles">
                       <Box className="item">
                         <div className="heading">
                           <img src={Document} />
                           <h4>Roles</h4>
                         </div>
                         <div>
-                          <Button className="color-btn">04</Button>
+                          {this.state.roles > 0 && (
+                            <Button className="color-btn">
+                              {this.state.roles}
+                            </Button>
+                          )}
                           <IconButton>
                             <ChevronRightIcon />
                           </IconButton>
@@ -102,14 +116,18 @@ class BuildingDocuments extends BuildingDocumentController {
                     </Link>
                   </Grid>
                   <Grid item xs={12} md={12} lg={12}>
-                    <Link href="/PersonalDocument/Rent-Contact">
+                    <Link href="/BuildingDocuments/Guidelines">
                       <Box className="item">
                         <div className="heading">
                           <img src={Document} />
                           <h4>Guidelines</h4>
                         </div>
                         <div>
-                          <Button className="color-btn">04</Button>
+                          {this.state.guidelines > 0 && (
+                            <Button className="color-btn">
+                              {this.state.guidelines}
+                            </Button>
+                          )}
                           <IconButton>
                             <ChevronRightIcon />
                           </IconButton>
@@ -118,14 +136,18 @@ class BuildingDocuments extends BuildingDocumentController {
                     </Link>
                   </Grid>
                   <Grid item xs={12} md={12} lg={12}>
-                    <Link href="/PersonalDocument/Rent-Contact">
+                    <Link href="/BuildingDocuments/Building-Plans">
                       <Box className="item">
                         <div className="heading">
                           <img src={Document} />
                           <h4>Building Plans</h4>
                         </div>
                         <div>
-                          <Button className="color-btn">04</Button>
+                          {this.state.buildingPlans > 0 && (
+                            <Button className="color-btn">
+                              {this.state.buildingPlans}
+                            </Button>
+                          )}
                           <IconButton>
                             <ChevronRightIcon />
                           </IconButton>
