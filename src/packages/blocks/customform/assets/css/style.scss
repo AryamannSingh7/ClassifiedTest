@@ -84,3 +84,32 @@
 .details {
   padding: 1rem;
 }
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.text-bold {
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
+.fam {
+  padding: 0.5rem 1rem 0.5rem 1rem;
+}
+
+.fam-label {
+  color: #8C8E92;
+  margin-top: 0.5rem;
+}
+
+.fam-value {
+  font-weight: bold;
+}
+
+.MuiSelect-outlined.MuiSelect-outlined {
+  background: #f9f9f9;
+  border-radius: 25px;
+  border: 1px solid #e9dede;
+}
