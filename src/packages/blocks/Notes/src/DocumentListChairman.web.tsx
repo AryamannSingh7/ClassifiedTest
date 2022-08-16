@@ -148,12 +148,6 @@ class DocumentListChairman extends DocumentListChairmanController {
                             <span>No Resolution Available!!</span>
                           )}
                           {this.state.resolutionList.map((resolution: any) => {
-                            // console.log(resolution);
-
-                            const date = resolution.attributes.meeting_date_time.split(
-                              " "
-                            )[0];
-
                             return (
                               <Grid
                                 item
@@ -222,13 +216,17 @@ class DocumentListChairman extends DocumentListChairmanController {
                                     </div>
                                     <div className="info-item">
                                       <p>Building</p>
-                                      <span>Building</span>
+                                      <span>
+                                        {resolution.attributes.building}
+                                      </span>
                                     </div>
                                   </div>
                                   <div className="item">
                                     <div className="item-title">
                                       <img src={PdfImage} />
-                                      <h6>Meeting Minutes {date}</h6>
+                                      <h6>
+                                        {resolution.attributes.meeting.title}
+                                      </h6>
                                     </div>
                                     <div className="icons">
                                       <img src={ShareImage} />

@@ -134,6 +134,7 @@ export const DocumentReportStyleWeb: any = {
     },
     "& .menu.personal-document-menu": {
       justifyContent: "space-between",
+      textTransform: "capitalize",
     },
     "& .right-image": {
       padding: "25px 60px",
@@ -175,6 +176,11 @@ export const DocumentReportStyleWeb: any = {
     },
     "& a": {
       textDecoration: "none !important",
+    },
+    "& .szh-menu-container ul li a": {
+      textDecoration: "none",
+      color: "black",
+      fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
     },
     "& .document .left-side": {
       display: "flex",
@@ -266,6 +272,7 @@ export const DocumentReportStyleWeb: any = {
       marginBottom: "18px",
       background: "#FFFFFF",
       padding: "10px 20px",
+      textTransform: "capitalize",
     },
     "& .right-image": {
       padding: "25px 60px",

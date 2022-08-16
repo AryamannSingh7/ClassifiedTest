@@ -374,7 +374,7 @@ export default class DocumentListChairmanController extends BlockComponent<
 
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_meeting/meetings`
+      `society_managements/${society_id}/bx_block_meeting/meeting_mins`
     );
 
     apiRequest.addData(
@@ -459,7 +459,7 @@ export default class DocumentListChairmanController extends BlockComponent<
   createResolution = () => {
     var data = new FormData();
     data.append("resolution[title]", this.state.title);
-    data.append("resolution[:image]", this.state.file);
+    data.append("resolution[attachments][]", this.state.file);
     data.append("resolution[meeting_id]", this.state.selectedMeeting.id);
 
     const header = {

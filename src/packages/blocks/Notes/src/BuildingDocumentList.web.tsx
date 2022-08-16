@@ -86,9 +86,15 @@ class BuildingDocumentList extends BuildingDocumentListController {
                           return (
                             <Grid item xs={12} md={6} lg={6} key={document.id}>
                               <Card className="card-item">
-                                <div className="heading">
-                                  <h4>{document.attributes.title}</h4>
-                                </div>
+                                <Link
+                                  href={`/BuildingDocuments/${
+                                    this.state.documentType
+                                  }/${document.id}/view`}
+                                >
+                                  <div className="heading">
+                                    <h4>{document.attributes.title}</h4>
+                                  </div>
+                                </Link>
                                 <div className="res-info">
                                   <div className="info-item">
                                     <p>Date & Time</p>

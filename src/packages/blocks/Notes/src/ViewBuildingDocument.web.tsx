@@ -41,6 +41,8 @@ class ViewBuildingDocument extends ViewBuildingDocumentController {
   render() {
     const { classes } = this.props;
 
+    console.log(this.state);
+
     return (
       <>
         <Box
@@ -54,50 +56,66 @@ class ViewBuildingDocument extends ViewBuildingDocumentController {
                 className="menu building-document-menu"
               >
                 <div>
-                  <Link
-                    href={
-                      localStorage.getItem("userType") === "Owner"
-                        ? "/OwnerDashboard"
-                        : ""
-                    }
-                  >
+                  <Link href={`/BuildingDocuments/${this.state.documentType}`}>
                     <IconButton>
                       <KeyboardBackspaceIcon />
                     </IconButton>
                   </Link>{" "}
-                  Policy
+                  {this.state.documentTitle}
                 </div>
-                <div>
+                <Link href={this.state.documentDownloadUrl} target="_blank">
                   <img src={DownloadImage} alt="download" />
-                </div>
+                </Link>
               </Box>
               <Container className="content-area document-box">
                 <div className="document-view">
-                  <iframe src="http://www.africau.edu/images/default/sample.pdf" />
+                  <iframe src={this.state.documentUrl} />
                 </div>
-                <div className="meeting-item view">
-                  <div className="item-title">
-                    <img src={PdfImage} />
-                    <h6>Policy</h6>
-                  </div>
-                  <div className="icons">
-                    <img src={ShareImage} />
-                    <img src={DownloadImage} />
-                  </div>
-                </div>
-                <div className="meeting-details">
-                  <h4>Meeting Details</h4>
-                  <Card className="card">
-                    <p>Date & Time:</p>
-                    <span>Date & Time</span>
-                    <p>Place:</p>
-                    <span>Place</span>
-                    <p>Building:</p>
-                    <span>Building</span>
-                    <p>Agenda:</p>
-                    <span>Agenda</span>
-                  </Card>
-                </div>
+                {this.state.documentType.toLowerCase() === "resolutions" && (
+                  <>
+                    <div className="meeting-item view">
+                      <div className="item-title">
+                        <img src={PdfImage} />
+                        <h6>
+                          Meeting Minutes{" "}
+                          {this.state.document &&
+                            this.state.document.attributes.meeting_date_time.split(
+                              " "
+                            )[0]}
+                        </h6>
+                      </div>
+                      <div className="icons">
+                        <img src={ShareImage} />
+                        <img src={DownloadImage} />
+                      </div>
+                    </div>
+                    <div className="meeting-details">
+                      <h4>Meeting Details</h4>
+                      <Card className="card">
+                        <p>Date & Time:</p>
+                        <span>
+                          {this.state.document &&
+                            this.state.document.attributes.meeting_date_time}
+                        </span>
+                        <p>Place:</p>
+                        <span>
+                          {this.state.document &&
+                            this.state.document.attributes.meeting.place}
+                        </span>
+                        <p>Building:</p>
+                        <span>
+                          {this.state.document &&
+                            this.state.document.attributes.buidling_name}
+                        </span>
+                        <p>Agenda:</p>
+                        <span>
+                          {this.state.document &&
+                            this.state.document.attributes.meeting.agenda}
+                        </span>
+                      </Card>
+                    </div>
+                  </>
+                )}
               </Container>
             </Grid>
             <Grid item xs={12} md={5}>
