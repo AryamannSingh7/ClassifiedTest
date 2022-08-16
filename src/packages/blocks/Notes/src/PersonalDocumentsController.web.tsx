@@ -21,6 +21,9 @@ export interface Props {
 
 interface S {
   // Customizable Area Start
+  rent_contract: number;
+  unit_plan: number;
+  other_document: number;
   // Customizable Area End
 }
 
@@ -33,6 +36,8 @@ export default class PersonalDocumentController extends BlockComponent<
   S,
   SS
 > {
+  GetDocumentCountCallId: any;
+
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
@@ -43,20 +48,85 @@ export default class PersonalDocumentController extends BlockComponent<
       getName(MessageEnum.RestAPIRequestMessage),
     ];
 
-    this.state = {};
+    this.state = {
+      rent_contract: 0,
+      unit_plan: 0,
+      other_document: 0,
+    };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
 
   async receive(from: string, message: Message) {
     // Customizable Area Start
+    // Get Document Count
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.GetDocumentCountCallId !== null &&
+      this.GetDocumentCountCallId ===
+        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.GetDocumentCountCallId = null;
+
+      var responseJson = message.getData(
+        getName(MessageEnum.RestAPIResponceSuccessMessage)
+      );
+
+      if (responseJson.data) {
+        this.setState({
+          ...this.state,
+          rent_contract: responseJson.data.rent_contracts,
+          unit_plan: responseJson.data.unit_plans,
+          other_document: responseJson.data.other_documents,
+        });
+      }
+
+      var errorReponse = message.getData(
+        getName(MessageEnum.RestAPIResponceErrorMessage)
+      );
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        this.parseApiErrorResponse(responseJson);
+      }
+      this.parseApiCatchErrorResponse(errorReponse);
+    }
     // Customizable Area End
   }
 
   // Customizable Area Start
   async componentDidMount(): Promise<void> {
+    this.getDocumentCount();
   }
 
-  // Get FAQ Category API
+  // Get Document Count API
+  getDocumentCount = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.GetDocumentCountCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      configJSON.GetPersonalDocumentCountAPIEndPoint
+    );
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.apiMethodTypeGet
+    );
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
   // Customizable Area End
 }

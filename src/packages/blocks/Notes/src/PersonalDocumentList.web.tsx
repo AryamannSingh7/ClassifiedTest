@@ -33,6 +33,8 @@ import UploadImage from "../assets/upload.png";
 import DeleteImage from "../assets/delete.png";
 import NoPdf from "../assets/no-pdf.png";
 import BuildingLogo from "../assets/building.png";
+import PdfImage from "../assets/pdf.png";
+import buildingLogo from "../assets/building.png";
 
 import {
   EmailShareButton,
@@ -77,303 +79,145 @@ class PersonalDocumentList extends PersonalDocumentListController {
         >
           <Grid container>
             <Grid item xs={12} md={7}>
-              <Box display={{ xs: "flex", md: "flex" }} className="menu">
-                <Link
-                  href={
-                    localStorage.getItem("userType") === "Owner"
-                      ? "/OwnerDashboard"
-                      : ""
-                  }
-                >
-                  <IconButton>
-                    <KeyboardBackspaceIcon />
-                  </IconButton>
-                </Link>{" "}
-                Rent Contract
-              </Box>
-              <Container className="content-area document-box list">
-                <div className="personal-documents">
-                  <div className="empty-list">
-                    <div className="content-box">
-                      <img src={NoPdf} />
-                      <h3>No Document Found</h3>
-                      <p>
-                        Looks like you haven't uploaded any documents! you can
-                        upload rent contract by tapping on below button.
-                      </p>
+              {this.state.documentType !== "rent-contract" &&
+              this.state.documentType !== "unit-plan" &&
+              this.state.documentType !== "other-documents" ? (
+                <p>Wrong url</p>
+              ) : (
+                <>
+                  <Box display={{ xs: "flex", md: "flex" }} className="menu">
+                    <Link href="/PersonalDocument">
+                      <IconButton>
+                        <KeyboardBackspaceIcon />
+                      </IconButton>
+                    </Link>{" "}
+                    {this.state.documentType === "rent-contract" &&
+                      "Rent Contract"}
+                    {this.state.documentType === "unit-plan" && "Unit Plan"}
+                    {this.state.documentType === "other-documents" &&
+                      "Other Documents"}
+                  </Box>
+                  <Container className="content-area document-box list">
+                    <div className="personal-documents">
+                      {this.state.documentsList.length === 0 && (
+                        <div className="empty-list">
+                          <div className="content-box">
+                            <img src={NoPdf} />
+                            <h3>No Document Found</h3>
+                            <p>
+                              Looks like you haven't uploaded any documents! you
+                              can upload rent contract by tapping on below
+                              button.
+                            </p>
+                          </div>
+                        </div>
+                      )}
+                      <Grid container spacing={2}>
+                        {this.state.documentsList.map((document: any) => {
+                          return (
+                            <Grid
+                              item
+                              xs={12}
+                              md={12}
+                              lg={12}
+                              key={document.id}
+                            >
+                              <Box className="item document">
+                                <Link
+                                  href={`/PersonalDocument/${
+                                    this.state.documentType
+                                  }/${document.id}/view`}
+                                >
+                                  <div className="left-side">
+                                    <div className="image">
+                                      <img src={PdfImage} />
+                                    </div>
+                                    <div className="info">
+                                      <h4>{document.attributes.title}</h4>
+                                      {/* <div className="more-info">
+                                        <p>
+                                          <span>55</span>pages
+                                        </p>
+                                        <p>
+                                          <span>5</span>MB
+                                        </p>
+                                        <p>08/12/2022</p>
+                                      </div> */}
+                                    </div>
+                                  </div>
+                                </Link>
+                                <div className="right-menu">
+                                  <Menu
+                                    menuButton={
+                                      <IconButton>
+                                        <MoreVertIcon />
+                                      </IconButton>
+                                    }
+                                  >
+                                    <MenuItem>
+                                      <Link
+                                        href={
+                                          document.attributes.images[0]
+                                            .download_url
+                                        }
+                                        target="_blank"
+                                      >
+                                        Download
+                                      </Link>
+                                    </MenuItem>
+                                    <MenuItem
+                                      onClick={() => {
+                                        this.setState(
+                                          {
+                                            ...this.state,
+                                            selectedDocumentId: document.id,
+                                          },
+                                          () => {
+                                            this.handleDeleteDocumentModal();
+                                          }
+                                        );
+                                      }}
+                                    >
+                                      Delete
+                                    </MenuItem>
+                                    <MenuItem
+                                      onClick={() => {
+                                        this.setState(
+                                          {
+                                            ...this.state,
+                                            shareUrl:
+                                              document.attributes.images[0].url,
+                                            shareQuote:
+                                              document.attributes.title,
+                                          },
+                                          () => {
+                                            this.handleShareModal();
+                                          }
+                                        );
+                                      }}
+                                    >
+                                      Share
+                                    </MenuItem>
+                                  </Menu>
+                                </div>
+                              </Box>
+                            </Grid>
+                          );
+                        })}
+                      </Grid>
                     </div>
-                  </div>
-                  <Grid container spacing={2} className="">
-                    <Grid item xs={12} md={12} lg={12}>
-                      <Box className="item document">
-                        <Link href="/PersonalDocument/Rent-Contact/12/view">
-                          <div className="left-side">
-                            <div className="image">
-                              <img src={Document} />
-                            </div>
-                            <div className="info">
-                              <h4>Rent Contract</h4>
-                              <div className="more-info">
-                                <p>
-                                  <span>55</span>pages
-                                </p>
-                                <p>
-                                  <span>5</span>MB
-                                </p>
-                                <p>08/12/2022</p>
-                              </div>
-                            </div>
-                          </div>
-                        </Link>
-                        <div className="right-menu">
-                          <Menu
-                            menuButton={
-                              <IconButton>
-                                <MoreVertIcon />
-                              </IconButton>
-                            }
-                          >
-                            <MenuItem>Download</MenuItem>
-                            <MenuItem
-                              onClick={() => {
-                                this.setState(
-                                  {
-                                    ...this.state,
-                                  },
-                                  () => {
-                                    this.handleDeleteDocumentModal();
-                                  }
-                                );
-                              }}
-                            >
-                              Delete
-                            </MenuItem>
-                            <MenuItem
-                              onClick={() => {
-                                this.setState(
-                                  {
-                                    ...this.state,
-                                  },
-                                  () => {
-                                    this.handleShareModal();
-                                  }
-                                );
-                              }}
-                            >
-                              Share
-                            </MenuItem>
-                          </Menu>
-                        </div>
-                      </Box>
-                    </Grid>
-                    <Grid item xs={12} md={12} lg={12}>
-                      <Box className="item document">
-                        <Link href="/PersonalDocument/Rent-Contact">
-                          <div className="left-side">
-                            <div className="image">
-                              <img src={Document} />
-                            </div>
-                            <div className="info">
-                              <h4>Rent Contract</h4>
-                              <div className="more-info">
-                                <p>
-                                  <span>55</span>pages
-                                </p>
-                                <p>
-                                  <span>5</span>MB
-                                </p>
-                                <p>08/12/2022</p>
-                              </div>
-                            </div>
-                          </div>
-                        </Link>
-                        <div className="right-menu">
-                          <Menu
-                            menuButton={
-                              <IconButton>
-                                <MoreVertIcon />
-                              </IconButton>
-                            }
-                          >
-                            <MenuItem>Download</MenuItem>
-                            <MenuItem>Delete</MenuItem>
-                            <MenuItem>Share</MenuItem>
-                          </Menu>
-                        </div>
-                      </Box>
-                    </Grid>
-                    <Grid item xs={12} md={12} lg={12}>
-                      <Box className="item document">
-                        <Link href="/PersonalDocument/Rent-Contact">
-                          <div className="left-side">
-                            <div className="image">
-                              <img src={Document} />
-                            </div>
-                            <div className="info">
-                              <h4>Rent Contract</h4>
-                              <div className="more-info">
-                                <p>
-                                  <span>55</span>pages
-                                </p>
-                                <p>
-                                  <span>5</span>MB
-                                </p>
-                                <p>08/12/2022</p>
-                              </div>
-                            </div>
-                          </div>
-                        </Link>
-                        <div className="right-menu">
-                          <Menu
-                            menuButton={
-                              <IconButton>
-                                <MoreVertIcon />
-                              </IconButton>
-                            }
-                          >
-                            <MenuItem>Download</MenuItem>
-                            <MenuItem
-                              onClick={() => {
-                                this.setState(
-                                  {
-                                    ...this.state,
-                                  },
-                                  () => {
-                                    this.handleDeleteDocumentModal();
-                                  }
-                                );
-                              }}
-                            >
-                              Delete
-                            </MenuItem>
-                            <MenuItem
-                              onClick={() => {
-                                this.setState(
-                                  {
-                                    ...this.state,
-                                  },
-                                  () => {
-                                    this.handleShareModal();
-                                  }
-                                );
-                              }}
-                            >
-                              Share
-                            </MenuItem>
-                          </Menu>
-                        </div>
-                      </Box>
-                    </Grid>
-                    <Grid item xs={12} md={12} lg={12}>
-                      <Box className="item document">
-                        <Link href="/PersonalDocument/Rent-Contact">
-                          <div className="left-side">
-                            <div className="image">
-                              <img src={Document} />
-                            </div>
-                            <div className="info">
-                              <h4>Rent Contract</h4>
-                              <div className="more-info">
-                                <p>
-                                  <span>55</span>pages
-                                </p>
-                                <p>
-                                  <span>5</span>MB
-                                </p>
-                                <p>08/12/2022</p>
-                              </div>
-                            </div>
-                          </div>
-                        </Link>
-                        <div className="right-menu">
-                          <Menu
-                            menuButton={
-                              <IconButton>
-                                <MoreVertIcon />
-                              </IconButton>
-                            }
-                          >
-                            <MenuItem>Download</MenuItem>
-                            <MenuItem>Delete</MenuItem>
-                            <MenuItem>Share</MenuItem>
-                          </Menu>
-                        </div>
-                      </Box>
-                    </Grid>
-                    <Grid item xs={12} md={12} lg={12}>
-                      <Box className="item document">
-                        <Link href="/PersonalDocument/Rent-Contact">
-                          <div className="left-side">
-                            <div className="image">
-                              <img src={Document} />
-                            </div>
-                            <div className="info">
-                              <h4>Rent Contract</h4>
-                              <div className="more-info">
-                                <p>
-                                  <span>55</span>pages
-                                </p>
-                                <p>
-                                  <span>5</span>MB
-                                </p>
-                                <p>08/12/2022</p>
-                              </div>
-                            </div>
-                          </div>
-                        </Link>
-                        <div className="right-menu">
-                          <Menu
-                            menuButton={
-                              <IconButton>
-                                <MoreVertIcon />
-                              </IconButton>
-                            }
-                          >
-                            <MenuItem>Download</MenuItem>
-                            <MenuItem
-                              onClick={() => {
-                                this.setState(
-                                  {
-                                    ...this.state,
-                                  },
-                                  () => {
-                                    this.handleDeleteDocumentModal();
-                                  }
-                                );
-                              }}
-                            >
-                              Delete
-                            </MenuItem>
-                            <MenuItem
-                              onClick={() => {
-                                this.setState(
-                                  {
-                                    ...this.state,
-                                  },
-                                  () => {
-                                    this.handleShareModal();
-                                  }
-                                );
-                              }}
-                            >
-                              Share
-                            </MenuItem>
-                          </Menu>
-                        </div>
-                      </Box>
-                    </Grid>
-                  </Grid>
-                </div>
-                <div className="upload-button">
-                  <Grid container>
-                    <Grid item xs={12} md={12}>
-                      <Button onClick={() => this.handleAddDocumentModal()}>
-                        Upload Document
-                      </Button>
-                    </Grid>
-                  </Grid>
-                </div>
-              </Container>
+                    <div className="upload-button">
+                      <Grid container>
+                        <Grid item xs={12} md={12}>
+                          <Button onClick={() => this.handleAddDocumentModal()}>
+                            Upload Document
+                          </Button>
+                        </Grid>
+                      </Grid>
+                    </div>
+                  </Container>
+                </>
+              )}
             </Grid>
             <Grid item xs={12} md={5}>
               <Box
@@ -450,7 +294,7 @@ class PersonalDocumentList extends PersonalDocumentListController {
                 this.state.title.length === 0 || this.state.file === null
               }
               variant="contained"
-              onClick={() => {}}
+              onClick={() => this.createPersonalDocument()}
               color="primary"
             >
               Create
@@ -479,7 +323,7 @@ class PersonalDocumentList extends PersonalDocumentListController {
                 <Button
                   variant="contained"
                   onClick={() => {
-                    this.deleteCategory();
+                    this.deletePersonalDocument();
                   }}
                   color="primary"
                 >
@@ -551,6 +395,8 @@ class PersonalDocumentList extends PersonalDocumentListController {
               <PinterestShareButton
                 quote={this.state.shareQuote}
                 url={this.state.shareUrl}
+                title={shareTitle}
+                media={buildingLogo}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
               >

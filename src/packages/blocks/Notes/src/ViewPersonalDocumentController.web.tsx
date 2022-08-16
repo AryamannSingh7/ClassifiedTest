@@ -21,6 +21,12 @@ export interface Props {
 
 interface S {
   // Customizable Area Start
+  documentType: string;
+  documentId: string;
+
+  documentTitle: string;
+  documentUrl: string;
+  documentDownloadUrl: string;
   // Customizable Area End
 }
 
@@ -33,6 +39,8 @@ export default class ViewPersonalDocumentController extends BlockComponent<
   S,
   SS
 > {
+  GetDocumentCallId: any;
+
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
@@ -43,18 +51,109 @@ export default class ViewPersonalDocumentController extends BlockComponent<
       getName(MessageEnum.RestAPIRequestMessage),
     ];
 
-    this.state = {};
+    this.state = {
+      documentType: "",
+      documentId: "",
+
+      documentTitle: "",
+      documentUrl: "",
+      documentDownloadUrl: "",
+    };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
 
   async receive(from: string, message: Message) {
     // Customizable Area Start
+
+    // Get Document
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.GetDocumentCallId !== null &&
+      this.GetDocumentCallId ===
+        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.GetDocumentCallId = null;
+
+      var responseJson = message.getData(
+        getName(MessageEnum.RestAPIResponceSuccessMessage)
+      );
+
+      if (responseJson.data) {
+        this.setState({
+          ...this.state,
+          documentTitle: responseJson.data.attributes.title,
+          documentUrl: responseJson.data.attributes.images[0].url,
+          documentDownloadUrl:
+            responseJson.data.attributes.images[0].download_url,
+        });
+      }
+
+      var errorReponse = message.getData(
+        getName(MessageEnum.RestAPIResponceErrorMessage)
+      );
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        this.parseApiErrorResponse(responseJson);
+      }
+      this.parseApiCatchErrorResponse(errorReponse);
+    }
     // Customizable Area End
   }
 
   // Customizable Area Start
-  async componentDidMount(): Promise<void> {}
+  async componentDidMount(): Promise<void> {
+    const document_type = this.props.navigation.getParam("name");
+    const document_id = this.props.navigation.getParam("id");
+
+    this.setState(
+      {
+        ...this.state,
+        documentType: document_type,
+        documentId: document_id,
+      },
+      () => {
+        if (
+          document_type.toLowerCase() === "rent-contract" ||
+          document_type.toLowerCase() === "unit-plan" ||
+          document_type.toLowerCase() === "other-documents"
+        ) {
+          this.getDocument();
+        }
+      }
+    );
+  }
+
+  // Get Document API
+  getDocument = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.GetDocumentCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `${configJSON.GetPersonalDocumentAPIEndPoint}/${this.state.documentId}`
+    );
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.apiMethodTypeGet
+    );
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
 
   // Customizable Area End
 }

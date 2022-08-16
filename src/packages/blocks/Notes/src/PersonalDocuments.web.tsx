@@ -29,6 +29,8 @@ class PersonalDocument extends PersonalDocumentController {
   render() {
     const { classes } = this.props;
 
+    console.log(this.state);
+
     return (
       <>
         <Box
@@ -54,14 +56,18 @@ class PersonalDocument extends PersonalDocumentController {
               <Container className="content-area document-box">
                 <Grid container spacing={2}>
                   <Grid item xs={12} md={12} lg={12}>
-                    <Link href="/PersonalDocument/Rent-Contact">
+                    <Link href="/PersonalDocument/Rent-Contract">
                       <Box className="item">
                         <div className="heading">
                           <img src={Document} />
                           <h4>Rent Contract</h4>
                         </div>
                         <div>
-                          <Button className="color-btn">04</Button>
+                          {this.state.rent_contract > 0 && (
+                            <Button className="color-btn">
+                              {this.state.rent_contract}
+                            </Button>
+                          )}
                           <IconButton>
                             <ChevronRightIcon />
                           </IconButton>
@@ -77,7 +83,11 @@ class PersonalDocument extends PersonalDocumentController {
                           <h4>Unit Plan</h4>
                         </div>
                         <div>
-                          <Button className="color-btn">04</Button>
+                          {this.state.unit_plan > 0 && (
+                            <Button className="color-btn">
+                              {this.state.unit_plan}
+                            </Button>
+                          )}
                           <IconButton>
                             <ChevronRightIcon />
                           </IconButton>
@@ -93,7 +103,11 @@ class PersonalDocument extends PersonalDocumentController {
                           <h4>Other Documents</h4>
                         </div>
                         <div>
-                          {/* <Button className="color-btn">04</Button> */}
+                          {this.state.other_document > 0 && (
+                            <Button className="color-btn">
+                              {this.state.other_document}
+                            </Button>
+                          )}
                           <IconButton>
                             <ChevronRightIcon />
                           </IconButton>

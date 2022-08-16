@@ -38,9 +38,7 @@ class ViewPersonalDocument extends ViewPersonalDocumentController {
   render() {
     const { classes } = this.props;
 
-    const sharePopupWidth = 500;
-    const sharePopupHeight = 700;
-    const shareTitle = "TI 1 Final Leap";
+    console.log(this.state);
 
     return (
       <>
@@ -55,28 +53,20 @@ class ViewPersonalDocument extends ViewPersonalDocumentController {
                 className="menu personal-document-menu"
               >
                 <div>
-                  <Link
-                    href={
-                      localStorage.getItem("userType") === "Owner"
-                        ? "/OwnerDashboard"
-                        : ""
-                    }
-                  >
+                  <Link href={`/PersonalDocument/${this.state.documentType}`}>
                     <IconButton>
                       <KeyboardBackspaceIcon />
                     </IconButton>
                   </Link>{" "}
-                  Policy
+                  {this.state.documentTitle}
                 </div>
-                <div>
+                <Link href={this.state.documentDownloadUrl} target="_blank">
                   <img src={DownloadImage} alt="download" />
-                </div>
+                </Link>
               </Box>
               <Container className="content-area document-box">
                 <div className="document-view">
-                  <iframe
-                    src="http://www.africau.edu/images/default/sample.pdf"
-                  />
+                  <iframe src={this.state.documentUrl} />
                 </div>
               </Container>
             </Grid>
