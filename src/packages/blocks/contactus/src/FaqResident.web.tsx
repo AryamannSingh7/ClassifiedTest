@@ -2,10 +2,16 @@
 //@ts-nocheck
 //@ts-ignore
 import React from "react";
-import { Button, Container, withStyles } from "@material-ui/core";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
-import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
+import {
+  Button,
+  Container,
+  IconButton,
+  Link,
+  withStyles,
+  Box,
+  Grid,
+} from "@material-ui/core";
 import FaqResidentController, { Props } from "./FaqResidentController.web";
 import { FaqChairmanStyleWeb } from "./FaqChairmanStyle.web";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
@@ -34,9 +40,11 @@ class FaqResident extends FaqResidentController {
                       display={{ xs: "flex", md: "flex" }}
                       className="backIcon"
                     >
-                      <KeyboardBackspaceIcon
-                        onClick={() => window.history.back()}
-                      />
+                      <Link href="/ResidentDashboard">
+                        <IconButton>
+                          <KeyboardBackspaceIcon />
+                        </IconButton>
+                      </Link>
                       FAQs
                     </Box>
                     <Container>
@@ -51,6 +59,7 @@ class FaqResident extends FaqResidentController {
                                   {
                                     ...this.state,
                                     faqList: category.attributes.FAQ,
+                                    faq: category.attributes.name,
                                   },
                                   () => {
                                     this.changeFaqState(2);
@@ -73,10 +82,10 @@ class FaqResident extends FaqResidentController {
                       display={{ xs: "flex", md: "flex" }}
                       className="backIcon"
                     >
-                      <KeyboardBackspaceIcon
-                        onClick={() => this.changeFaqState(1)}
-                      />
-                      Vehicle's FAQs
+                      <IconButton onClick={() => this.changeFaqState(1)}>
+                        <KeyboardBackspaceIcon />
+                      </IconButton>
+                      {this.state.faq}'s FAQs
                     </Box>
                     <Container>
                       <Box className="faq-list">
@@ -113,10 +122,10 @@ class FaqResident extends FaqResidentController {
                       display={{ xs: "flex", md: "flex" }}
                       className="backIcon"
                     >
-                      <KeyboardBackspaceIcon
-                        onClick={() => this.changeFaqState(2)}
-                      />
-                      Vehicle's FAQs
+                      <IconButton onClick={() => this.changeFaqState(2)}>
+                        <KeyboardBackspaceIcon />
+                      </IconButton>
+                      {this.state.faq}'s FAQs
                     </Box>
                     <Container>
                       <Box className="faq-list">

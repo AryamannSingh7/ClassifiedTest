@@ -23,6 +23,8 @@ interface S {
   // Customizable Area Start
   faqStep: number;
 
+  faq: string;
+
   faqList: any[];
   catagoriesList: any[];
 
@@ -41,6 +43,7 @@ export default class FaqResidentController extends BlockComponent<
   SS
 > {
   FaqCategoryCallId: any;
+  
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
@@ -59,6 +62,8 @@ export default class FaqResidentController extends BlockComponent<
 
       question: "",
       answer: "",
+
+      faq: "",
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
