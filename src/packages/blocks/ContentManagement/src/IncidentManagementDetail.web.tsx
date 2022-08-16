@@ -47,14 +47,14 @@ import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 
 //resorces
 import { Close_Icon, Bank_Icon, Box_Icon, Building1 } from "./assets";
-import IncidentChatDrawer from "./IncidentChatDrawer.web";
+//import IncidentChatDrawer from "./IncidentChatDrawer.web";
 
 class IncidentManagementDetail extends IncidentManagementController {
   constructor(props: Props) {
     super(props);
   }
   componentDidMount() {
-   const  id = localStorage.getItem("incidentManagementDetail")
+   const  id = localStorage.getItem("incidentManagementDetailId")
    if(id)
     this.getIncidentDetailsById(id);
   else
@@ -64,7 +64,9 @@ class IncidentManagementDetail extends IncidentManagementController {
     const statusArray=["Unresolved","Resolved","Pending Confirmation"]
     const id = this.state?.getIncidentDetails?.id;
     const attributes = this.state?.getIncidentDetails?.attributes;
-    console.log("-==================>",attributes)
+    const apartmentManagementId =attributes?.apartment_management?.apartment_management_id;
+  
+   // console.log("providerListing-==================>",this.state?.providerListing);
     return (
       <>
         <Box className="incident-Listing-wrapper desktop-ui" style={{ background: "#E5ECFF" }}>
@@ -112,7 +114,7 @@ class IncidentManagementDetail extends IncidentManagementController {
                            id="demo-simple-select-outlined"
                            onChange={(e) => {this.onChange(e)}}
                            value={this.state?.statusDetail}
-                           className={this.state?.statusDetail === 'Pending Confirmation' ? "contain warning" : this.state?.statusDetail === 'Resolved' ? 'contain success' : 'contain danger'} 
+                          // className={this.state?.statusDetail === 'Pending Confirmation' ? "contain warning" : this.state?.statusDetail === 'Resolved' ? 'contain success' : 'contain danger'} 
                           >
                             <MenuItem disabled value=" ">
                                   Select Status
@@ -189,8 +191,8 @@ class IncidentManagementDetail extends IncidentManagementController {
                       </Box>
                       <Box className="incident-button-row customButton">
                         <Button variant="outlined"
-                          onClick={() => { this.setState({ showDialog: false }) }}
-                          type="submit">assign incident to provider</Button>
+                          onClick={() =>this.providerList(apartmentManagementId) }
+                        >assign incident to provider</Button>
                         <Button variant="contained" type="submit">start/view ticket conversation</Button>
                       </Box>
                     </CardContent>
@@ -216,55 +218,65 @@ class IncidentManagementDetail extends IncidentManagementController {
                       Assign Incident to Provider
                     </DialogTitle>
                     <Button>
-                      <img src={Close_Icon} className="close-icon" />
+                      <img src={Close_Icon} className="close-icon"  onClick={() => { this.setState({ showDialog: false }) }} />
                     </Button>
                   </Box>
                   <Box className="diloag-content">
                     <Box className="formGroup customSelect">
                       <FormControl variant="outlined" >
                         <Select
-                          name="commonArea"
+                          name="providerWork"
                           labelId="demo-simple-select-outlined-label"
                           id="demo-simple-select-outlined"
-                          value="1"
+                          onChange={(e) => {this.onChange(e)}}
+                          value={this.state.providerWork}
                         >
-                          <MenuItem value="1">
-                            Select Status
-                          </MenuItem>
-                          <MenuItem value="2">
-                            test 2
-                          </MenuItem>
-                          <MenuItem value="3">
-                            test 3
-                          </MenuItem>
+                          <MenuItem disabled value=" ">
+                          Provider
+                              </MenuItem>
+                          {
+                                this.state?.providerListing?.map((val, index) =>(
+                                  <MenuItem
+                                    key={index}
+                                    value={`${apartmentManagementId},${val}`}
+                                  >
+                                    {val}
+                                  </MenuItem>
+                                ))
+                              }
                         </Select>
                       </FormControl>
                     </Box>
                     <Box className="formGroup customSelect">
                       <FormControl variant="outlined" >
                         <Select
-                          name="commonArea"
+                          name="ProviderName"
                           labelId="demo-simple-select-outlined-label"
                           id="demo-simple-select-outlined"
-                          value="1"
+                          onChange={(e) => {this.onChange(e)}}
+                          value={this.state.ProviderName}
                         >
-                          <MenuItem value="1">
-                            Select Status
-                          </MenuItem>
-                          <MenuItem value="2">
-                            test 2
-                          </MenuItem>
-                          <MenuItem value="3">
-                            test 3
-                          </MenuItem>
+                          <MenuItem disabled value=" ">
+                          Provider Name
+                              </MenuItem>
+                                {
+                                this.state?.providerNameListing?.map((val, index) => (
+                                  <MenuItem
+                                    key={index}
+                                    value={`${val?.id}`}
+                                  >
+                                    {val?.attributes?.full_name}
+                                  </MenuItem>
+                                ))
+                              }
                         </Select>
                       </FormControl>
                     </Box>
                     <Box className="customButton">
                       <Button variant="outlined"
-                        onClick={() => { this.setState({ showDialog: true }) }}
-                        type="submit">cancel</Button>
-                      <Button variant="contained" type="submit">assign incident</Button>
+                        onClick={() => { this.setState({ showDialog: false }) }}
+                        >cancel</Button>
+                      <Button variant="contained" onClick={() => this.assginProvider()}>assign incident</Button>
                     </Box>
                   </Box>
                 </Box>
@@ -272,7 +284,7 @@ class IncidentManagementDetail extends IncidentManagementController {
 
               {/* view large image dialog */}
               <Dialog
-                open={this.state.showDialog}
+                open={false}
                 onClose={() => this.setState({ showDialog: false })}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
@@ -304,8 +316,8 @@ class IncidentManagementDetail extends IncidentManagementController {
             </Grid>
           </Box>
         </Box>
-        <IncidentChatDrawer />
-        {/* <Loader loading={this.state.loading} /> */}
+        {/* <IncidentChatDrawer /> */}
+        <Loader loading={this.state.loading} />
       </>
     )
   }
