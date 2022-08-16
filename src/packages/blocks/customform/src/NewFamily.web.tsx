@@ -52,7 +52,7 @@ class NewFamily extends FamilyController {
                 </p>
               </Grid>
             </Grid>
-            <div style={{ margin: 'auto' }}>
+            <div>
 
               <Grid container className="main-content-block">
                 <Grid xs={12}>
@@ -72,7 +72,7 @@ class NewFamily extends FamilyController {
                       isValid, handleChange,
                       setFieldValue, setFieldError }) => (
                       <Form className="commonForm" translate="yes" >
-                        <Box className='formGroup'>
+                        <Box className='formGroup' style={{height:'144%'}}>
                           <Box
                             className="formInputGrp"
                           >
@@ -124,7 +124,7 @@ class NewFamily extends FamilyController {
                           > */}
 
 {/* R4ealtion */}
-                            <FormControl variant="outlined" fullWidth>
+                            <FormControl variant="outlined" fullWidth style={{marginTop:'15px'}}>
 
                               <InputLabel id="demo-simple-select-outlined-label" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                                 <img src={Hyperlink} />
@@ -189,7 +189,7 @@ class NewFamily extends FamilyController {
                   ) : null} */}
 
                           {/* Id type */}
-                          <FormControl variant="outlined" fullWidth>
+                          <FormControl variant="outlined" fullWidth style={{marginTop:'15px'}}>
 
                             <InputLabel id="demo-simple-select-outlined-label" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                               <img src={Hyperlink} />
@@ -345,6 +345,8 @@ class NewFamily extends FamilyController {
 
 
 
+
+                        </Box>
                           <Box className="customButton">
 
                             <Button
@@ -356,8 +358,6 @@ class NewFamily extends FamilyController {
                             </Button>
 
                           </Box>
-
-                        </Box>
                       </Form>
                     )}
                   </Formik>

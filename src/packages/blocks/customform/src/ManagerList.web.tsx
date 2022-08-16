@@ -85,6 +85,34 @@ class ManagerList extends ManagerController {
                     <Form translate="yes" className="commonForm">
                       <Box className="sorting-header">
                         <Box className="formGroup1 customSelect">
+                          <FormControl variant="outlined" style={{ width: '12rem' }}>
+                            <Select
+                              name="status"
+                              labelId="demo-simple-select-outlined-label"
+                              id="demo-simple-select-outlined"
+                              onChange={(e) => {
+                                (e.target.value != " ") && setFieldValue("status", e.target.value)
+                              }}
+                              value={values.status}
+                            >
+                              <MenuItem value=" ">
+                                Select Status
+                              </MenuItem>
+                              <MenuItem value="Pending">
+                                Pending
+                              </MenuItem>
+                              <MenuItem value="Pending Approved">
+                                Pending Approved
+                              </MenuItem>
+                              <MenuItem value="Rejected">
+                                Rejected
+                              </MenuItem>
+
+                            </Select>
+                            <ErrorMessage className="text-error" component="Typography" name="status" />
+                          </FormControl>
+                        </Box>
+                        <Box className="formGroup1 customSelect">
                           <FormControl variant="outlined" style={{width:'12rem'}} >
                             <Select
                               name="selectBuilding"
@@ -125,7 +153,7 @@ class ManagerList extends ManagerController {
                               value={values.unit}
                             >
                               {
-                                ! (values?.buildingName) ?
+                                (values?.buildingName) ?
                                   <MenuItem disabled value=" ">
                                     Select Unit
                                   </MenuItem>
@@ -144,34 +172,7 @@ class ManagerList extends ManagerController {
                             <ErrorMessage className="text-error" component="Typography" name="unit" />
                           </FormControl>
                         </Box>
-                        <Box className="formGroup1 customSelect">
-                          <FormControl variant="outlined" style={{ width: '12rem' }}>
-                            <Select
-                              name="status"
-                              labelId="demo-simple-select-outlined-label"
-                              id="demo-simple-select-outlined"
-                              onChange={(e) => {
-                                (e.target.value != " ") && setFieldValue("status", e.target.value)
-                              }}
-                              value={values.status}
-                            >
-                              <MenuItem  value=" ">
-                                Select Status
-                              </MenuItem>
-                              <MenuItem  value="Pending">
-                                Pending
-                              </MenuItem>
-                              <MenuItem  value="Pending Approved">
-                                Pending Approved
-                              </MenuItem>
-                              <MenuItem  value="Rejected">
-                                Rejected
-                              </MenuItem>
 
-                            </Select>
-                            <ErrorMessage className="text-error" component="Typography" name="status" />
-                          </FormControl>
-                        </Box>
                         <Box className="customButton">
                           <Button variant="contained" type="submit">Search</Button>
                         </Box>
