@@ -167,7 +167,17 @@ class DocumentListChairman extends DocumentListChairmanController {
                                           </IconButton>
                                         }
                                       >
-                                        <MenuItem>Download</MenuItem>
+                                        <MenuItem>
+                                          <Link
+                                            href={
+                                              resolution.attributes
+                                                .attachments[0].url
+                                            }
+                                            target="_blank"
+                                          >
+                                            Download
+                                          </Link>
+                                        </MenuItem>
                                         <MenuItem
                                           onClick={() => {
                                             this.setState(
@@ -190,8 +200,10 @@ class DocumentListChairman extends DocumentListChairmanController {
                                             this.setState(
                                               {
                                                 ...this.state,
-                                                shareUrl: "",
-                                                shareQuote: "",
+                                                shareUrl:
+                                                  resolution.attributes
+                                                    .attachments[0].url,
+                                                shareQuote: resolution.attributes.title,
                                               },
                                               () => {
                                                 this.handleShareModal();
@@ -217,7 +229,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                                     <div className="info-item">
                                       <p>Building</p>
                                       <span>
-                                        {resolution.attributes.building}
+                                        {resolution.attributes.buidling_name}
                                       </span>
                                     </div>
                                   </div>
