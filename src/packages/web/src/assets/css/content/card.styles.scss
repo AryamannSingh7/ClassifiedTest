@@ -156,7 +156,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid #e6e6e6;
+      border-bottom: 2px solid #e6e6e6;
       padding-bottom: 15px;
       padding: 15px;
     }
@@ -168,14 +168,43 @@
       margin-bottom: 0;
       & .MuiOutlinedInput-root {
         padding-left: 0;
-        background-color: #fde8e7;
       }
-      & .MuiInputBase-input {
-        color: $WARNING_SHADE1;
-        font-weight: bold;
+      &.danger {
+        & .MuiOutlinedInput-root {
+          background-color: #fde8e7;
+        }
+        & .MuiInputBase-input {
+          color: $WARNING_SHADE1;
+          font-weight: bold;
+        }
+        & .MuiSelect-icon {
+          color: $WARNING_SHADE1;
+        }
       }
-      & .MuiSelect-icon {
-        color: $WARNING_SHADE1;
+      &.success {
+        & .MuiOutlinedInput-root {
+          background-color: $GREEN_SHADE1;
+          
+        }
+        & .MuiInputBase-input {
+          color: $GREEN;
+          font-weight: bold;
+        }
+        & .MuiSelect-icon {
+          color: $GREEN;
+        }
+      }
+      &.warning {
+        & .MuiOutlinedInput-root {
+          background-color: $ORANGE_SHADE1;
+        }
+        & .MuiInputBase-input {
+          color: $ORANGE;
+          font-weight: bold;
+        }
+        & .MuiSelect-icon {
+          color: $ORANGE;
+        }
       }
     }
     & .customButton {

@@ -183,7 +183,7 @@ ul {
   & .img-layer {
     position: absolute;
     left: 0;
-    top: 0;
+    // top: 0;
     height: 75px;
     width: 75px;
     background-color: rgba(0, 0, 0, 0.3);
@@ -202,4 +202,8 @@ ul {
 .mt-20
 {
   margin-top: 20px;
+}
+.mb-10
+{
+  margin-bottom: 10px;
 }
