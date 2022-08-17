@@ -227,15 +227,15 @@ export default class DocumentListChairmanController extends BlockComponent<
         });
       }
 
-      var errorReponse = message.getData(
-        getName(MessageEnum.RestAPIResponceErrorMessage)
-      );
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        this.parseApiErrorResponse(responseJson);
-      }
-      this.parseApiCatchErrorResponse(errorReponse);
+      // var errorReponse = message.getData(
+      //   getName(MessageEnum.RestAPIResponceErrorMessage)
+      // );
+      // if (responseJson && responseJson.meta && responseJson.meta.token) {
+      //   runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      // } else {
+      //   this.parseApiErrorResponse(responseJson);
+      // }
+      // this.parseApiCatchErrorResponse(errorReponse);
     }
 
     // Get Resolutions
