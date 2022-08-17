@@ -4,7 +4,7 @@
 import * as React from "react";
 // custom components
 import {
-  Button, Grid, Box, Typography, Link, IconButton, Dialog
+  Button, Grid, Box, Typography, Link, IconButton, Dialog, DialogActions
 } from "@material-ui/core";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { Formik, Form, Field } from "formik";
@@ -63,7 +63,7 @@ class FamilyList extends FamilyController {
             {
               this.state.allVehcile.length > 0 ?
                 <>
-                <Grid container>
+                <Grid container style={{height:'85%',overflowX:'auto'}}>
                   {
                       this.state.allVehcile.map(item=><>
                         <Grid xs={12} className="card fam">
@@ -91,7 +91,7 @@ class FamilyList extends FamilyController {
                               <MenuItem key="1" onClick={()=>this.handleClose(item)}>
                                 Edit
                               </MenuItem>
-                              <MenuItem key="2" onClick={()=>this.handleClose(item) }>
+                              <MenuItem key="2" onClick={() => { this.setState({ showDialogDelete: true }); localStorage.setItem('selectFamily', JSON.stringify(item)) }}>
                                 Delete
                               </MenuItem>
                             </Menu>
@@ -225,9 +225,9 @@ class FamilyList extends FamilyController {
             </Box>
           </Grid>
         </Grid>
-        {/* <Dialog
-          open={this.state.showDialog}
-          onClose={() => this.setState({ showDialog: false })}
+        <Dialog
+          open={this.state.showDialogDelete}
+          onClose={() => this.setState({ showDialogDelete: false, showDialog: false })}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
           className="diloag-wrapper"
@@ -241,53 +241,37 @@ class FamilyList extends FamilyController {
           <Grid container>
             <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
 
-              <img src={info} />
+              {/* <img src={deleteI} /> */}
             </Grid>
           </Grid>
           <Grid container>
             <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
 
               <p style={{ fontWeight: 600, fontSize: '1.25rem', textAlign: 'center' }}>
-                Unable to add vehicle
+                Delete registered
                 <br />
-                request
+                Family
               </p>
             </Grid>
           </Grid>
           <Grid container>
             <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
               <p style={{ fontWeight: 400, fontSize: '0.8rem', textAlign: 'center' }}>
-                Sorry! You have reached the maximum number of of vehicles. consider removing some vehicles to be able to add new ones.
+                Are you should you want to delete this registered family member from this App?
               </p>
             </Grid>
           </Grid>
-          <Grid container >
-            <Grid xs={12} style={{ display: 'flex', justifyContent: 'center' }}>
-              <Button
-                fullWidth={true}
-                className={'btn'}
-                variant="contained"
-                type="submit"
-                onClick={() => this.setState({ showDialog: false })}
-                style={{
-                  backgroundColor: "#2B6FEC",
-                  borderRadius: 16,
-                  height: 54,
-                  marginBottom: 14,
-                  boxShadow: "none",
-                  color: "#F7F7FC",
-                  fontWeight: 600,
-                  fontSize: 16,
-                  marginTop: 30,
-                  maxWidth: '14rem'
-                }}
-
-              >
-                okay, got it
+          <Box className="dialog-footer desktop-ui">
+            <DialogActions className="customButton">
+              <Button variant="contained" onClick={() => this.deleteRequest()} >
+                yes, delete
               </Button>
-            </Grid>
-          </Grid>
-        </Dialog> */}
+              <Button onClick={() => this.setState({ showDialogDelete: false, showDialog: false })} variant='text'>
+                No, don’t delete
+              </Button>
+            </DialogActions>
+          </Box>
+        </Dialog>
         <Loader loading={this.state.loading} />
       </>
 
