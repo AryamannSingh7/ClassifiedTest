@@ -315,11 +315,11 @@ class OwnerDashboard extends React.Component {
                     </Link>
                   </Grid>
                   <Grid item xs={12} sm={6}>
-                    <Link href="">
+                    <Link href="/familylist">
                       <DashboardCard
                         image={keyhand}
-                        heading="My Visitors"
-                        title="Scheduled"
+                        heading="My Family"
+                        // title="Scheduled"
                         value="75"
                       />
                     </Link>

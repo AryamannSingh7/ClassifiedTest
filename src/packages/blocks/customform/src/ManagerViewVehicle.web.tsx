@@ -4,7 +4,7 @@
 import * as React from "react";
 // custom components
 import {
-  Button, Box, Grid, Typography, Dialog, Avatar, DialogActions , Container, TextField
+  Button, Box, Grid, Typography, Dialog, Avatar, DialogActions , Container, TextField, IconButton
 } from "@material-ui/core";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { Formik, Form, Field } from "formik";
@@ -20,6 +20,7 @@ import { InsertEmoticon } from "@material-ui/icons";
 import ManagerController from "./ManagerController.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
+import CloseIcon from '@material-ui/icons/Close';
 
 
 
@@ -60,7 +61,7 @@ class ManagerViewVeichle extends ManagerController {
                 <Box style={dashBoardBudget.navigation}>
                   <Box>
                     <Typography variant="body1" >
-                      My Dashboard / General Dashboard / Vehicles /<Box component="span" style={{ color: "blue" }}>Vehicles Details</Box>
+                      My Dashboard / General Dashboard / Vehicles /<Box component="span" style={{ color: "blue" }}>Vehicle Details</Box>
                     </Typography>
                     <Typography variant="h5" style={dashBoardBudget.subHeading}>Vehicles Details</Typography>
                   </Box>
@@ -79,16 +80,18 @@ class ManagerViewVeichle extends ManagerController {
                       <h4>
                                 {item.attributes.company_name}
                       </h4>
-                    <div className="status">
+                    <div className="status" style={{fontWeight:600}}>
                       {item.attributes.status}
                     </div>
                     </div>
                   <div className="details">
                       <div>
 
-                        <div style={{ display: 'flex', fontWeight: 500 }}>
+                        <div style={{ display: 'flex', fontWeight: 500,alignItems:'center' }}>
                           {/* <img src={userBlue} width='25' height='25' style={{ marginRight: 10 }} /> */}
-                                  <p>   Owner Name :</p>  {item.attributes.owner_name}
+                                  <p >   Owner Name :</p>  <p style={{ marginLeft: 10, fontWeight: 600 }}>
+                                    {item.attributes.owner_name}
+                                    </p>
                         </div>
                         <div style={{ marginLeft: 35, marginBottom: 20 }}>
 
@@ -99,7 +102,9 @@ class ManagerViewVeichle extends ManagerController {
 
                         <div style={{ display: 'flex', fontWeight: 500 }}>
                           {/* <img src={CarBlue} width='25' height='25' style={{ marginRight: 10 }} /> */}
-                                  <p> Building Name:</p>  Green Villa
+                                  <p> Building Name:</p>   <p style={{ marginLeft: 10, fontWeight: 600 }}>
+      {item.attributes.building_management.name}
+                                  </p>
                         </div>
                         <div style={{ marginLeft: 35, marginBottom: 20 }}>
 
@@ -110,7 +115,9 @@ class ManagerViewVeichle extends ManagerController {
 
                         <div style={{ display: 'flex', fontWeight: 500 }}>
                           {/* <img src={List} width='25' height='25' style={{ marginRight: 10 }} /> */}
-                                  <p> Unit NUmber:</p>   A-101
+                                  <p> Unit Number:</p>   <p style={{ marginLeft: 10, fontWeight: 600 }}>
+                                    {item.attributes.apartment_management.apartment_name}
+                                  </p>
                         </div>
                         <div style={{ marginLeft: 35, marginBottom: 20 }}>
 
@@ -121,7 +128,11 @@ class ManagerViewVeichle extends ManagerController {
 
                                 <div style={{ display: 'flex', fontWeight: 500 }}>
                                   {/* <img src={paletteBlue} width='25' height='25' style={{ marginRight: 10 }} /> */}
-                                  <p> Car Manufacturer:</p>         {item.attributes.car_company}
+                                  <p> Car Manufacturer:</p>
+                                  <p style={{ marginLeft: 10, fontWeight: 600 }}>
+
+                                        {item.attributes.company_name}
+                                  </p>
                                 </div>
                                 <div style={{ marginLeft: 35, marginBottom: 20 }}>
 
@@ -132,7 +143,11 @@ class ManagerViewVeichle extends ManagerController {
 
                                 <div style={{ display: 'flex', fontWeight: 500 }}>
                                   {/* <img src={paletteBlue} width='25' height='25' style={{ marginRight: 10 }} /> */}
-                                  <p> Car Model:</p>         {item.attributes.model_number}
+                                  <p> Car Model:</p>
+                                  <p style={{ marginLeft: 10, fontWeight: 600 }}>
+
+                                       {item.attributes.model_number}
+                                  </p>
                                 </div>
                                 <div style={{ marginLeft: 35, marginBottom: 20 }}>
 
@@ -143,7 +158,11 @@ class ManagerViewVeichle extends ManagerController {
 
                                 <div style={{ display: 'flex', fontWeight: 500 }}>
                                   {/* <img src={paletteBlue} width='25' height='25' style={{ marginRight: 10 }} /> */}
-                                  <p> Car Color:</p>         {item.attributes.color}
+                                  <p> Car Color:</p>
+                                  <p style={{ marginLeft: 10, fontWeight: 600 }}>
+
+                                     {item.attributes.color}
+                                    </p>
                                 </div>
                                 <div style={{ marginLeft: 35, marginBottom: 20 }}>
 
@@ -151,7 +170,7 @@ class ManagerViewVeichle extends ManagerController {
                                 </div>
                               </div>
 
-                              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                              <div style={{ display: 'flex', justifyContent: 'space-between', border: '1px solid #00000014', borderRadius: 10, padding:'0.5rem 1rem 0.5rem 1rem' }}>
                                 <div style={{ display: 'flex',alignItems:'center' }}>
 
                                 <img src={CarBlue}/> <p style={{fontWeight:600,whiteSpace:'nowrap',marginLeft:10}}>Registration Card</p>
@@ -215,13 +234,13 @@ class ManagerViewVeichle extends ManagerController {
           </Grid>
                   <div style={{display:'flex',justifyContent:'flex-end',width:'100%'}}>
                     <Box className="row-btn customButton desktop-ui">
-                      <Button style={{ width: 150, marginRight: 15 }} onClick={() => this.setState({ showDialogDelete: true })} variant='text' disabled={item.attributes.status == 'rejected'}>
+                      <Button style={{ width: 150, marginRight: 15, borderRadius: 10, border:'1px solid #5000f4' }} onClick={() => this.setState({ showDialogDelete: true })} variant='text' disabled={item.attributes.status == 'rejected'}>
                         Reject
                       </Button>
                     </Box>
                     <Box className="row-btn customButton desktop-ui">
-                      <Button variant="contained" style={{ width: 150 }} onClick={() => this.setState({ showDialog: true })} disabled={item.attributes.status == 'approved'} >
-                        Accept
+                      <Button variant="contained" style={{ width: 150,borderRadius:10 }} onClick={() => this.setState({ showDialog: true })} disabled={item.attributes.status == 'approved'} >
+                        APPROVE
                       </Button>
                     </Box>
                   </div>
@@ -245,8 +264,8 @@ class ManagerViewVeichle extends ManagerController {
             },
           }}
         >
-          {/* <img src={item.attributes.registration_card_copy} style={{ width: '600px', height: '56rem', borderRadius: 0 }} /> */}
-          <iframe src='https://yuppgg-68443-ruby.b68443.dev.eastus.az.svc.builder.cafe/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBa2NEIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--670a8cdc5598c28e801317f826ac739e28a142c8/mohit.pdf' style={{ width: '600px', height: '56rem' }} />
+          <img src={item.attributes.registration_card_copy} style={{ width: '600px', height: '56rem', borderRadius: 0 }} />
+          {/* <iframe src='https://yuppgg-68443-ruby.b68443.dev.eastus.az.svc.builder.cafe/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBa2NEIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--670a8cdc5598c28e801317f826ac739e28a142c8/mohit.pdf' style={{ width: '600px', height: '56rem' }} /> */}
           </Dialog>
         <Dialog
           open={this.state.showDialogDelete}
@@ -257,16 +276,28 @@ class ManagerViewVeichle extends ManagerController {
           PaperProps={{
             style: {
               borderRadius: '15px',
-              padding: '2rem'
+              padding: '0rem'
             },
           }}
         >
           <Grid container>
-            <Grid xs={12}>
+            <Grid xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #00000029', padding:'0 0.5rem 0px 0.5rem'}}>
+              <p style={{fontWeight:'bold'}}>
+                Reject Vehicle Request
+              </p>
+              <IconButton aria-label="close" onClick={()=>this.setState({ showDialogDelete: false })}>
+                <CloseIcon />
+              </IconButton>
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid xs={12} >
               <TextField
+              style={{width:'100%'}}
                 multiline
                 rows={4}
                 id="outlined-multiline-static"
+                variant="outlined"
                 label="add notes"
                 // value={this.state.name}
                 // onChange={this.handleChange('name')}
@@ -275,12 +306,12 @@ class ManagerViewVeichle extends ManagerController {
 
             </Grid>
           </Grid>
-          <Box className="dialog-footer desktop-ui">
-            <DialogActions className="customButton">
-              <Button onClick={() => this.setState({ showDialogDelete: false })}>
+          <Box className="">
+            <DialogActions className="customButton" style={{flexDirection:'row'}}>
+              <Button style={{ width: '15rem', borderRadius: 10, border: '1px solid #5000f4' }} onClick={() => this.setState({ showDialogDelete: false })}>
                 CLOSE
               </Button>
-              <Button variant="contained" onClick={() => this.rejectRequest()} >
+              <Button variant="contained" style={{borderRadius:10}} onClick={() => this.rejectRequest()} >
                 CONFRIM
               </Button>
             </DialogActions>
@@ -321,12 +352,12 @@ class ManagerViewVeichle extends ManagerController {
               </p>
             </Grid>
           </Grid>
-          <Box className="dialog-footer desktop-ui">
-            <DialogActions className="customButton">
-              <Button  onClick={() => this.setState({ showDialog: false })}>
+          <Box >
+            <DialogActions className="customButton" style={{flexDirection:'row'}}>
+              <Button style={{ width: '15rem', borderRadius: 10, border: '1px solid #5000f4' }}   onClick={() => this.setState({ showDialog: false })}>
                 CLOSE
               </Button>
-              <Button variant="contained" onClick={() => this.acceptRequest()} >
+              <Button variant="contained" style={{borderRadius:10}} onClick={() => this.acceptRequest()} >
                 CONFRIM
               </Button>
             </DialogActions>

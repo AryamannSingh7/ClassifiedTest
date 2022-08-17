@@ -35,6 +35,7 @@ class LandingPage extends React.Component {
 
   }
   render() {
+    console.log(Landing_Banner)
     return (
       <>
         <Box className="landing-wrapper">

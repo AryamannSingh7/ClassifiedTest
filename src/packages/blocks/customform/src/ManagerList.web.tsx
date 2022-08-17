@@ -26,7 +26,7 @@ import {
 } from "@material-ui/core";
 
 //resources
-import { Building1, CarBlue, CarFront, Delete_Icon, Landing_Banner, request, userBlue } from "./assets";
+import { Building, Building1, CarBlue, CarFront, Delete_Icon, Landing_Banner, request, userBlue } from "./assets";
 import { withRouter } from 'react-router';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
@@ -78,18 +78,42 @@ class ManagerList extends ManagerController {
                   }}
                   validationSchema={this.searchIncidentSchema()}
                   validateOnMount={true}
-                  onSubmit={(values) => {
-                    console.log("valus=========>", values)
-                    // localStorage.setItem("incidentPreview", JSON.stringify(values))
-                    // this.setState({ loading: true })
-                    // this.props.history.push("/IncidentPreview")
-                  }}
+                  onSubmit={(values) => this.getVehicle2(values)
+                  }
                 >
                   {({ values, touched, errors, isValid, setFieldError, setFieldValue, handleChange }) => (
                     <Form translate="yes" className="commonForm">
                       <Box className="sorting-header">
-                        <Box className="formGroup customSelect">
-                          <FormControl variant="outlined" >
+                        <Box className="formGroup1 customSelect">
+                          <FormControl variant="outlined" style={{ width: '12rem' }}>
+                            <Select
+                              name="status"
+                              labelId="demo-simple-select-outlined-label"
+                              id="demo-simple-select-outlined"
+                              onChange={(e) => {
+                                (e.target.value != " ") && setFieldValue("status", e.target.value)
+                              }}
+                              value={values.status}
+                            >
+                              <MenuItem value=" ">
+                                Select Status
+                              </MenuItem>
+                              <MenuItem value="Pending">
+                                Pending
+                              </MenuItem>
+                              <MenuItem value="Pending Approved">
+                                Pending Approved
+                              </MenuItem>
+                              <MenuItem value="Rejected">
+                                Rejected
+                              </MenuItem>
+
+                            </Select>
+                            <ErrorMessage className="text-error" component="Typography" name="status" />
+                          </FormControl>
+                        </Box>
+                        <Box className="formGroup1 customSelect">
+                          <FormControl variant="outlined" style={{width:'12rem'}} >
                             <Select
                               name="selectBuilding"
                               labelId="demo-simple-select-outlined-label"
@@ -117,8 +141,8 @@ class ManagerList extends ManagerController {
                             <ErrorMessage className="text-error" component="Typography" name="buildingName" />
                           </FormControl>
                         </Box>
-                        <Box className="formGroup customSelect">
-                          <FormControl variant="outlined" >
+                        <Box className="formGroup1 customSelect">
+                          <FormControl variant="outlined" style={{ width: '12rem' }} >
                             <Select
                               name="unit"
                               labelId="demo-simple-select-outlined-label"
@@ -129,7 +153,7 @@ class ManagerList extends ManagerController {
                               value={values.unit}
                             >
                               {
-                                ! (values?.buildingName) ?
+                                (values?.buildingName) ?
                                   <MenuItem disabled value=" ">
                                     Select Unit
                                   </MenuItem>
@@ -148,34 +172,7 @@ class ManagerList extends ManagerController {
                             <ErrorMessage className="text-error" component="Typography" name="unit" />
                           </FormControl>
                         </Box>
-                        <Box className="formGroup customSelect">
-                          <FormControl variant="outlined" >
-                            <Select
-                              name="status"
-                              labelId="demo-simple-select-outlined-label"
-                              id="demo-simple-select-outlined"
-                              onChange={(e) => {
-                                (e.target.value != " ") && setFieldValue("status", e.target.value)
-                              }}
-                              value={values.status}
-                            >
-                              <MenuItem  value=" ">
-                                Select Status
-                              </MenuItem>
-                              <MenuItem  value="Pending">
-                                Pending
-                              </MenuItem>
-                              <MenuItem  value="Pending Approved">
-                                Pending Approved
-                              </MenuItem>
-                              <MenuItem  value="Rejected">
-                                Rejected
-                              </MenuItem>
 
-                            </Select>
-                            <ErrorMessage className="text-error" component="Typography" name="status" />
-                          </FormControl>
-                        </Box>
                         <Box className="customButton">
                           <Button variant="contained" type="submit">Search</Button>
                         </Box>
@@ -215,23 +212,26 @@ class ManagerList extends ManagerController {
 
                                         <div style={{ display: 'flex', fontWeight: 500 }}>
                                           <img src={userBlue} width='25' height='25' style={{ marginRight: 10 }} />
-                                          <p>   Owner Name :</p>
+                                          <p>   {item.attributes.owner_name}
+
+
+                                          </p>
                                         </div>
-                                        <div style={{ marginLeft: 35, marginBottom: 20 }}>
+                                        {/* <div style={{ marginLeft: 35, marginBottom: 20 }}>
 
                                           {item.attributes.owner_name}
-                                        </div>
+                                        </div> */}
                                       </div>
                                       <div>
 
-                                        <div style={{ display: 'flex', fontWeight: 500 }}>
-                                          <img src={CarBlue} width='25' height='25' style={{ marginRight: 10 }} />
-                                          <p> Car Manufacturer:</p>
+                                        <div style={{ display: 'flex', fontWeight: 500,marginTop:'0.5rem' }}>
+                                          <img src={Building} width='25' height='25' style={{ marginRight: 10 }} />
+                                          <p>  {item.attributes.building_management.name}</p>
                                         </div>
-                                        <div style={{ marginLeft: 35, marginBottom: 20 }}>
+                                        {/* <div style={{ marginLeft: 35, marginBottom: 20 }}>
 
                                           {item.attributes.company_name}
-                                        </div>
+                                        </div> */}
                                       </div>
                                       </div>
                                   </div>
