@@ -4,7 +4,7 @@
 import * as React from "react";
 // custom components
 import {
-  Button, Box, Grid, Typography, Dialog, Avatar, DialogActions , Container, TextField
+  Button, Box, Grid, Typography, Dialog, Avatar, DialogActions , Container, TextField, IconButton
 } from "@material-ui/core";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { Formik, Form, Field } from "formik";
@@ -20,6 +20,7 @@ import { InsertEmoticon } from "@material-ui/icons";
 import ManagerController from "./ManagerController.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
+import CloseIcon from '@material-ui/icons/Close';
 
 
 
@@ -275,10 +276,20 @@ class ManagerViewVeichle extends ManagerController {
           PaperProps={{
             style: {
               borderRadius: '15px',
-              padding: '2rem'
+              padding: '0rem'
             },
           }}
         >
+          <Grid container>
+            <Grid xs={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #00000029', padding:'0 0.5rem 0px 0.5rem'}}>
+              <p style={{fontWeight:'bold'}}>
+                Reject Vehicle Request
+              </p>
+              <IconButton aria-label="close" onClick={()=>this.setState({ showDialogDelete: false })}>
+                <CloseIcon />
+              </IconButton>
+            </Grid>
+          </Grid>
           <Grid container>
             <Grid xs={12} >
               <TextField
@@ -286,6 +297,7 @@ class ManagerViewVeichle extends ManagerController {
                 multiline
                 rows={4}
                 id="outlined-multiline-static"
+                variant="outlined"
                 label="add notes"
                 // value={this.state.name}
                 // onChange={this.handleChange('name')}

@@ -257,7 +257,10 @@ export default class FamilyController extends BlockComponent<Props, S, SS> {
             //@ts-ignore
             //@ts-nocheck
             localStorage.removeItem('selectCar')
-            this.props.history.push('/veichleList')
+            this.setState({ showDialogDelete: false, showDialog: false })
+
+            this.getVehicle()
+
           } else {
             //Check Error Response
             this.parseApiErrorResponse(responseJson);
@@ -760,7 +763,7 @@ export default class FamilyController extends BlockComponent<Props, S, SS> {
   deleteRequest() {
     // @ts-nocheck
     // @ts-ignore
-    let item = JSON.parse(localStorage.getItem('selectCar'))
+    let item = JSON.parse(localStorage.getItem('selectFamily'))
     const header = {
 
       "token": localStorage.getItem('userToken')
@@ -773,7 +776,7 @@ export default class FamilyController extends BlockComponent<Props, S, SS> {
     this.deleteVehicleAPICallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_vehicle/vehicles/${item.id}`
+      `bx_block_family/families/${item.id}`
     );
 
     requestMessage.addData(
