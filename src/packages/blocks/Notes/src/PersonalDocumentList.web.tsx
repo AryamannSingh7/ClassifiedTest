@@ -40,7 +40,6 @@ import {
   EmailShareButton,
   FacebookShareButton,
   LinkedinShareButton,
-  PinterestShareButton,
   RedditShareButton,
   TelegramShareButton,
   TumblrShareButton,
@@ -49,7 +48,6 @@ import {
   EmailIcon,
   FacebookIcon,
   LinkedinIcon,
-  PinterestIcon,
   RedditIcon,
   TelegramIcon,
   TumblrIcon,
@@ -106,8 +104,14 @@ class PersonalDocumentList extends PersonalDocumentListController {
                             <h3>No Document Found</h3>
                             <p>
                               Looks like you haven't uploaded any documents! you
-                              can upload rent contract by tapping on below
-                              button.
+                              can upload{" "}
+                              {this.state.documentType === "rent-contract" &&
+                                "Rent Contract"}
+                              {this.state.documentType === "unit-plan" &&
+                                "Unit Plan"}
+                              {this.state.documentType === "other-documents" &&
+                                "Other Documents"}{" "}
+                              by tapping on below button.
                             </p>
                           </div>
                         </div>
@@ -392,16 +396,6 @@ class PersonalDocumentList extends PersonalDocumentListController {
               >
                 <LinkedinIcon />
               </LinkedinShareButton>
-              <PinterestShareButton
-                quote={this.state.shareQuote}
-                url={this.state.shareUrl}
-                title={shareTitle}
-                media={buildingLogo}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-              >
-                <PinterestIcon size="2.5rem" />
-              </PinterestShareButton>
               <EmailShareButton
                 quote={this.state.shareQuote}
                 url={this.state.shareUrl}

@@ -49,7 +49,6 @@ import {
   EmailShareButton,
   FacebookShareButton,
   LinkedinShareButton,
-  PinterestShareButton,
   RedditShareButton,
   TelegramShareButton,
   TumblrShareButton,
@@ -58,7 +57,6 @@ import {
   EmailIcon,
   FacebookIcon,
   LinkedinIcon,
-  PinterestIcon,
   RedditIcon,
   TelegramIcon,
   TumblrIcon,
@@ -680,16 +678,6 @@ class DocumentListChairman extends DocumentListChairmanController {
               >
                 <LinkedinIcon />
               </LinkedinShareButton>
-              <PinterestShareButton
-                quote={this.state.shareQuote}
-                url={this.state.shareUrl}
-                title={shareTitle}
-                media={buildingLogo}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-              >
-                <PinterestIcon size="2.5rem" />
-              </PinterestShareButton>
               <EmailShareButton
                 quote={this.state.shareQuote}
                 url={this.state.shareUrl}

@@ -77,11 +77,8 @@ class ViewBuildingDocument extends ViewBuildingDocumentController {
                       <div className="item-title">
                         <img src={PdfImage} />
                         <h6>
-                          Meeting Minutes{" "}
                           {this.state.document &&
-                            this.state.document.attributes.meeting_date_time.split(
-                              " "
-                            )[0]}
+                            this.state.document.attributes.meeting.title}
                         </h6>
                       </div>
                       <div className="icons">

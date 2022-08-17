@@ -112,7 +112,7 @@ class BuildingDocumentList extends BuildingDocumentListController {
                                 <div className="meeting-item">
                                   <div className="item-title">
                                     <img src={PdfImage} />
-                                    <h6>Meeting Minutes {date}</h6>
+                                    <h6>{document.attributes.meeting.title}</h6>
                                   </div>
                                   <div className="icons">
                                     <img src={ShareImage} />
