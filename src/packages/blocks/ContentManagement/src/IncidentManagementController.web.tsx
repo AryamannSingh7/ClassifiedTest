@@ -51,6 +51,9 @@ export interface S {
   providerWork:any;
   ProviderName:any;
   provider_id : any ;
+  imageShowDialog:any;
+  statusShowDialog:any;
+  file:any;
   // Customizable Area End
 }
 
@@ -140,7 +143,10 @@ export default class IncidentManagementController extends BlockComponent<
       statusDetail:" ",
       providerWork:' ',
       ProviderName : ' ',
-      provider_id:null
+      provider_id:null,
+      imageShowDialog:false,
+      file:{},
+      statusShowDialog:false
       // Customizable Area End
     };
 
@@ -597,6 +603,7 @@ onChange =(e)=>{
   else if(e.target.name === "statusDetail"){
     const  value = e.target.value
     this.setState({ [e.target.name]:e.target.value})
+    // this.setState({ statusShowDialog: false })
     this.updateStatus(value);
   }
   else if(e.target.name === 'providerWork'){

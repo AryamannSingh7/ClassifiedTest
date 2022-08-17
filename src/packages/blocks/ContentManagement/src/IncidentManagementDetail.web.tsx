@@ -15,7 +15,6 @@ import {
   DialogActions,
   DialogTitle,
 } from "@material-ui/core";
-
 import '../../dashboard/src/Dashboard.web.css'
 import {
   House_Icon, keyrented, money, location, account,
@@ -33,6 +32,7 @@ import NativeSelect from "@material-ui/core/NativeSelect";
 import Grid from '@material-ui/core/Grid';
 
 //resources
+import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
@@ -167,10 +167,33 @@ class IncidentManagementDetail extends IncidentManagementController {
                           <h5>Description: </h5>
                           <h4>{attributes?.description}</h4>
                         </Box>
+                        </Box>
+                       {
+                         attributes?.attachments.length !== 0 ? 
+                        <>
                         <Box className="card-rows">
                           <h5>Photos: </h5>
                         </Box>
-                      </Box>
+                        {
+                         attributes?.attachments?.map((val, index) => (
+                           val?.content_type === "video/mp4" || val?.content_type === "video/x-m4v" ?
+                           <Box className="photos-row">
+                             <Box className="video-img" key={index} onClick={() => { this.setState({ imageShowDialog: true, file: { url: val.url, type: val?.content_type, name: val?.file_name } }) }}>
+                                 <Box className="img-layer"></Box>
+                                   <video className="incident-dialog-video"  >
+                                        <source src={val?.url} type={val?.file?.type} />
+                                        </video>
+                                        <PlayCircleOutlineIcon className="play-icon" />
+                                  </Box>
+                                  </Box>
+                                      :         
+                                <Box className="video-img" key={index} onClick={() => { this.setState({ imageShowDialog: true, file: { url: val.url, type: val?.content_type, name: val?.file_name } }) }}>
+                                     <Box className="img-layer"></Box>
+                                      <img src={val.url} className="card-img" alt="card-img" />
+                                      <FullscreenIcon className="play-icon" />
+                                </Box>              
+                                  ))
+                                }
                       <Box className="photos-row">
                         <Box className="video-img"> 
                           <FullscreenIcon className="play-icon" />
@@ -189,6 +212,9 @@ class IncidentManagementDetail extends IncidentManagementController {
                         </Box>
                         
                       </Box>
+                        </>
+                        :null
+                       }
                       <Box className="incident-button-row customButton">
                         <Button variant="outlined"
                           onClick={() =>this.providerList(apartmentManagementId) }
@@ -199,7 +225,7 @@ class IncidentManagementDetail extends IncidentManagementController {
                   </Card>
                 </Box>
               </Container>
-
+  {/* view assgin provider dialog */}
               <Dialog
                 open={this.state.showDialog}
                 onClose={() => this.setState({ showDialog: false })}
@@ -284,8 +310,8 @@ class IncidentManagementDetail extends IncidentManagementController {
 
               {/* view large image dialog */}
               <Dialog
-                open={false}
-                onClose={() => this.setState({ showDialog: false })}
+                open={this.state?.imageShowDialog}
+                onClose={() => this.setState({ imageShowDialog: false })}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
                 className="diloag-wrapper"
@@ -298,19 +324,52 @@ class IncidentManagementDetail extends IncidentManagementController {
                 <Box className="diloag-body">
                   <Box className="diloag-header">
                     <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
-                      Image
+                    {this.state?.file?.name}
                     </DialogTitle>
-                    <Button onClick={() => { this.setState({ showDialog: false }) }}>
+                    <Button onClick={() => { this.setState({ imageShowDialog: false }) }}>
                       <img src={Close_Icon} className="close-icon" />
                     </Button>
                   </Box>
-                  {/* <iframe className="incident-dialog-video"
-                  src="https://www.youtube.com/embed/tQG6jYy9xto" title="YouTube video player"
-                  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen></iframe> */}
                   <Box className="diloag-content">
-                    <img src={this.state?.image} className="incident-dialog-photo" alt="Incident photo" />
+                  {
+                  this.state?.file?.type === "video/mp4" || this.state?.file?.type === "video/x-m4v" ?
+                    <video className="incident-dialog-video"  controls >
+                      <source src={this.state?.file?.url} type={this.state?.file?.type} />
+                    </video>
+                    :
+                    <Box>
+                      <img src={this.state?.file?.url} className="incident-dialog-photo" alt="card-img" />
+                    </Box>
+                  }
+                   </Box>
+                </Box>
+              </Dialog>
+
+               {/* view status dialog */}
+               <Dialog
+                open={this.state?.statusShowDialog}
+                onClose={() => this.setState({ statusShowDialog: false })}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                className="diloag-wrapper"
+                PaperProps={{
+                  style: {
+                    borderRadius: '15px',
+                  },
+                }}
+              >
+                <Box className="diloag-body">
+                  <Box className="diloag-header">
+                    <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
+                      Update Status
+                    </DialogTitle>
+                    <Button onClick={() => { this.setState({ statusShowDialog: false }) }}>
+                      <img src={Close_Icon} className="close-icon" />
+                    </Button>
                   </Box>
+                  <Box className="diloag-content">
+                     CONFIMR MENTION
+                   </Box>
                 </Box>
               </Dialog>
             </Grid>
