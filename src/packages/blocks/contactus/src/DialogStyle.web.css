@@ -206,3 +206,26 @@
   height: 60px;
   border-radius: 5px;
 }
+
+.personal .dialog-button-group {
+  flex-direction: column;
+}
+
+.personal .dialog-button-group button:first-child {
+  margin: 10px 0;
+  background-color: #2b6fec;
+  color: white;
+  padding: 12px 50px;
+  border-radius: 25px;
+}
+
+.personal .dialog-button-group button:last-child {
+  margin: 10px 0;
+  background-color: white;
+  color: darkgray;
+  border: 0;
+}
+
+.select-meeting .MuiListItemText-root {
+  max-width: 275px;
+}

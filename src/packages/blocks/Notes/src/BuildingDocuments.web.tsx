@@ -8,7 +8,6 @@ import {
   Container,
   IconButton,
   Link,
-  Typography,
   withStyles,
   Box,
   Grid,
@@ -18,11 +17,11 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import BuildingLogo from "../assets/building.png";
 import { DocumentReportStyleWeb } from "./DocumentReportStyle.web";
 import Document from "../assets/document.png";
-import PersonalDocumentController, {
+import BuildingDocumentController, {
   Props,
-} from "./PersonalDocumentController.web";
+} from "./BuildingDocumentsController.web";
 
-class PersonalDocument extends PersonalDocumentController {
+class BuildingDocuments extends BuildingDocumentController {
   constructor(props: Props) {
     super(props);
   }
@@ -30,10 +29,12 @@ class PersonalDocument extends PersonalDocumentController {
   render() {
     const { classes } = this.props;
 
+    console.log(this.state);
+
     return (
       <>
         <Box
-          className={classes.personalDocument}
+          className={classes.buildingDocument}
           style={{ background: "#F8F9FE", height: "100vh" }}
         >
           <Grid container>
@@ -50,19 +51,23 @@ class PersonalDocument extends PersonalDocumentController {
                     <KeyboardBackspaceIcon />
                   </IconButton>
                 </Link>{" "}
-                Personal Documents
+                Building Documents
               </Box>
               <Container className="content-area document-box">
                 <Grid container spacing={2}>
                   <Grid item xs={12} md={12} lg={12}>
-                    <Link href="/PersonalDocument/Rent-Contact">
+                    <Link href="/BuildingDocuments/Policy">
                       <Box className="item">
                         <div className="heading">
                           <img src={Document} />
-                          <h4>Rent Contract</h4>
+                          <h4>Policy</h4>
                         </div>
                         <div>
-                          <Button className="color-btn">04</Button>
+                          {this.state.policy > 0 && (
+                            <Button className="color-btn">
+                              {this.state.policy}
+                            </Button>
+                          )}
                           <IconButton>
                             <ChevronRightIcon />
                           </IconButton>
@@ -71,14 +76,18 @@ class PersonalDocument extends PersonalDocumentController {
                     </Link>
                   </Grid>
                   <Grid item xs={12} md={12} lg={12}>
-                    <Link href="/PersonalDocument/Unit-Plan">
+                    <Link href="/BuildingDocuments/Resolutions">
                       <Box className="item">
                         <div className="heading">
                           <img src={Document} />
-                          <h4>Unit Plan</h4>
+                          <h4>Resolutions</h4>
                         </div>
                         <div>
-                          <Button className="color-btn">04</Button>
+                          {this.state.resolution > 0 && (
+                            <Button className="color-btn">
+                              {this.state.resolution}
+                            </Button>
+                          )}
                           <IconButton>
                             <ChevronRightIcon />
                           </IconButton>
@@ -87,14 +96,58 @@ class PersonalDocument extends PersonalDocumentController {
                     </Link>
                   </Grid>
                   <Grid item xs={12} md={12} lg={12}>
-                    <Link href="/PersonalDocument/Other-Documents">
+                    <Link href="/BuildingDocuments/Roles">
                       <Box className="item">
                         <div className="heading">
                           <img src={Document} />
-                          <h4>Other Documents</h4>
+                          <h4>Roles</h4>
                         </div>
                         <div>
-                          {/* <Button className="color-btn">04</Button> */}
+                          {this.state.roles > 0 && (
+                            <Button className="color-btn">
+                              {this.state.roles}
+                            </Button>
+                          )}
+                          <IconButton>
+                            <ChevronRightIcon />
+                          </IconButton>
+                        </div>
+                      </Box>
+                    </Link>
+                  </Grid>
+                  <Grid item xs={12} md={12} lg={12}>
+                    <Link href="/BuildingDocuments/Guidelines">
+                      <Box className="item">
+                        <div className="heading">
+                          <img src={Document} />
+                          <h4>Guidelines</h4>
+                        </div>
+                        <div>
+                          {this.state.guidelines > 0 && (
+                            <Button className="color-btn">
+                              {this.state.guidelines}
+                            </Button>
+                          )}
+                          <IconButton>
+                            <ChevronRightIcon />
+                          </IconButton>
+                        </div>
+                      </Box>
+                    </Link>
+                  </Grid>
+                  <Grid item xs={12} md={12} lg={12}>
+                    <Link href="/BuildingDocuments/Building-Plans">
+                      <Box className="item">
+                        <div className="heading">
+                          <img src={Document} />
+                          <h4>Building Plans</h4>
+                        </div>
+                        <div>
+                          {this.state.buildingPlans > 0 && (
+                            <Button className="color-btn">
+                              {this.state.buildingPlans}
+                            </Button>
+                          )}
                           <IconButton>
                             <ChevronRightIcon />
                           </IconButton>
@@ -120,5 +173,5 @@ class PersonalDocument extends PersonalDocumentController {
   }
 }
 
-export default withStyles(DocumentReportStyleWeb)(PersonalDocument);
+export default withStyles(DocumentReportStyleWeb)(BuildingDocuments);
 // Customizable Area End
