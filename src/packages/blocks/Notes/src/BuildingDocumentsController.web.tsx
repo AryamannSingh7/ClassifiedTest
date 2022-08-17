@@ -21,15 +21,11 @@ export interface Props {
 
 interface S {
   // Customizable Area Start
-  faqStep: number;
-
-  faq: string;
-
-  faqList: any[];
-  catagoriesList: any[];
-
-  question: string;
-  answer: string;
+  policy: number;
+  guidelines: number;
+  roles: number;
+  resolution: number;
+  buildingPlans: number;
   // Customizable Area End
 }
 
@@ -37,8 +33,12 @@ interface SS {
   id: any;
 }
 
-export default class FaqOwnerController extends BlockComponent<Props, S, SS> {
-  FaqCategoryCallId: any;
+export default class BuildingDocumentController extends BlockComponent<
+  Props,
+  S,
+  SS
+> {
+  GetDocumentCountCallId: any;
 
   constructor(props: Props) {
     super(props);
@@ -51,15 +51,11 @@ export default class FaqOwnerController extends BlockComponent<Props, S, SS> {
     ];
 
     this.state = {
-      faqStep: 1,
-
-      faqList: [],
-      catagoriesList: [],
-
-      question: "",
-      answer: "",
-      
-      faq: "",
+      policy: 0,
+      guidelines: 0,
+      roles: 0,
+      resolution: 0,
+      buildingPlans: 0,
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -67,14 +63,13 @@ export default class FaqOwnerController extends BlockComponent<Props, S, SS> {
 
   async receive(from: string, message: Message) {
     // Customizable Area Start
-    // Get FAQ Category
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.FaqCategoryCallId !== null &&
-      this.FaqCategoryCallId ===
+      this.GetDocumentCountCallId !== null &&
+      this.GetDocumentCountCallId ===
         message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
-      this.FaqCategoryCallId = null;
+      this.GetDocumentCountCallId = null;
 
       var responseJson = message.getData(
         getName(MessageEnum.RestAPIResponceSuccessMessage)
@@ -83,7 +78,11 @@ export default class FaqOwnerController extends BlockComponent<Props, S, SS> {
       if (responseJson.data) {
         this.setState({
           ...this.state,
-          catagoriesList: responseJson.data,
+          policy: responseJson.data.policy_count,
+          guidelines: responseJson.data.guideline_count,
+          roles: responseJson.data.role_count,
+          resolution: responseJson.data.resolution_count,
+          buildingPlans: responseJson.data.building_plan_count,
         });
       }
 
@@ -102,11 +101,11 @@ export default class FaqOwnerController extends BlockComponent<Props, S, SS> {
 
   // Customizable Area Start
   async componentDidMount(): Promise<void> {
-    this.getFaqCategory();
+    this.getDocumentCount();
   }
 
-  // Get FAQ Category API
-  getFaqCategory = () => {
+  // Get Document Count API
+  getDocumentCount = () => {
     const header = {
       "Content-Type": configJSON.ApiContentType,
       token: localStorage.getItem("userToken"),
@@ -114,11 +113,11 @@ export default class FaqOwnerController extends BlockComponent<Props, S, SS> {
 
     const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
 
-    this.FaqCategoryCallId = apiRequest.messageId;
+    this.GetDocumentCountCallId = apiRequest.messageId;
 
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      configJSON.FaqCategoryAPIEndPoint
+      configJSON.GetDocumentCountAPIEndPoint
     );
 
     apiRequest.addData(
@@ -133,13 +132,6 @@ export default class FaqOwnerController extends BlockComponent<Props, S, SS> {
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
-  };
-
-  changeFaqState = (number: number) => {
-    this.setState({
-      ...this.state,
-      faqStep: number,
-    });
   };
   // Customizable Area End
 }

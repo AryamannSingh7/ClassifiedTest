@@ -17,37 +17,45 @@ import {
   DialogContent,
   FormControl,
   DialogActions,
-  Card,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Checkbox,
 } from "@material-ui/core";
+import { Menu } from "@szhsin/react-menu";
+import "@szhsin/react-menu/dist/core.css";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import CloseIcon from "@material-ui/icons/Close";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import DocumentListChairmanController, {
+import PersonalDocumentListController, {
   Props,
-} from "./DocumentListChairmanController.web";
+} from "./PersonalDocumentListController.web";
 import { DocumentReportStyleWeb } from "./DocumentReportStyle.web";
-import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
-import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 
-import Document from "../assets/document.png";
 import UploadImage from "../assets/upload.png";
 import DeleteImage from "../assets/delete.png";
-import ShareImage from "../assets/share.png";
-import DownloadImage from "../assets/download.png";
+import NoPdf from "../assets/no-pdf.png";
 import BuildingLogo from "../assets/building.png";
+import PdfImage from "../assets/pdf.png";
+import buildingLogo from "../assets/building.png";
 
-import { Menu } from "@szhsin/react-menu";
-import "@szhsin/react-menu/dist/core.css";
-import Loader from "../../../components/src/Loader.web";
+import {
+  EmailShareButton,
+  FacebookShareButton,
+  LinkedinShareButton,
+  RedditShareButton,
+  TelegramShareButton,
+  TumblrShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+  EmailIcon,
+  FacebookIcon,
+  LinkedinIcon,
+  RedditIcon,
+  TelegramIcon,
+  TumblrIcon,
+  TwitterIcon,
+  WhatsappIcon,
+} from "react-share";
 
-class PersonalDocumentList extends DocumentListChairmanController {
+class PersonalDocumentList extends PersonalDocumentListController {
   constructor(props: Props) {
     super(props);
   }
@@ -55,83 +63,165 @@ class PersonalDocumentList extends DocumentListChairmanController {
   render() {
     const { classes } = this.props;
 
+    const sharePopupWidth = 500;
+    const sharePopupHeight = 700;
+    const shareTitle = "TI 1 Final Leap";
+
     console.log(this.state);
 
     return (
       <>
-        <Loader loading={this.state.loading} />
         <Box
           className={classes.personalDocument}
           style={{ background: "#F8F9FE", height: "100vh" }}
         >
           <Grid container>
             <Grid item xs={12} md={7}>
-              <Box display={{ xs: "flex", md: "flex" }} className="menu">
-                <Link
-                  href={
-                    localStorage.getItem("userType") === "Owner"
-                      ? "/OwnerDashboard"
-                      : ""
-                  }
-                >
-                  <IconButton>
-                    <KeyboardBackspaceIcon />
-                  </IconButton>
-                </Link>{" "}
-                Rent Contract
-              </Box>
-              <Container className="content-area document-box">
-                <Grid container spacing={2}>
-                  <Grid item xs={12} md={12} lg={12}>
-                    <Link href="/PersonalDocument/Rent-Contact">
-                      <Box className="item">
-                        <div className="heading">
-                          <img src={Document} />
-                          <h4>Rent Contract</h4>
+              {this.state.documentType !== "rent-contract" &&
+              this.state.documentType !== "unit-plan" &&
+              this.state.documentType !== "other-documents" ? (
+                <p>Wrong url</p>
+              ) : (
+                <>
+                  <Box display={{ xs: "flex", md: "flex" }} className="menu">
+                    <Link href="/PersonalDocument">
+                      <IconButton>
+                        <KeyboardBackspaceIcon />
+                      </IconButton>
+                    </Link>{" "}
+                    {this.state.documentType === "rent-contract" &&
+                      "Rent Contract"}
+                    {this.state.documentType === "unit-plan" && "Unit Plan"}
+                    {this.state.documentType === "other-documents" &&
+                      "Other Documents"}
+                  </Box>
+                  <Container className="content-area document-box list">
+                    <div className="personal-documents">
+                      {this.state.documentsList.length === 0 && (
+                        <div className="empty-list">
+                          <div className="content-box">
+                            <img src={NoPdf} />
+                            <h3>No Document Found</h3>
+                            <p>
+                              Looks like you haven't uploaded any documents! you
+                              can upload{" "}
+                              {this.state.documentType === "rent-contract" &&
+                                "Rent Contract"}
+                              {this.state.documentType === "unit-plan" &&
+                                "Unit Plan"}
+                              {this.state.documentType === "other-documents" &&
+                                "Other Documents"}{" "}
+                              by tapping on below button.
+                            </p>
+                          </div>
                         </div>
-                        <div>
-                          <Button className="color-btn">04</Button>
-                          <IconButton>
-                            <ChevronRightIcon />
-                          </IconButton>
-                        </div>
-                      </Box>
-                    </Link>
-                  </Grid>
-                  <Grid item xs={12} md={12} lg={12}>
-                    <Link href="/PersonalDocument/Unit-Plan">
-                      <Box className="item">
-                        <div className="heading">
-                          <img src={Document} />
-                          <h4>Unit Plan</h4>
-                        </div>
-                        <div>
-                          <Button className="color-btn">04</Button>
-                          <IconButton>
-                            <ChevronRightIcon />
-                          </IconButton>
-                        </div>
-                      </Box>
-                    </Link>
-                  </Grid>
-                  <Grid item xs={12} md={12} lg={12}>
-                    <Link href="/PersonalDocument/Other-Documents">
-                      <Box className="item">
-                        <div className="heading">
-                          <img src={Document} />
-                          <h4>Other Documents</h4>
-                        </div>
-                        <div>
-                          {/* <Button className="color-btn">04</Button> */}
-                          <IconButton>
-                            <ChevronRightIcon />
-                          </IconButton>
-                        </div>
-                      </Box>
-                    </Link>
-                  </Grid>
-                </Grid>
-              </Container>
+                      )}
+                      <Grid container spacing={2}>
+                        {this.state.documentsList.map((document: any) => {
+                          return (
+                            <Grid
+                              item
+                              xs={12}
+                              md={12}
+                              lg={12}
+                              key={document.id}
+                            >
+                              <Box className="item document">
+                                <Link
+                                  href={`/PersonalDocument/${
+                                    this.state.documentType
+                                  }/${document.id}/view`}
+                                >
+                                  <div className="left-side">
+                                    <div className="image">
+                                      <img src={PdfImage} />
+                                    </div>
+                                    <div className="info">
+                                      <h4>{document.attributes.title}</h4>
+                                      {/* <div className="more-info">
+                                        <p>
+                                          <span>55</span>pages
+                                        </p>
+                                        <p>
+                                          <span>5</span>MB
+                                        </p>
+                                        <p>08/12/2022</p>
+                                      </div> */}
+                                    </div>
+                                  </div>
+                                </Link>
+                                <div className="right-menu">
+                                  <Menu
+                                    menuButton={
+                                      <IconButton>
+                                        <MoreVertIcon />
+                                      </IconButton>
+                                    }
+                                  >
+                                    <MenuItem>
+                                      <Link
+                                        href={
+                                          document.attributes.images[0]
+                                            .download_url
+                                        }
+                                        target="_blank"
+                                      >
+                                        Download
+                                      </Link>
+                                    </MenuItem>
+                                    <MenuItem
+                                      onClick={() => {
+                                        this.setState(
+                                          {
+                                            ...this.state,
+                                            selectedDocumentId: document.id,
+                                          },
+                                          () => {
+                                            this.handleDeleteDocumentModal();
+                                          }
+                                        );
+                                      }}
+                                    >
+                                      Delete
+                                    </MenuItem>
+                                    <MenuItem
+                                      onClick={() => {
+                                        this.setState(
+                                          {
+                                            ...this.state,
+                                            shareUrl:
+                                              document.attributes.images[0].url,
+                                            shareQuote:
+                                              document.attributes.title,
+                                          },
+                                          () => {
+                                            this.handleShareModal();
+                                          }
+                                        );
+                                      }}
+                                    >
+                                      Share
+                                    </MenuItem>
+                                  </Menu>
+                                </div>
+                              </Box>
+                            </Grid>
+                          );
+                        })}
+                      </Grid>
+                    </div>
+                    <div className="upload-button">
+                      <Grid container>
+                        <Grid item xs={12} md={12}>
+                          <Button onClick={() => this.handleAddDocumentModal()}>
+                            Upload Document
+                          </Button>
+                        </Grid>
+                      </Grid>
+                    </div>
+                  </Container>
+                </>
+              )}
             </Grid>
             <Grid item xs={12} md={5}>
               <Box
@@ -147,7 +237,7 @@ class PersonalDocumentList extends DocumentListChairmanController {
         <Dialog
           fullWidth
           onClose={() => this.handleAddDocumentModal()}
-          open={this.state.idAddDocumentModalOpen}
+          open={this.state.isAddDocumentModalOpen}
           className="add-document"
         >
           <MuiDialogTitle disableTypography className="dialog-heading">
@@ -208,7 +298,7 @@ class PersonalDocumentList extends DocumentListChairmanController {
                 this.state.title.length === 0 || this.state.file === null
               }
               variant="contained"
-              onClick={() => this.createDocument()}
+              onClick={() => this.createPersonalDocument()}
               color="primary"
             >
               Create
@@ -217,19 +307,32 @@ class PersonalDocumentList extends DocumentListChairmanController {
         </Dialog>
 
         <Dialog
-          className="delete-document"
+          className="delete-document personal"
           fullWidth
           onClose={() => this.handleDeleteDocumentModal()}
-          open={this.state.idDeleteDocumentModalOpen}
+          open={this.state.isDeleteDocumentModalOpen}
         >
           <DialogContent>
             <Box textAlign="center">
               <img src={DeleteImage} alt="delete" />
-              <Typography variant="h6">Delete Document</Typography>
+              <Typography variant="h6">
+                Delete uploaded rent contract
+              </Typography>
               <Typography variant="body1">
-                Are you sure want to delete?
+                Are you sure want to delete uploaded rent contract from this
+                app? Once deleted you won't be able to view deleted contract
+                again.
               </Typography>
               <DialogActions className="dialog-button-group">
+                <Button
+                  variant="contained"
+                  onClick={() => {
+                    this.deletePersonalDocument();
+                  }}
+                  color="primary"
+                >
+                  Yes Delete
+                </Button>
                 <Button
                   variant="outlined"
                   onClick={() => this.handleDeleteDocumentModal()}
@@ -237,17 +340,99 @@ class PersonalDocumentList extends DocumentListChairmanController {
                 >
                   No, Don't Delete
                 </Button>
-                <Button
-                  variant="contained"
-                  onClick={() => {
-                    this.deleteCategory();
-                  }}
-                  color="primary"
-                >
-                  Yes Delete
-                </Button>
               </DialogActions>
             </Box>
+          </DialogContent>
+        </Dialog>
+
+        <Dialog
+          fullWidth
+          onClose={() => this.handleShareModal()}
+          open={this.state.isShareModalOpen}
+          className="select-meeting"
+        >
+          <MuiDialogTitle disableTypography className="dialog-heading">
+            <Typography variant="h6">Share</Typography>
+            <IconButton onClick={() => this.handleShareModal()}>
+              <CloseIcon />
+            </IconButton>
+          </MuiDialogTitle>
+          <DialogContent>
+            <div className="share-box">
+              <FacebookShareButton
+                quote={this.state.shareQuote}
+                url={this.state.shareUrl}
+                title={shareTitle}
+                windowWidth={sharePopupWidth}
+                windowHeight={sharePopupHeight}
+              >
+                <FacebookIcon />
+              </FacebookShareButton>
+              <TwitterShareButton
+                quote={this.state.shareQuote}
+                url={this.state.shareUrl}
+                title={shareTitle}
+                windowWidth={sharePopupWidth}
+                windowHeight={sharePopupHeight}
+              >
+                <TwitterIcon />
+              </TwitterShareButton>
+              <WhatsappShareButton
+                quote={this.state.shareQuote}
+                url={this.state.shareUrl}
+                title={shareTitle}
+                windowWidth={sharePopupWidth}
+                windowHeight={sharePopupHeight}
+                separator=":: "
+              >
+                <WhatsappIcon />
+              </WhatsappShareButton>
+              <LinkedinShareButton
+                quote={this.state.shareQuote}
+                url={this.state.shareUrl}
+                title={shareTitle}
+                windowWidth={sharePopupWidth}
+                windowHeight={sharePopupHeight}
+              >
+                <LinkedinIcon />
+              </LinkedinShareButton>
+              <EmailShareButton
+                quote={this.state.shareQuote}
+                url={this.state.shareUrl}
+                title={shareTitle}
+                windowWidth={sharePopupWidth}
+                windowHeight={sharePopupHeight}
+              >
+                <EmailIcon />
+              </EmailShareButton>
+              <RedditShareButton
+                quote={this.state.shareQuote}
+                url={this.state.shareUrl}
+                title={shareTitle}
+                windowWidth={sharePopupWidth}
+                windowHeight={sharePopupHeight}
+              >
+                <RedditIcon />
+              </RedditShareButton>
+              <TelegramShareButton
+                quote={this.state.shareQuote}
+                url={this.state.shareUrl}
+                title={shareTitle}
+                windowWidth={sharePopupWidth}
+                windowHeight={sharePopupHeight}
+              >
+                <TelegramIcon />
+              </TelegramShareButton>
+              <TumblrShareButton
+                quote={this.state.shareQuote}
+                url={this.state.shareUrl}
+                title={shareTitle}
+                windowWidth={sharePopupWidth}
+                windowHeight={sharePopupHeight}
+              >
+                <TumblrIcon />
+              </TumblrShareButton>
+            </div>
           </DialogContent>
         </Dialog>
       </>
