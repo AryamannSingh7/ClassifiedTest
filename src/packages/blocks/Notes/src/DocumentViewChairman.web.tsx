@@ -99,10 +99,10 @@ class DocumentViewChairman extends DocumentViewChairmanController {
                   <iframe
                     allowpaymentrequest="true"
                     // src="http://www.africau.edu/images/default/sample.pdf"
-                    src={`https://ti1finalleap-158677-ruby.b158677.dev.eastus.az.svc.builder.cafe/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBWDQ9IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--e1510203706bf9010404c335ff0eb1f8d5ae62cd/SQL%20-%20Quick%20Guide.pdf&output=embed&embed_domain=localhost`}
-                    // src={`${this.state.document &&
-                    //   this.state.document.attributes.images[0]
-                    //     .url}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
+                    // src={`https://ti1finalleap-158677-ruby.b158677.dev.eastus.az.svc.builder.cafe/rails/active_storage/disk/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdDRG9JYTJWNVNTSWhlWFJ6WVRWME5tZzBOM3AyWnpOclpuSmhhV0ZrYWpNeE9HRmhZUVk2QmtWVU9oQmthWE53YjNOcGRHbHZia2tpUDJsdWJHbHVaVHNnWm1sc1pXNWhiV1U5SW5OaGJYQnNaUzV3WkdZaU95Qm1hV3hsYm1GdFpTbzlWVlJHTFRnbkozTmhiWEJzWlM1d1pHWUdPd1pVT2hGamIyNTBaVzUwWDNSNWNHVkpJaFJoY0hCc2FXTmhkR2x2Ymk5d1pHWUdPd1pVIiwiZXhwIjoiMjAyMi0wOC0xMlQwNjo1NDowNS45NDVaIiwicHVyIjoiYmxvYl9rZXkifX0=--057c6cd11c91758619b4475e2d2b77494ec81c16/sample.pdf?content_type=application%2Fpdf&disposition=inline%3B+filename%3D%22sample.pdf%22%3B+filename%2A%3DUTF-8%27%27sample.pdf`}
+                    src={`${this.state.document &&
+                      this.state.document.attributes.images[0]
+                        .url}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
                     // title="Document"
                     // seamless
                     // type="application/pdf"

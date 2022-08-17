@@ -39,7 +39,8 @@ import UploadImage from "../assets/upload.png";
 import DeleteImage from "../assets/delete.png";
 import ShareImage from "../assets/share.png";
 import DownloadImage from "../assets/download.png";
-import BuildingLogo from "../assets/building.png";
+import buildingLogo from "../assets/building.png";
+import PdfImage from "../assets/pdf.png";
 
 import { Menu } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/core.css";
@@ -48,7 +49,6 @@ import {
   EmailShareButton,
   FacebookShareButton,
   LinkedinShareButton,
-  PinterestShareButton,
   RedditShareButton,
   TelegramShareButton,
   TumblrShareButton,
@@ -57,7 +57,6 @@ import {
   EmailIcon,
   FacebookIcon,
   LinkedinIcon,
-  PinterestIcon,
   RedditIcon,
   TelegramIcon,
   TumblrIcon,
@@ -143,86 +142,111 @@ class DocumentListChairman extends DocumentListChairmanController {
                     >
                       {this.state.docName.toLowerCase() === "resolutions" ? (
                         <Grid container spacing={2}>
-                          <Grid item xs={12} md={6} lg={4}>
-                            <Card className="card-item">
-                              <div className="heading">
-                                <h4>Resolution Title</h4>
-                                <div className="menu">
-                                  <Menu
-                                    menuButton={
-                                      <IconButton>
-                                        <MoreVertIcon />
-                                      </IconButton>
-                                    }
-                                  >
-                                    <MenuItem>Download</MenuItem>
-                                    <MenuItem>Delete</MenuItem>
-                                    <MenuItem>Share</MenuItem>
-                                  </Menu>
-                                </div>
-                              </div>
-                              <div className="res-info">
-                                <div className="info-item">
-                                  <p>Date & Time</p>
-                                  <span>Date & Time</span>
-                                </div>
-                                <div className="info-item">
-                                  <p>Building</p>
-                                  <span>Building</span>
-                                </div>
-                              </div>
-                              <div className="item">
-                                <div className="item-title">
-                                  <img src={Document} />
-                                  <h6>Policy</h6>
-                                </div>
-                                <div className="icons">
-                                  <img src={ShareImage} />
-                                  <img src={DownloadImage} />
-                                </div>
-                              </div>
-                            </Card>
-                          </Grid>
-                          <Grid item xs={12} md={6} lg={4}>
-                            <Card className="card-item">
-                              <div className="heading">
-                                <h4>Resolution Title</h4>
-                                <div className="menu">
-                                  <Menu
-                                    menuButton={
-                                      <IconButton>
-                                        <MoreVertIcon />
-                                      </IconButton>
-                                    }
-                                  >
-                                    <MenuItem>Download</MenuItem>
-                                    <MenuItem>Delete</MenuItem>
-                                    <MenuItem>Share</MenuItem>
-                                  </Menu>
-                                </div>
-                              </div>
-                              <div className="res-info">
-                                <div className="info-item">
-                                  <p>Date & Time</p>
-                                  <span>Date & Time</span>
-                                </div>
-                                <div className="info-item">
-                                  <p>Building</p>
-                                  <span>Building</span>
-                                </div>
-                              </div>
-                              <div className="item">
-                                <div className="item-title">
-                                  <img src={Document} />
-                                  <h6>Policy</h6>
-                                </div>
-                                <div className="icons">
-                                  <img src={ShareImage} />
-                                  <img src={DownloadImage} />
-                                </div>
-                              </div>
-                            </Card>
-                          </Grid>
+                          {this.state.resolutionList.length === 0 && (
+                            <span>No Resolution Available!!</span>
+                          )}
+                          {this.state.resolutionList.map((resolution: any) => {
+                            return (
+                              <Grid
+                                item
+                                xs={12}
+                                md={6}
+                                lg={4}
+                                key={resolution.id}
+                              >
+                                <Card className="card-item">
+                                  <div className="heading">
+                                    <h4>{resolution.attributes.title}</h4>
+                                    <div className="menu">
+                                      <Menu
+                                        menuButton={
+                                          <IconButton>
+                                            <MoreVertIcon />
+                                          </IconButton>
+                                        }
+                                      >
+                                        <MenuItem>
+                                          <Link
+                                            href={
+                                              resolution.attributes
+                                                .attachments[0].url
+                                            }
+                                            target="_blank"
+                                          >
+                                            Download
+                                          </Link>
+                                        </MenuItem>
+                                        <MenuItem
+                                          onClick={() => {
+                                            this.setState(
+                                              {
+                                                ...this.state,
+                                                selectedDocumentId:
+                                                  resolution.id,
+                                              },
+                                              () => {
+                                                this.deleteResolution();
+                                                // this.handleDeleteDocumentModal();
+                                              }
+                                            );
+                                          }}
+                                        >
+                                          Delete
+                                        </MenuItem>
+                                        <MenuItem
+                                          onClick={() => {
+                                            this.setState(
+                                              {
+                                                ...this.state,
+                                                shareUrl:
+                                                  resolution.attributes
+                                                    .attachments[0].url,
+                                                shareQuote: resolution.attributes.title,
+                                              },
+                                              () => {
+                                                this.handleShareModal();
+                                              }
+                                            );
+                                          }}
+                                        >
+                                          Share
+                                        </MenuItem>
+                                      </Menu>
+                                    </div>
+                                  </div>
+                                  <div className="res-info">
+                                    <div className="info-item">
+                                      <p>Date & Time</p>
+                                      <span>
+                                        {
+                                          resolution.attributes
+                                            .meeting_date_time
+                                        }
+                                      </span>
+                                    </div>
+                                    <div className="info-item">
+                                      <p>Building</p>
+                                      <span>
+                                        {resolution.attributes.buidling_name}
+                                      </span>
+                                    </div>
+                                  </div>
+                                  <div className="item">
+                                    <div className="item-title">
+                                      <img src={PdfImage} />
+                                      <h6>
+                                        {resolution.attributes.meeting.title}
+                                      </h6>
+                                    </div>
+                                    <div className="icons">
+                                      <img src={ShareImage} />
+                                      <img src={DownloadImage} />
+                                    </div>
+                                  </div>
+                                </Card>
+                              </Grid>
+                            );
+                          })}
                         </Grid>
                       ) : (
                         <Grid container spacing={2}>
@@ -330,7 +354,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                 value={this.state.title}
                 onChange={(e: any) => {
                   this.setState({
-                    ...Box.state,
+                    ...this.state,
                     title: e.target.value,
                   });
                 }}
@@ -408,7 +432,11 @@ class DocumentListChairman extends DocumentListChairmanController {
                 <Button
                   variant="contained"
                   onClick={() => {
-                    this.deleteCategory();
+                    if (this.state.docName.toLowerCase() === "resolutions") {
+                      this.deleteResolution();
+                    } else {
+                      this.deleteCategory();
+                    }
                   }}
                   color="primary"
                 >
@@ -434,6 +462,13 @@ class DocumentListChairman extends DocumentListChairmanController {
           <DialogContent dividers>
             <FormControl fullWidth>
               <input
+                value={this.state.title}
+                onChange={(e: any) => {
+                  this.setState({
+                    ...this.state,
+                    title: e.target.value,
+                  });
+                }}
                 placeholder="Resolution Title"
                 className="dialog-input"
                 style={{
@@ -459,18 +494,26 @@ class DocumentListChairman extends DocumentListChairmanController {
                 onChange={this.onChangeFile.bind(this)}
                 accept=".pdf"
               />
+              {this.state.file && <span>{this.state.file.name}</span>}
             </FormControl>
-            <div className="choose-meeting">
-              <span onClick={() => this.handleSelectMeetingModal()}>
-                Choose Meeting
-              </span>
-            </div>
-            <div className="change-meeting">
-              <span>Title</span>
-              <span onClick={() => this.handleSelectMeetingModal()}>
-                Change
-              </span>
-            </div>
+            {this.state.selectedMeeting ? (
+              <div className="change-meeting">
+                <span>
+                  {this.state.selectedMeeting &&
+                    this.state.selectedMeeting.attributes.title}
+                </span>
+                <span onClick={() => this.handleSelectMeetingModal()}>
+                  Change
+                </span>
+              </div>
+            ) : (
+              <div
+                className="choose-meeting"
+                onClick={() => this.handleSelectMeetingModal()}
+              >
+                <span>Choose Meeting</span>
+              </div>
+            )}
           </DialogContent>
           <DialogActions className="dialog-button-group">
             <Button
@@ -482,8 +525,13 @@ class DocumentListChairman extends DocumentListChairmanController {
             </Button>
             <Button
               variant="contained"
-              onClick={() => this.handleAddResolutionsModal()}
+              onClick={() => this.createResolution()}
               color="primary"
+              disabled={
+                !this.state.selectedMeeting ||
+                this.state.title.length === 0 ||
+                this.state.file === null
+              }
             >
               Create
             </Button>
@@ -512,19 +560,52 @@ class DocumentListChairman extends DocumentListChairmanController {
                 <ListItemText primary="Agenda" />
                 <ListItemText primary="Date & Time" />
               </ListItem>
-              <ListItem dense>
-                <ListItemIcon>
-                  <Checkbox edge="start" tabIndex={-1} disableRipple />
-                </ListItemIcon>
-                <ListItemText primary="Title" />
-                <ListItemText primary="Agenda" />
-                <ListItemText primary="Date & Time" />
-              </ListItem>
+              {this.state.meetingsList.length === 0 && (
+                <span>No Meetings Available!!</span>
+              )}
+              {this.state.meetingsList.map((meeting: any) => {
+                return (
+                  <ListItem key={meeting.id}>
+                    <ListItemIcon>
+                      <Checkbox
+                        edge="start"
+                        tabIndex={-1}
+                        disableRipple
+                        checked={
+                          this.state.selectedMeeting &&
+                          this.state.selectedMeeting.id === meeting.id
+                        }
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            this.setState({
+                              ...this.state,
+                              selectedMeeting: meeting,
+                            });
+                          } else {
+                            this.setState({
+                              ...this.state,
+                              selectedMeeting: null,
+                            });
+                          }
+                        }}
+                      />
+                    </ListItemIcon>
+                    <ListItemText primary={meeting.attributes.title} />
+                    <ListItemText primary={meeting.attributes.agenda} />
+                    <ListItemText
+                      primary={meeting.attributes.meeting_date_time}
+                    />
+                  </ListItem>
+                );
+              })}
             </List>
           </DialogContent>
           <DialogActions className="dialog-button-group">
             <div className="selected-meeting">
-              <h4>Title</h4>
+              <h4>
+                {this.state.selectedMeeting &&
+                  this.state.selectedMeeting.attributes.title}
+              </h4>
             </div>
             <div className="button-group">
               <Button
@@ -538,6 +619,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                 variant="contained"
                 onClick={() => this.handleSelectMeetingModal()}
                 color="primary"
+                disabled={!this.state.selectedMeeting}
               >
                 Create
               </Button>
@@ -596,14 +678,6 @@ class DocumentListChairman extends DocumentListChairmanController {
               >
                 <LinkedinIcon />
               </LinkedinShareButton>
-              <PinterestShareButton
-                quote={this.state.shareQuote}
-                url={this.state.shareUrl}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-              >
-                <PinterestIcon size="2.5rem" />
-              </PinterestShareButton>
               <EmailShareButton
                 quote={this.state.shareQuote}
                 url={this.state.shareUrl}
