@@ -250,15 +250,16 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             this.setState({ loading: false })
             //@ts-ignore
             //@ts-nocheck
-            if (this.props.history.location.state?.data) {
-              //@ts-ignore
-              //@ts-nocheck
-              this.props.history.push('/registerunit')
-            } else {
-              //@ts-ignore
-              //@ts-nocheck
-              this.props.history.push('/selecttype')
-            }
+            this.props.history.push('/registerunit')
+            // if (this.props.history.location.state?.data) {
+            //   //@ts-ignore
+            //   //@ts-nocheck
+            //   this.props.history.push('/registerunit')
+            // } else {
+            //   //@ts-ignore
+            //   //@ts-nocheck
+            //   this.props.history.push('/selecttype')
+            // }
             // //@ts-ignore
             // //@ts-nocheck
             // this.props.history.push('/selecttype')
