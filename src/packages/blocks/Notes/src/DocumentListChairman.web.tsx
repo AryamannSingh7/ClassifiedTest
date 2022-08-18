@@ -201,7 +201,8 @@ class DocumentListChairman extends DocumentListChairmanController {
                                                 shareUrl:
                                                   resolution.attributes
                                                     .attachments[0].url,
-                                                shareQuote: resolution.attributes.title,
+                                                shareQuote:
+                                                  resolution.attributes.title,
                                               },
                                               () => {
                                                 this.handleShareModal();

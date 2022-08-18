@@ -54,6 +54,7 @@ import {
   TwitterIcon,
   WhatsappIcon,
 } from "react-share";
+import moment from "moment";
 
 class PersonalDocumentList extends PersonalDocumentListController {
   constructor(props: Props) {
@@ -138,15 +139,17 @@ class PersonalDocumentList extends PersonalDocumentListController {
                                     </div>
                                     <div className="info">
                                       <h4>{document.attributes.title}</h4>
-                                      {/* <div className="more-info">
-                                        <p>
+                                      <div className="more-info">
+                                        {/* <p>
                                           <span>55</span>pages
+                                        </p> */}
+                                        <p>
+                                          <span>{document.attributes.images[0].file_size}</span>MB
                                         </p>
                                         <p>
-                                          <span>5</span>MB
+                                          {moment(document.attributes.created_at).format("DD/MM/YYYY")}
                                         </p>
-                                        <p>08/12/2022</p>
-                                      </div> */}
+                                      </div>
                                     </div>
                                   </div>
                                 </Link>
