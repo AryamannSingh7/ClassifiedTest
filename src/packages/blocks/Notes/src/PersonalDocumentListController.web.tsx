@@ -262,7 +262,7 @@ export default class PersonalDocumentListController extends BlockComponent<
 
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `${configJSON.DeleteDocumentAPIEndPoint}/${this.state.selectedDocumentId}`
+      `${configJSON.DeletePersonalDocumentAPIEndPoint}/${this.state.selectedDocumentId}`
     );
 
     apiRequest.addData(

@@ -157,8 +157,12 @@ export const FaqChairmanStyleWeb: any = {
       maxWidth: "93%",
       wordBreak: "break-word",
     },
+    "& .faq-box .MuiAccordionDetails-root p.MuiTypography-root": {
+      width: "100% !important",
+      maxWidth: "100% !important",
+      wordBreak: "break-word",
+    },
     "& .faq-box .MuiAccordionDetails-root": {
-      width: "100%",
       maxWidth: "100%",
       wordBreak: "break-word",
     },

@@ -52,16 +52,18 @@ class ViewPersonalDocument extends ViewPersonalDocumentController {
                 display={{ xs: "flex", md: "flex" }}
                 className="menu personal-document-menu"
               >
-                <div>
+                <div className="name">
                   <Link href={`/PersonalDocument/${this.state.documentType}`}>
                     <IconButton>
                       <KeyboardBackspaceIcon />
                     </IconButton>
                   </Link>{" "}
-                  {this.state.documentTitle}
+                  <span>{this.state.documentTitle}</span>
                 </div>
                 <Link href={this.state.documentDownloadUrl} target="_blank">
-                  <img src={DownloadImage} alt="download" />
+                  <IconButton>
+                    <img src={DownloadImage} alt="download" />
+                  </IconButton>
                 </Link>
               </Box>
               <Container className="content-area document-box">

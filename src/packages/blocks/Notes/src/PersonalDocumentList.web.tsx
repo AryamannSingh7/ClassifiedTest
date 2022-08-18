@@ -54,6 +54,7 @@ import {
   TwitterIcon,
   WhatsappIcon,
 } from "react-share";
+import moment from "moment";
 
 class PersonalDocumentList extends PersonalDocumentListController {
   constructor(props: Props) {
@@ -106,11 +107,11 @@ class PersonalDocumentList extends PersonalDocumentListController {
                               Looks like you haven't uploaded any documents! you
                               can upload{" "}
                               {this.state.documentType === "rent-contract" &&
-                                "Rent Contract"}
+                                "rent contract"}
                               {this.state.documentType === "unit-plan" &&
-                                "Unit Plan"}
+                                "unit plan"}
                               {this.state.documentType === "other-documents" &&
-                                "Other Documents"}{" "}
+                                "other documents"}{" "}
                               by tapping on below button.
                             </p>
                           </div>
@@ -138,15 +139,25 @@ class PersonalDocumentList extends PersonalDocumentListController {
                                     </div>
                                     <div className="info">
                                       <h4>{document.attributes.title}</h4>
-                                      {/* <div className="more-info">
-                                        <p>
+                                      <div className="more-info">
+                                        {/* <p>
                                           <span>55</span>pages
+                                        </p> */}
+                                        <p>
+                                          <span>
+                                            {
+                                              document.attributes.images[0]
+                                                .file_size
+                                            }
+                                          </span>
+                                          MB
                                         </p>
                                         <p>
-                                          <span>5</span>MB
+                                          {moment(
+                                            document.attributes.created_at
+                                          ).format("DD/MM/YYYY")}
                                         </p>
-                                        <p>08/12/2022</p>
-                                      </div> */}
+                                      </div>
                                     </div>
                                   </div>
                                 </Link>
@@ -262,6 +273,11 @@ class PersonalDocumentList extends PersonalDocumentListController {
                   marginTop: "0",
                 }}
               />
+              {this.state.title.length > 100 && (
+                <span className="error">
+                  Maximum length of title should be 100 character
+                </span>
+              )}
             </FormControl>
             <FormControl fullWidth>
               <div
@@ -281,25 +297,27 @@ class PersonalDocumentList extends PersonalDocumentListController {
                 onChange={this.onChangeFile.bind(this)}
                 accept=".pdf"
               />
-              {this.state.file && <span>{this.state.file.name}</span>}
+              {this.state.file && (
+                <span className="file-name">{this.state.file.name}</span>
+              )}
               <span />
             </FormControl>
           </DialogContent>
           <DialogActions className="dialog-button-group">
             <Button
-              variant="outlined"
               onClick={() => this.handleAddDocumentModal()}
-              color="primary"
+              className="cancel-button"
             >
               Cancel
             </Button>
             <Button
               disabled={
-                this.state.title.length === 0 || this.state.file === null
+                this.state.title.length === 0 ||
+                this.state.title.length > 100 ||
+                this.state.file === null
               }
-              variant="contained"
               onClick={() => this.createPersonalDocument()}
-              color="primary"
+              className="add-button"
             >
               Create
             </Button>
@@ -319,25 +337,23 @@ class PersonalDocumentList extends PersonalDocumentListController {
                 Delete uploaded rent contract
               </Typography>
               <Typography variant="body1">
-                Are you sure want to delete uploaded rent contract from this
-                app? Once deleted you won't be able to view deleted contract
-                again.
+                Are you sure want to delete uploaded{" "}
+                {this.state.documentType === "rent-contract" && "rent contract"}
+                {this.state.documentType === "unit-plan" && "unit plan"}
+                {this.state.documentType === "other-documents" &&
+                  "other documents"}{" "}
+                from this app? Once deleted you won't be able to view deleted
+                contract again.
               </Typography>
               <DialogActions className="dialog-button-group">
                 <Button
-                  variant="contained"
                   onClick={() => {
                     this.deletePersonalDocument();
                   }}
-                  color="primary"
                 >
                   Yes Delete
                 </Button>
-                <Button
-                  variant="outlined"
-                  onClick={() => this.handleDeleteDocumentModal()}
-                  color="primary"
-                >
+                <Button onClick={() => this.handleDeleteDocumentModal()}>
                   No, Don't Delete
                 </Button>
               </DialogActions>
