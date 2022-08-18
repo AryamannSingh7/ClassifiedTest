@@ -238,7 +238,6 @@
 }
 
 .personal .dialog-button-group button:first-child {
-  margin: 10px 0;
   background-color: #2b6fec;
   color: white;
   padding: 12px 50px;
@@ -246,7 +245,7 @@
 }
 
 .personal .dialog-button-group button:last-child {
-  margin: 10px 0;
+  margin-top: 10px;
   background-color: white;
   color: darkgray;
   border: 0;

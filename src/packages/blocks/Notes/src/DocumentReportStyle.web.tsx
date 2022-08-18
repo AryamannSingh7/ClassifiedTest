@@ -10,7 +10,7 @@ export const DocumentReportStyleWeb: any = {
     "& .navigation button": {
       background: "#2b6fed",
       color: "#FFF",
-      width: "200px",
+      width: "220px",
       borderRadius: "8px",
       padding: "10px",
       fontWeight: "bold",
@@ -28,9 +28,6 @@ export const DocumentReportStyleWeb: any = {
       fontWeight: 600,
       wordBreak: "break-all",
       marginRight: "15px",
-      // overflow: "hidden",
-      // whiteSpace: "nowrap",
-      // textOverflow: "ellipsis",
     },
     "& .document-box": {
       marginBottom: 20,
@@ -150,6 +147,16 @@ export const DocumentReportStyleWeb: any = {
       justifyContent: "space-between",
       textTransform: "capitalize",
     },
+    "& .menu.personal-document-menu .name": {
+      display: "flex",
+      alignItems: "center",
+      maxWidth: "95%",
+    },
+    "& .menu.personal-document-menu span": {
+      overflow: "hidden",
+      whiteSpace: "nowrap",
+      textOverflow: "ellipsis",
+    },
     "& .right-image": {
       padding: "25px 60px",
     },
@@ -204,6 +211,7 @@ export const DocumentReportStyleWeb: any = {
     "& .document .left-side h4": {
       display: "block",
       textTransform: "capitalize",
+      wordBreak: "break-all",
     },
     "& .document .left-side img": {
       width: "45px",
@@ -264,6 +272,9 @@ export const DocumentReportStyleWeb: any = {
       height: "100%",
       padding: "20px",
     },
+    "& .list .personal-documents .empty-list .content-box img": {
+      marginBottom: "20px",
+    },
     "& .list .personal-documents .content-box h3": {
       fontWeight: "600",
       marginBottom: "15px",
@@ -288,6 +299,16 @@ export const DocumentReportStyleWeb: any = {
       background: "#FFFFFF",
       padding: "10px 20px",
       textTransform: "capitalize",
+    },
+    "& .menu .name": {
+      display: "flex",
+      alignItems: "center",
+      maxWidth: "95%",
+    },
+    "& .menu span": {
+      overflow: "hidden",
+      whiteSpace: "nowrap",
+      textOverflow: "ellipsis",
     },
     "& .right-image": {
       padding: "25px 60px",
@@ -350,6 +371,7 @@ export const DocumentReportStyleWeb: any = {
     },
     "& .document .left-side h4": {
       textTransform: "capitalize",
+      wordBreak: "break-all",
     },
     "& .document .left-side img": {
       width: "35px",
@@ -365,6 +387,7 @@ export const DocumentReportStyleWeb: any = {
       justifyContent: "space-between",
       marginBottom: "10px",
       textTransform: "capitalize",
+      wordBreak: "break-all",
     },
     "& .document-box .card-item .res-info": {
       width: "100%",
