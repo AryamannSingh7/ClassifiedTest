@@ -8,8 +8,12 @@ export const DocumentReportStyleWeb: any = {
       width: "100%",
     },
     "& .navigation button": {
-      background: "#2B6FEC",
+      background: "#2b6fed",
       color: "#FFF",
+      width: "200px",
+      borderRadius: "8px",
+      padding: "10px",
+      fontWeight: "bold",
     },
     "& .navigation .top-heading": {
       display: "flex",
@@ -17,11 +21,16 @@ export const DocumentReportStyleWeb: any = {
       justifyContent: "space-between",
       flexDirection: "row",
       width: "100%",
+      marginTop: 15,
+      marginBottom: 20,
     },
     "& .navigation .sub-heading": {
       fontWeight: 600,
-      marginTop: 15,
-      marginBottom: 15,
+      wordBreak: "break-all",
+      marginRight: "15px",
+      // overflow: "hidden",
+      // whiteSpace: "nowrap",
+      // textOverflow: "ellipsis",
     },
     "& .document-box": {
       marginBottom: 20,
@@ -48,7 +57,8 @@ export const DocumentReportStyleWeb: any = {
       fontWeight: "600",
       fontSize: "16px",
       marginLeft: "10px",
-      textTransform: "capitalize",
+      wordBreak: "break-all",
+      // textTransform: "capitalize",
     },
     "& .document-box .item button.color-btn": {
       padding: "5px 11px",
@@ -82,6 +92,10 @@ export const DocumentReportStyleWeb: any = {
       alignItems: "center",
       justifyContent: "space-between",
       textTransform: "capitalize",
+      marginBottom: "10px",
+    },
+    "& .document-box .card-item .heading h4": {
+      wordBreak: "break-all",
     },
     "& .document-box .card-item .res-info": {
       width: "100%",
@@ -165,6 +179,7 @@ export const DocumentReportStyleWeb: any = {
       fontSize: "16px",
       marginLeft: "10px",
       textTransform: "capitalize",
+      wordBreak: "break-all",
     },
     "& .document-box .item button.color-btn": {
       padding: "5px 11px",
@@ -302,6 +317,7 @@ export const DocumentReportStyleWeb: any = {
       fontWeight: "600",
       fontSize: "16px",
       marginLeft: "10px",
+      wordBreak: "break-all",
       textTransform: "capitalize",
     },
     "& .document-box .item button.color-btn": {
