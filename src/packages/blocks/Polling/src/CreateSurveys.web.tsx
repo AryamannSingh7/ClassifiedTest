@@ -97,7 +97,7 @@ export default class CreateSurveys extends PollingController {
                         </Box>
                     </Box>
 
-                    <form onSubmit={this.handlePollDataSubmit}>
+                    <form>
                         <Grid container spacing={4} style={{marginTop: 15}}>
                    
                         <Grid item sm={12} md={12} xs={12}>
@@ -180,11 +180,12 @@ export default class CreateSurveys extends PollingController {
                                     <InfoIcon style={{color:"grey", fontSize:18}}/>
                                 </Box>
 
-                                <TextField multiline rows={4}  label="Description" variant="outlined"
-                                name="description" 
+                                <TextField multiline rows={4}  label="Description" variant="filled"
+                                name="description"
+                                InputProps={{ disableUnderline: true }}
                                 value={this.state.PollData.description}
                                 onChange={this.handlePollDataChange}
-                                required fullWidth style={{marginTop:20}}
+                                required fullWidth style={{marginTop:20,marginBottom:'15px'}}
                                 />
 
                                 <TextField

@@ -307,6 +307,34 @@ export default class IncidentManagementController extends BlockComponent<
           this.parseApiCatchErrorResponse(this.state.error);
           this.setState({loading: false , error:null})
         }
+        else if (apiRequestCallId === this.getProviderNameApiCallId) {
+          if (responseJson && responseJson?.data ) {
+          console.log("getProviderNameApiCallId ========================>",responseJson)
+          this.setState({providerNameListing :responseJson?.data})
+          this.setState({loading: false})
+          } else if (responseJson?.errors) {
+            let error = responseJson.errors[0] as string;
+            this.setState({ error });
+          } else {
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
+          }
+          this.parseApiCatchErrorResponse(this.state.error);
+          this.setState({loading: false , error:null})
+        }
+        else if (apiRequestCallId === this.getProviderListingApiCallId) {
+          if (responseJson || responseJson?.data ) {
+          console.log("getProviderListingApiCallId ========================>",responseJson)
+          this.setState({providerListing :responseJson})
+          this.setState({loading: false})
+          } else if (responseJson?.errors) {
+            let error = responseJson.errors[0] as string;
+            this.setState({ error });
+          } else {
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
+          }
+          this.parseApiCatchErrorResponse(this.state.error);
+          this.setState({loading: false , error:null})
+        }
         else if (apiRequestCallId === this.getIncidentListingApiCallId) {
           if (responseJson && responseJson?.data ) {
           console.log("getIncidentListingApiCallId ========================>",responseJson)
@@ -548,7 +576,7 @@ export default class IncidentManagementController extends BlockComponent<
     ? this.txtInputEmailWebPrpos
     : this.txtInputEmailMobilePrpos;
 
-  txtPhoneNumberWebProps = { 
+  txtPhoneNumberWebProps = {  
     onChangeText: (text: string) => {
       this.setState({ phone: text });
 
@@ -612,7 +640,7 @@ clear= () => {
 }
 
 getIncidentDetails= (id) => {
- localStorage.setItem("incidentManagementDetailId",id)
+ localStorage.setItem("incidentManagementDetailIdId",id)
   this.props.history.push({
     pathname: "/IncidentManagementDetail",
 });
@@ -631,6 +659,25 @@ onChange =(e)=>{
     this.setState({ buildingName:e.target?.value})
     this.setState({ serachBuildingName:name})
   }
+  else if(e.target.name === "statusDetail"){
+    const  value = e.target.value
+    this.setState({ [e.target.name]:e.target.value})
+    // this.setState({ statusShowDialog: false })
+    this.updateStatus(value);
+  }
+  else if(e.target.name === 'providerWork'){
+    const array = e.target?.value?.split(",");
+    const id = array [0]
+    const name = array[1] 
+    this.getProviderName(id , name)
+    this.setState({ providerWork:e.target?.value})
+  }
+  // else if(e.target.name === 'ProviderName'){
+  //   const array = e.target?.value?.split(",");
+  //   const id = array [0] 
+  //   this.setState({ provider_id:id})
+  //   this.setState({ ProviderName:e.target?.value})
+  // }
   else if(e.target.name === "statusDetail"){
     const  value = e.target.value
     this.setState({ [e.target.name]:e.target.value})

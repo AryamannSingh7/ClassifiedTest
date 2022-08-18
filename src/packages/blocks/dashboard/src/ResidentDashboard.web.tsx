@@ -125,7 +125,7 @@ class ResidentDashboard extends React.Component {
                     </Link>
                   </Grid>
                   <Grid item xs={12} sm={6}>
-                    <Link href="">
+                    <Link href="/Survey">
                       <DashboardCard
                         image={keyhand}
                         heading="Survey"
