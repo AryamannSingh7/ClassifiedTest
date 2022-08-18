@@ -179,7 +179,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                     className="formInputGrp"
                   >
 
-                    <ReactSelect options={this.state.allComplex} className="formInput ReactSelect" style={{ border: 'none' }} placeholder="Search Complex" onChange={(e) => { this.handleInputChangeCOm(e); setFieldValue("selectComplex", e.value) }} />
+                    <ReactSelect options={this.state.allComplex} className="formInput1 ReactSelect" style={{ border: 'none' }} placeholder="Search Complex" onChange={(e) => { this.handleInputChangeCOm(e); setFieldValue("selectComplex", e.value) }} />
 
                     <span className="frmLeftIcons" style={{ top: '1.5rem' }}>
                       <img src={search} />
@@ -243,7 +243,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                     </Select> */}
                     <Field
                       name="selectUnit"
-                      placeholder={"Search Unit"}
+                      placeholder={"Enter Unit"}
                       className="formInput1"
                       style={{border:0}}
                             value={this.state.selectUnit}

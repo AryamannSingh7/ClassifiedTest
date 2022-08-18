@@ -67,7 +67,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
         </Grid>
         <Formik
           initialValues={{
-            selectCountry: '',
+            selectCountry: ' ',
             selectCity: "",
             selectComplex: "",
             selectBuilding: "",
@@ -80,12 +80,12 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
           {({ values, touched, errors, isValid, setFieldValue, handleChange }) => (
             <Form translate="yes" className="commonForm">
               <Grid container style={{ margin: '1rem', width: '90%' }}>
-                <Grid xs={12}>
+                      <Grid xs={12} className="formGroup1 customSelect">
 
 
 
                   <FormControl variant="outlined" fullWidth >
-                    <InputLabel id="demo-simple-select-outlined-label" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    <InputLabel data-shrink="false"  style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                       <img src={country} />
                       Country</InputLabel>
                     <Select
@@ -103,7 +103,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                   </ListItemIcon>
                   <ListItemText primary="Inbox" />
                   </MenuItem> */}
-                      <MenuItem value="">
+                      <MenuItem value=" ">
                         <em>None</em>
                       </MenuItem>
                       {this.state.allContries && this.state.allContries.map((item) =>
@@ -153,7 +153,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                     className="formInputGrp"
                   >
 
-                    <ReactSelect options={this.state.allComplex} className="formInput ReactSelect" style={{ border: 'none' }} placeholder="Search Complex" onChange={(e) => { this.handleInputChangeCOm(e); setFieldValue("selectComplex", e.value) }} />
+                    <ReactSelect options={this.state.allComplex} className="formInput1 ReactSelect" style={{ border: 'none' }} placeholder="Search Complex" onChange={(e) => { this.handleInputChangeCOm(e); setFieldValue("selectComplex", e.value) }} />
 
                     <span className="frmLeftIcons" style={{ top: '1.5rem' }}>
                       <img src={search} />
@@ -252,9 +252,9 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
           }}
         >
           <Box className="diloag-body">
-            <Box className="diloag-header">
+            <Box className="diloag-header 1">
               <img src={building} className="tenet-logo" alt="" />
-              <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
+              <DialogTitle className="alert-dialog-title1" id="alert-dialog-title">
                 sure  want to register this unit?
               </DialogTitle>
               <p>Are you sure that you want to register  the unit {this.state.selectUnit.apartment_name} of {this.state.selectBuilding.name} as a unit that you own or manage?</p>
