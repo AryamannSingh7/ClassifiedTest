@@ -33,7 +33,7 @@ import Grid from '@material-ui/core/Grid';
 
 //resources
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
-import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
+
 import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
@@ -210,7 +210,7 @@ class IncidentManagementDetail extends IncidentManagementController {
                           <h6 className="user-title">{attributes?.assign_incidents?.data?.attributes?.provider?.full_name}</h6>
                           <Button onClick={() => this.providerList(apartmentManagementId)}>change</Button>
                         </Box>
-                        }        
+                        }
                         <Button variant="contained" type="submit">start/view ticket conversation</Button>
                       </Box>
                     </CardContent>
