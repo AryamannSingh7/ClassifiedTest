@@ -82,7 +82,7 @@ class IncidentManagementDetail extends IncidentManagementController {
                 <Box style={dashBoard.navigation}>
                   <Box>
                     <Typography variant="body1" >
-                      My Dashboard / General Dashboard / Incidents/<Box component="span" style={{ color: "blue" }}> Incidents Detail</Box>
+                      My Dashboards / General Dashboard / Incidents/<Box component="span" style={{ color: "blue" }}> Incidents Detail</Box>
                     </Typography>
                     <Typography variant="h5" style={dashBoard.subHeading}>Incidents Details</Typography>
                   </Box>
