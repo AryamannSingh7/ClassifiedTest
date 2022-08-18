@@ -104,7 +104,7 @@ class IncidentManagementDetail extends IncidentManagementController {
                   <Card className="incident-detail-card card">
                     <Box className="card-header">
                       <Typography component="h4">
-                        {attributes?.incident_related?.incident_title}
+                        {attributes?.incident_title}
                       </Typography>
                       <Box className={this.state?.statusDetail === 'Pending Confirmation' ? "formGroup customSelect warning" :
                         this.state?.statusDetail === 'Resolved' ? 'formGroup customSelect success' : 'formGroup customSelect danger'}>
@@ -162,7 +162,7 @@ class IncidentManagementDetail extends IncidentManagementController {
                         </Box>
                         <Box className="card-rows">
                           <h5>Latest update from management: </h5>
-                          <h4>10-10-2020</h4>
+                          <h4>waiting</h4>
                         </Box>
                         <Box className="card-rows">
                           <h5>Description: </h5>
@@ -195,19 +195,21 @@ class IncidentManagementDetail extends IncidentManagementController {
                                 ))
                               }
                             </Box>
-                          
                           </>
                           : null
                       }
-
                       <Box className="incident-button-row customButton">
-                        <Box className="user-btn-box">
-                          <h6 className="user-title">johnathan doe</h6>
-                          <Link href="#">change</Link>
-                        </Box>
-                        <Button variant="outlined"
+                        {
+                          attributes?.assign_incidents?.data === null ?
+                          <Button variant="outlined"
                           onClick={() => this.providerList(apartmentManagementId)}
                         >assign incident to provider</Button>
+                          :
+                          <Box className="user-btn-box">
+                          <h6 className="user-title">{attributes?.assign_incidents?.data?.attributes?.provider?.full_name}</h6>
+                          <Button onClick={() => this.providerList(apartmentManagementId)}>change</Button>
+                        </Box>
+                        }        
                         <Button variant="contained" type="submit">start/view ticket conversation</Button>
                       </Box>
                     </CardContent>
@@ -244,13 +246,13 @@ class IncidentManagementDetail extends IncidentManagementController {
                           labelId="demo-simple-select-outlined-label"
                           id="demo-simple-select-outlined"
                           onChange={(e) => { this.onChange(e) }}
-                          value={this.state.providerWork}
+                          value={this.state?.providerWork}
                         >
                           <MenuItem disabled value=" ">
                             Provider
                           </MenuItem>
                           {
-                            this.state?.providerListing?.map((val, index) => (
+                            this.state?.providerListing?.data?.map((val, index) => (
                               <MenuItem
                                 key={index}
                                 value={`${apartmentManagementId},${val}`}
@@ -265,11 +267,11 @@ class IncidentManagementDetail extends IncidentManagementController {
                     <Box className="formGroup customSelect">
                       <FormControl variant="outlined" >
                         <Select
-                          name="ProviderName"
+                          name="providerName"
                           labelId="demo-simple-select-outlined-label"
                           id="demo-simple-select-outlined"
                           onChange={(e) => { this.onChange(e) }}
-                          value={this.state.ProviderName}
+                          value={this.state?.providerName}
                         >
                           <MenuItem disabled value=" ">
                             Provider Name
@@ -278,7 +280,7 @@ class IncidentManagementDetail extends IncidentManagementController {
                             this.state?.providerNameListing?.map((val, index) => (
                               <MenuItem
                                 key={index}
-                                value={`${val?.id}`}
+                                value={val?.id}
                               >
                                 {val?.attributes?.full_name}
                               </MenuItem>
@@ -291,8 +293,13 @@ class IncidentManagementDetail extends IncidentManagementController {
                       <Button variant="outlined"
                         onClick={() => { this.setState({ showDialog: false }) }}
                       >cancel</Button>
-                      <Button variant="contained" onClick={() => this.assginProvider()}>assign incident</Button>
-                    </Box>
+                      {
+                           attributes?.assign_incidents?.data === null ?
+                           <Button variant="contained" onClick={() => this.assginProvider()}>assign incident</Button>
+                           :
+                           <Button variant="contained" onClick={() => this.updateProvider(attributes?.assign_incidents?.data?.id)}>assign incident</Button>
+                      }
+                     </Box>
                   </Box>
                 </Box>
               </Dialog>
