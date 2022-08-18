@@ -5,7 +5,6 @@ import MessageEnum, {
   getName,
 } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
-import { useRef } from "react";
 
 // Customizable Area Start
 // Customizable Area End
@@ -22,10 +21,14 @@ export interface Props {
 
 interface S {
   // Customizable Area Start
-  documentId: string;
   documentType: string;
+  documentId: string;
 
   document: any;
+
+  documentTitle: string;
+  documentUrl: string;
+  documentDownloadUrl: string;
   // Customizable Area End
 }
 
@@ -33,12 +36,13 @@ interface SS {
   id: any;
 }
 
-export default class DocumentViewChairmanController extends BlockComponent<
+export default class ViewBuildingDocumentController extends BlockComponent<
   Props,
   S,
   SS
 > {
   GetDocumentCallId: any;
+  GetResolutionCallId: any;
 
   constructor(props: Props) {
     super(props);
@@ -51,10 +55,14 @@ export default class DocumentViewChairmanController extends BlockComponent<
     ];
 
     this.state = {
-      documentId: "",
       documentType: "",
+      documentId: "",
 
       document: null,
+
+      documentTitle: "",
+      documentUrl: "",
+      documentDownloadUrl: "",
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -79,6 +87,44 @@ export default class DocumentViewChairmanController extends BlockComponent<
         this.setState({
           ...this.state,
           document: responseJson.data,
+          documentTitle: responseJson.data.attributes.title,
+          documentUrl: responseJson.data.attributes.images[0].url,
+          documentDownloadUrl:
+            responseJson.data.attributes.images[0].download_url,
+        });
+      }
+
+      var errorReponse = message.getData(
+        getName(MessageEnum.RestAPIResponceErrorMessage)
+      );
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        this.parseApiErrorResponse(responseJson);
+      }
+      this.parseApiCatchErrorResponse(errorReponse);
+    }
+
+    // Get Resolution
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.GetResolutionCallId !== null &&
+      this.GetResolutionCallId ===
+        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.GetResolutionCallId = null;
+
+      var responseJson = message.getData(
+        getName(MessageEnum.RestAPIResponceSuccessMessage)
+      );
+
+      if (responseJson.code === 200) {
+        this.setState({
+          ...this.state,
+          document: responseJson.resolution.data,
+          documentTitle: responseJson.resolution.data.attributes.title,
+          documentUrl: "",
+          documentDownloadUrl: "",
         });
       }
 
@@ -97,21 +143,28 @@ export default class DocumentViewChairmanController extends BlockComponent<
 
   // Customizable Area Start
   async componentDidMount(): Promise<void> {
-    const documentId = this.props.navigation.getParam("id");
-    const documentType = this.props.navigation.getParam("name");
+    const document_type = this.props.navigation.getParam("name");
+    const document_id = this.props.navigation.getParam("id");
     this.setState(
       {
         ...this.state,
-        documentId: documentId,
-        documentType: documentType,
+        documentType: document_type,
+        documentId: document_id,
       },
       () => {
-        this.getDocument();
+        if (
+          document_type.toLowerCase() === "policy" ||
+          document_type.toLowerCase() === "guidelines" ||
+          document_type.toLowerCase() === "roles" ||
+          document_type.toLowerCase() === "building-plans"
+        ) {
+          this.getDocument();
+        } else if (document_type.toLowerCase() === "resolutions") {
+          this.getResolution();
+        }
       }
     );
   }
-
-  onDocumentLoadSuccess = () => {};
 
   // Get Document API
   getDocument = () => {
@@ -142,5 +195,39 @@ export default class DocumentViewChairmanController extends BlockComponent<
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
   };
+
+  // Get Resolution API
+  getResolution = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const society_id = localStorage.getItem("society_id");
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.GetResolutionCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `society_managements/${society_id}/bx_block_my_document/resolutions/${
+        this.state.documentId
+      }`
+    );
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.apiMethodTypeGet
+    );
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
   // Customizable Area End
 }

@@ -28,7 +28,6 @@ export const DashboardStyleWeb: any = {
     },
     "& .dashboard .title h5": {
       fontWeight: "600",
-      fontFamily: "GothamMedium",
     },
     "& .right-image": {
       padding: "25px 60px",

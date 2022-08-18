@@ -22,7 +22,7 @@
 
   .status {
     color: #FC8434;
-    font-weight: 400;
+    font-weight: 600;
     background-color: #fff1ceb0;
     padding: 0.5rem 1rem 0.5rem 1rem;
     border-radius: 15px;
@@ -35,6 +35,7 @@
   width: 100%;
   display: flex;
   padding: 1rem;
+
   img {
     width: 75px;
     height: 75px;
@@ -68,5 +69,55 @@
 @media only screen and (max-width: 600px) {
   .auth-container .auth-cols:nth-child(2) {
     display: none;
+  }
+}
+
+.sorting-header {
+  display: flex;
+  gap: 15px;
+}
+
+.customSelect .MuiOutlinedInput-root {
+  padding-left: 15px;
+}
+
+.details {
+  padding: 1rem;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.text-bold {
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
+.fam {
+  padding: 0.5rem 1rem 0.5rem 1rem;
+}
+
+.fam-label {
+  color: #8C8E92;
+  margin-top: 0.5rem;
+}
+
+.fam-value {
+  font-weight: bold;
+}
+
+.MuiSelect-outlined.MuiSelect-outlined {
+  background: #f9f9f9;
+  border-radius: 25px;
+  border: 1px solid #e9dede;
+}
+
+.formGroup1 {
+  .MuiSelect-outlined.MuiSelect-outlined {
+    background: #f9f9f9;
+    border-radius: 25px;
+    border: none;
   }
 }

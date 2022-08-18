@@ -118,12 +118,16 @@ import PollVoteSubmitted from "../../blocks/Polling/src/PollVoteSubmitted.web"
 import PollResponseCompleted from "../../blocks/Polling/src/PollResponseCompleted.web"
 import VeichleList from "../../blocks/customform/src/VeichleList.web"
 import NewVeichleList from "../../blocks/customform/src/NewVehicle.web"
+import NewFamily from "../../blocks/customform/src/NewFamily.web"
 import EditVeichleList from "../../blocks/customform/src/EditVehicle.web"
+import EditFamily from "../../blocks/customform/src/EditFamily.web"
 import EditRequest from "../../blocks/customform/src/EditRequest.web"
 import NewRequest from "../../blocks/customform/src/NewRequest.web"
 import ManagerList from "../../blocks/customform/src/ManagerList.web"
 
 import ViewVeichle from "../../blocks/customform/src/ViewVehicle.web"
+import FamilyList from "../../blocks/customform/src/FamilyList.web"
+
 import ManagerViewVehicle from "../../blocks/customform/src/ManagerViewVehicle.web"
 
 
@@ -149,6 +153,12 @@ import SubscriptionDetail from "../../blocks/contactus/src/SubscriptionDetails.w
 import DocumentChairman from "../../blocks/Notes/src/DocumentChairman.web";
 import DocumentListChairman from "../../blocks/Notes/src/DocumentListChairman.web";
 import DocumentViewChairman from "../../blocks/Notes/src/DocumentViewChairman.web";
+import PersonalDocument from "../../blocks/Notes/src/PersonalDocuments.web";
+import PersonalDocumentList from "../../blocks/Notes/src/PersonalDocumentList.web";
+import ViewPersonalDocument from "../../blocks/Notes/src/ViewPersonalDocument.web";
+import BuildingDocuments from "../../blocks/Notes/src/BuildingDocuments.web";
+import BuildingDocumentList from "../../blocks/Notes/src/BuildingDocumentList.web";
+import ViewBuildingDocument from "../../blocks/Notes/src/ViewBuildingDocument.web";
 
 const routeMap = {
   //done
@@ -177,14 +187,29 @@ const routeMap = {
     path: '/VeichleList',
     exact: true
   },
+  FamilyList: {
+    component: FamilyList,
+    path: '/FamilyList',
+    exact: true
+  },
   NewVeichleList: {
     component: NewVeichleList,
     path: '/NewVeichleList',
     exact: true
   },
+  NewFamily: {
+    component: NewFamily,
+    path: '/NewFamily',
+    exact: true
+  },
   EditVeichleList: {
     component: EditVeichleList,
     path: '/editVehicle',
+    exact: true
+  },
+  EditFamily: {
+    component: EditFamily,
+    path: '/EditFamily',
     exact: true
   },
   EditRequest: {
@@ -449,6 +474,37 @@ const routeMap = {
   DocumentViewChairman: {
     component: DocumentViewChairman,
     path: '/DocumentChairman/:name/:id/view',
+    exact: true
+  },
+  // Owner Personal Document
+  PersonalDocument: {
+    component: PersonalDocument,
+    path: '/PersonalDocument',
+    exact: true
+  },
+  PersonalDocumentList: {
+    component: PersonalDocumentList,
+    path: '/PersonalDocument/:name',
+    exact: true
+  },
+  ViewPersonalDocument: {
+    component: ViewPersonalDocument,
+    path: '/PersonalDocument/:name/:id/view',
+    exact: true
+  },
+  BuildingDocuments: {
+    component: BuildingDocuments,
+    path: '/BuildingDocuments',
+    exact: true
+  },
+  BuildingDocumentList: {
+    component: BuildingDocumentList,
+    path: '/BuildingDocuments/:name',
+    exact: true
+  },
+  ViewBuildingDocument: {
+    component: ViewBuildingDocument,
+    path: '/BuildingDocuments/:name/:id/view',
     exact: true
   },
   Customisableusersubscriptions: {
