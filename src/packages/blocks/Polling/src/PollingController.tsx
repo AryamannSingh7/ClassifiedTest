@@ -41,6 +41,8 @@ interface S {
   PreViewPollData:any,
   loading: boolean;
   showDialog:boolean;
+  dialogText:any;
+  dialogCount:any;
   children?: any;
   index: any;
   value: any;
@@ -55,11 +57,14 @@ interface S {
   pollPreviewAnswerID:any;
   finalPollAnswer:any;
   pollDateError: String;
+  pollEndDateError:String;
   pollTitleError: String;
   pollDescriptionError: String;
   pollQuestionError: String;
   pollOptionasError: String;
-  generatePollReport:any;
+  generatePollReport:Array<Object>;
+  isSubmitted:boolean;
+  validationErrors:Object;
   // Customizable Area End
 }
 
@@ -121,8 +126,8 @@ export default class PollingController extends BlockComponent<
         question:'',
       },
       options: [ 
-        {text: "",_destroy: "false"},
-        {text: "",_destroy: "false"}
+        {text: "",_destroy: "false",error:""},
+        {text: "",_destroy: "false",error:""}
       ],
       dateSelection: [
         {
@@ -155,11 +160,23 @@ export default class PollingController extends BlockComponent<
       textEditorVal: '',
       initialtextEditorVal: '',
       pollDateError: "",
+      pollEndDateError:"",
       pollTitleError: "",
       pollDescriptionError: "",
       pollQuestionError: "",
       pollOptionasError: "",
       generatePollReport:[],
+      dialogText:"",
+      dialogCount:"",
+      isSubmitted:false,
+      validationErrors:{
+        title:null,
+        startDate:null,
+        endDate:null,
+        description:null,
+        question:null,
+        option:null,
+      }
       // Customizable Area End
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -167,7 +184,8 @@ export default class PollingController extends BlockComponent<
     // Customizable Area Start
     this.handlePollDataChange = this.handlePollDataChange.bind(this)
     this.handlePollDataSubmit = this.handlePollDataSubmit.bind(this)
-
+    this.handleValidation = this.handleValidation.bind(this)
+    this.handlePriviewData = this.handlePriviewData.bind(this)
     // Customizable Area End
   }
 
@@ -328,10 +346,16 @@ export default class PollingController extends BlockComponent<
       const optionsValuse = [...this.state.options];
       optionsValuse[index][event.target.name] = event.target.value;
       this.setState({options: optionsValuse})
+      if(this.state.isSubmitted){
+        this.handleValidation()
+      }
     }
 
     onChangeTextEditor = (value:any) => {
       this.setState({textEditorVal:value})
+      if(this.state.isSubmitted){
+        this.handleValidation()
+      }
       this.state.PollData.description = this.state.textEditorVal
     };
 
@@ -387,90 +411,217 @@ export default class PollingController extends BlockComponent<
   
 
     handlePollDataChange = (event:any) => {
-      const { name, value } = event.target;
-      console.log("???????", ["startDate"], value)
-      if(this.state.PollData.startDate.length > 10 || this.state.PollData.endDate.length >= 10){
-          this.setState({pollDateError: "Please enter only 4 digits year"})
-      }else{
-        this.setState({pollDateError: ""})
+      this.setState({ PollData: {...this.state.PollData, [event.target.name] : event.target.value}})
+      if(this.state.isSubmitted){
+        this.handleValidation()
       }
-      this.setState({ PollData: {...this.state.PollData, [event.target.name] : event.target.value}}) 
-      console.log("?????????????????????????", this.state.PollData.startDate.length)
     }
 
-    handlePollDataSubmit =  async (event:any) => {
+    handleValidation(){
+      let titleValidation = false
+      let startDateValidation = false
+      let endDateValidation = false
+      let DescriptionValidation = false
+      let questionValidation = false
+      let optionValidation = false
+      if(this.state.PollData.title){
+        if(this.state.PollData.title.length >=5){
+          this.setState({
+            pollTitleError:""
+          })
+          titleValidation = true
+        }else{
+          this.setState({
+            pollTitleError:"Title not match the minimum requirements."
+          })
+        }
+      }else{
+        this.setState({
+          pollTitleError:"Title can't be empty."
+        })
+      }
+
+      if(this.state.PollData?.startDate){
+        let today = new Date();
+        today.setHours(0,0,0,0);
+        let startDate = new Date(this.state.PollData?.startDate)
+        // @ts-ignore
+        if(this.state.PollData?.startDate !== ""){
+          if (startDate <= today) {
+            this.setState({pollDateError: "You can not use previous date."})
+          }else{
+            this.setState({
+              pollDateError:""
+            })
+            startDateValidation = true
+          }
+        }else{
+          this.setState({pollDateError: "Start Date can't be empty."})
+        }
+      }else{
+        this.setState({pollDateError: "Start Date can't be empty."})
+      }
+
+      if(this.state.PollData?.endDate){
+        let today = new Date();
+        today.setHours(0,0,0,0);
+        let endDate = new Date(this.state.PollData?.endDate)
+        console.log("END",endDate,today)
+        if (endDate <= today) {
+          this.setState({pollEndDateError: "You can not use previous date."})
+        }else{
+          this.setState({
+            pollEndDateError:""
+          })
+          endDateValidation = true
+        }
+      }else{
+        this.setState({pollEndDateError: "End Date can't be empty."})
+      }
+
+      if(this.state.PollData?.description){
+        if(this.state.PollData.description.length >=5){
+          this.setState({
+            pollDescriptionError:""
+          })
+          DescriptionValidation = true
+        }else{
+          this.setState({
+            pollDescriptionError:"Description not match the minimum requirements."
+          })
+        }
+      }else{
+        this.setState({pollDescriptionError: "description can't be empty"})
+      }
+
+      if(this.state.PollData?.question){
+        if(this.state.PollData.question.length >=5){
+          this.setState({
+            pollQuestionError:""
+          })
+          questionValidation = true
+        }else{
+          this.setState({
+            pollQuestionError:"Question not match the minimum requirements."
+          })
+        }
+      }else{
+        this.setState({pollQuestionError: "question can't be empty"})
+      }
+
+      let updatedArry = this.state.options.map((item:any) => {
+          if(item?.text === ""){
+            return{
+              ...item,
+              error:"Option can't be blank"
+            }
+          }else{
+            return{
+              ...item,
+              error:""
+            }
+          }
+      })
+      this.setState({
+        options:updatedArry
+      })
+      updatedArry.forEach((item:any)=>{
+        if(item.error !== ""){
+          return
+        }else{
+          optionValidation = true
+        }
+      })
+
+      console.log("ARRAY",optionValidation)
+
+
+      if(titleValidation && startDateValidation && endDateValidation && DescriptionValidation && questionValidation && optionValidation){
+        return true
+      }else{
+        return false
+      }
+    }
+
+    handlePollDataSubmit =  async (event:any,preview?:boolean) => {
       event.preventDefault()
         let societyID = localStorage.getItem("society_id")
-       
-        // if(this.createPollValidate()){
+          this.setState({
+            isSubmitted:true
+          })
+          if(this.handleValidation() || preview){
+            if(this.state.PreViewPollData.length || Object.keys(this.state.PreViewPollData).length){
+              let reqPayload = {
+                "society_id": societyID,
+                "poll":
+                    {
+                      "title": this.state.PreViewPollData.PollFormData.title,
+                      "description": this.state.PreViewPollData.PollFormData.description,
+                      "poll_type": this.state.PreViewPollData.PollType,
+                      "schedule": "1",
+                      "start_date": this.state.PreViewPollData.PollFormData.startDate,
+                      "end_date": this.state.PreViewPollData.PollFormData.endDate,
+                      "question": this.state.PreViewPollData.PollFormData.question,
+                      "polling_options_attributes": this.state.PreViewPollData.PollOptions,
+                    }
+              }
+              await this.addPollData(reqPayload);
+              //@ts-ignore
+              // await this.props.history.push("/Polling")
+              this.setState({
+                PollData: this.state.InitialPollData,
+                options: this.state.Initialoptions,
+                checked: this.state.checked,
+                textEditorVal : this.state.initialtextEditorVal,
+              })
+            } else{
 
-          if(this.state.PreViewPollData.length || Object.keys(this.state.PreViewPollData).length){
-            let reqPayload = {
-              "society_id": societyID,
-              "poll":
-              {
-                "title": this.state.PreViewPollData.PollFormData.title,
-                "description": this.state.PreViewPollData.PollFormData.description,
-                "poll_type": this.state.PreViewPollData.PollType,
-                "schedule": "1",
-                "start_date": this.state.PreViewPollData.PollFormData.startDate,
-                "end_date": this.state.PreViewPollData.PollFormData.endDate,
-                "question": this.state.PreViewPollData.PollFormData.question,
-                "polling_options_attributes": this.state.PreViewPollData.PollOptions,
+              let reqPayload = {
+                "society_id": societyID,
+                "poll":
+                    {
+                      "title": this.state.PollData.title,
+                      "description": this.state.PollData.description,
+                      "poll_type": this.state.checked,
+                      "schedule": "1",
+                      "start_date": this.state.PollData.startDate,
+                      "end_date": this.state.PollData.endDate,
+                      "question": this.state.PollData.question,
+                      "polling_options_attributes": this.state.options,
+                    }
               }
+              await this.addPollData(reqPayload);
+              //@ts-ignore
+              // await this.props.history.push("/Polling")
+              this.setState({
+                PollData: this.state.InitialPollData,
+                options: this.state.Initialoptions,
+                checked: this.state.checked,
+                textEditorVal : this.state.initialtextEditorVal,
+              })
             }
-            await this.addPollData(reqPayload);
-             //@ts-ignore
-            // await this.props.history.push("/Polling")
-            this.setState({
-              PollData: this.state.InitialPollData,
-              options: this.state.Initialoptions,
-              checked: this.state.checked,
-              textEditorVal : this.state.initialtextEditorVal,
-            })
-          } else{
-  
-            let reqPayload = {
-              "society_id": societyID,
-              "poll":
-              {
-                "title": this.state.PollData.title,
-                "description": this.state.PollData.description,
-                "poll_type": this.state.checked,
-                "schedule": "1",
-                "start_date": this.state.PollData.startDate,
-                "end_date": this.state.PollData.endDate,
-                "question": this.state.PollData.question,
-                "polling_options_attributes": this.state.options,
-              }
-            }
-  
-            await this.addPollData(reqPayload);
-            //@ts-ignore
-            // await this.props.history.push("/Polling")
-            this.setState({
-              PollData: this.state.InitialPollData,
-              options: this.state.Initialoptions,
-              checked: this.state.checked,
-              textEditorVal : this.state.initialtextEditorVal,
-            })
           }
-          await localStorage.removeItem('Polls_Data');          
-      // }
-
+          await localStorage.removeItem('Polls_Data');
     }
 
     handlePriviewData = () => {
-       localStorage.setItem('Polls_Data', JSON.stringify({
-       "PollFormData":this.state.PollData,
-       "PollType":this.state.checked ,
-       "PollOptions":this.state.options, 
-       "PollDescription":this.state.textEditorVal
-      }))
+      this.setState({
+        isSubmitted:true
+      })
+       if(this.handleValidation()){
+         localStorage.setItem('Polls_Data', JSON.stringify({
+           "PollFormData":this.state.PollData,
+           "PollType":this.state.checked ,
+           "PollOptions":this.state.options,
+           "PollDescription":this.state.textEditorVal
+         }))
+         // @ts-ignore
+         this.props.history.push("/PollPreview")
+       }
     }
 
     addOptionsFields = () => {
-      this.setState({options : [...this.state.options, {text: "",_destroy: "false"}]})
+      this.setState({options : [...this.state.options, {text: "",_destroy: "false",error:""}]})
     }
     
     onChange = (editorState:any) => {
@@ -549,6 +700,8 @@ export default class PollingController extends BlockComponent<
       }
       if (apiRequestCallId === this.createPoll) {
         this.getCreatePollResponse(responseJson)
+        // @ts-ignore
+        this.props.history.push("/Polling")
      }
      if(apiRequestCallId === this.totalPollsCount){
       this.getTotalPollsCountResponse(responseJson)
@@ -569,7 +722,9 @@ export default class PollingController extends BlockComponent<
       this.getSubmitPollAnswer(responseJson)
      }
      if(apiRequestCallId === this.getGenerateReport) {
-      this.getGeneratePollReport(responseJson)
+       if(responseJson.hasOwnProperty("report")){
+         this.getGeneratePollReport(responseJson?.report?.data?.attributes?.name_and_option?.data)
+       }
      }
     }
 //Error Block    

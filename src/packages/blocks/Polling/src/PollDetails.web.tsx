@@ -169,7 +169,7 @@ class PollDetails extends PollingController {
                                 </Box>
                                 <Box>
                                     <Button variant="contained" color="primary"
-                                        onClick={() => this.props.history.push("/PollReport")}
+                                        onClick={() => this.props.history.push(`/PollReport?id=${this.state.pollPreviewAnswerID}`)}
                                     >
                                         GENERATE REPORT
                                     </Button>  
@@ -194,9 +194,7 @@ class PollDetails extends PollingController {
                                             </Box>
                                         </Grid>
                                         <Grid sm={2} md={2} xs={2} style={{marginTop: "1.5rem"}}>
-                                            <Box className="VoteCount"
-                                            onClick={() => this.setState({showDialog : true})}
-                                            >
+                                            <Box className="VoteCount" onClick={() => val.answer_percentage > 0 && this.setState({showDialog : true,dialogText:val.text,dialogCount:val.answer_count})}>
                                                 <p>{val.answer_count} PEOPLE VOTED</p>
                                             </Box>
                                         </Grid>
@@ -206,7 +204,6 @@ class PollDetails extends PollingController {
                             :
                             "No Options Are Available"
                         }
-                        
 
                     <Dialog
                         onClose={() => this.setState({ showDialog: false })}
@@ -216,7 +213,7 @@ class PollDetails extends PollingController {
                         className="DialogTable"
                     >
                         <DialogTitle id="alert-dialog-title" className="tableHeading" dividers>
-                            <h4>People voted for "Yes"</h4>
+                            <h4>People voted for {this.state.dialogText}</h4>
                             <div onClick={() => this.setState({ showDialog: false })}
                             style={{cursor:"pointer"}}
                             >
@@ -226,7 +223,7 @@ class PollDetails extends PollingController {
                         <Divider />
                         <Box className="tableBorder">
                             <Box class="tableTopSearch">
-                                <h4>12 people</h4>
+                                <h4>{this.state.dialogCount} people</h4>
                                 <div className="searchBox">
                                     <div className="searchIcon">
                                     <SearchIcon />
@@ -250,12 +247,14 @@ class PollDetails extends PollingController {
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>
-                                            {rows.map((row, index) => (
-                                                <TableRow key={row.name}>
-                                                    <TableCell component="th" scope="row">{index + 1}</TableCell>
-                                                    <TableCell align="start">{row.name}</TableCell>
-                                                    <TableCell align="start">{row.unit}</TableCell>
-                                                </TableRow>
+                                            {this.state.generatePollReport?.map((row, index) => (
+                                                    row.attributes?.option === this.state.dialogText &&
+                                                        <TableRow key={row.name}>
+                                                            <TableCell component="th" scope="row">{index + 1}</TableCell>
+                                                            <TableCell align="start">{row.attributes?.name}</TableCell>
+                                                            <TableCell align="start">{row.attributes?.unit_number[0]}</TableCell>
+                                                            <TableCell align="start">{row.attributes?.option}</TableCell>
+                                                        </TableRow>
                                             ))}
                                         </TableBody>
                                     </Table>
@@ -263,8 +262,6 @@ class PollDetails extends PollingController {
                             </DialogActions>
                         </Box>
                     </Dialog>
-                       
-
                     <Grid sm={5} md={5} xs={5} style={{marginTop: "1.5rem"}}>
                         <Box className="VoteCountBottom">
                             <Box className="VoteCountBottomBox">
@@ -277,7 +274,6 @@ class PollDetails extends PollingController {
                             </Box>
                         </Box>
                     </Grid>
-                  
                     </Grid>
                 </Container>
             </Grid>

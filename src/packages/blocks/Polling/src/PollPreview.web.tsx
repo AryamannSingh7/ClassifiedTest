@@ -18,7 +18,7 @@ import {
 } from "@material-ui/core";
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-
+import moment from "moment";
 // Icons
 import InfoIcon from '@material-ui/icons/Info';
 import CalendarTodayOutlinedIcon from '@material-ui/icons/CalendarTodayOutlined';
@@ -100,7 +100,7 @@ class PollPreview extends PollingController {
                                             <Typography className="PollNamedate">Start Date</Typography>
                                             <Typography className="PollNameText">
                                                 {/* June 7, 2022 */}
-                                                {this.state.PreViewPollData?.PollFormData?.startDate}</Typography>
+                                                {moment(this.state.PreViewPollData?.PollFormData?.startDate).format("MMMM DD, YYYY")}</Typography>
                                         </Box>    
                                     </Box>
                                     <Box className="datebox">
@@ -109,7 +109,7 @@ class PollPreview extends PollingController {
                                             <Typography className="PollNamedate">End Date</Typography>
                                             <Typography className="PollNameText">
                                                 {/* June 7, 2022 */}
-                                            {this.state.PreViewPollData?.PollFormData?.endDate}</Typography>
+                                            {moment(this.state.PreViewPollData?.PollFormData?.endDate).format("MMMM DD, YYYY")}</Typography>
                                         </Box>    
                                     </Box>
                                 </Box>
@@ -157,8 +157,7 @@ class PollPreview extends PollingController {
                         <Button variant="outlined" color="primary" 
                             // onClick={this.handlePollDataSubmit}
                         onClick={async (event) => {
-                            await this.handlePollDataSubmit(event)
-                            this.props.history.push("/Polling")
+                            await this.handlePollDataSubmit(event,true)
                         }}
                         >PUBLISH</Button>
                     </Box>

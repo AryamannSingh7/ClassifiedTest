@@ -55,7 +55,8 @@ class PollReport extends PollingController {
   }
 
   render() {
-    console.log("poll pollPreviewAnswer #######", this.state.pollPreviewAnswer?.poll?.data)
+    console.log("poll pollPreviewAnswer #######", this.state.pollPreviewAnswer?.poll?.data,this.props.location.state)
+    console.log("POLL REPORT: ",this.state.generatePollReport)
     return ( 
       <>
     <Box style={{background: "#E5ECFF"}}>
@@ -113,16 +114,19 @@ class PollReport extends PollingController {
                                             <TableCell style={{fontWeight:"600"}} align="start">Response</TableCell>
                                         </TableRow>
                                     </TableHead>
-                                    <TableBody>
-                                        {rows.map((row, index) => (
-                                            <TableRow key={row.name}>
-                                                <TableCell component="th" scope="row">{index + 1}</TableCell>
-                                                <TableCell align="start">{row.name}</TableCell>
-                                                <TableCell align="start">{row.unit}</TableCell>
-                                                <TableCell align="start">{row.response}</TableCell>
-                                            </TableRow>
-                                        ))}
-                                    </TableBody>
+                                    {
+                                        this.state.generatePollReport?.length > 0 &&
+                                        <TableBody>
+                                            {this.state?.generatePollReport?.map((row, index) => (
+                                                <TableRow key={row.name}>
+                                                    <TableCell component="th" scope="row">{index + 1}</TableCell>
+                                                    <TableCell align="start">{row.attributes?.name}</TableCell>
+                                                    <TableCell align="start">{row.attributes?.unit_number[0]}</TableCell>
+                                                    <TableCell align="start">{row.attributes?.option}</TableCell>
+                                                </TableRow>
+                                            ))}
+                                        </TableBody>
+                                    }
                                 </Table>
                             </TableContainer>
 
