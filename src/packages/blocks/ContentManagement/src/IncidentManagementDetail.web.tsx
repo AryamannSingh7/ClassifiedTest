@@ -33,7 +33,6 @@ import Grid from '@material-ui/core/Grid';
 
 //resources
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
-import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
@@ -48,7 +47,7 @@ import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 
 //resorces
 import { Close_Icon, Bank_Icon, Box_Icon, Building1 } from "./assets";
-////import IncidentChatDrawer from "./IncidentChatDrawer.web";
+//import IncidentChatDrawer from "./IncidentChatDrawer.web";
 
 class IncidentManagementDetail extends IncidentManagementController {
   constructor(props: Props) {
@@ -83,7 +82,7 @@ class IncidentManagementDetail extends IncidentManagementController {
                 <Box style={dashBoard.navigation}>
                   <Box>
                     <Typography variant="body1" >
-                      My Dashboards / General Dashboard / Incidents/<Box component="span" style={{ color: "blue" }}> Incidents Detail</Box>
+                      My Dashboard / General Dashboard / Incidents/<Box component="span" style={{ color: "blue" }}> Incidents Detail</Box>
                     </Typography>
                     <Typography variant="h5" style={dashBoard.subHeading}>Incidents Details</Typography>
                   </Box>
@@ -236,7 +235,7 @@ class IncidentManagementDetail extends IncidentManagementController {
                       Assign Incident to Provider
                     </DialogTitle>
                     <Button>
-                      <img src={Close_Icon} className="close-icon" onClick={() => { this.setState({ showDialog: false }) }} onClick={() => { this.setState({ showDialog: false }) }} />
+                      <img src={Close_Icon} className="close-icon" onClick={() => { this.setState({ showDialog: false }) }} />
                     </Button>
                   </Box>
                   <Box className="diloag-content">
@@ -360,7 +359,7 @@ class IncidentManagementDetail extends IncidentManagementController {
                     <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
                       Update Status
                     </DialogTitle>
-                    <Button onClick={() => { this.setState({ statusStatusShowDialog: false }) }}>
+                    <Button onClick={() => { this.setState({ statusShowDialog: false }) }}>
                       <img src={Close_Icon} className="close-icon" />
                     </Button>
                   </Box>
