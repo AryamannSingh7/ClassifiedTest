@@ -55,13 +55,13 @@ class ViewBuildingDocument extends ViewBuildingDocumentController {
                 display={{ xs: "flex", md: "flex" }}
                 className="menu building-document-menu"
               >
-                <div>
+                <div className="name">
                   <Link href={`/BuildingDocuments/${this.state.documentType}`}>
                     <IconButton>
                       <KeyboardBackspaceIcon />
                     </IconButton>
                   </Link>{" "}
-                  {this.state.documentTitle}
+                  <span>{this.state.documentTitle}</span>
                 </div>
                 <Link href={this.state.documentDownloadUrl} target="_blank">
                   <img src={DownloadImage} alt="download" />

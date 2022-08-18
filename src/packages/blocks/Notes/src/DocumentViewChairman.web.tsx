@@ -60,15 +60,21 @@ class DocumentViewChairman extends DocumentViewChairmanController {
                   <Box>
                     <Typography variant="body1">
                       Documents / {this.state.documentType} /{" "}
-                      <Box component="span" style={{ color: "blue" }}>
+                      <Box
+                        component="span"
+                        style={{
+                          color: "blue",
+                          wordBreak: "break-all",
+                        }}
+                      >
                         {this.state.document &&
-                          this.state.document.attributes.title}
+                          this.state.document.attributes.images[0].file_name}
                       </Box>
                     </Typography>
                     <Box className="top-heading">
                       <Typography variant="h5" className="sub-heading">
                         {this.state.document &&
-                          this.state.document.attributes.title}
+                          this.state.document.attributes.images[0].file_name}
                       </Typography>
                       <Link
                         href={
