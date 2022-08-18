@@ -116,7 +116,7 @@ class IncidentPreview extends IncidentController {
                                     val?.file.type === "video/mp4" || val?.file.type === "video/x-m4v" ?
                                       <Box className="video-img" key={index} onClick={() => { this.setState({ showDialog: true, file: { url: val.url, type: val?.file.type, name: val?.file?.name } }) }}>
                                         <Box className="img-layer"></Box>
-                                        <video className="incident-dialog-video" autoPlay  >
+                                        <video className="incident-dialog-video"   >
                                           <source src={val.url} type={val.file.type} />
                                         </video>
                                         <FullscreenIcon className="play-icon" />
@@ -184,7 +184,7 @@ class IncidentPreview extends IncidentController {
               <Box className="diloag-content-body">
                 {
                   this.state?.file?.type === "video/mp4" || this.state?.file?.type === "video/x-m4v" ?
-                    <video className="incident-dialog-video" autoPlay controls >
+                    <video className="incident-dialog-video"  controls >
                       <source src={this.state?.file?.url} type={this.state?.file?.type} />
                     </video>
                     :

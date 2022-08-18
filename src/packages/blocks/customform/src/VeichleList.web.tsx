@@ -43,7 +43,7 @@ class VeichleList extends VeichleListController {
 
       <>
         <Grid container className="auth-container">
-          <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset',overflowY:'auto',overflowX:'hidden' }}>
+          <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset',}}>
               <Grid container>
                 <Grid xs={12} style={{display:'flex',alignItems:'center'}}>
                   <ArrowBackIcon onClick={() => window.history.back()} />
@@ -59,7 +59,7 @@ class VeichleList extends VeichleListController {
               {
                 this.state.allVehcile.length>0 ?
                 <>
-                  <Grid container style={{ height:'79vh',display:'block'}}>
+                  <Grid container style={{ height:'79vh',display:'block',overflow:'hidden',overflowY:'auto'}}>
                       {
                         this.state.allVehcile.map((item,i)=><>
                           <Grid xs={12} >

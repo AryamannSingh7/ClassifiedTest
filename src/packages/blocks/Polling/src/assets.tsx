@@ -9,3 +9,5 @@ export const xmark = require("../assets/x-mark.png");
 export const CheckMark = require("../assets/Check_Mark.png");
 export const awated = require("../assets/awated.png");
 export const Cardcalendar = require("../assets/Card-calendar.png");
+export const Filter_Icon = require("../assets/filter-icon.png");
+export const Tenant_Logo = require("../assets/TenantLogo.png");

@@ -119,6 +119,14 @@ class ChairmanSidebar extends DashboardController {
             <Typography className="SingleLinkSize">
               <DashboardOutlinedIcon />
             </Typography>
+            <div onClick={() => this.props.history.push("/IncidentManagement")}>
+              <Typography className="SingleLinkSize">Incident Management</Typography>
+            </div>
+          </Box>
+          <Box className="SingleLink">
+            <Typography className="SingleLinkSize">
+              <DashboardOutlinedIcon />
+            </Typography>
             <div onClick={() => this.props.history.push("/Polling")}>
               <Typography className="SingleLinkSize">Poll/Survey</Typography>
             </div>

@@ -34,6 +34,7 @@ import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import TextEditor from "./TextEditor.web";
 import Loader from "../../../components/src/Loader.web";
+import * as Yup from "yup";
 
 class CreatePolls extends PollingController {
   constructor(props: Props) {
@@ -79,72 +80,69 @@ class CreatePolls extends PollingController {
                             <Typography variant="h5" className="subHeading">Create a Poll</Typography>
                         </Box>
                     </Box>
-
-                    <form onSubmit={async () =>
-                        {
-                             this.handlePollDataSubmit()
-                             this.props.history.push("/Polling")
-                        }
-                    }>
+                    <form onSubmit={this.handlePollDataSubmit}>
                         <Grid container spacing={4} style={{marginTop: 15}}>
-                   
-                        <Grid item sm={12} md={12} xs={12}>
+                            <Grid item sm={12} md={12} xs={12}>
                             <Box className="createPSCards">
-                                <TextField label="Title of the Poll" variant="outlined" 
-                                name="title"
-                                value={this.state.PollData.title}
-                                onChange={this.handlePollDataChange}
-                                 fullWidth
-                                inputProps={{ maxLength: 50 }}
+                                <TextField label="Title of the Poll" variant="outlined"
+                                    name="title"
+                                    value={this.state.PollData.title}
+                                    onChange={this.handlePollDataChange}
+                                     fullWidth
+                                    inputProps={{ maxLength: 50 }}
                                 />
                                 <p style={{color:"red"}}>{this.state.pollTitleError}</p>
                                 <Box className="DateSection">
-
-                                    <TextField 
-                                    label="Start Date" variant="outlined" 
-                                    type="date" name="startDate"  fullWidth
-                                    format='DD/MM/YYYY'
-                                    value={this.state.PollData.startDate}
-                                    onChange={this.handlePollDataChange}
-                                    InputProps={{
-                                        // min: "2019-01-24",
-                                        max: "5000-05-31",
-                                        startAdornment: (
-                                          <InputAdornment position="start">
-                                            <DateRangeOutlinedIcon />
-                                          </InputAdornment>
-                                        ),
-                                      }
-                                    }
-                                    />
-
-                                    <TextField label="End Date" variant="outlined"
-                                    type="date" name="endDate"  fullWidth
-                                    style={{marginLeft:35}}
-                                    value={this.state.PollData.endDate}
-                                    onChange={this.handlePollDataChange}
-                                    InputProps={{
-                                        // min: "2019-01-24",
-                                        max: "5000-05-31",
-                                        startAdornment: (
-                                          <InputAdornment position="start">
-                                            <DateRangeOutlinedIcon />
-                                          </InputAdornment>
-                                        )
-                                      }}
-                                    />  
-
+                                    <Box style={{width:"100%"}}>
+                                        <TextField
+                                            label="Start Date" variant="outlined"
+                                            style={{width:"100%"}}
+                                            type="date" name="startDate"  fullWidth
+                                            format='DD/MM/YYYY'
+                                            value={this.state.PollData.startDate}
+                                            onChange={this.handlePollDataChange}
+                                            InputProps={{
+                                                // min: "2019-01-24",
+                                                max: "5000-05-31",
+                                                startAdornment: (
+                                                    <InputAdornment position="start">
+                                                        <DateRangeOutlinedIcon />
+                                                    </InputAdornment>
+                                                ),
+                                            }
+                                            }
+                                        />
+                                        <p style={{color:"red"}}>{this.state.pollDateError}</p>
+                                    </Box>
+                                    <Box style={{width:"100%"}}>
+                                        <TextField label="End Date" variant="outlined"
+                                                   type="date" name="endDate"  fullWidth
+                                                   style={{width:"100%"}}
+                                                   value={this.state.PollData.endDate}
+                                                   onChange={this.handlePollDataChange}
+                                                   InputProps={{
+                                                       // min: "2019-01-24",
+                                                       max: "5000-05-31",
+                                                       startAdornment: (
+                                                           <InputAdornment position="start">
+                                                               <DateRangeOutlinedIcon />
+                                                           </InputAdornment>
+                                                       )
+                                                   }}
+                                        />
+                                        <p style={{color:"red"}}>{this.state.pollEndDateError}</p>
+                                    </Box>
                                 </Box>
-                                <p style={{color:"red"}}>{this.state.pollDateError}</p>
+                                {/*<p style={{color:"red"}}>{this.state.pollDateError}</p>*/}
                                 <Box className="anonymousSwitch">
                                     <Box className="infoIcon">
-                                        <Typography variant="subtitle1">Make it anonymous poll</Typography>  
+                                        <Typography variant="subtitle1">Make it anonymous poll</Typography>
                                         <InfoIcon style={{color:"grey", fontSize:18}}/>
                                     </Box>
                                     <Box style={{float:"right"}}>
                                     <Switch
                                         checked={this.state.checked}
-                                         onClick={(event: any) => 
+                                         onClick={(event: any) =>
                                             this.setState(
                                                 {checked: event.target.checked},
                                                () => console.log("isCheck--", this.state.checked )
@@ -163,17 +161,15 @@ class CreatePolls extends PollingController {
                         <Grid item sm={12} md={12} xs={12}>
                             <Box className="createPSCards">
                                 <Box className="infoIcon">
-                                    <Typography variant="subtitle1">Description</Typography>  
+                                    <Typography variant="subtitle1">Description</Typography>
                                     <InfoIcon style={{color:"grey", fontSize:18}}/>
                                 </Box>
-
                                 <Box className="descriptionEditor">
-                                    <TextEditor 
+                                    <TextEditor
                                     markup={this.state.textEditorVal}
                                     onChange={this.onChangeTextEditor} />
                                 </Box>
                                 <p style={{color:"red"}}>{this.state.pollDescriptionError}</p>
-
                                 <TextField  label="enter question" variant="outlined"
                                 name="question"
                                 value={this.state.PollData.question}
@@ -184,22 +180,26 @@ class CreatePolls extends PollingController {
                                 <p style={{color:"red"}}>{this.state.pollQuestionError}</p>
 
                                 {this.state.options.map((inputfield:any , index:any) => {
+                                    console.log("inputfield",inputfield)
                                     return(
-                                        <TextField key={index}
-                                        label={"option - " + (index + 1)} variant="outlined" 
-                                        name="text"
-                                        value={inputfield.text}
-                                        onChange={() => this.handleOptionsChange(index, event)}
-                                         fullWidth style={{marginTop:20}} 
-                                        />  
-                                    ) 
-                                })   
+                                        <>
+                                            <TextField key={index}
+                                                label={"option - " + (index + 1)} variant="outlined"
+                                                name="text"
+                                                value={inputfield.text}
+                                                onChange={(event) => this.handleOptionsChange(index, event)}
+                                                 fullWidth style={{marginTop:20}}
+                                            />
+                                            <p style={{color:"red"}}>{inputfield.error}</p>
+                                        </>
+                                    )
+                                })
                                 }
                                 <p style={{color:"red"}}>{this.state.pollOptionasError}</p>
 
-                                <Button variant="outlined" color="primary" 
+                                <Button variant="outlined" color="primary"
                                 onClick={() => this.addOptionsFields()}
-                                className="addOptions">ADD OPTION</Button> 
+                                className="addOptions">ADD OPTION</Button>
 
                             </Box>
                         </Grid>
@@ -207,11 +207,10 @@ class CreatePolls extends PollingController {
                         </Grid>
 
                         <Box className="BottomButton">
-                            <Box className="Previewbtn"> 
+                            <Box className="Previewbtn">
                                     <Button variant="contained" color="primary"
                                     onClick={async () => {
                                         await this.handlePriviewData()
-                                        this.props.history.push("/PollPreview")
                                     }}
                                     >PREVIEW</Button>
                             </Box>
@@ -219,7 +218,7 @@ class CreatePolls extends PollingController {
                                 <Button type="submit" variant="outlined" color="primary"
                                 // onClick={()=>this.props.history.push("/PollPreview")}
                                 >PUBLISH</Button>
-                            </Box> 
+                            </Box>
                         </Box>
 
                     </form>
