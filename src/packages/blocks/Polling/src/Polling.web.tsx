@@ -97,8 +97,8 @@ class Polling extends PollingController {
                         scroll="paper"
                     >
                         <DialogTitle id="alert-dialog-title" style={{textAlign:"center"}}>Choose Options</DialogTitle>
-                        <Box style={{ display: "flex", marginLeft: 50, marginRight: 50 }}>
-                            <DialogActions>
+                        <Box style={{ display: "flex", marginLeft: 50, marginRight: 50}}>
+                            <DialogActions disableSpacing style={{flexDirection:"row",marginTop:'0px'}}>
                                 <div 
                                     onClick={() => {
                                         this.setState({ showDialog: false})

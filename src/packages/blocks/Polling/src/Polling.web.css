@@ -109,7 +109,9 @@
     margin-top: 30px;
     margin-bottom: 10px;
     gap: 20px;
-    
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 .DateSection .MuiFormControl-fullWidth {
     width: 48%;
@@ -191,6 +193,7 @@
     height: 25px;
     padding: 30px;
     margin-bottom: 1rem;
+    cursor: pointer;
 }
 
 .EventsHeading{
@@ -505,6 +508,7 @@
     border-radius: 5px;
     margin-left: 1rem;
     text-align: center;
+    cursor: pointer;
 }
 .VoteCount p{
     color: blue;

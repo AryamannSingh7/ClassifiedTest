@@ -15,7 +15,6 @@ import {
   DialogActions,
   DialogTitle,
 } from "@material-ui/core";
-
 import '../../dashboard/src/Dashboard.web.css'
 import {
   House_Icon, keyrented, money, location, account,
@@ -33,6 +32,8 @@ import NativeSelect from "@material-ui/core/NativeSelect";
 import Grid from '@material-ui/core/Grid';
 
 //resources
+import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
+import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
@@ -47,24 +48,26 @@ import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 
 //resorces
 import { Close_Icon, Bank_Icon, Box_Icon, Building1 } from "./assets";
-import IncidentChatDrawer from "./IncidentChatDrawer.web";
+////import IncidentChatDrawer from "./IncidentChatDrawer.web";
 
 class IncidentManagementDetail extends IncidentManagementController {
   constructor(props: Props) {
     super(props);
   }
   componentDidMount() {
-   const  id = localStorage.getItem("incidentManagementDetail")
-   if(id)
-    this.getIncidentDetailsById(id);
-  else
-  this.props.history.push("/IncidentManagement") 
-}
+    const id = localStorage.getItem("incidentManagementDetailId")
+    if (id)
+      this.getIncidentDetailsById(id);
+    else
+      this.props.history.push("/IncidentManagement")
+  }
   render() {
-    const statusArray=["Unresolved","Resolved","Pending Confirmation"]
+    const statusArray = ["Unresolved", "Resolved", "Pending Confirmation"]
     const id = this.state?.getIncidentDetails?.id;
     const attributes = this.state?.getIncidentDetails?.attributes;
-    console.log("-==================>",attributes)
+    const apartmentManagementId = attributes?.apartment_management?.apartment_management_id;
+
+    // console.log("providerListing-==================>",this.state?.providerListing);
     return (
       <>
         <Box className="incident-Listing-wrapper desktop-ui" style={{ background: "#E5ECFF" }}>
@@ -80,7 +83,7 @@ class IncidentManagementDetail extends IncidentManagementController {
                 <Box style={dashBoard.navigation}>
                   <Box>
                     <Typography variant="body1" >
-                      My Dashboard / General Dashboard / Incidents/<Box component="span" style={{ color: "blue" }}> Incidents Detail</Box>
+                      My Dashboards / General Dashboard / Incidents/<Box component="span" style={{ color: "blue" }}> Incidents Detail</Box>
                     </Typography>
                     <Typography variant="h5" style={dashBoard.subHeading}>Incidents Details</Typography>
                   </Box>
@@ -102,31 +105,32 @@ class IncidentManagementDetail extends IncidentManagementController {
                   <Card className="incident-detail-card card">
                     <Box className="card-header">
                       <Typography component="h4">
-                        {attributes?.incident_related?.incident_title}
+                        {attributes?.incident_title}
                       </Typography>
-                      <Box className="formGroup customSelect">
+                      <Box className={this.state?.statusDetail === 'Pending Confirmation' ? "formGroup customSelect warning" :
+                        this.state?.statusDetail === 'Resolved' ? 'formGroup customSelect success' : 'formGroup customSelect danger'}>
                         <FormControl variant="outlined" >
                           <Select
-                           name="statusDetail"
-                           labelId="demo-simple-select-outlined-label"
-                           id="demo-simple-select-outlined"
-                           onChange={(e) => {this.onChange(e)}}
-                           value={this.state?.statusDetail}
-                           className={this.state?.statusDetail === 'Pending Confirmation' ? "contain warning" : this.state?.statusDetail === 'Resolved' ? 'contain success' : 'contain danger'} 
+                            name="statusDetail"
+                            labelId="demo-simple-select-outlined-label"
+                            id="demo-simple-select-outlined"
+                            onChange={(e) => { this.onChange(e) }}
+                            value={this.state?.statusDetail}
+
                           >
                             <MenuItem disabled value=" ">
-                                  Select Status
+                              Select Status
+                            </MenuItem>
+                            {
+                              statusArray?.map((val, index) => (
+                                <MenuItem
+                                  key={index}
+                                  value={val}
+                                >
+                                  {val}
                                 </MenuItem>
-                                {
-                                statusArray?.map((val, index) => (
-                                  <MenuItem
-                                    key={index}
-                                    value={val}
-                                  >
-                                    {val}
-                                  </MenuItem>
-                                ))
-                              }
+                              ))
+                            }
                           </Select>
                         </FormControl>
                       </Box>
@@ -159,45 +163,61 @@ class IncidentManagementDetail extends IncidentManagementController {
                         </Box>
                         <Box className="card-rows">
                           <h5>Latest update from management: </h5>
-                          <h4>10-10-2020</h4>
+                          <h4>waiting</h4>
                         </Box>
                         <Box className="card-rows">
                           <h5>Description: </h5>
                           <h4>{attributes?.description}</h4>
                         </Box>
-                        <Box className="card-rows">
-                          <h5>Photos: </h5>
-                        </Box>
                       </Box>
-                      <Box className="photos-row">
-                        <Box className="video-img"> 
-                          <FullscreenIcon className="play-icon" />
-                          <img src={Building1} className="card-img" alt="card-img" />
-                          <Box className="img-layer"></Box>
-                        </Box>
-                        <Box className="video-img"> 
-                          <FullscreenIcon className="play-icon" />
-                          <img src={Building1} className="card-img" alt="card-img" />
-                          <Box className="img-layer"></Box>
-                        </Box>
-                        <Box className="video-img"> 
-                          <FullscreenIcon className="play-icon" />
-                          <img src={Building1} className="card-img" alt="card-img" />
-                          <Box className="img-layer"></Box>
-                        </Box>
-                        
-                      </Box>
+                      {
+                        attributes?.attachments.length !== 0 ?
+                          <>
+                            <Box className="card-rows">
+                              <h5>Photos: </h5>
+                            </Box>
+                            <Box className="card-img-row photos-row">
+                              {
+                                attributes?.attachments?.map((val, index) => (
+                                  val?.content_type === "video/mp4" || val?.content_type === "video/x-m4v" ?
+                                    <Box className="video-img" key={index} onClick={() => { this.setState({ imageShowDialog: true, file: { url: val.url, type: val?.content_type, name: val?.file_name } }) }}>
+                                      <Box className="img-layer"></Box>
+                                      <video className="incident-dialog-video"  >
+                                        <source src={val?.url} type={val?.file?.type} />
+                                      </video>
+                                      <PlayCircleOutlineIcon className="play-icon" />
+                                    </Box>
+                                    :
+                                    <Box className="video-img" key={index} onClick={() => { this.setState({ imageShowDialog: true, file: { url: val.url, type: val?.content_type, name: val?.file_name } }) }}>
+                                      <Box className="img-layer"></Box>
+                                      <img src={val.url} className="card-img" alt="card-img" />
+                                      <FullscreenIcon className="play-icon" />
+                                    </Box>
+                                ))
+                              }
+                            </Box>
+                          </>
+                          : null
+                      }
                       <Box className="incident-button-row customButton">
-                        <Button variant="outlined"
-                          onClick={() => { this.setState({ showDialog: false }) }}
-                          type="submit">assign incident to provider</Button>
+                        {
+                          attributes?.assign_incidents?.data === null ?
+                          <Button variant="outlined"
+                          onClick={() => this.providerList(apartmentManagementId)}
+                        >assign incident to provider</Button>
+                          :
+                          <Box className="user-btn-box">
+                          <h6 className="user-title">{attributes?.assign_incidents?.data?.attributes?.provider?.full_name}</h6>
+                          <Button onClick={() => this.providerList(apartmentManagementId)}>change</Button>
+                        </Box>
+                        }        
                         <Button variant="contained" type="submit">start/view ticket conversation</Button>
                       </Box>
                     </CardContent>
                   </Card>
                 </Box>
               </Container>
-
+              {/* view assgin provider dialog */}
               <Dialog
                 open={this.state.showDialog}
                 onClose={() => this.setState({ showDialog: false })}
@@ -216,64 +236,79 @@ class IncidentManagementDetail extends IncidentManagementController {
                       Assign Incident to Provider
                     </DialogTitle>
                     <Button>
-                      <img src={Close_Icon} className="close-icon" />
+                      <img src={Close_Icon} className="close-icon" onClick={() => { this.setState({ showDialog: false }) }} onClick={() => { this.setState({ showDialog: false }) }} />
                     </Button>
                   </Box>
                   <Box className="diloag-content">
                     <Box className="formGroup customSelect">
                       <FormControl variant="outlined" >
                         <Select
-                          name="commonArea"
+                          name="providerWork"
                           labelId="demo-simple-select-outlined-label"
                           id="demo-simple-select-outlined"
-                          value="1"
+                          onChange={(e) => { this.onChange(e) }}
+                          value={this.state?.providerWork}
                         >
-                          <MenuItem value="1">
-                            Select Status
+                          <MenuItem disabled value=" ">
+                            Provider
                           </MenuItem>
-                          <MenuItem value="2">
-                            test 2
-                          </MenuItem>
-                          <MenuItem value="3">
-                            test 3
-                          </MenuItem>
+                          {
+                            this.state?.providerListing?.data?.map((val, index) => (
+                              <MenuItem
+                                key={index}
+                                value={`${apartmentManagementId},${val}`}
+                              >
+                                {val}
+                              </MenuItem>
+                            ))
+                          }
                         </Select>
                       </FormControl>
                     </Box>
                     <Box className="formGroup customSelect">
                       <FormControl variant="outlined" >
                         <Select
-                          name="commonArea"
+                          name="providerName"
                           labelId="demo-simple-select-outlined-label"
                           id="demo-simple-select-outlined"
-                          value="1"
+                          onChange={(e) => { this.onChange(e) }}
+                          value={this.state?.providerName}
                         >
-                          <MenuItem value="1">
-                            Select Status
+                          <MenuItem disabled value=" ">
+                            Provider Name
                           </MenuItem>
-                          <MenuItem value="2">
-                            test 2
-                          </MenuItem>
-                          <MenuItem value="3">
-                            test 3
-                          </MenuItem>
+                          {
+                            this.state?.providerNameListing?.map((val, index) => (
+                              <MenuItem
+                                key={index}
+                                value={val?.id}
+                              >
+                                {val?.attributes?.full_name}
+                              </MenuItem>
+                            ))
+                          }
                         </Select>
                       </FormControl>
                     </Box>
                     <Box className="customButton">
                       <Button variant="outlined"
-                        onClick={() => { this.setState({ showDialog: true }) }}
-                        type="submit">cancel</Button>
-                      <Button variant="contained" type="submit">assign incident</Button>
-                    </Box>
+                        onClick={() => { this.setState({ showDialog: false }) }}
+                      >cancel</Button>
+                      {
+                           attributes?.assign_incidents?.data === null ?
+                           <Button variant="contained" onClick={() => this.assginProvider()}>assign incident</Button>
+                           :
+                           <Button variant="contained" onClick={() => this.updateProvider(attributes?.assign_incidents?.data?.id)}>assign incident</Button>
+                      }
+                     </Box>
                   </Box>
                 </Box>
               </Dialog>
 
               {/* view large image dialog */}
               <Dialog
-                open={this.state.showDialog}
-                onClose={() => this.setState({ showDialog: false })}
+                open={this.state?.imageShowDialog}
+                onClose={() => this.setState({ imageShowDialog: false })}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
                 className="diloag-wrapper"
@@ -286,26 +321,59 @@ class IncidentManagementDetail extends IncidentManagementController {
                 <Box className="diloag-body">
                   <Box className="diloag-header">
                     <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
-                      Image
+                      {this.state?.file?.name}
                     </DialogTitle>
-                    <Button onClick={() => { this.setState({ showDialog: false }) }}>
+                    <Button onClick={() => { this.setState({ imageShowDialog: false }) }}>
                       <img src={Close_Icon} className="close-icon" />
                     </Button>
                   </Box>
-                  {/* <iframe className="incident-dialog-video"
-                  src="https://www.youtube.com/embed/tQG6jYy9xto" title="YouTube video player"
-                  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen></iframe> */}
                   <Box className="diloag-content">
-                    <img src={this.state?.image} className="incident-dialog-photo" alt="Incident photo" />
+                    {
+                      this.state?.file?.type === "video/mp4" || this.state?.file?.type === "video/x-m4v" ?
+                        <video className="incident-dialog-video" controls >
+                          <source src={this.state?.file?.url} type={this.state?.file?.type} />
+                        </video>
+                        :
+                        <Box>
+                          <img src={this.state?.file?.url} className="incident-dialog-photo" alt="card-img" />
+                        </Box>
+                    }
+                  </Box>
+                </Box>
+              </Dialog>
+
+              {/* view status dialog */}
+              <Dialog
+                open={this.state?.statusShowDialog}
+                onClose={() => this.setState({ statusShowDialog: false })}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                className="diloag-wrapper"
+                PaperProps={{
+                  style: {
+                    borderRadius: '15px',
+                  },
+                }}
+              >
+                <Box className="diloag-body">
+                  <Box className="diloag-header">
+                    <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
+                      Update Status
+                    </DialogTitle>
+                    <Button onClick={() => { this.setState({ statusStatusShowDialog: false }) }}>
+                      <img src={Close_Icon} className="close-icon" />
+                    </Button>
+                  </Box>
+                  <Box className="diloag-content">
+                    CONFIMR MENTION
                   </Box>
                 </Box>
               </Dialog>
             </Grid>
           </Box>
         </Box>
-        <IncidentChatDrawer />
-        {/* <Loader loading={this.state.loading} /> */}
+        {/* <IncidentChatDrawer /> */}
+        <Loader loading={this.state.loading} />
       </>
     )
   }

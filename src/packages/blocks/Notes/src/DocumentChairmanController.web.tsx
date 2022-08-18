@@ -77,7 +77,14 @@ export default class DocumentChairmanController extends BlockComponent<
       );
 
       if (responseJson.data) {
-        console.log(responseJson.data);
+        this.setState({
+          ...this.state,
+          policy: responseJson.data.policy_count,
+          guidelines: responseJson.data.guideline_count,
+          roles: responseJson.data.role_count,
+          resolution: responseJson.data.resolution_count,
+          buildingPlans: responseJson.data.building_plan_count,
+        });
       }
 
       var errorReponse = message.getData(

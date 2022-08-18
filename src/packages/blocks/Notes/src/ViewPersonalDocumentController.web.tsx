@@ -21,15 +21,12 @@ export interface Props {
 
 interface S {
   // Customizable Area Start
-  faqStep: number;
+  documentType: string;
+  documentId: string;
 
-  faq: string;
-
-  faqList: any[];
-  catagoriesList: any[];
-
-  question: string;
-  answer: string;
+  documentTitle: string;
+  documentUrl: string;
+  documentDownloadUrl: string;
   // Customizable Area End
 }
 
@@ -37,8 +34,12 @@ interface SS {
   id: any;
 }
 
-export default class FaqOwnerController extends BlockComponent<Props, S, SS> {
-  FaqCategoryCallId: any;
+export default class ViewPersonalDocumentController extends BlockComponent<
+  Props,
+  S,
+  SS
+> {
+  GetDocumentCallId: any;
 
   constructor(props: Props) {
     super(props);
@@ -51,15 +52,12 @@ export default class FaqOwnerController extends BlockComponent<Props, S, SS> {
     ];
 
     this.state = {
-      faqStep: 1,
+      documentType: "",
+      documentId: "",
 
-      faqList: [],
-      catagoriesList: [],
-
-      question: "",
-      answer: "",
-      
-      faq: "",
+      documentTitle: "",
+      documentUrl: "",
+      documentDownloadUrl: "",
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -67,14 +65,15 @@ export default class FaqOwnerController extends BlockComponent<Props, S, SS> {
 
   async receive(from: string, message: Message) {
     // Customizable Area Start
-    // Get FAQ Category
+
+    // Get Document
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.FaqCategoryCallId !== null &&
-      this.FaqCategoryCallId ===
+      this.GetDocumentCallId !== null &&
+      this.GetDocumentCallId ===
         message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
-      this.FaqCategoryCallId = null;
+      this.GetDocumentCallId = null;
 
       var responseJson = message.getData(
         getName(MessageEnum.RestAPIResponceSuccessMessage)
@@ -83,7 +82,10 @@ export default class FaqOwnerController extends BlockComponent<Props, S, SS> {
       if (responseJson.data) {
         this.setState({
           ...this.state,
-          catagoriesList: responseJson.data,
+          documentTitle: responseJson.data.attributes.title,
+          documentUrl: responseJson.data.attributes.images[0].url,
+          documentDownloadUrl:
+            responseJson.data.attributes.images[0].download_url,
         });
       }
 
@@ -102,11 +104,29 @@ export default class FaqOwnerController extends BlockComponent<Props, S, SS> {
 
   // Customizable Area Start
   async componentDidMount(): Promise<void> {
-    this.getFaqCategory();
+    const document_type = this.props.navigation.getParam("name");
+    const document_id = this.props.navigation.getParam("id");
+
+    this.setState(
+      {
+        ...this.state,
+        documentType: document_type,
+        documentId: document_id,
+      },
+      () => {
+        if (
+          document_type.toLowerCase() === "rent-contract" ||
+          document_type.toLowerCase() === "unit-plan" ||
+          document_type.toLowerCase() === "other-documents"
+        ) {
+          this.getDocument();
+        }
+      }
+    );
   }
 
-  // Get FAQ Category API
-  getFaqCategory = () => {
+  // Get Document API
+  getDocument = () => {
     const header = {
       "Content-Type": configJSON.ApiContentType,
       token: localStorage.getItem("userToken"),
@@ -114,11 +134,11 @@ export default class FaqOwnerController extends BlockComponent<Props, S, SS> {
 
     const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
 
-    this.FaqCategoryCallId = apiRequest.messageId;
+    this.GetDocumentCallId = apiRequest.messageId;
 
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      configJSON.FaqCategoryAPIEndPoint
+      `${configJSON.GetPersonalDocumentAPIEndPoint}/${this.state.documentId}`
     );
 
     apiRequest.addData(
@@ -135,11 +155,5 @@ export default class FaqOwnerController extends BlockComponent<Props, S, SS> {
     return true;
   };
 
-  changeFaqState = (number: number) => {
-    this.setState({
-      ...this.state,
-      faqStep: number,
-    });
-  };
   // Customizable Area End
 }
