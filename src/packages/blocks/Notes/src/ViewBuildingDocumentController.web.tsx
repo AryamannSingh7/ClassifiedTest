@@ -123,8 +123,10 @@ export default class ViewBuildingDocumentController extends BlockComponent<
           ...this.state,
           document: responseJson.resolution.data,
           documentTitle: responseJson.resolution.data.attributes.title,
-          documentUrl: "",
-          documentDownloadUrl: "",
+          documentUrl:
+            responseJson.resolution.data.attributes.attachments[0].url,
+          documentDownloadUrl:
+            responseJson.resolution.data.attributes.attachments[0].url,
         });
       }
 
