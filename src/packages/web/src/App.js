@@ -160,6 +160,8 @@ import BuildingDocuments from "../../blocks/Notes/src/BuildingDocuments.web";
 import BuildingDocumentList from "../../blocks/Notes/src/BuildingDocumentList.web";
 import ViewBuildingDocument from "../../blocks/Notes/src/ViewBuildingDocument.web";
 
+import ContractsList from "../../blocks/RolesPermissions2/src/ContractsList.web";
+
 const routeMap = {
   //done
   LandingPage: {
@@ -439,7 +441,7 @@ const routeMap = {
     component: ResidentDashboard,
     path: '/ResidentDashboard'
   },
-  // Chairman Help
+  // Chairman - Help
   FaqChairman: {
     component: FaqChairman,
     path: '/FaqChairman'
@@ -460,7 +462,7 @@ const routeMap = {
     component: SubscriptionDetail,
     path: '/SubscriptionDetail'
   },
-  // Chairman Document
+  // Chairman - Document
   DocumentChairman: {
     component: DocumentChairman,
     path: '/DocumentChairman',
@@ -476,7 +478,7 @@ const routeMap = {
     path: '/DocumentChairman/:name/:id/view',
     exact: true
   },
-  // Owner Personal Document
+  // Owner, Resident - Personal Document, Building Document
   PersonalDocument: {
     component: PersonalDocument,
     path: '/PersonalDocument',
@@ -505,6 +507,12 @@ const routeMap = {
   ViewBuildingDocument: {
     component: ViewBuildingDocument,
     path: '/BuildingDocuments/:name/:id/view',
+    exact: true
+  },
+  // Owner - Contract
+  ContractsList: {
+    component: ContractsList,
+    path: '/Contracts',
     exact: true
   },
   Customisableusersubscriptions: {
