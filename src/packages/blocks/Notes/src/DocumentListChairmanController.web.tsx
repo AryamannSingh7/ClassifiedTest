@@ -61,6 +61,7 @@ export default class DocumentListChairmanController extends BlockComponent<
   DeleteResolutionCallId: any;
   MeetingsCallId: any;
   CreateResolutionCallId: any;
+  ResolutionPDFCallId: any;
 
   constructor(props: Props) {
     super(props);
@@ -283,7 +284,7 @@ export default class DocumentListChairmanController extends BlockComponent<
       );
 
       this.getResolutions();
-      // this.handleDeleteDocumentModal();
+      this.handleDeleteDocumentModal();
 
       var errorReponse = message.getData(
         getName(MessageEnum.RestAPIResponceErrorMessage)
@@ -313,7 +314,10 @@ export default class DocumentListChairmanController extends BlockComponent<
         this.setState(
           {
             ...this.state,
-            resolutionList: [...this.state.resolutionList, responseJson.resolution.data],
+            resolutionList: [
+              ...this.state.resolutionList,
+              responseJson.resolution.data,
+            ],
           },
           () => {
             this.handleAddResolutionsModal();
