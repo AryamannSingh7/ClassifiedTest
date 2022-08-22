@@ -161,6 +161,8 @@ import BuildingDocumentList from "../../blocks/Notes/src/BuildingDocumentList.we
 import ViewBuildingDocument from "../../blocks/Notes/src/ViewBuildingDocument.web";
 
 import ContractsList from "../../blocks/RolesPermissions2/src/ContractsList.web";
+import ContractDetail from "../../blocks/RolesPermissions2/src/ContractDetail.web";
+import TemplateDetail from "../../blocks/RolesPermissions2/src/TemplateDetail.web";
 
 const routeMap = {
   //done
@@ -513,6 +515,16 @@ const routeMap = {
   ContractsList: {
     component: ContractsList,
     path: '/Contracts',
+    exact: true
+  },
+  ContractDetail: {
+    component: ContractDetail,
+    path: '/Contract/:id',
+    exact: true
+  },
+  TemplateDetail: {
+    component: TemplateDetail,
+    path: '/Template/:id',
     exact: true
   },
   Customisableusersubscriptions: {

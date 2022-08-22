@@ -129,4 +129,93 @@ export const ContractsStyleWeb: any = {
       textAlign: "center",
     },
   },
+  detailPage: {
+    "& .top-bar": {
+      display: "flex",
+      alignItems: "center",
+      fontWeight: "600",
+      cursor: "pointer",
+      marginBottom: "18px",
+      background: "#FFFFFF",
+      padding: "10px 20px",
+      justifyContent: "space-between",
+    },
+    "& .top-bar .left-icon": {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    "& .top-bar .right-icon img": {
+      marginLeft: "15px",
+    },
+    "& .right-image": {
+      padding: "23px 60px",
+    },
+    "& a": {
+      textDecoration: "none !important",
+    },
+    "& .content-box": {
+      position: "relative",
+      width: "100%",
+      height: "78vh",
+    },
+    "& .content-box > .MuiGrid-root": {
+      alignContent: "flex-start",
+    },
+    "& .content-box .contracts-list": {
+      minHeight: "calc(100% - 70px)",
+      overflowY: "auto",
+      overflowX: "hidden",
+    },
+    "& .upload-button": {
+      position: "sticky",
+      left: 0,
+      right: 0,
+      bottom: 0,
+      background: "#F4F7FF",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: "10px 0",
+      boxShadow: "none",
+    },
+    "& .upload-button .upload-button-group": {
+      width: "380px",
+    },
+    "& .upload-button .top": {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+    },
+    "& .upload-button .bottom": {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      marginTop: "10px",
+    },
+    "& .upload-button .bottom .image": {
+      border: "2px solid #2b6fec",
+      borderRadius: "50%",
+      cursor: "pointer",
+    },
+    "& .upload-button .bottom .image img": {
+      padding: "10px",
+    },
+    "& .upload-button .top button": {
+      fontWeight: "600",
+      border: "2px solid #2b6fec",
+      color: "#2b6fec",
+      padding: "12px 50px",
+      borderRadius: "25px",
+    },
+    "& .upload-button .bottom button": {
+      background: "#2b6fec",
+      color: "white",
+      padding: "12px 50px",
+      borderRadius: "25px",
+    },
+    "& .upload-button .MuiGrid-container": {
+      width: "fit-content",
+    },
+  },
 };
