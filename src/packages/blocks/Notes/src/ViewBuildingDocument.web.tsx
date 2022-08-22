@@ -33,6 +33,25 @@ import BuildingLogo from "../assets/building.png";
 import PdfImage from "../assets/pdf.png";
 import ShareImage from "../assets/share.png";
 
+import {
+  EmailShareButton,
+  FacebookShareButton,
+  LinkedinShareButton,
+  RedditShareButton,
+  TelegramShareButton,
+  TumblrShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+  EmailIcon,
+  FacebookIcon,
+  LinkedinIcon,
+  RedditIcon,
+  TelegramIcon,
+  TumblrIcon,
+  TwitterIcon,
+  WhatsappIcon,
+} from "react-share";
+
 class ViewBuildingDocument extends ViewBuildingDocumentController {
   constructor(props: Props) {
     super(props);
@@ -40,6 +59,10 @@ class ViewBuildingDocument extends ViewBuildingDocumentController {
 
   render() {
     const { classes } = this.props;
+
+    const sharePopupWidth = 500;
+    const sharePopupHeight = 700;
+    const shareTitle = "TI 1 Final Leap";
 
     console.log(this.state);
 
@@ -82,8 +105,35 @@ class ViewBuildingDocument extends ViewBuildingDocumentController {
                         </h6>
                       </div>
                       <div className="icons">
-                        <img src={ShareImage} />
-                        <img src={DownloadImage} />
+                        <img
+                          src={ShareImage}
+                          onClick={() => {
+                            this.setState(
+                              {
+                                ...this.state,
+                                shareUrl:
+                                  this.state.document &&
+                                  this.state.document.attributes
+                                    .meeting_mins_pdf.url,
+                                shareQuote:
+                                  this.state.document &&
+                                  this.state.document.attributes.meeting.title,
+                              },
+                              () => {
+                                this.handleShareModal();
+                              }
+                            );
+                          }}
+                        />
+                        <Link
+                          href={
+                            this.state.document &&
+                            this.state.document.attributes.meeting_mins_pdf.url
+                          }
+                          target="_blank"
+                        >
+                          <img src={DownloadImage} />
+                        </Link>
                       </div>
                     </div>
                     <div className="meeting-details">
@@ -125,6 +175,97 @@ class ViewBuildingDocument extends ViewBuildingDocumentController {
             </Grid>
           </Grid>
         </Box>
+
+        <Dialog
+          fullWidth
+          onClose={() => this.handleShareModal()}
+          open={this.state.isShareModalOpen}
+          className="select-meeting"
+        >
+          <MuiDialogTitle disableTypography className="dialog-heading">
+            <Typography variant="h6">Share</Typography>
+            <IconButton onClick={() => this.handleShareModal()}>
+              <CloseIcon />
+            </IconButton>
+          </MuiDialogTitle>
+          <DialogContent>
+            <div className="share-box">
+              <FacebookShareButton
+                quote={this.state.shareQuote}
+                url={this.state.shareUrl}
+                title={shareTitle}
+                windowWidth={sharePopupWidth}
+                windowHeight={sharePopupHeight}
+              >
+                <FacebookIcon />
+              </FacebookShareButton>
+              <TwitterShareButton
+                quote={this.state.shareQuote}
+                url={this.state.shareUrl}
+                title={shareTitle}
+                windowWidth={sharePopupWidth}
+                windowHeight={sharePopupHeight}
+              >
+                <TwitterIcon />
+              </TwitterShareButton>
+              <WhatsappShareButton
+                quote={this.state.shareQuote}
+                url={this.state.shareUrl}
+                title={shareTitle}
+                windowWidth={sharePopupWidth}
+                windowHeight={sharePopupHeight}
+                separator=":: "
+              >
+                <WhatsappIcon />
+              </WhatsappShareButton>
+              <LinkedinShareButton
+                quote={this.state.shareQuote}
+                url={this.state.shareUrl}
+                title={shareTitle}
+                windowWidth={sharePopupWidth}
+                windowHeight={sharePopupHeight}
+              >
+                <LinkedinIcon />
+              </LinkedinShareButton>
+              <EmailShareButton
+                quote={this.state.shareQuote}
+                url={this.state.shareUrl}
+                title={shareTitle}
+                windowWidth={sharePopupWidth}
+                windowHeight={sharePopupHeight}
+              >
+                <EmailIcon />
+              </EmailShareButton>
+              <RedditShareButton
+                quote={this.state.shareQuote}
+                url={this.state.shareUrl}
+                title={shareTitle}
+                windowWidth={sharePopupWidth}
+                windowHeight={sharePopupHeight}
+              >
+                <RedditIcon />
+              </RedditShareButton>
+              <TelegramShareButton
+                quote={this.state.shareQuote}
+                url={this.state.shareUrl}
+                title={shareTitle}
+                windowWidth={sharePopupWidth}
+                windowHeight={sharePopupHeight}
+              >
+                <TelegramIcon />
+              </TelegramShareButton>
+              <TumblrShareButton
+                quote={this.state.shareQuote}
+                url={this.state.shareUrl}
+                title={shareTitle}
+                windowWidth={sharePopupWidth}
+                windowHeight={sharePopupHeight}
+              >
+                <TumblrIcon />
+              </TumblrShareButton>
+            </div>
+          </DialogContent>
+        </Dialog>
       </>
     );
   }

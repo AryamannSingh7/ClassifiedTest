@@ -63,6 +63,7 @@ import {
   TwitterIcon,
   WhatsappIcon,
 } from "react-share";
+import moment from "moment";
 
 class DocumentListChairman extends DocumentListChairmanController {
   constructor(props: Props) {
@@ -227,10 +228,9 @@ class DocumentListChairman extends DocumentListChairmanController {
                                     <div className="info-item">
                                       <p>Date & Time</p>
                                       <span>
-                                        {
-                                          resolution.attributes
-                                            .meeting_date_time
-                                        }
+                                        {moment(
+                                          resolution.attributes.created_at
+                                        ).format("DD-MM-YYYY HH:mm")}
                                       </span>
                                     </div>
                                     <div className="info-item">
@@ -248,8 +248,34 @@ class DocumentListChairman extends DocumentListChairmanController {
                                       </h6>
                                     </div>
                                     <div className="icons">
-                                      <img src={ShareImage} />
-                                      <img src={DownloadImage} />
+                                      <img
+                                        src={ShareImage}
+                                        onClick={() => {
+                                          this.setState(
+                                            {
+                                              ...this.state,
+                                              shareUrl:
+                                                resolution.attributes
+                                                  .meeting_mins_pdf.url,
+                                              shareQuote:
+                                                resolution.attributes.meeting
+                                                  .title,
+                                            },
+                                            () => {
+                                              this.handleShareModal();
+                                            }
+                                          );
+                                        }}
+                                      />
+                                      <Link
+                                        href={
+                                          resolution.attributes.meeting_mins_pdf
+                                            .url
+                                        }
+                                        target="_blank"
+                                      >
+                                        <img src={DownloadImage} />
+                                      </Link>
                                     </div>
                                   </div>
                                 </Card>
