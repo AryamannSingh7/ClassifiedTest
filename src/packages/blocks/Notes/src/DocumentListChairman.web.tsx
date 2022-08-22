@@ -177,8 +177,10 @@ class DocumentListChairman extends DocumentListChairmanController {
                                         <MenuItem>
                                           <Link
                                             href={
-                                              resolution.attributes
-                                                .attachments[0].url
+                                              ""
+
+                                              // resolution.attributes
+                                              //   .attachments[0].url
                                             }
                                             target="_blank"
                                           >
@@ -206,9 +208,9 @@ class DocumentListChairman extends DocumentListChairmanController {
                                             this.setState(
                                               {
                                                 ...this.state,
-                                                shareUrl:
-                                                  resolution.attributes
-                                                    .attachments[0].url,
+                                                // shareUrl:
+                                                // resolution.attributes
+                                                //   .attachments[0].url,
                                                 shareQuote:
                                                   resolution.attributes.title,
                                               },
@@ -249,7 +251,12 @@ class DocumentListChairman extends DocumentListChairmanController {
                                     </div>
                                     <div className="icons">
                                       <img src={ShareImage} />
-                                      <img src={DownloadImage} />
+                                      <img
+                                        src={DownloadImage}
+                                        onClick={() => {
+                                          this.getResolutionPDF();
+                                        }}
+                                      />
                                     </div>
                                   </div>
                                 </Card>
