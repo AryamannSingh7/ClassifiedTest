@@ -335,35 +335,6 @@ export default class DocumentListChairmanController extends BlockComponent<
       }
       this.parseApiCatchErrorResponse(errorReponse);
     }
-
-    // Get Resolutions PDF
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.ResolutionPDFCallId !== null &&
-      this.ResolutionPDFCallId ===
-        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.ResolutionPDFCallId = null;
-
-      var responseJson = message.getData(
-        getName(MessageEnum.RestAPIResponceSuccessMessage)
-      );
-
-      console.log(responseJson);
-
-      if (responseJson.code === 200) {
-      }
-
-      var errorReponse = message.getData(
-        getName(MessageEnum.RestAPIResponceErrorMessage)
-      );
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        this.parseApiErrorResponse(responseJson);
-      }
-      this.parseApiCatchErrorResponse(errorReponse);
-    }
     // Customizable Area End
   }
 
@@ -635,36 +606,6 @@ export default class DocumentListChairmanController extends BlockComponent<
     apiRequest.addData(
       getName(MessageEnum.RestAPIRequestMethodMessage),
       configJSON.apiMethodTypeDelete
-    );
-
-    runEngine.sendMessage(apiRequest.id, apiRequest);
-    return true;
-  };
-
-  // Get Resolution PDF API
-  getResolutionPDF = () => {
-    const header = {
-      "Content-Type": configJSON.ApiContentType,
-      token: localStorage.getItem("userToken"),
-    };
-
-    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
-
-    this.ResolutionPDFCallId = apiRequest.messageId;
-
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_my_document/download_report?society_id=5&id=66`
-    );
-
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
-
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypeGet
     );
 
     runEngine.sendMessage(apiRequest.id, apiRequest);

@@ -37,6 +37,25 @@ import BuildingLogo from "../assets/building.png";
 import PdfImage from "../assets/pdf.png";
 import ShareImage from "../assets/share.png";
 import DownloadImage from "../assets/download.png";
+import moment from "moment";
+import {
+  EmailShareButton,
+  FacebookShareButton,
+  LinkedinShareButton,
+  RedditShareButton,
+  TelegramShareButton,
+  TumblrShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+  EmailIcon,
+  FacebookIcon,
+  LinkedinIcon,
+  RedditIcon,
+  TelegramIcon,
+  TumblrIcon,
+  TwitterIcon,
+  WhatsappIcon,
+} from "react-share";
 
 class BuildingDocumentList extends BuildingDocumentListController {
   constructor(props: Props) {
@@ -45,6 +64,10 @@ class BuildingDocumentList extends BuildingDocumentListController {
 
   render() {
     const { classes } = this.props;
+
+    const sharePopupWidth = 500;
+    const sharePopupHeight = 700;
+    const shareTitle = "TI 1 Final Leap";
 
     console.log(this.state);
 
@@ -99,7 +122,9 @@ class BuildingDocumentList extends BuildingDocumentListController {
                                   <div className="info-item">
                                     <p>Date & Time</p>
                                     <span>
-                                      {document.attributes.meeting_date_time}
+                                      {moment(
+                                        document.attributes.created_at
+                                      ).format("DD-MM-YYYY HH:mm")}
                                     </span>
                                   </div>
                                   <div className="info-item">
@@ -115,8 +140,32 @@ class BuildingDocumentList extends BuildingDocumentListController {
                                     <h6>{document.attributes.meeting.title}</h6>
                                   </div>
                                   <div className="icons">
-                                    <img src={ShareImage} />
-                                    <img src={DownloadImage} />
+                                    <img
+                                      src={ShareImage}
+                                      onClick={() => {
+                                        this.setState(
+                                          {
+                                            ...this.state,
+                                            shareUrl:
+                                              document.attributes
+                                                .meeting_mins_pdf.url,
+                                            shareQuote:
+                                              document.attributes.meeting.title,
+                                          },
+                                          () => {
+                                            this.handleShareModal();
+                                          }
+                                        );
+                                      }}
+                                    />
+                                    <Link
+                                      href={
+                                        document.attributes.meeting_mins_pdf.url
+                                      }
+                                      target="_blank"
+                                    >
+                                      <img src={DownloadImage} />
+                                    </Link>
                                   </div>
                                 </div>
                               </Card>
@@ -179,6 +228,97 @@ class BuildingDocumentList extends BuildingDocumentListController {
             </Grid>
           </Grid>
         </Box>
+
+        <Dialog
+          fullWidth
+          onClose={() => this.handleShareModal()}
+          open={this.state.isShareModalOpen}
+          className="select-meeting"
+        >
+          <MuiDialogTitle disableTypography className="dialog-heading">
+            <Typography variant="h6">Share</Typography>
+            <IconButton onClick={() => this.handleShareModal()}>
+              <CloseIcon />
+            </IconButton>
+          </MuiDialogTitle>
+          <DialogContent>
+            <div className="share-box">
+              <FacebookShareButton
+                quote={this.state.shareQuote}
+                url={this.state.shareUrl}
+                title={shareTitle}
+                windowWidth={sharePopupWidth}
+                windowHeight={sharePopupHeight}
+              >
+                <FacebookIcon />
+              </FacebookShareButton>
+              <TwitterShareButton
+                quote={this.state.shareQuote}
+                url={this.state.shareUrl}
+                title={shareTitle}
+                windowWidth={sharePopupWidth}
+                windowHeight={sharePopupHeight}
+              >
+                <TwitterIcon />
+              </TwitterShareButton>
+              <WhatsappShareButton
+                quote={this.state.shareQuote}
+                url={this.state.shareUrl}
+                title={shareTitle}
+                windowWidth={sharePopupWidth}
+                windowHeight={sharePopupHeight}
+                separator=":: "
+              >
+                <WhatsappIcon />
+              </WhatsappShareButton>
+              <LinkedinShareButton
+                quote={this.state.shareQuote}
+                url={this.state.shareUrl}
+                title={shareTitle}
+                windowWidth={sharePopupWidth}
+                windowHeight={sharePopupHeight}
+              >
+                <LinkedinIcon />
+              </LinkedinShareButton>
+              <EmailShareButton
+                quote={this.state.shareQuote}
+                url={this.state.shareUrl}
+                title={shareTitle}
+                windowWidth={sharePopupWidth}
+                windowHeight={sharePopupHeight}
+              >
+                <EmailIcon />
+              </EmailShareButton>
+              <RedditShareButton
+                quote={this.state.shareQuote}
+                url={this.state.shareUrl}
+                title={shareTitle}
+                windowWidth={sharePopupWidth}
+                windowHeight={sharePopupHeight}
+              >
+                <RedditIcon />
+              </RedditShareButton>
+              <TelegramShareButton
+                quote={this.state.shareQuote}
+                url={this.state.shareUrl}
+                title={shareTitle}
+                windowWidth={sharePopupWidth}
+                windowHeight={sharePopupHeight}
+              >
+                <TelegramIcon />
+              </TelegramShareButton>
+              <TumblrShareButton
+                quote={this.state.shareQuote}
+                url={this.state.shareUrl}
+                title={shareTitle}
+                windowWidth={sharePopupWidth}
+                windowHeight={sharePopupHeight}
+              >
+                <TumblrIcon />
+              </TumblrShareButton>
+            </div>
+          </DialogContent>
+        </Dialog>
       </>
     );
   }
