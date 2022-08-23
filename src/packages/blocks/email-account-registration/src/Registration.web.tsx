@@ -185,7 +185,7 @@ class Registration extends EmailAccountRegistrationController  {
                         height="56px"
                         border="0.1px solid rgb(209 209 209 / 44%)"
                         borderRadius="16px"
-                        bgcolor="white"
+                        bgcolor="#f9f9f9"
                       >
                         <Box>
                           <FormControl variant="outlined" >
@@ -228,7 +228,8 @@ class Registration extends EmailAccountRegistrationController  {
                             fontSize: 16,
                             marginRight: 10,
                             marginLeft: 21,
-                            outline: "none"
+                            outline: "none",
+                            backgroundColor:'#f9f9f9'
                           }}
                         />
                       </Box>

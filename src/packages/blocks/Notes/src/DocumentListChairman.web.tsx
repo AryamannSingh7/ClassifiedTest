@@ -63,6 +63,7 @@ import {
   TwitterIcon,
   WhatsappIcon,
 } from "react-share";
+import moment from "moment";
 
 class DocumentListChairman extends DocumentListChairmanController {
   constructor(props: Props) {
@@ -77,6 +78,17 @@ class DocumentListChairman extends DocumentListChairmanController {
     const shareTitle = "TI 1 Final Leap";
 
     console.log(this.state);
+
+    window.addEventListener("pageshow", (event) => {
+      const historyTraversal =
+        event.persisted ||
+        (typeof window.performance != "undefined" &&
+          window.performance.navigation.type === 2);
+
+      if (historyTraversal) {
+        window.location.reload();
+      }
+    });
 
     return (
       <>
@@ -117,14 +129,12 @@ class DocumentListChairman extends DocumentListChairmanController {
                           {this.state.docName.toLowerCase() ===
                           "resolutions" ? (
                             <Button
-                              variant="contained"
                               onClick={() => this.handleAddResolutionsModal()}
                             >
                               Add New Resolution
                             </Button>
                           ) : (
                             <Button
-                              variant="contained"
                               onClick={() => this.handleAddDocumentModal()}
                             >
                               Upload Documents
@@ -185,8 +195,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                                                   resolution.id,
                                               },
                                               () => {
-                                                this.deleteResolution();
-                                                // this.handleDeleteDocumentModal();
+                                                this.handleDeleteDocumentModal();
                                               }
                                             );
                                           }}
@@ -201,7 +210,8 @@ class DocumentListChairman extends DocumentListChairmanController {
                                                 shareUrl:
                                                   resolution.attributes
                                                     .attachments[0].url,
-                                                shareQuote: resolution.attributes.title,
+                                                shareQuote:
+                                                  resolution.attributes.title,
                                               },
                                               () => {
                                                 this.handleShareModal();
@@ -218,10 +228,9 @@ class DocumentListChairman extends DocumentListChairmanController {
                                     <div className="info-item">
                                       <p>Date & Time</p>
                                       <span>
-                                        {
-                                          resolution.attributes
-                                            .meeting_date_time
-                                        }
+                                        {moment(
+                                          resolution.attributes.created_at
+                                        ).format("DD-MM-YYYY HH:mm")}
                                       </span>
                                     </div>
                                     <div className="info-item">
@@ -239,8 +248,34 @@ class DocumentListChairman extends DocumentListChairmanController {
                                       </h6>
                                     </div>
                                     <div className="icons">
-                                      <img src={ShareImage} />
-                                      <img src={DownloadImage} />
+                                      <img
+                                        src={ShareImage}
+                                        onClick={() => {
+                                          this.setState(
+                                            {
+                                              ...this.state,
+                                              shareUrl:
+                                                resolution.attributes
+                                                  .meeting_mins_pdf.url,
+                                              shareQuote:
+                                                resolution.attributes.meeting
+                                                  .title,
+                                            },
+                                            () => {
+                                              this.handleShareModal();
+                                            }
+                                          );
+                                        }}
+                                      />
+                                      <Link
+                                        href={
+                                          resolution.attributes.meeting_mins_pdf
+                                            .url
+                                        }
+                                        target="_blank"
+                                      >
+                                        <img src={DownloadImage} />
+                                      </Link>
                                     </div>
                                   </div>
                                 </Card>
@@ -264,7 +299,12 @@ class DocumentListChairman extends DocumentListChairmanController {
                                   >
                                     <div className="heading">
                                       <img src={Document} />
-                                      <h4>{document.attributes.title}</h4>
+                                      <h4>
+                                        {
+                                          document.attributes.images[0]
+                                            .file_name
+                                        }
+                                      </h4>
                                     </div>
                                   </Link>
                                   <div className="menu">
@@ -364,6 +404,11 @@ class DocumentListChairman extends DocumentListChairmanController {
                   marginTop: "0",
                 }}
               />
+              {this.state.title.length > 100 && (
+                <span className="error">
+                  Maximum length of title should be 100 character
+                </span>
+              )}
             </FormControl>
             <FormControl fullWidth>
               <div
@@ -373,7 +418,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                 }}
               >
                 <img src={UploadImage} />
-                <Typography variant="body1">Upload file</Typography>
+                <Typography variant="body1">Upload File</Typography>
               </div>
               <input
                 id="myInput"
@@ -383,25 +428,27 @@ class DocumentListChairman extends DocumentListChairmanController {
                 onChange={this.onChangeFile.bind(this)}
                 accept=".pdf"
               />
-              {this.state.file && <span>{this.state.file.name}</span>}
+              {this.state.file && (
+                <span className="file-name">{this.state.file.name}</span>
+              )}
               <span />
             </FormControl>
           </DialogContent>
           <DialogActions className="dialog-button-group">
             <Button
-              variant="outlined"
               onClick={() => this.handleAddDocumentModal()}
-              color="primary"
+              className="cancel-button"
             >
               Cancel
             </Button>
             <Button
               disabled={
-                this.state.title.length === 0 || this.state.file === null
+                this.state.title.length === 0 ||
+                this.state.title.length > 100 ||
+                this.state.file === null
               }
-              variant="contained"
+              className="add-button"
               onClick={() => this.createDocument()}
-              color="primary"
             >
               Create
             </Button>
@@ -411,6 +458,7 @@ class DocumentListChairman extends DocumentListChairmanController {
         <Dialog
           className="delete-document"
           fullWidth
+          maxWidth="sm"
           onClose={() => this.handleDeleteDocumentModal()}
           open={this.state.isDeleteDocumentModalOpen}
         >
@@ -423,14 +471,13 @@ class DocumentListChairman extends DocumentListChairmanController {
               </Typography>
               <DialogActions className="dialog-button-group">
                 <Button
-                  variant="outlined"
+                  className="cancel-button"
                   onClick={() => this.handleDeleteDocumentModal()}
-                  color="primary"
                 >
                   No, Don't Delete
                 </Button>
                 <Button
-                  variant="contained"
+                  className="add-button"
                   onClick={() => {
                     if (this.state.docName.toLowerCase() === "resolutions") {
                       this.deleteResolution();
@@ -438,7 +485,6 @@ class DocumentListChairman extends DocumentListChairmanController {
                       this.deleteCategory();
                     }
                   }}
-                  color="primary"
                 >
                   Yes Delete
                 </Button>
@@ -475,6 +521,11 @@ class DocumentListChairman extends DocumentListChairmanController {
                   marginTop: "0",
                 }}
               />
+              {this.state.title.length > 100 && (
+                <span className="error">
+                  Maximum length of title should be 100 character
+                </span>
+              )}
             </FormControl>
             <FormControl fullWidth>
               <div
@@ -494,7 +545,9 @@ class DocumentListChairman extends DocumentListChairmanController {
                 onChange={this.onChangeFile.bind(this)}
                 accept=".pdf"
               />
-              {this.state.file && <span>{this.state.file.name}</span>}
+              {this.state.file && (
+                <span className="file-name">{this.state.file.name}</span>
+              )}
             </FormControl>
             {this.state.selectedMeeting ? (
               <div className="change-meeting">
@@ -517,19 +570,18 @@ class DocumentListChairman extends DocumentListChairmanController {
           </DialogContent>
           <DialogActions className="dialog-button-group">
             <Button
-              variant="outlined"
+              className="cancel-button"
               onClick={() => this.handleAddResolutionsModal()}
-              color="primary"
             >
               Cancel
             </Button>
             <Button
-              variant="contained"
+              className="add-button"
               onClick={() => this.createResolution()}
-              color="primary"
               disabled={
                 !this.state.selectedMeeting ||
                 this.state.title.length === 0 ||
+                this.state.title.length > 100 ||
                 this.state.file === null
               }
             >
@@ -609,16 +661,14 @@ class DocumentListChairman extends DocumentListChairmanController {
             </div>
             <div className="button-group">
               <Button
-                variant="outlined"
+                className="cancel-button"
                 onClick={() => this.handleSelectMeetingModal()}
-                color="primary"
               >
                 Cancel
               </Button>
               <Button
-                variant="contained"
+                className="add-button"
                 onClick={() => this.handleSelectMeetingModal()}
-                color="primary"
                 disabled={!this.state.selectedMeeting}
               >
                 Create

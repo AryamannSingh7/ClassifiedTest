@@ -32,7 +32,7 @@ exports.GetPersonalDocumentCountAPIEndPoint = "bx_block_my_document/personal_doc
 exports.RentContractAPIEndPoint = "bx_block_my_document/rent_contracts";
 exports.UnitPlanAPIEndPoint = "bx_block_my_document/unit_plans";
 exports.OtherDocumentAPIEndPoint = "bx_block_my_document/other_documents";
-exports.DeleteDocumentAPIEndPoint = "bx_block_my_document/personal_documents";
+exports.DeletePersonalDocumentAPIEndPoint = "bx_block_my_document/personal_documents";
 exports.CreatePersonalDocumentAPIEndPoint = "bx_block_my_document/personal_documents";
 exports.GetPersonalDocumentAPIEndPoint = "bx_block_my_document/personal_documents";
 // Customizable Area End

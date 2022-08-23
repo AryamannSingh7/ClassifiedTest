@@ -244,16 +244,14 @@ class FaqChairman extends FaqChairmanController {
             </DialogContent>
             <DialogActions className="dialog-button-group">
               <Button
-                variant="outlined"
+                className="cancel-button"
                 onClick={() => this.handleAddQuestionModal()}
-                color="primary"
               >
                 Cancel
               </Button>
               <Button
-                variant="contained"
+                className="add-button"
                 onClick={() => this.createFaq()}
-                color="primary"
                 disabled={
                   this.state.createAnswer.length === 0 ||
                   this.state.createQuestion.length === 0 ||
@@ -335,22 +333,20 @@ class FaqChairman extends FaqChairmanController {
             </DialogContent>
             <DialogActions className="dialog-button-group">
               <Button
-                variant="outlined"
                 onClick={() => this.handleEditQuestionModal()}
-                color="primary"
+                className="cancel-button"
               >
                 Cancel
               </Button>
               <Button
-                variant="contained"
                 onClick={() => this.editFaq()}
-                color="primary"
                 disabled={
                   this.state.editAnswer.length === 0 ||
                   this.state.editQuestion.length === 0 ||
                   this.state.editQuestion.length > 500 ||
                   this.state.editCategoryId.length === 0
                 }
+                className="add-button"
               >
                 Edit
               </Button>
@@ -385,19 +381,17 @@ class FaqChairman extends FaqChairmanController {
             </DialogContent>
             <DialogActions className="dialog-button-group">
               <Button
-                variant="outlined"
                 onClick={() => this.handleAddCategoryModal()}
-                color="primary"
+                className="cancel-button"
               >
                 Cancel
               </Button>
               <Button
                 disabled={this.state.categoryName.length === 0}
-                variant="contained"
                 onClick={() => {
                   this.createCategory();
                 }}
-                color="primary"
+                className="add-button"
               >
                 Confirm
               </Button>
@@ -429,18 +423,18 @@ class FaqChairman extends FaqChairmanController {
                 </Typography>
                 <DialogActions className="dialog-button-group">
                   <Button
-                    variant="outlined"
                     onClick={() => this.handleDeleteAllCategoryModal()}
-                    color="primary"
+                    className="cancel-button"
+                    style={{ width: "200px" }}
                   >
                     No, Don't Delete
                   </Button>
                   <Button
-                    variant="contained"
                     onClick={() => {
                       this.deleteCategory();
                     }}
-                    color="primary"
+                    style={{ width: "200px" }}
+                    className="add-button"
                   >
                     Yes Delete
                   </Button>
@@ -470,18 +464,18 @@ class FaqChairman extends FaqChairmanController {
                 </Typography>
                 <DialogActions className="dialog-button-group">
                   <Button
-                    variant="outlined"
                     onClick={() => this.handleDeleteQuestionModal()}
-                    color="primary"
+                    className="cancel-button"
+                    style={{ width: "200px" }}
                   >
                     No, Don't Delete
                   </Button>
                   <Button
-                    variant="contained"
                     onClick={() => {
                       this.deleteFaq();
                     }}
-                    color="primary"
+                    className="add-button"
+                    style={{ width: "200px" }}
                   >
                     Yes Delete
                   </Button>

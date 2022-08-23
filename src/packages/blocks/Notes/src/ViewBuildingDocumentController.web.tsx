@@ -29,6 +29,10 @@ interface S {
   documentTitle: string;
   documentUrl: string;
   documentDownloadUrl: string;
+
+  isShareModalOpen: boolean;
+  shareUrl: string;
+  shareQuote: string;
   // Customizable Area End
 }
 
@@ -63,6 +67,10 @@ export default class ViewBuildingDocumentController extends BlockComponent<
       documentTitle: "",
       documentUrl: "",
       documentDownloadUrl: "",
+
+      isShareModalOpen: false,
+      shareUrl: "",
+      shareQuote: "",
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -123,8 +131,10 @@ export default class ViewBuildingDocumentController extends BlockComponent<
           ...this.state,
           document: responseJson.resolution.data,
           documentTitle: responseJson.resolution.data.attributes.title,
-          documentUrl: "",
-          documentDownloadUrl: "",
+          documentUrl:
+            responseJson.resolution.data.attributes.attachments[0].url,
+          documentDownloadUrl:
+            responseJson.resolution.data.attributes.attachments[0].url,
         });
       }
 
@@ -229,5 +239,12 @@ export default class ViewBuildingDocumentController extends BlockComponent<
     return true;
   };
 
+  // Handle State
+  handleShareModal = () => {
+    this.setState({
+      ...this.state,
+      isShareModalOpen: !this.state.isShareModalOpen,
+    });
+  };
   // Customizable Area End
 }

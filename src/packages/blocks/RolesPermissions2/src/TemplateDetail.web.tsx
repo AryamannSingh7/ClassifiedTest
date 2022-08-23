@@ -1,38 +1,23 @@
 // Customizable Area Start
 //@ts-nocheck
 //@ts-ignore
-
 import React from "react";
 import {
   Button,
   Container,
   IconButton,
   Link,
-  Typography,
   withStyles,
   Box,
   Grid,
   Dialog,
   DialogContent,
-  FormControl,
+  Typography,
   DialogActions,
-  Card,
 } from "@material-ui/core";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import CloseIcon from "@material-ui/icons/Close";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
+import CloseIcon from "@material-ui/icons/Close";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import ViewBuildingDocumentController, {
-  Props,
-} from "./ViewBuildingDocumentController.web";
-import { DocumentReportStyleWeb } from "./DocumentReportStyle.web";
-
-import DownloadImage from "../assets/download.png";
-import BuildingLogo from "../assets/building.png";
-import PdfImage from "../assets/pdf.png";
-import ShareImage from "../assets/share.png";
-
 import {
   EmailShareButton,
   FacebookShareButton,
@@ -52,7 +37,17 @@ import {
   WhatsappIcon,
 } from "react-share";
 
-class ViewBuildingDocument extends ViewBuildingDocumentController {
+import { ContractsStyleWeb } from "./ContractsStyle.web";
+import TemplateDetailController, {
+  Props,
+} from "./TemplateDetailController.web";
+
+import BuildingLogo from "../assets/building.png";
+import DownloadIcon from "../assets/download.png";
+import ShareIcon from "../assets/share.png";
+import ExclamationIcon from "../assets/exclamation.png";
+
+class TemplateDetail extends TemplateDetailController {
   constructor(props: Props) {
     super(props);
   }
@@ -69,101 +64,63 @@ class ViewBuildingDocument extends ViewBuildingDocumentController {
     return (
       <>
         <Box
-          className={classes.buildingDocument}
-          style={{ background: "#F8F9FE", height: "100vh" }}
+          style={{ background: "#F4F7FF", height: "100vh" }}
+          className={classes.detailPage}
         >
           <Grid container>
             <Grid item xs={12} md={7}>
-              <Box
-                display={{ xs: "flex", md: "flex" }}
-                className="menu building-document-menu"
-              >
-                <div className="name">
-                  <Link href={`/BuildingDocuments/${this.state.documentType}`}>
-                    <IconButton>
-                      <KeyboardBackspaceIcon />
-                    </IconButton>
-                  </Link>{" "}
-                  <span>{this.state.documentTitle}</span>
-                </div>
-                <Link href={this.state.documentDownloadUrl} target="_blank">
-                  <img src={DownloadImage} alt="download" />
-                </Link>
+              <Box className="faq-step">
+                <Box display={{ xs: "flex", md: "flex" }} className="top-bar">
+                  <div className="left-icon">
+                    <Link href="/OwnerDashboard">
+                      <IconButton>
+                        <KeyboardBackspaceIcon />
+                      </IconButton>
+                    </Link>
+                    Contracts 1
+                  </div>
+                  <div className="right-icon">
+                    <img src={DownloadIcon} alt="SortIcon" />
+                  </div>
+                </Box>
+                <Container>
+                  <Box className="content-box">
+                    <div className="contracts-list">
+                      <iframe
+                        src="http://www.africau.edu/images/default/sample.pdf"
+                        // style={{ width: "100%" }}
+                      />
+                    </div>
+                    <Box className="upload-button">
+                      <Box className="upload-button-group">
+                        <Box className="top">
+                          <Button
+                            onClick={() => {
+                              this.handleTerminateContractModal();
+                            }}
+                          >
+                            Terminate
+                          </Button>
+                          <Link href="/Contracts">
+                            <Button>Close</Button>
+                          </Link>
+                        </Box>
+                        <Box className="bottom">
+                          <Button>ReNew Contract</Button>
+                          <Box
+                            className="image"
+                            onClick={() => {
+                              this.handleShareModal();
+                            }}
+                          >
+                            <img src={ShareIcon} alt="" />
+                          </Box>
+                        </Box>
+                      </Box>
+                    </Box>
+                  </Box>
+                </Container>
               </Box>
-              <Container className="content-area document-box">
-                <div className="document-view">
-                  <iframe src={this.state.documentUrl} />
-                </div>
-                {this.state.documentType.toLowerCase() === "resolutions" && (
-                  <>
-                    <div className="meeting-item view">
-                      <div className="item-title">
-                        <img src={PdfImage} />
-                        <h6>
-                          {this.state.document &&
-                            this.state.document.attributes.meeting.title}
-                        </h6>
-                      </div>
-                      <div className="icons">
-                        <img
-                          src={ShareImage}
-                          onClick={() => {
-                            this.setState(
-                              {
-                                ...this.state,
-                                shareUrl:
-                                  this.state.document &&
-                                  this.state.document.attributes
-                                    .meeting_mins_pdf.url,
-                                shareQuote:
-                                  this.state.document &&
-                                  this.state.document.attributes.meeting.title,
-                              },
-                              () => {
-                                this.handleShareModal();
-                              }
-                            );
-                          }}
-                        />
-                        <Link
-                          href={
-                            this.state.document &&
-                            this.state.document.attributes.meeting_mins_pdf.url
-                          }
-                          target="_blank"
-                        >
-                          <img src={DownloadImage} />
-                        </Link>
-                      </div>
-                    </div>
-                    <div className="meeting-details">
-                      <h4>Meeting Details</h4>
-                      <Card className="card">
-                        <p>Date & Time:</p>
-                        <span>
-                          {this.state.document &&
-                            this.state.document.attributes.meeting_date_time}
-                        </span>
-                        <p>Place:</p>
-                        <span>
-                          {this.state.document &&
-                            this.state.document.attributes.meeting.place}
-                        </span>
-                        <p>Building:</p>
-                        <span>
-                          {this.state.document &&
-                            this.state.document.attributes.buidling_name}
-                        </span>
-                        <p>Agenda:</p>
-                        <span>
-                          {this.state.document &&
-                            this.state.document.attributes.meeting.agenda}
-                        </span>
-                      </Card>
-                    </div>
-                  </>
-                )}
-              </Container>
             </Grid>
             <Grid item xs={12} md={5}>
               <Box
@@ -175,6 +132,40 @@ class ViewBuildingDocument extends ViewBuildingDocumentController {
             </Grid>
           </Grid>
         </Box>
+
+        <Dialog
+          className="delete-document personal"
+          fullWidth
+          onClose={() => this.handleTerminateContractModal()}
+          open={this.state.isTerminateContractModalOpen}
+        >
+          <DialogContent>
+            <Box textAlign="center">
+              <img src={ExclamationIcon} alt="ExclamationIcon" />
+              <Typography variant="h6">Terminate Contract?</Typography>
+              <Typography variant="body1">
+                Are you sure want to terminate lease contract with Ali Khan?
+                Once terminated you won't be able to retrieve.
+              </Typography>
+              <DialogActions className="dialog-button-group">
+                <Button
+                  onClick={() => {
+                    this.handleTerminateContractModal();
+                  }}
+                >
+                  Yes, Terminate
+                </Button>
+                <Button
+                  onClick={() => {
+                    this.handleTerminateContractModal();
+                  }}
+                >
+                  No, Don't Terminate
+                </Button>
+              </DialogActions>
+            </Box>
+          </DialogContent>
+        </Dialog>
 
         <Dialog
           fullWidth
@@ -271,5 +262,5 @@ class ViewBuildingDocument extends ViewBuildingDocumentController {
   }
 }
 
-export default withStyles(DocumentReportStyleWeb)(ViewBuildingDocument);
+export default withStyles(ContractsStyleWeb)(TemplateDetail);
 // Customizable Area End
