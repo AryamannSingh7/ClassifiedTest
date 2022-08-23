@@ -163,6 +163,7 @@ import ViewBuildingDocument from "../../blocks/Notes/src/ViewBuildingDocument.we
 import ContractsList from "../../blocks/RolesPermissions2/src/ContractsList.web";
 import ContractDetail from "../../blocks/RolesPermissions2/src/ContractDetail.web";
 import TemplateDetail from "../../blocks/RolesPermissions2/src/TemplateDetail.web";
+import IssueContract from "../../blocks/RolesPermissions2/src/IssueContract.web";
 
 const routeMap = {
   //done
@@ -525,6 +526,11 @@ const routeMap = {
   TemplateDetail: {
     component: TemplateDetail,
     path: '/Template/:id',
+    exact: true
+  },
+  IssueContract: {
+    component: IssueContract,
+    path: '/IssueContract',
     exact: true
   },
   Customisableusersubscriptions: {
