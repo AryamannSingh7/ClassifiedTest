@@ -314,6 +314,7 @@ class PersonalDocumentList extends PersonalDocumentListController {
               disabled={
                 this.state.title.length === 0 ||
                 this.state.title.length > 100 ||
+                this.isInputOnlyWhiteSpace(this.state.title) ||
                 this.state.file === null
               }
               onClick={() => this.createPersonalDocument()}
