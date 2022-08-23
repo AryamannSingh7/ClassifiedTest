@@ -318,7 +318,7 @@ function NoVehicle({ props }) {
           className={'btn'}
           variant="contained"
           type="submit"
-          onClick={() => props.history.push("/newVeichleList")}
+          onClick={() => props.history.push("/NewFamily")}
           style={{
             backgroundColor: "#2B6FEC",
             borderRadius: 16,

@@ -222,7 +222,9 @@ export default class FamilyController extends BlockComponent<Props, S, SS> {
         } if (apiRequestCallId === this.getVehicleListApiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
-            this.setState({ allVehcile: responseJson.data }, () => console.log(this.state.allVehcile))
+            if (responseJson.data){
+              this.setState({ allVehcile: responseJson.data }, () => console.log(this.state.allVehcile))
+            }
           } else {
             //Check Error Response
             // this.parseApiErrorResponse(responseJson);
@@ -800,8 +802,13 @@ handleClick= (event)=>{
   };
 
 handleClose = (item) =>{
-  localStorage.setItem('selectFamily', JSON.stringify(item))
-  this.props.history.push("/editfamily")
+ if(item.id){
+   localStorage.setItem('selectFamily', JSON.stringify(item))
+   this.props.history.push("/editfamily")
+
+ }else{
+   this.setState({ anchorEl: item.currentTarget, showDialog: false })
+ }
     // this.setState({ anchorEl:null,showDialog:false })
   };
   // Customizable Area End

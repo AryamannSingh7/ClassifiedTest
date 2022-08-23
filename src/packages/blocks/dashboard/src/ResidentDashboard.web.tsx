@@ -189,8 +189,8 @@ class ResidentDashboard extends React.Component {
                       />
                     </Link>
                   </Grid>
-                  {/* <Grid item xs={12} sm={6}>
-                    <Link href="">
+                  <Grid item xs={12} sm={6}>
+                    <Link href="/veichleList">
                       <DashboardCard
                         image={keyhand}
                         heading="My Vehicles"
@@ -198,9 +198,9 @@ class ResidentDashboard extends React.Component {
                         value="75"
                       />
                     </Link>
-                  </Grid> */}
-                  {/* <Grid item xs={12} sm={6}>
-                    <Link href="">
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <Link href="/familylist">
                       <DashboardCard
                         image={keyhand}
                         heading="My Family"
@@ -208,7 +208,7 @@ class ResidentDashboard extends React.Component {
                         value="75"
                       />
                     </Link>
-                  </Grid> */}
+                  </Grid>
                   <Grid item xs={12} sm={6}>
                     <Link href="">
                       <DashboardCard

@@ -68,7 +68,7 @@ class ViewVeichle extends VeichleListController {
                 <Grid xs={12}>
                   <div className="card" style={{padding:'2rem'}}>
                     <div className="status">
-                      Pending Approval
+                      {item.attributes.status}
                     </div>
                     <div className="card-content">
 
@@ -146,7 +146,7 @@ class ViewVeichle extends VeichleListController {
               </Grid>
               <Grid container>
                 <Grid xs={12}>
-                  <img src={item.attributes.registration_card_copy.url} width='350'/>
+                  <img src={item?.attributes?.registration_card_copy?.url} width='350'/>
                 </Grid>
               </Grid>
 

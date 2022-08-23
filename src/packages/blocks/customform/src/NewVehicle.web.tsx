@@ -79,6 +79,7 @@ class NewVeichleList extends VeichleListController {
 
 
                             <Field
+                            style={{width:'100%'}}
                               className="formInput"
                               name="full_name"
                               placeholder={"Owner Name"}
@@ -125,6 +126,7 @@ class NewVeichleList extends VeichleListController {
 
 
                             <Field
+                              style={{ width: '100%' }}
                               name="plateNumber"
                               placeholder={"Plate Number"}
                               className="formInput"
@@ -169,6 +171,7 @@ class NewVeichleList extends VeichleListController {
                             className="formInputGrp"
                           >
                             <Field
+                              style={{ width: '100%' }}
                               name="carManufacturer"
                               placeholder={"Car Manufacturer "}
                               className="formInput"
@@ -200,6 +203,7 @@ class NewVeichleList extends VeichleListController {
                             className="formInputGrp"
                           >
                             <Field
+                              style={{ width: '100%' }}
                               name="carModle"
                               placeholder={"Car Model  "}
                               className="formInput"
@@ -231,6 +235,7 @@ class NewVeichleList extends VeichleListController {
                             className="formInputGrp"
                           >
                             <Field
+                              style={{ width: '100%' }}
                               name="carColor"
                               placeholder={"Car Color"}
                               className="formInput"
@@ -259,6 +264,7 @@ class NewVeichleList extends VeichleListController {
                           <Box style={{display:'flex',justifyContent:'center',flexDirection:'column',
                         alignItems:'center',
                         padding:'4rem',
+                        marginTop:'15px',
                             border:'1px dotted #00000036',
                             marginBottom:10,
                             backgroundSize:'cover',
