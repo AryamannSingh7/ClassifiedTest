@@ -126,7 +126,7 @@ class VeichleList extends VeichleListController {
                     </div>
                     <div className="card-content">
 
-                      <img src={Building1} />
+                      <img src={building1.default} />
                       <div className="content">
                         <p className="title">
                           Dubai 60833
@@ -145,7 +145,7 @@ class VeichleList extends VeichleListController {
                     </div>
                     <div className="card-content">
 
-                    <img src={Building1} />
+                    <img src={building1.default} />
                     <div className="content">
                       <p className="title">
                         Dubai 60833
@@ -190,7 +190,7 @@ class VeichleList extends VeichleListController {
             </Grid>
           <Grid item xs={12} md={5} className="auth-cols">
             <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
-              <img src={Building1} className="building-logo" alt="" />
+              <img src={Building1.default} className="building-logo" alt="" />
             </Box>
           </Grid>
             </Grid>

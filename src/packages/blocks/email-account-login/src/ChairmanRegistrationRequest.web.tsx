@@ -84,7 +84,7 @@ class ChairmanRegistrationRequest extends ChairmanAccountLoginController {
             </Grid>
             <Grid item xs={12} md={5} className="auth-cols">
               <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
-                <img src={Building1} className="building-logo" alt="" />
+                <img src={building1.default} className="building-logo" alt="" />
               </Box>
             </Grid>
           </Grid>
@@ -152,7 +152,7 @@ class ChairmanRegistrationRequest extends ChairmanAccountLoginController {
                   </Box>
                 </Box>
                 <Box className="desktop-ui">
-                  
+
                 </Box>
                 <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>
                   <h6 className="bottom-text">POWERED BY</h6>
@@ -162,7 +162,7 @@ class ChairmanRegistrationRequest extends ChairmanAccountLoginController {
             </Grid>
             <Grid item xs={12} md={5} className="auth-cols">
               <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
-                <img src={Building1} className="building-logo" alt="" />
+                <img src={building1.default} className="building-logo" alt="" />
               </Box>
             </Grid>
           </Grid>

@@ -785,6 +785,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
 
     const data = {
       type: "email_account",
+      "user_type": this.props.history.location.state?.data,
       attributes: attrs
     };
 
@@ -830,6 +831,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     this.setState({ selectEmail: attributes.email })
 
     const attrs = {
+
       full_name: attributes.full_name,
       last_name: attributes.lastName,
       email: attributes.email,

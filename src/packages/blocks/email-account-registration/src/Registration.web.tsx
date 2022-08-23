@@ -187,7 +187,7 @@ class Registration extends EmailAccountRegistrationController  {
                         borderRadius="16px"
                         bgcolor="#f9f9f9"
                       >
-                        <Box>
+                        <Box style={{width:'95%'}}>
                           <FormControl variant="outlined" >
                             {/* <InputLabel id="demo-simple-select-outlined-label"><img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AF.svg`} width='15' height='15' />
                           sd</InputLabel> */}
@@ -480,7 +480,7 @@ class Registration extends EmailAccountRegistrationController  {
           </Grid>
         <Grid item xs={12} md={5} className="auth-cols">
           <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
-            <img src={Building1} className="building-logo" alt="" />
+            <img src={building1.default} className="building-logo" alt="" />
           </Box>
         </Grid>
           </Grid>
