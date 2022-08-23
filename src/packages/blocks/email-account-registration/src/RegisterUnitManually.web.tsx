@@ -294,12 +294,13 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
             <Box className="diloag-header">
               <img src={building} className="tenet-logo" alt="" />
               <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
-                sure want to register this unit?
+                Are you sure want to register this unit?
               </DialogTitle>
               <p>Are you sure that you want to register the unit  ({this.state.selectUnit.apartment_name}) of {this.state.selectBuilding.name}?</p>
             </Box>
-            <Box className="dialog-footer desktop-ui">
-              <DialogActions className="customButton">
+            <Box className="dialog-footer desktop-ui" style={{display:'flex',justifyContent:'center'}}>
+              <DialogActions
+               className="customButton">
                 <Button variant="contained" onClick={() => this.createRequestManual(this.state.values)} >
                   Yes Register
                 </Button>
