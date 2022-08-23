@@ -11,6 +11,7 @@ import {Editor, EditorState} from 'draft-js';
 import { addDays } from 'date-fns'
 import Parser from 'html-react-parser';
 // Customizable Area End
+const {baseURL} = require("../../../framework/src/config")
 export const configJSON = require("./config");
 
 export interface Props {
@@ -65,6 +66,13 @@ interface S {
   generatePollReport:Array<Object>;
   isSubmitted:boolean;
   validationErrors:Object;
+  reportPagination:{
+    page:any,
+    total_count:any
+  };
+  reportSearch:any;
+  currentReportPage:any;
+
   // Customizable Area End
 }
 
@@ -103,7 +111,7 @@ export default class PollingController extends BlockComponent<
       txtSavedValue: "A",
       enableField: false,
       // Customizable Area Start
-      Year: '',
+      Year: 'This Week',
       selectedDate: new Date(),
       checked: false,
       editorState: EditorState.createEmpty(),
@@ -176,8 +184,15 @@ export default class PollingController extends BlockComponent<
         description:null,
         question:null,
         option:null,
-      }
+      },
+      reportPagination:{
+        page:1,
+        total_count:""
+      },
+      reportSearch:"",
+      currentReportPage:1,
       // Customizable Area End
+
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
 
@@ -186,13 +201,15 @@ export default class PollingController extends BlockComponent<
     this.handlePollDataSubmit = this.handlePollDataSubmit.bind(this)
     this.handleValidation = this.handleValidation.bind(this)
     this.handlePriviewData = this.handlePriviewData.bind(this)
+    this.handleReportSearch = this.handleReportSearch.bind(this)
+    this.handleReportPagination = this.handleReportPagination.bind(this)
     // Customizable Area End
   }
 
   async componentDidMount() {
     // Customizable Area Start
     
-    this.onGetPolls();
+    this.onGetPolls(this.state.Year);
     this.getTotalPollCount();
     this.getRecentPolls();
     this.apiCallFunction();
@@ -207,7 +224,7 @@ export default class PollingController extends BlockComponent<
       await this.oldPollsData();
       if(window.location.search !== ""){
         await this.getPollPreviewAnswer();
-        await this.getPollGenerateReport()
+        await this.getPollGenerateReport(this.state.currentReportPage)
       }
     }
 
@@ -233,12 +250,12 @@ export default class PollingController extends BlockComponent<
 
     //==============================================
 
-    onGetPolls = async () => {
+    onGetPolls = async (filter:any) => {
       const societyID = localStorage.getItem("society_id")
       this.getAllPolls = await this.apiCall({
         contentType: configJSON.exampleApiContentType,
         method: configJSON.httpGetMethod,
-        endPoint: `/society_managements/${societyID}/bx_block_polling/polls`,
+        endPoint: `/society_managements/${societyID}/bx_block_polling/polls?resolution=${filter}`,
       });
     }
 
@@ -303,14 +320,14 @@ export default class PollingController extends BlockComponent<
 
     //==============================================
 
-    getPollGenerateReport = async () => {
+    getPollGenerateReport = async (page:any,search?:any) => {
       const societyID = localStorage.getItem("society_id")
       const pollID =  window.location.search ? window.location.search.split("=")[1] : null;
       this.setState({pollPreviewAnswerID:pollID})
       this.getGenerateReport = await this.apiCall({
         contentType: configJSON.exampleApiContentType,
         method: configJSON.httpGetMethod,
-        endPoint: `/society_managements/${societyID}/bx_block_polling/polls/${pollID}/generate_report`,
+        endPoint: `/society_managements/${societyID}/bx_block_polling/polls/${pollID}/generate_report?search=${search || ""}&page=${page}`,
       });
     }
     
@@ -417,6 +434,24 @@ export default class PollingController extends BlockComponent<
       }
     }
 
+  dateIsValid(dateStr:any) {
+    const regex = /^\d{4}-\d{2}-\d{2}$/;
+
+    if (dateStr.match(regex) === null) {
+      return false;
+    }
+
+    const date = new Date(dateStr);
+
+    const timestamp = date.getTime();
+
+    if (typeof timestamp !== 'number' || Number.isNaN(timestamp)) {
+      return false;
+    }
+
+    return date.toISOString().startsWith(dateStr);
+  }
+
     handleValidation(){
       let titleValidation = false
       let startDateValidation = false
@@ -442,18 +477,21 @@ export default class PollingController extends BlockComponent<
       }
 
       if(this.state.PollData?.startDate){
-        let today = new Date();
-        today.setHours(0,0,0,0);
-        let startDate = new Date(this.state.PollData?.startDate)
-        // @ts-ignore
         if(this.state.PollData?.startDate !== ""){
-          if (startDate <= today) {
-            this.setState({pollDateError: "You can not use previous date."})
+          if(this.dateIsValid(this.state.PollData.startDate)){
+            let today = new Date();
+            today.setHours(0,0,0,0);
+            let startDate = new Date(this.state.PollData?.startDate)
+            if (startDate <= today) {
+              this.setState({pollDateError: "You can not use previous date."})
+            }else{
+              this.setState({
+                pollDateError:""
+              })
+              startDateValidation = true
+            }
           }else{
-            this.setState({
-              pollDateError:""
-            })
-            startDateValidation = true
+            this.setState({pollDateError: "Invalid start date"})
           }
         }else{
           this.setState({pollDateError: "Start Date can't be empty."})
@@ -463,18 +501,22 @@ export default class PollingController extends BlockComponent<
       }
 
       if(this.state.PollData?.endDate){
-        let today = new Date();
-        today.setHours(0,0,0,0);
-        let endDate = new Date(this.state.PollData?.endDate)
-        console.log("END",endDate,today)
-        if (endDate <= today) {
-          this.setState({pollEndDateError: "You can not use previous date."})
+        if(this.dateIsValid(this.state.PollData.endDate)){
+          let today = new Date();
+          today.setHours(0,0,0,0);
+          let endDate = new Date(this.state.PollData?.endDate)
+          if (endDate <= today) {
+            this.setState({pollEndDateError: "You can not use previous date."})
+          }else{
+            this.setState({
+              pollEndDateError:""
+            })
+            endDateValidation = true
+          }
         }else{
-          this.setState({
-            pollEndDateError:""
-          })
-          endDateValidation = true
+          this.setState({pollEndDateError: "Invalid end date"})
         }
+
       }else{
         this.setState({pollEndDateError: "End Date can't be empty."})
       }
@@ -635,6 +677,7 @@ export default class PollingController extends BlockComponent<
     handleChange = (event:any) => {
       console.log("year", event.target.value)
       this.setState({Year: event.target.value});
+      this.onGetPolls(event.target.value)
     };
   
     
@@ -723,7 +766,11 @@ export default class PollingController extends BlockComponent<
      }
      if(apiRequestCallId === this.getGenerateReport) {
        if(responseJson.hasOwnProperty("report")){
-         this.getGeneratePollReport(responseJson?.report?.data?.attributes?.name_and_option?.data)
+         this.getGeneratePollReport(responseJson?.report?.data)
+         console.log("Details for pagination",responseJson.meta)
+         this.setState({
+            reportPagination:responseJson.meta
+         })
        }
      }
     }
@@ -749,6 +796,12 @@ export default class PollingController extends BlockComponent<
   
   /// Success Block
 
+  handleReportSearch (e:any) {
+    this.setState({
+      reportSearch:e.target.value
+    })
+    this.getPollGenerateReport(this.state.currentReportPage,e.target.value)
+  }
   getCreatePollResponse = async (response: any) => {
     // console.log('Success',response);
     this.setState({PreViewPollData: response})
@@ -790,7 +843,20 @@ export default class PollingController extends BlockComponent<
     this.setState({generatePollReport: response})
     console.log('get generatePollReport Response==>>>',this.state.generatePollReport);
   }
-  
+
+  handleDownload () {
+    const pollID =  window.location.search ? window.location.search.split("=")[1] : null;
+    console.log("THIS IS BASE URL",`${baseURL}/society_managements/4/bx_block_polling/polls/${pollID}/download_report.pdf`)
+      window.open(`${baseURL}/society_managements/4/bx_block_polling/polls/${pollID}/download_report.pdf`,'_blank')
+  }
+
+  handleReportPagination (e:any,newVal:any) {
+    this.setState({
+      currentReportPage:newVal
+    })
+    this.getPollGenerateReport(newVal)
+  }
+
 
   // Error Block
   

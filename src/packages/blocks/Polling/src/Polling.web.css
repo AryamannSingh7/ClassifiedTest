@@ -252,6 +252,26 @@
     padding-left:5px;
     padding-right: 5px;
 }
+
+.yearMain select {
+    height: 20px;
+    width: 80px;
+    padding-left: 15px;
+    border: 1px solid #c7c3c3;
+    border-radius: 5px;
+    padding-right: 10px !important;
+    padding-bottom: 4px;
+}
+
+.yearMain option {
+    height: 20px;
+    width: 80px;
+    padding-left: 15px;
+    border: 1px solid #c7c3c3;
+    border-radius: 5px;
+    padding-right: 10px !important;
+    padding-bottom: 4px;
+}
 .YearMain .yearSelection{
     font-size: 12px;
     font-weight: 600;
@@ -271,6 +291,8 @@
     border-radius: 30px;
     color: #f27200;
     display: initial;
+    min-height: 20px;
+    min-width: 50px;
 }
 .statusCompleted{
     background: #cbe1dc;

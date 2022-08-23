@@ -17,6 +17,8 @@ import Grid from '@material-ui/core/Grid';
 import Select from "@material-ui/core/Select";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import Divider from '@material-ui/core/Divider';
+import MenuItem from '@material-ui/core/MenuItem';
+
 
 import PollingController, {
   Props,
@@ -56,7 +58,7 @@ class PollsallData extends PollingController {
                         </Box>
                         <Box>
                             <FormControl className='YearMain'>
-                                <NativeSelect className='yearSelection' value={this.state.Year} onChange={this.handleChange} >
+                                <NativeSelect className='yearSelection' disableUnderline value={this.state.Year} onChange={this.handleChange} >
                                     <option value="This Week">This Week</option>
                                     <option value="This Month">This Month</option>
                                     <option value="This Year">This Year</option>
@@ -64,7 +66,7 @@ class PollsallData extends PollingController {
                             </FormControl>
                         </Box>
                     </Box>
-                    <Grid container spacing={4} style={{marginTop: 15}} className="link-decoration">
+                    <Grid container spacing={4} style={{marginTop: 15,marginBottom:20}} className="link-decoration">
                         <Grid item sm={6} md={4} xs={12}>
                             <Link href="/CreatePolls">
                                 <Box className="CreatePSsingle">
