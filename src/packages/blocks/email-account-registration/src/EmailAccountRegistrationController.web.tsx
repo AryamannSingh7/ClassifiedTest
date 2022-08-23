@@ -226,6 +226,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             localStorage.setItem('user_email', responseJson.data.attributes.email)
             //@ts-ignore
             //@ts-nocheck
+            this.updateType()
             this.setState({ loading: false, error: null })
 
             //@ts-ignore
@@ -1067,7 +1068,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     this.changeUserTypeApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `account_block/user_type?user_type=${this.state.userType}&id=${localStorage.getItem('res_user_id')}`
+      `account_block/user_type?user_type=${this.props.history.location.state?.data}&id=${localStorage.getItem('res_user_id')}`
     );
 
     requestMessage.addData(
