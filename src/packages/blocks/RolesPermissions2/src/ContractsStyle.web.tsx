@@ -251,8 +251,20 @@ export const ContractsStyleWeb: any = {
     "& .issue-lease-content .select-input-box .select-input": {
       background: "#F9F9F9",
       border: "1px solid #F0F0F0",
-      borderRadius: "25px",
+      borderRadius: "30px",
       marginTop: "18px",
+    },
+    "& .issue-lease-content .select-input-box .input.select-input": {
+      padding: "12px 15px",
+    },
+    "& .issue-lease-content .select-input-box .input.select-input .MuiInputAdornment-positionStart": {
+      marginRight: "36px",
+    },
+    "& .issue-lease-content .select-input-box .input.select-input:before": {
+      border: 0,
+    },
+    "& .issue-lease-content .select-input-box .input.select-input:after": {
+      border: 0,
     },
     "& .issue-lease-content .tenant-info": {
       display: "flex",
@@ -275,7 +287,7 @@ export const ContractsStyleWeb: any = {
       width: "100% !important",
     },
     "& .templates-list h3": {
-      margin: "10px 0",
+      margin: "15px 0",
       fontWeight: "600",
     },
     "& .templates-list .template": {
@@ -343,6 +355,77 @@ export const ContractsStyleWeb: any = {
     },
     "& .contract-info > p span": {
       color: "black",
+    },
+    "& .next-button": {
+      background: "white",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: "10px 0",
+      boxShadow: "none",
+      marginTop: "20px",
+    },
+    "& .next-button button": {
+      minWidth: "300px",
+      background: "#2b6fec",
+      color: "white",
+      padding: "12px 50px",
+      borderRadius: "25px",
+    },
+  },
+  commonPage: {
+    "& .top-bar": {
+      display: "flex",
+      alignItems: "center",
+      fontWeight: "600",
+      cursor: "pointer",
+      marginBottom: "18px",
+      background: "#FFFFFF",
+      padding: "10px 20px",
+      justifyContent: "space-between",
+      borderBottom: "2px solid #F9F9F9",
+    },
+    "& .top-bar .left-icon": {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    "& .top-bar .right-icon img": {
+      marginLeft: "15px",
+    },
+    "& .right-image": {
+      padding: "23px 60px",
+    },
+    "& a": {
+      textDecoration: "none !important",
+    },
+    "& .page-container": {
+      height: "85vh",
+    },
+    "& .page-container .template-box": {
+      minHeight: "100%",
+    },
+    "& .page-container .template-box .template-view": {
+      overflowY: "auto",
+      height: "90%",
+    },
+    "& .upload-button": {
+      position: "sticky",
+      left: 0,
+      right: 0,
+      bottom: 0,
+      background: "white",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: "10px 0",
+      boxShadow: "none",
+    },
+    "& .upload-button button": {
+      background: "#2b6fec",
+      color: "white",
+      padding: "12px 50px",
+      borderRadius: "25px",
     },
   },
 };
