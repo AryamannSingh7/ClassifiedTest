@@ -261,7 +261,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
 
                 </Grid>
               </Grid>
-              <Box className="customButton" >
+              <Box className="customButton" style={{width:'90%',margin:'1rem'}} >
                 <Button variant="contained" type="submit">SEND REGISTRATION REQUEST</Button>
               </Box>
 
