@@ -64,6 +64,7 @@ import {
   WhatsappIcon,
 } from "react-share";
 import moment from "moment";
+import { Formik, Form } from "formik";
 
 class DocumentListChairman extends DocumentListChairmanController {
   constructor(props: Props) {
@@ -388,71 +389,100 @@ class DocumentListChairman extends DocumentListChairmanController {
               <CloseIcon />
             </IconButton>
           </MuiDialogTitle>
-          <DialogContent dividers>
-            <FormControl fullWidth>
-              <input
-                value={this.state.title}
-                onChange={(e: any) => {
-                  this.setState({
-                    ...this.state,
-                    title: e.target.value,
-                  });
-                }}
-                placeholder="Title"
-                className="dialog-input"
-                style={{
-                  marginTop: "0",
-                }}
-              />
-              {this.state.title.length > 100 && (
-                <span className="error">
-                  Maximum length of title should be 100 character
-                </span>
-              )}
-            </FormControl>
-            <FormControl fullWidth>
-              <div
-                className="image-box"
-                onClick={() => {
-                  this.upload.click();
-                }}
-              >
-                <img src={UploadImage} />
-                <Typography variant="body1">Upload File</Typography>
-              </div>
-              <input
-                id="myInput"
-                type="file"
-                ref={(ref: any) => (this.upload = ref)}
-                style={{ display: "none" }}
-                onChange={this.onChangeFile.bind(this)}
-                accept=".pdf"
-              />
-              {this.state.file && (
-                <span className="file-name">{this.state.file.name}</span>
-              )}
-              <span />
-            </FormControl>
-          </DialogContent>
-          <DialogActions className="dialog-button-group">
-            <Button
-              onClick={() => this.handleAddDocumentModal()}
-              className="cancel-button"
-            >
-              Cancel
-            </Button>
-            <Button
-              disabled={
-                this.state.title.length === 0 ||
-                this.state.title.length > 100 ||
-                this.state.file === null
-              }
-              className="add-button"
-              onClick={() => this.createDocument()}
-            >
-              Create
-            </Button>
-          </DialogActions>
+          <Formik
+            initialValues={{
+              title: this.state.title,
+              file: this.state.file,
+            }}
+            validationSchema={this.validationAddForm}
+            onSubmit={(values, { resetForm }) => {
+              this.setState(
+                {
+                  ...this.state,
+                  title: values.title.trim(),
+                  file: values.file,
+                },
+                () => {
+                  this.createDocument();
+                  resetForm();
+                }
+              );
+            }}
+          >
+            {({
+              values,
+              errors,
+              touched,
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              setFieldValue,
+            }) => {
+              return (
+                <Form onSubmit={handleSubmit}>
+                  <DialogContent dividers>
+                    <FormControl fullWidth>
+                      <input
+                        value={values.title}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        name="title"
+                        placeholder="Title"
+                        className="dialog-input"
+                        style={{
+                          marginTop: "0",
+                        }}
+                      />
+                      {errors.title && touched.title && (
+                        <small className="error">{errors.title}</small>
+                      )}
+                    </FormControl>
+                    <FormControl fullWidth>
+                      <div
+                        className="image-box"
+                        onClick={() => {
+                          this.upload.click();
+                        }}
+                      >
+                        <img src={UploadImage} />
+                        <Typography variant="body1">Upload File</Typography>
+                      </div>
+                      <input
+                        id="myInput"
+                        type="file"
+                        ref={(ref: any) => (this.upload = ref)}
+                        style={{ display: "none" }}
+                        accept=".pdf"
+                        onChange={(e: any) => {
+                          setFieldValue("file", e.currentTarget.files[0]);
+                        }}
+                        onBlur={handleBlur}
+                        name="file"
+                      />
+                      {values.file && (
+                        <span className="file-name">{values.file.name}</span>
+                      )}
+                      {errors.file && touched.file && (
+                        <small className="error">{errors.file}</small>
+                      )}
+                      <span />
+                    </FormControl>
+                  </DialogContent>
+                  <DialogActions className="dialog-button-group">
+                    <Button
+                      onClick={() => this.handleAddDocumentModal()}
+                      className="cancel-button"
+                    >
+                      Cancel
+                    </Button>
+                    <Button type="submit" className="add-button">
+                      Create
+                    </Button>
+                  </DialogActions>
+                </Form>
+              );
+            }}
+          </Formik>
         </Dialog>
 
         <Dialog
@@ -582,6 +612,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                 !this.state.selectedMeeting ||
                 this.state.title.length === 0 ||
                 this.state.title.length > 100 ||
+                this.isInputOnlyWhiteSpace(this.state.title) ||
                 this.state.file === null
               }
             >

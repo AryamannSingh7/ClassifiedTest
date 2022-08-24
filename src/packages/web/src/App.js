@@ -11,7 +11,7 @@ import TopNav from "../../components/src/TopNav";
 
 import InfoPage from '../../blocks/info-page/src/InfoPageBlock'
 import AlertBlock from '../../blocks/alert/src/AlertBlock.web'
-import RolesPermissions2 from "../../blocks/RolesPermissions2/src/RolesPermissions2";
+// import RolesPermissions2 from "../../blocks/RolesPermissions2/src/RolesPermissions2";
 import Chatbot6 from "../../blocks/Chatbot6/src/Chatbot6";
 import EmailNotifications from "../../blocks/EmailNotifications/src/EmailNotifications";
 import BroadcastMessage from "../../blocks/BroadcastMessage/src/BroadcastMessage";
@@ -163,6 +163,13 @@ import ViewBuildingDocument from "../../blocks/Notes/src/ViewBuildingDocument.we
 import ContractsList from "../../blocks/RolesPermissions2/src/ContractsList.web";
 import ContractDetail from "../../blocks/RolesPermissions2/src/ContractDetail.web";
 import TemplateDetail from "../../blocks/RolesPermissions2/src/TemplateDetail.web";
+import IssueContract from "../../blocks/RolesPermissions2/src/IssueContract.web";
+import IssueLease from "../../blocks/RolesPermissions2/src/IssueLease.web";
+import SelectedTemplate from "../../blocks/RolesPermissions2/src/SelectedTemplate.web";
+import LeaseForm from "../../blocks/RolesPermissions2/src/LeaseForm.web";
+import ChangedSelectedTemplate from "../../blocks/RolesPermissions2/src/ChangedSelectedTemplate.web";
+import ReviewTemplate from "../../blocks/RolesPermissions2/src/ReviewTemplate.web";
+import AddCondition from "../../blocks/RolesPermissions2/src/AddCondition.web";
 
 const routeMap = {
   //done
@@ -335,10 +342,10 @@ const routeMap = {
     path: '/IncidentManagementDetail',
     exact: true
   },
-  RolesPermissions2: {
-    component: RolesPermissions2,
-    path: '/RolesPermissions2'
-  },
+  // RolesPermissions2: {
+  //   component: RolesPermissions2,
+  //   path: '/RolesPermissions2'
+  // },
   Chatbot6: {
     component: Chatbot6,
     path: '/Chatbot6'
@@ -527,6 +534,56 @@ const routeMap = {
     path: '/Template/:id',
     exact: true
   },
+  IssueContract: {
+    component: IssueContract,
+    path: '/IssueContract',
+    exact: true
+  },
+  IssueLease: {
+    component: IssueLease,
+    path: '/IssueLease',
+    exact: true
+  },
+  SelectedTemplate: {
+    component: SelectedTemplate,
+    path: '/IssueLease/:id',
+    exact: true
+  },
+  SelectedTemplateTwo: {
+    component: SelectedTemplate,
+    path: '/IssueContract/:id',
+    exact: true
+  },
+  LeaseFormIssueLease: {
+    component: LeaseForm,
+    path: '/IssueLease/:id/LeaseForm',
+    exact: true
+  },
+  LeaseFormIssueContract: {
+    component: LeaseForm,
+    path: '/IssueContract/:id/LeaseForm',
+    exact: true
+  },
+  ChangedSelectedTemplate: {
+    component: ChangedSelectedTemplate,
+    path: '/IssueContract/:id/LeaseForm/Template',
+    exact: true
+  },
+  AddCondition: {
+    component: AddCondition,
+    path: '/IssueContract/:id/LeaseForm/Template/AddCondition',
+    exact: true
+  },
+  ReviewTemplate: {
+    component: ReviewTemplate,
+    path: '/IssueContract/:id/LeaseForm/Template/Review',
+    exact: true
+  },
+  // LeaseForm: {
+  //   component: LeaseForm,
+  //   path: '/LeaseForm',
+  //   exact: true
+  // },
   Customisableusersubscriptions: {
     component: Customisableusersubscriptions,
     path: '/Customisableusersubscriptions'
@@ -746,10 +803,10 @@ const routeMap = {
     component: ForgotPasswordOTP,
     path: '/ForgotPasswordOTP'
   },
-  RolesPermissions2: {
-    component: RolesPermissions2,
-    path: '/RolesPermissions2'
-  },
+  // RolesPermissions2: {
+  //   component: RolesPermissions2,
+  //   path: '/RolesPermissions2'
+  // },
   Chatbot6: {
     component: Chatbot6,
     path: '/Chatbot6'
