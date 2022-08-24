@@ -151,7 +151,7 @@ export default function IncidentChatDrawer() {
           </Box>
           <Box className='main-content'>
             <Box className='receive-row'>
-              <img src={building1.default} className="profile-img" alt="Profile Img" />
+              <img src={Building1.default} className="profile-img" alt="Profile Img" />
               <Box className='receive-block'>
                 <Box className='receive-box'>
                   Hi Ali
@@ -180,7 +180,7 @@ export default function IncidentChatDrawer() {
               </Typography>
             </Box>
             <Box className='receive-row'>
-              <img src={building1.default} className="profile-img" alt="Profile Img" />
+              <img src={Building1.default} className="profile-img" alt="Profile Img" />
               <Box className='receive-block'>
                 <Box className='receive-box'>
                   Hi Ali
@@ -204,7 +204,7 @@ export default function IncidentChatDrawer() {
               </Box>
             </Box>
             <Box className='receive-row'>
-              <img src={building1.default} className="profile-img" alt="Profile Img" />
+              <img src={Building1.default} className="profile-img" alt="Profile Img" />
               <Box className='receive-block'>
                 <Box className='receive-box'>
                   Hi Ali
@@ -228,7 +228,7 @@ export default function IncidentChatDrawer() {
               </Box>
             </Box>
             <Box className='receive-row'>
-              <img src={building1.default} className="profile-img" alt="Profile Img" />
+              <img src={Building1.default} className="profile-img" alt="Profile Img" />
               <Box className='receive-block'>
                 <Box className='receive-box'>
                   Hi Ali
@@ -252,7 +252,7 @@ export default function IncidentChatDrawer() {
               </Box>
             </Box>
             <Box className='receive-row'>
-              <img src={building1.default} className="profile-img" alt="Profile Img" />
+              <img src={Building1.default} className="profile-img" alt="Profile Img" />
               <Box className='receive-block'>
                 <Box className='receive-box'>
                   Hi Ali

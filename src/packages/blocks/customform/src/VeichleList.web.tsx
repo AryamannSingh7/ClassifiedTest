@@ -126,7 +126,7 @@ class VeichleList extends VeichleListController {
                     </div>
                     <div className="card-content">
 
-                      <img src={building1.default} />
+                      <img src={Building1.default} />
                       <div className="content">
                         <p className="title">
                           Dubai 60833
@@ -145,7 +145,7 @@ class VeichleList extends VeichleListController {
                     </div>
                     <div className="card-content">
 
-                    <img src={building1.default} />
+                    <img src={Building1.default} />
                     <div className="content">
                       <p className="title">
                         Dubai 60833

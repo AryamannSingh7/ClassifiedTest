@@ -185,12 +185,12 @@ class IncidentDetails extends IncidentController {
 
                                 {/* <Box className="video-img" onClick={() => { this.setState({ showDialog: true }) }}>
                                   <PlayCircleOutlineIcon className="play-icon" />
-                                  <img src={building1.default} className="card-img" alt="card-img" />
+                                  <img src={Building1.default} className="card-img" alt="card-img" />
                                   <Box className="img-layer"></Box>
                                 </Box>
                                 <Box className="video-img" onClick={() => { this.setState({ showDialog: true }) }}>
                                   <PlayCircleOutlineIcon className="play-icon" />
-                                  <img src={building1.default} className="card-img" alt="card-img" />
+                                  <img src={Building1.default} className="card-img" alt="card-img" />
                                   <Box className="img-layer"></Box>
                                 </Box> */}
                               </CardActions>
@@ -259,7 +259,7 @@ class IncidentDetails extends IncidentController {
             {/* desktop footer block */}
             <Grid item xs={12} md={5} className="auth-cols">
               <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
-                <img src={building1.default} className="building-logo" alt="" />
+                <img src={Building1.default} className="building-logo" alt="" />
               </Box>
             </Grid>
           </Grid>
