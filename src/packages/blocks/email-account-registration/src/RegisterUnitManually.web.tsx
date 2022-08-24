@@ -98,11 +98,11 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
 </Grid>
         <Formik
           initialValues={{
-            selectCountry: '',
-            selectCity: "",
-            selectComplex: "",
-            selectBuilding: "",
-            selectUnit: "",
+            selectCountry: ' ',
+            selectCity: " ",
+            selectComplex: " ",
+            selectBuilding: " ",
+            selectUnit: " ",
           }}
           validationSchema={this.addressSchemaManual()}
 
@@ -120,7 +120,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                       <img src={country} />
                       Country</InputLabel>
                     <Select
-
+                            value={values.selectCountry}
                       name='selectCountry'
                       labelId="demo-simple-select-outlined-label"
                       id="demo-simple-select-outlined"
@@ -129,8 +129,8 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                       style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#b5b5b5' }}
                     >
 
-                      <MenuItem value="">
-                        <em>None</em>
+                      <MenuItem value=" ">
+                              <em>Country</em>
                       </MenuItem>
                       {this.state.allContries && this.state.allContries.map((item) =>
                         <MenuItem key={item} value={item}>{item}</MenuItem>
@@ -152,14 +152,15 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                       City</InputLabel>
                     <Select
                       name='selectCity'
+                            value={values.selectCity}
                       labelId="demo-simple-select-outlined-label"
                       id="demo-simple-select-outlined"
                       onChange={(e) => { this.handleChange(e); setFieldValue("selectCity", e.target.value) }}
                       label="City"
                       style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#b5b5b5' }}
                     >
-                      <MenuItem value="">
-                        <em>None</em>
+                      <MenuItem value=" ">
+                              <em>City</em>
                       </MenuItem>
                       {this.state.allCity && this.state.allCity.map((item) =>
                         <MenuItem key={item} value={item}>{item}</MenuItem>
@@ -197,14 +198,15 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                       Building</InputLabel>
                     <Select
                       name='selectBuilding'
+                            value={values.selectBuilding}
                       labelId="demo-simple-select-outlined-label"
                       id="demo-simple-select-outlined"
                       onChange={(e) => { this.handleChange(e); setFieldValue("selectBuilding", e.target.value) }}
                       label="Building"
                       style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#b5b5b5' }}
                     >
-                      <MenuItem value="">
-                        <em>None</em>
+                      <MenuItem value=" ">
+                              <em>Building</em>
                       </MenuItem>
                       {this.state.allBuilding && this.state.allBuilding.map((item) =>
                         <MenuItem key={item.id} value={item}>{item.name}</MenuItem>
@@ -243,6 +245,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                     </Select> */}
                     <Field
                       name="selectUnit"
+                            value={values.selectUnit}
                       placeholder={"Enter Unit"}
                       className="formInput1"
                       style={{border:0}}
@@ -258,7 +261,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
 
                 </Grid>
               </Grid>
-              <Box className="customButton" >
+              <Box className="customButton" style={{width:'90%',margin:'1rem'}} >
                 <Button variant="contained" type="submit">SEND REGISTRATION REQUEST</Button>
               </Box>
 

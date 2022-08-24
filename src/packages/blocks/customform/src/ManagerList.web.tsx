@@ -211,7 +211,7 @@ class ManagerList extends ManagerController {
                                       <div>
 
                                         <div style={{ display: 'flex', fontWeight: 500 }}>
-                                          <img src={userBlue} width='25' height='25' style={{ marginRight: 10 }} />
+                                          <img src={userBlue.default} width='25' height='25' style={{ marginRight: 10 }} />
                                           <p>   {item.attributes.owner_name}
 
 

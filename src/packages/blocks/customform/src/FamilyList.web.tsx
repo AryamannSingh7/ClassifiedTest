@@ -250,7 +250,7 @@ class FamilyList extends FamilyController {
               <p style={{ fontWeight: 600, fontSize: '1.25rem', textAlign: 'center' }}>
                 Delete registered
                 <br />
-                Family
+                Family Member
               </p>
             </Grid>
           </Grid>

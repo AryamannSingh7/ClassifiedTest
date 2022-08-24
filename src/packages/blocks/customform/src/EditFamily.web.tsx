@@ -357,7 +357,7 @@ class EditFamily extends FamilyController {
                               type="submit"
 
                             >
-                              Update member to my family
+                            Save Details
                             </Button>
 
                           </Box>
