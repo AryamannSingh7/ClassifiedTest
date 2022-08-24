@@ -282,7 +282,7 @@ export default class PersonalDocumentListController extends BlockComponent<
   // Create Personal Document API
   createPersonalDocument = () => {
     var data = new FormData();
-    data.append("title", this.state.title);
+    data.append("title", this.state.title.trim());
     data.append("images", this.state.file);
 
     if (this.state.documentType === "rent-contract") {
@@ -320,6 +320,15 @@ export default class PersonalDocumentListController extends BlockComponent<
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
+  };
+
+  isInputOnlyWhiteSpace = (text: string) => {
+    const regEx = /\S/;
+    if (!regEx.test(text)) {
+      return true;
+    } else {
+      return false;
+    }
   };
 
   // Handle State
