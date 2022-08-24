@@ -167,6 +167,9 @@ import IssueContract from "../../blocks/RolesPermissions2/src/IssueContract.web"
 import IssueLease from "../../blocks/RolesPermissions2/src/IssueLease.web";
 import SelectedTemplate from "../../blocks/RolesPermissions2/src/SelectedTemplate.web";
 import LeaseForm from "../../blocks/RolesPermissions2/src/LeaseForm.web";
+import ChangedSelectedTemplate from "../../blocks/RolesPermissions2/src/ChangedSelectedTemplate.web";
+import ReviewTemplate from "../../blocks/RolesPermissions2/src/ReviewTemplate.web";
+import AddCondition from "../../blocks/RolesPermissions2/src/AddCondition.web";
 
 const routeMap = {
   //done
@@ -559,6 +562,21 @@ const routeMap = {
   LeaseFormIssueContract: {
     component: LeaseForm,
     path: '/IssueContract/:id/LeaseForm',
+    exact: true
+  },
+  ChangedSelectedTemplate: {
+    component: ChangedSelectedTemplate,
+    path: '/IssueContract/:id/LeaseForm/Template',
+    exact: true
+  },
+  AddCondition: {
+    component: AddCondition,
+    path: '/IssueContract/:id/LeaseForm/Template/AddCondition',
+    exact: true
+  },
+  ReviewTemplate: {
+    component: ReviewTemplate,
+    path: '/IssueContract/:id/LeaseForm/Template/Review',
     exact: true
   },
   // LeaseForm: {

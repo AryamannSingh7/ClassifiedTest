@@ -6,7 +6,7 @@ import {
   Button,
   Container,
   IconButton,
-  Link,
+  // Link,
   withStyles,
   Box,
   Grid,
@@ -20,6 +20,7 @@ import {
   InputAdornment,
   Input,
 } from "@material-ui/core";
+import { Link } from "react-router-dom";
 import { Menu } from "@szhsin/react-menu";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
@@ -56,7 +57,7 @@ class LeaseForm extends LeaseFormController {
               <Box>
                 <Box display={{ xs: "flex", md: "flex" }} className="top-bar">
                   <div className="left-icon">
-                    <Link href="/IssueContract/1">
+                    <Link to="/IssueContract/1/LeaseForm">
                       <IconButton>
                         <KeyboardBackspaceIcon />
                       </IconButton>
@@ -254,7 +255,7 @@ class LeaseForm extends LeaseFormController {
                       </Select>
 
                       <div className="next-button">
-                        <Link to="/">
+                        <Link to="/IssueContract/1/LeaseForm/Template">
                           <Button>Next</Button>
                         </Link>
                       </div>
