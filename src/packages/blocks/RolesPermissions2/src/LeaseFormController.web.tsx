@@ -28,7 +28,7 @@ interface SS {
   id: any;
 }
 
-export default class CommonCreateController extends BlockComponent<
+export default class LeaseFormController extends BlockComponent<
   Props,
   S,
   SS

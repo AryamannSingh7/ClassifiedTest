@@ -83,7 +83,7 @@ class SelectedTemplate extends CommonCreateController {
                       <br />
                     </div>
                     <div className="upload-button">
-                      <Link to="/LeaseForm">
+                      <Link to="/IssueContract/1/LeaseForm">
                         <Button>Use This Template</Button>
                       </Link>
                     </div>

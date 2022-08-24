@@ -11,7 +11,7 @@ import TopNav from "../../components/src/TopNav";
 
 import InfoPage from '../../blocks/info-page/src/InfoPageBlock'
 import AlertBlock from '../../blocks/alert/src/AlertBlock.web'
-import RolesPermissions2 from "../../blocks/RolesPermissions2/src/RolesPermissions2";
+// import RolesPermissions2 from "../../blocks/RolesPermissions2/src/RolesPermissions2";
 import Chatbot6 from "../../blocks/Chatbot6/src/Chatbot6";
 import EmailNotifications from "../../blocks/EmailNotifications/src/EmailNotifications";
 import BroadcastMessage from "../../blocks/BroadcastMessage/src/BroadcastMessage";
@@ -339,10 +339,10 @@ const routeMap = {
     path: '/IncidentManagementDetail',
     exact: true
   },
-  RolesPermissions2: {
-    component: RolesPermissions2,
-    path: '/RolesPermissions2'
-  },
+  // RolesPermissions2: {
+  //   component: RolesPermissions2,
+  //   path: '/RolesPermissions2'
+  // },
   Chatbot6: {
     component: Chatbot6,
     path: '/Chatbot6'
@@ -551,11 +551,21 @@ const routeMap = {
     path: '/IssueContract/:id',
     exact: true
   },
-  LeaseForm: {
+  LeaseFormIssueLease: {
     component: LeaseForm,
-    path: '/LeaseForm',
+    path: '/IssueLease/:id/LeaseForm',
     exact: true
   },
+  LeaseFormIssueContract: {
+    component: LeaseForm,
+    path: '/IssueContract/:id/LeaseForm',
+    exact: true
+  },
+  // LeaseForm: {
+  //   component: LeaseForm,
+  //   path: '/LeaseForm',
+  //   exact: true
+  // },
   Customisableusersubscriptions: {
     component: Customisableusersubscriptions,
     path: '/Customisableusersubscriptions'
@@ -775,10 +785,10 @@ const routeMap = {
     component: ForgotPasswordOTP,
     path: '/ForgotPasswordOTP'
   },
-  RolesPermissions2: {
-    component: RolesPermissions2,
-    path: '/RolesPermissions2'
-  },
+  // RolesPermissions2: {
+  //   component: RolesPermissions2,
+  //   path: '/RolesPermissions2'
+  // },
   Chatbot6: {
     component: Chatbot6,
     path: '/Chatbot6'

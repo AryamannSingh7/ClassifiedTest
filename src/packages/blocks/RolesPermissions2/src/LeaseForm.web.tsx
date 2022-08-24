@@ -1,7 +1,7 @@
 // Customizable Area Start
 //@ts-nocheck
 //@ts-ignore
-import React from "react";
+import React, { useRef } from "react";
 import {
   Button,
   Container,
@@ -25,7 +25,6 @@ import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import LanguageIcon from "@material-ui/icons/Language";
-import IssueContractController, { Props } from "./IssueContractController.web";
 import { ContractsStyleWeb } from "./ContractsStyle.web";
 
 import BuildingLogo from "../assets/building.png";
@@ -36,8 +35,9 @@ import TemplateIcon from "../assets/template.png";
 import EarthIcon from "../assets/earth.png";
 import BuildingIcon from "../assets/select-building.png";
 import CubeIcon from "../assets/cube.png";
+import LeaseFormController, { Props } from "./LeaseFormController.web";
 
-class LeaseForm extends IssueContractController {
+class LeaseForm extends LeaseFormController {
   constructor(props: Props) {
     super(props);
   }
@@ -56,7 +56,7 @@ class LeaseForm extends IssueContractController {
               <Box>
                 <Box display={{ xs: "flex", md: "flex" }} className="top-bar">
                   <div className="left-icon">
-                    <Link href="/Contracts">
+                    <Link href="/IssueContract/1">
                       <IconButton>
                         <KeyboardBackspaceIcon />
                       </IconButton>
@@ -216,7 +216,7 @@ class LeaseForm extends IssueContractController {
                         fullWidth
                         className="select-input input"
                         placeholder="Start Contract Date"
-                        type="date"
+                        type="text"
                         startAdornment={
                           <InputAdornment position="start">
                             <img src={EarthIcon} alt="" />
