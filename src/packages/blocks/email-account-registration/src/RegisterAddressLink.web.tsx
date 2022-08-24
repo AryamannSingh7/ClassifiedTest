@@ -68,10 +68,10 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
         <Formik
           initialValues={{
             selectCountry: ' ',
-            selectCity: "",
-            selectComplex: "",
-            selectBuilding: "",
-            selectUnit: "",
+            selectCity: " ",
+            selectComplex: " ",
+            selectBuilding: " ",
+            selectUnit: " ",
           }}
           validationSchema={this.addressSchema()}
           validateOnMount={true}
@@ -89,7 +89,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                       <img src={country} />
                       Country</InputLabel>
                     <Select
-
+                      value={values.selectCountry}
                       name='selectCountry'
                       labelId="demo-simple-select-outlined-label"
                       id="demo-simple-select-outlined"
@@ -104,7 +104,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                   <ListItemText primary="Inbox" />
                   </MenuItem> */}
                       <MenuItem value=" ">
-                        <em>None</em>
+                              <em>Country</em>
                       </MenuItem>
                       {this.state.allContries && this.state.allContries.map((item) =>
                         <MenuItem key={item} value={item}>{item}</MenuItem>
@@ -126,14 +126,15 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                       City</InputLabel>
                     <Select
                       name='selectCity'
+                            value={values.selectCity}
                       labelId="demo-simple-select-outlined-label"
                       id="demo-simple-select-outlined"
                       onChange={(e) => { this.handleChange(e); setFieldValue("selectCity", e.target.value) }}
                       label="City"
                       style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#b5b5b5' }}
                     >
-                      <MenuItem value="">
-                        <em>None</em>
+                      <MenuItem value=" ">
+                              <em>City</em>
                       </MenuItem>
                       {this.state.allCity && this.state.allCity.map((item) =>
                         <MenuItem key={item} value={item}>{item}</MenuItem>
@@ -153,7 +154,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                     className="formInputGrp"
                   >
 
-                    <ReactSelect options={this.state.allComplex} className="formInput1 ReactSelect" style={{ border: 'none' }} placeholder="Search Complex" onChange={(e) => { this.handleInputChangeCOm(e); setFieldValue("selectComplex", e.value) }} />
+                    <ReactSelect options={this.state.allComplex} className="formInput2 ReactSelect" style={{ border: 'none' }} placeholder="Search Complex" onChange={(e) => { this.handleInputChangeCOm(e); setFieldValue("selectComplex", e.value) }} />
 
                     <span className="frmLeftIcons" style={{ top: '1.5rem' }}>
                       <img src={search} />
@@ -171,14 +172,15 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                       Building</InputLabel>
                     <Select
                       name='selectBuilding'
+                            value={values.selectBuilding}
                       labelId="demo-simple-select-outlined-label"
                       id="demo-simple-select-outlined"
                       onChange={(e) => { this.handleChange(e); setFieldValue("selectBuilding", e.target.value) }}
                       label="Building"
                       style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#b5b5b5' }}
                     >
-                      <MenuItem value="">
-                        <em>None</em>
+                      <MenuItem value=" ">
+                              <em>Building</em>
                       </MenuItem>
                       {this.state.allBuilding && this.state.allBuilding.map((item) =>
                         <MenuItem key={item.id} value={item}>{item.name}</MenuItem>
@@ -199,14 +201,15 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                       <img src={unit} />Unit</InputLabel>
                     <Select
                       name='selectUnit'
+                            value={values.selectUnit}
                       labelId="demo-simple-select-outlined-label"
                       id="demo-simple-select-outlined"
                       onChange={(e) => { this.handleChange(e); setFieldValue("selectUnit", e.target.value) }}
                       label="Unit"
                       style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#b5b5b5' }}
                     >
-                      <MenuItem value="">
-                        <em>None</em>
+                      <MenuItem value=" ">
+                              <em>Unit</em>
                       </MenuItem>
                       {this.state.allUnit && this.state.allUnit.map((item) =>
                         <MenuItem key={item.id} value={item}>{item.apartment_name}</MenuItem>
@@ -220,8 +223,8 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
 
                 </Grid>
               </Grid>
-              <Box className="customButton">
-                <Button variant="contained" type="submit">next</Button>
+                    <Box className="customButton" style={{ width: '90%', margin: '1rem' }}>
+                      <Button variant="contained" type="submit">SEND REGISTRATION REQUEST</Button>
               </Box>
 
             </Form>
@@ -231,7 +234,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
               </Grid>
           <Grid item xs={12} md={5} className="auth-cols">
             <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
-              <img src={Building1} className="building-logo" alt="" />
+              <img src={Building1.default} className="building-logo" alt="" />
             </Box>
           </Grid>
               </Grid>

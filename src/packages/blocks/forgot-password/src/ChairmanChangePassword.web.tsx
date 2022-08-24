@@ -70,7 +70,7 @@ class ChairmanChangePassword extends ChairmanForgotPasswordController {
                     onSubmit={(values) => {
                       console.log("valus=========>", values)
                       this.changePassword(values)
-                      // same shape as initial values  
+                      // same shape as initial values
                     }}
                   >
                     {({ values, touched, errors, isValid, setFieldValue, handleChange }) => (
@@ -125,7 +125,7 @@ class ChairmanChangePassword extends ChairmanForgotPasswordController {
             </Grid>
             <Grid item xs={12} md={5} className="auth-cols">
               <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
-                <img src={Building1} className="building-logo" alt="" />
+                <img src={Building1.default} className="building-logo" alt="" />
               </Box>
             </Grid>
           </Grid>

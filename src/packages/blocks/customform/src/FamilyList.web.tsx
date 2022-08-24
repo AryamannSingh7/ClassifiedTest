@@ -157,7 +157,7 @@ class FamilyList extends FamilyController {
                     </div>
                     <div className="card-content">
 
-                      <img src={Building1} />
+                      <img src={Building1.default} />
                       <div className="content">
                         <p className="title">
                           Dubai 60833
@@ -176,7 +176,7 @@ class FamilyList extends FamilyController {
                     </div>
                     <div className="card-content">
 
-                    <img src={Building1} />
+                    <img src={Building1.default} />
                     <div className="content">
                       <p className="title">
                         Dubai 60833
@@ -221,7 +221,7 @@ class FamilyList extends FamilyController {
           </Grid>
           <Grid item xs={12} md={5} className="auth-cols">
             <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
-              <img src={Building1} className="building-logo" alt="" />
+              <img src={Building1.default} className="building-logo" alt="" />
             </Box>
           </Grid>
         </Grid>
@@ -250,7 +250,7 @@ class FamilyList extends FamilyController {
               <p style={{ fontWeight: 600, fontSize: '1.25rem', textAlign: 'center' }}>
                 Delete registered
                 <br />
-                Family
+                Family Member
               </p>
             </Grid>
           </Grid>

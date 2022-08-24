@@ -52,7 +52,7 @@ class ChairmanForgotPasswordOTP extends ChairmanForgotPasswordController {
             <Button variant="contained" onClick={() => { this.verifyOtp() }}>next</Button>
           </Box>
 
-          {/* 
+          {/*
           <Formik
           initialValues={{
             input1:"1",
@@ -66,7 +66,7 @@ class ChairmanForgotPasswordOTP extends ChairmanForgotPasswordController {
           onSubmit={(values) => {
             console.log("valus=========>",values)
            this.verifyOtp(values)
-            // same shape as initial values  
+            // same shape as initial values
           }}
         >
           {({ values, touched, errors, isValid, setFieldValue,handleChange }) => (
@@ -85,7 +85,7 @@ class ChairmanForgotPasswordOTP extends ChairmanForgotPasswordController {
           </Box>
             </Form>
           )}
-        </Formik>   
+        </Formik>
         </Box> */}
         <Box className="login-wrapper">
           <Grid container spacing={2} className="auth-container">
@@ -147,7 +147,7 @@ class ChairmanForgotPasswordOTP extends ChairmanForgotPasswordController {
             </Grid>
             <Grid item xs={12} md={5} className="auth-cols">
               <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
-                <img src={Building1} className="building-logo" alt="" />
+                <img src={Building1.default} className="building-logo" alt="" />
               </Box>
             </Grid>
           </Grid>

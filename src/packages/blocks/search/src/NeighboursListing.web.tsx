@@ -252,7 +252,7 @@ class NeighboursListing extends NeighboursController {
             </Grid>
             <Grid item xs={12} md={5} className="auth-cols">
               <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
-                <img src={Building1} className="building-logo" alt="" />
+                <img src={Building1.default} className="building-logo" alt="" />
               </Box>
             </Grid>
           </Grid>
