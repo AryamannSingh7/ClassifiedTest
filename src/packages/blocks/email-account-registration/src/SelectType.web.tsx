@@ -155,16 +155,16 @@ class SelectType extends EmailAccountRegistrationController {
                     <img src={manager} />
 
                     <Box className="middle-section">
-                      <label for="radCreateMode2" className={"title" + (this.state.userType == 'Property Manager' ? ' active-type' : '')}>
+                      <label for="radCreateMode3" className={"title" + (this.state.userType == 'Property Manager' ? ' active-type' : '')}>
                         Property Manager
                       </label>
                       <br />
-                      <label for="radCreateMode2" className="para">
+                      <label for="radCreateMode3" className="para">
                         I am managing a property on behalf of an owner
                       </label>
                     </Box>
 
-                    <input type="radio" id="radCreateMode2" name="type" value='Property Manager' onChange={(e) => this.changeType(e.target.value)} />
+                    <input type="radio" id="radCreateMode3" name="type" value='Property Manager' onChange={(e) => this.changeType(e.target.value)} />
 
                   </Box>
           </Grid>

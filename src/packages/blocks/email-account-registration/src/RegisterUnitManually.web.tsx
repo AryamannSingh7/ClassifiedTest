@@ -130,7 +130,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                     >
 
                       <MenuItem value=" ">
-                              <em>Country</em>
+                              Select Country
                       </MenuItem>
                       {this.state.allContries && this.state.allContries.map((item) =>
                         <MenuItem key={item} value={item}>{item}</MenuItem>
@@ -160,7 +160,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                       style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#b5b5b5' }}
                     >
                       <MenuItem value=" ">
-                              <em>City</em>
+                              Select city
                       </MenuItem>
                       {this.state.allCity && this.state.allCity.map((item) =>
                         <MenuItem key={item} value={item}>{item}</MenuItem>
@@ -206,7 +206,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                       style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#b5b5b5' }}
                     >
                       <MenuItem value=" ">
-                              <em>Building</em>
+                              Select building
                       </MenuItem>
                       {this.state.allBuilding && this.state.allBuilding.map((item) =>
                         <MenuItem key={item.id} value={item}>{item.name}</MenuItem>
