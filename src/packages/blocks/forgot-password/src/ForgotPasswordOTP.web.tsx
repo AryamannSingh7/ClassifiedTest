@@ -39,7 +39,7 @@ class ForgotPasswordOTP extends ForgotPasswordController {
                 <Box className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
                 <Box className="logo-block common-top-padding" display={{ xs: 'none', md: 'flex' }}>
                   <Link href="/EmailAccountLogin">
-                    <img src={Building_Logo} className="head-logo" alt="" />
+                    <img src={Building_Logo.default} className="head-logo" alt="" />
                     <h4>Building Name</h4>
                   </Link>
                 </Box>
@@ -81,7 +81,7 @@ class ForgotPasswordOTP extends ForgotPasswordController {
                 {/* desktop footer block */}
                 <Box className="footer-main-block bottomBlock">
                   <h6 className="bottom-text">POWERED BY</h6>
-                  <img src={Tenant_Logo} className="tenant-logo" alt="" />
+                  <img src={Tenant_Logo.default} className="tenant-logo" alt="" />
                 </Box>
               </Box>
             </Grid>

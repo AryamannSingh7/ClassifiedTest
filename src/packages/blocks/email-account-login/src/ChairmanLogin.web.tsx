@@ -197,12 +197,7 @@ class ChairmanLogin extends ChairmanAccountLoginController {
                       </Form>
                     )}
                   </Formik>
-                </Box>
-                {/* mobile footer block */}
-                <Box className="bottomBlock link-block">
-                  <Link href="#" className="link">Don't have an account ? </Link>
-                  <Link href="#" className="link"> <span> register</span></Link>
-                </Box>
+                </Box>               
                 {/* desktop footer block */}
                 <Box className="footer-main-block bottomBlock">
                   <h6 className="bottom-text">POWERED BY</h6>

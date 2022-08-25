@@ -46,6 +46,11 @@
       & .customButton {
         position: sticky;
         bottom: 0;
+        z-index: 9;
+        &.preview-submit
+        {
+          position: unset;
+        }
         & .MuiButton-label {
           white-space: nowrap;
           font-size: 12px;
@@ -80,6 +85,6 @@
     }
   }
   & .customButton {
-    margin-bottom: 20px;
+    padding-bottom: 20px;
   }
 }
