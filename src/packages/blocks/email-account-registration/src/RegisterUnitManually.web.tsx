@@ -248,14 +248,14 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                             value={values.selectUnit}
                       placeholder={"Enter Unit"}
                       className="formInput1"
-                      style={{border:0}}
+                      style={{border:0,paddingLeft:'15px'}}
                             value={this.state.selectUnit}
                             onChange={(e) => { this.handleChange2(e); setFieldValue("selectUnit", e.target.value) }}
                     />
-                    <span className="frmLeftIcons1">
+                    {/* <span className="frmLeftIcons1">
 
                       <img src={unit} />
-                    </span>
+                    </span> */}
                   </FormControl>
                   <ErrorMessage className="text-error" component="Typography" name="selectUnit" />
 
