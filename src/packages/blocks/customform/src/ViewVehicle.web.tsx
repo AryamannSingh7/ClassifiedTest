@@ -216,7 +216,7 @@ class ViewVeichle extends VeichleListController {
           <Grid container>
             <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
               <p style={{ fontWeight: 400, fontSize: '0.8rem', textAlign: 'center' }}>
-                Are you should you want to delete this registered vehicle from this App? Once deleted you may not be able to enter the building or complex with this vehicle
+                Please select the building you would like to unregister the vehicle from.Upon doing that you may not be able to enter the building with this vehicle
               </p>
             </Grid>
           </Grid>

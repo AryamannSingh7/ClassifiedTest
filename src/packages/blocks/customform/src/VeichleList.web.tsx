@@ -282,7 +282,7 @@ return <>
 
       <p style={{ fontWeight: 600, fontSize: '1.25rem' }}>
         No Vehicle
-        <br />
+
         Registered
       </p>
     </Grid>
