@@ -215,6 +215,17 @@
 
 .szh-menu-container ul li {
   padding: 8px 32px;
+  display: block;
+}
+
+.MuiMenu-list .MuiListItem-root {
+  padding: 6px 16px!important;
+  display: flex !important;
+  position: relative !important;
+  text-align: left !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  text-decoration: none !important;
 }
 
 .share-box {
