@@ -47,7 +47,7 @@ class IncidentReportedSuccessfully extends IncidentController {
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
               <Box className="content-block">
-                <Box className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
+                {/* <Box className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box> */}
                 <Box className="logo-block common-top-padding" display={{ xs: 'none', md: 'flex' }}>
                   <Link href="/EmailAccountLogin">
                     <img src={Building_Logo.default} className="head-logo" alt="" />
