@@ -95,7 +95,7 @@ class IncidentPreview extends IncidentController {
                           Building:
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                          {incidentFromData?.myApartment?.attributes?.building_management}
+                          {incidentFromData?.myApartment?.attributes?.building_management?.name}
                         </Typography>
 
                         <Typography component="span">
@@ -149,7 +149,7 @@ class IncidentPreview extends IncidentController {
                 </Box>
                 <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>
                   <h6 className="bottom-text">POWERED BY</h6>
-                  <img src={Tenant_Logo} className="tenant-logo" alt="" />
+                  <img src={Tenant_Logo.default} className="tenant-logo" alt="" />
                 </Box>
               </Box>
             </Grid>
