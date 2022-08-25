@@ -66,7 +66,7 @@ class IncidentManagementDetail extends IncidentManagementController {
     const attributes = this.state?.getIncidentDetails?.attributes;
     const apartmentManagementId = attributes?.apartment_management?.apartment_management_id;
 
-     console.log("providerListing-==================>",this.state?.providerListing);
+    // console.log("providerListing-==================>",this.state?.providerListing);
     return (
       <>
         <Box className="incident-Listing-wrapper desktop-ui" style={{ background: "#E5ECFF" }}>
