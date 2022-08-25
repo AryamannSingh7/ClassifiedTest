@@ -257,7 +257,7 @@ class FamilyList extends FamilyController {
           <Grid container>
             <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
               <p style={{ fontWeight: 400, fontSize: '0.8rem', textAlign: 'center' }}>
-                Are you should you want to delete this registered family member from this App?
+                Are you should want to delete this registered family member from this App?
               </p>
             </Grid>
           </Grid>
