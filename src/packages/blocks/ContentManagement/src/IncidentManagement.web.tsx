@@ -52,7 +52,7 @@ class IncidentManagement extends IncidentManagementController {
   }
  
   render() {
-    console.log("this.state.buildingName=================>/",this.state.buildingName);
+    console.log("this.state.buildingName=================>/",this.state.buildingNameData);
     const statusArray=["Unresolved", "Resolved", "Pending Confirmation"]
     return (
       <>
@@ -104,9 +104,9 @@ class IncidentManagement extends IncidentManagementController {
                                 this.state?.buildingNameData?.map((val, index) => (
                                   <MenuItem
                                     key={index}
-                                    value={`${val?.id},${val?.name}`}
+                                    value={`${val?.id},${val?.attributes?.name}`}
                                   >
-                                    {val?.name}
+                                    {val?.attributes?.name}
                                   </MenuItem>
                                 ))
                               }
