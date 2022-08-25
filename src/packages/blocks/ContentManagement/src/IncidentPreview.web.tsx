@@ -144,7 +144,7 @@ class IncidentPreview extends IncidentController {
                       </CardContent>
                     </Card>
                   </Box>
-                  <Box className="customButton">
+                  <Box className="customButton preview-submit">
                     <Button variant="contained" onClick={() => this.createIncident(incidentFromData, incidentRelated)}>submit</Button>
                   </Box>
                 </Box>
