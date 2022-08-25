@@ -207,14 +207,14 @@ class IncidentDetails extends IncidentController {
                     <Card className="incident-card reporting-card card">
                       <CardContent>
                         <Box className="reporting-row">
-                          <img src={User_Icon} className="icons" alt="" />
+                          <img src={User_Icon.default} className="icons" alt="" />
                           <Box className="reporting-right-block">
                             <h5>Reported By:</h5>
                             <h4 className="title">Mr. {attributes?.reported_by?.full_name}</h4>
                           </Box>
                         </Box>
                         <Box className="reporting-row">
-                          <img src={Calender_Icon} className="icons" alt="" />
+                          <img src={Calender_Icon.default} className="icons" alt="" />
                           <Box className="reporting-right-block">
                             <h5>Reported On:</h5>
                             <h4 className="title">{attributes?.reported_on}</h4>
@@ -252,7 +252,7 @@ class IncidentDetails extends IncidentController {
                 </Box>
                 <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>
                   <h6 className="bottom-text">POWERED BY</h6>
-                  <img src={Tenant_Logo} className="tenant-logo" alt="" />
+                  <img src={Tenant_Logo.default} className="tenant-logo" alt="" />
                 </Box>
               </Box>
             </Grid>
@@ -287,7 +287,7 @@ class IncidentDetails extends IncidentController {
               <Box className="diloag-content-body">
                 {
                   this.state?.file?.type === "video/mp4" || this.state?.file?.type === "video/x-m4v" ?
-                    <video className="incident-dialog-video"  controls >
+                    <video className="incident-dialog-video" controls >
                       <source src={this.state?.file?.url} type={this.state?.file?.type} />
                     </video>
                     :

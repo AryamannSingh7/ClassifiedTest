@@ -57,14 +57,14 @@
             font-size: 14px;
         }
         &:hover {
-            background-color: transparent;
+            background-color: $WHITE;
             color: $DARK;
         }
     }
     & .MuiButton-outlined {
-        border: 1px solid $BLUE;
+        border: 1px solid $LIGHT_GRAY_SHADE1;
         & span {
-            color: $BLUE;
+            color: $DARK;
         }
         &:hover {
             background-color: $BLUE;

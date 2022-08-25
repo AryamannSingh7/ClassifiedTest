@@ -78,6 +78,9 @@
           font-size: 15px;
         }
       }
+      &.h5-title {
+        font-weight: 300 !important;
+      }
     }
   }
   & .MuiCardActions-root {
@@ -171,7 +174,7 @@
       }
       &.danger {
         & .MuiOutlinedInput-root {
-          background-color: #fde8e7;
+          // background-color: #fde8e7;
         }
         & .MuiInputBase-input {
           color: $WARNING_SHADE1;
@@ -196,7 +199,7 @@
       }
       &.warning {
         & .MuiOutlinedInput-root {
-          background-color: $ORANGE_SHADE1;
+          // background-color: $ORANGE_SHADE1;
         }
         & .MuiInputBase-input {
           color: $ORANGE;

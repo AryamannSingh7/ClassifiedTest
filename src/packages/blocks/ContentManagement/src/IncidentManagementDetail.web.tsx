@@ -201,14 +201,14 @@ class IncidentManagementDetail extends IncidentManagementController {
                       <Box className="incident-button-row customButton">
                         {
                           attributes?.assign_incidents?.data === null ?
-                          <Button variant="outlined"
-                          onClick={() => this.providerList(apartmentManagementId)}
-                        >assign incident to provider</Button>
-                          :
-                          <Box className="user-btn-box">
-                          <h6 className="user-title">{attributes?.assign_incidents?.data?.attributes?.provider?.full_name}</h6>
-                          <Button onClick={() => this.providerList(apartmentManagementId)}>change</Button>
-                        </Box>
+                            <Button variant="outlined"
+                              onClick={() => this.providerList(apartmentManagementId)}
+                            >assign incident to provider</Button>
+                            :
+                            <Box className="user-btn-box">
+                              <h6 className="user-title">{attributes?.assign_incidents?.data?.attributes?.provider?.full_name}</h6>
+                              <Button className="change-btn" onClick={() => this.providerList(apartmentManagementId)}>change</Button>
+                            </Box>
                         }
                         <Button variant="contained" type="submit">start/view ticket conversation</Button>
                       </Box>
@@ -294,12 +294,12 @@ class IncidentManagementDetail extends IncidentManagementController {
                         onClick={() => { this.setState({ showDialog: false }) }}
                       >cancel</Button>
                       {
-                           attributes?.assign_incidents?.data === null ?
-                           <Button variant="contained" onClick={() => this.assginProvider()}>assign incident</Button>
-                           :
-                           <Button variant="contained" onClick={() => this.updateProvider(attributes?.assign_incidents?.data?.id)}>assign incident</Button>
+                        attributes?.assign_incidents?.data === null ?
+                          <Button variant="contained" onClick={() => this.assginProvider()}>assign incident</Button>
+                          :
+                          <Button variant="contained" onClick={() => this.updateProvider(attributes?.assign_incidents?.data?.id)}>assign incident</Button>
                       }
-                     </Box>
+                    </Box>
                   </Box>
                 </Box>
               </Dialog>

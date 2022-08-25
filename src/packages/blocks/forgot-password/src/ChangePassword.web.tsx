@@ -45,7 +45,7 @@ class ChangePassword extends ForgotPasswordController {
                 <Box className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
                 <Box className="logo-block common-top-padding" display={{ xs: 'none', md: 'flex' }}>
                   <Link href="/EmailAccountLogin">
-                    <img src={Building_Logo} className="head-logo" alt="" />
+                    <img src={Building_Logo.default} className="head-logo" alt="" />
                     <h4>Building Name</h4>
                   </Link>
                 </Box>
