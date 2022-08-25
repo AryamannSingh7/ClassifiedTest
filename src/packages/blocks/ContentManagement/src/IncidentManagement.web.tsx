@@ -50,10 +50,10 @@ class IncidentManagement extends IncidentManagementController {
     this.getIncidentListing();
     this.getBuildingName();
   }
- 
+
   render() {
-    console.log("this.state.buildingName=================>/",this.state.buildingName);
-    const statusArray=["Unresolved", "Resolved", "Pending Confirmation"]
+    console.log("this.state.buildingName=================>/", this.state.buildingName);
+    const statusArray = ["Unresolved", "Resolved", "Pending Confirmation"]
     return (
       <>
         <Box className="incident-Listing-wrapper desktop-ui" style={{ background: "#E5ECFF" }}>
@@ -88,116 +88,118 @@ class IncidentManagement extends IncidentManagementController {
                   </Box>
                 </Box>
                 <Box className="sorting-header">
-                          <Box className="formGroup customSelect">
-                            <FormControl variant="outlined" >
-                              <Select
-                                name="buildingName"
-                                labelId="demo-simple-select-outlined-label"
-                                id="demo-simple-select-outlined"
-                                onChange={(e) => {this.onChange(e)}}
-                                value={this.state.buildingName}
-                              >
-                               <MenuItem disabled value=" ">
-                               Select Building
-                              </MenuItem>
-                                {
-                                this.state?.buildingNameData?.map((val, index) => (
-                                  <MenuItem
-                                    key={index}
-                                    value={`${val?.id},${val?.name}`}
-                                  >
-                                    {val?.name}
-                                  </MenuItem>
-                                ))
-                              }
-                              </Select>
-                            </FormControl>
-                          </Box>
-                         <Box className="formGroup customSelect">
-                            <FormControl variant="outlined" >
-                              <Select
-                                name="unitName"
-                                labelId="demo-simple-select-outlined-label"
-                                id="demo-simple-select-outlined"
-                                onChange={(e) => {this.onChange(e)}}
-                                value={this.state.unitName}
-                              >
-                                   <MenuItem disabled value=" ">
-                                  Select Unit
-                                </MenuItem>
-                                {
-                                    this.state?.unitNameData?.map((val, index) => (
-                                      <MenuItem
-                                        key={index}
-                                        value={val?.apartment_name}
-                                        disabled ={this.state.buildingName ? false:true }
-                                      >
-                                        {val?.apartment_name}
-                                      </MenuItem>
-                                    ))
-                                }
-                              </Select>
-                            </FormControl>
-                          </Box>
-                            
-                          <Box className="formGroup customSelect">
-                            <FormControl variant="outlined" >
-                              <Select
-                                name="status"
-                                labelId="demo-simple-select-outlined-label"
-                                id="demo-simple-select-outlined"
-                                 onChange={(e) => {this.onChange(e)}}
-                                value={this.state.status}
-                              >
-                                <MenuItem disabled value=" ">
-                                  Select Status
-                                </MenuItem>
-                                {
-                                statusArray?.map((val, index) => (
-                                  <MenuItem
-                                    key={index}
-                                    value={val}
-                                  >
-                                    {val}
-                                  </MenuItem>
-                                ))
-                              }
-                              </Select>
+                  <Box className="formGroup customSelect">
+                    <FormControl variant="outlined" >
+                      <Select
+                        name="buildingName"
+                        labelId="demo-simple-select-outlined-label"
+                        id="demo-simple-select-outlined"
+                        onChange={(e) => { this.onChange(e) }}
+                        value={this.state.buildingName}
+                      >
+                        <MenuItem disabled value=" ">
+                          Select Building
+                        </MenuItem>
+                        {
+                          this.state?.buildingNameData?.map((val, index) => (
+                            <MenuItem
+                              key={index}
+                              value={`${val?.id},${val?.name}`}
+                            >
+                              {val?.name}
+                            </MenuItem>
+                          ))
+                        }
+                      </Select>
+                    </FormControl>
+                  </Box>
+                  <Box className="formGroup customSelect">
+                    <FormControl variant="outlined" >
+                      <Select
+                        name="unitName"
+                        labelId="demo-simple-select-outlined-label"
+                        id="demo-simple-select-outlined"
+                        onChange={(e) => { this.onChange(e) }}
+                        value={this.state.unitName}
+                      >
+                        <MenuItem disabled value=" ">
+                          Select Unit
+                        </MenuItem>
+                        {
+                          this.state?.unitNameData?.map((val, index) => (
+                            <MenuItem
+                              key={index}
+                              value={val?.apartment_name}
+                              disabled={this.state.buildingName ? false : true}
+                            >
+                              {val?.apartment_name}
+                            </MenuItem>
+                          ))
+                        }
+                      </Select>
+                    </FormControl>
+                  </Box>
 
-                            </FormControl>
-                          </Box>
-                          <Box className="customButton">
-                            <Button variant="contained" onClick={()=> this.serachHandle()}>Search</Button>
-                          </Box>
-                          </Box>
+                  <Box className="formGroup customSelect">
+                    <FormControl variant="outlined" >
+                      <Select
+                        name="status"
+                        labelId="demo-simple-select-outlined-label"
+                        id="demo-simple-select-outlined"
+                        onChange={(e) => { this.onChange(e) }}
+                        value={this.state.status}
+                      >
+                        <MenuItem disabled value=" ">
+                          Select Status
+                        </MenuItem>
+                        {
+                          statusArray?.map((val, index) => (
+                            <MenuItem
+                              key={index}
+                              value={val}
+                            >
+                              {val}
+                            </MenuItem>
+                          ))
+                        }
+                      </Select>
+
+                    </FormControl>
+                  </Box>
+                  <Box className="customButton">
+                    <Button variant="contained" onClick={() => this.serachHandle()}>
+                      Search
+                    </Button>
+                  </Box>
+                </Box>
                 <Grid container spacing={2} style={{ marginTop: 15, marginBottom: 15 }}>
                   {
-                    this.state?.incidentListing?.map((val ,index)=>(
+                    this.state?.incidentListing?.map((val, index) => (
                       <Grid item sm={4} key={index} onClick={() => this.getIncidentDetails(val.id)}>
-                      <Card className="management-card card" key={index}>
-                        <CardContent className="costom-card-content">
-                          <Box className="customButton">
-                            <Button variant="contained" className={val?.attributes?.incident_status === 'Pending Confirmation' ? "contain warning" : val?.attributes?.incident_status === 'Resolved' ? 'contain success' : 'contain danger'} type="submit">
-                              {val?.attributes?.incident_status}</Button>
-                          </Box>
-                          <Typography component="h4">
-                          {val?.attributes?.incident_related?.name}
-                          </Typography>
-                          <Box className="card-rows">
-                            <img src={Bank_Icon} alt="Bank Icon" />
-                            <h5>{val?.attributes?.apartment_management?.building_name}</h5>
-                          </Box>
-                          <Box className="card-rows">
-                            <img src={Box_Icon} alt="Bank Icon" />
-                            <h5>{val?.attributes?.apartment_management?.apartment_name}</h5>
-                          </Box>
-                          <Box className="card-rows">
-                            <img src={Users_Icon} alt="Bank Icon" />
-                            <h5>{val?.attributes?.reported_by?.full_name}</h5>
-                          </Box>
-                        </CardContent>
-                      </Card>
-                    </Grid>
+                        <Card className="management-card card" key={index}>
+                          <CardContent className="costom-card-content">
+                            <Box className="customButton">
+                              <Button variant="contained" className={val?.attributes?.incident_status === 'Pending Confirmation' ? "contain warning" : val?.attributes?.incident_status === 'Resolved' ? 'contain success' : 'contain danger'} type="submit">
+                                {val?.attributes?.incident_status}</Button>
+                            </Box>
+                            <Typography component="h4">
+                              {val?.attributes?.incident_related?.name}
+                            </Typography>
+                            <Box className="card-rows">
+                              <img src={Bank_Icon} alt="Bank Icon" />
+                              <h5>{val?.attributes?.apartment_management?.building_name}</h5>
+                            </Box>
+                            <Box className="card-rows">
+                              <img src={Box_Icon} alt="Bank Icon" />
+                              <h5>{val?.attributes?.apartment_management?.apartment_name}</h5>
+                            </Box>
+                            <Box className="card-rows">
+                              <img src={Users_Icon} alt="Bank Icon" />
+                              <h5>{val?.attributes?.reported_by?.full_name}</h5>
+                            </Box>
+                          </CardContent>
+                        </Card>
+                      </Grid>
                     ))
                   }
                 </Grid>
