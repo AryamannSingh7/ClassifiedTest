@@ -51,7 +51,7 @@ class RegistrationRequestSignup extends EmailAccountRegistrationController {
                     <Box className="header-block chairmanHeaderBlock">
                       {/* <img src={Tenant_Logo} className="tenant-logo" alt="Tenant Logo" /> */}
                       <img src={request} className="bank-logo" alt="Tenant Logo" />
-                      <h1>Registration Request Sent</h1>
+                      <h1 style={{fontWeight:'bold'}}>Registration Request Sent</h1>
                       <h6>Your registration request sent to the management of the selected building. You will be notified and given access to the platform once approved.</h6>
                     </Box>
                     {/* <Box className="reg-block">

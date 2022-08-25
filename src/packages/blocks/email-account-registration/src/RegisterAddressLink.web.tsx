@@ -91,6 +91,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                     <Select
                       value={values.selectCountry}
                       name='selectCountry'
+                            style={{ padding: '18.5px 14px'}}
                       labelId="demo-simple-select-outlined-label"
                       id="demo-simple-select-outlined"
                       onChange={(e) => { this.handleChange(e); setFieldValue("selectCountry", e.target.value) }}
