@@ -95,7 +95,7 @@ class CreateIncident extends IncidentController {
                   >
                     {({ values, touched, errors, isValid, setFieldError, setFieldValue, handleChange }) => (
                       <Form translate="yes" className="commonForm">
-                        {/* <h5 className="frm-title incident-preview-title">Incident Details</h5> */}
+                        <h5 className="frm-title incident-preview-title">Incident Details</h5>
                         <Box className="formGroup customSelect">
                           <FormControl variant="outlined" >
                             <span className="frmLeftIcons">

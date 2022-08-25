@@ -85,6 +85,10 @@
     }
     & .change-password-mainblock {
       justify-content: center;
+      h1
+      {
+        font-weight: bold;
+      }
     }
     & .change-password-button-row {
       width: 80%;
@@ -114,6 +118,7 @@
       }
       & .id-title {
         font-family: $Gotham_Medium;
+        font-weight: bold;
       }
     }
   }

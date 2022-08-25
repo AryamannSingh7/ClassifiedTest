@@ -56,7 +56,7 @@ class ChairmanChangePassword extends ChairmanForgotPasswordController {
                   </Box> */}
                   <Box className="header-block">
                     <h1>Change Password</h1>
-                    <h6>You need to change your password.<br></br>Please enter a new password"</h6>
+                    <h6>You need to change your password.<br></br>Please enter a new password</h6>
                   </Box>
                   <Formik
                     initialValues={{

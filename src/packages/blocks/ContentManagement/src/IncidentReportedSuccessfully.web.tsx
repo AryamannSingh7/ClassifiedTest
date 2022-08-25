@@ -26,7 +26,7 @@ import IncidentController, { Props } from "./IncidentController.web";
 //Customizable Area End
 
 //resorces
-import { Tenant_Logo, Building_Logo, Tick_Icon, Building1 } from "../src/assets";
+import { Tenant_Logo, Building_Logo, Tick_Circle_Icon, Building1 } from "../src/assets";
 
 class IncidentReportedSuccessfully extends IncidentController {
   constructor(props: Props) {
@@ -50,13 +50,13 @@ class IncidentReportedSuccessfully extends IncidentController {
                 <Box className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
                 <Box className="logo-block common-top-padding" display={{ xs: 'none', md: 'flex' }}>
                   <Link href="/EmailAccountLogin">
-                    <img src={Building_Logo} className="head-logo" alt="" />
+                    <img src={Building_Logo.default} className="head-logo" alt="" />
                     <h4>Building Name</h4>
                   </Link>
                 </Box>
                 <Box className="main-content-block change-password-mainblock">
                   <Box className="header-block header-block-changepassword">
-                    <img src={Tick_Icon} className="lock-logo" alt="Lock_Icon" />
+                    <img src={Tick_Circle_Icon} className="lock-logo" alt="Lock_Icon" />
                     <h1>Incident Reported<br></br>Successfully</h1>
                     <p>Your incident has been reported successfully. Your ticket id for reported incident is<br></br><span className="id-title">{id}</span></p>
                   </Box>
@@ -73,7 +73,7 @@ class IncidentReportedSuccessfully extends IncidentController {
                 {/* desktop footer block */}
                 <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>
                   <h6 className="bottom-text">POWERED BY</h6>
-                  <img src={Tenant_Logo} className="tenant-logo" alt="" />
+                  <img src={Tenant_Logo.default} className="tenant-logo" alt="" />
                 </Box>
               </Box>
             </Grid>

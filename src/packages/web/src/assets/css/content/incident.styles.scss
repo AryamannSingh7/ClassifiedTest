@@ -46,6 +46,7 @@
       & .customButton {
         position: sticky;
         bottom: 0;
+        z-index: 2;
         & .MuiButton-label {
           white-space: nowrap;
           font-size: 12px;
