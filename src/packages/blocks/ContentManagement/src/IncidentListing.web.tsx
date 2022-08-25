@@ -101,7 +101,7 @@ class IncidentListing extends IncidentController {
                               <Typography component="span">
                                 Incident is related to:
                               </Typography>
-                              <Typography className="sub-title" component="h5">
+                              <Typography className="sub-title h5-title" component="h5">
                                 {val?.attributes?.incident_related?.name}
                               </Typography>
                               <Box className="card-listing-row">
@@ -113,16 +113,16 @@ class IncidentListing extends IncidentController {
                                 </Typography>
                               </Box>
                               <Box className="card-listing-row">
-                                <Typography className="sub-title" component="h5">
+                                <Typography className="sub-title h5-title" component="h5">
                                   {val?.attributes?.apartment_management?.building_name}
                                 </Typography>
-                                <Typography className="sub-title" component="h5">
+                                <Typography className="sub-title h5-title" component="h5">
                                   {val?.attributes?.apartment_management?.apartment_name}
                                 </Typography>
                               </Box>
                               <hr />
                               <CardActions className="card-footer">
-                                <Typography className="sub-title" component="h5">
+                                <Typography className="sub-title h5-title" component="h5">
                                   {val?.attributes?.common_area?.name}
                                 </Typography>
                                 {
