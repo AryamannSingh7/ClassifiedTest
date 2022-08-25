@@ -207,14 +207,14 @@ class IncidentDetails extends IncidentController {
                     <Card className="incident-card reporting-card card">
                       <CardContent>
                         <Box className="reporting-row">
-                          <img src={User_Icon} className="icons" alt="" />
+                          <img src={User_Icon.default} className="icons" alt="" />
                           <Box className="reporting-right-block">
                             <h5>Reported By:</h5>
                             <h4 className="title">Mr. {attributes?.reported_by?.full_name}</h4>
                           </Box>
                         </Box>
                         <Box className="reporting-row">
-                          <img src={Calender_Icon} className="icons" alt="" />
+                          <img src={Calender_Icon.default} className="icons" alt="" />
                           <Box className="reporting-right-block">
                             <h5>Reported On:</h5>
                             <h4 className="title">{attributes?.reported_on}</h4>
