@@ -125,16 +125,19 @@
   margin: 20px;
 }
 
-.delete-document .MuiDialogContent-root img {
+.delete-document .MuiDialogContent-root img,
+.save-lease img {
   margin-bottom: 20px;
 }
 
-.delete-document h6 {
+.delete-document h6,
+.save-lease h6 {
   margin-bottom: 10px;
   font-weight: 600;
 }
 
-.delete-document p {
+.delete-document p,
+.save-lease p {
   margin-bottom: 15px;
   color: gray;
 }
@@ -284,5 +287,59 @@
 }
 
 .delete-document .dialog-button-group .cancel-button {
+  margin-right: 20px;
+}
+
+.save-lease .MuiDialogContent-root {
+  padding: 30px;
+  padding-top: 30px !important;
+}
+
+.save-lease .MuiDialogActions-root,
+.penalty-dialog .MuiDialogActions-root {
+  justify-content: center;
+  align-items: center;
+}
+
+.save-lease .dialog-button-group .add-button,
+.penalty-dialog .dialog-button-group .add-button {
+  border-radius: 25px;
+}
+
+.penalty-dialog .dialog-button-group .add-button {
+  width: 100%;
+}
+
+.penalty-dialog .dialog-button-group {
+  padding: 10px 0 20px 0;
+}
+
+.penalty-dialog .select-with-icon {
+  margin: 20px 0;
+  background-color: #efefef;
+  border-radius: 25px;
+}
+
+.penalty-dialog .select-with-icon .MuiListItemIcon-root {
+  min-width: 30px;
+}
+
+.penalty-dialog .select-input {
+  border-radius: 25px;
+  padding: 12px 15px;
+  background-color: #efefef;
+  margin-bottom: 15px;
+}
+
+.penalty-dialog .select-input::before,
+.penalty-dialog .select-input:hover,
+.penalty-dialog .select-input::after {
+  border: 0;
+  outline: none;
+  transition: none;
+  content: none;
+}
+
+.penalty-dialog .select-input .MuiInputAdornment-positionStart {
   margin-right: 20px;
 }

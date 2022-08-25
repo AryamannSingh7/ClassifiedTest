@@ -7,6 +7,7 @@ import MessageEnum, {
 import { runEngine } from "../../../framework/src/RunEngine";
 
 // Customizable Area Start
+import * as Yup from "yup";
 // Customizable Area End
 
 export const configJSON = require("./config.js");
@@ -462,7 +463,7 @@ export default class DocumentListChairmanController extends BlockComponent<
   // Create Resolution API
   createResolution = () => {
     var data = new FormData();
-    data.append("resolution[title]", this.state.title);
+    data.append("resolution[title]", this.state.title.trim());
     data.append("resolution[attachments][]", this.state.file);
     data.append("resolution[meeting_id]", this.state.selectedMeeting.id);
 
@@ -621,6 +622,23 @@ export default class DocumentListChairmanController extends BlockComponent<
       ...this.state,
       file: file,
     });
+  };
+
+  validationAddForm = Yup.object().shape({
+    title: Yup.string()
+      .required("Required")
+      .max(100, "Maximum length of title should be 100 character")
+      .matches(/\S/, "Required"),
+    file: Yup.mixed().required("Required"),
+  });
+
+  isInputOnlyWhiteSpace = (text: string) => {
+    const regEx = /\S/;
+    if (!regEx.test(text)) {
+      return true;
+    } else {
+      return false;
+    }
   };
 
   // Handle State
