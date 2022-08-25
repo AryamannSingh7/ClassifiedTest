@@ -104,6 +104,12 @@ class IncidentPreview extends IncidentController {
                         <Typography className="sub-title" component="h5">
                           {incidentFromData?.myApartment?.attributes?.apartment_name}
                         </Typography>
+                        <Typography component="span">
+                          Description:
+                        </Typography>
+                        <Typography className="sub-title" component="h5">
+                          {incidentFromData.description}
+                        </Typography>
                         {
                           incidentFromData?.media.length !== 0 ?
                             <>
@@ -133,13 +139,8 @@ class IncidentPreview extends IncidentController {
                             </>
                             : null
                         }
-                        <hr />
-                        <Typography component="span">
-                          Description:
-                        </Typography>
-                        <Typography className="sub-title" component="h5">
-                          {incidentFromData.description}
-                        </Typography>
+                        {/* <hr /> */}
+                       
                       </CardContent>
                     </Card>
                   </Box>
