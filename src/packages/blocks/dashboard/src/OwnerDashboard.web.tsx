@@ -335,7 +335,7 @@ class OwnerDashboard extends React.Component {
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
-                    <Link href="">
+                    <Link href="/InvoiceBilling">
                       <DashboardCard
                         image={keyhand}
                         heading="My Invoices"
