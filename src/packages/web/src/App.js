@@ -150,6 +150,12 @@ import DocumentChairman from "../../blocks/Notes/src/DocumentChairman.web";
 import DocumentListChairman from "../../blocks/Notes/src/DocumentListChairman.web";
 import DocumentViewChairman from "../../blocks/Notes/src/DocumentViewChairman.web";
 
+import ViewInvoices from '../../blocks/InvoiceBilling/src/ViewInvoices.web';
+import ViewReceipt from '../../blocks/InvoiceBilling/src/ViewReceipt.web';
+import InvoicesDetails from '../../blocks/InvoiceBilling/src/InvoicesDetails.web';
+import ReceiptsDetails from '../../blocks/InvoiceBilling/src/ReceiptsDetails.web';
+import CharmainInvoices from '../../blocks/dashboard/src/CharmainInvoices.web';
+
 const routeMap = {
   //done
   LandingPage: {
@@ -279,6 +285,31 @@ const routeMap = {
   IncidentDetails: {
     component: IncidentDetails,
     path: '/IncidentDetails',
+    exact: true
+  },
+  ViewInvoices: {
+    component: ViewInvoices,
+    path: '/ViewInvoices',
+    exact: true
+  },
+  ViewReceipt:{
+    component: ViewReceipt,
+    path: '/ViewReceipt',
+    exact: true
+  },
+  InvoicesDetails:{
+    component: InvoicesDetails,
+    path: '/InvoicesDetails',
+    exact: true
+  },
+  ReceiptsDetails:{
+    component: ReceiptsDetails,
+    path: '/ReceiptsDetails',
+    exact: true
+  },
+  CharmainInvoices:{
+    component: CharmainInvoices,
+    path: '/CharmainInvoices',
     exact: true
   },
   IncidentListing: {

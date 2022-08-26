@@ -83,6 +83,42 @@ class ChairmanSidebar extends DashboardController {
             </AccordionDetails>
           </Accordion>
 
+          <Accordion
+            expanded={this.state.expanded == `panel3`}
+            onChange={this.handleAccordinoChange(`panel3`)}
+          >
+            <AccordionSummary
+              expandIcon={
+                <ArrowForwardIosOutlinedIcon
+                  style={{ width: 16, height: 16 }}
+                />
+              }
+              aria-controls={"panel2bh-content"}
+              id={"panel2bh-header"}
+              style={dashBoard.ListItem}
+            >
+              <Typography>
+                <DashboardOutlinedIcon />
+              </Typography>
+              <Typography className="ListItemText">Invoices & Receipts</Typography>
+            </AccordionSummary>
+
+            <AccordionDetails
+              onClick={() => this.props.history.push("/CharmainInvoices")}
+            >
+              <Typography variant="body2">Invoices</Typography>
+            </AccordionDetails>
+            <AccordionDetails
+              onClick={() => this.props.history.push("/DashboardTicket")}
+            >
+              <Typography variant="body2">Receipts</Typography>
+            </AccordionDetails>
+            <AccordionDetails
+              onClick={() => this.props.history.push("/DashboardBudget")}
+            >
+              <Typography variant="body2">Payment History</Typography>
+            </AccordionDetails>
+          </Accordion>
           {ItemsList.map((val, index) => (
             <Accordion
               key={index}
