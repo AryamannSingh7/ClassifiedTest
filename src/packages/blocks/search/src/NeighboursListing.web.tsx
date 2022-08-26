@@ -47,7 +47,7 @@ class NeighboursListing extends NeighboursController {
     super(props);
   }
   componentDidMount() {
-    //  this.getIncidentDetailsById(this.props.history.location?.id);
+    this.getNeighboursListing()
   }
 
   render() {
