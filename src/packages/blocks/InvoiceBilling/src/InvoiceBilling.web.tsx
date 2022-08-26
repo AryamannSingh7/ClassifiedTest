@@ -1,22 +1,32 @@
+//@ts-ignore
+//@ts-nocheck
 import React from "react";
 
 import {
   Container,
   Box,
-  Input,
+  Grid,
+  Menu,
+  MenuItem,
   Button,
-  InputLabel,
-  Typography,
-  InputAdornment,
-  IconButton,
+  Card,
+  CardContent,
+  Typography
   // Customizable Area Start
   // Customizable Area End
 } from "@material-ui/core";
 
 // Customizable Area Start
-import { createTheme, ThemeProvider } from "@material-ui/core/styles";
+import { createTheme, makeStyles,ThemeProvider } from "@material-ui/core/styles";
+import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import Visibility from "@material-ui/icons/Visibility";
+
+import { withRouter } from 'react-router';
+import Loader from "../../../components/src/Loader.web";
+
+//resorces
+import { Tenant_Logo, Building1, Grid_Icon, Filter_Icon } from "../src/assets";
 
 const theme = createTheme({
   palette: {
@@ -34,6 +44,12 @@ const theme = createTheme({
     },
   },
 });
+
+const useStyles = makeStyles({
+  receiptCard:{
+    margin:"10px"
+  }
+});
 // Customizable Area End
 
 import InvoiceBillingController, {
@@ -41,7 +57,7 @@ import InvoiceBillingController, {
   configJSON,
 } from "./InvoiceBillingController";
 
-export default class InvoiceBilling extends InvoiceBillingController {
+class InvoiceBilling extends InvoiceBillingController {
   constructor(props: Props) {
     super(props);
     // Customizable Area Start
@@ -52,55 +68,48 @@ export default class InvoiceBilling extends InvoiceBillingController {
   // Customizable Area End
 
   render() {
+    const { navigation } = this.props;
     return (
       // Customizable Area Start
-      <ThemeProvider theme={theme}>
-        <Container maxWidth={"sm"}>
-          <Box sx={webStyle.mainWrapper}>
-            <Typography variant="h6">{configJSON.labelTitleText}</Typography>
-            <Typography variant="subtitle1" component="div">
-              {configJSON.labelBodyText}
-            </Typography>
-            <Box sx={webStyle.inputStyle}>
-              <InputLabel id="service-shop-name">
-                This is the reviced value:{this.state.txtSavedValue}{" "}
-              </InputLabel>
-              <Input
-                data-test-id={"txtInput"}
-                type={this.state.enableField ? "password" : "text"}
-                placeholder={configJSON.txtInputPlaceholder}
-                fullWidth={true}
-                disableUnderline={true}
-                value={this.state.txtInputValue}
-                onChange={(e) => this.setInputValue(e.target.value)}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={this.setEnableField}
-                      edge="end"
-                    >
-                      {this.state.enableField ? (
-                        <Visibility />
-                      ) : (
-                        <VisibilityOff />
-                      )}
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
-            </Box>
-            <Box
-              data-test-id="btnAddExample"
-              onClick={() => this.doButtonPressed()}
-              component="button"
-              sx={webStyle.buttonStyle}
-            >
-              <Button color={"primary"}>{configJSON.btnExampleTitle}</Button>
-            </Box>
-          </Box>
-        </Container>
-      </ThemeProvider>
+      <>
+      <Box className="login-wrapper incident-wrapper">
+          <Grid container spacing={2} className="auth-container">
+            <Grid item xs={12} md={7} className="auth-cols">
+              <Box sx={webStyle.maincontentblock}>
+                <Box className="content-header">
+                  <Box className="left-block blocks">
+                    <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
+                    <h4>My Invoices/Receipt</h4>
+                  </Box>
+                </Box>
+                <Box className="content-block-wrapper">
+                  <Box className="incident-content-wrapper">
+                  <Card className='card' style={{cursor:"pointer"}} onClick={() => this.getInvoices()}>
+                    <CardContent>
+                      <Typography>
+                        View Invoices
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                  <Card className='card' style={{cursor:"pointer"}} onClick={() => this.getReceipt()}>
+                    <CardContent>
+                      <Typography>
+                        View Receipts
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                  </Box>
+                  </Box>
+              </Box>
+            </Grid>
+            <Grid item xs={12} md={5} className="auth-cols">
+              <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
+                <img src={Building1} className="building-logo" alt="" />
+              </Box>
+            </Grid>
+          </Grid>
+        </Box>
+      </>
       // Customizable Area End
     );
   }
@@ -131,5 +140,12 @@ const webStyle = {
     border: "none",
     backgroundColor: "rgb(98, 0, 238)",
   },
+  maincontentblock:{
+    display: "flex",
+    flexDirection: "column",
+    justifyContent:"space-between"
+  }
 };
 // Customizable Area End
+
+export default withRouter(InvoiceBilling);

@@ -28,6 +28,9 @@ interface S {
   enableField: boolean;
   // Customizable Area Start
   loading: boolean;
+  anchorEl: any;
+  openModal: boolean;
+  payment_type:any;
   // Customizable Area End
 }
 
@@ -37,7 +40,7 @@ interface SS {
   // Customizable Area End
 }
 
-export default class InvoiceBillingController extends BlockComponent<
+export default class CharmainInvoicesController extends BlockComponent<
   Props,
   S,
   SS
@@ -53,8 +56,6 @@ export default class InvoiceBillingController extends BlockComponent<
     // Customizable Area Start
     this.subScribedMessages = [
       getName(MessageEnum.AccoutLoginSuccess),
-      getName(MessageEnum.RestAPIResponceMessage),
-      getName(MessageEnum.SessionResponseMessage),
       // Customizable Area Start
       // Customizable Area End
     ];
@@ -65,6 +66,9 @@ export default class InvoiceBillingController extends BlockComponent<
       enableField: false,
       // Customizable Area Start
       loading: false,
+      anchorEl:null,
+      openModal: false,
+      payment_type:'fullpayment'
       // Customizable Area End
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -137,24 +141,28 @@ export default class InvoiceBillingController extends BlockComponent<
     this.send(msg);
   }
 
-  // web events
-  setInputValue = (text: string) => {
-    this.setState({ txtInputValue: text });
-  };
-
-  setEnableField = () => {
-    this.setState({ enableField: !this.state.enableField });
-  };
-
   // Customizable Area Start
 
-  getInvoices = () => {
-    console.log("Heepepep-->", this.props)
-    this.props.history.push("/ViewInvoices")
-  }
+    handleClick = (e: any) => {
+        this.setState({anchorEl:e.currentTarget});
+    };
 
-  getReceipt = () => {
-    this.props.history.push("/ViewReceipt")
-  }
+    handleClose = () => {
+        this.setState({anchorEl:null});
+    };
+
+    handleModalOpen = () => {
+        this.setState({openModal:true});
+    };
+    
+    handleModalClose = () => {
+      this.setState({openModal:false});
+      console.log("close---->")
+    };
+
+    handleSelect = (e: any) => {
+      console.log("select===>")
+      this.setState({payment_type:e.target.value})
+    }
   // Customizable Area End
 }
