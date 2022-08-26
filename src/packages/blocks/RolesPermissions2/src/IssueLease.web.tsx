@@ -3,38 +3,24 @@
 //@ts-ignore
 import React from "react";
 import {
-  Button,
   Container,
   IconButton,
   Link,
   withStyles,
   Box,
   Grid,
-  Tab,
   MenuItem,
   Card,
   Select,
   ListItemIcon,
-  FormControl,
   OutlinedInput,
 } from "@material-ui/core";
-import { Menu } from "@szhsin/react-menu";
-import NavigateNextIcon from "@material-ui/icons/NavigateNext";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
-import LanguageIcon from "@material-ui/icons/Language";
-import IssueContractController, {
-  Props,
-} from "./IssueContractController.web";
+import IssueContractController, { Props } from "./IssueContractController.web";
 import { ContractsStyleWeb } from "./ContractsStyle.web";
-
 import BuildingLogo from "../assets/building.png";
-import SortIcon from "../assets/sort.png";
-import FilterIcon from "../assets/filter.png";
 import TemplateIcon from "../assets/template.png";
 import EarthIcon from "../assets/earth.png";
-import BuildingIcon from "../assets/select-building.png";
-import CubeIcon from "../assets/cube.png";
 
 class IssueContract extends IssueContractController {
   constructor(props: Props) {

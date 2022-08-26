@@ -15,7 +15,6 @@ import {
   Card,
 } from "@material-ui/core";
 import { Menu } from "@szhsin/react-menu";
-import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 
