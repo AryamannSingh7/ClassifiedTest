@@ -11,7 +11,7 @@ html {
   margin: 0;
   padding: 0;
   // font-family: $MONTSERRAT;
-  font-family: $Gotham_Medium;
+  font-family: $Gotham_Medium !important;
   font-weight: 100;
   @include scrollbars();
 
@@ -35,7 +35,7 @@ p {
 h1 {
   font-size: 28px;
   // font-weight: 600;
-  font-family: $Gotham_Medium;
+  font-family: $Gotham_Medium !important;
   padding-right: 10px;
   @include mq(tablet-portrait-large-up) {
     font-size: 24px;
@@ -57,7 +57,7 @@ h3 {
 }
 
 h4 {
-  font-family: $Gotham_Medium;
+  font-family: $Gotham_Medium !important;
   font-size: 19px;
   font-weight: 600;
   @include mq(tablet-portrait-large-up) {
@@ -66,7 +66,7 @@ h4 {
 }
 
 h5 {
-  font-family: $Gotham_Light;
+  font-family: $Gotham_Light !important;
   font-weight: 600;
   // opacity: 0.85;
   font-size: 17px;
@@ -79,7 +79,7 @@ h5 {
 h6 {
   // color: $GRAY_SHADE3;
   font-size: 15px;
-  font-family: $Gotham_Light;
+  font-family: $Gotham_Light !important;
   line-height: 12px;
 }
 
@@ -90,7 +90,7 @@ h6 {
 // }
 
 p {
-  font-family: $Gotham_Light;
+  font-family: $Gotham_Light !important;
   font-size: 16px;
   font-weight: 500;
   line-height: 1.5;
@@ -102,7 +102,7 @@ p {
 
 a {
   text-decoration: none;
-  font-family: $Gotham_Light;
+  font-family: $Gotham_Light !important;
 }
 
 button,
@@ -110,7 +110,7 @@ label {
   cursor: pointer;
   margin-bottom: 0;
   // font-family: $MONTSERRAT;
-  font-family: $Gotham_Light;
+  font-family: $Gotham_Light !important;
   font-weight: 500;
 }
 
@@ -119,7 +119,11 @@ ul {
   padding: 0;
   list-style: none;
   // font-family: $MONTSERRAT;
-  font-family: $Gotham_Medium;
+  font-family: $Gotham_Medium !important;
+}
+
+li {
+  font-family: $Gotham_Medium !important;
 }
 
 .mainWrapper {

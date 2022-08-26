@@ -21,9 +21,8 @@ export interface Props {
 
 interface S {
   // Customizable Area Start
-  isCreateMeetingModalOpen: boolean;
-  isEditMeetingModalOpen: boolean;
-  isCancelMeetingModalOpen: boolean;
+  isRejectMeetingModalOpen: boolean;
+  isApproveMeetingModalOpen: boolean;
   // Customizable Area End
 }
 
@@ -31,7 +30,7 @@ interface SS {
   id: any;
 }
 
-export default class ScheduledMeetingController extends BlockComponent<
+export default class MeetingMinutesController extends BlockComponent<
   Props,
   S,
   SS
@@ -47,9 +46,8 @@ export default class ScheduledMeetingController extends BlockComponent<
     ];
 
     this.state = {
-      isCreateMeetingModalOpen: false,
-      isEditMeetingModalOpen: false,
-      isCancelMeetingModalOpen: false,
+      isRejectMeetingModalOpen: false,
+      isApproveMeetingModalOpen: false,
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -64,21 +62,15 @@ export default class ScheduledMeetingController extends BlockComponent<
   async componentDidMount(): Promise<void> {}
 
   // Handle State
-  handleCreateMeetingModal = () => {
+  handleRejectMeetingModal = () => {
     this.setState({
-      isCreateMeetingModalOpen: !this.state.isCreateMeetingModalOpen,
+      isRejectMeetingModalOpen: !this.state.isRejectMeetingModalOpen,
     });
   };
 
-  handleEditMeetingModal = () => {
+  handleApproveMeetingModal = () => {
     this.setState({
-      isEditMeetingModalOpen: !this.state.isEditMeetingModalOpen,
-    });
-  };
-
-  handleCancelMeetingModal = () => {
-    this.setState({
-      isCancelMeetingModalOpen: !this.state.isCancelMeetingModalOpen,
+      isApproveMeetingModalOpen: !this.state.isApproveMeetingModalOpen,
     });
   };
   // Customizable Area End

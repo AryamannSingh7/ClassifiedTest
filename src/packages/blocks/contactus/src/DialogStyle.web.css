@@ -2,6 +2,10 @@
   border-bottom: 0;
 }
 
+* {
+  font-family: "Century Gothic";
+}
+
 .select-meeting.MuiDialog-root .MuiDialogContent-dividers {
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
@@ -45,7 +49,8 @@
   color: #494949;
 }
 
-.add-document .dialog-input {
+.add-document .dialog-input,
+.add-meeting .dialog-input {
   background-color: #efefef;
 }
 
@@ -126,26 +131,31 @@
 }
 
 .delete-document .MuiDialogContent-root img,
+.cancel-meeting-dialog .MuiDialogContent-root img,
 .save-lease img {
   margin-bottom: 20px;
 }
 
 .delete-document h6,
+.cancel-meeting-dialog h6,
 .save-lease h6 {
   margin-bottom: 10px;
   font-weight: 600;
 }
 
 .delete-document p,
+.cancel-meeting-dialog p,
 .save-lease p {
-  margin-bottom: 15px;
+  margin-bottom: 18px;
   color: gray;
 }
 
 .delete-document .dialog-button-group,
+.cancel-meeting-dialog .dialog-button-group,
 .delete-dialog .dialog-button-group {
   flex-direction: row;
   justify-content: center;
+  gap: 10px;
 }
 
 .delete-document .dialog-button-group button,
@@ -219,7 +229,7 @@
 }
 
 .MuiMenu-list .MuiListItem-root {
-  padding: 6px 16px!important;
+  padding: 6px 16px !important;
   display: flex !important;
   position: relative !important;
   text-align: left !important;
@@ -276,6 +286,7 @@
   padding-top: 10px;
   padding-bottom: 10px;
   width: 175px;
+  font-weight: 600;
 }
 
 .MuiDialog-root .dialog-button-group {
@@ -295,6 +306,7 @@
   padding-bottom: 10px;
   border-radius: 8px;
   width: 175px;
+  font-weight: 600;
 }
 
 .delete-document .dialog-button-group .cancel-button {
@@ -353,4 +365,62 @@
 
 .penalty-dialog .select-input .MuiInputAdornment-positionStart {
   margin-right: 20px;
+}
+
+.add-meeting .date-time .MuiInput-underline:before,
+.add-meeting .dialog-select-input:before,
+.add-meeting .date-time .MuiInput-underline:after,
+.add-meeting .dialog-select-input:after,
+.add-meeting .dialog-input::after,
+.add-meeting .dialog-input::before {
+  content: "";
+  border: 0;
+  outline: none;
+  position: unset;
+}
+
+.add-meeting .date-time {
+  display: flex;
+  background-color: #efefef;
+  align-items: center;
+  border: 1px solid lightgray;
+  padding: 12px;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.add-meeting .date-time input[type="date"]::-webkit-calendar-picker-indicator,
+.add-meeting .date-time input[type="time"]::-webkit-calendar-picker-indicator {
+  color: rgba(0, 0, 0, 0);
+  opacity: 1;
+  display: block;
+  background: url(../assets/calender.png) no-repeat;
+  width: 20px;
+  height: 20px;
+  border-width: thin;
+  cursor: pointer;
+}
+
+.add-meeting .date-time input[type="time"]::-webkit-calendar-picker-indicator {
+  background: url(../assets/time.png) no-repeat;
+}
+
+.add-meeting .dialog-input {
+  margin-top: 15px;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.add-meeting .dialog-select-input {
+  background-color: #efefef;
+  margin-top: 15px;
+  padding: 12px;
+}
+
+.add-meeting .MuiSelect-select.MuiSelect-select {
+  background-color: #efefef;
+}
+
+.add-meeting .dialog-textarea-input {
+  height: 200px !important;
 }

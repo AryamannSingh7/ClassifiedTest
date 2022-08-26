@@ -1,127 +1,4 @@
 export const MeetingsStyleWeb: any = {
-  faqChairman: {
-    "& .navigation": {
-      display: "flex",
-      justifyContent: "space-between",
-    },
-    "& .navigation .sub-heading": {
-      fontWeight: 600,
-      marginTop: 15,
-      marginBottom: 15,
-    },
-    "& .category-box": {
-      marginTop: "30px",
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-    },
-    "& .category-box .category": {
-      display: "flex",
-      maxWidth: "75%",
-      overflowX: "auto",
-      alignItems: "center",
-    },
-    "& .category-box .category .MuiTab-root": {
-      borderRadius: "25px",
-      background: "#EDF0F9",
-      marginRight: "10px",
-      textTransform: "capitalize",
-      fontSize: "16px",
-      padding: "6px 20px",
-      minWidth: "auto",
-      minHeight: "auto",
-      color: "gray",
-    },
-    "& .category-box .category .MuiTab-root.active": {
-      background: "#2C6DF3",
-      color: "white",
-    },
-    "& .category-box Button": {
-      borderRadius: "25px",
-      background: "#FE8335",
-      color: "white",
-      marginRight: "10px",
-      textTransform: "capitalize",
-      fontSize: "16px",
-      padding: "6px 20px",
-      minWidth: "auto",
-      minHeight: "auto",
-    },
-    "& .faq-box": {
-      marginTop: "30px",
-    },
-    "& .faq-box .Mui-expanded": {
-      margin: "0",
-    },
-    "& .faq-box .MuiAccordionSummary-root.Mui-expanded": {
-      minHeight: "70px",
-    },
-    "& .faq-box .MuiAccordionSummary-content p": {
-      fontWeight: "600",
-    },
-    "& .faq-box .MuiAccordionSummary-root": {
-      minHeight: "70px",
-    },
-    "& .faq-box .MuiAccordionSummary-content": {
-      justifyContent: "space-between",
-    },
-    "& .faq-box .icons .MuiSvgIcon-root": {
-      color: "#FE8335",
-      margin: "0 5px",
-    },
-    "& .faq-box .MuiTypography-root": {
-      width: "93%",
-      maxWidth: "93%",
-      wordBreak: "break-word",
-    },
-    "& .faq-box .MuiAccordionDetails-root p.MuiTypography-root": {
-      width: "100% !important",
-      maxWidth: "100% !important",
-      wordBreak: "break-word",
-    },
-    "& .faq-box .MuiAccordionDetails-root": {
-      maxWidth: "100%",
-      wordBreak: "break-word",
-    },
-    "& .faq-box .MuiAccordionSummary-content .MuiBox-root": {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-    },
-    "& .bottom-buttons": {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      margin: "30px 0",
-    },
-    "& .bottom-buttons button:first-child": {
-      color: "#FF4C67",
-      borderColor: "#FF4C67",
-      fontWeight: "600",
-    },
-    "& .bottom-buttons button:last-child": {
-      color: "#FFFFFF",
-      borderColor: "#2B6FEC",
-      background: "#2B6FEC",
-    },
-    "& .select-category": {
-      borderRadius: 4,
-      border: "1px solid #ced4da",
-      fontSize: 16,
-      padding: "10px 26px 10px 12px",
-    },
-    "& .empty-box": {
-      width: "100%",
-      height: "500px",
-      background: "white",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      flexDirection: "column",
-      borderRadius: "5px",
-      marginTop: "30px",
-    },
-  },
   scheduledMeeting: {
     "& .navigation": {
       display: "flex",
@@ -144,7 +21,6 @@ export const MeetingsStyleWeb: any = {
       marginRight: "18px",
       padding: "10px 15px",
       width: "200px",
-      // display: "block",
     },
     "& .top-bar .filter .select-input .MuiSelect-root ": {
       background: "#FFFFFF",
@@ -171,6 +47,7 @@ export const MeetingsStyleWeb: any = {
       background: "white",
       marginTop: "20px",
       borderRadius: "8px",
+      fontFamily: "Century Gothic",
     },
     "& .meeting-table .table-top": {
       padding: "20px",
@@ -210,9 +87,17 @@ export const MeetingsStyleWeb: any = {
     },
     "& .meeting-table .table-box .MuiTableHead-root": {
       borderBottom: "1px solid #f0f0f0",
+      fontFamily: "Century Gothic !important",
+    },
+    "& .meeting-table .table-box .MuiTableHead-root th": {
+      fontFamily: "Century Gothic !important",
     },
     "& .meeting-table .table-box .MuiTableRow-root": {
       borderBottom: "1px solid #f0f0f0",
+      fontFamily: "Century Gothic",
+    },
+    "& .meeting-table .table-box .MuiTableRow-root td": {
+      fontFamily: "Century Gothic",
     },
     "& .meeting-table .table-box .ellipse": {
       maxWidth: "160px",
@@ -240,6 +125,133 @@ export const MeetingsStyleWeb: any = {
       background: "#FC8434",
       color: "white",
       borderColor: "#FC8434",
+    },
+    "& a": {
+      textDecoration: "none",
+      color: "black",
+    },
+  },
+  scheduledMeetingDetails: {
+    "& .navigation": {
+      display: "flex",
+      justifyContent: "space-between",
+    },
+    "& .navigation .sub-heading": {
+      fontWeight: 600,
+      marginTop: 15,
+      marginBottom: 15,
+    },
+    "& a": {
+      textDecoration: "none",
+      color: "black",
+    },
+    "& .meeting-detail-box": {
+      background: "white",
+      marginBottom: "50px",
+      marginTop: "25px",
+      borderRadius: "8px",
+    },
+    "& .meeting-detail-box .meeting-top": {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      padding: "20px",
+    },
+    "& .meeting-detail-box .meeting-top h3": {
+      fontWeight: "600",
+    },
+    "& .meeting-detail-box .meeting-top span": {
+      padding: "5px 12px",
+      borderRadius: "25px",
+    },
+    "& .meeting-detail-box .meeting-details": {
+      padding: "20px",
+    },
+    "& .meeting-detail-box .meeting-details h4": {
+      marginBottom: "20px",
+    },
+    "& .meeting-detail-box .meeting-details .items": {
+      borderBottom: "1px solid #f0f0f0",
+      padding: "15px 0",
+    },
+    "& .meeting-detail-box .meeting-details .items p": {
+      display: "inline-block",
+      fontWeight: "600",
+    },
+    "& .response-box": {
+      padding: "20px",
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      marginBottom: "100px",
+      background: "white",
+      borderRadius: "8px",
+    },
+    "& .response-box h3": {
+      fontWeight: "600",
+    },
+    "& .response-box .status": {
+      display: "flex",
+      justifyContent: "flex-end",
+      alignItems: "center",
+      gap: "24px",
+    },
+    "& .response-box .status .item": {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: "10px",
+    },
+    "& .response-box .status p span": {
+      fontWeight: "600",
+    },
+    "& .button-box": {
+      display: "flex",
+      justifyContent: "flex-end",
+      alignItems: "center",
+      marginBottom: "50px",
+      gap: "20px",
+    },
+    "& .button-box button": {
+      minWidth: "150px",
+      padding: "12px 20px",
+      borderRadius: "5px",
+      fontWeight: "600",
+    },
+    "& .button-box button.cancel": {
+      border: "1px solid #2B6FED",
+      color: "#2B6FED",
+    },
+    "& .button-box button.edit": {
+      color: "white",
+      background: "#2B6FED",
+    },
+    "& .meeting-minute-details": {
+      padding: "20px",
+    },
+    "& .meeting-minute-details .resolution": {
+      minHeight: "500px",
+    },
+    "& .meeting-minute-details .pdf-detail": {
+      border: "1px solid #f0f0f0",
+      borderRadius: "8px",
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      padding: "10px 20px",
+      marginTop: "20px",
+    },
+    "& .meeting-minute-details .pdf-detail .heading": {
+      display: "flex",
+      alignItems: "center",
+      gap: "20px",
+    },
+    "& .meeting-minute-details .pdf-detail .heading h6": {
+      fontWeight: "600",
+    },
+    "& .meeting-minute-details .pdf-detail > img": {
+      width: "20px",
+      height: "20px",
     },
   },
 };

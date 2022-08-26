@@ -15,16 +15,14 @@ import {
   IconButton,
   Select,
   MenuItem,
-  InputLabel,
-  NativeSelect,
-  InputBase,
   Divider,
-  TableContainer,
   Table,
   TableHead,
   TableCell,
   TableRow,
   TableBody,
+  Input,
+  InputBase,
 } from "@material-ui/core";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
@@ -33,6 +31,7 @@ import Grid from "@material-ui/core/Grid";
 import ScheduledMeetingController, {
   Props,
 } from "./ScheduledMeetingController.web";
+import { Link } from "react-router-dom";
 import { Menu } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/core.css";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
@@ -42,6 +41,7 @@ import SearchIconImage from "../assets/search.png";
 import SearchIcon from "@material-ui/icons/Search";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Pagination from "@material-ui/lab/Pagination";
+import CommentIcon from "../assets/comment.png";
 
 class ScheduledMeeting extends ScheduledMeetingController {
   constructor(props: Props) {
@@ -103,7 +103,9 @@ class ScheduledMeeting extends ScheduledMeetingController {
                     </Button>
                   </Box>
                   <Box className="create-meeting">
-                    <Button>+ Create New Meeting</Button>
+                    <Button onClick={() => this.handleCreateMeetingModal()}>
+                      + Create New Meeting
+                    </Button>
                   </Box>
                 </Box>
                 <Grid className="meeting-table">
@@ -157,9 +159,19 @@ class ScheduledMeeting extends ScheduledMeetingController {
                                 </IconButton>
                               }
                             >
-                              <MenuItem>Download</MenuItem>
-                              <MenuItem>Delete</MenuItem>
-                              <MenuItem>Share</MenuItem>
+                              <MenuItem>
+                                <Link to="ScheduledMeeting/1">View</Link>
+                              </MenuItem>
+                              <MenuItem
+                                onClick={() => this.handleEditMeetingModal()}
+                              >
+                                Edit
+                              </MenuItem>
+                              <MenuItem
+                                onClick={() => this.handleCancelMeetingModal()}
+                              >
+                                Cancel
+                              </MenuItem>
                             </Menu>
                           </TableCell>
                         </TableRow>
@@ -192,9 +204,19 @@ class ScheduledMeeting extends ScheduledMeetingController {
                                 </IconButton>
                               }
                             >
-                              <MenuItem>Download</MenuItem>
-                              <MenuItem>Delete</MenuItem>
-                              <MenuItem>Share</MenuItem>
+                              <MenuItem>
+                                <Link to="ScheduledMeeting/1">View</Link>
+                              </MenuItem>
+                              <MenuItem
+                                onClick={() => this.handleEditMeetingModal()}
+                              >
+                                Edit
+                              </MenuItem>
+                              <MenuItem
+                                onClick={() => this.handleCancelMeetingModal()}
+                              >
+                                Cancel
+                              </MenuItem>
                             </Menu>
                           </TableCell>
                         </TableRow>
@@ -219,101 +241,8 @@ class ScheduledMeeting extends ScheduledMeetingController {
           </Box>
         </Box>
 
-        <Dialog className="add-faq-dialog" onClose={() => {}} open={false}>
-          <MuiDialogTitle disableTypography className="dialog-heading">
-            <Typography variant="h6">Add Questions</Typography>
-            <IconButton onClick={() => {}}>
-              <CloseIcon />
-            </IconButton>
-          </MuiDialogTitle>
-          <DialogContent dividers>
-            <FormControl fullWidth>
-              <select className="dialog-select-input">
-                <option aria-label="None" value="">
-                  Select Category
-                </option>
-              </select>
-            </FormControl>
-            <FormControl fullWidth>
-              <input placeholder="Title Questions" className="dialog-input" />
-            </FormControl>
-            <FormControl fullWidth>
-              <textarea
-                className="dialog-textarea-input"
-                placeholder="Answer"
-              />
-            </FormControl>
-          </DialogContent>
-          <DialogActions className="dialog-button-group">
-            <Button className="cancel-button">Cancel</Button>
-            <Button className="add-button">Add</Button>
-          </DialogActions>
-        </Dialog>
 
-        <Dialog className="add-faq-dialog" onClose={() => {}} open={false}>
-          <MuiDialogTitle className="dialog-heading" disableTypography>
-            <Typography variant="h6">Edit Questions</Typography>
-            <IconButton onClick={() => {}}>
-              <CloseIcon />
-            </IconButton>
-          </MuiDialogTitle>
-          <DialogContent dividers>
-            <FormControl fullWidth>
-              <select className="dialog-select-input">
-                <option aria-label="None" value="">
-                  Select Category
-                </option>
-              </select>
-            </FormControl>
-            <FormControl fullWidth>
-              <input className="dialog-input" placeholder="Title Questions" />
-            </FormControl>
-            <FormControl fullWidth>
-              <textarea
-                className="dialog-textarea-input"
-                placeholder="Answer"
-              />
-            </FormControl>
-          </DialogContent>
-          <DialogActions className="dialog-button-group">
-            <Button className="cancel-button">Cancel</Button>
-            <Button className="add-button">Edit</Button>
-          </DialogActions>
-        </Dialog>
-
-        <Dialog
-          className="delete-dialog"
-          fullWidth
-          onClose={() => {}}
-          open={false}
-        >
-          <DialogContent style={{ margin: "15px 0" }}>
-            <Box textAlign="center">
-              {/* <img
-                  className="comment-image"
-                  src={CommentImage}
-                  alt="comment"
-                /> */}
-              <Typography variant="h6">
-                Do you want to delete the category?
-              </Typography>
-              <Typography variant="body1" style={{ marginBottom: "0px" }}>
-                Are you sure want to delete the category "
-              </Typography>
-              <Typography variant="body1" style={{ marginBottom: "15px" }}>
-                All FAQ related this category will be deleted permanently.
-              </Typography>
-              <DialogActions className="dialog-button-group">
-                <Button className="cancel-button" style={{ width: "200px" }}>
-                  No, Don't Delete
-                </Button>
-                <Button style={{ width: "200px" }} className="add-button">
-                  Yes Delete
-                </Button>
-              </DialogActions>
-            </Box>
-          </DialogContent>
-        </Dialog>
+        
       </>
     );
   }

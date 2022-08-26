@@ -15,7 +15,7 @@ import AlertBlock from '../../blocks/alert/src/AlertBlock.web'
 import Chatbot6 from "../../blocks/Chatbot6/src/Chatbot6";
 import EmailNotifications from "../../blocks/EmailNotifications/src/EmailNotifications";
 import BroadcastMessage from "../../blocks/BroadcastMessage/src/BroadcastMessage";
-import BulkUploading from "../../blocks/BulkUploading/src/BulkUploading";
+// import BulkUploading from "../../blocks/BulkUploading/src/BulkUploading";
 import Location from "../../blocks/location/src/Location";
 import SocialMediaAccountLoginScreen from "../../blocks/social-media-account-login/src/SocialMediaAccountLoginScreen";
 import Invitefriends from "../../blocks/invitefriends/src/Invitefriends";
@@ -170,6 +170,11 @@ import LeaseForm from "../../blocks/RolesPermissions2/src/LeaseForm.web";
 import ChangedSelectedTemplate from "../../blocks/RolesPermissions2/src/ChangedSelectedTemplate.web";
 import ReviewTemplate from "../../blocks/RolesPermissions2/src/ReviewTemplate.web";
 import AddCondition from "../../blocks/RolesPermissions2/src/AddCondition.web";
+
+import ChairmanScheduledMeeting from "../../blocks/BulkUploading/src/ScheduledMeeting.web"
+import ScheduledMeetingDetails from "../../blocks/BulkUploading/src/ScheduledMeetingDetails.web"
+import ChairmanMeetingMinutes from "../../blocks/BulkUploading/src/MeetingMinutes.web"
+import MeetingMinuteDetails from "../../blocks/BulkUploading/src/MeetingMinuteDetails.web"
 
 const routeMap = {
   //done
@@ -358,10 +363,10 @@ const routeMap = {
     component: BroadcastMessage,
     path: '/BroadcastMessage'
   },
-  BulkUploading: {
-    component: BulkUploading,
-    path: '/BulkUploading'
-  },
+  // BulkUploading: {
+  //   component: BulkUploading,
+  //   path: '/BulkUploading'
+  // },
   Location: {
     component: Location,
     path: '/Location'
@@ -584,6 +589,27 @@ const routeMap = {
   //   path: '/LeaseForm',
   //   exact: true
   // },
+  // Chairman - Meetings
+  ChairmanScheduledMeeting: {
+    component: ChairmanScheduledMeeting,
+    path: '/ScheduledMeetings',
+    exact: true
+  },
+  ChairmanScheduledMeetingDetails: {
+    component: ScheduledMeetingDetails,
+    path: '/ScheduledMeeting/:id',
+    exact: true
+  },
+  ChairmanMeetingMinutes: {
+    component: ChairmanMeetingMinutes,
+    path: '/MeetingMinutes',
+    exact: true
+  },
+  ChairmanMeetingMinuteDetails: {
+    component: MeetingMinuteDetails,
+    path: '/MeetingMinute/1',
+    exact: true
+  },
   Customisableusersubscriptions: {
     component: Customisableusersubscriptions,
     path: '/Customisableusersubscriptions'
@@ -819,10 +845,10 @@ const routeMap = {
     component: BroadcastMessage,
     path: '/BroadcastMessage'
   },
-  BulkUploading: {
-    component: BulkUploading,
-    path: '/BulkUploading'
-  },
+  // BulkUploading: {
+  //   component: BulkUploading,
+  //   path: '/BulkUploading'
+  // },
   Location: {
     component: Location,
     path: '/Location'
