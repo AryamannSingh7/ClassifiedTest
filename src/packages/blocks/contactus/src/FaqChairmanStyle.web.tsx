@@ -19,7 +19,7 @@ export const FaqChairmanStyleWeb: any = {
       border: "1px solid #ced4da",
       fontSize: 16,
       padding: "15px 26px 15px 12px",
-      fontFamily: "GothamMedium",
+      // fontFamily: "GothamMedium",
       outline: "none",
       marginBottom: "15px",
     },
@@ -28,7 +28,7 @@ export const FaqChairmanStyleWeb: any = {
       border: "1px solid #ced4da",
       fontSize: 16,
       padding: "15px 26px 15px 12px",
-      fontFamily: "GothamMedium",
+      // fontFamily: "GothamMedium",
       color: "gray",
       marginBottom: "15px",
       background: "white",
@@ -157,8 +157,12 @@ export const FaqChairmanStyleWeb: any = {
       maxWidth: "93%",
       wordBreak: "break-word",
     },
+    "& .faq-box .MuiAccordionDetails-root p.MuiTypography-root": {
+      width: "100% !important",
+      maxWidth: "100% !important",
+      wordBreak: "break-word",
+    },
     "& .faq-box .MuiAccordionDetails-root": {
-      width: "100%",
       maxWidth: "100%",
       wordBreak: "break-word",
     },
@@ -209,11 +213,11 @@ export const FaqChairmanStyleWeb: any = {
       cursor: "pointer",
       marginBottom: "18px",
       background: "#FFFFFF",
-      padding: "20px",
+      padding: "10px 20px",
     },
-    "& .backIcon svg": {
-      marginRight: "18px",
-    },
+    // "& .backIcon svg": {
+    //   marginRight: "18px",
+    // },
     "& .faq-item": {
       display: "flex",
       justifyContent: "space-between",
@@ -240,8 +244,9 @@ export const FaqChairmanStyleWeb: any = {
     "& .faq-ans span": {
       display: "block",
       marginBottom: "20px",
+      fontWeight: "600",
     },
-    "& .faq-step button": {
+    "& .faq-step .faq-list button": {
       color: "#FFFFFF",
       background: "#2B6FEC",
       padding: "15px",

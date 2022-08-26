@@ -68,11 +68,11 @@ class ViewVeichle extends VeichleListController {
                 <Grid xs={12}>
                   <div className="card" style={{padding:'2rem'}}>
                     <div className="status">
-                      Pending Approval
+                      {item.attributes.status}
                     </div>
                     <div className="card-content">
 
-                      <img src="https://img.freepik.com/premium-photo/generic-brandless-modern-sport-car-with-fire-smoke_110488-1759.jpg" />
+                      <img src="https://img.freepik.com/premium-photo/generic-brandless-modern-sport-car-with-fire-smoke_110488-1759.jpg" style={{marginRight:5}} />
                       <div className="content">
                         <p className="title">
                           {item.attributes.company_name}
@@ -90,7 +90,7 @@ class ViewVeichle extends VeichleListController {
                           <img src={userBlue} width='25' height='25' style={{ marginRight: 10 }} />
                           <p>   Owner Name :</p>
                         </div>
-                        <div style={{ marginLeft: 35, marginBottom: 20 }}>
+                        <div style={{ marginLeft: 35, marginBottom: 20, fontWeight: 'bold' }}>
 
                           {item.attributes.owner_name}
                         </div>
@@ -101,7 +101,7 @@ class ViewVeichle extends VeichleListController {
                           <img src={CarBlue} width='25' height='25' style={{ marginRight: 10 }} />
                           <p> Car Manufacturer:</p>
                         </div>
-                        <div style={{ marginLeft: 35, marginBottom: 20 }}>
+                        <div style={{ marginLeft: 35, marginBottom: 20, fontWeight: 'bold' }}>
 
                           {item.attributes.company_name}
                         </div>
@@ -112,7 +112,7 @@ class ViewVeichle extends VeichleListController {
                           <img src={List} width='25' height='25' style={{ marginRight: 10 }} />
                           <p> Plate Number:</p>
                         </div>
-                        <div style={{ marginLeft: 35, marginBottom: 20 }}>
+                        <div style={{ marginLeft: 35, marginBottom: 20, fontWeight: 'bold' }}>
 
                           {item.attributes.plate_number}
                         </div>
@@ -123,7 +123,7 @@ class ViewVeichle extends VeichleListController {
                           <img src={paletteBlue} width='25' height='25' style={{ marginRight: 10 }} />
                           <p> Car Color:</p>
                         </div>
-                        <div style={{ marginLeft: 35, marginBottom: 20 }}>
+                        <div style={{ marginLeft: 35, marginBottom: 20,fontWeight:'bold' }}>
 
                           {item.attributes.color}
                         </div>
@@ -146,7 +146,7 @@ class ViewVeichle extends VeichleListController {
               </Grid>
               <Grid container>
                 <Grid xs={12}>
-                  <img src={item.attributes.registration_card_copy.url} width='350'/>
+                  <img src={item?.attributes?.registration_card_copy?.url} width='350'/>
                 </Grid>
               </Grid>
 
@@ -180,7 +180,7 @@ class ViewVeichle extends VeichleListController {
           </Grid>
           <Grid item xs={12} md={5} className="auth-cols">
             <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
-              <img src={Building1} className="building-logo" alt="" />
+              <img src={Building1.default} className="building-logo" alt="" />
             </Box>
           </Grid>
         </Grid>
@@ -216,7 +216,7 @@ class ViewVeichle extends VeichleListController {
           <Grid container>
             <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
               <p style={{ fontWeight: 400, fontSize: '0.8rem', textAlign: 'center' }}>
-                Are you should you want to delete this registered vehicle from this App? Once deleted you may not be able to enter the building or complex with this vehicle
+                Please select the building you would like to unregister the vehicle from.Upon doing that you may not be able to enter the building with this vehicle
               </p>
             </Grid>
           </Grid>

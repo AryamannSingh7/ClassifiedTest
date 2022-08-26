@@ -54,8 +54,8 @@ class ResidentDashboard extends React.Component {
                 <div className="left-icon">
                   <IconButton onClick={() => this.toggleDrawer()}>
                     <MenuIcon />
-                  </IconButton>{" "}
-                  Complex Name
+                  </IconButton>
+                  <span className="complex-name">Complex Name</span>
                 </div>
                 <div className="right-icon">
                   <Link href="#">
@@ -70,11 +70,11 @@ class ResidentDashboard extends React.Component {
                 </div>
               </Box>
               <Container className="dashboard">
-                <Grid container spacing={4} style={{ marginTop: 15 }}>
+                <Grid container spacing={1} style={{ marginTop: 15 }}>
                   <Grid item xs={12} sm={12} className="title">
                     <Typography variant="h5">Building Services</Typography>
                   </Grid>
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={6} sm={6}>
                     <Link href="/IncidentListing">
                       <DashboardCard
                         image={keyhand}
@@ -84,7 +84,7 @@ class ResidentDashboard extends React.Component {
                       />
                     </Link>
                   </Grid>
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={6} sm={6}>
                     <Link href="">
                       <DashboardCard
                         image={keyhand}
@@ -94,7 +94,7 @@ class ResidentDashboard extends React.Component {
                       />
                     </Link>
                   </Grid>
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={6} sm={6}>
                     <Link href="">
                       <DashboardCard
                         image={keyhand}
@@ -104,7 +104,7 @@ class ResidentDashboard extends React.Component {
                       />
                     </Link>
                   </Grid>
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={6} sm={6}>
                     <Link href="">
                       <DashboardCard
                         image={keyhand}
@@ -114,7 +114,7 @@ class ResidentDashboard extends React.Component {
                       />
                     </Link>
                   </Grid>
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={6} sm={6}>
                     <Link href="">
                       <DashboardCard
                         image={keyhand}
@@ -125,7 +125,7 @@ class ResidentDashboard extends React.Component {
                     </Link>
                   </Grid>
                   <Grid item xs={12} sm={6}>
-                    <Link href="">
+                    <Link href="/pollsSurvey">
                       <DashboardCard
                         image={keyhand}
                         heading="Survey"
@@ -134,7 +134,7 @@ class ResidentDashboard extends React.Component {
                       />
                     </Link>
                   </Grid>
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={6} sm={6}>
                     <Link href="">
                       <DashboardCard
                         image={keyhand}
@@ -144,7 +144,7 @@ class ResidentDashboard extends React.Component {
                       />
                     </Link>
                   </Grid>
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={6} sm={6}>
                     <Link href="">
                       <DashboardCard
                         image={keyhand}
@@ -154,7 +154,7 @@ class ResidentDashboard extends React.Component {
                       />
                     </Link>
                   </Grid>
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={6} sm={6}>
                     <Link href="">
                       <DashboardCard
                         image={keyhand}
@@ -164,8 +164,8 @@ class ResidentDashboard extends React.Component {
                       />
                     </Link>
                   </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <Link href="">
+                  <Grid item xs={6} sm={6}>
+                    <Link href="/BuildingDocuments">
                       <DashboardCard
                         image={keyhand}
                         heading="Building Documents"
@@ -175,11 +175,11 @@ class ResidentDashboard extends React.Component {
                     </Link>
                   </Grid>
                 </Grid>
-                <Grid container spacing={4} style={{ marginTop: 15 }}>
+                <Grid container spacing={1} style={{ marginTop: 15 }}>
                   <Grid item xs={12} sm={12} className="title">
                     <Typography variant="h5">Personal Services</Typography>
                   </Grid>
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={6} sm={6}>
                     <Link href="">
                       <DashboardCard
                         image={keyhand}
@@ -189,8 +189,8 @@ class ResidentDashboard extends React.Component {
                       />
                     </Link>
                   </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <Link href="">
+                  <Grid item xs={6} sm={6}>
+                    <Link href="/veichleList">
                       <DashboardCard
                         image={keyhand}
                         heading="My Vehicles"
@@ -199,8 +199,8 @@ class ResidentDashboard extends React.Component {
                       />
                     </Link>
                   </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <Link href="">
+                  <Grid item xs={6} sm={6}>
+                    <Link href="/familylist">
                       <DashboardCard
                         image={keyhand}
                         heading="My Family"
@@ -209,7 +209,7 @@ class ResidentDashboard extends React.Component {
                       />
                     </Link>
                   </Grid>
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={6} sm={6}>
                     <Link href="">
                       <DashboardCard
                         image={keyhand}
@@ -219,7 +219,7 @@ class ResidentDashboard extends React.Component {
                       />
                     </Link>
                   </Grid>
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={6} sm={6}>
                     <Link href="">
                       <DashboardCard
                         image={keyhand}
@@ -229,8 +229,8 @@ class ResidentDashboard extends React.Component {
                       />
                     </Link>
                   </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <Link href="">
+                  <Grid item xs={6} sm={6}>
+                    <Link href="/PersonalDocument">
                       <DashboardCard
                         image={keyhand}
                         heading="My Documents"

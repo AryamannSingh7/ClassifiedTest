@@ -185,7 +185,7 @@ class Registration extends EmailAccountRegistrationController  {
                         height="56px"
                         border="0.1px solid rgb(209 209 209 / 44%)"
                         borderRadius="16px"
-                        bgcolor="white"
+                        bgcolor="#f9f9f9"
                       >
                         <Box>
                           <FormControl variant="outlined" >
@@ -228,7 +228,8 @@ class Registration extends EmailAccountRegistrationController  {
                             fontSize: 16,
                             marginRight: 10,
                             marginLeft: 21,
-                            outline: "none"
+                            outline: "none",
+                            backgroundColor:'#f9f9f9'
                           }}
                         />
                       </Box>
@@ -479,7 +480,7 @@ class Registration extends EmailAccountRegistrationController  {
           </Grid>
         <Grid item xs={12} md={5} className="auth-cols">
           <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
-            <img src={Building1} className="building-logo" alt="" />
+            <img src={Building1.default} className="building-logo" alt="" />
           </Box>
         </Grid>
           </Grid>

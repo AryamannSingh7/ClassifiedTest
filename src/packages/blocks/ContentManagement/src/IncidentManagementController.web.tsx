@@ -47,6 +47,13 @@ export interface S {
   sortBy : any ;
   status : any;
   buildingName:any;
+  statusDetail : any;
+  providerWork:any;
+  providerName:any;
+  provider_id : any ;
+  imageShowDialog:any;
+  statusShowDialog:any;
+  file:any;
   // Customizable Area End
 }
 
@@ -133,7 +140,13 @@ export default class IncidentManagementController extends BlockComponent<
       unitName : " ",
       status :" ",
       serachBuildingName:" ",
-      statusDetail:" "
+      statusDetail:" ",
+      providerWork:" ",
+      providerName :" ",
+      provider_id:null,
+      imageShowDialog:false,
+      file:{},
+      statusShowDialog:false
       // Customizable Area End
     };
 
@@ -207,11 +220,40 @@ export default class IncidentManagementController extends BlockComponent<
             }
           }
         } 
-      else if (apiRequestCallId === this.apicreateIncidentCallId) {
-          if (responseJson && responseJson.data && responseJson.meta) {
-            console.log("apicreateIncidentCallId===========>",responseJson)
-            localStorage.setItem("createIncidentId",responseJson.data.id)
-              this.props.history.push("/IncidentReportedSuccessfully")
+        else if (apiRequestCallId === this.apiAssginProviderCallId) {
+          if (responseJson && responseJson.data) {
+            console.log("apiAssginProviderCallId===========>",responseJson)
+            const id = localStorage.getItem("incidentManagementDetailId")
+            this.getIncidentDetailsById(id);
+            this.setState({loading: false})      
+          } else if (responseJson?.errors) {
+            let error = Object.values(responseJson.errors[0])[0] as string;
+            this.setState({ error });
+          } else {
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
+          }
+          this.parseApiCatchErrorResponse(this.state.error);
+          this.setState({loading: false , error:null})
+        }
+        else if (apiRequestCallId === this.apiUpdateProviderCallId) {
+          if (responseJson && responseJson.data) {
+            console.log("apiUpdateProviderCallId===========>",responseJson)
+            const id = localStorage.getItem("incidentManagementDetailId")
+            this.getIncidentDetailsById(id);
+            this.setState({loading: false})      
+          } else if (responseJson?.errors) {
+            let error = responseJson.errors[0] as string;
+            this.setState({ error });
+          } else {
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
+          }
+         
+          this.parseApiCatchErrorResponse(this.state.error);
+          this.setState({loading: false , error:null})
+        }
+      else if (apiRequestCallId === this.apiUpdateStatusCallId) {
+          if (responseJson && responseJson.data) {
+            console.log("apiUpdateStatusCallId===========>",responseJson)
             this.setState({loading: false})      
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
@@ -237,6 +279,62 @@ export default class IncidentManagementController extends BlockComponent<
           this.parseApiCatchErrorResponse(this.state.error);
           this.setState({loading: false , error:null})
         }
+        else if (apiRequestCallId === this.getProviderNameApiCallId) {
+          if (responseJson && responseJson?.data ) {
+          console.log("getProviderNameApiCallId ========================>",responseJson)
+          this.setState({providerNameListing :responseJson?.data})
+          this.setState({loading: false})
+          } else if (responseJson?.errors) {
+            let error = responseJson.errors[0] as string;
+            this.setState({ error });
+          } else {
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
+          }
+          this.parseApiCatchErrorResponse(this.state.error);
+          this.setState({loading: false , error:null})
+        }
+        else if (apiRequestCallId === this.getProviderListingApiCallId) {
+          if (responseJson || responseJson?.data ) {
+          console.log("getProviderListingApiCallId ========================>",responseJson)
+          this.setState({providerListing :responseJson})
+          this.setState({loading: false})
+          } else if (responseJson?.errors) {
+            let error = responseJson.errors[0] as string;
+            this.setState({ error });
+          } else {
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
+          }
+          this.parseApiCatchErrorResponse(this.state.error);
+          this.setState({loading: false , error:null})
+        }
+        else if (apiRequestCallId === this.getProviderNameApiCallId) {
+          if (responseJson && responseJson?.data ) {
+          console.log("getProviderNameApiCallId ========================>",responseJson)
+          this.setState({providerNameListing :responseJson?.data})
+          this.setState({loading: false})
+          } else if (responseJson?.errors) {
+            let error = responseJson.errors[0] as string;
+            this.setState({ error });
+          } else {
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
+          }
+          this.parseApiCatchErrorResponse(this.state.error);
+          this.setState({loading: false , error:null})
+        }
+        else if (apiRequestCallId === this.getProviderListingApiCallId) {
+          if (responseJson || responseJson?.data ) {
+          console.log("getProviderListingApiCallId ========================>",responseJson)
+          this.setState({providerListing :responseJson})
+          this.setState({loading: false})
+          } else if (responseJson?.errors) {
+            let error = responseJson.errors[0] as string;
+            this.setState({ error });
+          } else {
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
+          }
+          this.parseApiCatchErrorResponse(this.state.error);
+          this.setState({loading: false , error:null})
+        }
         else if (apiRequestCallId === this.getIncidentListingApiCallId) {
           if (responseJson && responseJson?.data ) {
           console.log("getIncidentListingApiCallId ========================>",responseJson)
@@ -253,9 +351,20 @@ export default class IncidentManagementController extends BlockComponent<
         }
         else if (apiRequestCallId === this.getIncidentDetailsByIdApiCallId) {
           if (responseJson && responseJson?.data ) {
-         // console.log("getIncidentDetailsByIdApiCallId ========================>",responseJson)
-          this.setState({getIncidentDetails :responseJson?.data , statusDetail:responseJson?.data?.attributes?.incident_status})
-          console.log("responseJson getIncidentDetails========================>",this.state?.statusDetail)
+            const work_type = responseJson?.data?.attributes?.assign_incidents?.data?.attributes?.provider?.work_type;
+            const apartment_management_id= responseJson?.data?.attributes?.apartment_management?.apartment_management_id;
+            const providerWork =`${apartment_management_id},${work_type}`;
+            const providerName = responseJson?.data?.attributes?.assign_incidents?.data?.attributes?.provider?.id;
+            const statusDetail = responseJson?.data?.attributes?.incident_status;
+          
+         if(responseJson?.data?.attributes?.assign_incidents?.data === null )
+              this.setState({getIncidentDetails : responseJson?.data , statusDetail}) 
+         else
+         {
+          this.getProviderName(apartment_management_id , work_type)
+          this.setState({getIncidentDetails : responseJson?.data , statusDetail , providerWork , providerName})
+         }
+            console.log("providerWork  providerName   statusDetail ========>",providerWork,providerName,statusDetail)
           this.setState({loading: false})
           } else if (responseJson?.errors) {
             console.log("responseJson?.errors====>",responseJson?.errors)
@@ -285,7 +394,7 @@ export default class IncidentManagementController extends BlockComponent<
         else if (apiRequestCallId === this.getBuildingNameApiCallId) {
           if (responseJson && responseJson?.data ) {
           console.log("getBuildingNameApiCallId  ========================>",responseJson)
-          this.setState({buildingNameData :responseJson?.data?.buildings})
+          this.setState({buildingNameData :responseJson?.data})
           this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
@@ -467,7 +576,7 @@ export default class IncidentManagementController extends BlockComponent<
     ? this.txtInputEmailWebPrpos
     : this.txtInputEmailMobilePrpos;
 
-  txtPhoneNumberWebProps = {
+  txtPhoneNumberWebProps = {  
     onChangeText: (text: string) => {
       this.setState({ phone: text });
 
@@ -531,7 +640,7 @@ clear= () => {
 }
 
 getIncidentDetails= (id) => {
- localStorage.setItem("incidentManagementDetail",id)
+ localStorage.setItem("incidentManagementDetailId",id)
   this.props.history.push({
     pathname: "/IncidentManagementDetail",
 });
@@ -550,37 +659,77 @@ onChange =(e)=>{
     this.setState({ buildingName:e.target?.value})
     this.setState({ serachBuildingName:name})
   }
+  else if(e.target.name === "statusDetail"){
+    const  value = e.target.value
+    this.setState({ [e.target.name]:e.target.value})
+    // this.setState({ statusShowDialog: false })
+    this.updateStatus(value);
+  }
+  else if(e.target.name === 'providerWork'){
+    const array = e.target?.value?.split(",");
+    const id = array [0]
+    const name = array[1] 
+    this.getProviderName(id , name)
+    this.setState({ providerWork:e.target?.value})
+  }
+  // else if(e.target.name === 'ProviderName'){
+  //   const array = e.target?.value?.split(",");
+  //   const id = array [0] 
+  //   this.setState({ provider_id:id})
+  //   this.setState({ ProviderName:e.target?.value})
+  // }
+  else if(e.target.name === "statusDetail"){
+    const  value = e.target.value
+    this.setState({ [e.target.name]:e.target.value})
+    // this.setState({ statusShowDialog: false })
+    this.updateStatus(value);
+  }
+  else if(e.target.name === 'providerWork'){
+    const array = e.target?.value?.split(",");
+    const id = array [0]
+    const name = array[1] 
+    this.getProviderName(id , name)
+    this.setState({ providerWork:e.target?.value})
+  }
+  // else if(e.target.name === 'ProviderName'){
+  //   const array = e.target?.value?.split(",");
+  //   const id = array [0] 
+  //   this.setState({ provider_id:id})
+  //   this.setState({ ProviderName:e.target?.value})
+  // }
   else {
     this.setState({ [e.target.name]:e.target.value})
   }
 }
 
-  createIncident = (incidentFromData: any ,incidentRelated : any): boolean => {
+
+  updateStatus = (val) => {
     
     const header = {
       token :localStorage.getItem("userToken")
     };
-    console.log("values create==================>",incidentFromData ,incidentRelated);
+    const  id = localStorage.getItem("incidentManagementDetailId")
     const formData = new FormData();
-   formData.append('incident[common_area_id]', incidentFromData?.commonArea);
-   formData.append('incident[incident_related_id]', incidentRelated[0]);
-   formData.append('incident[incident_title]', incidentFromData.incidentTitle);
-   formData.append('incident[description]', incidentFromData.description);
-   formData.append('incident[image][]', incidentFromData.media);
+    console.log("this.state?.statusDetail=========>",val)
    
-   console.log("formData.getAll('description')==================>",formData.get('incident[common_area_id]'))
+    if(val ==="Resolved")
+    formData.append('incident[mark_resolved_by_reporter]', true);
+    else
+    formData.append('incident[mark_resolved_by_reporter]', false);
+   
+    formData.append('incident[incident_status]', val);
+   console.log("formData.getAll('description')==================>",formData.get('incident[mark_resolved_by_reporter]'))
    const httpBody = formData;
-   console.log("httpBody httpBody==================>",httpBody);
    
     this.setState({loading: true}) 
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
     );
 
-    this.apicreateIncidentCallId = requestMessage.messageId;
+    this.apiUpdateStatusCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      configJSON.createIncident
+      `bx_block_custom_form/incidents/${id}`
     );
 
     requestMessage.addData(
@@ -595,7 +744,7 @@ onChange =(e)=>{
 
     requestMessage.addData(
       getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.exampleAPiMethod
+      configJSON.PatchAPiMethod
     );
 
     runEngine.sendMessage(requestMessage.id, requestMessage);
@@ -754,7 +903,7 @@ onChange =(e)=>{
     }
   };
 
-  getIncidentDetailsById= (id : any) => {
+  getIncidentDetailsById= (id : any ,) => {
     try {
       const header = {
         "Content-Type": configJSON.validationApiContentType,
@@ -789,5 +938,164 @@ onChange =(e)=>{
     }
   };
   
+  updateProvider = (assign_incidentsi_id:any) => {
+    
+    const header = {
+      token :localStorage.getItem("userToken")
+    };
+    const  incident_id = localStorage.getItem("incidentManagementDetailId")
+    const formData = new FormData();
+   
+    formData.append('assign_incident[incident_id]', incident_id);
+    formData.append('assign_incident[provider_id]',this.state.providerName);
+   //console.log("formData.getAll('description')==================>",formData.get('incident[mark_resolved_by_reporter]'))
+   const httpBody = formData;
+   
+    this.setState({loading: true,showDialog: false}) 
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+    this.apiUpdateProviderCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_custom_form/assign_incidents/${assign_incidentsi_id}`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestBodyMessage),
+      httpBody
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.PatchAPiMethod
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+
+    return true;
+  };
+
+
+  assginProvider= ()  => {
+    const header = {
+      token :localStorage.getItem("userToken")
+    };
+    const  id = localStorage.getItem("incidentManagementDetailId")
+    const provider_id = this.state?.providerName;
+    const formData = new FormData();
+    console.log("asgin provide iiifh ============>",provider_id,id)
+    formData.append('assign_incident[incident_id]',id);
+    formData.append('assign_incident[provider_id]',provider_id);
+   
+    const httpBody = formData;
+   
+    this.setState({loading: true ,showDialog :false}) 
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+    this.apiAssginProviderCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `/bx_block_custom_form/assign_incidents`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestBodyMessage),
+      httpBody
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.exampleAPiMethod
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+
+    return true;
+  };
+
+
+  getProviderName= (id :any , name : any)  => {
+    try { 
+      //this.setState({ showDialog: true }) 
+      const header = {
+        "Content-Type": configJSON.validationApiContentType,
+        token :localStorage.getItem("userToken")
+      };
+
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+      this.getProviderNameApiCallId = requestMessage.messageId;
+      this.setState({ loading: true ,providerName:" "});
+     const  providerList = `account_block/providers/work_provider_list?apartment_management_id=${id}&work_type=${name}`
+    
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        providerList
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        configJSON.validationApiMethodType
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+      return true;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  providerList= (id :any)  => {
+    try { 
+
+      const header = {
+        "Content-Type": configJSON.validationApiContentType,
+        token :localStorage.getItem("userToken")
+      };
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+      this.getProviderListingApiCallId = requestMessage.messageId;
+      this.setState({ loading: true,showDialog: true ,});
+     
+     const  providerList = `account_block/providers?apartment_management_id=${id}`
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        providerList
+      );
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        configJSON.validationApiMethodType
+      );
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+      return true;
+    } catch (error) {
+      console.log(error);
+    }
+  };
   // Customizable Area End
 }

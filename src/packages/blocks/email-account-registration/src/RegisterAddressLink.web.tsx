@@ -67,11 +67,11 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
         </Grid>
         <Formik
           initialValues={{
-            selectCountry: '',
-            selectCity: "",
-            selectComplex: "",
-            selectBuilding: "",
-            selectUnit: "",
+            selectCountry: ' ',
+            selectCity: " ",
+            selectComplex: " ",
+            selectBuilding: " ",
+            selectUnit: " ",
           }}
           validationSchema={this.addressSchema()}
           validateOnMount={true}
@@ -80,17 +80,18 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
           {({ values, touched, errors, isValid, setFieldValue, handleChange }) => (
             <Form translate="yes" className="commonForm">
               <Grid container style={{ margin: '1rem', width: '90%' }}>
-                <Grid xs={12}>
+                      <Grid xs={12} className="formGroup1 customSelect">
 
 
 
                   <FormControl variant="outlined" fullWidth >
-                    <InputLabel id="demo-simple-select-outlined-label" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    <InputLabel data-shrink="false"  style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                       <img src={country} />
                       Country</InputLabel>
                     <Select
-
+                      value={values.selectCountry}
                       name='selectCountry'
+                            style={{ padding: '18.5px 14px'}}
                       labelId="demo-simple-select-outlined-label"
                       id="demo-simple-select-outlined"
                       onChange={(e) => { this.handleChange(e); setFieldValue("selectCountry", e.target.value) }}
@@ -103,8 +104,8 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                   </ListItemIcon>
                   <ListItemText primary="Inbox" />
                   </MenuItem> */}
-                      <MenuItem value="">
-                        <em>None</em>
+                      <MenuItem value=" ">
+                              Select Country
                       </MenuItem>
                       {this.state.allContries && this.state.allContries.map((item) =>
                         <MenuItem key={item} value={item}>{item}</MenuItem>
@@ -126,14 +127,15 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                       City</InputLabel>
                     <Select
                       name='selectCity'
+                            value={values.selectCity}
                       labelId="demo-simple-select-outlined-label"
                       id="demo-simple-select-outlined"
                       onChange={(e) => { this.handleChange(e); setFieldValue("selectCity", e.target.value) }}
                       label="City"
                       style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#b5b5b5' }}
                     >
-                      <MenuItem value="">
-                        <em>None</em>
+                      <MenuItem value=" ">
+                              Select city
                       </MenuItem>
                       {this.state.allCity && this.state.allCity.map((item) =>
                         <MenuItem key={item} value={item}>{item}</MenuItem>
@@ -153,7 +155,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                     className="formInputGrp"
                   >
 
-                    <ReactSelect options={this.state.allComplex} className="formInput ReactSelect" style={{ border: 'none' }} placeholder="Search Complex" onChange={(e) => { this.handleInputChangeCOm(e); setFieldValue("selectComplex", e.value) }} />
+                    <ReactSelect options={this.state.allComplex} className="formInput2 ReactSelect" style={{ border: 'none' }} placeholder="Search Complex" onChange={(e) => { this.handleInputChangeCOm(e); setFieldValue("selectComplex", e.value) }} />
 
                     <span className="frmLeftIcons" style={{ top: '1.5rem' }}>
                       <img src={search} />
@@ -171,14 +173,15 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                       Building</InputLabel>
                     <Select
                       name='selectBuilding'
+                            value={values.selectBuilding}
                       labelId="demo-simple-select-outlined-label"
                       id="demo-simple-select-outlined"
                       onChange={(e) => { this.handleChange(e); setFieldValue("selectBuilding", e.target.value) }}
                       label="Building"
                       style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#b5b5b5' }}
                     >
-                      <MenuItem value="">
-                        <em>None</em>
+                      <MenuItem value=" ">
+                              Select building
                       </MenuItem>
                       {this.state.allBuilding && this.state.allBuilding.map((item) =>
                         <MenuItem key={item.id} value={item}>{item.name}</MenuItem>
@@ -199,14 +202,15 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                       <img src={unit} />Unit</InputLabel>
                     <Select
                       name='selectUnit'
+                            value={values.selectUnit}
                       labelId="demo-simple-select-outlined-label"
                       id="demo-simple-select-outlined"
                       onChange={(e) => { this.handleChange(e); setFieldValue("selectUnit", e.target.value) }}
                       label="Unit"
                       style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#b5b5b5' }}
                     >
-                      <MenuItem value="">
-                        <em>None</em>
+                      <MenuItem value=" ">
+                              Select unit
                       </MenuItem>
                       {this.state.allUnit && this.state.allUnit.map((item) =>
                         <MenuItem key={item.id} value={item}>{item.apartment_name}</MenuItem>
@@ -220,8 +224,8 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
 
                 </Grid>
               </Grid>
-              <Box className="customButton">
-                <Button variant="contained" type="submit">next</Button>
+                    <Box className="customButton" style={{ width: '90%', margin: '1rem' }}>
+                      <Button variant="contained" type="submit">SEND REGISTRATION REQUEST</Button>
               </Box>
 
             </Form>
@@ -231,7 +235,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
               </Grid>
           <Grid item xs={12} md={5} className="auth-cols">
             <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
-              <img src={Building1} className="building-logo" alt="" />
+              <img src={Building1.default} className="building-logo" alt="" />
             </Box>
           </Grid>
               </Grid>
@@ -252,15 +256,15 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
           }}
         >
           <Box className="diloag-body">
-            <Box className="diloag-header">
+            <Box className="diloag-header 1">
               <img src={building} className="tenet-logo" alt="" />
-              <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
-                sure  want to register this unit?
+              <DialogTitle className="alert-dialog-title1" id="alert-dialog-title">
+               Are you sure  want to register this unit?
               </DialogTitle>
               <p>Are you sure that you want to register  the unit {this.state.selectUnit.apartment_name} of {this.state.selectBuilding.name} as a unit that you own or manage?</p>
             </Box>
-            <Box className="dialog-footer desktop-ui">
-              <DialogActions className="customButton">
+            <Box className="dialog-footer desktop-ui" style={{ display: 'flex', justifyContent: 'center' }}>
+              <DialogActions className="customButton" >
                 <Button variant="contained" onClick={() => this.createRequest()} >
                   Yes Register
                 </Button>

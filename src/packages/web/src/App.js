@@ -11,7 +11,7 @@ import TopNav from "../../components/src/TopNav";
 
 import InfoPage from '../../blocks/info-page/src/InfoPageBlock'
 import AlertBlock from '../../blocks/alert/src/AlertBlock.web'
-import RolesPermissions2 from "../../blocks/RolesPermissions2/src/RolesPermissions2";
+// import RolesPermissions2 from "../../blocks/RolesPermissions2/src/RolesPermissions2";
 import Chatbot6 from "../../blocks/Chatbot6/src/Chatbot6";
 import EmailNotifications from "../../blocks/EmailNotifications/src/EmailNotifications";
 import BroadcastMessage from "../../blocks/BroadcastMessage/src/BroadcastMessage";
@@ -118,12 +118,16 @@ import PollVoteSubmitted from "../../blocks/Polling/src/PollVoteSubmitted.web"
 import PollResponseCompleted from "../../blocks/Polling/src/PollResponseCompleted.web"
 import VeichleList from "../../blocks/customform/src/VeichleList.web"
 import NewVeichleList from "../../blocks/customform/src/NewVehicle.web"
+import NewFamily from "../../blocks/customform/src/NewFamily.web"
 import EditVeichleList from "../../blocks/customform/src/EditVehicle.web"
+import EditFamily from "../../blocks/customform/src/EditFamily.web"
 import EditRequest from "../../blocks/customform/src/EditRequest.web"
 import NewRequest from "../../blocks/customform/src/NewRequest.web"
 import ManagerList from "../../blocks/customform/src/ManagerList.web"
 
 import ViewVeichle from "../../blocks/customform/src/ViewVehicle.web"
+import FamilyList from "../../blocks/customform/src/FamilyList.web"
+
 import ManagerViewVehicle from "../../blocks/customform/src/ManagerViewVehicle.web"
 
 
@@ -149,6 +153,23 @@ import SubscriptionDetail from "../../blocks/contactus/src/SubscriptionDetails.w
 import DocumentChairman from "../../blocks/Notes/src/DocumentChairman.web";
 import DocumentListChairman from "../../blocks/Notes/src/DocumentListChairman.web";
 import DocumentViewChairman from "../../blocks/Notes/src/DocumentViewChairman.web";
+import PersonalDocument from "../../blocks/Notes/src/PersonalDocuments.web";
+import PersonalDocumentList from "../../blocks/Notes/src/PersonalDocumentList.web";
+import ViewPersonalDocument from "../../blocks/Notes/src/ViewPersonalDocument.web";
+import BuildingDocuments from "../../blocks/Notes/src/BuildingDocuments.web";
+import BuildingDocumentList from "../../blocks/Notes/src/BuildingDocumentList.web";
+import ViewBuildingDocument from "../../blocks/Notes/src/ViewBuildingDocument.web";
+
+import ContractsList from "../../blocks/RolesPermissions2/src/ContractsList.web";
+import ContractDetail from "../../blocks/RolesPermissions2/src/ContractDetail.web";
+import TemplateDetail from "../../blocks/RolesPermissions2/src/TemplateDetail.web";
+import IssueContract from "../../blocks/RolesPermissions2/src/IssueContract.web";
+import IssueLease from "../../blocks/RolesPermissions2/src/IssueLease.web";
+import SelectedTemplate from "../../blocks/RolesPermissions2/src/SelectedTemplate.web";
+import LeaseForm from "../../blocks/RolesPermissions2/src/LeaseForm.web";
+import ChangedSelectedTemplate from "../../blocks/RolesPermissions2/src/ChangedSelectedTemplate.web";
+import ReviewTemplate from "../../blocks/RolesPermissions2/src/ReviewTemplate.web";
+import AddCondition from "../../blocks/RolesPermissions2/src/AddCondition.web";
 
 import ViewInvoices from '../../blocks/InvoiceBilling/src/ViewInvoices.web';
 import ViewReceipt from '../../blocks/InvoiceBilling/src/ViewReceipt.web';
@@ -183,14 +204,29 @@ const routeMap = {
     path: '/VeichleList',
     exact: true
   },
+  FamilyList: {
+    component: FamilyList,
+    path: '/FamilyList',
+    exact: true
+  },
   NewVeichleList: {
     component: NewVeichleList,
     path: '/NewVeichleList',
     exact: true
   },
+  NewFamily: {
+    component: NewFamily,
+    path: '/NewFamily',
+    exact: true
+  },
   EditVeichleList: {
     component: EditVeichleList,
     path: '/editVehicle',
+    exact: true
+  },
+  EditFamily: {
+    component: EditFamily,
+    path: '/EditFamily',
     exact: true
   },
   EditRequest: {
@@ -337,10 +373,10 @@ const routeMap = {
     path: '/IncidentManagementDetail',
     exact: true
   },
-  RolesPermissions2: {
-    component: RolesPermissions2,
-    path: '/RolesPermissions2'
-  },
+  // RolesPermissions2: {
+  //   component: RolesPermissions2,
+  //   path: '/RolesPermissions2'
+  // },
   Chatbot6: {
     component: Chatbot6,
     path: '/Chatbot6'
@@ -445,7 +481,7 @@ const routeMap = {
     component: ResidentDashboard,
     path: '/ResidentDashboard'
   },
-  // Chairman Help
+  // Chairman - Help
   FaqChairman: {
     component: FaqChairman,
     path: '/FaqChairman'
@@ -466,7 +502,7 @@ const routeMap = {
     component: SubscriptionDetail,
     path: '/SubscriptionDetail'
   },
-  // Chairman Document
+  // Chairman - Document
   DocumentChairman: {
     component: DocumentChairman,
     path: '/DocumentChairman',
@@ -482,6 +518,103 @@ const routeMap = {
     path: '/DocumentChairman/:name/:id/view',
     exact: true
   },
+  // Owner, Resident - Personal Document, Building Document
+  PersonalDocument: {
+    component: PersonalDocument,
+    path: '/PersonalDocument',
+    exact: true
+  },
+  PersonalDocumentList: {
+    component: PersonalDocumentList,
+    path: '/PersonalDocument/:name',
+    exact: true
+  },
+  ViewPersonalDocument: {
+    component: ViewPersonalDocument,
+    path: '/PersonalDocument/:name/:id/view',
+    exact: true
+  },
+  BuildingDocuments: {
+    component: BuildingDocuments,
+    path: '/BuildingDocuments',
+    exact: true
+  },
+  BuildingDocumentList: {
+    component: BuildingDocumentList,
+    path: '/BuildingDocuments/:name',
+    exact: true
+  },
+  ViewBuildingDocument: {
+    component: ViewBuildingDocument,
+    path: '/BuildingDocuments/:name/:id/view',
+    exact: true
+  },
+  // Owner - Contract
+  ContractsList: {
+    component: ContractsList,
+    path: '/Contracts',
+    exact: true
+  },
+  ContractDetail: {
+    component: ContractDetail,
+    path: '/Contract/:id',
+    exact: true
+  },
+  TemplateDetail: {
+    component: TemplateDetail,
+    path: '/Template/:id',
+    exact: true
+  },
+  IssueContract: {
+    component: IssueContract,
+    path: '/IssueContract',
+    exact: true
+  },
+  IssueLease: {
+    component: IssueLease,
+    path: '/IssueLease',
+    exact: true
+  },
+  SelectedTemplate: {
+    component: SelectedTemplate,
+    path: '/IssueLease/:id',
+    exact: true
+  },
+  SelectedTemplateTwo: {
+    component: SelectedTemplate,
+    path: '/IssueContract/:id',
+    exact: true
+  },
+  LeaseFormIssueLease: {
+    component: LeaseForm,
+    path: '/IssueLease/:id/LeaseForm',
+    exact: true
+  },
+  LeaseFormIssueContract: {
+    component: LeaseForm,
+    path: '/IssueContract/:id/LeaseForm',
+    exact: true
+  },
+  ChangedSelectedTemplate: {
+    component: ChangedSelectedTemplate,
+    path: '/IssueContract/:id/LeaseForm/Template',
+    exact: true
+  },
+  AddCondition: {
+    component: AddCondition,
+    path: '/IssueContract/:id/LeaseForm/Template/AddCondition',
+    exact: true
+  },
+  ReviewTemplate: {
+    component: ReviewTemplate,
+    path: '/IssueContract/:id/LeaseForm/Template/Review',
+    exact: true
+  },
+  // LeaseForm: {
+  //   component: LeaseForm,
+  //   path: '/LeaseForm',
+  //   exact: true
+  // },
   Customisableusersubscriptions: {
     component: Customisableusersubscriptions,
     path: '/Customisableusersubscriptions'
@@ -701,10 +834,10 @@ const routeMap = {
     component: ForgotPasswordOTP,
     path: '/ForgotPasswordOTP'
   },
-  RolesPermissions2: {
-    component: RolesPermissions2,
-    path: '/RolesPermissions2'
-  },
+  // RolesPermissions2: {
+  //   component: RolesPermissions2,
+  //   path: '/RolesPermissions2'
+  // },
   Chatbot6: {
     component: Chatbot6,
     path: '/Chatbot6'

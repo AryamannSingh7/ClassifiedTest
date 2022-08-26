@@ -226,6 +226,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             localStorage.setItem('user_email', responseJson.data.attributes.email)
             //@ts-ignore
             //@ts-nocheck
+            this.updateType()
             this.setState({ loading: false, error: null })
 
             //@ts-ignore
@@ -250,15 +251,16 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             this.setState({ loading: false })
             //@ts-ignore
             //@ts-nocheck
-            if (this.props.history.location.state?.data) {
-              //@ts-ignore
-              //@ts-nocheck
-              this.props.history.push('/registerunit')
-            } else {
-              //@ts-ignore
-              //@ts-nocheck
-              this.props.history.push('/selecttype')
-            }
+            this.props.history.push('/registerunit')
+            // if (this.props.history.location.state?.data) {
+            //   //@ts-ignore
+            //   //@ts-nocheck
+            //   this.props.history.push('/registerunit')
+            // } else {
+            //   //@ts-ignore
+            //   //@ts-nocheck
+            //   this.props.history.push('/selecttype')
+            // }
             // //@ts-ignore
             // //@ts-nocheck
             // this.props.history.push('/selecttype')
@@ -783,6 +785,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
 
     const data = {
       type: "email_account",
+      "user_type": this.props.history.location.state?.data,
       attributes: attrs
     };
 
@@ -828,6 +831,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     this.setState({ selectEmail: attributes.email })
 
     const attrs = {
+
       full_name: attributes.full_name,
       last_name: attributes.lastName,
       email: attributes.email,
@@ -1066,7 +1070,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     this.changeUserTypeApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `account_block/user_type?user_type=${this.state.userType}&id=${localStorage.getItem('res_user_id')}`
+      `account_block/user_type?user_type=${this.props.history.location.state?.data}&id=${localStorage.getItem('res_user_id')}`
     );
 
     requestMessage.addData(
@@ -1119,9 +1123,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
   //@ts-nocheck
 
   getData(e) {
-    console.log(e)
-    console.log(e.target.name)
-    console.log(e.target.value)
+
 
     if (e.target.name == 'selectCountry') {
       this.getCity()

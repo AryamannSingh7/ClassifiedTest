@@ -15,6 +15,10 @@ export const DashboardStyleWeb: any = {
       alignItems: "center",
       justifyContent: "center",
     },
+    "& .menu .left-icon span.complex-name": {
+      color: "blue",
+      marginLeft: "10px",
+    },
     "& .menu .right-icon a": {
       marginLeft: "15px",
     },
@@ -28,7 +32,6 @@ export const DashboardStyleWeb: any = {
     },
     "& .dashboard .title h5": {
       fontWeight: "600",
-      fontFamily: "GothamMedium",
     },
     "& .right-image": {
       padding: "25px 60px",
@@ -58,7 +61,7 @@ export const DashboardStyleWeb: any = {
     },
     "& .MuiCard-root button": {
       padding: "5px 11px",
-      minWidth: "140px",
+      minWidth: "125px",
       borderRadius: "25px",
       fontWeight: "600",
       color: "#8A8A8A",

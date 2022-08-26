@@ -188,20 +188,7 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
         } if (apiRequestCallId === this.createVehicleApiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
-            if(localStorage.getItem('selectCar')){
-              localStorage.removeItem('selectCar')
-              //@ts-ignore
-              //@ts-nocheck
-              this.props.history.push('/editRequest')
-            }else{
-
-              //@ts-ignore
-              //@ts-nocheck
-              this.setState({ loading: false })
-              //@ts-ignore
-              //@ts-nocheck
-              this.props.history.push('/NewRequest')
-            }
+            this.props.history.push('/NewRequest')
                     } else if (responseJson?.errors) {
             let error = responseJson.errors[0];
             this.setState({ error });
@@ -215,6 +202,7 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
           if (!responseJson.errors) {
             console.log(responseJson)
             this.setState({ allVehcile: responseJson.vehicle.data }, () => console.log(this.state.allVehcile))
+            this.setState({ loading: false })
           } else {
             //Check Error Response
             // this.parseApiErrorResponse(responseJson);
@@ -228,6 +216,7 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
             //@ts-ignore
             //@ts-nocheck
             localStorage.removeItem('selectCar')
+
             this.props.history.push('/veichleList')
           } else {
             //Check Error Response
@@ -517,6 +506,7 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
   }
 
   updateVehicle = async (values: any) => {
+    this.setState({ loading: true })
     console.log(values)
     let item = JSON.parse(localStorage.getItem('selectCar'))
     try {
@@ -598,7 +588,7 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
 
   };
   getVehicle() {
-
+    this.setState({ loading: true })
     const header = {
       "Content-Type": configJSON.contentTypeApiAddDetail,
       "token": localStorage.getItem('userToken')
@@ -647,7 +637,7 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
   }
   checkVehicle(){
     console.log(this.state.allVehcile.length)
-if(this.state.allVehcile.length<2){
+if(this.state.allVehcile.length<5){
 // @ts-nocheck
     // @ts-ignore
   this.props.history.push("/newVeichleList")
@@ -659,6 +649,7 @@ if(this.state.allVehcile.length<2){
 
   }
   deleteRequest(){
+    this.setState({ loading: true })
     // @ts-nocheck
     // @ts-ignore
     let item = JSON.parse(localStorage.getItem('selectCar'))

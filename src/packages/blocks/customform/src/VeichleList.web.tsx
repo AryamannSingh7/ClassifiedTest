@@ -43,7 +43,7 @@ class VeichleList extends VeichleListController {
 
       <>
         <Grid container className="auth-container">
-          <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset',overflowY:'auto',overflowX:'hidden' }}>
+          <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset',}}>
               <Grid container>
                 <Grid xs={12} style={{display:'flex',alignItems:'center'}}>
                   <ArrowBackIcon onClick={() => window.history.back()} />
@@ -59,7 +59,7 @@ class VeichleList extends VeichleListController {
               {
                 this.state.allVehcile.length>0 ?
                 <>
-                  <Grid container style={{ height:'79vh'}}>
+                  <Grid container style={{ height:'79vh',display:'block',overflow:'hidden',overflowY:'auto'}}>
                       {
                         this.state.allVehcile.map((item,i)=><>
                           <Grid xs={12} >
@@ -69,7 +69,7 @@ class VeichleList extends VeichleListController {
                               </div>
                               <div className="card-content">
 
-                                <img src='https://img.freepik.com/premium-photo/generic-brandless-modern-sport-car-with-fire-smoke_110488-1759.jpg' />
+                                <img src='https://img.freepik.com/premium-photo/generic-brandless-modern-sport-car-with-fire-smoke_110488-1759.jpg' style={{ marginRight: 5 }} />
                                 <div className="content">
                                   <p className="title">
                                     {item.attributes.company_name}
@@ -126,7 +126,7 @@ class VeichleList extends VeichleListController {
                     </div>
                     <div className="card-content">
 
-                      <img src={Building1} />
+                      <img src={Building1.default} />
                       <div className="content">
                         <p className="title">
                           Dubai 60833
@@ -145,7 +145,7 @@ class VeichleList extends VeichleListController {
                     </div>
                     <div className="card-content">
 
-                    <img src={Building1} />
+                    <img src={Building1.default} />
                     <div className="content">
                       <p className="title">
                         Dubai 60833
@@ -190,7 +190,7 @@ class VeichleList extends VeichleListController {
             </Grid>
           <Grid item xs={12} md={5} className="auth-cols">
             <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
-              <img src={Building1} className="building-logo" alt="" />
+              <img src={Building1.default} className="building-logo" alt="" />
             </Box>
           </Grid>
             </Grid>
@@ -282,7 +282,7 @@ return <>
 
       <p style={{ fontWeight: 600, fontSize: '1.25rem' }}>
         No Vehicle
-        <br />
+
         Registered
       </p>
     </Grid>

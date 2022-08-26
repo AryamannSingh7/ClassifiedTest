@@ -194,6 +194,7 @@ export default class EmailAccountLoginController extends BlockComponent<
             localStorage.setItem("userId", responseJson?.meta?.id)
             localStorage.setItem("userType", responseJson?.meta?.role[0]?.name)
             localStorage.setItem("society_id", responseJson.meta?.society_id)
+            console.log('ehhlo sir')
             this.getRegistrationRequest();
           // this.props.history.push("/RegistrationRequest")
            //window.location.replace("/RegistrationRequest");
@@ -224,6 +225,7 @@ export default class EmailAccountLoginController extends BlockComponent<
         }
         else if (apiRequestCallId === this.apiRegistrationRequestCallId) {
           if (responseJson && responseJson?.data ) {
+            console.log('inside req')
             const  registrationRequest = responseJson?.data[0]
             const status :any = registrationRequest?.attributes?.status;
         if( status === "Requested"){
@@ -247,7 +249,7 @@ export default class EmailAccountLoginController extends BlockComponent<
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
 
-          }  
+          }
           this.parseApiCatchErrorResponse(this.state.error);
           this.setState({loading: false ,error:null})
         }

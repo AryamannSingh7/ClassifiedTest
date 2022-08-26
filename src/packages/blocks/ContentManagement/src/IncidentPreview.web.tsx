@@ -95,7 +95,7 @@ class IncidentPreview extends IncidentController {
                           Building:
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                          {incidentFromData?.myApartment?.attributes?.building_management}
+                          {incidentFromData?.myApartment?.attributes?.building_management?.name}
                         </Typography>
 
                         <Typography component="span">
@@ -103,6 +103,12 @@ class IncidentPreview extends IncidentController {
                         </Typography>
                         <Typography className="sub-title" component="h5">
                           {incidentFromData?.myApartment?.attributes?.apartment_name}
+                        </Typography>
+                        <Typography component="span">
+                          Description:
+                        </Typography>
+                        <Typography className="sub-title" component="h5">
+                          {incidentFromData.description}
                         </Typography>
                         {
                           incidentFromData?.media.length !== 0 ?
@@ -116,7 +122,7 @@ class IncidentPreview extends IncidentController {
                                     val?.file.type === "video/mp4" || val?.file.type === "video/x-m4v" ?
                                       <Box className="video-img" key={index} onClick={() => { this.setState({ showDialog: true, file: { url: val.url, type: val?.file.type, name: val?.file?.name } }) }}>
                                         <Box className="img-layer"></Box>
-                                        <video className="incident-dialog-video" autoPlay  >
+                                        <video className="incident-dialog-video"   >
                                           <source src={val.url} type={val.file.type} />
                                         </video>
                                         <FullscreenIcon className="play-icon" />
@@ -133,30 +139,25 @@ class IncidentPreview extends IncidentController {
                             </>
                             : null
                         }
-                        <hr />
-                        <Typography component="span">
-                          Description:
-                        </Typography>
-                        <Typography className="sub-title" component="h5">
-                          {incidentFromData.description}
-                        </Typography>
+                        {/* <hr /> */}
+                       
                       </CardContent>
                     </Card>
                   </Box>
-                  <Box className="customButton">
+                  <Box className="customButton preview-submit">
                     <Button variant="contained" onClick={() => this.createIncident(incidentFromData, incidentRelated)}>submit</Button>
                   </Box>
                 </Box>
                 <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>
                   <h6 className="bottom-text">POWERED BY</h6>
-                  <img src={Tenant_Logo} className="tenant-logo" alt="" />
+                  <img src={Tenant_Logo.default} className="tenant-logo" alt="" />
                 </Box>
               </Box>
             </Grid>
             {/* desktop footer block */}
             <Grid item xs={12} md={5} className="auth-cols">
               <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
-                <img src={Building1} className="building-logo" alt="" />
+                <img src={Building1.default} className="building-logo" alt="" />
               </Box>
             </Grid>
           </Grid>
@@ -184,7 +185,7 @@ class IncidentPreview extends IncidentController {
               <Box className="diloag-content-body">
                 {
                   this.state?.file?.type === "video/mp4" || this.state?.file?.type === "video/x-m4v" ?
-                    <video className="incident-dialog-video" autoPlay controls >
+                    <video className="incident-dialog-video"  controls >
                       <source src={this.state?.file?.url} type={this.state?.file?.type} />
                     </video>
                     :

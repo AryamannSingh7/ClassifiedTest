@@ -55,7 +55,8 @@ class PollReport extends PollingController {
   }
 
   render() {
-    console.log("poll pollPreviewAnswer #######", this.state.pollPreviewAnswer?.poll?.data)
+    console.log("poll pollPreviewAnswer #######", this.state.pollPreviewAnswer?.poll?.data,this.props.location.state)
+    console.log("POLL REPORT: ",this.state.generatePollReport)
     return ( 
       <>
     <Box style={{background: "#E5ECFF"}}>
@@ -79,7 +80,7 @@ class PollReport extends PollingController {
                                 <Typography variant="h5" className="subHeading">Poll Report</Typography>
                             </Box>  
                             <Box className="downloadReport">
-                                <button className="reportbtn">
+                                <button onClick={this.handleDownload} className="reportbtn">
                                     DOWNLOAD REPORT
                                 </button>
                             </Box>
@@ -97,6 +98,8 @@ class PollReport extends PollingController {
                                     placeholder="Search"
                                     inputProps={{ 'aria-label': 'search' }}
                                     style={{marginLeft:"2.5rem"}}
+                                    value={this.state.reportSearch}
+                                    onChange={this.handleReportSearch}
                                     />
                                 </div>
                             </Box>
@@ -113,23 +116,37 @@ class PollReport extends PollingController {
                                             <TableCell style={{fontWeight:"600"}} align="start">Response</TableCell>
                                         </TableRow>
                                     </TableHead>
-                                    <TableBody>
-                                        {rows.map((row, index) => (
-                                            <TableRow key={row.name}>
-                                                <TableCell component="th" scope="row">{index + 1}</TableCell>
-                                                <TableCell align="start">{row.name}</TableCell>
-                                                <TableCell align="start">{row.unit}</TableCell>
-                                                <TableCell align="start">{row.response}</TableCell>
-                                            </TableRow>
-                                        ))}
-                                    </TableBody>
+                                    {
+                                        this.state.generatePollReport?.length > 0 &&
+                                        <TableBody>
+                                            {this.state?.generatePollReport?.map((row, index) => (
+                                                <TableRow key={row.name}>
+                                                    <TableCell component="th" scope="row">{index + 1}</TableCell>
+                                                    <TableCell align="start">{row.attributes?.name_and_option?.data?.attributes?.full_name}</TableCell>
+                                                    <TableCell align="start">
+                                                        {
+                                                            row.attributes?.name_and_option?.data?.attributes?.unit_number?.map((item,key)=>{
+                                                                return(
+                                                                    <>
+                                                                        {item}
+                                                                    </>
+                                                                )
+                                                            })
+
+                                                        }
+                                                    </TableCell>
+                                                    <TableCell align="start">{row.attributes?.name_and_option?.data?.attributes?.option}</TableCell>
+                                                </TableRow>
+                                            ))}
+                                        </TableBody>
+                                    }
                                 </Table>
                             </TableContainer>
 
                             <Divider />
                             <Box className="TableHeader">
-                                <h5>Showing 10 of 180 results</h5>
-                                <Pagination count={10} variant="outlined" shape="rounded" />
+                                <h5>Showing {this.state.reportPagination.total_count > 10 ? (this.state.reportPagination.total_count * this.state.reportPagination.page) : this.state.reportPagination.total_count} of {this.state.reportPagination.total_count} results</h5>
+                                <Pagination count={Math.round(this.state.reportPagination.total_count/10)} onChange={this.handleReportPagination} variant="outlined" shape="rounded" />
                             </Box>
                         </Grid>
                     </Grid>

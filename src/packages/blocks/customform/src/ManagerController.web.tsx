@@ -70,6 +70,7 @@ export default class ManagerController extends BlockComponent<Props, S, SS> {
   acceptRequestAPICallId:string='';
   getIncidentRelatedApiCallId: any;
   getBuildingNameApiCallId: any;
+  getUnitApiCallId:any;
       // Customizable Area End
   constructor(props: Props) {
     super(props);
@@ -127,7 +128,7 @@ export default class ManagerController extends BlockComponent<Props, S, SS> {
         getName(MessageEnum.RestAPIResponceErrorMessage)
       );
 
-      console.log("API REQUEST CALL ID: ", apiRequestCallId);
+      console.log("API REQUEST CALL ID: ", apiRequestCallId, this.getUnitApiCallId);
 
       if (apiRequestCallId && responseJson) {
         if (apiRequestCallId === this.state.postSellerDetailsMessageId) {
@@ -217,7 +218,13 @@ export default class ManagerController extends BlockComponent<Props, S, SS> {
         } if (apiRequestCallId === this.getVehicleListApiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
-            this.setState({ allVehcile: responseJson.vehicle.data })
+            if (responseJson.vehicle.data == null){
+              this.setState({ allVehcile: [] })
+
+            }else{
+
+              this.setState({ allVehcile: responseJson.vehicle.data })
+            }
           } else {
             //Check Error Response
             this.parseApiErrorResponse(responseJson);
@@ -255,7 +262,7 @@ export default class ManagerController extends BlockComponent<Props, S, SS> {
         } if (apiRequestCallId === this.getBuildingNameApiCallId) {
           if (responseJson && responseJson?.data) {
             console.log("getBuildingNameApiCallId  ========================>", responseJson)
-            this.setState({ buildingNameData: responseJson?.data?.buildings })
+            this.setState({ buildingNameData: responseJson?.data })
             this.setState({ loading: false })
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
@@ -265,20 +272,20 @@ export default class ManagerController extends BlockComponent<Props, S, SS> {
           }
           this.parseApiCatchErrorResponse(this.state.error);
           this.setState({ loading: false, error: null })
-        }if (apiRequestCallId === this.getIncidentRelatedApiCallId) {
-          if (responseJson && responseJson?.data) {
-            console.log("getIncidentRelatedApiCallId========================>", responseJson)
-            this.setState({ incidentRelatedData: responseJson?.data.incident_relateds })
+        } if (apiRequestCallId === this.getUnitApiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            let temp = [responseJson.data.unit_apartments]
+            //@ts-ignore
+            //@ts-nocheck
 
-            this.setState({ loading: false })
-          } else if (responseJson?.errors) {
-            let error = Object.values(responseJson.errors[0])[0] as string;
-            this.setState({ error });
+            this.setState({ allUnit: responseJson.data.unit_apartments,loading:false }, () => console.log(this.state.allUnit))
           } else {
-            this.setState({ error: responseJson?.error || "Something went wrong!" });
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
           }
-          this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({ loading: false, error: null })
+
+          this.parseApiCatchErrorResponse(errorReponse);
         }
       }
     }
@@ -720,11 +727,9 @@ if(this.state.allVehcile.length<3){
       "token": localStorage.getItem('userToken')
     };
 
-    const httpBody = {
-      "vehicle": {
-        "status": true
-      }
-    }
+    const formData = new FormData();
+    formData.append("vehicle[status]", 'Rejected')
+    formData.append("vehicle[description]", '')
 
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
@@ -734,7 +739,7 @@ if(this.state.allVehcile.length<3){
     this.acceptRequestAPICallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_vehicle/vehicles/${item.id}/verify_vehicles`
+      `bx_block_vehicle/vehicles/${item.id}`
     );
 
     requestMessage.addData(
@@ -743,7 +748,7 @@ if(this.state.allVehcile.length<3){
     );
     requestMessage.addData(
       getName(MessageEnum.RestAPIRequestBodyMessage),
-      JSON.stringify(httpBody)
+      formData
     );
 
 
@@ -799,40 +804,101 @@ if(this.state.allVehcile.length<3){
       console.log(error);
     }
   };
-  getUnit = () => {
-    try {
-      const header = {
-        "Content-Type": configJSON.validationApiContentType,
-        token: localStorage.getItem("userToken")
-      };
 
-      //const id = localStorage.getItem("userId");
-      const requestMessage = new Message(
-        getName(MessageEnum.RestAPIRequestMessage)
-      );
-      this.getIncidentRelatedApiCallId = requestMessage.messageId;
-      this.setState({ loading: true });
+  handleChange = (e: any) => {
 
-      requestMessage.addData(
-        getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `bx_block_address/apartment_list?id=3`
-      );
+    if (e.target.name !== 'selectBuilding') {
+      // @ts-ignore
+      // @ts-nocheck
+      this.setState({ ...this.state, [e.target.name]: e.target.value }, () => this.getData(e))
+    }else{
+      const array = e.target?.value?.split(",");
+      const id = array[0]
+      const name = array[1]
+      this.getUnit(id)
+      this.setState({ buildingName: e.target?.value })
+      this.setState({ selectBuilding: name })
 
-      requestMessage.addData(
-        getName(MessageEnum.RestAPIRequestHeaderMessage),
-        JSON.stringify(header)
-      );
 
-      requestMessage.addData(
-        getName(MessageEnum.RestAPIRequestMethodMessage),
-        configJSON.validationApiMethodType
-      );
-
-      runEngine.sendMessage(requestMessage.id, requestMessage);
-      return true;
-    } catch (error) {
-      console.log(error);
     }
-  };
+
+  }
+  getData(e) {
+
+
+ if (e.target.name == 'selectBuilding') {
+      this.getUnit()
+
+    }
+
+  }
+
+  getUnit(id) {
+
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      "token": localStorage.getItem('userToken')
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+
+    this.getUnitApiCallId = requestMessage.messageId;
+    console.log(this.state.selectBuilding)
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      //@ts-ignore
+      //@ts-nocheck
+      `bx_block_address/apartment_list?id=${id}`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.validationApiMethodType
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  }
+  getVehicle2(value) {
+
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      "token": localStorage.getItem('userToken')
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+
+    this.getVehicleListApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_vehicle/vehicles?search_building=${value.buildingName}&search_unit=${value.unit}&filter_by=${value.status}`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.validationApiMethodType
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  }
   // Customizable Area End
 }

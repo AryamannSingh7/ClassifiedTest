@@ -17,7 +17,7 @@
       margin-bottom: 0;
       & .MuiOutlinedInput-root {
         padding-left: 0;
-        background-color: $WHITE;
+        // background-color: $WHITE;
       }
     }
     & .customButton {
@@ -36,6 +36,43 @@
         padding: 10px 20px;
         width: auto;
         margin-left: 10px;
+      }
+    }
+    & .user-btn-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid $BLUE;
+      border-radius: 10px;
+      padding: 10px 20px;
+      min-width: 250px;
+      &:hover {
+        & .MuiButton-label {
+          color: $WHITE;
+        }
+      }
+      & .change-btn {
+        padding: 10px 0;
+        &:hover {
+          background-color: transparent;
+        }
+      }
+      & h6,
+      & a {
+        font-size: 14px;
+        text-transform: uppercase;
+      }
+      & a {
+        color: $BLUE;
+        font-weight: bold;
+      }
+      &:hover {
+        background-color: $BLUE;
+        & a,
+        & h6 {
+          color: $WHITE;
+          text-decoration: none;
+        }
       }
     }
   }
