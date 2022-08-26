@@ -171,6 +171,7 @@ import ChangedSelectedTemplate from "../../blocks/RolesPermissions2/src/ChangedS
 import ReviewTemplate from "../../blocks/RolesPermissions2/src/ReviewTemplate.web";
 import AddCondition from "../../blocks/RolesPermissions2/src/AddCondition.web";
 
+<<<<<<< HEAD
 import ChairmanScheduledMeeting from "../../blocks/BulkUploading/src/ScheduledMeeting.web"
 import ScheduledMeetingDetails from "../../blocks/BulkUploading/src/ScheduledMeetingDetails.web"
 import ChairmanMeetingMinutes from "../../blocks/BulkUploading/src/MeetingMinutes.web"
@@ -178,6 +179,13 @@ import MeetingMinuteDetails from "../../blocks/BulkUploading/src/MeetingMinuteDe
 import MyMeetings from "../../blocks/BulkUploading/src/MyMeetings.web"
 import MyMeetingDetail from "../../blocks/BulkUploading/src/MyMeetingDetail.web"
 import MyMeetingMinuteDetail from "../../blocks/BulkUploading/src/MyMeetingMinuteDetail.web"
+=======
+import ViewInvoices from '../../blocks/InvoiceBilling/src/ViewInvoices.web';
+import ViewReceipt from '../../blocks/InvoiceBilling/src/ViewReceipt.web';
+import InvoicesDetails from '../../blocks/InvoiceBilling/src/InvoicesDetails.web';
+import ReceiptsDetails from '../../blocks/InvoiceBilling/src/ReceiptsDetails.web';
+import CharmainInvoices from '../../blocks/dashboard/src/CharmainInvoices.web';
+>>>>>>> 6a8a32d10dafd8aa6239a66f1defdae1175c43af
 
 const routeMap = {
   //done
@@ -325,6 +333,31 @@ const routeMap = {
     path: '/IncidentDetails',
     exact: true
   },
+  ViewInvoices: {
+    component: ViewInvoices,
+    path: '/ViewInvoices',
+    exact: true
+  },
+  ViewReceipt:{
+    component: ViewReceipt,
+    path: '/ViewReceipt',
+    exact: true
+  },
+  InvoicesDetails:{
+    component: InvoicesDetails,
+    path: '/InvoicesDetails',
+    exact: true
+  },
+  ReceiptsDetails:{
+    component: ReceiptsDetails,
+    path: '/ReceiptsDetails',
+    exact: true
+  },
+  CharmainInvoices:{
+    component: CharmainInvoices,
+    path: '/CharmainInvoices',
+    exact: true
+  },
   IncidentListing: {
     component: IncidentListing,
     path: '/IncidentListing',
@@ -432,7 +465,7 @@ const routeMap = {
 
   PollVoteSubmitted: {
     component: PollVoteSubmitted,
-    path: '/PollVoteSubmitted'
+    path: '/PollVoteView'
   },
 
   PollDetails: {

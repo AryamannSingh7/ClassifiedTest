@@ -5,7 +5,7 @@ import * as React from "react";
 import DOMPurify from 'dompurify'
 // custom components
 import {
-  Button, Grid, Box, TextField,
+    Button, Grid, Box, TextField, Typography,
 } from "@material-ui/core";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
@@ -48,7 +48,7 @@ class PollVoteSubmitted extends PollingController {
                 </p>
             </Grid>
             <Box className="EventsIconsText">
-                <p className="statusCompleted" style={{fontWeight: 600}}>Submitted</p>
+                <p className="statusCompleted" style={{fontWeight: 600}}>{this.state.pollPreviewAnswer?.poll?.data.attributes.status}</p>
             </Box>
           </Grid>
         </Grid>
@@ -61,9 +61,8 @@ class PollVoteSubmitted extends PollingController {
                 marginTop='1rem'
                 padding='1rem'
                 >
-
                     <Box marginTop='1rem'>
-                        <p>Poll</p>
+                        <Typography variant="subtitle2" color="textSecondary">Purpose:</Typography>
                         <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}
                           dangerouslySetInnerHTML={
                             { __html: DOMPurify.sanitize(this.state.pollPreviewAnswer?.poll?.data.attributes.description) }
@@ -72,13 +71,13 @@ class PollVoteSubmitted extends PollingController {
                         </p>
                     </Box>
                     <Box marginTop='1rem'>
-                        <p>End Date:</p>
+                        <Typography variant="subtitle2" color="textSecondary">End Date:</Typography>
                         <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}>
                           {this.state.pollPreviewAnswer?.poll?.data.attributes.end_date}
                         </p>
                     </Box>
                     <Box marginTop='1rem'>
-                        <p>Building:</p>
+                        <Typography variant="subtitle2" color="textSecondary">Building:</Typography>
                         <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}>
                           {this.state.pollPreviewAnswer?.poll?.data.attributes.building_name}
                         </p>

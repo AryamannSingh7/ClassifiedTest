@@ -188,21 +188,7 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
         } if (apiRequestCallId === this.createVehicleApiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
-            if(localStorage.getItem('selectCar')){
-              localStorage.removeItem('selectCar')
-              this.setState({ loading: false })
-              //@ts-ignore
-              //@ts-nocheck
-              this.props.history.push('/editRequest')
-            }else{
-
-              //@ts-ignore
-              //@ts-nocheck
-              this.setState({ loading: false })
-              //@ts-ignore
-              //@ts-nocheck
-              this.props.history.push('/NewRequest')
-            }
+            this.props.history.push('/NewRequest')
                     } else if (responseJson?.errors) {
             let error = responseJson.errors[0];
             this.setState({ error });
@@ -651,7 +637,7 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
   }
   checkVehicle(){
     console.log(this.state.allVehcile.length)
-if(this.state.allVehcile.length<6){
+if(this.state.allVehcile.length<5){
 // @ts-nocheck
     // @ts-ignore
   this.props.history.push("/newVeichleList")

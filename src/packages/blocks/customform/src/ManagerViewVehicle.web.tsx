@@ -309,7 +309,7 @@ class ManagerViewVeichle extends ManagerController {
           <Box className="">
             <DialogActions className="customButton" style={{flexDirection:'row'}}>
               <Button style={{ width: '15rem', borderRadius: 10, border: '1px solid #5000f4' }} onClick={() => this.setState({ showDialogDelete: false })}>
-                CLOSE
+                CANCEL
               </Button>
               <Button variant="contained" style={{borderRadius:10}} onClick={() => this.rejectRequest()} >
                 CONFRIM
