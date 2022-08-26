@@ -424,7 +424,7 @@ const routeMap = {
 
   PollVoteSubmitted: {
     component: PollVoteSubmitted,
-    path: '/PollVoteSubmitted'
+    path: '/PollVoteView'
   },
 
   PollDetails: {

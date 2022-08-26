@@ -248,12 +248,22 @@ class PollDetails extends PollingController {
                                         </TableHead>
                                         <TableBody>
                                             {this.state.generatePollReport?.map((row, index) => (
-                                                    row.attributes?.option === this.state.dialogText &&
+                                                        row.attributes?.name_and_option?.data?.attributes?.option === this.state.dialogText &&
                                                         <TableRow key={row.name}>
                                                             <TableCell component="th" scope="row">{index + 1}</TableCell>
-                                                            <TableCell align="start">{row.attributes?.name}</TableCell>
-                                                            <TableCell align="start">{row.attributes?.unit_number[0]}</TableCell>
-                                                            <TableCell align="start">{row.attributes?.option}</TableCell>
+                                                            <TableCell align="start">{row.attributes?.name_and_option?.data?.attributes?.full_name}</TableCell>
+                                                            <TableCell align="start">
+                                                                {
+                                                                    row.attributes?.name_and_option?.data?.attributes?.unit_number?.map((item,key)=>{
+                                                                        return(
+                                                                            <>
+                                                                                {item}
+                                                                            </>
+                                                                        )
+                                                                    })
+                                                                }
+                                                            </TableCell>
+                                                            <TableCell align="start">{row.attributes?.name_and_option?.data?.attributes?.option}</TableCell>
                                                         </TableRow>
                                             ))}
                                         </TableBody>

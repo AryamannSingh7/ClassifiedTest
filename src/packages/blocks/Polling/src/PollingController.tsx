@@ -72,6 +72,7 @@ interface S {
   };
   reportSearch:any;
   currentReportPage:any;
+  filterModal:boolean;
 
   // Customizable Area End
 }
@@ -191,6 +192,7 @@ export default class PollingController extends BlockComponent<
       },
       reportSearch:"",
       currentReportPage:1,
+      filterModal:false,
       // Customizable Area End
 
     };
@@ -203,6 +205,8 @@ export default class PollingController extends BlockComponent<
     this.handlePriviewData = this.handlePriviewData.bind(this)
     this.handleReportSearch = this.handleReportSearch.bind(this)
     this.handleReportPagination = this.handleReportPagination.bind(this)
+    this.handleCloseFilterModal = this.handleCloseFilterModal.bind(this)
+    this.handleOpenFilterModal = this.handleOpenFilterModal.bind(this)
     // Customizable Area End
   }
 
@@ -333,7 +337,19 @@ export default class PollingController extends BlockComponent<
     
 
     //==============================================
-    
+
+
+    handleCloseFilterModal () {
+      this.setState({
+        filterModal:false
+      })
+    }
+
+  handleOpenFilterModal () {
+    this.setState({
+      filterModal:true
+    })
+  }
 
     getPollSelectedAnswer = (value:any) => {
       console.log("poll option answer##################", value)
@@ -355,7 +371,7 @@ export default class PollingController extends BlockComponent<
 
     getFinalPollAnswerView = () => {
       //@ts-ignore
-      this.props.history.push('/PollVoteSubmitted?id='+ this.state.pollPreviewAnswerID)
+      this.props.history.push('/PollVoteView?id='+ this.state.pollPreviewAnswerID)
       this.getPollPreviewAnswer();
     }
 
