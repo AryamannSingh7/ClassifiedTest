@@ -199,7 +199,9 @@ class ContractsList extends ContractsListController {
                         <div className="upload-button">
                           <Grid container>
                             <Grid item xs={12} md={12}>
-                              <Button>Issue A New Contract</Button>
+                              <Link href="/IssueContract">
+                                <Button>Issue A New Contract</Button>
+                              </Link>
                             </Grid>
                           </Grid>
                         </div>
@@ -282,7 +284,9 @@ class ContractsList extends ContractsListController {
                         <div className="upload-button">
                           <Grid container>
                             <Grid item xs={12} md={12}>
-                              <Button>Create Another Template</Button>
+                              <Link href="/IssueLease">
+                                <Button>Create Another Template</Button>
+                              </Link>
                             </Grid>
                           </Grid>
                         </div>

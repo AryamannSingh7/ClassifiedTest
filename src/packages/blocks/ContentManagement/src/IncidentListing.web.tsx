@@ -101,7 +101,7 @@ class IncidentListing extends IncidentController {
                               <Typography component="span">
                                 Incident is related to:
                               </Typography>
-                              <Typography className="sub-title" component="h5">
+                              <Typography className="sub-title h5-title" component="h5">
                                 {val?.attributes?.incident_related?.name}
                               </Typography>
                               <Box className="card-listing-row">
@@ -113,16 +113,16 @@ class IncidentListing extends IncidentController {
                                 </Typography>
                               </Box>
                               <Box className="card-listing-row">
-                                <Typography className="sub-title" component="h5">
+                                <Typography className="sub-title h5-title" component="h5">
                                   {val?.attributes?.apartment_management?.building_name}
                                 </Typography>
-                                <Typography className="sub-title" component="h5">
+                                <Typography className="sub-title h5-title" component="h5">
                                   {val?.attributes?.apartment_management?.apartment_name}
                                 </Typography>
                               </Box>
                               <hr />
                               <CardActions className="card-footer">
-                                <Typography className="sub-title" component="h5">
+                                <Typography className="sub-title h5-title" component="h5">
                                   {val?.attributes?.common_area?.name}
                                 </Typography>
                                 {
@@ -154,14 +154,14 @@ class IncidentListing extends IncidentController {
                 </Box>
                 <Box className="footer-main-block bottomBlock">
                   <h6 className="bottom-text">POWERED BY</h6>
-                  <img src={Tenant_Logo} className="tenant-logo" alt="" />
+                  <img src={Tenant_Logo.default} className="tenant-logo" alt="" />
                 </Box>
               </Box>
             </Grid>
             {/* desktop footer block */}
             <Grid item xs={12} md={5} className="auth-cols">
               <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
-                <img src={Building1} className="building-logo" alt="" />
+                <img src={Building1.default} className="building-logo" alt="" />
               </Box>
             </Grid>
           </Grid>

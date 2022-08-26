@@ -50,7 +50,7 @@ class VerofyOTP extends EmailAccountRegistrationController {
             <ArrowBackIcon onClick={() => window.history.back()} />
           </Grid>
         </Grid>
-<div style={{margin:'auto'}}>
+
 
         <Grid container className="main-content-block">
           <Grid xs={12}>
@@ -63,7 +63,7 @@ class VerofyOTP extends EmailAccountRegistrationController {
         <Grid container className="main-content-block">
           <Grid xs={12}>
             <p className="text-left" style={{ marginBottom: '1.5rem' }}>
-              Please enter the code sent to the mail address
+              Please enter the code sent to the email address
 
               <span className="text">
                    {"  "}   {this.maskCodeEmail(user_email)}
@@ -83,22 +83,27 @@ class VerofyOTP extends EmailAccountRegistrationController {
                 // separator={<span>-</span>}
                 />
               </Box>
-              <Box className="customButton row-btn"  >
-                <Button variant="contained" onClick={() => this.verifyOtp()}>NEXT</Button>
-              </Box>
+
               <Box className="passwordRow">
                 {/* <Link href="#" className="link"> <span>RESEND OTP</span></Link> */}
               </Box>
             </Box>
           </Grid>
         </Grid>
-</div>
+              <Grid container className="main-content-block" style={{marginTop:'auto'}}>
+                <Grid xs={12} style={{ display: 'flex' }} justifyContent="center">
+                  <Box className="customButton row-btn" style={{width:'100%'}}  >
+                    <Button variant="contained" onClick={() => this.verifyOtp()}>NEXT</Button>
+                  </Box>
+          </Grid>
+        </Grid>
+
 
 
             </Grid>
           <Grid item xs={12} md={5} className="auth-cols">
             <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
-              <img src={Building1} className="building-logo" alt="" />
+              <img src={Building1.default} className="building-logo" alt="" />
             </Box>
           </Grid>
             </Grid>

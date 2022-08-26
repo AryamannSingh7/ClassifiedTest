@@ -157,7 +157,7 @@ class FamilyList extends FamilyController {
                     </div>
                     <div className="card-content">
 
-                      <img src={Building1} />
+                      <img src={Building1.default} />
                       <div className="content">
                         <p className="title">
                           Dubai 60833
@@ -176,7 +176,7 @@ class FamilyList extends FamilyController {
                     </div>
                     <div className="card-content">
 
-                    <img src={Building1} />
+                    <img src={Building1.default} />
                     <div className="content">
                       <p className="title">
                         Dubai 60833
@@ -221,7 +221,7 @@ class FamilyList extends FamilyController {
           </Grid>
           <Grid item xs={12} md={5} className="auth-cols">
             <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
-              <img src={Building1} className="building-logo" alt="" />
+              <img src={Building1.default} className="building-logo" alt="" />
             </Box>
           </Grid>
         </Grid>
@@ -250,14 +250,14 @@ class FamilyList extends FamilyController {
               <p style={{ fontWeight: 600, fontSize: '1.25rem', textAlign: 'center' }}>
                 Delete registered
                 <br />
-                Family
+                Family Member
               </p>
             </Grid>
           </Grid>
           <Grid container>
             <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
               <p style={{ fontWeight: 400, fontSize: '0.8rem', textAlign: 'center' }}>
-                Are you should you want to delete this registered family member from this App?
+                Are you should want to delete this registered family member from this App?
               </p>
             </Grid>
           </Grid>

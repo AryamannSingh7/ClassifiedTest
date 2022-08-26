@@ -17,7 +17,7 @@
       margin-bottom: 0;
       & .MuiOutlinedInput-root {
         padding-left: 0;
-        background-color: $WHITE;
+        // background-color: $WHITE;
       }
     }
     & .customButton {
@@ -46,6 +46,17 @@
       border-radius: 10px;
       padding: 10px 20px;
       min-width: 250px;
+      &:hover {
+        & .MuiButton-label {
+          color: $WHITE;
+        }
+      }
+      & .change-btn {
+        padding: 10px 0;
+        &:hover {
+          background-color: transparent;
+        }
+      }
       & h6,
       & a {
         font-size: 14px;
@@ -57,12 +68,12 @@
       }
       &:hover {
         background-color: $BLUE;
-        & a ,& h6{
+        & a,
+        & h6 {
           color: $WHITE;
           text-decoration: none;
         }
       }
-     
     }
   }
 }

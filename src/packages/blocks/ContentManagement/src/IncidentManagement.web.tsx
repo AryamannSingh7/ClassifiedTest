@@ -50,9 +50,9 @@ class IncidentManagement extends IncidentManagementController {
     this.getIncidentListing();
     this.getBuildingName();
   }
- 
+
   render() {
-    console.log("this.state.buildingName=================>/",this.state.buildingName);
+    console.log("this.state.buildingName=================>/",this.state.buildingNameData);
     const statusArray=["Unresolved", "Resolved", "Pending Confirmation"]
     return (
       <>
@@ -104,9 +104,9 @@ class IncidentManagement extends IncidentManagementController {
                                 this.state?.buildingNameData?.map((val, index) => (
                                   <MenuItem
                                     key={index}
-                                    value={`${val?.id},${val?.name}`}
+                                    value={`${val?.id},${val?.attributes?.name}`}
                                   >
-                                    {val?.name}
+                                    {val?.attributes?.name}
                                   </MenuItem>
                                 ))
                               }
@@ -164,40 +164,42 @@ class IncidentManagement extends IncidentManagementController {
                               }
                               </Select>
 
-                            </FormControl>
-                          </Box>
-                          <Box className="customButton">
-                            <Button variant="contained" onClick={()=> this.serachHandle()}>Search</Button>
-                          </Box>
-                          </Box>
+                    </FormControl>
+                  </Box>
+                  <Box className="customButton">
+                    <Button variant="contained" onClick={() => this.serachHandle()}>
+                      Search
+                    </Button>
+                  </Box>
+                </Box>
                 <Grid container spacing={2} style={{ marginTop: 15, marginBottom: 15 }}>
                   {
-                    this.state?.incidentListing?.map((val ,index)=>(
+                    this.state?.incidentListing?.map((val, index) => (
                       <Grid item sm={4} key={index} onClick={() => this.getIncidentDetails(val.id)}>
-                      <Card className="management-card card" key={index}>
-                        <CardContent className="costom-card-content">
-                          <Box className="customButton">
-                            <Button variant="contained" className={val?.attributes?.incident_status === 'Pending Confirmation' ? "contain warning" : val?.attributes?.incident_status === 'Resolved' ? 'contain success' : 'contain danger'} type="submit">
-                              {val?.attributes?.incident_status}</Button>
-                          </Box>
-                          <Typography component="h4">
-                          {val?.attributes?.incident_related?.name}
-                          </Typography>
-                          <Box className="card-rows">
-                            <img src={Bank_Icon} alt="Bank Icon" />
-                            <h5>{val?.attributes?.apartment_management?.building_name}</h5>
-                          </Box>
-                          <Box className="card-rows">
-                            <img src={Box_Icon} alt="Bank Icon" />
-                            <h5>{val?.attributes?.apartment_management?.apartment_name}</h5>
-                          </Box>
-                          <Box className="card-rows">
-                            <img src={Users_Icon} alt="Bank Icon" />
-                            <h5>{val?.attributes?.reported_by?.full_name}</h5>
-                          </Box>
-                        </CardContent>
-                      </Card>
-                    </Grid>
+                        <Card className="management-card card" key={index}>
+                          <CardContent className="costom-card-content">
+                            <Box className="customButton">
+                              <Button variant="contained" className={val?.attributes?.incident_status === 'Pending Confirmation' ? "contain warning" : val?.attributes?.incident_status === 'Resolved' ? 'contain success' : 'contain danger'} type="submit">
+                                {val?.attributes?.incident_status}</Button>
+                            </Box>
+                            <Typography component="h4">
+                              {val?.attributes?.incident_related?.name}
+                            </Typography>
+                            <Box className="card-rows">
+                              <img src={Bank_Icon} alt="Bank Icon" />
+                              <h5>{val?.attributes?.apartment_management?.building_name}</h5>
+                            </Box>
+                            <Box className="card-rows">
+                              <img src={Box_Icon} alt="Bank Icon" />
+                              <h5>{val?.attributes?.apartment_management?.apartment_name}</h5>
+                            </Box>
+                            <Box className="card-rows">
+                              <img src={Users_Icon} alt="Bank Icon" />
+                              <h5>{val?.attributes?.reported_by?.full_name}</h5>
+                            </Box>
+                          </CardContent>
+                        </Card>
+                      </Grid>
                     ))
                   }
                 </Grid>

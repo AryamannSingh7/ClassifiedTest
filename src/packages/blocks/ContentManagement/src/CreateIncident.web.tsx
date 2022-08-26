@@ -95,7 +95,7 @@ class CreateIncident extends IncidentController {
                   >
                     {({ values, touched, errors, isValid, setFieldError, setFieldValue, handleChange }) => (
                       <Form translate="yes" className="commonForm">
-                        {/* <h5 className="frm-title incident-preview-title">Incident Details</h5> */}
+                        <h5 className="frm-title incident-preview-title">Incident Details</h5>
                         <Box className="formGroup customSelect">
                           <FormControl variant="outlined" >
                             <span className="frmLeftIcons">
@@ -119,7 +119,7 @@ class CreateIncident extends IncidentController {
                                     key={index}
                                     value={val}
                                   >
-                                    {`${val?.attributes?.building_management} ${val?.attributes?.apartment_name}`}
+                                    {`${val?.attributes?.building_management?.name} ${val?.attributes?.apartment_name}`}
                                   </MenuItem>
                                 ))
                               }
@@ -223,7 +223,7 @@ class CreateIncident extends IncidentController {
                               type="file"
                               hidden
                               multiple
-                              accept="image/*,video/*"
+                              accept="image/jpg ,image/jpeg,image/gif,image/png,video/mp4,video/x-m4v"
                               onChange={(e: any) =>
                                 this.handleSelectMedia(
                                   e,
@@ -237,7 +237,7 @@ class CreateIncident extends IncidentController {
                           {this.state?.upload ?
                             <>
                               <Box className="result-disp-row">
-                                <img src={Checkmark_Icon} className="successful-icon" alt="card-img" />
+                                <img src={Checkmark_Icon.default} className="successful-icon" alt="card-img" />
                                 <span className="text-success">
                                   uploaded successfully
                                 </span>
@@ -245,7 +245,7 @@ class CreateIncident extends IncidentController {
                             </>
                             : this.state.notImageOrVideoError ?
                               <Box className="result-disp-row">
-                                <img src={Error_Icon} className="error-icon" alt="card-img" />
+                                <img src={Error_Icon.default} className="error-icon" alt="card-img" />
                                 <span className="text-error">
                                   Only image and video are supported.
                                 </span>
@@ -253,7 +253,7 @@ class CreateIncident extends IncidentController {
                               :
                               this.state.sizeError ?
                                 <Box className="result-disp-row">
-                                  <img src={Error_Icon} className="error-icon" alt="card-img" />
+                                  <img src={Error_Icon.default} className="error-icon" alt="card-img" />
                                   <span className="text-error">
                                     size is less than 10 mb.
                                   </span>
@@ -273,13 +273,13 @@ class CreateIncident extends IncidentController {
                 {/* desktop footer block */}
                 <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>
                   <h6 className="bottom-text">POWERED BY</h6>
-                  <img src={Tenant_Logo} className="tenant-logo" alt="" />
+                  <img src={Tenant_Logo.default} className="tenant-logo" alt="" />
                 </Box>
               </Box>
             </Grid>
             <Grid item xs={12} md={5} className="auth-cols">
               <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
-                <img src={Building1} className="building-logo" alt="" />
+                <img src={Building1.default} className="building-logo" alt="" />
               </Box>
             </Grid>
           </Grid>

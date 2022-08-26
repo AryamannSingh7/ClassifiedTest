@@ -48,20 +48,20 @@ class RegistrationRequest extends EmailAccountLoginController {
               <Box className="content-block">
                 <Box className="logo-block common-top-padding" display={{ xs: 'none', md: 'flex' }}>
                   <Link href="/EmailAccountLogin">
-                    <img src={Building_Logo} className="head-logo" alt="" />
+                    <img src={Building_Logo.default} className="head-logo" alt="" />
                     <h4>Building Name</h4>
                   </Link>
                 </Box>
                 <Box className="main-content-block">
                   <Box className="reg-content-block">
                     <Box className="header-block chairmanHeaderBlock">
-                      <img src={Tenant_Logo} className="tenant-logo" alt="Tenant Logo" />
+                      <img src={Tenant_Logo.default} className="tenant-logo" alt="Tenant Logo" />
                       <h1>Regestration Request<br></br>Under process</h1>
                       <h6>Your regestration request for {apartment_name} of<br></br>{building_name} is sent and under<br></br>process.You will receive notification<br></br>once it it processed.</h6>
                     </Box>
                     <Box className="reg-block">
                       <Box className="reg-row">
-                        <img src={Bank_Icon} className="bank-logo" alt="Tenant Logo" />
+                        <img src={Bank_Icon.default} className="bank-logo" alt="Tenant Logo" />
                         <Box className="reg-right-block">
                           <h5>{apartment_name}</h5>
                           <h6>{building_name}</h6>
@@ -84,7 +84,7 @@ class RegistrationRequest extends EmailAccountLoginController {
             </Grid>
             <Grid item xs={12} md={5} className="auth-cols">
               <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
-                <img src={Building1} className="building-logo" alt="" />
+                <img src={Building1.default} className="building-logo" alt="" />
               </Box>
             </Grid>
           </Grid>
@@ -108,7 +108,7 @@ class RegistrationRequest extends EmailAccountLoginController {
           >
             <Box className="diloag-body">
               <Box className="diloag-header">
-                <img src={Delete_Icon} className="tenet-logo" alt="" />
+                <img src={Delete_Icon.default} className="tenet-logo" alt="" />
                 <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
                   Sure you want to delete request?
                 </DialogTitle>

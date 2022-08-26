@@ -51,7 +51,7 @@ class EditRequest extends VeichleListController {
                     <Box className="header-block chairmanHeaderBlock">
                       {/* <img src={Tenant_Logo} className="tenant-logo" alt="Tenant Logo" /> */}
                       <img src={info} className="bank-logo" alt="Tenant Logo" />
-                      <h1 style={{ fontWeight: 'bold' }}>Edited Details
+                      <h1 style={{ fontWeight: 'bold' }}>Edited Details <br/>
                         Request Sent</h1>
                       <h6>Your edited details request has been sent to manager for review. Thank You!</h6>
                     </Box>
@@ -81,7 +81,7 @@ class EditRequest extends VeichleListController {
             </Grid>
             <Grid item xs={12} md={5} className="auth-cols">
               <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
-                <img src={Building1} className="building-logo" alt="" />
+                <img src={Building1.default} className="building-logo" alt="" />
               </Box>
             </Grid>
           </Grid>
@@ -159,7 +159,7 @@ class EditRequest extends VeichleListController {
             </Grid>
             <Grid item xs={12} md={5} className="auth-cols">
               <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
-                <img src={Building1} className="building-logo" alt="" />
+                <img src={Building1.default} className="building-logo" alt="" />
               </Box>
             </Grid>
           </Grid>

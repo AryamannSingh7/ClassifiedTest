@@ -51,7 +51,7 @@ class NewRequest extends VeichleListController {
                     <Box className="header-block chairmanHeaderBlock">
                       {/* <img src={Tenant_Logo} className="tenant-logo" alt="Tenant Logo" /> */}
                       <img src={CarFront} className="bank-logo" style={{fontWeight:'bold'}} alt="Tenant Logo" />
-                      <h1 style={{ fontWeight: 'bold' }}>Vehicle Request
+                      <h1 style={{ fontWeight: 'bold' }}>Vehicle Request <br/>
                         Added</h1>
                       <h6>Your new vehicle request added successfully.
                         Request has been sent to the building/complex manager for approval. You will be notified when your request is approved</h6>
@@ -82,7 +82,7 @@ class NewRequest extends VeichleListController {
             </Grid>
             <Grid item xs={12} md={5} className="auth-cols">
               <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
-                <img src={Building1} className="building-logo" alt="" />
+                <img src={Building1.default} className="building-logo" alt="" />
               </Box>
             </Grid>
           </Grid>
@@ -160,7 +160,7 @@ class NewRequest extends VeichleListController {
             </Grid>
             <Grid item xs={12} md={5} className="auth-cols">
               <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
-                <img src={Building1} className="building-logo" alt="" />
+                <img src={Building1.default} className="building-logo" alt="" />
               </Box>
             </Grid>
           </Grid>

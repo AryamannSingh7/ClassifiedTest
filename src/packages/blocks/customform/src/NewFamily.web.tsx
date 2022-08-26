@@ -199,7 +199,7 @@ class NewFamily extends FamilyController {
                               labelId="demo-simple-select-outlined-label"
                               id="demo-simple-select-outlined"
                               onChange={(e) => { setFieldValue("IDoption", e.target.value) }}
-                              label="IDoption"
+                              label="Type of ID Proof"
                               style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#b5b5b5' }}
                             >
                               <MenuItem value="">
@@ -368,7 +368,7 @@ class NewFamily extends FamilyController {
           </Grid>
           <Grid item xs={12} md={5} className="auth-cols">
             <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
-              <img src={Building1} className="building-logo" alt="" />
+              <img src={Building1.default} className="building-logo" alt="" />
             </Box>
           </Grid>
         </Grid>
