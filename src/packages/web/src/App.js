@@ -175,6 +175,9 @@ import ChairmanScheduledMeeting from "../../blocks/BulkUploading/src/ScheduledMe
 import ScheduledMeetingDetails from "../../blocks/BulkUploading/src/ScheduledMeetingDetails.web"
 import ChairmanMeetingMinutes from "../../blocks/BulkUploading/src/MeetingMinutes.web"
 import MeetingMinuteDetails from "../../blocks/BulkUploading/src/MeetingMinuteDetails.web"
+import MyMeetings from "../../blocks/BulkUploading/src/MyMeetings.web"
+import MyMeetingDetail from "../../blocks/BulkUploading/src/MyMeetingDetail.web"
+import MyMeetingMinuteDetail from "../../blocks/BulkUploading/src/MyMeetingMinuteDetail.web"
 
 const routeMap = {
   //done
@@ -607,7 +610,23 @@ const routeMap = {
   },
   ChairmanMeetingMinuteDetails: {
     component: MeetingMinuteDetails,
-    path: '/MeetingMinute/1',
+    path: '/MeetingMinute/:id',
+    exact: true
+  },
+  // Owner - Meetings
+  OwnerMeetingsList: {
+    component: MyMeetings,
+    path: '/MyMeetings',
+    exact: true
+  },
+  OwnerMyMeetingDetail: {
+    component: MyMeetingDetail,
+    path: '/MyMeeting/:id',
+    exact: true
+  },
+  OwnerMyMeetingMinuteDetail: {
+    component: MyMeetingMinuteDetail,
+    path: '/MeetingMinuteDetail/:id',
     exact: true
   },
   Customisableusersubscriptions: {

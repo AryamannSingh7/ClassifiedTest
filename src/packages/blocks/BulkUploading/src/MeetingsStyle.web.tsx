@@ -254,4 +254,266 @@ export const MeetingsStyleWeb: any = {
       height: "20px",
     },
   },
+  meetingList: {
+    "& .top-bar": {
+      display: "flex",
+      alignItems: "center",
+      fontWeight: "600",
+      cursor: "pointer",
+      marginBottom: "18px",
+      background: "#FFFFFF",
+      padding: "10px 20px",
+      justifyContent: "space-between",
+    },
+    "& .top-bar .left-icon": {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    "& .top-bar .right-icon": {
+      display: "flex",
+      alignItems: "center",
+      gap: "10px",
+    },
+    "& .right-image": {
+      padding: "25px 60px",
+    },
+    "& a": {
+      textDecoration: "none !important",
+    },
+    "& .select": {
+      display: "flex",
+      overflowX: "auto",
+      alignItems: "center",
+      marginBottom: "20px",
+    },
+    "& .select .MuiTab-root": {
+      borderRadius: "20px",
+      background: "#EDF0F9",
+      marginRight: "10px",
+      textTransform: "capitalize",
+      fontSize: "16px",
+      padding: "6px 20px",
+      minWidth: "auto",
+      minHeight: "auto",
+      color: "gray",
+      opacity: "1",
+    },
+    "& .select .MuiTab-root.active": {
+      background: "#2B6FED",
+      color: "white",
+    },
+    "& .list-box": {
+      overflowY: "auto",
+      overflowX: "hidden",
+      height: "75vh",
+    },
+    "& .content-box": {
+      position: "relative",
+      width: "100%",
+    },
+    "& .content-box > .MuiGrid-root": {
+      alignContent: "flex-start",
+    },
+    "& .meeting-list .meeting, & .templates-list .template": {
+      padding: "25px",
+      borderRadius: "10px",
+      background: "white",
+      boxShadow: "4px 0px 14px #ececec",
+    },
+    "& .meeting-list .meeting .header": {
+      width: "100%",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+    },
+    "& .meeting-list .meeting .header h4": {
+      wordBreak: "break-all",
+      marginBottom: "15px",
+    },
+    "& .meeting-list .meeting .info": {
+      marginBottom: "10px",
+    },
+    "& .meeting-list .meeting .info span": {
+      color: "gray",
+    },
+    "& .meeting-list .meeting .info p": {
+      color: "black",
+    },
+    "& .templates-list .template": {
+      position: "relative",
+      padding: "25px",
+    },
+    "& .templates-list .template .content": {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      flexDirection: "column",
+    },
+    "& .templates-list .template .right-menu": {
+      position: "absolute",
+      top: 0,
+      right: 0,
+    },
+    "& .templates-list .template .image": {
+      padding: "20px",
+      border: "3px solid #F8F9FE",
+      display: "inline-block",
+      borderRadius: "50%",
+      marginBottom: "20px",
+    },
+    "& .templates-list .template h4": {
+      textAlign: "center",
+    },
+    "& .decision": {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      paddingTop: "15px",
+    },
+    "& .decision span": {
+      color: "gray",
+    },
+    "& .decision .status": {
+      padding: "5px 10px",
+      borderRadius: "25px",
+    },
+    "& .decision .status-images": {
+      display: "flex",
+      alignItems: "center",
+      gap: "15px",
+    },
+    "& .decision .status-images img": {
+      cursor: "pointer",
+      height: "30px",
+      width: "30px",
+    },
+    "& .decision h6": {
+      fontWeight: "600",
+    },
+  },
+  meetingDetail: {
+    "& .top-bar": {
+      display: "flex",
+      alignItems: "center",
+      fontWeight: "600",
+      cursor: "pointer",
+      marginBottom: "18px",
+      background: "#FFFFFF",
+      padding: "10px 20px",
+      justifyContent: "space-between",
+      borderBottom: "2px solid lightgray",
+    },
+    "& .top-bar .left-icon": {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    "& .right-image": {
+      padding: "23px 60px",
+    },
+    "& a": {
+      textDecoration: "none !important",
+    },
+    "& .content-box": {
+      position: "relative",
+      width: "100%",
+      height: "78vh",
+    },
+    "& .content-box > .MuiGrid-root": {
+      alignContent: "flex-start",
+    },
+    "& .content-box .meeting-details": {
+      minHeight: "calc(100% - 50px)",
+      overflowY: "auto",
+      overflowX: "hidden",
+    },
+    "& .upload-button": {
+      position: "sticky",
+      left: 0,
+      right: 0,
+      bottom: 0,
+      background: "#F4F7FF",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: "10px 0",
+      boxShadow: "none",
+    },
+    "& .upload-button button": {
+      background: "#2b6fec",
+      color: "white",
+      padding: "12px 50px",
+      borderRadius: "25px",
+    },
+    "& .upload-button .MuiGrid-container": {
+      width: "fit-content",
+    },
+    "& .meeting-detail": {
+      marginBottom: "20px",
+    },
+    "& .meeting-detail .heading": {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      marginBottom: "10px",
+    },
+    "& .scheduled-detail .heading": {
+      marginBottom: "10px",
+    },
+    "& .meeting-detail .heading h4": {
+      fontWeight: "600",
+    },
+    "& .scheduled-detail .heading h4": {
+      fontWeight: "600",
+    },
+    "& .scheduled-detail .scheduled-card p": {
+      fontWeight: "600",
+    },
+    "& .meeting-detail .heading span": {
+      padding: "5px 10px",
+      borderRadius: "25px",
+    },
+    "& .meeting-detail .meeting-card": {
+      padding: "20px",
+      borderRadius: "8px",
+      boxShadow: "none",
+    },
+    "& .scheduled-detail .scheduled-card": {
+      padding: "20px",
+      borderRadius: "8px",
+      boxShadow: "none",
+    },
+    "& .scheduled-detail .scheduled-card .item": {
+      display: "flex",
+      alignItems: "flex-start",
+      gap: "8px",
+    },
+    "& .meeting-pdf": {
+      display: "block",
+      background: "white",
+    },
+    "& .meeting-pdf .pdf-detail": {
+      border: "1px solid #f0f0f0",
+      borderRadius: "8px",
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      padding: "10px 20px",
+      marginTop: "20px",
+      background: "white",
+    },
+    "& .meeting-pdf .pdf-detail .heading": {
+      display: "flex",
+      alignItems: "center",
+      gap: "20px",
+    },
+    "& .meeting-pdf .pdf-detail .heading h6": {
+      fontWeight: "600",
+    },
+    "& .meeting-pdf .pdf-detail > img": {
+      width: "20px",
+      height: "20px",
+    },
+  },
 };

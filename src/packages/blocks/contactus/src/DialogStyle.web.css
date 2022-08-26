@@ -132,12 +132,14 @@
 
 .delete-document .MuiDialogContent-root img,
 .cancel-meeting-dialog .MuiDialogContent-root img,
+.schedule-dialog .MuiDialogContent-root img,
 .save-lease img {
   margin-bottom: 20px;
 }
 
 .delete-document h6,
 .cancel-meeting-dialog h6,
+.schedule-dialog h6,
 .save-lease h6 {
   margin-bottom: 10px;
   font-weight: 600;
@@ -145,6 +147,7 @@
 
 .delete-document p,
 .cancel-meeting-dialog p,
+.schedule-dialog p,
 .save-lease p {
   margin-bottom: 18px;
   color: gray;
@@ -423,4 +426,22 @@
 
 .add-meeting .dialog-textarea-input {
   height: 200px !important;
+}
+
+.schedule-dialog .dialog-button-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.schedule-dialog .dialog-button-group button.add-button {
+  border-radius: 25px !important;
+}
+
+.schedule-dialog .radio-select {
+  width: 75%;
+  border-radius: 25px;
+  border: 1px solid #d9d9d9;
+  padding: 10px;
+  margin: 5px 0;
 }
