@@ -5,7 +5,7 @@ import * as React from "react";
 import DOMPurify from 'dompurify'
 // custom components
 import {
-  Button, Grid, Box,
+    Button, Grid, Box, Typography,
 } from "@material-ui/core";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
@@ -66,7 +66,7 @@ class SubmitPoll extends PollingController {
                 >
 
                     <Box marginTop='1rem'>
-                        <p>Purpose</p>
+                        <Typography variant="subtitle2" color="textSecondary">Purpose:</Typography>
                         <p style={{color:"black", fontSize:'1.2rem', marginTop:10}}
                         dangerouslySetInnerHTML={
                           { __html: DOMPurify.sanitize(this.state.pollPreviewAnswer.poll?.data?.attributes.description) }
@@ -75,13 +75,13 @@ class SubmitPoll extends PollingController {
                         </p>
                     </Box>
                     <Box marginTop='1rem'>
-                        <p>End Date:</p>
+                        <Typography variant="subtitle2" color="textSecondary">End Date:</Typography>
                         <p style={{color:"black", fontSize:'1.2rem', marginTop:10}}>
                           {this.state.pollPreviewAnswer.poll?.data?.attributes.end_date}
                         </p>
                     </Box>
                     <Box marginTop='1rem'>
-                        <p>Building:</p>
+                        <Typography variant="subtitle2" color="textSecondary">Building:</Typography>
                         <p style={{color:"black", fontSize:'1.2rem', marginTop:10}}>
                           {this.state.pollPreviewAnswer.poll?.data?.attributes.building_name}
                         </p>
