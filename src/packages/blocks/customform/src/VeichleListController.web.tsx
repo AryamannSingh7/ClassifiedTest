@@ -637,7 +637,7 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
   }
   checkVehicle(){
     console.log(this.state.allVehcile.length)
-if(this.state.allVehcile.length<6){
+if(this.state.allVehcile.length<5){
 // @ts-nocheck
     // @ts-ignore
   this.props.history.push("/newVeichleList")

@@ -129,16 +129,16 @@ class SelectType extends EmailAccountRegistrationController {
 
 
               <Box className="middle-section">
-                      <label for="radCreateMode3" className={"title" + (this.state.userType == 'Owner' ? ' active-type' : '')}>
+                      <label for="radCreateMode5" className={"title" + (this.state.userType == 'Owner' ? ' active-type' : '')}>
                   Owner
                       </label>
                       <br/>
-                      <label className="para" for="radCreateMode3">
+                      <label className="para" for="radCreateMode5">
                   I am the owner of the unit, but I am not living inside it
                       </label>
               </Box>
 
-                    <input type="radio" id="radCreateMode3" name="type" value='Owner' onChange={(e) => this.changeType(e.target.value)} />
+                    <input type="radio" id="radCreateMode5" name="type" value='Owner' onChange={(e) => this.changeType(e.target.value)} />
 
             </Box>
                   <Box
