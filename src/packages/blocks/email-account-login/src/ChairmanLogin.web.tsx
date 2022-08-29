@@ -94,13 +94,14 @@ class ChairmanLogin extends ChairmanAccountLoginController {
                               name="userType"
                               labelId="demo-simple-select-outlined-label"
                               id="demo-simple-select-outlined"
+                              style={{ paddingLeft: '45px' }}
                               // label="Select User Type"
                               onChange={(e) => {
                                 (e.target.value != " ") && setFieldValue("userType", e.target.value)
                               }}
                               value={values.userType}
                             >
-                              <MenuItem disabled value=" ">
+                              <MenuItem  disabled value=" ">
                                 Select User Type
                               </MenuItem>
                               {
@@ -197,7 +198,7 @@ class ChairmanLogin extends ChairmanAccountLoginController {
                       </Form>
                     )}
                   </Formik>
-                </Box>               
+                </Box>
                 {/* desktop footer block */}
                 <Box className="footer-main-block bottomBlock">
                   <h6 className="bottom-text">POWERED BY</h6>
