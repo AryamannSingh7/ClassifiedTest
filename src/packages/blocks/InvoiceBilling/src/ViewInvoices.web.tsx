@@ -18,6 +18,9 @@ import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { withRouter } from 'react-router-dom';
+import { withTranslation } from 'react-i18next';
+import '../../../web/src/i18n.js';
+import i18next from 'i18next';
 
 import ViewInvoicesController, {
     Props,
@@ -280,4 +283,4 @@ const webStyle = {
   };
   // Customizable Area End
   
-  export default withRouter(ViewInvoices);
+  export default withTranslation() (withRouter(ViewInvoices));

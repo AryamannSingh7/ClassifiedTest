@@ -1,0 +1,26 @@
+{
+    "View Invoices": "Community Admin Panel",
+    "title1": "title1",
+    "total-expance": "Total Expance",
+    "Number-Of-Units": "Number Of Units",
+    "Total": "Total",
+    "Rented": "Rented",
+    "Empty Units": "Empty Units",
+    "Empty" : "Empty",
+    "Rent Amount Collected": "Rent Amount Collected",
+    "Collected": "Collected",
+    "Rent Amount Due": "Rent Amount Due",
+    "Due": "Due",
+    "Spent Amount":"Spent Amount",
+    "Collected Amount":"Collected Amount",
+    "My tenants": "My tenants",
+    "Contracts":"Contracts",
+    "Few will expire after":"Few will expire after",
+    "Meetings":"Meetings",
+    "Scheduled":"Scheduled",
+    "Poll / Survey":"Poll / Survey",
+    "Ongoing":"Ongoing",
+    "Budget":"Budget"
+
+
+}

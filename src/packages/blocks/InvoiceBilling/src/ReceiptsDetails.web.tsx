@@ -20,6 +20,9 @@ import Select from '@material-ui/core/Select';
 import { withRouter } from 'react-router-dom';
 import moment from "moment";
 import ShareIcon from '@material-ui/icons/Share';
+import { withTranslation } from 'react-i18next';
+import '../../../web/src/i18n.js';
+import i18next from 'i18next';
 
 import ViewReceiptController, {
     Props,
@@ -215,4 +218,4 @@ const webStyle = {
   };
   // Customizable Area End
   
-  export default withRouter(ReceiptsDetails);
+  export default withTranslation() (withRouter(ReceiptsDetails));
