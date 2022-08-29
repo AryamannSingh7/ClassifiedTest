@@ -1,0 +1,519 @@
+export const MeetingsStyleWeb: any = {
+  scheduledMeeting: {
+    "& .navigation": {
+      display: "flex",
+      justifyContent: "space-between",
+    },
+    "& .navigation .sub-heading": {
+      fontWeight: 600,
+      marginTop: 15,
+      marginBottom: 15,
+    },
+    "& .top-bar": {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+    },
+    "& .top-bar .filter .select-input": {
+      background: "#FFFFFF",
+      border: "1px solid #F0F0F0",
+      borderRadius: "8px",
+      marginRight: "18px",
+      padding: "10px 15px",
+      width: "200px",
+    },
+    "& .top-bar .filter .select-input .MuiSelect-root ": {
+      background: "#FFFFFF",
+    },
+    "& .top-bar .filter .select-input:before": {
+      border: 0,
+    },
+    "& .top-bar .filter .select-input:after": {
+      border: 0,
+    },
+    "& .top-bar .filter button": {
+      background: "#2B6FED",
+      color: "white",
+      padding: "12px 20px",
+      borderRadius: "8px",
+    },
+    "& .top-bar .create-meeting button": {
+      background: "#FC8434",
+      color: "white",
+      padding: "12px 20px",
+      borderRadius: "5px",
+    },
+    "& .meeting-table": {
+      background: "white",
+      marginTop: "20px",
+      borderRadius: "8px",
+      fontFamily: "Century Gothic",
+    },
+    "& .meeting-table .table-top": {
+      padding: "20px",
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+    },
+    "& .meeting-table .table-top h3": {
+      fontWeight: "600",
+    },
+    "& .meeting-table .table-top .search-box": {
+      display: "flex",
+      alignItems: "center",
+      border: "1px solid lightgray",
+      padding: "5px 10px",
+      borderRadius: "8px",
+    },
+    "& .meeting-table .table-top .search-box svg": {
+      fill: "gray",
+    },
+    "& .meeting-table .table-top .search-box .search": {
+      marginLeft: "5px",
+    },
+    "& .meeting-table .table-box": {
+      margin: "20px",
+      width: "-webkit-fill-available",
+    },
+    "& .meeting-table .table-box .MuiTableCell-root": {
+      border: "0px",
+    },
+    "& .meeting-table .table-box th.MuiTableCell-root": {
+      fontWeight: "600",
+    },
+    "& .meeting-table .table-box td.MuiTableCell-root": {
+      paddingTop: "10px",
+      paddingBottom: "10px",
+    },
+    "& .meeting-table .table-box .MuiTableHead-root": {
+      borderBottom: "1px solid #f0f0f0",
+      fontFamily: "Century Gothic !important",
+    },
+    "& .meeting-table .table-box .MuiTableHead-root th": {
+      fontFamily: "Century Gothic !important",
+    },
+    "& .meeting-table .table-box .MuiTableRow-root": {
+      borderBottom: "1px solid #f0f0f0",
+      fontFamily: "Century Gothic",
+    },
+    "& .meeting-table .table-box .MuiTableRow-root td": {
+      fontFamily: "Century Gothic",
+    },
+    "& .meeting-table .table-box .ellipse": {
+      maxWidth: "160px",
+      overflow: "hidden",
+      whiteSpace: "nowrap",
+      textOverflow: "ellipsis",
+    },
+    "& .meeting-table .table-box td.MuiTableCell-root span": {
+      padding: "5px 10px",
+      borderRadius: "25px",
+    },
+    "& .meeting-table .table-bottom": {
+      padding: "20px",
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+    },
+    "& .meeting-table .table-bottom .current-page": {
+      color: "#FC8434",
+    },
+    "& .meeting-table .table-bottom .total-page": {
+      fontWeight: "600",
+    },
+    "& .meeting-table .table-bottom .MuiPaginationItem-root.Mui-selected": {
+      background: "#FC8434",
+      color: "white",
+      borderColor: "#FC8434",
+    },
+    "& a": {
+      textDecoration: "none",
+      color: "black",
+    },
+  },
+  scheduledMeetingDetails: {
+    "& .navigation": {
+      display: "flex",
+      justifyContent: "space-between",
+    },
+    "& .navigation .sub-heading": {
+      fontWeight: 600,
+      marginTop: 15,
+      marginBottom: 15,
+    },
+    "& a": {
+      textDecoration: "none",
+      color: "black",
+    },
+    "& .meeting-detail-box": {
+      background: "white",
+      marginBottom: "50px",
+      marginTop: "25px",
+      borderRadius: "8px",
+    },
+    "& .meeting-detail-box .meeting-top": {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      padding: "20px",
+    },
+    "& .meeting-detail-box .meeting-top h3": {
+      fontWeight: "600",
+    },
+    "& .meeting-detail-box .meeting-top span": {
+      padding: "5px 12px",
+      borderRadius: "25px",
+    },
+    "& .meeting-detail-box .meeting-details": {
+      padding: "20px",
+    },
+    "& .meeting-detail-box .meeting-details h4": {
+      marginBottom: "20px",
+    },
+    "& .meeting-detail-box .meeting-details .items": {
+      borderBottom: "1px solid #f0f0f0",
+      padding: "15px 0",
+    },
+    "& .meeting-detail-box .meeting-details .items p": {
+      display: "inline-block",
+      fontWeight: "600",
+    },
+    "& .response-box": {
+      padding: "20px",
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      marginBottom: "100px",
+      background: "white",
+      borderRadius: "8px",
+    },
+    "& .response-box h3": {
+      fontWeight: "600",
+    },
+    "& .response-box .status": {
+      display: "flex",
+      justifyContent: "flex-end",
+      alignItems: "center",
+      gap: "24px",
+    },
+    "& .response-box .status .item": {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: "10px",
+    },
+    "& .response-box .status p span": {
+      fontWeight: "600",
+    },
+    "& .button-box": {
+      display: "flex",
+      justifyContent: "flex-end",
+      alignItems: "center",
+      marginBottom: "50px",
+      gap: "20px",
+    },
+    "& .button-box button": {
+      minWidth: "150px",
+      padding: "12px 20px",
+      borderRadius: "5px",
+      fontWeight: "600",
+    },
+    "& .button-box button.cancel": {
+      border: "1px solid #2B6FED",
+      color: "#2B6FED",
+    },
+    "& .button-box button.edit": {
+      color: "white",
+      background: "#2B6FED",
+    },
+    "& .meeting-minute-details": {
+      padding: "20px",
+    },
+    "& .meeting-minute-details .resolution": {
+      minHeight: "500px",
+    },
+    "& .meeting-minute-details .pdf-detail": {
+      border: "1px solid #f0f0f0",
+      borderRadius: "8px",
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      padding: "10px 20px",
+      marginTop: "20px",
+    },
+    "& .meeting-minute-details .pdf-detail .heading": {
+      display: "flex",
+      alignItems: "center",
+      gap: "20px",
+    },
+    "& .meeting-minute-details .pdf-detail .heading h6": {
+      fontWeight: "600",
+    },
+    "& .meeting-minute-details .pdf-detail > img": {
+      width: "20px",
+      height: "20px",
+    },
+  },
+  meetingList: {
+    "& .top-bar": {
+      display: "flex",
+      alignItems: "center",
+      fontWeight: "600",
+      cursor: "pointer",
+      marginBottom: "18px",
+      background: "#FFFFFF",
+      padding: "10px 20px",
+      justifyContent: "space-between",
+    },
+    "& .top-bar .left-icon": {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    "& .top-bar .right-icon": {
+      display: "flex",
+      alignItems: "center",
+      gap: "10px",
+    },
+    "& .right-image": {
+      padding: "25px 60px",
+    },
+    "& a": {
+      textDecoration: "none !important",
+    },
+    "& .select": {
+      display: "flex",
+      overflowX: "auto",
+      alignItems: "center",
+      marginBottom: "20px",
+    },
+    "& .select .MuiTab-root": {
+      borderRadius: "20px",
+      background: "#EDF0F9",
+      marginRight: "10px",
+      textTransform: "capitalize",
+      fontSize: "16px",
+      padding: "6px 20px",
+      minWidth: "auto",
+      minHeight: "auto",
+      color: "gray",
+      opacity: "1",
+    },
+    "& .select .MuiTab-root.active": {
+      background: "#2B6FED",
+      color: "white",
+    },
+    "& .list-box": {
+      overflowY: "auto",
+      overflowX: "hidden",
+      height: "75vh",
+    },
+    "& .content-box": {
+      position: "relative",
+      width: "100%",
+    },
+    "& .content-box > .MuiGrid-root": {
+      alignContent: "flex-start",
+    },
+    "& .meeting-list .meeting, & .templates-list .template": {
+      padding: "25px",
+      borderRadius: "10px",
+      background: "white",
+      boxShadow: "4px 0px 14px #ececec",
+    },
+    "& .meeting-list .meeting .header": {
+      width: "100%",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+    },
+    "& .meeting-list .meeting .header h4": {
+      wordBreak: "break-all",
+      marginBottom: "15px",
+    },
+    "& .meeting-list .meeting .info": {
+      marginBottom: "10px",
+    },
+    "& .meeting-list .meeting .info span": {
+      color: "gray",
+    },
+    "& .meeting-list .meeting .info p": {
+      color: "black",
+    },
+    "& .templates-list .template": {
+      position: "relative",
+      padding: "25px",
+    },
+    "& .templates-list .template .content": {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      flexDirection: "column",
+    },
+    "& .templates-list .template .right-menu": {
+      position: "absolute",
+      top: 0,
+      right: 0,
+    },
+    "& .templates-list .template .image": {
+      padding: "20px",
+      border: "3px solid #F8F9FE",
+      display: "inline-block",
+      borderRadius: "50%",
+      marginBottom: "20px",
+    },
+    "& .templates-list .template h4": {
+      textAlign: "center",
+    },
+    "& .decision": {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      paddingTop: "15px",
+    },
+    "& .decision span": {
+      color: "gray",
+    },
+    "& .decision .status": {
+      padding: "5px 10px",
+      borderRadius: "25px",
+    },
+    "& .decision .status-images": {
+      display: "flex",
+      alignItems: "center",
+      gap: "15px",
+    },
+    "& .decision .status-images img": {
+      cursor: "pointer",
+      height: "30px",
+      width: "30px",
+    },
+    "& .decision h6": {
+      fontWeight: "600",
+    },
+  },
+  meetingDetail: {
+    "& .top-bar": {
+      display: "flex",
+      alignItems: "center",
+      fontWeight: "600",
+      cursor: "pointer",
+      marginBottom: "18px",
+      background: "#FFFFFF",
+      padding: "10px 20px",
+      justifyContent: "space-between",
+      borderBottom: "2px solid lightgray",
+    },
+    "& .top-bar .left-icon": {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    "& .right-image": {
+      padding: "23px 60px",
+    },
+    "& a": {
+      textDecoration: "none !important",
+    },
+    "& .content-box": {
+      position: "relative",
+      width: "100%",
+      height: "78vh",
+    },
+    "& .content-box > .MuiGrid-root": {
+      alignContent: "flex-start",
+    },
+    "& .content-box .meeting-details": {
+      minHeight: "calc(100% - 50px)",
+      overflowY: "auto",
+      overflowX: "hidden",
+    },
+    "& .upload-button": {
+      position: "sticky",
+      left: 0,
+      right: 0,
+      bottom: 0,
+      background: "#F4F7FF",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: "10px 0",
+      boxShadow: "none",
+    },
+    "& .upload-button button": {
+      background: "#2b6fec",
+      color: "white",
+      padding: "12px 50px",
+      borderRadius: "25px",
+    },
+    "& .upload-button .MuiGrid-container": {
+      width: "fit-content",
+    },
+    "& .meeting-detail": {
+      marginBottom: "20px",
+    },
+    "& .meeting-detail .heading": {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      marginBottom: "10px",
+    },
+    "& .scheduled-detail .heading": {
+      marginBottom: "10px",
+    },
+    "& .meeting-detail .heading h4": {
+      fontWeight: "600",
+    },
+    "& .scheduled-detail .heading h4": {
+      fontWeight: "600",
+    },
+    "& .scheduled-detail .scheduled-card p": {
+      fontWeight: "600",
+    },
+    "& .meeting-detail .heading span": {
+      padding: "5px 10px",
+      borderRadius: "25px",
+    },
+    "& .meeting-detail .meeting-card": {
+      padding: "20px",
+      borderRadius: "8px",
+      boxShadow: "none",
+    },
+    "& .scheduled-detail .scheduled-card": {
+      padding: "20px",
+      borderRadius: "8px",
+      boxShadow: "none",
+    },
+    "& .scheduled-detail .scheduled-card .item": {
+      display: "flex",
+      alignItems: "flex-start",
+      gap: "8px",
+    },
+    "& .meeting-pdf": {
+      display: "block",
+      background: "white",
+    },
+    "& .meeting-pdf .pdf-detail": {
+      border: "1px solid #f0f0f0",
+      borderRadius: "8px",
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      padding: "10px 20px",
+      marginTop: "20px",
+      background: "white",
+    },
+    "& .meeting-pdf .pdf-detail .heading": {
+      display: "flex",
+      alignItems: "center",
+      gap: "20px",
+    },
+    "& .meeting-pdf .pdf-detail .heading h6": {
+      fontWeight: "600",
+    },
+    "& .meeting-pdf .pdf-detail > img": {
+      width: "20px",
+      height: "20px",
+    },
+  },
+};

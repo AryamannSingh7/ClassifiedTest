@@ -4,24 +4,17 @@
 
 import React from "react";
 import {
-  Button,
   Container,
   IconButton,
   Link,
-  MenuItem,
   Typography,
   withStyles,
   Box,
   Grid,
   Dialog,
   DialogContent,
-  FormControl,
-  DialogActions,
   Card,
 } from "@material-ui/core";
-import { Menu } from "@szhsin/react-menu";
-import "@szhsin/react-menu/dist/core.css";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import CloseIcon from "@material-ui/icons/Close";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
@@ -29,9 +22,6 @@ import BuildingDocumentListController, {
   Props,
 } from "./BuildingDocumentListController.web";
 import { DocumentReportStyleWeb } from "./DocumentReportStyle.web";
-
-import UploadImage from "../assets/upload.png";
-import DeleteImage from "../assets/delete.png";
 import NoPdf from "../assets/no-pdf.png";
 import BuildingLogo from "../assets/building.png";
 import PdfImage from "../assets/pdf.png";

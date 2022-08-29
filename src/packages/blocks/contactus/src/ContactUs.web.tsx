@@ -6,34 +6,14 @@ import React from "react";
 import {
   Container,
   Typography,
-  Link,
   FormControl,
-  Tabs,
-  Tab,
-  AppBar,
   withStyles,
   Button,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-  Icon,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  TextField,
 } from "@material-ui/core";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
-import EditIcon from "@material-ui/icons/Edit";
 import Box from "@material-ui/core/Box";
-import AddIcon from "@material-ui/icons/Add";
-import Select from "@material-ui/core/Select";
-import NativeSelect from "@material-ui/core/NativeSelect";
 import Grid from "@material-ui/core/Grid";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
-import TabPanel from "../../Polling/src/TabPanel.web";
 import { FaqChairmanStyleWeb } from "./FaqChairmanStyle.web";
 import ContactUsController, { Props } from "./ContactusController.web";
 

@@ -17,6 +17,7 @@ import { withRouter } from "react-router";
 import BuildingLogo from "../assets/building1.png";
 import { DashboardStyleWeb } from "./DashboardStyle.web";
 import { globalIcon, notification, chatIcon } from "./assets";
+import hamburgerIcon from "../assets/hamburger.png";
 
 import { keyhand } from "./assets";
 import DashboardCard from "../../../components/src/DashboardCard";
@@ -55,7 +56,7 @@ class OwnerDashboard extends React.Component {
               <Box display={{ xs: "flex", md: "flex" }} className="menu">
                 <div className="left-icon">
                   <IconButton onClick={() => this.toggleDrawer()}>
-                    <MenuIcon />
+                    <img src={hamburgerIcon} alt=""/>
                   </IconButton>
                   <span className="complex-name">Complex Name</span>
                 </div>
@@ -63,7 +64,7 @@ class OwnerDashboard extends React.Component {
                   <Link href="#">
                     <img src={globalIcon} alt="GlobalIcon" />
                   </Link>
-                  <Link href="#">
+                  <Link href="/inbox">
                     <img src={chatIcon} alt="GlobalIcon" />
                   </Link>
                   <Link href="#">
@@ -210,7 +211,7 @@ class OwnerDashboard extends React.Component {
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
-                    <Link href="">
+                    <Link href="/MyMeetings">
                       <DashboardCard
                         image={keyhand}
                         heading="Meetings"

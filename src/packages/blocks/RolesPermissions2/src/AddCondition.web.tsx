@@ -6,26 +6,14 @@ import {
   Button,
   Container,
   IconButton,
-  // Link,
   withStyles,
   Box,
   Grid,
-  Tab,
-  MenuItem,
-  Card,
-  RadioGroup,
-  FormControlLabel,
-  Radio,
 } from "@material-ui/core";
-import { Menu } from "@szhsin/react-menu";
-import NavigateNextIcon from "@material-ui/icons/NavigateNext";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
-
 import AddConditionController, { Props } from "./AddConditionController.web";
 import { Link } from "react-router-dom";
 import { ContractsStyleWeb } from "./ContractsStyle.web";
-
 import BuildingLogo from "../assets/building.png";
 import RichTextEditor from "react-rte";
 

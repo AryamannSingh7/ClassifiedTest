@@ -216,8 +216,9 @@ input#mobile:focus {
     font-weight: bold;
     text-align: center;
 
-    overflow: hidden;
-    text-overflow: ellipsis;
+    width: auto;
+    white-space: break-spaces;
+    text-align: center;
 
 
   }
