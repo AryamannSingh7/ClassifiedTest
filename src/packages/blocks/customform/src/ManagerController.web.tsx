@@ -262,7 +262,7 @@ export default class ManagerController extends BlockComponent<Props, S, SS> {
         } if (apiRequestCallId === this.getBuildingNameApiCallId) {
           if (responseJson && responseJson?.data) {
             console.log("getBuildingNameApiCallId  ========================>", responseJson)
-            this.setState({ buildingNameData: responseJson?.data?.buildings })
+            this.setState({ buildingNameData: responseJson?.data })
             this.setState({ loading: false })
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;

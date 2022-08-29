@@ -6,27 +6,17 @@ import {
   Button,
   Container,
   IconButton,
-  // Link,
   withStyles,
   Box,
   Grid,
-  Tab,
-  MenuItem,
-  Card,
 } from "@material-ui/core";
-import { Menu } from "@szhsin/react-menu";
-import NavigateNextIcon from "@material-ui/icons/NavigateNext";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
-
-import SelectedTemplateController, { Props } from "./SelectedTemplateController.web";
+import SelectedTemplateController, {
+  Props,
+} from "./SelectedTemplateController.web";
 import { Link } from "react-router-dom";
 import { ContractsStyleWeb } from "./ContractsStyle.web";
-
 import BuildingLogo from "../assets/building.png";
-import SortIcon from "../assets/sort.png";
-import FilterIcon from "../assets/filter.png";
-import TemplateIcon from "../assets/template.png";
 
 class SelectedTemplate extends SelectedTemplateController {
   constructor(props: Props) {

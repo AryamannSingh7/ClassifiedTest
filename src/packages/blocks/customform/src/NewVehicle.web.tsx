@@ -47,7 +47,7 @@ class NewVeichleList extends VeichleListController {
                 <p style={{ fontWeight: 600, fontSize: '1.25rem' }}>
 
 {
-                    this.state.allVehcile.length<0 ? ' Register vehicle' : ' Register another vehicle'
+                    this.state.allVehcile.length==0 ? ' Register vehicle' : ' Register another vehicle'
 }
 
 

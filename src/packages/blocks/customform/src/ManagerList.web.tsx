@@ -95,7 +95,7 @@ class ManagerList extends ManagerController {
                               }}
                               value={values.status}
                             >
-                              <MenuItem value=" ">
+                              <MenuItem value=" " >
                                 Select Status
                               </MenuItem>
                               <MenuItem value="Pending">
@@ -124,16 +124,16 @@ class ManagerList extends ManagerController {
                               }}
                               value={values.buildingName}
                             >
-                              <MenuItem disabled value=" ">
+                              <MenuItem disabled value=" " >
                                 Select Building
                               </MenuItem>
                               {
                                 this.state?.buildingNameData?.map((val, index) => (
                                   <MenuItem
                                     key={index}
-                                    value={`${val?.id} ${val?.name}`}
+                                    value={`${val?.id} ${val?.attributes.name}`}
                                   >
-                                    {val?.name}
+                                    {val?.attributes.name}
                                   </MenuItem>
                                 ))
                               }
@@ -152,22 +152,21 @@ class ManagerList extends ManagerController {
                               }}
                               value={values.unit}
                             >
-                              {
-                                (values?.buildingName) ?
-                                  <MenuItem disabled value=" ">
+
+                                  <MenuItem disabled value=" " >
                                     Select Unit
                                   </MenuItem>
-                                  :
-                                  this.state?.allUnit?.map((val, index) => (
+
+                              {    this.state?.allUnit?.map((val, index) => (
                                     <MenuItem
                                       key={index}
                                       value={val?.apartment_name}
                                     >
                                       {val?.apartment_name}
                                     </MenuItem>
-                                  ))
+                                  ))}
 
-                              }
+
                             </Select>
                             <ErrorMessage className="text-error" component="Typography" name="unit" />
                           </FormControl>
@@ -226,7 +225,7 @@ class ManagerList extends ManagerController {
 
                                         <div style={{ display: 'flex', fontWeight: 500,marginTop:'0.5rem' }}>
                                           <img src={Building} width='25' height='25' style={{ marginRight: 10 }} />
-                                          <p>  {item.attributes.building_management.name}</p>
+                                          <p>  {item.attributes?.building_management?.name}</p>
                                         </div>
                                         {/* <div style={{ marginLeft: 35, marginBottom: 20 }}>
 

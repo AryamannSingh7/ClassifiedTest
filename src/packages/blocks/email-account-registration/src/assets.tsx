@@ -21,6 +21,8 @@ export const Map = require("../assets/Map.png");
 export const company_logo2 = require("../assets/company_logo.svg");
 export const Building1 = require("../assets/building1.png");
 export const numpad = require("../assets/numpad.png");
+export const compnayName = require("../assets/companyIcon.png");
+
 
 
 

@@ -1,0 +1,10 @@
+.MuiPopover-paper .MuiList-padding{
+    padding:0px;
+}
+
+.resident-data{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 15px;
+}

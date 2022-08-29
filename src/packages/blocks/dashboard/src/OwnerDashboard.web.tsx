@@ -17,16 +17,21 @@ import { withRouter } from "react-router";
 import BuildingLogo from "../assets/building1.png";
 import { DashboardStyleWeb } from "./DashboardStyle.web";
 import { globalIcon, notification, chatIcon } from "./assets";
+import hamburgerIcon from "../assets/hamburger.png";
 
 import { keyhand } from "./assets";
 import DashboardCard from "../../../components/src/DashboardCard";
 import OwnerSidebarWeb from "./OwnerSidebar.web";
+import { withTranslation } from 'react-i18next';
+import '../../../web/src/i18n.js';
+import i18next from 'i18next';
 
 class OwnerDashboard extends React.Component {
   constructor(props: Props) {
     super(props);
     this.state = {
       isMenuOpen: false,
+      languageMenu: false,
     };
   }
 
@@ -37,7 +42,15 @@ class OwnerDashboard extends React.Component {
     });
   };
 
+  handleLanguage = () => {
+    this.setState({
+      ...this.state,
+      languageMenu: !this.state.languageMenu,
+    });
+  };
+
   render() {
+    const {t} = this.props
     const { classes } = this.props;
 
     return (
@@ -55,20 +68,32 @@ class OwnerDashboard extends React.Component {
               <Box display={{ xs: "flex", md: "flex" }} className="menu">
                 <div className="left-icon">
                   <IconButton onClick={() => this.toggleDrawer()}>
-                    <MenuIcon />
+                    <img src={hamburgerIcon} alt=""/>
                   </IconButton>
                   <span className="complex-name">Complex Name</span>
                 </div>
-                <div className="right-icon">
-                  <Link href="#">
-                    <img src={globalIcon} alt="GlobalIcon" />
-                  </Link>
-                  <Link href="#">
-                    <img src={chatIcon} alt="GlobalIcon" />
-                  </Link>
-                  <Link href="#">
-                    <img src={notification} alt="GlobalIcon" />
-                  </Link>
+                <div className="right-icon" style={{display:"flex"}}>
+                  <div style={{position:"relative"}}>
+                      <span onClick={() => this.handleLanguage()}>
+                        <img src={globalIcon} alt="GlobalIcon" />
+                      </span>
+                      {this.state.languageMenu ? 
+                      <div style={{position:'absolute', right:"-38px", top:"32px"}}>
+                        <Button variant="outlined" className="invoicesbtn" color="primary" onClick={() => i18next.changeLanguage('en')} style={{marginBottom:"6px"}}>English</Button>
+                        <Button variant="outlined" className="invoicesbtn" color="primary" onClick={() => i18next.changeLanguage('ar')}>Arebic</Button>
+                      </div>
+                      : "" }
+                    </div>
+                    <div>
+                      <Link href="#">
+                        <img src={chatIcon} alt="GlobalIcon" />
+                      </Link>
+                    </div>
+                    <div>
+                      <Link href="#">
+                        <img src={notification} alt="GlobalIcon" />
+                      </Link>
+                    </div>
                 </div>
               </Box>
               <Container className="dashboard">
@@ -89,7 +114,7 @@ class OwnerDashboard extends React.Component {
                       <DashboardCard
                         image={keyhand}
                         heading="Total Expenses"
-                        title="Total Expenses"
+                        title={t('total-expance')}
                         value="SR 75"
                       />
                     </Link>
@@ -210,7 +235,7 @@ class OwnerDashboard extends React.Component {
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
-                    <Link href="">
+                    <Link href="/MyMeetings">
                       <DashboardCard
                         image={keyhand}
                         heading="Meetings"
@@ -335,7 +360,7 @@ class OwnerDashboard extends React.Component {
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
-                    <Link href="">
+                    <Link href="/InvoiceBilling">
                       <DashboardCard
                         image={keyhand}
                         heading="My Invoices"
@@ -401,6 +426,6 @@ class OwnerDashboard extends React.Component {
     );
   }
 }
-export default withStyles(DashboardStyleWeb)(withRouter(OwnerDashboard));
+export default withTranslation()(withStyles(DashboardStyleWeb)(withRouter(OwnerDashboard)));
 
 // Customizable Area End
