@@ -1,3 +1,6 @@
+//@ts-ignore
+//@ts-nocheck
+
 import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
@@ -24,6 +27,7 @@ interface S {
   txtSavedValue: string;
   enableField: boolean;
   // Customizable Area Start
+  loading: boolean;
   // Customizable Area End
 }
 
@@ -39,6 +43,7 @@ export default class InvoiceBillingController extends BlockComponent<
   SS
 > {
   // Customizable Area Start
+  getInvoiceBillingApiCallId: any
   // Customizable Area End
 
   constructor(props: Props) {
@@ -48,6 +53,8 @@ export default class InvoiceBillingController extends BlockComponent<
     // Customizable Area Start
     this.subScribedMessages = [
       getName(MessageEnum.AccoutLoginSuccess),
+      getName(MessageEnum.RestAPIResponceMessage),
+      getName(MessageEnum.SessionResponseMessage),
       // Customizable Area Start
       // Customizable Area End
     ];
@@ -57,6 +64,7 @@ export default class InvoiceBillingController extends BlockComponent<
       txtSavedValue: "A",
       enableField: false,
       // Customizable Area Start
+      loading: false,
       // Customizable Area End
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -139,5 +147,14 @@ export default class InvoiceBillingController extends BlockComponent<
   };
 
   // Customizable Area Start
+
+  getInvoices = () => {
+    console.log("Heepepep-->", this.props)
+    this.props.history.push("/ViewInvoices")
+  }
+
+  getReceipt = () => {
+    this.props.history.push("/ViewReceipt")
+  }
   // Customizable Area End
 }
