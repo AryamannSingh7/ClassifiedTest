@@ -234,7 +234,7 @@ class ManagerViewVeichle extends ManagerController {
           </Grid>
                   <div style={{display:'flex',justifyContent:'flex-end',width:'100%'}}>
                     <Box className="row-btn customButton desktop-ui">
-                      <Button style={{ width: 150, marginRight: 15, borderRadius: 10, border:'1px solid #5000f4' }} onClick={() => this.setState({ showDialogDelete: true })} variant='text' disabled={item.attributes.status == 'rejected'}>
+                      <Button style={{ width: 150, marginRight: 15, borderRadius: 10, border: '1px solid #5000f4', color:'#5000f4' }} onClick={() => this.setState({ showDialogDelete: true })} variant='text' disabled={item.attributes.status == 'rejected'}>
                         Reject
                       </Button>
                     </Box>
