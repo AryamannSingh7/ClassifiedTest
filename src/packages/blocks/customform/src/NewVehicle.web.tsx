@@ -361,6 +361,8 @@ class NewVeichleList extends VeichleListController {
             </Box>
           </Grid>
         </Grid>
+        <Loader loading={this.state.loading} />
+
       </>
 
     )

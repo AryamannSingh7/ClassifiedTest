@@ -52,9 +52,14 @@ interface S {
   lat: any;
   long: any;
   error: string | null;
-  loading:boolean;
-  allVehcile:any[];
-  showDialog:boolean;
+  loading: boolean;
+  allVehcile: any[];
+  showDialog: boolean;
+  anchorEl: any;
+  allRelation: any[];
+  allIdType: any[];
+  allInbox:any[];
+  singleChatRoom:any[];
   // Customizable Area End
 }
 
@@ -62,15 +67,20 @@ interface SS {
   id: any;
 }
 
-export default class VeichleListController extends BlockComponent<Props, S, SS> {
-    // Customizable Area Start
-  createVehicleApiCallId:string='';
+export default class InboxController extends BlockComponent<Props, S, SS> {
+  // Customizable Area Start
+  createVehicleApiCallId: string = '';
   updateVehicleApiCallId: string = '';
-  getVehicleListApiCallId:string='';
-  deleteVehicleAPICallId:string='';
-      // Customizable Area End
+  getVehicleListApiCallId: string = '';
+  deleteVehicleAPICallId: string = '';
+  getRelationListApiCallId: string = '';
+  getIDTypeListApiCallId: string = ''
+  getInboxApiCallId:string ='';
+  getCreateMessagesApiCallId: any = "";
+  // Customizable Area End
   constructor(props: Props) {
     super(props);
+
     this.receive = this.receive.bind(this);
 
     // Customizable Area Start
@@ -92,10 +102,15 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
       showSuccessModal: false,
       lat: 0,
       long: 0,
-      error:null,
-      loading:false,
-      allVehcile:[],
-      showDialog:false
+      error: null,
+      loading: false,
+      allVehcile: [],
+      showDialog: false,
+      anchorEl: null,
+      allRelation: [],
+      allIdType: [],
+      allInbox:[],
+      singleChatRoom:[]
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -188,9 +203,21 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
         } if (apiRequestCallId === this.createVehicleApiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
-            this.setState({lodaing:false})
-            this.props.history.push('/NewRequest')
-                    } else if (responseJson?.errors) {
+            if (localStorage.getItem('selectCar')) {
+              localStorage.removeItem('selectCar')
+              //@ts-ignore
+              //@ts-nocheck
+              this.props.history.push('/familylist')
+            } else {
+
+              //@ts-ignore
+              //@ts-nocheck
+              this.setState({ loading: false })
+              //@ts-ignore
+              //@ts-nocheck
+              this.props.history.push('/familylist')
+            }
+          } else if (responseJson?.errors) {
             let error = responseJson.errors[0];
             this.setState({ error });
           } else {
@@ -199,12 +226,35 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
           }
           this.setState({ loading: false })
 
-        } if (apiRequestCallId === this.getVehicleListApiCallId) {
-
+        } if (apiRequestCallId === this.getInboxApiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
-            this.setState({ allVehcile: responseJson.vehicle.data }, () => console.log(this.state.allVehcile))
-            this.setState({ loading: false })
+            if (responseJson.data) {
+              this.setState({ allInbox: responseJson.data }, () => console.log(this.state.allInbox))
+            }
+          } else {
+            //Check Error Response
+            // this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        } if (apiRequestCallId === this.getRelationListApiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            this.setState({ allRelation: responseJson.relaions }, () => console.log(this.state.allRelation))
+          } else {
+            //Check Error Response
+            // this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        }
+        if (apiRequestCallId === this.getCreateMessagesApiCallId) {
+          if (!responseJson.errors) {
+            let tempArray = this.state.singleChatRoom
+
+            tempArray.push(responseJson.data)
+            this.setState({ singleChatRoom: tempArray, newMessage: '' });
           } else {
             //Check Error Response
             // this.parseApiErrorResponse(responseJson);
@@ -218,8 +268,10 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
             //@ts-ignore
             //@ts-nocheck
             localStorage.removeItem('selectCar')
+            this.setState({ showDialogDelete: false, showDialog: false })
 
-            this.props.history.push('/veichleList')
+            this.getVehicle()
+
           } else {
             //Check Error Response
             this.parseApiErrorResponse(responseJson);
@@ -233,7 +285,7 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
             //@ts-ignore
             //@ts-nocheck
             localStorage.removeItem('selectCar')
-            this.props.history.push('/editRequest')
+            this.props.history.push('/familylist')
           } else {
             //Check Error Response
             this.parseApiErrorResponse(responseJson);
@@ -440,38 +492,39 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
     });
   };
 
-  addVehicleSchema(){
+  addVehicleSchema() {
     const validations = Yup.object().shape({
 
       full_name: Yup.string().required(`This field is required`).trim(),
-      plateNumber: Yup.string().required(`This field is required`).trim(),
-      carManufacturer: Yup.string().required(`This field is required`).trim(), carModle: Yup.string().required(`This field is required`).trim(), carColor: Yup.string().required(`This field is required`).trim(),
-      banner: Yup.mixed(),
-      bannerUrl: Yup.string().nullable(true).required(`Please select banner image.`)
+      relation: Yup.string().required(`This field is required`).trim(),
+      IDoption: Yup.string().required(`This field is required`).trim(),
+      IDnumber: Yup.string().required(`This field is required`).trim(),
+      //   carColor: Yup.string().required(`This field is required`).trim(),
+      // banner: Yup.mixed(),
+      // bannerUrl: Yup.string().nullable(true).required(`Please select banner image.`)
 
     });
     return validations
   }
 
   createVehicle = async (values: any) => {
-    this.setState({ lodaing: true })
-
+    console.log(values)
     try {
       const header = {
 
         token: localStorage.getItem("userToken")
       };
       const formData = new FormData();
-      formData.append("vehicle[owner_name]", values.full_name)
-      formData.append("vehicle[plate_number]", values.plateNumber)
-      formData.append("vehicle[company_name]", values.carManufacturer)
-      formData.append("vehicle[model_number]", values.carModle)
-      formData.append("vehicle[color]", values.carColor)
-      let blob = await fetch(values.bannerUrl).then(r => r.blob());
-      formData.append(
-        "vehicle[registration_card_copy]",
-        blob
-      );
+      formData.append("name", values.full_name)
+      formData.append("relation_id", values.relation)
+      formData.append("id_proof_id", values.IDoption)
+      formData.append("id_number", values.IDnumber)
+      // formData.append("vehicle[color]", values.carColor)
+      // let blob = await fetch(values.bannerUrl).then(r => r.blob());
+      // formData.append(
+      //   "vehicle[registration_card_copy]",
+      //   blob
+      // );
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
@@ -480,7 +533,7 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        configJSON.endPointApiCreateVehicle
+        'bx_block_family/families'
       );
 
       requestMessage.addData(
@@ -509,25 +562,28 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
   }
 
   updateVehicle = async (values: any) => {
-    this.setState({ loading: true })
     console.log(values)
-    let item = JSON.parse(localStorage.getItem('selectCar'))
+    let item = JSON.parse(localStorage.getItem('selectFamily'))
     try {
       const header = {
 
         token: localStorage.getItem("userToken")
       };
       const formData = new FormData();
-      formData.append("vehicle[owner_name]", values.full_name)
-      formData.append("vehicle[plate_number]", values.plateNumber)
-      formData.append("vehicle[company_name]", values.carManufacturer)
-      formData.append("vehicle[model_number]", values.carModle)
-      formData.append("vehicle[color]", values.carColor)
-      let blob = await fetch(values.bannerUrl).then(r => r.blob());
-      formData.append(
-        "vehicle[registration_card_copy]",
-        blob
-      );
+      formData.append("name", values.full_name)
+      formData.append("relation_id", values.relation)
+      formData.append("id_proof_id", values.IDoption)
+      formData.append("id_number", values.IDnumber)
+      // formData.append("vehicle[owner_name]", values.full_name)
+      // formData.append("vehicle[plate_number]", values.plateNumber)
+      // formData.append("vehicle[company_name]", values.carManufacturer)
+      // formData.append("vehicle[model_number]", values.carModle)
+      // formData.append("vehicle[color]", values.carColor)
+      // let blob = await fetch(values.bannerUrl).then(r => r.blob());
+      // formData.append(
+      //   "vehicle[registration_card_copy]",
+      //   blob
+      // );
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
@@ -536,7 +592,7 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `${configJSON.endPointApiCreateVehicle}/${item.id}`
+        `bx_block_family/families/${item.id}`
       );
 
       requestMessage.addData(
@@ -582,7 +638,7 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
       size: file.size,
       type: file.type
     } : '');
-    console.log('file',URL.createObjectURL(file))
+    console.log('file', URL.createObjectURL(file))
     setFieldValue("bannerUrl", file ? URL.createObjectURL(file) : "");
     if (file) {
       e.target.value = "";
@@ -590,8 +646,8 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
     }
 
   };
-  getVehicle() {
-    this.setState({ loading: true })
+  getInbox() {
+
     const header = {
       "Content-Type": configJSON.contentTypeApiAddDetail,
       "token": localStorage.getItem('userToken')
@@ -601,10 +657,10 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
     );
 
 
-    this.getVehicleListApiCallId = requestMessage.messageId;
+    this.getInboxApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_vehicle/vehicles/user_vehicle_list`
+      `/bx_block_chat/chats?chatable_id=${localStorage.getItem('userId')}`
     );
 
     requestMessage.addData(
@@ -622,40 +678,103 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
     runEngine.sendMessage(requestMessage.id, requestMessage);
     return true;
   }
-  addVehicle(item:any){
+  getRelation() {
+
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      "token": localStorage.getItem('userToken')
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+
+    this.getRelationListApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `/bx_block_family/relations`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.validationApiMethodType
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  }
+  getIdType() {
+
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      "token": localStorage.getItem('userToken')
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+
+    this.getIDTypeListApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `/bx_block_family/id_proofs`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.validationApiMethodType
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  }
+  addVehicle(item: any) {
     console.log(item)
-    localStorage.setItem('selectCar',JSON.stringify(item))
+    localStorage.setItem('selectCar', JSON.stringify(item))
     // @ts-nocheck
     // @ts-ignore
     this.props.history.push('/viewVehicle')
 
   }
-  getCar(){
+  getCar() {
     // @ts-nocheck
     // @ts-ignore
     let item = JSON.parse(localStorage.getItem('selectCar'))
-    if(item){
+    if (item) {
 
     }
   }
-  checkVehicle(){
+  checkVehicle() {
     console.log(this.state.allVehcile.length)
-if(this.state.allVehcile.length<5){
-// @ts-nocheck
-    // @ts-ignore
-  this.props.history.push("/newVeichleList")
-}else{
-  // @ts-nocheck
-    // @ts-ignore
-  this.setState({ showDialog:true},()=>console.log(this.state))
-}
+    if (this.state.allVehcile.length < 2) {
+      // @ts-nocheck
+      // @ts-ignore
+      this.props.history.push("/newVeichleList")
+    } else {
+      // @ts-nocheck
+      // @ts-ignore
+      this.setState({ showDialog: true }, () => console.log(this.state))
+    }
 
   }
-  deleteRequest(){
-    this.setState({ loading: true })
+  deleteRequest() {
     // @ts-nocheck
     // @ts-ignore
-    let item = JSON.parse(localStorage.getItem('selectCar'))
+    let item = JSON.parse(localStorage.getItem('selectFamily'))
     const header = {
 
       "token": localStorage.getItem('userToken')
@@ -668,7 +787,7 @@ if(this.state.allVehcile.length<5){
     this.deleteVehicleAPICallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_vehicle/vehicles/${item.id}`
+      `bx_block_family/families/${item.id}`
     );
 
     requestMessage.addData(
@@ -686,5 +805,155 @@ if(this.state.allVehcile.length<5){
     runEngine.sendMessage(requestMessage.id, requestMessage);
     return true;
   }
+
+  handleClick = (event) => {
+    this.setState({ anchorEl: event.currentTarget, showDialog: true })
+  };
+
+  handleClose = (item) => {
+    if (item.id) {
+      localStorage.setItem('selectFamily', JSON.stringify(item))
+      this.props.history.push("/editfamily")
+
+    } else {
+      this.setState({ anchorEl: item.currentTarget, showDialog: false })
+    }
+    // this.setState({ anchorEl:null,showDialog:false })
+  };
+
+  openChat=(item)=>{
+
+    localStorage.setItem('selectedChat',JSON.stringify(item))
+    this.props.history.push('/chatbox')
+
+  }
+  CreateNewMessage(value) {
+    let data = value.target.value;
+    this.setState({ newMessage: data })
+  }
+  createMessages = async (id) => {
+
+
+    const message = this.state.newMessage;
+
+    if (!message.trim() || !message) {
+      return null;
+    }
+
+    try {
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+      this.getCreateMessagesApiCallId = requestMessage.messageId;
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        `bx_block_chat/messages?chat_id=${id}`
+      );
+
+      const header = {
+        token: localStorage.getItem("userToken"),
+      };
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+
+      const formData = new FormData();
+      formData.append("message[message]", message);
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestBodyMessage),
+        formData
+      );
+
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        'POST'
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+
+      return true;
+    } catch (error) {
+      console.log(error);
+    }
+
+
+  }
+  getAllChat(){
+    console.log('i am here')
+    const item = JSON.parse(localStorage.getItem('selectedChat'))
+    this.setState({ singleChatRoom: item.attributes.messages, selectedChatRoomId:item.id},()=>console.log(this.state.singleChatRoom))
+  }
+  handleSelectFile = (
+    file: any
+  ) => {
+
+
+    if (file && !['image/png', 'image/jpeg', 'image/jpg', 'application/pdf'].includes(file.type)) {
+      return alert('Only png and jpeg are supported.')
+    }
+
+
+
+    this.createFileMessages(file)
+  };
+  createFileMessages = async (file) => {
+    const message = this.state.newMessage;
+    const chatRoomId = this.state.selectedChatRoomId;
+
+    try {
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+      this.getCreateMessagesApiCallId = requestMessage.messageId;
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        `bx_block_chat/messages?chat_id=${chatRoomId}`
+      );
+
+      const header = {
+        token: localStorage.getItem("userToken"),
+      };
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+
+      const formData = new FormData();
+
+
+
+      const blob = await fetch(file).then(r => r.blob());
+
+      formData.append("message[message]", "‎");
+      formData.append("message[attachments][]", file);
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestBodyMessage),
+        formData
+      );
+
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        'POST'
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+
+      return true;
+    } catch (error) {
+      console.log(error);
+    }
+
+
+  }
+
   // Customizable Area End
 }

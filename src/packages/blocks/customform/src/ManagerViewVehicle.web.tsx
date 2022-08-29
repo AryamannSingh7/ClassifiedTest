@@ -103,7 +103,7 @@ class ManagerViewVeichle extends ManagerController {
                         <div style={{ display: 'flex', fontWeight: 500 }}>
                           {/* <img src={CarBlue} width='25' height='25' style={{ marginRight: 10 }} /> */}
                                   <p> Building Name:</p>   <p style={{ marginLeft: 10, fontWeight: 600 }}>
-      {item.attributes.building_management.name}
+      {item?.attributes?.building_management?.name}
                                   </p>
                         </div>
                         <div style={{ marginLeft: 35, marginBottom: 20 }}>
@@ -116,7 +116,7 @@ class ManagerViewVeichle extends ManagerController {
                         <div style={{ display: 'flex', fontWeight: 500 }}>
                           {/* <img src={List} width='25' height='25' style={{ marginRight: 10 }} /> */}
                                   <p> Unit Number:</p>   <p style={{ marginLeft: 10, fontWeight: 600 }}>
-                                    {item.attributes.apartment_management.apartment_name}
+                                    {item.attributes?.apartment_management?.apartment_name}
                                   </p>
                         </div>
                         <div style={{ marginLeft: 35, marginBottom: 20 }}>
@@ -234,7 +234,7 @@ class ManagerViewVeichle extends ManagerController {
           </Grid>
                   <div style={{display:'flex',justifyContent:'flex-end',width:'100%'}}>
                     <Box className="row-btn customButton desktop-ui">
-                      <Button style={{ width: 150, marginRight: 15, borderRadius: 10, border:'1px solid #5000f4' }} onClick={() => this.setState({ showDialogDelete: true })} variant='text' disabled={item.attributes.status == 'rejected'}>
+                      <Button style={{ width: 150, marginRight: 15, borderRadius: 10, border: '1px solid #5000f4', color:'#5000f4' }} onClick={() => this.setState({ showDialogDelete: true })} variant='text' disabled={item.attributes.status == 'rejected'}>
                         Reject
                       </Button>
                     </Box>

@@ -98,11 +98,11 @@ class ManagerList extends ManagerController {
                               <MenuItem value=" " >
                                 Select Status
                               </MenuItem>
-                              <MenuItem value="Pending">
-                                Pending
+                              <MenuItem value=" Pending Approval">
+                                Pending Approval
                               </MenuItem>
-                              <MenuItem value="Pending Approved">
-                                Pending Approved
+                              <MenuItem value="Approved">
+                                Approved
                               </MenuItem>
                               <MenuItem value="Rejected">
                                 Rejected
@@ -225,7 +225,7 @@ class ManagerList extends ManagerController {
 
                                         <div style={{ display: 'flex', fontWeight: 500,marginTop:'0.5rem' }}>
                                           <img src={Building} width='25' height='25' style={{ marginRight: 10 }} />
-                                          <p>  {item.attributes.building_management.name}</p>
+                                          <p>  {item.attributes?.building_management?.name}</p>
                                         </div>
                                         {/* <div style={{ marginLeft: 35, marginBottom: 20 }}>
 

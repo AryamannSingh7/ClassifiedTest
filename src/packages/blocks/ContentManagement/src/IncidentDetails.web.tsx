@@ -93,7 +93,7 @@ class IncidentDetails extends IncidentController {
                             </Typography>
                             <Box className="customButton">
                               <Box className="formGroup">
-                                <Button variant="outlined" onClick={() => this.confirmOrRejectIncident(this.props.history.location.id, "reject")} >reject closure</Button>
+                                <Button variant="outlined" style={{ border: '1px solid #5000f4', color: '#5000f4' }} onClick={() => this.confirmOrRejectIncident(this.props.history.location.id, "reject")} >reject closure</Button>
                                 <Button variant="contained" onClick={() => this.confirmOrRejectIncident(this.props.history.location.id, "confirm")} >confirm closure</Button>
                               </Box>
                             </Box>

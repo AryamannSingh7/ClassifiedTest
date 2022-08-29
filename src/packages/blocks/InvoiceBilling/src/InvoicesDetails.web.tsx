@@ -19,6 +19,9 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import ShareIcon from '@material-ui/icons/Share';
 import { withRouter } from 'react-router-dom';
+import { withTranslation } from 'react-i18next';
+import '../../../web/src/i18n.js';
+import i18next from 'i18next';
 
 import ViewInvoicesController, {
     Props,
@@ -204,4 +207,4 @@ const webStyle = {
   };
   // Customizable Area End
   
-  export default withRouter(InvoicesDetails);
+  export default withTranslation() (withRouter(InvoicesDetails));
