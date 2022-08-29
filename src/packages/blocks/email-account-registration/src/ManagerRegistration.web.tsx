@@ -75,6 +75,8 @@ class ManagerRegistration extends EmailAccountRegistrationController {
 
 
             }}
+                  validationSchema={this.signupSchemaManager()}
+                  validateOnMount={true}
               onSubmit={(values) => { this.createAccountManager(values) }}
             >
               {({ values,
@@ -707,7 +709,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                         </IconButton>
                       )}
                     </Box>
-                    {errors.password && touched.password ? (
+                    {errors.confirm_password && touched.confirm_password ? (
                       <Typography
                         style={{
                           color: "#F14E24",
@@ -717,7 +719,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                           marginLeft: 10
                         }}
                       >
-                        {errors.password}
+                        {errors.confirm_password}
                       </Typography>
                     ) : null}
 
