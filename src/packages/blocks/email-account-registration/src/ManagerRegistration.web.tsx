@@ -683,7 +683,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                         underline="none"
                         style={{
                           fontSize: 14,
-                          color: "#2B6FEC",
+                          color: "#FC8434",
                           fontWeight: 500,
                           marginLeft: 5,
                           textTransform: "uppercase"
