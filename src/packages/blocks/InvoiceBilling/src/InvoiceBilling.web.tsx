@@ -21,6 +21,9 @@ import { createTheme, makeStyles,ThemeProvider } from "@material-ui/core/styles"
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import Visibility from "@material-ui/icons/Visibility";
+import { withTranslation } from 'react-i18next';
+import '../../../web/src/i18n.js';
+import i18next from 'i18next';
 
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
@@ -68,6 +71,7 @@ class InvoiceBilling extends InvoiceBillingController {
   // Customizable Area End
 
   render() {
+    const {t} = this.props
     const { navigation } = this.props;
     return (
       // Customizable Area Start
@@ -87,7 +91,7 @@ class InvoiceBilling extends InvoiceBillingController {
                   <Card className='card' style={{cursor:"pointer"}} onClick={() => this.getInvoices()}>
                     <CardContent>
                       <Typography>
-                        View Invoices
+                        {t('View Invoices')}
                       </Typography>
                     </CardContent>
                   </Card>
@@ -106,6 +110,14 @@ class InvoiceBilling extends InvoiceBillingController {
               <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
                 <img src={Building1} className="building-logo" alt="" />
               </Box>
+            </Grid>
+            <Grid container spacing={2}>
+                  <Grid item xs={12} md={6}>
+                    <Button variant="contained" className="invoicesbtn" color="primary" onClick={() => i18next.changeLanguage('en')}>English</Button>
+                  </Grid>
+                  <Grid item xs={12} md={6}>
+                      <Button variant="outlined" className="invoicesbtn" color="primary" onClick={() => i18next.changeLanguage('ar')}>Arebic</Button>
+                  </Grid>
             </Grid>
           </Grid>
         </Box>
@@ -148,4 +160,4 @@ const webStyle = {
 };
 // Customizable Area End
 
-export default withRouter(InvoiceBilling);
+export default withTranslation() (withRouter(InvoiceBilling));
