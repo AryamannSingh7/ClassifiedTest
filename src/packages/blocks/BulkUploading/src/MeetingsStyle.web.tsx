@@ -46,6 +46,7 @@ export const MeetingsStyleWeb: any = {
     "& .meeting-table": {
       background: "white",
       marginTop: "20px",
+      marginBottom: "20px",
       borderRadius: "8px",
       fontFamily: "Century Gothic",
     },
@@ -98,6 +99,7 @@ export const MeetingsStyleWeb: any = {
     },
     "& .meeting-table .table-box .MuiTableRow-root td": {
       fontFamily: "Century Gothic",
+      textTransform: "capitalize",
     },
     "& .meeting-table .table-box .ellipse": {
       maxWidth: "160px",
@@ -163,6 +165,7 @@ export const MeetingsStyleWeb: any = {
     "& .meeting-detail-box .meeting-top span": {
       padding: "5px 12px",
       borderRadius: "25px",
+      textTransform: "capitalize",
     },
     "& .meeting-detail-box .meeting-details": {
       padding: "20px",
