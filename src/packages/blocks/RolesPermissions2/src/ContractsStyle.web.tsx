@@ -465,7 +465,7 @@ export const ContractsStyleWeb: any = {
     },
     "& .page-container .template-box .template-view": {
       overflowY: "auto",
-      height: "50%",
+      height: "46%",
     },
     "& .page-container .add-condition .template-view": {
       overflowY: "auto",

@@ -511,11 +511,11 @@ export default class FamilyController extends BlockComponent<Props, S, SS> {
       formData.append("id_proof_id", values.IDoption)
       formData.append("id_number", values.IDnumber)
       // formData.append("vehicle[color]", values.carColor)
-      // let blob = await fetch(values.bannerUrl).then(r => r.blob());
-      // formData.append(
-      //   "vehicle[registration_card_copy]",
-      //   blob
-      // );
+      let blob = await fetch(values.bannerUrl).then(r => r.blob());
+      formData.append(
+        "image",
+        blob
+      );
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );

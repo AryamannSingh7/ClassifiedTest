@@ -17,6 +17,7 @@ import { withRouter } from "react-router";
 import BuildingLogo from "../assets/building1.png";
 import { DashboardStyleWeb } from "./DashboardStyle.web";
 import { globalIcon, notification, chatIcon } from "./assets";
+import hamburgerIcon from "../assets/hamburger.png";
 
 import { keyhand } from "./assets";
 import DashboardCard from "../../../components/src/DashboardCard";
@@ -67,28 +68,28 @@ class OwnerDashboard extends React.Component {
               <Box display={{ xs: "flex", md: "flex" }} className="menu">
                 <div className="left-icon">
                   <IconButton onClick={() => this.toggleDrawer()}>
-                    <MenuIcon />
+                    <img src={hamburgerIcon} alt=""/>
                   </IconButton>
                   <span className="complex-name">Complex Name</span>
                 </div>
                 <div className="right-icon" style={{display:"flex"}}>
                   <div style={{position:"relative"}}>
-                    <span onClick={() => this.handleLanguage()}>
-                      <img src={globalIcon} alt="GlobalIcon" />
-                    </span>
-                    {this.state.languageMenu ? 
-                    <div style={{position:'absolute', right:"-38px", top:"32px"}}>
-                      <Button variant="outlined" className="invoicesbtn" color="primary" onClick={() => i18next.changeLanguage('en')} style={{marginBottom:"6px"}}>English</Button>
-                      <Button variant="outlined" className="invoicesbtn" color="primary" onClick={() => i18next.changeLanguage('ar')}>Arebic</Button>
+                      <span onClick={() => this.handleLanguage()}>
+                        <img src={globalIcon} alt="GlobalIcon" />
+                      </span>
+                      {this.state.languageMenu ? 
+                      <div style={{position:'absolute', right:"-38px", top:"32px"}}>
+                        <Button variant="outlined" className="invoicesbtn" color="primary" onClick={() => i18next.changeLanguage('en')} style={{marginBottom:"6px"}}>English</Button>
+                        <Button variant="outlined" className="invoicesbtn" color="primary" onClick={() => i18next.changeLanguage('ar')}>Arebic</Button>
+                      </div>
+                      : "" }
                     </div>
-                    : "" }
-                  </div>
-                  <div>
+                    <div>
                       <Link href="#">
                         <img src={chatIcon} alt="GlobalIcon" />
                       </Link>
-                  </div>
-                  <div>
+                    </div>
+                    <div>
                       <Link href="#">
                         <img src={notification} alt="GlobalIcon" />
                       </Link>
@@ -234,7 +235,7 @@ class OwnerDashboard extends React.Component {
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
-                    <Link href="">
+                    <Link href="/MyMeetings">
                       <DashboardCard
                         image={keyhand}
                         heading="Meetings"
