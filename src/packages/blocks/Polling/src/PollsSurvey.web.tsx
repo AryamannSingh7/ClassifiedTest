@@ -56,7 +56,7 @@ class PollsSurvey extends PollingController {
           </Grid>
         </Grid>
 
-        <Box style={{background: "#E5ECFF"}} >
+        <Box style={{background: "#E5ECFF",minHeight:"100vh",display:'flex',flexDirection:"column",alignItems:'center'}} >
             <Grid container style={{ marginLeft: '1rem', marginRight: '1rem', width:'90%'}}>
               <Grid item xs={12} className="AppBarbox">
                 <AppBar position="static" color="transparent">
@@ -145,7 +145,7 @@ class PollsSurvey extends PollingController {
                       <Box style={{minWidth:"100%"}}>
                         <Box marginTop='1rem'><p>Poll</p></Box>
                         <Box marginTop='1rem'><h4>{item.attributes.title}</h4></Box>
-                        <Box marginTop='0.4rem'>
+                        <Box marginTop='0.4rem' style={{width:"95%",overflow:"hidden"}}>
                           <p
                             dangerouslySetInnerHTML={
                               { __html: DOMPurify.sanitize(item.attributes.description) }
@@ -160,7 +160,11 @@ class PollsSurvey extends PollingController {
                                 <p style={{color:"black"}}>{item.attributes.end_date}</p>
                             </Box>
                             <Box className="EventsIconsText">
-                                <p className="statusOngoing" style={{fontWeight: 600}}>{item.attributes.status}</p>
+                                <p className={
+                                    item.attributes.status == "ongoing" ||
+                                    item.attributes.status == "completed" ?
+                                        "statusOngoingGreen" : "statusOngoingRed"
+                                } style={{fontWeight: 600}}>{item.attributes.status}</p>
                             </Box>
                         </Box>
                       </Box>
@@ -168,37 +172,8 @@ class PollsSurvey extends PollingController {
                   )
 
                 })
-                :
-
-                <Box
-                    display="flex"
-                    justifyContent='space-between'
-                    alignItems="center"
-                    borderRadius="15px"
-                    bgcolor="white"
-                    marginTop='2rem'
-                    padding='1rem'
-                  >
-                    <Box style={{minWidth:"100%"}}>
-                      <Box marginTop='1rem'><p>Survey</p></Box>
-                      <Box marginTop='1rem'><h4>Event Planning Survey</h4></Box>
-                      <Box marginTop='0.4rem'><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta, quis! Eum exercitationem</p>
-                      </Box>
-                      <Box marginTop='1rem'><p style={{color:"black"}}>Building: Building-1</p></Box>
-                      <Divider style={{marginTop:'0.6rem', marginRight:10}}/>
-                      <Box display='flex' justifyContent='space-between' marginTop='0.6rem'>
-                          <Box className="EventsIconsDataBox">
-                              <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
-                              <p style={{color:"black"}}>14-07-2022</p>
-                          </Box>
-                          <Box className="EventsIconsText">
-                              <p className="statusCompleted" style={{fontWeight: 600}}>Submitted</p>
-                          </Box>
-                      </Box>
-                    </Box>
-                  </Box>
+                : null
                 }
-
 
                 </TabPanel>
               </Grid>
@@ -247,12 +222,13 @@ class PollsSurvey extends PollingController {
                         >
                           <Box style={{minWidth:"100%"}}>
                             <Box marginTop='1rem'><p>Poll</p></Box>
-                            <Box marginTop='1rem'><h4>{items.attributes.title}</h4></Box>
-                            <Box marginTop='0.4rem'>
+                            <Box marginTop='1rem' style={{width:"95%",overflow:"hidden"}}><h4>{items.attributes.title}</h4></Box>
+                            <Box marginTop='0.4rem' >
                               <p
                                   dangerouslySetInnerHTML={
                                     { __html: DOMPurify.sanitize(items.attributes.description) }
                                   }
+                                  style={{width:"95%",overflow:"hidden"}}
                               >
                               </p>
                             </Box>
@@ -264,7 +240,13 @@ class PollsSurvey extends PollingController {
                                     <p style={{color:"black"}}>{items.attributes.end_date}</p>
                                 </Box>
                                 <Box className="EventsIconsText">
-                                    <p className="statusSkipped" style={{fontWeight: 600}}>
+                                    <p
+                                        className={
+                                            items.attributes.status == "ongoing" ||
+                                            items.attributes.status == "completed" ?
+                                            "statusOngoingGreen" : "statusOngoingRed"
+                                        }
+                                      style={{fontWeight: 600}}>
                                       {items.attributes.status}
                                     </p>
                                 </Box>
@@ -273,34 +255,7 @@ class PollsSurvey extends PollingController {
                         </Box>
                       )
                     })
-                    :
-                    <Box
-                      display="flex"
-                      justifyContent='space-between'
-                      alignItems="center"
-                      borderRadius="15px"
-                      bgcolor="white"
-                      marginTop='2rem'
-                      padding='1rem'
-                    >
-                      <Box style={{minWidth:"100%"}}>
-                        <Box marginTop='1rem'><p>Survey</p></Box>
-                        <Box marginTop='1rem'><h4>Event Planning Survey</h4></Box>
-                        <Box marginTop='0.4rem'><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta, quis! Eum exercitationem</p>
-                        </Box>
-                        <Box marginTop='1rem'><p style={{color:"black"}}>Building: Building-1</p></Box>
-                        <Divider style={{marginTop:'0.6rem', marginRight:10}}/>
-                        <Box display='flex' justifyContent='space-between' marginTop='0.6rem'>
-                            <Box className="EventsIconsDataBox">
-                                <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
-                                <p style={{color:"black"}}>14-07-2022</p>
-                            </Box>
-                            <Box className="EventsIconsText">
-                                <p className="statusSkipped" style={{fontWeight: 600}}>Skipped</p>
-                            </Box>
-                        </Box>
-                      </Box>
-                    </Box>
+                    : null
                     }
                 </TabPanel>
               </Grid>
@@ -323,33 +278,40 @@ class PollsSurvey extends PollingController {
               <Fade in={this.state.filterModal}>
                   <div>
                       <Box style={{width:"100%",minHeight:"50%",backgroundColor:"white",borderRadius:"10px 10px 0px 0px",position:"absolute",left:0,bottom:0}}>
-                        <Box style={{margin:"15px"}}>
-                            <Box style={{display:'flex',justifyContent:"space-between",alignItems:"center"}}>
-                                <Typography variant="h6" style={{fontWeight:"bold"}}>Filter</Typography>
-                                <Button style={{color:"darkgray"}}>Clear All</Button>
+                        <Box style={{display:'flex',flexDirection:'column',justifyContent:'space-between'}}>
+                            <Box style={{margin:"15px"}}>
+                                <Box style={{display:'flex',justifyContent:"space-between",alignItems:"center"}}>
+                                    <Typography variant="h6" style={{fontWeight:"bold"}}>Filter</Typography>
+                                    <Button style={{color:"darkgray"}}>Clear All</Button>
+                                </Box>
+                                <Box style={{marginTop:"15px"}}>
+                                    <Typography variant="body1" style={{fontWeight:"bold"}}>Type</Typography>
+                                    <FormControl component="fieldset" style={{width:"100%"}}>
+                                        <RadioGroup row aria-label="position" name="filter" style={{display:'flex',flexDirection:"column",textAlign:"left"}}>
+                                            <FormControlLabel
+                                                value="poll"
+                                                control={<Radio color="primary" />}
+                                                label="Poll"
+                                                labelPlacement="start"
+                                                style={{width:"100%",display:"flex",justifyContent:'space-between',margin:"5px"}}
+                                            />
+                                            <FormControlLabel
+                                                value="survey"
+                                                control={<Radio color="primary" />}
+                                                label="Survey"
+                                                labelPlacement="start"
+                                                disabled
+                                                style={{width:"100%",display:"flex",justifyContent:'space-between',margin:"5px"}}
+                                            />
+                                        </RadioGroup>
+                                    </FormControl>
+                                </Box>
                             </Box>
-                            <Box style={{marginTop:"15px"}}>
-                                <Typography variant="body1" style={{fontWeight:"bold"}}>Type</Typography>
-                                <FormControl component="fieldset" style={{width:"100%"}}>
-                                    <RadioGroup row aria-label="position" name="filter" style={{display:'flex',flexDirection:"column",textAlign:"left"}}>
-                                        <FormControlLabel
-                                            value="poll"
-                                            control={<Radio color="primary" />}
-                                            label="Poll"
-                                            labelPlacement="start"
-                                            style={{width:"100%",display:"flex",justifyContent:'space-between',margin:"5px"}}
-                                        />
-                                        <FormControlLabel
-                                            value="survey"
-                                            control={<Radio color="primary" />}
-                                            label="Survey"
-                                            labelPlacement="start"
-                                            style={{width:"100%",display:"flex",justifyContent:'space-between',margin:"5px"}}
-                                        />
-                                    </RadioGroup>
-                                </FormControl>
+                            <Box style={{margin:"15px",marginTop:"50px"}}>
+                                <Button onClick={this.handleCloseFilterModal} variant="contained" color="primary" fullWidth style={{borderRadius:"50px"}}>Apply</Button>
                             </Box>
                         </Box>
+
                       </Box>
                   </div>
               </Fade>
