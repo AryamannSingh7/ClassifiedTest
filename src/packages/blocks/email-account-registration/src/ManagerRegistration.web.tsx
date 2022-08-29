@@ -16,6 +16,7 @@ import { CheckBox, Visibility, VisibilityOff } from "@material-ui/icons";
 import { Building1, company_logo, compnayName, email, password, user } from "./assets";
 import { dailCode } from './code'
 import { withRouter } from 'react-router';
+import Loader from "../../../components/src/Loader.web";
 
 
 
@@ -29,7 +30,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
   render() {
     return (
       <>
-        <Grid container spacing={2} className="auth-container">
+        <Grid className="auth-container">
           <Grid item xs={12} md={7} className="auth-cols" >
 
 
@@ -48,18 +49,26 @@ class ManagerRegistration extends EmailAccountRegistrationController {
             </p>
           </Grid>
         </Grid>
-        <Grid container>
-          <Grid xs={12}>
-            <p className="text-center">
-              Create an account with your credentials
-            </p>
-          </Grid>
-        </Grid>
+            <Grid container>
+              <Grid xs={12}>
+                <p className="text-center" style={{ fontSize: '1.75rem', fontWeight: 700 }}>
+                  Welcome
+
+                </p>
+              </Grid>
+            </Grid>
+            <Grid container>
+              <Grid xs={12}>
+                <p className="text-center">
+                  Property Manager Sign up
+                </p>
+              </Grid>
+            </Grid>
 
             <Grid container className="main-content-block">
           <Grid xs={12}>
             <Formik initialValues={{
-              full_name: "",
+
               email: "",
               phone: "",
               password: "",
@@ -75,6 +84,8 @@ class ManagerRegistration extends EmailAccountRegistrationController {
 
 
             }}
+                  validationSchema={this.signupSchemaManager()}
+                  validateOnMount={true}
               onSubmit={(values) => { this.createAccountManager(values) }}
             >
               {({ values,
@@ -106,7 +117,6 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                           height: "100%",
                           width: "80%",
                           color: "rgba(0, 0, 0, 0.6)",
-
                           fontWeight: 400,
                           fontSize: 16,
                           marginRight: 10,
@@ -129,20 +139,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                         {errors.company_name}
                       </Typography>
                     ) : null}
-                    {this.state.error ? (
-                      <Typography
-                        style={{
-                          color: "#F14E24",
 
-                          fontWeight: 300,
-                          fontSize: 14,
-                          marginTop: 5,
-                          marginLeft: 10
-                        }}
-                      >
-                        {this.state.error}
-                      </Typography>
-                    ) : null}
 
                     {/* Manager Name */}
 
@@ -191,20 +188,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                         {errors.managerName}
                       </Typography>
                     ) : null}
-                    {this.state.error ? (
-                      <Typography
-                        style={{
-                          color: "#F14E24",
 
-                          fontWeight: 300,
-                          fontSize: 14,
-                          marginTop: 5,
-                          marginLeft: 10
-                        }}
-                      >
-                        {this.state.error}
-                      </Typography>
-                    ) : null}
 
                     {/* email */}
                     <Box
@@ -253,20 +237,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                         {errors.email}
                       </Typography>
                     ) : null}
-                    {this.state.error ? (
-                      <Typography
-                        style={{
-                          color: "#F14E24",
 
-                          fontWeight: 300,
-                          fontSize: 14,
-                          marginTop: 5,
-                          marginLeft: 10
-                        }}
-                      >
-                        {this.state.error}
-                      </Typography>
-                    ) : null}
 
                     {/* mobile */}
 
@@ -340,20 +311,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                         {errors.phone}
                       </Typography>
                     ) : null}
-                    {this.state.error ? (
-                      <Typography
-                        style={{
-                          color: "#F14E24",
 
-                          fontWeight: 300,
-                          fontSize: 14,
-                          marginTop: 5,
-                          marginLeft: 10
-                        }}
-                      >
-                        {this.state.error}
-                      </Typography>
-                    ) : null}
 
                     {/* Owner Name */}
 
@@ -402,20 +360,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                         {errors.ownerName}
                       </Typography>
                     ) : null}
-                    {this.state.error ? (
-                      <Typography
-                        style={{
-                          color: "#F14E24",
 
-                          fontWeight: 300,
-                          fontSize: 14,
-                          marginTop: 5,
-                          marginLeft: 10
-                        }}
-                      >
-                        {this.state.error}
-                      </Typography>
-                    ) : null}
 
                     {/* email */}
                     <Box
@@ -464,20 +409,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                         {errors.owner_email}
                       </Typography>
                     ) : null}
-                    {this.state.error ? (
-                      <Typography
-                        style={{
-                          color: "#F14E24",
 
-                          fontWeight: 300,
-                          fontSize: 14,
-                          marginTop: 5,
-                          marginLeft: 10
-                        }}
-                      >
-                        {this.state.error}
-                      </Typography>
-                    ) : null}
 
                     {/* mobile */}
 
@@ -502,6 +434,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                             id="demo-simple-select-outlined"
                             onChange={this.handleChange}
                             label="Unit"
+                                value={this.state.selectCode2}
                           >
                             <MenuItem value="">
                               <em>None</em>
@@ -550,20 +483,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                         {errors.owner_phone}
                       </Typography>
                     ) : null}
-                    {this.state.error ? (
-                      <Typography
-                        style={{
-                          color: "#F14E24",
 
-                          fontWeight: 300,
-                          fontSize: 14,
-                          marginTop: 5,
-                          marginLeft: 10
-                        }}
-                      >
-                        {this.state.error}
-                      </Typography>
-                    ) : null}
 
                     {/* pass */}
                     <Box
@@ -707,7 +627,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                         </IconButton>
                       )}
                     </Box>
-                    {errors.password && touched.password ? (
+                    {errors.confirm_password && touched.confirm_password ? (
                       <Typography
                         style={{
                           color: "#F14E24",
@@ -717,7 +637,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                           marginLeft: 10
                         }}
                       >
-                        {errors.password}
+                        {errors.confirm_password}
                       </Typography>
                     ) : null}
 
@@ -815,6 +735,8 @@ class ManagerRegistration extends EmailAccountRegistrationController {
             </Box>
           </Grid>
             </Grid>
+        <Loader loading={this.state.loading} />
+
       </>
     )
   }

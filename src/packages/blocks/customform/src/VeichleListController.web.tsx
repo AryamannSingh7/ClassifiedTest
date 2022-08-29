@@ -188,6 +188,7 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
         } if (apiRequestCallId === this.createVehicleApiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
+            this.setState({lodaing:false})
             this.props.history.push('/NewRequest')
                     } else if (responseJson?.errors) {
             let error = responseJson.errors[0];
@@ -453,7 +454,8 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
   }
 
   createVehicle = async (values: any) => {
-    console.log(values)
+    this.setState({ lodaing: true })
+
     try {
       const header = {
 
