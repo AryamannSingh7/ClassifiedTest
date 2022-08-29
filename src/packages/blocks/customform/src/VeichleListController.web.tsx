@@ -199,6 +199,7 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
           this.setState({ loading: false })
 
         } if (apiRequestCallId === this.getVehicleListApiCallId) {
+
           if (!responseJson.errors) {
             console.log(responseJson)
             this.setState({ allVehcile: responseJson.vehicle.data }, () => console.log(this.state.allVehcile))
@@ -601,7 +602,7 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
     this.getVehicleListApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_vehicle/vehicles`
+      `bx_block_vehicle/vehicles/user_vehicle_list`
     );
 
     requestMessage.addData(
