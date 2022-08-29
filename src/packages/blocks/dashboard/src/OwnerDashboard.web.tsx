@@ -63,7 +63,7 @@ class OwnerDashboard extends React.Component {
                   <Link href="#">
                     <img src={globalIcon} alt="GlobalIcon" />
                   </Link>
-                  <Link href="#">
+                  <Link href="/inbox">
                     <img src={chatIcon} alt="GlobalIcon" />
                   </Link>
                   <Link href="#">

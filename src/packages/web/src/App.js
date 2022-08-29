@@ -124,6 +124,10 @@ import EditFamily from "../../blocks/customform/src/EditFamily.web"
 import EditRequest from "../../blocks/customform/src/EditRequest.web"
 import NewRequest from "../../blocks/customform/src/NewRequest.web"
 import ManagerList from "../../blocks/customform/src/ManagerList.web"
+import Inbox from "../../blocks/customform/src/Inbox.web"
+import Chatbox from "../../blocks/customform/src/Chatbox.web"
+
+
 
 import ViewVeichle from "../../blocks/customform/src/ViewVehicle.web"
 import FamilyList from "../../blocks/customform/src/FamilyList.web"
@@ -176,6 +180,16 @@ const routeMap = {
   LandingPage: {
     component: LandingPage,
     path: '/',
+    exact: true
+  },
+  Inbox: {
+    component: Inbox,
+    path: '/inbox',
+    exact: true
+  },
+  Chatbox: {
+    component: Chatbox,
+    path: '/Chatbox',
     exact: true
   },
   LandingPage2: {
