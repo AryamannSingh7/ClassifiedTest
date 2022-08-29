@@ -38,8 +38,22 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
     super(props);
   }
 
+  componentDidMount(): Promise<void> {
+    const meeting_id = this.props.navigation.getParam("id");
+    this.setState(
+      {
+        scheduleMeetingId: meeting_id,
+      },
+      () => {
+        this.getScheduleMeetingDetail();
+      }
+    );
+  }
+
   render() {
     const { classes } = this.props;
+
+    console.log(this.state);
 
     return (
       <>
@@ -72,9 +86,20 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                 </Box>
                 <Box className="meeting-detail-box">
                   <Box className="meeting-top">
-                    <h3>Meeting Title</h3>
-                    <span style={{ background: "black", color: "white" }}>
-                      Scheduled
+                    <h3>
+                      {this.state.scheduleMeetingDetails &&
+                        this.state.scheduleMeetingDetails.attributes.title}
+                    </h3>
+                    <span
+                      style={
+                        this.state.scheduleMeetingStatus === "scheduled"
+                          ? this.color.scheduled
+                          : this.state.scheduleMeetingStatus === "completed"
+                          ? this.color.completed
+                          : this.color.cancelled
+                      }
+                    >
+                      {this.state.scheduleMeetingStatus}
                     </span>
                   </Box>
                   <Divider />
@@ -82,81 +107,110 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                     <h4>Meeting Details</h4>
                     <Box className="items">
                       <span>Date & Time: </span>
-                      <p>10-10-1101 10:10</p>
+                      <p>
+                        {this.state.scheduleMeetingDetails &&
+                          this.state.scheduleMeetingDetails.attributes
+                            .meeting_date_time}
+                      </p>
                     </Box>
                     <Box className="items">
                       <span>Place: </span>
-                      <p>Central park common hall</p>
+                      <p>
+                        {this.state.scheduleMeetingDetails &&
+                          this.state.scheduleMeetingDetails.attributes.place}
+                      </p>
                     </Box>
                     <Box className="items">
                       <span>Building: </span>
-                      <p>Building 1</p>
+                      <p>--</p>
                     </Box>
                     <Box className="items">
                       <span>Agenda: </span>
-                      <p>To discuss new vehicle guidelines</p>
+                      <p>
+                        {this.state.scheduleMeetingDetails &&
+                          this.state.scheduleMeetingDetails.attributes.agenda}
+                      </p>
                     </Box>
                   </Box>
                   <Box className="meeting-details">
                     <h4>Scheduling Details</h4>
                     <Box className="items">
                       <span>Scheduled By: </span>
-                      <p>Mr. Ali Khan</p>
+                      <p>
+                        {this.state.scheduleMeetingDetails &&
+                          this.state.scheduleMeetingDetails.attributes
+                            .meeting_schedule_detail &&
+                          this.state.scheduleMeetingDetails.attributes
+                            .meeting_schedule_detail.scheduled_by}
+                      </p>
                     </Box>
                     <Box className="items">
                       <span>Scheduled On: </span>
-                      <p>10-10-1010 10:10</p>
+                      <p>
+                        {this.state.scheduleMeetingDetails &&
+                          this.state.scheduleMeetingDetails.attributes
+                            .meeting_schedule_detail &&
+                          this.state.scheduleMeetingDetails.attributes
+                            .meeting_schedule_detail.scheduled_on}{" "}
+                        --
+                      </p>
                     </Box>
                   </Box>
-                  <Box className="meeting-details">
-                    <h4>Cancelled Details</h4>
-                    <Box className="items">
-                      <span>Cancelled By: </span>
-                      <p>Mr. Ali Khan</p>
+                  {this.state.scheduleMeetingStatus === "cancelled" && (
+                    <Box className="meeting-details">
+                      <h4>Cancelled Details</h4>
+                      <Box className="items">
+                        <span>Cancelled By: </span>
+                        <p>Mr. Ali Khan</p>
+                      </Box>
+                      <Box className="items">
+                        <span>Cancelled On: </span>
+                        <p>10-10-1010 10:10</p>
+                      </Box>
                     </Box>
-                    <Box className="items">
-                      <span>Cancelled On: </span>
-                      <p>10-10-1010 10:10</p>
+                  )}
+                </Box>
+                {this.state.scheduleMeetingStatus === "scheduled" && (
+                  <>
+                    <Box className="response-box">
+                      <h3>Response</h3>
+                      <Box className="status">
+                        <div className="item">
+                          <img src={AwaitIcon} />
+                          <p>
+                            Awaiting <span>84</span>
+                          </p>
+                        </div>
+                        <div className="item">
+                          <img src={AcceptIcon} />
+                          <p>
+                            Accepted <span>84</span>
+                          </p>
+                        </div>
+                        <div className="item">
+                          <img src={RejectIcon} />
+                          <p>
+                            Rejected <span>84</span>
+                          </p>
+                        </div>
+                      </Box>
                     </Box>
-                  </Box>
-                </Box>
-                <Box className="response-box">
-                  <h3>Response</h3>
-                  <Box className="status">
-                    <div className="item">
-                      <img src={AwaitIcon} />
-                      <p>
-                        Awaiting <span>84</span>
-                      </p>
-                    </div>
-                    <div className="item">
-                      <img src={AcceptIcon} />
-                      <p>
-                        Accepted <span>84</span>
-                      </p>
-                    </div>
-                    <div className="item">
-                      <img src={RejectIcon} />
-                      <p>
-                        Rejected <span>84</span>
-                      </p>
-                    </div>
-                  </Box>
-                </Box>
-                <Box className="button-box">
-                  <Button
-                    className="cancel"
-                    onClick={() => this.handleCancelMeetingModal()}
-                  >
-                    Cancel Meeting
-                  </Button>
-                  <Button
-                    className="edit"
-                    onClick={() => this.handleEditMeetingModal()}
-                  >
-                    Edit Meeting
-                  </Button>
-                </Box>
+                    <Box className="button-box">
+                      <Button
+                        className="cancel"
+                        onClick={() => this.handleCancelMeetingModal()}
+                      >
+                        Cancel Meeting
+                      </Button>
+                      <Button
+                        className="edit"
+                        onClick={() => this.handleEditMeetingModal()}
+                      >
+                        Edit Meeting
+                      </Button>
+                    </Box>
+                  </>
+                )}
               </Container>
             </Grid>
           </Box>
@@ -201,6 +255,16 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
               </Grid>
             </Grid>
             <FormControl fullWidth>
+              <Select displayEmpty value="" className="dialog-select-input">
+                <MenuItem value="" disabled>
+                  <em>Select Building</em>
+                </MenuItem>
+                <MenuItem value={10}>Ten</MenuItem>
+                <MenuItem value={20}>Twenty</MenuItem>
+                <MenuItem value={30}>Thirty</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl fullWidth>
               <Input placeholder="Place" className="dialog-input" />
             </FormControl>
             <FormControl fullWidth>
@@ -209,7 +273,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
             <FormControl fullWidth>
               <Select displayEmpty value="" className="dialog-select-input">
                 <MenuItem value="" disabled>
-                  <em>Select Place</em>
+                  <em>Designated Meeting of Minutes writer</em>
                 </MenuItem>
                 <MenuItem value={10}>Ten</MenuItem>
                 <MenuItem value={20}>Twenty</MenuItem>
@@ -220,7 +284,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
           <DialogActions className="dialog-button-group">
             <Button
               className="cancel-button"
-              onClick={() => this.handleCreateMeetingModal()}
+              onClick={() => this.handleEditMeetingModal()}
             >
               Cancel
             </Button>

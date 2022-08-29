@@ -67,7 +67,7 @@ export default class DashboardBudget extends DashboardController {
                         <Box style={dashBoardBudget.navigation}>
                             <Box>
                                 <Typography variant="body1" >
-                                My Dashboard / <Box component="span" style={{color: "blue"}}>Budget Dashboard</Box>
+                                My Dashboards / <Box component="span" style={{color: "blue"}}>Budget Dashboard</Box>
                                 </Typography>
                                 <Typography variant="h5" style={dashBoardBudget.PageHeading}>Budget Dashboard</Typography>
                             </Box>

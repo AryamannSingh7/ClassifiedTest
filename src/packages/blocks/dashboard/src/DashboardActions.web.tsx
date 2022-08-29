@@ -39,7 +39,7 @@ export default class DashboardActions extends DashboardController {
                     <Container>
                         <Box>
                             <Typography variant="body1" >
-                            My Dashboard / <Box component="span" style={{color: "blue"}}>Action Assign to me</Box>
+                            My Dashboards / <Box component="span" style={{color: "blue"}}>Action Assign to me</Box>
                             </Typography>
                             <Typography variant="h5" style={dashBoardActions.subHeading}>Action Assign to me</Typography>
                         </Box>

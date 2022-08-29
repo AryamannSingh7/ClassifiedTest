@@ -44,6 +44,7 @@ import PollingController, {
 } from "./PollingController";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
+import TextEditor from "./TextEditor.web";
 
 
 
@@ -175,30 +176,21 @@ export default class CreateSurveys extends PollingController {
 
                         <Grid item sm={12} md={12} xs={12}>
                             <Box className="createPSCards">
-                                <Box className="infoIcon">
-                                    <Typography variant="subtitle1">Description</Typography>  
-                                    <InfoIcon style={{color:"grey", fontSize:18}}/>
-                                </Box>
-
-                                <TextField multiline rows={4}  label="Description" variant="filled"
-                                name="description"
-                                InputProps={{ disableUnderline: true }}
-                                value={this.state.PollData.description}
-                                onChange={this.handlePollDataChange}
-                                required fullWidth style={{marginTop:20,marginBottom:'15px'}}
-                                />
-
                                 <TextField
-                                id="standard-select-currency"
-                                select
-                                label="Select"
-                                value={this.state.selectQuestion}
-                                onChange={this.handleQuestionSelect}
+                                    id="standard-select-currency"
+                                    select
+                                    label="Select"
+                                    value={this.state.selectQuestion}
+                                    onChange={this.handleQuestionSelect}
                                     SelectProps={{
-                                    native: true,
-                                  }}
-                                  helperText="Please select your currency"
-                                  variant="outlined"
+                                        native: true,
+                                    }}
+                                    placeholder="Select type of question"
+                                    fullWidth
+                                    variant="outlined"
+                                    InputProps={{
+                                        style:{borderRadius:"2px"}
+                                    }}
                                 >
 
                                     {currencies.map((option:any) => {
@@ -209,8 +201,19 @@ export default class CreateSurveys extends PollingController {
                                         )
                                     })
                                     }
-
                                 </TextField>
+                                <Box className="infoIcon">
+                                    <Typography variant="subtitle1">Description</Typography>  
+                                    <InfoIcon style={{color:"grey", fontSize:18}}/>
+                                </Box>
+                                <Box className="descriptionEditor">
+                                    <TextEditor
+                                        markup={this.state.textEditorVal}
+                                        onChange={this.onChangeTextEditor} />
+                                </Box>
+                                <p style={{color:"red"}}>{this.state.pollDescriptionError}</p>
+
+
 
                                 <TextField  label="enter question" variant="outlined"
                                 name="question"

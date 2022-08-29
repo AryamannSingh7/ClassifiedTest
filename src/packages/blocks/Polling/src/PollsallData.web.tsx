@@ -88,10 +88,18 @@ class PollsallData extends PollingController {
                                         onClick={() => this.props.history.push("/PollDetails?id="+data.id)}
                                         >
                                             <Box className="EventsIconsText">
-                                                <Typography variant="body2" className="statusOngoing">{data.status}</Typography>
+                                                <Typography variant="body2"
+                                                            className={
+                                                                data.status === "ongoing" ||
+                                                                data.status === "completed" ?
+                                                                "statusOngoingGreen" : "statusOngoingRed"
+                                                            }
+                                                >
+                                                    {data.status}
+                                                </Typography>
                                             </Box>
                                             <Box className="EventsIconsText">
-                                                <Typography className="EventsTitle">{data.title}</Typography>
+                                                <Typography className="EventsTitle" style={{width:"95%"}}>{data.title}</Typography>
                                             </Box>
                                             <Box className="EventsIconsText">
                                                 <p 
@@ -134,38 +142,38 @@ class PollsallData extends PollingController {
                             null
                         }
 
-                        <Grid item sm={4} md={4} xs={4}>
-                            <Box className="EventsCards">
-                                <Box className="EventsIconsText">
-                                    <Typography variant="body2" className="statusOngoing">Ongoing</Typography>
-                                </Box>
-                                <Box className="EventsIconsText">
-                                    <Typography className="EventsTitle">Block W Parking</Typography>
-                                </Box>
-                                <Box className="EventsIconsText">
-                                    <Typography variant="body2">To discuss new vehicle guidlines</Typography>
-                                </Box>
-                                <Box className="EventsIconsText">
-                                    <img src={Cardcalendar} alt="Cardcalendar" />
-                                    <Typography variant="body2">05-08-2022 - 08-08-2022 </Typography>
-                                </Box>
-                                <Divider style={{marginTop:10, marginRight:10}}/>
-                                <Box className="EventsIconsData">
-                                    <Box className="EventsIconsDataBox">
-                                        <img src={awated} alt="awated" />
-                                        <Typography variant="body2">84</Typography>
-                                    </Box>
-                                    <Box className="EventsIconsDataBox">
-                                        <img src={CheckMark} alt="CheckMark" />
-                                        <Typography variant="body2">29</Typography>
-                                    </Box>
-                                    <Box className="EventsIconsDataBox">
-                                        <img src={xmark} alt="xmark" />
-                                        <Typography variant="body2">13</Typography>
-                                    </Box>
-                                </Box>
-                            </Box>
-                        </Grid>
+                        {/*<Grid item sm={4} md={4} xs={4}>*/}
+                        {/*    <Box className="EventsCards">*/}
+                        {/*        <Box className="EventsIconsText">*/}
+                        {/*            <Typography variant="body2" className="statusOngoing">Ongoing</Typography>*/}
+                        {/*        </Box>*/}
+                        {/*        <Box className="EventsIconsText">*/}
+                        {/*            <Typography className="EventsTitle">Block W Parking</Typography>*/}
+                        {/*        </Box>*/}
+                        {/*        <Box className="EventsIconsText">*/}
+                        {/*            <Typography variant="body2">To discuss new vehicle guidlines</Typography>*/}
+                        {/*        </Box>*/}
+                        {/*        <Box className="EventsIconsText">*/}
+                        {/*            <img src={Cardcalendar} alt="Cardcalendar" />*/}
+                        {/*            <Typography variant="body2">05-08-2022 - 08-08-2022 </Typography>*/}
+                        {/*        </Box>*/}
+                        {/*        <Divider style={{marginTop:10, marginRight:10}}/>*/}
+                        {/*        <Box className="EventsIconsData">*/}
+                        {/*            <Box className="EventsIconsDataBox">*/}
+                        {/*                <img src={awated} alt="awated" />*/}
+                        {/*                <Typography variant="body2">84</Typography>*/}
+                        {/*            </Box>*/}
+                        {/*            <Box className="EventsIconsDataBox">*/}
+                        {/*                <img src={CheckMark} alt="CheckMark" />*/}
+                        {/*                <Typography variant="body2">29</Typography>*/}
+                        {/*            </Box>*/}
+                        {/*            <Box className="EventsIconsDataBox">*/}
+                        {/*                <img src={xmark} alt="xmark" />*/}
+                        {/*                <Typography variant="body2">13</Typography>*/}
+                        {/*            </Box>*/}
+                        {/*        </Box>*/}
+                        {/*    </Box>*/}
+                        {/*</Grid>*/}
                         </Grid>
                 </Container>
                 </Grid>
