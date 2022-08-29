@@ -226,9 +226,23 @@
   top: -20px !important;
 }
 
+.chairman-top-menu.szh-menu-container ul {
+  left: -190px !important;
+  top: 45px !important;
+  width: 180px;
+}
+
 .szh-menu-container ul li {
   padding: 8px 32px;
   display: block;
+  background-color: white;
+}
+
+.chairman-top-menu.szh-menu-container ul li {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
 }
 
 .MuiMenu-list .MuiListItem-root {

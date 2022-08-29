@@ -53,7 +53,7 @@ export default class DashboardGeneral extends DashboardController {
                 <Box style={dashBoard.navigation}>
                   <Box>
                     <Typography variant="body1">
-                      My Dashboard /{" "}
+                      My Dashboards /{" "}
                       <Box component="span" style={{ color: "blue" }}>
                         General Dashboard
                       </Box>
