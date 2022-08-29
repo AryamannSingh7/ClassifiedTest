@@ -32,7 +32,7 @@ class SelectType extends EmailAccountRegistrationController {
     return (
 
       <>
-        <Grid container spacing={2} className="auth-container">
+        <Grid container className="auth-container">
           <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset' }}>
         <div style={{ margin: 'auto' }}>
 

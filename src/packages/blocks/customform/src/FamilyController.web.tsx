@@ -198,6 +198,7 @@ export default class FamilyController extends BlockComponent<Props, S, SS> {
             console.log(responseJson)
             if (localStorage.getItem('selectCar')) {
               localStorage.removeItem('selectCar')
+              this.setState({ loading: false })
               //@ts-ignore
               //@ts-nocheck
               this.props.history.push('/familylist')
@@ -223,7 +224,9 @@ export default class FamilyController extends BlockComponent<Props, S, SS> {
           if (!responseJson.errors) {
             console.log(responseJson)
             if (responseJson.data){
-              this.setState({ allVehcile: responseJson.data }, () => console.log(this.state.allVehcile))
+              this.setState({ allVehcile: responseJson.data,loading:false }, () => console.log(this.state.allVehcile))
+
+
             }
           } else {
             //Check Error Response
@@ -499,7 +502,7 @@ export default class FamilyController extends BlockComponent<Props, S, SS> {
   }
 
   createVehicle = async (values: any) => {
-    console.log(values)
+    this.setState({ loading: true })
     try {
       const header = {
 
@@ -638,7 +641,7 @@ export default class FamilyController extends BlockComponent<Props, S, SS> {
 
   };
   getVehicle() {
-
+this.setState({loading:true})
     const header = {
       "Content-Type": configJSON.contentTypeApiAddDetail,
       "token": localStorage.getItem('userToken')
