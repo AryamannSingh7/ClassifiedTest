@@ -57,7 +57,7 @@ class ChairmanSidebar extends DashboardController {
               <Typography>
                 <DashboardOutlinedIcon />
               </Typography>
-              <Typography className="ListItemText">My Dashboard</Typography>
+              <Typography className="ListItemText">My Dashboards</Typography>
             </AccordionSummary>
 
             <AccordionDetails

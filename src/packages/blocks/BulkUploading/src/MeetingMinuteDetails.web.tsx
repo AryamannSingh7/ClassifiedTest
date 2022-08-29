@@ -35,8 +35,22 @@ class MeetingMinuteDetails extends MeetingMinutesController {
     super(props);
   }
 
+  componentDidMount(): Promise<void> {
+    const meeting_id = this.props.navigation.getParam("id");
+    this.setState(
+      {
+        meetingMinuteId: meeting_id,
+      },
+      () => {
+        this.MinuteMeetingDetail();
+      }
+    );
+  }
+
   render() {
     const { classes } = this.props;
+
+    console.log(this.state);
 
     return (
       <>
@@ -59,7 +73,8 @@ class MeetingMinuteDetails extends MeetingMinutesController {
                     <Typography variant="body1">
                       Meetings / Meeting Minutes /{" "}
                       <Box component="span" style={{ color: "blue" }}>
-                        Meeting Title
+                        {this.state.meetingMinuteDetails &&
+                          this.state.meetingMinuteDetails.attributes.title}
                       </Box>
                     </Typography>
                     <Typography variant="h5" className="sub-heading">
@@ -70,8 +85,16 @@ class MeetingMinuteDetails extends MeetingMinutesController {
                 <Box className="meeting-detail-box">
                   <Box className="meeting-top">
                     <h3>Meeting Minutes 01-04-2022 18:30</h3>
-                    <span style={{ background: "black", color: "white" }}>
-                      Pending Approve
+                    <span
+                      style={
+                        this.state.meetingMinuteStatus === "pending"
+                          ? this.color.pending
+                          : this.state.meetingMinuteStatus === "rejected"
+                          ? this.color.rejected
+                          : this.color.approved
+                      }
+                    >
+                      {this.state.meetingMinuteStatus}
                     </span>
                   </Box>
                   <Divider />
@@ -86,20 +109,22 @@ class MeetingMinuteDetails extends MeetingMinutesController {
                     </Box>
                   </Box>
                 </Box>
-                <Box className="button-box">
-                  <Button
-                    className="cancel"
-                    onClick={() => this.handleRejectMeetingModal()}
-                  >
-                    Reject
-                  </Button>
-                  <Button
-                    className="edit"
-                    onClick={() => this.handleApproveMeetingModal()}
-                  >
-                    Approve
-                  </Button>
-                </Box>
+                {this.state.meetingMinuteStatus === "pending" && (
+                  <Box className="button-box">
+                    <Button
+                      className="cancel"
+                      onClick={() => this.handleRejectMeetingModal()}
+                    >
+                      Reject
+                    </Button>
+                    <Button
+                      className="edit"
+                      onClick={() => this.handleApproveMeetingModal()}
+                    >
+                      Approve
+                    </Button>
+                  </Box>
+                )}
               </Container>
             </Grid>
           </Box>
