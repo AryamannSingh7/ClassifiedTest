@@ -178,13 +178,17 @@ class Polling extends PollingController {
                                     onClick={() => this.props.history.push("/PollDetails?id=" + data.id)}
                                     >
                                         <Box className="EventsIconsText">
-                                            <Typography variant="body2" className="statusOngoing">{data.status}</Typography>
+                                            <Typography variant="body2" className={
+                                                data.status === "ongoing" ||
+                                                data.status === "completed" ?
+                                                    "statusOngoingGreen" : "statusOngoingRed"
+                                            }>{data.status}</Typography>
                                         </Box>
                                         <Box className="EventsIconsText">
                                             <Typography className="EventsTitle">{data.title}</Typography>
                                         </Box>
                                         <Box className="EventsIconsText">
-                                            <Typography variant="body2" className="textwrap"
+                                            <Typography variant="body2" className="textwrap" style={{width:"95%"}}
                                             dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(data.description) }}
                                             />
                                             {/* {data.description}</Typography> */}
@@ -228,7 +232,7 @@ class Polling extends PollingController {
                     <Grid item sm={6} md={4} xs={12}>
                         <Box className="EventsCards">
                             <Box className="EventsIconsText">
-                                <Typography variant="body2" className="statusOngoing">Ongoing</Typography>
+                                <Typography variant="body2" className="statusOngoingGreen">Ongoing</Typography>
                             </Box>
                             <Box className="EventsIconsText">
                                 <Typography className="EventsTitle">Block W Parking</Typography>
@@ -260,7 +264,7 @@ class Polling extends PollingController {
                     <Grid item sm={6} md={4} xs={12}>
                         <Box className="EventsCards">
                             <Box className="EventsIconsText">
-                                <Typography variant="body2" className="statusOngoing">Ongoing</Typography>
+                                <Typography variant="body2" className="statusOngoingGreen">Ongoing</Typography>
                             </Box>
                             <Box className="EventsIconsText">
                                 <Typography className="EventsTitle">Block W Parking</Typography>
@@ -292,7 +296,7 @@ class Polling extends PollingController {
                     <Grid item sm={6} md={4} xs={12}>
                         <Box className="EventsCards">
                             <Box className="EventsIconsText">
-                                <Typography variant="body2" className="statusOngoing">Ongoing</Typography>
+                                <Typography variant="body2" className="statusOngoingGreen">Ongoing</Typography>
                             </Box>
                             <Box className="EventsIconsText">
                                 <Typography className="EventsTitle">Block W Parking</Typography>
