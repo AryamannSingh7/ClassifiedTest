@@ -63,7 +63,7 @@ class ManagerViewVeichle extends ManagerController {
                     <Typography variant="body1" >
                       My Dashboard / General Dashboard / Vehicles /<Box component="span" style={{ color: "blue" }}>Vehicle Details</Box>
                     </Typography>
-                    <Typography variant="h5" style={dashBoardBudget.subHeading}>Vehicles Details</Typography>
+                    <Typography variant="h5" style={dashBoardBudget.subHeading}>Vehicle Details</Typography>
                   </Box>
                 </Box>
 
@@ -116,7 +116,7 @@ class ManagerViewVeichle extends ManagerController {
                         <div style={{ display: 'flex', fontWeight: 500 }}>
                           {/* <img src={List} width='25' height='25' style={{ marginRight: 10 }} /> */}
                                   <p> Unit Number:</p>   <p style={{ marginLeft: 10, fontWeight: 600 }}>
-                                    {item.attributes?.apartment_management?.apartment_name}
+                                    {item.attributes?.apartment_management?.apartment_name || 'N/A'}
                                   </p>
                         </div>
                         <div style={{ marginLeft: 35, marginBottom: 20 }}>
@@ -308,7 +308,7 @@ class ManagerViewVeichle extends ManagerController {
           </Grid>
           <Box className="">
             <DialogActions className="customButton" style={{flexDirection:'row'}}>
-              <Button style={{ width: '15rem', borderRadius: 10, border: '1px solid #5000f4' }} onClick={() => this.setState({ showDialogDelete: false })}>
+              <Button style={{ width: '15rem', borderRadius: 10, border: '1px solid #5000f4', color:'#5000f4' }} onClick={() => this.setState({ showDialogDelete: false })}>
                 CANCEL
               </Button>
               <Button variant="contained" style={{borderRadius:10}} onClick={() => this.rejectRequest()} >

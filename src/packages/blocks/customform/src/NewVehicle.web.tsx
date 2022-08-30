@@ -283,7 +283,7 @@ class NewVeichleList extends VeichleListController {
                             <img src={upload} width='25' height='25'/>
                             <label for="file1"
                             style={{ color:'rgb(33 33 33 / 33%)'}}>
-                              Add car registration image
+                              Add Registration Card Copy
                             </label>
                             <input
                             id="file1"
