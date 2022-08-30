@@ -23,7 +23,7 @@
 }
 
 .incident-content-wrapper {
-    height: 100%;
+    /* height: 100%; */
 }
 .common-incident-block {
     max-height: 85vh;

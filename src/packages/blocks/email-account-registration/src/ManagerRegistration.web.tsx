@@ -30,7 +30,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
   render() {
     return (
       <>
-        <Grid className="auth-container">
+        <Grid container className="auth-container">
           <Grid item xs={12} md={7} className="auth-cols" >
 
 

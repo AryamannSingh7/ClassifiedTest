@@ -53,7 +53,7 @@ class EmailAccountLogin extends EmailAccountLoginController {
                   <Box className="header-block">
                     <Box display={{ xs: 'flex', md: 'none' }}>
                       <Link href="/EmailAccountLogin">
-                        <img src={Tenant_Logo} className="tenant-logo" alt="" />
+                        <img src={Tenant_Logo.default} className="tenant-logo" alt="" />
                       </Link>
                     </Box>
                     <h1>Welcome Back</h1>
