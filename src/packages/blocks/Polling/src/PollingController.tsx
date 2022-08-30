@@ -112,7 +112,7 @@ export default class PollingController extends BlockComponent<
       txtSavedValue: "A",
       enableField: false,
       // Customizable Area Start
-      Year: 'This Week',
+      Year: 'This Month',
       selectedDate: new Date(),
       checked: false,
       editorState: EditorState.createEmpty(),

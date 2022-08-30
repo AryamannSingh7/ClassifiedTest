@@ -30,7 +30,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
   render() {
     return (
       <>
-        <Grid className="auth-container">
+        <Grid container className="auth-container">
           <Grid item xs={12} md={7} className="auth-cols" >
 
 
@@ -499,7 +499,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                           <img src={password} style={{ paddingLeft: '0.5rem' }} />
                       <Field
                         name="password"
-                        placeholder="Password"
+                            placeholder="Enter Password"
                         type={values.showPassword ? "text" : "password"}
                         style={{
                           border: "none",
@@ -683,7 +683,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                         underline="none"
                         style={{
                           fontSize: 14,
-                          color: "#2B6FEC",
+                          color: "#FC8434",
                           fontWeight: 500,
                           marginLeft: 5,
                           textTransform: "uppercase"
