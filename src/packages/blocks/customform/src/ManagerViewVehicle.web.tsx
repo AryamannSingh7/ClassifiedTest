@@ -63,7 +63,7 @@ class ManagerViewVeichle extends ManagerController {
                     <Typography variant="body1" >
                       My Dashboard / General Dashboard / Vehicles /<Box component="span" style={{ color: "blue" }}>Vehicle Details</Box>
                     </Typography>
-                    <Typography variant="h5" style={dashBoardBudget.subHeading}>Vehicles Details</Typography>
+                    <Typography variant="h5" style={dashBoardBudget.subHeading}>Vehicle Details</Typography>
                   </Box>
                 </Box>
 

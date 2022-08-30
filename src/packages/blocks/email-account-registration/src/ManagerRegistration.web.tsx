@@ -499,7 +499,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                           <img src={password} style={{ paddingLeft: '0.5rem' }} />
                       <Field
                         name="password"
-                        placeholder="Password"
+                            placeholder="Enter Password"
                         type={values.showPassword ? "text" : "password"}
                         style={{
                           border: "none",
