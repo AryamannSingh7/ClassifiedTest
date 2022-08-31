@@ -105,6 +105,7 @@ class CreateIncident extends IncidentController {
                               name="myApartment"
                               labelId="demo-simple-select-outlined-label"
                               id="demo-simple-select-outlined"
+                              style={{paddingLeft:50,marginTop:-3}}
                               onChange={(e) => {
                                 (e.target.value != " ") && setFieldValue("myApartment", e.target.value)
                               }}
@@ -136,6 +137,7 @@ class CreateIncident extends IncidentController {
                               name="commonArea"
                               labelId="demo-simple-select-outlined-label"
                               id="demo-simple-select-outlined"
+                              style={{ paddingLeft: 50 }}
                               onChange={(e) => {
                                 (e.target.value != " ") && setFieldValue("commonArea", e.target.value)
                               }}
@@ -165,6 +167,7 @@ class CreateIncident extends IncidentController {
                             </span>
                             <Select
                               name="incidentRelated"
+                              style={{ paddingLeft: 50 }}
                               labelId="demo-simple-select-outlined-label"
                               id="demo-simple-select-outlined"
                               onChange={(e) => {

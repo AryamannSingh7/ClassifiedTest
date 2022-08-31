@@ -130,7 +130,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                     >
 
                       <MenuItem value=" ">
-                              <em>Country</em>
+                              Select Country
                       </MenuItem>
                       {this.state.allContries && this.state.allContries.map((item) =>
                         <MenuItem key={item} value={item}>{item}</MenuItem>
@@ -160,7 +160,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                       style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#b5b5b5' }}
                     >
                       <MenuItem value=" ">
-                              <em>City</em>
+                              Select city
                       </MenuItem>
                       {this.state.allCity && this.state.allCity.map((item) =>
                         <MenuItem key={item} value={item}>{item}</MenuItem>
@@ -206,7 +206,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                       style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#b5b5b5' }}
                     >
                       <MenuItem value=" ">
-                              <em>Building</em>
+                              Select building
                       </MenuItem>
                       {this.state.allBuilding && this.state.allBuilding.map((item) =>
                         <MenuItem key={item.id} value={item}>{item.name}</MenuItem>
@@ -248,14 +248,14 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                             value={values.selectUnit}
                       placeholder={"Enter Unit"}
                       className="formInput1"
-                      style={{border:0}}
+                      style={{border:0,paddingLeft:'15px'}}
                             value={this.state.selectUnit}
                             onChange={(e) => { this.handleChange2(e); setFieldValue("selectUnit", e.target.value) }}
                     />
-                    <span className="frmLeftIcons1">
+                    {/* <span className="frmLeftIcons1">
 
                       <img src={unit} />
-                    </span>
+                    </span> */}
                   </FormControl>
                   <ErrorMessage className="text-error" component="Typography" name="selectUnit" />
 
@@ -294,12 +294,12 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
           }}
         >
           <Box className="diloag-body">
-            <Box className="diloag-header">
+            <Box className="diloag-header" style={{ flexDirection: 'column' }}>
               <img src={building} className="tenet-logo" alt="" />
-              <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
+              <DialogTitle className="alert-dialog-title1" id="alert-dialog-title" style={{ overflow: 'visible', width: 'auto' }}>
                 Are you sure want to register this unit?
               </DialogTitle>
-              <p>Are you sure that you want to register the unit  ({this.state.selectUnit.apartment_name}) of {this.state.selectBuilding.name}?</p>
+              <p>Are you sure that you want to register the unit   of {this.state.selectBuilding.name}?</p>
             </Box>
             <Box className="dialog-footer desktop-ui" style={{display:'flex',justifyContent:'center'}}>
               <DialogActions

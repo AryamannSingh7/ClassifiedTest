@@ -28,14 +28,11 @@ import PersonalDocumentListController, {
   Props,
 } from "./PersonalDocumentListController.web";
 import { DocumentReportStyleWeb } from "./DocumentReportStyle.web";
-
 import UploadImage from "../assets/upload.png";
 import DeleteImage from "../assets/delete.png";
 import NoPdf from "../assets/no-pdf.png";
 import BuildingLogo from "../assets/building.png";
 import PdfImage from "../assets/pdf.png";
-import buildingLogo from "../assets/building.png";
-
 import {
   EmailShareButton,
   FacebookShareButton,

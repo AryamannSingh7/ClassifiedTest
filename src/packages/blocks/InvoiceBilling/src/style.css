@@ -1,0 +1,35 @@
+.buildingIcons{
+    position: absolute;
+    left: 20px;
+    top: 16px;
+    z-index: 1;
+    color:'#b9b9b9'
+}
+.invoiceselect{
+    margin-top: 1rem;
+    padding-top: 0.5rem;
+}
+.invoicesbtn{
+    width: 100%;
+    border-radius: 50px !important;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    background-color: #ECECEC;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #2C6FED;
+}
+
+.incident-content-wrapper {
+    /* height: 100%; */
+}
+.common-incident-block {
+    max-height: 85vh;
+}
+
+.invoices-details{
+    overflow-y: scroll;
+    margin: 10px auto;
+}

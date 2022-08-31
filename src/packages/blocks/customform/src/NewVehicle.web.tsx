@@ -30,7 +30,11 @@ class NewVeichleList extends VeichleListController {
     // Customizable Area Start
     // Customizable Area End
   }
+  async componentDidMount() {
 
+    this.getVehicle()
+
+  }
   render() {
     return (
 
@@ -42,7 +46,11 @@ class NewVeichleList extends VeichleListController {
                 <ArrowBackIcon onClick={() => window.history.back()} />
                 <p style={{ fontWeight: 600, fontSize: '1.25rem' }}>
 
-                  Register vehicle
+{
+                    this.state.allVehcile.length==0 ? ' Register vehicle' : ' Register another vehicle'
+}
+
+
                 </p>
               </Grid>
             </Grid>
@@ -275,7 +283,7 @@ class NewVeichleList extends VeichleListController {
                             <img src={upload} width='25' height='25'/>
                             <label for="file1"
                             style={{ color:'rgb(33 33 33 / 33%)'}}>
-                              Upload car registration image
+                              Add Registration Card Copy
                             </label>
                             <input
                             id="file1"
@@ -353,6 +361,8 @@ class NewVeichleList extends VeichleListController {
             </Box>
           </Grid>
         </Grid>
+        <Loader loading={this.state.loading} />
+
       </>
 
     )

@@ -6,16 +6,10 @@ import {
   Button,
   Container,
   IconButton,
-  // Link,
   withStyles,
   Box,
   Grid,
-  Tab,
   MenuItem,
-  Card,
-  RadioGroup,
-  FormControlLabel,
-  Radio,
   Dialog,
   DialogContent,
   Typography,
@@ -25,21 +19,17 @@ import {
   ListItemIcon,
   Input,
   InputAdornment,
+  Checkbox,
 } from "@material-ui/core";
-import { Menu } from "@szhsin/react-menu";
-import NavigateNextIcon from "@material-ui/icons/NavigateNext";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
-
+import CircleUnchecked from "@material-ui/icons/RadioButtonUnchecked";
+import CircleCheckedFilled from "@material-ui/icons/CheckCircle";
 import ChangedSelectedTemplateController, {
   Props,
 } from "./ChangedSelectedTemplateController.web";
 import { Link } from "react-router-dom";
 import { ContractsStyleWeb } from "./ContractsStyle.web";
-
 import BuildingLogo from "../assets/building.png";
-import SortIcon from "../assets/sort.png";
-import FilterIcon from "../assets/filter.png";
 import CubeIcon from "../assets/cube.png";
 import EditIcon from "../assets/edit.png";
 
@@ -99,11 +89,19 @@ class ChangedSelectedTemplate extends ChangedSelectedTemplateController {
                     </div>
                     <div className="upload-button">
                       <Box className="condition-select">
-                        <input type="radio" />
+                        <Checkbox
+                          value={true}
+                          icon={<CircleUnchecked />}
+                          checkedIcon={<CircleCheckedFilled />}
+                        />
                         <span>Include late payment penalty condition</span>
                       </Box>
                       {/* <Box className="condition-select">
-                        <input type="radio" checked={true} />
+                        <Checkbox
+                          value={true}
+                          icon={<CircleUnchecked />}
+                          checkedIcon={<CircleCheckedFilled />}
+                        />
                         <span>Penalty for la te Payment</span>
                       </Box> */}
                       <Box className="penalty-detail">

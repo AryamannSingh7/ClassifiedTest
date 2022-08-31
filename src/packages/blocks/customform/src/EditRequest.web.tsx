@@ -51,7 +51,7 @@ class EditRequest extends VeichleListController {
                     <Box className="header-block chairmanHeaderBlock">
                       {/* <img src={Tenant_Logo} className="tenant-logo" alt="Tenant Logo" /> */}
                       <img src={info} className="bank-logo" alt="Tenant Logo" />
-                      <h1 style={{ fontWeight: 'bold' }}>Edited Details
+                      <h1 style={{ fontWeight: 'bold' }}>Edited Details <br/>
                         Request Sent</h1>
                       <h6>Your edited details request has been sent to manager for review. Thank You!</h6>
                     </Box>

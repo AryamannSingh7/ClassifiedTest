@@ -27,6 +27,8 @@ export const Building = require("../assets/building.png");
 export const Hash = require("../assets/Hash.png");
 export const Hyperlink = require("../assets/Hyperlink.png");
 export const User3 = require("../assets/User 3.png");
+export const Search = require("../assets/search.png");
+
 
 
 

@@ -91,6 +91,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                     <Select
                       value={values.selectCountry}
                       name='selectCountry'
+                            style={{ padding: '18.5px 14px'}}
                       labelId="demo-simple-select-outlined-label"
                       id="demo-simple-select-outlined"
                       onChange={(e) => { this.handleChange(e); setFieldValue("selectCountry", e.target.value) }}
@@ -104,7 +105,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                   <ListItemText primary="Inbox" />
                   </MenuItem> */}
                       <MenuItem value=" ">
-                              <em>Country</em>
+                              Select Country
                       </MenuItem>
                       {this.state.allContries && this.state.allContries.map((item) =>
                         <MenuItem key={item} value={item}>{item}</MenuItem>
@@ -134,7 +135,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                       style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#b5b5b5' }}
                     >
                       <MenuItem value=" ">
-                              <em>City</em>
+                              Select city
                       </MenuItem>
                       {this.state.allCity && this.state.allCity.map((item) =>
                         <MenuItem key={item} value={item}>{item}</MenuItem>
@@ -180,7 +181,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                       style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#b5b5b5' }}
                     >
                       <MenuItem value=" ">
-                              <em>Building</em>
+                              Select building
                       </MenuItem>
                       {this.state.allBuilding && this.state.allBuilding.map((item) =>
                         <MenuItem key={item.id} value={item}>{item.name}</MenuItem>
@@ -209,7 +210,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                       style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#b5b5b5' }}
                     >
                       <MenuItem value=" ">
-                              <em>Unit</em>
+                              Select unit
                       </MenuItem>
                       {this.state.allUnit && this.state.allUnit.map((item) =>
                         <MenuItem key={item.id} value={item}>{item.apartment_name}</MenuItem>
@@ -255,9 +256,9 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
           }}
         >
           <Box className="diloag-body">
-            <Box className="diloag-header 1">
+            <Box className="diloag-header 1" style={{flexDirection:'column'}}>
               <img src={building} className="tenet-logo" alt="" />
-              <DialogTitle className="alert-dialog-title1" id="alert-dialog-title">
+              <DialogTitle className="alert-dialog-title1" id="alert-dialog-title" style={{overflow:'visible',width:'auto'}}>
                Are you sure  want to register this unit?
               </DialogTitle>
               <p>Are you sure that you want to register  the unit {this.state.selectUnit.apartment_name} of {this.state.selectBuilding.name} as a unit that you own or manage?</p>

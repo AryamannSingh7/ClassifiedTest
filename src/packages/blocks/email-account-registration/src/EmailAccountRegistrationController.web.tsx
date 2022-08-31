@@ -52,6 +52,8 @@ export interface S {
   loading: boolean;
   otp: any;
   selectCode: string;
+  selectCode2: string;
+
 
 
 
@@ -147,6 +149,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
       allUnit: [],
       selectUnit: '',
       selectCode: '+966',
+      selectCode2: '+966',
       selectEmail: '',
       unitRegisterType: '',
       allComplex: [],
@@ -288,15 +291,17 @@ export default class EmailAccountRegistrationController extends BlockComponent<
 
 
           } else if (responseJson?.errors) {
-            let error = Object.values(responseJson.errors[0])[0] as string;
+            let error = responseJson.errors[0];
             this.setState({ error });
+            this.parseApiCatchErrorResponse(this.state.error);
+            this.parseApiCatchErrorResponse(errorReponse);
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
             this.parseApiCatchErrorResponse(this.state.error);
+            this.parseApiCatchErrorResponse(errorReponse);
           }
           this.setState({ loading: false })
 
-          this.parseApiCatchErrorResponse(errorReponse);
         } else if (apiRequestCallId === this.createAccountOwnerApiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson.data.attributes.email)
@@ -887,7 +892,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     const header = {
       "Content-Type": configJSON.contentTypeApiAddDetail
     };
-    this.setState({ selectEmail: attributes.email })
+    this.setState({ selectEmail: attributes.email,loading:true })
 
 
     const attrs = {
@@ -1497,7 +1502,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
   }
   signupSchemaManager() {
     const validations = Yup.object().shape({
-      full_name: Yup.string().required(`This field is required`).trim(),
+
       company_name: Yup.string().required(`This field is required`).trim(),
       managerName: Yup.string().required(`This field is required`).trim(),
       ownerName: Yup.string().required(`This field is required`).trim(),
@@ -1509,7 +1514,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
         .positive("Negative numbers are not allowed.")
         .integer("Number can't contain a decimal.")
         .min(10000000, "Minimum 5 digits are required.")
-        .max(999999999, "Maximum 11 digits are allowed.")
+        .max(99999999999, "Maximum 11 digits are allowed.")
 ,
       owner_phone: Yup.number()
         .typeError("Only numbers are allowed.")

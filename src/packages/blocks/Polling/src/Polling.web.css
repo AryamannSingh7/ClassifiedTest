@@ -7,6 +7,7 @@
     text-overflow: ellipsis !important;
     overflow: hidden !important;
     white-space: nowrap !important;
+    width:95%;
 }
 .CreatePS{
     display: flex;
@@ -293,7 +294,34 @@
     display: initial;
     min-height: 20px;
     min-width: 50px;
+    text-transform: capitalize;
 }
+
+.statusOngoingGreen{
+    background: #c1ffc1;
+    padding: 10px 20px;
+    border-radius: 30px;
+    color: #1BCD47;
+    display: initial;
+    min-height: 20px;
+    text-transform: capitalize;
+    min-width: 50px;
+    font-weight: bold;
+}
+
+.statusOngoingRed{
+    background: #ffdede;
+    padding: 10px 20px;
+    border-radius: 30px;
+    color: #f27200;
+    display: initial;
+    min-height: 20px;
+    min-width: 50px;
+    text-transform: capitalize;
+    font-weight: bold;
+}
+
+
 .statusCompleted{
     background: #cbe1dc;
     padding: 10px 20px;
@@ -306,6 +334,8 @@
     padding: 10px 20px;
     border-radius: 30px;
     color: blue;
+    min-width: 70px;
+    min-height: 20px;
     display: initial;
 }
 .PreviewName{
@@ -500,8 +530,8 @@
 .progress {
     width:100%;
     height: 3rem;
-    border-radius: 5px;   
-    border: 1px solid #c5c1c1;
+    border-radius: 5px;
+    border: none;
 }
 .progressbarNO progress[value]::-webkit-progress-bar {
     background-color: rgb(172, 169, 169);

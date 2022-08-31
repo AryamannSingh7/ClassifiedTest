@@ -4,7 +4,7 @@
 import * as React from "react";
 // custom components
 import {
-  Button, Grid, Box, Typography, Link, IconButton, Dialog, DialogActions
+  Button, Grid, Box, Typography, Link, IconButton, Dialog, DialogActions, Avatar
 } from "@material-ui/core";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { Formik, Form, Field } from "formik";
@@ -68,9 +68,14 @@ class FamilyList extends FamilyController {
                       this.state.allVehcile.map(item=><>
                         <Grid xs={12} className="card fam">
                           <div className="flex">
+                            <div style={{display:"flex",alignItems:'center',gap:'0.5rem'}}>
+
+                            <Avatar src={item?.attributes?.member_pic}/>
                             <p className="text-bold">
+
                               {item.attributes.name}
                             </p>
+                            </div>
                             <IconButton
                               aria-label="more"
                               aria-controls="long-menu"
@@ -257,7 +262,7 @@ class FamilyList extends FamilyController {
           <Grid container>
             <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
               <p style={{ fontWeight: 400, fontSize: '0.8rem', textAlign: 'center' }}>
-                Are you should you want to delete this registered family member from this App?
+                Are you should want to delete this registered family member from this App?
               </p>
             </Grid>
           </Grid>
@@ -295,7 +300,7 @@ function NoVehicle({ props }) {
       <Grid container>
         <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
 
-          <p style={{ fontWeight: 600, fontSize: '1.25rem' }}>
+          <p style={{ fontWeight: 600, fontSize: '1.25rem',textAlign:'center' }}>
             No Family Member
             <br />
             Registered

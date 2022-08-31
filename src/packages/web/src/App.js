@@ -15,7 +15,7 @@ import AlertBlock from '../../blocks/alert/src/AlertBlock.web'
 import Chatbot6 from "../../blocks/Chatbot6/src/Chatbot6";
 import EmailNotifications from "../../blocks/EmailNotifications/src/EmailNotifications";
 import BroadcastMessage from "../../blocks/BroadcastMessage/src/BroadcastMessage";
-import BulkUploading from "../../blocks/BulkUploading/src/BulkUploading";
+// import BulkUploading from "../../blocks/BulkUploading/src/BulkUploading";
 import Location from "../../blocks/location/src/Location";
 import SocialMediaAccountLoginScreen from "../../blocks/social-media-account-login/src/SocialMediaAccountLoginScreen";
 import Invitefriends from "../../blocks/invitefriends/src/Invitefriends";
@@ -124,6 +124,10 @@ import EditFamily from "../../blocks/customform/src/EditFamily.web"
 import EditRequest from "../../blocks/customform/src/EditRequest.web"
 import NewRequest from "../../blocks/customform/src/NewRequest.web"
 import ManagerList from "../../blocks/customform/src/ManagerList.web"
+import Inbox from "../../blocks/customform/src/Inbox.web"
+import Chatbox from "../../blocks/customform/src/Chatbox.web"
+
+
 
 import ViewVeichle from "../../blocks/customform/src/ViewVehicle.web"
 import FamilyList from "../../blocks/customform/src/FamilyList.web"
@@ -171,11 +175,35 @@ import ChangedSelectedTemplate from "../../blocks/RolesPermissions2/src/ChangedS
 import ReviewTemplate from "../../blocks/RolesPermissions2/src/ReviewTemplate.web";
 import AddCondition from "../../blocks/RolesPermissions2/src/AddCondition.web";
 
+import ChairmanScheduledMeeting from "../../blocks/BulkUploading/src/ScheduledMeeting.web"
+import ScheduledMeetingDetails from "../../blocks/BulkUploading/src/ScheduledMeetingDetails.web"
+import ChairmanMeetingMinutes from "../../blocks/BulkUploading/src/MeetingMinutes.web"
+import MeetingMinuteDetails from "../../blocks/BulkUploading/src/MeetingMinuteDetails.web"
+import MyMeetings from "../../blocks/BulkUploading/src/MyMeetings.web"
+import MyMeetingDetail from "../../blocks/BulkUploading/src/MyMeetingDetail.web"
+import MyMeetingMinuteDetail from "../../blocks/BulkUploading/src/MyMeetingMinuteDetail.web"
+
+import ViewInvoices from '../../blocks/InvoiceBilling/src/ViewInvoices.web';
+import ViewReceipt from '../../blocks/InvoiceBilling/src/ViewReceipt.web';
+import InvoicesDetails from '../../blocks/InvoiceBilling/src/InvoicesDetails.web';
+import ReceiptsDetails from '../../blocks/InvoiceBilling/src/ReceiptsDetails.web';
+import CharmainInvoices from '../../blocks/dashboard/src/CharmainInvoices.web';
+
 const routeMap = {
   //done
   LandingPage: {
     component: LandingPage,
     path: '/',
+    exact: true
+  },
+  Inbox: {
+    component: Inbox,
+    path: '/inbox',
+    exact: true
+  },
+  Chatbox: {
+    component: Chatbox,
+    path: '/Chatbox',
     exact: true
   },
   LandingPage2: {
@@ -317,6 +345,31 @@ const routeMap = {
     path: '/IncidentDetails',
     exact: true
   },
+  ViewInvoices: {
+    component: ViewInvoices,
+    path: '/ViewInvoices',
+    exact: true
+  },
+  ViewReceipt:{
+    component: ViewReceipt,
+    path: '/ViewReceipt',
+    exact: true
+  },
+  InvoicesDetails:{
+    component: InvoicesDetails,
+    path: '/InvoicesDetails',
+    exact: true
+  },
+  ReceiptsDetails:{
+    component: ReceiptsDetails,
+    path: '/ReceiptsDetails',
+    exact: true
+  },
+  CharmainInvoices:{
+    component: CharmainInvoices,
+    path: '/CharmainInvoices',
+    exact: true
+  },
   IncidentListing: {
     component: IncidentListing,
     path: '/IncidentListing',
@@ -358,10 +411,10 @@ const routeMap = {
     component: BroadcastMessage,
     path: '/BroadcastMessage'
   },
-  BulkUploading: {
-    component: BulkUploading,
-    path: '/BulkUploading'
-  },
+  // BulkUploading: {
+  //   component: BulkUploading,
+  //   path: '/BulkUploading'
+  // },
   Location: {
     component: Location,
     path: '/Location'
@@ -424,7 +477,7 @@ const routeMap = {
 
   PollVoteSubmitted: {
     component: PollVoteSubmitted,
-    path: '/PollVoteSubmitted'
+    path: '/PollVoteView'
   },
 
   PollDetails: {
@@ -584,6 +637,43 @@ const routeMap = {
   //   path: '/LeaseForm',
   //   exact: true
   // },
+  // Chairman - Meetings
+  ChairmanScheduledMeeting: {
+    component: ChairmanScheduledMeeting,
+    path: '/ScheduledMeetings',
+    exact: true
+  },
+  ChairmanScheduledMeetingDetails: {
+    component: ScheduledMeetingDetails,
+    path: '/ScheduledMeeting/:id',
+    exact: true
+  },
+  ChairmanMeetingMinutes: {
+    component: ChairmanMeetingMinutes,
+    path: '/MeetingMinutes',
+    exact: true
+  },
+  ChairmanMeetingMinuteDetails: {
+    component: MeetingMinuteDetails,
+    path: '/MeetingMinute/:id',
+    exact: true
+  },
+  // Owner - Meetings
+  OwnerMeetingsList: {
+    component: MyMeetings,
+    path: '/MyMeetings',
+    exact: true
+  },
+  OwnerMyMeetingDetail: {
+    component: MyMeetingDetail,
+    path: '/MyMeeting/:id',
+    exact: true
+  },
+  OwnerMyMeetingMinuteDetail: {
+    component: MyMeetingMinuteDetail,
+    path: '/MeetingMinuteDetail/:id',
+    exact: true
+  },
   Customisableusersubscriptions: {
     component: Customisableusersubscriptions,
     path: '/Customisableusersubscriptions'
@@ -819,10 +909,10 @@ const routeMap = {
     component: BroadcastMessage,
     path: '/BroadcastMessage'
   },
-  BulkUploading: {
-    component: BulkUploading,
-    path: '/BulkUploading'
-  },
+  // BulkUploading: {
+  //   component: BulkUploading,
+  //   path: '/BulkUploading'
+  // },
   Location: {
     component: Location,
     path: '/Location'

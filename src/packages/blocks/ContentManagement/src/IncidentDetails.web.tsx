@@ -93,8 +93,8 @@ class IncidentDetails extends IncidentController {
                             </Typography>
                             <Box className="customButton">
                               <Box className="formGroup">
-                                <Button variant="outlined" onClick={() => this.confirmOrRejectIncident(this.props.history.location.id, "reject")} >reject closure</Button>
-                                <Button variant="contained" onClick={() => this.confirmOrRejectIncident(this.props.history.location.id, "confirm")} >confirm closure</Button>
+                                <Button variant="outlined" className="reject-closure-btn" onClick={() => this.confirmOrRejectIncident(this.props.history.location.id, "reject")} >reject closure</Button>
+                                <Button variant="contained" className="confirm-closure-btn" onClick={() => this.confirmOrRejectIncident(this.props.history.location.id, "confirm")} >confirm closure</Button>
                               </Box>
                             </Box>
                           </CardContent>
@@ -246,7 +246,7 @@ class IncidentDetails extends IncidentController {
                     </Box>
                     {/*</Card> */}
                   </Box>
-                  <Box className="customButton">
+                  <Box className="customButton ticket-conversion">
                     <Button variant="contained" type="submit" >start/ view ticket conversation</Button>
                   </Box>
                 </Box>
