@@ -6,7 +6,8 @@
   font-family: "Century Gothic";
 }
 
-.select-meeting.MuiDialog-root .MuiDialogContent-dividers {
+.select-meeting.MuiDialog-root .MuiDialogContent-dividers,
+.edit-profile.MuiDialog-root .MuiDialogContent-dividers {
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
 
@@ -458,4 +459,75 @@
   border: 1px solid #d9d9d9;
   padding: 10px;
   margin: 5px 0;
+}
+
+.edit-profile .profile-picture {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  margin: 20px;
+}
+
+.edit-profile .profile-picture .picture {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+.edit-profile .profile-picture .no-picture {
+  border-radius: 50%;
+  padding: 20px;
+  background-color: #e3edff;
+}
+
+.edit-profile .profile-picture p {
+  margin-top: 8px;
+  color: #fc8434;
+  font-weight: 600;
+}
+
+.edit-profile .profile-top {
+  padding: 20px 50px;
+}
+
+.edit-profile .input-with-icon {
+  border: 1px solid #c6c6c6;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  padding: 15px;
+}
+
+.edit-profile .mobile-box {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  border: 1px solid #c6c6c6;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.edit-profile .mobile-box .MuiSelect-select.MuiSelect-select{
+  padding: 0 28px 0 20px;
+}
+
+.edit-profile .mobile-box .MuiListItemIcon-root {
+  min-width: 20px;
+}
+
+.edit-profile .mobile-box .input.MuiInputBase-root {
+  padding-left: 15px;
+  border-left: 1px solid #aaaaaa;
+}
+
+.edit-profile .MuiInput-underline:after {
+  content: "";
+  border: 0;
+  position: unset;
+}
+
+.edit-profile .MuiInput-underline:before {
+  content: "";
+  border: 0;
+  position: unset;
 }

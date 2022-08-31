@@ -37,6 +37,10 @@ class DashboardHeader extends DashboardController {
     this.props.history.push("/ChairmanLogin");
   };
 
+  gotoProfilePage = () => {
+    this.props.history.push("/ChairmanProfile");
+  };
+
   render() {
     return (
       <Box style={dashBoard.Header}>
@@ -80,7 +84,7 @@ class DashboardHeader extends DashboardController {
                 </IconButton>
               }
             >
-              <MenuItem>
+              <MenuItem onClick={() => this.gotoProfilePage()}>
                 <img src={ProfileIcon} alt="profile" /> Profile
               </MenuItem>
               <MenuItem onClick={() => this.logout()}>

@@ -110,9 +110,10 @@ export default class PersonalDocumentController extends BlockComponent<
 
     this.GetDocumentCountCallId = apiRequest.messageId;
 
+    const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      configJSON.GetPersonalDocumentCountAPIEndPoint
+      `society_managements/${society_id}/bx_block_my_document/personal_document_count`
     );
 
     apiRequest.addData(
