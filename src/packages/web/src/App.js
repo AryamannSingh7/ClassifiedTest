@@ -109,9 +109,11 @@ import CreatePolls from "../../blocks/Polling/src/CreatePolls.web";
 import CreateSurveys from "../../blocks/Polling/src/CreateSurveys.web";
 import PollPreview from "../../blocks/Polling/src/PollPreview.web";
 import SurveyPreview from "../../blocks/Polling/src/SurveyPreview.web";
+import SurveyParticipate from "../../blocks/Polling/src/SurveyParticipate.web"
 import PollsallData from "../../blocks/Polling/src/PollsallData.web";
 import PollsSurvey from "../../blocks/Polling/src/PollsSurvey.web"
 import SubmitPoll from "../../blocks/Polling/src/SubmitPoll.web"
+import SurveyInitial from "../../blocks/Polling/src/SurveyInitial.web"
 import OwnerDashboard from "../../blocks/dashboard/src/OwnerDashboard.web"
 import ResidentDashboard from "../../blocks/dashboard/src/ResidentDashboard.web"
 import PollVoteSubmitted from "../../blocks/Polling/src/PollVoteSubmitted.web"
@@ -445,6 +447,17 @@ const routeMap = {
   CreatePolls: {
     component: CreatePolls,
     path: "/CreatePolls"
+  },
+
+
+  SurveyDetails: {
+    component: SurveyInitial,
+    path: "/SurveyDetails"
+  },
+
+  SurveyFill: {
+    component: SurveyParticipate,
+    path: "/SurveyFill"
   },
 
   CreateSurveys: {
