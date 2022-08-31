@@ -508,15 +508,16 @@ export default class DocumentListChairmanController extends BlockComponent<
 
     this.ChairmanDocumentsCallId = apiRequest.messageId;
 
+    const society_id = localStorage.getItem("society_id");
     var APIEndpoint: string = "";
     if (documentType === "policy") {
-      APIEndpoint = configJSON.PolicyDocumentAPIEndPoint;
+      APIEndpoint = `society_managements/${society_id}/bx_block_my_document/policy_document`;
     } else if (documentType === "guidelines") {
-      APIEndpoint = configJSON.GuidelinesDocumentAPIEndPoint;
+      APIEndpoint = `society_managements/${society_id}/bx_block_my_document/guideline_document`;
     } else if (documentType === "roles") {
-      APIEndpoint = configJSON.RolesDocumentAPIEndPoint;
+      APIEndpoint = `society_managements/${society_id}/bx_block_my_document/role_document`;
     } else if (documentType === "building-plans") {
-      APIEndpoint = configJSON.BuildingPlansDocumentAPIEndPoint;
+      APIEndpoint = `society_managements/${society_id}/bx_block_my_document/building_plan_document`;
     }
 
     apiRequest.addData(
@@ -562,9 +563,10 @@ export default class DocumentListChairmanController extends BlockComponent<
 
     this.CreateDocumentCallId = apiRequest.messageId;
 
+    const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      configJSON.CreateDocumentAPIEndPoint
+      `society_managements/${society_id}/bx_block_my_document/building_documents`
     );
 
     apiRequest.addData(
@@ -594,9 +596,12 @@ export default class DocumentListChairmanController extends BlockComponent<
 
     this.DeleteDocumentCallId = apiRequest.messageId;
 
+    const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `${configJSON.DeleteDocumentAPIEndPoint}/${this.state.selectedDocumentId}`
+      `society_managements/${society_id}/bx_block_my_document/building_documents/${
+        this.state.selectedDocumentId
+      }`
     );
 
     apiRequest.addData(

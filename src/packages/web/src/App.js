@@ -191,6 +191,8 @@ import InvoicesDetails from '../../blocks/InvoiceBilling/src/InvoicesDetails.web
 import ReceiptsDetails from '../../blocks/InvoiceBilling/src/ReceiptsDetails.web';
 import CharmainInvoices from '../../blocks/dashboard/src/CharmainInvoices.web';
 
+import ChairmanProfile from '../../blocks/Settings5/src/ChairmanProfile.web';
+
 const routeMap = {
   //done
   LandingPage: {
@@ -685,6 +687,12 @@ const routeMap = {
   OwnerMyMeetingMinuteDetail: {
     component: MyMeetingMinuteDetail,
     path: '/MeetingMinuteDetail/:id',
+    exact: true
+  },
+  // Chairman - Profile
+  ChairmanProfile: {
+    component: ChairmanProfile,
+    path: '/ChairmanProfile',
     exact: true
   },
   Customisableusersubscriptions: {
