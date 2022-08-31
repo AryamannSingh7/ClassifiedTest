@@ -221,13 +221,14 @@ export default class PersonalDocumentListController extends BlockComponent<
 
     this.DocumentsCallId = apiRequest.messageId;
 
+    const society_id = localStorage.getItem("society_id");
     var APIEndpoint: string = "";
     if (this.state.documentType === "rent-contract") {
-      APIEndpoint = configJSON.RentContractAPIEndPoint;
+      APIEndpoint = `society_managements/${society_id}/bx_block_my_document/rent_contracts`;
     } else if (this.state.documentType === "unit-plan") {
-      APIEndpoint = configJSON.UnitPlanAPIEndPoint;
+      APIEndpoint = `society_managements/${society_id}/bx_block_my_document/unit_plans`;
     } else if (this.state.documentType === "other-documents") {
-      APIEndpoint = configJSON.OtherDocumentAPIEndPoint;
+      APIEndpoint = `society_managements/${society_id}/bx_block_my_document/other_documents`;
     }
 
     apiRequest.addData(
@@ -260,9 +261,12 @@ export default class PersonalDocumentListController extends BlockComponent<
 
     this.DeleteDocumentCallId = apiRequest.messageId;
 
+    const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `${configJSON.DeletePersonalDocumentAPIEndPoint}/${this.state.selectedDocumentId}`
+      `society_managements/${society_id}/bx_block_my_document/personal_documents/${
+        this.state.selectedDocumentId
+      }`
     );
 
     apiRequest.addData(
@@ -301,9 +305,10 @@ export default class PersonalDocumentListController extends BlockComponent<
 
     this.CreateDocumentCallId = apiRequest.messageId;
 
+    const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      configJSON.CreatePersonalDocumentAPIEndPoint
+      `society_managements/${society_id}/bx_block_my_document/personal_documents`
     );
 
     apiRequest.addData(
