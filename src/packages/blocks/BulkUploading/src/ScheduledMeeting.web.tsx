@@ -48,8 +48,14 @@ class ScheduledMeeting extends ScheduledMeetingController {
     super(props);
   }
 
+  async componentDidMount(): Promise<void> {
+    this.getAllMeetings();
+  }
+
   render() {
     const { classes } = this.props;
+
+    console.log(this.state);
 
     return (
       <>
@@ -110,7 +116,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                 </Box>
                 <Grid className="meeting-table">
                   <Grid item sm={12} md={12} xs={12}>
-                    <Box class="table-top">
+                    <Box className="table-top">
                       <h3>Schedule Meetings</h3>
                       <div className="search-box">
                         <SearchIcon />
@@ -123,103 +129,90 @@ class ScheduledMeeting extends ScheduledMeetingController {
                     <Divider />
                     <Table className="table-box">
                       <TableHead>
-                        <TableCell align="start">#</TableCell>
-                        <TableCell align="start">Title</TableCell>
-                        <TableCell align="start">Date & Time</TableCell>
-                        <TableCell align="start">Place</TableCell>
-                        <TableCell align="start">Agenda</TableCell>
-                        <TableCell align="start">Status</TableCell>
-                        <TableCell align="start" />
+                        <TableRow>
+                          <TableCell align="left">#</TableCell>
+                          <TableCell align="left">Title</TableCell>
+                          <TableCell align="left">Date & Time</TableCell>
+                          <TableCell align="left">Place</TableCell>
+                          <TableCell align="left">Agenda</TableCell>
+                          <TableCell align="left">Status</TableCell>
+                          <TableCell align="left" />
+                        </TableRow>
                       </TableHead>
                       <TableBody>
-                        <TableRow>
-                          <TableCell align="start">1</TableCell>
-                          <TableCell align="start" className="ellipse">
-                            Meeting Title this is new meeting Title this is new
-                          </TableCell>
-                          <TableCell align="start">10-10-1010 14:14</TableCell>
-                          <TableCell align="start" className="ellipse">
-                            Meeting Title this is new meeting Title this is new
-                          </TableCell>
-                          <TableCell align="start" className="ellipse">
-                            Meeting Title this is new meeting Title this is new
-                          </TableCell>
-                          <TableCell align="start">
-                            <span
-                              style={{ background: "black", color: "white" }}
-                            >
-                              Cancelled
-                            </span>
-                          </TableCell>
-                          <TableCell align="start">
-                            <Menu
-                              menuButton={
-                                <IconButton>
-                                  <MoreVertIcon />
-                                </IconButton>
-                              }
-                            >
-                              <MenuItem>
-                                <Link to="ScheduledMeeting/1">View</Link>
-                              </MenuItem>
-                              <MenuItem
-                                onClick={() => this.handleEditMeetingModal()}
-                              >
-                                Edit
-                              </MenuItem>
-                              <MenuItem
-                                onClick={() => this.handleCancelMeetingModal()}
-                              >
-                                Cancel
-                              </MenuItem>
-                            </Menu>
-                          </TableCell>
-                        </TableRow>
-                      </TableBody>
-                      <TableBody>
-                        <TableRow>
-                          <TableCell align="start">1</TableCell>
-                          <TableCell align="start" className="ellipse">
-                            Meeting Title this is new meeting Title this is new
-                          </TableCell>
-                          <TableCell align="start">10-10-1010 14:14</TableCell>
-                          <TableCell align="start" className="ellipse">
-                            Meeting Title this is new meeting Title this is new
-                          </TableCell>
-                          <TableCell align="start" className="ellipse">
-                            Meeting Title this is new meeting Title this is new
-                          </TableCell>
-                          <TableCell align="start">
-                            <span
-                              style={{ background: "black", color: "white" }}
-                            >
-                              Cancelled
-                            </span>
-                          </TableCell>
-                          <TableCell align="start">
-                            <Menu
-                              menuButton={
-                                <IconButton>
-                                  <MoreVertIcon />
-                                </IconButton>
-                              }
-                            >
-                              <MenuItem>
-                                <Link to="ScheduledMeeting/1">View</Link>
-                              </MenuItem>
-                              <MenuItem
-                                onClick={() => this.handleEditMeetingModal()}
-                              >
-                                Edit
-                              </MenuItem>
-                              <MenuItem
-                                onClick={() => this.handleCancelMeetingModal()}
-                              >
-                                Cancel
-                              </MenuItem>
-                            </Menu>
-                          </TableCell>
-                        </TableRow>
+                        {this.state.scheduleMeetingList.length === 0 && (
+                          <TableRow>
+                            <TableCell colSpan={6}>
+                              No Schedule Meeting Available!!
+                            </TableCell>
+                          </TableRow>
+                        )}
+                        {this.state.scheduleMeetingList.map(
+                          (meeting: any, index: string) => {
+                            const status = meeting.attributes.status;
+                            return (
+                              <TableRow key={index}>
+                                <TableCell align="left">{index + 1}</TableCell>
+                                <TableCell align="left" className="ellipse">
+                                  {meeting.attributes.title}
+                                </TableCell>
+                                <TableCell align="left">
+                                  {meeting.attributes.meeting_date_time}
+                                </TableCell>
+                                <TableCell align="left" className="ellipse">
+                                  {meeting.attributes.place}
+                                </TableCell>
+                                <TableCell align="left" className="ellipse">
+                                  {meeting.attributes.agenda}
+                                </TableCell>
+                                <TableCell align="left">
+                                  <span
+                                    style={
+                                      status === "scheduled"
+                                        ? this.color.scheduled
+                                        : status === "completed"
+                                        ? this.color.completed
+                                        : this.color.cancelled
+                                    }
+                                  >
+                                    {status}
+                                  </span>
+                                </TableCell>
+                                <TableCell align="left">
+                                  <Menu
+                                    menuButton={
+                                      <IconButton>
+                                        <MoreVertIcon />
+                                      </IconButton>
+                                    }
+                                  >
+                                    <MenuItem>
+                                      <Link
+                                        to={`ScheduledMeeting/${meeting.id}`}
+                                      >
+                                        View
+                                      </Link>
+                                    </MenuItem>
+                                    <MenuItem
+                                      onClick={() =>
+                                        this.handleEditMeetingModal()
+                                      }
+                                    >
+                                      Edit
+                                    </MenuItem>
+                                    <MenuItem
+                                      onClick={() =>
+                                        this.handleCancelMeetingModal()
+                                      }
+                                    >
+                                      Cancel
+                                    </MenuItem>
+                                  </Menu>
+                                </TableCell>
+                              </TableRow>
+                            );
+                          }
+                        )}
                       </TableBody>
                     </Table>
                     <Divider />
@@ -241,8 +234,188 @@ class ScheduledMeeting extends ScheduledMeetingController {
           </Box>
         </Box>
 
+        <Dialog
+          fullWidth
+          className="add-meeting"
+          open={this.state.isCreateMeetingModalOpen}
+        >
+          <MuiDialogTitle disableTypography className="dialog-heading">
+            <Typography variant="h6">Create New Meeting</Typography>
+            <IconButton onClick={() => this.handleCreateMeetingModal()}>
+              <CloseIcon />
+            </IconButton>
+          </MuiDialogTitle>
+          <DialogContent dividers>
+            <FormControl fullWidth>
+              <Input placeholder="Title" className="dialog-input" />
+            </FormControl>
+            <Grid container spacing={2}>
+              <Grid item sm={6}>
+                <FormControl fullWidth>
+                  <div className="date-time">
+                    <Input fullWidth type="date" placeholder="Placeholder" />
+                  </div>
+                </FormControl>
+              </Grid>
+              <Grid item sm={6}>
+                <FormControl fullWidth>
+                  <div className="date-time">
+                    <Input
+                      fullWidth
+                      type="time"
+                      placeholder="Placeholder"
+                      onChange={(e) => {
+                        console.log(e.target.value);
+                      }}
+                    />
+                  </div>
+                </FormControl>
+              </Grid>
+            </Grid>
+            <FormControl fullWidth>
+              <Select displayEmpty value="" className="dialog-select-input">
+                <MenuItem value="" disabled>
+                  <em>Select Building</em>
+                </MenuItem>
+                <MenuItem value={10}>Ten</MenuItem>
+                <MenuItem value={20}>Twenty</MenuItem>
+                <MenuItem value={30}>Thirty</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl fullWidth>
+              <Input placeholder="Place" className="dialog-input" />
+            </FormControl>
+            <FormControl fullWidth>
+              <Input placeholder="Agenda" className="dialog-input" />
+            </FormControl>
+            <FormControl fullWidth>
+              <Select displayEmpty value="" className="dialog-select-input">
+                <MenuItem value="" disabled>
+                  <em>Designated Meeting of Minutes writer</em>
+                </MenuItem>
+                <MenuItem value={10}>Ten</MenuItem>
+                <MenuItem value={20}>Twenty</MenuItem>
+                <MenuItem value={30}>Thirty</MenuItem>
+              </Select>
+            </FormControl>
+          </DialogContent>
+          <DialogActions className="dialog-button-group">
+            <Button
+              className="cancel-button"
+              onClick={() => this.handleCreateMeetingModal()}
+            >
+              Cancel
+            </Button>
+            <Button className="add-button">Save</Button>
+          </DialogActions>
+        </Dialog>
 
-        
+        <Dialog
+          fullWidth
+          className="add-meeting"
+          open={this.state.isEditMeetingModalOpen}
+        >
+          <MuiDialogTitle disableTypography className="dialog-heading">
+            <Typography variant="h6">Edit Meeting</Typography>
+            <IconButton onClick={() => this.handleEditMeetingModal()}>
+              <CloseIcon />
+            </IconButton>
+          </MuiDialogTitle>
+          <DialogContent dividers>
+            <FormControl fullWidth>
+              <Input placeholder="Title" className="dialog-input" />
+            </FormControl>
+            <Grid container spacing={2}>
+              <Grid item sm={6}>
+                <FormControl fullWidth>
+                  <div className="date-time">
+                    <Input fullWidth type="date" placeholder="Placeholder" />
+                  </div>
+                </FormControl>
+              </Grid>
+              <Grid item sm={6}>
+                <FormControl fullWidth>
+                  <div className="date-time">
+                    <Input
+                      fullWidth
+                      type="time"
+                      placeholder="Placeholder"
+                      onChange={(e) => {
+                        console.log(e.target.value);
+                      }}
+                    />
+                  </div>
+                </FormControl>
+              </Grid>
+            </Grid>
+            <FormControl fullWidth>
+              <Select displayEmpty value="" className="dialog-select-input">
+                <MenuItem value="" disabled>
+                  <em>Select Building</em>
+                </MenuItem>
+                <MenuItem value={10}>Ten</MenuItem>
+                <MenuItem value={20}>Twenty</MenuItem>
+                <MenuItem value={30}>Thirty</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl fullWidth>
+              <Input placeholder="Place" className="dialog-input" />
+            </FormControl>
+            <FormControl fullWidth>
+              <Input placeholder="Agenda" className="dialog-input" />
+            </FormControl>
+            <FormControl fullWidth>
+              <Select displayEmpty value="" className="dialog-select-input">
+                <MenuItem value="" disabled>
+                  <em>Designated Meeting of Minutes writer</em>
+                </MenuItem>
+                <MenuItem value={10}>Ten</MenuItem>
+                <MenuItem value={20}>Twenty</MenuItem>
+                <MenuItem value={30}>Thirty</MenuItem>
+              </Select>
+            </FormControl>
+          </DialogContent>
+          <DialogActions className="dialog-button-group">
+            <Button
+              className="cancel-button"
+              onClick={() => this.handleEditMeetingModal()}
+            >
+              Cancel
+            </Button>
+            <Button className="add-button">Save</Button>
+          </DialogActions>
+        </Dialog>
+
+        <Dialog
+          fullWidth
+          onClose={() => this.handleCancelMeetingModal()}
+          open={this.state.isCancelMeetingModalOpen}
+          className="cancel-meeting-dialog"
+        >
+          <DialogContent style={{ margin: "15px 0" }}>
+            <Box textAlign="center">
+              <img className="comment-image" src={CommentIcon} alt="comment" />
+              <Typography variant="h6">Cancel Meeting Confirmation</Typography>
+              <Typography variant="body1" style={{ marginBottom: "0px" }}>
+                Are you sure want to cancel the meeting scheduled on 16-06-2022
+                16:30 at Common Hall? Once cancelled, attendees will receive a
+                meeting cancelation notification.
+              </Typography>
+              <DialogActions className="dialog-button-group">
+                <Button
+                  className="cancel-button"
+                  style={{ width: "200px" }}
+                  onClick={() => this.handleCancelMeetingModal()}
+                >
+                  No, Don't Cancel
+                </Button>
+                <Button style={{ width: "200px" }} className="add-button">
+                  Yes, Cancel
+                </Button>
+              </DialogActions>
+            </Box>
+          </DialogContent>
+        </Dialog>
       </>
     );
   }

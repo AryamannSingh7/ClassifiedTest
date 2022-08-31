@@ -4,79 +4,92 @@
 
 import React from "react";
 import "./Dashboard.web.css";
-// Components imported start
-import DashboardGeneral from "./DashboardGeneral.web";
-import DashboardActions from "./DashboardActions.web";
-import DashboardTicket from "./DashboardTicket.web";
-import DashboardBudget from "./DashboardBudget.web";
-import BudgetDetails from "./BudgetDetails.web";
-import Polling from "../../Polling/src/Polling.web";
-import PollsGrid from "../../Polling/src/PollsallData.web";
-import SurveyGrid from "../../Polling/src/SurveyGrid.web";
-
-// Components imported end
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-
-import { buildingLogo, chairmanUser, globalIcon, notification } from "./assets";
+import { globalIcon, notification } from "./assets";
 import "../../../web/src/assets/css/style.scss";
-import { Typography, Link } from "@material-ui/core";
-import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
-
+import {
+  Box,
+  Grid,
+  IconButton,
+  Typography,
+  Link,
+  MenuItem,
+  withStyles,
+} from "@material-ui/core";
+import { withRouter } from "react-router";
 import BuildingImage from "../assets/BuildingLogo.png";
 import UserImage from "../assets/ChairmanUser.jpg";
-
-import NotificationsNoneOutlinedIcon from "@material-ui/icons/NotificationsNoneOutlined";
+import ProfileIcon from "../assets/profile.png";
+import LogoutIcon from "../assets/logout.png";
+import { Menu } from "@szhsin/react-menu";
+import "@szhsin/react-menu/dist/core.css";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
-
 import DashboardController, { Props } from "./DashboardController";
 
-export default class DashboardHeader extends DashboardController {
+class DashboardHeader extends DashboardController {
   constructor(props: Props) {
     super(props);
   }
+
+  componentDidMount(): Promise<void> {}
+
+  logout = () => {
+    localStorage.clear();
+    this.props.history.push("/ChairmanLogin");
+  };
+
   render() {
     return (
-      <>
-        <Box style={dashBoard.Header}>
-          <Grid container spacing={2}>
-            <Grid item xs={6} md={6} sm={6} style={dashBoard.HeaderSecLft}>
-              <img src={BuildingImage} alt="BuildingLogo" width={70} />
-              <Link href="#" style={{ textDecoration: "none" }}>
-                <Typography variant="h6" style={{ fontWeight: "600" }}>
-                  Building Name
-                </Typography>
-              </Link>
-            </Grid>
-            <Grid item xs={6} md={6} sm={6} style={dashBoard.HeaderSecRft}>
-              <Link href="#">
-                <img src={globalIcon} alt="GlobalIcon" />
-              </Link>
-              <Link href="#">
-                <img src={notification} alt="GlobalIcon" />
-              </Link>
-              {/* <img src={GlobalIcon} alt="GlobalIcon" /> */}
-
-              <Box style={dashBoard.HeaderSecRtBox}>
-                <img
-                  src={UserImage}
-                  alt="ChairmanUser"
-                  width={50}
-                  style={{ borderRadius: "50%" }}
-                />
-                <Box>
-                  <Typography variant="subtitle1">User Name</Typography>
-                  <Typography variant="body2">Chairman</Typography>
-                </Box>
-              </Box>
-              <Link href="#">
-                <KeyboardArrowDownIcon />
-              </Link>
-            </Grid>
+      <Box style={dashBoard.Header}>
+        <Grid container spacing={2}>
+          <Grid item xs={6} md={6} sm={6} style={dashBoard.HeaderSecLft}>
+            <img src={BuildingImage} alt="BuildingLogo" width={70} />
+            <Link href="#" style={{ textDecoration: "none" }}>
+              <Typography variant="h6" style={{ fontWeight: "600" }}>
+                Building Name
+              </Typography>
+            </Link>
           </Grid>
-        </Box>
-      </>
+          <Grid item xs={6} md={6} sm={6} style={dashBoard.HeaderSecRft}>
+            <Link href="#">
+              <img src={globalIcon} alt="GlobalIcon" />
+            </Link>
+            <Link href="#">
+              <img src={notification} alt="GlobalIcon" />
+            </Link>
+            {/* <img src={GlobalIcon} alt="GlobalIcon" /> */}
+
+            <Box style={dashBoard.HeaderSecRtBox}>
+              <img
+                src={UserImage}
+                alt="ChairmanUser"
+                width={50}
+                style={{ borderRadius: "50%" }}
+              />
+              <Box>
+                <Typography variant="subtitle1">User Name</Typography>
+                <Typography variant="body2">Chairman</Typography>
+              </Box>
+            </Box>
+            <Menu
+              className="chairman-top-menu"
+              arrow={true}
+              align="end"
+              menuButton={
+                <IconButton>
+                  <KeyboardArrowDownIcon />
+                </IconButton>
+              }
+            >
+              <MenuItem>
+                <img src={ProfileIcon} alt="profile" /> Profile
+              </MenuItem>
+              <MenuItem onClick={() => this.logout()}>
+                <img src={LogoutIcon} alt="logout" /> Logout
+              </MenuItem>
+            </Menu>
+          </Grid>
+        </Grid>
+      </Box>
     );
   }
 }
@@ -137,4 +150,5 @@ const dashBoard = {
   },
 };
 
+export default withStyles()(withRouter(DashboardHeader));
 // Customizable Area End

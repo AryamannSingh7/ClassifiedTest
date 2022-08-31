@@ -98,11 +98,11 @@ class ManagerList extends ManagerController {
                               <MenuItem value=" " >
                                 Select Status
                               </MenuItem>
-                              <MenuItem value="Pending">
-                                Pending
+                              <MenuItem value=" Pending Approval">
+                                Pending Approval
                               </MenuItem>
-                              <MenuItem value="Pending Approved">
-                                Pending Approved
+                              <MenuItem value="Approved">
+                                Approved
                               </MenuItem>
                               <MenuItem value="Rejected">
                                 Rejected

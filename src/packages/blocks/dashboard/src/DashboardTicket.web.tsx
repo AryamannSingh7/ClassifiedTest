@@ -66,7 +66,7 @@ export default class DashboardTicket extends DashboardController {
                         <Box style={dashBoardActions.navigation}>
                             <Box>
                                 <Typography variant="body1" >
-                                My Dashboard / <Box component="span" style={{color: "blue"}}>Ticket Dashboard</Box>
+                                My Dashboards / <Box component="span" style={{color: "blue"}}>Ticket Dashboard</Box>
                                 </Typography>
                                 <Typography variant="h5" style={dashBoardActions.subHeading}>Ticket Dashboard</Typography>
                             </Box>
