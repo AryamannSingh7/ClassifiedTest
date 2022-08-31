@@ -32,7 +32,7 @@ class SubmitPoll extends PollingController {
           <Grid xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
             <ArrowBackIcon onClick={() => window.history.back()} />
             <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
-              Poll title
+                {this.state.pollPreviewAnswer.poll?.data?.attributes.title}
             </p>
           </Grid>
         </Grid>
@@ -45,7 +45,7 @@ class SubmitPoll extends PollingController {
           <Grid xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
                 <ArrowBackIcon onClick={() => window.history.back()} />
                 <p style={{ fontSize: '1rem', fontWeight: 600 }}>
-                Poll title
+                    {this.state.pollPreviewAnswer.poll?.data?.attributes.title}
                 </p>
             </Grid>
             <Box className="EventsIconsText">
