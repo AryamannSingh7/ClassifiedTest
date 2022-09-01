@@ -169,15 +169,16 @@ export default class BuildingDocumentListController extends BlockComponent<
 
     this.DocumentsCallId = apiRequest.messageId;
 
+    const society_id = localStorage.getItem("society_id");
     var APIEndpoint: string = "";
     if (documentType === "policy") {
-      APIEndpoint = configJSON.PolicyDocumentAPIEndPoint;
+      APIEndpoint = `society_managements/${society_id}/bx_block_my_document/policy_document`;
     } else if (documentType === "guidelines") {
-      APIEndpoint = configJSON.GuidelinesDocumentAPIEndPoint;
+      APIEndpoint = `society_managements/${society_id}/bx_block_my_document/guideline_document`;
     } else if (documentType === "roles") {
-      APIEndpoint = configJSON.RolesDocumentAPIEndPoint;
+      APIEndpoint = `society_managements/${society_id}/bx_block_my_document/role_document`;
     } else if (documentType === "building-plans") {
-      APIEndpoint = configJSON.BuildingPlansDocumentAPIEndPoint;
+      APIEndpoint = `society_managements/${society_id}/bx_block_my_document/building_plan_document`;
     }
 
     apiRequest.addData(

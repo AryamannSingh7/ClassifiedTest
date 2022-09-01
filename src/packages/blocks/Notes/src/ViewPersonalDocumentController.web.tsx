@@ -136,9 +136,12 @@ export default class ViewPersonalDocumentController extends BlockComponent<
 
     this.GetDocumentCallId = apiRequest.messageId;
 
+    const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `${configJSON.GetPersonalDocumentAPIEndPoint}/${this.state.documentId}`
+      `society_managements/${society_id}/bx_block_my_document/personal_documents/${
+        this.state.documentId
+      }`
     );
 
     apiRequest.addData(

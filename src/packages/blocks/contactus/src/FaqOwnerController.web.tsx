@@ -58,7 +58,7 @@ export default class FaqOwnerController extends BlockComponent<Props, S, SS> {
 
       question: "",
       answer: "",
-      
+
       faq: "",
     };
     // Customizable Area End
@@ -116,9 +116,10 @@ export default class FaqOwnerController extends BlockComponent<Props, S, SS> {
 
     this.FaqCategoryCallId = apiRequest.messageId;
 
+    const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      configJSON.FaqCategoryAPIEndPoint
+      `society_managements/${society_id}/bx_block_interactive_faqs/interactive_faq_categories`
     );
 
     apiRequest.addData(

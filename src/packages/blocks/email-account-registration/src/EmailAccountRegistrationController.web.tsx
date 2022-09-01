@@ -284,6 +284,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             localStorage.setItem('res_token', responseJson.meta.token)
             localStorage.setItem('res_user', responseJson.data.attributes)
             localStorage.setItem('res_user_id', responseJson.data.id)
+            localStorage.setItem('user_email', responseJson.data.attributes.email)
             //@ts-ignore
             //@ts-nocheck
 
