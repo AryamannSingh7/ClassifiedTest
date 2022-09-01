@@ -84,3 +84,58 @@
 .AccordinoList .MuiAccordionSummary-expandIcon.Mui-expanded {
   transform: rotate(90deg);
 }
+
+.dashboard-sidebar {
+  width: 350px;
+}
+
+.dashboard-sidebar .close-menu {
+  display: flex;
+  align-items: center;
+  padding: 5px 20px;
+  gap: "10px";
+}
+
+.dashboard-sidebar .user-info {
+  display: flex;
+  flex-direction: column;
+  padding: 15px 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.dashboard-sidebar .user-info .MuiAvatar-root {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 10px;
+}
+
+.dashboard-sidebar .menu-list .list-box {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.dashboard-sidebar .menu-list li:hover {
+  background-color: #f9f6f6;
+  cursor: pointer;
+}
+
+.dashboard-sidebar .menu-list .list-box .list-menu {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.dashboard-sidebar .menu-list .list-menu .image {
+  border-radius: 50%;
+  background-color: #ffebdb;
+  padding: 15px;
+}
+
+.dashboard-sidebar .menu-list .list-menu .image img {
+  width: 25px;
+  height: 25px;
+}
