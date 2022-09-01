@@ -11,6 +11,14 @@ import {
   Card,
   Typography,
   IconButton,
+  Drawer,
+  Divider,
+  Avatar,
+  List,
+  ListItem,
+  Dialog,
+  DialogContent,
+  DialogActions,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import { withRouter } from "react-router";
@@ -18,20 +26,56 @@ import BuildingLogo from "../assets/building1.png";
 import { DashboardStyleWeb } from "./DashboardStyle.web";
 import { globalIcon, notification, chatIcon } from "./assets";
 import hamburgerIcon from "../assets/hamburger.png";
-
 import { keyhand } from "./assets";
 import DashboardCard from "../../../components/src/DashboardCard";
 import OwnerSidebarWeb from "./OwnerSidebar.web";
-import { withTranslation } from 'react-i18next';
-import '../../../web/src/i18n.js';
-import i18next from 'i18next';
+import { withTranslation } from "react-i18next";
+import "../../../web/src/i18n.js";
+import i18next from "i18next";
+import CloseIcon from "@material-ui/icons/Close";
+import ArrowForwardIosOutlinedIcon from "@material-ui/icons/ArrowForwardIosOutlined";
+import LogoutDialogIcon from "../assets/logout-dialog.png";
+import DashboardController, { Props } from "./DashboardController";
 
-class OwnerDashboard extends React.Component {
+const MenuList = [
+  {
+    name: "Profile",
+    url: "",
+    img: "",
+  },
+  {
+    name: "Fees & Payments",
+    url: "",
+    img: "",
+  },
+  {
+    name: "My Units",
+    url: "",
+    img: "",
+  },
+  {
+    name: "My Neighbors",
+    url: "",
+    img: "",
+  },
+  {
+    name: "Email Alerts",
+    url: "",
+    img: "",
+  },
+  {
+    name: "FAQ",
+    url: "/FaqOwner",
+    img: "",
+  },
+];
+class OwnerDashboard extends DashboardController {
   constructor(props: Props) {
     super(props);
     this.state = {
       isMenuOpen: false,
       languageMenu: false,
+      isLogoutModalOpen: false,
     };
   }
 
@@ -42,6 +86,13 @@ class OwnerDashboard extends React.Component {
     });
   };
 
+  handleLogoutModal = () => {
+    this.setState({
+      ...this.state,
+      isLogoutModalOpen: !this.state.isLogoutModalOpen,
+    });
+  };
+
   handleLanguage = () => {
     this.setState({
       ...this.state,
@@ -49,8 +100,14 @@ class OwnerDashboard extends React.Component {
     });
   };
 
+  logout = () => {
+    this.handleLogoutModal();
+    localStorage.clear();
+    this.props.history.push("/");
+  };
+
   render() {
-    const {t} = this.props
+    const { t } = this.props;
     const { classes } = this.props;
 
     return (
@@ -59,41 +116,110 @@ class OwnerDashboard extends React.Component {
           className={classes.ownerDashboard}
           style={{ background: "#F8F9FE", height: "100vh" }}
         >
-          <OwnerSidebarWeb
-            isMenuOpen={this.state.isMenuOpen}
-            handleClose={() => this.toggleDrawer()}
-          />
+          <Drawer
+            open={this.state.isMenuOpen}
+            onClose={() => this.toggleDrawer()}
+          >
+            <Box className="dashboard-sidebar">
+              <Box className="close-menu" onClick={() => this.toggleDrawer()}>
+                <IconButton>
+                  <CloseIcon />
+                </IconButton>{" "}
+                <span>Menu</span>
+              </Box>
+              <Divider />
+              <div className="user-info">
+                <Avatar alt="Remy Sharp" src="">
+                  HN
+                </Avatar>
+                <h4>Remy Sharp</h4>
+                <p>abc@gmail.com</p>
+              </div>
+              <Divider />
+              <List className="menu-list">
+                {MenuList.map((menu, index) => (
+                  <ListItem key={index}>
+                    <Link className="list-box" href={menu.url}>
+                      <div className="list-menu">
+                        <div className="image">
+                          <img src={keyhand} alt="" />
+                        </div>
+                        <p>{menu.name}</p>
+                      </div>
+                      <ArrowForwardIosOutlinedIcon
+                        style={{ width: "14px", fill: "black" }}
+                      />
+                    </Link>
+                  </ListItem>
+                ))}
+                <ListItem onClick={() => this.handleLogoutModal()}>
+                  <div className="list-box">
+                    <div className="list-menu">
+                      <div className="image">
+                        <img src={keyhand} alt="" />
+                      </div>
+                      <p>Logout</p>
+                    </div>
+                    <ArrowForwardIosOutlinedIcon style={{ width: "14px" }} />
+                  </div>
+                </ListItem>
+              </List>
+            </Box>
+          </Drawer>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box display={{ xs: "flex", md: "flex" }} className="menu">
                 <div className="left-icon">
                   <IconButton onClick={() => this.toggleDrawer()}>
-                    <img src={hamburgerIcon} alt=""/>
+                    <img src={hamburgerIcon} alt="" />
                   </IconButton>
                   <span className="complex-name">Complex Name</span>
                 </div>
-                <div className="right-icon" style={{display:"flex"}}>
-                  <div style={{position:"relative"}}>
-                      <span onClick={() => this.handleLanguage()}>
-                        <img src={globalIcon} alt="GlobalIcon" />
-                      </span>
-                      {this.state.languageMenu ? 
-                      <div style={{position:'absolute', right:"-38px", top:"32px"}}>
-                        <Button variant="outlined" className="invoicesbtn" color="primary" onClick={() => i18next.changeLanguage('en')} style={{marginBottom:"6px"}}>English</Button>
-                        <Button variant="outlined" className="invoicesbtn" color="primary" onClick={() => i18next.changeLanguage('ar')}>Arebic</Button>
+                <div className="right-icon" style={{ display: "flex" }}>
+                  <div style={{ position: "relative" }}>
+                    <span onClick={() => this.handleLanguage()}>
+                      <img src={globalIcon} alt="GlobalIcon" />
+                    </span>
+                    {this.state.languageMenu ? (
+                      <div
+                        style={{
+                          position: "absolute",
+                          right: "-38px",
+                          top: "32px",
+                        }}
+                      >
+                        <Button
+                          variant="outlined"
+                          className="invoicesbtn"
+                          color="primary"
+                          onClick={() => i18next.changeLanguage("en")}
+                          style={{ marginBottom: "6px" }}
+                        >
+                          English
+                        </Button>
+                        <Button
+                          variant="outlined"
+                          className="invoicesbtn"
+                          color="primary"
+                          onClick={() => i18next.changeLanguage("ar")}
+                        >
+                          Arebic
+                        </Button>
                       </div>
-                      : "" }
-                    </div>
-                    <div>
-                      <Link href="#">
-                        <img src={chatIcon} alt="GlobalIcon" />
-                      </Link>
-                    </div>
-                    <div>
-                      <Link href="#">
-                        <img src={notification} alt="GlobalIcon" />
-                      </Link>
-                    </div>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                  <div>
+                    <Link href="#">
+                      <img src={chatIcon} alt="GlobalIcon" />
+                    </Link>
+                  </div>
+                  <div>
+                    <Link href="#">
+                      <img src={notification} alt="GlobalIcon" />
+                    </Link>
+                  </div>
                 </div>
               </Box>
               <Container className="dashboard">
@@ -114,7 +240,7 @@ class OwnerDashboard extends React.Component {
                       <DashboardCard
                         image={keyhand}
                         heading="Total Expenses"
-                        title={t('total-expance')}
+                        title={t("total-expance")}
                         value="SR 75"
                       />
                     </Link>
@@ -422,10 +548,35 @@ class OwnerDashboard extends React.Component {
             </Grid>
           </Grid>
         </Box>
+
+        <Dialog
+          className="delete-document personal"
+          fullWidth
+          onClose={() => this.handleLogoutModal()}
+          open={this.state.isLogoutModalOpen}
+        >
+          <DialogContent>
+            <Box textAlign="center">
+              <img src={LogoutDialogIcon} alt="ExclamationIcon" />
+              <Typography variant="h6">
+                Are you sure you want to logout?
+              </Typography>
+              <Typography variant="body1">
+                You will be returned to the login screen
+              </Typography>
+              <DialogActions className="dialog-button-group">
+                <Button onClick={() => this.logout()}>Logout</Button>
+                <Button onClick={() => this.handleLogoutModal()}>Cancel</Button>
+              </DialogActions>
+            </Box>
+          </DialogContent>
+        </Dialog>
       </>
     );
   }
 }
-export default withTranslation()(withStyles(DashboardStyleWeb)(withRouter(OwnerDashboard)));
+export default withTranslation()(
+  withStyles(DashboardStyleWeb)(withRouter(OwnerDashboard))
+);
 
 // Customizable Area End
