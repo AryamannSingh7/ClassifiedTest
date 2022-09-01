@@ -232,11 +232,11 @@ export default class EmailAccountLoginController extends BlockComponent<
             this.props.history.push("/RegistrationRequest");
             this.setState({registrationRequest, requestdeleteId :registrationRequest.id,loading: false})
           }
-           else if(localStorage.getItem("userType") === "Owner"){
-            this.props.history.push("/OwnerDashboard")
-            //window.location.replace("/DashboardGeneral");
-            this.setState({loading: false})
-           }else {
+        else if (localStorage.getItem("userType") === "Owner" || localStorage.getItem("userType") === "Property Manager") {
+          this.props.history.push("/OwnerDashboard")
+          //window.location.replace("/DashboardGeneral");
+          this.setState({ loading: false })
+        } else {
             this.props.history.push("/ResidentDashboard")
             //window.location.replace("/DashboardGeneral");
             this.setState({loading: false})
