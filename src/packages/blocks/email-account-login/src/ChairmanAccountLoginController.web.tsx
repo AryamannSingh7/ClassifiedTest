@@ -214,7 +214,7 @@ export default class ChairmanAccountLoginController extends BlockComponent<
             this.props.history.push("/ChairmanRegistrationRequest");
             this.setState({registrationRequest, requestdeleteId :registrationRequest.id,loading: false})
           }
-           else if(localStorage.getItem("userType") === "Owner"){
+           else if(localStorage.getItem("userType") === "Owner" || localStorage.getItem("userType") === "Property Manager"){
             this.props.history.push("/OwnerDashboard")
             this.setState({loading: false})
            }else if (localStorage.getItem("userType") === "Resident"){

@@ -201,6 +201,18 @@ class IncidentDetails extends IncidentController {
                         }
                       </CardContent>
                     </Card>
+                    <Box className="commonForm">
+                      <Box className="formGroup textarea">
+                        <img src={Clipboard_Icon} className="clipboard-icon" alt="Clipboard_Icon" />
+                        <TextareaAutosize
+                          maxRows={10}
+                          aria-label="maximum height"
+                          // defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+                          disabled
+                          value={attributes?.description}
+                        />
+                      </Box>
+                    </Box>
                     <Box className="incident-rows mt-20">
                       <h4>Reporting Details</h4>
                     </Box>
@@ -232,28 +244,16 @@ class IncidentDetails extends IncidentController {
                       </CardContent>
                     </Card>
                     {/* <Card className="incident-card reporting-card card">*/}
-                    <Box className="commonForm">
-                      <Box className="formGroup textarea">
-                        <img src={Clipboard_Icon} className="clipboard-icon" alt="Clipboard_Icon" />
-                        <TextareaAutosize
-                          maxRows={10}
-                          aria-label="maximum height"
-                          // defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
-                          disabled
-                          value={attributes?.description}
-                        />
-                      </Box>
-                    </Box>
                     {/*</Card> */}
                   </Box>
                   <Box className="customButton ticket-conversion">
                     <Button variant="contained" type="submit" >start/ view ticket conversation</Button>
                   </Box>
                 </Box>
-                <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>
+                {/* <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>
                   <h6 className="bottom-text">POWERED BY</h6>
                   <img src={Tenant_Logo.default} className="tenant-logo" alt="" />
-                </Box>
+                </Box> */}
               </Box>
             </Grid>
             {/* desktop footer block */}
