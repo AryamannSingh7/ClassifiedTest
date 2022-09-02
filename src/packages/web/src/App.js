@@ -9,6 +9,9 @@ import { ModalContainer } from "react-router-modal";
 import HomeScreen from "../../components/src/HomeScreen";
 import TopNav from "../../components/src/TopNav";
 
+import { ROLE } from '../../framework/src/Enum';
+import { Toaster } from 'react-hot-toast';
+
 import InfoPage from '../../blocks/info-page/src/InfoPageBlock'
 import AlertBlock from '../../blocks/alert/src/AlertBlock.web'
 // import RolesPermissions2 from "../../blocks/RolesPermissions2/src/RolesPermissions2";
@@ -198,7 +201,8 @@ const routeMap = {
   LandingPage: {
     component: LandingPage,
     path: '/',
-    exact: true
+    exact: true,
+    roles: [ROLE.PRIVATE]
   },
   Inbox: {
     component: Inbox,
@@ -283,7 +287,8 @@ const routeMap = {
   //done
   ChairmanLogin: {
     component: ChairmanLogin,
-    path: '/ChairmanLogin'
+    path: '/ChairmanLogin',
+    roles: [ROLE.PRIVATE]
   },
   //done
   EmailAccountLogin: {
@@ -884,7 +889,8 @@ const routeMap = {
 
   DashboardGeneral: {
     component: DashboardGeneral,
-    path: '/DashboardGeneral'
+    path: '/DashboardGeneral',
+    roles: [ROLE.CHAIRMAN]
   },
 
   DashboardTicket: {
@@ -1211,7 +1217,7 @@ class App extends Component {
 
     return (
       <View style={{ height: '100%', width: '100%' }}>
-        {/* <TopNav /> */}
+        <Toaster className="toast" position="top-right" reverseOrder={false} />
         {WebRoutesGenerator({ routeMap })}
         <ModalContainer />
       </View>

@@ -38,6 +38,7 @@
     "moment": "^2.29.4",
     "node-sass": "4.14.0",
     "react-geocode": "file:./packages/blocks/core/node_modules/react-geocode",
+    "react-hot-toast": "^2.3.0",
     "react-i18next": "^11.18.5",
     "react-native": "file:./packages/blocks/core/node_modules/react-native",
     "react-native-android-location-enabler": "file:./packages/blocks/core/node_modules/react-native-android-location-enabler",

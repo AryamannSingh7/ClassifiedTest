@@ -83,22 +83,30 @@ class ScheduledMeeting extends ScheduledMeetingController {
                 </Box>
                 <Box className="top-bar">
                   <Box className="filter">
-                    <Select displayEmpty value="" className="select-input">
+                    {/* <Select displayEmpty value="" className="select-input">
                       <MenuItem value="" disabled>
                         <em>Select Place</em>
                       </MenuItem>
                       <MenuItem value={10}>Ten</MenuItem>
                       <MenuItem value={20}>Twenty</MenuItem>
                       <MenuItem value={30}>Thirty</MenuItem>
-                    </Select>
+                    </Select> */}
+                    <Input type="text" placeholder="Place" className="input" />
                     <Select displayEmpty value="" className="select-input">
                       <MenuItem value="" disabled>
                         <em>Select Status</em>
                       </MenuItem>
-                      <MenuItem value={10}>Ten</MenuItem>
-                      <MenuItem value={20}>Twenty</MenuItem>
-                      <MenuItem value={30}>Thirty</MenuItem>
+                      <MenuItem value="all">All</MenuItem>
+                      <MenuItem value="scheduled">Scheduled</MenuItem>
+                      <MenuItem value="completed">Completed</MenuItem>
+                      <MenuItem value="cancelled">Cancelled</MenuItem>
                     </Select>
+                    <Input
+                      type="text"
+                      placeholder="Date"
+                      className="input"
+                      onFocus={(e) => (e.target.type = "date")}
+                    />
                     <Button startIcon={<img src={SearchIconImage} />}>Search</Button>
                   </Box>
                   <Box className="create-meeting">
@@ -240,9 +248,9 @@ class ScheduledMeeting extends ScheduledMeetingController {
                 <MenuItem value="" disabled>
                   <em>Select Building</em>
                 </MenuItem>
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
+                {this.state.buildingsList.map((building: any) => {
+                  return <MenuItem value={building.id}>{building.name}</MenuItem>;
+                })}
               </Select>
             </FormControl>
             <FormControl fullWidth>

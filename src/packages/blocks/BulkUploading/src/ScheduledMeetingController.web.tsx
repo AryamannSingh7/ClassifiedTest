@@ -1,12 +1,11 @@
 import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
-import MessageEnum, {
-  getName,
-} from "../../../framework/src/Messages/MessageEnum";
+import MessageEnum, { getName } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
 
 // Customizable Area Start
+import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIError";
 // Customizable Area End
 
 export const configJSON = require("./config.js");
@@ -26,10 +25,19 @@ interface S {
   isCancelMeetingModalOpen: boolean;
 
   scheduleMeetingList: any[];
+  buildingsList: any[];
 
   scheduleMeetingId: string;
   scheduleMeetingStatus: string;
   scheduleMeetingDetails: any;
+
+  title: string;
+  place: string;
+  agenda: string;
+  building: string;
+  date: string;
+  time: string;
+  momWriter: string;
   // Customizable Area End
 }
 
@@ -37,13 +45,10 @@ interface SS {
   id: any;
 }
 
-export default class ScheduledMeetingController extends BlockComponent<
-  Props,
-  S,
-  SS
-> {
+export default class ScheduledMeetingController extends BlockComponent<Props, S, SS> {
   GetAllMeetingsCallId: any;
   GetScheduledMeetingDetailCallId: any;
+  GetAllBuildingsCallId: any;
 
   constructor(props: Props) {
     super(props);
@@ -61,10 +66,19 @@ export default class ScheduledMeetingController extends BlockComponent<
       isCancelMeetingModalOpen: false,
 
       scheduleMeetingList: [],
+      buildingsList: [],
 
       scheduleMeetingId: "",
       scheduleMeetingStatus: "",
       scheduleMeetingDetails: null,
+
+      title: "",
+      place: "",
+      agenda: "",
+      building: "",
+      date: "",
+      time: "",
+      momWriter: "",
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -81,9 +95,7 @@ export default class ScheduledMeetingController extends BlockComponent<
     ) {
       this.GetScheduledMeetingDetailCallId = null;
 
-      var responseJson = message.getData(
-        getName(MessageEnum.RestAPIResponceSuccessMessage)
-      );
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson.code === 200) {
         this.setState({
@@ -92,29 +104,24 @@ export default class ScheduledMeetingController extends BlockComponent<
         });
       }
 
-      var errorResponse = message.getData(
-        getName(MessageEnum.RestAPIResponceErrorMessage)
-      );
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
         runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
       } else {
-        this.parseApiErrorResponse(responseJson);
+        ApiErrorResponse(responseJson);
       }
-      this.parseApiCatchErrorResponse(errorResponse);
+      ApiCatchErrorResponse(errorResponse);
     }
 
     // Get All Meeting API Response
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.GetAllMeetingsCallId !== null &&
-      this.GetAllMeetingsCallId ===
-        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+      this.GetAllMeetingsCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.GetAllMeetingsCallId = null;
 
-      var responseJson = message.getData(
-        getName(MessageEnum.RestAPIResponceSuccessMessage)
-      );
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson.code === 200) {
         this.setState({
@@ -122,15 +129,41 @@ export default class ScheduledMeetingController extends BlockComponent<
         });
       }
 
-      var errorResponse = message.getData(
-        getName(MessageEnum.RestAPIResponceErrorMessage)
-      );
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+
       if (responseJson && responseJson.meta && responseJson.meta.token) {
         runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
       } else {
-        this.parseApiErrorResponse(responseJson);
+        ApiErrorResponse(responseJson);
       }
-      this.parseApiCatchErrorResponse(errorResponse);
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // Get All Building List API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.GetAllBuildingsCallId !== null &&
+      this.GetAllBuildingsCallId ===
+        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.GetAllBuildingsCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      if (responseJson.data) {
+        this.setState({
+          buildingsList: responseJson.data.buildings,
+        });
+      }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
     }
     // Customizable Area End
   }
@@ -153,10 +186,7 @@ export default class ScheduledMeetingController extends BlockComponent<
       `society_managements/${society_id}/bx_block_meeting/meetings`
     );
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
     apiRequest.addData(
       getName(MessageEnum.RestAPIRequestMethodMessage),
@@ -181,15 +211,38 @@ export default class ScheduledMeetingController extends BlockComponent<
     const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_meeting/meetings/${
-        this.state.scheduleMeetingId
-      }`
+      `society_managements/${society_id}/bx_block_meeting/meetings/${this.state.scheduleMeetingId}`
     );
 
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
     apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.apiMethodTypeGet
     );
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  // Get All Building List API
+  getBuildingsList = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.GetAllBuildingsCallId = apiRequest.messageId;
+
+    const society_id = localStorage.getItem("society_id");
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_address/building_list?society_management_id=${society_id}`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
     apiRequest.addData(
       getName(MessageEnum.RestAPIRequestMethodMessage),

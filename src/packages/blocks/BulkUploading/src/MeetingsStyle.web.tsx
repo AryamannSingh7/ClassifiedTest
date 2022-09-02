@@ -14,11 +14,32 @@ export const MeetingsStyleWeb: any = {
       justifyContent: "space-between",
       alignItems: "center",
     },
+    "& .top-bar .filter": {
+      display: "flex",
+      alignItems: "center",
+      gap: "15px",
+    },
+    "& .top-bar .filter .MuiInput-underline:before": {
+      border: "0",
+      content: "",
+      position: "unset",
+    },
+    "& .top-bar .filter .MuiInput-underline:after": {
+      border: "0",
+      content: "",
+      position: "unset",
+    },
     "& .top-bar .filter .select-input": {
       background: "#FFFFFF",
       border: "1px solid #F0F0F0",
       borderRadius: "8px",
-      marginRight: "18px",
+      padding: "10px 15px",
+      width: "200px",
+    },
+    "& .top-bar .filter .input": {
+      background: "#FFFFFF",
+      border: "1px solid #F0F0F0",
+      borderRadius: "8px",
       padding: "10px 15px",
       width: "200px",
     },
