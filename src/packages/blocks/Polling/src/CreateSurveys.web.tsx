@@ -103,7 +103,7 @@ export default class CreateSurveys extends PollingController {
                    
                         <Grid item sm={12} md={12} xs={12}>
                             <Box className="createPSCards">
-                                <TextField label="Title of the Poll" variant="outlined" 
+                                <TextField label="Name of the Survey" variant="outlined"
                                 name="title"
                                 value={this.state.PollData.title}
                                 onChange={this.handlePollDataChange}

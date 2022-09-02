@@ -227,7 +227,9 @@ export default class FamilyController extends BlockComponent<Props, S, SS> {
               this.setState({ allVehcile: responseJson.data,loading:false }, () => console.log(this.state.allVehcile))
 
 
+
             }
+            this.setState({ loading: false })
           } else {
             //Check Error Response
             // this.parseApiErrorResponse(responseJson);

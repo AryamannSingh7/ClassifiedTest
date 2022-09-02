@@ -187,8 +187,8 @@ class Polling extends PollingController {
                                         <Box className="EventsIconsText">
                                             <Typography className="EventsTitle">{data.title}</Typography>
                                         </Box>
-                                        <Box className="EventsIconsText">
-                                            <Typography variant="body2" className="textwrap" style={{width:"95%"}}
+                                        <Box className="EventsIconsText" >
+                                            <Typography variant="body2" className="textwrap" style={{width:"95%",marginTop:'10px',marginBottom:"10px"}}
                                             dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(data.description) }}
                                             />
                                             {/* {data.description}</Typography> */}

@@ -92,7 +92,7 @@ class PollsallData extends PollingController {
                                                             className={
                                                                 data.status === "ongoing" ||
                                                                 data.status === "completed" ?
-                                                                "statusOngoingGreen" : "statusOngoingRed"
+                                                                "statusOngoingGreen" : "statusOngoingGreen"
                                                             }
                                                 >
                                                     {data.status}
