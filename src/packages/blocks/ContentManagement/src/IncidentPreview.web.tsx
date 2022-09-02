@@ -148,10 +148,10 @@ class IncidentPreview extends IncidentController {
                     <Button variant="contained" onClick={() => this.createIncident(incidentFromData, incidentRelated)}>submit</Button>
                   </Box>
                 </Box>
-                <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>
+                {/* <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>
                   <h6 className="bottom-text">POWERED BY</h6>
                   <img src={Tenant_Logo.default} className="tenant-logo" alt="" />
-                </Box>
+                </Box> */}
               </Box>
             </Grid>
             {/* desktop footer block */}
