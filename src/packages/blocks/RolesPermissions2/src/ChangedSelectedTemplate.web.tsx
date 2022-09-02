@@ -20,13 +20,12 @@ import {
   Input,
   InputAdornment,
   Checkbox,
+  Drawer,
 } from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import CircleUnchecked from "@material-ui/icons/RadioButtonUnchecked";
 import CircleCheckedFilled from "@material-ui/icons/CheckCircle";
-import ChangedSelectedTemplateController, {
-  Props,
-} from "./ChangedSelectedTemplateController.web";
+import ChangedSelectedTemplateController, { Props } from "./ChangedSelectedTemplateController.web";
 import { Link } from "react-router-dom";
 import { ContractsStyleWeb } from "./ContractsStyle.web";
 import BuildingLogo from "../assets/building.png";
@@ -45,16 +44,13 @@ class ChangedSelectedTemplate extends ChangedSelectedTemplateController {
 
     return (
       <>
-        <Box
-          style={{ background: "white", height: "100vh" }}
-          className={classes.changedTemplate}
-        >
+        <Box style={{ background: "white", height: "100vh" }} className={classes.changedTemplate}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box className="faq-step">
                 <Box display={{ xs: "flex", md: "flex" }} className="top-bar">
                   <div className="left-icon">
-                    <IconButton onClick={() => this.goBackPage()}>
+                    <IconButton>
                       <KeyboardBackspaceIcon />
                     </IconButton>
                     Issue a Lease
@@ -62,31 +58,7 @@ class ChangedSelectedTemplate extends ChangedSelectedTemplateController {
                 </Box>
                 <Container className="page-container">
                   <div className="template-box">
-                    <div className="template-view">
-                      <br />
-                      <br />
-                      <br />
-                      <br />a
-                      <br />
-                      <br />
-                      <br />
-                      <br />
-                      <br />
-                      <br />
-                      <br />
-                      <br />
-                      <br />
-                      <br />a
-                      <br />
-                      <br />
-                      <br />a
-                      <br />
-                      <br />
-                      <br />
-                      <br />
-                      <br />a
-                      <br />
-                    </div>
+                    <div className="template-view">Changed Template</div>
                     <div className="upload-button">
                       <Box className="condition-select">
                         <Checkbox
@@ -142,7 +114,10 @@ class ChangedSelectedTemplate extends ChangedSelectedTemplateController {
                         </div>
                       </Box>
                       <Box className="button-group">
-                        <Button className="condition-button">
+                        <Button
+                          className="condition-button"
+                          onClick={() => this.handleConditionModal()}
+                        >
                           Add More Condition
                         </Button>
                         <Link to="/IssueContract/1/LeaseForm/Template/Review">
@@ -155,15 +130,114 @@ class ChangedSelectedTemplate extends ChangedSelectedTemplateController {
               </Box>
             </Grid>
             <Grid item xs={12} md={5}>
-              <Box
-                className="right-block right-image"
-                display={{ xs: "none", md: "flex" }}
-              >
+              <Box className="right-block right-image" display={{ xs: "none", md: "flex" }}>
                 <img src={BuildingLogo} className="building-logo" alt="" />
               </Box>
             </Grid>
           </Grid>
         </Box>
+
+        <Drawer
+          anchor="bottom"
+          className="condition-modal"
+          open={this.state.isConditionModalOpen}
+          onClose={() => this.handleConditionModal()}
+        >
+          <Box className="condition-box">
+            <h2>Add More Conditions</h2>
+            <Box className="content-box">
+              <h4>Personal Condition</h4>
+              <Box className="condition">
+                <p>No Pet Allowed</p>
+                <Checkbox
+                  className="condition-check"
+                  value={true}
+                  icon={<CircleUnchecked />}
+                  checkedIcon={<CircleCheckedFilled />}
+                />
+              </Box>
+              <Box className="condition">
+                <p>No Pet Allowed</p>
+                <Checkbox
+                  className="condition-check"
+                  value={true}
+                  icon={<CircleUnchecked />}
+                  checkedIcon={<CircleCheckedFilled />}
+                />
+              </Box>
+            </Box>
+            <Box className="content-box">
+              <h4>Personal Condition</h4>
+              <Box className="condition">
+                <p>No Pet Allowed</p>
+                <Checkbox
+                  className="condition-check"
+                  value={true}
+                  icon={<CircleUnchecked />}
+                  checkedIcon={<CircleCheckedFilled />}
+                />
+              </Box>
+              <Box className="condition">
+                <p>No Pet Allowed</p>
+                <Checkbox
+                  className="condition-check"
+                  value={true}
+                  icon={<CircleUnchecked />}
+                  checkedIcon={<CircleCheckedFilled />}
+                />
+              </Box>
+              <Box className="condition">
+                <p>No Pet Allowed</p>
+                <Checkbox
+                  className="condition-check"
+                  value={true}
+                  icon={<CircleUnchecked />}
+                  checkedIcon={<CircleCheckedFilled />}
+                />
+              </Box>
+              <Box className="condition">
+                <p>No Pet Allowed</p>
+                <Checkbox
+                  className="condition-check"
+                  value={true}
+                  icon={<CircleUnchecked />}
+                  checkedIcon={<CircleCheckedFilled />}
+                />
+              </Box>
+              <Box className="condition">
+                <p>No Pet Allowed</p>
+                <Checkbox
+                  className="condition-check"
+                  value={true}
+                  icon={<CircleUnchecked />}
+                  checkedIcon={<CircleCheckedFilled />}
+                />
+              </Box>
+              <Box className="condition">
+                <p>No Pet Allowed</p>
+                <Checkbox
+                  className="condition-check"
+                  value={true}
+                  icon={<CircleUnchecked />}
+                  checkedIcon={<CircleCheckedFilled />}
+                />
+              </Box>
+              <Box className="condition">
+                <p>No Pet Allowed</p>
+                <Checkbox
+                  className="condition-check"
+                  value={true}
+                  icon={<CircleUnchecked />}
+                  checkedIcon={<CircleCheckedFilled />}
+                />
+              </Box>
+            </Box>
+          </Box>
+          <Box className="button-group">
+            <Button className="add-more-button">Copy Checked Condition</Button>
+            <Button className="add-button">Add Checked Condition to a Lease</Button>
+          </Box>
+        </Drawer>
 
         <Dialog
           className="penalty-dialog"

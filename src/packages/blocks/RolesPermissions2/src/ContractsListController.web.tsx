@@ -1,9 +1,7 @@
 import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
-import MessageEnum, {
-  getName,
-} from "../../../framework/src/Messages/MessageEnum";
+import MessageEnum, { getName } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
 
 // Customizable Area Start
@@ -22,6 +20,12 @@ export interface Props {
 interface S {
   // Customizable Area Start
   isContractOpen: boolean;
+  isShareModalOpen: boolean;
+
+  shareUrl: string;
+  shareQuote: string;
+
+  templatesList: any[];
   // Customizable Area End
 }
 
@@ -29,11 +33,9 @@ interface SS {
   id: any;
 }
 
-export default class ContractsListController extends BlockComponent<
-  Props,
-  S,
-  SS
-> {
+export default class ContractsListController extends BlockComponent<Props, S, SS> {
+  GetTemplatesListCallId: any;
+
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
@@ -46,6 +48,12 @@ export default class ContractsListController extends BlockComponent<
 
     this.state = {
       isContractOpen: true,
+      isShareModalOpen: false,
+
+      shareUrl: "",
+      shareQuote: "",
+
+      templatesList: [],
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -53,10 +61,67 @@ export default class ContractsListController extends BlockComponent<
 
   async receive(from: string, message: Message) {
     // Customizable Area Start
+    // Get All Template List - API
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.GetTemplatesListCallId !== null &&
+      this.GetTemplatesListCallId ===
+        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.GetTemplatesListCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      if (responseJson.data) {
+        this.setState({ ...this.state, templatesList: responseJson.data });
+      }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        this.parseApiErrorResponse(responseJson);
+      }
+      this.parseApiCatchErrorResponse(errorResponse);
+    }
     // Customizable Area End
   }
 
   // Customizable Area Start
-  async componentDidMount(): Promise<void> {}
+  // Get All Template List - API
+  getTemplatesList = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.GetTemplatesListCallId = apiRequest.messageId;
+
+    // const society_id = localStorage.getItem("society_id");
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_contract/lease_templates`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.apiMethodTypeGet
+    );
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  // Handle State
+  handleShareModal = () => {
+    this.setState({
+      ...this.state,
+      isShareModalOpen: !this.state.isShareModalOpen,
+    });
+  };
   // Customizable Area End
 }

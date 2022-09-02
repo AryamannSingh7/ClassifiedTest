@@ -22,9 +22,7 @@ import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
-import ScheduledMeetingController, {
-  Props,
-} from "./ScheduledMeetingController.web";
+import ScheduledMeetingController, { Props } from "./ScheduledMeetingController.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { MeetingsStyleWeb } from "./MeetingsStyle.web";
@@ -57,10 +55,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
 
     return (
       <>
-        <Box
-          style={{ background: "#F4F7FF" }}
-          className={classes.scheduledMeetingDetails}
-        >
+        <Box style={{ background: "#F4F7FF" }} className={classes.scheduledMeetingDetails}>
           {/* Dashboard Header -- */}
           <DashboardHeader {...this.props} />
           <Box style={{ display: "flex" }}>
@@ -90,15 +85,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                       {this.state.scheduleMeetingDetails &&
                         this.state.scheduleMeetingDetails.attributes.title}
                     </h3>
-                    <span
-                      style={
-                        this.state.scheduleMeetingStatus === "scheduled"
-                          ? this.color.scheduled
-                          : this.state.scheduleMeetingStatus === "completed"
-                          ? this.color.completed
-                          : this.color.cancelled
-                      }
-                    >
+                    <span className={this.state.scheduleMeetingStatus}>
                       {this.state.scheduleMeetingStatus}
                     </span>
                   </Box>
@@ -109,8 +96,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                       <span>Date & Time: </span>
                       <p>
                         {this.state.scheduleMeetingDetails &&
-                          this.state.scheduleMeetingDetails.attributes
-                            .meeting_date_time}
+                          this.state.scheduleMeetingDetails.attributes.meeting_date_time}
                       </p>
                     </Box>
                     <Box className="items">
@@ -138,20 +124,18 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                       <span>Scheduled By: </span>
                       <p>
                         {this.state.scheduleMeetingDetails &&
-                          this.state.scheduleMeetingDetails.attributes
-                            .meeting_schedule_detail &&
-                          this.state.scheduleMeetingDetails.attributes
-                            .meeting_schedule_detail.scheduled_by}
+                          this.state.scheduleMeetingDetails.attributes.meeting_schedule_detail &&
+                          this.state.scheduleMeetingDetails.attributes.meeting_schedule_detail
+                            .scheduled_by}
                       </p>
                     </Box>
                     <Box className="items">
                       <span>Scheduled On: </span>
                       <p>
                         {this.state.scheduleMeetingDetails &&
-                          this.state.scheduleMeetingDetails.attributes
-                            .meeting_schedule_detail &&
-                          this.state.scheduleMeetingDetails.attributes
-                            .meeting_schedule_detail.scheduled_on}{" "}
+                          this.state.scheduleMeetingDetails.attributes.meeting_schedule_detail &&
+                          this.state.scheduleMeetingDetails.attributes.meeting_schedule_detail
+                            .scheduled_on}{" "}
                         --
                       </p>
                     </Box>
@@ -196,16 +180,10 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                       </Box>
                     </Box>
                     <Box className="button-box">
-                      <Button
-                        className="cancel"
-                        onClick={() => this.handleCancelMeetingModal()}
-                      >
+                      <Button className="cancel" onClick={() => this.handleCancelMeetingModal()}>
                         Cancel Meeting
                       </Button>
-                      <Button
-                        className="edit"
-                        onClick={() => this.handleEditMeetingModal()}
-                      >
+                      <Button className="edit" onClick={() => this.handleEditMeetingModal()}>
                         Edit Meeting
                       </Button>
                     </Box>
@@ -216,11 +194,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
           </Box>
         </Box>
 
-        <Dialog
-          fullWidth
-          className="add-meeting"
-          open={this.state.isEditMeetingModalOpen}
-        >
+        <Dialog fullWidth className="add-meeting" open={this.state.isEditMeetingModalOpen}>
           <MuiDialogTitle disableTypography className="dialog-heading">
             <Typography variant="h6">Edit Meeting</Typography>
             <IconButton onClick={() => this.handleEditMeetingModal()}>
@@ -282,10 +256,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
             </FormControl>
           </DialogContent>
           <DialogActions className="dialog-button-group">
-            <Button
-              className="cancel-button"
-              onClick={() => this.handleEditMeetingModal()}
-            >
+            <Button className="cancel-button" onClick={() => this.handleEditMeetingModal()}>
               Cancel
             </Button>
             <Button className="add-button">Save</Button>
@@ -303,9 +274,8 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
               <img className="comment-image" src={CommentIcon} alt="comment" />
               <Typography variant="h6">Cancel Meeting Confirmation</Typography>
               <Typography variant="body1" style={{ marginBottom: "0px" }}>
-                Are you sure want to cancel the meeting scheduled on 16-06-2022
-                16:30 at Common Hall? Once cancelled, attendees will receive a
-                meeting cancelation notification.
+                Are you sure want to cancel the meeting scheduled on 16-06-2022 16:30 at Common
+                Hall? Once cancelled, attendees will receive a meeting cancelation notification.
               </Typography>
               <DialogActions className="dialog-button-group">
                 <Button

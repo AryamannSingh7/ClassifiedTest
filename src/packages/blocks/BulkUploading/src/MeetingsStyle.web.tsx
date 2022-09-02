@@ -132,6 +132,30 @@ export const MeetingsStyleWeb: any = {
       textDecoration: "none",
       color: "black",
     },
+    "& .scheduled": {
+      background: "#D4FFE3",
+      color: "#1EC65B",
+    },
+    "& .completed": {
+      background: "#F1F1F1",
+      color: "#6C6C6C",
+    },
+    "& .cancelled": {
+      background: "#FFEAEA",
+      color: "#F21717",
+    },
+    "& .rejected": {
+      background: "#FFEAEA",
+      color: "#F21717",
+    },
+    "& .approved": {
+      background: "#D4FFE3",
+      color: "#1EC65B",
+    },
+    "& .pending": {
+      background: "#FFEDE0",
+      color: "#FC8434",
+    },
   },
   scheduledMeetingDetails: {
     "& .navigation": {
@@ -255,6 +279,30 @@ export const MeetingsStyleWeb: any = {
     "& .meeting-minute-details .pdf-detail > img": {
       width: "20px",
       height: "20px",
+    },
+    "& .scheduled": {
+      background: "#D4FFE3",
+      color: "#1EC65B",
+    },
+    "& .completed": {
+      background: "#F1F1F1",
+      color: "#6C6C6C",
+    },
+    "& .cancelled": {
+      background: "#FFEAEA",
+      color: "#F21717",
+    },
+    "& .rejected": {
+      background: "#FFEAEA",
+      color: "#F21717",
+    },
+    "& .approved": {
+      background: "#D4FFE3",
+      color: "#1EC65B",
+    },
+    "& .pending": {
+      background: "#FFEDE0",
+      color: "#FC8434",
     },
   },
   meetingList: {

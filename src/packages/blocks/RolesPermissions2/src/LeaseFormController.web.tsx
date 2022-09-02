@@ -1,9 +1,7 @@
 import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
-import MessageEnum, {
-  getName,
-} from "../../../framework/src/Messages/MessageEnum";
+import MessageEnum, { getName } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
 
 // Customizable Area Start
@@ -28,11 +26,7 @@ interface SS {
   id: any;
 }
 
-export default class LeaseFormController extends BlockComponent<
-  Props,
-  S,
-  SS
-> {
+export default class LeaseFormController extends BlockComponent<Props, S, SS> {
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
@@ -43,7 +37,20 @@ export default class LeaseFormController extends BlockComponent<
       getName(MessageEnum.RestAPIRequestMessage),
     ];
 
-    this.state = {};
+    this.state = {
+      leaseForm: {
+        tenantName: "",
+        landlordName: "",
+        complexName: "",
+        buildingName: "",
+        unitName: "",
+        duration: "",
+        startDate: "",
+        endDate: "",
+        monthlyRent: "",
+        currency: "",
+      },
+    };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }

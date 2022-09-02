@@ -632,7 +632,8 @@ class DocumentListChairman extends DocumentListChairmanController {
             </IconButton>
           </MuiDialogTitle>
           <DialogContent dividers>
-            <List>
+            Meeting Module will come soon!!
+            {/* <List>
               <ListItem dense className="list-heading">
                 <ListItemIcon />
                 <ListItemText primary="Title" />
@@ -677,7 +678,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                   </ListItem>
                 );
               })}
-            </List>
+            </List> */}
           </DialogContent>
           <DialogActions className="dialog-button-group">
             <div className="selected-meeting">
