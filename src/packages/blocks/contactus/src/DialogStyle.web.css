@@ -443,6 +443,19 @@
   height: 200px !important;
 }
 
+.add-meeting .invitee-list {
+  height: 26px;
+  background-color: #efefef;
+  display: flex;
+  align-items: center;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  padding: 15px;
+  color: gray;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
 .schedule-dialog .dialog-button-group {
   display: flex;
   align-items: center;
@@ -507,7 +520,7 @@
   background-color: #f9f9f9;
 }
 
-.edit-profile .mobile-box .MuiSelect-select.MuiSelect-select{
+.edit-profile .mobile-box .MuiSelect-select.MuiSelect-select {
   padding: 0 28px 0 20px;
 }
 
@@ -530,4 +543,66 @@
   content: "";
   border: 0;
   position: unset;
+}
+
+.condition-modal .MuiDrawer-paper {
+  padding: 0 20px;
+}
+
+.condition-modal .button-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.condition-modal .button-group .add-more-button {
+  border: 1px solid #2b6fed;
+  background-color: white;
+  color: #2b6fed;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 25px;
+  font-weight: 600;
+  min-width: 300px;
+}
+
+.condition-modal .button-group .add-button {
+  background-color: #2b6fed;
+  color: white;
+  border-radius: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-weight: 600;
+  min-width: 300px;
+}
+
+.condition-modal .condition-box .content-box {
+  margin: 10px 0;
+}
+
+.condition-modal .condition-box h2 {
+  margin: 20px 0;
+}
+
+.condition-modal .condition-box h2,
+.condition-modal .condition-box h4 {
+  font-weight: 600;
+}
+
+.condition-modal .condition-box .condition {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.condition-modal .condition-box .condition > span {
+  padding: 5px !important;
+}
+
+.condition-modal .condition-box .condition .condition-check {
+  color: orange;
 }

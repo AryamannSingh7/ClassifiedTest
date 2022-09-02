@@ -28,9 +28,7 @@ import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
-import MeetingMinutesController, {
-  Props,
-} from "./MeetingMinutesController.web";
+import MeetingMinutesController, { Props } from "./MeetingMinutesController.web";
 import { Link } from "react-router-dom";
 import { Menu } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/core.css";
@@ -59,10 +57,7 @@ class MeetingMinutes extends MeetingMinutesController {
 
     return (
       <>
-        <Box
-          style={{ background: "#F4F7FF" }}
-          className={classes.scheduledMeeting}
-        >
+        <Box style={{ background: "#F4F7FF" }} className={classes.scheduledMeeting}>
           {/* Dashboard Header -- */}
           <DashboardHeader {...this.props} />
           <Box style={{ display: "flex" }}>
@@ -96,9 +91,7 @@ class MeetingMinutes extends MeetingMinutesController {
                       <MenuItem value={20}>Twenty</MenuItem>
                       <MenuItem value={30}>Thirty</MenuItem>
                     </Select>
-                    <Button startIcon={<img src={SearchIconImage} />}>
-                      Search
-                    </Button>
+                    <Button startIcon={<img src={SearchIconImage} />}>Search</Button>
                   </Box>
                 </Box>
                 <Grid className="meeting-table">
@@ -107,10 +100,7 @@ class MeetingMinutes extends MeetingMinutesController {
                       <h3>Meeting Minutes</h3>
                       <div className="search-box">
                         <SearchIcon />
-                        <InputBase
-                          placeholder="Search by title"
-                          className="search"
-                        />
+                        <InputBase placeholder="Search by title" className="search" />
                       </div>
                     </Box>
                     <Divider />
@@ -126,56 +116,42 @@ class MeetingMinutes extends MeetingMinutesController {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {this.state.meetingMinuteList.map(
-                          (meeting: any, index: string) => {
-                            const status =
-                              meeting.attributes.meeting_mins_status;
-                            return (
-                              <TableRow key={index}>
-                                <TableCell align="left">{index + 1}</TableCell>
-                                <TableCell align="left" className="ellipse">
-                                  {meeting.attributes.title}
-                                </TableCell>
-                                <TableCell align="left" className="ellipse">
-                                  {meeting.attributes.agenda}
-                                </TableCell>
-                                <TableCell align="left">
-                                  {meeting.attributes.meeting_date_time}
-                                </TableCell>
-                                <TableCell align="left">
-                                  <span
-                                    style={
-                                      status === "pending"
-                                        ? this.color.pending
-                                        : status === "rejected"
-                                        ? this.color.rejected
-                                        : this.color.approved
-                                    }
-                                  >
-                                    {status}
-                                  </span>
-                                </TableCell>
-                                <TableCell align="left">
-                                  <Menu
-                                    menuButton={
-                                      <IconButton>
-                                        <MoreVertIcon />
-                                      </IconButton>
-                                    }
-                                  >
-                                    <MenuItem>
-                                      <Link to={`/MeetingMinute/${meeting.id}`}>
-                                        View
-                                      </Link>
-                                    </MenuItem>
-                                    <MenuItem>Download</MenuItem>
-                                    <MenuItem>Share</MenuItem>
-                                  </Menu>
-                                </TableCell>
-                              </TableRow>
-                            );
-                          }
-                        )}
+                        {this.state.meetingMinuteList.map((meeting: any, index: string) => {
+                          return (
+                            <TableRow key={index}>
+                              <TableCell align="left">{index + 1}</TableCell>
+                              <TableCell align="left" className="ellipse">
+                                {meeting.attributes.title}
+                              </TableCell>
+                              <TableCell align="left" className="ellipse">
+                                {meeting.attributes.agenda}
+                              </TableCell>
+                              <TableCell align="left">
+                                {meeting.attributes.meeting_date_time}
+                              </TableCell>
+                              <TableCell align="left">
+                                <span className={meeting.attributes.meeting_mins_status}>
+                                  {meeting.attributes.meeting_mins_status}
+                                </span>
+                              </TableCell>
+                              <TableCell align="left">
+                                <Menu
+                                  menuButton={
+                                    <IconButton>
+                                      <MoreVertIcon />
+                                    </IconButton>
+                                  }
+                                >
+                                  <MenuItem>
+                                    <Link to={`/MeetingMinute/${meeting.id}`}>View</Link>
+                                  </MenuItem>
+                                  <MenuItem>Download</MenuItem>
+                                  <MenuItem>Share</MenuItem>
+                                </Menu>
+                              </TableCell>
+                            </TableRow>
+                          );
+                        })}
                       </TableBody>
                     </Table>
                     <Divider />
@@ -184,11 +160,7 @@ class MeetingMinutes extends MeetingMinutesController {
                         Showing <span className="current-page">1</span> of{" "}
                         <span className="total-page">100</span> results
                       </p>
-                      <Pagination
-                        count={6}
-                        variant="outlined"
-                        shape="rounded"
-                      />
+                      <Pagination count={6} variant="outlined" shape="rounded" />
                     </Box>
                   </Grid>
                 </Grid>

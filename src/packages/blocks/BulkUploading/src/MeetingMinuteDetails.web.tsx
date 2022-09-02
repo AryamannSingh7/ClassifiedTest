@@ -20,9 +20,7 @@ import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
-import MeetingMinutesController, {
-  Props,
-} from "./MeetingMinutesController.web";
+import MeetingMinutesController, { Props } from "./MeetingMinutesController.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { MeetingsStyleWeb } from "./MeetingsStyle.web";
@@ -54,10 +52,7 @@ class MeetingMinuteDetails extends MeetingMinutesController {
 
     return (
       <>
-        <Box
-          style={{ background: "#F4F7FF" }}
-          className={classes.scheduledMeetingDetails}
-        >
+        <Box style={{ background: "#F4F7FF" }} className={classes.scheduledMeetingDetails}>
           {/* Dashboard Header -- */}
           <DashboardHeader {...this.props} />
           <Box style={{ display: "flex" }}>
@@ -85,15 +80,7 @@ class MeetingMinuteDetails extends MeetingMinutesController {
                 <Box className="meeting-detail-box">
                   <Box className="meeting-top">
                     <h3>Meeting Minutes 01-04-2022 18:30</h3>
-                    <span
-                      style={
-                        this.state.meetingMinuteStatus === "pending"
-                          ? this.color.pending
-                          : this.state.meetingMinuteStatus === "rejected"
-                          ? this.color.rejected
-                          : this.color.approved
-                      }
-                    >
+                    <span className={this.state.meetingMinuteStatus}>
                       {this.state.meetingMinuteStatus}
                     </span>
                   </Box>
@@ -111,16 +98,10 @@ class MeetingMinuteDetails extends MeetingMinutesController {
                 </Box>
                 {this.state.meetingMinuteStatus === "pending" && (
                   <Box className="button-box">
-                    <Button
-                      className="cancel"
-                      onClick={() => this.handleRejectMeetingModal()}
-                    >
+                    <Button className="cancel" onClick={() => this.handleRejectMeetingModal()}>
                       Reject
                     </Button>
-                    <Button
-                      className="edit"
-                      onClick={() => this.handleApproveMeetingModal()}
-                    >
+                    <Button className="edit" onClick={() => this.handleApproveMeetingModal()}>
                       Approve
                     </Button>
                   </Box>
@@ -130,32 +111,20 @@ class MeetingMinuteDetails extends MeetingMinutesController {
           </Box>
         </Box>
 
-        <Dialog
-          fullWidth
-          className="add-meeting"
-          open={this.state.isRejectMeetingModalOpen}
-        >
+        <Dialog fullWidth className="add-meeting" open={this.state.isRejectMeetingModalOpen}>
           <MuiDialogTitle disableTypography className="dialog-heading">
-            <Typography variant="h6">
-              Reject Meeting Minutes 01-04-2022 18:30
-            </Typography>
+            <Typography variant="h6">Reject Meeting Minutes 01-04-2022 18:30</Typography>
             <IconButton onClick={() => this.handleRejectMeetingModal()}>
               <CloseIcon />
             </IconButton>
           </MuiDialogTitle>
           <DialogContent dividers>
             <FormControl fullWidth>
-              <TextareaAutosize
-                className="dialog-textarea-input"
-                placeholder="Add Notes"
-              />
+              <TextareaAutosize className="dialog-textarea-input" placeholder="Add Notes" />
             </FormControl>
           </DialogContent>
           <DialogActions className="dialog-button-group">
-            <Button
-              className="cancel-button"
-              onClick={() => this.handleRejectMeetingModal()}
-            >
+            <Button className="cancel-button" onClick={() => this.handleRejectMeetingModal()}>
               Cancel
             </Button>
             <Button className="add-button">Confirm</Button>
@@ -171,12 +140,9 @@ class MeetingMinuteDetails extends MeetingMinutesController {
           <DialogContent style={{ margin: "15px 0" }}>
             <Box textAlign="center">
               <img className="comment-image" src={CheckIcon} alt="check" />
-              <Typography variant="h6">
-                Approve meeting minutes 01-04-2022 18:30
-              </Typography>
+              <Typography variant="h6">Approve meeting minutes 01-04-2022 18:30</Typography>
               <Typography variant="body1" style={{ marginBottom: "0px" }}>
-                Are you sure you want to approve meeting minutes 01-04-2022
-                18:30?
+                Are you sure you want to approve meeting minutes 01-04-2022 18:30?
               </Typography>
               <DialogActions className="dialog-button-group">
                 <Button

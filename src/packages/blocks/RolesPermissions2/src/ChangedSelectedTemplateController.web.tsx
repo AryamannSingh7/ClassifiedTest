@@ -24,6 +24,7 @@ interface S {
   isPenaltyCountModalOpen: boolean;
   isPenaltyRentModalOpen: boolean;
   isPenaltyAmountModalOpen: boolean;
+  isConditionModalOpen: boolean;
   // Customizable Area End
 }
 
@@ -50,6 +51,7 @@ export default class ChangedSelectedTemplateController extends BlockComponent<
       isPenaltyCountModalOpen: false,
       isPenaltyRentModalOpen: false,
       isPenaltyAmountModalOpen: false,
+      isConditionModalOpen: false,
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -67,6 +69,13 @@ export default class ChangedSelectedTemplateController extends BlockComponent<
 
   goBackPage = () => {
     this.props.navigation.goBack();
+  };
+
+  handleConditionModal = () => {
+    this.setState({
+      ...this.state,
+      isConditionModalOpen: !this.state.isConditionModalOpen,
+    });
   };
 
   handlePenaltyCountModal = () => {

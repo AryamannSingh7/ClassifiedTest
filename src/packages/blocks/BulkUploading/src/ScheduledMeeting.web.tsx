@@ -28,9 +28,7 @@ import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
-import ScheduledMeetingController, {
-  Props,
-} from "./ScheduledMeetingController.web";
+import ScheduledMeetingController, { Props } from "./ScheduledMeetingController.web";
 import { Link } from "react-router-dom";
 import { Menu } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/core.css";
@@ -59,10 +57,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
 
     return (
       <>
-        <Box
-          style={{ background: "#F4F7FF" }}
-          className={classes.scheduledMeeting}
-        >
+        <Box style={{ background: "#F4F7FF" }} className={classes.scheduledMeeting}>
           {/* Dashboard Header -- */}
           <DashboardHeader {...this.props} />
           <Box style={{ display: "flex" }}>
@@ -104,9 +99,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                       <MenuItem value={20}>Twenty</MenuItem>
                       <MenuItem value={30}>Thirty</MenuItem>
                     </Select>
-                    <Button startIcon={<img src={SearchIconImage} />}>
-                      Search
-                    </Button>
+                    <Button startIcon={<img src={SearchIconImage} />}>Search</Button>
                   </Box>
                   <Box className="create-meeting">
                     <Button onClick={() => this.handleCreateMeetingModal()}>
@@ -120,10 +113,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                       <h3>Schedule Meetings</h3>
                       <div className="search-box">
                         <SearchIcon />
-                        <InputBase
-                          placeholder="Search by title"
-                          className="search"
-                        />
+                        <InputBase placeholder="Search by title" className="search" />
                       </div>
                     </Box>
                     <Divider />
@@ -142,77 +132,52 @@ class ScheduledMeeting extends ScheduledMeetingController {
                       <TableBody>
                         {this.state.scheduleMeetingList.length === 0 && (
                           <TableRow>
-                            <TableCell colSpan={6}>
-                              No Schedule Meeting Available!!
-                            </TableCell>
+                            <TableCell colSpan={6}>No Schedule Meeting Available!!</TableCell>
                           </TableRow>
                         )}
-                        {this.state.scheduleMeetingList.map(
-                          (meeting: any, index: string) => {
-                            const status = meeting.attributes.status;
-                            return (
-                              <TableRow key={index}>
-                                <TableCell align="left">{index + 1}</TableCell>
-                                <TableCell align="left" className="ellipse">
-                                  {meeting.attributes.title}
-                                </TableCell>
-                                <TableCell align="left">
-                                  {meeting.attributes.meeting_date_time}
-                                </TableCell>
-                                <TableCell align="left" className="ellipse">
-                                  {meeting.attributes.place}
-                                </TableCell>
-                                <TableCell align="left" className="ellipse">
-                                  {meeting.attributes.agenda}
-                                </TableCell>
-                                <TableCell align="left">
-                                  <span
-                                    style={
-                                      status === "scheduled"
-                                        ? this.color.scheduled
-                                        : status === "completed"
-                                        ? this.color.completed
-                                        : this.color.cancelled
-                                    }
-                                  >
-                                    {status}
-                                  </span>
-                                </TableCell>
-                                <TableCell align="left">
-                                  <Menu
-                                    menuButton={
-                                      <IconButton>
-                                        <MoreVertIcon />
-                                      </IconButton>
-                                    }
-                                  >
-                                    <MenuItem>
-                                      <Link
-                                        to={`ScheduledMeeting/${meeting.id}`}
-                                      >
-                                        View
-                                      </Link>
-                                    </MenuItem>
-                                    <MenuItem
-                                      onClick={() =>
-                                        this.handleEditMeetingModal()
-                                      }
-                                    >
-                                      Edit
-                                    </MenuItem>
-                                    <MenuItem
-                                      onClick={() =>
-                                        this.handleCancelMeetingModal()
-                                      }
-                                    >
-                                      Cancel
-                                    </MenuItem>
-                                  </Menu>
-                                </TableCell>
-                              </TableRow>
-                            );
-                          }
-                        )}
+                        {this.state.scheduleMeetingList.map((meeting: any, index: string) => {
+                          return (
+                            <TableRow key={index}>
+                              <TableCell align="left">{index + 1}</TableCell>
+                              <TableCell align="left" className="ellipse">
+                                {meeting.attributes.title}
+                              </TableCell>
+                              <TableCell align="left">
+                                {meeting.attributes.meeting_date_time}
+                              </TableCell>
+                              <TableCell align="left" className="ellipse">
+                                {meeting.attributes.place}
+                              </TableCell>
+                              <TableCell align="left" className="ellipse">
+                                {meeting.attributes.agenda}
+                              </TableCell>
+                              <TableCell align="left">
+                                <span className={meeting.attributes.status}>
+                                  {meeting.attributes.status}
+                                </span>
+                              </TableCell>
+                              <TableCell align="left">
+                                <Menu
+                                  menuButton={
+                                    <IconButton>
+                                      <MoreVertIcon />
+                                    </IconButton>
+                                  }
+                                >
+                                  <MenuItem>
+                                    <Link to={`ScheduledMeeting/${meeting.id}`}>View</Link>
+                                  </MenuItem>
+                                  <MenuItem onClick={() => this.handleEditMeetingModal()}>
+                                    Edit
+                                  </MenuItem>
+                                  <MenuItem onClick={() => this.handleCancelMeetingModal()}>
+                                    Cancel
+                                  </MenuItem>
+                                </Menu>
+                              </TableCell>
+                            </TableRow>
+                          );
+                        })}
                       </TableBody>
                     </Table>
                     <Divider />
@@ -221,11 +186,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                         Showing <span className="current-page">1</span> of{" "}
                         <span className="total-page">100</span> results
                       </p>
-                      <Pagination
-                        count={6}
-                        variant="outlined"
-                        shape="rounded"
-                      />
+                      <Pagination count={6} variant="outlined" shape="rounded" />
                     </Box>
                   </Grid>
                 </Grid>
@@ -234,11 +195,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
           </Box>
         </Box>
 
-        <Dialog
-          fullWidth
-          className="add-meeting"
-          open={this.state.isCreateMeetingModalOpen}
-        >
+        <Dialog fullWidth className="add-meeting" open={this.state.isCreateMeetingModalOpen}>
           <MuiDialogTitle disableTypography className="dialog-heading">
             <Typography variant="h6">Create New Meeting</Typography>
             <IconButton onClick={() => this.handleCreateMeetingModal()}>
@@ -253,7 +210,12 @@ class ScheduledMeeting extends ScheduledMeetingController {
               <Grid item sm={6}>
                 <FormControl fullWidth>
                   <div className="date-time">
-                    <Input fullWidth type="date" placeholder="Placeholder" />
+                    <Input
+                      fullWidth
+                      type="text"
+                      placeholder="Date"
+                      onFocus={(e) => (e.target.type = "date")}
+                    />
                   </div>
                 </FormControl>
               </Grid>
@@ -262,8 +224,9 @@ class ScheduledMeeting extends ScheduledMeetingController {
                   <div className="date-time">
                     <Input
                       fullWidth
-                      type="time"
-                      placeholder="Placeholder"
+                      type="text"
+                      placeholder="Time"
+                      onFocus={(e) => (e.target.type = "time")}
                       onChange={(e) => {
                         console.log(e.target.value);
                       }}
@@ -300,21 +263,14 @@ class ScheduledMeeting extends ScheduledMeetingController {
             </FormControl>
           </DialogContent>
           <DialogActions className="dialog-button-group">
-            <Button
-              className="cancel-button"
-              onClick={() => this.handleCreateMeetingModal()}
-            >
+            <Button className="cancel-button" onClick={() => this.handleCreateMeetingModal()}>
               Cancel
             </Button>
             <Button className="add-button">Save</Button>
           </DialogActions>
         </Dialog>
 
-        <Dialog
-          fullWidth
-          className="add-meeting"
-          open={this.state.isEditMeetingModalOpen}
-        >
+        <Dialog fullWidth className="add-meeting" open={this.state.isEditMeetingModalOpen}>
           <MuiDialogTitle disableTypography className="dialog-heading">
             <Typography variant="h6">Edit Meeting</Typography>
             <IconButton onClick={() => this.handleEditMeetingModal()}>
@@ -376,10 +332,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
             </FormControl>
           </DialogContent>
           <DialogActions className="dialog-button-group">
-            <Button
-              className="cancel-button"
-              onClick={() => this.handleEditMeetingModal()}
-            >
+            <Button className="cancel-button" onClick={() => this.handleEditMeetingModal()}>
               Cancel
             </Button>
             <Button className="add-button">Save</Button>
@@ -397,9 +350,8 @@ class ScheduledMeeting extends ScheduledMeetingController {
               <img className="comment-image" src={CommentIcon} alt="comment" />
               <Typography variant="h6">Cancel Meeting Confirmation</Typography>
               <Typography variant="body1" style={{ marginBottom: "0px" }}>
-                Are you sure want to cancel the meeting scheduled on 16-06-2022
-                16:30 at Common Hall? Once cancelled, attendees will receive a
-                meeting cancelation notification.
+                Are you sure want to cancel the meeting scheduled on 16-06-2022 16:30 at Common
+                Hall? Once cancelled, attendees will receive a meeting cancelation notification.
               </Typography>
               <DialogActions className="dialog-button-group">
                 <Button

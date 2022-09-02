@@ -27,15 +27,18 @@ class IssueContract extends IssueContractController {
     super(props);
   }
 
+  componentDidMount(): Promise<void> {
+    this.getTemplateListFromAdmin();
+  }
+
   render() {
     const { classes } = this.props;
 
+    console.log(this.state);
+
     return (
       <>
-        <Box
-          style={{ background: "white", height: "100vh" }}
-          className={classes.selectTemplate}
-        >
+        <Box style={{ background: "white", height: "100vh" }} className={classes.selectTemplate}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box className="faq-step">
@@ -51,7 +54,7 @@ class IssueContract extends IssueContractController {
                 </Box>
                 <Container className="page-container">
                   <Box className="issue-lease-content">
-                    <Box className="select-input-box">
+                    {/* <Box className="select-input-box">
                       <Select
                         displayEmpty
                         value=""
@@ -70,73 +73,38 @@ class IssueContract extends IssueContractController {
                         <MenuItem value={20}>Twenty</MenuItem>
                         <MenuItem value={30}>Thirty</MenuItem>
                       </Select>
-                    </Box>
+                    </Box> */}
                     <Box className="templates-list">
                       <h3>Select Lease Template</h3>
                       <Grid container spacing={2}>
-                        <Grid item xs={6}>
-                          <Card className="template">
-                            <div className="content">
-                              <div className="image">
-                                <img src={TemplateIcon} alt="" />
-                              </div>
-                              <h4>Lease Template 1</h4>
-                            </div>
-                            <div className="right-menu">
-                              <span>Default</span>
-                            </div>
-                          </Card>
-                        </Grid>
-                        <Grid item xs={6}>
-                          <Card className="template">
-                            <div className="content">
-                              <div className="image">
-                                <img src={TemplateIcon} alt="" />
-                              </div>
-                              <h4>Lease Template 1</h4>
-                            </div>
-                          </Card>
-                        </Grid>
-                        <Grid item xs={6}>
-                          <Card className="template">
-                            <div className="content">
-                              <div className="image">
-                                <img src={TemplateIcon} alt="" />
-                              </div>
-                              <h4>Lease Template 1</h4>
-                            </div>
-                          </Card>
-                        </Grid>
-                        <Grid item xs={6}>
-                          <Card className="template">
-                            <div className="content">
-                              <div className="image">
-                                <img src={TemplateIcon} alt="" />
-                              </div>
-                              <h4>Lease Template 1</h4>
-                            </div>
-                          </Card>
-                        </Grid>
-                        <Grid item xs={6}>
-                          <Card className="template">
-                            <div className="content">
-                              <div className="image">
-                                <img src={TemplateIcon} alt="" />
-                              </div>
-                              <h4>Lease Template 1</h4>
-                            </div>
-                          </Card>
-                        </Grid>
-                        <Grid item xs={6}>
-                          <Card className="template">
-                            <div className="content">
-                              <div className="image">
-                                <img src={TemplateIcon} alt="" />
-                              </div>
-                              <h4>Lease Template 1</h4>
-                            </div>
-                          </Card>
-                        </Grid>
+                        {this.state.templatesList.length === 0 && (
+                          <Grid item xs={12}>
+                            <Card className="template">No Template Available!!</Card>
+                          </Grid>
+                        )}
+                        {this.state.templatesList.map((template: any, index: number) => {
+                          console.log(template);
+
+                          return (
+                            <Grid item xs={6} key={template.id}>
+                              <Link href={`/IssueLease/${template.id}`}>
+                                <Card className="template">
+                                  <div className="content">
+                                    <div className="image">
+                                      <img src={TemplateIcon} alt="" />
+                                    </div>
+                                    <h4>{template.attributes.title}</h4>
+                                  </div>
+                                  {index === 0 && (
+                                    <div className="right-menu">
+                                      <span>Default</span>
+                                    </div>
+                                  )}
+                                </Card>
+                              </Link>
+                            </Grid>
+                          );
+                        })}
                       </Grid>
                     </Box>
                   </Box>
@@ -144,10 +112,7 @@ class IssueContract extends IssueContractController {
               </Box>
             </Grid>
             <Grid item xs={12} md={5}>
-              <Box
-                className="right-block right-image"
-                display={{ xs: "none", md: "flex" }}
-              >
+              <Box className="right-block right-image" display={{ xs: "none", md: "flex" }}>
                 <img src={BuildingLogo} className="building-logo" alt="" />
               </Box>
             </Grid>
