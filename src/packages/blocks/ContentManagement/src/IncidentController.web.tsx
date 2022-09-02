@@ -637,6 +637,9 @@ confirmOrRejectIncident =(id,val)=>{
    
    for (let j = 0; j < incidentFromData.media.length; j += 1) {
     let blob = await fetch(incidentFromData.media[j].url).then(r => r.blob());
+     blob.name = incidentFromData.media[j].file.name
+    console.log("bolb ==================>",blob);
+
     formData.append(
       "incident[attachments][]",
       blob
