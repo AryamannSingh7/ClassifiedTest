@@ -443,6 +443,19 @@
   height: 200px !important;
 }
 
+.add-meeting .invitee-list {
+  height: 26px;
+  background-color: #efefef;
+  display: flex;
+  align-items: center;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  padding: 15px;
+  color: gray;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
 .schedule-dialog .dialog-button-group {
   display: flex;
   align-items: center;
@@ -566,11 +579,11 @@
   min-width: 300px;
 }
 
-.condition-modal .condition-box .content-box{
+.condition-modal .condition-box .content-box {
   margin: 10px 0;
 }
 
-.condition-modal .condition-box h2{
+.condition-modal .condition-box h2 {
   margin: 20px 0;
 }
 
