@@ -136,21 +136,6 @@ export default class ScheduledMeetingController extends BlockComponent<
   }
 
   // Customizable Area Start
-  color = {
-    cancelled: {
-      background: "#FFEAEA",
-      color: "#F21717",
-    },
-    scheduled: {
-      background: "#D4FFE3",
-      color: "#1EC65B",
-    },
-    completed: {
-      background: "#F1F1F1",
-      color: "#6C6C6C",
-    },
-  };
-
   // Get All Meeting API
   getAllMeetings = () => {
     const header = {

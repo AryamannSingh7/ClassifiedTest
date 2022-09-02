@@ -1,9 +1,7 @@
 import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
-import MessageEnum, {
-  getName,
-} from "../../../framework/src/Messages/MessageEnum";
+import MessageEnum, { getName } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
 
 // Customizable Area Start
@@ -28,11 +26,7 @@ interface SS {
   id: any;
 }
 
-export default class SelectedTemplateController extends BlockComponent<
-  Props,
-  S,
-  SS
-> {
+export default class SelectedTemplateController extends BlockComponent<Props, S, SS> {
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
@@ -59,7 +53,7 @@ export default class SelectedTemplateController extends BlockComponent<
   }
 
   goBackPage = () => {
-    this.props.navigation.goBack();
+    this.props.navigation.navigate(`${window.location.pathname.split("/")[1]}`);
   };
   // Customizable Area End
 }

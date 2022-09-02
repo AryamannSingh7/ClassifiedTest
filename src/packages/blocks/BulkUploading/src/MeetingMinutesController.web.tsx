@@ -136,21 +136,6 @@ export default class MeetingMinutesController extends BlockComponent<
   }
 
   // Customizable Area Start
-  color = {
-    rejected: {
-      background: "#FFEAEA",
-      color: "#F21717",
-    },
-    approved: {
-      background: "#D4FFE3",
-      color: "#1EC65B",
-    },
-    pending: {
-      background: "#FFEDE0",
-      color: "#FC8434",
-    },
-  };
-
   // Get All Meeting API
   getAllMeetings = () => {
     const header = {
