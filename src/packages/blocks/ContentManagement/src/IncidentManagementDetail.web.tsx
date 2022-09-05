@@ -210,7 +210,7 @@ class IncidentManagementDetail extends IncidentManagementController {
                               <Button className="change-btn" onClick={() => this.providerList(apartmentManagementId)}>change</Button>
                             </Box>
                         }
-                        <Button variant="contained" type="submit">start/view ticket conversation</Button>
+                        <Button variant="contained" onClick={()=>alert("chat module is getting soon")}>start/view ticket conversation</Button>
                       </Box>
                     </CardContent>
                   </Card>
