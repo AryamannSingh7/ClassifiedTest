@@ -58,7 +58,7 @@ class IncidentPreview extends IncidentController {
         <Box className="login-wrapper incident-wrapper">
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
-              <Box className="content-block">
+              <Box className="common_content_block content-block">
                 <Box className="content-header">
                   <Box className="left-block blocks">
                     <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>

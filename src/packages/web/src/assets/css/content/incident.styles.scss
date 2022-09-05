@@ -16,9 +16,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 25px 25px 20px 25px;
+    padding: 5px ;
     border-bottom: 2px solid #f2efef;
     background-color: $WHITE;
+    @include mq(tablet-portrait-medium-up) {
+      padding: 25px 25px 20px 25px;
+    }
     & .blocks {
       display: flex;
       align-items: center;
@@ -44,16 +47,19 @@
   }
 
   .content-block-wrapper {
-    padding: 0 25px;
-
+    padding: 0 10px;
+    @include mq(tablet-portrait-medium-up) {
+      padding: 0 25px;
+    }
     &.common-incident-block {
       @include scrollbars();
       overflow-y: scroll;
-      margin: 10px auto;
+      margin: 0;
       position: relative;
 
       @include mq(tablet-portrait-medium-up) {
         width: 450px;
+        margin: 10px auto;
       }
 
       & .customButton {
@@ -63,6 +69,7 @@
 
         &.preview-submit {
           position: unset;
+          margin-top: 20px;
         }
 
         & .MuiButton-label {
@@ -77,18 +84,23 @@
         background-color: white;
         padding: 10px;
         border-top: 2px solid lightgray;
+        margin-top: 10px;
+        @include mq(tablet-portrait-medium-up) {
+          margin-top: 0;
+        }
       }
     }
 
     & .incident-content-wrapper {
-      margin-top: 25px;
-
+      margin-top: 10px;
+      @include mq(tablet-portrait-medium-up) {
+        margin-top: 25px;
+      }
       & .incident-rows {
         display: flex;
         justify-content: space-between;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
         align-items: center;
-
         & .customButton {
           padding: 0;
           margin: 0;
@@ -107,7 +119,7 @@
     }
 
     & .incident-preview-title {
-      padding-top: 30px;
+      padding-top: 10px;
     }
   }
 
