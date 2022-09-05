@@ -62,7 +62,7 @@ class CreateIncident extends IncidentController {
         <Box className="login-wrapper incident-wrapper">
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
-              <Box className="content-block">
+              <Box className="common_content_block content-block">
                 <Box className="content-header">
                   <Box className="left-block blocks">
                     <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
@@ -274,10 +274,10 @@ class CreateIncident extends IncidentController {
                   </Formik>
                 </Box>
                 {/* desktop footer block */}
-                <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>
+                {/* <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>
                   <h6 className="bottom-text">POWERED BY</h6>
                   <img src={Tenant_Logo.default} className="tenant-logo" alt="" />
-                </Box>
+                </Box> */}
               </Box>
             </Grid>
             <Grid item xs={12} md={5} className="auth-cols">

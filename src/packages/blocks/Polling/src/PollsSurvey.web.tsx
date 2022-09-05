@@ -130,47 +130,51 @@ class PollsSurvey extends PollingController {
 
                 {this.state.livePollsData?.length ? this.state.livePollsData?.map((item) => {
                   console.log("ITEMS",this.item?.attributes?.flag)
-                  return(
-                    <Box
-                    display="flex"
-                    justifyContent='space-between'
-                    alignItems="center"
-                    borderRadius="15px"
-                    bgcolor="white"
-                    marginTop='2rem'
-                    padding='1rem'
-                    key={item.id}
-                    onClick={() => item?.attributes?.flag ? this.props.history.push("/PollVoteView?id="+item.id) : this.props.history.push("/SubmitPoll?id="+item.id)}
-                    >
-                      <Box style={{minWidth:"100%"}}>
-                        <Box marginTop='1rem'><p>Poll</p></Box>
-                        <Box marginTop='1rem'><h4>{item.attributes.title}</h4></Box>
-                        <Box marginTop='0.4rem' style={{width:"95%",overflow:"hidden"}}>
-                          <p
-                            dangerouslySetInnerHTML={
-                              { __html: DOMPurify.sanitize(item.attributes.description) }
-                            }
-                          ></p>
-                        </Box>
-                        <Box marginTop='1rem'><p style={{color:"black"}}>Building: {item.attributes.building_name}</p></Box>
-                        <Divider style={{marginTop:'0.6rem', marginRight:10}}/>
-                        <Box display='flex' justifyContent='space-between' marginTop='0.6rem'>
-                            <Box className="EventsIconsDataBox">
-                                <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
-                                <p style={{color:"black"}}>{item.attributes.end_date}</p>
-                            </Box>
-                            <Box className="EventsIconsText">
-                                <p className={
-                                    item.attributes.status == "ongoing" ||
-                                    item.attributes.status == "completed" ?
-                                        "statusOngoingGreen" : "statusOngoingRed"
-                                } style={{fontWeight: 600}}>{item.attributes.status}</p>
-                            </Box>
-                        </Box>
-                      </Box>
-                  </Box>
-                  )
-
+                  if(item.attributes.status !== "upcoming"){
+                      return(
+                          <Box
+                              display="flex"
+                              justifyContent='space-between'
+                              alignItems="center"
+                              borderRadius="15px"
+                              bgcolor="white"
+                              marginTop='2rem'
+                              padding='1rem'
+                              key={item.id}
+                              onClick={() => item?.attributes?.flag ? this.props.history.push("/PollVoteView?id="+item.id) : this.props.history.push("/SubmitPoll?id="+item.id)}
+                          >
+                              <Box style={{minWidth:"100%"}}>
+                                  <Box marginTop='1rem'><p>Poll</p></Box>
+                                  <Box marginTop='1rem'><h4>{item.attributes.title}</h4></Box>
+                                  <Box marginTop='0.4rem' style={{width:"95%",overflow:"hidden"}}>
+                                      <p
+                                          dangerouslySetInnerHTML={
+                                              { __html: DOMPurify.sanitize(item.attributes.description) }
+                                          }
+                                      ></p>
+                                  </Box>
+                                  <Box marginTop='1rem'><p style={{color:"black"}}>Building: {item.attributes.building_name}</p></Box>
+                                  <Divider style={{marginTop:'0.6rem', marginRight:10}}/>
+                                  <Box display='flex' justifyContent='space-between' marginTop='0.6rem'>
+                                      <Box className="EventsIconsDataBox">
+                                          <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
+                                          <p style={{color:"black"}}>{item.attributes.end_date}</p>
+                                      </Box>
+                                      <Box className="EventsIconsText">
+                                          {
+                                              item.attributes.status == "ongoing" &&
+                                              <Typography variant="body2" className={"statusOngoingRed"}>{item.attributes.status}</Typography>
+                                          }
+                                          {
+                                              item.attributes.status == "completed" &&
+                                              <Typography variant="body2" className={"statusOngoingGreen"}>{item.attributes.status}</Typography>
+                                          }
+                                      </Box>
+                                  </Box>
+                              </Box>
+                          </Box>
+                      )
+                  }
                 })
                 : null
                 }
@@ -240,15 +244,14 @@ class PollsSurvey extends PollingController {
                                     <p style={{color:"black"}}>{items.attributes.end_date}</p>
                                 </Box>
                                 <Box className="EventsIconsText">
-                                    <p
-                                        className={
-                                            items.attributes.status == "ongoing" ||
-                                            items.attributes.status == "completed" ?
-                                            "statusOngoingGreen" : "statusOngoingRed"
-                                        }
-                                      style={{fontWeight: 600}}>
-                                      {items.attributes.status}
-                                    </p>
+                                    {
+                                        items.attributes.status == "ongoing" &&
+                                        <Typography variant="body2" className={"statusOngoingRed"}>{items.attributes.status}</Typography>
+                                    }
+                                    {
+                                        items.attributes.status == "completed" &&
+                                        <Typography variant="body2" className={"statusOngoingGreen"}>{items.attributes.status}</Typography>
+                                    }
                                 </Box>
                             </Box>
                           </Box>

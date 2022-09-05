@@ -5,7 +5,7 @@
 import React from "react";
 import "./Polling.web.css"
 import DOMPurify from 'dompurify'
-import {pollandsurvey, xmark, CheckMark, awated, Cardcalendar, allUsers} from "./assets"
+import {pollandsurvey, xmark, CheckMark, awated, Cardcalendar} from "./assets"
 import {
   Container,
   Typography,
@@ -28,8 +28,6 @@ import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import { Style } from "@material-ui/icons";
 import { withRouter } from 'react-router';
-import AccessTimeOutlinedIcon from "@material-ui/icons/AccessTimeOutlined";
-import HighlightOffOutlinedIcon from "@material-ui/icons/HighlightOffOutlined";
 
 class PollsallData extends PollingController {
   constructor(props: Props) {
@@ -54,7 +52,7 @@ class PollsallData extends PollingController {
                     <Box className="navigation">
                         <Box>
                             <Typography variant="body1" >
-                            My Dashboard / Poll and surveys / <Box component="span" style={{color: "blue"}}>Polls</Box>
+                            My Dashboard / Poll and surveys / <Box component="span" style={{color: "blue"}}>Surveys</Box>
                             </Typography>
                             <Typography variant="h5" className="subHeading">Poll / Surveys</Typography>
                         </Box>
@@ -70,38 +68,35 @@ class PollsallData extends PollingController {
                     </Box>
                     <Grid container spacing={4} style={{marginTop: 15,marginBottom:20}} className="link-decoration">
                         <Grid item sm={6} md={4} xs={12}>
-                            <Link href="/CreatePolls">
+                            <Link href="/CreateSurveys">
                                 <Box className="CreatePSsingle">
                                     <Box sx={{ml:1, mb:2}}>
                                     <img src={pollandsurvey} alt="pollandsurvey" />
                                     </Box>
-                                    <Typography  className="CreatePSHeading">Create a New Poll</Typography> 
+                                    <Typography  className="CreatePSHeading">Create a New Survey</Typography>
                                 </Box>
                             </Link>
                         </Grid> 
 
-                        {this.state.allPollsData.length ? 
+                        {this.state.allPollsData.length ?
                             this.state.allPollsData.map((data:any) => {
                                 return(
                                     <>
                                     <Grid item sm={6} md={4} xs={12} >
                                         <Box className="EventsCards"
                                         key={data.id}
-                                        onClick={() => this.props.history.push("/PollDetails?id="+data.id)}
+                                        onClick={() => this.props.history.push("/SurveyDetails?id="+data.id)}
                                         >
                                             <Box className="EventsIconsText">
-                                                {
-                                                    data.status == "upcoming" &&
-                                                    <Typography variant="body2" className={"statusOngoingBlue"}>{data.status}</Typography>
-                                                }
-                                                {
-                                                    data.status == "ongoing" &&
-                                                    <Typography variant="body2" className={"statusOngoingRed"}>{data.status}</Typography>
-                                                }
-                                                {
-                                                    data.status == "completed" &&
-                                                    <Typography variant="body2" className={"statusOngoingGreen"}>{data.status}</Typography>
-                                                }
+                                                <Typography variant="body2"
+                                                    className={
+                                                        data.status === "ongoing" ||
+                                                        data.status === "completed" ?
+                                                        "statusOngoingGreen" : "statusOngoingGreen"
+                                                    }
+                                                >
+                                                    {data.status}
+                                                </Typography>
                                             </Box>
                                             <Box className="EventsIconsText">
                                                 <Typography className="EventsTitle" style={{width:"95%"}}>{data.title}</Typography>
@@ -125,26 +120,16 @@ class PollsallData extends PollingController {
                                             <Divider style={{marginTop:10, marginRight:10}}/>
                                             <Box className="EventsIconsData">
                                                 <Box className="EventsIconsDataBox">
-                                                    <img src={allUsers}/>
-                                                    <Typography variant="body2">{data.awaited + data.completed_answers}</Typography>
+                                                    <img src={awated} alt="awated" />
+                                                    <Typography variant="body2">{data.awaited}</Typography>
                                                 </Box>
                                                 <Box className="EventsIconsDataBox">
                                                     <img src={CheckMark} alt="CheckMark" />
                                                     <Typography variant="body2">{data.completed_answers}</Typography>
                                                 </Box>
                                                 <Box className="EventsIconsDataBox">
-                                                    {
-                                                        data.status != "completed" ?
-                                                            <>
-                                                                <AccessTimeOutlinedIcon style={{color: "#ff8100"}}/>
-                                                                <Typography variant="body2">{data.awaited}</Typography>
-                                                            </>
-                                                            :
-                                                            <>
-                                                                <HighlightOffOutlinedIcon style={{color: "red"}}/>
-                                                                <Typography variant="body2">{data.awaited}</Typography>
-                                                            </>
-                                                    }
+                                                    <img src={xmark} alt="xmark" />
+                                                    <Typography variant="body2">{data.rejected_answers}</Typography>
                                                 </Box>
                                             </Box>
                                         </Box>

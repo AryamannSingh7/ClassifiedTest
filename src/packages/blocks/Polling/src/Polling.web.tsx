@@ -23,7 +23,7 @@ import NativeSelect from "@material-ui/core/NativeSelect";
 import Divider from '@material-ui/core/Divider';
 // Icons
 
-import {pollandsurvey, pollcreate, surveycreate} from "./assets"
+import {pollandsurvey, pollcreate, surveycreate,allUsers} from "./assets"
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import DateRangeOutlinedIcon from '@material-ui/icons/DateRangeOutlined';
 import HighlightOffOutlinedIcon from '@material-ui/icons/HighlightOffOutlined';
@@ -178,11 +178,18 @@ class Polling extends PollingController {
                                     onClick={() => this.props.history.push("/PollDetails?id=" + data.id)}
                                     >
                                         <Box className="EventsIconsText">
-                                            <Typography variant="body2" className={
-                                                data.status === "ongoing" ||
-                                                data.status === "completed" ?
-                                                    "statusOngoingGreen" : "statusOngoingRed"
-                                            }>{data.status}</Typography>
+                                            {
+                                                data.status == "upcoming" &&
+                                                <Typography variant="body2" className={"statusOngoingBlue"}>{data.status}</Typography>
+                                            }
+                                            {
+                                                data.status == "ongoing" &&
+                                                <Typography variant="body2" className={"statusOngoingRed"}>{data.status}</Typography>
+                                            }
+                                            {
+                                                data.status == "completed" &&
+                                                <Typography variant="body2" className={"statusOngoingGreen"}>{data.status}</Typography>
+                                            }
                                         </Box>
                                         <Box className="EventsIconsText">
                                             <Typography className="EventsTitle">{data.title}</Typography>
@@ -200,16 +207,28 @@ class Polling extends PollingController {
                                         <Divider style={{marginTop:10, marginRight:10}}/>
                                         <Box className="EventsIconsData">
                                             <Box className="EventsIconsDataBox">
-                                                <AccessTimeOutlinedIcon style={{color: "#ff8100"}}/>
-                                                <Typography variant="body2">{data.awaited}</Typography>
+                                                <img src={allUsers}/>
+                                                <Typography variant="body2">{data.awaited + data.completed_answers}</Typography>
                                             </Box>
                                             <Box className="EventsIconsDataBox">
                                                 <CheckCircleOutlineOutlinedIcon style={{color: "green"}}/>
                                                 <Typography variant="body2">{data.completed_answers}</Typography>
                                             </Box>
                                             <Box className="EventsIconsDataBox">
-                                                <HighlightOffOutlinedIcon style={{color: "red"}}/>
-                                                <Typography variant="body2">{data.rejected_answers}</Typography>
+                                                {
+                                                    data.status != "completed" ?
+                                                        <>
+                                                            <AccessTimeOutlinedIcon style={{color: "#ff8100"}}/>
+                                                            <Typography variant="body2">{data.awaited}</Typography>
+                                                        </>
+                                                         :
+                                                        <>
+                                                            <HighlightOffOutlinedIcon style={{color: "red"}}/>
+                                                            <Typography variant="body2">{data.rejected_answers}</Typography>
+                                                        </>
+
+                                                }
+
                                             </Box>
                                         </Box>
                                     </Box>
@@ -226,13 +245,15 @@ class Polling extends PollingController {
 
                 <Box className="RecentItems">
                     <Typography className="Recenttitle">Recent Surveys</Typography>
-                    <Typography className="ViewAll">View All</Typography>
+                    <Link href="/SurveyAllData" >
+                        <Typography className="ViewAll">View All</Typography>
+                    </Link>
                 </Box>
                 <Grid container spacing={4} style={{marginTop: 15, marginBottom:30}}>
                     <Grid item sm={6} md={4} xs={12}>
                         <Box className="EventsCards">
                             <Box className="EventsIconsText">
-                                <Typography variant="body2" className="statusOngoingGreen">Ongoing</Typography>
+                                <Typography variant="body2" className="statusOngoingGreen">Completed</Typography>
                             </Box>
                             <Box className="EventsIconsText">
                                 <Typography className="EventsTitle">Block W Parking</Typography>
@@ -264,7 +285,7 @@ class Polling extends PollingController {
                     <Grid item sm={6} md={4} xs={12}>
                         <Box className="EventsCards">
                             <Box className="EventsIconsText">
-                                <Typography variant="body2" className="statusOngoingGreen">Ongoing</Typography>
+                                <Typography variant="body2" className="statusOngoingGreen">Completed</Typography>
                             </Box>
                             <Box className="EventsIconsText">
                                 <Typography className="EventsTitle">Block W Parking</Typography>
@@ -296,7 +317,7 @@ class Polling extends PollingController {
                     <Grid item sm={6} md={4} xs={12}>
                         <Box className="EventsCards">
                             <Box className="EventsIconsText">
-                                <Typography variant="body2" className="statusOngoingGreen">Ongoing</Typography>
+                                <Typography variant="body2" className="statusOngoingGreen">Completed</Typography>
                             </Box>
                             <Box className="EventsIconsText">
                                 <Typography className="EventsTitle">Block W Parking</Typography>
