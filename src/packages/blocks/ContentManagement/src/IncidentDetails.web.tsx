@@ -253,7 +253,7 @@ class IncidentDetails extends IncidentController {
                     {/*</Card> */}
                   </Box>
                   <Box className="customButton ticket-conversion">
-                    <Button variant="contained" type="submit" >start/ view ticket conversation</Button>
+                    <Button variant="contained" onClick={()=>alert("chat module is getting soon")}>start/ view ticket conversation</Button>
                   </Box>
                 </Box>
                 {/* {/* <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>
