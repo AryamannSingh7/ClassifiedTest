@@ -378,9 +378,10 @@ export default class FaqChairmanController extends BlockComponent<
 
     this.FaqCategoryCallId = apiRequest.messageId;
 
+    const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      configJSON.FaqCategoryAPIEndPoint
+      `society_managements/${society_id}/bx_block_interactive_faqs/interactive_faq_categories`
     );
 
     apiRequest.addData(
@@ -417,9 +418,10 @@ export default class FaqChairmanController extends BlockComponent<
 
     this.CreateFaqCategoryCallId = apiRequest.messageId;
 
+    const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      configJSON.CreateFaqCategoryAPIEndPoint
+      `society_managements/${society_id}/bx_block_interactive_faqs/interactive_faq_categories`
     );
 
     apiRequest.addData(
@@ -452,9 +454,10 @@ export default class FaqChairmanController extends BlockComponent<
 
     this.DeleteFaqCategoryCallId = apiRequest.messageId;
 
+    const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `${configJSON.DeleteFaqCategoryAPIEndPoint}/${
+      `society_managements/${society_id}/bx_block_interactive_faqs/interactive_faq_categories/${
         this.state.selectedCategoryId
       }`
     );
@@ -494,9 +497,12 @@ export default class FaqChairmanController extends BlockComponent<
 
     this.EditFaqCallId = apiRequest.messageId;
 
+    const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `${configJSON.EditFaqAPIEndPoint}/${this.state.selectedFaqId}`
+      `society_managements/${society_id}/bx_block_interactive_faqs/interactive_faqs/${
+        this.state.selectedFaqId
+      }`
     );
 
     apiRequest.addData(
@@ -529,9 +535,12 @@ export default class FaqChairmanController extends BlockComponent<
 
     this.DeleteFaqCallId = apiRequest.messageId;
 
+    const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `${configJSON.DeleteFaqAPIEndPoint}/${this.state.selectedFaqId}`
+      `society_managements/${society_id}/bx_block_interactive_faqs/interactive_faqs/${
+        this.state.selectedFaqId
+      }`
     );
 
     apiRequest.addData(
@@ -569,9 +578,10 @@ export default class FaqChairmanController extends BlockComponent<
 
     this.CreateFaqCallId = apiRequest.messageId;
 
+    const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      configJSON.CreateFaqAPIEndPoint
+      `society_managements/${society_id}/bx_block_interactive_faqs/interactive_faqs`
     );
 
     apiRequest.addData(
@@ -604,9 +614,12 @@ export default class FaqChairmanController extends BlockComponent<
 
     this.CategoryByIdCallId = apiRequest.messageId;
 
+    const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `${configJSON.CategoryByIdAPIEndPoint}/${this.state.selectedCategoryId}`
+      `society_managements/${society_id}/bx_block_interactive_faqs/interactive_faq_categories/${
+        this.state.selectedCategoryId
+      }`
     );
 
     apiRequest.addData(

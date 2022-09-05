@@ -10,6 +10,7 @@ html {
   width: 100%;
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
   // font-family: $MONTSERRAT;
   font-family: $Gotham_Medium !important;
   font-weight: 100;
@@ -206,6 +207,10 @@ li {
 .mt-20
 {
   margin-top: 20px;
+}
+.mt-15
+{
+  margin-top: 15px;
 }
 .mb-10
 {

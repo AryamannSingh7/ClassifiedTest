@@ -21,7 +21,7 @@ export interface Props {
 
 interface S {
   // Customizable Area Start
-  isContractOpen: boolean;
+  isEditProfileModalOpen: boolean;
   // Customizable Area End
 }
 
@@ -29,7 +29,7 @@ interface SS {
   id: any;
 }
 
-export default class IssueLeaseController extends BlockComponent<
+export default class ChairmanProfileController extends BlockComponent<
   Props,
   S,
   SS
@@ -45,7 +45,7 @@ export default class IssueLeaseController extends BlockComponent<
     ];
 
     this.state = {
-      isContractOpen: true,
+      isEditProfileModalOpen: false,
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -58,5 +58,11 @@ export default class IssueLeaseController extends BlockComponent<
 
   // Customizable Area Start
   async componentDidMount(): Promise<void> {}
+
+  handleEditProfileModal = () => {
+    this.setState({
+      isEditProfileModalOpen: !this.state.isEditProfileModalOpen,
+    });
+  };
   // Customizable Area End
 }

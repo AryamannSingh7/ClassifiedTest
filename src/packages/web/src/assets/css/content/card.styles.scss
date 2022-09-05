@@ -89,6 +89,7 @@
         font-weight: 600;
         // opacity: 0.85;
         font-size: 17px;
+        padding-bottom: 10px;
 
         @include mq(tablet-portrait-large-up) {
           font-size: 15px;
@@ -313,6 +314,7 @@
 
         & h5 {
           margin-bottom: 5px;
+          font-weight: 500;
         }
       }
     }

@@ -6,7 +6,8 @@
   font-family: "Century Gothic";
 }
 
-.select-meeting.MuiDialog-root .MuiDialogContent-dividers {
+.select-meeting.MuiDialog-root .MuiDialogContent-dividers,
+.edit-profile.MuiDialog-root .MuiDialogContent-dividers {
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
 
@@ -442,6 +443,19 @@
   height: 200px !important;
 }
 
+.add-meeting .invitee-list {
+  height: 26px;
+  background-color: #efefef;
+  display: flex;
+  align-items: center;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  padding: 15px;
+  color: gray;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
 .schedule-dialog .dialog-button-group {
   display: flex;
   align-items: center;
@@ -458,4 +472,137 @@
   border: 1px solid #d9d9d9;
   padding: 10px;
   margin: 5px 0;
+}
+
+.edit-profile .profile-picture {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  margin: 20px;
+}
+
+.edit-profile .profile-picture .picture {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+.edit-profile .profile-picture .no-picture {
+  border-radius: 50%;
+  padding: 20px;
+  background-color: #e3edff;
+}
+
+.edit-profile .profile-picture p {
+  margin-top: 8px;
+  color: #fc8434;
+  font-weight: 600;
+}
+
+.edit-profile .profile-top {
+  padding: 20px 50px;
+}
+
+.edit-profile .input-with-icon {
+  border: 1px solid #c6c6c6;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  padding: 15px;
+}
+
+.edit-profile .mobile-box {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  border: 1px solid #c6c6c6;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.edit-profile .mobile-box .MuiSelect-select.MuiSelect-select {
+  padding: 0 28px 0 20px;
+}
+
+.edit-profile .mobile-box .MuiListItemIcon-root {
+  min-width: 20px;
+}
+
+.edit-profile .mobile-box .input.MuiInputBase-root {
+  padding-left: 15px;
+  border-left: 1px solid #aaaaaa;
+}
+
+.edit-profile .MuiInput-underline:after {
+  content: "";
+  border: 0;
+  position: unset;
+}
+
+.edit-profile .MuiInput-underline:before {
+  content: "";
+  border: 0;
+  position: unset;
+}
+
+.condition-modal .MuiDrawer-paper {
+  padding: 0 20px;
+}
+
+.condition-modal .button-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.condition-modal .button-group .add-more-button {
+  border: 1px solid #2b6fed;
+  background-color: white;
+  color: #2b6fed;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 25px;
+  font-weight: 600;
+  min-width: 300px;
+}
+
+.condition-modal .button-group .add-button {
+  background-color: #2b6fed;
+  color: white;
+  border-radius: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-weight: 600;
+  min-width: 300px;
+}
+
+.condition-modal .condition-box .content-box {
+  margin: 10px 0;
+}
+
+.condition-modal .condition-box h2 {
+  margin: 20px 0;
+}
+
+.condition-modal .condition-box h2,
+.condition-modal .condition-box h4 {
+  font-weight: 600;
+}
+
+.condition-modal .condition-box .condition {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.condition-modal .condition-box .condition > span {
+  padding: 5px !important;
+}
+
+.condition-modal .condition-box .condition .condition-check {
+  color: orange;
 }

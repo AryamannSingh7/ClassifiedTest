@@ -58,17 +58,17 @@ class IncidentPreview extends IncidentController {
         <Box className="login-wrapper incident-wrapper">
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
-              <Box className="content-block">
+              <Box className="common_content_block content-block">
                 <Box className="content-header">
                   <Box className="left-block blocks">
                     <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
-                    <h4>Add New Incident</h4>
+                    <h4>Incident Preview</h4>
                   </Box>
                 </Box>
                 <Box className="content-block-wrapper common-incident-block">
                   <Box className="incident-content-wrapper">
                     <Box className="incident-rows">
-                      <h4>Incident Preview</h4>
+                      <h4>Incident  Details</h4>
                     </Box>
                     <Card className="incident-card card">
                       <CardContent>
@@ -148,10 +148,10 @@ class IncidentPreview extends IncidentController {
                     <Button variant="contained" onClick={() => this.createIncident(incidentFromData, incidentRelated)}>submit</Button>
                   </Box>
                 </Box>
-                <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>
+                {/* <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>
                   <h6 className="bottom-text">POWERED BY</h6>
                   <img src={Tenant_Logo.default} className="tenant-logo" alt="" />
-                </Box>
+                </Box> */}
               </Box>
             </Grid>
             {/* desktop footer block */}
