@@ -253,7 +253,7 @@ class NewFamily extends FamilyController {
 
                             <InputLabel id="demo-simple-select-outlined-label" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                               <img src={Hyperlink} />
-                              IDoption</InputLabel>
+                              Type of ID Proof</InputLabel>
                             <Select
                               name='IDoption'
                               labelId="demo-simple-select-outlined-label"
