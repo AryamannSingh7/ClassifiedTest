@@ -13,3 +13,4 @@ export const Filter_Icon = require("../assets/filter-icon.png");
 export const Tenant_Logo = require("../assets/TenantLogo.png");
 export const filterIcon = require("../assets/filter-icon.png");
 export const clipBoard = require("../assets/Clipboard.png")
+export const allUsers = require("../assets/allUsers.png")
