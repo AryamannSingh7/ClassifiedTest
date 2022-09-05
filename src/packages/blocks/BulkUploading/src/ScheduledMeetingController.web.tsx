@@ -33,7 +33,6 @@ interface Form {
 interface Pagination {
   current_page: any | number;
   next_page: any | number;
-  per_page: any | number;
   prev_page: any | number;
   total_count: any | number;
   total_pages: any | number;
@@ -44,6 +43,7 @@ interface Filter {
   status: string;
   date: string;
   title: string;
+  page: number;
 }
 
 interface S {
@@ -51,6 +51,7 @@ interface S {
   isCreateMeetingModalOpen: boolean;
   isEditMeetingModalOpen: boolean;
   isCancelMeetingModalOpen: boolean;
+  isCompleteMeetingModalOpen: boolean;
 
   scheduleMeetingList: any[];
   buildingsList: any[];
@@ -98,6 +99,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
       isCreateMeetingModalOpen: false,
       isEditMeetingModalOpen: false,
       isCancelMeetingModalOpen: false,
+      isCompleteMeetingModalOpen: false,
 
       scheduleMeetingList: [],
       buildingsList: [],
@@ -113,6 +115,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
         status: "",
         date: "",
         title: "",
+        page: 1,
       },
 
       scheduleMeetingId: "",
@@ -284,7 +287,16 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
 
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      console.log(responseJson);
+      const newMeetingList = this.state.scheduleMeetingList.map((meeting: any) => {
+        return meeting.id === this.state.scheduleMeetingId ? responseJson.meeting.data : meeting;
+      });
+
+      this.setState({ scheduleMeetingList: newMeetingList }, () => {
+        toast.success(responseJson.message);
+        if (this.props.navigation.getParam("id")) {
+          this.getScheduleMeetingDetail();
+        }
+      });
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
 
@@ -307,7 +319,26 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
 
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      console.log(responseJson);
+      const newMeetingList = this.state.scheduleMeetingList.map((meeting: any) => {
+        return meeting.id === this.state.scheduleMeetingId ? responseJson.meeting.data : meeting;
+      });
+      this.setState(
+        {
+          scheduleMeetingList: newMeetingList,
+        },
+        () => {
+          if (this.state.isCancelMeetingModalOpen) {
+            this.handleCancelMeetingModal();
+          }
+          if (this.state.isCompleteMeetingModalOpen) {
+            this.handleCompleteMeetingModal();
+          }
+          if (this.props.navigation.getParam("id")) {
+            this.getScheduleMeetingDetail();
+            toast.success(responseJson.message);
+          }
+        }
+      );
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
 
@@ -353,7 +384,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
 
   // Get All Meeting API
   getAllMeetings = () => {
-    const { place, status, date, title } = this.state.filter;
+    const { place, status, date, title, page } = this.state.filter;
 
     const header = {
       "Content-Type": configJSON.ApiContentType,
@@ -367,7 +398,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
     const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_meeting/meetings?place=${place}&status=${status}&title=${title}&date=${date}`
+      `society_managements/${society_id}/bx_block_meeting/meetings?place=${place}&status=${status}&title=${title}&date=${date}&page=${page}`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
@@ -508,16 +539,16 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
   };
 
   // Edit Meeting API
-  editMeeting = () => {
+  editMeeting = (values: Form) => {
     const body = {
       meeting: {
-        title: "L ss Visha",
-        place: "anannkheda",
-        agenda: "Social Service1",
-        building_management_id: 1,
-        date: "2022-07-10",
-        time: "20:12",
-        manager_id: 2,
+        title: values.title,
+        place: values.place,
+        agenda: values.agenda,
+        building_management_id: values.building,
+        date: values.date,
+        time: values.time,
+        manager_id: values.momWriter,
       },
     };
 
@@ -533,7 +564,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
     const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_meeting/meetings/26`
+      `society_managements/${society_id}/bx_block_meeting/meetings/${this.state.scheduleMeetingId}`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
@@ -550,10 +581,10 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
   };
 
   // Update Status Meeting API
-  updateStatusMeeting = () => {
+  updateStatusMeeting = (newStatus: string) => {
     const body = {
       meeting: {
-        status: "cancelled",
+        status: newStatus,
       },
     };
 
@@ -569,7 +600,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
     const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_meeting/meetings/26`
+      `society_managements/${society_id}/bx_block_meeting/meetings/${this.state.scheduleMeetingId}`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
@@ -601,6 +632,12 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
   handleCancelMeetingModal = () => {
     this.setState({
       isCancelMeetingModalOpen: !this.state.isCancelMeetingModalOpen,
+    });
+  };
+
+  handleCompleteMeetingModal = () => {
+    this.setState({
+      isCompleteMeetingModalOpen: !this.state.isCompleteMeetingModalOpen,
     });
   };
   // Customizable Area End

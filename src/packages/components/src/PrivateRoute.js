@@ -72,6 +72,8 @@ const PrivateRoute = ({ roles, routeMap, component: Component, ...rest }) => (
           return (
             <Redirect to={{ pathname: "/DashboardGeneral", state: { from: props.location } }} />
           );
+        } else {
+          return <Wrapper element={<Component />} routeMap={routeMap} {...props} />;
         }
       } else if (roles.includes(ROLE.PRIVATE) && !userToken) {
         return <Wrapper element={<Component />} routeMap={routeMap} {...props} />;
