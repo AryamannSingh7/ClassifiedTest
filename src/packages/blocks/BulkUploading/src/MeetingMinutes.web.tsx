@@ -87,9 +87,10 @@ class MeetingMinutes extends MeetingMinutesController {
                       <MenuItem value="" disabled>
                         <em>Select Status</em>
                       </MenuItem>
-                      <MenuItem value={10}>Ten</MenuItem>
-                      <MenuItem value={20}>Twenty</MenuItem>
-                      <MenuItem value={30}>Thirty</MenuItem>
+                      <MenuItem value="all">All</MenuItem>
+                      <MenuItem value="scheduled">Scheduled</MenuItem>
+                      <MenuItem value="completed">Completed</MenuItem>
+                      <MenuItem value="cancelled">Cancelled</MenuItem>
                     </Select>
                     <Button startIcon={<img src={SearchIconImage} />}>Search</Button>
                   </Box>
@@ -116,6 +117,11 @@ class MeetingMinutes extends MeetingMinutesController {
                         </TableRow>
                       </TableHead>
                       <TableBody>
+                        {this.state.meetingMinuteList.length === 0 && (
+                          <TableRow>
+                            <TableCell colSpan={5}>No Meeting Minutes Available!!</TableCell>
+                          </TableRow>
+                        )}
                         {this.state.meetingMinuteList.map((meeting: any, index: string) => {
                           return (
                             <TableRow key={index}>

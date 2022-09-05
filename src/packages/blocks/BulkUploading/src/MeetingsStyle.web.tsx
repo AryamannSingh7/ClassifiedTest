@@ -177,6 +177,9 @@ export const MeetingsStyleWeb: any = {
       background: "#FFEDE0",
       color: "#FC8434",
     },
+    "& .error": {
+      color: "red",
+    },
   },
   scheduledMeetingDetails: {
     "& .navigation": {

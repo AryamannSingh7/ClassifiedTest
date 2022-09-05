@@ -1,8 +1,8 @@
 // App.js - WEB
-import React, { Component } from "react";
-import { View } from "react-native";
-import firebase from 'firebase'
-import { connect } from 'react-firebase'
+import React, { Component } from 'react';
+import { View } from 'react-native';
+import firebase from 'firebase';
+import { connect } from 'react-firebase';
 
 import WebRoutesGenerator from "../../components/src/NativeWebRouteWrapper";
 import { ModalContainer } from "react-router-modal";
@@ -359,22 +359,22 @@ const routeMap = {
     path: '/ViewInvoices',
     exact: true
   },
-  ViewReceipt:{
+  ViewReceipt: {
     component: ViewReceipt,
     path: '/ViewReceipt',
     exact: true
   },
-  InvoicesDetails:{
+  InvoicesDetails: {
     component: InvoicesDetails,
     path: '/InvoicesDetails',
     exact: true
   },
-  ReceiptsDetails:{
+  ReceiptsDetails: {
     component: ReceiptsDetails,
     path: '/ReceiptsDetails',
     exact: true
   },
-  CharmainInvoices:{
+  CharmainInvoices: {
     component: CharmainInvoices,
     path: '/CharmainInvoices',
     exact: true

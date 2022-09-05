@@ -108,7 +108,10 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                     </Box>
                     <Box className="items">
                       <span>Building: </span>
-                      <p>--</p>
+                      <p>
+                        {this.state.scheduleMeetingDetails &&
+                          this.state.scheduleMeetingDetails.attributes.building.name}
+                      </p>
                     </Box>
                     <Box className="items">
                       <span>Agenda: </span>
@@ -135,8 +138,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                         {this.state.scheduleMeetingDetails &&
                           this.state.scheduleMeetingDetails.attributes.meeting_schedule_detail &&
                           this.state.scheduleMeetingDetails.attributes.meeting_schedule_detail
-                            .scheduled_on}{" "}
-                        --
+                            .scheduled_on}
                       </p>
                     </Box>
                   </Box>
@@ -154,41 +156,63 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                     </Box>
                   )}
                 </Box>
-                {this.state.scheduleMeetingStatus === "scheduled" && (
-                  <>
-                    <Box className="response-box">
-                      <h3>Response</h3>
-                      <Box className="status">
-                        <div className="item">
-                          <img src={AwaitIcon} />
-                          <p>
-                            Awaiting <span>84</span>
-                          </p>
-                        </div>
-                        <div className="item">
-                          <img src={AcceptIcon} />
-                          <p>
-                            Accepted <span>84</span>
-                          </p>
-                        </div>
-                        <div className="item">
-                          <img src={RejectIcon} />
-                          <p>
-                            Rejected <span>84</span>
-                          </p>
-                        </div>
+                {this.state.scheduleMeetingDetails &&
+                  this.state.scheduleMeetingStatus === "scheduled" && (
+                    <>
+                      <Box className="response-box">
+                        <h3>Response</h3>
+                        <Box className="status">
+                          <div className="item">
+                            <img src={AwaitIcon} />
+                            <p>
+                              Awaiting{" "}
+                              <span>
+                                {
+                                  this.state.scheduleMeetingDetails.attributes.meeting_responses
+                                    .awaited
+                                }
+                              </span>
+                            </p>
+                          </div>
+                          <div className="item">
+                            <img src={AcceptIcon} />
+                            <p>
+                              Accepted{" "}
+                              <span>
+                                {
+                                  this.state.scheduleMeetingDetails.attributes.meeting_responses
+                                    .accepted
+                                }
+                              </span>
+                            </p>
+                          </div>
+                          <div className="item">
+                            <img src={RejectIcon} />
+                            <p>
+                              Rejected{" "}
+                              <span>
+                                {
+                                  this.state.scheduleMeetingDetails.attributes.meeting_responses
+                                    .rejected
+                                }
+                              </span>
+                            </p>
+                          </div>
+                        </Box>
                       </Box>
-                    </Box>
-                    <Box className="button-box">
-                      <Button className="cancel" onClick={() => this.handleCancelMeetingModal()}>
-                        Cancel Meeting
-                      </Button>
-                      <Button className="edit" onClick={() => this.handleEditMeetingModal()}>
-                        Edit Meeting
-                      </Button>
-                    </Box>
-                  </>
-                )}
+                      <Box className="button-box">
+                        <Button className="cancel" onClick={() => {}}>
+                          Complete Meeting
+                        </Button>
+                        <Button className="cancel" onClick={() => this.handleCancelMeetingModal()}>
+                          Cancel Meeting
+                        </Button>
+                        <Button className="edit" onClick={() => this.handleEditMeetingModal()}>
+                          Edit Meeting
+                        </Button>
+                      </Box>
+                    </>
+                  )}
               </Container>
             </Grid>
           </Box>
