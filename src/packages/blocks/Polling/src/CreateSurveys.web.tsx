@@ -44,7 +44,9 @@ import PollingController, {
 } from "./PollingController";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
-
+import { withRouter } from 'react-router';
+import { withTranslation } from 'react-i18next';
+import '../../../web/src/i18n.js';
 
 
 const currencies = [
@@ -66,7 +68,7 @@ const currencies = [
     },
   ];
 
-export default class CreateSurveys extends PollingController {
+class CreateSurveys extends PollingController {
   constructor(props: Props) {
     super(props);
    
@@ -75,6 +77,7 @@ export default class CreateSurveys extends PollingController {
     this.setState({checked: !this.state.checked})
   };
   render() {
+    const {t} = this.props
     return ( 
       <>
     <Box style={{background: "#E5ECFF"}}>
@@ -91,9 +94,9 @@ export default class CreateSurveys extends PollingController {
                     <Box className="navigation">
                         <Box>
                             <Typography variant="body1" >
-                            Poll and survey / <Box component="span" style={{color: "blue"}}>Create a Survey</Box>
+                            {t("Poll and survey")} / <Box component="span" style={{color: "blue"}}>{t("Create a Survey")}</Box>
                             </Typography>
-                            <Typography variant="h5" className="subHeading">Create a Survey</Typography>
+                            <Typography variant="h5" className="subHeading">{t("Create a Survey")}</Typography>
                         </Box>
                     </Box>
 
@@ -102,7 +105,7 @@ export default class CreateSurveys extends PollingController {
                    
                         <Grid item sm={12} md={12} xs={12}>
                             <Box className="createPSCards">
-                                <TextField label="Title of the Poll" variant="outlined" 
+                                <TextField label={t("Title of the Poll")} variant="outlined" 
                                 name="title"
                                 value={this.state.PollData.title}
                                 onChange={this.handlePollDataChange}
@@ -143,13 +146,13 @@ export default class CreateSurveys extends PollingController {
                                     </Grid>
                                     </MuiPickersUtilsProvider> */}
 
-                                    <TextField label="Start Date" variant="outlined"
+                                    <TextField label={t("Start Date")} variant="outlined"
                                     name="startDate"
                                     value={this.state.PollData.startDate}
                                     onChange={this.handlePollDataChange}
                                     required fullWidth
                                     />
-                                    <TextField label="End Date" variant="outlined"
+                                    <TextField label={t("End Date")} variant="outlined"
                                     name="endDate"
                                     value={this.state.PollData.endDate}
                                     onChange={this.handlePollDataChange}
@@ -160,14 +163,14 @@ export default class CreateSurveys extends PollingController {
 
                                 <Box className="targetaudience">
                                     <Box className="infoIcon">
-                                        <Typography variant="subtitle1">Select your target audience</Typography>  
+                                        <Typography variant="subtitle1">{t("Select your target audience")}</Typography>  
                                         <InfoIcon style={{color:"grey", fontSize:18}}/>
                                     </Box>
                                     <Box className="targetOne">
-                                        <Button variant="outlined" color="primary">OWNERS</Button>
-                                        <Button variant="outlined" color="primary">RESIDENTS</Button>
+                                        <Button variant="outlined" color="primary">{t("OWNERS")}</Button>
+                                        <Button variant="outlined" color="primary">{t("RESIDENTS")}</Button>
                                         <Typography variant="subtitle1">Or, </Typography>
-                                        <Button variant="contained" color="primary">CREATE AUDIENCE</Button>
+                                        <Button variant="contained" color="primary">{t("CREATE AUDIENCE")}</Button>
                                     </Box>
                                 </Box>
                             </Box>
@@ -176,11 +179,11 @@ export default class CreateSurveys extends PollingController {
                         <Grid item sm={12} md={12} xs={12}>
                             <Box className="createPSCards">
                                 <Box className="infoIcon">
-                                    <Typography variant="subtitle1">Description</Typography>  
+                                    <Typography variant="subtitle1">{t("Description")}</Typography>  
                                     <InfoIcon style={{color:"grey", fontSize:18}}/>
                                 </Box>
 
-                                <TextField multiline rows={4}  label="Description" variant="filled"
+                                <TextField multiline rows={4}  label={t("Description")} variant="filled"
                                 name="description"
                                 InputProps={{ disableUnderline: true }}
                                 value={this.state.PollData.description}
@@ -191,13 +194,13 @@ export default class CreateSurveys extends PollingController {
                                 <TextField
                                 id="standard-select-currency"
                                 select
-                                label="Select"
+                                label={t("Select")}
                                 value={this.state.selectQuestion}
                                 onChange={this.handleQuestionSelect}
                                     SelectProps={{
                                     native: true,
                                   }}
-                                  helperText="Please select your currency"
+                                  helperText={t("Please select your currency")}
                                   variant="outlined"
                                 >
 
@@ -212,7 +215,7 @@ export default class CreateSurveys extends PollingController {
 
                                 </TextField>
 
-                                <TextField  label="enter question" variant="outlined"
+                                <TextField  label={t("enter question")} variant="outlined"
                                 name="question"
                                 value={this.state.PollData.question}
                                 onChange={this.handlePollDataChange}
@@ -242,7 +245,7 @@ export default class CreateSurveys extends PollingController {
 
                                 <Button variant="outlined" color="primary" 
                                 onClick={() => this.addOptionsFields()}
-                                className="addOptions">ADD OPTION</Button> 
+                                className="addOptions">{t("ADD OPTION")}</Button> 
 
                             </Box>
                         </Grid>
@@ -251,12 +254,12 @@ export default class CreateSurveys extends PollingController {
 
                         <Box className="BottomButton">
                             <Box className="Previewbtn"> 
-                                <Link href="/SurveyPreview">
-                                    <Button variant="contained" color="primary">PREVIEW</Button>
+                                <Link onClick={() => this.props.history.push("/SurveyPreview")}>
+                                    <Button variant="contained" color="primary">{t("PREVIEW")}</Button>
                                 </Link> 
                             </Box>
                             <Box className="Publishbtn">
-                                <Button type="submit" variant="outlined" color="primary">PUBLISH</Button>
+                                <Button type="submit" variant="outlined" color="primary">{t("PUBLISH")}</Button>
                             </Box> 
                         </Box>
 
@@ -271,6 +274,7 @@ export default class CreateSurveys extends PollingController {
   }
 }
 
+export default withTranslation()(withRouter(CreateSurveys)); 
 
 const dashBoard = {
     SideBar: {

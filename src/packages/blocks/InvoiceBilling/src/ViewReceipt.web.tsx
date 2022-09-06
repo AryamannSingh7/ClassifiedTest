@@ -51,7 +51,7 @@ render() {
                 <Box className="content-header">
                 <Box className="left-block blocks">
                     <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
-                    <h4>View Receipt</h4>
+                    <h4>{t("View Receipt")}</h4>
                 </Box>
                 <Box className="incident-right-block blocks">
                     <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
@@ -65,8 +65,8 @@ render() {
                         open={Boolean(this.state.anchorEl)}
                         //@ts-ignore
                         onClose={() => this.handleClose()}>
-                        <MenuItem onClick={(e) => this.handleClose(e, "asc")}>Ascending</MenuItem>
-                        <MenuItem onClick={(e) => this.handleClose(e, "desc")}>Descending</MenuItem>
+                        <MenuItem onClick={(e) => this.handleClose(e, "asc")}>{t("Ascending")}</MenuItem>
+                        <MenuItem onClick={(e) => this.handleClose(e, "desc")}>{t("Descending")}</MenuItem>
                       </Menu>
                     </Box>
 

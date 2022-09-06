@@ -40,13 +40,15 @@ import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import "../../../web/src/assets/css/style.scss";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
-
+import { withTranslation } from 'react-i18next';
+import '../../../web/src/i18n.js';
 class Polling extends PollingController {
   constructor(props: Props) {
     super(props);
   }
 
   render() {
+    const {t} = this.props
     return ( 
       <>
     <Box style={{background: "#E5ECFF"}}>
@@ -63,17 +65,17 @@ class Polling extends PollingController {
                 <Box className="navigation">
                     <Box>
                         <Typography variant="body1" >
-                        My Dashboard / <Box component="span" style={{color: "blue"}}>Poll and surveys</Box>
+                        {t("My Dashboard")} / <Box component="span" style={{color: "blue"}}>{t("Poll and surveys")}</Box>
                         </Typography>
-                        <Typography variant="h5" className="subHeading">Poll / Surveys</Typography>
+                        <Typography variant="h5" className="subHeading">{t("Poll / Surveys")}</Typography>
                     </Box>
                     <Box>
                         <FormControl className='YearMain'>
                             <NativeSelect className='yearSelection' 
                             value={this.state.Year} onChange={this.handleChange}>
-                                <option value="This Week">This Week</option>
-                                <option value="This Month">This Month</option>
-                                <option value="This Year">This Year</option>
+                                <option value="This Week">{t("This Week")}</option>
+                                <option value="This Month">{t("This Month")}</option>
+                                <option value="This Year">{t("This Year")}</option>
                             </NativeSelect>
                         </FormControl>
                     </Box>
@@ -84,7 +86,7 @@ class Polling extends PollingController {
                             <Box sx={{ml:1, mb:2}} >
                                 <img src={pollandsurvey} alt="pollandsurvey" />
                             </Box>
-                            <Typography  className="CreatePSHeading">Create a New Polls/Survey</Typography> 
+                            <Typography  className="CreatePSHeading">{t("Create a New Polls/Survey")}</Typography> 
                         </Box>
                     </Grid> 
 
@@ -96,7 +98,7 @@ class Polling extends PollingController {
                         className="DialogMainBox"
                         scroll="paper"
                     >
-                        <DialogTitle id="alert-dialog-title" style={{textAlign:"center"}}>Choose Options</DialogTitle>
+                        <DialogTitle id="alert-dialog-title" style={{textAlign:"center"}}>{t("Choose Options")}</DialogTitle>
                         <Box style={{ display: "flex", marginLeft: 50, marginRight: 50}}>
                             <DialogActions disableSpacing style={{flexDirection:"row",marginTop:'0px'}}>
                                 <div 
@@ -107,7 +109,7 @@ class Polling extends PollingController {
                                     className="dialogOption"
                                 >
                                     <img src={pollcreate} alt="pollcreate" className="DialogIcons"/>
-                                    <p>Create Poll</p>
+                                    <p>{t("Create Poll")}</p>
                                 </div>
                                 <div 
                                     onClick={() => {
@@ -117,7 +119,7 @@ class Polling extends PollingController {
                                     className="dialogOption"
                                 >
                                     <img src={surveycreate} alt="surveycreate" className="DialogIcons"/>
-                                    <p>Create Survey</p> 
+                                    <p>{t("Create Survey")}</p> 
                                 </div>
                             </DialogActions>
                         </Box>
@@ -128,7 +130,7 @@ class Polling extends PollingController {
                             <Box sx={{ml:1, mb:2}} className="CardsIcons">
                                 <img src={pollcreate} alt="pollcreate" />
                             </Box>
-                            <Typography className="subHeading">Polls Created</Typography>
+                            <Typography className="subHeading">{t("Polls Created")}</Typography>
                             <Box className="bottomTwoSpan">
                                 <Typography variant="body2" className="bottomColor">
                                     {this.state.totalPollsCount.polls_count ? this.state.totalPollsCount.polls_count : ''}
@@ -136,7 +138,7 @@ class Polling extends PollingController {
                             </Box> 
                             <Box className="bottomTwoSpan">
                                 <Typography variant="body2">
-                                    Last poll created on {this.state.totalPollsCount.last_poll_created_at ? this.state.totalPollsCount.last_poll_created_at : ''}
+                                    {t("Last poll created on")} {this.state.totalPollsCount.last_poll_created_at ? this.state.totalPollsCount.last_poll_created_at : ''}
                                 </Typography> 
                             </Box> 
                         </Box>
@@ -147,12 +149,12 @@ class Polling extends PollingController {
                             <Box sx={{ml:1, mb:2}} className="CardsIcons">
                             <img src={surveycreate} alt="surveycreate" />
                             </Box>
-                            <Typography className="subHeading">Surveys Created</Typography>
+                            <Typography className="subHeading">{t("Surveys Created")}</Typography>
                             <Box className="bottomTwoSpan">
                                 <Typography variant="body2" className="bottomColor">344</Typography>  
                             </Box> 
                             <Box className="bottomTwoSpan">
-                                <Typography variant="body2">Last Survey created on 12-02-2022</Typography> 
+                                <Typography variant="body2">{t("Last Survey created on")} 12-02-2022</Typography> 
                             </Box> 
                         </Box>
                     </Grid>
@@ -160,9 +162,9 @@ class Polling extends PollingController {
                 </Grid>
 
                 <Box className="RecentItems">
-                    <Typography className="Recenttitle">Recent Polls</Typography>
+                    <Typography className="Recenttitle">{t("Recent Polls")}</Typography>
                     <Link href="/PollsallData" >
-                        <Typography className="ViewAll">View All</Typography>
+                        <Typography className="ViewAll">{t("View All")}</Typography>
                     </Link>
                 </Box>
 
@@ -221,52 +223,20 @@ class Polling extends PollingController {
                 </Grid>
 
                 <Box className="RecentItems">
-                    <Typography className="Recenttitle">Recent Surveys</Typography>
-                    <Typography className="ViewAll">View All</Typography>
+                    <Typography className="Recenttitle">{t("Recent Surveys")}</Typography>
+                    <Typography className="ViewAll">{t("View All")}</Typography>
                 </Box>
                 <Grid container spacing={4} style={{marginTop: 15, marginBottom:30}}>
                     <Grid item sm={6} md={4} xs={12}>
                         <Box className="EventsCards">
                             <Box className="EventsIconsText">
-                                <Typography variant="body2" className="statusOngoing">Ongoing</Typography>
+                                <Typography variant="body2" className="statusOngoing">{t("Ongoing")}</Typography>
                             </Box>
                             <Box className="EventsIconsText">
-                                <Typography className="EventsTitle">Block W Parking</Typography>
+                                <Typography className="EventsTitle">{t("Block W Parking")}</Typography>
                             </Box>
                             <Box className="EventsIconsText">
-                                <Typography variant="body2">To discuss new vehicle guidlines</Typography>
-                            </Box>
-                            <Box className="EventsIconsText">
-                                <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
-                                <Typography variant="body2">05-08-2022 - 08-08-2022 </Typography>
-                            </Box>
-                            <Divider style={{marginTop:10, marginRight:10}}/>
-                            <Box className="EventsIconsData">
-                                <Box className="EventsIconsDataBox">
-                                    <DateRangeOutlinedIcon style={{color: "#ff8100"}}/>
-                                    <Typography variant="body2">84</Typography>
-                                </Box>
-                                <Box className="EventsIconsDataBox">
-                                    <CheckCircleOutlineOutlinedIcon style={{color: "green"}}/>
-                                    <Typography variant="body2">29</Typography>
-                                </Box>
-                                <Box className="EventsIconsDataBox">
-                                    <HighlightOffOutlinedIcon style={{color: "red"}}/>
-                                    <Typography variant="body2">13</Typography>
-                                </Box>
-                            </Box>
-                        </Box>
-                    </Grid>
-                    <Grid item sm={6} md={4} xs={12}>
-                        <Box className="EventsCards">
-                            <Box className="EventsIconsText">
-                                <Typography variant="body2" className="statusOngoing">Ongoing</Typography>
-                            </Box>
-                            <Box className="EventsIconsText">
-                                <Typography className="EventsTitle">Block W Parking</Typography>
-                            </Box>
-                            <Box className="EventsIconsText">
-                                <Typography variant="body2">To discuss new vehicle guidlines</Typography>
+                                <Typography variant="body2">{t("To discuss new vehicle guidlines")}</Typography>
                             </Box>
                             <Box className="EventsIconsText">
                                 <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
@@ -292,13 +262,45 @@ class Polling extends PollingController {
                     <Grid item sm={6} md={4} xs={12}>
                         <Box className="EventsCards">
                             <Box className="EventsIconsText">
-                                <Typography variant="body2" className="statusOngoing">Ongoing</Typography>
+                                <Typography variant="body2" className="statusOngoing">{t("Ongoing")}</Typography>
                             </Box>
                             <Box className="EventsIconsText">
-                                <Typography className="EventsTitle">Block W Parking</Typography>
+                                <Typography className="EventsTitle">{t("Block W Parking")}</Typography>
                             </Box>
                             <Box className="EventsIconsText">
-                                <Typography variant="body2">To discuss new vehicle guidlines</Typography>
+                                <Typography variant="body2">{t("To discuss new vehicle guidlines")}</Typography>
+                            </Box>
+                            <Box className="EventsIconsText">
+                                <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
+                                <Typography variant="body2">05-08-2022 - 08-08-2022 </Typography>
+                            </Box>
+                            <Divider style={{marginTop:10, marginRight:10}}/>
+                            <Box className="EventsIconsData">
+                                <Box className="EventsIconsDataBox">
+                                    <DateRangeOutlinedIcon style={{color: "#ff8100"}}/>
+                                    <Typography variant="body2">84</Typography>
+                                </Box>
+                                <Box className="EventsIconsDataBox">
+                                    <CheckCircleOutlineOutlinedIcon style={{color: "green"}}/>
+                                    <Typography variant="body2">29</Typography>
+                                </Box>
+                                <Box className="EventsIconsDataBox">
+                                    <HighlightOffOutlinedIcon style={{color: "red"}}/>
+                                    <Typography variant="body2">13</Typography>
+                                </Box>
+                            </Box>
+                        </Box>
+                    </Grid>
+                    <Grid item sm={6} md={4} xs={12}>
+                        <Box className="EventsCards">
+                            <Box className="EventsIconsText">
+                                <Typography variant="body2" className="statusOngoing">{t("Ongoing")}</Typography>
+                            </Box>
+                            <Box className="EventsIconsText">
+                                <Typography className="EventsTitle">{t("Block W Parking")}</Typography>
+                            </Box>
+                            <Box className="EventsIconsText">
+                                <Typography variant="body2">{t("To discuss new vehicle guidlines")}</Typography>
                             </Box>
                             <Box className="EventsIconsText">
                                 <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
@@ -333,7 +335,7 @@ class Polling extends PollingController {
   }
 }
 
-export default withRouter(Polling)
+export default withTranslation()(withRouter(Polling)); 
 
 const dashBoard = {
     SideBar: {

@@ -28,6 +28,8 @@ import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import { Style } from "@material-ui/icons";
 import { withRouter } from 'react-router';
+import { withTranslation } from 'react-i18next';
+import '../../../web/src/i18n.js';
 
 class PollsallData extends PollingController {
   constructor(props: Props) {
@@ -35,6 +37,7 @@ class PollsallData extends PollingController {
   }
 
   render() {
+    const {t} = this.props
     return ( 
       <>
         <Box style={{background: "#E5ECFF"}}>
@@ -52,28 +55,28 @@ class PollsallData extends PollingController {
                     <Box className="navigation">
                         <Box>
                             <Typography variant="body1" >
-                            My Dashboard / Poll and surveys / <Box component="span" style={{color: "blue"}}>Polls</Box>
+                            {t("My Dashboard")} / {t("Poll and surveys")} / <Box component="span" style={{color: "blue"}}>{t("Polls")}</Box>
                             </Typography>
-                            <Typography variant="h5" className="subHeading">Poll / Surveys</Typography>
+                            <Typography variant="h5" className="subHeading">{t("Poll / Surveys")}</Typography>
                         </Box>
                         <Box>
                             <FormControl className='YearMain'>
                                 <NativeSelect className='yearSelection' disableUnderline value={this.state.Year} onChange={this.handleChange} >
-                                    <option value="This Week">This Week</option>
-                                    <option value="This Month">This Month</option>
-                                    <option value="This Year">This Year</option>
+                                    <option value="This Week">{t("This Week")}</option>
+                                    <option value="This Month">{t("This Month")}</option>
+                                    <option value="This Year">{t("This Year")}</option>
                                 </NativeSelect>
                             </FormControl>
                         </Box>
                     </Box>
                     <Grid container spacing={4} style={{marginTop: 15,marginBottom:20}} className="link-decoration">
                         <Grid item sm={6} md={4} xs={12}>
-                            <Link href="/CreatePolls">
+                            <Link onClick={() => this.props.history.push("/CreatePolls")}>
                                 <Box className="CreatePSsingle">
                                     <Box sx={{ml:1, mb:2}}>
                                     <img src={pollandsurvey} alt="pollandsurvey" />
                                     </Box>
-                                    <Typography  className="CreatePSHeading">Create a New Poll</Typography> 
+                                    <Typography  className="CreatePSHeading">{t("Create a New Poll")}</Typography> 
                                 </Box>
                             </Link>
                         </Grid> 
@@ -137,13 +140,13 @@ class PollsallData extends PollingController {
                         <Grid item sm={4} md={4} xs={4}>
                             <Box className="EventsCards">
                                 <Box className="EventsIconsText">
-                                    <Typography variant="body2" className="statusOngoing">Ongoing</Typography>
+                                    <Typography variant="body2" className="statusOngoing">{t("Ongoing")}</Typography>
                                 </Box>
                                 <Box className="EventsIconsText">
-                                    <Typography className="EventsTitle">Block W Parking</Typography>
+                                    <Typography className="EventsTitle">{t("Block W Parking")}</Typography>
                                 </Box>
                                 <Box className="EventsIconsText">
-                                    <Typography variant="body2">To discuss new vehicle guidlines</Typography>
+                                    <Typography variant="body2">{t("To discuss new vehicle guidlines")}</Typography>
                                 </Box>
                                 <Box className="EventsIconsText">
                                     <img src={Cardcalendar} alt="Cardcalendar" />
@@ -176,6 +179,6 @@ class PollsallData extends PollingController {
   }
 }
 
-export default withRouter(PollsallData)
+export default withTranslation()(withRouter(PollsallData)); 
 
 // Customizable Area End

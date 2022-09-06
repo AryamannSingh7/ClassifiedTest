@@ -30,13 +30,17 @@ import DashboardController, {
 } from "../../../blocks/dashboard/src/DashboardController";
 import DashboardHeader from "./DashboardHeader.web";
 import ChairmanSidebar from "./ChairmanSidebar.web";
+import { withRouter } from "react-router-dom";
+import { withTranslation } from 'react-i18next';
+import '../../../web/src/i18n.js';
 
-export default class DashboardGeneral extends DashboardController {
+class DashboardGeneral extends DashboardController {
   constructor(props: Props) {
     super(props);
   }
 
   render() {
+    const {t} = this.props
     return (
       <>
         <Box style={{ background: "#E5ECFF" }}>
@@ -53,13 +57,13 @@ export default class DashboardGeneral extends DashboardController {
                 <Box style={dashBoard.navigation}>
                   <Box>
                     <Typography variant="body1">
-                      My Dashboard /{" "}
+                      {t("My Dashboard")} /{" "}
                       <Box component="span" style={{ color: "blue" }}>
-                        General Dashboard
+                        {t("General Dashboard")}
                       </Box>
                     </Typography>
                     <Typography variant="h5" style={dashBoard.subHeading}>
-                      General Dashboard
+                      {t("General Dashboard")}
                     </Typography>
                   </Box>
                   <Box>
@@ -85,15 +89,15 @@ export default class DashboardGeneral extends DashboardController {
                         <img src={keyhand} alt="keyhand" />
                       </Box>
                       <Typography style={dashBoard.subHeading}>
-                        Building Ownership Rate
+                        {t("Building Ownership Rate")}
                       </Typography>
 
                       <Box style={dashBoard.cardBottom}>
-                        <Typography variant="body2">Sold</Typography>
+                        <Typography variant="body2">{t("Sold")}</Typography>
                         <Box component="span" style={dashBoard.bottomColor}>
                           75%
                         </Box>
-                        <Typography variant="body2">Unsold</Typography>
+                        <Typography variant="body2">{t("Unsold")}</Typography>
                         <Box component="span" style={dashBoard.bottomColor}>
                           25%
                         </Box>
@@ -106,7 +110,7 @@ export default class DashboardGeneral extends DashboardController {
                         <img src={keyrented} alt="keyrented" width={32} />
                       </Box>
                       <Typography style={dashBoard.subHeading}>
-                        Rented Out Apartments
+                        {t("Rented Out Apartments")}
                       </Typography>
                       <Box style={dashBoard.bottomTwoSpan}>
                         <Box component="span" style={dashBoard.bottomColor}>
@@ -121,7 +125,7 @@ export default class DashboardGeneral extends DashboardController {
                         <img src={money} alt="money" width={28} />
                       </Box>
                       <Typography style={dashBoard.subHeading}>
-                        Management Fee Collected
+                        {t("Management Fee Collected")}
                       </Typography>
                       <Box style={dashBoard.bottomTwoSpan}>
                         <Box component="span" style={dashBoard.bottomColor}>
@@ -136,7 +140,7 @@ export default class DashboardGeneral extends DashboardController {
                         <img src={registered} alt="registered" />
                       </Box>
                       <Typography style={dashBoard.subHeading}>
-                        Registered Residents/Owners
+                        {t("Registered Residents/Owners")}
                       </Typography>
                       <Box style={dashBoard.bottomTwoSpan}>
                         <Box component="span" style={dashBoard.bottomColor}>
@@ -151,7 +155,7 @@ export default class DashboardGeneral extends DashboardController {
                         <img src={activemembers} alt="activemembers" />
                       </Box>
                       <Typography style={dashBoard.subHeading}>
-                        Active Registered Members
+                        {t("Active Registered Members")}
                       </Typography>
                       <Box style={dashBoard.bottomTwoSpan}>
                         <Box component="span" style={dashBoard.bottomColor}>
@@ -166,7 +170,7 @@ export default class DashboardGeneral extends DashboardController {
                         <img src={members} alt="members" />
                       </Box>
                       <Typography style={dashBoard.subHeading}>
-                        Members Never Logged in
+                        {t("Members Never Logged in")}
                       </Typography>
                       <Box style={dashBoard.bottomTwoSpan}>
                         <Box component="span" style={dashBoard.bottomColor}>
@@ -181,7 +185,7 @@ export default class DashboardGeneral extends DashboardController {
                         <img src={overdue} alt="overdue" width={25} />
                       </Box>
                       <Typography style={dashBoard.subHeading}>
-                        Overdue Management Fee
+                        {t("Overdue Management Fee")}
                       </Typography>
                       <Box style={dashBoard.bottomTwoSpan}>
                         <Box component="span" style={dashBoard.bottomColor}>
@@ -193,7 +197,7 @@ export default class DashboardGeneral extends DashboardController {
                 </Grid>
                 <Box>
                   <Typography variant="h5" style={dashBoard.EventsHeading}>
-                    Upcoming Events
+                    {t("Upcoming Events")}
                   </Typography>
                 </Box>
                 <Grid
@@ -208,12 +212,12 @@ export default class DashboardGeneral extends DashboardController {
                           Meeting Title
                         </Typography>
                         <Typography>
-                          To discuss new vehicle guidlines
+                          {t("To discuss new vehicle guidlines")}
                         </Typography>
                       </Box>
                       <Box style={dashBoard.EventsIconsText}>
                         <img src={location} alt="location" />
-                        <Box component="span">Center park common hall</Box>
+                        <Box component="span">{t("Center park common hall")}</Box>
                       </Box>
                       <Box style={dashBoard.EventsIconsText}>
                         <img src={Cardcalendar} alt="Cardcalendar" />
@@ -240,9 +244,9 @@ export default class DashboardGeneral extends DashboardController {
                       <Box sx={{ ml: 1, mb: 1 }} style={dashBoard.facility}>
                         <Box>
                           <Typography style={dashBoard.EventsTitle}>
-                            Facility Resrvation
+                            {t("Facility Resrvation")}
                           </Typography>
-                          <Typography>Patyment status : Paid</Typography>
+                          <Typography>{t("Patyment status")} : Paid</Typography>
                         </Box>
                         <Typography style={dashBoard.PricePaid}>
                           SR 250
@@ -368,4 +372,5 @@ const dashBoard = {
   },
 };
 
+export default withTranslation()(withRouter(DashboardGeneral));
 // Customizable Area End

@@ -29,6 +29,9 @@ import TodayOutlinedIcon from '@material-ui/icons/TodayOutlined';
 import DashboardController, { Props } from "../../../blocks/dashboard/src/DashboardController";
 import DashboardHeader from "./DashboardHeader.web";
 import ChairmanSidebar from "./ChairmanSidebar.web";
+import { withRouter } from 'react-router';
+import { withTranslation } from 'react-i18next';
+import '../../../web/src/i18n.js';
 
 function createData(name:any, unit:any, ticket:any) {
     return { name, unit, ticket };
@@ -42,13 +45,14 @@ function createData(name:any, unit:any, ticket:any) {
     createData('Gingerbread', 356, 3),
   ];
 
-export default class DashboardTicket extends DashboardController {
+class DashboardTicket extends DashboardController {
     constructor(props: Props) {
       super(props);
     }
 
 
     render() {
+    const {t} = this.props
       return ( 
       <>
         <Box style={{background: "#E5ECFF"}}>
@@ -66,9 +70,9 @@ export default class DashboardTicket extends DashboardController {
                         <Box style={dashBoardActions.navigation}>
                             <Box>
                                 <Typography variant="body1" >
-                                My Dashboard / <Box component="span" style={{color: "blue"}}>Ticket Dashboard</Box>
+                                {t("My Dashboard")} / <Box component="span" style={{color: "blue"}}>{t("Ticket Dashboard")}</Box>
                                 </Typography>
-                                <Typography variant="h5" style={dashBoardActions.subHeading}>Ticket Dashboard</Typography>
+                                <Typography variant="h5" style={dashBoardActions.subHeading}>{("Ticket Dashboard")}</Typography>
                             </Box>
                             <Box>
                                 <FormControl style={dashBoardActions.YearMain} className='yearTab'>
@@ -88,10 +92,10 @@ export default class DashboardTicket extends DashboardController {
                                     <Box sx={{ml:1, mb:2}} style={dashBoardActions.CardsIcons}>
                                         <img src={ticketclock} alt="ticketclock" width={25}/>
                                     </Box>
-                                    <Typography style={dashBoardActions.subHeading}>Avereage Resolution Time</Typography>
+                                    <Typography style={dashBoardActions.subHeading}>{t("Avereage Resolution Time")}</Typography>
                                     <Box style={dashBoardActions.bottomTwoSpan}>
                                         <Box component="span" style={dashBoardActions.bottomColor}>2</Box>
-                                        <Typography variant="body2">days</Typography>
+                                        <Typography variant="body2">{t("days")}</Typography>
                                     </Box> 
                                 </Box>
                             </Grid>
@@ -100,10 +104,10 @@ export default class DashboardTicket extends DashboardController {
                                     <Box sx={{ml:1, mb:2}} style={dashBoardActions.CardsIcons}>
                                         <img src={ticket} alt="ticket" />
                                     </Box>
-                                    <Typography style={dashBoardActions.subHeading}>Ticket generated in 2022</Typography>
+                                    <Typography style={dashBoardActions.subHeading}>{t("Ticket generated in")} 2022</Typography>
                                     <Box style={dashBoardActions.bottomTwoSpan}>
                                         <Box component="span" style={dashBoardActions.bottomColor}>73</Box>
-                                        <Typography variant="body2">tickets</Typography>
+                                        <Typography variant="body2">{t("tickets")}</Typography>
                                     </Box> 
                                 </Box>
                             </Grid> 
@@ -112,10 +116,10 @@ export default class DashboardTicket extends DashboardController {
                                     <Box sx={{ml:1, mb:2}} style={dashBoardActions.CardsIcons}>
                                     <img src={ticket_calendar} alt="ticket_calendar" width={25} />
                                     </Box>
-                                    <Typography style={dashBoardActions.subHeading}>Ticket tooks more than X days</Typography>
+                                    <Typography style={dashBoardActions.subHeading}>{t("Ticket tooks more than")} X {t("days")}</Typography>
                                     <Box style={dashBoardActions.bottomTwoSpan}>
                                         <Box component="span" style={dashBoardActions.bottomColor}>12</Box>
-                                        <Typography variant="body2">tickets</Typography>
+                                        <Typography variant="body2">{t("tickets")}</Typography>
                                     </Box> 
                                 </Box>
                             </Grid>   
@@ -123,16 +127,16 @@ export default class DashboardTicket extends DashboardController {
 
                         <Box style={{marginTop: 25,marginBottom:50, background:"#fff", borderRadius:10}}>
                             <Box style={dashBoardActions.TableHeader}>
-                                <Typography variant="h5" style={dashBoardActions.subHeading}>Number of tickets opened by residents</Typography>
+                                <Typography variant="h5" style={dashBoardActions.subHeading}>{t("Number of tickets opened by residents")}</Typography>
                                 <SearchOutlinedIcon/>
                             </Box>
                             <TableContainer >
                                 <Table  aria-label="simple table">
                                     <TableHead>
                                         <TableRow>
-                                            <TableCell style={{color:"grey"}}>Name</TableCell>
-                                            <TableCell style={{color:"grey"}} align="center">Unit Number</TableCell>
-                                            <TableCell style={{color:"grey"}} align="center">Total tickets</TableCell>
+                                            <TableCell style={{color:"grey"}}>{t("Name")}</TableCell>
+                                            <TableCell style={{color:"grey"}} align="center">{t("Unit Number")}</TableCell>
+                                            <TableCell style={{color:"grey"}} align="center">{t("Total tickets")}</TableCell>
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
@@ -147,7 +151,7 @@ export default class DashboardTicket extends DashboardController {
                                 </Table>
                             </TableContainer>
                             <Box style={dashBoardActions.TableHeader}>
-                                <Typography  style={dashBoardActions.subHeading}>Showing 5 of 180 results</Typography>
+                                <Typography  style={dashBoardActions.subHeading}>{t("Showing")} 5 {t("of")} 180 {t("results")}</Typography>
                                 <Pagination count={10} variant="outlined" shape="rounded" />
                             </Box>
                         </Box>    
@@ -160,6 +164,7 @@ export default class DashboardTicket extends DashboardController {
     }
   }
   
+  export default withTranslation()(withRouter(DashboardTicket));
   
   
 const dashBoardActions = {

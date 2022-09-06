@@ -31,6 +31,8 @@ import PollingController, {
 import { withRouter } from "react-router-dom";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
+import { withTranslation } from 'react-i18next';
+import '../../../web/src/i18n.js'   
 
 
 class PollPreview extends PollingController {
@@ -51,6 +53,7 @@ class PollPreview extends PollingController {
   }
 
   render() {
+    const {t} = this.props
     return ( 
       <>
     <Box style={{background: "#E5ECFF"}}>
@@ -67,9 +70,9 @@ class PollPreview extends PollingController {
                     <Box className="navigation">
                         <Box>
                             <Typography variant="body1" >
-                            Poll and survey / Create a Poll / <Box component="span" style={{color: "blue"}}>Poll Preview</Box>
+                            {t("Poll and survey")} / {t("Create a Poll")} / <Box component="span" style={{color: "blue"}}>{t("Poll Preview")}</Box>
                             </Typography>
-                            <Typography variant="h5" className="subHeading">Poll Preview</Typography>
+                            <Typography variant="h5" className="subHeading">{t("Poll Preview")}</Typography>
                         </Box>
                     </Box>
 
@@ -79,7 +82,7 @@ class PollPreview extends PollingController {
                             <Box className="createPSCards">
                                 <Box className="PreviewName">
                                     <Box className="PollName">
-                                        <Typography className="subHeading">Poll Name: </Typography>
+                                        <Typography className="subHeading">{t("Poll Name:")} </Typography>
                                         <Typography className="PollNameText">
                                             {this.state.PreViewPollData?.PollFormData?.title}
                                         </Typography>
@@ -87,7 +90,7 @@ class PollPreview extends PollingController {
                                     <Box>
                                         {
                                             (this.state.PreViewPollData?.PollType === true) ? 
-                                            <Typography variant="body2" className="AnonymousPreviewPoll">Anonymous Poll</Typography>
+                                            <Typography variant="body2" className="AnonymousPreviewPoll">{t("Anonymous Poll")}</Typography>
                                              : ''
                                         }
                                     </Box>
@@ -97,7 +100,7 @@ class PollPreview extends PollingController {
                                     <Box className="datebox">
                                         <CalendarTodayOutlinedIcon style={{color:"grey", fontSize:22}}/>
                                         <Box>
-                                            <Typography className="PollNamedate">Start Date</Typography>
+                                            <Typography className="PollNamedate">{t("Start Date")}</Typography>
                                             <Typography className="PollNameText">
                                                 {/* June 7, 2022 */}
                                                 {moment(this.state.PreViewPollData?.PollFormData?.startDate).format("MMMM DD, YYYY")}</Typography>
@@ -106,7 +109,7 @@ class PollPreview extends PollingController {
                                     <Box className="datebox">
                                         <CalendarTodayOutlinedIcon style={{color:"grey", fontSize:22}}/>
                                         <Box>
-                                            <Typography className="PollNamedate">End Date</Typography>
+                                            <Typography className="PollNamedate">{t("End Date")}</Typography>
                                             <Typography className="PollNameText">
                                                 {/* June 7, 2022 */}
                                             {moment(this.state.PreViewPollData?.PollFormData?.endDate).format("MMMM DD, YYYY")}</Typography>
@@ -115,7 +118,7 @@ class PollPreview extends PollingController {
                                 </Box>
                                 <Box style={{marginTop:15}}>
                                     <Box className="infoIcon">
-                                        <Typography variant="subtitle1">Description</Typography>  
+                                        <Typography variant="subtitle1">{t("Description")}</Typography>  
                                         <InfoIcon style={{color:"grey", fontSize:18}}/>
                                     </Box>
                                     <Box style={{marginTop:5, overflowWrap:"break-word"}}>
@@ -151,15 +154,15 @@ class PollPreview extends PollingController {
                     </Grid>
 
                     <Box className="BottomButton">
-                        <Link href="/CreatePolls">
-                            <Button variant="contained" color="primary">EDIT</Button>
+                        <Link onClick={() => this.props.history.push("/CreatePolls")}>
+                            <Button variant="contained" color="primary">{t("EDIT")}</Button>
                         </Link>
                         <Button variant="outlined" color="primary" 
                             // onClick={this.handlePollDataSubmit}
                         onClick={async (event) => {
                             await this.handlePollDataSubmit(event,true)
                         }}
-                        >PUBLISH</Button>
+                        >{t("PUBLISH")}</Button>
                     </Box>
                 </Container>
             </Grid>
@@ -171,7 +174,7 @@ class PollPreview extends PollingController {
   }
 }
 
-export default withRouter(PollPreview)
+export default withTranslation()(withRouter(PollPreview));
 
 const dashBoard = {
     SideBar: {

@@ -35,6 +35,8 @@ import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import TextEditor from "./TextEditor.web";
 import Loader from "../../../components/src/Loader.web";
 import * as Yup from "yup";
+import { withTranslation } from 'react-i18next';
+import '../../../web/src/i18n.js';
 
 class CreatePolls extends PollingController {
   constructor(props: Props) {
@@ -57,6 +59,7 @@ class CreatePolls extends PollingController {
   }
 
   render() {
+    const {t} = this.props
     console.log("textEditorVal+++++++",this.state.textEditorVal);
     // console.log("polldata description------", this.state.PollData.description)
     return ( 
@@ -75,16 +78,16 @@ class CreatePolls extends PollingController {
                     <Box className="navigation">
                         <Box>
                             <Typography variant="body1" >
-                            Poll and survey / <Box component="span" style={{color: "blue"}}>Create a Poll</Box>
+                            {t("Poll and survey")} / <Box component="span" style={{color: "blue"}}>{t("Create a Poll")}</Box>
                             </Typography>
-                            <Typography variant="h5" className="subHeading">Create a Poll</Typography>
+                            <Typography variant="h5" className="subHeading">{t("Create a Poll")}</Typography>
                         </Box>
                     </Box>
                     <form onSubmit={this.handlePollDataSubmit}>
                         <Grid container spacing={4} style={{marginTop: 15}}>
                             <Grid item sm={12} md={12} xs={12}>
                             <Box className="createPSCards">
-                                <TextField label="Title of the Poll" variant="outlined"
+                                <TextField label={t("Title of the Poll")} variant="outlined"
                                     name="title"
                                     value={this.state.PollData.title}
                                     onChange={this.handlePollDataChange}
@@ -136,7 +139,7 @@ class CreatePolls extends PollingController {
                                 {/*<p style={{color:"red"}}>{this.state.pollDateError}</p>*/}
                                 <Box className="anonymousSwitch">
                                     <Box className="infoIcon">
-                                        <Typography variant="subtitle1">Make it anonymous poll</Typography>
+                                        <Typography variant="subtitle1">{t("Make it anonymous poll")}</Typography>
                                         <InfoIcon style={{color:"grey", fontSize:18}}/>
                                     </Box>
                                     <Box style={{float:"right"}}>
@@ -161,7 +164,7 @@ class CreatePolls extends PollingController {
                         <Grid item sm={12} md={12} xs={12}>
                             <Box className="createPSCards">
                                 <Box className="infoIcon">
-                                    <Typography variant="subtitle1">Description</Typography>
+                                    <Typography variant="subtitle1">{t("Description")}</Typography>
                                     <InfoIcon style={{color:"grey", fontSize:18}}/>
                                 </Box>
                                 <Box className="descriptionEditor">
@@ -170,7 +173,7 @@ class CreatePolls extends PollingController {
                                     onChange={this.onChangeTextEditor} />
                                 </Box>
                                 <p style={{color:"red"}}>{this.state.pollDescriptionError}</p>
-                                <TextField  label="enter question" variant="outlined"
+                                <TextField  label={t("enter question")} variant="outlined"
                                 name="question"
                                 value={this.state.PollData.question}
                                 onChange={this.handlePollDataChange}
@@ -199,7 +202,7 @@ class CreatePolls extends PollingController {
 
                                 <Button variant="outlined" color="primary"
                                 onClick={() => this.addOptionsFields()}
-                                className="addOptions">ADD OPTION</Button>
+                                className="addOptions">{t("ADD OPTION")}</Button>
 
                             </Box>
                         </Grid>
@@ -212,12 +215,12 @@ class CreatePolls extends PollingController {
                                     onClick={async () => {
                                         await this.handlePriviewData()
                                     }}
-                                    >PREVIEW</Button>
+                                    >{t("PREVIEW")}</Button>
                             </Box>
                             <Box className="Publishbtn">
                                 <Button type="submit" variant="outlined" color="primary"
                                 // onClick={()=>this.props.history.push("/PollPreview")}
-                                >PUBLISH</Button>
+                                >{t("PUBLISH")}</Button>
                             </Box>
                         </Box>
 
@@ -233,7 +236,7 @@ class CreatePolls extends PollingController {
   }
 }
 
-export default withRouter(CreatePolls);
+export default withTranslation()(withRouter(CreatePolls)); 
 
 
 // Customizable Area End
