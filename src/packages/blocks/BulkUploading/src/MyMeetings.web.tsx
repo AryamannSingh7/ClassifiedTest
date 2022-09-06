@@ -29,15 +29,19 @@ class MyMeetings extends MyMeetingsController {
     super(props);
   }
 
+  componentDidMount(): Promise<void> {
+    this.getScheduledMeetingList();
+    this.getMinuteMeetingList();
+  }
+
   render() {
     const { classes } = this.props;
 
+    console.log(this.state);
+
     return (
       <>
-        <Box
-          style={{ background: "#F4F7FF", height: "100vh" }}
-          className={classes.meetingList}
-        >
+        <Box style={{ background: "#F4F7FF", height: "100vh" }} className={classes.meetingList}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box className="faq-step">
@@ -88,9 +92,7 @@ class MyMeetings extends MyMeetingsController {
                         );
                       }}
                       label="Scheduled Meetings"
-                      className={
-                        this.state.isScheduledMeetingOpen ? "active" : ""
-                      }
+                      className={this.state.isScheduledMeetingOpen ? "active" : ""}
                     />
                     <Tab
                       onClick={() => {
@@ -103,9 +105,7 @@ class MyMeetings extends MyMeetingsController {
                         );
                       }}
                       label="Meeting Minutes"
-                      className={
-                        !this.state.isScheduledMeetingOpen ? "active" : ""
-                      }
+                      className={!this.state.isScheduledMeetingOpen ? "active" : ""}
                     />
                   </Box>
                   {this.state.isScheduledMeetingOpen && (
@@ -113,116 +113,50 @@ class MyMeetings extends MyMeetingsController {
                       <div className="content-box">
                         <div className="meeting-list">
                           <Grid container spacing={2}>
-                            <Grid item xs={12}>
-                              <Card className="meeting">
-                                <Grid container spacing={2}>
-                                  <Grid item xs={12}>
-                                    <div className="header">
-                                      <Link href={``}>
-                                        <h4>Meeting Title</h4>
-                                      </Link>
-                                    </div>
-                                  </Grid>
+                            {this.state.scheduleMeetingList.length === 0 && (
+                              <Grid item xs={12}>
+                                <Card className="meeting">No Scheduled Meeting Available!!</Card>
+                              </Grid>
+                            )}
+                            {this.state.scheduleMeetingList.map((meeting: any) => {
+                              return (
+                                <Grid item xs={12} key={meeting.id}>
+                                  <Link href={`/MyMeeting/${meeting.id}`}>
+                                    <Card className="meeting">
+                                      <Grid container spacing={2}>
+                                        <Grid item xs={12}>
+                                          <div className="header">
+                                            <h4>{meeting.attributes.title}</h4>
+                                          </div>
+                                        </Grid>
+                                      </Grid>
+                                      <Grid container spacing={2} className="info">
+                                        <Grid item xs={12}>
+                                          <span>Date & Time:</span>
+                                          <p>{meeting.attributes.meeting_date_time}</p>
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                          <span>Place:</span>
+                                          <p>{meeting.attributes.place}</p>
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                          <span>Agenda:</span>
+                                          <p>{meeting.attributes.agenda}</p>
+                                        </Grid>
+                                      </Grid>
+                                      <Divider />
+                                      <Box className="decision">
+                                        <h6>Are you attending?</h6>
+                                        <div className="status-images">
+                                          <img src={TrueIcon} alt="true" />
+                                          <img src={FalseIcon} alt="false" />
+                                        </div>
+                                      </Box>
+                                    </Card>
+                                  </Link>
                                 </Grid>
-                                <Grid container spacing={2} className="info">
-                                  <Grid item xs={12}>
-                                    <span>Date & Time:</span>
-                                    <p>30-04-2022</p>
-                                  </Grid>
-                                  <Grid item xs={12}>
-                                    <span>Place:</span>
-                                    <p>Building 1, Central park common hall</p>
-                                  </Grid>
-                                  <Grid item xs={12}>
-                                    <span>Agenda:</span>
-                                    <p>To discuss new vehicle guidelines</p>
-                                  </Grid>
-                                </Grid>
-                                <Divider />
-                                <Box className="decision">
-                                  <h6>Are you attending?</h6>
-                                  <div className="status-images">
-                                    <img src={TrueIcon} alt="true" />
-                                    <img src={FalseIcon} alt="false" />
-                                  </div>
-                                </Box>
-                              </Card>
-                            </Grid>
-                            <Grid item xs={12}>
-                              <Card className="meeting">
-                                <Grid container spacing={2}>
-                                  <Grid item xs={12}>
-                                    <div className="header">
-                                      <Link href={``}>
-                                        <h4>Meeting Title</h4>
-                                      </Link>
-                                    </div>
-                                  </Grid>
-                                </Grid>
-                                <Grid container spacing={2} className="info">
-                                  <Grid item xs={12}>
-                                    <span>Date & Time:</span>
-                                    <p>30-04-2022</p>
-                                  </Grid>
-                                  <Grid item xs={12}>
-                                    <span>Place:</span>
-                                    <p>Building 1, Central park common hall</p>
-                                  </Grid>
-                                  <Grid item xs={12}>
-                                    <span>Agenda:</span>
-                                    <p>To discuss new vehicle guidelines</p>
-                                  </Grid>
-                                </Grid>
-                                <Divider />
-                                <Box className="decision">
-                                  <h6>Are you attending?</h6>
-                                  <div className="status-images">
-                                    <img src={TrueIcon} alt="true" />
-                                    <img src={FalseIcon} alt="false" />
-                                  </div>
-                                </Box>
-                              </Card>
-                            </Grid>
-                            <Grid item xs={12}>
-                              <Card className="meeting">
-                                <Grid container spacing={2}>
-                                  <Grid item xs={12}>
-                                    <div className="header">
-                                      <Link href={``}>
-                                        <h4>Meeting Title</h4>
-                                      </Link>
-                                    </div>
-                                  </Grid>
-                                </Grid>
-                                <Grid container spacing={2} className="info">
-                                  <Grid item xs={12}>
-                                    <span>Date & Time:</span>
-                                    <p>30-04-2022</p>
-                                  </Grid>
-                                  <Grid item xs={12}>
-                                    <span>Place:</span>
-                                    <p>Building 1, Central park common hall</p>
-                                  </Grid>
-                                  <Grid item xs={12}>
-                                    <span>Agenda:</span>
-                                    <p>To discuss new vehicle guidelines</p>
-                                  </Grid>
-                                </Grid>
-                                <Divider />
-                                <Box className="decision">
-                                  <span>Your Response</span>
-                                  <span
-                                    className="status"
-                                    style={{
-                                      background: "black",
-                                      color: "white",
-                                    }}
-                                  >
-                                    Accepted
-                                  </span>
-                                </Box>
-                              </Card>
-                            </Grid>
+                              );
+                            })}
                           </Grid>
                         </div>
                       </div>
@@ -233,75 +167,38 @@ class MyMeetings extends MyMeetingsController {
                       <div className="content-box">
                         <div className="meeting-list">
                           <Grid container spacing={2}>
-                            <Grid item xs={12}>
-                              <Card className="meeting">
-                                <Grid container spacing={2}>
-                                  <Grid item xs={12}>
-                                    <div className="header">
-                                      <Link href={``}>
-                                        <h4>Meeting Title</h4>
-                                      </Link>
-                                    </div>
-                                  </Grid>
+                            {this.state.minuteMeetingList.length === 0 && (
+                              <Grid item xs={12}>
+                                <Card className="meeting">No Meeting Minutes Available!!</Card>
+                              </Grid>
+                            )}
+                            {this.state.minuteMeetingList.map((meeting: any) => {
+                              return (
+                                <Grid item xs={12} key={meeting.id}>
+                                  <Link href={`/MeetingMinuteDetail/${meeting.id}`}>
+                                    <Card className="meeting">
+                                      <Grid container spacing={2}>
+                                        <Grid item xs={12}>
+                                          <div className="header">
+                                            <h4>{meeting.attributes.title}</h4>
+                                          </div>
+                                        </Grid>
+                                      </Grid>
+                                      <Grid container spacing={2} className="info">
+                                        <Grid item xs={12}>
+                                          <span>Date & Time:</span>
+                                          <p>{meeting.attributes.meeting_date_time}</p>
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                          <span>Agenda:</span>
+                                          <p>{meeting.attributes.agenda}</p>
+                                        </Grid>
+                                      </Grid>
+                                    </Card>
+                                  </Link>
                                 </Grid>
-                                <Grid container spacing={2} className="info">
-                                  <Grid item xs={12}>
-                                    <span>Date & Time:</span>
-                                    <p>30-04-2022</p>
-                                  </Grid>
-                                  <Grid item xs={12}>
-                                    <span>Agenda:</span>
-                                    <p>To discuss new vehicle guidelines</p>
-                                  </Grid>
-                                </Grid>
-                              </Card>
-                            </Grid>
-                            <Grid item xs={12}>
-                              <Card className="meeting">
-                                <Grid container spacing={2}>
-                                  <Grid item xs={12}>
-                                    <div className="header">
-                                      <Link href={``}>
-                                        <h4>Meeting Title</h4>
-                                      </Link>
-                                    </div>
-                                  </Grid>
-                                </Grid>
-                                <Grid container spacing={2} className="info">
-                                  <Grid item xs={12}>
-                                    <span>Date & Time:</span>
-                                    <p>30-04-2022</p>
-                                  </Grid>
-                                  <Grid item xs={12}>
-                                    <span>Agenda:</span>
-                                    <p>To discuss new vehicle guidelines</p>
-                                  </Grid>
-                                </Grid>
-                              </Card>
-                            </Grid>
-                            <Grid item xs={12}>
-                              <Card className="meeting">
-                                <Grid container spacing={2}>
-                                  <Grid item xs={12}>
-                                    <div className="header">
-                                      <Link href={``}>
-                                        <h4>Meeting Title</h4>
-                                      </Link>
-                                    </div>
-                                  </Grid>
-                                </Grid>
-                                <Grid container spacing={2} className="info">
-                                  <Grid item xs={12}>
-                                    <span>Date & Time:</span>
-                                    <p>30-04-2022</p>
-                                  </Grid>
-                                  <Grid item xs={12}>
-                                    <span>Agenda:</span>
-                                    <p>To discuss new vehicle guidelines</p>
-                                  </Grid>
-                                </Grid>
-                              </Card>
-                            </Grid>
+                              );
+                            })}
                           </Grid>
                         </div>
                       </div>
@@ -311,10 +208,7 @@ class MyMeetings extends MyMeetingsController {
               </Box>
             </Grid>
             <Grid item xs={12} md={5}>
-              <Box
-                className="right-block right-image"
-                display={{ xs: "none", md: "flex" }}
-              >
+              <Box className="right-block right-image" display={{ xs: "none", md: "flex" }}>
                 <img src={BuildingLogo} className="building-logo" alt="" />
               </Box>
             </Grid>

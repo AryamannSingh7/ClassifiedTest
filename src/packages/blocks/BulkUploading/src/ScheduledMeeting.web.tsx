@@ -59,7 +59,8 @@ class ScheduledMeeting extends ScheduledMeetingController {
       prevState.filter.title !== this.state.filter.title ||
       prevState.filter.status !== this.state.filter.status ||
       prevState.filter.date !== this.state.filter.date ||
-      prevState.filter.place !== this.state.filter.place
+      prevState.filter.place !== this.state.filter.place ||
+      prevState.filter.page !== this.state.filter.page
     ) {
       await this.getAllMeetings();
     }
@@ -114,7 +115,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                       onChange={(e: any) => {
                         this.setState({
                           ...this.state,
-                          place: e.target.value,
+                          place: e.target.value.trim(),
                         });
                       }}
                     />
@@ -150,6 +151,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                       placeholder="Date"
                       className="input"
                       onFocus={(e) => (e.target.type = "date")}
+                      onBlur={(e) => (e.target.type = "text")}
                     />
                     <Button
                       startIcon={<img src={SearchIconImage} />}
@@ -189,7 +191,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                               ...this.state,
                               filter: {
                                 ...this.state.filter,
-                                title: e.target.value,
+                                title: e.target.value.trim(),
                               },
                             });
                           }}
@@ -247,30 +249,49 @@ class ScheduledMeeting extends ScheduledMeetingController {
                                   <MenuItem>
                                     <Link to={`ScheduledMeeting/${meeting.id}`}>View</Link>
                                   </MenuItem>
-                                  <MenuItem
-                                    onClick={() => {
-                                      console.log(meeting);
-
-                                      this.setState({
-                                        // meetingForm: {
-                                        //   title: meeting.attributes.title,
-                                        //   place: meeting.attributes.place,
-                                        //   agenda: meeting.attributes.agenda,
-                                        //   building: meeting.attributes.building.id,
-                                        //   date: meeting.attributes.meeting_date_time.split(" ")[0],
-                                        //   time: meeting.attributes.meeting_date_time.split(" ")[1],
-                                        //   momWriter: meeting,
-                                        // },
-                                      });
-
-                                      // this.handleEditMeetingModal();
-                                    }}
-                                  >
-                                    Edit
-                                  </MenuItem>
-                                  <MenuItem onClick={() => this.handleCancelMeetingModal()}>
-                                    Cancel
-                                  </MenuItem>
+                                  {meeting.attributes.status === "scheduled" && (
+                                    <>
+                                      <MenuItem
+                                        onClick={() => {
+                                          this.setState(
+                                            {
+                                              scheduleMeetingId: meeting.id,
+                                              meetingForm: {
+                                                title: meeting.attributes.title,
+                                                place: meeting.attributes.place,
+                                                agenda: meeting.attributes.agenda,
+                                                building: meeting.attributes.building.id,
+                                                date: moment(
+                                                  meeting.attributes.meeting_date_time.split(" ")[0]
+                                                ).format("YYYY-MM-DD"),
+                                                time: meeting.attributes.meeting_date_time.split(" ")[1],
+                                                momWriter: "",
+                                              },
+                                            },
+                                            () => {
+                                              this.handleEditMeetingModal();
+                                            }
+                                          );
+                                        }}
+                                      >
+                                        Edit
+                                      </MenuItem>
+                                      <MenuItem
+                                        onClick={() => {
+                                          this.setState(
+                                            {
+                                              scheduleMeetingId: meeting.id,
+                                            },
+                                            () => {
+                                              this.handleCancelMeetingModal();
+                                            }
+                                          );
+                                        }}
+                                      >
+                                        Cancel
+                                      </MenuItem>
+                                    </>
+                                  )}
                                 </Menu>
                               </TableCell>
                             </TableRow>
@@ -281,16 +302,30 @@ class ScheduledMeeting extends ScheduledMeetingController {
                     <Divider />
                     <Box className="table-bottom">
                       <p>
-                        Showing <span className="current-page">1</span> of{" "}
-                        <span className="total-page">100</span> results
+                        Showing{" "}
+                        <span className="current-page">
+                          {this.state.scheduleMeetingList.length}
+                        </span>{" "}
+                        of{" "}
+                        <span className="total-page">
+                          {this.state.pagination && this.state.pagination.total_count}
+                        </span>{" "}
+                        results
                       </p>
                       {this.state.pagination && (
                         <Pagination
-                          // onChange={(event: any, value: any) => {
-                          //   this.handlePagination(value);
-                          // }}
+                          onChange={(event: any, value: any) => {
+                            this.setState({
+                              ...this.state,
+                              filter: {
+                                ...this.state.filter,
+                                page: Number(value),
+                              },
+                            });
+                          }}
                           count={this.state.pagination.total_pages}
                           page={this.state.pagination.current_page}
+                          siblingCount={2}
                           variant="outlined"
                           shape="rounded"
                         />
@@ -501,8 +536,8 @@ class ScheduledMeeting extends ScheduledMeetingController {
             initialValues={this.state.meetingForm}
             validationSchema={this.addMeetingValidation}
             onSubmit={(values, { resetForm }) => {
-              // this.handleEditMeetingModal();
-              // this.createMeeting(values);
+              this.handleEditMeetingModal();
+              this.editMeeting(values);
             }}
           >
             {({
@@ -539,6 +574,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                               onChange={handleChange}
                               onBlur={handleBlur}
                               name="date"
+                              format="DD-MM-YYYY"
                               className="date"
                               min={moment().format("YYYY-MM-DD")}
                               fullWidth
@@ -683,7 +719,11 @@ class ScheduledMeeting extends ScheduledMeetingController {
                 >
                   No, Don't Cancel
                 </Button>
-                <Button style={{ width: "200px" }} className="add-button">
+                <Button
+                  style={{ width: "200px" }}
+                  className="add-button"
+                  onClick={() => this.updateStatusMeeting("cancelled")}
+                >
                   Yes, Cancel
                 </Button>
               </DialogActions>

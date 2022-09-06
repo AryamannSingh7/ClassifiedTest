@@ -48,10 +48,7 @@ class MyMeetingDetail extends MyMeetingsController {
 
     return (
       <>
-        <Box
-          style={{ background: "#F4F7FF", height: "100vh" }}
-          className={classes.meetingDetail}
-        >
+        <Box style={{ background: "#F4F7FF", height: "100vh" }} className={classes.meetingDetail}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box className="faq-step">
@@ -71,9 +68,7 @@ class MyMeetingDetail extends MyMeetingsController {
                       <Box className="meeting-detail">
                         <Box className="heading">
                           <h4>Meeting Details</h4>
-                          <span style={{ background: "black", color: "white" }}>
-                            Accepted
-                          </span>
+                          <span style={{ background: "black", color: "white" }}>Accepted</span>
                         </Box>
                         <Card className="meeting-card">
                           <Grid container spacing={2}>
@@ -119,9 +114,7 @@ class MyMeetingDetail extends MyMeetingsController {
                     <div className="upload-button">
                       <Grid container>
                         <Grid item xs={12} md={12}>
-                          <Button
-                            onClick={() => this.handleScheduledMeetingModal()}
-                          >
+                          <Button onClick={() => this.handleAttendMeetingModal()}>
                             Submit Your Response
                           </Button>
                         </Grid>
@@ -132,10 +125,7 @@ class MyMeetingDetail extends MyMeetingsController {
               </Box>
             </Grid>
             <Grid item xs={12} md={5}>
-              <Box
-                className="right-block right-image"
-                display={{ xs: "none", md: "flex" }}
-              >
+              <Box className="right-block right-image" display={{ xs: "none", md: "flex" }}>
                 <img src={BuildingLogo} className="building-logo" alt="" />
               </Box>
             </Grid>
@@ -145,18 +135,15 @@ class MyMeetingDetail extends MyMeetingsController {
         <Dialog
           className="schedule-dialog"
           fullWidth
-          onClose={() => this.handleScheduledMeetingModal()}
-          open={this.state.isScheduledMeetingOpen}
+          onClose={() => this.handleAttendMeetingModal()}
+          open={this.state.isAttendMeetingModalOpen}
         >
           <DialogContent>
             <Box textAlign="center">
               <img src={CommentIcon} alt="CommentIcon" />
-              <Typography variant="h6">
-                Are you attending the meeting?
-              </Typography>
+              <Typography variant="h6">Are you attending the meeting?</Typography>
               <Typography variant="body1">
-                Please confirm whether you are going to attend meeting on 21st
-                May, 2022 or not.
+                Please confirm whether you are going to attend meeting on 21st May, 2022 or not.
               </Typography>
               <Box className="choice">
                 <FormControlLabel
