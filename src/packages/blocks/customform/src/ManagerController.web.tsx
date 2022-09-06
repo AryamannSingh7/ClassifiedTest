@@ -56,6 +56,7 @@ interface S {
   buildingNameData:any;
   buildingName:any;
   selectBuilding:any;
+  allUnit:any
   // Customizable Area End
 }
 
@@ -104,6 +105,7 @@ export default class ManagerController extends BlockComponent<Props, S, SS> {
       buildingNameData:null,
       buildingName:null,
       selectBuilding:null,
+      allUnit:[],
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
