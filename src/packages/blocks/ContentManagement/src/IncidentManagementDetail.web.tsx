@@ -360,7 +360,7 @@ class IncidentManagementDetail extends IncidentManagementController {
               {/* view status dialog */}
               <Dialog
                 open={this.state?.statusShowDialog}
-                onClose={() => this.setState({ statusShowDialog: false })}
+                onClose={() => this.setState({ statusShowDialog: false ,statusDetail: attributes?.incident_status})}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
                 className="diloag-wrapper"
@@ -370,19 +370,22 @@ class IncidentManagementDetail extends IncidentManagementController {
                   },
                 }}
               >
-                <Box className="diloag-body">
+                <Box className="diloag-body desktop-ui ">
                   <Box className="diloag-header">
                     <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
                       Update Status
                     </DialogTitle>
-                    <Button onClick={() => { this.setState({ statusShowDialog: false }) }}>
+                    <Button onClick={() => this.setState({ statusShowDialog: false ,statusDetail: attributes?.incident_status})}>
                       <img src={Close_Icon} className="close-icon" />
                     </Button>
                   </Box>
-                  <Box className="diloag-content">
+                  <Box className="diloag-content diloag-management-content">
                   <img src={Tick_Circle_Icon} className="lock-logo" alt="Lock_Icon" />
-                   Are you sure you want to chnage the status to {this.state?.statusDetail}
-                 Close Confirm
+                  <p> Are you sure you want to change the status to {this.state?.statusDetail}</p>
+                   <Box className="diloag-btn customButton">
+                   <Button variant="outlined" onClick={() => { this.setState({ statusShowDialog: false , statusDetail: attributes?.incident_status}) }}>Close</Button>
+                   <Button variant="outlined" onClick={() =>this.updateStatus(this.state?.statusDetail)}>Confirm</Button>
+                   </Box>
                   </Box>
                 </Box>
               </Dialog>

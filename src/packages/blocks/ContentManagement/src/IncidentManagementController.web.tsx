@@ -705,7 +705,7 @@ onChange =(e :any)=>{
     //@ts-ignore
     this.setState({ [e.target.name]:e.target.value})
     // this.setState({ statusShowDialog: false })
-    this.updateStatus(value);
+    // this.updateStatus(value);
   }
   else if(e.target.name === 'providerWork'){
     const array = e.target?.value?.split(",");
@@ -747,7 +747,7 @@ onChange =(e :any)=>{
    console.log("formData.getAll('description')==================>",formData.get('incident[mark_resolved_by_reporter]'))
    const httpBody = formData;
    
-    this.setState({loading: true}) 
+    this.setState({loading: true,statusShowDialog:false}) 
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
     );
