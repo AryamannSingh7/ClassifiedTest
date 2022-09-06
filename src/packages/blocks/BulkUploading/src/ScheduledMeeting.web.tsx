@@ -278,7 +278,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                         </span>{" "}
                         of{" "}
                         <span className="total-page">
-                          {this.state.pagination && this.state.pagination.total_count}
+                          {this.state.pagination ? this.state.pagination.total_count : 0}
                         </span>{" "}
                         results
                       </p>
@@ -338,8 +338,6 @@ class ScheduledMeeting extends ScheduledMeetingController {
               handleSubmit,
               setFieldValue,
             }) => {
-              console.log(values);
-
               return (
                 <Form onSubmit={handleSubmit} translate>
                   <DialogContent dividers>

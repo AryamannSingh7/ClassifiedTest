@@ -11,6 +11,8 @@ import {
   Card,
   Typography,
   IconButton,
+  Menu,
+  MenuItem,
   Drawer,
   Divider,
   Avatar,
@@ -74,8 +76,7 @@ class OwnerDashboard extends DashboardController {
     super(props);
     this.state = {
       isMenuOpen: false,
-      languageMenu: false,
-      isLogoutModalOpen: false,
+      anchorEl: null,
     };
   }
 
@@ -93,23 +94,41 @@ class OwnerDashboard extends DashboardController {
     });
   };
 
-  handleLanguage = () => {
+  handleLanguage = (event: any) => {
     this.setState({
-      ...this.state,
-      languageMenu: !this.state.languageMenu,
+      anchorEl: event?.currentTarget,
     });
   };
 
-  logout = () => {
-    this.handleLogoutModal();
-    localStorage.clear();
-    this.props.history.push("/");
-  };
+  handleClose = () => {
+    this.setState({
+      anchorEl:null
+    })
+  }
 
+  handleEngLngChange = () => {
+    i18next.changeLanguage('en')
+    this.setState({
+      anchorEl:null
+    })
+  }
+
+  handleAreLngChange = () => {
+    i18next.changeLanguage('ar')
+    this.setState({
+      anchorEl:null
+    })
+  }
+
+  logout = () => {
+    localStorage.clear();
+    this.props.history.push("/ChairmanLogin");
+  };
+  
   render() {
     const { t } = this.props;
     const { classes } = this.props;
-
+    const open = Boolean(this.state.anchorEl)
     return (
       <>
         <Box
@@ -175,40 +194,37 @@ class OwnerDashboard extends DashboardController {
                   </IconButton>
                   <span className="complex-name">Complex Name</span>
                 </div>
-                <div className="right-icon" style={{ display: "flex" }}>
-                  <div style={{ position: "relative" }}>
-                    <span onClick={() => this.handleLanguage()}>
+                <div className="right-icon" style={{display:"flex"}}>
+                  <div style={{position:"relative"}}>
+                    <span
+                      id="basic-button"
+                      aria-controls={open ? "basic-menu" : undefined}
+                      aria-haspopup="true"
+                      aria-expanded={open ? "true" : undefined}
+                      onClick={(e:any) => this.handleLanguage(e)}>
                       <img src={globalIcon} alt="GlobalIcon" />
                     </span>
-                    {this.state.languageMenu ? (
-                      <div
-                        style={{
-                          position: "absolute",
-                          right: "-38px",
-                          top: "32px",
-                        }}
-                      >
-                        <Button
-                          variant="outlined"
-                          className="invoicesbtn"
-                          color="primary"
-                          onClick={() => i18next.changeLanguage("en")}
-                          style={{ marginBottom: "6px" }}
-                        >
-                          English
-                        </Button>
-                        <Button
-                          variant="outlined"
-                          className="invoicesbtn"
-                          color="primary"
-                          onClick={() => i18next.changeLanguage("ar")}
-                        >
-                          Arebic
-                        </Button>
-                      </div>
-                    ) : (
-                      ""
-                    )}
+                    <Menu
+                      id="basic-menu"
+                      anchorEl={this.state.anchorEl}
+                      open={open}
+                      onClose={this.handleClose}
+                      MenuListProps={{
+                        "aria-labelledby": "basic-button"
+                      }}
+                      getContentAnchorEl={null}
+                      anchorOrigin={{
+                          vertical: 'bottom',
+                          horizontal: 'center',
+                      }}
+                      transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'center',
+                      }}
+                    >
+                      <MenuItem onClick={() => this.handleEngLngChange()}>English</MenuItem>
+                      <MenuItem onClick={() => this.handleAreLngChange()}>Arabic</MenuItem>
+                    </Menu>
                   </div>
                   <div>
                     <Link href="#">
@@ -225,13 +241,13 @@ class OwnerDashboard extends DashboardController {
               <Container className="dashboard">
                 <Grid container spacing={1} style={{ marginTop: 15 }}>
                   <Grid item xs={12} sm={12} className="title">
-                    <Typography variant="h5">My Real Estate Details</Typography>
+                    <Typography variant="h5">{t("My Real Estate Details")}</Typography>
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <DashboardCard
                       image={keyhand}
-                      heading="Number of Units"
-                      title="Total"
+                      heading={t("Number of Units")}
+                      title={t("Total")}
                       value="75"
                     />
                   </Grid>
@@ -239,8 +255,8 @@ class OwnerDashboard extends DashboardController {
                     <Link href="">
                       <DashboardCard
                         image={keyhand}
-                        heading="Total Expenses"
-                        title={t("total-expance")}
+                        heading={t("Total Expenses")}
+                        title={t('total-expance')}
                         value="SR 75"
                       />
                     </Link>
@@ -249,9 +265,9 @@ class OwnerDashboard extends DashboardController {
                     <Card className="big-box">
                       <div className="content-box">
                         <div className="left-content">
-                          <h4 className="heading">Rented</h4>
+                          <h4 className="heading">{t("Rented")}</h4>
                           <div className="state">
-                            <p>Rented</p>
+                            <p>{t("Rented")}</p>
                             <Button className="yellow">75</Button>
                           </div>
                         </div>
@@ -266,9 +282,9 @@ class OwnerDashboard extends DashboardController {
                           <div className="vertical-line" />
                         </div>
                         <div className="right-content">
-                          <h4 className="heading">Empty Units</h4>
+                          <h4 className="heading">{t("Empty Units")}</h4>
                           <div className="state">
-                            <p>Empty</p>
+                            <p>{t("Empty")}</p>
                             <Button className="yellow">SR 75</Button>
                           </div>
                         </div>
@@ -279,9 +295,9 @@ class OwnerDashboard extends DashboardController {
                     <Card className="big-box">
                       <div className="content-box">
                         <div className="left-content">
-                          <h4 className="heading">Rent Amount Collected</h4>
+                          <h4 className="heading">{t("Rent Amount Collected")}</h4>
                           <div className="state">
-                            <p>Collected</p>
+                            <p>{t("Collected")}</p>
                             <Button className="yellow">75</Button>
                           </div>
                         </div>
@@ -296,9 +312,9 @@ class OwnerDashboard extends DashboardController {
                           <div className="vertical-line" />
                         </div>
                         <div className="right-content">
-                          <h4 className="heading">Rent Amount Due</h4>
+                          <h4 className="heading">{t("Rent Amount Due")}</h4>
                           <div className="state">
-                            <p>Due</p>
+                            <p>{t("Due")}</p>
                             <Button className="yellow">SR 75</Button>
                           </div>
                         </div>
@@ -309,9 +325,9 @@ class OwnerDashboard extends DashboardController {
                     <Card className="big-box">
                       <div className="content-box">
                         <div className="left-content">
-                          <h4 className="heading">Spent Amount</h4>
+                          <h4 className="heading">{t("Spent Amount")}</h4>
                           <div className="state">
-                            <p>Collected</p>
+                            <p>{t("Collected")}</p>
                             <Button className="yellow">75</Button>
                           </div>
                         </div>
@@ -326,9 +342,9 @@ class OwnerDashboard extends DashboardController {
                           <div className="vertical-line" />
                         </div>
                         <div className="right-content">
-                          <h4 className="heading">Collected Amount</h4>
+                          <h4 className="heading">{t("Collected Amount")}</h4>
                           <div className="state">
-                            <p>Due</p>
+                            <p>{t("Due")}</p>
                             <Button className="yellow">SR 75</Button>
                           </div>
                         </div>
@@ -338,14 +354,14 @@ class OwnerDashboard extends DashboardController {
                 </Grid>
                 <Grid container spacing={1} style={{ marginTop: 15 }}>
                   <Grid item xs={12} sm={12} className="title">
-                    <Typography variant="h5">Building Categories</Typography>
+                    <Typography variant="h5">{t("Building Categories")}</Typography>
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="">
                       <DashboardCard
                         image={keyhand}
-                        heading="My tenants"
-                        title="Total"
+                        heading={t("My tenants")}
+                        title={t("Total")}
                         value="75"
                       />
                     </Link>
@@ -354,8 +370,8 @@ class OwnerDashboard extends DashboardController {
                     <Link href="/Contracts">
                       <DashboardCard
                         image={keyhand}
-                        heading="Contracts"
-                        title="Few will expire after"
+                        heading={t("Contracts")}
+                        title={t("Few will expire after")}
                         value="75"
                       />
                     </Link>
@@ -364,8 +380,8 @@ class OwnerDashboard extends DashboardController {
                     <Link href="/MyMeetings">
                       <DashboardCard
                         image={keyhand}
-                        heading="Meetings"
-                        title="Scheduled"
+                        heading={t("Meetings")}
+                        title={t("Scheduled")}
                         value="75"
                       />
                     </Link>
@@ -374,8 +390,8 @@ class OwnerDashboard extends DashboardController {
                     <Link href="pollsSurvey">
                       <DashboardCard
                         image={keyhand}
-                        heading="Poll / Survey"
-                        title="Ongoing"
+                        heading={t("Poll / Survey")}
+                        title={t("Ongoing")}
                         value="75"
                       />
                     </Link>
@@ -384,8 +400,8 @@ class OwnerDashboard extends DashboardController {
                     <Link href="">
                       <DashboardCard
                         image={keyhand}
-                        heading="Budget"
-                        title="For FY"
+                        heading={t("Budget")}
+                        title={t("For FY")}
                         value="75"
                       />
                     </Link>
@@ -394,8 +410,8 @@ class OwnerDashboard extends DashboardController {
                     <Link href="/BuildingDocuments">
                       <DashboardCard
                         image={keyhand}
-                        heading="Building Documents"
-                        title="Last uploaded"
+                        heading={t("Building Documents")}
+                        title={t("Last uploaded")}
                         value="75"
                       />
                     </Link>
@@ -404,8 +420,8 @@ class OwnerDashboard extends DashboardController {
                     <Link href="/IncidentListing">
                       <DashboardCard
                         image={keyhand}
-                        heading="Incidents"
-                        title="Open"
+                        heading={t("Incidents")}
+                        title={t("Open")}
                         value="75"
                       />
                     </Link>
@@ -414,8 +430,8 @@ class OwnerDashboard extends DashboardController {
                     <Link href="">
                       <DashboardCard
                         image={keyhand}
-                        heading="Announcements"
-                        title="Unopened"
+                        heading={t("Announcements")}
+                        title={t("Unopened")}
                         value="75"
                       />
                     </Link>
@@ -424,8 +440,8 @@ class OwnerDashboard extends DashboardController {
                     <Link href="">
                       <DashboardCard
                         image={keyhand}
-                        heading="Expense"
-                        title="Last Updated"
+                        heading={t("Expense")}
+                        title={t("Last Updated")}
                         value="75"
                       />
                     </Link>
@@ -434,8 +450,8 @@ class OwnerDashboard extends DashboardController {
                     <Link href="">
                       <DashboardCard
                         image={keyhand}
-                        heading="Building Info & Rules"
-                        title="Last uploaded"
+                        heading={t("Building Info & Rules")}
+                        title={t("Last uploaded")}
                         value="75"
                       />
                     </Link>
@@ -444,8 +460,8 @@ class OwnerDashboard extends DashboardController {
                     <Link href="">
                       <DashboardCard
                         image={keyhand}
-                        heading="Facility Reservation"
-                        title="Last updated"
+                        heading={t("Facility Reservation")}
+                        title={t("Last updated")}
                         value="75"
                       />
                     </Link>
@@ -453,14 +469,14 @@ class OwnerDashboard extends DashboardController {
                 </Grid>
                 <Grid container spacing={1} style={{ marginTop: 15 }}>
                   <Grid item xs={12} sm={12} className="title">
-                    <Typography variant="h5">Personal Categories</Typography>
+                    <Typography variant="h5">{t("Personal Categories")}</Typography>
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="/veichleList">
                       <DashboardCard
                         image={keyhand}
-                        heading="My Vehicles"
-                        title="Registered"
+                        heading={t("My Vehicles")}
+                        title={t("Registered")}
                         value="75"
                       />
                     </Link>
@@ -469,8 +485,8 @@ class OwnerDashboard extends DashboardController {
                     <Link href="/familylist">
                       <DashboardCard
                         image={keyhand}
-                        heading="My Visitors"
-                        title="Scheduled"
+                        heading={t("My Visitors")}
+                        title={t("Scheduled")}
                         value="75"
                       />
                     </Link>
@@ -479,8 +495,8 @@ class OwnerDashboard extends DashboardController {
                     <Link href="">
                       <DashboardCard
                         image={keyhand}
-                        heading="My Suggestion"
-                        title="Total"
+                        heading={t("My Suggestion")}
+                        title={t("Total")}
                         value="75"
                       />
                     </Link>
@@ -489,8 +505,8 @@ class OwnerDashboard extends DashboardController {
                     <Link href="/InvoiceBilling">
                       <DashboardCard
                         image={keyhand}
-                        heading="My Invoices"
-                        title="Last Paid"
+                        heading={t("My Invoices")}
+                        title={t("Last Paid")}
                         value="75"
                       />
                     </Link>
@@ -499,8 +515,8 @@ class OwnerDashboard extends DashboardController {
                     <Link href="/PersonalDocument">
                       <DashboardCard
                         image={keyhand}
-                        heading="Personal Documents"
-                        title="Last uploaded"
+                        heading={t("Personal Documents")}
+                        title={t("Last uploaded")}
                         value="75"
                       />
                     </Link>
@@ -509,8 +525,8 @@ class OwnerDashboard extends DashboardController {
                     <Link href="">
                       <DashboardCard
                         image={keyhand}
-                        heading="Issue a Reports"
-                        title="Last uploaded"
+                        heading={t("Issue a Reports")}
+                        title={t("Last uploaded")}
                         value="NA"
                       />
                     </Link>
@@ -519,8 +535,8 @@ class OwnerDashboard extends DashboardController {
                     <Link href="">
                       <DashboardCard
                         image={keyhand}
-                        heading="Property Manager"
-                        title="Registered"
+                        heading={t("Property Manager")}
+                        title={t("Registered")}
                         value="75"
                       />
                     </Link>
@@ -529,8 +545,8 @@ class OwnerDashboard extends DashboardController {
                     <Link href="">
                       <DashboardCard
                         image={keyhand}
-                        heading="Rent Payments"
-                        title="Registered"
+                        heading={t("Rent Payments")}
+                        title={t("Registered")}
                         value="75"
                       />
                     </Link>
