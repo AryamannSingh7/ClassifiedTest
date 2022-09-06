@@ -349,7 +349,7 @@ class ChairmanSidebar extends DashboardController {
             <Typography style={{ fontSize: 12, marginTop: 10 }}>Expires in 125 days</Typography>
           </Box>
           <Box>
-            <img src={TenantLogo} alt="TenantLogo" width={110} />
+            <img src={TenantLogo.default} alt="TenantLogo" width={110} />
           </Box>
         </Box>
       </>
