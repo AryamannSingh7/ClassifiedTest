@@ -7,6 +7,4 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-exports.baseURL = baseURL; 
-
-
+exports.baseURL = baseURL;
