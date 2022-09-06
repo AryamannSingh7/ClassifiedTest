@@ -1,7 +1,5 @@
 //@ts-ignore
 //@ts-nocheck
-
-
 import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
@@ -51,7 +49,10 @@ export interface S {
   upload:any;
   notImageOrVideoError:any,
   sizeError:any,
-  file : any
+  file : any,
+  commonAreaData:any,
+  incidentRelatedData:any,
+  incidentListing:any,
   // Customizable Area End
 }
 
@@ -79,7 +80,6 @@ export default class IncidentController extends BlockComponent<
   getCommonAreaApiCallId : any ;
   getIncidentRelatedApiCallId:any;
   getMyApartmentListApiCallId:any;
-  validationApiCallId: string = "";
 
   imgPasswordVisible: any;
   imgPasswordInVisible: any;
@@ -217,7 +217,9 @@ export default class IncidentController extends BlockComponent<
           if (responseJson && responseJson.data) {
             console.log("apicreateIncidentCallId===========>",responseJson)
             localStorage.setItem("createIncidentId",responseJson.data.id)
-              this.props.history.push("/IncidentReportedSuccessfully")
+            //@ts-ignore
+            //@ts-nocheck
+            this.props.history.push("/IncidentReportedSuccessfully")
             this.setState({loading: false})      
           } else if (responseJson?.errors) {
             let error = responseJson.errors[0]
@@ -232,6 +234,8 @@ export default class IncidentController extends BlockComponent<
         else if (apiRequestCallId === this.apiupdateIncidentCallId) {
           if (responseJson && responseJson.data) {
             console.log("apiupdateIncidentCallId===========>",responseJson)
+               //@ts-ignore
+               //@ts-nocheck
               this.props.history.push("/IncidentListing")
             this.setState({loading: false})      
           } else if (responseJson?.errors) {
@@ -266,6 +270,8 @@ export default class IncidentController extends BlockComponent<
           this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = responseJson.errors[0] as string;
+                     //@ts-ignore
+                    //@ts-nocheck
               this.props.history.push("/IncidentListing")
             this.setState({ error });
           } else {
@@ -550,16 +556,19 @@ export default class IncidentController extends BlockComponent<
 
 clear= () => {
   localStorage.clear()
+  //@ts-ignore
   this.props.history.push("/");
 }
 
-onSubmit =(values)=>{
+onSubmit =(values:any)=>{
   localStorage.setItem("incidentPreview", JSON.stringify(values))
   console.log("onsbumit=========>", values);
     this.setState({ loading: true })
+    //@ts-ignore
     this.props.history.push("/IncidentPreview")
 }
-getIncidentDetails= (id) => {
+getIncidentDetails= (id :any) => {
+   //@ts-ignore
   this.props.history.push({
     pathname: "/IncidentDetails",
     id,
@@ -568,15 +577,17 @@ getIncidentDetails= (id) => {
   //this.getIncidentDetailsById(id)
 }
 
-confirmOrRejectIncident =(id,val)=>{
+confirmOrRejectIncident =(id : any,val : any)=>{
   const header = {
     token :localStorage.getItem("userToken")
   };
   const formData = new FormData();
   if(val === "confirm"){
+     //@ts-ignore
     formData.append('incident[mark_resolved_by_reporter]', true);
     formData.append('incident[incident_status]', 'Resolved');
   }else{
+     //@ts-ignore
     formData.append('incident[mark_resolved_by_reporter]', false);
     formData.append('incident[incident_status]', 'Unresolved');
   }
@@ -868,7 +879,7 @@ confirmOrRejectIncident =(id,val)=>{
   };
   
   
-  handleClick = (event) => {
+  handleClick = (any:event) => {
     this.setState({anchorEl:event.currentTarget })
   };
   handleClose = (e, v) => {
