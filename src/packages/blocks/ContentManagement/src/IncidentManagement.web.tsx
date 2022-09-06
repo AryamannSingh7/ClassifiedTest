@@ -10,7 +10,8 @@ import {
   Card,
   CardContent,
   CardActions,
-  Button
+  Button,
+  withStyles
 } from "@material-ui/core";
 
 import '../../dashboard/src/Dashboard.web.css'
@@ -38,6 +39,8 @@ import CountryCodeSelector from "../../country-code-selector/src/CountryCodeSele
 import IncidentManagementController, { Props } from "./IncidentManagementController.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
+import { withTranslation } from 'react-i18next';
+import '../../../web/src/i18n.js';
 
 //resorces
 import { Users_Icon, Bank_Icon, Box_Icon, Building1 } from "../src/assets";
@@ -52,6 +55,7 @@ class IncidentManagement extends IncidentManagementController {
   }
 
   render() {
+    const {t} = this.props
     console.log("this.state.buildingName=================>/",this.state.buildingNameData);
     const statusArray=["Unresolved", "Resolved", "Pending Confirmation"]
     return (
@@ -69,9 +73,9 @@ class IncidentManagement extends IncidentManagementController {
                 <Box style={dashBoard.navigation}>
                   <Box>
                     <Typography variant="body1" >
-                      My Dashboard / General Dashboard /<Box component="span" style={{ color: "blue" }}> Incidents</Box>
+                      {t("My Dashboard")} / {t("General Dashboard")} /<Box component="span" style={{ color: "blue" }}> {t("Incidents")}</Box>
                     </Typography>
-                    <Typography variant="h5" style={dashBoard.subHeading}>Incidents</Typography>
+                    <Typography variant="h5" style={dashBoard.subHeading}>{t("Incidents")}</Typography>
                   </Box>
                   <Box>
                     <FormControl style={dashBoard.YearMain} className='yearTab'>
@@ -98,7 +102,7 @@ class IncidentManagement extends IncidentManagementController {
                                 value={this.state.buildingName}
                               >
                                <MenuItem disabled value=" ">
-                               Select Building
+                               {t("Select Building")}
                               </MenuItem>
                                 {
                                 this.state?.buildingNameData?.map((val, index) => (
@@ -123,7 +127,7 @@ class IncidentManagement extends IncidentManagementController {
                                 value={this.state.unitName}
                               >
                                    <MenuItem disabled value=" ">
-                                  Select Unit
+                                  {t("Select Unit")}
                                 </MenuItem>
                                 {
                                     this.state?.unitNameData?.map((val, index) => (
@@ -150,7 +154,7 @@ class IncidentManagement extends IncidentManagementController {
                                 value={this.state.status}
                               >
                                 <MenuItem disabled value=" ">
-                                  Select Status
+                                  {t("Select Status")}
                                 </MenuItem>
                                 {
                                 statusArray?.map((val, index) => (
@@ -168,7 +172,7 @@ class IncidentManagement extends IncidentManagementController {
                   </Box>
                   <Box className="customButton">
                     <Button variant="contained" onClick={() => this.serachHandle()}>
-                      Search
+                      {t("Search")}
                     </Button>
                   </Box>
                 </Box>
@@ -212,6 +216,8 @@ class IncidentManagement extends IncidentManagementController {
     )
   }
 }
+
+export default withTranslation()(withStyles(dashBoard)(withRouter(IncidentManagement))); 
 
 const dashBoard = {
   navigation: {
@@ -311,5 +317,3 @@ const dashBoard = {
 };
 
 // Customizable Area End
-
-export default withRouter(IncidentManagement)

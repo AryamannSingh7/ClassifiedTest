@@ -83,7 +83,7 @@ class InvoiceBilling extends InvoiceBillingController {
                 <Box className="content-header">
                   <Box className="left-block blocks">
                     <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
-                    <h4>My Invoices/Receipt</h4>
+                    <h4>{t("My Invoices/Receipt")}</h4>
                   </Box>
                 </Box>
                 <Box className="content-block-wrapper">
@@ -98,7 +98,7 @@ class InvoiceBilling extends InvoiceBillingController {
                   <Card className='card' style={{cursor:"pointer"}} onClick={() => this.getReceipt()}>
                     <CardContent>
                       <Typography>
-                        View Receipts
+                        {t("View Receipts")}
                       </Typography>
                     </CardContent>
                   </Card>
@@ -110,14 +110,6 @@ class InvoiceBilling extends InvoiceBillingController {
               <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
                 <img src={Building1} className="building-logo" alt="" />
               </Box>
-            </Grid>
-            <Grid container spacing={2}>
-                  <Grid item xs={12} md={6}>
-                    <Button variant="contained" className="invoicesbtn" color="primary" onClick={() => i18next.changeLanguage('en')}>English</Button>
-                  </Grid>
-                  <Grid item xs={12} md={6}>
-                      <Button variant="outlined" className="invoicesbtn" color="primary" onClick={() => i18next.changeLanguage('ar')}>Arebic</Button>
-                  </Grid>
             </Grid>
           </Grid>
         </Box>

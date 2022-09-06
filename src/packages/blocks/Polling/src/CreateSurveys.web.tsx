@@ -52,7 +52,9 @@ import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import TextEditor from "./TextEditor.web";
 import Backdrop from "@material-ui/core/Backdrop";
 import AudienceModal from "./AudienceModal.web";
-
+import { withRouter } from 'react-router';
+import { withTranslation } from 'react-i18next';
+import '../../../web/src/i18n.js';
 
 
 const currencies = [
@@ -74,7 +76,7 @@ const currencies = [
     },
   ];
 
-export default class CreateSurveys extends PollingController {
+class CreateSurveys extends PollingController {
   constructor(props: Props) {
     super(props);
    
@@ -83,6 +85,7 @@ export default class CreateSurveys extends PollingController {
     this.setState({checked: !this.state.checked})
   };
   render() {
+    const {t} = this.props
     return ( 
       <>
     <Box style={{background: "#E5ECFF"}}>
@@ -99,9 +102,9 @@ export default class CreateSurveys extends PollingController {
                     <Box className="navigation">
                         <Box>
                             <Typography variant="body1" >
-                            Poll and survey / <Box component="span" style={{color: "blue"}}>Create a Survey</Box>
+                            {t("Poll and survey")} / <Box component="span" style={{color: "blue"}}>{t("Create a Survey")}</Box>
                             </Typography>
-                            <Typography variant="h5" className="subHeading">Create a Survey</Typography>
+                            <Typography variant="h5" className="subHeading">{t("Create a Survey")}</Typography>
                         </Box>
                     </Box>
 
@@ -150,13 +153,13 @@ export default class CreateSurveys extends PollingController {
                                         </Grid>
                                         </MuiPickersUtilsProvider> */}
 
-                                        <TextField label="Start Date" variant="outlined"
+                                        <TextField label={t("Start Date")} variant="outlined"
                                         name="startDate"
                                         value={this.state.PollData.startDate}
                                         onChange={this.handlePollDataChange}
                                         required fullWidth
                                         />
-                                        <TextField label="End Date" variant="outlined"
+                                        <TextField label={t("End Date")} variant="outlined"
                                         name="endDate"
                                         value={this.state.PollData.endDate}
                                         onChange={this.handlePollDataChange}
@@ -234,14 +237,21 @@ export default class CreateSurveys extends PollingController {
                                     </Box>
                                     <p style={{color:"red"}}>{this.state.pollDescriptionError}</p>
 
+                                <TextField multiline rows={4}  label="Description" variant="filled"
+                                name="description"
+                                InputProps={{ disableUnderline: true }}
+                                value={this.state.PollData.description}
+                                onChange={this.handlePollDataChange}
+                                required fullWidth style={{marginTop:20,marginBottom:'15px'}}
+                                />
 
 
-                                    <TextField  label="enter question" variant="outlined"
-                                    name="question"
-                                    value={this.state.PollData.question}
-                                    onChange={this.handlePollDataChange}
-                                    required fullWidth style={{marginTop:20}}
-                                    />
+                                <TextField  label={t("enter question")} variant="outlined"
+                                name="question"
+                                value={this.state.PollData.question}
+                                onChange={this.handlePollDataChange}
+                                required fullWidth style={{marginTop:20}}
+                                />
 
                                     {/* <TextField  label="Option - 1" variant="outlined"
                                     name="optionOne"
@@ -264,13 +274,77 @@ export default class CreateSurveys extends PollingController {
                                     })
                                     }
 
-                                    <Button variant="outlined" color="primary"
-                                    onClick={() => this.addOptionsFields()}
-                                    className="addOptions">ADD OPTION</Button>
+                                <Button variant="outlined" color="primary" 
+                                onClick={() => this.addOptionsFields()}
+                                className="addOptions">{t("ADD OPTION")}</Button> 
 
-                                </Box>
+                            </Box>
                             </Grid>
-                            <Grid item sm={12} md={12} xs={12} style={{marginTop:"50px",height:"20px"}}>
+                            <Grid  item sm={12} md={12} xs={12} style={{marginBottom:"30px"}}>
+                                <Box className="createPSCards">
+                                    <FormControl variant="outlined" fullWidth>
+                                        <InputLabel id="question-type">Short answer</InputLabel>
+                                        <Select
+                                            labelId="question-type"
+                                            id="question-type-select"
+                                            value=""
+                                            label="Age"
+                                        >
+                                            <MenuItem value={10}>Yes</MenuItem>
+                                            <MenuItem value={20}>No</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                    <TextField  label="enter question" variant="outlined"
+                                                name="question"
+                                                value={this.state.PollData.question}
+                                                onChange={this.handlePollDataChange}
+                                                required fullWidth style={{marginTop:20}}
+                                    />
+                                    {/*<TextField*/}
+                                    {/*    id="standard-select-currency"*/}
+                                    {/*    select*/}
+                                    {/*    label="Select"*/}
+                                    {/*    value={this.state.selectQuestion}*/}
+                                    {/*    onChange={this.handleQuestionSelect}*/}
+                                    {/*    SelectProps={{*/}
+                                    {/*        native: true,*/}
+                                    {/*    }}*/}
+                                    {/*    placeholder="Select type of question"*/}
+                                    {/*    fullWidth*/}
+                                    {/*    variant="outlined"*/}
+                                    {/*    InputProps={{*/}
+                                    {/*        style:{borderRadius:"2px"}*/}
+                                    {/*    }}*/}
+                                    {/*>*/}
+
+                                    {/*    {currencies.map((option:any) => {*/}
+                                    {/*        return(*/}
+                                    {/*            <MenuItem key={option.value} value={option.value}>*/}
+                                    {/*                {option.label}*/}
+                                    {/*            </MenuItem>*/}
+                                    {/*        )*/}
+                                    {/*    })*/}
+                                    {/*    }*/}
+                                    {/*</TextField>*/}
+                                    <Box className="infoIcon">
+                                        <Typography variant="subtitle1">Description</Typography>
+                                        <InfoIcon style={{color:"grey", fontSize:18}}/>
+                                    </Box>
+                                    <Box className="descriptionEditor">
+                                        <TextEditor
+
+                                            markup={this.state.textEditorVal}
+                                            onChange={this.onChangeTextEditor} />
+                                    </Box>
+                                    <p style={{color:"red"}}>{this.state.pollDescriptionError}</p>
+
+                                    {/* <TextField  label="Option - 1" variant="outlined"
+                                    name="optionOne"
+                                    value={this.state.PollData.optionOne}
+                                    onChange={this.handlePollDataChange}
+                                    required fullWidth style={{marginTop:20}}
+                                    /> */}
+                                    </Box>
 
                             </Grid>
                             <Grid  item sm={12} md={12} xs={12} style={{marginBottom:"30px"}}>
@@ -337,15 +411,10 @@ export default class CreateSurveys extends PollingController {
                                     onChange={this.handlePollDataChange}
                                     required fullWidth style={{marginTop:20}}
                                     /> */}
+                                    </Box>
 
-                                </Box>
-                            </Grid>
-                            <Grid  item sm={12} md={12} xs={12}>
-                                <Button fullWidth size="large" colo="primary" variant="outlined" style={{borderRadius:"8px",border:" 1px dashed #2b6fed",color:"#2b6fed",fontWeight:"bold"}}>+ Add Another Question</Button>
-                            </Grid>
-                            <Grid  item sm={12} md={12} xs={12}>
-                                <Box className="BottomButtonSurvey">
-                                    <Box className="Previewbtn">
+                        <Box className="BottomButton">
+                            <Box className="Previewbtn"> 
                                         <Link href="/SurveyPreview">
                                             <Button variant="contained" color="primary">PREVIEW</Button>
                                         </Link>
@@ -386,6 +455,7 @@ export default class CreateSurveys extends PollingController {
   }
 }
 
+export default withTranslation()(withRouter(CreateSurveys)); 
 
 const dashBoard = {
     SideBar: {

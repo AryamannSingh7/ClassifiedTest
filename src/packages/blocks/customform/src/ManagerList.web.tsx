@@ -35,6 +35,8 @@ import Loader from "../../../components/src/Loader.web";
 import ManagerController from "./ManagerController.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
+import { withTranslation } from 'react-i18next';
+import '../../../web/src/i18n.js';
 class ManagerList extends ManagerController {
   constructor(props: Props) {
     super(props);
@@ -46,7 +48,7 @@ class ManagerList extends ManagerController {
   }
 
   render() {
-
+    const {t} = this.props
     //console.log("getRegistrationRequest===================>",building_name ,apartment_name);
     return (
       <>
@@ -65,9 +67,9 @@ class ManagerList extends ManagerController {
                 <Box style={dashBoardBudget.navigation}>
                   <Box>
                     <Typography variant="body1" >
-                      My Dashboard / General Dashboard / <Box component="span" style={{ color: "blue" }}>Vehicles</Box>
+                      {t("My Dashboard")} / {t("General Dashboard")} / <Box component="span" style={{ color: "blue" }}>{t('Vehicles')}</Box>
                     </Typography>
-                    <Typography variant="h5" style={dashBoardBudget.subHeading}>Vehicles</Typography>
+                    <Typography variant="h5" style={dashBoardBudget.subHeading}>{t("Vehicles")}</Typography>
                   </Box>
                 </Box>
                 <Formik
@@ -96,16 +98,16 @@ class ManagerList extends ManagerController {
                               value={values.status}
                             >
                               <MenuItem value=" " >
-                                Select Status
+                                {t("Select Status")}
                               </MenuItem>
-                              <MenuItem value=" Pending Approval">
-                                Pending Approval
+                              <MenuItem value="Pending">
+                                {t("Pending")}
                               </MenuItem>
-                              <MenuItem value="Approved">
-                                Approved
+                              <MenuItem value="Pending Approved">
+                                {t("Pending Approved")}
                               </MenuItem>
                               <MenuItem value="Rejected">
-                                Rejected
+                                {t("Rejected")}
                               </MenuItem>
 
                             </Select>
@@ -125,7 +127,7 @@ class ManagerList extends ManagerController {
                               value={values.buildingName}
                             >
                               <MenuItem disabled value=" " >
-                                Select Building
+                                {t("Select Building")}
                               </MenuItem>
                               {
                                 this.state?.buildingNameData?.map((val, index) => (
@@ -154,7 +156,7 @@ class ManagerList extends ManagerController {
                             >
 
                                   <MenuItem disabled value=" " >
-                                    Select Unit
+                                    {t("Select Unit")}
                                   </MenuItem>
 
                               {    this.state?.allUnit?.map((val, index) => (
@@ -173,7 +175,7 @@ class ManagerList extends ManagerController {
                         </Box>
 
                         <Box className="customButton">
-                          <Button variant="contained" type="submit">Search</Button>
+                          <Button variant="contained" type="submit">{t("Search")}</Button>
                         </Box>
                       </Box>
                     </Form>
@@ -257,7 +259,7 @@ class ManagerList extends ManagerController {
     );
   }
 }
-export default withRouter(ManagerList)
+export default withTranslation()(withRouter(ManagerList));
 
 const dashBoardBudget = {
   SideBar: {

@@ -8,7 +8,7 @@ import MessageEnum, {
   getName
 } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
-
+import {toast} from "react-toastify";
 export const configJSON = require("./config");
 
 export interface Props {
@@ -108,12 +108,12 @@ export default class ViewInvoicesController extends BlockComponent<
       this.setState({loading: false , error:null})
     }
 
-    if (apiRequestCallId === this.getInvoiceDetailsApiCallId) {
+    if (apiRequestCallId === this.getInvoiceDetailsApiCallId) {                                                                                           
       console.log("enter initially-->")
       console.log("getReceiptDetailsApiCallId ========================>",responseJson)
       if (responseJson && responseJson.invoice.data ) {
       this.setState({getInvoicesDetails :responseJson.invoice.data})
-      console.log("responseJson getIncidentDetails========================>",this.state?.getInvoicesDetails )
+      console.log("=========>",this.state?.getInvoicesDetails)
       this.setState({loading: false})
       } else if (responseJson?.errors) {
         let error = responseJson.errors[0] as string;

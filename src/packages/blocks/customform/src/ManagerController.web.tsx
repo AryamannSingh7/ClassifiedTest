@@ -63,7 +63,7 @@ interface SS {
 }
 
 export default class ManagerController extends BlockComponent<Props, S, SS> {
-    // Customizable Area Start
+    // Customizable Area Start     
   createVehicleApiCallId:string='';
   getVehicleListApiCallId:string='';
   deleteVehicleAPICallId:string='';

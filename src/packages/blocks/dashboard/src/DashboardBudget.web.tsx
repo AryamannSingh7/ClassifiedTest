@@ -16,7 +16,8 @@ import {
     TableBody,
     TableCell,
     TableHead,
-    TableRow
+    TableRow,
+    withStyles
   } from "@material-ui/core";
 
 import Box from '@material-ui/core/Box';
@@ -29,6 +30,9 @@ import TodayOutlinedIcon from '@material-ui/icons/TodayOutlined';
 import DashboardController, { Props } from "../../../blocks/dashboard/src/DashboardController";
 import DashboardHeader from "./DashboardHeader.web";
 import ChairmanSidebar from "./ChairmanSidebar.web";
+import { withRouter } from "react-router-dom";
+import { withTranslation } from 'react-i18next';
+import '../../../web/src/i18n.js';
 
 function createData(Name:any, Amount:any) {
     return { Name, Amount };
@@ -42,7 +46,7 @@ function createData(Name:any, Amount:any) {
     createData('Other Revenue and Expenses', 10356),
   ];
 
-export default class DashboardBudget extends DashboardController {
+class DashboardBudget extends DashboardController {
     constructor(props: Props) {
       super(props);
       
@@ -50,6 +54,7 @@ export default class DashboardBudget extends DashboardController {
   
 
     render() {
+        const {t} = this.props
       return ( 
       <>
         <Box style={{background: "#E5ECFF"}}>
@@ -67,9 +72,9 @@ export default class DashboardBudget extends DashboardController {
                         <Box style={dashBoardBudget.navigation}>
                             <Box>
                                 <Typography variant="body1" >
-                                My Dashboards / <Box component="span" style={{color: "blue"}}>Budget Dashboard</Box>
+                                {t("My Dashboard")} / <Box component="span" style={{color: "blue"}}>{t("Budget Dashboard")}</Box>
                                 </Typography>
-                                <Typography variant="h5" style={dashBoardBudget.PageHeading}>Budget Dashboard</Typography>
+                                <Typography variant="h5" style={dashBoardBudget.PageHeading}>{t("Budget Dashboard")}</Typography>
                             </Box>
                             <Box>
                                 <FormControl style={dashBoardBudget.YearMain} className='yearTab'>
@@ -89,13 +94,13 @@ export default class DashboardBudget extends DashboardController {
                                     <Box sx={{ml:1, mb:2}} style={dashBoardBudget.CardsIcons}>
                                         <img src={riyal} alt="riyal" width={25}/>
                                     </Box>
-                                    <Typography style={dashBoardBudget.subHeading}>Collected vs Budget Amount</Typography>
+                                    <Typography style={dashBoardBudget.subHeading}>{t('Collected vs Budget Amount')}</Typography> 
                                     <Box style={dashBoardBudget.bottomTwoSpan}>
-                                        <Typography variant="body2">Collected</Typography>
+                                        <Typography variant="body2">{t("Collected")}</Typography>
                                         <Box component="span" style={dashBoardBudget.bottomColor}>SR 10000</Box>
                                     </Box> 
                                     <Box style={dashBoardBudget.bottomTwoSpan}>
-                                        <Typography variant="body2">Budget</Typography>
+                                        <Typography variant="body2">{t("Budget")}</Typography>
                                         <Box component="span" style={dashBoardBudget.bottomColor}>SR 50000</Box>
                                     </Box> 
                                 </Box>
@@ -105,13 +110,13 @@ export default class DashboardBudget extends DashboardController {
                                     <Box sx={{ml:1, mb:2}} style={dashBoardBudget.CardsIcons}>
                                         <img src={keyrented} alt="keyrented"/>
                                     </Box>
-                                    <Typography style={dashBoardBudget.subHeading}>Total Rent Due vs Rent Collected</Typography>
+                                    <Typography style={dashBoardBudget.subHeading}>{t("Total Rent Due vs Rent Collected")}</Typography>
                                     <Box style={dashBoardBudget.bottomTwoSpan}>
-                                        <Typography variant="body2">Collected</Typography>
+                                        <Typography variant="body2">{t("Collected")}</Typography>
                                         <Box component="span" style={dashBoardBudget.bottomColor}>SR 10000</Box>
                                     </Box> 
                                     <Box style={dashBoardBudget.bottomTwoSpan}>
-                                        <Typography variant="body2">Budget</Typography>
+                                        <Typography variant="body2">{t("Budget")}</Typography>
                                         <Box component="span" style={dashBoardBudget.bottomColor}>SR 50000</Box>
                                     </Box> 
                                 </Box>
@@ -121,10 +126,10 @@ export default class DashboardBudget extends DashboardController {
                                     <Box sx={{ml:1, mb:2}} style={dashBoardBudget.CardsIcons}>
                                         <img src={removeuser} alt="removeuser" width={25}/>
                                     </Box>
-                                    <Typography style={dashBoardBudget.subHeading}>Number of members have not paid management fee</Typography>
+                                    <Typography style={dashBoardBudget.subHeading}>{t("Number of members have not paid management fee")}</Typography>
                                     <Box style={dashBoardBudget.bottomTwoSpan}>
                                         <Box component="span" style={dashBoardBudget.bottomColor}>27</Box>
-                                        <Typography variant="body2">Members</Typography>
+                                        <Typography variant="body2"><table></table>{t("Members")}</Typography>
                                     </Box> 
                                 </Box>
                             </Grid>   
@@ -135,7 +140,7 @@ export default class DashboardBudget extends DashboardController {
                                     <Box sx={{ml:1, mb:2}} style={dashBoardBudget.CardsIcons}>
                                         <img src={expense} alt="expense" width={25}/>
                                     </Box>
-                                    <Typography style={dashBoardBudget.subHeading}>Total Expenses</Typography>
+                                    <Typography style={dashBoardBudget.subHeading}>{t("Total Expenses")}</Typography>
                                     <Box style={dashBoardBudget.bottomTwoSpan}>
                                         <Box component="span" style={dashBoardBudget.bottomColor}>SR 10000</Box>
                                     </Box> 
@@ -146,14 +151,14 @@ export default class DashboardBudget extends DashboardController {
                                     <Box sx={{ml:1, mb:2}} style={dashBoardBudget.CardsIcons}>
                                         <img src={statistic} alt="statistic" width={25}/>
                                     </Box>
-                                    <Typography style={dashBoardBudget.subHeading}>Occupancy Rate</Typography>
+                                    <Typography style={dashBoardBudget.subHeading}>{t("Occupancy Rate")}</Typography>
                                     <Box style={dashBoardBudget.bottomTwoSpan}>
                                         <Box style={dashBoardBudget.cardBottom}>
-                                            <Typography variant="body2">Sold</Typography>
+                                            <Typography variant="body2">{t("Sold")}</Typography>
                                             <Box component="span" style={dashBoardBudget.bottomColor}>75%</Box>
                                         </Box>
                                         <Box style={dashBoardBudget.cardBottom}>
-                                            <Typography variant="body2">Unsold</Typography>
+                                            <Typography variant="body2">{t("Unsold")}</Typography>
                                             <Box component="span" style={dashBoardBudget.bottomColor}>25%</Box>
                                         </Box>
                                     </Box> 
@@ -164,9 +169,9 @@ export default class DashboardBudget extends DashboardController {
                                     <Box sx={{ml:1, mb:2}} style={dashBoardBudget.CardsIcons}>
                                         <img src={approvedbudget} alt="approvedbudget" width={25}/>
                                     </Box>
-                                    <Typography style={dashBoardBudget.subHeading}>View Approved Budget</Typography>
+                                    <Typography style={dashBoardBudget.subHeading}>{t("View Approved Budget")}</Typography>
                                     <Box style={dashBoardBudget.bottomTwoSpan}>
-                                        <Typography variant="body2">View Budget</Typography>
+                                        <Typography variant="body2">{t("View Budget")}</Typography>
                                     </Box> 
                                 </Box>
                             </Grid>  
@@ -176,14 +181,14 @@ export default class DashboardBudget extends DashboardController {
                             <Grid item sm={6}>
                                 <Box style={{marginTop: 25,marginBottom:50, background:"#fff", borderRadius:10}}>
                                     <Box style={dashBoardBudget.TableHeader}>
-                                        <Typography variant="h5" style={dashBoardBudget.subHeading}>Cash Flow</Typography>
+                                        <Typography variant="h5" style={dashBoardBudget.subHeading}>{t("Cash Flow")}</Typography>
                                     </Box>
                                     <TableContainer >
                                         <Table  aria-label="simple table">
                                             <TableHead>
                                                 <TableRow>
-                                                    <TableCell style={{color:"grey"}}>Name</TableCell>
-                                                    <TableCell style={{color:"grey"}} align="right">Amount</TableCell>
+                                                    <TableCell style={{color:"grey"}}>{t("Name")}</TableCell>
+                                                    <TableCell style={{color:"grey"}} align="right">{t("Amount")}</TableCell>
                                                 </TableRow>
                                             </TableHead>
                                             <TableBody>
@@ -197,7 +202,7 @@ export default class DashboardBudget extends DashboardController {
                                         </Table>
                                     </TableContainer>
                                     <Box style={dashBoardBudget.TableFooter}>
-                                        <Typography variant="h5" style={dashBoardBudget.FooterTotal}>Net Income</Typography>
+                                        <Typography variant="h5" style={dashBoardBudget.FooterTotal}>{t("Net Income")}</Typography>
                                         <Box component="span" style={dashBoardBudget.bottomColor}>SR 10005</Box>
                                     </Box>
                                 </Box>
@@ -206,14 +211,14 @@ export default class DashboardBudget extends DashboardController {
                             <Grid item sm={6}>
                                 <Box style={{marginTop: 25,marginBottom:50, background:"#fff", borderRadius:10}}>
                                     <Box style={dashBoardBudget.TableHeader}>
-                                        <Typography variant="h5" style={dashBoardBudget.subHeading}>Track Collected Money</Typography>
+                                        <Typography variant="h5" style={dashBoardBudget.subHeading}>{t("Track Collected Money")}</Typography>
                                     </Box>
                                     <TableContainer >
                                         <Table  aria-label="simple table">
                                             <TableHead>
                                                 <TableRow>
-                                                    <TableCell style={{color:"grey"}}>Name</TableCell>
-                                                    <TableCell style={{color:"grey"}} align="right">Amount</TableCell>
+                                                    <TableCell style={{color:"grey"}}>{t("Name")}</TableCell>
+                                                    <TableCell style={{color:"grey"}} align="right">{t("Amount")}</TableCell>
                                                 </TableRow>
                                             </TableHead>
                                             <TableBody>
@@ -227,7 +232,7 @@ export default class DashboardBudget extends DashboardController {
                                         </Table>
                                     </TableContainer>
                                     <Box style={dashBoardBudget.TableFooter}>
-                                        <Typography variant="h5" style={dashBoardBudget.FooterTotal}>Net Collection</Typography>
+                                        <Typography variant="h5" style={dashBoardBudget.FooterTotal}>{t("Net Collection")}</Typography>
                                         <Box component="span" style={dashBoardBudget.bottomColor}>SR 10005</Box>
                                     </Box>
                                 </Box>
@@ -242,7 +247,7 @@ export default class DashboardBudget extends DashboardController {
     }
   }
   
-  
+  export default withTranslation()(withStyles(dashBoardBudget)(withRouter(DashboardBudget)));  
   
 const dashBoardBudget = {
     SideBar: {
