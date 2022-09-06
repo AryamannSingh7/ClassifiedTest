@@ -1,9 +1,8 @@
 // Customizable Area Start
-//@ts-nocheck
-//@ts-ignore
 
 import React from "react";
 import "./Polling.web.css"
+// @ts-ignore
 import DOMPurify from 'dompurify'
 import {pollandsurvey, xmark, CheckMark, awated, Cardcalendar, allUsers} from "./assets"
 import {
@@ -87,6 +86,7 @@ class PollsallData extends PollingController {
                                     <Grid item sm={6} md={4} xs={12} >
                                         <Box className="EventsCards"
                                         key={data.id}
+                                        // @ts-ignore
                                         onClick={() => this.props.history.push("/PollDetails?id="+data.id)}
                                         >
                                             <Box className="EventsIconsText">
@@ -128,24 +128,29 @@ class PollsallData extends PollingController {
                                                     <img src={allUsers}/>
                                                     <Typography variant="body2">{data.awaited + data.completed_answers}</Typography>
                                                 </Box>
-                                                <Box className="EventsIconsDataBox">
-                                                    <img src={CheckMark} alt="CheckMark" />
-                                                    <Typography variant="body2">{data.completed_answers}</Typography>
-                                                </Box>
-                                                <Box className="EventsIconsDataBox">
-                                                    {
-                                                        data.status != "completed" ?
-                                                            <>
-                                                                <AccessTimeOutlinedIcon style={{color: "#ff8100"}}/>
-                                                                <Typography variant="body2">{data.awaited}</Typography>
-                                                            </>
-                                                            :
-                                                            <>
-                                                                <HighlightOffOutlinedIcon style={{color: "red"}}/>
-                                                                <Typography variant="body2">{data.awaited}</Typography>
-                                                            </>
-                                                    }
-                                                </Box>
+                                                {
+                                                    data.status != "upcoming" &&
+                                                    <>
+                                                        <Box className="EventsIconsDataBox">
+                                                            <img src={CheckMark} alt="CheckMark" />
+                                                            <Typography variant="body2">{data.completed_answers}</Typography>
+                                                        </Box>
+                                                        <Box className="EventsIconsDataBox">
+                                                            {
+                                                                data.status != "completed" ?
+                                                                    <>
+                                                                        <AccessTimeOutlinedIcon style={{color: "#ff8100"}}/>
+                                                                        <Typography variant="body2">{data.awaited}</Typography>
+                                                                    </>
+                                                                    :
+                                                                    <>
+                                                                        <HighlightOffOutlinedIcon style={{color: "red"}}/>
+                                                                        <Typography variant="body2">{data.awaited}</Typography>
+                                                                    </>
+                                                            }
+                                                        </Box>
+                                                    </>
+                                                }
                                             </Box>
                                         </Box>
                                     </Grid>
@@ -199,6 +204,7 @@ class PollsallData extends PollingController {
   }
 }
 
+// @ts-ignore
 export default withRouter(PollsallData)
 
 // Customizable Area End
