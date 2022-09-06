@@ -38,6 +38,7 @@ class IncidentReportedSuccessfully extends IncidentController {
    const id = localStorage?.getItem("createIncidentId")
    console.log("id=====>",id );
     if (!id) {
+      //@ts-ignore
       this.props.history.replace("/CreateIncident");
       return null;
     }
@@ -66,6 +67,7 @@ class IncidentReportedSuccessfully extends IncidentController {
                     <Button variant="contained" onClick={() => {
                       localStorage.removeItem("createIncidentId");
                       localStorage.removeItem("incidentPreview");
+                      //@ts-ignore
                       this.props.history.push("/IncidentListing");
                     }}>view ticket</Button>
                   </Box>

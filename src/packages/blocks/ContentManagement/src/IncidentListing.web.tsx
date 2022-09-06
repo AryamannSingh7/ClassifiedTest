@@ -1,6 +1,6 @@
 //@ts-ignore
 //@ts-nocheck
-// import React from "react";
+ // import React from "react";
 import React, { useState } from 'react';
 //components
 import {
@@ -37,7 +37,7 @@ class IncidentListing extends IncidentController {
   constructor(props: Props) {
     super(props);
   }
-  componentDidMount() {
+  componentDidMount():any {
     this.getIncidentListing(this.state.sortBy, this.state.status)
   }
   render() {
@@ -64,7 +64,7 @@ class IncidentListing extends IncidentController {
                         anchorEl={this.state.anchorEl}
                         keepMounted
                         open={Boolean(this.state.anchorEl)}
-                        onClose={() => this.handleClose()}
+                        onClose={() => this.handleClose("" ,"")}
                       >
                         <MenuItem onClick={(e) => this.handleClose(e, "asc")}>Ascending</MenuItem>
                         <MenuItem onClick={(e) => this.handleClose(e, "desc")}>Descending</MenuItem>
@@ -79,7 +79,7 @@ class IncidentListing extends IncidentController {
                       anchorEl={this.state.anchorEl_1}
                       keepMounted
                       open={Boolean(this.state.anchorEl_1)}
-                      onClose={() => this.handleClose_1()}
+                      onClose={() => this.handleClose_1("","")}
                     >
                       <MenuItem onClick={(e) => this.handleClose_1(e, "Unresolved")}>Unresolved</MenuItem>
                       <MenuItem onClick={(e) => this.handleClose_1(e, "Resolved")}>Resolved</MenuItem>
@@ -91,7 +91,7 @@ class IncidentListing extends IncidentController {
                 <Box className="content-block-wrapper common-incident-block">
                   <Box className="incident-content-wrapper">
                     {
-                      this.state?.incidentListing?.map((val, index) => (
+                      this.state?.incidentListing?.map((val :any, index : any) => (
                         <>
                           <Card className="incident-card card" key={index} onClick={() => this.getIncidentDetails(val.id)}>
                             <CardContent className="costom-card-content">
@@ -149,7 +149,8 @@ class IncidentListing extends IncidentController {
                     }
                   </Box>
                   <Box className="customButton add-incident">
-                    <Button variant="contained" onClick={() => { this.setState({ loading: true }); this.props.history.push("/CreateIncident") }} >Add New Incident</Button>
+                    <Button variant="contained" onClick={() => { this.setState({ loading: true });//@ts-ignore
+                     this.props.history.push("/CreateIncident") }} >Add New Incident</Button>
                   </Box>
                 </Box>
                 {/* <Box className="footer-main-block bottomBlock">
