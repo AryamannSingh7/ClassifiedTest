@@ -1,7 +1,3 @@
-//@ts-ignore
-//@ts-nocheck
-
-
 import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
@@ -54,6 +50,17 @@ export interface S {
   imageShowDialog:any;
   statusShowDialog:any;
   file:any;
+  commonAreaData:any;
+  incidentRelatedData:any;
+  incidentListing:any;
+  unitName : any;
+  serachBuildingName:any;
+  SearchIncident:any;
+  showDialog:any;
+  unitNameData:any;
+  providerNameListing:any;
+  providerListing:any;
+  buildingNameData:any;
   // Customizable Area End
 }
 
@@ -81,8 +88,12 @@ export default class IncidentManagementController extends BlockComponent<
   getBuildingNameApiCallId : any ;
   getUnitRelatedApiCallId:any ;
   getIncidentRelatedApiCallId:any;
-  validationApiCallId: string = "";
-  searchIncidentListingApiCallId:any
+  searchIncidentListingApiCallId:any;
+  apiAssginProviderCallId:any;
+  apiUpdateProviderCallId:any;
+  apiUpdateStatusCallId:any;
+  getProviderNameApiCallId:any;
+  getProviderListingApiCallId:any;
 
   imgPasswordVisible: any;
   imgPasswordInVisible: any;
@@ -112,7 +123,7 @@ export default class IncidentManagementController extends BlockComponent<
     this.isStringNullOrBlank = this.isStringNullOrBlank.bind(this);
 
     runEngine.attachBuildingBlock(this, this.subScribedMessages);
-
+     //@ts-ignore
     this.state = {
       // Customizable Area Start
       firstName: "",
@@ -146,7 +157,13 @@ export default class IncidentManagementController extends BlockComponent<
       provider_id:null,
       imageShowDialog:false,
       file:{},
-      statusShowDialog:false
+      statusShowDialog:false,
+      SearchIncident:null,
+      showDialog:false,
+      unitNameData:null,
+      providerNameListing :null,
+      providerListing:null,
+      buildingNameData:null,
       // Customizable Area End
     };
 
@@ -368,6 +385,7 @@ export default class IncidentManagementController extends BlockComponent<
           this.setState({loading: false})
           } else if (responseJson?.errors) {
             console.log("responseJson?.errors====>",responseJson?.errors)
+              //@ts-ignore
             this.props.history.push("/IncidentManagementDetail")
             let error = responseJson.errors[0] as string;
             this.setState({ error });
@@ -548,6 +566,7 @@ export default class IncidentManagementController extends BlockComponent<
   };
 
   btnSignUpProps = {
+    //@ts-ignore
     onPress: () => this.createAccount()
   };
 
@@ -636,11 +655,13 @@ export default class IncidentManagementController extends BlockComponent<
 
 clear= () => {
   localStorage.clear()
+  //@ts-ignore
   this.props.history.push("/");
 }
 
-getIncidentDetails= (id) => {
+getIncidentDetails= (id :any) => {
  localStorage.setItem("incidentManagementDetailId",id)
+ //@ts-ignore
   this.props.history.push({
     pathname: "/IncidentManagementDetail",
 });
@@ -650,7 +671,7 @@ serachHandle=()=>{
   this.getIncidentListing(this.state.serachBuildingName ,this.state.unitName,this.state.status)
 }
 
-onChange =(e)=>{
+onChange =(e :any)=>{
   if(e.target.name === 'buildingName'){
     const array = e.target?.value?.split(",");
     const id = array [0]
@@ -661,9 +682,10 @@ onChange =(e)=>{
   }
   else if(e.target.name === "statusDetail"){
     const  value = e.target.value
+    //@ts-ignore
     this.setState({ [e.target.name]:e.target.value})
-    // this.setState({ statusShowDialog: false })
-    this.updateStatus(value);
+     this.setState({ statusShowDialog: true })
+    
   }
   else if(e.target.name === 'providerWork'){
     const array = e.target?.value?.split(",");
@@ -680,9 +702,10 @@ onChange =(e)=>{
   // }
   else if(e.target.name === "statusDetail"){
     const  value = e.target.value
+    //@ts-ignore
     this.setState({ [e.target.name]:e.target.value})
     // this.setState({ statusShowDialog: false })
-    this.updateStatus(value);
+    // this.updateStatus(value);
   }
   else if(e.target.name === 'providerWork'){
     const array = e.target?.value?.split(",");
@@ -698,12 +721,13 @@ onChange =(e)=>{
   //   this.setState({ ProviderName:e.target?.value})
   // }
   else {
-    this.setState({ [e.target.name]:e.target.value})
+    //@ts-ignore
+    this.setState({ [e.target.name]:e.target.value}) 
   }
 }
 
 
-  updateStatus = (val) => {
+  updateStatus = (val : any) => {
     
     const header = {
       token :localStorage.getItem("userToken")
@@ -713,15 +737,17 @@ onChange =(e)=>{
     console.log("this.state?.statusDetail=========>",val)
    
     if(val ==="Resolved")
+    //@ts-ignore
     formData.append('incident[mark_resolved_by_reporter]', true);
     else
+    //@ts-ignore
     formData.append('incident[mark_resolved_by_reporter]', false);
    
     formData.append('incident[incident_status]', val);
    console.log("formData.getAll('description')==================>",formData.get('incident[mark_resolved_by_reporter]'))
    const httpBody = formData;
    
-    this.setState({loading: true}) 
+    this.setState({loading: true,statusShowDialog:false}) 
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
     );
@@ -867,7 +893,7 @@ onChange =(e)=>{
     }
   };
 
-  getUnit = (id) => {
+  getUnit = (id :any) => {
     try {
       const header = {
         "Content-Type": configJSON.validationApiContentType,
@@ -883,7 +909,7 @@ onChange =(e)=>{
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `bx_block_address/apartment_list?id=${id}`
+        `bx_block_address/all_apartment_list?building_management_id=${id}`
       );
 
       requestMessage.addData(
@@ -943,7 +969,7 @@ onChange =(e)=>{
     const header = {
       token :localStorage.getItem("userToken")
     };
-    const  incident_id = localStorage.getItem("incidentManagementDetailId")
+    const  incident_id : any= localStorage.getItem("incidentManagementDetailId")
     const formData = new FormData();
    
     formData.append('assign_incident[incident_id]', incident_id);
@@ -987,7 +1013,7 @@ onChange =(e)=>{
     const header = {
       token :localStorage.getItem("userToken")
     };
-    const  id = localStorage.getItem("incidentManagementDetailId")
+    const  id : any= localStorage.getItem("incidentManagementDetailId")
     const provider_id = this.state?.providerName;
     const formData = new FormData();
     console.log("asgin provide iiifh ============>",provider_id,id)

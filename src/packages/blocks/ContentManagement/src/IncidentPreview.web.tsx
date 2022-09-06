@@ -1,7 +1,6 @@
 //@ts-ignore
 //@ts-nocheck
 import React from "react";
-
 //components
 import {
   Box,
@@ -45,10 +44,11 @@ class IncidentPreview extends IncidentController {
 
   render() {
     const { navigation } = this.props;
-    const incidentFromData = JSON.parse(localStorage.getItem("incidentPreview"))
+    const incidentFromData = JSON.parse(localStorage.getItem("incidentPreview") || '{}')
     const incidentRelated = incidentFromData?.incidentRelated?.split(" ");
     console.log("this.state?.file?.type===============>", this.state?.file);
     if (!incidentFromData) {
+      //@ts-ignore
       this.props.history.replace("/CreateIncident");
       return null;
     }
@@ -118,7 +118,7 @@ class IncidentPreview extends IncidentController {
                               </Typography>
                               <CardActions className="card-img-row">
                                 {
-                                  incidentFromData?.media?.map((val, index) => (
+                                  incidentFromData?.media?.map((val:any, index:any) => (
                                     val?.file.type === "video/mp4" || val?.file.type === "video/x-m4v" ?
                                       <Box className="video-img" key={index} onClick={() => { this.setState({ showDialog: true, file: { url: val.url, type: val?.file.type, name: val?.file?.name } }) }}>
                                         <Box className="img-layer"></Box>
