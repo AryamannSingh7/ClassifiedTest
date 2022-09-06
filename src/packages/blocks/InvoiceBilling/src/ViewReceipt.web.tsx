@@ -40,6 +40,7 @@ constructor(props: Props) {
 }
 
 render() {
+  const {t} = this.props
     const { navigation } = this.props;
     return (
       // Customizable Area Start
@@ -81,9 +82,9 @@ render() {
                     //@ts-ignore
                     onClose={() => this.handleClose_1()}
                     >
-                    <MenuItem onClick={(e) => this.handleClose_1(e, "Paid")}>Paid</MenuItem>
-                    <MenuItem onClick={(e) => this.handleClose_1(e, "Due")}>Due</MenuItem>
-                    <MenuItem onClick={(e) => this.handleClose_1(e, "Overdue")}>Overdue</MenuItem>
+                    <MenuItem onClick={(e) => this.handleClose_1(e, "Paid")}>{t("Paid")}</MenuItem>
+                    <MenuItem onClick={(e) => this.handleClose_1(e, "Due")}>{t("Due")}</MenuItem>
+                    <MenuItem onClick={(e) => this.handleClose_1(e, "Overdue")}>{t("Overdue")}</MenuItem>
                     </Menu>
                 </Box>
                 </Box>
@@ -105,7 +106,7 @@ render() {
                                 // value={values.myApartment}
                             >
                                 <MenuItem disabled value=" ">
-                                Building Name
+                                {t("Building Name")}
                                 </MenuItem>
                                 <MenuItem value={20}>Twenty</MenuItem>
                                 <MenuItem value={30}>Thirty</MenuItem>
@@ -138,7 +139,7 @@ render() {
                                 // value={values.myApartment}
                             >
                                 <MenuItem disabled value=" ">
-                                Unit Number
+                                {t("Unit Number")}
                                 </MenuItem>
                                 <MenuItem value={20}>One</MenuItem>
                                 <MenuItem value={30}>Two</MenuItem>
@@ -157,10 +158,10 @@ render() {
                         </Box>
                         <Grid container spacing={2} style={{marginTop: "1.5rem"}}>
                             <Grid item xs={12} md={6}>
-                                <Button variant="contained" className="invoicesbtn" color="primary">My Receipts</Button>
+                                <Button variant="contained" className="invoicesbtn" color="primary">{t("My Receipts")}</Button>
                             </Grid>
                             <Grid item xs={12} md={6}>
-                                <Button variant="outlined" className="invoicesbtn">Tenant Receipts</Button>
+                                <Button variant="outlined" className="invoicesbtn">{t("Tenant Receipts")}</Button>
                             </Grid>
                         </Grid>
                         {console.log("dsdsds--->",this.state?.myReceiptList)}
@@ -169,7 +170,7 @@ render() {
                           <CardContent className="costom-card-content">
                           <Box className="card-listing-row">
                             <Typography component="span">
-                              {/* {val?.attributes?.incident_title} */}Receipt: APRIL 2022
+                              {/* {val?.attributes?.incident_title} */}{t("Receipt")}: APRIL 2022
                             </Typography>
                             {/* {
                               item.attributes.status === "paid" ?
@@ -189,10 +190,10 @@ render() {
                               </Box>
                             <Box className="card-listing-row">
                               <Typography component="span">
-                                Tenant:
+                                {t("Tenant")}:
                               </Typography>
                               <Typography component="span">
-                                Building Name:
+                                {t("Building Name")}:
                               </Typography>
                             </Box>
                             <Box className="card-listing-row">
@@ -205,10 +206,10 @@ render() {
                             </Box>
                             <Box className="card-listing-row">
                               <Typography component="span">
-                                Unit Number:
+                                {t("Unit Number")}:
                               </Typography>
                               <Typography component="span">
-                               Paid Amount:
+                               {t("Paid Amount")}:
                               </Typography>
                             </Box>
                             <Box className="card-listing-row">
@@ -220,7 +221,7 @@ render() {
                               </Typography>
                             </Box>
                             <Box style={{paddingTop:"8px"}}>
-                              <Typography component="span">Receipt Type</Typography>
+                              <Typography component="span">{t("Receipt Type")}</Typography>
                               <Typography className="sub-title" component="h5">
                                 {item.attributes.receipt_type}
                               </Typography>
@@ -279,4 +280,4 @@ const webStyle = {
   };
   // Customizable Area End
 
-  export default withTranslation() (withRouter(ViewReceipt));
+  export default withTranslation()(withRouter(ViewReceipt));
