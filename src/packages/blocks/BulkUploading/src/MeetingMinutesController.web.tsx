@@ -1,12 +1,11 @@
 import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
-import MessageEnum, {
-  getName,
-} from "../../../framework/src/Messages/MessageEnum";
+import MessageEnum, { getName } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
 
 // Customizable Area Start
+import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
 // Customizable Area End
 
 export const configJSON = require("./config.js");
@@ -36,11 +35,7 @@ interface SS {
   id: any;
 }
 
-export default class MeetingMinutesController extends BlockComponent<
-  Props,
-  S,
-  SS
-> {
+export default class MeetingMinutesController extends BlockComponent<Props, S, SS> {
   GetAllMinuteMeetingsCallId: any;
   GetMinuteMeetingDetailCallId: any;
   UpdateMinuteMeetingCallId: any;
@@ -80,9 +75,7 @@ export default class MeetingMinutesController extends BlockComponent<
     ) {
       this.GetAllMinuteMeetingsCallId = null;
 
-      var responseJson = message.getData(
-        getName(MessageEnum.RestAPIResponceSuccessMessage)
-      );
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson.code === 200) {
         this.setState({
@@ -90,15 +83,13 @@ export default class MeetingMinutesController extends BlockComponent<
         });
       }
 
-      var errorResponse = message.getData(
-        getName(MessageEnum.RestAPIResponceErrorMessage)
-      );
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
         runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
       } else {
-        this.parseApiErrorResponse(responseJson);
+        ApiErrorResponse(responseJson);
       }
-      this.parseApiCatchErrorResponse(errorResponse);
+      ApiCatchErrorResponse(errorResponse);
     }
 
     // Minute Meeting Detail API Response
@@ -110,27 +101,22 @@ export default class MeetingMinutesController extends BlockComponent<
     ) {
       this.GetMinuteMeetingDetailCallId = null;
 
-      var responseJson = message.getData(
-        getName(MessageEnum.RestAPIResponceSuccessMessage)
-      );
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson.code === 200) {
         this.setState({
           meetingMinuteDetails: responseJson.meeting.data,
-          meetingMinuteStatus:
-            responseJson.meeting.data.attributes.meeting_mins_status,
+          meetingMinuteStatus: responseJson.meeting.data.attributes.meeting_mins_status,
         });
       }
 
-      var errorResponse = message.getData(
-        getName(MessageEnum.RestAPIResponceErrorMessage)
-      );
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
         runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
       } else {
-        this.parseApiErrorResponse(responseJson);
+        ApiErrorResponse(responseJson);
       }
-      this.parseApiCatchErrorResponse(errorResponse);
+      ApiCatchErrorResponse(errorResponse);
     }
     // Customizable Area End
   }
@@ -153,10 +139,7 @@ export default class MeetingMinutesController extends BlockComponent<
       `society_managements/${society_id}/bx_block_meeting/meeting_mins`
     );
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
     apiRequest.addData(
       getName(MessageEnum.RestAPIRequestMethodMessage),
@@ -186,10 +169,7 @@ export default class MeetingMinutesController extends BlockComponent<
       }`
     );
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
     apiRequest.addData(
       getName(MessageEnum.RestAPIRequestMethodMessage),
@@ -222,15 +202,9 @@ export default class MeetingMinutesController extends BlockComponent<
 
     apiRequest.addData(getName(MessageEnum.RestAPIResponceEndPointMessage), ``);
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestBodyMessage),
-      JSON.stringify(body)
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestBodyMessage), JSON.stringify(body));
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
     apiRequest.addData(
       getName(MessageEnum.RestAPIRequestMethodMessage),

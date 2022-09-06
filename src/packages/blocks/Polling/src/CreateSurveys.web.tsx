@@ -23,7 +23,8 @@ import Select from "@material-ui/core/Select";
 import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
-
+import Modal from "@material-ui/core/Modal";
+import Fade from "@material-ui/core/Fade";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import Switch from '@material-ui/core/Switch';
 
@@ -49,6 +50,8 @@ import PollingController, {
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import TextEditor from "./TextEditor.web";
+import Backdrop from "@material-ui/core/Backdrop";
+import AudienceModal from "./AudienceModal.web";
 
 
 
@@ -171,7 +174,7 @@ export default class CreateSurveys extends PollingController {
                                             <Button variant="outlined" color="primary">OWNERS</Button>
                                             <Button variant="outlined" color="primary">RESIDENTS</Button>
                                             <Typography variant="subtitle1">Or, </Typography>
-                                            <Button variant="contained" color="primary">CREATE AUDIENCE</Button>
+                                            <Button variant="contained" color="primary" onClick={this.handleOpenAudienceModal}>CREATE AUDIENCE</Button>
                                         </Box>
                                     </Box>
                                 </Box>
@@ -356,6 +359,25 @@ export default class CreateSurveys extends PollingController {
                     </form>
                     
                 </Container>
+                <Modal
+                    aria-labelledby="filterModal"
+                    aria-describedby="filtermodal"
+                    className="modalStyle"
+                    open={this.state.audienceModal}
+                    onClose={this.handleCloseAudienceModal}
+                    closeAfterTransition
+                    BackdropComponent={Backdrop}
+                    BackdropProps={{
+                        timeout: 500,
+                    }}
+                >
+                    {/*@ts-ignore*/}
+                    <Fade in={this.state.audienceModal}>
+                        <div>
+                            <AudienceModal handleClose={this.handleCloseAudienceModal} />
+                        </div>
+                    </Fade>
+                </Modal>
             </Grid>
         </Box>
     </Box>

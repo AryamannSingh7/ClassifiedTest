@@ -101,7 +101,7 @@ class IncidentDetails extends IncidentController {
                         </Card> :
                         null
                     }
-                    <Box className="incident-rows mt-20">
+                    <Box className="incident-rows mt-15">
                       <h4>Incident Details</h4>
                       <Box className="customButton">
                         <Button variant="contained" className={attributes?.incident_status === 'Pending Confirmation' ? "contain warning" : attributes?.incident_status === 'Resolved' ? 'contain success' : 'contain danger'}  > {attributes?.incident_status}</Button>
@@ -116,7 +116,7 @@ class IncidentDetails extends IncidentController {
                           {attributes?.common_area?.name}
                         </Typography>
                         <Typography className="title-span" component="span">
-                          Incident is related to::
+                          Incident is related to:
                         </Typography>
                         <Typography className="sub-title" component="h5">
                           {attributes?.incident_related?.name}
@@ -127,12 +127,12 @@ class IncidentDetails extends IncidentController {
                         <Typography className="sub-title" component="h5">
                           {id}
                         </Typography>
-                        <Typography className="title-span" component="span">
+                        {/* <Typography className="title-span" component="span">
                           Expected Resolution Date:
                         </Typography>
                         <Typography className="sub-title" component="h5">
                           12-03-2021 13:45 {attributes?.expected_resolution_date}
-                        </Typography>
+                        </Typography> */}
                         <Typography component="span">
                           Building:
                         </Typography>
@@ -149,13 +149,13 @@ class IncidentDetails extends IncidentController {
                           Latest update from management:
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                          Waiting forspare part to be delivered from Italy {attributes?.last_update_from_management}
+                          {attributes?.last_update_from_management}
                         </Typography>
                         <Typography className="title-span" component="span">
                           Ackwnolodged by Manager:
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                          Yes {attributes?.acknoledged_by_manager}
+                          {attributes?.acknoledged_by_manager}
                         </Typography>
                         {
                           attributes?.attachments.length !== 0 ?
@@ -199,9 +199,15 @@ class IncidentDetails extends IncidentController {
                             :
                             null
                         }
+                        <Typography className="title-span" component="span">
+                          Description:
+                        </Typography>
+                        <Typography className="sub-title" component="h5">
+                         {attributes?.description}
+                        </Typography>
                       </CardContent>
                     </Card>
-                    <Box className="commonForm">
+                    {/* <Box className="commonForm">
                       <Box className="formGroup textarea">
                         <img src={Clipboard_Icon} className="clipboard-icon" alt="Clipboard_Icon" />
                         <TextareaAutosize
@@ -212,7 +218,7 @@ class IncidentDetails extends IncidentController {
                           value={attributes?.description}
                         />
                       </Box>
-                    </Box>
+                    </Box> */}
                     <Box className="incident-rows mt-20">
                       <h4>Reporting Details</h4>
                     </Box>
@@ -247,13 +253,13 @@ class IncidentDetails extends IncidentController {
                     {/*</Card> */}
                   </Box>
                   <Box className="customButton ticket-conversion">
-                    <Button variant="contained" type="submit" >start/ view ticket conversation</Button>
+                    <Button variant="contained" onClick={()=>alert("chat module is getting soon")}>start/ view ticket conversation</Button>
                   </Box>
                 </Box>
-                {/* <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>
+                {/* {/* <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>
                   <h6 className="bottom-text">POWERED BY</h6>
                   <img src={Tenant_Logo.default} className="tenant-logo" alt="" />
-                </Box> */}
+                </Box> */} */}
               </Box>
             </Grid>
             {/* desktop footer block */}

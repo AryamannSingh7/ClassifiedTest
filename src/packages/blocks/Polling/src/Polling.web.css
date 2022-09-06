@@ -15,6 +15,19 @@
     margin-bottom: 10px;
 }
 
+.textwrapStatus{
+    display: flex;
+    -webkit-line-clamp: 4;
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
 .CreatePS{
     display: flex;
     flex-direction: column;
@@ -92,7 +105,7 @@
     background:#f0f0f0;
 }
 .createPSCards{
-    padding-top: 30px;
+    padding-top: 25px;
     padding-left: 15px;
     padding-right: 15px;
     padding-bottom: 25px;
@@ -303,6 +316,18 @@
     text-transform: capitalize;
 }
 
+.statusOngoingBlue{
+    background: #2b6fed40;
+    padding: 10px 20px;
+    border-radius: 30px;
+    color: #2b6fed;
+    display: initial;
+    min-height: 20px;
+    text-transform: capitalize;
+    min-width: 50px;
+    font-weight: 800 !important;
+}
+
 .statusOngoingGreen{
     background: #c1ffc1;
     padding: 10px 20px;
@@ -312,7 +337,7 @@
     min-height: 20px;
     text-transform: capitalize;
     min-width: 50px;
-    font-weight: bold;
+    font-weight: 800 !important;
 }
 
 .statusOngoingRed{
@@ -324,7 +349,7 @@
     min-height: 20px;
     min-width: 50px;
     text-transform: capitalize;
-    font-weight: bold;
+    font-weight: 800 !important;
 }
 
 
@@ -585,7 +610,6 @@
 .VoteCountBottom{
     display: flex;
     align-items: center;
-    justify-content: space-between;
 }
 
 .VoteCountBottomBox{
