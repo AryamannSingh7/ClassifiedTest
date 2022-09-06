@@ -1,5 +1,3 @@
-//@ts-ignore
-//@ts-nocheck
 import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
@@ -55,6 +53,9 @@ interface S {
   allVehcile:any[];
   showDialog:boolean;
   showDialogPhoto:boolean;
+  buildingNameData:any;
+  buildingName:any;
+  selectBuilding:any;
   // Customizable Area End
 }
 
@@ -99,7 +100,10 @@ export default class ManagerController extends BlockComponent<Props, S, SS> {
       loading:false,
       allVehcile:[],
       showDialog:false,
-      showDialogPhoto:false
+      showDialogPhoto:false,
+      buildingNameData:null,
+      buildingName:null,
+      selectBuilding:null,
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -249,9 +253,9 @@ export default class ManagerController extends BlockComponent<Props, S, SS> {
         if (apiRequestCallId === this.acceptRequestAPICallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
-            //@ts-ignore
-            //@ts-nocheck
             localStorage.removeItem('selectCar')
+             //@ts-ignore
+            //@ts-nocheck
             this.props.history.push('/mv')
           } else {
             //Check Error Response
@@ -823,17 +827,17 @@ if(this.state.allVehcile.length<3){
     }
 
   }
-  getData(e) {
+//   getData(e) {
 
 
- if (e.target.name == 'selectBuilding') {
-      this.getUnit()
+//  if (e.target.name == 'selectBuilding') {
+//       this.getUnit()
 
-    }
+//     }
 
-  }
+//   }
 
-  getUnit(id) {
+  getUnit(id:any) {
 
     const header = {
       "Content-Type": configJSON.contentTypeApiAddDetail,
@@ -845,11 +849,9 @@ if(this.state.allVehcile.length<3){
 
 
     this.getUnitApiCallId = requestMessage.messageId;
-    console.log(this.state.selectBuilding)
+
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      //@ts-ignore
-      //@ts-nocheck
       `bx_block_address//all_apartment_list?building_management_id=${id}`
     );
 
@@ -868,7 +870,7 @@ if(this.state.allVehcile.length<3){
     runEngine.sendMessage(requestMessage.id, requestMessage);
     return true;
   }
-  getVehicle2(value) {
+  getVehicle2(value:any) {
 
     const header = {
       "Content-Type": configJSON.contentTypeApiAddDetail,
