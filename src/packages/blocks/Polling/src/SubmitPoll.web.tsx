@@ -43,15 +43,19 @@ class SubmitPoll extends PollingController {
             
           <Grid xs={12} style={{ display:"flex", alignItems:"center", justifyContent:"space-between"}}>
           <Grid xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
-                <ArrowBackIcon onClick={() => window.history.back()} />
-                <p style={{ fontSize: '1rem', fontWeight: 600 }}>
+                <p className="textwrapStatus" style={{ fontSize: '1rem', fontWeight: 600 }}>
                     {this.state.pollPreviewAnswer.poll?.data?.attributes.title}
                 </p>
             </Grid>
             <Box className="EventsIconsText">
-                <p className="statusOngoing" style={{fontWeight: 600}}>
-                  {this.state.pollPreviewAnswer.poll?.data?.attributes.status}
-                </p>
+                {
+                    this.state.pollPreviewAnswer.poll?.data?.attributes.status == "ongoing" &&
+                    <Typography variant="body2" className={"statusOngoingRed"}>{this.state.pollPreviewAnswer.poll?.data?.attributes.status}</Typography>
+                }
+                {
+                    this.state.pollPreviewAnswer.poll?.data?.attributes.status == "completed" &&
+                    <Typography variant="body2" className={"statusOngoingGreen"}>{this.state.pollPreviewAnswer.poll?.data?.attributes.status}</Typography>
+                }
             </Box>
           </Grid>
         </Grid>

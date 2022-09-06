@@ -45,21 +45,6 @@ import SearchIcon from '@material-ui/icons/Search';
 function createData(name:any, unit:any) {
     return { name, unit };
 }
-const rows = [
-    createData('Frozen yoghurt', 159),
-    createData('Ice cream', 237),
-    createData('Eclair', 262),
-    createData('Cupcake', 305),
-    createData('Gingerbread', 35),
-    createData('Ginger', 56),
-    createData('bread', 56),
-    createData('Gingerbread', 56),
-    createData('Gingerbread', 35),
-    createData('Ginger', 56),
-    createData('bread', 56),
-    createData('Gingerbread', 56),
-];
-
 
 class PollDetails extends PollingController {
   constructor(props: Props) {
@@ -114,18 +99,9 @@ class PollDetails extends PollingController {
                                             </Box>
                                             :
                                             <Box>
-                                                {
-                                                    this.state.pollPreviewAnswer?.poll?.data?.attributes?.status == "upcoming" &&
-                                                    <Typography variant="body1" className={"statusOngoingBlue"}>{this.state.pollPreviewAnswer?.poll?.data?.attributes?.status}</Typography>
-                                                }
-                                                {
-                                                    this.state.pollPreviewAnswer?.poll?.data?.attributes?.status == "ongoing" &&
-                                                    <Typography variant="body1" className={"statusOngoingRed"}>{this.state.pollPreviewAnswer?.poll?.data?.attributes?.status}</Typography>
-                                                }
-                                                {
-                                                    this.state.pollPreviewAnswer?.poll?.data?.attributes?.status == "completed" &&
-                                                    <Typography variant="body1" className={"statusOngoingGreen"}>{this.state.pollPreviewAnswer?.poll?.data?.attributes?.status}</Typography>
-                                                }
+                                                <p className="statusOngoing" style={{fontWeight: 600, marginLeft:"1rem"}}>
+                                                {this.state.pollPreviewAnswer?.poll?.data?.attributes?.status}
+                                                </p>   
                                             </Box>
                                         }
                                 </Box>
