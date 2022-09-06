@@ -191,8 +191,9 @@ class ManagerList extends ManagerController {
                               this.state.allVehcile.map((item, i) => <>
                                 <Grid xs={4} style={{ margin: 10 }} >
                                   <div className="card" style={{ cursor: 'pointer',maxWidth:450,background:'white' }} onClick={() => this.addVehicle(item)}>
-                                    <div className="status">
-                                      {item.attributes.status}
+                                    <div className="customButton status1" style={{width:'fit-content'}}>
+                                      <Button variant="contained" className={item.attributes.status === 'Pending Approval' ? "contain warning" : item.attributes.status === 'Approved' ? 'contain success' : 'contain danger'} type="submit">
+                                        {item.attributes.status}</Button>
                                     </div>
                                     <div className="card-content">
 

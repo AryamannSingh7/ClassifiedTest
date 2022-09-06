@@ -850,7 +850,7 @@ if(this.state.allVehcile.length<3){
       getName(MessageEnum.RestAPIResponceEndPointMessage),
       //@ts-ignore
       //@ts-nocheck
-      `bx_block_address/apartment_list?id=${id}`
+      `bx_block_address//all_apartment_list?building_management_id=${id}`
     );
 
     requestMessage.addData(
