@@ -16,6 +16,8 @@ import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { FaqChairmanStyleWeb } from "./FaqChairmanStyle.web";
 import ContactUsController, { Props } from "./ContactusController.web";
+import { withTranslation } from 'react-i18next';
+import '../../../web/src/i18n.js';
 
 class ContactUsChairman extends ContactUsController {
   constructor(props: Props) {
@@ -23,6 +25,7 @@ class ContactUsChairman extends ContactUsController {
   }
 
   render() {
+    const {t} = this.props
     const { classes } = this.props;
 
     return (
@@ -41,13 +44,13 @@ class ContactUsChairman extends ContactUsController {
                 <Box className="navigation">
                   <Box>
                     <Typography variant="body1">
-                      Help /{" "}
+                      {t("Help")} /{" "}
                       <Box component="span" style={{ color: "blue" }}>
-                        Contact us
+                        {t("Contact Us")}
                       </Box>
                     </Typography>
                     <Typography variant="h5" className="sub-heading">
-                      Contact Us
+                      {t("Contact Us")}
                     </Typography>
                   </Box>
                 </Box>
@@ -64,11 +67,11 @@ class ContactUsChairman extends ContactUsController {
 
                   <Grid xs={6} style={{ paddingTop: 35 }}>
                     <FormControl fullWidth>
-                      <input placeholder="Title" className="title-input" />
+                      <input placeholder={t("Title")} className="title-input" />
                     </FormControl>
                     <FormControl fullWidth>
                       <select className="select-input">
-                        <option aria-label="None">Select Category</option>
+                        <option aria-label="None">{t("Select Category")}</option>
                         <option>Ten</option>
                         <option>Twenty</option>
                         <option>Thirty</option>
@@ -87,7 +90,7 @@ class ContactUsChairman extends ContactUsController {
                       />
                     </FormControl>
                     <Button variant="contained" fullWidth>
-                      Send Message
+                      {t("Send Message")}
                     </Button>
                   </Grid>
                 </Box>
@@ -100,5 +103,5 @@ class ContactUsChairman extends ContactUsController {
   }
 }
 
-export default withStyles(FaqChairmanStyleWeb)(ContactUsChairman);
+export default withTranslation()(withStyles(FaqChairmanStyleWeb)(ContactUsChairman));
 // Customizable Area End
