@@ -179,13 +179,13 @@ class Registration extends EmailAccountRegistrationController {
 
                     <Box
                       marginTop='1rem'
-                      className='input'
+                          className='formInputGrp'
                       display="flex"
                       overflow="hidden"
                       alignItems="center"
                       height="56px"
                       border="0.1px solid rgb(209 209 209 / 44%)"
-                      borderRadius="16px"
+                      borderRadius="25px"
                       bgcolor="white"
                     >
                       <Box>
@@ -330,7 +330,7 @@ class Registration extends EmailAccountRegistrationController {
 
                     {/* confirm */}
                     <Box
-                      className="formGroup"
+                          className="formInputGrp"
                     >
                       <span className="frmLeftIcons">
 
@@ -397,11 +397,12 @@ class Registration extends EmailAccountRegistrationController {
                     ) : null}
 
 
-                    <Box className="customButton">
+                        <Box className="customButton formInputGrp">
 
                       <Button
                         variant="contained"
                         type="submit"
+                            style={{ orderRadius: '25px' }}
 
                       >
                         SIGN UP

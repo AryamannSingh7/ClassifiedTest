@@ -256,9 +256,9 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
           }}
         >
           <Box className="diloag-body">
-            <Box className="diloag-header 1">
+            <Box className="diloag-header 1" style={{flexDirection:'column'}}>
               <img src={building} className="tenet-logo" alt="" />
-              <DialogTitle className="alert-dialog-title1" id="alert-dialog-title">
+              <DialogTitle className="alert-dialog-title1" id="alert-dialog-title" style={{overflow:'visible',width:'auto'}}>
                Are you sure  want to register this unit?
               </DialogTitle>
               <p>Are you sure that you want to register  the unit {this.state.selectUnit.apartment_name} of {this.state.selectBuilding.name} as a unit that you own or manage?</p>

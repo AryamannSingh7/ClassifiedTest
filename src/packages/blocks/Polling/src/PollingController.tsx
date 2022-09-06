@@ -73,7 +73,9 @@ interface S {
   reportSearch:any;
   currentReportPage:any;
   filterModal:boolean;
-
+  audienceModal:boolean;
+  surveyOptions:Array<Object>;
+  audienceType:"";
   // Customizable Area End
 }
 
@@ -112,7 +114,7 @@ export default class PollingController extends BlockComponent<
       txtSavedValue: "A",
       enableField: false,
       // Customizable Area Start
-      Year: 'This Week',
+      Year: 'This Month',
       selectedDate: new Date(),
       checked: false,
       editorState: EditorState.createEmpty(),
@@ -193,6 +195,21 @@ export default class PollingController extends BlockComponent<
       reportSearch:"",
       currentReportPage:1,
       filterModal:false,
+      audienceModal:false,
+      surveyOptions: [
+        {
+          questionType: "",
+          description:"",
+          question:"",
+          options: [
+            {text: "",_destroy: "false",error:""},
+            {text: "",_destroy: "false",error:""}
+          ],
+          _destroy: "false",
+          error:""
+        }
+      ],
+      audienceType:"",
       // Customizable Area End
 
     };
@@ -207,6 +224,9 @@ export default class PollingController extends BlockComponent<
     this.handleReportPagination = this.handleReportPagination.bind(this)
     this.handleCloseFilterModal = this.handleCloseFilterModal.bind(this)
     this.handleOpenFilterModal = this.handleOpenFilterModal.bind(this)
+    this.handleCloseAudienceModal = this.handleCloseAudienceModal.bind(this)
+    this.handleOpenAudienceModal = this.handleOpenAudienceModal.bind(this)
+    this.selectAudience = this.selectAudience.bind(this)
     // Customizable Area End
   }
 
@@ -348,6 +368,24 @@ export default class PollingController extends BlockComponent<
   handleOpenFilterModal () {
     this.setState({
       filterModal:true
+    })
+  }
+
+  handleCloseAudienceModal () {
+    this.setState({
+      audienceModal:false
+    })
+  }
+
+  handleOpenAudienceModal () {
+    this.setState({
+      audienceModal:true
+    })
+  }
+
+  selectAudience(type:any){
+    this.setState({
+      audienceType:type,
     })
   }
 

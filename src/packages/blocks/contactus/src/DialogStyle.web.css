@@ -2,7 +2,12 @@
   border-bottom: 0;
 }
 
-.select-meeting.MuiDialog-root .MuiDialogContent-dividers {
+* {
+  font-family: "Century Gothic";
+}
+
+.select-meeting.MuiDialog-root .MuiDialogContent-dividers,
+.edit-profile.MuiDialog-root .MuiDialogContent-dividers {
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
 
@@ -45,7 +50,8 @@
   color: #494949;
 }
 
-.add-document .dialog-input {
+.add-document .dialog-input,
+.add-meeting .dialog-input {
   background-color: #efefef;
 }
 
@@ -126,26 +132,34 @@
 }
 
 .delete-document .MuiDialogContent-root img,
+.cancel-meeting-dialog .MuiDialogContent-root img,
+.schedule-dialog .MuiDialogContent-root img,
 .save-lease img {
   margin-bottom: 20px;
 }
 
 .delete-document h6,
+.cancel-meeting-dialog h6,
+.schedule-dialog h6,
 .save-lease h6 {
   margin-bottom: 10px;
   font-weight: 600;
 }
 
 .delete-document p,
+.cancel-meeting-dialog p,
+.schedule-dialog p,
 .save-lease p {
-  margin-bottom: 15px;
+  margin-bottom: 18px;
   color: gray;
 }
 
 .delete-document .dialog-button-group,
+.cancel-meeting-dialog .dialog-button-group,
 .delete-dialog .dialog-button-group {
   flex-direction: row;
   justify-content: center;
+  gap: 10px;
 }
 
 .delete-document .dialog-button-group button,
@@ -213,8 +227,33 @@
   top: -20px !important;
 }
 
+.chairman-top-menu.szh-menu-container ul {
+  left: -190px !important;
+  top: 45px !important;
+  width: 180px;
+}
+
 .szh-menu-container ul li {
   padding: 8px 32px;
+  display: block;
+  background-color: white;
+}
+
+.chairman-top-menu.szh-menu-container ul li {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.MuiMenu-list .MuiListItem-root {
+  padding: 6px 16px !important;
+  display: flex !important;
+  position: relative !important;
+  text-align: left !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  text-decoration: none !important;
 }
 
 .share-box {
@@ -265,6 +304,7 @@
   padding-top: 10px;
   padding-bottom: 10px;
   width: 175px;
+  font-weight: 600;
 }
 
 .MuiDialog-root .dialog-button-group {
@@ -284,6 +324,7 @@
   padding-bottom: 10px;
   border-radius: 8px;
   width: 175px;
+  font-weight: 600;
 }
 
 .delete-document .dialog-button-group .cancel-button {
@@ -342,4 +383,245 @@
 
 .penalty-dialog .select-input .MuiInputAdornment-positionStart {
   margin-right: 20px;
+}
+
+.add-meeting .date-time .MuiInput-underline:before,
+.add-meeting .dialog-select-input:before,
+.add-meeting .date-time .MuiInput-underline:after,
+.add-meeting .dialog-select-input:after,
+.add-meeting .dialog-input::after,
+.add-meeting .dialog-input::before {
+  content: "";
+  border: 0;
+  outline: none;
+  position: unset;
+}
+
+.add-meeting .date-time {
+  display: flex;
+  background-color: #efefef;
+  align-items: center;
+  border: 1px solid lightgray;
+  padding: 12px;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.add-meeting .date-time input.date {
+  width: 100%;
+  border: 0;
+  outline: none;
+  background: #efefef;
+  padding: 4px 0;
+  min-height: 32px;
+}
+
+.add-meeting .date-time input[type="date"]::-webkit-calendar-picker-indicator,
+.add-meeting .date-time input[type="time"]::-webkit-calendar-picker-indicator {
+  color: rgba(0, 0, 0, 0);
+  opacity: 1;
+  display: block;
+  background: url(../assets/calender.png) no-repeat;
+  width: 20px;
+  height: 20px;
+  border-width: thin;
+  cursor: pointer;
+}
+
+.add-meeting .date-time input[type="time"]::-webkit-calendar-picker-indicator {
+  background: url(../assets/time.png) no-repeat;
+}
+
+.add-meeting .dialog-input {
+  margin-top: 15px;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.add-meeting .dialog-select-input {
+  background-color: #efefef;
+  margin-top: 15px;
+  padding: 12px;
+}
+
+.add-meeting .MuiSelect-select.MuiSelect-select {
+  background-color: #efefef;
+}
+
+.add-meeting .dialog-textarea-input {
+  height: 200px !important;
+}
+
+.add-meeting .invitee-list {
+  height: 26px;
+  background-color: #efefef;
+  display: flex;
+  align-items: center;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  padding: 15px;
+  color: gray;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+.schedule-dialog .dialog-button-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.schedule-dialog .dialog-button-group button.add-button {
+  border-radius: 25px !important;
+}
+
+.schedule-dialog .radio-select {
+  width: 75%;
+  border-radius: 25px;
+  border: 1px solid #d9d9d9;
+  padding: 10px;
+  margin: 5px 0;
+}
+
+.edit-profile .profile-picture {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  margin: 20px;
+}
+
+.edit-profile .profile-picture .picture {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+.edit-profile .profile-picture .no-picture {
+  border-radius: 50%;
+  padding: 20px;
+  background-color: #e3edff;
+}
+
+.edit-profile .profile-picture p {
+  margin-top: 8px;
+  color: #fc8434;
+  font-weight: 600;
+}
+
+.edit-profile .profile-top {
+  padding: 20px 50px;
+}
+
+.edit-profile .input-with-icon {
+  border: 1px solid #c6c6c6;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  padding: 15px;
+}
+
+.edit-profile .mobile-box {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  border: 1px solid #c6c6c6;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.edit-profile .mobile-box .MuiSelect-select.MuiSelect-select {
+  padding: 0 28px 0 20px;
+}
+
+.edit-profile .mobile-box .MuiListItemIcon-root {
+  min-width: 20px;
+}
+
+.edit-profile .mobile-box .input.MuiInputBase-root {
+  padding-left: 15px;
+  border-left: 1px solid #aaaaaa;
+}
+
+.edit-profile .MuiInput-underline:after {
+  content: "";
+  border: 0;
+  position: unset;
+}
+
+.edit-profile .MuiInput-underline:before {
+  content: "";
+  border: 0;
+  position: unset;
+}
+
+.condition-modal .MuiDrawer-paper {
+  padding: 0 20px;
+}
+
+.condition-modal .button-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.condition-modal .button-group .add-more-button {
+  border: 1px solid #2b6fed;
+  background-color: white;
+  color: #2b6fed;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 25px;
+  font-weight: 600;
+  min-width: 300px;
+}
+
+.condition-modal .button-group .add-button {
+  background-color: #2b6fed;
+  color: white;
+  border-radius: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-weight: 600;
+  min-width: 300px;
+}
+
+.condition-modal .condition-box .content-box {
+  margin: 10px 0;
+}
+
+.condition-modal .condition-box h2 {
+  margin: 20px 0;
+}
+
+.condition-modal .condition-box h2,
+.condition-modal .condition-box h4 {
+  font-weight: 600;
+}
+
+.condition-modal .condition-box .condition {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.condition-modal .condition-box .condition > span {
+  padding: 5px !important;
+}
+
+.condition-modal .condition-box .condition .condition-check {
+  color: orange;
+}
+
+.go2072408551 {
+  border-radius: 10px !important;
+  background-color: #333 !important;
+  color: #fff !important;
+}
+
+.error {
+  color: red;
 }

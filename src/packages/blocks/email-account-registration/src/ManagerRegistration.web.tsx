@@ -13,9 +13,10 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import EmailAccountRegistrationController, { Props } from "./EmailAccountRegistrationController.web.tsx";
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import { CheckBox, Visibility, VisibilityOff } from "@material-ui/icons";
-import { Building1, company_logo, email, password, user } from "./assets";
+import { Building1, company_logo, compnayName, email, password, user } from "./assets";
 import { dailCode } from './code'
 import { withRouter } from 'react-router';
+import Loader from "../../../components/src/Loader.web";
 
 
 
@@ -29,7 +30,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
   render() {
     return (
       <>
-        <Grid container spacing={2} className="auth-container">
+        <Grid container className="auth-container">
           <Grid item xs={12} md={7} className="auth-cols" >
 
 
@@ -48,18 +49,26 @@ class ManagerRegistration extends EmailAccountRegistrationController {
             </p>
           </Grid>
         </Grid>
-        <Grid container>
-          <Grid xs={12}>
-            <p className="text-center">
-              Create an account with your credentials
-            </p>
-          </Grid>
-        </Grid>
+            <Grid container>
+              <Grid xs={12}>
+                <p className="text-center" style={{ fontSize: '1.75rem', fontWeight: 700 }}>
+                  Welcome
+
+                </p>
+              </Grid>
+            </Grid>
+            <Grid container>
+              <Grid xs={12}>
+                <p className="text-center">
+                  Property Manager Sign up
+                </p>
+              </Grid>
+            </Grid>
 
             <Grid container className="main-content-block">
           <Grid xs={12}>
             <Formik initialValues={{
-              full_name: "",
+
               email: "",
               phone: "",
               password: "",
@@ -75,6 +84,8 @@ class ManagerRegistration extends EmailAccountRegistrationController {
 
 
             }}
+                  validationSchema={this.signupSchemaManager()}
+                  validateOnMount={true}
               onSubmit={(values) => { this.createAccountManager(values) }}
             >
               {({ values,
@@ -85,7 +96,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                 <Form translate="yes" className=''>
                   <Box display="flex" flexDirection="column">
                     <Box
-                      className='input'
+                          className='formInputGrp'
                       display="flex"
                       overflow="hidden"
                       alignItems="center"
@@ -96,21 +107,20 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                       marginTop='1rem'
 
                     >
-                      <img src={user} />
+                          <img src={compnayName} style={{paddingLeft:'0.5rem'}} />
 
                       <Field
                         name="company_name"
-                        placeholder={"full Name"}
+                            placeholder={"Company Name"}
                         style={{
                           border: "none",
                           height: "100%",
                           width: "80%",
                           color: "rgba(0, 0, 0, 0.6)",
-                          fontFamily: "Poppins",
                           fontWeight: 400,
                           fontSize: 16,
                           marginRight: 10,
-                          marginLeft: 21,
+                          marginLeft: 10,
                           outline: "none"
                         }}
                       />
@@ -119,7 +129,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                       <Typography
                         style={{
                           color: "#F14E24",
-                          fontFamily: "Poppins",
+
                           fontWeight: 300,
                           fontSize: 14,
                           marginTop: 5,
@@ -129,20 +139,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                         {errors.company_name}
                       </Typography>
                     ) : null}
-                    {this.state.error ? (
-                      <Typography
-                        style={{
-                          color: "#F14E24",
-                          fontFamily: "Poppins",
-                          fontWeight: 300,
-                          fontSize: 14,
-                          marginTop: 5,
-                          marginLeft: 10
-                        }}
-                      >
-                        {this.state.error}
-                      </Typography>
-                    ) : null}
+
 
                     {/* Manager Name */}
 
@@ -158,21 +155,21 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                       marginTop='1rem'
 
                     >
-                      <img src={user} />
+                          <img src={user} style={{ paddingLeft: '0.5rem' }} />
 
                       <Field
                         name="managerName"
-                        placeholder={"Manager Full Name"}
+                            placeholder={"Manager Full name"}
                         style={{
                           border: "none",
                           height: "100%",
                           width: "80%",
                           color: "rgba(0, 0, 0, 0.6)",
-                          fontFamily: "Poppins",
+
                           fontWeight: 400,
                           fontSize: 16,
                           marginRight: 10,
-                          marginLeft: 21,
+                          marginLeft: 10,
                           outline: "none"
                         }}
                       />
@@ -181,7 +178,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                       <Typography
                         style={{
                           color: "#F14E24",
-                          fontFamily: "Poppins",
+
                           fontWeight: 300,
                           fontSize: 14,
                           marginTop: 5,
@@ -191,20 +188,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                         {errors.managerName}
                       </Typography>
                     ) : null}
-                    {this.state.error ? (
-                      <Typography
-                        style={{
-                          color: "#F14E24",
-                          fontFamily: "Poppins",
-                          fontWeight: 300,
-                          fontSize: 14,
-                          marginTop: 5,
-                          marginLeft: 10
-                        }}
-                      >
-                        {this.state.error}
-                      </Typography>
-                    ) : null}
+
 
                     {/* email */}
                     <Box
@@ -219,22 +203,22 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                       marginTop='1rem'
 
                     >
-                      <img src={email} />
+                          <img src={email} style={{ paddingLeft: '0.5rem' }} />
 
 
                       <Field
                         name="email"
-                        placeholder={"Email"}
+                            placeholder={"Email ID (will be your user name)"}
                         style={{
                           border: "none",
                           height: "100%",
                           width: "80%",
                           color: "rgba(0, 0, 0, 0.6)",
-                          fontFamily: "Poppins",
+
                           fontWeight: 400,
                           fontSize: 16,
                           marginRight: 10,
-                          marginLeft: 21,
+                          marginLeft: 10,
                           outline: "none"
                         }}
                       />
@@ -243,7 +227,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                       <Typography
                         style={{
                           color: "#F14E24",
-                          fontFamily: "Poppins",
+
                           fontWeight: 300,
                           fontSize: 14,
                           marginTop: 5,
@@ -253,20 +237,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                         {errors.email}
                       </Typography>
                     ) : null}
-                    {this.state.error ? (
-                      <Typography
-                        style={{
-                          color: "#F14E24",
-                          fontFamily: "Poppins",
-                          fontWeight: 300,
-                          fontSize: 14,
-                          marginTop: 5,
-                          marginLeft: 10
-                        }}
-                      >
-                        {this.state.error}
-                      </Typography>
-                    ) : null}
+
 
                     {/* mobile */}
 
@@ -317,11 +288,11 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                           height: "42%",
                           width: "80%",
                           color: "rgba(0, 0, 0, 0.6)",
-                          fontFamily: "Poppins",
+
                           fontWeight: 400,
                           fontSize: 16,
                           marginRight: 10,
-                          marginLeft: 21,
+                          marginLeft: 10,
                           outline: "none"
                         }}
                       />
@@ -330,7 +301,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                       <Typography
                         style={{
                           color: "#F14E24",
-                          fontFamily: "Poppins",
+
                           fontWeight: 300,
                           fontSize: 14,
                           marginTop: 5,
@@ -340,20 +311,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                         {errors.phone}
                       </Typography>
                     ) : null}
-                    {this.state.error ? (
-                      <Typography
-                        style={{
-                          color: "#F14E24",
-                          fontFamily: "Poppins",
-                          fontWeight: 300,
-                          fontSize: 14,
-                          marginTop: 5,
-                          marginLeft: 10
-                        }}
-                      >
-                        {this.state.error}
-                      </Typography>
-                    ) : null}
+
 
                     {/* Owner Name */}
 
@@ -369,21 +327,21 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                       marginTop='1rem'
 
                     >
-                      <img src={user} />
+                          <img src={user} style={{ paddingLeft: '0.5rem' }} />
 
                       <Field
                         name="ownerName"
-                        placeholder={"Manager Full Name"}
+                            placeholder={"Owner full name"}
                         style={{
                           border: "none",
                           height: "100%",
                           width: "80%",
                           color: "rgba(0, 0, 0, 0.6)",
-                          fontFamily: "Poppins",
+
                           fontWeight: 400,
                           fontSize: 16,
                           marginRight: 10,
-                          marginLeft: 21,
+                          marginLeft: 10,
                           outline: "none"
                         }}
                       />
@@ -392,7 +350,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                       <Typography
                         style={{
                           color: "#F14E24",
-                          fontFamily: "Poppins",
+
                           fontWeight: 300,
                           fontSize: 14,
                           marginTop: 5,
@@ -402,20 +360,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                         {errors.ownerName}
                       </Typography>
                     ) : null}
-                    {this.state.error ? (
-                      <Typography
-                        style={{
-                          color: "#F14E24",
-                          fontFamily: "Poppins",
-                          fontWeight: 300,
-                          fontSize: 14,
-                          marginTop: 5,
-                          marginLeft: 10
-                        }}
-                      >
-                        {this.state.error}
-                      </Typography>
-                    ) : null}
+
 
                     {/* email */}
                     <Box
@@ -430,22 +375,22 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                       marginTop='1rem'
 
                     >
-                      <img src={email} />
+                          <img src={email} style={{ paddingLeft: '0.5rem' }} />
 
 
                       <Field
                         name="owner_email"
-                        placeholder={"Email"}
+                            placeholder={"Owner Email ID"}
                         style={{
                           border: "none",
                           height: "100%",
                           width: "80%",
                           color: "rgba(0, 0, 0, 0.6)",
-                          fontFamily: "Poppins",
+
                           fontWeight: 400,
                           fontSize: 16,
                           marginRight: 10,
-                          marginLeft: 21,
+                          marginLeft: 10,
                           outline: "none"
                         }}
                       />
@@ -454,7 +399,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                       <Typography
                         style={{
                           color: "#F14E24",
-                          fontFamily: "Poppins",
+
                           fontWeight: 300,
                           fontSize: 14,
                           marginTop: 5,
@@ -464,20 +409,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                         {errors.owner_email}
                       </Typography>
                     ) : null}
-                    {this.state.error ? (
-                      <Typography
-                        style={{
-                          color: "#F14E24",
-                          fontFamily: "Poppins",
-                          fontWeight: 300,
-                          fontSize: 14,
-                          marginTop: 5,
-                          marginLeft: 10
-                        }}
-                      >
-                        {this.state.error}
-                      </Typography>
-                    ) : null}
+
 
                     {/* mobile */}
 
@@ -502,6 +434,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                             id="demo-simple-select-outlined"
                             onChange={this.handleChange}
                             label="Unit"
+                                value={this.state.selectCode2}
                           >
                             <MenuItem value="">
                               <em>None</em>
@@ -527,11 +460,11 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                           height: "42%",
                           width: "80%",
                           color: "rgba(0, 0, 0, 0.6)",
-                          fontFamily: "Poppins",
+
                           fontWeight: 400,
                           fontSize: 16,
                           marginRight: 10,
-                          marginLeft: 21,
+                          marginLeft: 10,
                           outline: "none"
                         }}
                       />
@@ -540,7 +473,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                       <Typography
                         style={{
                           color: "#F14E24",
-                          fontFamily: "Poppins",
+
                           fontWeight: 300,
                           fontSize: 14,
                           marginTop: 5,
@@ -550,20 +483,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                         {errors.owner_phone}
                       </Typography>
                     ) : null}
-                    {this.state.error ? (
-                      <Typography
-                        style={{
-                          color: "#F14E24",
-                          fontFamily: "Poppins",
-                          fontWeight: 300,
-                          fontSize: 14,
-                          marginTop: 5,
-                          marginLeft: 10
-                        }}
-                      >
-                        {this.state.error}
-                      </Typography>
-                    ) : null}
+
 
                     {/* pass */}
                     <Box
@@ -576,21 +496,21 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                       borderRadius="16px"
                       bgcolor="white"
                     >
-                      <img src={password} />
+                          <img src={password} style={{ paddingLeft: '0.5rem' }} />
                       <Field
                         name="password"
-                        placeholder="Password"
+                            placeholder="Enter Password"
                         type={values.showPassword ? "text" : "password"}
                         style={{
                           border: "none",
                           height: "100%",
                           width: "80%",
                           color: "rgba(0, 0, 0, 0.6)",
-                          fontFamily: "Poppins",
+
                           fontWeight: 400,
                           fontSize: 16,
                           marginRight: 10,
-                          marginLeft: 21,
+                          marginLeft: 10,
                           outline: "none"
                         }}
                       />
@@ -632,7 +552,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                       <Typography
                         style={{
                           color: "#F14E24",
-                          fontFamily: "Poppins",
+
                           fontWeight: 300,
                           fontSize: 14,
                           marginTop: 5,
@@ -654,7 +574,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                       borderRadius="16px"
                       bgcolor="white"
                     >
-                      <img src={password} />
+                          <img src={password} style={{ paddingLeft: '0.5rem' }} />
 
                       <Field
                         name="confirm_password"
@@ -665,11 +585,11 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                           height: "100%",
                           width: "80%",
                           color: "rgba(0, 0, 0, 0.6)",
-                          fontFamily: "Poppins",
+
                           fontWeight: 400,
                           fontSize: 16,
                           marginRight: 10,
-                          marginLeft: 21,
+                          marginLeft: 10,
                           outline: "none"
                         }}
                       />
@@ -707,7 +627,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                         </IconButton>
                       )}
                     </Box>
-                    {errors.password && touched.password ? (
+                    {errors.confirm_password && touched.confirm_password ? (
                       <Typography
                         style={{
                           color: "#F14E24",
@@ -717,7 +637,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                           marginLeft: 10
                         }}
                       >
-                        {errors.password}
+                        {errors.confirm_password}
                       </Typography>
                     ) : null}
 
@@ -763,7 +683,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                         underline="none"
                         style={{
                           fontSize: 14,
-                          color: "#2B6FEC",
+                          color: "#FC8434",
                           fontWeight: 500,
                           marginLeft: 5,
                           textTransform: "uppercase"
@@ -783,7 +703,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                       <Typography
                         style={{
                           color: "#A0A3BD",
-                          fontFamily: "Poppins",
+
                           textAlign: "center",
                           fontWeight: "normal",
                           fontSize: 12
@@ -815,6 +735,8 @@ class ManagerRegistration extends EmailAccountRegistrationController {
             </Box>
           </Grid>
             </Grid>
+        <Loader loading={this.state.loading} />
+
       </>
     )
   }

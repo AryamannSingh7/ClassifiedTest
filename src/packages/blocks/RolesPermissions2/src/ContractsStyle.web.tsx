@@ -9,14 +9,24 @@ export const ContractsStyleWeb: any = {
       background: "#FFFFFF",
       padding: "10px 20px",
       justifyContent: "space-between",
+      position: "sticky",
+      top: "0",
     },
     "& .top-bar .left-icon": {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
     },
-    "& .top-bar .right-icon img": {
-      marginLeft: "15px",
+    // "& .top-bar .right-icon img": {
+    //   marginLeft: "15px",
+    // },
+    "& .top-bar .right-icon": {
+      display: "flex",
+      alignItems: "center",
+      gap: "5px",
+    },
+    "& .top-bar .right-icon .szh-menu-container ul": {
+      top: "34px !important",
     },
     "& .right-image": {
       padding: "25px 60px",
@@ -87,6 +97,9 @@ export const ContractsStyleWeb: any = {
       borderRadius: "10px",
       background: "white",
       boxShadow: "4px 0px 14px #ececec",
+    },
+    "& .templates-list .template .szh-menu-container ul a": {
+      color: "black",
     },
     "& .contracts-list .contract .header": {
       width: "100%",
@@ -227,11 +240,12 @@ export const ContractsStyleWeb: any = {
       alignItems: "center",
       fontWeight: "600",
       cursor: "pointer",
-      // marginBottom: "18px",
       background: "#FFFFFF",
       padding: "10px 20px",
       justifyContent: "space-between",
       borderBottom: "2px solid #F9F9F9",
+      position: "sticky",
+      top: "0",
     },
     "& .top-bar .left-icon": {
       display: "flex",
@@ -375,6 +389,12 @@ export const ContractsStyleWeb: any = {
       padding: "12px 50px",
       borderRadius: "25px",
     },
+    "& .error": {
+      color: "red",
+      marginTop: "10px",
+      marginLeft: "20px",
+      fontSize: "14px",
+    },
   },
   commonPage: {
     "& .top-bar": {
@@ -387,6 +407,8 @@ export const ContractsStyleWeb: any = {
       padding: "10px 20px",
       justifyContent: "space-between",
       borderBottom: "2px solid #F9F9F9",
+      position: "sticky",
+      top: "0",
     },
     "& .top-bar .left-icon": {
       display: "flex",
@@ -442,6 +464,8 @@ export const ContractsStyleWeb: any = {
       padding: "10px 20px",
       justifyContent: "space-between",
       borderBottom: "2px solid #F9F9F9",
+      position: "sticky",
+      top: "0",
     },
     "& .top-bar .left-icon": {
       display: "flex",
@@ -465,7 +489,7 @@ export const ContractsStyleWeb: any = {
     },
     "& .page-container .template-box .template-view": {
       overflowY: "auto",
-      height: "50%",
+      height: "46%",
     },
     "& .page-container .add-condition .template-view": {
       overflowY: "auto",
@@ -546,10 +570,12 @@ export const ContractsStyleWeb: any = {
     },
     "& .upload-button .penalty-detail .content-item span": {
       color: "black",
+      fontSize: "13px",
     },
     "& .upload-button .penalty-detail .content-item p": {
       color: "black",
       fontWeight: "600",
+      fontSize: "13px",
     },
   },
 };

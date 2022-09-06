@@ -148,14 +148,14 @@ class IncidentListing extends IncidentController {
                       ))
                     }
                   </Box>
-                  <Box className="customButton">
+                  <Box className="customButton add-incident">
                     <Button variant="contained" onClick={() => { this.setState({ loading: true }); this.props.history.push("/CreateIncident") }} >Add New Incident</Button>
                   </Box>
                 </Box>
-                <Box className="footer-main-block bottomBlock">
+                {/* <Box className="footer-main-block bottomBlock">
                   <h6 className="bottom-text">POWERED BY</h6>
                   <img src={Tenant_Logo.default} className="tenant-logo" alt="" />
-                </Box>
+                </Box> */}
               </Box>
             </Grid>
             {/* desktop footer block */}

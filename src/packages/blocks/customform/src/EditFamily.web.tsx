@@ -4,7 +4,7 @@
 import * as React from "react";
 // custom components
 import {
-  Button, Grid, Box, Typography, Link, IconButton, FormControl, InputLabel, Select, MenuItem
+  Button, Grid, Box, Typography, Link, IconButton, FormControl, InputLabel, Select, MenuItem, Avatar
 } from "@material-ui/core";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
@@ -73,7 +73,71 @@ class EditFamily extends FamilyController {
                       isValid, handleChange,
                       setFieldValue, setFieldError }) => (
                       <Form className="commonForm" translate="yes" >
-                        <Box className='formGroup' style={{ height: '142%' }}>
+                        <Box className='formGroup' style={{ height: '121%' }}>
+
+
+                          <Box style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '1rem',
+                            marginTop: '1rem',
+                            marginBottom: '1.5rem'
+                          }}>
+                            <Avatar src={values.bannerUrl} />
+
+                            <label for="file1"
+                              style={{ color: '#FC8434', fontWeight: 'bold' }}>
+                              Change Profile Picture
+                            </label>
+                            <input
+                              id="file1"
+                              type="file"
+                              onChange={(e: any) => {
+                                this.handleSelectBanner(
+                                  e,
+                                  setFieldValue,
+                                  setFieldError
+                                );
+                              }}
+                              style={{
+                                position: "absolute",
+                                zIndex: 2,
+                                cursor: "pointer",
+                                opacity: 0
+                              }}
+                              accept="image/png, image/jpeg, image/jpg"
+                            />
+                          </Box>
+                          {errors.banner && touched.banner ? (
+                            <Typography
+                              style={{
+                                color: "#F14E24",
+                                fontFamily: "Poppins",
+                                fontWeight: 300,
+                                fontSize: 14,
+                                marginTop: 5,
+                                marginLeft: 10
+                              }}
+                            >
+                              <ErrorMessage className="text-error" component="Typography" name="banner" />
+                            </Typography>
+                          ) : null}
+                          {errors.bannerUrl && touched.bannerUrl ? (
+                            <Typography
+                              style={{
+                                color: "#F14E24",
+                                fontFamily: "Poppins",
+                                fontWeight: 300,
+                                fontSize: 14,
+                                marginTop: 5
+                              }}
+                            >
+                              {errors.bannerUrl}
+                            </Typography>
+                          ) : null}
+
+
+
                           <Box
                             className="formInputGrp"
                           >

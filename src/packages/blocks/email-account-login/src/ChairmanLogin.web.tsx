@@ -35,6 +35,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import { withTranslation } from 'react-i18next';
+import '../../../web/src/i18n.js';
+import i18next from 'i18next';
 
 class ChairmanLogin extends ChairmanAccountLoginController {
   constructor(props: Props) {
@@ -94,13 +97,14 @@ class ChairmanLogin extends ChairmanAccountLoginController {
                               name="userType"
                               labelId="demo-simple-select-outlined-label"
                               id="demo-simple-select-outlined"
+                              style={{ paddingLeft: '45px' }}
                               // label="Select User Type"
                               onChange={(e) => {
                                 (e.target.value != " ") && setFieldValue("userType", e.target.value)
                               }}
                               value={values.userType}
                             >
-                              <MenuItem disabled value=" ">
+                              <MenuItem  disabled value=" ">
                                 Select User Type
                               </MenuItem>
                               {
@@ -197,7 +201,7 @@ class ChairmanLogin extends ChairmanAccountLoginController {
                       </Form>
                     )}
                   </Formik>
-                </Box>               
+                </Box>
                 {/* desktop footer block */}
                 <Box className="footer-main-block bottomBlock">
                   <h6 className="bottom-text">POWERED BY</h6>
@@ -217,6 +221,7 @@ class ChairmanLogin extends ChairmanAccountLoginController {
     );
   }
 }
-export default withRouter(ChairmanLogin)
+//@ts-ignore
+export default withTranslation()(withRouter(ChairmanLogin));
 
 // Customizable Area End

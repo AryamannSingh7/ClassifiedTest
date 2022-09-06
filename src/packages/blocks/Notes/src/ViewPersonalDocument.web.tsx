@@ -4,29 +4,18 @@
 
 import React from "react";
 import {
-  Button,
   Container,
   IconButton,
   Link,
-  Typography,
   withStyles,
   Box,
   Grid,
-  Dialog,
-  DialogContent,
-  FormControl,
-  DialogActions,
 } from "@material-ui/core";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import CloseIcon from "@material-ui/icons/Close";
-import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ViewPersonalDocumentController, {
   Props,
 } from "./ViewPersonalDocumentController.web";
 import { DocumentReportStyleWeb } from "./DocumentReportStyle.web";
-
 import DownloadImage from "../assets/download.png";
 import BuildingLogo from "../assets/building.png";
 

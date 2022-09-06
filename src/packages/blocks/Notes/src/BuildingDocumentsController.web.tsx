@@ -115,9 +115,10 @@ export default class BuildingDocumentController extends BlockComponent<
 
     this.GetDocumentCountCallId = apiRequest.messageId;
 
+    const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      configJSON.GetDocumentCountAPIEndPoint
+      `society_managements/${society_id}/bx_block_my_document/document_count`
     );
 
     apiRequest.addData(

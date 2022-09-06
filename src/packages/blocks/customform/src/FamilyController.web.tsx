@@ -198,6 +198,7 @@ export default class FamilyController extends BlockComponent<Props, S, SS> {
             console.log(responseJson)
             if (localStorage.getItem('selectCar')) {
               localStorage.removeItem('selectCar')
+              this.setState({ loading: false })
               //@ts-ignore
               //@ts-nocheck
               this.props.history.push('/familylist')
@@ -223,8 +224,12 @@ export default class FamilyController extends BlockComponent<Props, S, SS> {
           if (!responseJson.errors) {
             console.log(responseJson)
             if (responseJson.data){
-              this.setState({ allVehcile: responseJson.data }, () => console.log(this.state.allVehcile))
+              this.setState({ allVehcile: responseJson.data,loading:false }, () => console.log(this.state.allVehcile))
+
+
+
             }
+            this.setState({ loading: false })
           } else {
             //Check Error Response
             // this.parseApiErrorResponse(responseJson);
@@ -499,7 +504,7 @@ export default class FamilyController extends BlockComponent<Props, S, SS> {
   }
 
   createVehicle = async (values: any) => {
-    console.log(values)
+    this.setState({ loading: true })
     try {
       const header = {
 
@@ -511,11 +516,11 @@ export default class FamilyController extends BlockComponent<Props, S, SS> {
       formData.append("id_proof_id", values.IDoption)
       formData.append("id_number", values.IDnumber)
       // formData.append("vehicle[color]", values.carColor)
-      // let blob = await fetch(values.bannerUrl).then(r => r.blob());
-      // formData.append(
-      //   "vehicle[registration_card_copy]",
-      //   blob
-      // );
+      let blob = await fetch(values.bannerUrl).then(r => r.blob());
+      formData.append(
+        "image",
+        blob
+      );
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
@@ -638,7 +643,7 @@ export default class FamilyController extends BlockComponent<Props, S, SS> {
 
   };
   getVehicle() {
-
+this.setState({loading:true})
     const header = {
       "Content-Type": configJSON.contentTypeApiAddDetail,
       "token": localStorage.getItem('userToken')

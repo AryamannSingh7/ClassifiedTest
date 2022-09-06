@@ -187,9 +187,12 @@ export default class ViewBuildingDocumentController extends BlockComponent<
 
     this.GetDocumentCallId = apiRequest.messageId;
 
+    const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `${configJSON.GetDocumentAPIEndPoint}/${this.state.documentId}`
+      `society_managements/${society_id}/bx_block_my_document/building_documents/${
+        this.state.documentId
+      }`
     );
 
     apiRequest.addData(

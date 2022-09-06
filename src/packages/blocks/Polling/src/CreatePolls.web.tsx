@@ -1,7 +1,4 @@
 // Customizable Area Start
-//@ts-ignore
-//@ts-nocheck
-
 import React from "react";
 import "./Polling.web.css"
 import {Editor, EditorState} from 'draft-js';
@@ -44,7 +41,9 @@ class CreatePolls extends PollingController {
    
   }
 
-  componentDidMount() {
+    // @ts-ignore
+    componentDidMount() {
+    // @ts-ignore
     const PreviewPollData = localStorage.getItem('Polls_Data') && JSON.parse(localStorage.getItem('Polls_Data'));
     if(PreviewPollData){
         this.setState({
@@ -59,10 +58,9 @@ class CreatePolls extends PollingController {
   }
 
   render() {
+      // @ts-ignore
     const {t} = this.props
-    console.log("textEditorVal+++++++",this.state.textEditorVal);
-    // console.log("polldata description------", this.state.PollData.description)
-    return ( 
+      return (
       <>
     <Box style={{background: "#E5ECFF"}}>
         <DashboardHeader {...this.props}/>
@@ -106,6 +104,7 @@ class CreatePolls extends PollingController {
                                             onChange={this.handlePollDataChange}
                                             InputProps={{
                                                 // min: "2019-01-24",
+                                                //@ts-ignore
                                                 max: "5000-05-31",
                                                 startAdornment: (
                                                     <InputAdornment position="start">
@@ -125,6 +124,7 @@ class CreatePolls extends PollingController {
                                                    onChange={this.handlePollDataChange}
                                                    InputProps={{
                                                        // min: "2019-01-24",
+                                                       //@ts-ignore
                                                        max: "5000-05-31",
                                                        startAdornment: (
                                                            <InputAdornment position="start">
@@ -169,6 +169,7 @@ class CreatePolls extends PollingController {
                                 </Box>
                                 <Box className="descriptionEditor">
                                     <TextEditor
+                                    //@ts-ignore
                                     markup={this.state.textEditorVal}
                                     onChange={this.onChangeTextEditor} />
                                 </Box>
@@ -182,32 +183,32 @@ class CreatePolls extends PollingController {
                                 />
                                 <p style={{color:"red"}}>{this.state.pollQuestionError}</p>
 
-                                {this.state.options.map((inputfield:any , index:any) => {
-                                    console.log("inputfield",inputfield)
-                                    return(
-                                        <>
-                                            <TextField key={index}
-                                                label={"option - " + (index + 1)} variant="outlined"
-                                                name="text"
-                                                value={inputfield.text}
-                                                onChange={(event) => this.handleOptionsChange(index, event)}
-                                                 fullWidth style={{marginTop:20}}
-                                            />
-                                            <p style={{color:"red"}}>{inputfield.error}</p>
-                                        </>
-                                    )
-                                })
-                                }
-                                <p style={{color:"red"}}>{this.state.pollOptionasError}</p>
+                                    {this.state.options.map((inputfield:any , index:any) => {
+                                        console.log("inputfield",inputfield)
+                                        return(
+                                            <>
+                                                <TextField key={index}
+                                                    label={"option - " + (index + 1)} variant="outlined"
+                                                    name="text"
+                                                    value={inputfield.text}
+                                                    onChange={(event) => this.handleOptionsChange(index, event)}
+                                                     fullWidth style={{marginTop:20}}
+                                                />
+                                                <p style={{color:"red"}}>{inputfield.error}</p>
+                                            </>
+                                        )
+                                    })
+                                    }
+                                    <p style={{color:"red"}}>{this.state.pollOptionasError}</p>
 
                                 <Button variant="outlined" color="primary"
                                 onClick={() => this.addOptionsFields()}
                                 className="addOptions">{t("ADD OPTION")}</Button>
 
-                            </Box>
-                        </Grid>
+                                </Box>
+                            </Grid>
 
-                        </Grid>
+                            </Grid>
 
                         <Box className="BottomButton">
                             <Box className="Previewbtn">
@@ -235,7 +236,7 @@ class CreatePolls extends PollingController {
       );
   }
 }
-
+//@ts-ignore
 export default withTranslation()(withRouter(CreatePolls)); 
 
 

@@ -13,4 +13,11 @@ exports.labelTitleText = "BulkUploading";
 exports.labelBodyText = "BulkUploading Body";
 
 exports.btnExampleTitle = "CLICK ME";
+
+exports.ApiContentType = "application/json";
+
+exports.apiMethodTypeGet = "GET";
+exports.apiMethodTypePost = "POST";
+exports.apiMethodTypeDelete = "DELETE";
+exports.apiMethodTypePut = "PUT";
 // Customizable Area End

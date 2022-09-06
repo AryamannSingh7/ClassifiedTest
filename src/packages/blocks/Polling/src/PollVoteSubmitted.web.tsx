@@ -28,27 +28,34 @@ class PollVoteSubmitted extends PollingController {
         <>
     
         <Grid container style={{ margin: '1rem', width: '90%' }}>
-          <Grid xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
+          <Grid xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem",width:"95%"}}>
             <ArrowBackIcon onClick={() => this.props.history.push("/PollsSurvey")} />
-            <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
+            <p className="textwrap" style={{ fontSize: '1.2rem', fontWeight: 600 }}>
               {this.state.pollPreviewAnswer?.poll?.data.attributes.title}
             </p>
           </Grid>
         </Grid>
 
-    <Box style={{background: "#E5ECFF"}}>
+    <Box style={{background: "#E5ECFF",height:"160vh",display:'flex',flexDirection:"column",alignItems:'center'}}>
 
         <Grid container style={{ margin: '1rem', width: '90%' }}>
             
           <Grid xs={12} style={{ display:"flex", alignItems:"center", justifyContent:"space-between"}}>
-          <Grid xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
-                <ArrowBackIcon onClick={() => window.history.back()} />
-                <p style={{ fontSize: '1.3rem', fontWeight: 600 }}>
+          <Grid xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem",width:"60%"}}>
+                <p className="textwrapStatus" style={{ fontSize: '1.3rem', fontWeight: 600 }}>
                 {this.state.pollPreviewAnswer?.poll?.data.attributes.title}
                 </p>
             </Grid>
             <Box className="EventsIconsText">
-                <p className="statusCompleted" style={{fontWeight: 600}}>{this.state.pollPreviewAnswer?.poll?.data.attributes.status}</p>
+                {
+                    this.state.pollPreviewAnswer?.poll?.data.attributes.status == "ongoing" &&
+                    <Typography variant="body2" className={"statusOngoingRed"}>{this.state.pollPreviewAnswer?.poll?.data.attributes.status}</Typography>
+                }
+                {
+                    this.state.pollPreviewAnswer?.poll?.data.attributes.status == "completed" &&
+                    <Typography variant="body2" className={"statusOngoingGreen"}>{this.state.pollPreviewAnswer?.poll?.data.attributes.status}</Typography>
+                }
+                {/*<p className="statusCompleted" style={{fontWeight: 600}}>{this.state.pollPreviewAnswer?.poll?.data.attributes.status}</p>*/}
             </Box>
           </Grid>
         </Grid>
@@ -132,13 +139,13 @@ class PollVoteSubmitted extends PollingController {
         {this.state.pollPreviewAnswer?.poll?.data.attributes.polling_options.length ? 
           this.state.pollPreviewAnswer?.poll?.data.attributes.polling_options.map((item) => {
           return(
-            <Grid container spacing={2} style={{ background: "#E5ECFF", marginLeft: '1rem',marginTop:'1.5rem', width: '90%', alignItems:'baseline'}}>
+            <Grid container spacing={2} style={{ background: "#E5ECFF",marginTop:'1.5rem', width: '90%', alignItems:'baseline'}}>
               <Grid xs={12}>
                   <Box className="progressbarYES">
                       <span>{item.text}</span>
                       <progress 
                         className="progress" 
-                        data-label={item.answer_percentage + "%"}
+                        data-label={item.answer_percentage.toFixed(2) + "%"}
                         value={item.answer_percentage} 
                         max="100"
                       >

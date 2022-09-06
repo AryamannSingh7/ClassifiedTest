@@ -3,40 +3,30 @@
 //@ts-ignore
 import React from "react";
 import {
-  Button,
   Container,
   IconButton,
   Link,
   withStyles,
   Box,
   Grid,
-  Tab,
   MenuItem,
   Card,
   Select,
   ListItemIcon,
-  FormControl,
   OutlinedInput,
 } from "@material-ui/core";
 import { Menu } from "@szhsin/react-menu";
-import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
-import LanguageIcon from "@material-ui/icons/Language";
-import IssueLeaseController, {
-  Props,
-} from "./IssueLeaseController.web";
+import IssueContractController, { Props } from "./IssueContractController.web";
 import { ContractsStyleWeb } from "./ContractsStyle.web";
-
 import BuildingLogo from "../assets/building.png";
-import SortIcon from "../assets/sort.png";
-import FilterIcon from "../assets/filter.png";
 import TemplateIcon from "../assets/template.png";
 import EarthIcon from "../assets/earth.png";
 import BuildingIcon from "../assets/select-building.png";
 import CubeIcon from "../assets/cube.png";
 
-class IssueLease extends IssueLeaseController {
+class IssueLease extends IssueContractController {
   constructor(props: Props) {
     super(props);
   }
@@ -46,10 +36,7 @@ class IssueLease extends IssueLeaseController {
 
     return (
       <>
-        <Box
-          style={{ background: "white", height: "100vh" }}
-          className={classes.selectTemplate}
-        >
+        <Box style={{ background: "white", height: "100vh" }} className={classes.selectTemplate}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box className="faq-step">
@@ -66,24 +53,6 @@ class IssueLease extends IssueLeaseController {
                 <Container className="page-container">
                   <Box className="issue-lease-content">
                     <Box className="select-input-box">
-                      <Select
-                        displayEmpty
-                        value=""
-                        variant="filled"
-                        fullWidth
-                        className="select-input"
-                        input={<OutlinedInput />}
-                      >
-                        <MenuItem value="" disabled>
-                          <ListItemIcon>
-                            <img src={EarthIcon} alt="" />
-                          </ListItemIcon>
-                          Country
-                        </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
-                      </Select>
                       <Select
                         displayEmpty
                         value=""
@@ -127,24 +96,26 @@ class IssueLease extends IssueLeaseController {
                         <p>Mr. Ali Khan</p>
                       </Box>
                       <Box>
-                        <Link>Register a New Tenant</Link>
+                        <Link href="/IssueContract">Register a New Tenant</Link>
                       </Box>
                     </Box>
                     <Box className="templates-list">
                       <h3>Select Lease Template</h3>
                       <Grid container spacing={2}>
                         <Grid item xs={6}>
-                          <Card className="template">
-                            <div className="content">
-                              <div className="image">
-                                <img src={TemplateIcon} alt="" />
+                          <Link href={`/IssueContract/1`}>
+                            <Card className="template">
+                              <div className="content">
+                                <div className="image">
+                                  <img src={TemplateIcon} alt="" />
+                                </div>
+                                <h4>Lease Template 1</h4>
                               </div>
-                              <h4>Lease Template 1</h4>
-                            </div>
-                            <div className="right-menu">
-                              <span>Default</span>
-                            </div>
-                          </Card>
+                              <div className="right-menu">
+                                <span>Default</span>
+                              </div>
+                            </Card>
+                          </Link>
                         </Grid>
                         <Grid item xs={6}>
                           <Card className="template">
@@ -249,10 +220,9 @@ class IssueLease extends IssueLeaseController {
                         </Grid>
                       </Card>
                       <p>
-                        Contract is already assigned to <span>Mr Ali Khan</span>{" "}
-                        for <span>Building 1 Unit 102</span>. You will have to
-                        end or terminate contract in order to issue a new
-                        contract.
+                        Contract is already assigned to <span>Mr Ali Khan</span> for{" "}
+                        <span>Building 1 Unit 102</span>. You will have to end or terminate contract
+                        in order to issue a new contract.
                       </p>
                     </Box>
                   </Box>
@@ -260,10 +230,7 @@ class IssueLease extends IssueLeaseController {
               </Box>
             </Grid>
             <Grid item xs={12} md={5}>
-              <Box
-                className="right-block right-image"
-                display={{ xs: "none", md: "flex" }}
-              >
+              <Box className="right-block right-image" display={{ xs: "none", md: "flex" }}>
                 <img src={BuildingLogo} className="building-logo" alt="" />
               </Box>
             </Grid>

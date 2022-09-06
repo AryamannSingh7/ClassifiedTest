@@ -3,6 +3,7 @@ export const DocumentReportStyleWeb: any = {
     "& .navigation": {
       display: "flex",
       justifyContent: "space-between",
+      marginBottom: "20px",
     },
     "& .navigation > .MuiBox-root": {
       width: "100%",

@@ -43,7 +43,7 @@ export default class FaqResidentController extends BlockComponent<
   SS
 > {
   FaqCategoryCallId: any;
-  
+
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
@@ -120,9 +120,10 @@ export default class FaqResidentController extends BlockComponent<
 
     this.FaqCategoryCallId = apiRequest.messageId;
 
+    const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      configJSON.FaqCategoryAPIEndPoint
+      `society_managements/${society_id}/bx_block_interactive_faqs/interactive_faq_categories`
     );
 
     apiRequest.addData(

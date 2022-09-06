@@ -5,7 +5,7 @@
 import React from "react";
 import "./Polling.web.css"
 import DOMPurify from 'dompurify'
-import {pollandsurvey, xmark, CheckMark, awated, Cardcalendar} from "./assets"
+import {pollandsurvey, xmark, CheckMark, awated, Cardcalendar, allUsers} from "./assets"
 import {
   Container,
   Typography,
@@ -30,6 +30,8 @@ import { Style } from "@material-ui/icons";
 import { withRouter } from 'react-router';
 import { withTranslation } from 'react-i18next';
 import '../../../web/src/i18n.js';
+import AccessTimeOutlinedIcon from "@material-ui/icons/AccessTimeOutlined";
+import HighlightOffOutlinedIcon from "@material-ui/icons/HighlightOffOutlined";
 
 class PollsallData extends PollingController {
   constructor(props: Props) {
@@ -91,10 +93,21 @@ class PollsallData extends PollingController {
                                         onClick={() => this.props.history.push("/PollDetails?id="+data.id)}
                                         >
                                             <Box className="EventsIconsText">
-                                                <Typography variant="body2" className="statusOngoing">{data.status}</Typography>
+                                                {
+                                                    data.status == "upcoming" &&
+                                                    <Typography variant="body2" className={"statusOngoingBlue"}>{data.status}</Typography>
+                                                }
+                                                {
+                                                    data.status == "ongoing" &&
+                                                    <Typography variant="body2" className={"statusOngoingRed"}>{data.status}</Typography>
+                                                }
+                                                {
+                                                    data.status == "completed" &&
+                                                    <Typography variant="body2" className={"statusOngoingGreen"}>{data.status}</Typography>
+                                                }
                                             </Box>
                                             <Box className="EventsIconsText">
-                                                <Typography className="EventsTitle">{data.title}</Typography>
+                                                <Typography className="EventsTitle" style={{width:"95%"}}>{data.title}</Typography>
                                             </Box>
                                             <Box className="EventsIconsText">
                                                 <p 
@@ -115,16 +128,26 @@ class PollsallData extends PollingController {
                                             <Divider style={{marginTop:10, marginRight:10}}/>
                                             <Box className="EventsIconsData">
                                                 <Box className="EventsIconsDataBox">
-                                                    <img src={awated} alt="awated" />
-                                                    <Typography variant="body2">{data.awaited}</Typography>
+                                                    <img src={allUsers}/>
+                                                    <Typography variant="body2">{data.awaited + data.completed_answers}</Typography>
                                                 </Box>
                                                 <Box className="EventsIconsDataBox">
                                                     <img src={CheckMark} alt="CheckMark" />
                                                     <Typography variant="body2">{data.completed_answers}</Typography>
                                                 </Box>
                                                 <Box className="EventsIconsDataBox">
-                                                    <img src={xmark} alt="xmark" />
-                                                    <Typography variant="body2">{data.rejected_answers}</Typography>
+                                                    {
+                                                        data.status != "completed" ?
+                                                            <>
+                                                                <AccessTimeOutlinedIcon style={{color: "#ff8100"}}/>
+                                                                <Typography variant="body2">{data.awaited}</Typography>
+                                                            </>
+                                                            :
+                                                            <>
+                                                                <HighlightOffOutlinedIcon style={{color: "red"}}/>
+                                                                <Typography variant="body2">{data.awaited}</Typography>
+                                                            </>
+                                                    }
                                                 </Box>
                                             </Box>
                                         </Box>

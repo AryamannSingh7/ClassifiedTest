@@ -33,18 +33,14 @@ import DocumentListChairmanController, {
 import { DocumentReportStyleWeb } from "./DocumentReportStyle.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
-
 import Document from "../assets/document.png";
 import UploadImage from "../assets/upload.png";
 import DeleteImage from "../assets/delete.png";
 import ShareImage from "../assets/share.png";
 import DownloadImage from "../assets/download.png";
-import buildingLogo from "../assets/building.png";
 import PdfImage from "../assets/pdf.png";
-
 import { Menu } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/core.css";
-
 import {
   EmailShareButton,
   FacebookShareButton,
@@ -636,7 +632,8 @@ class DocumentListChairman extends DocumentListChairmanController {
             </IconButton>
           </MuiDialogTitle>
           <DialogContent dividers>
-            <List>
+            Meeting Module will come soon!!
+            {/* <List>
               <ListItem dense className="list-heading">
                 <ListItemIcon />
                 <ListItemText primary="Title" />
@@ -681,7 +678,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                   </ListItem>
                 );
               })}
-            </List>
+            </List> */}
           </DialogContent>
           <DialogActions className="dialog-button-group">
             <div className="selected-meeting">

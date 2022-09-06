@@ -1,13 +1,16 @@
 // App.js - WEB
-import React, { Component } from "react";
-import { View } from "react-native";
-import firebase from 'firebase'
-import { connect } from 'react-firebase'
+import React, { Component } from 'react';
+import { View } from 'react-native';
+import firebase from 'firebase';
+import { connect } from 'react-firebase';
 
 import WebRoutesGenerator from "../../components/src/NativeWebRouteWrapper";
 import { ModalContainer } from "react-router-modal";
 import HomeScreen from "../../components/src/HomeScreen";
 import TopNav from "../../components/src/TopNav";
+
+import { ROLE } from '../../framework/src/Enum';
+import { Toaster } from 'react-hot-toast';
 
 import InfoPage from '../../blocks/info-page/src/InfoPageBlock'
 import AlertBlock from '../../blocks/alert/src/AlertBlock.web'
@@ -15,7 +18,7 @@ import AlertBlock from '../../blocks/alert/src/AlertBlock.web'
 import Chatbot6 from "../../blocks/Chatbot6/src/Chatbot6";
 import EmailNotifications from "../../blocks/EmailNotifications/src/EmailNotifications";
 import BroadcastMessage from "../../blocks/BroadcastMessage/src/BroadcastMessage";
-import BulkUploading from "../../blocks/BulkUploading/src/BulkUploading";
+// import BulkUploading from "../../blocks/BulkUploading/src/BulkUploading";
 import Location from "../../blocks/location/src/Location";
 import SocialMediaAccountLoginScreen from "../../blocks/social-media-account-login/src/SocialMediaAccountLoginScreen";
 import Invitefriends from "../../blocks/invitefriends/src/Invitefriends";
@@ -109,9 +112,14 @@ import CreatePolls from "../../blocks/Polling/src/CreatePolls.web";
 import CreateSurveys from "../../blocks/Polling/src/CreateSurveys.web";
 import PollPreview from "../../blocks/Polling/src/PollPreview.web";
 import SurveyPreview from "../../blocks/Polling/src/SurveyPreview.web";
+import SurveyParticipate from "../../blocks/Polling/src/SurveyParticipate.web"
+import SurveyDetailsMain from "../../blocks/Polling/src/SurveryDetailsMain.web"
 import PollsallData from "../../blocks/Polling/src/PollsallData.web";
+import SurveyallData from "../../blocks/Polling/src/SurveyallData.web";
 import PollsSurvey from "../../blocks/Polling/src/PollsSurvey.web"
+import SurveyReport from "../../blocks/Polling/src/SurveyReport.web"
 import SubmitPoll from "../../blocks/Polling/src/SubmitPoll.web"
+import SurveyInitial from "../../blocks/Polling/src/SurveyInitial.web"
 import OwnerDashboard from "../../blocks/dashboard/src/OwnerDashboard.web"
 import ResidentDashboard from "../../blocks/dashboard/src/ResidentDashboard.web"
 import PollVoteSubmitted from "../../blocks/Polling/src/PollVoteSubmitted.web"
@@ -124,6 +132,10 @@ import EditFamily from "../../blocks/customform/src/EditFamily.web"
 import EditRequest from "../../blocks/customform/src/EditRequest.web"
 import NewRequest from "../../blocks/customform/src/NewRequest.web"
 import ManagerList from "../../blocks/customform/src/ManagerList.web"
+import Inbox from "../../blocks/customform/src/Inbox.web"
+import Chatbox from "../../blocks/customform/src/Chatbox.web"
+
+
 
 import ViewVeichle from "../../blocks/customform/src/ViewVehicle.web"
 import FamilyList from "../../blocks/customform/src/FamilyList.web"
@@ -171,17 +183,38 @@ import ChangedSelectedTemplate from "../../blocks/RolesPermissions2/src/ChangedS
 import ReviewTemplate from "../../blocks/RolesPermissions2/src/ReviewTemplate.web";
 import AddCondition from "../../blocks/RolesPermissions2/src/AddCondition.web";
 
+import ChairmanScheduledMeeting from "../../blocks/BulkUploading/src/ScheduledMeeting.web"
+import ScheduledMeetingDetails from "../../blocks/BulkUploading/src/ScheduledMeetingDetails.web"
+import ChairmanMeetingMinutes from "../../blocks/BulkUploading/src/MeetingMinutes.web"
+import MeetingMinuteDetails from "../../blocks/BulkUploading/src/MeetingMinuteDetails.web"
+import MyMeetings from "../../blocks/BulkUploading/src/MyMeetings.web"
+import MyMeetingDetail from "../../blocks/BulkUploading/src/MyMeetingDetail.web"
+import MyMeetingMinuteDetail from "../../blocks/BulkUploading/src/MyMeetingMinuteDetail.web"
+
 import ViewInvoices from '../../blocks/InvoiceBilling/src/ViewInvoices.web';
 import ViewReceipt from '../../blocks/InvoiceBilling/src/ViewReceipt.web';
 import InvoicesDetails from '../../blocks/InvoiceBilling/src/InvoicesDetails.web';
 import ReceiptsDetails from '../../blocks/InvoiceBilling/src/ReceiptsDetails.web';
 import CharmainInvoices from '../../blocks/dashboard/src/CharmainInvoices.web';
 
+import ChairmanProfile from '../../blocks/Settings5/src/ChairmanProfile.web';
+
 const routeMap = {
   //done
   LandingPage: {
     component: LandingPage,
     path: '/',
+    exact: true,
+    roles: [ROLE.PRIVATE]
+  },
+  Inbox: {
+    component: Inbox,
+    path: '/inbox',
+    exact: true
+  },
+  Chatbox: {
+    component: Chatbox,
+    path: '/Chatbox',
     exact: true
   },
   LandingPage2: {
@@ -257,7 +290,8 @@ const routeMap = {
   //done
   ChairmanLogin: {
     component: ChairmanLogin,
-    path: '/ChairmanLogin'
+    path: '/ChairmanLogin',
+    roles: [ROLE.PRIVATE]
   },
   //done
   EmailAccountLogin: {
@@ -328,22 +362,22 @@ const routeMap = {
     path: '/ViewInvoices',
     exact: true
   },
-  ViewReceipt:{
+  ViewReceipt: {
     component: ViewReceipt,
     path: '/ViewReceipt',
     exact: true
   },
-  InvoicesDetails:{
+  InvoicesDetails: {
     component: InvoicesDetails,
     path: '/InvoicesDetails',
     exact: true
   },
-  ReceiptsDetails:{
+  ReceiptsDetails: {
     component: ReceiptsDetails,
     path: '/ReceiptsDetails',
     exact: true
   },
-  CharmainInvoices:{
+  CharmainInvoices: {
     component: CharmainInvoices,
     path: '/CharmainInvoices',
     exact: true
@@ -389,10 +423,10 @@ const routeMap = {
     component: BroadcastMessage,
     path: '/BroadcastMessage'
   },
-  BulkUploading: {
-    component: BulkUploading,
-    path: '/BulkUploading'
-  },
+  // BulkUploading: {
+  //   component: BulkUploading,
+  //   path: '/BulkUploading'
+  // },
   Location: {
     component: Location,
     path: '/Location'
@@ -423,6 +457,17 @@ const routeMap = {
     path: "/CreatePolls"
   },
 
+
+  TakeSurvey: {
+    component: SurveyInitial,
+    path: "/TakeSurvey"
+  },
+
+  SurveyFill: {
+    component: SurveyParticipate,
+    path: "/SurveyFill"
+  },
+
   CreateSurveys: {
     component: CreateSurveys,
     path: '/CreateSurveys'
@@ -443,6 +488,13 @@ const routeMap = {
     path: '/PollsallData'
   },
 
+  SurveyallData: {
+    component: SurveyallData,
+    path: '/SurveyallData'
+  },
+
+
+
   PollsSurvey: {
     component: PollsSurvey,
     path: '/PollsSurvey'
@@ -461,6 +513,16 @@ const routeMap = {
   PollDetails: {
     component: PollDetails,
     path: '/PollDetails'
+  },
+
+  SurveyDetails:{
+    component: SurveyDetailsMain,
+    path: '/SurveyDetails'
+  },
+
+  SurveyReport:{
+    component: SurveyReport,
+    path: '/SurveyReport'
   },
 
   PollReport: {
@@ -615,6 +677,49 @@ const routeMap = {
   //   path: '/LeaseForm',
   //   exact: true
   // },
+  // Chairman - Meetings
+  ChairmanScheduledMeeting: {
+    component: ChairmanScheduledMeeting,
+    path: '/ScheduledMeetings',
+    exact: true
+  },
+  ChairmanScheduledMeetingDetails: {
+    component: ScheduledMeetingDetails,
+    path: '/ScheduledMeeting/:id',
+    exact: true
+  },
+  ChairmanMeetingMinutes: {
+    component: ChairmanMeetingMinutes,
+    path: '/MeetingMinutes',
+    exact: true
+  },
+  ChairmanMeetingMinuteDetails: {
+    component: MeetingMinuteDetails,
+    path: '/MeetingMinute/:id',
+    exact: true
+  },
+  // Owner - Meetings
+  OwnerMeetingsList: {
+    component: MyMeetings,
+    path: '/MyMeetings',
+    exact: true
+  },
+  OwnerMyMeetingDetail: {
+    component: MyMeetingDetail,
+    path: '/MyMeeting/:id',
+    exact: true
+  },
+  OwnerMyMeetingMinuteDetail: {
+    component: MyMeetingMinuteDetail,
+    path: '/MeetingMinuteDetail/:id',
+    exact: true
+  },
+  // Chairman - Profile
+  ChairmanProfile: {
+    component: ChairmanProfile,
+    path: '/ChairmanProfile',
+    exact: true
+  },
   Customisableusersubscriptions: {
     component: Customisableusersubscriptions,
     path: '/Customisableusersubscriptions'
@@ -804,7 +909,8 @@ const routeMap = {
 
   DashboardGeneral: {
     component: DashboardGeneral,
-    path: '/DashboardGeneral'
+    path: '/DashboardGeneral',
+    roles: [ROLE.CHAIRMAN]
   },
 
   DashboardTicket: {
@@ -850,10 +956,10 @@ const routeMap = {
     component: BroadcastMessage,
     path: '/BroadcastMessage'
   },
-  BulkUploading: {
-    component: BulkUploading,
-    path: '/BulkUploading'
-  },
+  // BulkUploading: {
+  //   component: BulkUploading,
+  //   path: '/BulkUploading'
+  // },
   Location: {
     component: Location,
     path: '/Location'
@@ -1131,7 +1237,7 @@ class App extends Component {
 
     return (
       <View style={{ height: '100%', width: '100%' }}>
-        {/* <TopNav /> */}
+        <Toaster className="toast" position="top-right" reverseOrder={false} />
         {WebRoutesGenerator({ routeMap })}
         <ModalContainer />
       </View>

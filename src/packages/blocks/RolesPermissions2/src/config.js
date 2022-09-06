@@ -13,4 +13,10 @@ exports.labelTitleText = "RolesPermissions2";
 exports.labelBodyText = "RolesPermissions2 Body";
 
 exports.btnExampleTitle = "CLICK ME";
+
+exports.ApiContentType = "application/json";
+
+exports.apiMethodTypeGet = "GET";
+exports.apiMethodTypePost = "POST";
+exports.apiMethodTypeDelete = "DELETE";
 // Customizable Area End

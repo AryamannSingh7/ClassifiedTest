@@ -65,7 +65,7 @@ export default class BudgetDetails extends DashboardController {
                         <Box style={dashBoardBudget.navigation}>
                             <Box>
                                 <Typography variant="body1" >
-                                My Dashboard / Budget Dashboard / <Box component="span" style={{color: "blue"}}>Budget 2022</Box>
+                                My Dashboards / Budget Dashboard / <Box component="span" style={{color: "blue"}}>Budget 2022</Box>
                                 </Typography>
                                 <Typography variant="h5" style={dashBoardBudget.subHeading}>General Dashboard</Typography>
                             </Box>

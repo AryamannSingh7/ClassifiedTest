@@ -8,7 +8,7 @@ export const DashboardStyleWeb: any = {
       cursor: "pointer",
       marginBottom: "18px",
       background: "#FFFFFF",
-      padding: "5px 20px",
+      padding: "10px 20px",
     },
     "& .menu .left-icon": {
       display: "flex",

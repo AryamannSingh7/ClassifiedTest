@@ -32,26 +32,30 @@ class SubmitPoll extends PollingController {
           <Grid xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
             <ArrowBackIcon onClick={() => window.history.back()} />
             <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
-              Poll title
+                {this.state.pollPreviewAnswer.poll?.data?.attributes.title}
             </p>
           </Grid>
         </Grid>
 
-    <Box style={{background: "#E5ECFF"}}>
+    <Box style={{background: "#E5ECFF",height:"160vh",display:'flex',flexDirection:"column",alignItems:'center'}}>
 
         <Grid container style={{ margin: '1rem', width: '90%' }}>
             
           <Grid xs={12} style={{ display:"flex", alignItems:"center", justifyContent:"space-between"}}>
           <Grid xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
-                <ArrowBackIcon onClick={() => window.history.back()} />
-                <p style={{ fontSize: '1rem', fontWeight: 600 }}>
-                Poll title
+                <p className="textwrapStatus" style={{ fontSize: '1rem', fontWeight: 600 }}>
+                    {this.state.pollPreviewAnswer.poll?.data?.attributes.title}
                 </p>
             </Grid>
             <Box className="EventsIconsText">
-                <p className="statusOngoing" style={{fontWeight: 600}}>
-                  {this.state.pollPreviewAnswer.poll?.data?.attributes.status}
-                </p>
+                {
+                    this.state.pollPreviewAnswer.poll?.data?.attributes.status == "ongoing" &&
+                    <Typography variant="body2" className={"statusOngoingRed"}>{this.state.pollPreviewAnswer.poll?.data?.attributes.status}</Typography>
+                }
+                {
+                    this.state.pollPreviewAnswer.poll?.data?.attributes.status == "completed" &&
+                    <Typography variant="body2" className={"statusOngoingGreen"}>{this.state.pollPreviewAnswer.poll?.data?.attributes.status}</Typography>
+                }
             </Box>
           </Grid>
         </Grid>
@@ -131,7 +135,7 @@ class SubmitPoll extends PollingController {
           this.state.pollPreviewAnswer.poll?.data?.attributes.polling_options.map((data, i) => {
             return (
               <Grid container spacing={2}  key={data.id}
-              style={{ marginLeft: '1rem',marginTop:'1.5rem', width: '90%', alignItems:'baseline'}}>
+              style={{ marginLeft: '0',marginTop:'1.5rem', width: '90%', alignItems:'baseline'}}>
                 <Grid xs={1}>
                     <input type="radio" id={data.id} 
                       name="options" value={data.id} 

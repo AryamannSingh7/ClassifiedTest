@@ -114,9 +114,18 @@ class PollDetails extends PollingController {
                                             </Box>
                                             :
                                             <Box>
-                                                <p className="statusOngoing" style={{fontWeight: 600, marginLeft:"1rem"}}>
-                                                {this.state.pollPreviewAnswer?.poll?.data?.attributes?.status}
-                                                </p>   
+                                                {
+                                                    this.state.pollPreviewAnswer?.poll?.data?.attributes?.status == "upcoming" &&
+                                                    <Typography variant="body1" className={"statusOngoingBlue"}>{this.state.pollPreviewAnswer?.poll?.data?.attributes?.status}</Typography>
+                                                }
+                                                {
+                                                    this.state.pollPreviewAnswer?.poll?.data?.attributes?.status == "ongoing" &&
+                                                    <Typography variant="body1" className={"statusOngoingRed"}>{this.state.pollPreviewAnswer?.poll?.data?.attributes?.status}</Typography>
+                                                }
+                                                {
+                                                    this.state.pollPreviewAnswer?.poll?.data?.attributes?.status == "completed" &&
+                                                    <Typography variant="body1" className={"statusOngoingGreen"}>{this.state.pollPreviewAnswer?.poll?.data?.attributes?.status}</Typography>
+                                                }
                                             </Box>
                                         }
                                 </Box>
