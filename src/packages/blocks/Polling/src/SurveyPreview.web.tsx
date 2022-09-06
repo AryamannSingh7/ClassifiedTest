@@ -30,16 +30,20 @@ import PollingController, {
 } from "./PollingController";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
+import { withRouter } from 'react-router';
+import { withTranslation } from 'react-i18next';
+import '../../../web/src/i18n.js';
 
 
 
-export default class SurveyPreview extends PollingController {
+class SurveyPreview extends PollingController {
   constructor(props: Props) {
     super(props);
     
   }
 
   render() {
+    const {t} = this.props
     return ( 
       <>
     <Box>
@@ -56,9 +60,9 @@ export default class SurveyPreview extends PollingController {
                     <Box className="navigation">
                         <Box>
                             <Typography variant="body1" >
-                            Poll and survey / Create a Poll / <Box component="span" style={{color: "blue"}}>Survey Preview</Box>
+                            {t("Poll and survey")} / {t("Create a Poll")} / <Box component="span" style={{color: "blue"}}>{t("Survey Preview")}</Box>
                             </Typography>
-                            <Typography variant="h5" className="subHeading">Survey Preview</Typography>
+                            <Typography variant="h5" className="subHeading">{t("Survey Preview")}</Typography>
                         </Box>
                     </Box>
 
@@ -67,7 +71,7 @@ export default class SurveyPreview extends PollingController {
                         <Grid item sm={12} md={12} xs={12}>
                             <Box className="createPSCards">
                                 <Box className="PollName">
-                                        <Typography className="subHeading">Poll Name: </Typography>
+                                        <Typography className="subHeading">{t("Poll Name:")} </Typography>
                                         <Typography className="PollNameText">Parking Allotment Rules</Typography>
                                 </Box>
                                 
@@ -75,14 +79,14 @@ export default class SurveyPreview extends PollingController {
                                     <Box className="datebox">
                                         <CalendarTodayOutlinedIcon style={{color:"grey", fontSize:22}}/>
                                         <Box>
-                                            <Typography className="PollNamedate">Start Date</Typography>
+                                            <Typography className="PollNamedate">{t("Start Date")}</Typography>
                                             <Typography className="PollNameText">June 7, 2022</Typography>
                                         </Box>    
                                     </Box>
                                     <Box className="datebox">
                                         <CalendarTodayOutlinedIcon style={{color:"grey", fontSize:22}}/>
                                         <Box>
-                                            <Typography className="PollNamedate">End Date</Typography>
+                                            <Typography className="PollNamedate">{t("End Date")}</Typography>
                                             <Typography className="PollNameText">June 7, 2022</Typography>
                                         </Box>    
                                     </Box>
@@ -90,7 +94,7 @@ export default class SurveyPreview extends PollingController {
                                 </Box>
                                 <Box style={{marginTop:15}}>
                                     <Box className="infoIcon">
-                                        <Typography variant="subtitle1">Description</Typography>  
+                                        <Typography variant="subtitle1">{t("Description")}</Typography>  
                                         <InfoIcon style={{color:"grey", fontSize:18}}/>
                                     </Box>
                                     <Box style={{marginTop:5}}>
@@ -116,10 +120,10 @@ export default class SurveyPreview extends PollingController {
                     </Grid>
 
                     <Box className="BottomButton">
-                        <Link href="/CreateSurveys">
-                            <Button variant="contained" color="primary">EDIT</Button>
+                        <Link onClick={() => this.props.history.push("/CreateSurveys")}>
+                            <Button variant="contained" color="primary">{t("EDIT")}</Button>
                         </Link>
-                        <Button variant="outlined" color="primary">PUBLISH</Button>
+                        <Button variant="outlined" color="primary">{t("PUBLISH")}</Button>
                     </Box>
                 </Container>
             </Grid>
@@ -131,7 +135,7 @@ export default class SurveyPreview extends PollingController {
 }
 
 
-
+export default withTranslation()(withRouter(SurveyPreview));
 const dashBoard = {
     SideBar: {
         background: "#f9f6f6",

@@ -35,6 +35,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import { withTranslation } from 'react-i18next';
+import '../../../web/src/i18n.js';
+import i18next from 'i18next';
 
 class ChairmanLogin extends ChairmanAccountLoginController {
   constructor(props: Props) {
@@ -218,6 +221,7 @@ class ChairmanLogin extends ChairmanAccountLoginController {
     );
   }
 }
-export default withRouter(ChairmanLogin)
+//@ts-ignore
+export default withTranslation()(withRouter(ChairmanLogin));
 
 // Customizable Area End
