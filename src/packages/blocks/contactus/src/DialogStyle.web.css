@@ -407,6 +407,15 @@
   margin-top: 20px;
 }
 
+.add-meeting .date-time input.date {
+  width: 100%;
+  border: 0;
+  outline: none;
+  background: #efefef;
+  padding: 4px 0;
+  min-height: 32px;
+}
+
 .add-meeting .date-time input[type="date"]::-webkit-calendar-picker-indicator,
 .add-meeting .date-time input[type="time"]::-webkit-calendar-picker-indicator {
   color: rgba(0, 0, 0, 0);
@@ -605,4 +614,14 @@
 
 .condition-modal .condition-box .condition .condition-check {
   color: orange;
+}
+
+.go2072408551 {
+  border-radius: 10px !important;
+  background-color: #333 !important;
+  color: #fff !important;
+}
+
+.error {
+  color: red;
 }
