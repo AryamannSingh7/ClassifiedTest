@@ -44,7 +44,7 @@ class NewFamily extends FamilyController {
         <Grid container spacing={2} className="auth-container">
           <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset' }}>
             <Grid container>
-              <Grid xs={12} style={{ display: 'flex', alignItems: 'center' }}>
+              <Grid xs={12} style={{ display: 'flex', alignItems: 'center',borderBottom:'1px solid #f2f2f2' }}>
                 <ArrowBackIcon onClick={() => window.history.back()} />
                 <p style={{ fontWeight: 600, fontSize: '1.25rem' }}>
 
