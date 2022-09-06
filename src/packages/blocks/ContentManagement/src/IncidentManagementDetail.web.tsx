@@ -46,7 +46,7 @@ import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 
 //resorces
-import { Close_Icon, Bank_Icon, Box_Icon, Building1 } from "./assets";
+import { Close_Icon, Bank_Icon, Box_Icon, Building1,Tick_Circle_Icon } from "./assets";
 //import IncidentChatDrawer from "./IncidentChatDrawer.web";
 
 class IncidentManagementDetail extends IncidentManagementController {
@@ -137,7 +137,9 @@ class IncidentManagementDetail extends IncidentManagementController {
                     <CardContent className="card-content">
                       <Box className="row-block">
                         <Box className="card-rows">
-                          <h5>Affected Area: </h5>
+                        <Typography className="title-span" component="span">
+                          Affected Area:
+                        </Typography>
                           <h4>{attributes?.common_area?.name}</h4>
                         </Box>
                         <Box className="card-rows">
@@ -145,27 +147,39 @@ class IncidentManagementDetail extends IncidentManagementController {
                           <h4>{attributes?.incident_related?.name}</h4>
                         </Box>
                         <Box className="card-rows">
-                          <h5>Incident Number: </h5>
+                        <Typography className="title-span" component="span">
+                        Incident Number:
+                        </Typography>
                           <h4>{id}</h4>
                         </Box>
                         <Box className="card-rows">
-                          <h5>Building: </h5>
+                        <Typography className="title-span" component="span">
+                          Building:
+                        </Typography>
                           <h4>{attributes?.apartment_management?.building_name}</h4>
                         </Box>
                         <Box className="card-rows">
-                          <h5>Unit: </h5>
+                        <Typography className="title-span" component="span">
+                           Unit:
+                        </Typography>
                           <h4>{attributes?.apartment_management?.apartment_name}</h4>
                         </Box>
                         <Box className="card-rows">
-                          <h5>Acknowledge by Manager: </h5>
-                          <h4>No</h4>
+                        <Typography className="title-span" component="span">
+                         Acknowledge by Manager:
+                        </Typography>
+                          <h4>{attributes?.acknoledged_by_manager}</h4>
                         </Box>
                         <Box className="card-rows">
-                          <h5>Latest update from management: </h5>
-                          <h4>waiting</h4>
+                        <Typography className="title-span" component="span">
+                        Latest update from management:
+                        </Typography>
+                          <h4>{attributes?.last_update_from_management}</h4>
                         </Box>
                         <Box className="card-rows">
-                          <h5>Description: </h5>
+                        <Typography className="title-span" component="span">
+                        Description:
+                        </Typography>
                           <h4>{attributes?.description}</h4>
                         </Box>
                       </Box>
@@ -173,7 +187,9 @@ class IncidentManagementDetail extends IncidentManagementController {
                         attributes?.attachments.length !== 0 ?
                           <>
                             <Box className="card-rows">
-                              <h5>Photos: </h5>
+                            <Typography className="title-span" component="span">
+                             Photos:
+                           </Typography>
                             </Box>
                             <Box className="card-img-row photos-row">
                               {
@@ -364,7 +380,9 @@ class IncidentManagementDetail extends IncidentManagementController {
                     </Button>
                   </Box>
                   <Box className="diloag-content">
-                    CONFIMR MENTION
+                  <img src={Tick_Circle_Icon} className="lock-logo" alt="Lock_Icon" />
+                   Are you sure you want to chnage the status to {this.state?.statusDetail}
+                 Close Confirm
                   </Box>
                 </Box>
               </Dialog>

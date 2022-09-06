@@ -1,5 +1,3 @@
-//@ts-ignore
-//@ts-nocheck
 import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
@@ -53,6 +51,7 @@ export interface S {
   commonAreaData:any,
   incidentRelatedData:any,
   incidentListing:any,
+  showDialog:any;
   // Customizable Area End
 }
 
@@ -109,7 +108,7 @@ export default class IncidentController extends BlockComponent<
     this.isStringNullOrBlank = this.isStringNullOrBlank.bind(this);
 
     runEngine.attachBuildingBlock(this, this.subScribedMessages);
-
+  //@ts-ignore
     this.state = {
       // Customizable Area Start
       firstName: "",
@@ -139,7 +138,8 @@ export default class IncidentController extends BlockComponent<
       upload:false,
       notImageOrVideoError:false,
       sizeError:false,
-      file :{}
+      file :{},
+      showDialog:false
       // Customizable Area End
     };
 
@@ -218,7 +218,6 @@ export default class IncidentController extends BlockComponent<
             console.log("apicreateIncidentCallId===========>",responseJson)
             localStorage.setItem("createIncidentId",responseJson.data.id)
             //@ts-ignore
-            //@ts-nocheck
             this.props.history.push("/IncidentReportedSuccessfully")
             this.setState({loading: false})      
           } else if (responseJson?.errors) {
@@ -235,7 +234,6 @@ export default class IncidentController extends BlockComponent<
           if (responseJson && responseJson.data) {
             console.log("apiupdateIncidentCallId===========>",responseJson)
                //@ts-ignore
-               //@ts-nocheck
               this.props.history.push("/IncidentListing")
             this.setState({loading: false})      
           } else if (responseJson?.errors) {
@@ -468,6 +466,7 @@ export default class IncidentController extends BlockComponent<
   };
 
   btnSignUpProps = {
+      //@ts-ignore
     onPress: () => this.createAccount()
   };
 
@@ -631,7 +630,7 @@ confirmOrRejectIncident =(id : any,val : any)=>{
 
 
 
-  createIncident = async(incidentFromData: any ,incidentRelated : any): boolean => {
+  createIncident = async(incidentFromData: any ,incidentRelated : any) => {
   try   
    {
      const header = {
@@ -648,6 +647,7 @@ confirmOrRejectIncident =(id : any,val : any)=>{
    
    for (let j = 0; j < incidentFromData.media.length; j += 1) {
     let blob = await fetch(incidentFromData.media[j].url).then(r => r.blob());
+      //@ts-ignore
      blob.name = incidentFromData.media[j].file.name
     console.log("bolb ==================>",blob);
 
@@ -879,10 +879,10 @@ confirmOrRejectIncident =(id : any,val : any)=>{
   };
   
   
-  handleClick = (any:event) => {
+  handleClick = (event:any) => {
     this.setState({anchorEl:event.currentTarget })
   };
-  handleClose = (e, v) => {
+  handleClose = (e:any, v:any) => {
     let sortBy : any ;
     console.log("v=========>",v)
     if(v === undefined || v === null){
@@ -894,11 +894,11 @@ confirmOrRejectIncident =(id : any,val : any)=>{
     this.setState({anchorEl:null,sortBy : sortBy})
   };
   
-  handleClick_1 = (event) => {
+  handleClick_1 = (event :any) => {
     this.setState({anchorEl_1:event.currentTarget})
   };
    
-  handleClose_1 = (e, v) => {
+  handleClose_1 = (e:any, v:any) => {
    let status : any ;
     if(v === undefined || v === null){
       status =this.state.status;

@@ -684,8 +684,8 @@ onChange =(e :any)=>{
     const  value = e.target.value
     //@ts-ignore
     this.setState({ [e.target.name]:e.target.value})
-    // this.setState({ statusShowDialog: false })
-    this.updateStatus(value);
+     this.setState({ statusShowDialog: true })
+    
   }
   else if(e.target.name === 'providerWork'){
     const array = e.target?.value?.split(",");
@@ -909,7 +909,7 @@ onChange =(e :any)=>{
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `bx_block_address/all_apartment_list?building_management_id${id}`
+        `bx_block_address/all_apartment_list?building_management_id=${id}`
       );
 
       requestMessage.addData(
