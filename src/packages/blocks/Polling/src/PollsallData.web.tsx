@@ -38,6 +38,7 @@ class PollsallData extends PollingController {
   }
 
   render() {
+    //@ts-ignore
     const {t} = this.props
     return ( 
       <>
@@ -72,7 +73,9 @@ class PollsallData extends PollingController {
                     </Box>
                     <Grid container spacing={4} style={{marginTop: 15,marginBottom:20}} className="link-decoration">
                         <Grid item sm={6} md={4} xs={12}>
-                            <Link onClick={() => this.props.history.push("/CreatePolls")}>
+                            <Link
+                            //@ts-ignore 
+                            onClick={() => this.props.history.push("/CreatePolls")}>
                                 <Box className="CreatePSsingle">
                                     <Box sx={{ml:1, mb:2}}>
                                     <img src={pollandsurvey} alt="pollandsurvey" />
@@ -207,6 +210,7 @@ class PollsallData extends PollingController {
   }
 }
 
+//@ts-ignore
 export default withTranslation()(withRouter(PollsallData)); 
 
 // Customizable Area End

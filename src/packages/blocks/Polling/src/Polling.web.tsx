@@ -48,6 +48,7 @@ class Polling extends PollingController {
   }
 
   render() {
+    //@ts-ignore
     const {t} = this.props
     return ( 
       <>
@@ -369,6 +370,7 @@ class Polling extends PollingController {
   }
 }
 
+//@ts-ignore
 export default withTranslation()(withRouter(Polling)); 
 
 const dashBoard = {
