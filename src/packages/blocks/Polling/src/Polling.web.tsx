@@ -232,9 +232,8 @@ class Polling extends PollingController {
                                                                 :
                                                                 <>
                                                                     <HighlightOffOutlinedIcon style={{color: "red"}}/>
-                                                                    <Typography variant="body2">{data.rejected_answers}</Typography>
+                                                                    <Typography variant="body2">{data.awaited}</Typography>
                                                                 </>
-
                                                         }
                                                     </Box>
                                                 </>

@@ -168,7 +168,7 @@ class CreatePolls extends PollingController {
                                         onChange={this.onChangeTextEditor} />
                                     </Box>
                                     <p style={{color:"red"}}>{this.state.pollDescriptionError}</p>
-                                    <TextField  label="enter question" variant="outlined"
+                                    <TextField  label="Enter question" variant="outlined"
                                     name="question"
                                     value={this.state.PollData.question}
                                     onChange={this.handlePollDataChange}
@@ -182,7 +182,7 @@ class CreatePolls extends PollingController {
                                         return(
                                             <>
                                                 <TextField key={index}
-                                                    label={"option - " + (index + 1)} variant="outlined"
+                                                    label={"Option - " + (index + 1)} variant="outlined"
                                                     name="text"
                                                     value={inputfield.text}
                                                     onChange={(event) => this.handleOptionsChange(index, event)}
