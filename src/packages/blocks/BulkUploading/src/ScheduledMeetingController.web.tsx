@@ -8,6 +8,7 @@ import { runEngine } from "../../../framework/src/RunEngine";
 import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
 import * as Yup from "yup";
 import toast from "react-hot-toast";
+import moment from "moment";
 // Customizable Area End
 
 export const configJSON = require("./config.js");
@@ -28,6 +29,7 @@ interface Form {
   date: string;
   time: string;
   momWriter: string;
+  status: string;
 }
 
 interface Pagination {
@@ -130,6 +132,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
         date: "",
         time: "",
         momWriter: "",
+        status: "scheduled",
       },
     };
     // Customizable Area End
@@ -378,6 +381,9 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
     momWriter: Yup.string()
       .required("Required")
       .matches(/\S/, "Required"),
+    status: Yup.string()
+      .required("Required")
+      .matches(/\S/, "Required"),
 
     // file: Yup.mixed().required("Required"),
   });
@@ -482,7 +488,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
     const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_meeting/get_manager`
+      `society_managements/${society_id}/bx_block_meeting/meetings/get_manager`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
@@ -549,6 +555,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
         date: values.date,
         time: values.time,
         manager_id: values.momWriter,
+        status: values.status,
       },
     };
 
@@ -639,6 +646,51 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
     this.setState({
       isCompleteMeetingModalOpen: !this.state.isCompleteMeetingModalOpen,
     });
+  };
+
+  openEditMeetingModal = (meeting: any) => {
+    this.setState(
+      {
+        scheduleMeetingId: meeting.id,
+        meetingForm: {
+          title: meeting.attributes.title,
+          place: meeting.attributes.place,
+          agenda: meeting.attributes.agenda,
+          building: meeting.attributes.building.id,
+          date: meeting.attributes.meeting_date_time
+            .split(" ")[0]
+            .split("-")
+            .reverse()
+            .join("-"),
+          time: meeting.attributes.meeting_date_time.split(" ")[1],
+          momWriter: meeting.attributes.meeting_mins_writer.id,
+          status: meeting.attributes.status,
+        },
+      },
+      () => {
+        this.handleEditMeetingModal();
+      }
+    );
+  };
+
+  openCreateMeetingModal = () => {
+    this.setState(
+      {
+        meetingForm: {
+          title: "",
+          place: "",
+          agenda: "",
+          building: "",
+          date: "",
+          time: "",
+          momWriter: "",
+          status: "scheduled",
+        },
+      },
+      () => {
+        this.handleCreateMeetingModal();
+      }
+    );
   };
   // Customizable Area End
 }
