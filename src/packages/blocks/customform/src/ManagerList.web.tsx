@@ -48,6 +48,8 @@ class ManagerList extends ManagerController {
   }
 
   render() {
+    //@ts-ignore
+  //@ts-nocheck
     const {t} = this.props
     //console.log("getRegistrationRequest===================>",building_name ,apartment_name);
     return (
