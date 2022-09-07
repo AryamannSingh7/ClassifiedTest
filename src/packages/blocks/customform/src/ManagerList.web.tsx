@@ -268,7 +268,7 @@ class ManagerList extends ManagerController {
 }
 //@ts-nocheck
 //@ts-ignore
-export default withRouter(ManagerList)
+export default withTranslation()(withRouter(ManagerList))
 
 const dashBoardBudget = {
   SideBar: {
