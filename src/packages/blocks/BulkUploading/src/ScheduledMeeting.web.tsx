@@ -1,7 +1,4 @@
 // Customizable Area Start
-//@ts-nocheck
-//@ts-ignore
-
 import React from "react";
 import {
   Container,
@@ -35,11 +32,11 @@ import "@szhsin/react-menu/dist/core.css";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { MeetingsStyleWeb } from "./MeetingsStyle.web";
-import SearchIconImage from "../assets/search.png";
 import SearchIcon from "@material-ui/icons/Search";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+//@ts-ignore
 import Pagination from "@material-ui/lab/Pagination";
-import CommentIcon from "../assets/comment.png";
+import { SearchIconImage, CommentIcon } from "./assets";
 import { Formik, Form } from "formik";
 import moment from "moment";
 
@@ -121,7 +118,6 @@ class ScheduledMeeting extends ScheduledMeetingController {
                     />
                     <Select
                       displayEmpty
-                      value=""
                       className="select-input"
                       value={this.state.status}
                       onChange={(e: any) => {
@@ -150,8 +146,8 @@ class ScheduledMeeting extends ScheduledMeetingController {
                       type="text"
                       placeholder="Date"
                       className="input"
-                      onFocus={(e) => (e.target.type = "date")}
-                      onBlur={(e) => (e.target.type = "text")}
+                      onFocus={(e: any) => (e.target.type = "date")}
+                      onBlur={(e: any) => (e.target.type = "text")}
                     />
                     <Button
                       startIcon={<img src={SearchIconImage} />}
@@ -171,7 +167,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                     </Button>
                   </Box>
                   <Box className="create-meeting">
-                    <Button onClick={() => this.handleCreateMeetingModal()}>
+                    <Button onClick={() => this.openCreateMeetingModal()}>
                       + Create New Meeting
                     </Button>
                   </Box>
@@ -217,7 +213,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                             <TableCell colSpan={6}>No Schedule Meeting Available!!</TableCell>
                           </TableRow>
                         )}
-                        {this.state.scheduleMeetingList.map((meeting: any, index: string) => {
+                        {this.state.scheduleMeetingList.map((meeting: any, index: number) => {
                           return (
                             <TableRow key={index}>
                               <TableCell align="left">{index + 1}</TableCell>
@@ -249,49 +245,23 @@ class ScheduledMeeting extends ScheduledMeetingController {
                                   <MenuItem>
                                     <Link to={`ScheduledMeeting/${meeting.id}`}>View</Link>
                                   </MenuItem>
-                                  {meeting.attributes.status === "scheduled" && (
-                                    <>
-                                      <MenuItem
-                                        onClick={() => {
-                                          this.setState(
-                                            {
-                                              scheduleMeetingId: meeting.id,
-                                              meetingForm: {
-                                                title: meeting.attributes.title,
-                                                place: meeting.attributes.place,
-                                                agenda: meeting.attributes.agenda,
-                                                building: meeting.attributes.building.id,
-                                                date: moment(
-                                                  meeting.attributes.meeting_date_time.split(" ")[0]
-                                                ).format("YYYY-MM-DD"),
-                                                time: meeting.attributes.meeting_date_time.split(" ")[1],
-                                                momWriter: "",
-                                              },
-                                            },
-                                            () => {
-                                              this.handleEditMeetingModal();
-                                            }
-                                          );
-                                        }}
-                                      >
-                                        Edit
-                                      </MenuItem>
-                                      <MenuItem
-                                        onClick={() => {
-                                          this.setState(
-                                            {
-                                              scheduleMeetingId: meeting.id,
-                                            },
-                                            () => {
-                                              this.handleCancelMeetingModal();
-                                            }
-                                          );
-                                        }}
-                                      >
-                                        Cancel
-                                      </MenuItem>
-                                    </>
-                                  )}
+                                  <MenuItem onClick={() => this.openEditMeetingModal(meeting)}>
+                                    Edit
+                                  </MenuItem>
+                                  <MenuItem
+                                    onClick={() => {
+                                      this.setState(
+                                        {
+                                          scheduleMeetingId: meeting.id,
+                                        },
+                                        () => {
+                                          this.handleCancelMeetingModal();
+                                        }
+                                      );
+                                    }}
+                                  >
+                                    Cancel
+                                  </MenuItem>
                                 </Menu>
                               </TableCell>
                             </TableRow>
@@ -308,7 +278,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                         </span>{" "}
                         of{" "}
                         <span className="total-page">
-                          {this.state.pagination && this.state.pagination.total_count}
+                          {this.state.pagination ? this.state.pagination.total_count : 0}
                         </span>{" "}
                         results
                       </p>
@@ -368,10 +338,8 @@ class ScheduledMeeting extends ScheduledMeetingController {
               handleSubmit,
               setFieldValue,
             }) => {
-              // console.log(values);
-
               return (
-                <Form onSubmit={handleSubmit}>
+                <Form onSubmit={handleSubmit} translate>
                   <DialogContent dividers>
                     <FormControl fullWidth>
                       <Input
@@ -397,10 +365,9 @@ class ScheduledMeeting extends ScheduledMeetingController {
                               name="date"
                               className="date"
                               min={moment().format("YYYY-MM-DD")}
-                              fullWidth
                               type="text"
                               placeholder="Date"
-                              onFocus={(e) => (e.target.type = "date")}
+                              onFocus={(e: any) => (e.target.type = "date")}
                             />
                           </div>
                           {errors.date && touched.date && (
@@ -419,7 +386,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                               fullWidth
                               type="text"
                               placeholder="Time"
-                              onFocus={(e) => (e.target.type = "time")}
+                              onFocus={(e: any) => (e.target.type = "time")}
                             />
                           </div>
                           {errors.time && touched.time && (
@@ -550,7 +517,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
               setFieldValue,
             }) => {
               return (
-                <Form onSubmit={handleSubmit}>
+                <Form onSubmit={handleSubmit} translate>
                   <DialogContent dividers>
                     <FormControl fullWidth>
                       <Input
@@ -574,13 +541,9 @@ class ScheduledMeeting extends ScheduledMeetingController {
                               onChange={handleChange}
                               onBlur={handleBlur}
                               name="date"
-                              format="DD-MM-YYYY"
                               className="date"
                               min={moment().format("YYYY-MM-DD")}
-                              fullWidth
-                              type="text"
-                              placeholder="Date"
-                              onFocus={(e) => (e.target.type = "date")}
+                              type="date"
                             />
                           </div>
                           {errors.date && touched.date && (
@@ -597,9 +560,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                               onBlur={handleBlur}
                               name="time"
                               fullWidth
-                              type="text"
-                              placeholder="Time"
-                              onFocus={(e) => (e.target.type = "time")}
+                              type="time"
                             />
                           </div>
                           {errors.time && touched.time && (
@@ -680,6 +641,26 @@ class ScheduledMeeting extends ScheduledMeetingController {
                       </Select>
                       {errors.momWriter && touched.momWriter && (
                         <small className="error">{errors.momWriter}</small>
+                      )}
+                    </FormControl>
+                    <FormControl fullWidth>
+                      <Select
+                        value={values.status}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        name="status"
+                        displayEmpty
+                        className="dialog-select-input"
+                      >
+                        <MenuItem value="" disabled>
+                          <em>Select Status</em>
+                        </MenuItem>
+                        <MenuItem value="scheduled">Scheduled</MenuItem>
+                        <MenuItem value="completed">Completed</MenuItem>
+                        <MenuItem value="cancelled">Cancelled</MenuItem>
+                      </Select>
+                      {errors.status && touched.status && (
+                        <small className="error">{errors.status}</small>
                       )}
                     </FormControl>
                   </DialogContent>

@@ -194,7 +194,7 @@ export default class EmailAccountLoginController extends BlockComponent<
           if (responseJson && responseJson.meta && responseJson.meta.token) {
             localStorage.setItem("userToken", responseJson?.meta?.token)
             localStorage.setItem("userId", responseJson?.meta?.id)
-            localStorage.setItem("userType", responseJson?.meta?.role[0]?.name)
+            localStorage.setItem("userType", responseJson?.meta?.role.name)
             localStorage.setItem("society_id", responseJson.meta?.society_id)
             console.log('ehhlo sir')
             this.getRegistrationRequest();
