@@ -132,7 +132,7 @@ export default class MyMeetingsController extends BlockComponent<Props, S, SS> {
     const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_meeting/meetings`
+      `society_managements/${society_id}/bx_block_meeting/meetings/shaduled_meeting`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
@@ -160,7 +160,7 @@ export default class MyMeetingsController extends BlockComponent<Props, S, SS> {
     const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_meeting/meeting_mins`
+      `society_managements/${society_id}/bx_block_meeting/meeting_mins/approved_meeting_mins`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));

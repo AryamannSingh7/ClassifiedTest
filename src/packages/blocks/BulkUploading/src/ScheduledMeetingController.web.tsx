@@ -30,6 +30,7 @@ interface Form {
   time: string;
   momWriter: string;
   status: string;
+  meetingType: string;
 }
 
 interface Pagination {
@@ -54,6 +55,7 @@ interface S {
   isEditMeetingModalOpen: boolean;
   isCancelMeetingModalOpen: boolean;
   isCompleteMeetingModalOpen: boolean;
+  isCreateAttendeeModalOpen: boolean;
 
   scheduleMeetingList: any[];
   buildingsList: any[];
@@ -102,6 +104,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
       isEditMeetingModalOpen: false,
       isCancelMeetingModalOpen: false,
       isCompleteMeetingModalOpen: false,
+      isCreateAttendeeModalOpen: false,
 
       scheduleMeetingList: [],
       buildingsList: [],
@@ -133,6 +136,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
         time: "",
         momWriter: "",
         status: "scheduled",
+        meetingType: "",
       },
     };
     // Customizable Area End
@@ -207,9 +211,9 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
 
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      if (responseJson.data) {
+      if (responseJson.buildings) {
         this.setState({
-          buildingsList: responseJson.data.buildings,
+          buildingsList: responseJson.buildings,
         });
       }
 
@@ -383,6 +387,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
       .matches(/\S/, "Required"),
     status: Yup.string()
       .required("Required")
+      .required("Required")
       .matches(/\S/, "Required"),
 
     // file: Yup.mixed().required("Required"),
@@ -460,7 +465,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
     const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_address/building_list?society_management_id=${society_id}`
+      `society_managements/${society_id}/bx_block_meeting/find_building`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
@@ -648,6 +653,12 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
     });
   };
 
+  handleCreateAttendeeModal = () => {
+    this.setState({
+      isCreateAttendeeModalOpen: !this.state.isCreateAttendeeModalOpen,
+    });
+  };
+
   openEditMeetingModal = (meeting: any) => {
     this.setState(
       {
@@ -665,6 +676,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
           time: meeting.attributes.meeting_date_time.split(" ")[1],
           momWriter: meeting.attributes.meeting_mins_writer.id,
           status: meeting.attributes.status,
+          meetingType: "",
         },
       },
       () => {
@@ -685,6 +697,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
           time: "",
           momWriter: "",
           status: "scheduled",
+          meetingType: "",
         },
       },
       () => {

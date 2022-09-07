@@ -20,6 +20,8 @@ import {
   TableBody,
   Input,
   InputBase,
+  Checkbox,
+  TableContainer,
 } from "@material-ui/core";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
@@ -36,7 +38,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 //@ts-ignore
 import Pagination from "@material-ui/lab/Pagination";
-import { SearchIconImage, CommentIcon } from "./assets";
+import { SearchIconImage, CommentIcon, Dots } from "./assets";
 import { Formik, Form } from "formik";
 import moment from "moment";
 
@@ -145,7 +147,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                       }}
                       type="text"
                       placeholder="Date"
-                      className="input"
+                      className="input date"
                       onFocus={(e: any) => (e.target.type = "date")}
                       onBlur={(e: any) => (e.target.type = "text")}
                     />
@@ -310,7 +312,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
 
         <Dialog
           fullWidth
-          scroll="paper"
+          // scroll="paper"
           open={this.state.isCreateMeetingModalOpen}
           className="add-meeting"
         >
@@ -341,6 +343,25 @@ class ScheduledMeeting extends ScheduledMeetingController {
               return (
                 <Form onSubmit={handleSubmit} translate>
                   <DialogContent dividers>
+                    <FormControl fullWidth>
+                      <Select
+                        value={values.meetingType}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        name="meetingType"
+                        displayEmpty
+                        className="dialog-select-input"
+                      >
+                        <MenuItem value="" disabled>
+                          <em>Select Meeting Type</em>
+                        </MenuItem>
+                        <MenuItem value="">GA Meeting</MenuItem>
+                        <MenuItem value="">Regular Meeting</MenuItem>
+                      </Select>
+                      {errors.meetingType && touched.meetingType && (
+                        <small className="error">{errors.meetingType}</small>
+                      )}
+                    </FormControl>
                     <FormControl fullWidth>
                       <Input
                         value={values.title}
@@ -469,6 +490,34 @@ class ScheduledMeeting extends ScheduledMeetingController {
                         <small className="error">{errors.momWriter}</small>
                       )}
                     </FormControl>
+                    <Box className="create-audience">
+                      <p>Select Meeting Joinees</p>
+                      <span onClick={() => this.handleCreateAttendeeModal()}>
+                        + Create New Group
+                      </span>
+                    </Box>
+                    <Box className="attendee-box">
+                      <Box className="active attendee">
+                        <span>Owner</span>
+                      </Box>
+                      <Box className="attendee">
+                        <span>Resident</span>
+                      </Box>
+                      <Box className="attendee">
+                        <span>Floor 12 GA member </span>
+                        <Box>
+                          <Menu
+                            direction="top"
+                            align="end"
+                            menuButton={<img src={Dots} alt="|" />}
+                            className="attendee-menu"
+                          >
+                            <MenuItem>Edit</MenuItem>
+                            <MenuItem>Delete</MenuItem>
+                          </Menu>
+                        </Box>
+                      </Box>
+                    </Box>
                   </DialogContent>
                   <DialogActions className="dialog-button-group">
                     <Button
@@ -710,6 +759,88 @@ class ScheduledMeeting extends ScheduledMeetingController {
               </DialogActions>
             </Box>
           </DialogContent>
+        </Dialog>
+
+        <Dialog
+          scroll="paper"
+          fullWidth
+          maxWidth="md"
+          open={this.state.isCreateAttendeeModalOpen}
+          className="select-meeting scheduled-meeting"
+        >
+          <MuiDialogTitle disableTypography className="dialog-heading">
+            <Typography variant="h6">Create Meeting Group</Typography>
+            <IconButton onClick={() => this.handleCreateAttendeeModal()}>
+              <CloseIcon />
+            </IconButton>
+          </MuiDialogTitle>
+          <DialogContent dividers className="filter">
+            <Select value="" name="meetingType" displayEmpty className="dialog-select-input">
+              <MenuItem value="" disabled>
+                <em>Select Floor</em>
+              </MenuItem>
+              <MenuItem value="">GA Meeting</MenuItem>
+              <MenuItem value="">Regular Meeting</MenuItem>
+            </Select>
+            <Select value="" name="meetingType" displayEmpty className="dialog-select-input">
+              <MenuItem value="" disabled>
+                <em>User Type</em>
+              </MenuItem>
+              <MenuItem value="">GA Meeting</MenuItem>
+              <MenuItem value="">Regular Meeting</MenuItem>
+            </Select>
+            <Button className="filter-button" startIcon={<img src={SearchIconImage} />}>
+              Search
+            </Button>
+          </DialogContent>
+          <DialogContent dividers>
+            <TableContainer>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell />
+                    <TableCell>Name</TableCell>
+                    <TableCell>Unit No.</TableCell>
+                    <TableCell>Floor Number</TableCell>
+                    <TableCell>User Type</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  <TableRow>
+                    <TableCell>
+                      <Checkbox edge="start" tabIndex={-1} disableRipple checked={true} />
+                    </TableCell>
+                    <TableCell>John Doe</TableCell>
+                    <TableCell>121</TableCell>
+                    <TableCell>12</TableCell>
+                    <TableCell>Resident</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>
+                      <Checkbox edge="start" tabIndex={-1} disableRipple checked={true} />
+                    </TableCell>
+                    <TableCell>John Doe</TableCell>
+                    <TableCell>121</TableCell>
+                    <TableCell>12</TableCell>
+                    <TableCell>Resident</TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </DialogContent>
+          <DialogActions className="dialog-button-group">
+            <div className="selected-meeting">
+              <h4>
+                <span>5 </span>User Selected
+              </h4>
+            </div>
+            <div className="button-group">
+              <Input name="title" placeholder="Group Name" className="dialog-input" />
+              <Button className="add-button" onClick={() => {}}>
+                Create Group
+              </Button>
+            </div>
+          </DialogActions>
         </Dialog>
       </>
     );

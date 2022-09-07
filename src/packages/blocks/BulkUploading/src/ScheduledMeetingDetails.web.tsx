@@ -14,6 +14,11 @@ import {
   Input,
   Select,
   MenuItem,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
 } from "@material-ui/core";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
@@ -26,6 +31,8 @@ import { MeetingsStyleWeb } from "./MeetingsStyle.web";
 import { CommentIcon, RejectIcon, AcceptIcon, AwaitIcon } from "./assets";
 import { Formik, Form } from "formik";
 import moment from "moment";
+//@ts-ignore
+import Pagination from "@material-ui/lab/Pagination";
 
 class ScheduledMeetingDetails extends ScheduledMeetingController {
   constructor(props: Props) {
@@ -168,44 +175,81 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                 {this.state.scheduleMeetingDetails &&
                   this.state.scheduleMeetingStatus === "scheduled" && (
                     <Box className="response-box">
-                      <h3>Response</h3>
-                      <Box className="status">
-                        <div className="item">
-                          <img src={AwaitIcon} />
-                          <p>
-                            Awaiting{" "}
-                            <span>
-                              {
-                                this.state.scheduleMeetingDetails.attributes.meeting_responses
-                                  .awaited
-                              }
-                            </span>
-                          </p>
-                        </div>
-                        <div className="item">
-                          <img src={AcceptIcon} />
-                          <p>
-                            Accepted{" "}
-                            <span>
-                              {
-                                this.state.scheduleMeetingDetails.attributes.meeting_responses
-                                  .accepted
-                              }
-                            </span>
-                          </p>
-                        </div>
-                        <div className="item">
-                          <img src={RejectIcon} />
-                          <p>
-                            Rejected{" "}
-                            <span>
-                              {
-                                this.state.scheduleMeetingDetails.attributes.meeting_responses
-                                  .rejected
-                              }
-                            </span>
-                          </p>
-                        </div>
+                      <Box className="heading">
+                        <h3>Response</h3>
+                        <Box className="status">
+                          <div className="item">
+                            <img src={AwaitIcon} />
+                            <p>
+                              Awaiting{" "}
+                              <span>
+                                {
+                                  this.state.scheduleMeetingDetails.attributes.meeting_responses
+                                    .awaited
+                                }
+                              </span>
+                            </p>
+                          </div>
+                          <div className="item">
+                            <img src={AcceptIcon} />
+                            <p>
+                              Accepted{" "}
+                              <span>
+                                {
+                                  this.state.scheduleMeetingDetails.attributes.meeting_responses
+                                    .accepted
+                                }
+                              </span>
+                            </p>
+                          </div>
+                          <div className="item">
+                            <img src={RejectIcon} />
+                            <p>
+                              Rejected{" "}
+                              <span>
+                                {
+                                  this.state.scheduleMeetingDetails.attributes.meeting_responses
+                                    .rejected
+                                }
+                              </span>
+                            </p>
+                          </div>
+                        </Box>
+                      </Box>
+                      <Table className="table-box">
+                        <TableHead>
+                          <TableRow>
+                            <TableCell>Name</TableCell>
+                            <TableCell>Building</TableCell>
+                            <TableCell>Unit No.</TableCell>
+                            <TableCell>Floor Number</TableCell>
+                            <TableCell>Response</TableCell>
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          <TableRow>
+                            <TableCell>John Doe</TableCell>
+                            <TableCell>Building 1</TableCell>
+                            <TableCell>102</TableCell>
+                            <TableCell>12</TableCell>
+                            <TableCell>
+                              <span className="accepted">Accepted</span>
+                            </TableCell>
+                          </TableRow>
+                        </TableBody>
+                      </Table>
+                      <Box className="table-bottom">
+                        <p>
+                          Showing <span className="current-page">1</span> of{" "}
+                          <span className="total-page">100</span> results
+                        </p>
+                        <Pagination
+                          count={5}
+                          page={2}
+                          siblingCount={2}
+                          variant="outlined"
+                          shape="rounded"
+                        />
                       </Box>
                     </Box>
                   )}

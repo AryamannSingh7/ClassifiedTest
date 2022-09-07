@@ -6,3 +6,5 @@ export const CommentIcon = require("../assets/comment.png");
 export const AcceptIcon = require("../assets/accept.png");
 export const RejectIcon = require("../assets/reject.png");
 export const AwaitIcon = require("../assets/await.png");
+export const CheckIcon = require("../assets/check.svg");
+export const Dots = require("../assets/3dots.png");

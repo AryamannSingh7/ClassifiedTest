@@ -33,15 +33,18 @@ export const MeetingsStyleWeb: any = {
       background: "#FFFFFF",
       border: "1px solid #F0F0F0",
       borderRadius: "8px",
-      padding: "10px 15px",
-      width: "200px",
+      padding: "7px",
+      width: "170px",
     },
     "& .top-bar .filter .input": {
       background: "#FFFFFF",
       border: "1px solid #F0F0F0",
       borderRadius: "8px",
-      padding: "10px 15px",
-      width: "200px",
+      padding: "7px",
+      width: "180px",
+    },
+    "& .top-bar .filter .input.date": {
+      width: "170px",
     },
     "& .top-bar .filter .select-input .MuiSelect-root ": {
       background: "#FFFFFF",
@@ -55,14 +58,16 @@ export const MeetingsStyleWeb: any = {
     "& .top-bar .filter button": {
       background: "#2B6FED",
       color: "white",
-      padding: "12px 20px",
+      padding: "10px 20px",
       borderRadius: "8px",
+      fontWeight: "600",
     },
     "& .top-bar .create-meeting button": {
       background: "#FC8434",
       color: "white",
-      padding: "12px 20px",
+      padding: "10px 20px",
       borderRadius: "5px",
+      fontWeight: "600",
     },
     "& .meeting-table": {
       background: "white",
@@ -127,6 +132,9 @@ export const MeetingsStyleWeb: any = {
       overflow: "hidden",
       whiteSpace: "nowrap",
       textOverflow: "ellipsis",
+    },
+    "& .meeting-table .table-box td.MuiTableCell-root button": {
+      padding: "0px",
     },
     "& .meeting-table .table-box td.MuiTableCell-root span": {
       padding: "5px 10px",
@@ -231,12 +239,16 @@ export const MeetingsStyleWeb: any = {
     },
     "& .response-box": {
       padding: "20px",
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
       marginBottom: "100px",
       background: "white",
       borderRadius: "8px",
+    },
+    "& .response-box .heading": {
+      padding: "20px",
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      background: "white",
     },
     "& .response-box h3": {
       fontWeight: "600",
@@ -327,6 +339,38 @@ export const MeetingsStyleWeb: any = {
     "& .pending": {
       background: "#FFEDE0",
       color: "#FC8434",
+    },
+    "& .accepted": {
+      background: "#D4FFE3",
+      color: "#1EC65B",
+    },
+    "& .awaiting": {
+      background: "#FFEDE0",
+      color: "#FC8434",
+    },
+    "& .response-box .table-box td.MuiTableCell-root span": {
+      padding: "5px 10px",
+      borderRadius: "25px",
+    },
+    "& .response-box .table-box th": {
+      fontWeight: "600",
+    },
+    "& .response-box .table-bottom": {
+      padding: "10px",
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+    },
+    "& .response-box .table-bottom .current-page": {
+      color: "#FC8434",
+    },
+    "& .response-box .table-bottom .total-page": {
+      fontWeight: "600",
+    },
+    "& .response-box .table-bottom .MuiPaginationItem-root.Mui-selected": {
+      background: "#FC8434",
+      color: "white",
+      borderColor: "#FC8434",
     },
   },
   meetingList: {
@@ -589,6 +633,18 @@ export const MeetingsStyleWeb: any = {
     "& .meeting-pdf .pdf-detail > img": {
       width: "20px",
       height: "20px",
+    },
+    "& .scheduled": {
+      background: "#D4FFE3",
+      color: "#1EC65B",
+    },
+    "& .completed": {
+      background: "#F1F1F1",
+      color: "#6C6C6C",
+    },
+    "& .cancelled": {
+      background: "#FFEAEA",
+      color: "#F21717",
     },
   },
 };
