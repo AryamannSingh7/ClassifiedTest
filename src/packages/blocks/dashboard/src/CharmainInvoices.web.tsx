@@ -22,7 +22,8 @@ import {
   Backdrop,
   Modal,
   Paper,
-  Button
+  Button,
+  withStyles
 } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
@@ -41,6 +42,8 @@ import { withRouter } from 'react-router-dom';
 import CharmainInvoicesController, { Props } from "../../../blocks/dashboard/src/CharmainInvoicesController";
 import DashboardHeader from "./DashboardHeader.web";
 import ChairmanSidebar from "./ChairmanSidebar.web";
+import { withTranslation } from 'react-i18next';
+import '../../../web/src/i18n.js';
 
 //resorces
 // import { Bank_Icon, Building1, Grid_Icon, Filter_Icon } from "../src/assets";
@@ -75,6 +78,7 @@ constructor(props: Props) {
 }
 
 render() {
+    const {t} = this.props
     var searchData = rows.filter((item) => {
         if (this.state.dataSearch === "") {
           return item;
@@ -104,15 +108,15 @@ render() {
                         <Box style={dashBoardActions.navigation}>
                             <Box>
                                 <Typography variant="body1" >
-                                Invoices & Receipts / <Box component="span" style={{color: "blue"}}>Invoices</Box>
+                                {t("Invoices & Receipts")} / <Box component="span" style={{color: "blue"}}>{t("Invoices")}</Box>
                                 </Typography>
-                                <Typography variant="h5" style={dashBoardActions.subHeading}>Invoices</Typography>
+                                <Typography variant="h5" style={dashBoardActions.subHeading}>{t("Invoices")}</Typography>
                             </Box>
                         </Box>
 
                         <Box style={{marginTop: 25,marginBottom:50, background:"#fff", borderRadius:10}}>
                             <Box style={dashBoardActions.TableHeader}>
-                                <Typography variant="h5" style={dashBoardActions.subHeading}>Invoice</Typography>
+                                <Typography variant="h5" style={dashBoardActions.subHeading}>{t("Invoice")}</Typography>
                                 {/* <SearchOutlinedIcon/> */}
                                 <TextField
                                     // className={classes.margin}
@@ -134,12 +138,12 @@ render() {
                                     <TableHead>
                                         <TableRow>
                                             <TableCell style={{color:"grey"}}>#</TableCell>
-                                            <TableCell style={{color:"grey"}} align="center">Name</TableCell>
-                                            <TableCell style={{color:"grey"}} align="center">Unit No.</TableCell>
-                                            <TableCell style={{color:"grey"}} align="center">Title</TableCell>
-                                            <TableCell style={{color:"grey"}} align="center">Amount</TableCell>
-                                            <TableCell style={{color:"grey"}} align="center">Type</TableCell>
-                                            <TableCell style={{color:"grey"}} align="center">Status</TableCell>
+                                            <TableCell style={{color:"grey"}} align="center">{t("Name")}</TableCell>
+                                            <TableCell style={{color:"grey"}} align="center">{t("Unit No.")}</TableCell>
+                                            <TableCell style={{color:"grey"}} align="center">{t("Title")}</TableCell>
+                                            <TableCell style={{color:"grey"}} align="center">{t("Amount")}</TableCell>
+                                            <TableCell style={{color:"grey"}} align="center">{t("Type")}</TableCell>
+                                            <TableCell style={{color:"grey"}} align="center">{t("Status")}</TableCell>
                                             <TableCell style={{color:"grey"}} align="center"></TableCell>
                                         </TableRow>
                                     </TableHead>
@@ -160,7 +164,7 @@ render() {
                                 </Table>
                             </TableContainer>
                             <Box style={dashBoardActions.TableHeader}>
-                                <Typography  style={dashBoardActions.subHeading}>Showing 5 of {rows.length} results</Typography>
+                                <Typography  style={dashBoardActions.subHeading}>{t("Showing")} 5 {t("of")} {rows.length} {t("results")}</Typography>
                                 <Pagination count={10} variant="outlined" shape="rounded" />
                             </Box>
                         </Box> 
@@ -172,11 +176,11 @@ render() {
                             onClose={this.handleClose}
                             style={{padding:"0px", cursor:'pointer'}}
                             >
-                            <MenuItem onClick={this.handleClose} style={{margin:"7px", cursor:'pointer'}} onClick={this.handleModalOpen}>View</MenuItem>
+                            <MenuItem onClick={this.handleClose} style={{margin:"7px", cursor:'pointer'}} onClick={this.handleModalOpen}>{t("View")}</MenuItem>
                             <hr style={{margin:"0px"}}/>
-                            <MenuItem onClick={this.handleClose} style={{margin:"7px", cursor:'pointer'}}>Download</MenuItem>
+                            <MenuItem onClick={this.handleClose} style={{margin:"7px", cursor:'pointer'}}>{t("Download")}</MenuItem>
                             <hr style={{margin:"0px"}}/>
-                            <MenuItem onClick={this.handleClose} style={{margin:"7px", cursor:'pointer'}}>Share</MenuItem>
+                            <MenuItem onClick={this.handleClose} style={{margin:"7px", cursor:'pointer'}}>{t("Share")}</MenuItem>
                             </Menu>
 
                             <Modal
@@ -192,62 +196,62 @@ render() {
                                 <Fade in={open}>
                                 <div style={dashBoardActions.paper}>
                                     <div style={dashBoardActions.modalHeader}>
-                                    <Typography variant="h5" style={dashBoardActions.subHeadingFont}>Management Fee Invoice - May 2022</Typography>
+                                    <Typography variant="h5" style={dashBoardActions.subHeadingFont}>{t("Management Fee Invoice")} - May 2022</Typography>
                                     <span onClick={this.handleModalClose}>X</span>
                                     </div>
                                     <hr />
                                     <Grid container spacing={2} style={dashBoardActions.residetails}>
                                         <Grid item xs={3}>
-                                            <Typography style={dashBoardActions.commonColor} component="h5">Owner Name:</Typography>
+                                            <Typography style={dashBoardActions.commonColor} component="h5">{t("Owner Name:")}</Typography>
                                             <b>John Doe</b>
                                         </Grid>
                                         <Grid item xs={3}>
-                                            <Typography style={dashBoardActions.commonColor} component="h5">Resident Name:</Typography>
+                                            <Typography style={dashBoardActions.commonColor} component="h5">{t("Resident Name:")}</Typography>
                                             <b>Jenil Patel</b>
                                         </Grid>
                                         <Grid item xs={3}>
-                                            <Typography style={dashBoardActions.commonColor} component="h5">Building Name:</Typography>
+                                            <Typography style={dashBoardActions.commonColor} component="h5">{t("Building Name:")}</Typography>
                                             <b>Building</b>
                                         </Grid>
                                         <Grid item xs={3}>
-                                            <Typography style={dashBoardActions.commonColor} component="h5">Unit Number:</Typography>
+                                            <Typography style={dashBoardActions.commonColor} component="h5">{t("Unit Number:")}</Typography>
                                             <b>1406</b>
                                         </Grid>
                                         </Grid>
                                     <Grid container spacing={2} xs={12} style={dashBoardActions.residetails}>
                                             <Grid item xs={3}>
-                                                <Typography style={dashBoardActions.commonColor} component="h5">Resident ID:</Typography>
+                                                <Typography style={dashBoardActions.commonColor} component="h5">{t("Resident ID:")}</Typography>
                                                 <b>ABCDE1254Q</b>
                                             </Grid>
                                             <Grid item xs={3}>
-                                                <Typography style={dashBoardActions.commonColor} component="h5">Generated on:</Typography>
+                                                <Typography style={dashBoardActions.commonColor} component="h5">{t("Generated on:")}</Typography>
                                                 <b>15-05-2022</b>
                                             </Grid>
                                     </Grid>
                                     <div style={dashBoardActions.residetails}>
-                                    <b style={{color:"#2b6fed"}}>Summary</b>
+                                    <b style={{color:"#2b6fed"}}>{t("Summary")} </b>
                                     </div>
                                     <Paper style={dashBoardActions.summary}>
                                         <div>
                                             <div className='resident-data'>
-                                                <Typography style={dashBoardActions.commonColor} component="h5">Management Fee Amount:</Typography>
+                                                <Typography style={dashBoardActions.commonColor} component="h5">{t("Management Fee Amount:")}</Typography>
                                                 <b>SR 1,250</b>
                                             </div>
                                             <div className='resident-data'>
-                                                <Typography style={dashBoardActions.commonColor} component="h5">Late Charges:</Typography>
+                                                <Typography style={dashBoardActions.commonColor} component="h5">{t("Late Charges:")}</Typography>
                                                 <b>SR 29</b>
                                             </div>
                                             <div className='resident-data'>
-                                                <Typography style={dashBoardActions.commonColor} component="h5">Tax:</Typography>
+                                                <Typography style={dashBoardActions.commonColor} component="h5">{t("Tax:")}</Typography>
                                                 <b>SR 24</b>
                                             </div>
                                             <div className='resident-data'>
-                                                <Typography style={dashBoardActions.commonColor} component="h5">Others:</Typography>
+                                                <Typography style={dashBoardActions.commonColor} component="h5">{t("Others:")}</Typography>
                                                 <b>SR 00</b>
                                             </div>
                                             <hr />
                                             <div className='resident-data'>
-                                                <Typography style={dashBoardActions.commonColor} component="h5">Total Amount:</Typography>
+                                                <Typography style={dashBoardActions.commonColor} component="h5">{t("Total Amount:")}</Typography>
                                                 <b style={{color:"#FC8434"}}>SR 1303</b>
                                             </div>
                                         </div>
@@ -255,10 +259,10 @@ render() {
                                      <Grid container spacing={2} xs={12} style={dashBoardActions.residetails}>
                                         <Grid item xs={8} style={{display:"flex", marginTop:"10px"}}>
                                             <GetAppOutlinedIcon />
-                                            <Typography style={dashBoardActions.commonColor} component="h5">Download Invoice</Typography>
+                                            <Typography style={dashBoardActions.commonColor} component="h5">{t("Download Invoice")}</Typography>
                                         </Grid>
                                         <Grid item xs={4}>
-                                        <Button variant="contained" style={dashBoardActions.receiptbtn} color="primary">GENARATE RECEIPT</Button>
+                                        <Button variant="contained" style={dashBoardActions.receiptbtn} color="primary">{t("GENARATE RECEIPT")}</Button>
                                         </Grid>
                                     </Grid>
 
@@ -292,6 +296,8 @@ render() {
     );
   }
 }
+
+export default withTranslation()(withStyles(dashBoardActions)(withRouter(CharmainInvoices)));
 
 // Customizable Area Start
 const dashBoardActions = {
@@ -388,5 +394,3 @@ const dashBoardActions = {
     }
 };
   // Customizable Area End
-  
-  export default withRouter(CharmainInvoices);

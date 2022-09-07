@@ -4,7 +4,7 @@
 
 import React from "react";
 import "./Dashboard.web.css";
-import { globalIcon, notification } from "./assets";
+import { globalIcon, notification, chatIcon } from "./assets";
 import "../../../web/src/assets/css/style.scss";
 import {
   Box,
@@ -12,6 +12,7 @@ import {
   IconButton,
   Typography,
   Link,
+  Menu,
   MenuItem,
   withStyles,
 } from "@material-ui/core";
@@ -20,17 +21,49 @@ import BuildingImage from "../assets/BuildingLogo.png";
 import UserImage from "../assets/ChairmanUser.jpg";
 import ProfileIcon from "../assets/profile.png";
 import LogoutIcon from "../assets/logout.png";
-import { Menu } from "@szhsin/react-menu";
+// import { Menu } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/core.css";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import DashboardController, { Props } from "./DashboardController";
+import { withTranslation } from 'react-i18next';
+import '../../../web/src/i18n.js';
+import i18next from 'i18next';
 
 class DashboardHeader extends DashboardController {
   constructor(props: Props) {
     super(props);
+    this.state = {
+      anchorEl: null,
+    };
   }
 
   componentDidMount(): Promise<void> {}
+
+  handleLanguage = (event: any) => {
+    this.setState({
+      anchorEl: event?.currentTarget,
+    });
+  };
+
+  handleClose = () => {
+    this.setState({
+      anchorEl:null
+    })
+  }
+
+  handleEngLngChange = () => {
+    i18next.changeLanguage('en')
+    this.setState({
+      anchorEl:null
+    })
+  }
+
+  handleAreLngChange = () => {
+    i18next.changeLanguage('ar')
+    this.setState({
+      anchorEl:null
+    })
+  }
 
   logout = () => {
     localStorage.clear();
@@ -42,6 +75,7 @@ class DashboardHeader extends DashboardController {
   };
 
   render() {
+    const open = Boolean(this.state.anchorEl)
     return (
       <Box style={dashBoard.Header}>
         <Grid container spacing={2}>
@@ -54,12 +88,49 @@ class DashboardHeader extends DashboardController {
             </Link>
           </Grid>
           <Grid item xs={6} md={6} sm={6} style={dashBoard.HeaderSecRft}>
-            <Link href="#">
-              <img src={globalIcon} alt="GlobalIcon" />
-            </Link>
-            <Link href="#">
-              <img src={notification} alt="GlobalIcon" />
-            </Link>
+           <div className="right-icon" style={{display:"flex"}}>
+                    <div style={{position:"relative"}}>
+                      <span
+                        id="basic-button"
+                        aria-controls={open ? "basic-menu" : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? "true" : undefined}
+                        onClick={(e:any) => this.handleLanguage(e)}>
+                        <img src={globalIcon} alt="GlobalIcon" />
+                      </span>
+                      <Menu
+                        id="basic-menu"
+                        anchorEl={this.state.anchorEl}
+                        open={open}
+                        onClose={this.handleClose}
+                        MenuListProps={{
+                          "aria-labelledby": "basic-button"
+                        }}
+                        getContentAnchorEl={null}
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'center',
+                        }}
+                        transformOrigin={{
+                          vertical: 'top',
+                          horizontal: 'center',
+                        }}
+                      >
+                        <MenuItem onClick={() => this.handleEngLngChange()}>English</MenuItem>
+                        <MenuItem onClick={() => this.handleAreLngChange()}>Arabic</MenuItem>
+                      </Menu>
+                    </div>
+                    <div>
+                        <Link href="#">
+                          <img src={chatIcon} alt="GlobalIcon" style={{marginLeft:"10px"}}/>
+                        </Link>
+                    </div>
+                    <div>
+                        <Link href="#">
+                          <img src={notification} alt="GlobalIcon" style={{marginLeft:"10px"}}/>
+                        </Link>
+                      </div>
+              </div>
             {/* <img src={GlobalIcon} alt="GlobalIcon" /> */}
 
             <Box style={dashBoard.HeaderSecRtBox}>

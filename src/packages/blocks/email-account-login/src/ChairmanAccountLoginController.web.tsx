@@ -40,7 +40,7 @@ export interface S {
   error: string | null;
   loading: boolean;
   userTypeData:any;
-  
+
   // Customizable Area End
 }
 
@@ -115,7 +115,7 @@ export default class ChairmanAccountLoginController extends BlockComponent<
       userType:'',
       loading: false,
       userTypeData:null
-    
+
       // Customizable Area End
     };
 
@@ -178,7 +178,7 @@ export default class ChairmanAccountLoginController extends BlockComponent<
               this.emailReg = new RegExp(regexData.email_validation_regexp);
             }
           }
-        } 
+        }
       else if (apiRequestCallId === this.apiEmailLoginCallId) {
           if (responseJson && responseJson.meta && responseJson.meta.token) {
             localStorage.setItem("userToken", responseJson?.meta?.token)
@@ -195,14 +195,14 @@ export default class ChairmanAccountLoginController extends BlockComponent<
             // //window.location.replace("/RegistrationRequest");
             // this.setState({loading: false})
             // }
-            
+
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
             this.setState({ error });
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
           }
-         
+
           this.parseApiCatchErrorResponse(this.state.error);
           this.setState({loading: false , error:null})
         }
@@ -233,7 +233,7 @@ export default class ChairmanAccountLoginController extends BlockComponent<
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
 
-          }  
+          }
           this.parseApiCatchErrorResponse(this.state.error);
           this.setState({loading: false ,error:null})
         }
@@ -266,7 +266,7 @@ export default class ChairmanAccountLoginController extends BlockComponent<
           this.parseApiCatchErrorResponse(this.state.error);
           this.setState({loading: false , error:null})
         }
-        
+
       }
     }
 
@@ -528,14 +528,15 @@ clear= () => {
     const data = {
       type: "email_account",
       attributes: attrs,
-      user_type:values.userType
+      user_type:values.userType,
+      stay_login: values.stayIn
     };
 
     const httpBody = {
       data: data
     };
     localStorage.setItem("selectUserType",values.userType)
-    this.setState({loading: true}) 
+    this.setState({loading: true})
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
     );
@@ -566,11 +567,11 @@ clear= () => {
     return true;
   };
 
- 
+
   getUserType = () => {
     try {
       const header = {
-        
+
       };
 
       //const id = localStorage.getItem("userId");
@@ -601,7 +602,7 @@ clear= () => {
       console.log(error);
     }
   };
-  
+
   getRegistrationRequest = () => {
     try {
       const header = {

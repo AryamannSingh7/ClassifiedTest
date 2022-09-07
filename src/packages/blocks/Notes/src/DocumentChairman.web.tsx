@@ -20,6 +20,8 @@ import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 
 import Document from "../assets/document.png";
+import { withTranslation } from 'react-i18next';
+import '../../../web/src/i18n.js';
 
 class DocumentChairman extends DocumentChairmanController {
   constructor(props: Props) {
@@ -27,6 +29,7 @@ class DocumentChairman extends DocumentChairmanController {
   }
 
   render() {
+    const {t} = this.props
     const { classes } = this.props;
 
     window.addEventListener("pageshow", (event) => {
@@ -58,9 +61,9 @@ class DocumentChairman extends DocumentChairmanController {
               <Container>
                 <Box className="navigation">
                   <Box>
-                    <Typography variant="body1">Documents</Typography>
+                    <Typography variant="body1">{t("Documents")}</Typography>
                     <Typography variant="h5" className="sub-heading">
-                      Documents
+                      {t("Documents")}
                     </Typography>
                   </Box>
                 </Box>
@@ -71,7 +74,7 @@ class DocumentChairman extends DocumentChairmanController {
                         <Box className="item">
                           <div className="heading">
                             <img src={Document} />
-                            <h4>Policy</h4>
+                            <h4>{t("Policy")}</h4>
                           </div>
                           {this.state.policy > 0 && (
                             <Button className="color-btn">
@@ -86,7 +89,7 @@ class DocumentChairman extends DocumentChairmanController {
                         <Box className="item">
                           <div className="heading">
                             <img src={Document} />
-                            <h4>Guidelines</h4>
+                            <h4>{t("Guidelines")}</h4>
                           </div>
                           {this.state.guidelines > 0 && (
                             <Button className="color-btn">
@@ -101,7 +104,7 @@ class DocumentChairman extends DocumentChairmanController {
                         <Box className="item">
                           <div className="heading">
                             <img src={Document} />
-                            <h4>Roles</h4>
+                            <h4>{t("Roles")}</h4>
                           </div>
                           {this.state.roles > 0 && (
                             <Button className="color-btn">
@@ -116,7 +119,7 @@ class DocumentChairman extends DocumentChairmanController {
                         <Box className="item">
                           <div className="heading">
                             <img src={Document} />
-                            <h4>Resolution</h4>
+                            <h4>{t("Resolution")}</h4>
                           </div>
                           {this.state.resolution > 0 && (
                             <Button className="color-btn">
@@ -131,7 +134,7 @@ class DocumentChairman extends DocumentChairmanController {
                         <Box className="item">
                           <div className="heading">
                             <img src={Document} />
-                            <h4>Building Plans</h4>
+                            <h4>{t("Building Plans")}</h4>
                           </div>
                           {this.state.buildingPlans > 0 && (
                             <Button className="color-btn">
@@ -152,5 +155,5 @@ class DocumentChairman extends DocumentChairmanController {
   }
 }
 
-export default withStyles(DocumentReportStyleWeb)(DocumentChairman);
+export default withTranslation()(withStyles(DocumentReportStyleWeb)(DocumentChairman));
 // Customizable Area End

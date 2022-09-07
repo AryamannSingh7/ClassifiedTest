@@ -1,7 +1,3 @@
-//@ts-ignore
-//@ts-nocheck
-
-
 import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
@@ -51,7 +47,11 @@ export interface S {
   upload:any;
   notImageOrVideoError:any,
   sizeError:any,
-  file : any
+  file : any,
+  commonAreaData:any,
+  incidentRelatedData:any,
+  incidentListing:any,
+  showDialog:any;
   // Customizable Area End
 }
 
@@ -79,7 +79,6 @@ export default class IncidentController extends BlockComponent<
   getCommonAreaApiCallId : any ;
   getIncidentRelatedApiCallId:any;
   getMyApartmentListApiCallId:any;
-  validationApiCallId: string = "";
 
   imgPasswordVisible: any;
   imgPasswordInVisible: any;
@@ -109,7 +108,7 @@ export default class IncidentController extends BlockComponent<
     this.isStringNullOrBlank = this.isStringNullOrBlank.bind(this);
 
     runEngine.attachBuildingBlock(this, this.subScribedMessages);
-
+  //@ts-ignore
     this.state = {
       // Customizable Area Start
       firstName: "",
@@ -139,7 +138,8 @@ export default class IncidentController extends BlockComponent<
       upload:false,
       notImageOrVideoError:false,
       sizeError:false,
-      file :{}
+      file :{},
+      showDialog:false
       // Customizable Area End
     };
 
@@ -217,7 +217,8 @@ export default class IncidentController extends BlockComponent<
           if (responseJson && responseJson.data) {
             console.log("apicreateIncidentCallId===========>",responseJson)
             localStorage.setItem("createIncidentId",responseJson.data.id)
-              this.props.history.push("/IncidentReportedSuccessfully")
+            //@ts-ignore
+            this.props.history.push("/IncidentReportedSuccessfully")
             this.setState({loading: false})      
           } else if (responseJson?.errors) {
             let error = responseJson.errors[0]
@@ -232,6 +233,7 @@ export default class IncidentController extends BlockComponent<
         else if (apiRequestCallId === this.apiupdateIncidentCallId) {
           if (responseJson && responseJson.data) {
             console.log("apiupdateIncidentCallId===========>",responseJson)
+               //@ts-ignore
               this.props.history.push("/IncidentListing")
             this.setState({loading: false})      
           } else if (responseJson?.errors) {
@@ -266,6 +268,8 @@ export default class IncidentController extends BlockComponent<
           this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = responseJson.errors[0] as string;
+                     //@ts-ignore
+                    //@ts-nocheck
               this.props.history.push("/IncidentListing")
             this.setState({ error });
           } else {
@@ -462,6 +466,7 @@ export default class IncidentController extends BlockComponent<
   };
 
   btnSignUpProps = {
+      //@ts-ignore
     onPress: () => this.createAccount()
   };
 
@@ -550,16 +555,19 @@ export default class IncidentController extends BlockComponent<
 
 clear= () => {
   localStorage.clear()
+  //@ts-ignore
   this.props.history.push("/");
 }
 
-onSubmit =(values)=>{
+onSubmit =(values:any)=>{
   localStorage.setItem("incidentPreview", JSON.stringify(values))
   console.log("onsbumit=========>", values);
     this.setState({ loading: true })
+    //@ts-ignore
     this.props.history.push("/IncidentPreview")
 }
-getIncidentDetails= (id) => {
+getIncidentDetails= (id :any) => {
+   //@ts-ignore
   this.props.history.push({
     pathname: "/IncidentDetails",
     id,
@@ -568,15 +576,17 @@ getIncidentDetails= (id) => {
   //this.getIncidentDetailsById(id)
 }
 
-confirmOrRejectIncident =(id,val)=>{
+confirmOrRejectIncident =(id : any,val : any)=>{
   const header = {
     token :localStorage.getItem("userToken")
   };
   const formData = new FormData();
   if(val === "confirm"){
+     //@ts-ignore
     formData.append('incident[mark_resolved_by_reporter]', true);
     formData.append('incident[incident_status]', 'Resolved');
   }else{
+     //@ts-ignore
     formData.append('incident[mark_resolved_by_reporter]', false);
     formData.append('incident[incident_status]', 'Unresolved');
   }
@@ -620,7 +630,7 @@ confirmOrRejectIncident =(id,val)=>{
 
 
 
-  createIncident = async(incidentFromData: any ,incidentRelated : any): boolean => {
+  createIncident = async(incidentFromData: any ,incidentRelated : any) => {
   try   
    {
      const header = {
@@ -637,6 +647,7 @@ confirmOrRejectIncident =(id,val)=>{
    
    for (let j = 0; j < incidentFromData.media.length; j += 1) {
     let blob = await fetch(incidentFromData.media[j].url).then(r => r.blob());
+      //@ts-ignore
      blob.name = incidentFromData.media[j].file.name
     console.log("bolb ==================>",blob);
 
@@ -868,10 +879,10 @@ confirmOrRejectIncident =(id,val)=>{
   };
   
   
-  handleClick = (event) => {
+  handleClick = (event:any) => {
     this.setState({anchorEl:event.currentTarget })
   };
-  handleClose = (e, v) => {
+  handleClose = (e:any, v:any) => {
     let sortBy : any ;
     console.log("v=========>",v)
     if(v === undefined || v === null){
@@ -883,11 +894,11 @@ confirmOrRejectIncident =(id,val)=>{
     this.setState({anchorEl:null,sortBy : sortBy})
   };
   
-  handleClick_1 = (event) => {
+  handleClick_1 = (event :any) => {
     this.setState({anchorEl_1:event.currentTarget})
   };
    
-  handleClose_1 = (e, v) => {
+  handleClose_1 = (e:any, v:any) => {
    let status : any ;
     if(v === undefined || v === null){
       status =this.state.status;

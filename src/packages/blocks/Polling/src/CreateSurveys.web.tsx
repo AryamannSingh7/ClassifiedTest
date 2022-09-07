@@ -52,7 +52,9 @@ import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import TextEditor from "./TextEditor.web";
 import Backdrop from "@material-ui/core/Backdrop";
 import AudienceModal from "./AudienceModal.web";
-
+import { withRouter } from 'react-router';
+import { withTranslation } from 'react-i18next';
+import '../../../web/src/i18n.js';
 
 
 const currencies = [
@@ -74,7 +76,7 @@ const currencies = [
     },
   ];
 
-export default class CreateSurveys extends SurveyController {
+class CreateSurveys extends SurveyController {
   constructor(props: Props) {
     super(props);
 
@@ -83,6 +85,7 @@ export default class CreateSurveys extends SurveyController {
     this.setState({checked: !this.state.checked})
   };
   render() {
+    const {t} = this.props
     return ( 
       <>
     <Box style={{background: "#E5ECFF"}}>
@@ -99,9 +102,9 @@ export default class CreateSurveys extends SurveyController {
                     <Box className="navigation">
                         <Box>
                             <Typography variant="body1" >
-                            Poll and survey / <Box component="span" style={{color: "blue"}}>Create a Survey</Box>
+                            {t("Poll and survey")} / <Box component="span" style={{color: "blue"}}>{t("Create a Survey")}</Box>
                             </Typography>
-                            <Typography variant="h5" className="subHeading">Create a Survey</Typography>
+                            <Typography variant="h5" className="subHeading">{t("Create a Survey")}</Typography>
                         </Box>
                     </Box>
 
@@ -150,13 +153,13 @@ export default class CreateSurveys extends SurveyController {
                                         </Grid>
                                         </MuiPickersUtilsProvider> */}
 
-                                        <TextField label="Start Date" variant="outlined"
+                                        <TextField label={t("Start Date")} variant="outlined"
                                         name="startDate"
                                         value={this.state.PollData.startDate}
                                         onChange={this.handlePollDataChange}
                                         required fullWidth
                                         />
-                                        <TextField label="End Date" variant="outlined"
+                                        <TextField label={t("End Date")} variant="outlined"
                                         name="endDate"
                                         value={this.state.PollData.endDate}
                                         onChange={this.handlePollDataChange}
@@ -210,48 +213,12 @@ export default class CreateSurveys extends SurveyController {
                                                         <MenuItem value="options">Options</MenuItem>
                                                     </Select>
                                                 </FormControl>
-                                                {/*<TextField*/}
-                                                {/*    id="standard-select-currency"*/}
-                                                {/*    select*/}
-                                                {/*    label="Select"*/}
-                                                {/*    value={this.state.selectQuestion}*/}
-                                                {/*    onChange={this.handleQuestionSelect}*/}
-                                                {/*    SelectProps={{*/}
-                                                {/*        native: true,*/}
-                                                {/*    }}*/}
-                                                {/*    placeholder="Select type of question"*/}
-                                                {/*    fullWidth*/}
-                                                {/*    variant="outlined"*/}
-                                                {/*    InputProps={{*/}
-                                                {/*        style:{borderRadius:"2px"}*/}
-                                                {/*    }}*/}
-                                                {/*>*/}
-
-                                                {/*    {currencies.map((option:any) => {*/}
-                                                {/*        return(*/}
-                                                {/*            <MenuItem key={option.value} value={option.value}>*/}
-                                                {/*                {option.label}*/}
-                                                {/*            </MenuItem>*/}
-                                                {/*        )*/}
-                                                {/*    })*/}
-                                                {/*    }*/}
-                                                {/*</TextField>*/}
-
                                                 <TextField  label="enter question" variant="outlined"
                                                             name="question"
                                                             value={item.question}
                                                             onChange={(e)=>this.handleQuestion(key,e)}
                                                             required fullWidth style={{marginTop:20}}
                                                 />
-
-                                                {/* <TextField  label="Option - 1" variant="outlined"
-                                    name="optionOne"
-                                    value={this.state.PollData.optionOne}
-                                    onChange={this.handlePollDataChange}
-                                    required fullWidth style={{marginTop:20}}
-                                    /> */}
-
-
                                                 {
                                                     item.questionType !== "shortAns" && item.options.map((inputfield:any , index:any) => {
                                                         return(
@@ -265,7 +232,6 @@ export default class CreateSurveys extends SurveyController {
                                                         )
                                                     })
                                                 }
-
                                                 {
                                                     this.state.questionType !== "shortAns" &&
                                                     <Button variant="outlined" color="primary"
@@ -275,8 +241,6 @@ export default class CreateSurveys extends SurveyController {
                                                         ADD OPTION
                                                     </Button>
                                                 }
-
-
                                             </Box>
                                         </Grid>
                                     )
@@ -387,6 +351,7 @@ export default class CreateSurveys extends SurveyController {
   }
 }
 
+export default withTranslation()(withRouter(CreateSurveys)); 
 
 const dashBoard = {
     SideBar: {

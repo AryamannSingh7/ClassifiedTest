@@ -34,6 +34,8 @@ import { FaqChairmanStyleWeb } from "./FaqChairmanStyle.web";
 import CommentImage from "../assets/comment.png";
 import QuestionImage from "../assets/question.png";
 import "./DialogStyle.web.css";
+import { withTranslation } from 'react-i18next';
+import '../../../web/src/i18n.js';
 
 class FaqChairman extends FaqChairmanController {
   constructor(props: Props) {
@@ -41,6 +43,7 @@ class FaqChairman extends FaqChairmanController {
   }
 
   render() {
+    const {t} = this.props
     const { classes } = this.props;
 
     return (
@@ -59,13 +62,13 @@ class FaqChairman extends FaqChairmanController {
                 <Box className="navigation">
                   <Box>
                     <Typography variant="body1">
-                      Help /{" "}
+                      {t("Help")} /{" "}
                       <Box component="span" style={{ color: "blue" }}>
-                        Frequently asked questions
+                        {t("Frequently asked questions")}
                       </Box>
                     </Typography>
                     <Typography variant="h5" className="sub-heading">
-                      Frequently asked questions
+                      {t("Frequently asked questions")}
                     </Typography>
                   </Box>
                 </Box>
@@ -104,7 +107,7 @@ class FaqChairman extends FaqChairmanController {
                     variant="contained"
                     onClick={() => this.handleAddCategoryModal()}
                   >
-                    Add New Category
+                    {t("Add New Category")}
                   </Button>
                 </Box>
 
@@ -115,7 +118,7 @@ class FaqChairman extends FaqChairmanController {
                       variant="h6"
                       style={{ fontWeight: "600", marginBottom: "15px" }}
                     >
-                      No Question Added
+                      {t("No Question Added")}
                     </Typography>
                   </Box>
                 )}
@@ -158,7 +161,7 @@ class FaqChairman extends FaqChairmanController {
                       variant="outlined"
                       onClick={() => this.handleDeleteAllCategoryModal()}
                     >
-                      Remove {this.state.selectedCategoryName} Faq
+                      {t("Remove")} {this.state.selectedCategoryName} {t("Faq")}
                     </Button>
                   ) : (
                     <div />
@@ -168,7 +171,7 @@ class FaqChairman extends FaqChairmanController {
                     variant="contained"
                     onClick={() => this.handleAddQuestionModal()}
                   >
-                    Add Questions
+                    {t("Add Questions")}
                   </Button>
                 </Box>
               </Container>
@@ -181,7 +184,7 @@ class FaqChairman extends FaqChairmanController {
             open={this.state.isAddQuestionModalOpen}
           >
             <MuiDialogTitle disableTypography className="dialog-heading">
-              <Typography variant="h6">Add Questions</Typography>
+              <Typography variant="h6">{t("Add Questions")}</Typography>
               <IconButton onClick={() => this.handleAddQuestionModal()}>
                 <CloseIcon />
               </IconButton>
@@ -199,7 +202,7 @@ class FaqChairman extends FaqChairmanController {
                   value={this.state.createCategoryId}
                 >
                   <option aria-label="None" value="">
-                    Select Category
+                    {t("Select Category")}
                   </option>
                   {this.state.catagoriesList.map((category: any) => {
                     return (
@@ -224,7 +227,7 @@ class FaqChairman extends FaqChairmanController {
                 />
                 {this.state.createQuestion.length > 500 && (
                   <span className="error">
-                    Maximum length of title should be 500 character
+                    {t("Maximum length of title should be 500 character")}
                   </span>
                 )}
               </FormControl>
@@ -247,7 +250,7 @@ class FaqChairman extends FaqChairmanController {
                 className="cancel-button"
                 onClick={() => this.handleAddQuestionModal()}
               >
-                Cancel
+                {t("Cancel")}
               </Button>
               <Button
                 className="add-button"
@@ -259,7 +262,7 @@ class FaqChairman extends FaqChairmanController {
                   this.state.createCategoryId.length === 0
                 }
               >
-                Add
+                {t("Add")}
               </Button>
             </DialogActions>
           </Dialog>
@@ -270,7 +273,7 @@ class FaqChairman extends FaqChairmanController {
             open={this.state.isEditQuestionModalOpen}
           >
             <MuiDialogTitle className="dialog-heading" disableTypography>
-              <Typography variant="h6">Edit Questions</Typography>
+              <Typography variant="h6">{t("Edit Questions")}</Typography>
               <IconButton onClick={() => this.handleEditQuestionModal()}>
                 <CloseIcon />
               </IconButton>
@@ -288,7 +291,7 @@ class FaqChairman extends FaqChairmanController {
                   }}
                 >
                   <option aria-label="None" value="">
-                    Select Category
+                    {t("Select Category")}
                   </option>
                   {this.state.catagoriesList.map((category: any) => {
                     return (
@@ -313,7 +316,7 @@ class FaqChairman extends FaqChairmanController {
                 />
                 {this.state.editQuestion.length > 500 && (
                   <span className="error">
-                    Maximum length of title should be 500 character
+                    {t("Maximum length of title should be 500 character")}
                   </span>
                 )}
               </FormControl>
@@ -336,7 +339,7 @@ class FaqChairman extends FaqChairmanController {
                 onClick={() => this.handleEditQuestionModal()}
                 className="cancel-button"
               >
-                Cancel
+                {t("Cancel")}
               </Button>
               <Button
                 onClick={() => this.editFaq()}
@@ -348,7 +351,7 @@ class FaqChairman extends FaqChairmanController {
                 }
                 className="add-button"
               >
-                Edit
+                {t("Edit")}
               </Button>
             </DialogActions>
           </Dialog>
@@ -359,7 +362,7 @@ class FaqChairman extends FaqChairmanController {
             open={this.state.isAddCategoryModalOpen}
           >
             <MuiDialogTitle className="dialog-heading" disableTypography>
-              <Typography variant="h6">Add Category</Typography>
+              <Typography variant="h6">{t("Add Category")}</Typography>
               <IconButton onClick={() => this.handleAddCategoryModal()}>
                 <CloseIcon />
               </IconButton>
@@ -384,7 +387,7 @@ class FaqChairman extends FaqChairmanController {
                 onClick={() => this.handleAddCategoryModal()}
                 className="cancel-button"
               >
-                Cancel
+                {t("Cancel")}
               </Button>
               <Button
                 disabled={this.state.categoryName.length === 0}
@@ -393,7 +396,7 @@ class FaqChairman extends FaqChairmanController {
                 }}
                 className="add-button"
               >
-                Confirm
+                {t("Confirm")}
               </Button>
             </DialogActions>
           </Dialog>
@@ -412,14 +415,14 @@ class FaqChairman extends FaqChairmanController {
                   alt="comment"
                 />
                 <Typography variant="h6">
-                  Do you want to delete the category?
+                  {t("Do you want to delete the category?")}
                 </Typography>
                 <Typography variant="body1" style={{ marginBottom: "0px" }}>
-                  Are you sure want to delete the category "
+                  {t("Are you sure want to delete the category")}
                   {this.state.selectedCategoryName}"?
                 </Typography>
                 <Typography variant="body1" style={{ marginBottom: "15px" }}>
-                  All FAQ related this category will be deleted permanently.
+                  {t("All FAQ related this category will be deleted permanently.")}
                 </Typography>
                 <DialogActions className="dialog-button-group">
                   <Button
@@ -427,7 +430,7 @@ class FaqChairman extends FaqChairmanController {
                     className="cancel-button"
                     style={{ width: "200px" }}
                   >
-                    No, Don't Delete
+                    {t("No, Don't Delete")}
                   </Button>
                   <Button
                     onClick={() => {
@@ -436,7 +439,7 @@ class FaqChairman extends FaqChairmanController {
                     style={{ width: "200px" }}
                     className="add-button"
                   >
-                    Yes Delete
+                    {t("Yes Delete")}
                   </Button>
                 </DialogActions>
               </Box>
@@ -457,10 +460,10 @@ class FaqChairman extends FaqChairmanController {
                   alt="comment"
                 />
                 <Typography variant="h6">
-                  Do you want to delete the question?
+                  {t("Do you want to delete the question?")}
                 </Typography>
                 <Typography variant="body1" style={{ marginBottom: "15px" }}>
-                  Are you sure want to delete the question?
+                  {t("Are you sure want to delete the question?")}
                 </Typography>
                 <DialogActions className="dialog-button-group">
                   <Button
@@ -468,7 +471,7 @@ class FaqChairman extends FaqChairmanController {
                     className="cancel-button"
                     style={{ width: "200px" }}
                   >
-                    No, Don't Delete
+                    {t("No, Don't Delete")}
                   </Button>
                   <Button
                     onClick={() => {
@@ -477,7 +480,7 @@ class FaqChairman extends FaqChairmanController {
                     className="add-button"
                     style={{ width: "200px" }}
                   >
-                    Yes Delete
+                    {t("Yes Delete")}
                   </Button>
                 </DialogActions>
               </Box>
@@ -489,5 +492,5 @@ class FaqChairman extends FaqChairmanController {
   }
 }
 
-export default withStyles(FaqChairmanStyleWeb)(FaqChairman);
+export default withTranslation()(withStyles(FaqChairmanStyleWeb)(FaqChairman));
 // Customizable Area End

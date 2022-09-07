@@ -1,5 +1,3 @@
-//@ts-ignore
-//@ts-nocheck
 import React from "react";
 //components
 import {
@@ -26,7 +24,7 @@ import {
 } from "@material-ui/core";
 
 //resources
-import { Building, Building1, CarBlue, CarFront, Delete_Icon, Landing_Banner, request, userBlue } from "./assets";
+import { Building, Building1, CarBlue, CarFront, userBlue } from "./assets";
 import { withRouter } from 'react-router';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
@@ -35,7 +33,11 @@ import Loader from "../../../components/src/Loader.web";
 import ManagerController from "./ManagerController.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
+import { withTranslation } from 'react-i18next';
+import '../../../web/src/i18n.js';
 class ManagerList extends ManagerController {
+  //@ts-ignore
+  //@ts-nocheck
   constructor(props: Props) {
     super(props);
   }
@@ -46,7 +48,9 @@ class ManagerList extends ManagerController {
   }
 
   render() {
-
+    //@ts-ignore
+  //@ts-nocheck
+    const {t} = this.props
     //console.log("getRegistrationRequest===================>",building_name ,apartment_name);
     return (
       <>
@@ -65,9 +69,9 @@ class ManagerList extends ManagerController {
                 <Box style={dashBoardBudget.navigation}>
                   <Box>
                     <Typography variant="body1" >
-                      My Dashboard / General Dashboard / <Box component="span" style={{ color: "blue" }}>Vehicles</Box>
+                      {t("My Dashboard")} / {t("General Dashboard")} / <Box component="span" style={{ color: "blue" }}>{t('Vehicles')}</Box>
                     </Typography>
-                    <Typography variant="h5" style={dashBoardBudget.subHeading}>Vehicles</Typography>
+                    <Typography variant="h5" style={dashBoardBudget.subHeading}>{t("Vehicles")}</Typography>
                   </Box>
                 </Box>
                 <Formik
@@ -78,7 +82,9 @@ class ManagerList extends ManagerController {
                   }}
                   validationSchema={this.searchIncidentSchema()}
                   validateOnMount={true}
-                  onSubmit={(values) => this.getVehicle2(values)
+                  //@ts-ignore
+              //@ts-nocheck
+                  onSubmit={(values:any) => this.getVehicle2(values)
                   }
                 >
                   {({ values, touched, errors, isValid, setFieldError, setFieldValue, handleChange }) => (
@@ -96,16 +102,16 @@ class ManagerList extends ManagerController {
                               value={values.status}
                             >
                               <MenuItem value=" " >
-                                Select Status
+                                {t("Select Status")}
                               </MenuItem>
-                              <MenuItem value=" Pending Approval">
-                                Pending Approval
+                              <MenuItem value="Pending">
+                                {t("Pending")}
                               </MenuItem>
-                              <MenuItem value="Approved">
-                                Approved
+                              <MenuItem value="Pending Approved">
+                                {t("Pending Approved")}
                               </MenuItem>
                               <MenuItem value="Rejected">
-                                Rejected
+                                {t("Rejected")}
                               </MenuItem>
 
                             </Select>
@@ -119,16 +125,18 @@ class ManagerList extends ManagerController {
                               labelId="demo-simple-select-outlined-label"
                               id="demo-simple-select-outlined"
                               onChange={(e) => {
+                                //@ts-ignore
+              //@ts-nocheck
                                 (e.target.value != " ") && setFieldValue("buildingName", e.target.value) && this.handleChange(e)
 
                               }}
                               value={values.buildingName}
                             >
                               <MenuItem disabled value=" " >
-                                Select Building
+                                {t("Select Building")}
                               </MenuItem>
                               {
-                                this.state?.buildingNameData?.map((val, index) => (
+                                this.state?.buildingNameData?.map((val:any, index:any) => (
                                   <MenuItem
                                     key={index}
                                     value={`${val?.id} ${val?.attributes.name}`}
@@ -154,10 +162,10 @@ class ManagerList extends ManagerController {
                             >
 
                                   <MenuItem disabled value=" " >
-                                    Select Unit
+                                    {t("Select Unit")}
                                   </MenuItem>
 
-                              {    this.state?.allUnit?.map((val, index) => (
+                              {    this.state?.allUnit?.map((val:any, index:any) => (
                                     <MenuItem
                                       key={index}
                                       value={val?.apartment_name}
@@ -173,7 +181,7 @@ class ManagerList extends ManagerController {
                         </Box>
 
                         <Box className="customButton">
-                          <Button variant="contained" type="submit">Search</Button>
+                          <Button variant="contained" type="submit">{t("Search")}</Button>
                         </Box>
                       </Box>
                     </Form>
@@ -191,8 +199,9 @@ class ManagerList extends ManagerController {
                               this.state.allVehcile.map((item, i) => <>
                                 <Grid xs={4} style={{ margin: 10 }} >
                                   <div className="card" style={{ cursor: 'pointer',maxWidth:450,background:'white' }} onClick={() => this.addVehicle(item)}>
-                                    <div className="status">
-                                      {item.attributes.status}
+                                    <div className="customButton status1" style={{width:'fit-content'}}>
+                                      <Button variant="contained" className={item.attributes.status === 'Pending Approval' ? "contain warning" : item.attributes.status === 'Approved' ? 'contain success' : 'contain danger'} type="submit">
+                                        {item.attributes.status}</Button>
                                     </div>
                                     <div className="card-content">
 
@@ -257,6 +266,8 @@ class ManagerList extends ManagerController {
     );
   }
 }
+//@ts-nocheck
+//@ts-ignore
 export default withRouter(ManagerList)
 
 const dashBoardBudget = {
