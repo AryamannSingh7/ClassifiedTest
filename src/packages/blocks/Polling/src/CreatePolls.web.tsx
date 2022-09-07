@@ -26,6 +26,7 @@ import PollingController, {
   Props,
   configJSON,
 } from "./PollingController";
+
 import { withRouter } from "react-router-dom";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
@@ -188,7 +189,7 @@ class CreatePolls extends PollingController {
                                         return(
                                             <>
                                                 <TextField key={index}
-                                                    label={"option - " + (index + 1)} variant="outlined"
+                                                    label={"Option - " + (index + 1)} variant="outlined"
                                                     name="text"
                                                     value={inputfield.text}
                                                     onChange={(event) => this.handleOptionsChange(index, event)}

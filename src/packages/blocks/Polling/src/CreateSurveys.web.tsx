@@ -43,10 +43,10 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import InfoIcon from '@material-ui/icons/Info';
 // Icons
 
-import PollingController, {
+import SurveyController, {
   Props,
   configJSON,
-} from "./PollingController";
+} from "./SurveyController";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import TextEditor from "./TextEditor.web";
@@ -76,10 +76,10 @@ const currencies = [
     },
   ];
 
-class CreateSurveys extends PollingController {
+class CreateSurveys extends SurveyController {
   constructor(props: Props) {
     super(props);
-   
+
   }
   handleChange = (event:any) => {
     this.setState({checked: !this.state.checked})
@@ -110,8 +110,8 @@ class CreateSurveys extends PollingController {
 
                     <form>
                         <Grid container spacing={4} style={{marginTop: 15}}>
-                            <Grid item sm={12} md={12} xs={12}>
-                                <Box className="createPSCards">
+                            <Grid item sm={12} md={12} xs={12} style={{marginBottom:"65px"}}>
+                                <Box className="createPSCards" >
                                     <TextField label="Name of the Survey" variant="outlined"
                                     name="title"
                                     value={this.state.PollData.title}
@@ -167,7 +167,16 @@ class CreateSurveys extends PollingController {
                                         />
 
                                     </Box>
-
+                                    <Box className="infoIcon">
+                                        <Typography variant="subtitle1">Description</Typography>
+                                        <InfoIcon style={{color:"grey", fontSize:18}}/>
+                                    </Box>
+                                    <Box className="descriptionEditor">
+                                        <TextEditor
+                                            markup={this.state.textEditorVal}
+                                            onChange={this.onChangeTextEditor} />
+                                    </Box>
+                                    <p style={{color:"red"}}>{this.state.pollDescriptionError}</p>
                                     <Box className="targetaudience">
                                         <Box className="infoIcon">
                                             <Typography variant="subtitle1">Select your target audience</Typography>
@@ -182,239 +191,126 @@ class CreateSurveys extends PollingController {
                                     </Box>
                                 </Box>
                             </Grid>
-                            <Grid item sm={12} md={12} xs={12} style={{marginBottom:"10px"}} >
-                                <Box className="createPSCards">
-                                    <FormControl variant="outlined" fullWidth>
-                                        <InputLabel id="question-type">Select Type of Question</InputLabel>
-                                        <Select
-                                            labelId="question-type"
-                                            id="question-type-select"
-                                            value=""
-                                            label="Age"
-                                        >
-                                            <MenuItem value="">
-                                                <em>None</em>
-                                            </MenuItem>
-                                            <MenuItem value={10}>Ten</MenuItem>
-                                            <MenuItem value={20}>Twenty</MenuItem>
-                                            <MenuItem value={30}>Thirty</MenuItem>
-                                        </Select>
-                                    </FormControl>
-                                    {/*<TextField*/}
-                                    {/*    id="standard-select-currency"*/}
-                                    {/*    select*/}
-                                    {/*    label="Select"*/}
-                                    {/*    value={this.state.selectQuestion}*/}
-                                    {/*    onChange={this.handleQuestionSelect}*/}
-                                    {/*    SelectProps={{*/}
-                                    {/*        native: true,*/}
-                                    {/*    }}*/}
-                                    {/*    placeholder="Select type of question"*/}
-                                    {/*    fullWidth*/}
-                                    {/*    variant="outlined"*/}
-                                    {/*    InputProps={{*/}
-                                    {/*        style:{borderRadius:"2px"}*/}
-                                    {/*    }}*/}
-                                    {/*>*/}
-
-                                    {/*    {currencies.map((option:any) => {*/}
-                                    {/*        return(*/}
-                                    {/*            <MenuItem key={option.value} value={option.value}>*/}
-                                    {/*                {option.label}*/}
-                                    {/*            </MenuItem>*/}
-                                    {/*        )*/}
-                                    {/*    })*/}
-                                    {/*    }*/}
-                                    {/*</TextField>*/}
-                                    <Box className="infoIcon">
-                                        <Typography variant="subtitle1">Description</Typography>
-                                        <InfoIcon style={{color:"grey", fontSize:18}}/>
-                                    </Box>
-                                    <Box className="descriptionEditor">
-                                        <TextEditor
-                                            markup={this.state.textEditorVal}
-                                            onChange={this.onChangeTextEditor} />
-                                    </Box>
-                                    <p style={{color:"red"}}>{this.state.pollDescriptionError}</p>
-
-                                <TextField multiline rows={4}  label="Description" variant="filled"
-                                name="description"
-                                InputProps={{ disableUnderline: true }}
-                                value={this.state.PollData.description}
-                                onChange={this.handlePollDataChange}
-                                required fullWidth style={{marginTop:20,marginBottom:'15px'}}
-                                />
+                            {
+                                this.state.surveyQuestions.map((item,key)=>{
+                                    return(
+                                        <Grid item sm={12} md={12} xs={12} >
+                                            <Box className="createPSCards">
+                                                <FormControl variant="outlined" fullWidth>
+                                                    <InputLabel id="question-type">Select Type of Question</InputLabel>
+                                                    <Select
+                                                        labelId="question-type"
+                                                        id="question-type-select"
+                                                        value={item.questionType}
+                                                        label="Age"
+                                                        onChange={(e)=> this.handleQuestionType(key,e)}
+                                                    >
+                                                        <MenuItem value="">
+                                                            <em>None</em>
+                                                        </MenuItem>
+                                                        <MenuItem value="shortAns">Short Ans</MenuItem>
+                                                        <MenuItem value="checkbox">CheckBox</MenuItem>
+                                                        <MenuItem value="options">Options</MenuItem>
+                                                    </Select>
+                                                </FormControl>
+                                                <TextField  label="enter question" variant="outlined"
+                                                            name="question"
+                                                            value={item.question}
+                                                            onChange={(e)=>this.handleQuestion(key,e)}
+                                                            required fullWidth style={{marginTop:20}}
+                                                />
+                                                {
+                                                    item.questionType !== "shortAns" && item.options.map((inputfield:any , index:any) => {
+                                                        return(
+                                                            <TextField key={index}
+                                                                       label={"option - " + (index + 1)} variant="outlined"
+                                                                       name="text"
+                                                                       value={inputfield.text}
+                                                                       onChange={(event) => this.handleOptionsChange(key,index, event)}
+                                                                       required fullWidth style={{marginTop:20}}
+                                                            />
+                                                        )
+                                                    })
+                                                }
+                                                {
+                                                    this.state.questionType !== "shortAns" &&
+                                                    <Button variant="outlined" color="primary"
+                                                            onClick={() => this.addOptionsFields(key)}
+                                                            className="addOptions"
+                                                    >
+                                                        ADD OPTION
+                                                    </Button>
+                                                }
+                                            </Box>
+                                        </Grid>
+                                    )
+                                })
+                            }
 
 
-                                <TextField  label={t("enter question")} variant="outlined"
-                                name="question"
-                                value={this.state.PollData.question}
-                                onChange={this.handlePollDataChange}
-                                required fullWidth style={{marginTop:20}}
-                                />
+                            {/*<Grid  item sm={12} md={12} xs={12}>*/}
+                            {/*    <Box className="createPSCards">*/}
+                            {/*        <FormControl variant="outlined" fullWidth>*/}
+                            {/*            <InputLabel id="question-type">Short answer</InputLabel>*/}
+                            {/*            <Select*/}
+                            {/*                labelId="question-type"*/}
+                            {/*                id="question-type-select"*/}
+                            {/*                value=""*/}
+                            {/*                label="Age"*/}
+                            {/*            >*/}
+                            {/*                <MenuItem value={10}>Yes</MenuItem>*/}
+                            {/*                <MenuItem value={20}>No</MenuItem>*/}
+                            {/*            </Select>*/}
+                            {/*        </FormControl>*/}
+                            {/*        <TextField  label="enter question" variant="outlined"*/}
+                            {/*                    name="question"*/}
+                            {/*                    value={this.state.PollData.question}*/}
+                            {/*                    onChange={this.handlePollDataChange}*/}
+                            {/*                    required fullWidth style={{marginTop:20}}*/}
+                            {/*        />*/}
+                            {/*        /!*<TextField*!/*/}
+                            {/*        /!*    id="standard-select-currency"*!/*/}
+                            {/*        /!*    select*!/*/}
+                            {/*        /!*    label="Select"*!/*/}
+                            {/*        /!*    value={this.state.selectQuestion}*!/*/}
+                            {/*        /!*    onChange={this.handleQuestionSelect}*!/*/}
+                            {/*        /!*    SelectProps={{*!/*/}
+                            {/*        /!*        native: true,*!/*/}
+                            {/*        /!*    }}*!/*/}
+                            {/*        /!*    placeholder="Select type of question"*!/*/}
+                            {/*        /!*    fullWidth*!/*/}
+                            {/*        /!*    variant="outlined"*!/*/}
+                            {/*        /!*    InputProps={{*!/*/}
+                            {/*        /!*        style:{borderRadius:"2px"}*!/*/}
+                            {/*        /!*    }}*!/*/}
+                            {/*        /!*>*!/*/}
 
-                                    {/* <TextField  label="Option - 1" variant="outlined"
-                                    name="optionOne"
-                                    value={this.state.PollData.optionOne}
-                                    onChange={this.handlePollDataChange}
-                                    required fullWidth style={{marginTop:20}}
-                                    /> */}
+                            {/*        /!*    {currencies.map((option:any) => {*!/*/}
+                            {/*        /!*        return(*!/*/}
+                            {/*        /!*            <MenuItem key={option.value} value={option.value}>*!/*/}
+                            {/*        /!*                {option.label}*!/*/}
+                            {/*        /!*            </MenuItem>*!/*/}
+                            {/*        /!*        )*!/*/}
+                            {/*        /!*    })*!/*/}
+                            {/*        /!*    }*!/*/}
+                            {/*        /!*</TextField>*!/*/}
+                            {/*        <p style={{color:"red"}}>{this.state.pollDescriptionError}</p>*/}
 
+                            {/*        /!* <TextField  label="Option - 1" variant="outlined"*/}
+                            {/*        name="optionOne"*/}
+                            {/*        value={this.state.PollData.optionOne}*/}
+                            {/*        onChange={this.handlePollDataChange}*/}
+                            {/*        required fullWidth style={{marginTop:20}}*/}
+                            {/*        /> *!/*/}
 
-                                    {this.state.options.map((inputfield:any , index:any) => {
-                                        return(
-                                            <TextField key={index}
-                                            label={"option - " + (index + 1)} variant="outlined"
-                                            name="text"
-                                            value={inputfield.text}
-                                            onChange={() => this.handleOptionsChange(index, event)}
-                                            required fullWidth style={{marginTop:20}}
-                                            />
-                                        )
-                                    })
-                                    }
-
-                                <Button variant="outlined" color="primary" 
-                                onClick={() => this.addOptionsFields()}
-                                className="addOptions">{t("ADD OPTION")}</Button> 
-
-                            </Box>
+                            {/*    </Box>*/}
+                            {/*</Grid>*/}
+                            <Grid  item sm={12} md={12} xs={12}>
+                                <Button onClick={this.addQuestionFields} fullWidth size="large" colo="primary" variant="outlined" style={{borderRadius:"8px",border:" 1px dashed #2b6fed",color:"#2b6fed",fontWeight:"bold"}}>+ Add Another Question</Button>
                             </Grid>
-                            <Grid  item sm={12} md={12} xs={12} style={{marginBottom:"30px"}}>
-                                <Box className="createPSCards">
-                                    <FormControl variant="outlined" fullWidth>
-                                        <InputLabel id="question-type">Short answer</InputLabel>
-                                        <Select
-                                            labelId="question-type"
-                                            id="question-type-select"
-                                            value=""
-                                            label="Age"
-                                        >
-                                            <MenuItem value={10}>Yes</MenuItem>
-                                            <MenuItem value={20}>No</MenuItem>
-                                        </Select>
-                                    </FormControl>
-                                    <TextField  label="enter question" variant="outlined"
-                                                name="question"
-                                                value={this.state.PollData.question}
-                                                onChange={this.handlePollDataChange}
-                                                required fullWidth style={{marginTop:20}}
-                                    />
-                                    {/*<TextField*/}
-                                    {/*    id="standard-select-currency"*/}
-                                    {/*    select*/}
-                                    {/*    label="Select"*/}
-                                    {/*    value={this.state.selectQuestion}*/}
-                                    {/*    onChange={this.handleQuestionSelect}*/}
-                                    {/*    SelectProps={{*/}
-                                    {/*        native: true,*/}
-                                    {/*    }}*/}
-                                    {/*    placeholder="Select type of question"*/}
-                                    {/*    fullWidth*/}
-                                    {/*    variant="outlined"*/}
-                                    {/*    InputProps={{*/}
-                                    {/*        style:{borderRadius:"2px"}*/}
-                                    {/*    }}*/}
-                                    {/*>*/}
-
-                                    {/*    {currencies.map((option:any) => {*/}
-                                    {/*        return(*/}
-                                    {/*            <MenuItem key={option.value} value={option.value}>*/}
-                                    {/*                {option.label}*/}
-                                    {/*            </MenuItem>*/}
-                                    {/*        )*/}
-                                    {/*    })*/}
-                                    {/*    }*/}
-                                    {/*</TextField>*/}
-                                    <Box className="infoIcon">
-                                        <Typography variant="subtitle1">Description</Typography>
-                                        <InfoIcon style={{color:"grey", fontSize:18}}/>
-                                    </Box>
-                                    <Box className="descriptionEditor">
-                                        <TextEditor
-
-                                            markup={this.state.textEditorVal}
-                                            onChange={this.onChangeTextEditor} />
-                                    </Box>
-                                    <p style={{color:"red"}}>{this.state.pollDescriptionError}</p>
-
-                                    {/* <TextField  label="Option - 1" variant="outlined"
-                                    name="optionOne"
-                                    value={this.state.PollData.optionOne}
-                                    onChange={this.handlePollDataChange}
-                                    required fullWidth style={{marginTop:20}}
-                                    /> */}
-                                    </Box>
-
-                            </Grid>
-                            <Grid  item sm={12} md={12} xs={12} style={{marginBottom:"30px"}}>
-                                <Box className="createPSCards">
-                                    <FormControl variant="outlined" fullWidth>
-                                        <InputLabel id="question-type">Short answer</InputLabel>
-                                        <Select
-                                            labelId="question-type"
-                                            id="question-type-select"
-                                            value=""
-                                            label="Age"
-                                        >
-                                            <MenuItem value={10}>Yes</MenuItem>
-                                            <MenuItem value={20}>No</MenuItem>
-                                        </Select>
-                                    </FormControl>
-                                    <TextField  label="enter question" variant="outlined"
-                                                name="question"
-                                                value={this.state.PollData.question}
-                                                onChange={this.handlePollDataChange}
-                                                required fullWidth style={{marginTop:20}}
-                                    />
-                                    {/*<TextField*/}
-                                    {/*    id="standard-select-currency"*/}
-                                    {/*    select*/}
-                                    {/*    label="Select"*/}
-                                    {/*    value={this.state.selectQuestion}*/}
-                                    {/*    onChange={this.handleQuestionSelect}*/}
-                                    {/*    SelectProps={{*/}
-                                    {/*        native: true,*/}
-                                    {/*    }}*/}
-                                    {/*    placeholder="Select type of question"*/}
-                                    {/*    fullWidth*/}
-                                    {/*    variant="outlined"*/}
-                                    {/*    InputProps={{*/}
-                                    {/*        style:{borderRadius:"2px"}*/}
-                                    {/*    }}*/}
-                                    {/*>*/}
-
-                                    {/*    {currencies.map((option:any) => {*/}
-                                    {/*        return(*/}
-                                    {/*            <MenuItem key={option.value} value={option.value}>*/}
-                                    {/*                {option.label}*/}
-                                    {/*            </MenuItem>*/}
-                                    {/*        )*/}
-                                    {/*    })*/}
-                                    {/*    }*/}
-                                    {/*</TextField>*/}
-                                    <Box className="infoIcon">
-                                        <Typography variant="subtitle1">Description</Typography>
-                                        <InfoIcon style={{color:"grey", fontSize:18}}/>
-                                    </Box>
-                                    <Box className="descriptionEditor">
-                                        <TextEditor
-
-                                            markup={this.state.textEditorVal}
-                                            onChange={this.onChangeTextEditor} />
-                                    </Box>
-                                    <p style={{color:"red"}}>{this.state.pollDescriptionError}</p>
-
-                                    {/* <TextField  label="Option - 1" variant="outlined"
-                                    name="optionOne"
-                                    value={this.state.PollData.optionOne}
-                                    onChange={this.handlePollDataChange}
-                                    required fullWidth style={{marginTop:20}}
-                                    /> */}
-                                    </Box>
-
-                        <Box className="BottomButton">
-                            <Box className="Previewbtn"> 
+                            <Grid  item sm={12} md={12} xs={12}>
+                                <Box className="BottomButtonSurvey">
+                                    <Box className="Previewbtn">
                                         <Link href="/SurveyPreview">
                                             <Button variant="contained" color="primary">PREVIEW</Button>
                                         </Link>
