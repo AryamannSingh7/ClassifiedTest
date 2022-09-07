@@ -61,7 +61,7 @@ class RegistrationRequest extends EmailAccountLoginController {
                     </Box>
                     <Box className="reg-block">
                       <Box className="reg-row">
-                        <img src={Bank_Icon.default} className="bank-logo" alt="Tenant Logo" />
+                        <img src={Bank_Icon} className="bank-logo" alt="Tenant Logo" />
                         <Box className="reg-right-block">
                           <h5>{apartment_name}</h5>
                           <h6>{building_name}</h6>
