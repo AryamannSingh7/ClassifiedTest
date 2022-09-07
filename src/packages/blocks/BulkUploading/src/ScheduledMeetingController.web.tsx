@@ -488,7 +488,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
     const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_meeting/get_manager`
+      `society_managements/${society_id}/bx_block_meeting/meetings/get_manager`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
@@ -657,7 +657,11 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
           place: meeting.attributes.place,
           agenda: meeting.attributes.agenda,
           building: meeting.attributes.building.id,
-          date: meeting.attributes.meeting_date_time.split(" ")[0].split("-").reverse().join("-"),
+          date: meeting.attributes.meeting_date_time
+            .split(" ")[0]
+            .split("-")
+            .reverse()
+            .join("-"),
           time: meeting.attributes.meeting_date_time.split(" ")[1],
           momWriter: meeting.attributes.meeting_mins_writer.id,
           status: meeting.attributes.status,

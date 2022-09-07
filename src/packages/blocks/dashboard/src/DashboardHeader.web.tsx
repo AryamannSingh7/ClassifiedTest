@@ -14,6 +14,10 @@ import "../../../web/src/i18n.js";
 import i18next from "i18next";
 
 class DashboardHeader extends DashboardController {
+  constructor(props: Props) {
+    super(props);
+  }
+
   handleEngLngChange = () => {
     i18next.changeLanguage("en");
   };
@@ -24,13 +28,11 @@ class DashboardHeader extends DashboardController {
 
   logout = () => {
     localStorage.clear();
-    //@ts-ignore
-    this.props.history.push("/ChairmanLogin");
+    this.props.navigation.navigate("ChairmanLogin");
   };
 
   gotoProfilePage = () => {
-    //@ts-ignore
-    this.props.history.push("/ChairmanProfile");
+    this.props.navigation.navigate("ChairmanProfile");
   };
 
   render() {
