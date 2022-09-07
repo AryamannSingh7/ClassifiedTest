@@ -124,7 +124,7 @@ class OwnerDashboard extends DashboardController {
     localStorage.clear();
     this.props.history.push("/ChairmanLogin");
   };
-  
+
   render() {
     const { t } = this.props;
     const { classes } = this.props;
@@ -201,7 +201,8 @@ class OwnerDashboard extends DashboardController {
                       aria-controls={open ? "basic-menu" : undefined}
                       aria-haspopup="true"
                       aria-expanded={open ? "true" : undefined}
-                      onClick={(e:any) => this.handleLanguage(e)}>
+                      // onClick={(e:any) => this.handleLanguage(e)}
+                      >
                       <img src={globalIcon} alt="GlobalIcon" />
                     </span>
                     <Menu

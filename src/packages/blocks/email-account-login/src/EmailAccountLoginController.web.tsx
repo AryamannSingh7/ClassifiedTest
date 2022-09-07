@@ -38,6 +38,7 @@ export interface S {
   phone: string;
   error: string | null;
   userType: string | null;
+  stayLogin:boolean;
   // Customizable Area End
 }
 
@@ -113,6 +114,7 @@ export default class EmailAccountLoginController extends BlockComponent<
       countryCodeSelected: "",
       phone: "",
       userType:'',
+      stayLogin:false,
       // Customizable Area End
     };
 
@@ -495,7 +497,8 @@ clear= () => {
         .lowercase(`Please enter all values in lowercase`)
         .trim()
         .required(`This field is required.`),
-      password: Yup.string().required(`This field is required`)
+      password: Yup.string().required(`This field is required`),
+      userType: Yup.string().required(`This field is required`).trim(),
     });
     return validations
   }
@@ -512,7 +515,9 @@ clear= () => {
 
     const data = {
       type: "email_account",
-      attributes: attrs
+      attributes: attrs,
+      user_type: values.userType,
+      stay_login: values.stayIn
     };
 
     const httpBody = {
