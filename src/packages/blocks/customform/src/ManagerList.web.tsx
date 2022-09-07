@@ -1,5 +1,3 @@
-//@ts-ignore
-//@ts-nocheck
 import React from "react";
 //components
 import {
@@ -26,7 +24,7 @@ import {
 } from "@material-ui/core";
 
 //resources
-import { Building, Building1, CarBlue, CarFront, Delete_Icon, Landing_Banner, request, userBlue } from "./assets";
+import { Building, Building1, CarBlue, CarFront, userBlue } from "./assets";
 import { withRouter } from 'react-router';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
@@ -38,6 +36,8 @@ import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { withTranslation } from 'react-i18next';
 import '../../../web/src/i18n.js';
 class ManagerList extends ManagerController {
+  //@ts-ignore
+  //@ts-nocheck
   constructor(props: Props) {
     super(props);
   }
@@ -48,6 +48,8 @@ class ManagerList extends ManagerController {
   }
 
   render() {
+    //@ts-ignore
+  //@ts-nocheck
     const {t} = this.props
     //console.log("getRegistrationRequest===================>",building_name ,apartment_name);
     return (
@@ -80,7 +82,9 @@ class ManagerList extends ManagerController {
                   }}
                   validationSchema={this.searchIncidentSchema()}
                   validateOnMount={true}
-                  onSubmit={(values) => this.getVehicle2(values)
+                  //@ts-ignore
+              //@ts-nocheck
+                  onSubmit={(values:any) => this.getVehicle2(values)
                   }
                 >
                   {({ values, touched, errors, isValid, setFieldError, setFieldValue, handleChange }) => (
@@ -121,6 +125,8 @@ class ManagerList extends ManagerController {
                               labelId="demo-simple-select-outlined-label"
                               id="demo-simple-select-outlined"
                               onChange={(e) => {
+                                //@ts-ignore
+              //@ts-nocheck
                                 (e.target.value != " ") && setFieldValue("buildingName", e.target.value) && this.handleChange(e)
 
                               }}
@@ -130,7 +136,7 @@ class ManagerList extends ManagerController {
                                 {t("Select Building")}
                               </MenuItem>
                               {
-                                this.state?.buildingNameData?.map((val, index) => (
+                                this.state?.buildingNameData?.map((val:any, index:any) => (
                                   <MenuItem
                                     key={index}
                                     value={`${val?.id} ${val?.attributes.name}`}
@@ -159,7 +165,7 @@ class ManagerList extends ManagerController {
                                     {t("Select Unit")}
                                   </MenuItem>
 
-                              {    this.state?.allUnit?.map((val, index) => (
+                              {    this.state?.allUnit?.map((val:any, index:any) => (
                                     <MenuItem
                                       key={index}
                                       value={val?.apartment_name}
@@ -193,8 +199,9 @@ class ManagerList extends ManagerController {
                               this.state.allVehcile.map((item, i) => <>
                                 <Grid xs={4} style={{ margin: 10 }} >
                                   <div className="card" style={{ cursor: 'pointer',maxWidth:450,background:'white' }} onClick={() => this.addVehicle(item)}>
-                                    <div className="status">
-                                      {item.attributes.status}
+                                    <div className="customButton status1" style={{width:'fit-content'}}>
+                                      <Button variant="contained" className={item.attributes.status === 'Pending Approval' ? "contain warning" : item.attributes.status === 'Approved' ? 'contain success' : 'contain danger'} type="submit">
+                                        {item.attributes.status}</Button>
                                     </div>
                                     <div className="card-content">
 
@@ -259,7 +266,9 @@ class ManagerList extends ManagerController {
     );
   }
 }
-export default withTranslation()(withRouter(ManagerList));
+//@ts-nocheck
+//@ts-ignore
+export default withRouter(ManagerList)
 
 const dashBoardBudget = {
   SideBar: {
