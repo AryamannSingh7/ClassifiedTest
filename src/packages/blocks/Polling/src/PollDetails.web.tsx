@@ -5,7 +5,7 @@
 import React from "react";
 import "./Polling.web.css"
 import DOMPurify from 'dompurify'
-import {CheckMark, awated} from "./assets"
+import {CheckMark, awated, allUsers} from "./assets"
 import {
   Container,
   Typography,
@@ -41,6 +41,7 @@ import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
 import SearchIcon from '@material-ui/icons/Search';
+import HighlightOffOutlinedIcon from "@material-ui/icons/HighlightOffOutlined";
 import { withTranslation } from 'react-i18next';
 import '../../../web/src/i18n.js';
 
@@ -94,9 +95,7 @@ class PollDetails extends PollingController {
                             <Typography variant="h5" className="subHeading">{t("Poll Details")}</Typography>
                         </Box>
                     </Box>
-
                     <Grid container spacing={4} style={{marginTop: 15}}>
-
                         <Grid item sm={12} md={12} xs={12}>
                             <Box className="createPSCards">
                                 <Box className="PreviewName">
@@ -170,7 +169,6 @@ class PollDetails extends PollingController {
                                         dangerouslySetInnerHTML={
                                             { __html: DOMPurify.sanitize(this.state.pollPreviewAnswer?.poll?.data?.attributes?.description) }
                                         }
-                                        
                                         />
                                     </Box>
                                 </Box>
@@ -188,6 +186,7 @@ class PollDetails extends PollingController {
                                 </Box>
                                 <Box>
                                     <Button variant="contained" color="primary"
+                                        disabled={this.state.pollPreviewAnswer?.poll?.data?.attributes?.poll_type}
                                         onClick={() => this.props.history.push(`/PollReport?id=${this.state.pollPreviewAnswerID}`)}
                                     >
                                         {t("GENERATE REPORT")}
@@ -261,8 +260,9 @@ class PollDetails extends PollingController {
                                         <TableHead>
                                             <TableRow>
                                                 <TableCell style={{fontWeight:"600"}}>#</TableCell>
-                                                <TableCell style={{fontWeight:"600"}} align="start">{t("Name")}</TableCell>
-                                                <TableCell style={{fontWeight:"600"}} align="start">{t("Unit Number")}</TableCell>
+                                                <TableCell style={{fontWeight:"600"}} align="start">Name</TableCell>
+                                                <TableCell style={{fontWeight:"600"}} align="start">Unit Number</TableCell>
+                                                <TableCell style={{fontWeight:"600"}} align="start">Response</TableCell>
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>
@@ -293,11 +293,20 @@ class PollDetails extends PollingController {
                     </Dialog>
                     <Grid sm={5} md={5} xs={5} style={{marginTop: "1.5rem"}}>
                         <Box className="VoteCountBottom">
-                            <Box className="VoteCountBottomBox">
-                                <img src={awated} alt="awated" />
-                                <p>{this.state.pollPreviewAnswer?.poll?.data?.attributes?.awaited} {t("Awaited")}</p>
+                            <Box className="VoteCountBottomBox" style={{marginRight:"20px"}}>
+                                {
+                                    this.state.pollPreviewAnswer?.poll?.data?.attributes?.status == "completed" ?
+                                    <>
+                                        <HighlightOffOutlinedIcon style={{color: "red"}}/>
+                                        <p>{this.state.pollPreviewAnswer?.poll?.data?.attributes?.awaited} Response Not Received</p>
+                                    </> :
+                                    <>
+                                        <img src={awated} alt="awated" />
+                                        <p>{this.state.pollPreviewAnswer?.poll?.data?.attributes?.awaited} Awaited</p>
+                                    </>
+                                }
                             </Box>
-                            <Box className="VoteCountBottomBox">
+                            <Box className="VoteCountBottomBox" >
                                 <img src={CheckMark} alt="CheckMark" />
                                 <p>{this.state.pollPreviewAnswer?.poll?.data?.attributes?.total_responses} {t("Response Received")}</p>
                             </Box>

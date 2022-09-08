@@ -233,6 +233,11 @@
   width: 180px;
 }
 
+.chairman-lang-menu.szh-menu-container ul {
+  left: -47.475px !important;
+  top: 12px !important;
+}
+
 .szh-menu-container ul li {
   padding: 8px 32px;
   display: block;
@@ -414,6 +419,7 @@
   background: #efefef;
   padding: 4px 0;
   min-height: 32px;
+  font-size: 16px;
 }
 
 .add-meeting .date-time input[type="date"]::-webkit-calendar-picker-indicator,

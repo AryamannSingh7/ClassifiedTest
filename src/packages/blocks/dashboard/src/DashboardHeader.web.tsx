@@ -1,52 +1,37 @@
 // Customizable Area Start
-// @ts-ignore
-// @ts-nocheck
-
 import React from "react";
 import "./Dashboard.web.css";
 import { globalIcon, notification, chatIcon } from "./assets";
 import "../../../web/src/assets/css/style.scss";
-import {
-  Box,
-  Grid,
-  IconButton,
-  Typography,
-  Link,
-  Menu,
-  MenuItem,
-  withStyles,
-} from "@material-ui/core";
-import { withRouter } from "react-router";
-import BuildingImage from "../assets/BuildingLogo.png";
-import UserImage from "../assets/ChairmanUser.jpg";
-import ProfileIcon from "../assets/profile.png";
-import LogoutIcon from "../assets/logout.png";
-// import { Menu } from "@szhsin/react-menu";
+import { Box, Grid, IconButton, Typography, Link, MenuItem } from "@material-ui/core";
+import { ProfileIcon, LogoutIcon, buildingLogo, chairmanUser } from "./assets";
+import { Menu } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/core.css";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import DashboardController, { Props } from "./DashboardController";
-import { withTranslation } from 'react-i18next';
-import '../../../web/src/i18n.js';
-import i18next from 'i18next';
+import { withTranslation } from "react-i18next";
+import "../../../web/src/i18n.js";
+import i18next from "i18next";
 
 class DashboardHeader extends DashboardController {
   constructor(props: Props) {
     super(props);
     this.state = {
+      //@ts-ignore
       anchorEl: null,
     };
   }
 
-  componentDidMount(): Promise<void> {}
-
   handleLanguage = (event: any) => {
     this.setState({
+      //@ts-ignore
       anchorEl: event?.currentTarget,
     });
   };
 
   handleClose = () => {
     this.setState({
+      //@ts-ignore
       anchorEl:null
     })
   }
@@ -54,6 +39,7 @@ class DashboardHeader extends DashboardController {
   handleEngLngChange = () => {
     i18next.changeLanguage('en')
     this.setState({
+      //@ts-ignore
       anchorEl:null
     })
   }
@@ -61,28 +47,30 @@ class DashboardHeader extends DashboardController {
   handleAreLngChange = () => {
     i18next.changeLanguage('ar')
     this.setState({
+      //@ts-ignore
       anchorEl:null
     })
   }
 
   logout = () => {
     localStorage.clear();
-    this.props.history.push("/ChairmanLogin");
+    this.props.navigation.navigate("ChairmanLogin");
   };
 
   gotoProfilePage = () => {
-    this.props.history.push("/ChairmanProfile");
+    this.props.navigation.navigate("ChairmanProfile");
   };
 
   render() {
+    //@ts-ignore
     const open = Boolean(this.state.anchorEl)
     return (
       <Box style={dashBoard.Header}>
         <Grid container spacing={2}>
           <Grid item xs={6} md={6} sm={6} style={dashBoard.HeaderSecLft}>
-            <img src={BuildingImage} alt="BuildingLogo" width={70} />
+            <img src={buildingLogo.default} alt="BuildingLogo" width={70} />
             <Link href="#" style={{ textDecoration: "none" }}>
-              <Typography variant="h6" style={{ fontWeight: "600" }}>
+              <Typography variant="h6" style={dashBoard.buildingName}>
                 Building Name
               </Typography>
             </Link>
@@ -95,12 +83,13 @@ class DashboardHeader extends DashboardController {
                         aria-controls={open ? "basic-menu" : undefined}
                         aria-haspopup="true"
                         aria-expanded={open ? "true" : undefined}
-                        onClick={(e:any) => this.handleLanguage(e)}
+                        // onClick={(e:any) => this.handleLanguage(e)}
                         >
                         <img src={globalIcon} alt="GlobalIcon" />
                       </span>
                       <Menu
                         id="basic-menu"
+                        //@ts-ignore
                         anchorEl={this.state.anchorEl}
                         open={open}
                         onClose={this.handleClose}
@@ -136,7 +125,7 @@ class DashboardHeader extends DashboardController {
 
             <Box style={dashBoard.HeaderSecRtBox}>
               <img
-                src={UserImage}
+                src={chairmanUser.default}
                 alt="ChairmanUser"
                 width={50}
                 style={{ borderRadius: "50%" }}
@@ -224,7 +213,10 @@ const dashBoard = {
     marginLeft: 15,
     fontSize: 14,
   },
+  buildingName: {
+    fontWeight: 600,
+  },
 };
 
-export default withStyles()(withRouter(DashboardHeader));
+export default DashboardHeader;
 // Customizable Area End

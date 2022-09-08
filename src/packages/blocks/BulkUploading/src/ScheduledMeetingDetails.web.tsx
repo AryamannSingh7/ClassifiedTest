@@ -1,7 +1,4 @@
 // Customizable Area Start
-//@ts-nocheck
-//@ts-ignore
-
 import React from "react";
 import {
   Container,
@@ -26,10 +23,7 @@ import ScheduledMeetingController, { Props } from "./ScheduledMeetingController.
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { MeetingsStyleWeb } from "./MeetingsStyle.web";
-import AwaitIcon from "../assets/await.png";
-import AcceptIcon from "../assets/accept.png";
-import RejectIcon from "../assets/reject.png";
-import CommentIcon from "../assets/comment.png";
+import { CommentIcon, RejectIcon, AcceptIcon, AwaitIcon } from "./assets";
 import { Formik, Form } from "formik";
 import moment from "moment";
 
@@ -38,7 +32,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
     super(props);
   }
 
-  componentDidMount(): Promise<void> {
+  componentDidMount(): any {
     const meeting_id = this.props.navigation.getParam("id");
     this.setState(
       {
@@ -173,91 +167,65 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                 </Box>
                 {this.state.scheduleMeetingDetails &&
                   this.state.scheduleMeetingStatus === "scheduled" && (
-                    <>
-                      <Box className="response-box">
-                        <h3>Response</h3>
-                        <Box className="status">
-                          <div className="item">
-                            <img src={AwaitIcon} />
-                            <p>
-                              Awaiting{" "}
-                              <span>
-                                {
-                                  this.state.scheduleMeetingDetails.attributes.meeting_responses
-                                    .awaited
-                                }
-                              </span>
-                            </p>
-                          </div>
-                          <div className="item">
-                            <img src={AcceptIcon} />
-                            <p>
-                              Accepted{" "}
-                              <span>
-                                {
-                                  this.state.scheduleMeetingDetails.attributes.meeting_responses
-                                    .accepted
-                                }
-                              </span>
-                            </p>
-                          </div>
-                          <div className="item">
-                            <img src={RejectIcon} />
-                            <p>
-                              Rejected{" "}
-                              <span>
-                                {
-                                  this.state.scheduleMeetingDetails.attributes.meeting_responses
-                                    .rejected
-                                }
-                              </span>
-                            </p>
-                          </div>
-                        </Box>
-                      </Box>
-                      <Box className="button-box">
-                        <Button
-                          className="cancel"
-                          onClick={() => this.handleCompleteMeetingModal()}
-                        >
-                          Complete Meeting
-                        </Button>
-                        <Button className="cancel" onClick={() => this.handleCancelMeetingModal()}>
-                          Cancel Meeting
-                        </Button>
-                        <Button
-                          className="edit"
-                          onClick={() => {
-                            this.setState(
+                    <Box className="response-box">
+                      <h3>Response</h3>
+                      <Box className="status">
+                        <div className="item">
+                          <img src={AwaitIcon} />
+                          <p>
+                            Awaiting{" "}
+                            <span>
                               {
-                                meetingForm: {
-                                  title: this.state.scheduleMeetingDetails.attributes.title,
-                                  place: this.state.scheduleMeetingDetails.attributes.place,
-                                  agenda: this.state.scheduleMeetingDetails.attributes.agenda,
-                                  building: this.state.scheduleMeetingDetails.attributes.building
-                                    .id,
-                                  date: moment(
-                                    this.state.scheduleMeetingDetails.attributes.meeting_date_time.split(
-                                      " "
-                                    )[0]
-                                  ).format("YYYY-MM-DD"),
-                                  time: this.state.scheduleMeetingDetails.attributes.meeting_date_time.split(
-                                    " "
-                                  )[1],
-                                  momWriter: "",
-                                },
-                              },
-                              () => {
-                                this.handleEditMeetingModal();
+                                this.state.scheduleMeetingDetails.attributes.meeting_responses
+                                  .awaited
                               }
-                            );
-                          }}
-                        >
-                          Edit Meeting
-                        </Button>
+                            </span>
+                          </p>
+                        </div>
+                        <div className="item">
+                          <img src={AcceptIcon} />
+                          <p>
+                            Accepted{" "}
+                            <span>
+                              {
+                                this.state.scheduleMeetingDetails.attributes.meeting_responses
+                                  .accepted
+                              }
+                            </span>
+                          </p>
+                        </div>
+                        <div className="item">
+                          <img src={RejectIcon} />
+                          <p>
+                            Rejected{" "}
+                            <span>
+                              {
+                                this.state.scheduleMeetingDetails.attributes.meeting_responses
+                                  .rejected
+                              }
+                            </span>
+                          </p>
+                        </div>
                       </Box>
-                    </>
+                    </Box>
                   )}
+                <Box className="button-box">
+                  {/* <Button className="cancel" onClick={() => this.handleCompleteMeetingModal()}>
+                    Complete Meeting
+                  </Button> */}
+                  {this.state.scheduleMeetingDetails &&
+                    this.state.scheduleMeetingStatus === "scheduled" && (
+                      <Button className="cancel" onClick={() => this.handleCancelMeetingModal()}>
+                        Cancel Meeting
+                      </Button>
+                    )}
+                  <Button
+                    className="edit"
+                    onClick={() => this.openEditMeetingModal(this.state.scheduleMeetingDetails)}
+                  >
+                    Edit Meeting
+                  </Button>
+                </Box>
               </Container>
             </Grid>
           </Box>
@@ -293,7 +261,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
               setFieldValue,
             }) => {
               return (
-                <Form onSubmit={handleSubmit}>
+                <Form onSubmit={handleSubmit} translate>
                   <DialogContent dividers>
                     <FormControl fullWidth>
                       <Input
@@ -317,13 +285,9 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                               onChange={handleChange}
                               onBlur={handleBlur}
                               name="date"
-                              format="DD-MM-YYYY"
                               className="date"
                               min={moment().format("YYYY-MM-DD")}
-                              fullWidth
-                              type="text"
-                              placeholder="Date"
-                              onFocus={(e) => (e.target.type = "date")}
+                              type="date"
                             />
                           </div>
                           {errors.date && touched.date && (
@@ -340,9 +304,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                               onBlur={handleBlur}
                               name="time"
                               fullWidth
-                              type="text"
-                              placeholder="Time"
-                              onFocus={(e) => (e.target.type = "time")}
+                              type="time"
                             />
                           </div>
                           {errors.time && touched.time && (
@@ -423,6 +385,26 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                       </Select>
                       {errors.momWriter && touched.momWriter && (
                         <small className="error">{errors.momWriter}</small>
+                      )}
+                    </FormControl>
+                    <FormControl fullWidth>
+                      <Select
+                        value={values.status}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        name="status"
+                        displayEmpty
+                        className="dialog-select-input"
+                      >
+                        <MenuItem value="" disabled>
+                          <em>Select Status</em>
+                        </MenuItem>
+                        <MenuItem value="scheduled">Scheduled</MenuItem>
+                        <MenuItem value="completed">Completed</MenuItem>
+                        <MenuItem value="cancelled">Cancelled</MenuItem>
+                      </Select>
+                      {errors.status && touched.status && (
+                        <small className="error">{errors.status}</small>
                       )}
                     </FormControl>
                   </DialogContent>
