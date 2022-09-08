@@ -108,8 +108,6 @@ export default class ViewReceiptController extends BlockComponent<
     }
 
     if (apiRequestCallId === this.getReceiptDetailsApiCallId) {
-      console.log("enter initially-->")
-      console.log("getReceiptDetailsApiCallId ========================>",responseJson)
       if (responseJson && responseJson.receipt.data ) {
       this.setState({getReceiptsDetails :responseJson.receipt.data})
       console.log("responseJson getIncidentDetails========================>",this.state?.getReceiptsDetails)

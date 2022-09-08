@@ -1,7 +1,6 @@
 //@ts-ignore
 //@ts-nocheck
 import React from "react";
-
 //components
 import {
   Box,
@@ -49,7 +48,7 @@ class CreateIncident extends IncidentController {
   constructor(props: Props) {
     super(props);
   }
-  componentDidMount() {
+  componentDidMount():any {
     this.getMyApartmentList();
     this.getCommonArea();
     this.getIncidentRelated();
@@ -115,7 +114,7 @@ class CreateIncident extends IncidentController {
                                 Select Unit
                               </MenuItem>
                               {
-                                this.state?.myApartmentList?.map((val, index) => (
+                                this.state?.myApartmentList?.map((val:any, index:any) => (
                                   <MenuItem
                                     key={index}
                                     value={val}
@@ -147,7 +146,7 @@ class CreateIncident extends IncidentController {
                                 Common Area
                               </MenuItem>
                               {
-                                this.state?.commonAreaData?.map((val, index) => (
+                                this.state?.commonAreaData?.map((val :any, index:any) => (
                                   <MenuItem
                                     key={index}
                                     value={val}
@@ -179,7 +178,7 @@ class CreateIncident extends IncidentController {
                                 Incident is related to
                               </MenuItem>
                               {
-                                this.state?.incidentRelatedData?.map((val, index) => (
+                                this.state?.incidentRelatedData?.map((val:any, index:any) => (
                                   <MenuItem
                                     key={index}
                                     value={`${val?.id} ${val?.name}`}

@@ -20,7 +20,7 @@ import moment from 'moment';
 //resources
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
-import SmartDisplayIcon from '@material-ui/icons/SmartDisplay';
+//import SmartDisplayIcon from '@material-ui/icons/SmartDisplay';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 
 import FullscreenIcon from '@material-ui/icons/Fullscreen';
@@ -51,7 +51,8 @@ class IncidentDetails extends IncidentController {
   constructor(props: Props) {
     super(props);
   }
-  componentDidMount() {
+  componentDidMount():any {
+    //@ts-ignore
     this.getIncidentDetailsById(this.props.history.location?.id);
   }
 
@@ -69,7 +70,7 @@ class IncidentDetails extends IncidentController {
                 <Box className="content-header">
                   <Box className="left-block blocks">
                     <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
-                    <h4>Incident Title</h4>
+                    <h4>{attributes?.incident_title}</h4>
                   </Box>
                 </Box>
                 <Box className="content-block-wrapper common-incident-block">
@@ -93,8 +94,8 @@ class IncidentDetails extends IncidentController {
                             </Typography>
                             <Box className="customButton">
                               <Box className="formGroup">
-                                <Button variant="outlined" className="reject-closure-btn" onClick={() => this.confirmOrRejectIncident(this.props.history.location.id, "reject")} >reject closure</Button>
-                                <Button variant="contained" className="confirm-closure-btn" onClick={() => this.confirmOrRejectIncident(this.props.history.location.id, "confirm")} >confirm closure</Button>
+                                <Button variant="outlined" className="reject-closure-btn" onClick={() => this.confirmOrRejectIncident(id, "reject")} >reject closure</Button>
+                                <Button variant="contained" className="confirm-closure-btn" onClick={() => this.confirmOrRejectIncident(id, "confirm")} >confirm closure</Button>
                               </Box>
                             </Box>
                           </CardContent>
@@ -165,7 +166,7 @@ class IncidentDetails extends IncidentController {
                               </Typography>
                               <CardActions className="card-img-row">
                                 {
-                                  attributes?.attachments?.map((val, index) => (
+                                  attributes?.attachments?.map((val:any, index:any) => (
                                     val?.content_type === "video/mp4" || val?.content_type === "video/x-m4v" ?
                                       <Box className="video-img" key={index} onClick={() => { this.setState({ showDialog: true, file: { url: val.url, type: val?.content_type, name: val?.file_name } }) }}>
                                         <Box className="img-layer"></Box>
@@ -240,7 +241,7 @@ class IncidentDetails extends IncidentController {
                         </Box>
                         {attributes?.resolved_on ?
                           <Box className="reporting-row">
-                            <img src={Calender_Icon} className="icons" alt="" />
+                            <img src={Calender_Icon.default} className="icons" alt="" />
                             <Box className="reporting-right-block">
                               <h5>Resolved On:</h5>
                               <h4 className="title">{attributes?.resolved_on}</h4>
@@ -253,7 +254,7 @@ class IncidentDetails extends IncidentController {
                     {/*</Card> */}
                   </Box>
                   <Box className="customButton ticket-conversion">
-                    <Button variant="contained" type="submit" >start/ view ticket conversation</Button>
+                    <Button variant="contained" onClick={()=>alert("chat module is getting soon")}>start/ view ticket conversation</Button>
                   </Box>
                 </Box>
                 {/* <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>

@@ -1,7 +1,3 @@
-//@ts-ignore
-//@ts-nocheck
-
-
 import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
@@ -44,14 +40,15 @@ export interface S {
   userTypeData:any;
   anchorEl :any ;
   anchorEl_1 :any ;
-  getIncidentDetails : any;
+  getNeighboursDetails : any;
   sortBy : any ;
   status : any;
   myApartmentList:any;
   upload:any;
   notImageOrVideoError:any,
   sizeError:any,
-  image : any
+  image : any,
+  neighboursListing:any;
   // Customizable Area End
 }
 
@@ -76,10 +73,9 @@ export default class NeighboursController extends BlockComponent<
   validationApiCallId: any;
   getIncidentListingApiCallId: any;
   getNeighboursDetailsByIdApiCallId : any ;
-  getCommonAreaApiCallId : any ;
+  getNeighboursListingApiCallId : any ;
   getIncidentRelatedApiCallId:any;
   getMyApartmentListApiCallId:any;
-  validationApiCallId: string = "";
 
   imgPasswordVisible: any;
   imgPasswordInVisible: any;
@@ -109,7 +105,7 @@ export default class NeighboursController extends BlockComponent<
     this.isStringNullOrBlank = this.isStringNullOrBlank.bind(this);
 
     runEngine.attachBuildingBlock(this, this.subScribedMessages);
-
+  //@ts-ignore
     this.state = {
       // Customizable Area Start
       firstName: "",
@@ -127,19 +123,17 @@ export default class NeighboursController extends BlockComponent<
       phone: "",
       userType:'',
       loading: false,
-      commonAreaData:null,
-      incidentRelatedData:null,
       neighboursListing: null,
       anchorEl:null,
       anchorEl_1:null,
-      getIncidentDetails:null,
+      getNeighboursDetails:null,
       sortBy : "" ,
       status : "",
       myApartmentList:[],
       upload:false,
       notImageOrVideoError:false,
       sizeError:false,
-      image:[]
+      image:[],
       // Customizable Area End
     };
 
@@ -221,10 +215,11 @@ export default class NeighboursController extends BlockComponent<
           if (responseJson && responseJson?.data ) {
           console.log("getNeighboursDetailsByIdApiCallId ========================>",responseJson)
           this.setState({getNeighboursDetails :responseJson?.data})
-          console.log("responseJson getNeighboursDetails========================>",this.state?.getIncidentDetails)
+          console.log("responseJson getNeighboursDetails========================>",this.state?.getNeighboursDetails)
           this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = responseJson.errors[0] as string;
+              //@ts-ignore
               this.props.history.push("/IncidentListing")
             this.setState({ error });
           } else {
@@ -377,6 +372,7 @@ export default class NeighboursController extends BlockComponent<
   };
 
   btnSignUpProps = {
+    //@ts-ignore
     onPress: () => this.createAccount()
   };
 
@@ -465,8 +461,17 @@ export default class NeighboursController extends BlockComponent<
 
 clear= () => {
   localStorage.clear()
+  //@ts-ignore
   this.props.history.push("/");
 }
+
+getNeighboursDetails= (id :any) => {
+  localStorage.setItem("neighboursDetailsId",id)
+  //@ts-ignore
+   this.props.history.push({
+     pathname: "/NeighboursDetails",
+ });
+ }
 
   getNeighboursListing= ()  => {
     try {
@@ -505,7 +510,7 @@ clear= () => {
   };
   
 
-  getIncidentDetailsById= (id : any) => {
+  getNeighboursDetailsById= (id : any) => {
     try {
       const header = {
         "Content-Type": configJSON.validationApiContentType,
@@ -520,7 +525,7 @@ clear= () => {
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `bx_block_custom_form/incidents/${id}`
+        `accounts/neighobour_profile?account_id=90`
       );
 
       requestMessage.addData(

@@ -1,5 +1,6 @@
 @import "../constants/base/colors.scss";
 @import "../constants/base/global.scss";
+
 // .dialog-wrapper {
 .diloag-body {
   padding: 0;
@@ -7,12 +8,15 @@
   flex-direction: column;
   // justify-content: space-between;
   align-items: space-between;
+
   & .MuiDialogTitle-root {
     padding: 16px 0;
   }
+
   & .diloag-content-body {
     padding: 15px;
   }
+
   .diloag-header {
     // padding-bottom: 20px;
     // text-align: center;
@@ -21,22 +25,27 @@
     align-items: center;
     padding: 15px;
     border-bottom: 1px solid #ccc;
+
     .MuiButton-text {
       min-width: auto;
     }
+
     & .close-icon {
       height: 30px;
       width: 30px;
       object-fit: contain;
     }
+
     & .tenet-logo {
       height: 60px;
       width: 60px;
       object-fit: contain;
     }
+
     & p {
       padding-top: 10px;
     }
+
     & .alert-dialog-title {
       & h2 {
         font-size: 24px;
@@ -46,34 +55,60 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+
         @include mq(tablet-portrait-large-up) {
           width: 100px;
         }
       }
     }
   }
+
   & .incident-dialog-video,
   & .incident-dialog-photo {
     height: 350px;
     width: 500px;
     object-fit: cover;
     border-radius: 10px;
+
     @include mq(tablet-portrait-large-up) {
       height: 200px;
       width: 100%;
     }
   }
+
   & .MuiDialogTitle-root {
     padding: 0;
   }
+
   & .MuiOutlinedInput-input {
     padding: 10px 32px 10px 14px;
   }
+
   & .diloag-content {
     padding: 15px;
+
+    &.diloag-management-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding:20px;
+      & .diloag-btn {
+        display: flex;
+      }
+
+      & button {
+        margin: 0px 10px;
+      }
+      & p {
+        padding: 20px 0px;     
+      }
+    }
+
     & .customSelect {
       margin-bottom: 15px;
     }
+
     & .incident-dialog-photo {
       height: 300px;
       width: 500px;
@@ -81,19 +116,24 @@
       border-radius: 10px;
     }
   }
+
   .dialog-footer {
+
     // padding-top: 20px;
     & .MuiDialogActions-root {
       flex-direction: column;
       justify-content: center;
     }
+
     & button {
       margin-bottom: 10px;
     }
   }
 }
+
 .provider-dialouge-body {
   min-width: 600px;
+
   & .dialouge-header {
     display: flex;
     justify-content: space-between;
@@ -102,37 +142,47 @@
     margin-bottom: 20px;
     border-bottom: 1px solid #ccc;
   }
+
   & .MuiDialogTitle-root {
     padding: 0;
   }
+
   & .alert-dialog-title {
     font-weight: bold;
   }
+
   & .close-icon {
     height: 30px;
     width: 30px;
     object-fit: contain;
   }
+
   & .diloag-content {
     padding: 15px;
+
     & .customSelect {
       margin-bottom: 15px;
     }
   }
+
   & .MuiOutlinedInput-input {
     padding: 10px 32px 10px 14px;
   }
+
   & .customSelect {
     margin-right: 10px;
     margin-bottom: 0;
+
     & .MuiOutlinedInput-root {
       padding-left: 0;
       background-color: $WHITE;
     }
   }
+
   & .customButton {
     display: flex;
     justify-content: flex-end;
+
     & .MuiButton-root {
       padding: 10px 20px;
       width: auto;

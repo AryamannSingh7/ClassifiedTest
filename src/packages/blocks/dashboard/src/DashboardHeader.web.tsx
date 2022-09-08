@@ -1,44 +1,38 @@
 // Customizable Area Start
-// @ts-ignore
-// @ts-nocheck
-
 import React from "react";
 import "./Dashboard.web.css";
-import { globalIcon, notification } from "./assets";
+import { globalIcon, notification, chatIcon } from "./assets";
 import "../../../web/src/assets/css/style.scss";
-import {
-  Box,
-  Grid,
-  IconButton,
-  Typography,
-  Link,
-  MenuItem,
-  withStyles,
-} from "@material-ui/core";
-import { withRouter } from "react-router";
-import BuildingImage from "../assets/BuildingLogo.png";
-import UserImage from "../assets/ChairmanUser.jpg";
-import ProfileIcon from "../assets/profile.png";
-import LogoutIcon from "../assets/logout.png";
+import { Box, Grid, IconButton, Typography, Link, MenuItem } from "@material-ui/core";
+import { ProfileIcon, LogoutIcon, buildingLogo, chairmanUser } from "./assets";
 import { Menu } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/core.css";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import DashboardController, { Props } from "./DashboardController";
+import { withTranslation } from "react-i18next";
+import "../../../web/src/i18n.js";
+import i18next from "i18next";
 
 class DashboardHeader extends DashboardController {
   constructor(props: Props) {
     super(props);
   }
 
-  componentDidMount(): Promise<void> {}
+  handleEngLngChange = () => {
+    i18next.changeLanguage("en");
+  };
+
+  handleAreLngChange = () => {
+    i18next.changeLanguage("ar");
+  };
 
   logout = () => {
     localStorage.clear();
-    this.props.history.push("/ChairmanLogin");
+    this.props.navigation.navigate("ChairmanLogin");
   };
 
   gotoProfilePage = () => {
-    this.props.history.push("/ChairmanProfile");
+    this.props.navigation.navigate("ChairmanProfile");
   };
 
   render() {
@@ -46,25 +40,33 @@ class DashboardHeader extends DashboardController {
       <Box style={dashBoard.Header}>
         <Grid container spacing={2}>
           <Grid item xs={6} md={6} sm={6} style={dashBoard.HeaderSecLft}>
-            <img src={BuildingImage} alt="BuildingLogo" width={70} />
+            <img src={buildingLogo.default} alt="BuildingLogo" width={70} />
             <Link href="#" style={{ textDecoration: "none" }}>
-              <Typography variant="h6" style={{ fontWeight: "600" }}>
+              <Typography variant="h6" style={dashBoard.buildingName}>
                 Building Name
               </Typography>
             </Link>
           </Grid>
           <Grid item xs={6} md={6} sm={6} style={dashBoard.HeaderSecRft}>
-            <Link href="#">
-              <img src={globalIcon} alt="GlobalIcon" />
-            </Link>
-            <Link href="#">
-              <img src={notification} alt="GlobalIcon" />
-            </Link>
-            {/* <img src={GlobalIcon} alt="GlobalIcon" /> */}
+            <div className="right-icon" style={{ display: "flex" }}>
+              <Box>
+                <Menu
+                  className="chairman-lang-menu"
+                  arrow={true}
+                  align="center"
+                  menuButton={<img src={globalIcon} alt="GlobalIcon" />}
+                >
+                  <MenuItem onClick={() => this.handleEngLngChange()}>English</MenuItem>
+                  <MenuItem onClick={() => this.handleAreLngChange()}>Arabic</MenuItem>
+                </Menu>
+              </Box>
+              <img src={chatIcon} alt="GlobalIcon" style={{ marginLeft: "10px" }} />
+              <img src={notification} alt="GlobalIcon" style={{ marginLeft: "10px" }} />
+            </div>
 
             <Box style={dashBoard.HeaderSecRtBox}>
               <img
-                src={UserImage}
+                src={chairmanUser.default}
                 alt="ChairmanUser"
                 width={50}
                 style={{ borderRadius: "50%" }}
@@ -152,7 +154,10 @@ const dashBoard = {
     marginLeft: 15,
     fontSize: 14,
   },
+  buildingName: {
+    fontWeight: 600,
+  },
 };
 
-export default withStyles()(withRouter(DashboardHeader));
+export default DashboardHeader;
 // Customizable Area End

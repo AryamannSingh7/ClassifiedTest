@@ -8,13 +8,16 @@ import {
   Link,
   Typography,
   IconButton,
-  Grid
+  Grid,
+  Select,
+  MenuItem,
+  FormControl
 } from "@material-ui/core";
 
 //images
 import {
   Tenant_Logo, Building_Logo, Landing_Banner, Building1,
-  Email_Icon, Lock_User_Icon
+  Email_Icon, Lock_User_Icon, User_Icon
 } from "../src/assets";
 //resources
 import Checkbox from '@material-ui/core/Checkbox';
@@ -25,7 +28,7 @@ import LockOpenIcon from '@material-ui/icons/LockOpen';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import { withRouter } from 'react-router';
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import EmailAccountLoginController, {
   Props
@@ -63,6 +66,7 @@ class EmailAccountLogin extends EmailAccountLoginController {
                     initialValues={{
                       email: "",
                       password: "",
+                      userType:' ',
                       showPassword: false,
                       stayIn: false
                     }}
@@ -76,6 +80,46 @@ class EmailAccountLogin extends EmailAccountLoginController {
                   >
                     {({ values, touched, errors, isValid, setFieldValue, handleChange }) => (
                       <Form translate="yes" className="commonForm">
+
+                        <Box className="formGroup customSelect">
+                          <FormControl variant="outlined" >
+                            <span className="frmLeftIcons">
+                              <img src={User_Icon} className="frm-icons" alt="Email Icon" />
+                            </span>
+                            {/* <InputLabel id="demo-simple-select-outlined-label">Select User Type</InputLabel>  */}
+                            <Select
+                              name="userType"
+                              labelId="demo-simple-select-outlined-label"
+                              id="demo-simple-select-outlined"
+                              style={{ paddingLeft: '45px' }}
+                              // label="Select User Type"
+                              onChange={(e) => {
+                                (e.target.value != " ") && setFieldValue("userType", e.target.value)
+                              }}
+                              value={values.userType}
+                            >
+                              <MenuItem disabled value=" ">
+                                Select User Type
+                              </MenuItem>
+                              <MenuItem value="Owner">
+                                Owner
+                              </MenuItem>
+
+                              <MenuItem  value="Tenant">
+                                Tenant
+                              </MenuItem>
+
+                              <MenuItem  value="Owner Resident">
+                                Owner Resident
+                              </MenuItem>
+
+
+
+
+                            </Select>
+                            <ErrorMessage className="text-error" component="Typography" name="userType" />
+                          </FormControl>
+                        </Box>
                         <Box className="formGroup">
                           <Field name="email" type="text" placeholder="Email ID" className="formInput" />
                           <span className="frmLeftIcons">

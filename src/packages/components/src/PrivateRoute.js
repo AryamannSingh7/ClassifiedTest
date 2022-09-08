@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
+import { ROLE } from "../../framework/src/Enum";
 
 function Wrapper({ element, history, match, routeMap, closeModal }) {
   const navigate = (to, params) => {
@@ -64,15 +65,21 @@ const PrivateRoute = ({ roles, routeMap, component: Component, ...rest }) => (
 
       if (roles === undefined) {
         return <Wrapper element={<Component />} routeMap={routeMap} {...props} />;
-      } else if (roles.includes("Private") && userToken) {
-        if (currentUserRole === "Owner") {
+      } else if (roles.includes(ROLE.PRIVATE) && userToken) {
+        if (currentUserRole === ROLE.OWNER || currentUserRole === ROLE.PROPERTY_MANAGER) {
           return <Redirect to={{ pathname: "/OwnerDashboard", state: { from: props.location } }} />;
-        } else if (currentUserRole === "Chairman") {
+        } else if (currentUserRole === ROLE.CHAIRMAN) {
           return (
             <Redirect to={{ pathname: "/DashboardGeneral", state: { from: props.location } }} />
           );
+        } else if (currentUserRole === ROLE.TENANT || currentUserRole === ROLE.OWNER_RESIDENT) {
+          return (
+            <Redirect to={{ pathname: "/ResidentDashboard", state: { from: props.location } }} />
+          );
+        } else {
+          return <Wrapper element={<Component />} routeMap={routeMap} {...props} />;
         }
-      } else if (roles.includes("Private") && !userToken) {
+      } else if (roles.includes(ROLE.PRIVATE) && !userToken) {
         return <Wrapper element={<Component />} routeMap={routeMap} {...props} />;
       } else if (userToken === undefined || userToken === "" || !roles.includes(currentUserRole)) {
         return <Redirect to={{ pathname: "/", state: { from: props.location } }} />;

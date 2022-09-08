@@ -81,7 +81,6 @@ class NeighboursListing extends NeighboursController {
                 </Box>
                 <Box className="content-block-wrapper common-incident-block desktop-ui">
                   <Box className="commonForm neighbour-form">
-                    <Formik>
                       <Box className="formGroup customSelect">
                         <FormControl variant="outlined" >
                           <span className="frmLeftIcons">
@@ -103,84 +102,12 @@ class NeighboursListing extends NeighboursController {
                               Central Park2
                             </MenuItem>
                           </Select>
-                          <ErrorMessage className="text-error" component="Typography" name="myApartment" />
                         </FormControl>
                       </Box>
-                    </Formik>
                   </Box>
-                  <Grid container spacing={2}>
-                    <Grid item xs={12} md={6}>
-                      <Card className="neighbour-card card">
-                        <CardContent className="card-content">
-                          <img src={User1_Img} className="info-icon" alt="info-icon" />
-                          <Typography component="h4">
-                            Yasaman Foroutan
-                          </Typography>
-                          <Typography component="h5">
-                            B-1405
-                          </Typography>
-                          <Box className="social-raw">
-                            <Box className="blocks">
-                              <img src={Chat_Icon} className="icons" alt="info-icon" />
-                            </Box>
-                            <Box className="blocks">
-                              <img src={Contact_Icon} className="icons" alt="info-icon" />
-                            </Box>
-                            <Box className="blocks">
-                              <img src={Email_Msg_Icon} className="icons" alt="info-icon" />
-                            </Box>
-                          </Box>
-                        </CardContent>
-                      </Card>
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                      <Card className="neighbour-card card">
-                        <CardContent>
-                          <img src={User1_Img} className="info-icon" alt="info-icon" />
-                          <Typography component="h4">
-                            Yasaman Foroutan
-                          </Typography>
-                          <Typography component="h5">
-                            B-1405
-                          </Typography>
-                          <Box className="social-raw">
-                            <Box className="blocks">
-                              <img src={Chat_Disable_Icon} className="icons" alt="info-icon" />
-                            </Box>
-                            <Box className="blocks">
-                              <img src={Contact_Disable_Icon} className="icons" alt="info-icon" />
-                            </Box>
-                            <Box className="blocks">
-                              <img src={Email_Disable_Icon} className="icons" alt="info-icon" />
-                            </Box>
-                          </Box>
-                        </CardContent>
-                      </Card>
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                      <Card className="neighbour-card card">
-                        <CardContent>
-                          <img src={User1_Img} className="info-icon" alt="info-icon" />
-                          <Typography component="h4">
-                            Yasaman Foroutan
-                          </Typography>
-                          <Typography component="h5">
-                            B-1405
-                          </Typography>
-                          <Box className="social-raw">
-                            <Box className="blocks">
-                              <img src={Chat_Icon} className="icons" alt="info-icon" />
-                            </Box>
-                            <Box className="blocks">
-                              <img src={Contact_Icon} className="icons" alt="info-icon" />
-                            </Box>
-                            <Box className="blocks">
-                              <img src={Email_Msg_Icon} className="icons" alt="info-icon" />
-                            </Box>
-                          </Box>
-                        </CardContent>
-                      </Card>
-                    </Grid>
+                  {
+                    
+                    <Grid container spacing={2}>
                     <Grid item xs={12} md={6}>
                       <Card className="neighbour-card card">
                         <CardContent>
@@ -254,6 +181,7 @@ class NeighboursListing extends NeighboursController {
                       </Card>
                     </Grid>
                   </Grid>
+                  }
                 </Box>
                 <Box className="footer-main-block bottomBlock">
                   <h6 className="bottom-text">POWERED BY</h6>

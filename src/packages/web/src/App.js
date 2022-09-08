@@ -1,13 +1,16 @@
 // App.js - WEB
-import React, { Component } from "react";
-import { View } from "react-native";
-import firebase from 'firebase'
-import { connect } from 'react-firebase'
+import React, { Component } from 'react';
+import { View } from 'react-native';
+import firebase from 'firebase';
+import { connect } from 'react-firebase';
 
 import WebRoutesGenerator from "../../components/src/NativeWebRouteWrapper";
 import { ModalContainer } from "react-router-modal";
 import HomeScreen from "../../components/src/HomeScreen";
 import TopNav from "../../components/src/TopNav";
+
+import { ROLE } from '../../framework/src/Enum';
+import { Toaster } from 'react-hot-toast';
 
 import InfoPage from '../../blocks/info-page/src/InfoPageBlock'
 import AlertBlock from '../../blocks/alert/src/AlertBlock.web'
@@ -110,8 +113,11 @@ import CreateSurveys from "../../blocks/Polling/src/CreateSurveys.web";
 import PollPreview from "../../blocks/Polling/src/PollPreview.web";
 import SurveyPreview from "../../blocks/Polling/src/SurveyPreview.web";
 import SurveyParticipate from "../../blocks/Polling/src/SurveyParticipate.web"
+import SurveyDetailsMain from "../../blocks/Polling/src/SurveryDetailsMain.web"
 import PollsallData from "../../blocks/Polling/src/PollsallData.web";
+import SurveyallData from "../../blocks/Polling/src/SurveyallData.web";
 import PollsSurvey from "../../blocks/Polling/src/PollsSurvey.web"
+import SurveyReport from "../../blocks/Polling/src/SurveyReport.web"
 import SubmitPoll from "../../blocks/Polling/src/SubmitPoll.web"
 import SurveyInitial from "../../blocks/Polling/src/SurveyInitial.web"
 import OwnerDashboard from "../../blocks/dashboard/src/OwnerDashboard.web"
@@ -198,7 +204,8 @@ const routeMap = {
   LandingPage: {
     component: LandingPage,
     path: '/',
-    exact: true
+    exact: true,
+    roles: [ROLE.PRIVATE]
   },
   Inbox: {
     component: Inbox,
@@ -283,7 +290,8 @@ const routeMap = {
   //done
   ChairmanLogin: {
     component: ChairmanLogin,
-    path: '/ChairmanLogin'
+    path: '/ChairmanLogin',
+    roles: [ROLE.PRIVATE]
   },
   //done
   EmailAccountLogin: {
@@ -354,22 +362,22 @@ const routeMap = {
     path: '/ViewInvoices',
     exact: true
   },
-  ViewReceipt:{
+  ViewReceipt: {
     component: ViewReceipt,
     path: '/ViewReceipt',
     exact: true
   },
-  InvoicesDetails:{
+  InvoicesDetails: {
     component: InvoicesDetails,
     path: '/InvoicesDetails',
     exact: true
   },
-  ReceiptsDetails:{
+  ReceiptsDetails: {
     component: ReceiptsDetails,
     path: '/ReceiptsDetails',
     exact: true
   },
-  CharmainInvoices:{
+  CharmainInvoices: {
     component: CharmainInvoices,
     path: '/CharmainInvoices',
     exact: true
@@ -450,9 +458,9 @@ const routeMap = {
   },
 
 
-  SurveyDetails: {
+  TakeSurvey: {
     component: SurveyInitial,
-    path: "/SurveyDetails"
+    path: "/TakeSurvey"
   },
 
   SurveyFill: {
@@ -480,6 +488,13 @@ const routeMap = {
     path: '/PollsallData'
   },
 
+  SurveyallData: {
+    component: SurveyallData,
+    path: '/SurveyallData'
+  },
+
+
+
   PollsSurvey: {
     component: PollsSurvey,
     path: '/PollsSurvey'
@@ -498,6 +513,16 @@ const routeMap = {
   PollDetails: {
     component: PollDetails,
     path: '/PollDetails'
+  },
+
+  SurveyDetails:{
+    component: SurveyDetailsMain,
+    path: '/SurveyDetails'
+  },
+
+  SurveyReport:{
+    component: SurveyReport,
+    path: '/SurveyReport'
   },
 
   PollReport: {
@@ -884,7 +909,8 @@ const routeMap = {
 
   DashboardGeneral: {
     component: DashboardGeneral,
-    path: '/DashboardGeneral'
+    path: '/DashboardGeneral',
+    roles: [ROLE.CHAIRMAN]
   },
 
   DashboardTicket: {
@@ -1211,7 +1237,7 @@ class App extends Component {
 
     return (
       <View style={{ height: '100%', width: '100%' }}>
-        {/* <TopNav /> */}
+        <Toaster className="toast" position="top-right" reverseOrder={false} />
         {WebRoutesGenerator({ routeMap })}
         <ModalContainer />
       </View>

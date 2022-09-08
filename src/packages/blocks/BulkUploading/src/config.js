@@ -19,4 +19,5 @@ exports.ApiContentType = "application/json";
 exports.apiMethodTypeGet = "GET";
 exports.apiMethodTypePost = "POST";
 exports.apiMethodTypeDelete = "DELETE";
+exports.apiMethodTypePut = "PUT";
 // Customizable Area End

@@ -44,7 +44,7 @@ class NewFamily extends FamilyController {
         <Grid container spacing={2} className="auth-container">
           <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset' }}>
             <Grid container>
-              <Grid xs={12} style={{ display: 'flex', alignItems: 'center' }}>
+              <Grid xs={12} style={{ display: 'flex', alignItems: 'center',borderBottom:'1px solid #f2f2f2' }}>
                 <ArrowBackIcon onClick={() => window.history.back()} />
                 <p style={{ fontWeight: 600, fontSize: '1.25rem' }}>
 
@@ -253,7 +253,7 @@ class NewFamily extends FamilyController {
 
                             <InputLabel id="demo-simple-select-outlined-label" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                               <img src={Hyperlink} />
-                              IDoption</InputLabel>
+                              Type of ID Proof</InputLabel>
                             <Select
                               name='IDoption'
                               labelId="demo-simple-select-outlined-label"

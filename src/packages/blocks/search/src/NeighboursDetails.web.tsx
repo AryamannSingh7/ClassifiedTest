@@ -47,7 +47,11 @@ class NeighboursDetails extends NeighboursController {
     super(props);
   }
   componentDidMount() {
-    //  this.getIncidentDetailsById(this.props.history.location?.id);
+    const id = localStorage.getItem("incidentManagementDetailId") || 90;
+    if (id)
+      this.getIncidentDetailsById(id);
+    else
+      this.props.history.push("/NeighboursListing")
   }
 
   render() {
@@ -100,16 +104,13 @@ class NeighboursDetails extends NeighboursController {
                     </Card>
                   </Box>
 
-                  {/* neighbour detail section */}
-                  <Box className="neighbour-detail-section">
+                 { this.state?.getNeighboursDetails?.map((val : any ,index:any)=>(
+                    <Box className="neighbour-detail-section">
                     <Card className="neighbour-card neighbour-detail-card card">
                       <CardContent className="card-content">
                         <img src={User1_Img} className="info-icon" alt="info-icon" />
                         <Typography component="h4">
-                          Anonymous
-                        </Typography>
-                        <Typography component="h5">
-                          B-1405
+                          {val?.attributes?.full_name}
                         </Typography>
                         <Box className="social-raw">
                           <Box className="blocks">
@@ -126,15 +127,10 @@ class NeighboursDetails extends NeighboursController {
                           <Box className="blocks">
                             <Typography component="h4">
                               Gender:
-                              <span className="title">Male</span>
+                              <span className="title">Male {val?.attributes?.gender}</span>
                             </Typography>
                           </Box>
-                          <Box className="blocks">
-                            <Typography component="h4">
-                              Gender:
-                              <span className="title">Male</span>
-                            </Typography>
-                          </Box>
+                          
                         </Box>
                         <Box className="bio-content-row">
                           <Box className="bio-row">
@@ -144,6 +140,7 @@ class NeighboursDetails extends NeighboursController {
                             <Typography component="p">
                               Hello! I am Jaroslav Brabec living with my family in central park since 2015.
                               I am business analyst by profession. It would be nice to get in touch with you.
+                              {val?.attributes?.bio}
                             </Typography>
                           </Box>
                           <Box className="bio-row">
@@ -165,7 +162,7 @@ class NeighboursDetails extends NeighboursController {
                                 <img src={FB_Icon} className="icon" alt="FB_Icon" />
                               </Button>
                               <Button>
-                                <img src={Twitter_Icon} className="icon" alt="FB_Icon" />
+                                <img src={Twitter_Icon} className="icon" alt="Twitter_Icon" />
                               </Button>
                             </Box>
                           </Box>
@@ -173,6 +170,10 @@ class NeighboursDetails extends NeighboursController {
                       </CardContent>
                     </Card>
                   </Box>
+                 ))
+                 }
+                  {/* neighbour detail section */}
+                  
                 </Box>
                 <Box className="footer-main-block bottomBlock">
                   <h6 className="bottom-text">POWERED BY</h6>

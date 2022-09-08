@@ -1,7 +1,4 @@
 // Customizable Area Start
-//@ts-nocheck
-//@ts-ignore
-
 import React from "react";
 import {
   Container,
@@ -35,11 +32,13 @@ import "@szhsin/react-menu/dist/core.css";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { MeetingsStyleWeb } from "./MeetingsStyle.web";
-import SearchIconImage from "../assets/search.png";
 import SearchIcon from "@material-ui/icons/Search";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+//@ts-ignore
 import Pagination from "@material-ui/lab/Pagination";
-import CommentIcon from "../assets/comment.png";
+import { SearchIconImage, CommentIcon } from "./assets";
+import { Formik, Form } from "formik";
+import moment from "moment";
 
 class ScheduledMeeting extends ScheduledMeetingController {
   constructor(props: Props) {
@@ -47,7 +46,21 @@ class ScheduledMeeting extends ScheduledMeetingController {
   }
 
   async componentDidMount(): Promise<void> {
-    this.getAllMeetings();
+    await this.getAllMeetings();
+    await this.getBuildingsList();
+    await this.getManagersList();
+  }
+
+  async componentDidUpdate(prevProps: any, prevState: any): Promise<void> {
+    if (
+      prevState.filter.title !== this.state.filter.title ||
+      prevState.filter.status !== this.state.filter.status ||
+      prevState.filter.date !== this.state.filter.date ||
+      prevState.filter.place !== this.state.filter.place ||
+      prevState.filter.page !== this.state.filter.page
+    ) {
+      await this.getAllMeetings();
+    }
   }
 
   render() {
@@ -83,26 +96,78 @@ class ScheduledMeeting extends ScheduledMeetingController {
                 </Box>
                 <Box className="top-bar">
                   <Box className="filter">
-                    <Select displayEmpty value="" className="select-input">
+                    {/* <Select displayEmpty value="" className="select-input">
                       <MenuItem value="" disabled>
                         <em>Select Place</em>
                       </MenuItem>
                       <MenuItem value={10}>Ten</MenuItem>
                       <MenuItem value={20}>Twenty</MenuItem>
                       <MenuItem value={30}>Thirty</MenuItem>
-                    </Select>
-                    <Select displayEmpty value="" className="select-input">
+                    </Select> */}
+                    <Input
+                      type="text"
+                      placeholder="Place"
+                      className="input"
+                      value={this.state.place}
+                      onChange={(e: any) => {
+                        this.setState({
+                          ...this.state,
+                          place: e.target.value.trim(),
+                        });
+                      }}
+                    />
+                    <Select
+                      displayEmpty
+                      className="select-input"
+                      value={this.state.status}
+                      onChange={(e: any) => {
+                        this.setState({
+                          ...this.state,
+                          status: e.target.value,
+                        });
+                      }}
+                    >
                       <MenuItem value="" disabled>
                         <em>Select Status</em>
                       </MenuItem>
-                      <MenuItem value={10}>Ten</MenuItem>
-                      <MenuItem value={20}>Twenty</MenuItem>
-                      <MenuItem value={30}>Thirty</MenuItem>
+                      <MenuItem value="all">All</MenuItem>
+                      <MenuItem value="scheduled">Scheduled</MenuItem>
+                      <MenuItem value="completed">Completed</MenuItem>
+                      <MenuItem value="cancelled">Cancelled</MenuItem>
                     </Select>
-                    <Button startIcon={<img src={SearchIconImage} />}>Search</Button>
+                    <Input
+                      value={this.state.date}
+                      onChange={(e: any) => {
+                        this.setState({
+                          ...this.state,
+                          date: e.target.value,
+                        });
+                      }}
+                      type="text"
+                      placeholder="Date"
+                      className="input"
+                      onFocus={(e: any) => (e.target.type = "date")}
+                      onBlur={(e: any) => (e.target.type = "text")}
+                    />
+                    <Button
+                      startIcon={<img src={SearchIconImage} />}
+                      onClick={() => {
+                        this.setState({
+                          filter: {
+                            ...this.state.filter,
+                            place: this.state.place,
+                            status: this.state.status,
+                            date: this.state.date,
+                            title: "",
+                          },
+                        });
+                      }}
+                    >
+                      Search
+                    </Button>
                   </Box>
                   <Box className="create-meeting">
-                    <Button onClick={() => this.handleCreateMeetingModal()}>
+                    <Button onClick={() => this.openCreateMeetingModal()}>
                       + Create New Meeting
                     </Button>
                   </Box>
@@ -113,7 +178,20 @@ class ScheduledMeeting extends ScheduledMeetingController {
                       <h3>Schedule Meetings</h3>
                       <div className="search-box">
                         <SearchIcon />
-                        <InputBase placeholder="Search by title" className="search" />
+                        <InputBase
+                          placeholder="Search by title"
+                          className="search"
+                          value={this.state.filter.title}
+                          onChange={(e: any) => {
+                            this.setState({
+                              ...this.state,
+                              filter: {
+                                ...this.state.filter,
+                                title: e.target.value.trim(),
+                              },
+                            });
+                          }}
+                        />
                       </div>
                     </Box>
                     <Divider />
@@ -135,7 +213,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                             <TableCell colSpan={6}>No Schedule Meeting Available!!</TableCell>
                           </TableRow>
                         )}
-                        {this.state.scheduleMeetingList.map((meeting: any, index: string) => {
+                        {this.state.scheduleMeetingList.map((meeting: any, index: number) => {
                           return (
                             <TableRow key={index}>
                               <TableCell align="left">{index + 1}</TableCell>
@@ -167,10 +245,21 @@ class ScheduledMeeting extends ScheduledMeetingController {
                                   <MenuItem>
                                     <Link to={`ScheduledMeeting/${meeting.id}`}>View</Link>
                                   </MenuItem>
-                                  <MenuItem onClick={() => this.handleEditMeetingModal()}>
+                                  <MenuItem onClick={() => this.openEditMeetingModal(meeting)}>
                                     Edit
                                   </MenuItem>
-                                  <MenuItem onClick={() => this.handleCancelMeetingModal()}>
+                                  <MenuItem
+                                    onClick={() => {
+                                      this.setState(
+                                        {
+                                          scheduleMeetingId: meeting.id,
+                                        },
+                                        () => {
+                                          this.handleCancelMeetingModal();
+                                        }
+                                      );
+                                    }}
+                                  >
                                     Cancel
                                   </MenuItem>
                                 </Menu>
@@ -183,10 +272,34 @@ class ScheduledMeeting extends ScheduledMeetingController {
                     <Divider />
                     <Box className="table-bottom">
                       <p>
-                        Showing <span className="current-page">1</span> of{" "}
-                        <span className="total-page">100</span> results
+                        Showing{" "}
+                        <span className="current-page">
+                          {this.state.scheduleMeetingList.length}
+                        </span>{" "}
+                        of{" "}
+                        <span className="total-page">
+                          {this.state.pagination ? this.state.pagination.total_count : 0}
+                        </span>{" "}
+                        results
                       </p>
-                      <Pagination count={6} variant="outlined" shape="rounded" />
+                      {this.state.pagination && (
+                        <Pagination
+                          onChange={(event: any, value: any) => {
+                            this.setState({
+                              ...this.state,
+                              filter: {
+                                ...this.state.filter,
+                                page: Number(value),
+                              },
+                            });
+                          }}
+                          count={this.state.pagination.total_pages}
+                          page={this.state.pagination.current_page}
+                          siblingCount={2}
+                          variant="outlined"
+                          shape="rounded"
+                        />
+                      )}
                     </Box>
                   </Grid>
                 </Grid>
@@ -195,148 +308,374 @@ class ScheduledMeeting extends ScheduledMeetingController {
           </Box>
         </Box>
 
-        <Dialog fullWidth className="add-meeting" open={this.state.isCreateMeetingModalOpen}>
+        <Dialog
+          fullWidth
+          scroll="paper"
+          open={this.state.isCreateMeetingModalOpen}
+          className="add-meeting"
+        >
           <MuiDialogTitle disableTypography className="dialog-heading">
             <Typography variant="h6">Create New Meeting</Typography>
             <IconButton onClick={() => this.handleCreateMeetingModal()}>
               <CloseIcon />
             </IconButton>
           </MuiDialogTitle>
-          <DialogContent dividers>
-            <FormControl fullWidth>
-              <Input placeholder="Title" className="dialog-input" />
-            </FormControl>
-            <Grid container spacing={2}>
-              <Grid item sm={6}>
-                <FormControl fullWidth>
-                  <div className="date-time">
-                    <Input
-                      fullWidth
-                      type="text"
-                      placeholder="Date"
-                      onFocus={(e) => (e.target.type = "date")}
-                    />
-                  </div>
-                </FormControl>
-              </Grid>
-              <Grid item sm={6}>
-                <FormControl fullWidth>
-                  <div className="date-time">
-                    <Input
-                      fullWidth
-                      type="text"
-                      placeholder="Time"
-                      onFocus={(e) => (e.target.type = "time")}
-                      onChange={(e) => {
-                        console.log(e.target.value);
-                      }}
-                    />
-                  </div>
-                </FormControl>
-              </Grid>
-            </Grid>
-            <FormControl fullWidth>
-              <Select displayEmpty value="" className="dialog-select-input">
-                <MenuItem value="" disabled>
-                  <em>Select Building</em>
-                </MenuItem>
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-              </Select>
-            </FormControl>
-            <FormControl fullWidth>
-              <Input placeholder="Place" className="dialog-input" />
-            </FormControl>
-            <FormControl fullWidth>
-              <Input placeholder="Agenda" className="dialog-input" />
-            </FormControl>
-            <FormControl fullWidth>
-              <Select displayEmpty value="" className="dialog-select-input">
-                <MenuItem value="" disabled>
-                  <em>Designated Meeting of Minutes writer</em>
-                </MenuItem>
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-              </Select>
-            </FormControl>
-          </DialogContent>
-          <DialogActions className="dialog-button-group">
-            <Button className="cancel-button" onClick={() => this.handleCreateMeetingModal()}>
-              Cancel
-            </Button>
-            <Button className="add-button">Save</Button>
-          </DialogActions>
+          <Formik
+            initialValues={this.state.meetingForm}
+            validationSchema={this.addMeetingValidation}
+            onSubmit={(values, { resetForm }) => {
+              resetForm();
+              this.handleCreateMeetingModal();
+              this.createMeeting(values);
+            }}
+          >
+            {({
+              values,
+              errors,
+              touched,
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              setFieldValue,
+            }) => {
+              return (
+                <Form onSubmit={handleSubmit} translate>
+                  <DialogContent dividers>
+                    <FormControl fullWidth>
+                      <Input
+                        value={values.title}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        name="title"
+                        placeholder="Title"
+                        className="dialog-input"
+                      />
+                      {errors.title && touched.title && (
+                        <small className="error">{errors.title}</small>
+                      )}
+                    </FormControl>
+                    <Grid container spacing={2}>
+                      <Grid item sm={6}>
+                        <FormControl fullWidth>
+                          <div className="date-time">
+                            <input
+                              value={values.date}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              name="date"
+                              className="date"
+                              min={moment().format("YYYY-MM-DD")}
+                              type="text"
+                              placeholder="Date"
+                              onFocus={(e: any) => (e.target.type = "date")}
+                            />
+                          </div>
+                          {errors.date && touched.date && (
+                            <small className="error">{errors.date}</small>
+                          )}
+                        </FormControl>
+                      </Grid>
+                      <Grid item sm={6}>
+                        <FormControl fullWidth>
+                          <div className="date-time">
+                            <Input
+                              value={values.time}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              name="time"
+                              fullWidth
+                              type="text"
+                              placeholder="Time"
+                              onFocus={(e: any) => (e.target.type = "time")}
+                            />
+                          </div>
+                          {errors.time && touched.time && (
+                            <small className="error">{errors.time}</small>
+                          )}
+                        </FormControl>
+                      </Grid>
+                    </Grid>
+                    <FormControl fullWidth>
+                      <Select
+                        value={values.building}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        name="building"
+                        displayEmpty
+                        className="dialog-select-input"
+                      >
+                        <MenuItem value="" disabled>
+                          <em>Select Building</em>
+                        </MenuItem>
+                        {this.state.buildingsList.map((building: any) => {
+                          return (
+                            <MenuItem value={building.id} key={building.id}>
+                              {building.name}
+                            </MenuItem>
+                          );
+                        })}
+                      </Select>
+                      {errors.building && touched.building && (
+                        <small className="error">{errors.building}</small>
+                      )}
+                    </FormControl>
+                    <FormControl fullWidth>
+                      <Input
+                        value={values.place}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        name="place"
+                        placeholder="Place"
+                        className="dialog-input"
+                      />
+                      {errors.place && touched.place && (
+                        <small className="error">{errors.place}</small>
+                      )}
+                    </FormControl>
+                    <FormControl fullWidth>
+                      <Input
+                        value={values.agenda}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        name="agenda"
+                        placeholder="Agenda"
+                        className="dialog-input"
+                      />
+                      {errors.agenda && touched.agenda && (
+                        <small className="error">{errors.agenda}</small>
+                      )}
+                    </FormControl>
+                    <FormControl fullWidth>
+                      <Select
+                        displayEmpty
+                        value={values.momWriter}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        name="momWriter"
+                        className="dialog-select-input"
+                      >
+                        <MenuItem value="" disabled>
+                          <em>Designated Meeting of Minutes writer</em>
+                        </MenuItem>
+                        {this.state.managersList.map((manager: any) => {
+                          return (
+                            <MenuItem value={manager.id} key={manager.id}>
+                              {manager.full_name}
+                            </MenuItem>
+                          );
+                        })}
+                      </Select>
+                      {errors.momWriter && touched.momWriter && (
+                        <small className="error">{errors.momWriter}</small>
+                      )}
+                    </FormControl>
+                  </DialogContent>
+                  <DialogActions className="dialog-button-group">
+                    <Button
+                      className="cancel-button"
+                      onClick={() => this.handleCreateMeetingModal()}
+                    >
+                      Cancel
+                    </Button>
+                    <Button className="add-button" type="submit">
+                      Save
+                    </Button>
+                  </DialogActions>
+                </Form>
+              );
+            }}
+          </Formik>
         </Dialog>
 
-        <Dialog fullWidth className="add-meeting" open={this.state.isEditMeetingModalOpen}>
+        <Dialog
+          fullWidth
+          scroll="paper"
+          className="add-meeting"
+          open={this.state.isEditMeetingModalOpen}
+        >
           <MuiDialogTitle disableTypography className="dialog-heading">
             <Typography variant="h6">Edit Meeting</Typography>
             <IconButton onClick={() => this.handleEditMeetingModal()}>
               <CloseIcon />
             </IconButton>
           </MuiDialogTitle>
-          <DialogContent dividers>
-            <FormControl fullWidth>
-              <Input placeholder="Title" className="dialog-input" />
-            </FormControl>
-            <Grid container spacing={2}>
-              <Grid item sm={6}>
-                <FormControl fullWidth>
-                  <div className="date-time">
-                    <Input fullWidth type="date" placeholder="Placeholder" />
-                  </div>
-                </FormControl>
-              </Grid>
-              <Grid item sm={6}>
-                <FormControl fullWidth>
-                  <div className="date-time">
-                    <Input
-                      fullWidth
-                      type="time"
-                      placeholder="Placeholder"
-                      onChange={(e) => {
-                        console.log(e.target.value);
-                      }}
-                    />
-                  </div>
-                </FormControl>
-              </Grid>
-            </Grid>
-            <FormControl fullWidth>
-              <Select displayEmpty value="" className="dialog-select-input">
-                <MenuItem value="" disabled>
-                  <em>Select Building</em>
-                </MenuItem>
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-              </Select>
-            </FormControl>
-            <FormControl fullWidth>
-              <Input placeholder="Place" className="dialog-input" />
-            </FormControl>
-            <FormControl fullWidth>
-              <Input placeholder="Agenda" className="dialog-input" />
-            </FormControl>
-            <FormControl fullWidth>
-              <Select displayEmpty value="" className="dialog-select-input">
-                <MenuItem value="" disabled>
-                  <em>Designated Meeting of Minutes writer</em>
-                </MenuItem>
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-              </Select>
-            </FormControl>
-          </DialogContent>
-          <DialogActions className="dialog-button-group">
-            <Button className="cancel-button" onClick={() => this.handleEditMeetingModal()}>
-              Cancel
-            </Button>
-            <Button className="add-button">Save</Button>
-          </DialogActions>
+          <Formik
+            initialValues={this.state.meetingForm}
+            validationSchema={this.addMeetingValidation}
+            onSubmit={(values, { resetForm }) => {
+              this.handleEditMeetingModal();
+              this.editMeeting(values);
+            }}
+          >
+            {({
+              values,
+              errors,
+              touched,
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              setFieldValue,
+            }) => {
+              return (
+                <Form onSubmit={handleSubmit} translate>
+                  <DialogContent dividers>
+                    <FormControl fullWidth>
+                      <Input
+                        value={values.title}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        name="title"
+                        placeholder="Title"
+                        className="dialog-input"
+                      />
+                      {errors.title && touched.title && (
+                        <small className="error">{errors.title}</small>
+                      )}
+                    </FormControl>
+                    <Grid container spacing={2}>
+                      <Grid item sm={6}>
+                        <FormControl fullWidth>
+                          <div className="date-time">
+                            <input
+                              value={values.date}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              name="date"
+                              className="date"
+                              min={moment().format("YYYY-MM-DD")}
+                              type="date"
+                            />
+                          </div>
+                          {errors.date && touched.date && (
+                            <small className="error">{errors.date}</small>
+                          )}
+                        </FormControl>
+                      </Grid>
+                      <Grid item sm={6}>
+                        <FormControl fullWidth>
+                          <div className="date-time">
+                            <Input
+                              value={values.time}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              name="time"
+                              fullWidth
+                              type="time"
+                            />
+                          </div>
+                          {errors.time && touched.time && (
+                            <small className="error">{errors.time}</small>
+                          )}
+                        </FormControl>
+                      </Grid>
+                    </Grid>
+                    <FormControl fullWidth>
+                      <Select
+                        value={values.building}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        name="building"
+                        displayEmpty
+                        className="dialog-select-input"
+                      >
+                        <MenuItem value="" disabled>
+                          <em>Select Building</em>
+                        </MenuItem>
+                        {this.state.buildingsList.map((building: any) => {
+                          return (
+                            <MenuItem value={building.id} key={building.id}>
+                              {building.name}
+                            </MenuItem>
+                          );
+                        })}
+                      </Select>
+                      {errors.building && touched.building && (
+                        <small className="error">{errors.building}</small>
+                      )}
+                    </FormControl>
+                    <FormControl fullWidth>
+                      <Input
+                        value={values.place}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        name="place"
+                        placeholder="Place"
+                        className="dialog-input"
+                      />
+                      {errors.place && touched.place && (
+                        <small className="error">{errors.place}</small>
+                      )}
+                    </FormControl>
+                    <FormControl fullWidth>
+                      <Input
+                        value={values.agenda}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        name="agenda"
+                        placeholder="Agenda"
+                        className="dialog-input"
+                      />
+                      {errors.agenda && touched.agenda && (
+                        <small className="error">{errors.agenda}</small>
+                      )}
+                    </FormControl>
+                    <FormControl fullWidth>
+                      <Select
+                        displayEmpty
+                        value={values.momWriter}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        name="momWriter"
+                        className="dialog-select-input"
+                      >
+                        <MenuItem value="" disabled>
+                          <em>Designated Meeting of Minutes writer</em>
+                        </MenuItem>
+                        {this.state.managersList.map((manager: any) => {
+                          return (
+                            <MenuItem value={manager.id} key={manager.id}>
+                              {manager.full_name}
+                            </MenuItem>
+                          );
+                        })}
+                      </Select>
+                      {errors.momWriter && touched.momWriter && (
+                        <small className="error">{errors.momWriter}</small>
+                      )}
+                    </FormControl>
+                    <FormControl fullWidth>
+                      <Select
+                        value={values.status}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        name="status"
+                        displayEmpty
+                        className="dialog-select-input"
+                      >
+                        <MenuItem value="" disabled>
+                          <em>Select Status</em>
+                        </MenuItem>
+                        <MenuItem value="scheduled">Scheduled</MenuItem>
+                        <MenuItem value="completed">Completed</MenuItem>
+                        <MenuItem value="cancelled">Cancelled</MenuItem>
+                      </Select>
+                      {errors.status && touched.status && (
+                        <small className="error">{errors.status}</small>
+                      )}
+                    </FormControl>
+                  </DialogContent>
+                  <DialogActions className="dialog-button-group">
+                    <Button className="cancel-button" onClick={() => this.handleEditMeetingModal()}>
+                      Cancel
+                    </Button>
+                    <Button className="add-button" type="submit">
+                      Save
+                    </Button>
+                  </DialogActions>
+                </Form>
+              );
+            }}
+          </Formik>
         </Dialog>
 
         <Dialog
@@ -361,7 +700,11 @@ class ScheduledMeeting extends ScheduledMeetingController {
                 >
                   No, Don't Cancel
                 </Button>
-                <Button style={{ width: "200px" }} className="add-button">
+                <Button
+                  style={{ width: "200px" }}
+                  className="add-button"
+                  onClick={() => this.updateStatusMeeting("cancelled")}
+                >
                   Yes, Cancel
                 </Button>
               </DialogActions>
