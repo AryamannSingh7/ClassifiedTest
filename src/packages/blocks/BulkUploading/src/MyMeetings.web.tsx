@@ -1,6 +1,4 @@
 // Customizable Area Start
-//@ts-nocheck
-//@ts-ignore
 import React from "react";
 import {
   Container,
@@ -17,11 +15,7 @@ import {
 import { Menu } from "@szhsin/react-menu";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import MyMeetingsController, { Props } from "./MyMeetingsController.web";
-import BuildingLogo from "../assets/building.png";
-import SortIcon from "../assets/sort.png";
-import FilterIcon from "../assets/filter.png";
-import TrueIcon from "../assets/true.png";
-import FalseIcon from "../assets/false.png";
+import { BuildingLogo, SortIcon, FilterIcon, TrueIcon, FalseIcon } from "./assets";
 import { MeetingsStyleWeb } from "./MeetingsStyle.web";
 
 class MyMeetings extends MyMeetingsController {
@@ -29,7 +23,7 @@ class MyMeetings extends MyMeetingsController {
     super(props);
   }
 
-  componentDidMount(): Promise<void> {
+  async componentDidMount(): Promise<void> {
     this.getScheduledMeetingList();
     this.getMinuteMeetingList();
   }
@@ -144,14 +138,31 @@ class MyMeetings extends MyMeetingsController {
                                           <p>{meeting.attributes.agenda}</p>
                                         </Grid>
                                       </Grid>
-                                      <Divider />
-                                      <Box className="decision">
-                                        <h6>Are you attending?</h6>
-                                        <div className="status-images">
-                                          <img src={TrueIcon} alt="true" />
-                                          <img src={FalseIcon} alt="false" />
-                                        </div>
-                                      </Box>
+                                      {meeting.attributes.status === "scheduled" && (
+                                        <>
+                                          <Divider />
+                                          {!meeting.attributes.meeting_response ? (
+                                            <Box className="decision">
+                                              <h6>Are you attending?</h6>
+                                              <div className="status-images">
+                                                <img src={TrueIcon} alt="true" />
+                                                <img src={FalseIcon} alt="false" />
+                                              </div>
+                                            </Box>
+                                          ) : (
+                                            <Box className="decision">
+                                              <p>Your Response</p>
+                                              <span
+                                                className={`status ${
+                                                  meeting.attributes.meeting_response
+                                                }`}
+                                              >
+                                                {meeting.attributes.meeting_response}
+                                              </span>
+                                            </Box>
+                                          )}
+                                        </>
+                                      )}
                                     </Card>
                                   </Link>
                                 </Grid>
@@ -209,7 +220,7 @@ class MyMeetings extends MyMeetingsController {
             </Grid>
             <Grid item xs={12} md={5}>
               <Box className="right-block right-image" display={{ xs: "none", md: "flex" }}>
-                <img src={BuildingLogo} className="building-logo" alt="" />
+                <img src={BuildingLogo.default} className="building-logo" alt="" />
               </Box>
             </Grid>
           </Grid>

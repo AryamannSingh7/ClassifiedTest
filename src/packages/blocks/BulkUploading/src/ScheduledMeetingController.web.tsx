@@ -94,10 +94,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
     this.receive = this.receive.bind(this);
     console.disableYellowBox = true;
     // Customizable Area Start
-    this.subScribedMessages = [
-      getName(MessageEnum.RestAPIResponceMessage),
-      getName(MessageEnum.RestAPIRequestMessage),
-    ];
+    this.subScribedMessages = [getName(MessageEnum.RestAPIResponceMessage), getName(MessageEnum.RestAPIRequestMessage)];
 
     this.state = {
       isCreateMeetingModalOpen: false,
@@ -149,8 +146,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.GetScheduledMeetingDetailCallId !== null &&
-      this.GetScheduledMeetingDetailCallId ===
-        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+      this.GetScheduledMeetingDetailCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.GetScheduledMeetingDetailCallId = null;
 
@@ -186,7 +182,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
         this.setState({
           ...this.state,
           scheduleMeetingList: responseJson.meeting.data,
-          pagination: responseJson.meeting.meta.pagination,
+          pagination: responseJson.meta.pagination,
         });
       }
 
@@ -204,8 +200,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.GetAllBuildingsCallId !== null &&
-      this.GetAllBuildingsCallId ===
-        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+      this.GetAllBuildingsCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.GetAllBuildingsCallId = null;
 
@@ -319,8 +314,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.UpdateStatusMeetingCallId !== null &&
-      this.UpdateStatusMeetingCallId ===
-        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+      this.UpdateStatusMeetingCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.UpdateStatusMeetingCallId = null;
 
@@ -414,10 +408,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypeGet
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
@@ -442,10 +433,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypeGet
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
@@ -470,10 +458,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypeGet
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
@@ -498,10 +483,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypeGet
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
@@ -540,10 +522,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestBodyMessage), JSON.stringify(body));
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypePost
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePost);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
@@ -583,10 +562,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestBodyMessage), JSON.stringify(body));
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypePut
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePut);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
@@ -619,10 +595,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestBodyMessage), JSON.stringify(body));
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypePut
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePut);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;

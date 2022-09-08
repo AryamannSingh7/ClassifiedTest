@@ -600,6 +600,10 @@
   margin: 5px 0;
 }
 
+.schedule-dialog .choice-box {
+  align-items: center;
+}
+
 .edit-profile .profile-picture {
   display: flex;
   align-items: center;

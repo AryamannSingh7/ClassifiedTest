@@ -41,6 +41,9 @@ import Pagination from "@material-ui/lab/Pagination";
 import { SearchIconImage, CommentIcon, Dots } from "./assets";
 import { Formik, Form } from "formik";
 import moment from "moment";
+import { withTranslation } from "react-i18next";
+import "../../../web/src/i18n.js";
+import i18next from "i18next";
 
 class ScheduledMeeting extends ScheduledMeetingController {
   constructor(props: Props) {
@@ -67,6 +70,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
 
   render() {
     const { classes } = this.props;
+    const { t }: any = this.props;
 
     console.log(this.state);
 
@@ -86,13 +90,13 @@ class ScheduledMeeting extends ScheduledMeetingController {
                 <Box className="navigation">
                   <Box>
                     <Typography variant="body1">
-                      Meetings /{" "}
+                      {t("Meetings")} /{" "}
                       <Box component="span" style={{ color: "blue" }}>
-                        Scheduled Meetings
+                        {t("Scheduled Meetings")}
                       </Box>
                     </Typography>
                     <Typography variant="h5" className="sub-heading">
-                      Scheduled Meetings
+                      {t("Scheduled Meetings")}
                     </Typography>
                   </Box>
                 </Box>
@@ -779,15 +783,15 @@ class ScheduledMeeting extends ScheduledMeetingController {
               <MenuItem value="" disabled>
                 <em>Select Floor</em>
               </MenuItem>
-              <MenuItem value="">GA Meeting</MenuItem>
-              <MenuItem value="">Regular Meeting</MenuItem>
+              <MenuItem>GA Meeting</MenuItem>
+              <MenuItem>Regular Meeting</MenuItem>
             </Select>
             <Select value="" name="meetingType" displayEmpty className="dialog-select-input">
               <MenuItem value="" disabled>
                 <em>User Type</em>
               </MenuItem>
-              <MenuItem value="">GA Meeting</MenuItem>
-              <MenuItem value="">Regular Meeting</MenuItem>
+              <MenuItem>GA Meeting</MenuItem>
+              <MenuItem>Regular Meeting</MenuItem>
             </Select>
             <Button className="filter-button" startIcon={<img src={SearchIconImage} />}>
               Search
@@ -847,5 +851,5 @@ class ScheduledMeeting extends ScheduledMeetingController {
   }
 }
 
-export default withStyles(MeetingsStyleWeb)(ScheduledMeeting);
+export default withTranslation()(withStyles(MeetingsStyleWeb)(ScheduledMeeting));
 // Customizable Area End

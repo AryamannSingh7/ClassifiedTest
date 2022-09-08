@@ -316,6 +316,10 @@ export const MeetingsStyleWeb: any = {
       width: "20px",
       height: "20px",
     },
+    "& .no-available .MuiCard-root": {
+      padding: "20px",
+      boxShadow: "none",
+    },
     "& .scheduled": {
       background: "#D4FFE3",
       color: "#1EC65B",
@@ -490,7 +494,7 @@ export const MeetingsStyleWeb: any = {
       justifyContent: "space-between",
       paddingTop: "15px",
     },
-    "& .decision span": {
+    "& .decision p": {
       color: "gray",
     },
     "& .decision .status": {
@@ -510,9 +514,23 @@ export const MeetingsStyleWeb: any = {
     "& .decision h6": {
       fontWeight: "600",
     },
+    "& .accepted": {
+      textTransform: "capitalize",
+      background: "#D4FFE3",
+      color: "#1EC65B",
+      fontWeight: "600",
+    },
+    "& .rejected": {
+      textTransform: "capitalize",
+      background: "#FFEAEA",
+      color: "#F21717",
+      fontWeight: "600",
+    },
   },
   meetingDetail: {
     "& .top-bar": {
+      position: "sticky",
+      top: "0",
       display: "flex",
       alignItems: "center",
       fontWeight: "600",
@@ -528,6 +546,9 @@ export const MeetingsStyleWeb: any = {
       alignItems: "center",
       justifyContent: "center",
     },
+    "& .top-bar .left-icon span": {
+      textTransform: "capitalize",
+    },
     "& .right-image": {
       padding: "23px 60px",
     },
@@ -537,15 +558,19 @@ export const MeetingsStyleWeb: any = {
     "& .content-box": {
       position: "relative",
       width: "100%",
-      height: "78vh",
+      height: "72vh",
     },
     "& .content-box > .MuiGrid-root": {
       alignContent: "flex-start",
     },
     "& .content-box .meeting-details": {
-      minHeight: "calc(100% - 50px)",
+      minHeight: "calc(100% - 10px)",
       overflowY: "auto",
       overflowX: "hidden",
+    },
+    "& .content-box .meeting-details iframe": {
+      width: "100%",
+      height: "100%",
     },
     "& .upload-button": {
       position: "sticky",
@@ -630,6 +655,10 @@ export const MeetingsStyleWeb: any = {
     "& .meeting-pdf .pdf-detail .heading h6": {
       fontWeight: "600",
     },
+    "& .meeting-pdf .download-pdf img": {
+      width: "20px",
+      height: "20px",
+    },
     "& .meeting-pdf .pdf-detail > img": {
       width: "20px",
       height: "20px",
@@ -645,6 +674,18 @@ export const MeetingsStyleWeb: any = {
     "& .cancelled": {
       background: "#FFEAEA",
       color: "#F21717",
+    },
+    "& .accepted": {
+      textTransform: "capitalize",
+      background: "#D4FFE3",
+      color: "#1EC65B",
+      fontWeight: "600",
+    },
+    "& .rejected": {
+      textTransform: "capitalize",
+      background: "#FFEAEA",
+      color: "#F21717",
+      fontWeight: "600",
     },
   },
 };
