@@ -112,7 +112,7 @@ class CreateSurveys extends PollingController {
                         <Grid container spacing={4} style={{marginTop: 15}}>
                             <Grid item sm={12} md={12} xs={12}>
                                 <Box className="createPSCards">
-                                    <TextField label="Name of the Survey" variant="outlined"
+                                    <TextField label={t("Name of the Survey")} variant="outlined"
                                     name="title"
                                     value={this.state.PollData.title}
                                     onChange={this.handlePollDataChange}
@@ -170,14 +170,14 @@ class CreateSurveys extends PollingController {
 
                                     <Box className="targetaudience">
                                         <Box className="infoIcon">
-                                            <Typography variant="subtitle1">Select your target audience</Typography>
+                                            <Typography variant="subtitle1">{t("Select your target audience")}</Typography>
                                             <InfoIcon style={{color:"grey", fontSize:18}}/>
                                         </Box>
                                         <Box className="targetOne">
-                                            <Button variant="outlined" color="primary">OWNERS</Button>
-                                            <Button variant="outlined" color="primary">RESIDENTS</Button>
-                                            <Typography variant="subtitle1">Or, </Typography>
-                                            <Button variant="contained" color="primary" onClick={this.handleOpenAudienceModal}>CREATE AUDIENCE</Button>
+                                            <Button variant="outlined" color="primary">{t("OWNERS")}</Button>
+                                            <Button variant="outlined" color="primary">{t("RESIDENTS")}</Button>
+                                            <Typography variant="subtitle1">{t("Or")}, </Typography>
+                                            <Button variant="contained" color="primary" onClick={this.handleOpenAudienceModal}>{t("CREATE AUDIENCE")}</Button>
                                         </Box>
                                     </Box>
                                 </Box>
@@ -185,7 +185,7 @@ class CreateSurveys extends PollingController {
                             <Grid item sm={12} md={12} xs={12} style={{marginBottom:"10px"}} >
                                 <Box className="createPSCards">
                                     <FormControl variant="outlined" fullWidth>
-                                        <InputLabel id="question-type">Select Type of Question</InputLabel>
+                                        <InputLabel id="question-type">{t("Select Type of Question")}</InputLabel>
                                         <Select
                                             labelId="question-type"
                                             id="question-type-select"
@@ -227,7 +227,7 @@ class CreateSurveys extends PollingController {
                                     {/*    }*/}
                                     {/*</TextField>*/}
                                     <Box className="infoIcon">
-                                        <Typography variant="subtitle1">Description</Typography>
+                                        <Typography variant="subtitle1">{t("Description")}</Typography>
                                         <InfoIcon style={{color:"grey", fontSize:18}}/>
                                     </Box>
                                     <Box className="descriptionEditor">
@@ -237,7 +237,7 @@ class CreateSurveys extends PollingController {
                                     </Box>
                                     <p style={{color:"red"}}>{this.state.pollDescriptionError}</p>
 
-                                <TextField multiline rows={4}  label="Description" variant="filled"
+                                <TextField multiline rows={4}  label={t("Description")} variant="filled"
                                 name="description"
                                 InputProps={{ disableUnderline: true }}
                                 value={this.state.PollData.description}
@@ -283,7 +283,7 @@ class CreateSurveys extends PollingController {
                             <Grid  item sm={12} md={12} xs={12} style={{marginBottom:"30px"}}>
                                 <Box className="createPSCards">
                                     <FormControl variant="outlined" fullWidth>
-                                        <InputLabel id="question-type">Short answer</InputLabel>
+                                        <InputLabel id="question-type">{t("Short answer")}</InputLabel>
                                         <Select
                                             labelId="question-type"
                                             id="question-type-select"
@@ -294,7 +294,7 @@ class CreateSurveys extends PollingController {
                                             <MenuItem value={20}>No</MenuItem>
                                         </Select>
                                     </FormControl>
-                                    <TextField  label="enter question" variant="outlined"
+                                    <TextField  label={t("enter question")} variant="outlined"
                                                 name="question"
                                                 value={this.state.PollData.question}
                                                 onChange={this.handlePollDataChange}
@@ -327,7 +327,7 @@ class CreateSurveys extends PollingController {
                                     {/*    }*/}
                                     {/*</TextField>*/}
                                     <Box className="infoIcon">
-                                        <Typography variant="subtitle1">Description</Typography>
+                                        <Typography variant="subtitle1">{t("Description")}</Typography>
                                         <InfoIcon style={{color:"grey", fontSize:18}}/>
                                     </Box>
                                     <Box className="descriptionEditor">
@@ -350,7 +350,7 @@ class CreateSurveys extends PollingController {
                             <Grid  item sm={12} md={12} xs={12} style={{marginBottom:"30px"}}>
                                 <Box className="createPSCards">
                                     <FormControl variant="outlined" fullWidth>
-                                        <InputLabel id="question-type">Short answer</InputLabel>
+                                        <InputLabel id="question-type">{t("Short answer")}</InputLabel>
                                         <Select
                                             labelId="question-type"
                                             id="question-type-select"
@@ -361,7 +361,7 @@ class CreateSurveys extends PollingController {
                                             <MenuItem value={20}>No</MenuItem>
                                         </Select>
                                     </FormControl>
-                                    <TextField  label="enter question" variant="outlined"
+                                    <TextField  label={t("enter question")} variant="outlined"
                                                 name="question"
                                                 value={this.state.PollData.question}
                                                 onChange={this.handlePollDataChange}
@@ -394,7 +394,7 @@ class CreateSurveys extends PollingController {
                                     {/*    }*/}
                                     {/*</TextField>*/}
                                     <Box className="infoIcon">
-                                        <Typography variant="subtitle1">Description</Typography>
+                                        <Typography variant="subtitle1">{t("Description")}</Typography>
                                         <InfoIcon style={{color:"grey", fontSize:18}}/>
                                     </Box>
                                     <Box className="descriptionEditor">
@@ -416,11 +416,11 @@ class CreateSurveys extends PollingController {
                         <Box className="BottomButton">
                             <Box className="Previewbtn"> 
                                         <Link href="/SurveyPreview">
-                                            <Button variant="contained" color="primary">PREVIEW</Button>
+                                            <Button variant="contained" color="primary">{t("PREVIEW")}</Button>
                                         </Link>
                                     </Box>
                                     <Box className="Publishbtn">
-                                        <Button type="submit" variant="outlined" color="primary">PUBLISH</Button>
+                                        <Button type="submit" variant="outlined" color="primary">{t("PUBLISH")}</Button>
                                     </Box>
                                 </Box>
                             </Grid>

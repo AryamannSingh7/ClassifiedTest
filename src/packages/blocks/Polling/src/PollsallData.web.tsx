@@ -98,15 +98,27 @@ class PollsallData extends PollingController {
                                             <Box className="EventsIconsText">
                                                 {
                                                     data.status == "upcoming" &&
-                                                    <Typography variant="body2" className={"statusOngoingBlue"}>{data.status}</Typography>
+                                                    <Typography variant="body2" className={"statusOngoingBlue"}>
+                                                {
+                                                    data.status == "upcoming" && <>{t('upcoming')}</>
+                                                }
+                                                    </Typography>
                                                 }
                                                 {
                                                     data.status == "ongoing" &&
-                                                    <Typography variant="body2" className={"statusOngoingRed"}>{data.status}</Typography>
+                                                    <Typography variant="body2" className={"statusOngoingRed"}>
+                                                {
+                                                    data.status == "ongoing" && <>{t('Ongoing')}</>
+                                                }
+                                                    </Typography>
                                                 }
                                                 {
                                                     data.status == "completed" &&
-                                                    <Typography variant="body2" className={"statusOngoingGreen"}>{data.status}</Typography>
+                                                    <Typography variant="body2" className={"statusOngoingGreen"}>
+                                                {
+                                                    data.status == "completed" && <>{t('completed')}</>
+                                                }
+                                                    </Typography>
                                                 }
                                             </Box>
                                             <Box className="EventsIconsText">
