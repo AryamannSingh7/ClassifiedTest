@@ -465,6 +465,14 @@ clear= () => {
   this.props.history.push("/");
 }
 
+getNeighboursDetails= (id :any) => {
+  localStorage.setItem("neighboursDetailsId",id)
+  //@ts-ignore
+   this.props.history.push({
+     pathname: "/NeighboursDetails",
+ });
+ }
+
   getNeighboursListing= ()  => {
     try {
       const header = {
@@ -502,7 +510,7 @@ clear= () => {
   };
   
 
-  getIncidentDetailsById= (id : any) => {
+  getNeighboursDetailsById= (id : any) => {
     try {
       const header = {
         "Content-Type": configJSON.validationApiContentType,
@@ -517,7 +525,7 @@ clear= () => {
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `bx_block_custom_form/incidents/${id}`
+        `accounts/neighobour_profile?account_id=90`
       );
 
       requestMessage.addData(
