@@ -64,6 +64,17 @@ class NeighboursListing extends NeighboursController {
                     <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
                     <h4>My Neighbours</h4>
                   </Box>
+                  <Box>
+                    <TextField
+                      style={{ width: '100%' }}
+                      multiline
+                      rows={4}
+                      id="outlined-multiline-static"
+                      variant="outlined"
+                      label="add notes"
+                      margin="normal"
+                    />
+                  </Box>
                   <Button>
                     <img src={Search_Icon} className="Search_Icon" alt="Search Icon" />
                   </Button>
@@ -174,7 +185,7 @@ class NeighboursListing extends NeighboursController {
                 </Box>
                 <Box className="footer-main-block bottomBlock">
                   <h6 className="bottom-text">POWERED BY</h6>
-                  <img src={Tenant_Logo} className="tenant-logo" alt="" />
+                  <img src={Tenant_Logo.default} className="tenant-logo" alt="" />
                 </Box>
               </Box>
             </Grid>
