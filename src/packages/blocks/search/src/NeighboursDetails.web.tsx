@@ -39,7 +39,7 @@ import {
   Contact_Disable_Icon,
   Email_Disable_Icon,
   FB_Icon,
-  Twitter_Icon
+  Twitter_Icon,
 }
   from "../src/assets";
 class NeighboursDetails extends NeighboursController {
@@ -70,6 +70,7 @@ class NeighboursDetails extends NeighboursController {
                   </Box>
                   <Button>
                     <img src={Search_Icon} className="Search_Icon" alt="Search Icon" />
+                    <img src={Setting_Icon} className="Search_Icon" alt="Search Icon" />
                   </Button>
                 </Box>
                 <Box className="content-block-wrapper common-incident-block desktop-ui">

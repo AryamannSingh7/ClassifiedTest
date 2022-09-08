@@ -10,7 +10,8 @@ import {
   Card,
   CardContent,
   CardActions,
-  Typography
+  Typography,
+  TextField
 } from "@material-ui/core";
 
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -31,11 +32,14 @@ import {
   Building1,
   Search_Icon,
   Building_Icon,
+  NoProfile_Img,
   User1_Img,
   User2_Img,
   User3_Img,
   Chat_Icon,
   Contact_Icon,
+  Cancel_Icon,
+  Setting_Icon,
   Email_Msg_Icon,
   Chat_Disable_Icon,
   Contact_Disable_Icon,
@@ -64,19 +68,18 @@ class NeighboursListing extends NeighboursController {
                     <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
                     <h4>My Neighbours</h4>
                   </Box>
-                  <Box>
+                  <Box className="searchTexfieldBox">
                     <TextField
                       style={{ width: '100%' }}
-                      multiline
                       rows={4}
                       id="outlined-multiline-static"
                       variant="outlined"
-                      label="add notes"
-                      margin="normal"
+                      placeholder="Search"
                     />
                   </Box>
                   <Button>
                     <img src={Search_Icon} className="Search_Icon" alt="Search Icon" />
+                    <img src={Cancel_Icon} className="Search_Icon" alt="Search Icon" />
                   </Button>
                 </Box>
                 <Box className="content-block-wrapper common-incident-block desktop-ui">
@@ -111,7 +114,7 @@ class NeighboursListing extends NeighboursController {
                     <Grid item xs={12} md={6}>
                       <Card className="neighbour-card card">
                         <CardContent>
-                          <img src={User1_Img} className="info-icon" alt="info-icon" />
+                          <img src={NoProfile_Img} className="info-icon" alt="info-icon" />
                           <Typography component="h4">
                             Yasaman Foroutan
                           </Typography>
