@@ -146,7 +146,6 @@
   }
 
   margin-bottom: 25px;
-
   &.management-card {
     margin: 0;
 
@@ -404,17 +403,15 @@
     }
   }
 
-  & .neighbour-card {
+  &.neighbour-card {
     box-shadow: none;
     border: 0;
     margin-bottom: 10px;
-
     & .MuiCardContent-root {
       display: flex;
       flex-direction: column;
       align-items: center;
     }
-
     & h4 {
       &.MuiTypography-body1 {
         margin: 10px 0;
@@ -425,28 +422,23 @@
         }
       }
     }
-
     & .social-raw {
       display: flex;
       background-color: #f6f6f6;
       padding: 12px;
       border-radius: 20px;
       margin-top: 10px;
-
       & .blocks {
         border-right: 2px solid #d7dbe4;
-
         &:last-child {
           border-right: 0;
         }
-
         & .icons {
           height: 18px;
           width: 18px;
           object-fit: contain;
           border-radius: 0;
         }
-
         padding: 0 10px;
       }
     }
