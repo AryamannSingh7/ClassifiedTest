@@ -1,7 +1,4 @@
 // Customizable Area Start
-//@ts-nocheck
-//@ts-ignore
-
 import React from "react";
 import {
   Container,
@@ -35,18 +32,19 @@ import "@szhsin/react-menu/dist/core.css";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { MeetingsStyleWeb } from "./MeetingsStyle.web";
-import SearchIconImage from "../assets/search.png";
+import { SearchIconImage } from "./assets";
 import SearchIcon from "@material-ui/icons/Search";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+//@ts-ignore
 import Pagination from "@material-ui/lab/Pagination";
-import CommentIcon from "../assets/comment.png";
+import toast from "react-hot-toast";
 
 class MeetingMinutes extends MeetingMinutesController {
   constructor(props: Props) {
     super(props);
   }
 
-  componentDidMount(): Promise<void> {
+  async componentDidMount(): Promise<void> {
     this.getAllMeetings();
   }
 
@@ -122,7 +120,7 @@ class MeetingMinutes extends MeetingMinutesController {
                             <TableCell colSpan={5}>No Meeting Minutes Available!!</TableCell>
                           </TableRow>
                         )}
-                        {this.state.meetingMinuteList.map((meeting: any, index: string) => {
+                        {this.state.meetingMinuteList.map((meeting: any, index: number) => {
                           return (
                             <TableRow key={index}>
                               <TableCell align="left">{index + 1}</TableCell>
@@ -132,9 +130,7 @@ class MeetingMinutes extends MeetingMinutesController {
                               <TableCell align="left" className="ellipse">
                                 {meeting.attributes.agenda}
                               </TableCell>
-                              <TableCell align="left">
-                                {meeting.attributes.meeting_date_time}
-                              </TableCell>
+                              <TableCell align="left">{meeting.attributes.meeting_date_time}</TableCell>
                               <TableCell align="left">
                                 <span className={meeting.attributes.meeting_mins_status}>
                                   {meeting.attributes.meeting_mins_status}
@@ -151,8 +147,21 @@ class MeetingMinutes extends MeetingMinutesController {
                                   <MenuItem>
                                     <Link to={`/MeetingMinute/${meeting.id}`}>View</Link>
                                   </MenuItem>
-                                  <MenuItem>Download</MenuItem>
-                                  <MenuItem>Share</MenuItem>
+                                  {!meeting.attributes.meeting_mins_pdf ? (
+                                    <>
+                                      <MenuItem onClick={() => toast.error("No meeting document available!!")}>
+                                        Download
+                                      </MenuItem>
+                                      <MenuItem onClick={() => toast.error("No meeting document available!!")}>
+                                        Share
+                                      </MenuItem>
+                                    </>
+                                  ) : (
+                                    <>
+                                      <MenuItem>Download</MenuItem>
+                                      <MenuItem>Share</MenuItem>
+                                    </>
+                                  )}
                                 </Menu>
                               </TableCell>
                             </TableRow>
@@ -163,8 +172,8 @@ class MeetingMinutes extends MeetingMinutesController {
                     <Divider />
                     <Box className="table-bottom">
                       <p>
-                        Showing <span className="current-page">1</span> of{" "}
-                        <span className="total-page">100</span> results
+                        Showing <span className="current-page">1</span> of <span className="total-page">100</span>{" "}
+                        results
                       </p>
                       <Pagination count={6} variant="outlined" shape="rounded" />
                     </Box>

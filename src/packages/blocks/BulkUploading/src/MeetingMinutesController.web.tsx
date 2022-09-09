@@ -6,6 +6,8 @@ import { runEngine } from "../../../framework/src/RunEngine";
 
 // Customizable Area Start
 import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
+import RichTextEditor from "react-rte";
+import toast from "react-hot-toast";
 // Customizable Area End
 
 export const configJSON = require("./config.js");
@@ -28,6 +30,8 @@ interface S {
   meetingMinuteId: string;
   meetingMinuteStatus: string;
   meetingMinuteDetails: any;
+
+  meetingNote: any;
   // Customizable Area End
 }
 
@@ -39,16 +43,14 @@ export default class MeetingMinutesController extends BlockComponent<Props, S, S
   GetAllMinuteMeetingsCallId: any;
   GetMinuteMeetingDetailCallId: any;
   UpdateMinuteMeetingCallId: any;
+  MinuteMeetingNoteCallId: any;
 
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
     console.disableYellowBox = true;
     // Customizable Area Start
-    this.subScribedMessages = [
-      getName(MessageEnum.RestAPIResponceMessage),
-      getName(MessageEnum.RestAPIRequestMessage),
-    ];
+    this.subScribedMessages = [getName(MessageEnum.RestAPIResponceMessage), getName(MessageEnum.RestAPIRequestMessage)];
 
     this.state = {
       isRejectMeetingModalOpen: false,
@@ -59,6 +61,8 @@ export default class MeetingMinutesController extends BlockComponent<Props, S, S
       meetingMinuteId: "",
       meetingMinuteStatus: "",
       meetingMinuteDetails: null,
+
+      meetingNote: RichTextEditor.createEmptyValue(),
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -70,8 +74,7 @@ export default class MeetingMinutesController extends BlockComponent<Props, S, S
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.GetAllMinuteMeetingsCallId !== null &&
-      this.GetAllMinuteMeetingsCallId ===
-        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+      this.GetAllMinuteMeetingsCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.GetAllMinuteMeetingsCallId = null;
 
@@ -96,8 +99,7 @@ export default class MeetingMinutesController extends BlockComponent<Props, S, S
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.GetMinuteMeetingDetailCallId !== null &&
-      this.GetMinuteMeetingDetailCallId ===
-        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+      this.GetMinuteMeetingDetailCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.GetMinuteMeetingDetailCallId = null;
 
@@ -107,7 +109,35 @@ export default class MeetingMinutesController extends BlockComponent<Props, S, S
         this.setState({
           meetingMinuteDetails: responseJson.meeting.data,
           meetingMinuteStatus: responseJson.meeting.data.attributes.meeting_mins_status,
+          meetingNote: RichTextEditor.createValueFromString(
+            responseJson.meeting.data.attributes.meeting_mins_notes,
+            "html"
+          ),
         });
+      }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // Add / Edit Meeting Minute Note API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.MinuteMeetingNoteCallId !== null &&
+      this.MinuteMeetingNoteCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.MinuteMeetingNoteCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      if (responseJson.code === 200) {
+        toast.success("Meeting Minuted Added Successful!!");
+        this.props.navigation.goBack();
       }
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
@@ -141,10 +171,7 @@ export default class MeetingMinutesController extends BlockComponent<Props, S, S
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypeGet
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
@@ -164,17 +191,12 @@ export default class MeetingMinutesController extends BlockComponent<Props, S, S
     const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_meeting/meeting_mins/${
-        this.state.meetingMinuteId
-      }`
+      `society_managements/${society_id}/bx_block_meeting/meeting_mins/${this.state.meetingMinuteId}`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypeGet
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
@@ -200,22 +222,56 @@ export default class MeetingMinutesController extends BlockComponent<Props, S, S
 
     this.UpdateMinuteMeetingCallId = apiRequest.messageId;
 
+    const society_id = localStorage.getItem("society_id");
     apiRequest.addData(getName(MessageEnum.RestAPIResponceEndPointMessage), ``);
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestBodyMessage), JSON.stringify(body));
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePut);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  // Add / Edit Meeting Minute Note API
+  meetingMinuteNote = () => {
+    var data = new FormData();
+    data.append("meeting_mins_notes", this.state.meetingNote._cache.html);
+
+    const header = {
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.MinuteMeetingNoteCallId = apiRequest.messageId;
+
+    const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypePut
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `society_managements/${society_id}/bx_block_meeting/meeting_mins/${this.state.meetingMinuteId}/meeting_mins_notes`
     );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestBodyMessage), data);
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePut);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
   };
 
   // Handle State
+  onChange = (value: any) => {
+    console.log(value.toString("html"));
+    this.setState({
+      meetingNote: value,
+    });
+  };
+
   handleRejectMeetingModal = () => {
     this.setState({
       isRejectMeetingModalOpen: !this.state.isRejectMeetingModalOpen,

@@ -1,25 +1,26 @@
 // Customizable Area Start
-//@ts-nocheck
-//@ts-ignore
 import React from "react";
-import {
-  Container,
-  IconButton,
-  Link,
-  withStyles,
-  Box,
-  Grid,
-} from "@material-ui/core";
+import { Container, IconButton, Link, withStyles, Box, Grid } from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import MyMeetingsController, { Props } from "./MyMeetingsController.web";
-import BuildingLogo from "../assets/building.png";
+import { BuildingLogo, DownloadIcon, PdfIcon } from "./assets";
 import { MeetingsStyleWeb } from "./MeetingsStyle.web";
-import DownloadIcon from "../assets/download.png";
-import PdfIcon from "../assets/pdf.png";
 
 class MyMeetingMinuteDetail extends MyMeetingsController {
   constructor(props: Props) {
     super(props);
+  }
+
+  async componentDidMount(): Promise<void> {
+    const meeting_id = this.props.navigation.getParam("id");
+    this.setState(
+      {
+        scheduleMeetingId: meeting_id,
+      },
+      () => {
+        this.getMeetingById();
+      }
+    );
   }
 
   render() {
@@ -46,7 +47,12 @@ class MyMeetingMinuteDetail extends MyMeetingsController {
                 <Container>
                   <Box className="content-box">
                     <Box className="meeting-details">
-                      <Box>Meeting Minutes</Box>
+                      <Box>
+                        <iframe
+                          src={this.state.meeting && this.state.meeting.attributes.meeting_mins_pdf.url}
+                          title="description"
+                        />
+                      </Box>
                     </Box>
                     <div className="upload-button meeting-pdf">
                       {/* <Grid container>
@@ -54,9 +60,17 @@ class MyMeetingMinuteDetail extends MyMeetingsController {
                       <Box className="pdf-detail">
                         <div className="heading">
                           <img src={PdfIcon} alt="pdf" />
-                          <h6>Meeting Minutes 01-04-2022</h6>
+                          <h6>
+                            Meeting Minutes {this.state.meeting && this.state.meeting.attributes.meeting_date_time}
+                          </h6>
                         </div>
-                        <img src={DownloadIcon} alt="download" />
+                        <Link
+                          href={this.state.meeting && this.state.meeting.attributes.meeting_mins_pdf.url}
+                          target="_blank"
+                          className="download-pdf"
+                        >
+                          <img src={DownloadIcon} alt="download" />
+                        </Link>
                       </Box>
                       {/* </Grid>
                       </Grid> */}
@@ -67,7 +81,7 @@ class MyMeetingMinuteDetail extends MyMeetingsController {
             </Grid>
             <Grid item xs={12} md={5}>
               <Box className="right-block right-image" display={{ xs: "none", md: "flex" }}>
-                <img src={BuildingLogo} className="building-logo" alt="" />
+                <img src={BuildingLogo.default} className="building-logo" alt="" />
               </Box>
             </Grid>
           </Grid>
