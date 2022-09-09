@@ -78,7 +78,7 @@ class MeetingMinuteDetails extends MeetingMinutesController {
                   <>
                     <Box className="meeting-detail-box">
                       <Box className="meeting-top">
-                        <h3>Meeting Minutes 01-04-2022 18:30</h3>
+                        <h3>Meeting Minutes {this.state.meetingMinuteDetails.attributes.meeting_date_time}</h3>
                         <span className={this.state.meetingMinuteStatus}>{this.state.meetingMinuteStatus}</span>
                       </Box>
                       <Divider />
@@ -86,9 +86,7 @@ class MeetingMinuteDetails extends MeetingMinutesController {
                         <Box className="resolution">
                           <div
                             dangerouslySetInnerHTML={{
-                              __html:
-                                this.state.meetingMinuteDetails &&
-                                this.state.meetingMinuteDetails.attributes.meeting_mins_notes,
+                              __html: this.state.meetingMinuteDetails.attributes.meeting_mins_notes,
                             }}
                           />
                         </Box>
@@ -98,10 +96,7 @@ class MeetingMinuteDetails extends MeetingMinutesController {
                             <h6>Meeting Minutes 01-04-2022</h6>
                           </div>
                           <NavLink
-                            href={
-                              this.state.meetingMinuteDetails &&
-                              this.state.meetingMinuteDetails.attributes.meeting_mins_pdf.url
-                            }
+                            href={this.state.meetingMinuteDetails.attributes.meeting_mins_pdf.url}
                             target="_blank"
                           >
                             <img src={DownloadIcon} alt="download" />
@@ -109,21 +104,29 @@ class MeetingMinuteDetails extends MeetingMinutesController {
                         </Box>
                       </Box>
                     </Box>
+                    {this.state.meetingMinuteDetails.attributes.meeting_mins_status === "rejected" && (
+                      <Box className="rejection-box">
+                        <Card>
+                          <h4>Rejection Reason</h4>
+                          <p>{this.state.meetingMinuteDetails.attributes.meeting_reject_note.note}</p>
+                        </Card>
+                      </Box>
+                    )}
                     <Box className="button-box">
                       <Link to={`/MeetingMinute/${this.state.meetingMinuteId}/Note`}>
                         <Button className="edit">Edit</Button>
                       </Link>
                     </Box>
-                    {this.state.meetingMinuteStatus === "pending" && (
-                      <Box className="button-box">
-                        <Button className="cancel" onClick={() => this.handleRejectMeetingModal()}>
-                          Reject
-                        </Button>
-                        <Button className="edit" onClick={() => this.handleApproveMeetingModal()}>
-                          Approve
-                        </Button>
-                      </Box>
-                    )}
+                    {/* {this.state.meetingMinuteStatus === "pending" && ( */}
+                    <Box className="button-box">
+                      <Button className="cancel" onClick={() => this.handleRejectMeetingModal()}>
+                        Reject
+                      </Button>
+                      <Button className="edit" onClick={() => this.handleApproveMeetingModal()}>
+                        Approve
+                      </Button>
+                    </Box>
+                    {/* )} */}
                   </>
                 ) : (
                   <Box className="no-available">
@@ -150,14 +153,29 @@ class MeetingMinuteDetails extends MeetingMinutesController {
           </MuiDialogTitle>
           <DialogContent dividers>
             <FormControl fullWidth>
-              <TextareaAutosize className="dialog-textarea-input" placeholder="Add Notes" />
+              <TextareaAutosize
+                className="reject-note"
+                placeholder="Add Notes"
+                value={this.state.rejectNote}
+                onChange={(e: any) => {
+                  this.setState({
+                    rejectNote: e.target.value,
+                  });
+                }}
+              />
             </FormControl>
           </DialogContent>
           <DialogActions className="dialog-button-group">
             <Button className="cancel-button" onClick={() => this.handleRejectMeetingModal()}>
               Cancel
             </Button>
-            <Button className="add-button">Confirm</Button>
+            <Button
+              className="add-button"
+              disabled={this.state.rejectNote.length === 0 || this.isInputOnlyWhiteSpace(this.state.rejectNote)}
+              onClick={() => this.updateMinuteMeeting("rejected")}
+            >
+              Confirm
+            </Button>
           </DialogActions>
         </Dialog>
 
@@ -170,9 +188,13 @@ class MeetingMinuteDetails extends MeetingMinutesController {
           <DialogContent style={{ margin: "15px 0" }}>
             <Box textAlign="center">
               <img className="comment-image" src={CheckIcon} alt="check" />
-              <Typography variant="h6">Approve meeting minutes 01-04-2022 18:30</Typography>
+              <Typography variant="h6">
+                Approve meeting minutes{" "}
+                {this.state.meetingMinuteDetails && this.state.meetingMinuteDetails.attributes.meeting_date_time}
+              </Typography>
               <Typography variant="body1" style={{ marginBottom: "0px" }}>
-                Are you sure you want to approve meeting minutes 01-04-2022 18:30?
+                Are you sure you want to approve meeting minutes{" "}
+                {this.state.meetingMinuteDetails && this.state.meetingMinuteDetails.attributes.meeting_date_time}?
               </Typography>
               <DialogActions className="dialog-button-group">
                 <Button
@@ -182,7 +204,11 @@ class MeetingMinuteDetails extends MeetingMinutesController {
                 >
                   Close
                 </Button>
-                <Button style={{ width: "200px" }} className="add-button">
+                <Button
+                  style={{ width: "200px" }}
+                  className="add-button"
+                  onClick={() => this.updateMinuteMeeting("approved")}
+                >
                   Confirm
                 </Button>
               </DialogActions>

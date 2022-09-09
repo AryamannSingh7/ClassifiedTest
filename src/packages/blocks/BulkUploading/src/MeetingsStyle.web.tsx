@@ -164,26 +164,32 @@ export const MeetingsStyleWeb: any = {
     "& .scheduled": {
       background: "#D4FFE3",
       color: "#1EC65B",
+      fontWeight: 600,
     },
     "& .completed": {
       background: "#F1F1F1",
       color: "#6C6C6C",
+      fontWeight: 600,
     },
     "& .cancelled": {
       background: "#FFEAEA",
       color: "#F21717",
+      fontWeight: 600,
     },
     "& .rejected": {
       background: "#FFEAEA",
       color: "#F21717",
+      fontWeight: 600,
     },
     "& .approved": {
       background: "#D4FFE3",
       color: "#1EC65B",
+      fontWeight: 600,
     },
     "& .pending": {
       background: "#FFEDE0",
       color: "#FC8434",
+      fontWeight: 600,
     },
     "& .error": {
       color: "red",
@@ -221,6 +227,9 @@ export const MeetingsStyleWeb: any = {
       width: "100%",
     },
     "& .navigation .sub-heading h3": {
+      fontWeight: 600,
+    },
+    "& .navigation h5.sub-heading ": {
       fontWeight: 600,
     },
     "& .navigation .sub-heading button": {
@@ -360,30 +369,37 @@ export const MeetingsStyleWeb: any = {
     "& .scheduled": {
       background: "#D4FFE3",
       color: "#1EC65B",
+      fontWeight: 600,
     },
     "& .completed": {
       background: "#F1F1F1",
       color: "#6C6C6C",
+      fontWeight: 600,
     },
     "& .cancelled": {
       background: "#FFEAEA",
       color: "#F21717",
+      fontWeight: 600,
     },
     "& .rejected": {
       background: "#FFEAEA",
       color: "#F21717",
+      fontWeight: 600,
     },
     "& .approved": {
       background: "#D4FFE3",
       color: "#1EC65B",
+      fontWeight: 600,
     },
     "& .pending": {
       background: "#FFEDE0",
       color: "#FC8434",
+      fontWeight: 600,
     },
     "& .accepted": {
       background: "#D4FFE3",
       color: "#1EC65B",
+      fontWeight: 600,
     },
     "& .awaiting": {
       background: "#FFEDE0",
@@ -413,6 +429,15 @@ export const MeetingsStyleWeb: any = {
       background: "#FC8434",
       color: "white",
       borderColor: "#FC8434",
+    },
+    "& .rejection-box .MuiCard-root": {
+      padding: "20px",
+      boxShadow: "none",
+      margin: "0 0 20px",
+    },
+    "& .rejection-box .MuiCard-root h4": {
+      color: "red",
+      marginBottom: "10px",
     },
   },
   meetingList: {
