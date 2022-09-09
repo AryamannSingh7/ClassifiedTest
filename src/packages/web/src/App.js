@@ -199,6 +199,8 @@ import ReceiptsDetails from '../../blocks/InvoiceBilling/src/ReceiptsDetails.web
 import CharmainInvoices from '../../blocks/dashboard/src/CharmainInvoices.web';
 
 import ChairmanProfile from '../../blocks/Settings5/src/ChairmanProfile.web';
+import Profile from '../../blocks/user-profile-basic/src/Profile.web';
+import EditProfile from '../../blocks/user-profile-basic/src/EditProfile.web';
 
 const routeMap = {
   //done
@@ -207,6 +209,18 @@ const routeMap = {
     path: '/',
     exact: true,
     roles: [ROLE.PRIVATE]
+  },
+  Profile: {
+    component: Profile,
+    path: '/profile',
+    exact: true,
+    // roles: [ROLE.PRIVATE]
+  },
+  EditProfile: {
+    component: EditProfile,
+    path: '/editprofile',
+    exact: true,
+    // roles: [ROLE.PRIVATE]
   },
   Inbox: {
     component: Inbox,
