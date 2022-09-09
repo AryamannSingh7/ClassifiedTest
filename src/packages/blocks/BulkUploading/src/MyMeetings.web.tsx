@@ -1,17 +1,6 @@
 // Customizable Area Start
 import React from "react";
-import {
-  Container,
-  IconButton,
-  Link,
-  withStyles,
-  Box,
-  Grid,
-  Tab,
-  MenuItem,
-  Card,
-  Divider,
-} from "@material-ui/core";
+import { Container, IconButton, Link, withStyles, Box, Grid, Tab, MenuItem, Card, Divider } from "@material-ui/core";
 import { Menu } from "@szhsin/react-menu";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import MyMeetingsController, { Props } from "./MyMeetingsController.web";
@@ -152,11 +141,7 @@ class MyMeetings extends MyMeetingsController {
                                           ) : (
                                             <Box className="decision">
                                               <p>Your Response</p>
-                                              <span
-                                                className={`status ${
-                                                  meeting.attributes.meeting_response
-                                                }`}
-                                              >
+                                              <span className={`status ${meeting.attributes.meeting_response}`}>
                                                 {meeting.attributes.meeting_response}
                                               </span>
                                             </Box>

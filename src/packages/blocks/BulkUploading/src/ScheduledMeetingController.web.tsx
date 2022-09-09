@@ -60,6 +60,7 @@ interface S {
   scheduleMeetingList: any[];
   buildingsList: any[];
   managersList: any[];
+  responseList: any[];
 
   pagination: any | Pagination;
 
@@ -88,6 +89,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
   CreateMeetingCallId: any;
   EditMeetingCallId: any;
   UpdateStatusMeetingCallId: any;
+  GetMeetingResponseCallId: any;
 
   constructor(props: Props) {
     super(props);
@@ -106,6 +108,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
       scheduleMeetingList: [],
       buildingsList: [],
       managersList: [],
+      responseList: [],
 
       pagination: null,
 
@@ -340,6 +343,30 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
           }
         }
       );
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // Get Meeting Response API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.GetMeetingResponseCallId !== null &&
+      this.GetMeetingResponseCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.GetMeetingResponseCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      if (responseJson.data) {
+        this.setState({ responseList: responseJson.data });
+      }
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
 
@@ -596,6 +623,31 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
     apiRequest.addData(getName(MessageEnum.RestAPIRequestBodyMessage), JSON.stringify(body));
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePut);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  // Get Meeting Response API
+  getMeetingResponseList = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.GetMeetingResponseCallId = apiRequest.messageId;
+
+    const society_id = localStorage.getItem("society_id");
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `society_managements/${society_id}/bx_block_meeting/meeting_responses?meeting_id=${this.state.scheduleMeetingId}`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;

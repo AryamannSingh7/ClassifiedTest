@@ -14,6 +14,7 @@ import {
   TextareaAutosize,
   Card,
 } from "@material-ui/core";
+import { Link as NavLink } from "@material-ui/core";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
 import Box from "@material-ui/core/Box";
@@ -23,6 +24,7 @@ import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { MeetingsStyleWeb } from "./MeetingsStyle.web";
 import { DownloadIcon, PdfIcon, CheckIcon } from "./assets";
+import { Link } from "react-router-dom";
 
 class MeetingMinuteDetails extends MeetingMinutesController {
   constructor(props: Props) {
@@ -81,15 +83,36 @@ class MeetingMinuteDetails extends MeetingMinutesController {
                       </Box>
                       <Divider />
                       <Box className="meeting-minute-details">
-                        <Box className="resolution">Meeting Detail</Box>
+                        <Box className="resolution">
+                          <div
+                            dangerouslySetInnerHTML={{
+                              __html:
+                                this.state.meetingMinuteDetails &&
+                                this.state.meetingMinuteDetails.attributes.meeting_mins_notes,
+                            }}
+                          />
+                        </Box>
                         <Box className="pdf-detail">
                           <div className="heading">
                             <img src={PdfIcon} alt="pdf" />
                             <h6>Meeting Minutes 01-04-2022</h6>
                           </div>
-                          <img src={DownloadIcon} alt="download" />
+                          <NavLink
+                            href={
+                              this.state.meetingMinuteDetails &&
+                              this.state.meetingMinuteDetails.attributes.meeting_mins_pdf.url
+                            }
+                            target="_blank"
+                          >
+                            <img src={DownloadIcon} alt="download" />
+                          </NavLink>
                         </Box>
                       </Box>
+                    </Box>
+                    <Box className="button-box">
+                      <Link to={`/MeetingMinute/${this.state.meetingMinuteId}/Note`}>
+                        <Button className="edit">Edit</Button>
+                      </Link>
                     </Box>
                     {this.state.meetingMinuteStatus === "pending" && (
                       <Box className="button-box">
@@ -105,6 +128,12 @@ class MeetingMinuteDetails extends MeetingMinutesController {
                 ) : (
                   <Box className="no-available">
                     <Card>No Meeting Minute Available !!</Card>
+
+                    <Box className="button-box">
+                      <Link to={`/MeetingMinute/${this.state.meetingMinuteId}/Note`}>
+                        <Button className="edit">Add</Button>
+                      </Link>
+                    </Box>
                   </Box>
                 )}
               </Container>

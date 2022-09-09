@@ -188,16 +188,48 @@ export const MeetingsStyleWeb: any = {
     "& .error": {
       color: "red",
     },
+    "& .meeting-minute-note .MuiCard-root": {
+      padding: "20px",
+      boxShadow: "none",
+    },
+    "& .meeting-minute-note .MuiCard-root p": {
+      marginBottom: "10px",
+    },
+    "& .meeting-minute-note .MuiCard-root .editor .public-DraftEditor-content > div": {
+      minHeight: "300px",
+    },
+    "& .meeting-minute-note > button": {
+      float: "right",
+      background: "#2B6FED",
+      color: "white",
+      padding: "10px 20px",
+      borderRadius: "5px",
+      fontWeight: "600",
+      marginTop: "20px",
+    },
   },
   scheduledMeetingDetails: {
     "& .navigation": {
-      display: "flex",
-      justifyContent: "space-between",
+      display: "block",
     },
     "& .navigation .sub-heading": {
-      fontWeight: 600,
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
       marginTop: 15,
       marginBottom: 15,
+      width: "100%",
+    },
+    "& .navigation .sub-heading h3": {
+      fontWeight: 600,
+    },
+    "& .navigation .sub-heading button": {
+      minWidth: "150px",
+      padding: "12px 20px",
+      borderRadius: "5px",
+      fontWeight: "600",
+      color: "white",
+      background: "#2B6FED",
     },
     "& a": {
       textDecoration: "none",
@@ -316,8 +348,13 @@ export const MeetingsStyleWeb: any = {
       width: "20px",
       height: "20px",
     },
+    "& .meeting-minute-details .pdf-detail a img": {
+      width: "20px",
+      height: "20px",
+    },
     "& .no-available .MuiCard-root": {
       padding: "20px",
+      marginBottom: "20px",
       boxShadow: "none",
     },
     "& .scheduled": {
@@ -355,6 +392,7 @@ export const MeetingsStyleWeb: any = {
     "& .response-box .table-box td.MuiTableCell-root span": {
       padding: "5px 10px",
       borderRadius: "25px",
+      textTransform: "capitalize",
     },
     "& .response-box .table-box th": {
       fontWeight: "600",

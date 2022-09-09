@@ -33,24 +33,21 @@ import { Formik, Form } from "formik";
 import moment from "moment";
 //@ts-ignore
 import Pagination from "@material-ui/lab/Pagination";
+import { Link } from "react-router-dom";
 
 class ScheduledMeetingDetails extends ScheduledMeetingController {
   constructor(props: Props) {
     super(props);
   }
 
-  componentDidMount(): any {
+  async componentDidMount(): Promise<void> {
     const meeting_id = this.props.navigation.getParam("id");
-    this.setState(
-      {
-        scheduleMeetingId: meeting_id,
-      },
-      () => {
-        this.getScheduleMeetingDetail();
-        this.getBuildingsList();
-        this.getManagersList();
-      }
-    );
+    this.setState({ scheduleMeetingId: meeting_id }, () => {
+      this.getScheduleMeetingDetail();
+      this.getMeetingResponseList();
+      this.getBuildingsList();
+      this.getManagersList();
+    });
   }
 
   render() {
@@ -79,9 +76,14 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                         Meeting Details
                       </Box>
                     </Typography>
-                    <Typography variant="h5" className="sub-heading">
-                      Meeting Details
-                    </Typography>
+                  </Box>
+                  <Box className="sub-heading">
+                    <h3>Meeting Details</h3>
+                    {this.state.scheduleMeetingStatus === "completed" && (
+                      <Link to={`/ScheduledMeeting/${this.state.scheduleMeetingId}/Note`}>
+                        <Button>Add Meeting Minutes</Button>
+                      </Link>
+                    )}
                   </Box>
                 </Box>
                 <Box className="meeting-detail-box">
@@ -149,7 +151,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                       </Box>
                     )}
                 </Box>
-                {this.state.scheduleMeetingDetails && this.state.scheduleMeetingStatus === "scheduled" && (
+                {this.state.scheduleMeetingDetails && this.state.scheduleMeetingStatus === "scheduled" ? (
                   <Box className="response-box">
                     <Box className="heading">
                       <h3>Response</h3>
@@ -188,15 +190,64 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                         </TableRow>
                       </TableHead>
                       <TableBody>
+                        {this.state.responseList.length === 0 && (
+                          <TableRow>
+                            <TableCell colSpan={5}>No User Available !!</TableCell>
+                          </TableRow>
+                        )}
+                        {this.state.responseList.map((user: any) => {
+                          return (
+                            <TableRow>
+                              <TableCell>{user.attributes.Name}</TableCell>
+                              <TableCell>{user.attributes.building_name}</TableCell>
+                              <TableCell>{user.attributes.unit_number}</TableCell>
+                              <TableCell>{user.attributes.floor_number}</TableCell>
+                              <TableCell>
+                                <span className={user.attributes.status}>{user.attributes.status}</span>
+                              </TableCell>
+                            </TableRow>
+                          );
+                        })}
+                      </TableBody>
+                    </Table>
+                    <Box className="table-bottom">
+                      <p>
+                        Showing <span className="current-page">1</span> of <span className="total-page">100</span>{" "}
+                        results
+                      </p>
+                      <Pagination count={5} page={2} siblingCount={2} variant="outlined" shape="rounded" />
+                    </Box>
+                  </Box>
+                ) : (
+                  <Box className="response-box">
+                    <Box className="heading">
+                      <h3>Meeting Joinees</h3>
+                    </Box>
+                    <Table className="table-box">
+                      <TableHead>
                         <TableRow>
-                          <TableCell>John Doe</TableCell>
-                          <TableCell>Building 1</TableCell>
-                          <TableCell>102</TableCell>
-                          <TableCell>12</TableCell>
-                          <TableCell>
-                            <span className="accepted">Accepted</span>
-                          </TableCell>
+                          <TableCell>Name</TableCell>
+                          <TableCell>Building</TableCell>
+                          <TableCell>Unit No.</TableCell>
+                          <TableCell>Floor Number</TableCell>
                         </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {this.state.responseList.length === 0 && (
+                          <TableRow>
+                            <TableCell colSpan={5}>No User Available !!</TableCell>
+                          </TableRow>
+                        )}
+                        {this.state.responseList.map((user: any) => {
+                          return (
+                            <TableRow>
+                              <TableCell>{user.attributes.Name}</TableCell>
+                              <TableCell>{user.attributes.building_name}</TableCell>
+                              <TableCell>{user.attributes.unit_number}</TableCell>
+                              <TableCell>{user.attributes.floor_number}</TableCell>
+                            </TableRow>
+                          );
+                        })}
                       </TableBody>
                     </Table>
                     <Box className="table-bottom">
