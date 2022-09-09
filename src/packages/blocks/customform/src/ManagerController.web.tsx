@@ -65,7 +65,7 @@ interface SS {
 }
 
 export default class ManagerController extends BlockComponent<Props, S, SS> {
-    // Customizable Area Start     
+    // Customizable Area Start
   createVehicleApiCallId:string='';
   getVehicleListApiCallId:string='';
   deleteVehicleAPICallId:string='';
@@ -818,10 +818,13 @@ if(this.state.allVehcile.length<3){
       // @ts-nocheck
       this.setState({ ...this.state, [e.target.name]: e.target.value }, () => this.getData(e))
     }else{
-      const array = e.target?.value?.split(",");
+      const array = e.target?.value?.split(" ");
       const id = array[0]
-      const name = array[1]
+      array.shift();
+      const name = array.join(' ')
+
       this.getUnit(id)
+      console.log(array)
       this.setState({ buildingName: e.target?.value })
       this.setState({ selectBuilding: name })
 
@@ -881,12 +884,16 @@ if(this.state.allVehcile.length<3){
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
     );
+console.log(this.state.buildingName)
+    console.log(this.state.buildingNameData)
+    console.log(this.state.selectBuilding)
+
 
 
     this.getVehicleListApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_vehicle/vehicles?search_building=${value.buildingName}&search_unit=${value.unit}&filter_by=${value.status}`
+      `bx_block_vehicle/vehicles?search_building=${this.state.selectBuilding}&search_unit=${value.unit}&filter_by=${value.status}`
     );
 
     requestMessage.addData(
