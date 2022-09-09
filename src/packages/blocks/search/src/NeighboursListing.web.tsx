@@ -46,17 +46,18 @@ import {
   Email_Disable_Icon
 }
   from "../src/assets";
+import { building } from "../../email-account-registration/src/assets";
 class NeighboursListing extends NeighboursController {
   constructor(props: Props) {
     super(props);
   }
   componentDidMount() {
-    this.getNeighboursListing()
+    this.getNeighboursListing('','')
+    this.getBuilding() 
   }
 
   render() {
     const { navigation } = this.props;
-
     return (
       <>
         <Box className="login-wrapper incident-wrapper neighbour-listing-wrapper">
@@ -68,19 +69,30 @@ class NeighboursListing extends NeighboursController {
                     <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
                     <h4>My Neighbours</h4>
                   </Box>
-                  <Box className="searchTexfieldBox">
-                    <TextField
-                      style={{ width: '100%' }}
-                      rows={4}
-                      id="outlined-multiline-static"
-                      variant="outlined"
-                      placeholder="Search"
-                    />
-                  </Box>
-                  <Button>
-                    <img src={Search_Icon} className="Search_Icon" alt="Search Icon" />
+                  {
+                     this.state.searchOrCancel === true ? 
+                     <>
+                     <Box className="searchTexfieldBox">
+                     <TextField
+                       name="serachApartmentName"
+                       style={{ width: '100%' }}
+                       rows={4}
+                       id="outlined-multiline-static"
+                       variant="outlined"
+                       placeholder="Search"
+                       onChange={(e) => { this.onChange(e) }}
+                       value={this.state?.serachApartmentName}
+                     />
+                   </Box>
+                   <Button onClick={()=> this.onCancel()}>
                     <img src={Cancel_Icon} className="Search_Icon" alt="Search Icon" />
                   </Button>
+                   </>
+                     :
+                     <Button onClick={()=> this.onSearch()}>
+                     <img src={Search_Icon} className="Search_Icon" alt="Search Icon" />
+                   </Button>
+                  }
                 </Box>
                 <Box className="content-block-wrapper common-incident-block desktop-ui">
                   <Box className="commonForm neighbour-form">
@@ -93,102 +105,57 @@ class NeighboursListing extends NeighboursController {
                             name="myApartment"
                             labelId="demo-simple-select-outlined-label"
                             id="demo-simple-select-outlined"
-                            // onChange={(e) => {
-                            //   (e.target.value != " ") && setFieldValue("myApartment", e.target.value)
-                            // }}
-                            value="Select Park"
+                            onChange={(e) => { this.onChange(e) }}
+                            value={this.state?.myApartment}
                           >
-                            <MenuItem value="1">
-                              Central Park
+                             <MenuItem disabled value=" ">
+                              Select Park
                             </MenuItem>
-                            <MenuItem value="2">
-                              Central Park2
-                            </MenuItem>
+                            {
+                              this.state?.buildingListing?.map((val, index) => (
+                                <MenuItem
+                                  key={index}
+                                  value={val?.attributes?.name}
+                                >
+                                  {val?.attributes?.name}
+                                </MenuItem>
+                              ))
+                            }
                           </Select>
                         </FormControl>
                       </Box>
                   </Box>
-                  {
-                    
-                    <Grid container spacing={2}>
-                    <Grid item xs={12} md={6}>
-                      <Card className="neighbour-card card">
-                        <CardContent>
-                          <img src={NoProfile_Img} className="info-icon" alt="info-icon" />
-                          <Typography component="h4">
-                            Yasaman Foroutan
-                          </Typography>
-                          <Typography component="h5">
-                            B-1405
-                          </Typography>
-                          <Box className="social-raw">
-                            <Box className="blocks">
-                              <img src={Chat_Icon} className="icons" alt="info-icon" />
-                            </Box>
-                            <Box className="blocks">
-                              <img src={Contact_Icon} className="icons" alt="info-icon" />
-                            </Box>
-                            <Box className="blocks">
-                              <img src={Email_Msg_Icon} className="icons" alt="info-icon" />
-                            </Box>
-                          </Box>
-                        </CardContent>
-                      </Card>
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                      <Card className="neighbour-card card">
-                        <CardContent>
-                          <img src={User1_Img} className="info-icon" alt="info-icon" />
-                          <Typography component="h4">
-                            Yasaman Foroutan
-                          </Typography>
-                          <Typography component="h5">
-                            B-1405
-                          </Typography>
-                          <Box className="social-raw">
-                            <Box className="blocks">
-                              <img src={Chat_Icon} className="icons" alt="info-icon" />
-                            </Box>
-                            <Box className="blocks">
-                              <img src={Contact_Icon} className="icons" alt="info-icon" />
-                            </Box>
-                            <Box className="blocks">
-                              <img src={Email_Msg_Icon} className="icons" alt="info-icon" />
-                            </Box>
-                          </Box>
-                        </CardContent>
-                      </Card>
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                      <Card className="neighbour-card card">
-                        <CardContent>
-                          <img src={User1_Img} className="info-icon" alt="info-icon" />
-                          <Typography component="h4">
-                            Yasaman Foroutan
-                          </Typography>
-                          <Typography component="h5">
-                            B-1405
-                          </Typography>
-                          <Box className="social-raw">
-                            <Box className="blocks">
-                              <img src={Chat_Icon} className="icons" alt="info-icon" />
-                            </Box>
-                            <Box className="blocks">
-                              <img src={Contact_Icon} className="icons" alt="info-icon" />
-                            </Box>
-                            <Box className="blocks">
-                              <img src={Email_Msg_Icon} className="icons" alt="info-icon" />
-                            </Box>
-                          </Box>
-                        </CardContent>
-                      </Card>
-                    </Grid>
+                
+                  <Grid container spacing={2}>
+                    {
+                      this.state?.neighboursListing?.map((val:any,index: any)=>(
+                        <Grid item xs={12} md={6} onClick={()=>this.getNeighboursDetails(val?.account?.data?.id)} key={index}>
+                         <Card className="neighbour-card card">
+                           <CardContent>
+                             <img src={val?.account?.data?.attributes?.profile_pic||NoProfile_Img} className="info-icon" alt="info-icon" />
+                             <Typography component="h4">
+                              {val?.account?.data?.attributes?.full_name || "Anonymous"}
+                             </Typography>
+                             <Typography component="h5">
+                              {val?.apartment_name}
+                             </Typography>
+                             <Box className="social-raw">
+                               <Box className="blocks">
+                                 <img src={Chat_Icon}  className="icons" alt="info-icon" />
+                               </Box>
+                               <Box className="blocks">
+                                 <img src={Contact_Icon} className="icons" alt="info-icon" />
+                               </Box>
+                               <Box className="blocks">
+                                 <img src={Email_Msg_Icon} className="icons" alt="info-icon" />
+                               </Box>
+                             </Box>
+                           </CardContent>
+                         </Card>
+                       </Grid>
+                      ))
+                    }        
                   </Grid>
-                  }
-                </Box>
-                <Box className="footer-main-block bottomBlock">
-                  <h6 className="bottom-text">POWERED BY</h6>
-                  <img src={Tenant_Logo.default} className="tenant-logo" alt="" />
                 </Box>
               </Box>
             </Grid>

@@ -49,6 +49,10 @@ export interface S {
   sizeError:any,
   image : any,
   neighboursListing:any;
+  myApartment:any;
+  buildingListing:any;
+  serachApartmentName:any;
+  searchOrCancel:any
   // Customizable Area End
 }
 
@@ -76,7 +80,7 @@ export default class NeighboursController extends BlockComponent<
   getNeighboursListingApiCallId : any ;
   getIncidentRelatedApiCallId:any;
   getMyApartmentListApiCallId:any;
-
+  getBuildingListApiCallId:any
   imgPasswordVisible: any;
   imgPasswordInVisible: any;
 
@@ -134,6 +138,10 @@ export default class NeighboursController extends BlockComponent<
       notImageOrVideoError:false,
       sizeError:false,
       image:[],
+      myApartment:" ",
+      buildingListing:[],
+      serachApartmentName:'',
+      searchOrCancel:false
       // Customizable Area End
     };
 
@@ -197,10 +205,24 @@ export default class NeighboursController extends BlockComponent<
             }
           }
         } 
+        else if (apiRequestCallId === this.getBuildingListApiCallId) {
+          if (responseJson && responseJson?.data ) {
+          console.log("getNeighboursListingApiCallId ========================>",responseJson)
+          this.setState({buildingListing :responseJson?.data})
+          this.setState({loading: false})
+          } else if (responseJson?.errors) {
+            let error = responseJson.errors[0] as string;
+            this.setState({ error });
+          } else {
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
+          }
+          this.parseApiCatchErrorResponse(this.state.error);
+          this.setState({loading: false , error:null})
+        }
         else if (apiRequestCallId === this.getNeighboursListingApiCallId) {
           if (responseJson && responseJson?.data ) {
           console.log("getNeighboursListingApiCallId ========================>",responseJson)
-          this.setState({neighboursListing :responseJson?.data})
+          this.setState({neighboursListing :responseJson?.data?.neighbours_list})
           this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = responseJson.errors[0] as string;
@@ -458,6 +480,30 @@ export default class NeighboursController extends BlockComponent<
     secureTextEntry: true
   };
 
+  onCancel= ()=>{
+    this.setState({searchOrCancel : false ,serachApartmentName :''}) 
+    this.getNeighboursListing('',this.state?.myApartment);
+  }  
+ 
+  onSearch= ()=>{
+    this.setState({searchOrCancel : true}) 
+  }  
+
+  onChange =(e :any)=>{
+    if(e.target.name === 'myApartment'){
+      //@ts-ignore
+      this.setState({ [e.target.name]:e.target.value}) 
+      this.getNeighboursListing(this.state?.serachApartmentName,this.state?.myApartment);
+    }
+     else if(e.target.name === 'serachApartmentName'){
+      console.log("e.target.value==========>",e.target.value)
+        //@ts-ignore
+      this.setState({ [e.target.name]:e.target.value}) 
+      setTimeout(()=>{
+        this.getNeighboursListing(this.state?.serachApartmentName,this.state?.myApartment);
+     }, 1000)
+      }
+  }
 
 clear= () => {
   localStorage.clear()
@@ -473,7 +519,7 @@ getNeighboursDetails= (id :any) => {
  });
  }
 
-  getNeighboursListing= ()  => {
+  getNeighboursListing= (serachApartmentName:any,myApartment:any)  => {
     try {
       const header = {
         "Content-Type": configJSON.searchApiContentType,
@@ -487,9 +533,10 @@ getNeighboursDetails= (id :any) => {
       this.getNeighboursListingApiCallId = requestMessage.messageId;
       this.setState({ loading: true });
        
+      const getNeighboursListing =`/account_block/accounts/neighobour_list?search_term=${serachApartmentName}&filter_by=${myApartment}`
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `/account_block/accounts/neighobour_list`
+        getNeighboursListing
       );
 
       requestMessage.addData(
@@ -513,7 +560,7 @@ getNeighboursDetails= (id :any) => {
   getNeighboursDetailsById= (id : any) => {
     try {
       const header = {
-        "Content-Type": configJSON.validationApiContentType,
+        "Content-Type": configJSON.searchApiContentType,
         token :localStorage.getItem("userToken")
       };
       //const id = localStorage.getItem("userId");
@@ -525,7 +572,7 @@ getNeighboursDetails= (id :any) => {
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `accounts/neighobour_profile?account_id=90`
+        `account_block/accounts/neighobour_profile?account_id=${id}`
       );
 
       requestMessage.addData(
@@ -545,5 +592,39 @@ getNeighboursDetails= (id :any) => {
     }
   };
   
+  getBuilding= () => {
+    try {
+      const header = {
+        "Content-Type": configJSON.searchApiContentType,
+        token :localStorage.getItem("userToken")
+      };
+      //const id = localStorage.getItem("userId");
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+      this.getBuildingListApiCallId = requestMessage.messageId;
+      this.setState({ loading: true });
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        `account_block/accounts/my_building_list`
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        configJSON.httpGetMethod
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+      return true;
+    } catch (error) {
+      console.log(error);
+    }
+  };
   
 }

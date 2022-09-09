@@ -47,16 +47,17 @@ class NeighboursDetails extends NeighboursController {
     super(props);
   }
   componentDidMount() {
-    const id = localStorage.getItem("incidentManagementDetailId") || 90;
+    const id = localStorage.getItem("neighboursDetailsId");
     if (id)
-      this.getIncidentDetailsById(id);
+      this.getNeighboursDetailsById(id);
     else
       this.props.history.push("/NeighboursListing")
   }
 
   render() {
     const { navigation } = this.props;
-
+    const attributes=this.state?.getNeighboursDetails?.attributes;
+    console.log("getNeighboursDetails=====>",this.state?.getNeighboursDetails)
     return (
       <>
        <Box className="login-wrapper incident-wrapper neighbour-listing-wrapper">
@@ -105,13 +106,13 @@ class NeighboursDetails extends NeighboursController {
                     </Card>
                   </Box>
 
-                 { this.state?.getNeighboursDetails?.map((val : any ,index:any)=>(
-                    <Box className="neighbour-detail-section">
+
+                  <Box className="neighbour-detail-section">
                     <Card className="neighbour-card neighbour-detail-card card">
                       <CardContent className="card-content">
                         <img src={User1_Img} className="info-icon" alt="info-icon" />
                         <Typography component="h4">
-                          {val?.attributes?.full_name}
+                         {attributes?.full_name}
                         </Typography>
                         <Box className="social-raw">
                           <Box className="blocks">
@@ -128,7 +129,7 @@ class NeighboursDetails extends NeighboursController {
                           <Box className="blocks">
                             <Typography component="h4">
                               Gender:
-                              <span className="title">Male {val?.attributes?.gender}</span>
+                              <span className="title">Male</span>
                             </Typography>
                           </Box>
                           
@@ -141,7 +142,6 @@ class NeighboursDetails extends NeighboursController {
                             <Typography component="p">
                               Hello! I am Jaroslav Brabec living with my family in central park since 2015.
                               I am business analyst by profession. It would be nice to get in touch with you.
-                              {val?.attributes?.bio}
                             </Typography>
                           </Box>
                           <Box className="bio-row">
@@ -171,14 +171,7 @@ class NeighboursDetails extends NeighboursController {
                       </CardContent>
                     </Card>
                   </Box>
-                 ))
-                 }
-                  {/* neighbour detail section */}
-                  
-                </Box>
-                <Box className="footer-main-block bottomBlock">
-                  <h6 className="bottom-text">POWERED BY</h6>
-                  <img src={Tenant_Logo.default} className="tenant-logo" alt="" />
+                  {/* neighbour detail section */}  
                 </Box>
               </Box>
             </Grid>
@@ -189,8 +182,6 @@ class NeighboursDetails extends NeighboursController {
             </Grid>
           </Grid>
         </Box>
-
-
         <Loader loading={this.state.loading} />
       </>
     )
