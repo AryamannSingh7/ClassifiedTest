@@ -491,7 +491,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
     return true;
   };
 
-  // Get All Building List API
+  // Get All Manager List API
   getManagersList = () => {
     const header = {
       "Content-Type": configJSON.ApiContentType,

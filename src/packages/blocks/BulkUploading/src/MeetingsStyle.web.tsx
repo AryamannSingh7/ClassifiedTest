@@ -158,7 +158,7 @@ export const MeetingsStyleWeb: any = {
       borderColor: "#FC8434",
     },
     "& a": {
-      textDecoration: "none",
+      textDecoration: "none !important",
       color: "black",
     },
     "& .scheduled": {

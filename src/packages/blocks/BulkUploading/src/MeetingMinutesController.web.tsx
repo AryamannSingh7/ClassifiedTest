@@ -20,18 +20,36 @@ export interface Props {
   // Customizable Area End
 }
 
+interface Pagination {
+  current_page: any | number;
+  next_page: any | number;
+  prev_page: any | number;
+  total_count: any | number;
+  total_pages: any | number;
+}
+
+interface Filter {
+  page: number;
+}
+
 interface S {
   // Customizable Area Start
   isRejectMeetingModalOpen: boolean;
   isApproveMeetingModalOpen: boolean;
+  isShareModalOpen: boolean;
 
   meetingMinuteList: any[];
+
+  pagination: any | Pagination;
+  filter: Filter;
 
   meetingMinuteId: string;
   meetingMinuteStatus: string;
   meetingMinuteDetails: any;
 
   meetingNote: any;
+
+  shareUrl: string;
   // Customizable Area End
 }
 
@@ -55,14 +73,22 @@ export default class MeetingMinutesController extends BlockComponent<Props, S, S
     this.state = {
       isRejectMeetingModalOpen: false,
       isApproveMeetingModalOpen: false,
+      isShareModalOpen: false,
 
       meetingMinuteList: [],
+
+      pagination: null,
+      filter: {
+        page: 1,
+      },
 
       meetingMinuteId: "",
       meetingMinuteStatus: "",
       meetingMinuteDetails: null,
 
       meetingNote: RichTextEditor.createEmptyValue(),
+
+      shareUrl: "",
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -83,6 +109,7 @@ export default class MeetingMinutesController extends BlockComponent<Props, S, S
       if (responseJson.code === 200) {
         this.setState({
           meetingMinuteList: responseJson.meeting.data,
+          pagination: responseJson.meta.pagination,
         });
       }
 
@@ -154,6 +181,7 @@ export default class MeetingMinutesController extends BlockComponent<Props, S, S
   // Customizable Area Start
   // Get All Meeting API
   getAllMeetings = () => {
+    const { page } = this.state.filter;
     const header = {
       "Content-Type": configJSON.ApiContentType,
       token: localStorage.getItem("userToken"),
@@ -166,7 +194,7 @@ export default class MeetingMinutesController extends BlockComponent<Props, S, S
     const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_meeting/meeting_mins`
+      `society_managements/${society_id}/bx_block_meeting/meeting_mins?page=${page}`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
@@ -281,6 +309,12 @@ export default class MeetingMinutesController extends BlockComponent<Props, S, S
   handleApproveMeetingModal = () => {
     this.setState({
       isApproveMeetingModalOpen: !this.state.isApproveMeetingModalOpen,
+    });
+  };
+
+  handleShareModal = () => {
+    this.setState({
+      isShareModalOpen: !this.state.isShareModalOpen,
     });
   };
   // Customizable Area End
