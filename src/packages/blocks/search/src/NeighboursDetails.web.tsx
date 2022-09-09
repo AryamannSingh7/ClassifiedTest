@@ -40,6 +40,8 @@ import {
   Email_Disable_Icon,
   FB_Icon,
   Twitter_Icon,
+  Instagram_Icon,
+  Snapchat_Icon
 }
   from "../src/assets";
 class NeighboursDetails extends NeighboursController {
@@ -56,11 +58,11 @@ class NeighboursDetails extends NeighboursController {
 
   render() {
     const { navigation } = this.props;
-    const attributes=this.state?.getNeighboursDetails?.attributes;
-    console.log("getNeighboursDetails=====>",this.state?.getNeighboursDetails)
+    const attributes = this.state?.getNeighboursDetails?.attributes;
+    console.log("getNeighboursDetails=====>", this.state?.getNeighboursDetails)
     return (
       <>
-       <Box className="login-wrapper incident-wrapper neighbour-listing-wrapper">
+        <Box className="login-wrapper incident-wrapper neighbour-listing-wrapper">
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
               <Box className="content-block">
@@ -69,10 +71,9 @@ class NeighboursDetails extends NeighboursController {
                     <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
                     <h4>My Neighbours</h4>
                   </Box>
-                  <Button>
-                    <img src={Search_Icon} className="Search_Icon" alt="Search Icon" />
+                  {/* <Button>
                     <img src={Setting_Icon} className="Search_Icon" alt="Search Icon" />
-                  </Button>
+                  </Button> */}
                 </Box>
                 <Box className="content-block-wrapper common-incident-block desktop-ui">
                   {/* anonymous section */}
@@ -112,7 +113,7 @@ class NeighboursDetails extends NeighboursController {
                       <CardContent className="card-content">
                         <img src={User1_Img} className="info-icon" alt="info-icon" />
                         <Typography component="h4">
-                         {attributes?.full_name}
+                          {attributes?.full_name}
                         </Typography>
                         <Box className="social-raw">
                           <Box className="blocks">
@@ -132,7 +133,7 @@ class NeighboursDetails extends NeighboursController {
                               <span className="title">Male</span>
                             </Typography>
                           </Box>
-                          
+
                         </Box>
                         <Box className="bio-content-row">
                           <Box className="bio-row">
@@ -159,11 +160,21 @@ class NeighboursDetails extends NeighboursController {
                               Follow me on:
                             </Typography>
                             <Box className="icons-row">
-                              <Button>
+                              <Button href="https://www.w3schools.com" target="_blank">
                                 <img src={FB_Icon} className="icon" alt="FB_Icon" />
                               </Button>
-                              <Button>
+                              <Button href="https://www.w3schools.com" target="_blank">
                                 <img src={Twitter_Icon} className="icon" alt="Twitter_Icon" />
+                              </Button>
+                              <Button href="https://www.w3schools.com" target="_blank">
+                                <div style={{ backgroundColor: "#f6f6f6", height: "45px", width: "45px", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                  <img src={Instagram_Icon} style={{ height: "20px", width: "20px" }} alt="Instagram_Icon" />
+                                </div>
+                              </Button>
+                              <Button href="https://www.w3schools.com" target="_blank">
+                              <div style={{ backgroundColor: "#f6f6f6", height: "45px", width: "45px", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                  <img src={Snapchat_Icon} style={{ height: "20px", width: "20px" }} alt="Instagram_Icon" />
+                                </div>
                               </Button>
                             </Box>
                           </Box>
@@ -171,7 +182,7 @@ class NeighboursDetails extends NeighboursController {
                       </CardContent>
                     </Card>
                   </Box>
-                  {/* neighbour detail section */}  
+                  {/* neighbour detail section */}
                 </Box>
               </Box>
             </Grid>

@@ -63,11 +63,11 @@ class NeighboursListing extends NeighboursController {
         <Box className="login-wrapper incident-wrapper neighbour-listing-wrapper">
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
-              <Box className="content-block">
+              <Box className="content-block common_content_block">
                 <Box className="content-header">
                   <Box className="left-block blocks">
                     <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
-                    <h4>My Neighbours</h4>
+                    <h4 style={{display: "flex"}} className={this.state.searchOrCancel === true ? "neighbor-title" : null} >My Neighbours</h4>
                   </Box>
                   {
                      this.state.searchOrCancel === true ? 
@@ -96,7 +96,7 @@ class NeighboursListing extends NeighboursController {
                 </Box>
                 <Box className="content-block-wrapper common-incident-block desktop-ui">
                   <Box className="commonForm neighbour-form">
-                      <Box className="formGroup customSelect">
+                      <Box className="formGroup customSelect neighborSelect">
                         <FormControl variant="outlined" >
                           <span className="frmLeftIcons">
                             <img src={Building_Icon} className="frm-icons" alt="House Icon" />
@@ -129,10 +129,10 @@ class NeighboursListing extends NeighboursController {
                   <Grid container spacing={2}>
                     {
                       this.state?.neighboursListing?.map((val:any,index: any)=>(
-                        <Grid item xs={12} md={6} onClick={()=>this.getNeighboursDetails(val?.account?.data?.id)} key={index}>
-                         <Card className="neighbour-card card">
+                        <Grid item xs={this.state?.neighboursListing.length===1? 12 : 6} md={6} onClick={()=>this.getNeighboursDetails(val?.account?.data?.id)} key={index}>
+                         <Card className="neighbour-card neighbour-list-card card">
                            <CardContent>
-                             <img src={val?.account?.data?.attributes?.profile_pic||NoProfile_Img} className="info-icon" alt="info-icon" />
+                             <img src={val?.account?.data?.attributes?.profile_pic||NoProfile_Img} className="info-icon" alt="No profile" />
                              <Typography component="h4">
                               {val?.account?.data?.attributes?.full_name || "Anonymous"}
                              </Typography>

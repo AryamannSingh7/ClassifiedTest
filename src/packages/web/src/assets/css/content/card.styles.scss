@@ -230,7 +230,6 @@
       &.success {
         & .MuiOutlinedInput-root {
           background-color: $GREEN_SHADE1;
-
         }
 
         & .MuiInputBase-input {
@@ -407,6 +406,14 @@
     box-shadow: none;
     border: 0;
     margin-bottom: 10px;
+    cursor: pointer;
+    &.neighbour-list-card
+    {
+      &:hover{
+        box-shadow: 1px 1px 9px 0px #cccc;
+      }
+    }
+    
     & .MuiCardContent-root {
       display: flex;
       flex-direction: column;
@@ -442,6 +449,11 @@
         padding: 0 10px;
       }
     }
+    & .info-icon {
+      height: 50px;
+      width: 50px;
+      object-fit: contain;
+    }
   }
 
   &.neighbour-detail-card {
@@ -451,6 +463,26 @@
     @include mq(tablet-portrait-large-up) {
       width: 100%;
     }
+    & .social-raw {
+      position: relative;
+      &::before {
+        content: " ";
+        position: absolute;
+        top: 20px;
+        left: -100%;
+        border-bottom: 1px solid #f6f6f6;
+        width: 100%;
+      }
+
+      &::after {
+        content: " ";
+        position: absolute;
+        top: 20px;
+        right: -100%;
+        border-bottom: 1px solid #f6f6f6;
+        width: 100%;
+      }
+    }
 
     & .card-content {
       padding: 0;
@@ -458,29 +490,6 @@
       & .bio-content-row {
         // width: 100%;
         padding: 16px;
-
-        & .social-raw {
-          position: relative;
-
-          &::before {
-            content: " ";
-            position: absolute;
-            top: 20px;
-            left: -100%;
-            border-bottom: 1px solid #f6f6f6;
-            width: 100%;
-          }
-
-          &::after {
-            content: " ";
-            position: absolute;
-            top: 20px;
-            right: -100%;
-            border-bottom: 1px solid #f6f6f6;
-            width: 100%;
-          }
-        }
-
         & .bio-row {
           & .customButton {
             display: flex;
@@ -496,7 +505,6 @@
             }
           }
         }
-
         & .social-data-row {
           & .icons-row {
             & .MuiButtonBase-root {
