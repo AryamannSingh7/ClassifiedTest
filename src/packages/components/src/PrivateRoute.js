@@ -68,14 +68,10 @@ const PrivateRoute = ({ roles, routeMap, component: Component, ...rest }) => (
       } else if (roles.includes(ROLE.PRIVATE) && userToken) {
         if (currentUserRole === ROLE.OWNER || currentUserRole === ROLE.PROPERTY_MANAGER) {
           return <Redirect to={{ pathname: "/OwnerDashboard", state: { from: props.location } }} />;
-        } else if (currentUserRole === ROLE.CHAIRMAN) {
-          return (
-            <Redirect to={{ pathname: "/DashboardGeneral", state: { from: props.location } }} />
-          );
+        } else if (currentUserRole === ROLE.CHAIRMAN || currentUserRole === ROLE.MANAGER) {
+          return <Redirect to={{ pathname: "/DashboardGeneral", state: { from: props.location } }} />;
         } else if (currentUserRole === ROLE.TENANT || currentUserRole === ROLE.OWNER_RESIDENT) {
-          return (
-            <Redirect to={{ pathname: "/ResidentDashboard", state: { from: props.location } }} />
-          );
+          return <Redirect to={{ pathname: "/ResidentDashboard", state: { from: props.location } }} />;
         } else {
           return <Wrapper element={<Component />} routeMap={routeMap} {...props} />;
         }
