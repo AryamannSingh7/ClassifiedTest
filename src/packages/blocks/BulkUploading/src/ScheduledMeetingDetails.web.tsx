@@ -34,6 +34,7 @@ import moment from "moment";
 //@ts-ignore
 import Pagination from "@material-ui/lab/Pagination";
 import { Link } from "react-router-dom";
+import { ROLE } from "../../../framework/src/Enum";
 
 class ScheduledMeetingDetails extends ScheduledMeetingController {
   constructor(props: Props) {
@@ -79,11 +80,12 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                   </Box>
                   <Box className="sub-heading">
                     <h3>Meeting Details</h3>
-                    {this.state.scheduleMeetingStatus === "completed" && (
-                      <Link to={`/ScheduledMeeting/${this.state.scheduleMeetingId}/Note`}>
-                        <Button>Add Meeting Minutes</Button>
-                      </Link>
-                    )}
+                    {this.state.scheduleMeetingStatus === "completed" &&
+                      localStorage.getItem("userType") === ROLE.MANAGER && (
+                        <Link to={`/ScheduledMeeting/${this.state.scheduleMeetingId}/Note`}>
+                          <Button>Add Meeting Minutes</Button>
+                        </Link>
+                      )}
                   </Box>
                 </Box>
                 <Box className="meeting-detail-box">

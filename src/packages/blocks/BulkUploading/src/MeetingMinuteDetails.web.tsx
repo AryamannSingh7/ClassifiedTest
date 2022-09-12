@@ -25,6 +25,7 @@ import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { MeetingsStyleWeb } from "./MeetingsStyle.web";
 import { DownloadIcon, PdfIcon, CheckIcon } from "./assets";
 import { Link } from "react-router-dom";
+import { ROLE } from "../../../framework/src/Enum";
 
 class MeetingMinuteDetails extends MeetingMinutesController {
   constructor(props: Props) {
@@ -112,21 +113,24 @@ class MeetingMinuteDetails extends MeetingMinutesController {
                         </Card>
                       </Box>
                     )}
-                    <Box className="button-box">
-                      <Link to={`/MeetingMinute/${this.state.meetingMinuteId}/Note`}>
-                        <Button className="edit">Edit</Button>
-                      </Link>
-                    </Box>
-                    {/* {this.state.meetingMinuteStatus === "pending" && ( */}
-                    <Box className="button-box">
-                      <Button className="cancel" onClick={() => this.handleRejectMeetingModal()}>
-                        Reject
-                      </Button>
-                      <Button className="edit" onClick={() => this.handleApproveMeetingModal()}>
-                        Approve
-                      </Button>
-                    </Box>
-                    {/* )} */}
+                    {localStorage.getItem("userType") === ROLE.MANAGER && (
+                      <Box className="button-box">
+                        <Link to={`/MeetingMinute/${this.state.meetingMinuteId}/Note`}>
+                          <Button className="edit">Edit</Button>
+                        </Link>
+                      </Box>
+                    )}
+                    {this.state.meetingMinuteStatus === "pending" &&
+                      localStorage.getItem("userType") === ROLE.CHAIRMAN && (
+                        <Box className="button-box">
+                          <Button className="cancel" onClick={() => this.handleRejectMeetingModal()}>
+                            Reject
+                          </Button>
+                          <Button className="edit" onClick={() => this.handleApproveMeetingModal()}>
+                            Approve
+                          </Button>
+                        </Box>
+                      )}
                   </>
                 ) : (
                   <Box className="no-available">
