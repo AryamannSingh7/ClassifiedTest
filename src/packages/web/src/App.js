@@ -214,19 +214,19 @@ const routeMap = {
   Profile: {
     component: Profile,
     path: '/profile',
-    exact: true,
+    exact: true
     // roles: [ROLE.PRIVATE]
   },
   PublicView: {
     component: PublicView,
     path: '/PublicView',
-    exact: true,
+    exact: true
     // roles: [ROLE.PRIVATE]
   },
   EditProfile: {
     component: EditProfile,
     path: '/editprofile',
-    exact: true,
+    exact: true
     // roles: [ROLE.PRIVATE]
   },
   Inbox: {
@@ -476,18 +476,17 @@ const routeMap = {
 
   CreatePolls: {
     component: CreatePolls,
-    path: "/CreatePolls"
+    path: '/CreatePolls'
   },
-
 
   TakeSurvey: {
     component: SurveyInitial,
-    path: "/TakeSurvey"
+    path: '/TakeSurvey'
   },
 
   SurveyFill: {
     component: SurveyParticipate,
-    path: "/SurveyFill"
+    path: '/SurveyFill'
   },
 
   CreateSurveys: {
@@ -515,8 +514,6 @@ const routeMap = {
     path: '/SurveyallData'
   },
 
-
-
   PollsSurvey: {
     component: PollsSurvey,
     path: '/PollsSurvey'
@@ -537,19 +534,19 @@ const routeMap = {
     path: '/PollDetails'
   },
 
-  SurveyDetails:{
+  SurveyDetails: {
     component: SurveyDetailsMain,
     path: '/SurveyDetails'
   },
 
-  SurveyReport:{
+  SurveyReport: {
     component: SurveyReport,
     path: '/SurveyReport'
   },
 
   PollReport: {
     component: PollReport,
-    path: "/PollReport"
+    path: '/PollReport'
   },
 
   PollResponseCompleted: {
@@ -703,32 +700,38 @@ const routeMap = {
   ChairmanScheduledMeeting: {
     component: ChairmanScheduledMeeting,
     path: '/ScheduledMeetings',
-    exact: true
+    exact: true,
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER]
   },
   ChairmanScheduledMeetingDetails: {
     component: ScheduledMeetingDetails,
     path: '/ScheduledMeeting/:id',
-    exact: true
+    exact: true,
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER]
   },
   ChairmanMeetingMinutes: {
     component: ChairmanMeetingMinutes,
     path: '/MeetingMinutes',
-    exact: true
+    exact: true,
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER]
   },
   ChairmanMeetingMinuteDetails: {
     component: MeetingMinuteDetails,
     path: '/MeetingMinute/:id',
-    exact: true
+    exact: true,
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER]
   },
   MeetingMinuteNote: {
     component: MeetingMinuteNote,
     path: '/MeetingMinute/:id/Note',
-    exact: true
+    exact: true,
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER]
   },
   ScheduleMeetingMinuteNote: {
     component: MeetingMinuteNote,
     path: '/ScheduledMeeting/:id/Note',
-    exact: true
+    exact: true,
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER]
   },
   // Owner - Meetings
   OwnerMeetingsList: {
