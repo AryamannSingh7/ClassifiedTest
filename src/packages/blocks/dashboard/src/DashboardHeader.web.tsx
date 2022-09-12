@@ -3,9 +3,9 @@ import React from "react";
 import "./Dashboard.web.css";
 import { globalIcon, notification, chatIcon } from "./assets";
 import "../../../web/src/assets/css/style.scss";
-import { Box, Grid, IconButton, Typography, Link, MenuItem } from "@material-ui/core";
+import { Box, Grid, IconButton, Typography, Link, MenuItem,Menu } from "@material-ui/core";
 import { ProfileIcon, LogoutIcon, buildingLogo, chairmanUser } from "./assets";
-import { Menu } from "@szhsin/react-menu";
+// import { Menu } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/core.css";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import DashboardController, { Props } from "./DashboardController";
@@ -18,13 +18,35 @@ class DashboardHeader extends DashboardController {
     super(props);
   }
 
-  handleEngLngChange = () => {
-    i18next.changeLanguage("en");
+  handleLanguage = (event: any) => {
+    this.setState({
+      //@ts-ignore
+      anchorEl: event?.currentTarget,
+    });
   };
 
+  handleClose = () => {
+    this.setState({
+      //@ts-ignore
+      anchorEl:null
+    })
+  }
+
+  handleEngLngChange = () => {
+    i18next.changeLanguage('en')
+    this.setState({
+      //@ts-ignore
+      anchorEl:null
+    })
+  }
+
   handleAreLngChange = () => {
-    i18next.changeLanguage("ar");
-  };
+    i18next.changeLanguage('ar')
+    this.setState({
+      //@ts-ignore
+      anchorEl:null
+    })
+  }
 
   logout = () => {
     localStorage.clear();
@@ -36,6 +58,7 @@ class DashboardHeader extends DashboardController {
   };
 
   render() {
+    const open = Boolean(this.state.anchorEl)
     return (
       <Box style={dashBoard.Header}>
         <Grid container spacing={2}>
@@ -48,21 +71,52 @@ class DashboardHeader extends DashboardController {
             </Link>
           </Grid>
           <Grid item xs={6} md={6} sm={6} style={dashBoard.HeaderSecRft}>
-            <div className="right-icon" style={{ display: "flex" }}>
-              <Box>
-                <Menu
-                  className="chairman-lang-menu"
-                  arrow={true}
-                  align="center"
-                  menuButton={<img src={globalIcon} alt="GlobalIcon" />}
-                >
-                  <MenuItem onClick={() => this.handleEngLngChange()}>English</MenuItem>
-                  <MenuItem onClick={() => this.handleAreLngChange()}>Arabic</MenuItem>
-                </Menu>
-              </Box>
-              <img src={chatIcon} alt="GlobalIcon" style={{ marginLeft: "10px" }} />
-              <img src={notification} alt="GlobalIcon" style={{ marginLeft: "10px" }} />
-            </div>
+           <div className="right-icon" style={{display:"flex"}}>
+                    <div style={{position:"relative"}}>
+                      <span
+                        id="basic-button"
+                        aria-controls={open ? "basic-menu" : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? "true" : undefined}
+                        // onClick={(e:any) => this.handleLanguage(e)}
+                        >
+                        <img src={globalIcon} alt="GlobalIcon" />
+                      </span>
+                      <Menu
+                        id="basic-menu"
+                        //@ts-ignore
+                        anchorEl={this.state.anchorEl}
+                        open={open}
+                        onClose={this.handleClose}
+                        MenuListProps={{
+                          "aria-labelledby": "basic-button"
+                        }}
+                        getContentAnchorEl={null}
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'center',
+                        }}
+                        transformOrigin={{
+                          vertical: 'top',
+                          horizontal: 'center',
+                        }}
+                      >
+                        <MenuItem onClick={() => this.handleEngLngChange()}>English</MenuItem>
+                        <MenuItem onClick={() => this.handleAreLngChange()}>Arabic</MenuItem>
+                      </Menu>
+                    </div>
+                    <div>
+                        <Link href="#">
+                          <img src={chatIcon} alt="GlobalIcon" style={{marginLeft:"10px"}}/>
+                        </Link>
+                    </div>
+                    <div>
+                        <Link href="#">
+                          <img src={notification} alt="GlobalIcon" style={{marginLeft:"10px"}}/>
+                        </Link>
+                      </div>
+              </div>
+            {/* <img src={GlobalIcon} alt="GlobalIcon" /> */}
 
             <Box style={dashBoard.HeaderSecRtBox}>
               <img

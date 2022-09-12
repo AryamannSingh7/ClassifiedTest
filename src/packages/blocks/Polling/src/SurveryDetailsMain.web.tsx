@@ -27,16 +27,16 @@ import {
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import { createTheme, withStyles} from '@material-ui/core/styles';
-
+import moment from 'moment';
 // Icons
 import InfoIcon from '@material-ui/icons/Info';
 import CalendarTodayOutlinedIcon from '@material-ui/icons/CalendarTodayOutlined';
 // Icons
 
-import PollingController, {
+import SurveyDetailsMainController, {
   Props,
   configJSON,
-} from "./PollingController";
+} from "./SurveyDetailsMainController";
 import { withRouter } from "react-router-dom";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
@@ -46,23 +46,9 @@ import SearchIcon from '@material-ui/icons/Search';
 function createData(name:any, unit:any) {
     return { name, unit };
 }
-const rows = [
-    createData('Frozen yoghurt', 159),
-    createData('Ice cream', 237),
-    createData('Eclair', 262),
-    createData('Cupcake', 305),
-    createData('Gingerbread', 35),
-    createData('Ginger', 56),
-    createData('bread', 56),
-    createData('Gingerbread', 56),
-    createData('Gingerbread', 35),
-    createData('Ginger', 56),
-    createData('bread', 56),
-    createData('Gingerbread', 56),
-];
+const alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
 
-
-class PollDetails extends PollingController {
+class PollDetails extends SurveyDetailsMainController {
   constructor(props: Props) {
     super(props);
     
@@ -100,13 +86,22 @@ class PollDetails extends PollingController {
                                     <Box className="PollName">
                                         <Typography className="subHeading">Survey Name: </Typography>
                                         <Typography className="PollNameText">
-                                            {this.state.pollPreviewAnswer?.poll?.data?.attributes?.title}
+                                            {this.state.SurveyPreviewAnswer.title}
                                         </Typography>
                                     </Box>
                                     <Box>
-                                        <p className="statusOngoing" style={{fontWeight: 600, marginLeft:"1rem"}}>
-                                            {this.state.pollPreviewAnswer?.poll?.data?.attributes?.status || "STATUS"}
-                                        </p>
+                                        {
+                                            this.state.SurveyPreviewAnswer.status == "upcoming" &&
+                                            <Typography variant="body1" className={"statusOngoingBlue"}>{this.state.SurveyPreviewAnswer.status}</Typography>
+                                        }
+                                        {
+                                            this.state.SurveyPreviewAnswer.status == "ongoing" &&
+                                            <Typography variant="body1" className={"statusOngoingRed"}>{this.state.SurveyPreviewAnswer.status}</Typography>
+                                        }
+                                        {
+                                            this.state.SurveyPreviewAnswer.status == "completed" &&
+                                            <Typography variant="body1" className={"statusOngoingGreen"}>{this.state.SurveyPreviewAnswer.status}</Typography>
+                                        }
                                     </Box>
                                 </Box>
                                 
@@ -117,7 +112,7 @@ class PollDetails extends PollingController {
                                             <Typography className="PollNamedate">Start Date</Typography>
                                             <Typography className="PollNameText">
                                                 {/* June 7, 2022 */}
-                                                {this.state.pollPreviewAnswer?.poll?.data?.attributes?.start_date || "June 7, 2022"}</Typography>
+                                                {moment(this.state.SurveyPreviewAnswer?.start_dat).format("MMMM DD, YYYY")}</Typography>
                                         </Box>    
                                     </Box>
                                     <Box className="datebox">
@@ -126,7 +121,7 @@ class PollDetails extends PollingController {
                                             <Typography className="PollNamedate">End Date</Typography>
                                             <Typography className="PollNameText">
                                                 {/* June 7, 2022 */}
-                                            {this.state.pollPreviewAnswer?.poll?.data?.attributes?.end_date || "June 7, 2022"}</Typography>
+                                            {moment(this.state.SurveyPreviewAnswer?.end_date).format("MMMM DD, YYYY")}</Typography>
                                         </Box>    
                                     </Box>
                                 </Box>
@@ -138,7 +133,7 @@ class PollDetails extends PollingController {
                                     <Box style={{marginTop:5, overflowWrap:"break-word"}}>
                                         <Typography variant="body2"
                                         dangerouslySetInnerHTML={
-                                            { __html: DOMPurify.sanitize(this.state.pollPreviewAnswer?.poll?.data?.attributes?.description) }
+                                            { __html: DOMPurify.sanitize(this.state.SurveyPreviewAnswer?.description) }
                                         }
                                         />
                                     </Box>
@@ -159,18 +154,18 @@ class PollDetails extends PollingController {
                                 <Box className="VoteCountBottom">
                                     <Box className="VoteCountBottomBox">
                                         <img src={awated} alt="awated" />
-                                        <p>{this.state.pollPreviewAnswer?.poll?.data?.attributes?.awaited} Awaited</p>
+                                        <p>{this.state.SurveyPreviewAnswer?.awaited} Awaited</p>
                                     </Box>
                                     <Box className="VoteCountBottomBox" style={{paddingLeft:"50px"}}>
                                         <img src={CheckMark} alt="CheckMark" />
-                                        <p>{this.state.pollPreviewAnswer?.poll?.data?.attributes?.total_responses} Response Received</p>
+                                        <p>{this.state.SurveyPreviewAnswer?.total_responses} Response Received</p>
                                     </Box>
                                 </Box>
                             </Grid>
                             <Grid  xs={4} style={{display:'flex',justifyContent:"flex-end"}}>
                                 <Box>
                                     <ReportButton variant="contained" color="primary"
-                                            onClick={() => this.props.history.push(`/SurveyReport?id=${this.state.pollPreviewAnswerID}`)}
+                                            onClick={() => this.props.history.push(`/SurveyReport?id=${this.state.SurveyPreviewAnswerID}`)}
                                     >
                                         GENERATE REPORT
                                     </ReportButton>
@@ -180,35 +175,43 @@ class PollDetails extends PollingController {
                     </Grid>
                     <Grid style={{marginBottom:"5rem"}} className="createPSCards">
                         <Grid item xs={12}>
-                            <Typography variant="subtitle2">{3} Questions</Typography>
+                            <Typography variant="subtitle2">{this.state.SurveyPreviewAnswer?.survey_questions?.length} Questions</Typography>
                         </Grid>
                         <Grid>
-                            <Box style={{margin:"10px 0px"}}>
-                                <Typography variant={"h6"} style={{fontWeight:"bold"}}>Q{1}. {"Should we need to charge for extra vehicle parking?"}</Typography>
-                                <Typography style={{marginTop:"5px"}}>Textfield</Typography>
-                            </Box>
-                            <Divider/>
-                            <Box style={{margin:"20px 0px"}}>
-                                <Typography variant={"h6"} style={{fontWeight:"bold"}}>Q{2}. {"Do we have need to security Camers?"}</Typography>
-                                <Box style={{display:'flex'}}>
-                                    <Typography style={{marginTop:"5px",marginRight:"5px"}}>Option</Typography>
-                                    <Typography style={{marginTop:"5px",marginRight:"5px"}}>|</Typography>
-                                    <Typography style={{marginTop:"5px",marginRight:"10px"}}>A. Yes</Typography>
-                                    <Typography style={{marginTop:"5px",marginRight:"10px"}}>B. No</Typography>
-                                </Box>
-                            </Box>
-                            <Divider/>
-                            <Box style={{margin:"20px 0px"}}>
-                                <Typography variant={"h6"} style={{fontWeight:"bold"}}>Q{3}. {"Should we need to charge for extra services?"}</Typography>
-                                <Box style={{display:'flex'}}>
-                                    <Typography style={{marginTop:"5px",marginRight:"5px"}}>Checkbox</Typography>
-                                    <Typography style={{marginTop:"5px",marginRight:"5px"}}>|</Typography>
-                                    <Typography style={{marginTop:"5px",marginRight:"10px"}}>A. Yes</Typography>
-                                    <Typography style={{marginTop:"5px",marginRight:"10px"}}>B. No</Typography>
-                                    <Typography style={{marginTop:"5px",marginRight:"10px"}}>C. Maybe</Typography>
-                                    <Typography style={{marginTop:"5px",marginRight:"10px"}}>D. Later</Typography>
-                                </Box>
-                            </Box>
+                            {
+                                this.state.SurveyPreviewAnswer?.survey_questions?.length > 0 &&
+                                this.state.SurveyPreviewAnswer?.survey_questions?.map((item,key)=>{
+                                    console.log("THIS IS QUESTIONS",item)
+                                    return(
+                                        <>
+                                            <Box style={{margin:"10px 0px"}}>
+                                                <Typography variant={"h6"} style={{fontWeight:"bold"}}>Q{key+1}. {item.title}</Typography>
+                                                {
+                                                    item.question_type === "short_answers" ?
+                                                        <Typography style={{marginTop:"5px"}}>Short Answer</Typography> :
+                                                        <Box style={{display:'flex'}}>
+                                                            <Typography style={{marginTop:"5px",marginRight:"5px"}}>{item.question_type === "checkbox" ? "Multiple Choice Question":"Options"}</Typography>
+                                                            <Typography style={{marginTop:"5px",marginRight:"5px"}}>|</Typography>
+                                                            {
+                                                                item.survey_options.map((ans,key1)=>{
+                                                                    return(
+                                                                        <Typography key={key1} style={{marginTop:"5px",marginRight:"10px"}}>{alphabet[key1]}. {ans.text}</Typography>
+                                                                    )
+                                                                })
+                                                            }
+                                                        </Box>
+                                                }
+
+                                            </Box>
+                                            {
+                                                (key + 1) !== this.state.SurveyPreviewAnswer?.survey_questions?.length &&
+                                                <Divider/>
+                                            }
+
+                                        </>
+                                    )
+                                })
+                            }
                         </Grid>
                     </Grid>
                 </Container>
