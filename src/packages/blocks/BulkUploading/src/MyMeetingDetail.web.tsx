@@ -1,6 +1,4 @@
 // Customizable Area Start
-//@ts-nocheck
-//@ts-ignore
 import React from "react";
 import {
   Button,
@@ -17,15 +15,14 @@ import {
   Card,
   Radio,
   FormControlLabel,
+  RadioGroup,
 } from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import MyMeetingsController, { Props } from "./MyMeetingsController.web";
-import BuildingLogo from "../assets/building.png";
-import CommentIcon from "../assets/comment.png";
-import UserIcon from "../assets/user.png";
-import CalenderBlueIcon from "../assets/calender-blue.png";
+import { BuildingLogo, CommentIcon, UserIcon, CalenderBlueIcon } from "./assets";
 import { MeetingsStyleWeb } from "./MeetingsStyle.web";
 import { orange } from "@material-ui/core/colors";
+import moment from "moment";
 
 const OrangeRadio = withStyles({
   root: {
@@ -39,6 +36,18 @@ const OrangeRadio = withStyles({
 class MyMeetingDetail extends MyMeetingsController {
   constructor(props: Props) {
     super(props);
+  }
+
+  async componentDidMount(): Promise<void> {
+    const meeting_id = this.props.navigation.getParam("id");
+    this.setState(
+      {
+        scheduleMeetingId: meeting_id,
+      },
+      () => {
+        this.getMeetingById();
+      }
+    );
   }
 
   render() {
@@ -59,7 +68,7 @@ class MyMeetingDetail extends MyMeetingsController {
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    Meeting Title
+                    <span>{this.state.meeting && this.state.meeting.attributes.title}</span>
                   </div>
                 </Box>
                 <Container>
@@ -68,21 +77,25 @@ class MyMeetingDetail extends MyMeetingsController {
                       <Box className="meeting-detail">
                         <Box className="heading">
                           <h4>Meeting Details</h4>
-                          <span style={{ background: "black", color: "white" }}>Accepted</span>
+                          {this.state.meeting && this.state.meeting.attributes.meeting_response && (
+                            <span className={this.state.meeting.attributes.meeting_response}>
+                              {this.state.meeting.attributes.meeting_response}
+                            </span>
+                          )}
                         </Box>
                         <Card className="meeting-card">
                           <Grid container spacing={2}>
                             <Grid item xs={12}>
                               <span>Date & Time: </span>
-                              <p>01-01-1010 10:10</p>
+                              <p>{this.state.meeting && this.state.meeting.attributes.meeting_date_time}</p>
                             </Grid>
                             <Grid item xs={12}>
                               <span>Place: </span>
-                              <p>Central park common hall</p>
+                              <p>{this.state.meeting && this.state.meeting.attributes.place}</p>
                             </Grid>
                             <Grid item xs={12}>
                               <span>Agenda: </span>
-                              <p>To discuss new vehicle guidelines</p>
+                              <p>{this.state.meeting && this.state.meeting.attributes.agenda}</p>
                             </Grid>
                           </Grid>
                         </Card>
@@ -97,36 +110,70 @@ class MyMeetingDetail extends MyMeetingsController {
                               <img src={UserIcon} alt="" />
                               <Box>
                                 <span>Scheduled By: </span>
-                                <p>Mr. Ali Khan</p>
+                                <p>
+                                  {this.state.meeting &&
+                                    this.state.meeting.attributes.meeting_schedule_detail.scheduled_by}
+                                </p>
                               </Box>
                             </Grid>
                             <Grid item xs={6} className="item">
                               <img src={CalenderBlueIcon} alt="" />
                               <Box>
                                 <span>Scheduled On: </span>
-                                <p>01-01-1010 10:10</p>
+                                <p>
+                                  {this.state.meeting &&
+                                    this.state.meeting.attributes.meeting_schedule_detail.scheduled_on}
+                                </p>
                               </Box>
                             </Grid>
                           </Grid>
                         </Card>
                       </Box>
                     </Box>
-                    <div className="upload-button">
-                      <Grid container>
-                        <Grid item xs={12} md={12}>
-                          <Button onClick={() => this.handleAttendMeetingModal()}>
-                            Submit Your Response
-                          </Button>
+                    {this.state.meeting && this.state.meeting.attributes.status === "scheduled" && (
+                      <div className="upload-button">
+                        <Grid container>
+                          <Grid item xs={12} md={12}>
+                            {!this.state.meeting.attributes.meeting_response ? (
+                              <Button onClick={() => this.handleAttendMeetingModal()}>Submit Your Response</Button>
+                            ) : (
+                              <Button
+                                onClick={() => {
+                                  if (this.state.meeting.attributes.meeting_response === "accepted") {
+                                    this.setState(
+                                      {
+                                        response: true,
+                                      },
+                                      () => {
+                                        this.handleAttendMeetingModal();
+                                      }
+                                    );
+                                  } else {
+                                    this.setState(
+                                      {
+                                        response: false,
+                                      },
+                                      () => {
+                                        this.handleAttendMeetingModal();
+                                      }
+                                    );
+                                  }
+                                }}
+                              >
+                                Edit Your Response
+                              </Button>
+                            )}
+                          </Grid>
                         </Grid>
-                      </Grid>
-                    </div>
+                      </div>
+                    )}
                   </Box>
                 </Container>
               </Box>
             </Grid>
             <Grid item xs={12} md={5}>
               <Box className="right-block right-image" display={{ xs: "none", md: "flex" }}>
-                <img src={BuildingLogo} className="building-logo" alt="" />
+                <img src={BuildingLogo.default} className="building-logo" alt="" />
               </Box>
             </Grid>
           </Grid>
@@ -143,34 +190,45 @@ class MyMeetingDetail extends MyMeetingsController {
               <img src={CommentIcon} alt="CommentIcon" />
               <Typography variant="h6">Are you attending the meeting?</Typography>
               <Typography variant="body1">
-                Please confirm whether you are going to attend meeting on 21st May, 2022 or not.
+                Please confirm whether you are going to attend meeting on{" "}
+                {moment(this.state.meeting && this.state.meeting.attributes.meeting_date_time).format("DD MMM, YYYY")}{" "}
+                or not.
               </Typography>
-              <Box className="choice">
+              <RadioGroup
+                className="choice-box"
+                value={this.state.response}
+                onChange={(e: any) => {
+                  this.setState({
+                    response: e.target.value === "true",
+                  });
+                }}
+              >
                 <FormControlLabel
+                  value={true}
                   className="radio-select"
-                  control={
-                    <OrangeRadio
-                      checked={true}
-                      // onChange={handleChange}
-                      // value="c"
-                    />
-                  }
+                  control={<OrangeRadio />}
                   label="I will attend"
                 />
                 <FormControlLabel
+                  value={false}
                   className="radio-select"
-                  control={
-                    <OrangeRadio
-                      checked={false}
-                      // onChange={handleChange}
-                      // value="c"
-                    />
-                  }
+                  control={<OrangeRadio />}
                   label="I won't attend"
                 />
-              </Box>
+              </RadioGroup>
               <DialogActions className="dialog-button-group">
-                <Button className="add-button">Submit</Button>
+                <Button
+                  className="add-button"
+                  onClick={() => {
+                    if (this.state.meeting && !this.state.meeting.attributes.meeting_response) {
+                      this.createMeetingResponse();
+                    } else {
+                      this.updateMeetingResponse();
+                    }
+                  }}
+                >
+                  Submit
+                </Button>
               </DialogActions>
             </Box>
           </DialogContent>

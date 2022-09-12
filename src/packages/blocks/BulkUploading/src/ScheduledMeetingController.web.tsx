@@ -30,6 +30,7 @@ interface Form {
   time: string;
   momWriter: string;
   status: string;
+  meetingType: string;
 }
 
 interface Pagination {
@@ -54,10 +55,12 @@ interface S {
   isEditMeetingModalOpen: boolean;
   isCancelMeetingModalOpen: boolean;
   isCompleteMeetingModalOpen: boolean;
+  isCreateAttendeeModalOpen: boolean;
 
   scheduleMeetingList: any[];
   buildingsList: any[];
   managersList: any[];
+  responseList: any[];
 
   pagination: any | Pagination;
 
@@ -86,26 +89,26 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
   CreateMeetingCallId: any;
   EditMeetingCallId: any;
   UpdateStatusMeetingCallId: any;
+  GetMeetingResponseCallId: any;
 
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
     console.disableYellowBox = true;
     // Customizable Area Start
-    this.subScribedMessages = [
-      getName(MessageEnum.RestAPIResponceMessage),
-      getName(MessageEnum.RestAPIRequestMessage),
-    ];
+    this.subScribedMessages = [getName(MessageEnum.RestAPIResponceMessage), getName(MessageEnum.RestAPIRequestMessage)];
 
     this.state = {
       isCreateMeetingModalOpen: false,
       isEditMeetingModalOpen: false,
       isCancelMeetingModalOpen: false,
       isCompleteMeetingModalOpen: false,
+      isCreateAttendeeModalOpen: false,
 
       scheduleMeetingList: [],
       buildingsList: [],
       managersList: [],
+      responseList: [],
 
       pagination: null,
 
@@ -133,6 +136,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
         time: "",
         momWriter: "",
         status: "scheduled",
+        meetingType: "",
       },
     };
     // Customizable Area End
@@ -145,8 +149,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.GetScheduledMeetingDetailCallId !== null &&
-      this.GetScheduledMeetingDetailCallId ===
-        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+      this.GetScheduledMeetingDetailCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.GetScheduledMeetingDetailCallId = null;
 
@@ -182,7 +185,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
         this.setState({
           ...this.state,
           scheduleMeetingList: responseJson.meeting.data,
-          pagination: responseJson.meeting.meta.pagination,
+          pagination: responseJson.meta.pagination,
         });
       }
 
@@ -200,16 +203,15 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.GetAllBuildingsCallId !== null &&
-      this.GetAllBuildingsCallId ===
-        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+      this.GetAllBuildingsCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.GetAllBuildingsCallId = null;
 
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      if (responseJson.data) {
+      if (responseJson.buildings) {
         this.setState({
-          buildingsList: responseJson.data.buildings,
+          buildingsList: responseJson.buildings,
         });
       }
 
@@ -315,8 +317,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.UpdateStatusMeetingCallId !== null &&
-      this.UpdateStatusMeetingCallId ===
-        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+      this.UpdateStatusMeetingCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.UpdateStatusMeetingCallId = null;
 
@@ -342,6 +343,30 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
           }
         }
       );
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // Get Meeting Response API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.GetMeetingResponseCallId !== null &&
+      this.GetMeetingResponseCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.GetMeetingResponseCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      if (responseJson.data) {
+        this.setState({ responseList: responseJson.data });
+      }
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
 
@@ -383,6 +408,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
       .matches(/\S/, "Required"),
     status: Yup.string()
       .required("Required")
+      .required("Required")
       .matches(/\S/, "Required"),
 
     // file: Yup.mixed().required("Required"),
@@ -409,10 +435,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypeGet
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
@@ -437,10 +460,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypeGet
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
@@ -460,15 +480,12 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
     const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_address/building_list?society_management_id=${society_id}`
+      `society_managements/${society_id}/bx_block_meeting/find_building`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypeGet
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
@@ -493,10 +510,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypeGet
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
@@ -535,10 +549,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestBodyMessage), JSON.stringify(body));
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypePost
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePost);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
@@ -578,10 +589,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestBodyMessage), JSON.stringify(body));
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypePut
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePut);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
@@ -614,10 +622,32 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestBodyMessage), JSON.stringify(body));
 
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePut);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  // Get Meeting Response API
+  getMeetingResponseList = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.GetMeetingResponseCallId = apiRequest.messageId;
+
+    const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypePut
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `society_managements/${society_id}/bx_block_meeting/meeting_responses?meeting_id=${this.state.scheduleMeetingId}`
     );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
@@ -648,6 +678,12 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
     });
   };
 
+  handleCreateAttendeeModal = () => {
+    this.setState({
+      isCreateAttendeeModalOpen: !this.state.isCreateAttendeeModalOpen,
+    });
+  };
+
   openEditMeetingModal = (meeting: any) => {
     this.setState(
       {
@@ -665,6 +701,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
           time: meeting.attributes.meeting_date_time.split(" ")[1],
           momWriter: meeting.attributes.meeting_mins_writer.id,
           status: meeting.attributes.status,
+          meetingType: "",
         },
       },
       () => {
@@ -685,6 +722,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
           time: "",
           momWriter: "",
           status: "scheduled",
+          meetingType: "",
         },
       },
       () => {
