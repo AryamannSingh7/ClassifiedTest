@@ -792,6 +792,8 @@ this.setState({loading:false})
 
     const data = {
       type: "email_account",
+      // @ts-ignore
+      // @ts-nocheck
       "user_type": this.props.history.location.state?.data,
       attributes: attrs
     };
@@ -912,6 +914,8 @@ this.setState({loading:false})
 
     const data = {
       type: "email_account",
+      // @ts-ignore
+      // @ts-nocheck
       "user_type": this.props.history.location.state?.data,
       attributes: attrs
     };
@@ -1038,7 +1042,6 @@ this.setState({loading:false})
       if (this.state.userType === 'Tenant') {
         //@ts-ignore
         //@ts-nocheck
-
         this.props.history.push({
           pathname: '/register',
           state: {
@@ -1050,7 +1053,6 @@ this.setState({loading:false})
       if (this.state.userType === 'Owner Resident') {
         //@ts-ignore
         //@ts-nocheck
-
         this.props.history.push({
           pathname: '/register',
           state: {
@@ -1077,6 +1079,8 @@ this.setState({loading:false})
     this.changeUserTypeApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
+      // @ts-ignore
+      // @ts-nocheck
       `account_block/user_type?user_type=${this.props.history.location.state?.data}&id=${localStorage.getItem('res_user_id')}`
     );
 
@@ -1652,12 +1656,14 @@ this.setState({loading:true})
     });
     return validations
   }
-  handleClick = (event) => {
+  handleClick = (event:any) => {
     this.setState({ anchorEl: event.currentTarget, showDialog: true })
   };
-  handleClose = (item) => {
+  handleClose = (item:any) => {
     if (item.id) {
       localStorage.setItem('selectFamily', JSON.stringify(item))
+      // @ts-ignore
+      // @ts-nocheck
       this.props.history.push("/editfamily")
 
     } else {
