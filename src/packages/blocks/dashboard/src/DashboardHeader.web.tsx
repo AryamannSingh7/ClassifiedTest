@@ -16,10 +16,6 @@ import i18next from "i18next";
 class DashboardHeader extends DashboardController {
   constructor(props: Props) {
     super(props);
-    this.state = {
-      //@ts-ignore
-      anchorEl: null,
-    };
   }
 
   handleLanguage = (event: any) => {
@@ -62,7 +58,6 @@ class DashboardHeader extends DashboardController {
   };
 
   render() {
-    //@ts-ignore
     const open = Boolean(this.state.anchorEl)
     return (
       <Box style={dashBoard.Header}>

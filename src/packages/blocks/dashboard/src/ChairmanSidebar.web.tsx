@@ -119,19 +119,58 @@ class ChairmanSidebar extends DashboardController {
           >
             <AccordionSummary
               expandIcon={<ArrowForwardIosOutlinedIcon style={{ width: 16, height: 16 }} />}
-              id="ListItem"
-              className="ListItem"
+              aria-controls={"panel2bh-content"}
+              id={"Dashboards"}
+              style={dashBoard.ListItem}
             >
               <Typography>
                 <DashboardOutlinedIcon />
               </Typography>
-              <Typography className="ListItemText">Community Management</Typography>
+              <Typography className="ListItemText">{t("Community Management")}</Typography>
             </AccordionSummary>
-            <AccordionDetails>
+
+            <AccordionDetails onClick={() => this.props.navigation.navigate("DashboardGeneral")}>
               <Typography variant="body2" className="cursor-pointer">
-                sub headings
+                {t("User Profiles")}
               </Typography>
             </AccordionDetails>
+            <AccordionDetails
+              onClick={() => {
+                //@ts-ignore
+                this.props.history.push("/mv");
+              }}
+            >
+              <Typography variant="body2" className="cursor-pointer">
+                {t("Request Management")}
+              </Typography>
+            </AccordionDetails>
+            <AccordionDetails
+              onClick={() => {
+                //@ts-ignore
+                this.props.history.push("/DashboardTicket");
+              }}
+            >
+              <Typography variant="body2" className="cursor-pointer">
+                {t("Announcements")}
+              </Typography>
+            </AccordionDetails>
+            <AccordionDetails
+              onClick={() => {
+                //@ts-ignore
+                this.props.history.push("/DashboardBudget");
+              }}
+            >
+              <Typography variant="body2" className="cursor-pointer">
+                {t("Suggestion")}
+              </Typography>
+            </AccordionDetails>
+            {/* <AccordionDetails
+              onClick={() => {
+                //@ts-ignore
+                this.props.history.push("/DashboardActions");
+              }}
+            >
+            </AccordionDetails> */}
           </Accordion>
           {/* Invoices & Receipts */}
           <Accordion
