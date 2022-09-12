@@ -48,15 +48,18 @@ class MyMeetingMinuteDetail extends MyMeetingsController {
                   <Box className="content-box">
                     <Box className="meeting-details">
                       <Box>
-                        <iframe
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: this.state.meeting && this.state.meeting.attributes.meeting_mins_notes,
+                          }}
+                        />
+                        {/* <iframe
                           src={this.state.meeting && this.state.meeting.attributes.meeting_mins_pdf.url}
                           title="description"
-                        />
+                        /> */}
                       </Box>
                     </Box>
                     <div className="upload-button meeting-pdf">
-                      {/* <Grid container>
-                        <Grid item xs={12} md={12}> */}
                       <Box className="pdf-detail">
                         <div className="heading">
                           <img src={PdfIcon} alt="pdf" />
@@ -72,8 +75,6 @@ class MyMeetingMinuteDetail extends MyMeetingsController {
                           <img src={DownloadIcon} alt="download" />
                         </Link>
                       </Box>
-                      {/* </Grid>
-                      </Grid> */}
                     </div>
                   </Box>
                 </Container>

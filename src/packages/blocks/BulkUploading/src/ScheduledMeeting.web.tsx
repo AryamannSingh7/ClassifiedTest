@@ -44,6 +44,7 @@ import moment from "moment";
 import { withTranslation } from "react-i18next";
 import "../../../web/src/i18n.js";
 import i18next from "i18next";
+import { ROLE } from "../../../framework/src/Enum";
 
 class ScheduledMeeting extends ScheduledMeetingController {
   constructor(props: Props) {
@@ -222,7 +223,12 @@ class ScheduledMeeting extends ScheduledMeetingController {
                           return (
                             <TableRow key={index}>
                               <TableCell>{index + 1}</TableCell>
-                              <TableCell className="ellipse">{meeting.attributes.title}</TableCell>
+                              <TableCell className="ellipse">
+                                {meeting.attributes.title}{" "}
+                                {meeting.attributes.meeting_type === "ga_meeting" && (
+                                  <span className="ga-meeting">GA Meeting</span>
+                                )}
+                              </TableCell>
                               <TableCell>{meeting.attributes.meeting_date_time}</TableCell>
                               <TableCell>{meeting.attributes.building.name}</TableCell>
                               <TableCell className="ellipse">{meeting.attributes.place}</TableCell>
@@ -330,8 +336,8 @@ class ScheduledMeeting extends ScheduledMeetingController {
                         <MenuItem value="" disabled>
                           <em>Select Meeting Type</em>
                         </MenuItem>
-                        <MenuItem value="">GA Meeting</MenuItem>
-                        <MenuItem value="">Regular Meeting</MenuItem>
+                        <MenuItem value="ga_meeting">GA Meeting</MenuItem>
+                        <MenuItem value="regular_meeting">Regular Meeting</MenuItem>
                       </Select>
                       {errors.meetingType && touched.meetingType && (
                         <small className="error">{errors.meetingType}</small>
@@ -429,28 +435,30 @@ class ScheduledMeeting extends ScheduledMeetingController {
                       />
                       {errors.agenda && touched.agenda && <small className="error">{errors.agenda}</small>}
                     </FormControl>
-                    <FormControl fullWidth>
-                      <Select
-                        displayEmpty
-                        value={values.momWriter}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        name="momWriter"
-                        className="dialog-select-input"
-                      >
-                        <MenuItem value="" disabled>
-                          <em>Designated Meeting of Minutes writer</em>
-                        </MenuItem>
-                        {this.state.managersList.map((manager: any) => {
-                          return (
-                            <MenuItem value={manager.id} key={manager.id}>
-                              {manager.full_name}
-                            </MenuItem>
-                          );
-                        })}
-                      </Select>
-                      {errors.momWriter && touched.momWriter && <small className="error">{errors.momWriter}</small>}
-                    </FormControl>
+                    {localStorage.getItem("userType") !== ROLE.MANAGER && (
+                      <FormControl fullWidth>
+                        <Select
+                          displayEmpty
+                          value={values.momWriter}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          name="momWriter"
+                          className="dialog-select-input"
+                        >
+                          <MenuItem value="" disabled>
+                            <em>Designated Meeting of Minutes writer</em>
+                          </MenuItem>
+                          {this.state.managersList.map((manager: any) => {
+                            return (
+                              <MenuItem value={manager.id} key={manager.id}>
+                                {manager.full_name}
+                              </MenuItem>
+                            );
+                          })}
+                        </Select>
+                        {errors.momWriter && touched.momWriter && <small className="error">{errors.momWriter}</small>}
+                      </FormControl>
+                    )}
                     <Box className="create-audience">
                       <p>Select Meeting Joinees</p>
                       <span onClick={() => this.handleCreateAttendeeModal()}>+ Create New Group</span>
@@ -511,6 +519,25 @@ class ScheduledMeeting extends ScheduledMeetingController {
               return (
                 <Form onSubmit={handleSubmit} translate>
                   <DialogContent dividers>
+                    <FormControl fullWidth>
+                      <Select
+                        value={values.meetingType}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        name="meetingType"
+                        displayEmpty
+                        className="dialog-select-input"
+                      >
+                        <MenuItem value="" disabled>
+                          <em>Select Meeting Type</em>
+                        </MenuItem>
+                        <MenuItem value="ga_meeting">GA Meeting</MenuItem>
+                        <MenuItem value="regular_meeting">Regular Meeting</MenuItem>
+                      </Select>
+                      {errors.meetingType && touched.meetingType && (
+                        <small className="error">{errors.meetingType}</small>
+                      )}
+                    </FormControl>
                     <FormControl fullWidth>
                       <Input
                         value={values.title}
@@ -599,28 +626,30 @@ class ScheduledMeeting extends ScheduledMeetingController {
                       />
                       {errors.agenda && touched.agenda && <small className="error">{errors.agenda}</small>}
                     </FormControl>
-                    <FormControl fullWidth>
-                      <Select
-                        displayEmpty
-                        value={values.momWriter}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        name="momWriter"
-                        className="dialog-select-input"
-                      >
-                        <MenuItem value="" disabled>
-                          <em>Designated Meeting of Minutes writer</em>
-                        </MenuItem>
-                        {this.state.managersList.map((manager: any) => {
-                          return (
-                            <MenuItem value={manager.id} key={manager.id}>
-                              {manager.full_name}
-                            </MenuItem>
-                          );
-                        })}
-                      </Select>
-                      {errors.momWriter && touched.momWriter && <small className="error">{errors.momWriter}</small>}
-                    </FormControl>
+                    {localStorage.getItem("userType") !== ROLE.MANAGER && (
+                      <FormControl fullWidth>
+                        <Select
+                          displayEmpty
+                          value={values.momWriter}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          name="momWriter"
+                          className="dialog-select-input"
+                        >
+                          <MenuItem value="" disabled>
+                            <em>Designated Meeting of Minutes writer</em>
+                          </MenuItem>
+                          {this.state.managersList.map((manager: any) => {
+                            return (
+                              <MenuItem value={manager.id} key={manager.id}>
+                                {manager.full_name}
+                              </MenuItem>
+                            );
+                          })}
+                        </Select>
+                        {errors.momWriter && touched.momWriter && <small className="error">{errors.momWriter}</small>}
+                      </FormControl>
+                    )}
                     <FormControl fullWidth>
                       <Select
                         value={values.status}

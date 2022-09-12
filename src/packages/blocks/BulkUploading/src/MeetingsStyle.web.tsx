@@ -140,6 +140,12 @@ export const MeetingsStyleWeb: any = {
       padding: "5px 10px",
       borderRadius: "25px",
     },
+    "& .meeting-table .table-box td.MuiTableCell-root span.ga-meeting": {
+      padding: "5px 10px",
+      borderRadius: "25px",
+      background: "#2B6FED",
+      color: "white",
+    },
     "& .meeting-table .table-bottom": {
       padding: "20px",
       display: "flex",

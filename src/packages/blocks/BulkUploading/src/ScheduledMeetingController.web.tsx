@@ -9,6 +9,7 @@ import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src
 import * as Yup from "yup";
 import toast from "react-hot-toast";
 import moment from "moment";
+import { ROLE } from "../../../framework/src/Enum";
 // Customizable Area End
 
 export const configJSON = require("./config.js");
@@ -28,7 +29,7 @@ interface Form {
   building: string;
   date: string;
   time: string;
-  momWriter: string;
+  momWriter: string | null;
   status: string;
   meetingType: string;
 }
@@ -408,6 +409,8 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
       .matches(/\S/, "Required"),
     status: Yup.string()
       .required("Required")
+      .matches(/\S/, "Required"),
+    meetingType: Yup.string()
       .required("Required")
       .matches(/\S/, "Required"),
 
@@ -527,6 +530,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
         date: values.date,
         time: values.time,
         manager_id: values.momWriter,
+        meeting_type: values.meetingType,
       },
     };
 
@@ -567,6 +571,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
         time: values.time,
         manager_id: values.momWriter,
         status: values.status,
+        meeting_type: values.meetingType,
       },
     };
 
@@ -701,7 +706,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
           time: meeting.attributes.meeting_date_time.split(" ")[1],
           momWriter: meeting.attributes.meeting_mins_writer.id,
           status: meeting.attributes.status,
-          meetingType: "",
+          meetingType: meeting.attributes.meeting_type,
         },
       },
       () => {
@@ -720,7 +725,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
           building: "",
           date: "",
           time: "",
-          momWriter: "",
+          momWriter: localStorage.getItem("userType") === ROLE.MANAGER ? localStorage.getItem("userId") : "",
           status: "scheduled",
           meetingType: "",
         },
