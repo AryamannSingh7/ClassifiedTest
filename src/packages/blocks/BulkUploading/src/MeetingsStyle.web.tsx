@@ -240,6 +240,15 @@ export const MeetingsStyleWeb: any = {
       color: "white",
       background: "#2B6FED",
     },
+    "& .navigation .sub-heading button.view-button": {
+      minWidth: "150px",
+      padding: "12px 20px",
+      borderRadius: "5px",
+      fontWeight: "600",
+      color: "#2B6FED",
+      background: "rgb(244, 247, 255)",
+      border: "1px solid #2B6FED",
+    },
     "& a": {
       textDecoration: "none",
       color: "black",
