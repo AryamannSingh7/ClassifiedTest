@@ -260,104 +260,88 @@ class Polling extends PollingController {
                         <Typography className="ViewAll">View All</Typography>
                     </Link>
                 </Box>
+
                 <Grid container spacing={4} style={{marginTop: 15, marginBottom:30}}>
-                    <Grid item sm={6} md={4} xs={12}>
-                        <Box className="EventsCards">
-                            <Box className="EventsIconsText">
-                                <Typography variant="body2" className="statusOngoingGreen">Completed</Typography>
-                            </Box>
-                            <Box className="EventsIconsText">
-                                <Typography className="EventsTitle">{t("Block W Parking")}</Typography>
-                            </Box>
-                            <Box className="EventsIconsText">
-                                <Typography variant="body2">{t("To discuss new vehicle guidlines")}</Typography>
-                            </Box>
-                            <Box className="EventsIconsText">
-                                <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
-                                <Typography variant="body2">05-08-2022 - 08-08-2022 </Typography>
-                            </Box>
-                            <Divider style={{marginTop:10, marginRight:10}}/>
-                            <Box className="EventsIconsData">
-                                <Box className="EventsIconsDataBox">
-                                    <DateRangeOutlinedIcon style={{color: "#ff8100"}}/>
-                                    <Typography variant="body2">84</Typography>
-                                </Box>
-                                <Box className="EventsIconsDataBox">
-                                    <CheckCircleOutlineOutlinedIcon style={{color: "green"}}/>
-                                    <Typography variant="body2">29</Typography>
-                                </Box>
-                                <Box className="EventsIconsDataBox">
-                                    <HighlightOffOutlinedIcon style={{color: "red"}}/>
-                                    <Typography variant="body2">13</Typography>
-                                </Box>
-                            </Box>
-                        </Box>
-                    </Grid>
-                    <Grid item sm={6} md={4} xs={12}>
-                        <Box className="EventsCards">
-                            <Box className="EventsIconsText">
-                                <Typography variant="body2" className="statusOngoingGreen">Completed</Typography>
-                            </Box>
-                            <Box className="EventsIconsText">
-                                <Typography className="EventsTitle">{t("Block W Parking")}</Typography>
-                            </Box>
-                            <Box className="EventsIconsText">
-                                <Typography variant="body2">{t("To discuss new vehicle guidlines")}</Typography>
-                            </Box>
-                            <Box className="EventsIconsText">
-                                <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
-                                <Typography variant="body2">05-08-2022 - 08-08-2022 </Typography>
-                            </Box>
-                            <Divider style={{marginTop:10, marginRight:10}}/>
-                            <Box className="EventsIconsData">
-                                <Box className="EventsIconsDataBox">
-                                    <DateRangeOutlinedIcon style={{color: "#ff8100"}}/>
-                                    <Typography variant="body2">84</Typography>
-                                </Box>
-                                <Box className="EventsIconsDataBox">
-                                    <CheckCircleOutlineOutlinedIcon style={{color: "green"}}/>
-                                    <Typography variant="body2">29</Typography>
-                                </Box>
-                                <Box className="EventsIconsDataBox">
-                                    <HighlightOffOutlinedIcon style={{color: "red"}}/>
-                                    <Typography variant="body2">13</Typography>
-                                </Box>
-                            </Box>
-                        </Box>
-                    </Grid>
-                    <Grid item sm={6} md={4} xs={12}>
-                        <Box className="EventsCards">
-                            <Box className="EventsIconsText">
-                                <Typography variant="body2" className="statusOngoingGreen">Completed</Typography>
-                            </Box>
-                            <Box className="EventsIconsText">
-                                <Typography className="EventsTitle">{t("Block W Parking")}</Typography>
-                            </Box>
-                            <Box className="EventsIconsText">
-                                <Typography variant="body2">{t("To discuss new vehicle guidlines")}</Typography>
-                            </Box>
-                            <Box className="EventsIconsText">
-                                <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
-                                <Typography variant="body2">05-08-2022 - 08-08-2022 </Typography>
-                            </Box>
-                            <Divider style={{marginTop:10, marginRight:10}}/>
-                            <Box className="EventsIconsData">
-                                <Box className="EventsIconsDataBox">
-                                    <DateRangeOutlinedIcon style={{color: "#ff8100"}}/>
-                                    <Typography variant="body2">84</Typography>
-                                </Box>
-                                <Box className="EventsIconsDataBox">
-                                    <CheckCircleOutlineOutlinedIcon style={{color: "green"}}/>
-                                    <Typography variant="body2">29</Typography>
-                                </Box>
-                                <Box className="EventsIconsDataBox">
-                                    <HighlightOffOutlinedIcon style={{color: "red"}}/>
-                                    <Typography variant="body2">13</Typography>
-                                </Box>
-                            </Box>
-                        </Box>
-                    </Grid>
+
+                    {
+                        this.state.recentSurveys.length ?
+                            this.state.recentSurveys.map((data:any) => {
+                                return(
+                                    <>
+                                        <Grid item sm={6} md={4} xs={12} key={data.id}>
+                                            <Box className="EventsCards"
+                                                // @ts-ignore
+                                                 onClick={() => this.props.history.push("/SurveyDetails?id=" + data.id)}
+                                            >
+                                                <Box className="EventsIconsText">
+                                                    {
+                                                        data.attributes.status == "upcoming" &&
+                                                        <Typography variant="body2" className={"statusOngoingBlue"}>{data.attributes.status}</Typography>
+                                                    }
+                                                    {
+                                                        data.attributes.status == "ongoing" &&
+                                                        <Typography variant="body2" className={"statusOngoingRed"}>{data.attributes.status}</Typography>
+                                                    }
+                                                    {
+                                                        data.attributes.status == "completed" &&
+                                                        <Typography variant="body2" className={"statusOngoingGreen"}>{data.attributes.status}</Typography>
+                                                    }
+                                                </Box>
+                                                <Box className="EventsIconsText">
+                                                    <Typography className="EventsTitle">{data.attributes.title}</Typography>
+                                                </Box>
+                                                <Box className="EventsIconsText" >
+                                                    <Typography variant="body2" className="textwrap" style={{width:"95%",marginTop:'10px',marginBottom:"10px"}}
+                                                                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(data.attributes.description) }}
+                                                    />
+                                                    {/* {data.description}</Typography> */}
+                                                </Box>
+                                                <Box className="EventsIconsText">
+                                                    <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
+                                                    <Typography variant="body2">{data.attributes.start_date} - {data.attributes.end_date} </Typography>
+                                                </Box>
+                                                <Divider style={{marginTop:10, marginRight:10}}/>
+                                                <Box className="EventsIconsData">
+                                                    <Box className="EventsIconsDataBox">
+                                                        <img src={allUsers}/>
+                                                        <Typography variant="body2">{data.attributes.awaited + data.attributes.total_response}</Typography>
+                                                    </Box>
+                                                    {
+                                                        data.status != "upcoming" &&
+                                                        <>
+                                                            <Box className="EventsIconsDataBox">
+                                                                <CheckCircleOutlineOutlinedIcon style={{color: "green"}}/>
+                                                                <Typography variant="body2">{data.attributes.total_response}</Typography>
+                                                            </Box>
+                                                            <Box className="EventsIconsDataBox">
+                                                                {
+                                                                    data.status != "completed" ?
+                                                                        <>
+                                                                            <AccessTimeOutlinedIcon style={{color: "#ff8100"}}/>
+                                                                            <Typography variant="body2">{data.attributes.awaited}</Typography>
+                                                                        </>
+                                                                        :
+                                                                        <>
+                                                                            <HighlightOffOutlinedIcon style={{color: "red"}}/>
+                                                                            <Typography variant="body2">{data.attributes.awaited}</Typography>
+                                                                        </>
+                                                                }
+                                                            </Box>
+                                                        </>
+                                                    }
+                                                </Box>
+                                            </Box>
+                                        </Grid>
+                                    </>
+                                )
+                            })
+
+                            :
+                            null
+                    }
+
                 </Grid>
+
             </Container>
             </Grid>
 

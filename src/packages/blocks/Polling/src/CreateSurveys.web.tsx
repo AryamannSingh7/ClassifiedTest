@@ -81,9 +81,6 @@ class CreateSurveys extends SurveyController {
     super(props);
 
   }
-  handleChange = (event:any) => {
-    this.setState({checked: !this.state.checked})
-  };
   render() {
     const {t} = this.props
     return ( 
@@ -203,13 +200,11 @@ class CreateSurveys extends SurveyController {
                                                         id="question-type-select"
                                                         value={item.questionType}
                                                         label="Age"
+                                                        style={{width:"100%",border:"1px solid #ECECEC",borderRadius:"10px",backgroundColor:"#f9f9f9",marginRight:"10px"}}
                                                         onChange={(e)=> this.handleQuestionType(key,e)}
                                                     >
-                                                        <MenuItem value="">
-                                                            <em>None</em>
-                                                        </MenuItem>
-                                                        <MenuItem value="shortAns">Short Ans</MenuItem>
-                                                        <MenuItem value="checkbox">CheckBox</MenuItem>
+                                                        <MenuItem value="short_answers">Short Answer</MenuItem>
+                                                        <MenuItem value="checkbox">Multiple Choice Questions</MenuItem>
                                                         <MenuItem value="options">Options</MenuItem>
                                                     </Select>
                                                 </FormControl>
