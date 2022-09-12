@@ -7,6 +7,8 @@ export const email = require("../assets/email.png")
 export const fb = require("../assets/fb.png")
 export const twitter = require("../assets/twitter.png")
 export const user = require("../assets/user.svg")
+export const username = require("../assets/username.png")
+
 
 
 
