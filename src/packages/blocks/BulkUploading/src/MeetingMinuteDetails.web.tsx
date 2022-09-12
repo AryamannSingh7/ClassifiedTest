@@ -1,7 +1,4 @@
 // Customizable Area Start
-//@ts-nocheck
-//@ts-ignore
-
 import React from "react";
 import {
   Container,
@@ -15,7 +12,9 @@ import {
   IconButton,
   Divider,
   TextareaAutosize,
+  Card,
 } from "@material-ui/core";
+import { Link as NavLink } from "@material-ui/core";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
 import Box from "@material-ui/core/Box";
@@ -24,16 +23,15 @@ import MeetingMinutesController, { Props } from "./MeetingMinutesController.web"
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { MeetingsStyleWeb } from "./MeetingsStyle.web";
-import DownloadIcon from "../assets/download.png";
-import PdfIcon from "../assets/pdf.png";
-import CheckIcon from "../assets/check.png";
+import { DownloadIcon, PdfIcon, CheckIcon } from "./assets";
+import { Link } from "react-router-dom";
 
 class MeetingMinuteDetails extends MeetingMinutesController {
   constructor(props: Props) {
     super(props);
   }
 
-  componentDidMount(): Promise<void> {
+  async componentDidMount(): Promise<void> {
     const meeting_id = this.props.navigation.getParam("id");
     this.setState(
       {
@@ -68,8 +66,7 @@ class MeetingMinuteDetails extends MeetingMinutesController {
                     <Typography variant="body1">
                       Meetings / Meeting Minutes /{" "}
                       <Box component="span" style={{ color: "blue" }}>
-                        {this.state.meetingMinuteDetails &&
-                          this.state.meetingMinuteDetails.attributes.title}
+                        {this.state.meetingMinuteDetails && this.state.meetingMinuteDetails.attributes.title}
                       </Box>
                     </Typography>
                     <Typography variant="h5" className="sub-heading">
@@ -77,33 +74,66 @@ class MeetingMinuteDetails extends MeetingMinutesController {
                     </Typography>
                   </Box>
                 </Box>
-                <Box className="meeting-detail-box">
-                  <Box className="meeting-top">
-                    <h3>Meeting Minutes 01-04-2022 18:30</h3>
-                    <span className={this.state.meetingMinuteStatus}>
-                      {this.state.meetingMinuteStatus}
-                    </span>
-                  </Box>
-                  <Divider />
-                  <Box className="meeting-minute-details">
-                    <Box className="resolution">Meeting Detail</Box>
-                    <Box className="pdf-detail">
-                      <div className="heading">
-                        <img src={PdfIcon} alt="pdf" />
-                        <h6>Meeting Minutes 01-04-2022</h6>
-                      </div>
-                      <img src={DownloadIcon} alt="download" />
+                {this.state.meetingMinuteDetails && this.state.meetingMinuteDetails.attributes.meeting_mins_pdf ? (
+                  <>
+                    <Box className="meeting-detail-box">
+                      <Box className="meeting-top">
+                        <h3>Meeting Minutes 01-04-2022 18:30</h3>
+                        <span className={this.state.meetingMinuteStatus}>{this.state.meetingMinuteStatus}</span>
+                      </Box>
+                      <Divider />
+                      <Box className="meeting-minute-details">
+                        <Box className="resolution">
+                          <div
+                            dangerouslySetInnerHTML={{
+                              __html:
+                                this.state.meetingMinuteDetails &&
+                                this.state.meetingMinuteDetails.attributes.meeting_mins_notes,
+                            }}
+                          />
+                        </Box>
+                        <Box className="pdf-detail">
+                          <div className="heading">
+                            <img src={PdfIcon} alt="pdf" />
+                            <h6>Meeting Minutes 01-04-2022</h6>
+                          </div>
+                          <NavLink
+                            href={
+                              this.state.meetingMinuteDetails &&
+                              this.state.meetingMinuteDetails.attributes.meeting_mins_pdf.url
+                            }
+                            target="_blank"
+                          >
+                            <img src={DownloadIcon} alt="download" />
+                          </NavLink>
+                        </Box>
+                      </Box>
                     </Box>
-                  </Box>
-                </Box>
-                {this.state.meetingMinuteStatus === "pending" && (
-                  <Box className="button-box">
-                    <Button className="cancel" onClick={() => this.handleRejectMeetingModal()}>
-                      Reject
-                    </Button>
-                    <Button className="edit" onClick={() => this.handleApproveMeetingModal()}>
-                      Approve
-                    </Button>
+                    <Box className="button-box">
+                      <Link to={`/MeetingMinute/${this.state.meetingMinuteId}/Note`}>
+                        <Button className="edit">Edit</Button>
+                      </Link>
+                    </Box>
+                    {this.state.meetingMinuteStatus === "pending" && (
+                      <Box className="button-box">
+                        <Button className="cancel" onClick={() => this.handleRejectMeetingModal()}>
+                          Reject
+                        </Button>
+                        <Button className="edit" onClick={() => this.handleApproveMeetingModal()}>
+                          Approve
+                        </Button>
+                      </Box>
+                    )}
+                  </>
+                ) : (
+                  <Box className="no-available">
+                    <Card>No Meeting Minute Available !!</Card>
+
+                    <Box className="button-box">
+                      <Link to={`/MeetingMinute/${this.state.meetingMinuteId}/Note`}>
+                        <Button className="edit">Add</Button>
+                      </Link>
+                    </Box>
                   </Box>
                 )}
               </Container>

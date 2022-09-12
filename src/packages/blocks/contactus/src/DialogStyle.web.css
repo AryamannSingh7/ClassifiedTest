@@ -238,6 +238,11 @@
   top: 12px !important;
 }
 
+.attendee-menu.szh-menu-container ul {
+  left: -114.75px !important;
+  top: -97px !important;
+}
+
 .szh-menu-container ul li {
   padding: 8px 32px;
   display: block;
@@ -471,6 +476,112 @@
   cursor: pointer;
 }
 
+.add-meeting .create-audience {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.add-meeting .create-audience span {
+  color: #fc8434;
+  font-weight: 600;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.add-meeting .attendee-box {
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 6px;
+}
+
+.add-meeting .attendee-box .attendee {
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  border: 1px solid #a6a6a6;
+  gap: 12px;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #a6a6a6;
+  cursor: pointer;
+}
+
+.add-meeting .attendee-box .attendee.active {
+  border-color: #2b6fec;
+  color: #2b6fec;
+}
+
+.add-meeting .MuiDialogContent-dividers {
+  padding-top: 0 !important;
+}
+
+.select-meeting.scheduled-meeting .button-group .dialog-input {
+  padding: 6px 12px;
+  background-color: #f0f0f0;
+}
+
+.select-meeting.scheduled-meeting .button-group {
+  display: flex;
+  align-items: center;
+}
+
+.select-meeting.scheduled-meeting .button-group .MuiInput-underline:before,
+.select-meeting.scheduled-meeting .button-group .MuiInput-underline:after,
+.select-meeting.scheduled-meeting .filter .MuiInput-underline:before,
+.select-meeting.scheduled-meeting .filter .MuiInput-underline:after {
+  content: "";
+  border: 0;
+  outline: none;
+  position: unset;
+}
+
+.select-meeting.scheduled-meeting td {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.select-meeting.scheduled-meeting th {
+  font-weight: 600;
+}
+
+.select-meeting.scheduled-meeting .filter {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.select-meeting.scheduled-meeting .filter .dialog-select-input {
+  width: 160px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 8px;
+  font-weight: 400;
+}
+
+.select-meeting.scheduled-meeting .filter .filter-button {
+  background-color: #2b6fed;
+  color: white;
+  border-radius: 8px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 100px;
+  font-weight: 600;
+}
+
+.select-meeting.scheduled-meeting .selected-meeting h4 span {
+  color: #fc8434;
+}
+
+.select-meeting.scheduled-meeting tr .MuiCheckbox-colorSecondary.Mui-checked {
+  color: #fc8434;
+}
+
 .schedule-dialog .dialog-button-group {
   display: flex;
   align-items: center;
@@ -487,6 +598,10 @@
   border: 1px solid #d9d9d9;
   padding: 10px;
   margin: 5px 0;
+}
+
+.schedule-dialog .choice-box {
+  align-items: center;
 }
 
 .edit-profile .profile-picture {
