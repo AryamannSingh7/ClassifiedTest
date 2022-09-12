@@ -935,7 +935,7 @@ const routeMap = {
   DashboardGeneral: {
     component: DashboardGeneral,
     path: '/DashboardGeneral',
-    roles: [ROLE.CHAIRMAN]
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER]
   },
 
   DashboardTicket: {
