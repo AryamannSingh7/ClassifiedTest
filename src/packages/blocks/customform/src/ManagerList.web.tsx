@@ -107,8 +107,8 @@ class ManagerList extends ManagerController {
                               <MenuItem value="Pending">
                                 {t("Pending")}
                               </MenuItem>
-                              <MenuItem value="Pending Approved">
-                                {t("Pending Approved")}
+                              <MenuItem value="Approved">
+                                {t("Approved")}
                               </MenuItem>
                               <MenuItem value="Rejected">
                                 {t("Rejected")}
@@ -268,7 +268,7 @@ class ManagerList extends ManagerController {
 }
 //@ts-nocheck
 //@ts-ignore
-export default withRouter(ManagerList)
+export default withTranslation()(withRouter(ManagerList))
 
 const dashBoardBudget = {
   SideBar: {

@@ -50,13 +50,13 @@ class Polling extends PollingController {
   render() {
     //@ts-ignore
     const {t} = this.props
-    return ( 
+    return (
       <>
     <Box style={{background: "#E5ECFF"}}>
         <DashboardHeader {...this.props}/>
-      
+
         <Box style={{display: "flex"}}>
-            
+
             <Grid item xs={3} md={3} sm={3} className="SideBar">
                 <ChairmanSidebar {...this.props}/>
             </Grid>
@@ -72,7 +72,7 @@ class Polling extends PollingController {
                     </Box>
                     <Box>
                         <FormControl className='YearMain'>
-                            <NativeSelect className='yearSelection' 
+                            <NativeSelect className='yearSelection'
                             value={this.state.Year} onChange={this.handleChange}>
                                 <option value="This Week">{t("This Week")}</option>
                                 <option value="This Month">{t("This Month")}</option>
@@ -87,9 +87,9 @@ class Polling extends PollingController {
                             <Box sx={{ml:1, mb:2}} >
                                 <img src={pollandsurvey} alt="pollandsurvey" />
                             </Box>
-                            <Typography  className="CreatePSHeading">{t("Create a New Polls/Survey")}</Typography> 
+                            <Typography  className="CreatePSHeading">{t("Create a New Polls/Survey")}</Typography>
                         </Box>
-                    </Grid> 
+                    </Grid>
 
                     <Dialog
                         open={this.state.showDialog}
@@ -102,18 +102,18 @@ class Polling extends PollingController {
                         <DialogTitle id="alert-dialog-title" style={{textAlign:"center"}}>{t("Choose Options")}</DialogTitle>
                         <Box style={{ display: "flex", marginLeft: 50, marginRight: 50}}>
                             <DialogActions disableSpacing style={{flexDirection:"row",marginTop:'0px'}}>
-                                <div 
+                                <div
                                     onClick={() => {
                                         this.setState({ showDialog: false})
                                         // @ts-ignore
                                         this.props.history.push("/CreatePolls")
-                                    }} 
+                                    }}
                                     className="dialogOption"
                                 >
                                     <img src={pollcreate} alt="pollcreate" className="DialogIcons"/>
                                     <p>{t("Create Poll")}</p>
                                 </div>
-                                <div 
+                                <div
                                     onClick={() => {
                                         this.setState({ showDialog: false})
                                         // @ts-ignore
@@ -122,7 +122,7 @@ class Polling extends PollingController {
                                     className="dialogOption"
                                 >
                                     <img src={surveycreate} alt="surveycreate" className="DialogIcons"/>
-                                    <p>{t("Create Survey")}</p> 
+                                    <p>{t("Create Survey")}</p>
                                 </div>
                             </DialogActions>
                         </Box>
@@ -138,13 +138,13 @@ class Polling extends PollingController {
                             <Box className="bottomTwoSpan">
                                 <Typography variant="body2" className="bottomColor">
                                     {this.state.totalPollsCount.polls_count ? this.state.totalPollsCount.polls_count : ''}
-                                </Typography>  
-                            </Box> 
+                                </Typography>
+                            </Box>
                             <Box className="bottomTwoSpan">
                                 <Typography variant="body2">
                                     {t("Last poll created on")} {this.state.totalPollsCount.last_poll_created_at ? this.state.totalPollsCount.last_poll_created_at : ''}
-                                </Typography> 
-                            </Box> 
+                                </Typography>
+                            </Box>
                         </Box>
                     </Grid>
 
@@ -156,11 +156,11 @@ class Polling extends PollingController {
                             </Box>
                             <Typography className="subHeading">{t("Surveys Created")}</Typography>
                             <Box className="bottomTwoSpan">
-                                <Typography variant="body2" className="bottomColor">344</Typography>  
-                            </Box> 
+                                <Typography variant="body2" className="bottomColor">344</Typography>
+                            </Box>
                             <Box className="bottomTwoSpan">
-                                <Typography variant="body2">{t("Last Survey created on")} 12-02-2022</Typography> 
-                            </Box> 
+                                <Typography variant="body2">{t("Last Survey created on")} 12-02-2022</Typography>
+                            </Box>
                         </Box>
                     </Grid>
 
@@ -188,15 +188,33 @@ class Polling extends PollingController {
                                         <Box className="EventsIconsText">
                                             {
                                                 data.status == "upcoming" &&
-                                                <Typography variant="body2" className={"statusOngoingBlue"}>{data.status}</Typography>
+                                                <Typography variant="body2" className={"statusOngoingBlue"}>
+                                            {
+
+                                              data.status == "upcoming" && <>{t('upcoming')}</>
+                                            }
+                                                  </Typography>
                                             }
                                             {
                                                 data.status == "ongoing" &&
-                                                <Typography variant="body2" className={"statusOngoingRed"}>{data.status}</Typography>
+                                                <Typography variant="body2" className={"statusOngoingRed"}>
+
+                                            {
+
+                                              data.status == "ongoing" && <>{t('Ongoing')}</>
+                                            }
+                                                </Typography>
                                             }
                                             {
                                                 data.status == "completed" &&
-                                                <Typography variant="body2" className={"statusOngoingGreen"}>{data.status}</Typography>
+                                                <Typography variant="body2" className={"statusOngoingGreen"}>
+
+                                            {
+
+                                              data.status == "completed" && <>{t('completed')}</>
+                                            }
+
+                                                </Typography>
                                             }
                                         </Box>
                                         <Box className="EventsIconsText">
@@ -248,7 +266,7 @@ class Polling extends PollingController {
                             )
                         })
 
-                        : 
+                        :
                         null
                     }
 
@@ -354,7 +372,7 @@ class Polling extends PollingController {
 }
 
 //@ts-ignore
-export default withTranslation()(withRouter(Polling)); 
+export default withTranslation()(withRouter(Polling));
 
 const dashBoard = {
     SideBar: {

@@ -143,7 +143,9 @@ class IncidentManagementDetail extends IncidentManagementController {
                           <h4>{attributes?.common_area?.name}</h4>
                         </Box>
                         <Box className="card-rows">
-                          <h5>Incident is related to: </h5>
+                        <Typography className="title-span" component="span">
+                         Incident is related to:
+                        </Typography>
                           <h4>{attributes?.incident_related?.name}</h4>
                         </Box>
                         <Box className="card-rows">
