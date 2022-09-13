@@ -94,7 +94,7 @@ export default class UserProfileBasicController extends BlockComponent<
       getName(MessageEnum.SessionResponseMessage),
       getName(MessageEnum.CountryCodeMessage)
     ];
-   
+
     this.state = {
       firstName: "",
       lastName: "",
@@ -835,11 +835,11 @@ export default class UserProfileBasicController extends BlockComponent<
   };
 
   txtInputPhoneNumberlWebProps = {
-     onChangeText: (text:string) => 
+     onChangeText: (text:string) =>
      {
        if (this.txtInputPhoneNumberlWebProps.editable) {
         this.setState({ phoneNumber: text })
-     
+
         //@ts-ignore
         this.txtInputPhoneNumberProps.value = text;
        }
@@ -876,7 +876,7 @@ export default class UserProfileBasicController extends BlockComponent<
   txtInputEmailProps = this.isPlatformWeb()
   ? this.txtInputEmailWebProps
   : this.txtInputEmailMobileProps;
-  
+
   btnEnableEditPasswordProps = {
     onPress: () => this.enableDisableEditPassword(true)
   }
@@ -891,7 +891,7 @@ export default class UserProfileBasicController extends BlockComponent<
   }
 
   btnPasswordShowHideButtonProps = {
-    onPress: () => { 
+    onPress: () => {
       this.setState({ enablePasswordField: !this.txtInputCurrentPasswordProps.secureTextEntry });
       this.txtInputCurrentPasswordProps.secureTextEntry = !this.txtInputCurrentPasswordProps.secureTextEntry
       this.imgPasswordShowhideProps.source = this.txtInputCurrentPasswordProps.secureTextEntry  ? imgPasswordVisible : imgPasswordInVisible
@@ -913,7 +913,7 @@ export default class UserProfileBasicController extends BlockComponent<
 
   btnNewPasswordShowHideButtonProps = {
     onPress: () => {
-      this.setState({ 
+      this.setState({
         enableNewPasswordField: !this.txtInputNewPasswordProps.secureTextEntry });
         this.txtInputNewPasswordProps.secureTextEntry = !this.txtInputNewPasswordProps.secureTextEntry
         this.imgNewPasswordShowhideProps.source =  this.txtInputNewPasswordProps.secureTextEntry  ? imgPasswordVisible : imgPasswordInVisible
@@ -939,7 +939,7 @@ export default class UserProfileBasicController extends BlockComponent<
 
   btnReTypePasswordShowHideProps = {
     onPress: () => {
-      this.setState({ 
+      this.setState({
         enableReTypePasswordField: !this.txtInputReTypePasswordProps.secureTextEntry });
         this.txtInputReTypePasswordProps.secureTextEntry = !this.txtInputReTypePasswordProps.secureTextEntry
         this.imgReTypePasswordShowhideProps.source =  this.txtInputNewPasswordProps.secureTextEntry  ? imgPasswordVisible : imgPasswordInVisible

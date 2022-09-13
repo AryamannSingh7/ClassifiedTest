@@ -6,6 +6,8 @@ import { runEngine } from "../../../framework/src/RunEngine";
 
 // Customizable Area Start
 import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
+import RichTextEditor from "react-rte";
+import toast from "react-hot-toast";
 // Customizable Area End
 
 export const configJSON = require("./config.js");
@@ -18,16 +20,39 @@ export interface Props {
   // Customizable Area End
 }
 
+interface Pagination {
+  current_page: any | number;
+  next_page: any | number;
+  prev_page: any | number;
+  total_count: any | number;
+  total_pages: any | number;
+}
+
+interface Filter {
+  page: number;
+}
+
 interface S {
   // Customizable Area Start
   isRejectMeetingModalOpen: boolean;
   isApproveMeetingModalOpen: boolean;
+  isShareModalOpen: boolean;
+  isSubmitNoteModalOpen: boolean;
 
   meetingMinuteList: any[];
+
+  pagination: any | Pagination;
+  filter: Filter;
 
   meetingMinuteId: string;
   meetingMinuteStatus: string;
   meetingMinuteDetails: any;
+
+  meetingNote: any;
+
+  shareUrl: string;
+
+  rejectNote: string;
   // Customizable Area End
 }
 
@@ -39,26 +64,37 @@ export default class MeetingMinutesController extends BlockComponent<Props, S, S
   GetAllMinuteMeetingsCallId: any;
   GetMinuteMeetingDetailCallId: any;
   UpdateMinuteMeetingCallId: any;
+  MinuteMeetingNoteCallId: any;
 
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
     console.disableYellowBox = true;
     // Customizable Area Start
-    this.subScribedMessages = [
-      getName(MessageEnum.RestAPIResponceMessage),
-      getName(MessageEnum.RestAPIRequestMessage),
-    ];
+    this.subScribedMessages = [getName(MessageEnum.RestAPIResponceMessage), getName(MessageEnum.RestAPIRequestMessage)];
 
     this.state = {
       isRejectMeetingModalOpen: false,
       isApproveMeetingModalOpen: false,
+      isShareModalOpen: false,
+      isSubmitNoteModalOpen: false,
 
       meetingMinuteList: [],
+
+      pagination: null,
+      filter: {
+        page: 1,
+      },
 
       meetingMinuteId: "",
       meetingMinuteStatus: "",
       meetingMinuteDetails: null,
+
+      meetingNote: RichTextEditor.createEmptyValue(),
+
+      shareUrl: "",
+
+      rejectNote: "",
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -70,8 +106,7 @@ export default class MeetingMinutesController extends BlockComponent<Props, S, S
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.GetAllMinuteMeetingsCallId !== null &&
-      this.GetAllMinuteMeetingsCallId ===
-        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+      this.GetAllMinuteMeetingsCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.GetAllMinuteMeetingsCallId = null;
 
@@ -80,6 +115,7 @@ export default class MeetingMinutesController extends BlockComponent<Props, S, S
       if (responseJson.code === 200) {
         this.setState({
           meetingMinuteList: responseJson.meeting.data,
+          pagination: responseJson.meta.pagination,
         });
       }
 
@@ -96,8 +132,7 @@ export default class MeetingMinutesController extends BlockComponent<Props, S, S
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.GetMinuteMeetingDetailCallId !== null &&
-      this.GetMinuteMeetingDetailCallId ===
-        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+      this.GetMinuteMeetingDetailCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.GetMinuteMeetingDetailCallId = null;
 
@@ -107,7 +142,64 @@ export default class MeetingMinutesController extends BlockComponent<Props, S, S
         this.setState({
           meetingMinuteDetails: responseJson.meeting.data,
           meetingMinuteStatus: responseJson.meeting.data.attributes.meeting_mins_status,
+          meetingNote: RichTextEditor.createValueFromString(
+            responseJson.meeting.data.attributes.meeting_mins_notes,
+            "html"
+          ),
         });
+      }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // Add / Edit Meeting Minute Note API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.MinuteMeetingNoteCallId !== null &&
+      this.MinuteMeetingNoteCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.MinuteMeetingNoteCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      if (responseJson.code === 200) {
+        toast.success("Meeting Minuted Added Successful!!");
+        this.props.navigation.goBack();
+      }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // Update Minute Meeting Status Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.UpdateMinuteMeetingCallId !== null &&
+      this.UpdateMinuteMeetingCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.UpdateMinuteMeetingCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      if (responseJson.code === 200) {
+        if (this.state.isApproveMeetingModalOpen) {
+          this.handleApproveMeetingModal();
+        } else {
+          this.handleRejectMeetingModal();
+        }
+        toast.success(responseJson.message);
+        this.MinuteMeetingDetail();
       }
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
@@ -124,6 +216,7 @@ export default class MeetingMinutesController extends BlockComponent<Props, S, S
   // Customizable Area Start
   // Get All Meeting API
   getAllMeetings = () => {
+    const { page } = this.state.filter;
     const header = {
       "Content-Type": configJSON.ApiContentType,
       token: localStorage.getItem("userToken"),
@@ -136,15 +229,12 @@ export default class MeetingMinutesController extends BlockComponent<Props, S, S
     const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_meeting/meeting_mins`
+      `society_managements/${society_id}/bx_block_meeting/meeting_mins?page=${page}`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypeGet
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
@@ -164,32 +254,33 @@ export default class MeetingMinutesController extends BlockComponent<Props, S, S
     const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_meeting/meeting_mins/${
-        this.state.meetingMinuteId
-      }`
+      `society_managements/${society_id}/bx_block_meeting/meeting_mins/${this.state.meetingMinuteId}`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypeGet
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
   };
 
-  // Update Minute Meeting API
-  updateMinuteMeeting = () => {
-    const body = {
+  // Update Minute Meeting Status API
+  updateMinuteMeeting = (status: string) => {
+    let body = {
       meeting: {
-        meeting_mins_status: "rejected",
-        meeting_reject_note_attributes: {
-          note: "",
-        },
+        meeting_mins_status: status,
       },
     };
+
+    if (status === "rejected") {
+      const note = {
+        meeting_reject_note_attributes: {
+          note: this.state.rejectNote,
+        },
+      };
+      body.meeting = Object.assign(body.meeting, note);
+    }
 
     const header = {
       "Content-Type": configJSON.ApiContentType,
@@ -200,22 +291,59 @@ export default class MeetingMinutesController extends BlockComponent<Props, S, S
 
     this.UpdateMinuteMeetingCallId = apiRequest.messageId;
 
-    apiRequest.addData(getName(MessageEnum.RestAPIResponceEndPointMessage), ``);
+    const society_id = localStorage.getItem("society_id");
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `society_managements/${society_id}/bx_block_meeting/meeting_mins/${this.state.meetingMinuteId}`
+    );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestBodyMessage), JSON.stringify(body));
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePut);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  // Add / Edit Meeting Minute Note API
+  meetingMinuteNote = () => {
+    var data = new FormData();
+    data.append("meeting_mins_notes", this.state.meetingNote._cache.html);
+
+    const header = {
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.MinuteMeetingNoteCallId = apiRequest.messageId;
+
+    const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypePut
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `society_managements/${society_id}/bx_block_meeting/meeting_mins/${this.state.meetingMinuteId}/meeting_mins_notes`
     );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestBodyMessage), data);
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePut);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
   };
 
   // Handle State
+  onChange = (value: any) => {
+    console.log(value.toString("html"));
+    this.setState({
+      meetingNote: value,
+    });
+  };
+
   handleRejectMeetingModal = () => {
     this.setState({
       isRejectMeetingModalOpen: !this.state.isRejectMeetingModalOpen,
@@ -226,6 +354,27 @@ export default class MeetingMinutesController extends BlockComponent<Props, S, S
     this.setState({
       isApproveMeetingModalOpen: !this.state.isApproveMeetingModalOpen,
     });
+  };
+
+  handleShareModal = () => {
+    this.setState({
+      isShareModalOpen: !this.state.isShareModalOpen,
+    });
+  };
+
+  handleSubmitNoteModal = () => {
+    this.setState({
+      isSubmitNoteModalOpen: !this.state.isSubmitNoteModalOpen,
+    });
+  };
+
+  isInputOnlyWhiteSpace = (text: string) => {
+    const regEx = /\S/;
+    if (!regEx.test(text)) {
+      return true;
+    } else {
+      return false;
+    }
   };
   // Customizable Area End
 }

@@ -42,6 +42,8 @@ import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
 import SearchIcon from '@material-ui/icons/Search';
 import HighlightOffOutlinedIcon from "@material-ui/icons/HighlightOffOutlined";
+import { withTranslation } from 'react-i18next';
+import '../../../web/src/i18n.js';
 
 function createData(name:any, unit:any) {
     return { name, unit };
@@ -69,6 +71,8 @@ class PollDetails extends PollingController {
   }
 
   render() {
+    //@ts-ignore
+    const {t} = this.props
     console.log("poll pollPreviewAnswer #######", this.state.pollPreviewAnswer?.poll?.data)
     return ( 
       <>
@@ -86,9 +90,9 @@ class PollDetails extends PollingController {
                     <Box className="navigation">
                         <Box>
                             <Typography variant="body1" >
-                            Poll and survey / Create a Poll / <Box component="span" style={{color: "blue"}}>Poll Details</Box>
+                            {t("Poll and survey")} / {t("Create a Poll")} / <Box component="span" style={{color: "blue"}}>{t("Poll Details")}</Box>
                             </Typography>
-                            <Typography variant="h5" className="subHeading">Poll Details</Typography>
+                            <Typography variant="h5" className="subHeading">{t("Poll Details")}</Typography>
                         </Box>
                     </Box>
                     <Grid container spacing={4} style={{marginTop: 15}}>
@@ -96,7 +100,7 @@ class PollDetails extends PollingController {
                             <Box className="createPSCards">
                                 <Box className="PreviewName">
                                     <Box className="PollName">
-                                        <Typography className="subHeading">Poll Name: </Typography>
+                                        <Typography className="subHeading">{t("Poll Name:")} </Typography>
                                         <Typography className="PollNameText">
                                             {this.state.pollPreviewAnswer?.poll?.data?.attributes?.title}
                                         </Typography>
@@ -105,34 +109,31 @@ class PollDetails extends PollingController {
                                             (this.state.pollPreviewAnswer?.poll?.data?.attributes?.poll_type === true) ?
                                             <Box>
                                                 <p className="AnonymousPreviewPoll">
-                                                    Anonymous Poll
-                                                </p>
-                                                {
-                                                    this.state.pollPreviewAnswer?.poll?.data?.attributes?.status == "upcoming" &&
-                                                    <Typography variant="body2" className={"statusOngoingBlue"}>{this.state.pollPreviewAnswer?.poll?.data?.attributes?.status}</Typography>
-                                                }
-                                                {
-                                                    this.state.pollPreviewAnswer?.poll?.data?.attributes?.status == "ongoing" &&
-                                                    <Typography variant="body2" className={"statusOngoingRed"}>{this.state.pollPreviewAnswer?.poll?.data?.attributes?.status}</Typography>
-                                                }
-                                                {
-                                                    this.state.pollPreviewAnswer?.poll?.data?.attributes?.status == "completed" &&
-                                                    <Typography variant="body2" className={"statusOngoingGreen"}>{this.state.pollPreviewAnswer?.poll?.data?.attributes?.status}</Typography>
-                                                }
+                                                    {t("Anonymous Poll")}
+                                                </p>  
+                                                <p className="statusOngoing" style={{fontWeight: 600, marginLeft:"1rem"}}>
+                                                {this.state.pollPreviewAnswer?.poll?.data?.attributes?.status}
+                                                </p> 
                                             </Box>
                                             :
                                             <Box>
                                                 {
                                                     this.state.pollPreviewAnswer?.poll?.data?.attributes?.status == "upcoming" &&
-                                                    <Typography variant="body1" className={"statusOngoingBlue"}>{this.state.pollPreviewAnswer?.poll?.data?.attributes?.status}</Typography>
+                                                    <Typography variant="body1" className={"statusOngoingBlue"}>
+                                                        {this.state.pollPreviewAnswer?.poll?.data?.attributes?.status == "upcoming" && <>{t('upcoming')}</>}
+                                                    </Typography>
                                                 }
                                                 {
                                                     this.state.pollPreviewAnswer?.poll?.data?.attributes?.status == "ongoing" &&
-                                                    <Typography variant="body1" className={"statusOngoingRed"}>{this.state.pollPreviewAnswer?.poll?.data?.attributes?.status}</Typography>
+                                                    <Typography variant="body1" className={"statusOngoingRed"}>
+                                                        {this.state.pollPreviewAnswer?.poll?.data?.attributes?.status == "ongoing" && <>{t('Ongoing')}</>}
+                                                    </Typography>
                                                 }
                                                 {
                                                     this.state.pollPreviewAnswer?.poll?.data?.attributes?.status == "completed" &&
-                                                    <Typography variant="body1" className={"statusOngoingGreen"}>{this.state.pollPreviewAnswer?.poll?.data?.attributes?.status}</Typography>
+                                                    <Typography variant="body1" className={"statusOngoingGreen"}>
+                                                        {this.state.pollPreviewAnswer?.poll?.data?.attributes?.status == "completed" && <>{t('completed')}</>}
+                                                    </Typography>
                                                 }
                                             </Box>
                                         }
@@ -142,7 +143,7 @@ class PollDetails extends PollingController {
                                     <Box className="datebox">
                                         <CalendarTodayOutlinedIcon style={{color:"grey", fontSize:22}}/>
                                         <Box>
-                                            <Typography className="PollNamedate">Start Date</Typography>
+                                            <Typography className="PollNamedate">{t("Start Date")}</Typography>
                                             <Typography className="PollNameText">
                                                 {/* June 7, 2022 */}
                                                 {this.state.pollPreviewAnswer?.poll?.data?.attributes?.start_date}</Typography>
@@ -151,7 +152,7 @@ class PollDetails extends PollingController {
                                     <Box className="datebox">
                                         <CalendarTodayOutlinedIcon style={{color:"grey", fontSize:22}}/>
                                         <Box>
-                                            <Typography className="PollNamedate">End Date</Typography>
+                                            <Typography className="PollNamedate">{t("End Date")}</Typography>
                                             <Typography className="PollNameText">
                                                 {/* June 7, 2022 */}
                                             {this.state.pollPreviewAnswer?.poll?.data?.attributes?.end_date}</Typography>
@@ -160,7 +161,7 @@ class PollDetails extends PollingController {
                                 </Box>
                                 <Box style={{marginTop:15}}>
                                     <Box className="infoIcon">
-                                        <Typography variant="subtitle1" style={{fontWeight:"bold"}}>Description</Typography>
+                                        <Typography variant="subtitle1">{t("Description")}</Typography>  
                                         <InfoIcon style={{color:"grey", fontSize:18}}/>
                                     </Box>
                                     <Box style={{marginTop:5, overflowWrap:"break-word"}}>
@@ -188,7 +189,7 @@ class PollDetails extends PollingController {
                                         disabled={this.state.pollPreviewAnswer?.poll?.data?.attributes?.poll_type}
                                         onClick={() => this.props.history.push(`/PollReport?id=${this.state.pollPreviewAnswerID}`)}
                                     >
-                                        GENERATE REPORT
+                                        {t("GENERATE REPORT")}
                                     </Button>  
                                 </Box>
                             </Grid>
@@ -212,7 +213,7 @@ class PollDetails extends PollingController {
                                         </Grid>
                                         <Grid sm={2} md={2} xs={2} style={{marginTop: "1.5rem"}}>
                                             <Box className="VoteCount" onClick={() => val.answer_percentage > 0 && this.setState({showDialog : true,dialogText:val.text,dialogCount:val.answer_count})}>
-                                                <p>{val.answer_count} PEOPLE VOTED</p>
+                                                <p>{val.answer_count} {t("PEOPLE VOTED")}</p>
                                             </Box>
                                         </Grid>
                                     </Grid>
@@ -230,7 +231,7 @@ class PollDetails extends PollingController {
                         className="DialogTable"
                     >
                         <DialogTitle id="alert-dialog-title" className="tableHeading" dividers>
-                            <h4>People voted for {this.state.dialogText}</h4>
+                            <h4>{t("People voted for")} {this.state.dialogText}</h4>
                             <div onClick={() => this.setState({ showDialog: false })}
                             style={{cursor:"pointer"}}
                             >
@@ -240,7 +241,7 @@ class PollDetails extends PollingController {
                         <Divider />
                         <Box className="tableBorder">
                             <Box class="tableTopSearch">
-                                <h4>{this.state.dialogCount} people</h4>
+                                <h4>{this.state.dialogCount} {t("people")}</h4>
                                 <div className="searchBox">
                                     <div className="searchIcon">
                                     <SearchIcon />
@@ -307,7 +308,7 @@ class PollDetails extends PollingController {
                             </Box>
                             <Box className="VoteCountBottomBox" >
                                 <img src={CheckMark} alt="CheckMark" />
-                                <p>{this.state.pollPreviewAnswer?.poll?.data?.attributes?.total_responses} Response Received</p>
+                                <p>{this.state.pollPreviewAnswer?.poll?.data?.attributes?.total_responses} {t("Response Received")}</p>
                             </Box>
                         </Box>
                     </Grid>
@@ -322,7 +323,7 @@ class PollDetails extends PollingController {
   }
 }
 
-export default withRouter(PollDetails)
+export default withTranslation()(withRouter(PollDetails));
 
 const dashBoard = {
     SideBar: {

@@ -185,13 +185,14 @@ import ChangedSelectedTemplate from "../../blocks/RolesPermissions2/src/ChangedS
 import ReviewTemplate from "../../blocks/RolesPermissions2/src/ReviewTemplate.web";
 import AddCondition from "../../blocks/RolesPermissions2/src/AddCondition.web";
 
-import ChairmanScheduledMeeting from "../../blocks/BulkUploading/src/ScheduledMeeting.web"
-import ScheduledMeetingDetails from "../../blocks/BulkUploading/src/ScheduledMeetingDetails.web"
-import ChairmanMeetingMinutes from "../../blocks/BulkUploading/src/MeetingMinutes.web"
-import MeetingMinuteDetails from "../../blocks/BulkUploading/src/MeetingMinuteDetails.web"
-import MyMeetings from "../../blocks/BulkUploading/src/MyMeetings.web"
-import MyMeetingDetail from "../../blocks/BulkUploading/src/MyMeetingDetail.web"
-import MyMeetingMinuteDetail from "../../blocks/BulkUploading/src/MyMeetingMinuteDetail.web"
+import ChairmanScheduledMeeting from "../../blocks/BulkUploading/src/ScheduledMeeting.web";
+import ScheduledMeetingDetails from "../../blocks/BulkUploading/src/ScheduledMeetingDetails.web";
+import ChairmanMeetingMinutes from "../../blocks/BulkUploading/src/MeetingMinutes.web";
+import MeetingMinuteDetails from "../../blocks/BulkUploading/src/MeetingMinuteDetails.web";
+import MyMeetings from "../../blocks/BulkUploading/src/MyMeetings.web";
+import MyMeetingDetail from "../../blocks/BulkUploading/src/MyMeetingDetail.web";
+import MyMeetingMinuteDetail from "../../blocks/BulkUploading/src/MyMeetingMinuteDetail.web";
+import MeetingMinuteNote from "../../blocks/BulkUploading/src/MeetingMinuteNote.web";
 
 import ViewInvoices from '../../blocks/InvoiceBilling/src/ViewInvoices.web';
 import ViewReceipt from '../../blocks/InvoiceBilling/src/ViewReceipt.web';
@@ -200,6 +201,9 @@ import ReceiptsDetails from '../../blocks/InvoiceBilling/src/ReceiptsDetails.web
 import CharmainInvoices from '../../blocks/dashboard/src/CharmainInvoices.web';
 
 import ChairmanProfile from '../../blocks/Settings5/src/ChairmanProfile.web';
+import Profile from '../../blocks/user-profile-basic/src/Profile.web';
+import EditProfile from '../../blocks/user-profile-basic/src/EditProfile.web';
+import PublicView from '../../blocks/user-profile-basic/src/PublicView.web';
 
 const routeMap = {
   //done
@@ -208,6 +212,24 @@ const routeMap = {
     path: '/',
     exact: true,
     roles: [ROLE.PRIVATE]
+  },
+  Profile: {
+    component: Profile,
+    path: '/profile',
+    exact: true,
+    // roles: [ROLE.PRIVATE]
+  },
+  PublicView: {
+    component: PublicView,
+    path: '/PublicView',
+    exact: true,
+    // roles: [ROLE.PRIVATE]
+  },
+  EditProfile: {
+    component: EditProfile,
+    path: '/editprofile',
+    exact: true,
+    // roles: [ROLE.PRIVATE]
   },
   Inbox: {
     component: Inbox,
@@ -706,6 +728,16 @@ const routeMap = {
     path: '/MeetingMinute/:id',
     exact: true
   },
+  MeetingMinuteNote: {
+    component: MeetingMinuteNote,
+    path: '/MeetingMinute/:id/Note',
+    exact: true
+  },
+  ScheduleMeetingMinuteNote: {
+    component: MeetingMinuteNote,
+    path: '/ScheduledMeeting/:id/Note',
+    exact: true
+  },
   // Owner - Meetings
   OwnerMeetingsList: {
     component: MyMeetings,
@@ -918,7 +950,7 @@ const routeMap = {
   DashboardGeneral: {
     component: DashboardGeneral,
     path: '/DashboardGeneral',
-    roles: [ROLE.CHAIRMAN]
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER]
   },
 
   DashboardTicket: {

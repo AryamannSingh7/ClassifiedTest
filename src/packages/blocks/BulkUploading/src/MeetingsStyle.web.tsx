@@ -33,15 +33,18 @@ export const MeetingsStyleWeb: any = {
       background: "#FFFFFF",
       border: "1px solid #F0F0F0",
       borderRadius: "8px",
-      padding: "10px 15px",
-      width: "200px",
+      padding: "7px",
+      width: "170px",
     },
     "& .top-bar .filter .input": {
       background: "#FFFFFF",
       border: "1px solid #F0F0F0",
       borderRadius: "8px",
-      padding: "10px 15px",
-      width: "200px",
+      padding: "7px",
+      width: "180px",
+    },
+    "& .top-bar .filter .input.date": {
+      width: "170px",
     },
     "& .top-bar .filter .select-input .MuiSelect-root ": {
       background: "#FFFFFF",
@@ -55,14 +58,16 @@ export const MeetingsStyleWeb: any = {
     "& .top-bar .filter button": {
       background: "#2B6FED",
       color: "white",
-      padding: "12px 20px",
+      padding: "10px 20px",
       borderRadius: "8px",
+      fontWeight: "600",
     },
     "& .top-bar .create-meeting button": {
       background: "#FC8434",
       color: "white",
-      padding: "12px 20px",
+      padding: "10px 20px",
       borderRadius: "5px",
+      fontWeight: "600",
     },
     "& .meeting-table": {
       background: "white",
@@ -128,6 +133,9 @@ export const MeetingsStyleWeb: any = {
       whiteSpace: "nowrap",
       textOverflow: "ellipsis",
     },
+    "& .meeting-table .table-box td.MuiTableCell-root button": {
+      padding: "0px",
+    },
     "& .meeting-table .table-box td.MuiTableCell-root span": {
       padding: "5px 10px",
       borderRadius: "25px",
@@ -150,46 +158,96 @@ export const MeetingsStyleWeb: any = {
       borderColor: "#FC8434",
     },
     "& a": {
-      textDecoration: "none",
+      textDecoration: "none !important",
       color: "black",
     },
     "& .scheduled": {
       background: "#D4FFE3",
       color: "#1EC65B",
+      fontWeight: 600,
     },
     "& .completed": {
       background: "#F1F1F1",
       color: "#6C6C6C",
+      fontWeight: 600,
     },
     "& .cancelled": {
       background: "#FFEAEA",
       color: "#F21717",
+      fontWeight: 600,
     },
     "& .rejected": {
       background: "#FFEAEA",
       color: "#F21717",
+      fontWeight: 600,
     },
     "& .approved": {
       background: "#D4FFE3",
       color: "#1EC65B",
+      fontWeight: 600,
     },
     "& .pending": {
       background: "#FFEDE0",
       color: "#FC8434",
+      fontWeight: 600,
     },
     "& .error": {
       color: "red",
     },
+    "& .meeting-minute-note .MuiCard-root": {
+      padding: "20px",
+      boxShadow: "none",
+    },
+    "& .meeting-minute-note .MuiCard-root p": {
+      marginBottom: "10px",
+    },
+    "& .meeting-minute-note .MuiCard-root .editor .public-DraftEditor-content > div": {
+      minHeight: "300px",
+    },
+    "& .meeting-minute-note > button": {
+      float: "right",
+      background: "#2B6FED",
+      color: "white",
+      padding: "10px 20px",
+      borderRadius: "5px",
+      fontWeight: "600",
+      marginTop: "20px",
+    },
   },
   scheduledMeetingDetails: {
     "& .navigation": {
-      display: "flex",
-      justifyContent: "space-between",
+      display: "block",
     },
     "& .navigation .sub-heading": {
-      fontWeight: 600,
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
       marginTop: 15,
       marginBottom: 15,
+      width: "100%",
+    },
+    "& .navigation .sub-heading h3": {
+      fontWeight: 600,
+    },
+    "& .navigation h5.sub-heading ": {
+      fontWeight: 600,
+    },
+    "& .navigation .sub-heading button": {
+      minWidth: "150px",
+      padding: "12px 20px",
+      borderRadius: "5px",
+      fontWeight: "600",
+      color: "white",
+      background: "#2B6FED",
+    },
+    "& .navigation .sub-heading button.view-button": {
+      minWidth: "150px",
+      padding: "12px 20px",
+      borderRadius: "5px",
+      fontWeight: "600",
+      color: "#2B6FED",
+      background: "rgb(244, 247, 255)",
+      border: "1px solid #2B6FED",
     },
     "& a": {
       textDecoration: "none",
@@ -231,12 +289,16 @@ export const MeetingsStyleWeb: any = {
     },
     "& .response-box": {
       padding: "20px",
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
       marginBottom: "100px",
       background: "white",
       borderRadius: "8px",
+    },
+    "& .response-box .heading": {
+      padding: "20px",
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      background: "white",
     },
     "& .response-box h3": {
       fontWeight: "600",
@@ -304,29 +366,87 @@ export const MeetingsStyleWeb: any = {
       width: "20px",
       height: "20px",
     },
+    "& .meeting-minute-details .pdf-detail a img": {
+      width: "20px",
+      height: "20px",
+    },
+    "& .no-available .MuiCard-root": {
+      padding: "20px",
+      marginBottom: "20px",
+      boxShadow: "none",
+    },
     "& .scheduled": {
       background: "#D4FFE3",
       color: "#1EC65B",
+      fontWeight: 600,
     },
     "& .completed": {
       background: "#F1F1F1",
       color: "#6C6C6C",
+      fontWeight: 600,
     },
     "& .cancelled": {
       background: "#FFEAEA",
       color: "#F21717",
+      fontWeight: 600,
     },
     "& .rejected": {
       background: "#FFEAEA",
       color: "#F21717",
+      fontWeight: 600,
     },
     "& .approved": {
       background: "#D4FFE3",
       color: "#1EC65B",
+      fontWeight: 600,
     },
     "& .pending": {
       background: "#FFEDE0",
       color: "#FC8434",
+      fontWeight: 600,
+    },
+    "& .accepted": {
+      background: "#D4FFE3",
+      color: "#1EC65B",
+      fontWeight: 600,
+    },
+    "& .awaiting": {
+      background: "#FFEDE0",
+      color: "#FC8434",
+    },
+    "& .response-box .table-box td.MuiTableCell-root span": {
+      padding: "5px 10px",
+      borderRadius: "25px",
+      textTransform: "capitalize",
+    },
+    "& .response-box .table-box th": {
+      fontWeight: "600",
+    },
+    "& .response-box .table-bottom": {
+      padding: "10px",
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+    },
+    "& .response-box .table-bottom .current-page": {
+      color: "#FC8434",
+    },
+    "& .response-box .table-bottom .total-page": {
+      fontWeight: "600",
+    },
+    "& .response-box .table-bottom .MuiPaginationItem-root.Mui-selected": {
+      background: "#FC8434",
+      color: "white",
+      borderColor: "#FC8434",
+    },
+    "& .rejection-box .MuiCard-root": {
+      padding: "20px",
+      boxShadow: "none",
+      margin: "0 0 20px",
+    },
+    "& .rejection-box .MuiCard-root h4": {
+      color: "red",
+      marginBottom: "10px",
     },
   },
   meetingList: {
@@ -446,7 +566,7 @@ export const MeetingsStyleWeb: any = {
       justifyContent: "space-between",
       paddingTop: "15px",
     },
-    "& .decision span": {
+    "& .decision p": {
       color: "gray",
     },
     "& .decision .status": {
@@ -466,9 +586,23 @@ export const MeetingsStyleWeb: any = {
     "& .decision h6": {
       fontWeight: "600",
     },
+    "& .accepted": {
+      textTransform: "capitalize",
+      background: "#D4FFE3",
+      color: "#1EC65B",
+      fontWeight: "600",
+    },
+    "& .rejected": {
+      textTransform: "capitalize",
+      background: "#FFEAEA",
+      color: "#F21717",
+      fontWeight: "600",
+    },
   },
   meetingDetail: {
     "& .top-bar": {
+      position: "sticky",
+      top: "0",
       display: "flex",
       alignItems: "center",
       fontWeight: "600",
@@ -484,6 +618,9 @@ export const MeetingsStyleWeb: any = {
       alignItems: "center",
       justifyContent: "center",
     },
+    "& .top-bar .left-icon span": {
+      textTransform: "capitalize",
+    },
     "& .right-image": {
       padding: "23px 60px",
     },
@@ -493,15 +630,19 @@ export const MeetingsStyleWeb: any = {
     "& .content-box": {
       position: "relative",
       width: "100%",
-      height: "78vh",
+      height: "72vh",
     },
     "& .content-box > .MuiGrid-root": {
       alignContent: "flex-start",
     },
     "& .content-box .meeting-details": {
-      minHeight: "calc(100% - 50px)",
+      minHeight: "calc(100% - 10px)",
       overflowY: "auto",
       overflowX: "hidden",
+    },
+    "& .content-box .meeting-details iframe": {
+      width: "100%",
+      height: "100%",
     },
     "& .upload-button": {
       position: "sticky",
@@ -586,9 +727,37 @@ export const MeetingsStyleWeb: any = {
     "& .meeting-pdf .pdf-detail .heading h6": {
       fontWeight: "600",
     },
+    "& .meeting-pdf .download-pdf img": {
+      width: "20px",
+      height: "20px",
+    },
     "& .meeting-pdf .pdf-detail > img": {
       width: "20px",
       height: "20px",
+    },
+    "& .scheduled": {
+      background: "#D4FFE3",
+      color: "#1EC65B",
+    },
+    "& .completed": {
+      background: "#F1F1F1",
+      color: "#6C6C6C",
+    },
+    "& .cancelled": {
+      background: "#FFEAEA",
+      color: "#F21717",
+    },
+    "& .accepted": {
+      textTransform: "capitalize",
+      background: "#D4FFE3",
+      color: "#1EC65B",
+      fontWeight: "600",
+    },
+    "& .rejected": {
+      textTransform: "capitalize",
+      background: "#FFEAEA",
+      color: "#F21717",
+      fontWeight: "600",
     },
   },
 };

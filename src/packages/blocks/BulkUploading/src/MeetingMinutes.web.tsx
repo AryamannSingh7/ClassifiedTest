@@ -1,17 +1,12 @@
 // Customizable Area Start
-//@ts-nocheck
-//@ts-ignore
-
 import React from "react";
 import {
   Container,
   Typography,
-  FormControl,
   withStyles,
   Button,
   Dialog,
   DialogContent,
-  DialogActions,
   IconButton,
   Select,
   MenuItem,
@@ -21,8 +16,8 @@ import {
   TableCell,
   TableRow,
   TableBody,
-  Input,
   InputBase,
+  Link as NavLink,
 } from "@material-ui/core";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
@@ -35,23 +30,52 @@ import "@szhsin/react-menu/dist/core.css";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { MeetingsStyleWeb } from "./MeetingsStyle.web";
-import SearchIconImage from "../assets/search.png";
+import { SearchIconImage } from "./assets";
 import SearchIcon from "@material-ui/icons/Search";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+//@ts-ignore
 import Pagination from "@material-ui/lab/Pagination";
-import CommentIcon from "../assets/comment.png";
+import toast from "react-hot-toast";
+import {
+  EmailShareButton,
+  FacebookShareButton,
+  LinkedinShareButton,
+  RedditShareButton,
+  TelegramShareButton,
+  TumblrShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+  EmailIcon,
+  FacebookIcon,
+  LinkedinIcon,
+  RedditIcon,
+  TelegramIcon,
+  TumblrIcon,
+  TwitterIcon,
+  WhatsappIcon,
+} from "react-share";
 
 class MeetingMinutes extends MeetingMinutesController {
   constructor(props: Props) {
     super(props);
   }
 
-  componentDidMount(): Promise<void> {
+  async componentDidMount(): Promise<void> {
     this.getAllMeetings();
+  }
+
+  async componentDidUpdate(prevProps: any, prevState: any): Promise<void> {
+    if (prevState.filter.page !== this.state.filter.page) {
+      await this.getAllMeetings();
+    }
   }
 
   render() {
     const { classes } = this.props;
+
+    const sharePopupWidth = 500;
+    const sharePopupHeight = 700;
+    const shareTitle = "TI 1 Final Leap";
 
     console.log(this.state);
 
@@ -122,7 +146,7 @@ class MeetingMinutes extends MeetingMinutesController {
                             <TableCell colSpan={5}>No Meeting Minutes Available!!</TableCell>
                           </TableRow>
                         )}
-                        {this.state.meetingMinuteList.map((meeting: any, index: string) => {
+                        {this.state.meetingMinuteList.map((meeting: any, index: number) => {
                           return (
                             <TableRow key={index}>
                               <TableCell align="left">{index + 1}</TableCell>
@@ -132,9 +156,7 @@ class MeetingMinutes extends MeetingMinutesController {
                               <TableCell align="left" className="ellipse">
                                 {meeting.attributes.agenda}
                               </TableCell>
-                              <TableCell align="left">
-                                {meeting.attributes.meeting_date_time}
-                              </TableCell>
+                              <TableCell align="left">{meeting.attributes.meeting_date_time}</TableCell>
                               <TableCell align="left">
                                 <span className={meeting.attributes.meeting_mins_status}>
                                   {meeting.attributes.meeting_mins_status}
@@ -151,8 +173,33 @@ class MeetingMinutes extends MeetingMinutesController {
                                   <MenuItem>
                                     <Link to={`/MeetingMinute/${meeting.id}`}>View</Link>
                                   </MenuItem>
-                                  <MenuItem>Download</MenuItem>
-                                  <MenuItem>Share</MenuItem>
+                                  {!meeting.attributes.meeting_mins_pdf ? (
+                                    <>
+                                      <MenuItem onClick={() => toast.error("No meeting document available!!")}>
+                                        Download
+                                      </MenuItem>
+                                      <MenuItem onClick={() => toast.error("No meeting document available!!")}>
+                                        Share
+                                      </MenuItem>
+                                    </>
+                                  ) : (
+                                    <>
+                                      <MenuItem>
+                                        <NavLink href={meeting.attributes.meeting_mins_pdf.url} target="_blank">
+                                          Download
+                                        </NavLink>
+                                      </MenuItem>
+                                      <MenuItem
+                                        onClick={() => {
+                                          this.setState({ shareUrl: meeting.attributes.meeting_mins_pdf.url }, () => {
+                                            this.handleShareModal();
+                                          });
+                                        }}
+                                      >
+                                        Share
+                                      </MenuItem>
+                                    </>
+                                  )}
                                 </Menu>
                               </TableCell>
                             </TableRow>
@@ -163,10 +210,30 @@ class MeetingMinutes extends MeetingMinutesController {
                     <Divider />
                     <Box className="table-bottom">
                       <p>
-                        Showing <span className="current-page">1</span> of{" "}
-                        <span className="total-page">100</span> results
+                        Showing <span className="current-page">{this.state.meetingMinuteList.length}</span> of{" "}
+                        <span className="total-page">
+                          {this.state.pagination ? this.state.pagination.total_count : 0}
+                        </span>{" "}
+                        results
                       </p>
-                      <Pagination count={6} variant="outlined" shape="rounded" />
+                      {this.state.pagination && (
+                        <Pagination
+                          onChange={(event: any, value: any) => {
+                            this.setState({
+                              ...this.state,
+                              filter: {
+                                ...this.state.filter,
+                                page: Number(value),
+                              },
+                            });
+                          }}
+                          count={this.state.pagination.total_pages}
+                          page={this.state.pagination.current_page}
+                          siblingCount={2}
+                          variant="outlined"
+                          shape="rounded"
+                        />
+                      )}
                     </Box>
                   </Grid>
                 </Grid>
@@ -174,6 +241,97 @@ class MeetingMinutes extends MeetingMinutesController {
             </Grid>
           </Box>
         </Box>
+
+        <Dialog
+          fullWidth
+          onClose={() => this.handleShareModal()}
+          open={this.state.isShareModalOpen}
+          className="select-meeting"
+        >
+          <MuiDialogTitle disableTypography className="dialog-heading">
+            <Typography variant="h6">Share</Typography>
+            <IconButton onClick={() => this.handleShareModal()}>
+              <CloseIcon />
+            </IconButton>
+          </MuiDialogTitle>
+          <DialogContent>
+            <div className="share-box">
+              <FacebookShareButton
+                url={this.state.shareUrl}
+                title={shareTitle}
+                windowWidth={sharePopupWidth}
+                windowHeight={sharePopupHeight}
+                // @ts-ignore
+                children={<FacebookIcon />}
+                translate
+              />
+              <TwitterShareButton
+                url={this.state.shareUrl}
+                title={shareTitle}
+                windowWidth={sharePopupWidth}
+                windowHeight={sharePopupHeight}
+                // @ts-ignore
+                children={<TwitterIcon />}
+                translate
+              />
+              <WhatsappShareButton
+                url={this.state.shareUrl}
+                title={shareTitle}
+                windowWidth={sharePopupWidth}
+                windowHeight={sharePopupHeight}
+                separator=":: "
+                // @ts-ignore
+                children={<WhatsappIcon />}
+                translate
+              />
+              <LinkedinShareButton
+                url={this.state.shareUrl}
+                title={shareTitle}
+                windowWidth={sharePopupWidth}
+                windowHeight={sharePopupHeight}
+                // @ts-ignore
+                children={<LinkedinIcon />}
+                translate
+              />
+              <EmailShareButton
+                url={this.state.shareUrl}
+                title={shareTitle}
+                windowWidth={sharePopupWidth}
+                windowHeight={sharePopupHeight}
+                // @ts-ignore
+                children={<EmailIcon />}
+                translate
+              />
+              <RedditShareButton
+                url={this.state.shareUrl}
+                title={shareTitle}
+                windowWidth={sharePopupWidth}
+                windowHeight={sharePopupHeight}
+                // @ts-ignore
+                children={<RedditIcon />}
+                translate
+              />
+              <TelegramShareButton
+                url={this.state.shareUrl}
+                title={shareTitle}
+                windowWidth={sharePopupWidth}
+                windowHeight={sharePopupHeight}
+                // @ts-ignore
+                children={<TelegramIcon />}
+                translate
+              />
+              <TumblrShareButton
+                url={this.state.shareUrl}
+                title={shareTitle}
+                windowWidth={sharePopupWidth}
+                windowHeight={sharePopupHeight}
+                // @ts-ignore
+                children={<TumblrIcon />}
+                translate
+              />
+            </div>
+          </DialogContent>
+        </Dialog>
       </>
     );
   }

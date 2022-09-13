@@ -20,6 +20,8 @@ import {
   TableBody,
   Input,
   InputBase,
+  Checkbox,
+  TableContainer,
 } from "@material-ui/core";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
@@ -36,9 +38,12 @@ import SearchIcon from "@material-ui/icons/Search";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 //@ts-ignore
 import Pagination from "@material-ui/lab/Pagination";
-import { SearchIconImage, CommentIcon } from "./assets";
+import { SearchIconImage, CommentIcon, Dots } from "./assets";
 import { Formik, Form } from "formik";
 import moment from "moment";
+import { withTranslation } from "react-i18next";
+import "../../../web/src/i18n.js";
+import i18next from "i18next";
 
 class ScheduledMeeting extends ScheduledMeetingController {
   constructor(props: Props) {
@@ -65,6 +70,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
 
   render() {
     const { classes } = this.props;
+    const { t }: any = this.props;
 
     console.log(this.state);
 
@@ -84,13 +90,13 @@ class ScheduledMeeting extends ScheduledMeetingController {
                 <Box className="navigation">
                   <Box>
                     <Typography variant="body1">
-                      Meetings /{" "}
+                      {t("Meetings")} /{" "}
                       <Box component="span" style={{ color: "blue" }}>
-                        Scheduled Meetings
+                        {t("Scheduled Meetings")}
                       </Box>
                     </Typography>
                     <Typography variant="h5" className="sub-heading">
-                      Scheduled Meetings
+                      {t("Scheduled Meetings")}
                     </Typography>
                   </Box>
                 </Box>
@@ -145,7 +151,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                       }}
                       type="text"
                       placeholder="Date"
-                      className="input"
+                      className="input date"
                       onFocus={(e: any) => (e.target.type = "date")}
                       onBlur={(e: any) => (e.target.type = "text")}
                     />
@@ -167,9 +173,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                     </Button>
                   </Box>
                   <Box className="create-meeting">
-                    <Button onClick={() => this.openCreateMeetingModal()}>
-                      + Create New Meeting
-                    </Button>
+                    <Button onClick={() => this.openCreateMeetingModal()}>+ Create New Meeting</Button>
                   </Box>
                 </Box>
                 <Grid className="meeting-table">
@@ -198,13 +202,14 @@ class ScheduledMeeting extends ScheduledMeetingController {
                     <Table className="table-box">
                       <TableHead>
                         <TableRow>
-                          <TableCell align="left">#</TableCell>
-                          <TableCell align="left">Title</TableCell>
-                          <TableCell align="left">Date & Time</TableCell>
-                          <TableCell align="left">Place</TableCell>
-                          <TableCell align="left">Agenda</TableCell>
-                          <TableCell align="left">Status</TableCell>
-                          <TableCell align="left" />
+                          <TableCell>#</TableCell>
+                          <TableCell>Title</TableCell>
+                          <TableCell>Date & Time</TableCell>
+                          <TableCell>Building</TableCell>
+                          <TableCell>Place</TableCell>
+                          <TableCell>Agenda</TableCell>
+                          <TableCell>Status</TableCell>
+                          <TableCell />
                         </TableRow>
                       </TableHead>
                       <TableBody>
@@ -216,25 +221,16 @@ class ScheduledMeeting extends ScheduledMeetingController {
                         {this.state.scheduleMeetingList.map((meeting: any, index: number) => {
                           return (
                             <TableRow key={index}>
-                              <TableCell align="left">{index + 1}</TableCell>
-                              <TableCell align="left" className="ellipse">
-                                {meeting.attributes.title}
+                              <TableCell>{index + 1}</TableCell>
+                              <TableCell className="ellipse">{meeting.attributes.title}</TableCell>
+                              <TableCell>{meeting.attributes.meeting_date_time}</TableCell>
+                              <TableCell>{meeting.attributes.building.name}</TableCell>
+                              <TableCell className="ellipse">{meeting.attributes.place}</TableCell>
+                              <TableCell className="ellipse">{meeting.attributes.agenda}</TableCell>
+                              <TableCell>
+                                <span className={meeting.attributes.status}>{meeting.attributes.status}</span>
                               </TableCell>
-                              <TableCell align="left">
-                                {meeting.attributes.meeting_date_time}
-                              </TableCell>
-                              <TableCell align="left" className="ellipse">
-                                {meeting.attributes.place}
-                              </TableCell>
-                              <TableCell align="left" className="ellipse">
-                                {meeting.attributes.agenda}
-                              </TableCell>
-                              <TableCell align="left">
-                                <span className={meeting.attributes.status}>
-                                  {meeting.attributes.status}
-                                </span>
-                              </TableCell>
-                              <TableCell align="left">
+                              <TableCell>
                                 <Menu
                                   menuButton={
                                     <IconButton>
@@ -245,9 +241,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                                   <MenuItem>
                                     <Link to={`ScheduledMeeting/${meeting.id}`}>View</Link>
                                   </MenuItem>
-                                  <MenuItem onClick={() => this.openEditMeetingModal(meeting)}>
-                                    Edit
-                                  </MenuItem>
+                                  <MenuItem onClick={() => this.openEditMeetingModal(meeting)}>Edit</MenuItem>
                                   <MenuItem
                                     onClick={() => {
                                       this.setState(
@@ -272,11 +266,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                     <Divider />
                     <Box className="table-bottom">
                       <p>
-                        Showing{" "}
-                        <span className="current-page">
-                          {this.state.scheduleMeetingList.length}
-                        </span>{" "}
-                        of{" "}
+                        Showing <span className="current-page">{this.state.scheduleMeetingList.length}</span> of{" "}
                         <span className="total-page">
                           {this.state.pagination ? this.state.pagination.total_count : 0}
                         </span>{" "}
@@ -308,12 +298,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
           </Box>
         </Box>
 
-        <Dialog
-          fullWidth
-          scroll="paper"
-          open={this.state.isCreateMeetingModalOpen}
-          className="add-meeting"
-        >
+        <Dialog fullWidth scroll="paper" open={this.state.isCreateMeetingModalOpen} className="add-meeting">
           <MuiDialogTitle disableTypography className="dialog-heading">
             <Typography variant="h6">Create New Meeting</Typography>
             <IconButton onClick={() => this.handleCreateMeetingModal()}>
@@ -329,18 +314,29 @@ class ScheduledMeeting extends ScheduledMeetingController {
               this.createMeeting(values);
             }}
           >
-            {({
-              values,
-              errors,
-              touched,
-              handleChange,
-              handleBlur,
-              handleSubmit,
-              setFieldValue,
-            }) => {
+            {({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue }) => {
               return (
                 <Form onSubmit={handleSubmit} translate>
                   <DialogContent dividers>
+                    <FormControl fullWidth>
+                      <Select
+                        value={values.meetingType}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        name="meetingType"
+                        displayEmpty
+                        className="dialog-select-input"
+                      >
+                        <MenuItem value="" disabled>
+                          <em>Select Meeting Type</em>
+                        </MenuItem>
+                        <MenuItem value="">GA Meeting</MenuItem>
+                        <MenuItem value="">Regular Meeting</MenuItem>
+                      </Select>
+                      {errors.meetingType && touched.meetingType && (
+                        <small className="error">{errors.meetingType}</small>
+                      )}
+                    </FormControl>
                     <FormControl fullWidth>
                       <Input
                         value={values.title}
@@ -350,9 +346,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                         placeholder="Title"
                         className="dialog-input"
                       />
-                      {errors.title && touched.title && (
-                        <small className="error">{errors.title}</small>
-                      )}
+                      {errors.title && touched.title && <small className="error">{errors.title}</small>}
                     </FormControl>
                     <Grid container spacing={2}>
                       <Grid item sm={6}>
@@ -370,9 +364,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                               onFocus={(e: any) => (e.target.type = "date")}
                             />
                           </div>
-                          {errors.date && touched.date && (
-                            <small className="error">{errors.date}</small>
-                          )}
+                          {errors.date && touched.date && <small className="error">{errors.date}</small>}
                         </FormControl>
                       </Grid>
                       <Grid item sm={6}>
@@ -389,9 +381,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                               onFocus={(e: any) => (e.target.type = "time")}
                             />
                           </div>
-                          {errors.time && touched.time && (
-                            <small className="error">{errors.time}</small>
-                          )}
+                          {errors.time && touched.time && <small className="error">{errors.time}</small>}
                         </FormControl>
                       </Grid>
                     </Grid>
@@ -415,9 +405,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                           );
                         })}
                       </Select>
-                      {errors.building && touched.building && (
-                        <small className="error">{errors.building}</small>
-                      )}
+                      {errors.building && touched.building && <small className="error">{errors.building}</small>}
                     </FormControl>
                     <FormControl fullWidth>
                       <Input
@@ -428,9 +416,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                         placeholder="Place"
                         className="dialog-input"
                       />
-                      {errors.place && touched.place && (
-                        <small className="error">{errors.place}</small>
-                      )}
+                      {errors.place && touched.place && <small className="error">{errors.place}</small>}
                     </FormControl>
                     <FormControl fullWidth>
                       <Input
@@ -441,9 +427,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                         placeholder="Agenda"
                         className="dialog-input"
                       />
-                      {errors.agenda && touched.agenda && (
-                        <small className="error">{errors.agenda}</small>
-                      )}
+                      {errors.agenda && touched.agenda && <small className="error">{errors.agenda}</small>}
                     </FormControl>
                     <FormControl fullWidth>
                       <Select
@@ -465,16 +449,37 @@ class ScheduledMeeting extends ScheduledMeetingController {
                           );
                         })}
                       </Select>
-                      {errors.momWriter && touched.momWriter && (
-                        <small className="error">{errors.momWriter}</small>
-                      )}
+                      {errors.momWriter && touched.momWriter && <small className="error">{errors.momWriter}</small>}
                     </FormControl>
+                    <Box className="create-audience">
+                      <p>Select Meeting Joinees</p>
+                      <span onClick={() => this.handleCreateAttendeeModal()}>+ Create New Group</span>
+                    </Box>
+                    <Box className="attendee-box">
+                      <Box className="active attendee">
+                        <span>Owner</span>
+                      </Box>
+                      <Box className="attendee">
+                        <span>Resident</span>
+                      </Box>
+                      <Box className="attendee">
+                        <span>Floor 12 GA member </span>
+                        <Box>
+                          <Menu
+                            direction="top"
+                            align="end"
+                            menuButton={<img src={Dots} alt="|" />}
+                            className="attendee-menu"
+                          >
+                            <MenuItem>Edit</MenuItem>
+                            <MenuItem>Delete</MenuItem>
+                          </Menu>
+                        </Box>
+                      </Box>
+                    </Box>
                   </DialogContent>
                   <DialogActions className="dialog-button-group">
-                    <Button
-                      className="cancel-button"
-                      onClick={() => this.handleCreateMeetingModal()}
-                    >
+                    <Button className="cancel-button" onClick={() => this.handleCreateMeetingModal()}>
                       Cancel
                     </Button>
                     <Button className="add-button" type="submit">
@@ -487,12 +492,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
           </Formik>
         </Dialog>
 
-        <Dialog
-          fullWidth
-          scroll="paper"
-          className="add-meeting"
-          open={this.state.isEditMeetingModalOpen}
-        >
+        <Dialog fullWidth scroll="paper" className="add-meeting" open={this.state.isEditMeetingModalOpen}>
           <MuiDialogTitle disableTypography className="dialog-heading">
             <Typography variant="h6">Edit Meeting</Typography>
             <IconButton onClick={() => this.handleEditMeetingModal()}>
@@ -507,15 +507,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
               this.editMeeting(values);
             }}
           >
-            {({
-              values,
-              errors,
-              touched,
-              handleChange,
-              handleBlur,
-              handleSubmit,
-              setFieldValue,
-            }) => {
+            {({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue }) => {
               return (
                 <Form onSubmit={handleSubmit} translate>
                   <DialogContent dividers>
@@ -528,9 +520,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                         placeholder="Title"
                         className="dialog-input"
                       />
-                      {errors.title && touched.title && (
-                        <small className="error">{errors.title}</small>
-                      )}
+                      {errors.title && touched.title && <small className="error">{errors.title}</small>}
                     </FormControl>
                     <Grid container spacing={2}>
                       <Grid item sm={6}>
@@ -546,9 +536,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                               type="date"
                             />
                           </div>
-                          {errors.date && touched.date && (
-                            <small className="error">{errors.date}</small>
-                          )}
+                          {errors.date && touched.date && <small className="error">{errors.date}</small>}
                         </FormControl>
                       </Grid>
                       <Grid item sm={6}>
@@ -563,9 +551,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                               type="time"
                             />
                           </div>
-                          {errors.time && touched.time && (
-                            <small className="error">{errors.time}</small>
-                          )}
+                          {errors.time && touched.time && <small className="error">{errors.time}</small>}
                         </FormControl>
                       </Grid>
                     </Grid>
@@ -589,9 +575,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                           );
                         })}
                       </Select>
-                      {errors.building && touched.building && (
-                        <small className="error">{errors.building}</small>
-                      )}
+                      {errors.building && touched.building && <small className="error">{errors.building}</small>}
                     </FormControl>
                     <FormControl fullWidth>
                       <Input
@@ -602,9 +586,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                         placeholder="Place"
                         className="dialog-input"
                       />
-                      {errors.place && touched.place && (
-                        <small className="error">{errors.place}</small>
-                      )}
+                      {errors.place && touched.place && <small className="error">{errors.place}</small>}
                     </FormControl>
                     <FormControl fullWidth>
                       <Input
@@ -615,9 +597,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                         placeholder="Agenda"
                         className="dialog-input"
                       />
-                      {errors.agenda && touched.agenda && (
-                        <small className="error">{errors.agenda}</small>
-                      )}
+                      {errors.agenda && touched.agenda && <small className="error">{errors.agenda}</small>}
                     </FormControl>
                     <FormControl fullWidth>
                       <Select
@@ -639,9 +619,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                           );
                         })}
                       </Select>
-                      {errors.momWriter && touched.momWriter && (
-                        <small className="error">{errors.momWriter}</small>
-                      )}
+                      {errors.momWriter && touched.momWriter && <small className="error">{errors.momWriter}</small>}
                     </FormControl>
                     <FormControl fullWidth>
                       <Select
@@ -659,9 +637,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                         <MenuItem value="completed">Completed</MenuItem>
                         <MenuItem value="cancelled">Cancelled</MenuItem>
                       </Select>
-                      {errors.status && touched.status && (
-                        <small className="error">{errors.status}</small>
-                      )}
+                      {errors.status && touched.status && <small className="error">{errors.status}</small>}
                     </FormControl>
                   </DialogContent>
                   <DialogActions className="dialog-button-group">
@@ -689,8 +665,8 @@ class ScheduledMeeting extends ScheduledMeetingController {
               <img className="comment-image" src={CommentIcon} alt="comment" />
               <Typography variant="h6">Cancel Meeting Confirmation</Typography>
               <Typography variant="body1" style={{ marginBottom: "0px" }}>
-                Are you sure want to cancel the meeting scheduled on 16-06-2022 16:30 at Common
-                Hall? Once cancelled, attendees will receive a meeting cancelation notification.
+                Are you sure want to cancel the meeting scheduled on 16-06-2022 16:30 at Common Hall? Once cancelled,
+                attendees will receive a meeting cancelation notification.
               </Typography>
               <DialogActions className="dialog-button-group">
                 <Button
@@ -711,10 +687,92 @@ class ScheduledMeeting extends ScheduledMeetingController {
             </Box>
           </DialogContent>
         </Dialog>
+
+        <Dialog
+          scroll="paper"
+          fullWidth
+          maxWidth="md"
+          open={this.state.isCreateAttendeeModalOpen}
+          className="select-meeting scheduled-meeting"
+        >
+          <MuiDialogTitle disableTypography className="dialog-heading">
+            <Typography variant="h6">Create Meeting Group</Typography>
+            <IconButton onClick={() => this.handleCreateAttendeeModal()}>
+              <CloseIcon />
+            </IconButton>
+          </MuiDialogTitle>
+          <DialogContent dividers className="filter">
+            <Select value="" name="meetingType" displayEmpty className="dialog-select-input">
+              <MenuItem value="" disabled>
+                <em>Select Floor</em>
+              </MenuItem>
+              <MenuItem>GA Meeting</MenuItem>
+              <MenuItem>Regular Meeting</MenuItem>
+            </Select>
+            <Select value="" name="meetingType" displayEmpty className="dialog-select-input">
+              <MenuItem value="" disabled>
+                <em>User Type</em>
+              </MenuItem>
+              <MenuItem>GA Meeting</MenuItem>
+              <MenuItem>Regular Meeting</MenuItem>
+            </Select>
+            <Button className="filter-button" startIcon={<img src={SearchIconImage} />}>
+              Search
+            </Button>
+          </DialogContent>
+          <DialogContent dividers>
+            <TableContainer>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell />
+                    <TableCell>Name</TableCell>
+                    <TableCell>Unit No.</TableCell>
+                    <TableCell>Floor Number</TableCell>
+                    <TableCell>User Type</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  <TableRow>
+                    <TableCell>
+                      <Checkbox edge="start" tabIndex={-1} disableRipple checked={true} />
+                    </TableCell>
+                    <TableCell>John Doe</TableCell>
+                    <TableCell>121</TableCell>
+                    <TableCell>12</TableCell>
+                    <TableCell>Resident</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>
+                      <Checkbox edge="start" tabIndex={-1} disableRipple checked={true} />
+                    </TableCell>
+                    <TableCell>John Doe</TableCell>
+                    <TableCell>121</TableCell>
+                    <TableCell>12</TableCell>
+                    <TableCell>Resident</TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </DialogContent>
+          <DialogActions className="dialog-button-group">
+            <div className="selected-meeting">
+              <h4>
+                <span>5 </span>User Selected
+              </h4>
+            </div>
+            <div className="button-group">
+              <Input name="title" placeholder="Group Name" className="dialog-input" />
+              <Button className="add-button" onClick={() => {}}>
+                Create Group
+              </Button>
+            </div>
+          </DialogActions>
+        </Dialog>
       </>
     );
   }
 }
 
-export default withStyles(MeetingsStyleWeb)(ScheduledMeeting);
+export default withTranslation()(withStyles(MeetingsStyleWeb)(ScheduledMeeting));
 // Customizable Area End

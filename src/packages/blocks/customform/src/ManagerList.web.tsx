@@ -104,11 +104,11 @@ class ManagerList extends ManagerController {
                               <MenuItem value=" " >
                                 {t("Select Status")}
                               </MenuItem>
-                              <MenuItem value="Pending">
+                              <MenuItem value="Pending Approval">
                                 {t("Pending")}
                               </MenuItem>
-                              <MenuItem value="Pending Approved">
-                                {t("Pending Approved")}
+                              <MenuItem value="Approved">
+                                {t("Approved")}
                               </MenuItem>
                               <MenuItem value="Rejected">
                                 {t("Rejected")}
