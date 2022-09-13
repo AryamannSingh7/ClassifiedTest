@@ -38,6 +38,7 @@ interface S {
   dateSelection:any,
   totalPollsCount: any,
   recentPolls: any,
+  recentSurveys:any,
   selectQuestion: any,
   PreViewPollData:any,
   loading: boolean;
@@ -95,6 +96,7 @@ export default class PollingController extends BlockComponent<
   createPoll:string;
   totalPollsCount: string;
   getRecentPollsData: string;
+  getRecentSurveyData:string;
   getLivePolls: string;
   getOldPolls:string;
   pollPreviewAnswer: string;
@@ -151,6 +153,7 @@ export default class PollingController extends BlockComponent<
       allPollsData: [],
       totalPollsCount: [],
       recentPolls: [],
+      recentSurveys: [],
       selectQuestion: [],
       PreViewPollData: [],
       livePollsData:[],
@@ -236,6 +239,7 @@ export default class PollingController extends BlockComponent<
     this.onGetPolls(this.state.Year);
     this.getTotalPollCount();
     this.getRecentPolls();
+    this.getRecentSurveys();
     this.apiCallFunction();
     
     // Customizable Area End
@@ -260,6 +264,15 @@ export default class PollingController extends BlockComponent<
         endPoint: `/society_managements/${societyID}/bx_block_polling/polls/recent_polls`
       });
     }
+
+  getRecentSurveys = async () => {
+    const societyID = localStorage.getItem("society_id")
+    this.getRecentSurveyData = await this.apiCall({
+      contentType: configJSON.exampleApiContentType,
+      method: configJSON.httpGetMethod,
+      endPoint: `/society_managements/${societyID}/bx_block_survey/surveys/recent_surveys`
+    });
+  }
 
     //==============================================
 
@@ -651,6 +664,7 @@ export default class PollingController extends BlockComponent<
                 "society_id": societyID,
                 "poll":
                     {
+                      "type_name":"poll",
                       "title": this.state.PreViewPollData.PollFormData.title,
                       "description": this.state.PreViewPollData.PollFormData.description,
                       "poll_type": this.state.PreViewPollData.PollType,
@@ -676,6 +690,7 @@ export default class PollingController extends BlockComponent<
                 "society_id": societyID,
                 "poll":
                     {
+                      "type_name":"poll",
                       "title": this.state.PollData.title,
                       "description": this.state.PollData.description,
                       "poll_type": this.state.checked,
@@ -826,6 +841,15 @@ export default class PollingController extends BlockComponent<
             reportPagination:responseJson.meta
          })
        }
+     }
+     if(apiRequestCallId === this.getRecentSurveyData){
+      if(responseJson?.surveys?.data){
+        this.setState({
+          recentSurveys:responseJson?.surveys?.data
+        })
+      }else{
+        console.log("ERROR!!",responseJson)
+      }
      }
     }
 //Error Block    

@@ -20,10 +20,10 @@ import {
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Pagination from '@material-ui/lab/Pagination';
-import PollingController, {
+import SurveyReportController, {
   Props,
   configJSON,
-} from "./PollingController";
+} from "./SurveyReportController";
 import { withRouter } from "react-router-dom";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
@@ -52,7 +52,7 @@ const rows = [
 ];
 
 
-class PollReport extends PollingController {
+class PollReport extends SurveyReportController {
   constructor(props: Props) {
     super(props);
     

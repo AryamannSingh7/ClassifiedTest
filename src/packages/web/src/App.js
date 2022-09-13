@@ -201,6 +201,7 @@ import CharmainInvoices from '../../blocks/dashboard/src/CharmainInvoices.web';
 import ChairmanProfile from '../../blocks/Settings5/src/ChairmanProfile.web';
 import Profile from '../../blocks/user-profile-basic/src/Profile.web';
 import EditProfile from '../../blocks/user-profile-basic/src/EditProfile.web';
+import PublicView from '../../blocks/user-profile-basic/src/PublicView.web';
 
 import CommunityUserProfile from '../../blocks/user-profile-basic/src/CommunityUserProfile.web';
 import GaMembers from  '../../blocks/user-profile-basic/src/GaMembers';
@@ -218,6 +219,12 @@ const routeMap = {
   Profile: {
     component: Profile,
     path: '/profile',
+    exact: true,
+    // roles: [ROLE.PRIVATE]
+  },
+  PublicView: {
+    component: PublicView,
+    path: '/PublicView',
     exact: true,
     // roles: [ROLE.PRIVATE]
   },
@@ -940,7 +947,7 @@ const routeMap = {
   DashboardGeneral: {
     component: DashboardGeneral,
     path: '/DashboardGeneral',
-    roles: [ROLE.CHAIRMAN]
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER]
   },
 
   DashboardTicket: {

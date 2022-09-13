@@ -1,6 +1,3 @@
-//@ts-ignore
-//@ts-nocheck
-
 import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
@@ -53,6 +50,10 @@ export interface S {
   otp: any;
   selectCode: string;
   selectCode2: string;
+  anchorEl: any;
+  showDialog:boolean;
+  profiledata:any;
+  values:any
 
 
 
@@ -88,7 +89,8 @@ export default class ProfileController extends BlockComponent<
   verifyOtpApiCallId: any;
   getBuildingApiCallId: any;
   getUnitApiCallId: any;
-  createVehicleApiCallId:any
+  createVehicleApiCallId:any;
+  getProfileDataAPiCallId:any;
 
 
 
@@ -159,6 +161,10 @@ export default class ProfileController extends BlockComponent<
       //@ts-nocheck
       loading: false,
       otp: '',
+      anchorEl:null,
+      showDialog:false,
+      profiledata:null,
+      values:null
       // Customizable Area End
     };
 
@@ -307,7 +313,7 @@ export default class ProfileController extends BlockComponent<
         } else if (apiRequestCallId === this.createVehicleApiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
-
+this.setState({loading:false})
             //@ts-ignore
             //@ts-nocheck
 
@@ -382,10 +388,12 @@ export default class ProfileController extends BlockComponent<
           }
 
           this.parseApiCatchErrorResponse(errorReponse);
-        } else if (apiRequestCallId === this.getCountryApiCallId) {
+        } else if (apiRequestCallId === this.getProfileDataAPiCallId) {
           if (!responseJson.errors) {
-            console.log(responseJson)
-            this.setState({ allContries: responseJson.data.countries })
+            console.log(responseJson.data)
+            this.setState({ profiledata: responseJson.data }, () => console.log(this.state.profiledata))
+            this.setState({ loading: false })
+
           } else {
             //Check Error Response
             this.parseApiErrorResponse(responseJson);
@@ -1140,21 +1148,21 @@ export default class ProfileController extends BlockComponent<
 
   }
 
-  getCountry() {
-
+  getProfile() {
+this.setState({loading:true})
     const header = {
       "Content-Type": configJSON.contentTypeApiAddDetail,
-      "token": localStorage.getItem('res_token')
+      "token": localStorage.getItem('userToken')
     };
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
     );
 
 
-    this.getCountryApiCallId = requestMessage.messageId;
+    this.getProfileDataAPiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_address/country_list`
+      `bx_block_profile/my_profile`
     );
 
     requestMessage.addData(
@@ -1573,7 +1581,6 @@ export default class ProfileController extends BlockComponent<
   }
 
   updateProfile = async(values: any) => {
-    console.log(values)
     this.setState({ loading: true })
     try {
       const header = {
@@ -1644,6 +1651,118 @@ export default class ProfileController extends BlockComponent<
 
     });
     return validations
+  }
+  handleClick = (event) => {
+    this.setState({ anchorEl: event.currentTarget, showDialog: true })
+  };
+  handleClose = (item) => {
+    if (item.id) {
+      localStorage.setItem('selectFamily', JSON.stringify(item))
+      this.props.history.push("/editfamily")
+
+    } else {
+      this.setState({ anchorEl: item.currentTarget, showDialog: false })
+    }
+    // this.setState({ anchorEl:null,showDialog:false })
+  };
+  handleSelectBanner = (
+    e: any,
+    setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
+    setFieldError: (field: string, message: string) => void,
+  ) => {
+
+    let file = e?.target?.files[0];
+
+    if (file && !['image/png', 'image/jpeg', 'image/jpg'].includes(file.type)) {
+      return setFieldError('banner', 'Only png and jpeg are supported.')
+    }
+
+    setFieldValue("banner", file ? {
+      lastModified: file.lastModified,
+      lastModifiedDate: file.lastModifiedDate,
+      name: file.name,
+      size: file.size,
+      type: file.type
+    } : '');
+    console.log('file', URL.createObjectURL(file))
+    setFieldValue("bannerUrl", file ? URL.createObjectURL(file) : "");
+    if (file) {
+      e.target.value = "";
+
+    }
+
+  };
+  updatePublicProfile=(values:any)=>{
+    if(values.full_name){
+      this.setState({showDialog:true,values:values})
+    }else{
+      this.setState({ values: values })
+
+      this.publicViewAPI(values)
+    }
+  }
+
+  publicViewAPI=(values:any)=>{
+    this.setState({ showDialog: false })
+    try {
+      const header = {
+
+        token: localStorage.getItem("userToken")
+      };
+      const data = {
+
+
+
+              name: this.state.values.full_name,
+              email: this.state.values.email,
+              appartment_number: this.state.values.unit,
+              full_phone_number: this.state.values.phone,
+              gender: this.state.values.gender,
+              date_of_birth: this.state.values.full_name,
+              hobbies: this.state.values.full_name,
+              twitter_link: this.state.values.full_name,
+              fb_link: this.state.values.full_name,
+              instagram_link: this.state.values.full_name,
+              snapchat_link: this.state.values.full_name,
+              family_detail: this.state.values.full_name
+
+
+
+      }
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+
+      this.createVehicleApiCallId = requestMessage.messageId;
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        'bx_block_profile/permision'
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestBodyMessage),
+        JSON.stringify(data)
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        'PUT'
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+      return true;
+
+    } catch (error) {
+      // this.setState({ loading: false })
+      console.log(error);
+    }
+
   }
   // Customizable Area End
 }

@@ -124,7 +124,7 @@ class PollsallData extends PollingController {
                                             <Box className="EventsIconsText">
                                                 <Typography className="EventsTitle" style={{width:"95%"}}>{data.title}</Typography>
                                             </Box>
-                                            <Box className="EventsIconsText">
+                                            <Box className="EventsIconsText" style={{width:"95%"}}>
                                                 <p 
                                                 className="textwrap"
                                                 // style={{textOverflow:"ellipsis",overflow:"hidden", whiteSpace:"nowrap"}}

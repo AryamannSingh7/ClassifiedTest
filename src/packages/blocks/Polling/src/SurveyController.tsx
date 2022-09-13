@@ -201,13 +201,14 @@ export default class SurveyController extends BlockComponent<
       surveyQuestions: [
         {
           questionType: "",
+          questionTypeError:"",
           question:"",
+          questionError:"",
           options: [
             {text: "",_destroy: "false",error:""},
             {text: "",_destroy: "false",error:""}
           ],
           _destroy: "false",
-          error:""
         }
       ],
       audienceType:"",
