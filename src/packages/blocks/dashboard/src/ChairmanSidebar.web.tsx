@@ -129,7 +129,7 @@ class ChairmanSidebar extends DashboardController {
               <Typography className="ListItemText">{t("Community Management")}</Typography>
             </AccordionSummary>
 
-            <AccordionDetails onClick={() => this.props.navigation.navigate("DashboardGeneral")}>
+            <AccordionDetails onClick={() => this.props.navigation.navigate("CommunityUserProfile")}>
               <Typography variant="body2" className="cursor-pointer">
                 {t("User Profiles")}
               </Typography>
@@ -137,7 +137,7 @@ class ChairmanSidebar extends DashboardController {
             <AccordionDetails
               onClick={() => {
                 //@ts-ignore
-                this.props.history.push("/mv");
+                this.props.history.push("/CommunityUserProfile");
               }}
             >
               <Typography variant="body2" className="cursor-pointer">
