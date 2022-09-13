@@ -52,7 +52,7 @@ const MenuList = [
   },
   {
     name: "My Neighbors",
-    url: "",
+    url: "/NeighboursListing",
     img: "",
   },
   {

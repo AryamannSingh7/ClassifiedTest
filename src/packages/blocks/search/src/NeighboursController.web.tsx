@@ -242,7 +242,7 @@ export default class NeighboursController extends BlockComponent<
           } else if (responseJson?.errors) {
             let error = responseJson.errors[0] as string;
               //@ts-ignore
-              this.props.history.push("/IncidentListing")
+            //  this.props.history.push("/IncidentListing")
             this.setState({ error });
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
@@ -493,7 +493,8 @@ export default class NeighboursController extends BlockComponent<
     if(e.target.name === 'myApartment'){
       //@ts-ignore
       this.setState({ [e.target.name]:e.target.value}) 
-      this.getNeighboursListing(this.state?.serachApartmentName,this.state?.myApartment);
+     
+      this.getNeighboursListing(this.state?.serachApartmentName,e.target.value);
     }
      else if(e.target.name === 'serachApartmentName'){
       console.log("e.target.value==========>",e.target.value)
@@ -533,7 +534,7 @@ getNeighboursDetails= (id :any) => {
       this.getNeighboursListingApiCallId = requestMessage.messageId;
       this.setState({ loading: true });
        
-      const getNeighboursListing =`/account_block/accounts/neighobour_list?search_term=${serachApartmentName}&filter_by=${myApartment}`
+      const getNeighboursListing =`/account_block/accounts/neighobour_list?search_term=${serachApartmentName}&building_management_id=${myApartment}`
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
         getNeighboursListing

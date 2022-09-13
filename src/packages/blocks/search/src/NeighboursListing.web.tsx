@@ -115,7 +115,7 @@ class NeighboursListing extends NeighboursController {
                               this.state?.buildingListing?.map((val, index) => (
                                 <MenuItem
                                   key={index}
-                                  value={val?.attributes?.name}
+                                  value={`${val?.id}`}
                                 >
                                   {val?.attributes?.name}
                                 </MenuItem>
@@ -129,9 +129,10 @@ class NeighboursListing extends NeighboursController {
                   <Grid container spacing={2}>
                     {
                       this.state?.neighboursListing?.map((val:any,index: any)=>(
-                        <Grid item xs={this.state?.neighboursListing.length===1? 12 : 6} md={6} onClick={()=>this.getNeighboursDetails(val?.account?.data?.id)} key={index}>
-                         <Card className="neighbour-card neighbour-list-card card">
+                        <Grid item xs={this.state?.neighboursListing.length===1? 12 : 6} md={6}  key={index}>
+                         <Card className="neighbour-card neighbour-list-card card" >
                            <CardContent>
+                            <Box onClick={()=>this.getNeighboursDetails(val?.account?.data?.id)}>
                              <img src={val?.account?.data?.attributes?.profile_pic||NoProfile_Img} className="info-icon" alt="No profile" />
                              <Typography component="h4">
                               {val?.account?.data?.attributes?.full_name || "Anonymous"}
@@ -139,15 +140,20 @@ class NeighboursListing extends NeighboursController {
                              <Typography component="h5">
                               {val?.apartment_name}
                              </Typography>
+                             </Box>
                              <Box className="social-raw">
                                <Box className="blocks">
                                  <img src={Chat_Icon}  className="icons" alt="info-icon" />
                                </Box>
                                <Box className="blocks">
+                                <a href={`tel:${val?.account?.data?.attributes?.full_phone_number}`}>
                                  <img src={Contact_Icon} className="icons" alt="info-icon" />
+                                 </a>
                                </Box>
                                <Box className="blocks">
+                               <a  href={`mailto:${val?.account?.data?.attributes?.email}`}>
                                  <img src={Email_Msg_Icon} className="icons" alt="info-icon" />
+                                 </a>
                                </Box>
                              </Box>
                            </CardContent>
