@@ -28,7 +28,7 @@ class DashboardHeader extends DashboardController {
   };
 
   gotoProfilePage = () => {
-    this.props.navigation.navigate("/ChairmanProfile");
+    this.props.navigation.navigate("ChairmanProfile");
   };
 
   render() {

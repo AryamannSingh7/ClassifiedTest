@@ -88,9 +88,11 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                         <Button>Add Meeting Minutes</Button>
                       </Link>
                     ) : (
-                      <Link to={`/MeetingMinute/${this.state.scheduleMeetingId}`}>
-                        <Button className="view-button">View Meeting Minutes</Button>
-                      </Link>
+                      localStorage.getItem("userType") === ROLE.MANAGER && (
+                        <Link to={`/MeetingMinute/${this.state.scheduleMeetingId}`}>
+                          <Button className="view-button">View Meeting Minutes</Button>
+                        </Link>
+                      )
                     )}
                   </Box>
                 </Box>
