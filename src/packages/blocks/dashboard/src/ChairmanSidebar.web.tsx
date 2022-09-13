@@ -135,12 +135,7 @@ class ChairmanSidebar extends DashboardController {
                 {t("Request Management")}
               </Typography>
             </AccordionDetails>
-            <AccordionDetails
-              onClick={() => {
-                //@ts-ignore
-                this.props.history.push("/DashboardTicket");
-              }}
-            >
+            <AccordionDetails onClick={() => this.props.navigation.navigate("Announcements")}>
               <Typography variant="body2" className="cursor-pointer">
                 {t("Announcements")}
               </Typography>
@@ -150,13 +145,6 @@ class ChairmanSidebar extends DashboardController {
                 {t("Suggestion")}
               </Typography>
             </AccordionDetails>
-            {/* <AccordionDetails
-              onClick={() => {
-                //@ts-ignore
-                this.props.history.push("/DashboardActions");
-              }}
-            >
-            </AccordionDetails> */}
           </Accordion>
           {/* Invoices & Receipts */}
           <Accordion expanded={this.state.expanded == `panel4`} onChange={this.handleAccordinoChange(`panel4`)}>

@@ -209,6 +209,8 @@ import ResidentsProfile from '../../blocks/user-profile-basic/src/ResidentsProfi
 import PropertysManager from '../../blocks/user-profile-basic/src/PropertysManager.web';
 import Suggestions from '../../blocks/user-profile-basic/src/Suggestions.web';
 import SuggestionDetails from '../../blocks/user-profile-basic/src/SuggestionDetails.web';
+import Announcements from '../../blocks/user-profile-basic/src/Announcements.web';
+import AnnouncementDetails from '../../blocks/user-profile-basic/src/AnnouncementDetails.web';
 
 const routeMap = {
   //done
@@ -1278,6 +1280,16 @@ const routeMap = {
   SuggestionDetails: {
     component: SuggestionDetails,
     path: '/SuggestionDetails',
+    exact: true
+  },
+  Announcements: {
+    component: Announcements,
+    path: '/Announcements',
+    exact: true
+  },
+  AnnouncementDetails: {
+    component: AnnouncementDetails,
+    path: '/AnnouncementDetails',
     exact: true
   },
 

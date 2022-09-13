@@ -20,6 +20,8 @@ export interface Props {
 
 interface S {
   // Customizable Area Start
+  isWithdrawAnnouncementModalOpen: boolean;
+  isCreateAnnouncementModalOpen: boolean;
   // Customizable Area End
 }
 
@@ -27,7 +29,7 @@ interface SS {
   id: any;
 }
 
-export default class SuggestionsController extends BlockComponent<Props, S, SS> {
+export default class AnnouncementsController extends BlockComponent<Props, S, SS> {
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
@@ -35,7 +37,10 @@ export default class SuggestionsController extends BlockComponent<Props, S, SS> 
     // Customizable Area Start
     this.subScribedMessages = [getName(MessageEnum.RestAPIResponceMessage), getName(MessageEnum.RestAPIRequestMessage)];
 
-    this.state = {};
+    this.state = {
+      isWithdrawAnnouncementModalOpen: false,
+      isCreateAnnouncementModalOpen: false,
+    };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
@@ -45,6 +50,25 @@ export default class SuggestionsController extends BlockComponent<Props, S, SS> 
     // Customizable Area End
   }
 
+  upload: any;
+
   // Customizable Area Start
+  onChangeFile = (event: any) => {
+    event.stopPropagation();
+    event.preventDefault();
+    var file = event.target.files[0];
+  };
+
+  handleWithdrawModal = () => {
+    this.setState({
+      isWithdrawAnnouncementModalOpen: !this.state.isWithdrawAnnouncementModalOpen,
+    });
+  };
+  
+  handleCreateAnnouncementModal = () => {
+    this.setState({
+      isCreateAnnouncementModalOpen: !this.state.isCreateAnnouncementModalOpen,
+    });
+  };
   // Customizable Area End
 }
