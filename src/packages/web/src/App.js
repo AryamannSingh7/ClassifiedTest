@@ -203,6 +203,11 @@ import Profile from '../../blocks/user-profile-basic/src/Profile.web';
 import EditProfile from '../../blocks/user-profile-basic/src/EditProfile.web';
 import PublicView from '../../blocks/user-profile-basic/src/PublicView.web';
 
+import CommunityUserProfile from '../../blocks/user-profile-basic/src/CommunityUserProfile.web';
+import GaMembers from  '../../blocks/user-profile-basic/src/GaMembers';
+import ResidentsProfile from '../../blocks/user-profile-basic/src/ResidentsProfile.web';
+import PropertysManager from '../../blocks/user-profile-basic/src/PropertysManager.web';
+
 const routeMap = {
   //done
   LandingPage: {
@@ -1245,6 +1250,23 @@ const routeMap = {
   AddressFill: {
     component: Address,
     path: '/addressfill'
+  },
+  //community-managment
+  CommunityUserProfile:{
+    component: CommunityUserProfile,
+    path: '/CommunityUserProfile'
+  },
+  GaMembers:{
+    component:GaMembers,
+    path:'/GaMembers'
+  },
+  ResidentsProfile:{
+    component:ResidentsProfile,
+    path:"/ResidentsProfile"
+  },
+  PropertysManager:{
+    component:PropertysManager,
+    path:"/PropertysManager"
   },
 
   AlertWeb: {
