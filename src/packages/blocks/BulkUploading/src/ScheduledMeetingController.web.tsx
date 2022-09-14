@@ -645,7 +645,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
 
   // Get All Meeting API
   getAllMeetings = () => {
-    const { place, status, date, title, page } = this.state.filter;
+    const { place, status, date, title, page, building } = this.state.filter;
 
     const header = {
       "Content-Type": configJSON.ApiContentType,
@@ -659,7 +659,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
     const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_meeting/meetings?place=${place}&status=${status}&title=${title}&date=${date}&page=${page}`
+      `society_managements/${society_id}/bx_block_meeting/meetings?place=${place}&status=${status}&title=${title}&date=${date}&page=${page}&search_building=${building}`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));

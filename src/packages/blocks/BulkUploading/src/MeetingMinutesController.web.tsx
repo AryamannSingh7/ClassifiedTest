@@ -263,7 +263,7 @@ export default class MeetingMinutesController extends BlockComponent<Props, S, S
   // Customizable Area Start
   // Get All Meeting API
   getAllMeetings = () => {
-    const { page } = this.state.filter;
+    const { status, date, title, page, building } = this.state.filter;
     const header = {
       "Content-Type": configJSON.ApiContentType,
       token: localStorage.getItem("userToken"),
@@ -276,7 +276,7 @@ export default class MeetingMinutesController extends BlockComponent<Props, S, S
     const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_meeting/meeting_mins?page=${page}`
+      `society_managements/${society_id}/bx_block_meeting/meeting_mins?page=${page}&title=${title}&date=${date}&search_building=${building}&meeting_mins_status=${status}`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));

@@ -192,7 +192,20 @@ class MeetingMinutes extends MeetingMinutesController {
                       <h3>Meeting Minutes</h3>
                       <div className="search-box">
                         <SearchIcon />
-                        <InputBase placeholder="Search by title" className="search" />
+                        <InputBase
+                          placeholder="Search by title"
+                          className="search"
+                          value={this.state.filter.title}
+                          onChange={(e: any) => {
+                            this.setState({
+                              ...this.state,
+                              filter: {
+                                ...this.state.filter,
+                                title: e.target.value.trim(),
+                              },
+                            });
+                          }}
+                        />
                       </div>
                     </Box>
                     <Divider />
