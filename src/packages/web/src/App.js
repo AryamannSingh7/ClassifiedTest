@@ -153,6 +153,8 @@ import IncidentPreview from "../../blocks/ContentManagement/src/IncidentPreview.
 import IncidentManagement from "../../blocks/ContentManagement/src/IncidentManagement.web";
 import IncidentManagementDetail from "../../blocks/ContentManagement/src/IncidentManagementDetail.web";
 
+import ClassifiedManagerListing from "../../blocks/ContentManagement/src/ClassifiedManagerListing.web";
+
 import NeighboursDetails from '../../blocks/search/src/NeighboursDetails.web';
 import NeighboursListing from '../../blocks/search/src/NeighboursListing.web';
 
@@ -211,6 +213,9 @@ import Suggestions from '../../blocks/user-profile-basic/src/Suggestions.web';
 import SuggestionDetails from '../../blocks/user-profile-basic/src/SuggestionDetails.web';
 import Announcements from '../../blocks/user-profile-basic/src/Announcements.web';
 import AnnouncementDetails from '../../blocks/user-profile-basic/src/AnnouncementDetails.web';
+import CommunityRequestManagement from '../../blocks/user-profile-basic/src/CommunityRequestManagement.web';
+
+import SentInvitation from "../../blocks/user-profile-basic/src/SentInvitation.web";
 
 const routeMap = {
   //done
@@ -438,6 +443,12 @@ const routeMap = {
     path: '/IncidentManagementDetail',
     exact: true
   },
+  ClassifiedManagerListing: {
+    component: ClassifiedManagerListing,
+    path: '/ClassifiedManagerListing',
+    exact: true
+  },
+  
   // RolesPermissions2: {
   //   component: RolesPermissions2,
   //   path: '/RolesPermissions2'
@@ -1291,6 +1302,14 @@ const routeMap = {
     component: AnnouncementDetails,
     path: '/AnnouncementDetails',
     exact: true
+  },
+  CommunityRequestManagement:{
+    component:CommunityRequestManagement,
+    path:'/CommunityRequestManagement'
+  },
+  SentInvitation:{
+    component:SentInvitation,
+    path:'/SentInvitation'
   },
 
   AlertWeb: {

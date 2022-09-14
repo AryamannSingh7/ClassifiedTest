@@ -19,9 +19,8 @@ export interface Props {
 
 interface S {
   // Customizable Area Start
-  openToolTip: boolean;
-  anchorEl:any;
-  popUPText:string;
+    dataSearch: any,
+    anchorEl: any
   // Customizable Area End
 
 }
@@ -32,7 +31,7 @@ interface SS {
   // Customizable Area End
 }
 
-export default class CommunityUserProfileController extends BlockComponent<
+export default class SentInvitationController extends BlockComponent<
   Props,
   S,
   SS
@@ -52,9 +51,8 @@ export default class CommunityUserProfileController extends BlockComponent<
     ];
 
     this.state = {
-      openToolTip: false,
-      anchorEl:null,
-      popUPText:""
+        dataSearch: "",
+        anchorEl: null
       
     };
     // Customizable Area End
@@ -84,10 +82,10 @@ export default class CommunityUserProfileController extends BlockComponent<
     // Customizable Area End
   }
 
-  handleToolTip = (event: any, text: any) => {
-    this.setState({ openToolTip: !this.state.openToolTip });
-    this.setState({ anchorEl: event.currentTarget });
-    this.setState({ popUPText: text });
-  };
+  handleClose = () => {
+    this.setState({anchorEl:null})
+  }
 
+  handleClick = (e: any) => {
+  }
 }

@@ -42,7 +42,7 @@ import DashboardController, { Props } from "./DashboardController";
 const MenuList = [
   {
     name: "Profile",
-    url: "",
+    url: "/profile",
     img: "",
   },
   {
@@ -57,7 +57,7 @@ const MenuList = [
   },
   {
     name: "My Neighbors",
-    url: "",
+    url: "/NeighboursListing",
     img: "",
   },
   {
