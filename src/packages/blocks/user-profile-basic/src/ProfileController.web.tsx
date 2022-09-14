@@ -94,6 +94,7 @@ export default class ProfileController extends BlockComponent<
   getBuildingApiCallId: any;
   getUnitApiCallId: any;
   createVehicleApiCallId:any;
+  deleteVehicleAPICallId:any;
   getProfileDataAPiCallId:any;
 
 
@@ -347,6 +348,22 @@ this.setState({loading:false})
             //@ts-nocheck
             this.setState({ showDialog: false })
 
+
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        } if (apiRequestCallId === this.deleteVehicleAPICallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            //@ts-ignore
+            //@ts-nocheck
+            localStorage.removeItem('selectFamily')
+            this.setState({ showDialogDelete: false, showDialog: false,loading:false })
+
+            this.getProfile()
 
           } else {
             //Check Error Response
@@ -1580,7 +1597,41 @@ this.setState({loading:true})
     }
     // this.setState({ anchorEl:null,showDialog:false })
   };
+  deleteRequest() {
+    this.setState({loading: true })
+    // @ts-nocheck
+    // @ts-ignore
+    let item = JSON.parse(localStorage.getItem('selectFamily'))
+    const header = {
 
+      "token": localStorage.getItem('userToken')
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+
+    this.deleteVehicleAPICallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_family/families/${item.id}`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      'DELETE'
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  }
   handleSelectBanner = (
     e: any,
     setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,

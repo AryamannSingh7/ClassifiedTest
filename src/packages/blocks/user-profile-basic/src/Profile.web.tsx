@@ -241,7 +241,7 @@ this.getProfile()
                               {/* <Avatar src={item?.attributes?.member_pic} /> */}
                               <p className="text-bold">
 
-                                {item.name}
+                                {item.attributes.name}
                               </p>
                               </div>
                             <IconButton
@@ -275,7 +275,7 @@ this.getProfile()
                               Relation:
                             </p>
                             <p className="fam-value">
-                              {item.relation.name}
+                              {item.attributes.relation.name}
                             </p>
                           </div>
                           <div>
@@ -283,7 +283,7 @@ this.getProfile()
                               ID:
                             </p>
                             <p className="fam-value">
-                              {item.id_number}
+                              {item.attributes.id_number}
                             </p>
                           </div>
                         </Grid>
