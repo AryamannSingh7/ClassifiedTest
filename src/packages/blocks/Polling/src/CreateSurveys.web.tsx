@@ -81,9 +81,6 @@ class CreateSurveys extends SurveyController {
     super(props);
 
   }
-  handleChange = (event:any) => {
-    this.setState({checked: !this.state.checked})
-  };
   render() {
     const {t} = this.props
     return ( 
@@ -110,9 +107,9 @@ class CreateSurveys extends SurveyController {
 
                     <form>
                         <Grid container spacing={4} style={{marginTop: 15}}>
-                            <Grid item sm={12} md={12} xs={12} style={{marginBottom:"65px"}}>
-                                <Box className="createPSCards" >
-                                    <TextField label="Name of the Survey" variant="outlined"
+                            <Grid item sm={12} md={12} xs={12}>
+                                <Box className="createPSCards">
+                                    <TextField label={t("Name of the Survey")} variant="outlined"
                                     name="title"
                                     value={this.state.PollData.title}
                                     onChange={this.handlePollDataChange}
@@ -179,14 +176,14 @@ class CreateSurveys extends SurveyController {
                                     <p style={{color:"red"}}>{this.state.pollDescriptionError}</p>
                                     <Box className="targetaudience">
                                         <Box className="infoIcon">
-                                            <Typography variant="subtitle1">Select your target audience</Typography>
+                                            <Typography variant="subtitle1">{t("Select your target audience")}</Typography>
                                             <InfoIcon style={{color:"grey", fontSize:18}}/>
                                         </Box>
                                         <Box className="targetOne">
-                                            <Button variant="outlined" color="primary">OWNERS</Button>
-                                            <Button variant="outlined" color="primary">RESIDENTS</Button>
-                                            <Typography variant="subtitle1">Or, </Typography>
-                                            <Button variant="contained" color="primary" onClick={this.handleOpenAudienceModal}>CREATE AUDIENCE</Button>
+                                            <Button variant="outlined" color="primary">{t("OWNERS")}</Button>
+                                            <Button variant="outlined" color="primary">{t("RESIDENTS")}</Button>
+                                            <Typography variant="subtitle1">{t("Or")}, </Typography>
+                                            <Button variant="contained" color="primary" onClick={this.handleOpenAudienceModal}>{t("CREATE AUDIENCE")}</Button>
                                         </Box>
                                     </Box>
                                 </Box>
@@ -203,13 +200,11 @@ class CreateSurveys extends SurveyController {
                                                         id="question-type-select"
                                                         value={item.questionType}
                                                         label="Age"
+                                                        style={{width:"100%",border:"1px solid #ECECEC",borderRadius:"10px",backgroundColor:"#f9f9f9",marginRight:"10px"}}
                                                         onChange={(e)=> this.handleQuestionType(key,e)}
                                                     >
-                                                        <MenuItem value="">
-                                                            <em>None</em>
-                                                        </MenuItem>
-                                                        <MenuItem value="shortAns">Short Ans</MenuItem>
-                                                        <MenuItem value="checkbox">CheckBox</MenuItem>
+                                                        <MenuItem value="short_answers">Short Answer</MenuItem>
+                                                        <MenuItem value="checkbox">Multiple Choice Questions</MenuItem>
                                                         <MenuItem value="options">Options</MenuItem>
                                                     </Select>
                                                 </FormControl>
@@ -312,11 +307,11 @@ class CreateSurveys extends SurveyController {
                                 <Box className="BottomButtonSurvey">
                                     <Box className="Previewbtn">
                                         <Link href="/SurveyPreview">
-                                            <Button variant="contained" color="primary">PREVIEW</Button>
+                                            <Button variant="contained" color="primary">{t("PREVIEW")}</Button>
                                         </Link>
                                     </Box>
                                     <Box className="Publishbtn">
-                                        <Button type="submit" variant="outlined" color="primary">PUBLISH</Button>
+                                        <Button type="submit" variant="outlined" color="primary">{t("PUBLISH")}</Button>
                                     </Box>
                                 </Box>
                             </Grid>

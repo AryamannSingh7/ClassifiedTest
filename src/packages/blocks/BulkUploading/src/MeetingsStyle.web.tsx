@@ -158,32 +158,38 @@ export const MeetingsStyleWeb: any = {
       borderColor: "#FC8434",
     },
     "& a": {
-      textDecoration: "none",
+      textDecoration: "none !important",
       color: "black",
     },
     "& .scheduled": {
       background: "#D4FFE3",
       color: "#1EC65B",
+      fontWeight: 600,
     },
     "& .completed": {
       background: "#F1F1F1",
       color: "#6C6C6C",
+      fontWeight: 600,
     },
     "& .cancelled": {
       background: "#FFEAEA",
       color: "#F21717",
+      fontWeight: 600,
     },
     "& .rejected": {
       background: "#FFEAEA",
       color: "#F21717",
+      fontWeight: 600,
     },
     "& .approved": {
       background: "#D4FFE3",
       color: "#1EC65B",
+      fontWeight: 600,
     },
     "& .pending": {
       background: "#FFEDE0",
       color: "#FC8434",
+      fontWeight: 600,
     },
     "& .error": {
       color: "red",
@@ -223,6 +229,9 @@ export const MeetingsStyleWeb: any = {
     "& .navigation .sub-heading h3": {
       fontWeight: 600,
     },
+    "& .navigation h5.sub-heading ": {
+      fontWeight: 600,
+    },
     "& .navigation .sub-heading button": {
       minWidth: "150px",
       padding: "12px 20px",
@@ -230,6 +239,15 @@ export const MeetingsStyleWeb: any = {
       fontWeight: "600",
       color: "white",
       background: "#2B6FED",
+    },
+    "& .navigation .sub-heading button.view-button": {
+      minWidth: "150px",
+      padding: "12px 20px",
+      borderRadius: "5px",
+      fontWeight: "600",
+      color: "#2B6FED",
+      background: "rgb(244, 247, 255)",
+      border: "1px solid #2B6FED",
     },
     "& a": {
       textDecoration: "none",
@@ -360,30 +378,37 @@ export const MeetingsStyleWeb: any = {
     "& .scheduled": {
       background: "#D4FFE3",
       color: "#1EC65B",
+      fontWeight: 600,
     },
     "& .completed": {
       background: "#F1F1F1",
       color: "#6C6C6C",
+      fontWeight: 600,
     },
     "& .cancelled": {
       background: "#FFEAEA",
       color: "#F21717",
+      fontWeight: 600,
     },
     "& .rejected": {
       background: "#FFEAEA",
       color: "#F21717",
+      fontWeight: 600,
     },
     "& .approved": {
       background: "#D4FFE3",
       color: "#1EC65B",
+      fontWeight: 600,
     },
     "& .pending": {
       background: "#FFEDE0",
       color: "#FC8434",
+      fontWeight: 600,
     },
     "& .accepted": {
       background: "#D4FFE3",
       color: "#1EC65B",
+      fontWeight: 600,
     },
     "& .awaiting": {
       background: "#FFEDE0",
@@ -413,6 +438,15 @@ export const MeetingsStyleWeb: any = {
       background: "#FC8434",
       color: "white",
       borderColor: "#FC8434",
+    },
+    "& .rejection-box .MuiCard-root": {
+      padding: "20px",
+      boxShadow: "none",
+      margin: "0 0 20px",
+    },
+    "& .rejection-box .MuiCard-root h4": {
+      color: "red",
+      marginBottom: "10px",
     },
   },
   meetingList: {
