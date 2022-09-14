@@ -1,7 +1,4 @@
-//@ts-ignore
-//@ts-nocheck
 import React from "react";
-
 //components
 import {
   Container,
@@ -15,11 +12,11 @@ import {
 } from "@material-ui/core";
 
 import '../../dashboard/src/Dashboard.web.css'
-import {
-  House_Icon, keyrented, money, location, account,
-  registered, activemembers, members, overdue, Cardcalendar, awated, Check_Mark, xmark
-}
-  from "../../dashboard/src/assets"
+// import {
+//   keyrented, money, location, account,
+//   registered, activemembers, members, overdue, Cardcalendar, awated, Check_Mark, xmark
+// }
+//   from "../../dashboard/src/assets"
 
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
@@ -45,17 +42,17 @@ import '../../../web/src/i18n.js';
 //resorces
 import { Users_Icon, Bank_Icon, Box_Icon, Building1 } from "../src/assets";
 
-class ClassifiedManagerListing extends ClassifiedManagerController {
+class ClassifiedManagerListing  extends ClassifiedManagerController {
   constructor(props: Props) {
     super(props);
   }
-  componentDidMount() {
-    this.getIncidentListing();
+  componentDidMount(): any {
+   // this.getIncidentListing();
     this.getBuildingName();
   }
 
   render() {
-    const {t} = this.props
+    const {t ,classes} : any = this.props;
     console.log("this.state.buildingName=================>/",this.state.buildingNameData);
     const statusArray=["Unresolved", "Resolved", "Pending Confirmation"]
     return (
@@ -70,14 +67,14 @@ class ClassifiedManagerListing extends ClassifiedManagerController {
             </Grid>
             <Grid xs={9} md={9} sm={9} spacing={4} style={{ paddingTop: 35 }}>
               <Container>
-                <Box style={dashBoard.navigation}>
+                <Box className={classes.navigation}>
                   <Box>
                     <Typography variant="body1" >
                       {t("My Dashboard")} / {t("General Dashboard")} /<Box component="span" style={{ color: "blue" }}> {t("Incidents")}</Box>
                     </Typography>
-                    <Typography variant="h5" style={dashBoard.subHeading}>{t("Incidents")}</Typography>
+                    <Typography variant="h5" className={classes.subHeading}>{t("Incidents")}</Typography>
                   </Box>
-                  <Box>
+                  {/* <Box>
                     <FormControl style={dashBoard.YearMain} className='yearTab'>
                       <NativeSelect className='yearSelection'
                         value={this.state.Year}
@@ -89,7 +86,7 @@ class ClassifiedManagerListing extends ClassifiedManagerController {
                         <option value={2019}>2019</option>
                       </NativeSelect>
                     </FormControl>
-                  </Box>
+                  </Box> */}
                 </Box>
                 <Box className="sorting-header">
                           <Box className="formGroup customSelect">
@@ -105,7 +102,7 @@ class ClassifiedManagerListing extends ClassifiedManagerController {
                                {t("Select Building")}
                               </MenuItem>
                                 {
-                                this.state?.buildingNameData?.map((val, index) => (
+                                this.state?.buildingNameData?.map((val : any, index : any) => (
                                   <MenuItem
                                     key={index}
                                     value={`${val?.id},${val?.attributes?.name}`}
@@ -130,7 +127,7 @@ class ClassifiedManagerListing extends ClassifiedManagerController {
                                   {t("Select Unit")}
                                 </MenuItem>
                                 {
-                                    this.state?.unitNameData?.map((val, index) => (
+                                    this.state?.unitNameData?.map((val :any, index :any) => (
                                       <MenuItem
                                         key={index}
                                         value={val?.apartment_name}
@@ -178,7 +175,7 @@ class ClassifiedManagerListing extends ClassifiedManagerController {
                 </Box>
                 <Grid container spacing={2} style={{ marginTop: 15, marginBottom: 15 }}>
                   {
-                    this.state?.incidentListing?.map((val, index) => (
+                    this.state?.incidentListing?.map((val : any , index : any) => (
                       <Grid item sm={4} key={index} onClick={() => this.getIncidentDetails(val.id)}>
                         <Card className="management-card card" key={index}>
                           <CardContent className="costom-card-content">
@@ -217,9 +214,7 @@ class ClassifiedManagerListing extends ClassifiedManagerController {
   }
 }
 
-export default withTranslation()(withStyles(dashBoard)(withRouter(ClassifiedManagerListing))); 
-
-const dashBoard = {
+const dashBoard : any = {
   navigation: {
     display: "flex",
     justifyContent: "space-between",
@@ -315,5 +310,6 @@ const dashBoard = {
     paddingBottom: 150,
   },
 };
-
+//@ts-ignore
+export default withTranslation()(withStyles(dashBoard)(withRouter(ClassifiedManagerListing))); 
 // Customizable Area End
