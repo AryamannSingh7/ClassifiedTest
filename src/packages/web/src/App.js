@@ -207,6 +207,9 @@ import CommunityUserProfile from '../../blocks/user-profile-basic/src/CommunityU
 import GaMembers from  '../../blocks/user-profile-basic/src/GaMembers';
 import ResidentsProfile from '../../blocks/user-profile-basic/src/ResidentsProfile.web';
 import PropertysManager from '../../blocks/user-profile-basic/src/PropertysManager.web';
+import CommunityRequestManagement from '../../blocks/user-profile-basic/src/CommunityRequestManagement.web';
+
+import SentInvitation from "../../blocks/user-profile-basic/src/SentInvitation.web";
 
 const routeMap = {
   //done
@@ -1264,6 +1267,14 @@ const routeMap = {
   PropertysManager:{
     component:PropertysManager,
     path:"/PropertysManager"
+  },
+  CommunityRequestManagement:{
+    component:CommunityRequestManagement,
+    path:'/CommunityRequestManagement'
+  },
+  SentInvitation:{
+    component:SentInvitation,
+    path:'/SentInvitation'
   },
 
   AlertWeb: {

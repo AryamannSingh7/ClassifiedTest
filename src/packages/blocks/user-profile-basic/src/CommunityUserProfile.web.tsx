@@ -1,5 +1,3 @@
-//@ts-ignore
-//@ts-nocheck
 import React from "react";
 
 //components
@@ -19,12 +17,7 @@ import {
 } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 
-import '../../dashboard/src/Dashboard.web.css'
-import {
-  House_Icon, keyrented, money, location, account,
-  registered, activemembers, members, overdue, Cardcalendar, awated, Check_Mark, xmark
-}
-  from "../../dashboard/src/assets"
+import '../../dashboard/src/Dashboard.web.css';
 
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
@@ -41,7 +34,7 @@ import Loader from "../../../components/src/Loader.web";
 import { Input } from "react-native-elements";
 import * as Yup from "yup";
 import CountryCodeSelector from "../../country-code-selector/src/CountryCodeSelector";
-import IncidentManagementController, { Props } from "./IncidentManagementController.web";
+import CommunityUserProfileController, { Props } from "./CommunityUserProfileController";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import { withTranslation } from 'react-i18next';
@@ -49,9 +42,6 @@ import '../../../web/src/i18n.js';
 import MailOutlineOutlinedIcon from '@material-ui/icons/MailOutlineOutlined';
 import CallOutlinedIcon from '@material-ui/icons/CallOutlined';
 import QuestionAnswerOutlinedIcon from '@material-ui/icons/QuestionAnswerOutlined';
-
-//resorces
-import { Users_Icon, Bank_Icon, Box_Icon, Building1 } from "./assets";
 
 const ProfileData = [ 
   {
@@ -202,14 +192,13 @@ const PropertyManager = [
   }
 ]
 
-class CommunityUserProfile extends React.Component {
+class CommunityUserProfile extends CommunityUserProfileController {
   constructor(props: Props) {
     super(props);
   }
 
   render() {
-    const {t} = this.props
-    const statusArray=["Unresolved", "Resolved", "Pending Confirmation"]
+    const {t}: any = this.props
     return (
       <>
         <Box className="incident-Listing-wrapper desktop-ui" style={{ background: "#E5ECFF" }}>
@@ -236,7 +225,7 @@ class CommunityUserProfile extends React.Component {
                         <FormControl style={dashBoard.YearMain} className='yearTab'>
                           <NativeSelect className='yearSelection'
                             // value={this.state.Year}
-                            onChange={this.handleChange}
+                            // onChange={this.handleChange}
                           >
                             <option value={2022}>Select Unit</option>
                             <option value={2021}>2021</option>
@@ -249,7 +238,7 @@ class CommunityUserProfile extends React.Component {
                         <FormControl style={dashBoard.YearMain} className='yearTab'>
                           <NativeSelect className='yearSelection'
                             // value={this.state.Year}
-                            onChange={this.handleChange}
+                            // onChange={this.handleChange}
                           >
                             <option value={2022}>Select User Type</option>
                             <option value={2021}>2021</option>
@@ -289,7 +278,7 @@ class CommunityUserProfile extends React.Component {
                             <Typography variant="h6" style={dashBoard.subHeading}>{t("GA Members")}</Typography>
                           </Grid>
                           <Grid item xs={1} style={dashBoard.cursorPointer}>
-                            <Typography variant="subtitle" style={dashBoard.viewMore}    
+                            <Typography variant="subtitle1" style={dashBoard.viewMore}    
                               onClick={() => {
                               //@ts-ignore
                               this.props.history.push("/GaMembers");
@@ -313,7 +302,9 @@ class CommunityUserProfile extends React.Component {
                                 style={dashBoard.profileImage}
                               />
                               <CardContent style={{padding:"0px 16px 16px 16px"}}>
-                              <Typography variant="h6" style={dashBoard.unitno}>{item.unitno}</Typography>
+                              <Typography variant="h6"
+                              //@ts-ignore 
+                              style={dashBoard.unitno}>{item.unitno}</Typography>
                               <Typography variant="h6" style={{textAlign:"center", marginTop:"5px"}}>{item.name}</Typography>
                               <div style={{textAlign:"center",marginTop:"5px"}}>
                                 <Typography variant="h6" style={dashBoard.userType}>{item.userType}</Typography>
@@ -341,7 +332,7 @@ class CommunityUserProfile extends React.Component {
                             <Typography variant="h6" style={dashBoard.subHeading}>{t("Residents")}</Typography>
                           </Grid>
                           <Grid item xs={1} style={dashBoard.cursorPointer}>
-                            <Typography variant="subtitle" style={dashBoard.viewMore} 
+                            <Typography variant="subtitle1" style={dashBoard.viewMore} 
                              onClick={() => {
                               //@ts-ignore
                               this.props.history.push("/Residents");
@@ -365,7 +356,9 @@ class CommunityUserProfile extends React.Component {
                                 style={dashBoard.profileImage}
                               />
                               <CardContent style={{padding:"0px 16px 16px 16px"}}>
-                              <Typography variant="h6" style={dashBoard.unitno}>{item.unitno}</Typography>
+                              <Typography variant="h6"
+                              //@ts-ignore 
+                              style={dashBoard.unitno}>{item.unitno}</Typography>
                               <Typography variant="h6" style={{textAlign:"center", marginTop:"5px"}}>{item.name}</Typography>
                               <div style={{textAlign:"center",marginTop:"5px"}}>
                                 <Typography variant="h6" style={dashBoard.userType}>{item.userType}</Typography>
@@ -393,7 +386,7 @@ class CommunityUserProfile extends React.Component {
                             <Typography variant="h6" style={dashBoard.subHeading}>{t("Property Manager")}</Typography>
                           </Grid>
                           <Grid item xs={1} style={dashBoard.cursorPointer}>
-                            <Typography variant="subtitle" style={dashBoard.viewMore}onClick={() => {
+                            <Typography variant="subtitle1" style={dashBoard.viewMore}onClick={() => {
                               //@ts-ignore
                               this.props.history.push("/PropertysManager");
                             }}>{t("View All")}</Typography>
@@ -416,7 +409,9 @@ class CommunityUserProfile extends React.Component {
                                 style={dashBoard.profileImage}
                               />
                               <CardContent style={{padding:"0px 16px 16px 16px"}}>
-                              <Typography variant="h6" style={dashBoard.unitno}>{item.unitno}</Typography>
+                              <Typography variant="h6"
+                              //@ts-ignore 
+                              style={dashBoard.unitno}>{item.unitno}</Typography>
                               <Typography variant="h6" style={{textAlign:"center", marginTop:"5px"}}>{item.name}</Typography>
                               <div style={{textAlign:"center",marginTop:"5px"}}>
                                 <Typography variant="h6" style={dashBoard.userType}>{item.userType}</Typography>
@@ -566,7 +561,7 @@ const dashBoard = {
     marginTop: 15,
     textDecoration:"underline", 
     color:"#E5B08D",
-    fontWeight:"600",
+    fontWeight:600,
   },
   gaMemberCard:{
     display: "grid",
