@@ -39,7 +39,10 @@ import {
   Contact_Disable_Icon,
   Email_Disable_Icon,
   FB_Icon,
-  Twitter_Icon
+  Twitter_Icon,
+  Instagram_Icon,
+  Snapchat_Icon,
+  NoProfile_Img
 }
   from "../src/assets";
 class NeighboursDetails extends NeighboursController {
@@ -47,15 +50,20 @@ class NeighboursDetails extends NeighboursController {
     super(props);
   }
   componentDidMount() {
-    //  this.getIncidentDetailsById(this.props.history.location?.id);
+    const id = localStorage.getItem("neighboursDetailsId");
+    if (id)
+      this.getNeighboursDetailsById(id);
+    else
+      this.props.history.push("/NeighboursListing")
   }
 
   render() {
     const { navigation } = this.props;
-
+    const attributes = this.state?.getNeighboursDetails?.attributes;
+    console.log("getNeighboursDetails=====>", this.state?.getNeighboursDetails)
     return (
       <>
-       <Box className="login-wrapper incident-wrapper neighbour-listing-wrapper">
+        <Box className="login-wrapper incident-wrapper neighbour-listing-wrapper">
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
               <Box className="content-block">
@@ -64,13 +72,13 @@ class NeighboursDetails extends NeighboursController {
                     <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
                     <h4>My Neighbours</h4>
                   </Box>
-                  <Button>
-                    <img src={Search_Icon} className="Search_Icon" alt="Search Icon" />
-                  </Button>
+                  {/* <Button>
+                    <img src={Setting_Icon} className="Search_Icon" alt="Search Icon" />
+                  </Button> */}
                 </Box>
                 <Box className="content-block-wrapper common-incident-block desktop-ui">
                   {/* anonymous section */}
-                  <Box className="anonymous-section">
+                  {/* <Box className="anonymous-section">
                     <Card className="neighbour-card neighbour-detail-card card">
                       <CardContent>
                         <img src={User1_Img} className="info-icon" alt="info-icon" />
@@ -98,85 +106,110 @@ class NeighboursDetails extends NeighboursController {
                         </Box>
                       </CardContent>
                     </Card>
-                  </Box>
+                  </Box> */}
 
-                  {/* neighbour detail section */}
+
                   <Box className="neighbour-detail-section">
                     <Card className="neighbour-card neighbour-detail-card card">
                       <CardContent className="card-content">
-                        <img src={User1_Img} className="info-icon" alt="info-icon" />
+                        <img src={NoProfile_Img} className="info-icon" alt="info-icon" />
                         <Typography component="h4">
-                          Anonymous
-                        </Typography>
-                        <Typography component="h5">
-                          B-1405
+                          {attributes?.full_name}
                         </Typography>
                         <Box className="social-raw">
                           <Box className="blocks">
                             <img src={Chat_Icon} className="icons" alt="info-icon" />
                           </Box>
                           <Box className="blocks">
+                            <a href={`tel:${attributes?.full_phone_number}`}>
                             <img src={Contact_Icon} className="icons" alt="info-icon" />
+                            </a>
                           </Box>
                           <Box className="blocks">
+                            <a  href={`mailto:${attributes?.email}`}>
                             <img src={Email_Msg_Icon} className="icons" alt="info-icon" />
+                            </a>
                           </Box>
                         </Box>
                         <Box className="relation-row">
                           <Box className="blocks">
                             <Typography component="h4">
                               Gender:
-                              <span className="title">Male</span>
+                              <span className="title">{attributes?.gender}</span>
                             </Typography>
-                          </Box>
-                          <Box className="blocks">
                             <Typography component="h4">
-                              Gender:
-                              <span className="title">Male</span>
+                              DOB:
+                              <span className="title">{attributes?.date_of_birth}</span>
                             </Typography>
                           </Box>
                         </Box>
                         <Box className="bio-content-row">
-                          <Box className="bio-row">
-                            <Typography component="h4">
-                              Bio
-                            </Typography>
-                            <Typography component="p">
-                              Hello! I am Jaroslav Brabec living with my family in central park since 2015.
-                              I am business analyst by profession. It would be nice to get in touch with you.
-                            </Typography>
-                          </Box>
-                          <Box className="bio-row">
+                             <Box className="bio-row">
+                             <Typography component="h4">
+                               Bio
+                             </Typography>
+                             <Typography component="p">
+                             {attributes?.bio}
+                              </Typography>
+                           </Box> 
+                            <Box className="bio-row">
                             <Typography component="h4">
                               Hobbies
                             </Typography>
-                            <Box className="customButton">
-                              <Button variant="contained" className="contain warning">Travelling</Button>
-                              <Button variant="contained" className="contain warning">Cooking</Button>
-                              <Button variant="contained" className="contain warning">Garding</Button>
-                            </Box>
-                          </Box>
+                           {/* {
+                                attributes?.hobbies?.map((val: any , index : any)=>(
+                                 <Box className="customButton">
+                                 <Button variant="contained" className="contain warning" key={index}>{val}</Button>
+                                 <Button variant="contained" className="contain warning">Cooking</Button>
+                                 <Button variant="contained" className="contain warning">Garding</Button>
+                               </Box>
+                               ))
+                           } */}
+                           </Box>
                           <Box className="social-data-row">
                             <Typography component="h4">
                               Follow me on:
                             </Typography>
-                            <Box className="icons-row">
-                              <Button>
-                                <img src={FB_Icon} className="icon" alt="FB_Icon" />
-                              </Button>
-                              <Button>
-                                <img src={Twitter_Icon} className="icon" alt="FB_Icon" />
-                              </Button>
-                            </Box>
+                            {
+                               attributes?.website.length !== 0 ? 
+                               <Box className="icons-row">
+                                {
+                                   attributes?.website[0].twitter_link === null ? null :
+                                   <a href={ attributes?.website[0].twitter_link} target="_blank">
+                                 <img src={Twitter_Icon} className="icon" alt="Twitter_Icon" />
+                               </a>
+                                }
+                                {
+                                    attributes?.website[1].instagram_link === null ? null :
+                                     <Button href={attributes?.website[1].instagram_link} target="_blank">
+                                     <div style={{ backgroundColor: "#f6f6f6", height: "45px", width: "45px", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                       <img src={Instagram_Icon} style={{ height: "20px", width: "20px" }} alt="Instagram_Icon" />
+                                     </div>
+                                   </Button>
+                                }
+                               {
+                                 attributes?.website[2].fb_link === null ? null :
+                                 <Button href={attributes?.website[2].fb_link} target="_blank">
+                                 <img src={FB_Icon} className="icon" alt="FB_Icon" />
+                               </Button>
+                                }
+                                  {
+                                   attributes?.website[3].snapchat_link === null ? null :
+                                   <Button href={ attributes?.website[3].snapchat_link} target="_blank">
+                                   <div style={{ backgroundColor: "#f6f6f6", height: "45px", width: "45px", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                       <img src={Snapchat_Icon} style={{ height: "20px", width: "20px" }} alt="Instagram_Icon" />
+                                     </div>
+                                   </Button>
+                                } 
+                             </Box>
+                               :null
+                            }
                           </Box>
                         </Box>
                       </CardContent>
                     </Card>
                   </Box>
-                </Box>
-                <Box className="footer-main-block bottomBlock">
-                  <h6 className="bottom-text">POWERED BY</h6>
-                  <img src={Tenant_Logo} className="tenant-logo" alt="" />
+                  {/* neighbour detail section */}
                 </Box>
               </Box>
             </Grid>
@@ -187,8 +220,6 @@ class NeighboursDetails extends NeighboursController {
             </Grid>
           </Grid>
         </Box>
-
-
         <Loader loading={this.state.loading} />
       </>
     )
