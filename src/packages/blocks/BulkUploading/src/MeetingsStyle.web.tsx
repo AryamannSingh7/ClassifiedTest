@@ -294,6 +294,20 @@ export const MeetingsStyleWeb: any = {
       borderRadius: "25px",
       textTransform: "capitalize",
     },
+    "& .meeting-detail-box .meeting-top .heading": {
+      display: "flex",
+      alignItems: "center",
+      gap: "20px",
+    },
+    "& .meeting-detail-box .meeting-top span.ga-meeting": {
+      padding: "5px 12px",
+      borderRadius: "25px",
+      textTransform: "capitalize",
+      background: "#c3d8ff",
+      color: "#2B6FED",
+      fontSize: "16px",
+      fontWeight: "600",
+    },
     "& .meeting-detail-box .meeting-details": {
       padding: "20px",
     },

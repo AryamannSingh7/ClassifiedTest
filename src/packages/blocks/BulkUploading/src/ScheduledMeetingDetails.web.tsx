@@ -98,7 +98,13 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                 </Box>
                 <Box className="meeting-detail-box">
                   <Box className="meeting-top">
-                    <h3>{this.state.scheduleMeetingDetails && this.state.scheduleMeetingDetails.attributes.title}</h3>
+                    <Box className="heading">
+                      <h3>{this.state.scheduleMeetingDetails && this.state.scheduleMeetingDetails.attributes.title}</h3>
+                      {this.state.scheduleMeetingDetails &&
+                        this.state.scheduleMeetingDetails.attributes.meeting_type === "ga_meeting" && (
+                          <span className="ga-meeting">GA Meeting</span>
+                        )}
+                    </Box>
                     <span className={this.state.scheduleMeetingStatus}>{this.state.scheduleMeetingStatus}</span>
                   </Box>
                   <Divider />
