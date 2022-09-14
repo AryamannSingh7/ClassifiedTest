@@ -29,7 +29,11 @@ interface Pagination {
 }
 
 interface Filter {
+  status: string;
+  date: string;
+  title: string;
   page: number;
+  building: string;
 }
 
 interface S {
@@ -41,9 +45,9 @@ interface S {
   isNotePreviewOpen: boolean;
 
   meetingMinuteList: any[];
+  buildingsList: any[];
 
   pagination: any | Pagination;
-  filter: Filter;
 
   meetingMinuteId: string;
   meetingMinuteStatus: string;
@@ -54,6 +58,11 @@ interface S {
   shareUrl: string;
 
   rejectNote: string;
+
+  status: string;
+  date: string;
+  building: string;
+  filter: Filter;
   // Customizable Area End
 }
 
@@ -66,6 +75,7 @@ export default class MeetingMinutesController extends BlockComponent<Props, S, S
   GetMinuteMeetingDetailCallId: any;
   UpdateMinuteMeetingCallId: any;
   MinuteMeetingNoteCallId: any;
+  GetAllBuildingsCallId: any;
 
   constructor(props: Props) {
     super(props);
@@ -82,11 +92,9 @@ export default class MeetingMinutesController extends BlockComponent<Props, S, S
       isNotePreviewOpen: false,
 
       meetingMinuteList: [],
+      buildingsList: [],
 
       pagination: null,
-      filter: {
-        page: 1,
-      },
 
       meetingMinuteId: "",
       meetingMinuteStatus: "",
@@ -97,6 +105,17 @@ export default class MeetingMinutesController extends BlockComponent<Props, S, S
       shareUrl: "",
 
       rejectNote: "",
+
+      status: "",
+      date: "",
+      building: "",
+      filter: {
+        status: "",
+        date: "",
+        title: "",
+        page: 1,
+        building: "",
+      },
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -212,6 +231,32 @@ export default class MeetingMinutesController extends BlockComponent<Props, S, S
       }
       ApiCatchErrorResponse(errorResponse);
     }
+
+    // Get All Building List API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.GetAllBuildingsCallId !== null &&
+      this.GetAllBuildingsCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.GetAllBuildingsCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      if (responseJson.buildings) {
+        this.setState({
+          buildingsList: responseJson.buildings,
+        });
+      }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
     // Customizable Area End
   }
 
@@ -232,6 +277,31 @@ export default class MeetingMinutesController extends BlockComponent<Props, S, S
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
       `society_managements/${society_id}/bx_block_meeting/meeting_mins?page=${page}`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  // Get All Building List API
+  getBuildingsList = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.GetAllBuildingsCallId = apiRequest.messageId;
+
+    const society_id = localStorage.getItem("society_id");
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `society_managements/${society_id}/bx_block_meeting/find_building`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));

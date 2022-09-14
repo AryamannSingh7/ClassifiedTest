@@ -32,6 +32,7 @@ interface Form {
   momWriter: string | null;
   status: string;
   meetingType: string;
+  attendeeIds: any[];
 }
 
 interface Pagination {
@@ -48,6 +49,7 @@ interface Filter {
   date: string;
   title: string;
   page: number;
+  building: string;
 }
 
 interface S {
@@ -57,17 +59,22 @@ interface S {
   isCancelMeetingModalOpen: boolean;
   isCompleteMeetingModalOpen: boolean;
   isCreateAttendeeModalOpen: boolean;
+  isEditAttendeeModalOpen: boolean;
+  isSelectAllUser: boolean;
 
   scheduleMeetingList: any[];
   buildingsList: any[];
   managersList: any[];
   responseList: any[];
+  userList: any[];
+  groupList: any[];
 
   pagination: any | Pagination;
 
   place: string;
   status: string;
   date: string;
+  building: string;
   filter: Filter;
 
   scheduleMeetingId: string;
@@ -75,6 +82,11 @@ interface S {
   scheduleMeetingDetails: any;
 
   meetingForm: Form;
+
+  groupId: string;
+  selectedUser: any[];
+  groupName: string;
+  selectedGroup: string;
   // Customizable Area End
 }
 
@@ -91,6 +103,13 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
   EditMeetingCallId: any;
   UpdateStatusMeetingCallId: any;
   GetMeetingResponseCallId: any;
+  GetUserListCallId: any;
+  GetGroupListCallId: any;
+  GetGroupDetailsCallId: any;
+  CreateGroupCallId: any;
+  DeleteGroupListCallId: any;
+  UpdateGroupCallId: any;
+  GetGroupIdsCallId: any;
 
   constructor(props: Props) {
     super(props);
@@ -105,23 +124,29 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
       isCancelMeetingModalOpen: false,
       isCompleteMeetingModalOpen: false,
       isCreateAttendeeModalOpen: false,
+      isEditAttendeeModalOpen: false,
+      isSelectAllUser: false,
 
       scheduleMeetingList: [],
       buildingsList: [],
       managersList: [],
       responseList: [],
+      userList: [],
+      groupList: [],
 
       pagination: null,
 
       place: "",
       status: "",
       date: "",
+      building: "",
       filter: {
         place: "",
         status: "",
         date: "",
         title: "",
         page: 1,
+        building: "",
       },
 
       scheduleMeetingId: "",
@@ -138,7 +163,13 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
         momWriter: "",
         status: "scheduled",
         meetingType: "",
+        attendeeIds: [],
       },
+
+      groupId: "",
+      selectedUser: [],
+      groupName: "",
+      selectedGroup: "owner",
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -366,7 +397,202 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson.data) {
-        this.setState({ responseList: responseJson.data });
+        this.setState({ responseList: responseJson.data.data, pagination: responseJson.meta.pagination });
+      }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    //  Get User List API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.GetUserListCallId !== null &&
+      this.GetUserListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.GetUserListCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      console.log(responseJson);
+
+      if (responseJson.data) {
+        this.setState({ userList: responseJson.data.data });
+      }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // Get Group List API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.GetGroupListCallId !== null &&
+      this.GetGroupListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.GetGroupListCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      console.log(responseJson);
+
+      if (responseJson.data) {
+        this.setState({ groupList: responseJson.data });
+      }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // Get Group Details API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.GetGroupDetailsCallId !== null &&
+      this.GetGroupDetailsCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.GetGroupDetailsCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      if (responseJson.data) {
+        const idList = responseJson.data.attributes.accounts.map((user: any) => user.id.toString());
+        this.setState({
+          groupName: responseJson.data.attributes.group_name,
+          selectedUser: idList,
+        });
+      }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // Create Group API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.CreateGroupCallId !== null &&
+      this.CreateGroupCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.CreateGroupCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      if (responseJson.data) {
+        this.handleCreateAttendeeModal();
+        this.setState({ groupName: "", selectedUser: [] }, () => {
+          this.getGroupList();
+          toast.success("Group Created Successfully!!");
+        });
+      }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // Delete Group API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.DeleteGroupListCallId !== null &&
+      this.DeleteGroupListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.DeleteGroupListCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      if (responseJson.data) {
+        this.setState({ selectedGroup: "owner" }, () => {
+          this.getGroupList();
+          toast.success("Group Deleted Successfully!!");
+        });
+      }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // Update Group API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.UpdateGroupCallId !== null &&
+      this.UpdateGroupCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.UpdateGroupCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      if (responseJson.data) {
+        this.handleCreateAttendeeModal();
+        this.setState({ meetingForm: { ...this.state.meetingForm, attendeeIds: this.state.selectedUser } }, () => {
+          this.setState({ groupName: "", selectedUser: [], isEditAttendeeModalOpen: false }, () => {
+            this.getGroupList();
+            toast.success("Group Updated Successfully!!");
+          });
+        });
+      }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // Get Group Ids API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.GetGroupIdsCallId !== null &&
+      this.GetGroupIdsCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.GetGroupIdsCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      if (responseJson.account_ids) {
+        this.setState({
+          ...this.state,
+          meetingForm: {
+            ...this.state.meetingForm,
+            attendeeIds: responseJson.account_ids,
+          },
+        });
       }
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
@@ -531,6 +757,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
         time: values.time,
         manager_id: values.momWriter,
         meeting_type: values.meetingType,
+        joinee_ids: this.state.meetingForm.attendeeIds,
       },
     };
 
@@ -635,6 +862,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
 
   // Get Meeting Response API
   getMeetingResponseList = () => {
+    const { page } = this.state.filter;
     const header = {
       "Content-Type": configJSON.ApiContentType,
       token: localStorage.getItem("userToken"),
@@ -647,7 +875,204 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
     const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_meeting/meeting_responses?meeting_id=${this.state.scheduleMeetingId}`
+      `society_managements/${society_id}/bx_block_meeting/meeting_responses?meeting_id=${
+        this.state.scheduleMeetingId
+      }&page=${page}`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  // Get User List API
+  getUserList = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.GetUserListCallId = apiRequest.messageId;
+
+    const society_id = localStorage.getItem("society_id");
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `society_managements/${society_id}/bx_block_meeting/meeting_groups/add_group_member?building_management_id=${society_id}`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  // Get Group List API
+  getGroupList = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.GetGroupListCallId = apiRequest.messageId;
+
+    const society_id = localStorage.getItem("society_id");
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `society_managements/${society_id}/bx_block_meeting/meeting_groups?building_management_id=${society_id}`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  // Get Group Details API
+  getGroupDetails = (id: any) => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.GetGroupDetailsCallId = apiRequest.messageId;
+
+    const society_id = localStorage.getItem("society_id");
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `society_managements/${society_id}/bx_block_meeting/meeting_groups/${id}?building_management_id=${society_id}`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  // Create Group API
+  createGroup = () => {
+    const body = {
+      meeting_group: {
+        group_name: this.state.groupName,
+        account_ids: this.state.selectedUser,
+      },
+    };
+
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.CreateGroupCallId = apiRequest.messageId;
+
+    const society_id = localStorage.getItem("society_id");
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `society_managements/${society_id}/bx_block_meeting/meeting_groups?building_management_id=${society_id}`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestBodyMessage), JSON.stringify(body));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePost);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  // Delete Group API
+  deleteGroup = (id: any) => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.DeleteGroupListCallId = apiRequest.messageId;
+
+    const society_id = localStorage.getItem("society_id");
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `society_managements/${society_id}/bx_block_meeting/meeting_groups/${id}?building_management_id=${society_id}`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeDelete);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  // Update Group API
+  updateGroup = () => {
+    const body = {
+      meeting_group: {
+        group_name: this.state.groupName,
+        account_ids: this.state.selectedUser,
+      },
+    };
+
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.UpdateGroupCallId = apiRequest.messageId;
+
+    const society_id = localStorage.getItem("society_id");
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `society_managements/${society_id}/bx_block_meeting/meeting_groups/${
+        this.state.groupId
+      }?building_management_id=${society_id}`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestBodyMessage), JSON.stringify(body));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePut);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  // Get Group Ids List API
+  getGroupIdsList = (id: any) => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.GetGroupIdsCallId = apiRequest.messageId;
+
+    const society_id = localStorage.getItem("society_id");
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `society_managements/${society_id}/bx_block_meeting/meeting_groups/group_member_ids?building_management_id=${society_id}&id=${id}`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
@@ -689,11 +1114,18 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
     });
   };
 
+  openCreateAttendeeModal = () => {
+    this.setState({ selectedUser: [], groupName: "" }, () => {
+      this.handleCreateAttendeeModal();
+    });
+  };
+
   openEditMeetingModal = (meeting: any) => {
     this.setState(
       {
         scheduleMeetingId: meeting.id,
         meetingForm: {
+          ...this.state.meetingForm,
           title: meeting.attributes.title,
           place: meeting.attributes.place,
           agenda: meeting.attributes.agenda,
@@ -719,6 +1151,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
     this.setState(
       {
         meetingForm: {
+          ...this.state.meetingForm,
           title: "",
           place: "",
           agenda: "",
@@ -734,6 +1167,36 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
         this.handleCreateMeetingModal();
       }
     );
+  };
+
+  addUser = (Id: any) => {
+    this.setState({
+      selectedUser: [...this.state.selectedUser, Id],
+    });
+  };
+
+  removeUser = (Id: string) => {
+    const newUserList = this.state.selectedUser.filter((id: any) => {
+      return id !== Id;
+    });
+    this.setState({
+      selectedUser: newUserList,
+    });
+  };
+
+  selectAllUser = () => {
+    const idList = this.state.userList.map((user: any) => user.id);
+    this.setState({
+      selectedUser: idList,
+      isSelectAllUser: true,
+    });
+  };
+
+  removeAllUser = () => {
+    this.setState({
+      selectedUser: [],
+      isSelectAllUser: false,
+    });
   };
   // Customizable Area End
 }

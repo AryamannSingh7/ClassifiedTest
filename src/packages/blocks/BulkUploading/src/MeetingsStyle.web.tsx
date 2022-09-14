@@ -445,9 +445,17 @@ export const MeetingsStyleWeb: any = {
       color: "#1EC65B",
       fontWeight: 600,
     },
+    "& .no-response": {
+      background: "#EBEBEB",
+      color: "#727272",
+      fontWeight: 600,
+    },
     "& .awaiting": {
       background: "#FFEDE0",
       color: "#FC8434",
+    },
+    "& .response-box .table-box td.MuiTableCell-root": {
+      textTransform: "capitalize",
     },
     "& .response-box .table-box td.MuiTableCell-root span": {
       padding: "5px 10px",

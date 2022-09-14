@@ -19,22 +19,26 @@ import {
   TableRow,
   TableCell,
   TableBody,
+  Checkbox,
+  TableContainer,
+  Box,
+  Grid,
 } from "@material-ui/core";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
-import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
 import ScheduledMeetingController, { Props } from "./ScheduledMeetingController.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { MeetingsStyleWeb } from "./MeetingsStyle.web";
-import { CommentIcon, RejectIcon, AcceptIcon, AwaitIcon } from "./assets";
+import { CommentIcon, RejectIcon, AcceptIcon, AwaitIcon, SearchIconImage, Dots } from "./assets";
 import { Formik, Form } from "formik";
 import moment from "moment";
 //@ts-ignore
 import Pagination from "@material-ui/lab/Pagination";
 import { Link } from "react-router-dom";
 import { ROLE } from "../../../framework/src/Enum";
+import { Menu } from "@szhsin/react-menu";
+import "@szhsin/react-menu/dist/core.css";
 
 class ScheduledMeetingDetails extends ScheduledMeetingController {
   constructor(props: Props) {
@@ -48,13 +52,24 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
       this.getMeetingResponseList();
       this.getBuildingsList();
       this.getManagersList();
+      this.getUserList();
+      this.getGroupList();
     });
+  }
+
+  async componentDidUpdate(prevProps: any, prevState: any): Promise<void> {
+    if (
+      prevState.filter.page !== this.state.filter.page
+    ) {
+      await this.getMeetingResponseList();
+    }
   }
 
   render() {
     const { classes } = this.props;
 
     console.log(this.state);
+    console.log(this.state.pagination?.total_count);
 
     return (
       <>
@@ -167,8 +182,8 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                       </Box>
                     )}
                 </Box>
-                {this.state.scheduleMeetingDetails && this.state.scheduleMeetingStatus === "scheduled" ? (
-                  <Box className="response-box">
+                <Box className="response-box">
+                  {this.state.scheduleMeetingDetails && this.state.scheduleMeetingStatus === "scheduled" ? (
                     <Box className="heading">
                       <h3>Response</h3>
                       <Box className="status">
@@ -195,90 +210,80 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                         </div>
                       </Box>
                     </Box>
-                    <Table className="table-box">
-                      <TableHead>
-                        <TableRow>
-                          <TableCell>Name</TableCell>
-                          <TableCell>Building</TableCell>
-                          <TableCell>Unit No.</TableCell>
-                          <TableCell>Floor Number</TableCell>
-                          <TableCell>Response</TableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        {this.state.responseList.length === 0 && (
-                          <TableRow>
-                            <TableCell colSpan={5}>No User Available !!</TableCell>
-                          </TableRow>
-                        )}
-                        {this.state.responseList.map((user: any) => {
-                          return (
-                            <TableRow>
-                              <TableCell>{user.attributes.Name}</TableCell>
-                              <TableCell>{user.attributes.building_name}</TableCell>
-                              <TableCell>{user.attributes.unit_number}</TableCell>
-                              <TableCell>{user.attributes.floor_number}</TableCell>
-                              <TableCell>
-                                <span className={user.attributes.status}>{user.attributes.status}</span>
-                              </TableCell>
-                            </TableRow>
-                          );
-                        })}
-                      </TableBody>
-                    </Table>
-                    <Box className="table-bottom">
-                      <p>
-                        Showing <span className="current-page">1</span> of <span className="total-page">100</span>{" "}
-                        results
-                      </p>
-                      <Pagination count={5} page={2} siblingCount={2} variant="outlined" shape="rounded" />
-                    </Box>
-                  </Box>
-                ) : (
-                  <Box className="response-box">
+                  ) : (
                     <Box className="heading">
-                      <h3>Meeting Joinees</h3>
+                      <h3>Meeting Attendees</h3>
                     </Box>
-                    <Table className="table-box">
-                      <TableHead>
-                        <TableRow>
-                          <TableCell>Name</TableCell>
-                          <TableCell>Building</TableCell>
-                          <TableCell>Unit No.</TableCell>
-                          <TableCell>Floor Number</TableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        {this.state.responseList.length === 0 && (
-                          <TableRow>
-                            <TableCell colSpan={5}>No User Available !!</TableCell>
-                          </TableRow>
+                  )}
+                  <Table className="table-box">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Name</TableCell>
+                        <TableCell>Building</TableCell>
+                        <TableCell>Unit No.</TableCell>
+                        <TableCell>Floor Number</TableCell>
+                        {this.state.scheduleMeetingDetails && this.state.scheduleMeetingStatus !== "cancelled" && (
+                          <TableCell>Response</TableCell>
                         )}
-                        {this.state.responseList.map((user: any) => {
-                          return (
-                            <TableRow>
-                              <TableCell>{user.attributes.Name}</TableCell>
-                              <TableCell>{user.attributes.building_name}</TableCell>
-                              <TableCell>{user.attributes.unit_number}</TableCell>
-                              <TableCell>{user.attributes.floor_number}</TableCell>
-                            </TableRow>
-                          );
-                        })}
-                      </TableBody>
-                    </Table>
-                    <Box className="table-bottom">
-                      <p>
-                        Showing <span className="current-page">1</span> of <span className="total-page">100</span>{" "}
-                        results
-                      </p>
-                      <Pagination count={5} page={2} siblingCount={2} variant="outlined" shape="rounded" />
-                    </Box>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {this.state.responseList.length === 0 && (
+                        <TableRow>
+                          <TableCell colSpan={5}>No User Available !!</TableCell>
+                        </TableRow>
+                      )}
+                      {this.state.responseList.map((user: any) => {
+                        return (
+                          <TableRow>
+                            <TableCell>{user.attributes.name}</TableCell>
+                            <TableCell>{user.attributes.building_name}</TableCell>
+                            <TableCell>{user.attributes.unit_number}</TableCell>
+                            <TableCell>{user.attributes.floor_number}</TableCell>
+                            {this.state.scheduleMeetingDetails && this.state.scheduleMeetingStatus !== "cancelled" && (
+                              <TableCell>
+                                {this.state.scheduleMeetingStatus === "completed" &&
+                                user.attributes.response === "awaited" ? (
+                                  <span className="no-response">No Response</span>
+                                ) : (
+                                  <span className={user.attributes.response}>{user.attributes.response}</span>
+                                )}
+                              </TableCell>
+                            )}
+                          </TableRow>
+                        );
+                      })}
+                    </TableBody>
+                  </Table>
+                  <Box className="table-bottom">
+                    <p>
+                      Showing <span className="current-page">{this.state.responseList.length}</span> of{" "}
+                      <span className="total-page">
+                        {this.state.pagination ? this.state.pagination.total_count : 0}
+                      </span>{" "}
+                      results
+                    </p>
+                    {this.state.pagination && (
+                      <Pagination
+                        onChange={(event: any, value: any) => {
+                          this.setState({
+                            ...this.state,
+                            filter: {
+                              ...this.state.filter,
+                              page: Number(value),
+                            },
+                          });
+                        }}
+                        count={this.state.pagination.total_pages}
+                        page={this.state.pagination.current_page}
+                        siblingCount={2}
+                        variant="outlined"
+                        shape="rounded"
+                      />
+                    )}
                   </Box>
-                )}
+                </Box>
                 <Box className="button-box">
-                  {/* <Button className="cancel" onClick={() => this.handleCompleteMeetingModal()}>
-                    Complete Meeting
-                  </Button> */}
                   {this.state.scheduleMeetingDetails && this.state.scheduleMeetingStatus === "scheduled" && (
                     <Button className="cancel" onClick={() => this.handleCancelMeetingModal()}>
                       Cancel Meeting
@@ -400,28 +405,30 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                       />
                       {errors.agenda && touched.agenda && <small className="error">{errors.agenda}</small>}
                     </FormControl>
-                    <FormControl fullWidth>
-                      <Select
-                        displayEmpty
-                        value={values.momWriter}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        name="momWriter"
-                        className="dialog-select-input"
-                      >
-                        <MenuItem value="" disabled>
-                          <em>Designated Meeting of Minutes writer</em>
-                        </MenuItem>
-                        {this.state.managersList.map((manager: any) => {
-                          return (
-                            <MenuItem value={manager.id} key={manager.id}>
-                              {manager.full_name}
-                            </MenuItem>
-                          );
-                        })}
-                      </Select>
-                      {errors.momWriter && touched.momWriter && <small className="error">{errors.momWriter}</small>}
-                    </FormControl>
+                    {localStorage.getItem("userType") !== ROLE.MANAGER && (
+                      <FormControl fullWidth>
+                        <Select
+                          displayEmpty
+                          value={values.momWriter}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          name="momWriter"
+                          className="dialog-select-input"
+                        >
+                          <MenuItem value="" disabled>
+                            <em>Designated Meeting of Minutes writer</em>
+                          </MenuItem>
+                          {this.state.managersList.map((manager: any) => {
+                            return (
+                              <MenuItem value={manager.id} key={manager.id}>
+                                {manager.full_name}
+                              </MenuItem>
+                            );
+                          })}
+                        </Select>
+                        {errors.momWriter && touched.momWriter && <small className="error">{errors.momWriter}</small>}
+                      </FormControl>
+                    )}
                     <FormControl fullWidth>
                       <Select
                         value={values.status}
@@ -440,6 +447,63 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                       </Select>
                       {errors.status && touched.status && <small className="error">{errors.status}</small>}
                     </FormControl>
+                    {/* Create Audience */}
+                    <Box className="create-audience">
+                      <p>Select Meeting Attendees</p>
+                      <span onClick={() => this.openCreateAttendeeModal()}>+ Create New Group</span>
+                    </Box>
+                    <Box className="attendee-box">
+                      <Box
+                        className={`${this.state.selectedGroup === "owner" && "active"} attendee`}
+                        onClick={() => {
+                          this.setState({ selectedGroup: "owner" });
+                        }}
+                      >
+                        <span>Owner</span>
+                      </Box>
+                      <Box
+                        className={`${this.state.selectedGroup === "resident" && "active"} attendee`}
+                        onClick={() => {
+                          this.setState({ selectedGroup: "resident" });
+                        }}
+                      >
+                        <span>Resident</span>
+                      </Box>
+                      {this.state.groupList.map((group: any) => {
+                        return (
+                          <Box
+                            className={`${this.state.selectedGroup === group.id.toString() && "active"} attendee`}
+                            onClick={() => {
+                              this.setState({ selectedGroup: group.id.toString() }, () => {
+                                this.getGroupIdsList(group.id);
+                              });
+                            }}
+                          >
+                            <span>{group.attributes.group_name}</span>
+                            <Box>
+                              <Menu
+                                direction="top"
+                                align="end"
+                                menuButton={<img src={Dots} alt="|" />}
+                                className="attendee-menu"
+                              >
+                                <MenuItem
+                                  onClick={() => {
+                                    this.setState({ isEditAttendeeModalOpen: true, groupId: group.id }, () => {
+                                      this.getGroupDetails(group.id);
+                                      this.handleCreateAttendeeModal();
+                                    });
+                                  }}
+                                >
+                                  Edit
+                                </MenuItem>
+                                <MenuItem onClick={() => this.deleteGroup(group.id)}>Delete</MenuItem>
+                              </Menu>
+                            </Box>
+                          </Box>
+                        );
+                      })}
+                    </Box>
                   </DialogContent>
                   <DialogActions className="dialog-button-group">
                     <Button className="cancel-button" onClick={() => this.handleEditMeetingModal()}>
@@ -453,6 +517,137 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
               );
             }}
           </Formik>
+        </Dialog>
+
+        <Dialog
+          scroll="paper"
+          fullWidth
+          maxWidth="md"
+          open={this.state.isCreateAttendeeModalOpen}
+          className="select-meeting scheduled-meeting"
+        >
+          <MuiDialogTitle disableTypography className="dialog-heading">
+            {this.state.isEditAttendeeModalOpen ? (
+              <Typography variant="h6">Edit Meeting Group</Typography>
+            ) : (
+              <Typography variant="h6">Create Meeting Group</Typography>
+            )}
+            <IconButton onClick={() => this.handleCreateAttendeeModal()}>
+              <CloseIcon />
+            </IconButton>
+          </MuiDialogTitle>
+          <DialogContent dividers className="filter">
+            <Select value="" name="meetingType" displayEmpty className="dialog-select-input">
+              <MenuItem value="" disabled>
+                <em>Select Floor</em>
+              </MenuItem>
+              {this.state.buildingsList.map((building: any) => {
+                return <MenuItem>GA Meeting</MenuItem>;
+              })}
+            </Select>
+            <Select value="" name="meetingType" displayEmpty className="dialog-select-input">
+              <MenuItem value="" disabled>
+                <em>User Type</em>
+              </MenuItem>
+              <MenuItem value="">Owner</MenuItem>
+              <MenuItem value="">Resident</MenuItem>
+            </Select>
+            <Button className="filter-button" startIcon={<img src={SearchIconImage} />}>
+              Search
+            </Button>
+          </DialogContent>
+          <DialogContent dividers>
+            <TableContainer>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>
+                      <Checkbox
+                        checked={this.state.isSelectAllUser}
+                        onChange={(e: any) => {
+                          if (e.target.checked) {
+                            this.selectAllUser();
+                          } else {
+                            this.removeAllUser();
+                          }
+                        }}
+                      />
+                    </TableCell>
+                    <TableCell>Name</TableCell>
+                    <TableCell>Unit No.</TableCell>
+                    <TableCell>Floor Number</TableCell>
+                    <TableCell>User Type</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {this.state.userList.length === 0 && (
+                    <TableRow>
+                      <TableCell colSpan={5}>No User Available!!</TableCell>
+                    </TableRow>
+                  )}
+                  {this.state.userList.map((user: any) => {
+                    return (
+                      <TableRow key={user.id}>
+                        <TableCell>
+                          <Checkbox
+                            checked={this.state.selectedUser.includes(user.id)}
+                            onChange={(e: any) => {
+                              if (e.target.checked) {
+                                this.addUser(user.id);
+                              } else {
+                                this.removeUser(user.id);
+                              }
+                            }}
+                          />
+                        </TableCell>
+                        <TableCell>{user.attributes.full_name}</TableCell>
+                        <TableCell>{user.attributes.unit_number}</TableCell>
+                        <TableCell>{user.attributes.floor_number}</TableCell>
+                        <TableCell>{user.attributes.user_type.toString()}</TableCell>
+                      </TableRow>
+                    );
+                  })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </DialogContent>
+          <DialogActions className="dialog-button-group">
+            <div className="selected-meeting">
+              <h4>
+                <span>{this.state.selectedUser.length} </span>User Selected
+              </h4>
+            </div>
+            <div className="button-group">
+              <Input
+                value={this.state.groupName}
+                onChange={(e: any) => {
+                  this.setState({
+                    groupName: e.target.value,
+                  });
+                }}
+                name="title"
+                placeholder="Group Name"
+                className="dialog-input"
+              />
+              {this.state.isEditAttendeeModalOpen ? (
+                <Button
+                  className="add-button"
+                  disabled={this.state.selectedUser.length === 0 || !this.state.groupName}
+                  onClick={() => this.updateGroup()}
+                >
+                  Edit Group
+                </Button>
+              ) : (
+                <Button
+                  className="add-button"
+                  disabled={this.state.selectedUser.length === 0 || !this.state.groupName}
+                  onClick={() => this.createGroup()}
+                >
+                  Create Group
+                </Button>
+              )}
+            </div>
+          </DialogActions>
         </Dialog>
 
         <Dialog
