@@ -210,14 +210,29 @@ export const MeetingsStyleWeb: any = {
     "& .meeting-minute-note .MuiCard-root .editor .public-DraftEditor-content > div": {
       minHeight: "300px",
     },
-    "& .meeting-minute-note > button": {
-      float: "right",
+    "& .meeting-minute-note .note-button": {
+      display: "flex",
+      justifyContent: "flex-end",
+      alignItems: "center",
+      gap: "20px",
+    },
+    "& .meeting-minute-note .note-button button.preview": {
       background: "#2B6FED",
       color: "white",
       padding: "10px 20px",
       borderRadius: "5px",
       fontWeight: "600",
       marginTop: "20px",
+      width: "150px",
+    },
+    "& .meeting-minute-note .note-button button.submit": {
+      border: "1px solid #2B6FED",
+      color: "2B6FED",
+      padding: "10px 20px",
+      borderRadius: "5px",
+      fontWeight: "600",
+      marginTop: "20px",
+      width: "150px",
     },
   },
   scheduledMeetingDetails: {

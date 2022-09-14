@@ -38,6 +38,7 @@ interface S {
   isApproveMeetingModalOpen: boolean;
   isShareModalOpen: boolean;
   isSubmitNoteModalOpen: boolean;
+  isNotePreviewOpen: boolean;
 
   meetingMinuteList: any[];
 
@@ -78,6 +79,7 @@ export default class MeetingMinutesController extends BlockComponent<Props, S, S
       isApproveMeetingModalOpen: false,
       isShareModalOpen: false,
       isSubmitNoteModalOpen: false,
+      isNotePreviewOpen: false,
 
       meetingMinuteList: [],
 
@@ -365,6 +367,12 @@ export default class MeetingMinutesController extends BlockComponent<Props, S, S
   handleSubmitNoteModal = () => {
     this.setState({
       isSubmitNoteModalOpen: !this.state.isSubmitNoteModalOpen,
+    });
+  };
+
+  handleNotePreview = () => {
+    this.setState({
+      isNotePreviewOpen: !this.state.isNotePreviewOpen,
     });
   };
 
