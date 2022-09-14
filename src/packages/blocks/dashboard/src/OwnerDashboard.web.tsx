@@ -42,7 +42,7 @@ import DashboardController, { Props } from "./DashboardController";
 const MenuList = [
   {
     name: "Profile",
-    url: "",
+    url: "/profile",
     img: "",
   },
   {

@@ -12,7 +12,7 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import HomeIcon from '@material-ui/icons/Home';
-import { Building1, email, fb, message, phone, twitter } from "./assets";
+import { Building1, email, fb, instaedit, message, phone, snapedit, twitter } from "./assets";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
 import '../assets/css/style.scss';
@@ -21,14 +21,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ProfileController from "./ProfileController.web";
 import FamilyListWeb from "../../customform/src/FamilyList.web";
-
-
-
-
-
-
-
-
 class Profile extends ProfileController {
   constructor(props: Props) {
     super(props);
@@ -51,7 +43,7 @@ this.getProfile()
           <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset', overflowY: 'auto', overflowX: 'hidden' }}>
             <Grid container>
               <Grid xs={12} style={{ display: 'flex', alignItems: 'center' }}>
-                <div className="flex">
+                <div className="flex" style={{width:'100%'}}>
                   <div style={{ display: "flex", alignItems: 'center', gap: '0.5rem' }}>
 
                     <ArrowBackIcon onClick={() => window.history.back()} />
@@ -78,9 +70,10 @@ this.getProfile()
 
                   >
                     <MenuItem key="1" onClick={() =>
-                    // @ts-ignore
+                    {// @ts-ignore
                     // @ts-nocheck
-                      this.props.history.push('/editprofile')
+                    localStorage.setItem('profileData',JSON.stringify(profileData));
+                      this.props.history.push('/editprofile')}
                       }>
                       Edit profile
                     </MenuItem>
@@ -102,7 +95,7 @@ this.getProfile()
 
                 <img className="profile_img" src="https://img.freepik.com/premium-photo/generic-brandless-modern-sport-car-with-fire-smoke_110488-1759.jpg" />
                   <p style={{ fontWeight: 'bold', fontSize: '1.25rem', marginTop: '0.5rem', marginBottom: '0.5rem' }}>
-                    {profileData?.attributes?.full_name || 'N/A'}
+                    {profileData?.attributes?.full_name?.name || 'N/A'}
                   </p>
                   </Box>
               </Grid>
@@ -116,8 +109,8 @@ this.getProfile()
               <Grid item xs={12}>
                 <Box display='flex' justifyContent='center' marginTop='1rem'>
                   <img src={message} className='first_icon'/>
-                  <img src={phone} className='second_icon' />
-                  <img src={email} className='third_icon' />
+                  <img src={phone} className='second_icon' onClick={() => document.location.href = `tel:${profileData?.attributes?.full_phone_number?.full_phone_number}`}/>
+                  <img src={email} className='third_icon' onClick={() => document.location.href = `mailto:${profileData?.attributes?.email?.email}`} />
                 </Box>
 
               </Grid>
@@ -130,7 +123,7 @@ this.getProfile()
                   Gender :
                 </label>
                 <span>
-                    {" "}  {profileData?.attributes?.gender || 'N/A'}
+                    {" "}  {profileData?.attributes?.gender?.gender || 'N/A'}
                 </span>
               </Box>
                 <Box style={{ fontSize: "0.75rem" }}>
@@ -138,7 +131,7 @@ this.getProfile()
                   DOB :
                 </label>
                 <span>
-                   {" "} {profileData?.attributes?.date_of_birth}
+                    {" "} {profileData?.attributes?.date_of_birth?.date_of_birth}
                 </span>
               </Box>
               </Grid>
@@ -157,14 +150,14 @@ this.getProfile()
               <Grid item xs={12}>
 
                 <p style={{ fontSize: '1rem', marginBottom: '0.5rem' }}>
-                  {profileData?.attributes?.bio || 'N/A'}
+                  {profileData?.attributes?.bio?.bio || 'N/A'}
                 </p>
 
               </Grid>
             </Grid>
 
        {
-              profileData?.attributes?.hobbies.length>0 && <>
+              profileData?.attributes?.hobbies?.hobbies.length>0 && <>
                 <Grid container>
                   <Grid item xs={12}>
 
@@ -177,14 +170,14 @@ this.getProfile()
               </>
        }
 {
-              profileData?.attributes?.hobbies && <>
+              profileData?.attributes?.hobbies?.hobbies && <>
 
                 <Grid container>
                   <Grid item xs={12}>
                     {
-                      profileData?.attributes?.hobbies.map(item => <>
+                      profileData?.attributes?.hobbies?.hobbies.map(item => <>
                         <span className="hobbies">
-                          Travelling
+                          {item}
                         </span>
                       </>)
                     }
@@ -209,16 +202,16 @@ this.getProfile()
               <Grid item xs={12}>
                 <Box display='flex' justifyContent='start' marginTop='1rem'>
                   {
-                    profileData?.attributes?.fb_link && <img src={fb} />
+                    profileData?.attributes?.website[0].twitter_link && <img src={twitter} />
                   }
                   {
-                    profileData?.attributes?.twitter_link && <img src={twitter} className='third_icon' />
+                    profileData?.attributes?.website[1].instagram_link && <img src={instaedit} className='third_icon' />
                   }
                   {
-                    profileData?.attributes?.instagram_link && <img src={twitter} className='third_icon' />
+                    profileData?.attributes?.website[2].fb_link && <img src={fb} className='third_icon' />
                   }
                   {
-                    profileData?.attributes?.snapchat_link && <img src={twitter} className='third_icon' />
+                    profileData?.attributes?.website[3].snapchat_link && <img src={snapedit} className='third_icon' />
                   }
 
 
@@ -232,6 +225,72 @@ this.getProfile()
                 <p style={{ fontWeight: 'bold', fontSize: '1.25rem', marginTop: '0.5rem', marginBottom: '0.25rem' }}>
                   My Family
                 </p>
+
+              </Grid>
+            </Grid>
+            <Grid container>
+              <Grid item xs={12}>
+                  {
+
+                    profileData?.attributes?.families.families.map((item:any)=>
+                      <>
+                        <Grid xs={12} className="card fam">
+                          <div className="flex">
+                            <div style={{ display: "flex", alignItems: 'center', gap: '0.5rem' }}>
+
+                              {/* <Avatar src={item?.attributes?.member_pic} /> */}
+                              <p className="text-bold">
+
+                                {item.attributes.name}
+                              </p>
+                              </div>
+                            <IconButton
+                              aria-label="more"
+                              aria-controls="long-menu"
+                              aria-haspopup="true"
+                              onClick={this.handleClick2}
+                            >
+                              <MoreVertIcon />
+                            </IconButton>
+                            <Menu
+                              id="long-menu"
+                              anchorEl={this.state.anchorEl}
+                              keepMounted
+                              open={this.state.showDialog2}
+                              onClose={this.handleClose}
+
+
+                            >
+                              <MenuItem key="1" onClick={() => this.handleClose(item)}>
+                                Edit
+                              </MenuItem>
+                              <MenuItem key="2" onClick={() => { this.setState({ showDialogDelete: true }); localStorage.setItem('selectFamily', JSON.stringify(item)) }}>
+                                Delete
+                              </MenuItem>
+                            </Menu>
+                              </div>
+
+                          <div>
+                            <p className="fam-label">
+                              Relation:
+                            </p>
+                            <p className="fam-value">
+                              {item.attributes.relation.name}
+                            </p>
+                          </div>
+                          <div>
+                            <p className="fam-label">
+                              ID:
+                            </p>
+                            <p className="fam-value">
+                              {item.attributes.id_number}
+                            </p>
+                          </div>
+                        </Grid>
+                      </>
+                    )
+                  }
+
 
               </Grid>
             </Grid>
@@ -264,7 +323,11 @@ this.getProfile()
 
 
           </Grid>
-
+          <Grid item xs={12} md={5} className="auth-cols">
+            <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
+              <img src={Building1.default} className="building-logo" alt="" />
+            </Box>
+          </Grid>
         </Grid>
         <Dialog
           open={this.state.showDialogDelete}
