@@ -21,14 +21,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ProfileController from "./ProfileController.web";
 import FamilyListWeb from "../../customform/src/FamilyList.web";
-
-
-
-
-
-
-
-
 class Profile extends ProfileController {
   constructor(props: Props) {
     super(props);
@@ -103,7 +95,7 @@ this.getProfile()
 
                 <img className="profile_img" src="https://img.freepik.com/premium-photo/generic-brandless-modern-sport-car-with-fire-smoke_110488-1759.jpg" />
                   <p style={{ fontWeight: 'bold', fontSize: '1.25rem', marginTop: '0.5rem', marginBottom: '0.5rem' }}>
-                    {profileData?.attributes?.full_name || 'N/A'}
+                    {profileData?.attributes?.full_name?.name || 'N/A'}
                   </p>
                   </Box>
               </Grid>
@@ -117,8 +109,8 @@ this.getProfile()
               <Grid item xs={12}>
                 <Box display='flex' justifyContent='center' marginTop='1rem'>
                   <img src={message} className='first_icon'/>
-                  <img src={phone} className='second_icon' onClick={() => document.location.href = `tel:${profileData.attributes.full_phone_number}`}/>
-                  <img src={email} className='third_icon' onClick={() => document.location.href = `mailto:${profileData.attributes.email}`} />
+                  <img src={phone} className='second_icon' onClick={() => document.location.href = `tel:${profileData?.attributes?.full_phone_number?.full_phone_number}`}/>
+                  <img src={email} className='third_icon' onClick={() => document.location.href = `mailto:${profileData?.attributes?.email?.email}`} />
                 </Box>
 
               </Grid>
@@ -131,7 +123,7 @@ this.getProfile()
                   Gender :
                 </label>
                 <span>
-                    {" "}  {profileData?.attributes?.gender || 'N/A'}
+                    {" "}  {profileData?.attributes?.gender?.gender || 'N/A'}
                 </span>
               </Box>
                 <Box style={{ fontSize: "0.75rem" }}>
@@ -139,7 +131,7 @@ this.getProfile()
                   DOB :
                 </label>
                 <span>
-                   {" "} {profileData?.attributes?.date_of_birth}
+                    {" "} {profileData?.attributes?.date_of_birth?.date_of_birth}
                 </span>
               </Box>
               </Grid>
@@ -158,14 +150,14 @@ this.getProfile()
               <Grid item xs={12}>
 
                 <p style={{ fontSize: '1rem', marginBottom: '0.5rem' }}>
-                  {profileData?.attributes?.bio || 'N/A'}
+                  {profileData?.attributes?.bio?.bio || 'N/A'}
                 </p>
 
               </Grid>
             </Grid>
 
        {
-              profileData?.attributes?.hobbies?.length>0 && <>
+              profileData?.attributes?.hobbies?.hobbies.length>0 && <>
                 <Grid container>
                   <Grid item xs={12}>
 
@@ -178,12 +170,12 @@ this.getProfile()
               </>
        }
 {
-              profileData?.attributes?.hobbies && <>
+              profileData?.attributes?.hobbies?.hobbies && <>
 
                 <Grid container>
                   <Grid item xs={12}>
                     {
-                      profileData?.attributes?.hobbies.map(item => <>
+                      profileData?.attributes?.hobbies?.hobbies.map(item => <>
                         <span className="hobbies">
                           {item}
                         </span>
@@ -233,6 +225,72 @@ this.getProfile()
                 <p style={{ fontWeight: 'bold', fontSize: '1.25rem', marginTop: '0.5rem', marginBottom: '0.25rem' }}>
                   My Family
                 </p>
+
+              </Grid>
+            </Grid>
+            <Grid container>
+              <Grid item xs={12}>
+                  {
+
+                    profileData?.attributes?.families.families.map((item:any)=>
+                      <>
+                        <Grid xs={12} className="card fam">
+                          <div className="flex">
+                            <div style={{ display: "flex", alignItems: 'center', gap: '0.5rem' }}>
+
+                              {/* <Avatar src={item?.attributes?.member_pic} /> */}
+                              <p className="text-bold">
+
+                                {item.name}
+                              </p>
+                              </div>
+                            <IconButton
+                              aria-label="more"
+                              aria-controls="long-menu"
+                              aria-haspopup="true"
+                              onClick={this.handleClick2}
+                            >
+                              <MoreVertIcon />
+                            </IconButton>
+                            <Menu
+                              id="long-menu"
+                              anchorEl={this.state.anchorEl}
+                              keepMounted
+                              open={this.state.showDialog2}
+                              onClose={this.handleClose}
+
+
+                            >
+                              <MenuItem key="1" onClick={() => this.handleClose(item)}>
+                                Edit
+                              </MenuItem>
+                              <MenuItem key="2" onClick={() => { this.setState({ showDialogDelete: true }); localStorage.setItem('selectFamily', JSON.stringify(item)) }}>
+                                Delete
+                              </MenuItem>
+                            </Menu>
+                              </div>
+
+                          <div>
+                            <p className="fam-label">
+                              Relation:
+                            </p>
+                            <p className="fam-value">
+                              {item.relation.name}
+                            </p>
+                          </div>
+                          <div>
+                            <p className="fam-label">
+                              ID:
+                            </p>
+                            <p className="fam-value">
+                              {item.id_number}
+                            </p>
+                          </div>
+                        </Grid>
+                      </>
+                    )
+                  }
+
 
               </Grid>
             </Grid>

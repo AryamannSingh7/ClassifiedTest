@@ -53,6 +53,7 @@ export interface S {
   selectCode2: string;
   anchorEl: any;
   showDialog:boolean;
+  showDialog2: boolean;
   profiledata:any;
   values:any,
   showDialogDelete:boolean
@@ -166,6 +167,7 @@ export default class ProfileController extends BlockComponent<
       otp: '',
       anchorEl:null,
       showDialog:false,
+      showDialog2: false,
       profiledata:null,
       values:null,
       showDialogDelete:false
@@ -1560,10 +1562,13 @@ this.setState({loading:true})
     });
     return validations
   }
-  handleClick = (event:any) => {
+  handleClick = (event: any) => {
     this.setState({ anchorEl: event.currentTarget, showDialog: true })
   };
-  handleClose = (item:any) => {
+  handleClick2 = (event: any) => {
+    this.setState({ anchorEl: event.currentTarget, showDialog2: true })
+  };
+  handleClose = (item: any) => {
     if (item.id) {
       localStorage.setItem('selectFamily', JSON.stringify(item))
       // @ts-ignore
@@ -1571,10 +1576,11 @@ this.setState({loading:true})
       this.props.history.push("/editfamily")
 
     } else {
-      this.setState({ anchorEl: item.currentTarget, showDialog: false })
+      this.setState({ anchorEl: item.currentTarget, showDialog2: false })
     }
     // this.setState({ anchorEl:null,showDialog:false })
   };
+
   handleSelectBanner = (
     e: any,
     setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,

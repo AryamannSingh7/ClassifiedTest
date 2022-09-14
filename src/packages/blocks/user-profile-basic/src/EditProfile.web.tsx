@@ -54,18 +54,18 @@ class EditProfile extends ProfileController {
               <Grid container className="main-content-block">
                 <Grid xs={12}>
                   <Formik initialValues={{
-                    full_name: profileData?.attributes?.full_name,
-                    phone: profileData?.attributes?.full_phone_number,
-                    email: profileData?.attributes?.email,
-                    male: profileData?.attributes?.gender == 'Male' ? true : false,
-                    female: profileData?.attributes?.gender == 'Female' ? true : false,
-                    DOB: profileData?.attributes?.date_of_birth,
-                    hobbies: profileData?.attributes?.hobbies,
+                    full_name: profileData?.attributes?.full_name?.name,
+                    phone: profileData?.attributes?.full_phone_number?.full_phone_number,
+                    email: profileData?.attributes?.email?.email,
+                    male: profileData?.attributes?.gender?.gender == 'Male' ? true : false,
+                    female: profileData?.attributes?.gender?.gender == 'Female' ? true : false,
+                    DOB: profileData?.attributes?.date_of_birth?.date_of_birth,
+                    hobbies: profileData?.attributes?.hobbies?.hobbies,
                     twitter: profileData?.attributes?.website[0].twitter_link,
                     fb: profileData?.attributes?.website[1].instagram_link,
                     insta: profileData?.attributes?.website[2].fb_link,
                     snap: profileData?.attributes?.website[3].snapchat_link,
-                    bio: profileData?.attributes?.bio
+                    bio: profileData?.attributes?.bio?.bio
                   }}
                     validationSchema={this.profileSchema()}
                     validateOnMount={true}
@@ -211,7 +211,7 @@ class EditProfile extends ProfileController {
                             <Field
                               name="phone"
                               id="mobile"
-                              value={values.full_phone_number}
+                              value={values.phone}
                               placeholder={"Mobile"}
                               style={{
                                 border: "none",
