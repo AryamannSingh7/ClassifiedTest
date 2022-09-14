@@ -9,6 +9,7 @@ import MessageEnum, {
 // Customizable Area Start
 import * as Yup from 'yup';
 import { imgPasswordInVisible, imgPasswordVisible } from "./assets";
+import { ContactSupportOutlined } from "@material-ui/icons";
 // Customizable Area End
 
 export const configJSON = require("./config");
@@ -53,7 +54,8 @@ export interface S {
   anchorEl: any;
   showDialog:boolean;
   profiledata:any;
-  values:any
+  values:any,
+  showDialogDelete:boolean
 
 
 
@@ -83,6 +85,7 @@ export default class ProfileController extends BlockComponent<
   createRequestManaulApiCallId: any;
   createRequestApiCallId: any;
   changeUserTypeApiCallId: any;
+  updatePhoneApicallId:any;
   getCountryApiCallId: any;
   getComplexApiCallId: any;
   getCityApiCallId: any;
@@ -164,7 +167,8 @@ export default class ProfileController extends BlockComponent<
       anchorEl:null,
       showDialog:false,
       profiledata:null,
-      values:null
+      values:null,
+      showDialogDelete:false
       // Customizable Area End
     };
 
@@ -285,16 +289,14 @@ export default class ProfileController extends BlockComponent<
           }
           this.setState({ loading: false })
 
-        } else if (apiRequestCallId === this.createManagerAccountApiCallId) {
+        } else if (apiRequestCallId === this.updatePhoneApicallId) {
           if (!responseJson.errors) {
+
+
             console.log(responseJson)
-            localStorage.setItem('res_token', responseJson.meta.token)
-            localStorage.setItem('res_user', responseJson.data.attributes)
-            localStorage.setItem('res_user_id', responseJson.data.id)
-            localStorage.setItem('user_email', responseJson.data.attributes.email)
+            this.setState({showDialogDelete:true,showDialog:false,loading:false})
             //@ts-ignore
             //@ts-nocheck
-
             this.props.history.push('/otp')
 
 
@@ -1482,108 +1484,6 @@ this.setState({loading:true})
 
 
   }
-
-  addressSchema() {
-    const validations = Yup.object().shape({
-
-      selectCountry: Yup.string().required(`This field is required`).trim(),
-      selectCity: Yup.string().required(`This field is required`).trim(),
-      selectBuilding: Yup.string().required(`This field is required`).trim(),
-      selectComplex: Yup.string().required(`This field is required`).trim(),
-      selectUnit: Yup.string().required(`This field is required`).trim(),
-
-    });
-    return validations
-  }
-  addressSchemaManual() {
-    const validations = Yup.object().shape({
-
-
-      selectBuilding: Yup.string().required(`This field is required`).trim(),
-      selectComplex: Yup.string().required(`This field is required`).trim(),
-      selectUnit: Yup.string().required(`This field is required`).trim(),
-
-    });
-    return validations
-  }
-  signupSchemaManager() {
-    const validations = Yup.object().shape({
-
-      company_name: Yup.string().required(`This field is required`).trim(),
-      managerName: Yup.string().required(`This field is required`).trim(),
-      ownerName: Yup.string().required(`This field is required`).trim(),
-      email: Yup.string().required(`This field is required`).trim(),
-      owner_email: Yup.string().required(`This field is required`).trim(),
-      phone: Yup.number()
-        .typeError("Only numbers are allowed.")
-        .required("Mobile number is required.")
-        .positive("Negative numbers are not allowed.")
-        .integer("Number can't contain a decimal.")
-        .min(10000000, "Minimum 5 digits are required.")
-        .max(99999999999, "Maximum 11 digits are allowed.")
-      ,
-      owner_phone: Yup.number()
-        .typeError("Only numbers are allowed.")
-        .required("Mobile number is required.")
-        .positive("Negative numbers are not allowed.")
-        .integer("Number can't contain a decimal.")
-        .min(10000000, "Minimum 5 digits are required.")
-        .max(99999999999, "Maximum 11 digits are allowed."),
-      password: Yup
-        .string()
-        .min(8, `Minimum Password length is 8.`)
-        .max(16, `Maximum Password length is 16.`)
-        .required(`New Password is required.`)
-        .matches(
-          /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,}$/,
-          `Password must contain atleast a capital letter, a lowercase letter, a number and a special character.`
-        ),
-      confirm_password: Yup
-        .string()
-        .oneOf([Yup.ref("password"), null], `Password must match`)
-        .required(`Confirm Password is required.`),
-
-    });
-    return validations
-  }
-  signupSchema() {
-    const validations = Yup.object().shape({
-
-      full_name: Yup.string().required(`This field is required`).trim(),
-      email: Yup.string().required(`This field is required`).trim(),
-      phone: Yup.number()
-        .typeError("Only numbers are allowed.")
-        .required("Mobile number is required.")
-        .positive("Negative numbers are not allowed.")
-        .integer("Number can't contain a decimal.")
-        .min(10000000, "Minimum 5 digits are required.")
-        .max(99999999999, "Maximum 11 digits are allowed."),
-      password: Yup
-        .string()
-        .min(8, `Minimum Password length is 8.`)
-        .max(16, `Maximum Password length is 16.`)
-        .required(`New Password is required.`)
-        .matches(
-          /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,}$/,
-          `Password must contain atleast a capital letter, a lowercase letter, a number and a special character.`
-        ),
-      confirm_password: Yup
-        .string()
-        .oneOf([Yup.ref("password"), null], `Password must match`)
-        .required(`Confirm Password is required.`),
-
-    });
-    return validations
-  }
-  EmailSchema() {
-    const validations = Yup.object().shape({
-      email: Yup.string()
-        .trim()
-        .required("This field is required.")
-    });
-    return validations
-  }
-
   updateProfile = async(values: any) => {
     this.setState({ loading: true })
     try {
@@ -1596,12 +1496,16 @@ this.setState({loading:true})
       formData.append("[data][attributes][full_phone_number]", values.phone)
       formData.append("[data][attributes][gender]", values.male ? '1' : '2')
       formData.append("[data][attributes][date_of_birth]", values.DOB)
-      formData.append("[data][attributes][profile_bio]", 'values.DOB')
+      formData.append("[data][attributes][profile_bio]", values.bio)
       formData.append("[data][attributes][twitter_link]", values.twitter)
       formData.append("[data][attributes][fb_link]", values.fb)
       formData.append("[data][attributes][instagram_link]", values.insta)
       formData.append("[data][attributes][snapchat_link]", values.snap)
-      formData.append("[data][attributes][hobby_ids]", values.hobbies)
+      console.log(values.hobbies)
+      values.hobbies.map((item:any)=>{
+        formData.append('[data][attributes][hobbies][]',item)
+      })
+
 
       // formData.append("vehicle[color]", values.carColor)
       let blob = await fetch(values.bannerUrl).then(r => r.blob());
@@ -1716,10 +1620,7 @@ this.setState({loading:true})
         token: localStorage.getItem("userToken")
       };
       const data = {
-
-
-
-              name: this.state.values.full_name,
+          name: this.state.values.full_name,
               email: this.state.values.email,
               appartment_number: this.state.values.unit,
               full_phone_number: this.state.values.phone,
@@ -1769,6 +1670,68 @@ this.setState({loading:true})
       console.log(error);
     }
 
+  }
+  addPhoneSchema=()=>{
+    const validations = Yup.object().shape({
+      phone: Yup.number()
+        .typeError("Only numbers are allowed.")
+        .required("Mobile number is required.")
+        .positive("Negative numbers are not allowed.")
+        .integer("Number can't contain a decimal.")
+        .min(10000000, "Minimum 8 digits are required.")
+        .max(99999999999, "Maximum 11 digits are allowed.")
+
+
+    });
+    return validations
+  }
+  updatePhone=(values:any)=>{
+
+this.setState({loading:true})
+    const header = {
+      "token": localStorage.getItem('userToken')
+    };
+    const formData = new FormData();
+    formData.append("[data][attributes][full_name]", 'values.phone')
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+    this.updatePhoneApicallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      'bx_block_profile/verify_number'
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestBodyMessage),
+      formData
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      'POST'
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+
+  }
+  handleAddChip=(fn:any,data:any,values:any)=>{
+values.push(data)
+fn('hobbies',values)
+    console.log(values)
+
+  }
+  handleDeleteChip = (fn: any, data: any, values: any,index:any)=>{
+
+    values.splice(index, 1)
+    fn('hobbies', values)
+console.log(data,index)
   }
   // Customizable Area End
 }

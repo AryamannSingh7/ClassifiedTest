@@ -12,7 +12,7 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import HomeIcon from '@material-ui/icons/Home';
-import { Building1, email, fb, message, phone, twitter } from "./assets";
+import { Building1, email, fb, instaedit, message, phone, snapedit, twitter } from "./assets";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
 import '../assets/css/style.scss';
@@ -51,7 +51,7 @@ this.getProfile()
           <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset', overflowY: 'auto', overflowX: 'hidden' }}>
             <Grid container>
               <Grid xs={12} style={{ display: 'flex', alignItems: 'center' }}>
-                <div className="flex">
+                <div className="flex" style={{width:'100%'}}>
                   <div style={{ display: "flex", alignItems: 'center', gap: '0.5rem' }}>
 
                     <ArrowBackIcon onClick={() => window.history.back()} />
@@ -78,9 +78,10 @@ this.getProfile()
 
                   >
                     <MenuItem key="1" onClick={() =>
-                    // @ts-ignore
+                    {// @ts-ignore
                     // @ts-nocheck
-                      this.props.history.push('/editprofile')
+                    localStorage.setItem('profileData',JSON.stringify(profileData));
+                      this.props.history.push('/editprofile')}
                       }>
                       Edit profile
                     </MenuItem>
@@ -116,8 +117,8 @@ this.getProfile()
               <Grid item xs={12}>
                 <Box display='flex' justifyContent='center' marginTop='1rem'>
                   <img src={message} className='first_icon'/>
-                  <img src={phone} className='second_icon' />
-                  <img src={email} className='third_icon' />
+                  <img src={phone} className='second_icon' onClick={() => document.location.href = `tel:${profileData.attributes.full_phone_number}`}/>
+                  <img src={email} className='third_icon' onClick={() => document.location.href = `mailto:${profileData.attributes.email}`} />
                 </Box>
 
               </Grid>
@@ -164,7 +165,7 @@ this.getProfile()
             </Grid>
 
        {
-              profileData?.attributes?.hobbies.length>0 && <>
+              profileData?.attributes?.hobbies?.length>0 && <>
                 <Grid container>
                   <Grid item xs={12}>
 
@@ -184,7 +185,7 @@ this.getProfile()
                     {
                       profileData?.attributes?.hobbies.map(item => <>
                         <span className="hobbies">
-                          Travelling
+                          {item}
                         </span>
                       </>)
                     }
@@ -209,16 +210,16 @@ this.getProfile()
               <Grid item xs={12}>
                 <Box display='flex' justifyContent='start' marginTop='1rem'>
                   {
-                    profileData?.attributes?.fb_link && <img src={fb} />
+                    profileData?.attributes?.website[0].twitter_link && <img src={twitter} />
                   }
                   {
-                    profileData?.attributes?.twitter_link && <img src={twitter} className='third_icon' />
+                    profileData?.attributes?.website[1].instagram_link && <img src={instaedit} className='third_icon' />
                   }
                   {
-                    profileData?.attributes?.instagram_link && <img src={twitter} className='third_icon' />
+                    profileData?.attributes?.website[2].fb_link && <img src={fb} className='third_icon' />
                   }
                   {
-                    profileData?.attributes?.snapchat_link && <img src={twitter} className='third_icon' />
+                    profileData?.attributes?.website[3].snapchat_link && <img src={snapedit} className='third_icon' />
                   }
 
 
@@ -264,7 +265,11 @@ this.getProfile()
 
 
           </Grid>
-
+          <Grid item xs={12} md={5} className="auth-cols">
+            <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
+              <img src={Building1.default} className="building-logo" alt="" />
+            </Box>
+          </Grid>
         </Grid>
         <Dialog
           open={this.state.showDialogDelete}

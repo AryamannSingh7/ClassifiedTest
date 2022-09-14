@@ -4,7 +4,7 @@
 import * as React from "react";
 // custom components
 import {
-  Button, Grid, Box, Typography, Link, IconButton, FormControl, InputLabel, Select, MenuItem, Avatar, Checkbox
+  Button, Grid, Box, Typography, Link, IconButton, FormControl, InputLabel, Select, MenuItem, Avatar, Checkbox, Dialog, DialogActions
 } from "@material-ui/core";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
@@ -12,7 +12,7 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import HomeIcon from '@material-ui/icons/Home';
-import { Building1, Car, Hash, Hyperlink, ListCopy, message, owner, palette, resident_owner, tenet, upload, user, User3 } from "./assets";
+import { Building1, calendar, Car, emailedit, fbedit, Hash, heart, Hyperlink, instaedit, ListCopy, message, mobile, owner, palette, resident_owner, snapedit, tenet, twitteredit, upload, user, User3 } from "./assets";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
 import VeichleListController from "./VeichleListController.web";
@@ -22,6 +22,7 @@ import ProfileController from "./ProfileController.web";
 import { dailCode } from "../../email-account-registration/src/code";
 import CircleCheckedFilled from '@material-ui/icons/CheckCircle';
 import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
+import ChipInput from 'material-ui-chip-input'
 class EditProfile extends ProfileController {
   constructor(props: Props) {
     super(props);
@@ -29,12 +30,11 @@ class EditProfile extends ProfileController {
     // Customizable Area End
   }
   async componentDidMount() {
-
-    // this.getRelation()
-    // this.getIdType();
-
+    // this.getProfile()
   }
   render() {
+    let profileData = JSON.parse(localStorage.getItem('profileData'))
+    console.log(profileData)
     return (
 
       <>
@@ -54,17 +54,18 @@ class EditProfile extends ProfileController {
               <Grid container className="main-content-block">
                 <Grid xs={12}>
                   <Formik initialValues={{
-                    full_name: "",
-                    phone:'',
-                    email:'',
-                    male:false,
-                    female:false,
-                    DOB:'',
-                    hobbies:'',
-                    twitter:'',
-                    fb:'',
-                    insta:'',
-                    snap:'',
+                    full_name: profileData?.attributes?.full_name,
+                    phone: profileData?.attributes?.full_phone_number,
+                    email: profileData?.attributes?.email,
+                    male: profileData?.attributes?.gender == 'Male' ? true : false,
+                    female: profileData?.attributes?.gender == 'Female' ? true : false,
+                    DOB: profileData?.attributes?.date_of_birth,
+                    hobbies: profileData?.attributes?.hobbies,
+                    twitter: profileData?.attributes?.website[0].twitter_link,
+                    fb: profileData?.attributes?.website[1].instagram_link,
+                    insta: profileData?.attributes?.website[2].fb_link,
+                    snap: profileData?.attributes?.website[3].snapchat_link,
+                    bio: profileData?.attributes?.bio
                   }}
                     validationSchema={this.profileSchema()}
                     validateOnMount={true}
@@ -76,7 +77,7 @@ class EditProfile extends ProfileController {
                       isValid, handleChange,
                       setFieldValue, setFieldError }) => (
                       <Form className="commonForm" translate="yes" >
-                        <Box className='formGroup' style={{ height: '121%' }}>
+                        <Box className='formGroup' style={{ height: '91%' }}>
                           <Box style={{
                             display: 'flex',
                             alignItems: 'center',
@@ -145,6 +146,7 @@ class EditProfile extends ProfileController {
                             <Field
                               className="formInput"
                               name="full_name"
+                              value={values.full_name}
                               placeholder={"Enter you name"}
 
                             />
@@ -209,6 +211,7 @@ class EditProfile extends ProfileController {
                             <Field
                               name="phone"
                               id="mobile"
+                              value={values.full_phone_number}
                               placeholder={"Mobile"}
                               style={{
                                 border: "none",
@@ -238,20 +241,23 @@ class EditProfile extends ProfileController {
                               <ErrorMessage className="text-error" component="Typography" name="phone" />
                             </Typography>
                           ) : null}
+                          <p style={{ color:'#FC8434',textAlign:'right',fontWeight:'bold'}} onClick={()=>this.setState({showDialog:true})}>
+                            Verify number to update
+                          </p>
                           {/* email */}
                           <Box
                             className="formInputGrp"
                           >
-
-
-                            <Field
+                                                        <Field
                               className="formInput"
+                              value={values.email}
+
                               name="email"
                               placeholder={"Enter your email"}
 
                             />
                             <span className="frmLeftIcons">
-                              <img src={message} />
+                              <img src={emailedit} />
                             </span>
                           </Box>
                           {errors.email && touched.email ? (
@@ -266,6 +272,37 @@ class EditProfile extends ProfileController {
                               }}
                             >
                               <ErrorMessage className="text-error" component="Typography" name="email" />
+                            </Typography>
+                          ) : null}
+                          {/* Bio */}
+                          <Box
+                            className="formInputGrp"
+                          >
+
+
+                            <Field
+                              className="formInput"
+                              name="bio"
+                              value={values.bio}
+                              placeholder={"Enter your bio"}
+
+                            />
+                            <span className="frmLeftIcons">
+                              <img src={message} />
+                            </span>
+                          </Box>
+                          {errors.bio && touched.bio ? (
+                            <Typography
+                              style={{
+                                color: "#F14E24",
+
+                                fontWeight: 300,
+                                fontSize: 14,
+                                marginTop: 5,
+                                marginLeft: 10
+                              }}
+                            >
+                              <ErrorMessage className="text-error" component="Typography" name="bio" />
                             </Typography>
                           ) : null}
 {/* gender */}
@@ -299,7 +336,7 @@ class EditProfile extends ProfileController {
 
                             />
                             <span className="frmLeftIcons">
-                              <img src={message} />
+                              <img src={calendar} />
                             </span>
                           </Box>
                           {errors.DOB && touched.DOB ? (
@@ -323,14 +360,28 @@ class EditProfile extends ProfileController {
                           >
 
 
-                            <Field
+                            {/* <Field
                               className="formInput"
                               name="hobbies"
                               placeholder={"Hobbies"}
 
                             />
                             <span className="frmLeftIcons">
-                              <img src={message} />
+                              <img src={heart} />
+                            </span> */}
+                            <ChipInput
+                              className="formInput"
+                              placeholder="Hobbies"
+                              style={{ padding:'10px 0px 6px 50px',width:'85%'}}
+                              disableUnderline={true}
+                              value={values.hobbies}
+                              // onChange={(chip) => setFieldValue('hobbies', chip)}
+                              onAdd={(chip) => this.handleAddChip(setFieldValue, chip, values.hobbies)}
+                              onDelete={(chip, index) => this.handleDeleteChip(setFieldValue, chip, values.hobbies, index)}
+
+                            />
+                            <span className="frmLeftIcons">
+                              <img src={heart} />
                             </span>
                           </Box>
                           {errors.hobbies && touched.hobbies ? (
@@ -356,11 +407,12 @@ class EditProfile extends ProfileController {
                             <Field
                               className="formInput"
                               name="twitter"
+                              value={values.twitter}
                               placeholder={"Twitter profile link"}
 
                             />
                             <span className="frmLeftIcons">
-                              <img src={message} />
+                              <img src={twitteredit} />
                             </span>
                           </Box>
                           {errors.twitter && touched.twitter ? (
@@ -387,11 +439,12 @@ class EditProfile extends ProfileController {
                             <Field
                               className="formInput"
                               name="fb"
+                              value={values.fb}
                               placeholder={"Faceook  profile link"}
 
                             />
                             <span className="frmLeftIcons">
-                              <img src={message} />
+                              <img src={fbedit} />
                             </span>
                           </Box>
                           {errors.fb && touched.fb ? (
@@ -417,11 +470,12 @@ class EditProfile extends ProfileController {
                             <Field
                               className="formInput"
                               name="insta"
+                              value={values.insta}
                               placeholder={"Instagram profile link"}
 
                             />
                             <span className="frmLeftIcons">
-                              <img src={message} />
+                              <img src={instaedit} />
                             </span>
                           </Box>
                           {errors.insta && touched.insta ? (
@@ -447,11 +501,12 @@ class EditProfile extends ProfileController {
                             <Field
                               className="formInput"
                               name="snap"
+                              value={values.snap}
                               placeholder={"Snapchat profile link"}
 
                             />
                             <span className="frmLeftIcons">
-                              <img src={message} />
+                              <img src={snapedit} />
                             </span>
                           </Box>
                           {errors.snap && touched.snap ? (
@@ -495,6 +550,285 @@ class EditProfile extends ProfileController {
             </Box>
           </Grid>
         </Grid>
+        <Dialog
+          open={this.state.showDialog}
+          onClose={() => this.setState({ showDialog: false })}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+          className="diloag-wrapper"
+          PaperProps={{
+            style: {
+              borderRadius: '15px',
+              padding: '2rem',
+              margin: 0
+            },
+          }}
+        >
+          <Grid container>
+            <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
+
+              <img src={mobile} />
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
+
+              <p style={{ fontWeight: 600, fontSize: '1.25rem', textAlign: 'center' }}>
+                Add New Mobile Number
+
+              </p>
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
+              <p style={{ fontWeight: 400, fontSize: '0.8rem', textAlign: 'center' }}>
+                Add new mobile number in the
+                below field
+              </p>
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid item>
+              <Formik initialValues={{
+                phone: '',
+              }}
+                validationSchema={this.addPhoneSchema()}
+                validateOnMount={true}
+                onSubmit={(values) => { this.updatePhone(values) }}
+              >
+                {({ values,
+                  errors,
+                  touched,
+                  isValid, handleChange,
+                  setFieldValue, setFieldError }) => (
+                  <Form className="commonForm" translate="yes" >
+
+                    <Box
+                      marginTop='1rem'
+                      className='formInputGrp'
+                      display="flex"
+                      overflow="hidden"
+                      alignItems="center"
+                      height="56px"
+                      border="0.1px solid rgb(209 209 209 / 44%)"
+                      borderRadius="25px"
+                      bgcolor="#f9f9f9"
+                    >
+                      <Box>
+                        <FormControl variant="outlined" >
+                          {/* <InputLabel id="demo-simple-select-outlined-label"><img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AF.svg`} width='15' height='15' />
+                          sd</InputLabel> */}
+                          <Select
+                            name='selectCode'
+                            labelId="demo-simple-select-outlined-label"
+
+                            id="demo-simple-select-outlined"
+                            onChange={this.handleChange}
+                            label="Unit"
+                            value={this.state.selectCode}
+                          >
+                            <MenuItem value="">
+                              <em>None</em>
+                            </MenuItem>
+                            {dailCode.map((item) =>
+                              <MenuItem key={item.dial_code} value={item.dial_code}> <img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/${item.code}.svg`} width='15' height='15' style={{ marginRight: '5px' }} />
+                                {item.dial_code}</MenuItem>
+
+                            )
+                            }
+
+                          </Select>
+                        </FormControl>
+
+                      </Box>
+
+                      <Field
+                        name="phone"
+                        id="mobile"
+                        placeholder={"Mobile"}
+                        style={{
+                          border: "none",
+                          height: "42%",
+                          width: "80%",
+                          color: "rgba(0, 0, 0, 0.6)",
+                          fontWeight: 400,
+                          fontSize: 16,
+                          marginRight: 10,
+                          marginLeft: 21,
+                          outline: "none",
+                          backgroundColor: '#f9f9f9'
+                        }}
+                      />
+                    </Box>
+
+                    {errors.phone && touched.phone ? (
+                      <Typography
+                        style={{
+                          color: "#F14E24",
+                          fontWeight: 300,
+                          fontSize: 14,
+                          marginTop: 5,
+                          marginLeft: 10
+                        }}
+                      >
+                        <ErrorMessage className="text-error" component="Typography" name="phone" />
+                      </Typography>
+                    ) : null}
+                    <Box className="dialog-footer desktop-ui">
+                      <DialogActions className="customButton">
+                        <Button
+                          type="submit" variant="contained" >
+                          Submit
+                        </Button>
+                      </DialogActions>
+                    </Box>
+                  </Form>
+                )}
+              </Formik>
+            </Grid>
+          </Grid>
+
+        </Dialog>
+        <Dialog
+          open={this.state.showDialogDelete}
+          onClose={() => this.setState({ showDialogDelete: false })}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+          className="diloag-wrapper"
+          PaperProps={{
+            style: {
+              borderRadius: '15px',
+              padding: '2rem',
+              margin: 0
+            },
+          }}
+        >
+          <Grid container>
+            <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
+
+              <img src={mobile} />
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
+
+              <p style={{ fontWeight: 600, fontSize: '1.25rem', textAlign: 'center' }}>
+                Add New Mobile Number
+
+              </p>
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
+              <p style={{ fontWeight: 400, fontSize: '0.8rem', textAlign: 'center' }}>
+                Add new mobile number in the
+                below field
+              </p>
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid item>
+              <Formik initialValues={{
+                phone: '',
+              }}
+                validationSchema={this.addPhoneSchema()}
+                validateOnMount={true}
+                onSubmit={(values) => { this.updatePhone(values) }}
+              >
+                {({ values,
+                  errors,
+                  touched,
+                  isValid, handleChange,
+                  setFieldValue, setFieldError }) => (
+                  <Form className="commonForm" translate="yes" >
+
+                    <Box
+                      marginTop='1rem'
+                      className='formInputGrp'
+                      display="flex"
+                      overflow="hidden"
+                      alignItems="center"
+                      height="56px"
+                      border="0.1px solid rgb(209 209 209 / 44%)"
+                      borderRadius="25px"
+                      bgcolor="#f9f9f9"
+                    >
+                      <Box>
+                        <FormControl variant="outlined" >
+                          {/* <InputLabel id="demo-simple-select-outlined-label"><img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AF.svg`} width='15' height='15' />
+                          sd</InputLabel> */}
+                          <Select
+                            name='selectCode'
+                            labelId="demo-simple-select-outlined-label"
+
+                            id="demo-simple-select-outlined"
+                            onChange={this.handleChange}
+                            label="Unit"
+                            value={this.state.selectCode}
+                          >
+                            <MenuItem value="">
+                              <em>None</em>
+                            </MenuItem>
+                            {dailCode.map((item) =>
+                              <MenuItem key={item.dial_code} value={item.dial_code}> <img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/${item.code}.svg`} width='15' height='15' style={{ marginRight: '5px' }} />
+                                {item.dial_code}</MenuItem>
+
+                            )
+                            }
+
+                          </Select>
+                        </FormControl>
+
+                      </Box>
+
+                      <Field
+                        name="phone"
+                        id="mobile"
+                        placeholder={"Mobile"}
+                        style={{
+                          border: "none",
+                          height: "42%",
+                          width: "80%",
+                          color: "rgba(0, 0, 0, 0.6)",
+                          fontWeight: 400,
+                          fontSize: 16,
+                          marginRight: 10,
+                          marginLeft: 21,
+                          outline: "none",
+                          backgroundColor: '#f9f9f9'
+                        }}
+                      />
+                    </Box>
+
+                    {errors.phone && touched.phone ? (
+                      <Typography
+                        style={{
+                          color: "#F14E24",
+                          fontWeight: 300,
+                          fontSize: 14,
+                          marginTop: 5,
+                          marginLeft: 10
+                        }}
+                      >
+                        <ErrorMessage className="text-error" component="Typography" name="phone" />
+                      </Typography>
+                    ) : null}
+                    <Box className="dialog-footer desktop-ui">
+                      <DialogActions className="customButton">
+                        <Button
+                          type="submit" variant="contained" >
+                          Submit
+                        </Button>
+                      </DialogActions>
+                    </Box>
+                  </Form>
+                )}
+              </Formik>
+            </Grid>
+          </Grid>
+
+        </Dialog>
+        <Loader loading={this.state.loading} />
       </>
 
     )
