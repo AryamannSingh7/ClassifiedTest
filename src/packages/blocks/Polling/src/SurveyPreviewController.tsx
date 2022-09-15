@@ -44,7 +44,7 @@ interface SS {
   id: any;
 }
 
-export default class CoverImageController extends BlockComponent<
+export default class SurveyPreviewController extends BlockComponent<
   Props,
   S,
   SS
@@ -53,7 +53,7 @@ export default class CoverImageController extends BlockComponent<
   apiEmailLoginCallId: string = "";
   emailReg: RegExp;
   labelTitle: string = "";
-  createSurvey:string = "";
+  createSurveyFromPreview:string = "";
 
   constructor(props: Props) {
 
@@ -118,16 +118,17 @@ export default class CoverImageController extends BlockComponent<
   }
 
   async componentDidMount() {
+    console.log("CHECKING SURVY INITINAL DATA IS THERE OR NOT ",localStorage.getItem("Survey_Data"))
     if(localStorage.getItem("Survey_Data")){
       const surveyPreview:any = JSON.parse(localStorage.getItem("Survey_Data") || "")
       if(surveyPreview){
-        await this.setState({
+        this.setState({
           textEditor:surveyPreview.PollDescription,
           SurveyData:surveyPreview.PollFormData,
           surveyQuestions:surveyPreview.PollOptions
         })
       }
-      await localStorage.removeItem("Survey_Data")
+      localStorage.removeItem("Survey_Data")
     }
   }
 
@@ -139,14 +140,6 @@ export default class CoverImageController extends BlockComponent<
       var errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if(this.apiEmailLoginCallId === apiRequestCallId ){
         console.log(responseJson,errorReponse)
-      }
-      if(this.createSurvey === apiRequestCallId){
-        if(responseJson.code === 200){
-          this.props.history.push("/polling")
-        }else{
-          console.log("SOMETHING WENT WRONG")
-        }
-        // @ts-ignore
       }
     }
   }
@@ -483,7 +476,7 @@ export default class CoverImageController extends BlockComponent<
         "PollDescription":this.state.textEditor
       }))
       // @ts-ignore
-      this.props.history.push("/SurveyPreview")
+      this.props.history.push("/CreateSurveys")
     }
   }
 
@@ -508,32 +501,20 @@ export default class CoverImageController extends BlockComponent<
             }
       }
       await this.addSurveyData(reqPayload);
-      localStorage.removeItem("Survey_Data")
+      await localStorage.removeItem('Survey_Data');
     }
   }
 
   addSurveyData = async (data:any) => {
     const societyID = localStorage.getItem("society_id")
-    this.createSurvey = await this.apiCall({
+    this.createSurveyFromPreview = await this.apiCall({
       contentType: configJSON.exampleApiContentType,
       method: configJSON.httpPostMethod,
       endPoint: `/society_managements/${societyID}/bx_block_survey/surveys`,
       body:JSON.stringify(data)
     });
+    localStorage.removeItem("Survey_Data")
   }
-
-  handleCloseAudienceModal () {
-    this.setState({
-      audienceModal:false
-    })
-  }
-
-  handleOpenAudienceModal () {
-    this.setState({
-      audienceModal:true
-    })
-  }
-
 
   apiCall = async (data: any) => {
     const { contentType, method, endPoint, body } = data;
