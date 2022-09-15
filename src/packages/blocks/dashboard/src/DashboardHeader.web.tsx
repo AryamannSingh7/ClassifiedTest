@@ -24,13 +24,11 @@ class DashboardHeader extends DashboardController {
 
   logout = () => {
     localStorage.clear();
-    //@ts-ignore
-    this.props.history.push("/ChairmanLogin");
+    this.props.navigation.navigate("ChairmanLogin");
   };
 
   gotoProfilePage = () => {
-    //@ts-ignore
-    this.props.history.push("/ChairmanProfile");
+    this.props.navigation.navigate("ChairmanProfile");
   };
 
   render() {
@@ -63,12 +61,7 @@ class DashboardHeader extends DashboardController {
             </div>
 
             <Box style={dashBoard.HeaderSecRtBox}>
-              <img
-                src={chairmanUser.default}
-                alt="ChairmanUser"
-                width={50}
-                style={{ borderRadius: "50%" }}
-              />
+              <img src={chairmanUser.default} alt="ChairmanUser" width={50} style={{ borderRadius: "50%" }} />
               <Box>
                 <Typography variant="subtitle1">User Name</Typography>
                 <Typography variant="body2">Chairman</Typography>
