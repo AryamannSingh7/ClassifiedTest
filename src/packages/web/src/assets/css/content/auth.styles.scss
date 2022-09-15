@@ -64,7 +64,8 @@
     height: 100%;
     &.common_content_block
     {
-      height: auto;
+      // height: 100%;
+      justify-content: flex-start;
     }
     @include mq(tablet-landscape-up) {
       padding: 0 15px;

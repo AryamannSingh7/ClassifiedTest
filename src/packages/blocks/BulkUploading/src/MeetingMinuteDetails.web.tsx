@@ -135,12 +135,13 @@ class MeetingMinuteDetails extends MeetingMinutesController {
                 ) : (
                   <Box className="no-available">
                     <Card>No Meeting Minute Available !!</Card>
-
-                    <Box className="button-box">
-                      <Link to={`/MeetingMinute/${this.state.meetingMinuteId}/Note`}>
-                        <Button className="edit">Add</Button>
-                      </Link>
-                    </Box>
+                    {localStorage.getItem("userType") === ROLE.MANAGER && (
+                      <Box className="button-box">
+                        <Link to={`/MeetingMinute/${this.state.meetingMinuteId}/Note`}>
+                          <Button className="edit">Add</Button>
+                        </Link>
+                      </Box>
+                    )}
                   </Box>
                 )}
               </Container>

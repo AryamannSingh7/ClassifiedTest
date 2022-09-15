@@ -140,6 +140,12 @@ export const MeetingsStyleWeb: any = {
       padding: "5px 10px",
       borderRadius: "25px",
     },
+    "& .meeting-table .table-box td.MuiTableCell-root span.ga-meeting": {
+      padding: "5px 10px",
+      borderRadius: "25px",
+      background: "#2B6FED",
+      color: "white",
+    },
     "& .meeting-table .table-bottom": {
       padding: "20px",
       display: "flex",
@@ -204,14 +210,29 @@ export const MeetingsStyleWeb: any = {
     "& .meeting-minute-note .MuiCard-root .editor .public-DraftEditor-content > div": {
       minHeight: "300px",
     },
-    "& .meeting-minute-note > button": {
-      float: "right",
+    "& .meeting-minute-note .note-button": {
+      display: "flex",
+      justifyContent: "flex-end",
+      alignItems: "center",
+      gap: "20px",
+    },
+    "& .meeting-minute-note .note-button button.preview": {
       background: "#2B6FED",
       color: "white",
       padding: "10px 20px",
       borderRadius: "5px",
       fontWeight: "600",
       marginTop: "20px",
+      width: "150px",
+    },
+    "& .meeting-minute-note .note-button button.submit": {
+      border: "1px solid #2B6FED",
+      color: "2B6FED",
+      padding: "10px 20px",
+      borderRadius: "5px",
+      fontWeight: "600",
+      marginTop: "20px",
+      width: "150px",
     },
   },
   scheduledMeetingDetails: {
@@ -272,6 +293,20 @@ export const MeetingsStyleWeb: any = {
       padding: "5px 12px",
       borderRadius: "25px",
       textTransform: "capitalize",
+    },
+    "& .meeting-detail-box .meeting-top .heading": {
+      display: "flex",
+      alignItems: "center",
+      gap: "20px",
+    },
+    "& .meeting-detail-box .meeting-top span.ga-meeting": {
+      padding: "5px 12px",
+      borderRadius: "25px",
+      textTransform: "capitalize",
+      background: "#c3d8ff",
+      color: "#2B6FED",
+      fontSize: "16px",
+      fontWeight: "600",
     },
     "& .meeting-detail-box .meeting-details": {
       padding: "20px",
@@ -410,9 +445,17 @@ export const MeetingsStyleWeb: any = {
       color: "#1EC65B",
       fontWeight: 600,
     },
+    "& .no-response": {
+      background: "#EBEBEB",
+      color: "#727272",
+      fontWeight: 600,
+    },
     "& .awaiting": {
       background: "#FFEDE0",
       color: "#FC8434",
+    },
+    "& .response-box .table-box td.MuiTableCell-root": {
+      textTransform: "capitalize",
     },
     "& .response-box .table-box td.MuiTableCell-root span": {
       padding: "5px 10px",

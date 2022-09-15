@@ -153,24 +153,26 @@ import IncidentPreview from "../../blocks/ContentManagement/src/IncidentPreview.
 import IncidentManagement from "../../blocks/ContentManagement/src/IncidentManagement.web";
 import IncidentManagementDetail from "../../blocks/ContentManagement/src/IncidentManagementDetail.web";
 
+import ClassifiedManagerListing from "../../blocks/ContentManagement/src/ClassifiedManagerListing.web";
+
 import NeighboursDetails from '../../blocks/search/src/NeighboursDetails.web';
 import NeighboursListing from '../../blocks/search/src/NeighboursListing.web';
 
-import FaqChairman from "../../blocks/contactus/src/FaqChairman.web";
-import FaqOwner from "../../blocks/contactus/src/FaqOwner.web";
-import FaqResident from "../../blocks/contactus/src/FaqResident.web";
-import ContactUsChairman from "../../blocks/contactus/src/ContactUs.web";
-import SubscriptionDetail from "../../blocks/contactus/src/SubscriptionDetails.web";
+import FaqChairman from '../../blocks/contactus/src/FaqChairman.web';
+import FaqOwner from '../../blocks/contactus/src/FaqOwner.web';
+import FaqResident from '../../blocks/contactus/src/FaqResident.web';
+import ContactUsChairman from '../../blocks/contactus/src/ContactUs.web';
+import SubscriptionDetail from '../../blocks/contactus/src/SubscriptionDetails.web';
 
-import DocumentChairman from "../../blocks/Notes/src/DocumentChairman.web";
-import DocumentListChairman from "../../blocks/Notes/src/DocumentListChairman.web";
-import DocumentViewChairman from "../../blocks/Notes/src/DocumentViewChairman.web";
-import PersonalDocument from "../../blocks/Notes/src/PersonalDocuments.web";
-import PersonalDocumentList from "../../blocks/Notes/src/PersonalDocumentList.web";
-import ViewPersonalDocument from "../../blocks/Notes/src/ViewPersonalDocument.web";
-import BuildingDocuments from "../../blocks/Notes/src/BuildingDocuments.web";
-import BuildingDocumentList from "../../blocks/Notes/src/BuildingDocumentList.web";
-import ViewBuildingDocument from "../../blocks/Notes/src/ViewBuildingDocument.web";
+import DocumentChairman from '../../blocks/Notes/src/DocumentChairman.web';
+import DocumentListChairman from '../../blocks/Notes/src/DocumentListChairman.web';
+import DocumentViewChairman from '../../blocks/Notes/src/DocumentViewChairman.web';
+import PersonalDocument from '../../blocks/Notes/src/PersonalDocuments.web';
+import PersonalDocumentList from '../../blocks/Notes/src/PersonalDocumentList.web';
+import ViewPersonalDocument from '../../blocks/Notes/src/ViewPersonalDocument.web';
+import BuildingDocuments from '../../blocks/Notes/src/BuildingDocuments.web';
+import BuildingDocumentList from '../../blocks/Notes/src/BuildingDocumentList.web';
+import ViewBuildingDocument from '../../blocks/Notes/src/ViewBuildingDocument.web';
 
 import ContractsList from "../../blocks/RolesPermissions2/src/ContractsList.web";
 import ContractDetail from "../../blocks/RolesPermissions2/src/ContractDetail.web";
@@ -183,14 +185,14 @@ import ChangedSelectedTemplate from "../../blocks/RolesPermissions2/src/ChangedS
 import ReviewTemplate from "../../blocks/RolesPermissions2/src/ReviewTemplate.web";
 import AddCondition from "../../blocks/RolesPermissions2/src/AddCondition.web";
 
-import ChairmanScheduledMeeting from "../../blocks/BulkUploading/src/ScheduledMeeting.web";
-import ScheduledMeetingDetails from "../../blocks/BulkUploading/src/ScheduledMeetingDetails.web";
-import ChairmanMeetingMinutes from "../../blocks/BulkUploading/src/MeetingMinutes.web";
-import MeetingMinuteDetails from "../../blocks/BulkUploading/src/MeetingMinuteDetails.web";
-import MyMeetings from "../../blocks/BulkUploading/src/MyMeetings.web";
-import MyMeetingDetail from "../../blocks/BulkUploading/src/MyMeetingDetail.web";
-import MyMeetingMinuteDetail from "../../blocks/BulkUploading/src/MyMeetingMinuteDetail.web";
-import MeetingMinuteNote from "../../blocks/BulkUploading/src/MeetingMinuteNote.web";
+import ChairmanScheduledMeeting from '../../blocks/BulkUploading/src/ScheduledMeeting.web';
+import ScheduledMeetingDetails from '../../blocks/BulkUploading/src/ScheduledMeetingDetails.web';
+import ChairmanMeetingMinutes from '../../blocks/BulkUploading/src/MeetingMinutes.web';
+import MeetingMinuteDetails from '../../blocks/BulkUploading/src/MeetingMinuteDetails.web';
+import MyMeetings from '../../blocks/BulkUploading/src/MyMeetings.web';
+import MyMeetingDetail from '../../blocks/BulkUploading/src/MyMeetingDetail.web';
+import MyMeetingMinuteDetail from '../../blocks/BulkUploading/src/MyMeetingMinuteDetail.web';
+import MeetingMinuteNote from '../../blocks/BulkUploading/src/MeetingMinuteNote.web';
 
 import ViewInvoices from '../../blocks/InvoiceBilling/src/ViewInvoices.web';
 import ViewReceipt from '../../blocks/InvoiceBilling/src/ViewReceipt.web';
@@ -204,9 +206,13 @@ import EditProfile from '../../blocks/user-profile-basic/src/EditProfile.web';
 import PublicView from '../../blocks/user-profile-basic/src/PublicView.web';
 
 import CommunityUserProfile from '../../blocks/user-profile-basic/src/CommunityUserProfile.web';
-import GaMembers from  '../../blocks/user-profile-basic/src/GaMembers';
+import GaMembers from '../../blocks/user-profile-basic/src/GaMembers';
 import ResidentsProfile from '../../blocks/user-profile-basic/src/ResidentsProfile.web';
 import PropertysManager from '../../blocks/user-profile-basic/src/PropertysManager.web';
+import Suggestions from '../../blocks/user-profile-basic/src/Suggestions.web';
+import SuggestionDetails from '../../blocks/user-profile-basic/src/SuggestionDetails.web';
+import Announcements from '../../blocks/user-profile-basic/src/Announcements.web';
+import AnnouncementDetails from '../../blocks/user-profile-basic/src/AnnouncementDetails.web';
 import CommunityRequestManagement from '../../blocks/user-profile-basic/src/CommunityRequestManagement.web';
 
 import SentInvitation from "../../blocks/user-profile-basic/src/SentInvitation.web";
@@ -222,19 +228,19 @@ const routeMap = {
   Profile: {
     component: Profile,
     path: '/profile',
-    exact: true,
+    exact: true
     // roles: [ROLE.PRIVATE]
   },
   PublicView: {
     component: PublicView,
     path: '/PublicView',
-    exact: true,
+    exact: true
     // roles: [ROLE.PRIVATE]
   },
   EditProfile: {
     component: EditProfile,
     path: '/editprofile',
-    exact: true,
+    exact: true
     // roles: [ROLE.PRIVATE]
   },
   Inbox: {
@@ -437,6 +443,12 @@ const routeMap = {
     path: '/IncidentManagementDetail',
     exact: true
   },
+  ClassifiedManagerListing: {
+    component: ClassifiedManagerListing,
+    path: '/ClassifiedManagerListing',
+    exact: true
+  },
+  
   // RolesPermissions2: {
   //   component: RolesPermissions2,
   //   path: '/RolesPermissions2'
@@ -484,18 +496,17 @@ const routeMap = {
 
   CreatePolls: {
     component: CreatePolls,
-    path: "/CreatePolls"
+    path: '/CreatePolls'
   },
-
 
   TakeSurvey: {
     component: SurveyInitial,
-    path: "/TakeSurvey"
+    path: '/TakeSurvey'
   },
 
   SurveyFill: {
     component: SurveyParticipate,
-    path: "/SurveyFill"
+    path: '/SurveyFill'
   },
 
   CreateSurveys: {
@@ -523,8 +534,6 @@ const routeMap = {
     path: '/SurveyallData'
   },
 
-
-
   PollsSurvey: {
     component: PollsSurvey,
     path: '/PollsSurvey'
@@ -545,19 +554,19 @@ const routeMap = {
     path: '/PollDetails'
   },
 
-  SurveyDetails:{
+  SurveyDetails: {
     component: SurveyDetailsMain,
     path: '/SurveyDetails'
   },
 
-  SurveyReport:{
+  SurveyReport: {
     component: SurveyReport,
     path: '/SurveyReport'
   },
 
   PollReport: {
     component: PollReport,
-    path: "/PollReport"
+    path: '/PollReport'
   },
 
   PollResponseCompleted: {
@@ -711,32 +720,38 @@ const routeMap = {
   ChairmanScheduledMeeting: {
     component: ChairmanScheduledMeeting,
     path: '/ScheduledMeetings',
-    exact: true
+    exact: true,
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER]
   },
   ChairmanScheduledMeetingDetails: {
     component: ScheduledMeetingDetails,
     path: '/ScheduledMeeting/:id',
-    exact: true
+    exact: true,
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER]
   },
   ChairmanMeetingMinutes: {
     component: ChairmanMeetingMinutes,
     path: '/MeetingMinutes',
-    exact: true
+    exact: true,
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER]
   },
   ChairmanMeetingMinuteDetails: {
     component: MeetingMinuteDetails,
     path: '/MeetingMinute/:id',
-    exact: true
+    exact: true,
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER]
   },
   MeetingMinuteNote: {
     component: MeetingMinuteNote,
     path: '/MeetingMinute/:id/Note',
-    exact: true
+    exact: true,
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER]
   },
   ScheduleMeetingMinuteNote: {
     component: MeetingMinuteNote,
     path: '/ScheduledMeeting/:id/Note',
-    exact: true
+    exact: true,
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER]
   },
   // Owner - Meetings
   OwnerMeetingsList: {
@@ -1252,21 +1267,41 @@ const routeMap = {
     path: '/addressfill'
   },
   //community-managment
-  CommunityUserProfile:{
+  CommunityUserProfile: {
     component: CommunityUserProfile,
     path: '/CommunityUserProfile'
   },
-  GaMembers:{
-    component:GaMembers,
-    path:'/GaMembers'
+  GaMembers: {
+    component: GaMembers,
+    path: '/GaMembers'
   },
-  ResidentsProfile:{
-    component:ResidentsProfile,
-    path:"/ResidentsProfile"
+  ResidentsProfile: {
+    component: ResidentsProfile,
+    path: '/ResidentsProfile'
   },
-  PropertysManager:{
-    component:PropertysManager,
-    path:"/PropertysManager"
+  PropertysManager: {
+    component: PropertysManager,
+    path: '/PropertysManager'
+  },
+  Suggestions: {
+    component: Suggestions,
+    path: '/Suggestions',
+    exact: true
+  },
+  SuggestionDetails: {
+    component: SuggestionDetails,
+    path: '/SuggestionDetails',
+    exact: true
+  },
+  Announcements: {
+    component: Announcements,
+    path: '/Announcements',
+    exact: true
+  },
+  AnnouncementDetails: {
+    component: AnnouncementDetails,
+    path: '/AnnouncementDetails',
+    exact: true
   },
   CommunityRequestManagement:{
     component:CommunityRequestManagement,
