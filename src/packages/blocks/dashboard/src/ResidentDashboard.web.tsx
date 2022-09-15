@@ -19,6 +19,8 @@ import {
   DialogContent,
   DialogActions,
   Button,
+  Menu,
+  MenuItem
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import { withRouter } from "react-router";
@@ -33,6 +35,9 @@ import CloseIcon from "@material-ui/icons/Close";
 import ArrowForwardIosOutlinedIcon from "@material-ui/icons/ArrowForwardIosOutlined";
 import LogoutDialogIcon from "../assets/logout-dialog.png";
 import DashboardController, { Props } from "./DashboardController";
+import { withTranslation } from 'react-i18next';
+import '../../../web/src/i18n.js';
+import i18next from 'i18next';
 
 const MenuList = [
   {
@@ -52,7 +57,7 @@ const MenuList = [
   },
   {
     name: "My Neighbors",
-    url: "",
+    url: "/NeighboursListing",
     img: "",
   },
   {
@@ -68,6 +73,7 @@ class ResidentDashboard extends DashboardController {
     this.state = {
       isMenuOpen: false,
       isLogoutModalOpen: false,
+      anchorEl: null,
     };
   }
 
@@ -77,6 +83,33 @@ class ResidentDashboard extends DashboardController {
       isMenuOpen: !this.state.isMenuOpen,
     });
   };
+
+  handleLanguage = (event: any) => {
+    console.log("Hellloooooooo")
+    this.setState({
+      anchorEl: event?.currentTarget,
+    });
+  };
+
+  handleClose = () => {
+    this.setState({
+      anchorEl:null
+    })
+  }
+
+  handleEngLngChange = () => {
+    i18next.changeLanguage('en')
+    this.setState({
+      anchorEl:null
+    })
+  }
+
+  handleAreLngChange = () => {
+    i18next.changeLanguage('ar')
+    this.setState({
+      anchorEl:null
+    })
+  }
 
   handleLogoutModal = () => {
     this.setState({
@@ -92,7 +125,9 @@ class ResidentDashboard extends DashboardController {
   };
 
   render() {
+    const {t} = this.props
     const { classes } = this.props;
+    const open = Boolean(this.state.anchorEl)
 
     return (
       <>
@@ -159,29 +194,62 @@ class ResidentDashboard extends DashboardController {
                   </IconButton>
                   <span className="complex-name">Complex Name</span>
                 </div>
-                <div className="right-icon">
-                  <Link href="#">
-                    <img src={globalIcon} alt="GlobalIcon" />
-                  </Link>
-                  <Link href="#">
-                    <img src={chatIcon} alt="GlobalIcon" />
-                  </Link>
-                  <Link href="#">
-                    <img src={notification} alt="GlobalIcon" />
-                  </Link>
+                <div className="right-icon" style={{display:"flex"}}>
+                  <div style={{position:"relative"}}>
+                    <span
+                      id="basic-button"
+                      aria-controls={open ? "basic-menu" : undefined}
+                      aria-haspopup="true"
+                      aria-expanded={open ? "true" : undefined}
+                      onClick={(e:any) => this.handleLanguage(e)}
+                      >
+                      <img src={globalIcon} alt="GlobalIcon" />
+                    </span>
+                    <Menu
+                      id="basic-menu"
+                      anchorEl={this.state.anchorEl}
+                      open={open}
+                      onClose={this.handleClose}
+                      MenuListProps={{
+                        "aria-labelledby": "basic-button"
+                      }}
+                      getContentAnchorEl={null}
+                      anchorOrigin={{
+                          vertical: 'bottom',
+                          horizontal: 'center',
+                      }}
+                      transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'center',
+                      }}
+                    >
+                      <MenuItem onClick={() => this.handleEngLngChange()}>English</MenuItem>
+                      <MenuItem onClick={() => this.handleAreLngChange()}>Arabic</MenuItem>
+                    </Menu>
+                  </div>
+                  <div>
+                    <Link href="#">
+                      <img src={chatIcon} alt="GlobalIcon" />
+                    </Link>
+                  </div>
+                  <div>
+                    <Link href="#">
+                      <img src={notification} alt="GlobalIcon" />
+                    </Link>
+                  </div>
                 </div>
               </Box>
               <Container className="dashboard">
                 <Grid container spacing={1} style={{ marginTop: 15 }}>
                   <Grid item xs={12} sm={12} className="title">
-                    <Typography variant="h5">t(Building Services)</Typography>
+                    <Typography variant="h5">{t("Building Services")}</Typography>
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="/IncidentListing">
                       <DashboardCard
                         image={keyhand}
-                        heading="Incidents"
-                        title="Open"
+                        heading={t("Incidents")}
+                        title={t("Open")}
                         value="75"
                       />
                     </Link>
@@ -190,8 +258,8 @@ class ResidentDashboard extends DashboardController {
                     <Link href="">
                       <DashboardCard
                         image={keyhand}
-                        heading="Announcements"
-                        title="Total"
+                        heading={t("Announcements")}
+                        title={t("Total")}
                         value="75"
                       />
                     </Link>
@@ -200,8 +268,8 @@ class ResidentDashboard extends DashboardController {
                     <Link href="">
                       <DashboardCard
                         image={keyhand}
-                        heading="Visitors"
-                        title="Scheduled"
+                        heading={t("Visitors")}
+                        title={t("Scheduled")}
                         value="75"
                       />
                     </Link>
@@ -210,8 +278,8 @@ class ResidentDashboard extends DashboardController {
                     <Link href="">
                       <DashboardCard
                         image={keyhand}
-                        heading="Facility Reservation"
-                        title="Scheduled"
+                        heading={t("Facility Reservation")}
+                        title={t("Scheduled")}
                         value="75"
                       />
                     </Link>
@@ -220,8 +288,8 @@ class ResidentDashboard extends DashboardController {
                     <Link href="">
                       <DashboardCard
                         image={keyhand}
-                        heading="Management Fees"
-                        title="Paid On"
+                        heading={t("Management Fees")}
+                        title={t("Paid On")}
                         value="75"
                       />
                     </Link>
@@ -230,8 +298,8 @@ class ResidentDashboard extends DashboardController {
                     <Link href="/pollsSurvey">
                       <DashboardCard
                         image={keyhand}
-                        heading="Survey"
-                        title="Ongoing"
+                        heading={t("Survey")}
+                        title={t("Ongoing")}
                         value="75"
                       />
                     </Link>
@@ -240,8 +308,8 @@ class ResidentDashboard extends DashboardController {
                     <Link href="">
                       <DashboardCard
                         image={keyhand}
-                        heading="Building Info & Rules"
-                        title="Last Uploaded"
+                        heading={t("Building Info & Rules")}
+                        title={t("Last Uploaded")}
                         value="75"
                       />
                     </Link>
@@ -250,8 +318,8 @@ class ResidentDashboard extends DashboardController {
                     <Link href="/MyMeetings">
                       <DashboardCard
                         image={keyhand}
-                        heading="Meetings"
-                        title="Scheduled"
+                        heading={t("Meetings")}
+                        title={t("Scheduled")}
                         value="75"
                       />
                     </Link>
@@ -260,8 +328,8 @@ class ResidentDashboard extends DashboardController {
                     <Link href="">
                       <DashboardCard
                         image={keyhand}
-                        heading="Classifieds"
-                        title="Last Uploaded"
+                        heading={t("Classifieds")}
+                        title={t("Last Uploaded")}
                         value="75"
                       />
                     </Link>
@@ -270,8 +338,8 @@ class ResidentDashboard extends DashboardController {
                     <Link href="/BuildingDocuments">
                       <DashboardCard
                         image={keyhand}
-                        heading="Building Documents"
-                        title="Last uploaded"
+                        heading={t("Building Documents")}
+                        title={t("Last Uploaded")}
                         value="75"
                       />
                     </Link>
@@ -279,14 +347,14 @@ class ResidentDashboard extends DashboardController {
                 </Grid>
                 <Grid container spacing={1} style={{ marginTop: 15 }}>
                   <Grid item xs={12} sm={12} className="title">
-                    <Typography variant="h5">Personal Services</Typography>
+                    <Typography variant="h5">{t("Personal Services")}</Typography>
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="">
                       <DashboardCard
                         image={keyhand}
-                        heading="My Lease"
-                        title="Total"
+                        heading={t("My Lease")}
+                        title={t("Total")}
                         value="75"
                       />
                     </Link>
@@ -295,8 +363,8 @@ class ResidentDashboard extends DashboardController {
                     <Link href="/veichleList">
                       <DashboardCard
                         image={keyhand}
-                        heading="My Vehicles"
-                        title="Registered"
+                        heading={t("My Vehicles")}
+                        title={t("Registered")}
                         value="75"
                       />
                     </Link>
@@ -305,8 +373,8 @@ class ResidentDashboard extends DashboardController {
                     <Link href="/familylist">
                       <DashboardCard
                         image={keyhand}
-                        heading="My Family"
-                        title="Registered Members"
+                        heading={t("My Family")}
+                        title={t("Registered Members")}
                         value="75"
                       />
                     </Link>
@@ -315,8 +383,8 @@ class ResidentDashboard extends DashboardController {
                     <Link href="">
                       <DashboardCard
                         image={keyhand}
-                        heading="Fees & Payment"
-                        title="Last Paid"
+                        heading={t("Fees & Payment")}
+                        title={t("Last Paid")}
                         value="75"
                       />
                     </Link>
@@ -325,8 +393,8 @@ class ResidentDashboard extends DashboardController {
                     <Link href="">
                       <DashboardCard
                         image={keyhand}
-                        heading="My Suggestions"
-                        title="Total"
+                        heading={t("My Suggestions")}
+                        title={t("Total")}
                         value="75"
                       />
                     </Link>
@@ -335,8 +403,8 @@ class ResidentDashboard extends DashboardController {
                     <Link href="/PersonalDocument">
                       <DashboardCard
                         image={keyhand}
-                        heading="My Documents"
-                        title="Last uploaded"
+                        heading={t("My Documents")}
+                        title={t("Last Uploaded")}
                         value="NA"
                       />
                     </Link>
@@ -365,10 +433,10 @@ class ResidentDashboard extends DashboardController {
             <Box textAlign="center">
               <img src={LogoutDialogIcon} alt="ExclamationIcon" />
               <Typography variant="h6">
-                Are you sure you want to logout?
+                {t("Are you sure you want to logout?")}
               </Typography>
               <Typography variant="body1">
-                You will be returned to the login screen
+                {t("You will be returned to the login screen")}
               </Typography>
               <DialogActions className="dialog-button-group">
                 <Button onClick={() => this.logout()}>Logout</Button>
@@ -381,6 +449,6 @@ class ResidentDashboard extends DashboardController {
     );
   }
 }
-export default withStyles(DashboardStyleWeb)(withRouter(ResidentDashboard));
+export default withTranslation()(withStyles(DashboardStyleWeb)(withRouter(ResidentDashboard)));
 
 // Customizable Area End

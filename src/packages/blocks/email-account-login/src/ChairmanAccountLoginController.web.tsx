@@ -221,7 +221,7 @@ export default class ChairmanAccountLoginController extends BlockComponent<
             this.props.history.push("/ResidentDashboard")
             this.setState({loading: false})
            }
-           else{
+           else if(localStorage.getItem("userType") === "Chairman" || localStorage.getItem("userType") === "Manager"){
             this.props.history.push("/DashboardGeneral")
             this.setState({loading: false})
            }

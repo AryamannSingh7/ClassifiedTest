@@ -42,7 +42,7 @@ import DashboardController, { Props } from "./DashboardController";
 const MenuList = [
   {
     name: "Profile",
-    url: "",
+    url: "/profile",
     img: "",
   },
   {
@@ -57,7 +57,7 @@ const MenuList = [
   },
   {
     name: "My Neighbors",
-    url: "",
+    url: "/NeighboursListing",
     img: "",
   },
   {
@@ -95,6 +95,7 @@ class OwnerDashboard extends DashboardController {
   };
 
   handleLanguage = (event: any) => {
+    console.log("Hellloooooooo")
     this.setState({
       anchorEl: event?.currentTarget,
     });
@@ -201,7 +202,7 @@ class OwnerDashboard extends DashboardController {
                       aria-controls={open ? "basic-menu" : undefined}
                       aria-haspopup="true"
                       aria-expanded={open ? "true" : undefined}
-                      // onClick={(e:any) => this.handleLanguage(e)}
+                      onClick={(e:any) => this.handleLanguage(e)}
                       >
                       <img src={globalIcon} alt="GlobalIcon" />
                     </span>

@@ -12,7 +12,7 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import HomeIcon from '@material-ui/icons/Home';
-import { Building1, fb, message, twitter } from "./assets";
+import { Building1, email, fb, instaedit, message, phone, snapedit, twitter } from "./assets";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
 import '../assets/css/style.scss';
@@ -21,14 +21,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ProfileController from "./ProfileController.web";
 import FamilyListWeb from "../../customform/src/FamilyList.web";
-
-
-
-
-
-
-
-
 class Profile extends ProfileController {
   constructor(props: Props) {
     super(props);
@@ -37,12 +29,13 @@ class Profile extends ProfileController {
   }
 
   async componentDidMount() {
-
+this.getProfile()
     // this.getVehicle()
 
   }
 
   render() {
+    let profileData =this.state.profiledata
     return (
 
       <>
@@ -50,11 +43,49 @@ class Profile extends ProfileController {
           <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset', overflowY: 'auto', overflowX: 'hidden' }}>
             <Grid container>
               <Grid xs={12} style={{ display: 'flex', alignItems: 'center' }}>
-                <ArrowBackIcon onClick={() => window.history.back()} />
-                <p style={{ fontWeight: 600, fontSize: '1.25rem' }}>
+                <div className="flex" style={{width:'100%'}}>
+                  <div style={{ display: "flex", alignItems: 'center', gap: '0.5rem' }}>
 
-                  My Profile
-                </p>
+                    <ArrowBackIcon onClick={() => window.history.back()} />
+                    <p style={{ fontWeight: 600, fontSize: '1.25rem' }}>
+
+                      My Profile
+                    </p>
+                  </div>
+                  <IconButton
+                    aria-label="more"
+                    aria-controls="long-menu"
+                    aria-haspopup="true"
+                    onClick={this.handleClick}
+                  >
+                    <MoreVertIcon />
+                  </IconButton>
+                  <Menu
+                    id="long-menu"
+                    anchorEl={this.state.anchorEl}
+                    keepMounted
+                    open={this.state.showDialog}
+                    onClose={this.handleClose}
+
+
+                  >
+                    <MenuItem key="1" onClick={() =>
+                    {// @ts-ignore
+                    // @ts-nocheck
+                    localStorage.setItem('profileData',JSON.stringify(profileData));
+                      this.props.history.push('/editprofile')}
+                      }>
+                      Edit profile
+                    </MenuItem>
+                    <MenuItem key="2" >
+                      Publish details for others
+                    </MenuItem>
+                    <MenuItem key="3" >
+                      Disable Chat
+                    </MenuItem>
+                  </Menu>
+                </div>
+
               </Grid>
             </Grid>
 
@@ -64,7 +95,7 @@ class Profile extends ProfileController {
 
                 <img className="profile_img" src="https://img.freepik.com/premium-photo/generic-brandless-modern-sport-car-with-fire-smoke_110488-1759.jpg" />
                   <p style={{ fontWeight: 'bold', fontSize: '1.25rem', marginTop: '0.5rem', marginBottom: '0.5rem' }}>
-                    Aaron Almaraz
+                    {profileData?.attributes?.full_name?.name || 'N/A'}
                   </p>
                   </Box>
               </Grid>
@@ -78,8 +109,8 @@ class Profile extends ProfileController {
               <Grid item xs={12}>
                 <Box display='flex' justifyContent='center' marginTop='1rem'>
                   <img src={message} className='first_icon'/>
-                  <img src={message} className='second_icon' />
-                  <img src={message} className='third_icon' />
+                  <img src={phone} className='second_icon' onClick={() => document.location.href = `tel:${profileData?.attributes?.full_phone_number?.full_phone_number}`}/>
+                  <img src={email} className='third_icon' onClick={() => document.location.href = `mailto:${profileData?.attributes?.email?.email}`} />
                 </Box>
 
               </Grid>
@@ -92,7 +123,7 @@ class Profile extends ProfileController {
                   Gender :
                 </label>
                 <span>
-                  Male
+                    {" "}  {profileData?.attributes?.gender?.gender || 'N/A'}
                 </span>
               </Box>
                 <Box style={{ fontSize: "0.75rem" }}>
@@ -100,7 +131,7 @@ class Profile extends ProfileController {
                   DOB :
                 </label>
                 <span>
-                  03/08/1996
+                    {" "} {profileData?.attributes?.date_of_birth?.date_of_birth}
                 </span>
               </Box>
               </Grid>
@@ -119,31 +150,44 @@ class Profile extends ProfileController {
               <Grid item xs={12}>
 
                 <p style={{ fontSize: '1rem', marginBottom: '0.5rem' }}>
-                  Hello!  I am Aaron Almaraz living with my family in Central Park since 2015. I am Business Analyst by profession. I t would be nice to get in touch with you.
+                  {profileData?.attributes?.bio?.bio || 'N/A'}
                 </p>
 
               </Grid>
             </Grid>
 
-            <Grid container>
-              <Grid item xs={12}>
+       {
+              profileData?.attributes?.hobbies?.hobbies.length>0 && <>
+                <Grid container>
+                  <Grid item xs={12}>
 
-                <p style={{ fontWeight: 'bold', fontSize: '1.25rem', marginTop: '0.5rem', marginBottom: '0.25rem' }}>
-                  Hobbies
-                </p>
+                    <p style={{ fontWeight: 'bold', fontSize: '1.25rem', marginTop: '0.5rem', marginBottom: '0.25rem' }}>
+                      Hobbies
+                    </p>
 
-              </Grid>
-            </Grid>
+                  </Grid>
+                </Grid>
+              </>
+       }
+{
+              profileData?.attributes?.hobbies?.hobbies && <>
 
-            <Grid container>
-              <Grid item xs={12}>
+                <Grid container>
+                  <Grid item xs={12}>
+                    {
+                      profileData?.attributes?.hobbies?.hobbies.map(item => <>
+                        <span className="hobbies">
+                          {item}
+                        </span>
+                      </>)
+                    }
 
-                <span className="hobbies">
-                  Travelling
-                </span>
 
-              </Grid>
-            </Grid>
+                  </Grid>
+                </Grid>
+              </>
+}
+
 
             <Grid container>
               <Grid item xs={12}>
@@ -157,8 +201,20 @@ class Profile extends ProfileController {
             <Grid container>
               <Grid item xs={12}>
                 <Box display='flex' justifyContent='start' marginTop='1rem'>
-                  <img src={fb}  />
-                  <img src={twitter} className='third_icon' />
+                  {
+                    profileData?.attributes?.website[0].twitter_link && <img src={twitter} />
+                  }
+                  {
+                    profileData?.attributes?.website[1].instagram_link && <img src={instaedit} className='third_icon' />
+                  }
+                  {
+                    profileData?.attributes?.website[2].fb_link && <img src={fb} className='third_icon' />
+                  }
+                  {
+                    profileData?.attributes?.website[3].snapchat_link && <img src={snapedit} className='third_icon' />
+                  }
+
+
                 </Box>
 
               </Grid>
@@ -169,6 +225,72 @@ class Profile extends ProfileController {
                 <p style={{ fontWeight: 'bold', fontSize: '1.25rem', marginTop: '0.5rem', marginBottom: '0.25rem' }}>
                   My Family
                 </p>
+
+              </Grid>
+            </Grid>
+            <Grid container>
+              <Grid item xs={12}>
+                  {
+
+                    profileData?.attributes?.families.families.map((item:any)=>
+                      <>
+                        <Grid xs={12} className="card fam">
+                          <div className="flex">
+                            <div style={{ display: "flex", alignItems: 'center', gap: '0.5rem' }}>
+
+                              {/* <Avatar src={item?.attributes?.member_pic} /> */}
+                              <p className="text-bold">
+
+                                {item.attributes.name}
+                              </p>
+                              </div>
+                            <IconButton
+                              aria-label="more"
+                              aria-controls="long-menu"
+                              aria-haspopup="true"
+                              onClick={this.handleClick2}
+                            >
+                              <MoreVertIcon />
+                            </IconButton>
+                            <Menu
+                              id="long-menu"
+                              anchorEl={this.state.anchorEl}
+                              keepMounted
+                              open={this.state.showDialog2}
+                              onClose={this.handleClose}
+
+
+                            >
+                              <MenuItem key="1" onClick={() => this.handleClose(item)}>
+                                Edit
+                              </MenuItem>
+                              <MenuItem key="2" onClick={() => { this.setState({ showDialogDelete: true }); localStorage.setItem('selectFamily', JSON.stringify(item)) }}>
+                                Delete
+                              </MenuItem>
+                            </Menu>
+                              </div>
+
+                          <div>
+                            <p className="fam-label">
+                              Relation:
+                            </p>
+                            <p className="fam-value">
+                              {item.attributes.relation.name}
+                            </p>
+                          </div>
+                          <div>
+                            <p className="fam-label">
+                              ID:
+                            </p>
+                            <p className="fam-value">
+                              {item.attributes.id_number}
+                            </p>
+                          </div>
+                        </Grid>
+                      </>
+                    )
+                  }
+
 
               </Grid>
             </Grid>
@@ -201,7 +323,11 @@ class Profile extends ProfileController {
 
 
           </Grid>
-
+          <Grid item xs={12} md={5} className="auth-cols">
+            <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
+              <img src={Building1.default} className="building-logo" alt="" />
+            </Box>
+          </Grid>
         </Grid>
         <Dialog
           open={this.state.showDialogDelete}
@@ -313,6 +439,7 @@ function NoVehicle({ props }) {
         </Button>
       </Grid>
     </Grid>
+    <Loader loading={this.state.loading} />
   </>
 }
 

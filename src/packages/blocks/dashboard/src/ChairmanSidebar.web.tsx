@@ -29,10 +29,7 @@ class ChairmanSidebar extends DashboardController {
       <>
         <Box className="AccordinoList">
           {/* Dashboard */}
-          <Accordion
-            expanded={this.state.expanded == `panel1`}
-            onChange={this.handleAccordinoChange(`panel1`)}
-          >
+          <Accordion expanded={this.state.expanded == `panel1`} onChange={this.handleAccordinoChange(`panel1`)}>
             <AccordionSummary
               expandIcon={<ArrowForwardIosOutlinedIcon style={{ width: 16, height: 16 }} />}
               aria-controls={"panel2bh-content"}
@@ -92,10 +89,7 @@ class ChairmanSidebar extends DashboardController {
             </AccordionDetails>
           </Accordion>
           {/* My Team */}
-          <Accordion
-            expanded={this.state.expanded == `panel2`}
-            onChange={this.handleAccordinoChange(`panel2`)}
-          >
+          <Accordion expanded={this.state.expanded == `panel2`} onChange={this.handleAccordinoChange(`panel2`)}>
             <AccordionSummary
               expandIcon={<ArrowForwardIosOutlinedIcon style={{ width: 16, height: 16 }} />}
               id="ListItem"
@@ -113,31 +107,47 @@ class ChairmanSidebar extends DashboardController {
             </AccordionDetails>
           </Accordion>
           {/* Community Management */}
-          <Accordion
-            expanded={this.state.expanded == `panel3`}
-            onChange={this.handleAccordinoChange(`panel3`)}
-          >
+          <Accordion expanded={this.state.expanded == `panel3`} onChange={this.handleAccordinoChange(`panel3`)}>
             <AccordionSummary
               expandIcon={<ArrowForwardIosOutlinedIcon style={{ width: 16, height: 16 }} />}
-              id="ListItem"
-              className="ListItem"
+              aria-controls={"panel2bh-content"}
+              id={"Dashboards"}
+              style={dashBoard.ListItem}
             >
               <Typography>
                 <DashboardOutlinedIcon />
               </Typography>
-              <Typography className="ListItemText">Community Management</Typography>
+              <Typography className="ListItemText">{t("Community Management")}</Typography>
             </AccordionSummary>
-            <AccordionDetails>
+
+            <AccordionDetails onClick={() => this.props.navigation.navigate("CommunityUserProfile")}>
               <Typography variant="body2" className="cursor-pointer">
-                sub headings
+                {t("User Profiles")}
+              </Typography>
+            </AccordionDetails>
+            <AccordionDetails
+              onClick={() => {
+                //@ts-ignore
+                this.props.history.push("/CommunityRequestManagement");
+              }}
+            >
+              <Typography variant="body2" className="cursor-pointer">
+                {t("Request Management")}
+              </Typography>
+            </AccordionDetails>
+            <AccordionDetails onClick={() => this.props.navigation.navigate("Announcements")}>
+              <Typography variant="body2" className="cursor-pointer">
+                {t("Announcements")}
+              </Typography>
+            </AccordionDetails>
+            <AccordionDetails onClick={() => this.props.navigation.navigate("Suggestions")}>
+              <Typography variant="body2" className="cursor-pointer">
+                {t("Suggestion")}
               </Typography>
             </AccordionDetails>
           </Accordion>
           {/* Invoices & Receipts */}
-          <Accordion
-            expanded={this.state.expanded == `panel4`}
-            onChange={this.handleAccordinoChange(`panel4`)}
-          >
+          <Accordion expanded={this.state.expanded == `panel4`} onChange={this.handleAccordinoChange(`panel4`)}>
             <AccordionSummary
               expandIcon={<ArrowForwardIosOutlinedIcon style={{ width: 16, height: 16 }} />}
               aria-controls={"panel2bh-content"}
@@ -176,10 +186,7 @@ class ChairmanSidebar extends DashboardController {
             </AccordionDetails>
           </Accordion>
           {/* Meetings */}
-          <Accordion
-            expanded={this.state.expanded == `panel5`}
-            onChange={this.handleAccordinoChange(`panel5`)}
-          >
+          <Accordion expanded={this.state.expanded == `panel5`} onChange={this.handleAccordinoChange(`panel5`)}>
             <AccordionSummary
               expandIcon={<ArrowForwardIosOutlinedIcon style={{ width: 16, height: 16 }} />}
               style={dashBoard.ListItem}
@@ -207,10 +214,7 @@ class ChairmanSidebar extends DashboardController {
             </AccordionDetails>
           </Accordion>
           {/* Buildings & Apartments */}
-          <Accordion
-            expanded={this.state.expanded == `panel6`}
-            onChange={this.handleAccordinoChange(`panel6`)}
-          >
+          <Accordion expanded={this.state.expanded == `panel6`} onChange={this.handleAccordinoChange(`panel6`)}>
             <AccordionSummary
               expandIcon={<ArrowForwardIosOutlinedIcon style={{ width: 16, height: 16 }} />}
               id="ListItem"
@@ -242,10 +246,7 @@ class ChairmanSidebar extends DashboardController {
             </div>
           </Box>
           {/* Document & Reports */}
-          <Accordion
-            expanded={this.state.expanded == `panel7`}
-            onChange={this.handleAccordinoChange(`panel7`)}
-          >
+          <Accordion expanded={this.state.expanded == `panel7`} onChange={this.handleAccordinoChange(`panel7`)}>
             <AccordionSummary
               expandIcon={<ArrowForwardIosOutlinedIcon style={{ width: 16, height: 16 }} />}
               style={dashBoard.ListItem}
@@ -255,10 +256,7 @@ class ChairmanSidebar extends DashboardController {
               </Typography>
               <Typography className="ListItemText">Documents & Reports</Typography>
             </AccordionSummary>
-            <AccordionDetails
-              style={dashBoard.Item}
-              onClick={() => this.props.navigation.navigate("DocumentChairman")}
-            >
+            <AccordionDetails style={dashBoard.Item} onClick={() => this.props.navigation.navigate("DocumentChairman")}>
               <Typography variant="body2" className="cursor-pointer">
                 {t("Document")}
               </Typography>
@@ -284,10 +282,7 @@ class ChairmanSidebar extends DashboardController {
             </div>
           </Box>
           {/* Help */}
-          <Accordion
-            expanded={this.state.expanded == `panel8`}
-            onChange={this.handleAccordinoChange(`panel8`)}
-          >
+          <Accordion expanded={this.state.expanded == `panel8`} onChange={this.handleAccordinoChange(`panel8`)}>
             <AccordionSummary
               expandIcon={<ArrowForwardIosOutlinedIcon style={{ width: 16, height: 16 }} />}
               style={dashBoard.ListItem}
@@ -305,10 +300,7 @@ class ChairmanSidebar extends DashboardController {
                 {t("Subscription")}
               </Typography>
             </AccordionDetails>
-            <AccordionDetails
-              style={dashBoard.Item}
-              onClick={() => this.props.navigation.navigate("FaqChairman")}
-            >
+            <AccordionDetails style={dashBoard.Item} onClick={() => this.props.navigation.navigate("FaqChairman")}>
               <Typography variant="body2" className="cursor-pointer">
                 {t("Frequently asked questions")}
               </Typography>

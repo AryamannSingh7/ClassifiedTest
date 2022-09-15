@@ -108,9 +108,9 @@ class CreateSurveys extends CreateSurveyController {
 
                     <form>
                         <Grid container spacing={4} style={{marginTop: 15}}>
-                            <Grid item sm={12} md={12} xs={12} style={{marginBottom:"65px"}}>
-                                <Box className="createPSCards" >
-                                    <TextField label="Name of the Survey" variant="outlined"
+                            <Grid item sm={12} md={12} xs={12}>
+                                <Box className="createPSCards">
+                                    <TextField label={t("Name of the Survey")} variant="outlined"
                                     name="title"
                                     value={this.state.SurveyData.title}
                                     onChange={this.handlePollDataChange}
@@ -172,14 +172,14 @@ class CreateSurveys extends CreateSurveyController {
                                     <p style={{color:"red"}}>{this.state.pollDescriptionError}</p>
                                     <Box className="targetaudience">
                                         <Box className="infoIcon">
-                                            <Typography variant="subtitle1">Select your target audience</Typography>
+                                            <Typography variant="subtitle1">{t("Select your target audience")}</Typography>
                                             <InfoIcon style={{color:"grey", fontSize:18}}/>
                                         </Box>
                                         <Box className="targetOne">
-                                            <Button variant="outlined" color="primary">OWNERS</Button>
-                                            <Button variant="outlined" color="primary">RESIDENTS</Button>
-                                            <Typography variant="subtitle1">Or, </Typography>
-                                            <Button variant="contained" color="primary" onClick={this.handleOpenAudienceModal}>CREATE AUDIENCE</Button>
+                                            <Button variant="outlined" color="primary">{t("OWNERS")}</Button>
+                                            <Button variant="outlined" color="primary">{t("RESIDENTS")}</Button>
+                                            <Typography variant="subtitle1">{t("Or")}, </Typography>
+                                            <Button variant="contained" color="primary" onClick={this.handleOpenAudienceModal}>{t("CREATE AUDIENCE")}</Button>
                                         </Box>
                                     </Box>
                                 </Box>

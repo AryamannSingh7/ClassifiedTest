@@ -14,10 +14,6 @@ import "../../../web/src/i18n.js";
 import i18next from "i18next";
 
 class DashboardHeader extends DashboardController {
-  constructor(props: Props) {
-    super(props);
-  }
-
   handleEngLngChange = () => {
     i18next.changeLanguage("en");
   };
@@ -65,12 +61,7 @@ class DashboardHeader extends DashboardController {
             </div>
 
             <Box style={dashBoard.HeaderSecRtBox}>
-              <img
-                src={chairmanUser.default}
-                alt="ChairmanUser"
-                width={50}
-                style={{ borderRadius: "50%" }}
-              />
+              <img src={chairmanUser.default} alt="ChairmanUser" width={50} style={{ borderRadius: "50%" }} />
               <Box>
                 <Typography variant="subtitle1">User Name</Typography>
                 <Typography variant="body2">Chairman</Typography>

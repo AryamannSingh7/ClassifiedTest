@@ -61,6 +61,8 @@ import {
 } from "react-share";
 import moment from "moment";
 import { Formik, Form } from "formik";
+import { withTranslation } from 'react-i18next';
+import '../../../web/src/i18n.js';
 
 class DocumentListChairman extends DocumentListChairmanController {
   constructor(props: Props) {
@@ -68,6 +70,7 @@ class DocumentListChairman extends DocumentListChairmanController {
   }
 
   render() {
+    const {t} = this.props
     const { classes } = this.props;
 
     const sharePopupWidth = 500;
@@ -108,13 +111,13 @@ class DocumentListChairman extends DocumentListChairmanController {
                 this.state.docName.toLowerCase() !== "guidelines" &&
                 this.state.docName.toLowerCase() !== "roles" &&
                 this.state.docName.toLowerCase() !== "building-plans" ? (
-                  <p>Wrong url</p>
+                  <p>{t("Wrong url")}</p>
                 ) : (
                   <Box>
                     <Box className="navigation">
                       <Box>
                         <Typography variant="body1">
-                          Documents /{" "}
+                          {t("Documents")} /{" "}
                           <Box component="span" style={{ color: "blue" }}>
                             {this.state.docName}
                           </Box>
@@ -128,13 +131,13 @@ class DocumentListChairman extends DocumentListChairmanController {
                             <Button
                               onClick={() => this.handleAddResolutionsModal()}
                             >
-                              Add New Resolution
+                              {t("Add New Resolution")}
                             </Button>
                           ) : (
                             <Button
                               onClick={() => this.handleAddDocumentModal()}
                             >
-                              Upload Documents
+                              {t("Upload Documents")}
                             </Button>
                           )}
                         </Box>
@@ -150,7 +153,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                       {this.state.docName.toLowerCase() === "resolutions" ? (
                         <Grid container spacing={2}>
                           {this.state.resolutionList.length === 0 && (
-                            <span>No Resolution Available!!</span>
+                            <span>{("No Resolution Available!!")}</span>
                           )}
                           {this.state.resolutionList.map((resolution: any) => {
                             return (
@@ -180,7 +183,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                                             }
                                             target="_blank"
                                           >
-                                            Download
+                                            {t("Download")}
                                           </Link>
                                         </MenuItem>
                                         <MenuItem
@@ -197,7 +200,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                                             );
                                           }}
                                         >
-                                          Delete
+                                          {t("Delete")}
                                         </MenuItem>
                                         <MenuItem
                                           onClick={() => {
@@ -216,14 +219,14 @@ class DocumentListChairman extends DocumentListChairmanController {
                                             );
                                           }}
                                         >
-                                          Share
+                                          {t("Share")}
                                         </MenuItem>
                                       </Menu>
                                     </div>
                                   </div>
                                   <div className="res-info">
                                     <div className="info-item">
-                                      <p>Date & Time</p>
+                                      <p>{t("Date & Time")}</p>
                                       <span>
                                         {moment(
                                           resolution.attributes.created_at
@@ -231,7 +234,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                                       </span>
                                     </div>
                                     <div className="info-item">
-                                      <p>Building</p>
+                                      <p>{t("Building")}</p>
                                       <span>
                                         {resolution.attributes.buidling_name}
                                       </span>
@@ -283,7 +286,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                       ) : (
                         <Grid container spacing={2}>
                           {this.state.documentList.length === 0 && (
-                            <span>No Document Available!!</span>
+                            <span>{t("No Document Available!!")}</span>
                           )}
                           {this.state.documentList.map((document: any) => {
                             return (
@@ -320,7 +323,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                                           }
                                           target="_blank"
                                         >
-                                          Download
+                                          {t("Download")}
                                         </Link>
                                       </MenuItem>
                                       <MenuItem
@@ -336,7 +339,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                                           );
                                         }}
                                       >
-                                        Delete
+                                        {t("Delete")}
                                       </MenuItem>
                                       <MenuItem
                                         onClick={() => {
@@ -355,7 +358,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                                           );
                                         }}
                                       >
-                                        Share
+                                        {t("Share")}
                                       </MenuItem>
                                     </Menu>
                                   </div>
@@ -380,7 +383,7 @@ class DocumentListChairman extends DocumentListChairmanController {
           className="add-document"
         >
           <MuiDialogTitle disableTypography className="dialog-heading">
-            <Typography variant="h6">Add New Document</Typography>
+            <Typography variant="h6">{t("Add New Document")}</Typography>
             <IconButton onClick={() => this.handleAddDocumentModal()}>
               <CloseIcon />
             </IconButton>
@@ -441,7 +444,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                         }}
                       >
                         <img src={UploadImage} />
-                        <Typography variant="body1">Upload File</Typography>
+                        <Typography variant="body1">{t("Upload File")}</Typography>
                       </div>
                       <input
                         id="myInput"
@@ -469,10 +472,10 @@ class DocumentListChairman extends DocumentListChairmanController {
                       onClick={() => this.handleAddDocumentModal()}
                       className="cancel-button"
                     >
-                      Cancel
+                      {t("Cancel")}
                     </Button>
                     <Button type="submit" className="add-button">
-                      Create
+                      {t("Create")}
                     </Button>
                   </DialogActions>
                 </Form>
@@ -491,16 +494,16 @@ class DocumentListChairman extends DocumentListChairmanController {
           <DialogContent>
             <Box textAlign="center">
               <img src={DeleteImage} alt="delete" />
-              <Typography variant="h6">Delete Document</Typography>
+              <Typography variant="h6">{t("Delete Document")}</Typography>
               <Typography variant="body1">
-                Are you sure want to delete?
+                {t("Are you sure want to delete?")}
               </Typography>
               <DialogActions className="dialog-button-group">
                 <Button
                   className="cancel-button"
                   onClick={() => this.handleDeleteDocumentModal()}
                 >
-                  No, Don't Delete
+                  {t("No, Don't Delete")}
                 </Button>
                 <Button
                   className="add-button"
@@ -512,7 +515,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                     }
                   }}
                 >
-                  Yes Delete
+                  {t("Yes Delete")}
                 </Button>
               </DialogActions>
             </Box>
@@ -526,7 +529,7 @@ class DocumentListChairman extends DocumentListChairmanController {
           className="add-document resolutions"
         >
           <MuiDialogTitle disableTypography className="dialog-heading">
-            <Typography variant="h6">Add New Resolution</Typography>
+            <Typography variant="h6">{t("Add New Resolution")}</Typography>
             <IconButton onClick={() => this.handleAddResolutionsModal()}>
               <CloseIcon />
             </IconButton>
@@ -549,7 +552,7 @@ class DocumentListChairman extends DocumentListChairmanController {
               />
               {this.state.title.length > 100 && (
                 <span className="error">
-                  Maximum length of title should be 100 character
+                  {t("Maximum length of title should be 100 character")}
                 </span>
               )}
             </FormControl>
@@ -561,7 +564,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                 }}
               >
                 <img src={UploadImage} />
-                <Typography variant="body1">Upload file</Typography>
+                <Typography variant="body1">{t("Upload file")}</Typography>
               </div>
               <input
                 id="myInput"
@@ -582,7 +585,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                     this.state.selectedMeeting.attributes.title}
                 </span>
                 <span onClick={() => this.handleSelectMeetingModal()}>
-                  Change
+                  {t("Change")}
                 </span>
               </div>
             ) : (
@@ -590,7 +593,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                 className="choose-meeting"
                 onClick={() => this.handleSelectMeetingModal()}
               >
-                <span>Choose Meeting</span>
+                <span>{t("Choose Meeting")}</span>
               </div>
             )}
           </DialogContent>
@@ -599,7 +602,7 @@ class DocumentListChairman extends DocumentListChairmanController {
               className="cancel-button"
               onClick={() => this.handleAddResolutionsModal()}
             >
-              Cancel
+              {t("Cancel")}
             </Button>
             <Button
               className="add-button"
@@ -612,7 +615,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                 this.state.file === null
               }
             >
-              Create
+              {t("Create")}
             </Button>
           </DialogActions>
         </Dialog>
@@ -626,7 +629,7 @@ class DocumentListChairman extends DocumentListChairmanController {
           className="select-meeting"
         >
           <MuiDialogTitle disableTypography className="dialog-heading">
-            <Typography variant="h6">Select Meeting Minutes</Typography>
+            <Typography variant="h6">{t("Select Meeting Minutes")}</Typography>
             <IconButton onClick={() => this.handleSelectMeetingModal()}>
               <CloseIcon />
             </IconButton>
@@ -692,14 +695,14 @@ class DocumentListChairman extends DocumentListChairmanController {
                 className="cancel-button"
                 onClick={() => this.handleSelectMeetingModal()}
               >
-                Cancel
+                {t("Cancel")}
               </Button>
               <Button
                 className="add-button"
                 onClick={() => this.handleSelectMeetingModal()}
                 disabled={!this.state.selectedMeeting}
               >
-                Create
+                {t("Create")}
               </Button>
             </div>
           </DialogActions>
@@ -712,7 +715,7 @@ class DocumentListChairman extends DocumentListChairmanController {
           className="select-meeting"
         >
           <MuiDialogTitle disableTypography className="dialog-heading">
-            <Typography variant="h6">Share</Typography>
+            <Typography variant="h6">{t("Share")}</Typography>
             <IconButton onClick={() => this.handleShareModal()}>
               <CloseIcon />
             </IconButton>
@@ -800,5 +803,5 @@ class DocumentListChairman extends DocumentListChairmanController {
   }
 }
 
-export default withStyles(DocumentReportStyleWeb)(DocumentListChairman);
+export default withTranslation()(withStyles(DocumentReportStyleWeb)(DocumentListChairman));
 // Customizable Area End

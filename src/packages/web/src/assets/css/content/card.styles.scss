@@ -146,7 +146,6 @@
   }
 
   margin-bottom: 25px;
-
   &.management-card {
     margin: 0;
 
@@ -231,7 +230,6 @@
       &.success {
         & .MuiOutlinedInput-root {
           background-color: $GREEN_SHADE1;
-
         }
 
         & .MuiInputBase-input {
@@ -404,17 +402,23 @@
     }
   }
 
-  & .neighbour-card {
+  &.neighbour-card {
     box-shadow: none;
     border: 0;
     margin-bottom: 10px;
-
+    cursor: pointer;
+    &.neighbour-list-card
+    {
+      &:hover{
+        box-shadow: 1px 1px 9px 0px #cccc;
+      }
+    }
+    
     & .MuiCardContent-root {
       display: flex;
       flex-direction: column;
       align-items: center;
     }
-
     & h4 {
       &.MuiTypography-body1 {
         margin: 10px 0;
@@ -425,30 +429,30 @@
         }
       }
     }
-
     & .social-raw {
       display: flex;
       background-color: #f6f6f6;
       padding: 12px;
       border-radius: 20px;
       margin-top: 10px;
-
       & .blocks {
         border-right: 2px solid #d7dbe4;
-
         &:last-child {
           border-right: 0;
         }
-
         & .icons {
           height: 18px;
           width: 18px;
           object-fit: contain;
           border-radius: 0;
         }
-
         padding: 0 10px;
       }
+    }
+    & .info-icon {
+      height: 50px;
+      width: 50px;
+      object-fit: contain;
     }
   }
 
@@ -459,6 +463,26 @@
     @include mq(tablet-portrait-large-up) {
       width: 100%;
     }
+    & .social-raw {
+      position: relative;
+      &::before {
+        content: " ";
+        position: absolute;
+        top: 20px;
+        left: -100%;
+        border-bottom: 1px solid #f6f6f6;
+        width: 100%;
+      }
+
+      &::after {
+        content: " ";
+        position: absolute;
+        top: 20px;
+        right: -100%;
+        border-bottom: 1px solid #f6f6f6;
+        width: 100%;
+      }
+    }
 
     & .card-content {
       padding: 0;
@@ -466,29 +490,6 @@
       & .bio-content-row {
         // width: 100%;
         padding: 16px;
-
-        & .social-raw {
-          position: relative;
-
-          &::before {
-            content: " ";
-            position: absolute;
-            top: 20px;
-            left: -100%;
-            border-bottom: 1px solid #f6f6f6;
-            width: 100%;
-          }
-
-          &::after {
-            content: " ";
-            position: absolute;
-            top: 20px;
-            right: -100%;
-            border-bottom: 1px solid #f6f6f6;
-            width: 100%;
-          }
-        }
-
         & .bio-row {
           & .customButton {
             display: flex;
@@ -504,7 +505,6 @@
             }
           }
         }
-
         & .social-data-row {
           & .icons-row {
             & .MuiButtonBase-root {
