@@ -1571,7 +1571,13 @@ this.setState({loading:true})
     const validations = Yup.object().shape({
 
       full_name: Yup.string().required(`This field is required`).trim(),
-      phone: Yup.string().required(`This field is required`).trim(),
+      phone: Yup.number()
+        .typeError("Only numbers are allowed.")
+        .required("Mobile number is required.")
+        .positive("Negative numbers are not allowed.")
+        .integer("Number can't contain a decimal.")
+        .min(10000000, "Minimum 8 digits are required.")
+        .max(99999999999, "Maximum 11 digits are allowed."),
       email: Yup.string().required(`This field is required`).trim(),
       DOB: Yup.string().required(`This field is required`).trim(),
       hobbies: Yup.string().required(`This field is required`).trim(),
@@ -1593,8 +1599,14 @@ this.setState({loading:true})
       this.props.history.push("/editfamily")
 
     } else {
-      this.setState({ anchorEl: item.currentTarget, showDialog2: false })
+      this.setState({ anchorEl: item.currentTarget, showDialog: false })
     }
+    // this.setState({ anchorEl:null,showDialog:false })
+  };
+  handleClose2 = (item: any) => {
+
+      this.setState({ anchorEl: item.currentTarget, showDialog2: false })
+
     // this.setState({ anchorEl:null,showDialog:false })
   };
   deleteRequest() {
