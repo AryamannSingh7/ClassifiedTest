@@ -8,6 +8,7 @@ import {
   CardContent,
   CardActions,
   Typography,
+  TextField,
   TextField
 } from "@material-ui/core";
 
@@ -30,11 +31,14 @@ import {
   Search_Icon,
   Building_Icon,
   NoProfile_Img,
+  NoProfile_Img,
   User1_Img,
   User2_Img,
   User3_Img,
   Chat_Icon,
   Contact_Icon,
+  Cancel_Icon,
+  Setting_Icon,
   Cancel_Icon,
   Setting_Icon,
   Email_Msg_Icon,
@@ -43,6 +47,7 @@ import {
   Email_Disable_Icon
 }
   from "../src/assets";
+import { building } from "../../email-account-registration/src/assets";
 import { building } from "../../email-account-registration/src/assets";
 class NeighboursListing extends NeighboursController {
   //@ts-ignore
@@ -61,7 +66,7 @@ class NeighboursListing extends NeighboursController {
         <Box className="login-wrapper incident-wrapper neighbour-listing-wrapper">
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
-              <Box className="content-block common_content_block">
+              <Box className="content-block common_content_block common_content_block">
                 <Box className="content-header">
                   <Box className="left-block blocks">
                     <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
@@ -94,7 +99,7 @@ class NeighboursListing extends NeighboursController {
                 </Box>
                 <Box className="content-block-wrapper common-incident-block desktop-ui">
                   <Box className="commonForm neighbour-form">
-                      <Box className="formGroup customSelect neighborSelect">
+                      <Box className="formGroup customSelect neighborSelect neighborSelect">
                         <FormControl variant="outlined" >
                           <span className="frmLeftIcons">
                             <img src={Building_Icon} className="frm-icons" alt="House Icon" />

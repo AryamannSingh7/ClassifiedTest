@@ -39,6 +39,9 @@ import {
   Twitter_Icon,
   Instagram_Icon,
   Snapchat_Icon,
+  NoProfile_Img,
+  Instagram_Icon,
+  Snapchat_Icon,
   NoProfile_Img
 }
   from "../src/assets";
@@ -62,7 +65,7 @@ class NeighboursDetails extends NeighboursController {
     console.log("getNeighboursDetails=====>", this.state?.getNeighboursDetails)
     return (
       <>
-        <Box className="login-wrapper incident-wrapper neighbour-listing-wrapper">
+         <Box className="login-wrapper incident-wrapper neighbour-listing-wrapper">
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
               <Box className="content-block" style={{backgroundColor : "white"}}>
