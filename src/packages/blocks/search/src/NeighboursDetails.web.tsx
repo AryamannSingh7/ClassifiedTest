@@ -40,9 +40,6 @@ import {
   Instagram_Icon,
   Snapchat_Icon,
   NoProfile_Img,
-  Instagram_Icon,
-  Snapchat_Icon,
-  NoProfile_Img
 }
   from "../src/assets";
 class NeighboursDetails extends NeighboursController {

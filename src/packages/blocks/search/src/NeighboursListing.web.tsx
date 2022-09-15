@@ -8,7 +8,6 @@ import {
   CardContent,
   CardActions,
   Typography,
-  TextField,
   TextField
 } from "@material-ui/core";
 
@@ -31,14 +30,11 @@ import {
   Search_Icon,
   Building_Icon,
   NoProfile_Img,
-  NoProfile_Img,
   User1_Img,
   User2_Img,
   User3_Img,
   Chat_Icon,
   Contact_Icon,
-  Cancel_Icon,
-  Setting_Icon,
   Cancel_Icon,
   Setting_Icon,
   Email_Msg_Icon,
@@ -47,7 +43,6 @@ import {
   Email_Disable_Icon
 }
   from "../src/assets";
-import { building } from "../../email-account-registration/src/assets";
 import { building } from "../../email-account-registration/src/assets";
 class NeighboursListing extends NeighboursController {
   //@ts-ignore
