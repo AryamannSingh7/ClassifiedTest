@@ -55,7 +55,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
   async componentDidMount(): Promise<void> {
     await this.getAllMeetings();
     await this.getBuildingsList();
-    await this.getManagersList();
+    // await this.getManagersList();
     await this.getUserList();
     await this.getGroupList();
   }
@@ -325,6 +325,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
             </IconButton>
           </MuiDialogTitle>
           <Formik
+            enableReinitialize={true}
             initialValues={this.state.meetingForm}
             validationSchema={this.addMeetingValidation}
             onSubmit={(values, { resetForm }) => {
@@ -340,7 +341,10 @@ class ScheduledMeeting extends ScheduledMeetingController {
                     <FormControl fullWidth>
                       <Select
                         value={values.meetingType}
-                        onChange={handleChange}
+                        onChange={(e: any) => {
+                          setFieldValue("meetingType", e.target.value);
+                          this.setState({ meetingForm: { ...this.state.meetingForm, meetingType: e.target.value } });
+                        }}
                         onBlur={handleBlur}
                         name="meetingType"
                         displayEmpty
@@ -359,7 +363,10 @@ class ScheduledMeeting extends ScheduledMeetingController {
                     <FormControl fullWidth>
                       <Input
                         value={values.title}
-                        onChange={handleChange}
+                        onChange={(e: any) => {
+                          setFieldValue("title", e.target.value);
+                          this.setState({ meetingForm: { ...this.state.meetingForm, title: e.target.value } });
+                        }}
                         onBlur={handleBlur}
                         name="title"
                         placeholder="Title"
@@ -373,7 +380,10 @@ class ScheduledMeeting extends ScheduledMeetingController {
                           <div className="date-time">
                             <input
                               value={values.date}
-                              onChange={handleChange}
+                              onChange={(e: any) => {
+                                setFieldValue("date", e.target.value);
+                                this.setState({ meetingForm: { ...this.state.meetingForm, date: e.target.value } });
+                              }}
                               onBlur={handleBlur}
                               name="date"
                               className="date"
@@ -391,7 +401,10 @@ class ScheduledMeeting extends ScheduledMeetingController {
                           <div className="date-time">
                             <Input
                               value={values.time}
-                              onChange={handleChange}
+                              onChange={(e: any) => {
+                                setFieldValue("time", e.target.value);
+                                this.setState({ meetingForm: { ...this.state.meetingForm, time: e.target.value } });
+                              }}
                               onBlur={handleBlur}
                               name="time"
                               fullWidth
@@ -407,7 +420,10 @@ class ScheduledMeeting extends ScheduledMeetingController {
                     <FormControl fullWidth>
                       <Select
                         value={values.building}
-                        onChange={handleChange}
+                        onChange={(e: any) => {
+                          setFieldValue("building", e.target.value);
+                          this.setState({ meetingForm: { ...this.state.meetingForm, building: e.target.value } });
+                        }}
                         onBlur={handleBlur}
                         name="building"
                         displayEmpty
@@ -429,7 +445,10 @@ class ScheduledMeeting extends ScheduledMeetingController {
                     <FormControl fullWidth>
                       <Input
                         value={values.place}
-                        onChange={handleChange}
+                        onChange={(e: any) => {
+                          setFieldValue("place", e.target.value);
+                          this.setState({ meetingForm: { ...this.state.meetingForm, place: e.target.value } });
+                        }}
                         onBlur={handleBlur}
                         name="place"
                         placeholder="Place"
@@ -440,7 +459,10 @@ class ScheduledMeeting extends ScheduledMeetingController {
                     <FormControl fullWidth>
                       <TextareaAutosize
                         value={values.agenda}
-                        onChange={handleChange}
+                        onChange={(e: any) => {
+                          setFieldValue("agenda", e.target.value);
+                          this.setState({ meetingForm: { ...this.state.meetingForm, agenda: e.target.value } });
+                        }}
                         onBlur={handleBlur}
                         name="agenda"
                         placeholder="Agenda"
@@ -448,7 +470,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                       />
                       {errors.agenda && touched.agenda && <small className="error">{errors.agenda}</small>}
                     </FormControl>
-                    {localStorage.getItem("userType") !== ROLE.MANAGER && (
+                    {/* {localStorage.getItem("userType") !== ROLE.MANAGER && (
                       <FormControl fullWidth>
                         <Select
                           displayEmpty
@@ -471,64 +493,75 @@ class ScheduledMeeting extends ScheduledMeetingController {
                         </Select>
                         {errors.momWriter && touched.momWriter && <small className="error">{errors.momWriter}</small>}
                       </FormControl>
-                    )}
+                    )} */}
                     {/* Create Audience */}
-                    <Box className="create-audience">
-                      <p>Select Meeting Attendees</p>
-                      <span onClick={() => this.openCreateAttendeeModal()}>+ Create New Group</span>
-                    </Box>
-                    <Box className="attendee-box">
-                      <Box
-                        className={`${this.state.selectedGroup === "owner" && "active"} attendee`}
-                        onClick={() => {
-                          this.setState({ selectedGroup: "owner" });
-                        }}
-                      >
-                        <span>Owner</span>
+                    <FormControl fullWidth>
+                      <Box className="create-audience">
+                        <p>Select Meeting Attendees</p>
+                        <span onClick={() => this.openCreateAttendeeModal()}>+ Create New Group</span>
                       </Box>
-                      <Box
-                        className={`${this.state.selectedGroup === "resident" && "active"} attendee`}
-                        onClick={() => {
-                          this.setState({ selectedGroup: "resident" });
-                        }}
-                      >
-                        <span>Resident</span>
-                      </Box>
-                      {this.state.groupList.map((group: any) => {
-                        return (
-                          <Box
-                            className={`${this.state.selectedGroup === group.id.toString() && "active"} attendee`}
-                            onClick={() => {
-                              this.setState({ selectedGroup: group.id.toString() }, () => {
-                                this.getGroupIdsList(group.id);
-                              });
-                            }}
-                          >
-                            <span>{group.attributes.group_name}</span>
-                            <Box>
-                              <Menu
-                                direction="top"
-                                align="end"
-                                menuButton={<img src={Dots} alt="|" />}
-                                className="attendee-menu"
+                      <Box className="attendee-box">
+                        <Box
+                          className={`${this.state.selectedGroup.includes("owner") && "active"} attendee`}
+                          onClick={() => {
+                            this.handleSelectedGroupList("owner");
+                            touched["attendeeIds"] = true;
+                          }}
+                        >
+                          <span>Owner</span>
+                        </Box>
+                        <Box
+                          className={`${this.state.selectedGroup.includes("resident") && "active"} attendee`}
+                          onClick={() => {
+                            this.handleSelectedGroupList("resident");
+                            touched["attendeeIds"] = true;
+                          }}
+                        >
+                          <span>Resident</span>
+                        </Box>
+                        {this.state.groupList.map((group: any) => {
+                          return (
+                            <Box
+                              key={group.id}
+                              className={`${this.state.selectedGroup.includes(group.id.toString()) &&
+                                "active"} attendee`}
+                            >
+                              <span
+                                onClick={() => {
+                                  this.handleSelectedGroupList(group.id.toString());
+                                  touched["attendeeIds"] = true;
+                                }}
                               >
-                                <MenuItem
-                                  onClick={() => {
-                                    this.setState({ isEditAttendeeModalOpen: true, groupId: group.id }, () => {
-                                      this.getGroupDetails(group.id);
-                                      this.handleCreateAttendeeModal();
-                                    });
-                                  }}
+                                {group.attributes.group_name}
+                              </span>
+                              <Box>
+                                <Menu
+                                  direction="top"
+                                  align="end"
+                                  menuButton={<img src={Dots} alt="|" />}
+                                  className="attendee-menu"
                                 >
-                                  Edit
-                                </MenuItem>
-                                <MenuItem onClick={() => this.deleteGroup(group.id)}>Delete</MenuItem>
-                              </Menu>
+                                  <MenuItem
+                                    onClick={() => {
+                                      this.setState({ isEditAttendeeModalOpen: true, groupId: group.id }, () => {
+                                        this.getGroupDetails(group.id);
+                                        this.handleCreateAttendeeModal();
+                                      });
+                                    }}
+                                  >
+                                    Edit
+                                  </MenuItem>
+                                  <MenuItem onClick={() => this.deleteGroup(group.id)}>Delete</MenuItem>
+                                </Menu>
+                              </Box>
                             </Box>
-                          </Box>
-                        );
-                      })}
-                    </Box>
+                          );
+                        })}
+                      </Box>
+                      {errors.attendeeIds && touched.attendeeIds && (
+                        <small className="error">{errors.attendeeIds}</small>
+                      )}
+                    </FormControl>
                   </DialogContent>
                   <DialogActions className="dialog-button-group">
                     <Button className="cancel-button" onClick={() => this.handleCreateMeetingModal()}>
@@ -552,6 +585,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
             </IconButton>
           </MuiDialogTitle>
           <Formik
+            enableReinitialize={true}
             initialValues={this.state.meetingForm}
             validationSchema={this.addMeetingValidation}
             onSubmit={(values, { resetForm }) => {
@@ -566,7 +600,10 @@ class ScheduledMeeting extends ScheduledMeetingController {
                     <FormControl fullWidth>
                       <Select
                         value={values.meetingType}
-                        onChange={handleChange}
+                        onChange={(e: any) => {
+                          setFieldValue("meetingType", e.target.value);
+                          this.setState({ meetingForm: { ...this.state.meetingForm, meetingType: e.target.value } });
+                        }}
                         onBlur={handleBlur}
                         name="meetingType"
                         displayEmpty
@@ -585,7 +622,10 @@ class ScheduledMeeting extends ScheduledMeetingController {
                     <FormControl fullWidth>
                       <Input
                         value={values.title}
-                        onChange={handleChange}
+                        onChange={(e: any) => {
+                          setFieldValue("title", e.target.value);
+                          this.setState({ meetingForm: { ...this.state.meetingForm, title: e.target.value } });
+                        }}
                         onBlur={handleBlur}
                         name="title"
                         placeholder="Title"
@@ -599,7 +639,10 @@ class ScheduledMeeting extends ScheduledMeetingController {
                           <div className="date-time">
                             <input
                               value={values.date}
-                              onChange={handleChange}
+                              onChange={(e: any) => {
+                                setFieldValue("date", e.target.value);
+                                this.setState({ meetingForm: { ...this.state.meetingForm, date: e.target.value } });
+                              }}
                               onBlur={handleBlur}
                               name="date"
                               className="date"
@@ -615,7 +658,10 @@ class ScheduledMeeting extends ScheduledMeetingController {
                           <div className="date-time">
                             <Input
                               value={values.time}
-                              onChange={handleChange}
+                              onChange={(e: any) => {
+                                setFieldValue("time", e.target.value);
+                                this.setState({ meetingForm: { ...this.state.meetingForm, time: e.target.value } });
+                              }}
                               onBlur={handleBlur}
                               name="time"
                               fullWidth
@@ -629,7 +675,10 @@ class ScheduledMeeting extends ScheduledMeetingController {
                     <FormControl fullWidth>
                       <Select
                         value={values.building}
-                        onChange={handleChange}
+                        onChange={(e: any) => {
+                          setFieldValue("building", e.target.value);
+                          this.setState({ meetingForm: { ...this.state.meetingForm, building: e.target.value } });
+                        }}
                         onBlur={handleBlur}
                         name="building"
                         displayEmpty
@@ -651,7 +700,10 @@ class ScheduledMeeting extends ScheduledMeetingController {
                     <FormControl fullWidth>
                       <Input
                         value={values.place}
-                        onChange={handleChange}
+                        onChange={(e: any) => {
+                          setFieldValue("place", e.target.value);
+                          this.setState({ meetingForm: { ...this.state.meetingForm, place: e.target.value } });
+                        }}
                         onBlur={handleBlur}
                         name="place"
                         placeholder="Place"
@@ -662,7 +714,10 @@ class ScheduledMeeting extends ScheduledMeetingController {
                     <FormControl fullWidth>
                       <TextareaAutosize
                         value={values.agenda}
-                        onChange={handleChange}
+                        onChange={(e: any) => {
+                          setFieldValue("agenda", e.target.value);
+                          this.setState({ meetingForm: { ...this.state.meetingForm, agenda: e.target.value } });
+                        }}
                         onBlur={handleBlur}
                         name="agenda"
                         placeholder="Agenda"
@@ -670,7 +725,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                       />
                       {errors.agenda && touched.agenda && <small className="error">{errors.agenda}</small>}
                     </FormControl>
-                    {localStorage.getItem("userType") !== ROLE.MANAGER && (
+                    {/* {localStorage.getItem("userType") !== ROLE.MANAGER && (
                       <FormControl fullWidth>
                         <Select
                           displayEmpty
@@ -693,11 +748,14 @@ class ScheduledMeeting extends ScheduledMeetingController {
                         </Select>
                         {errors.momWriter && touched.momWriter && <small className="error">{errors.momWriter}</small>}
                       </FormControl>
-                    )}
+                    )} */}
                     <FormControl fullWidth>
                       <Select
                         value={values.status}
-                        onChange={handleChange}
+                        onChange={(e: any) => {
+                          setFieldValue("status", e.target.value);
+                          this.setState({ meetingForm: { ...this.state.meetingForm, status: e.target.value } });
+                        }}
                         onBlur={handleBlur}
                         name="status"
                         displayEmpty
@@ -713,45 +771,73 @@ class ScheduledMeeting extends ScheduledMeetingController {
                       {errors.status && touched.status && <small className="error">{errors.status}</small>}
                     </FormControl>
                     {/* Create Audience */}
-                    <Box className="create-audience">
-                      <p>Select Meeting Attendees</p>
-                      <span onClick={() => this.openCreateAttendeeModal()}>+ Create New Group</span>
-                    </Box>
-                    <Box className="attendee-box">
-                      <Box className="active attendee">
-                        <span>Owner</span>
+                    <FormControl fullWidth>
+                      <Box className="create-audience">
+                        <p>Select Meeting Attendees</p>
+                        <span onClick={() => this.openCreateAttendeeModal()}>+ Create New Group</span>
                       </Box>
-                      <Box className="attendee">
-                        <span>Resident</span>
-                      </Box>
-                      {this.state.groupList.map((group: any) => {
-                        return (
-                          <Box className="attendee" onClick={() => this.getGroupIdsList(group.id)}>
-                            <span>{group.attributes.group_name}</span>
-                            <Box>
-                              <Menu
-                                direction="top"
-                                align="end"
-                                menuButton={<img src={Dots} alt="|" />}
-                                className="attendee-menu"
+                      <Box className="attendee-box">
+                        <Box
+                          className={`${this.state.selectedGroup.includes("owner") && "active"} attendee`}
+                          onClick={() => {
+                            this.handleSelectedGroupList("owner");
+                            touched["attendeeIds"] = true;
+                          }}
+                        >
+                          <span>Owner</span>
+                        </Box>
+                        <Box
+                          className={`${this.state.selectedGroup.includes("resident") && "active"} attendee`}
+                          onClick={() => {
+                            this.handleSelectedGroupList("resident");
+                            touched["attendeeIds"] = true;
+                          }}
+                        >
+                          <span>Resident</span>
+                        </Box>
+                        {this.state.groupList.map((group: any) => {
+                          return (
+                            <Box
+                              key={group.id}
+                              className={`${this.state.selectedGroup.includes(group.id.toString()) &&
+                                "active"} attendee`}
+                            >
+                              <span
+                                onClick={() => {
+                                  this.handleSelectedGroupList(group.id.toString());
+                                  touched["attendeeIds"] = true;
+                                }}
                               >
-                                <MenuItem
-                                  onClick={() => {
-                                    this.setState({ isEditAttendeeModalOpen: true, groupId: group.id }, () => {
-                                      this.getGroupDetails(group.id);
-                                      this.handleCreateAttendeeModal();
-                                    });
-                                  }}
+                                {group.attributes.group_name}
+                              </span>
+                              <Box>
+                                <Menu
+                                  direction="top"
+                                  align="end"
+                                  menuButton={<img src={Dots} alt="|" />}
+                                  className="attendee-menu"
                                 >
-                                  Edit
-                                </MenuItem>
-                                <MenuItem onClick={() => this.deleteGroup(group.id)}>Delete</MenuItem>
-                              </Menu>
+                                  <MenuItem
+                                    onClick={() => {
+                                      this.setState({ isEditAttendeeModalOpen: true, groupId: group.id }, () => {
+                                        this.getGroupDetails(group.id);
+                                        this.handleCreateAttendeeModal();
+                                      });
+                                    }}
+                                  >
+                                    Edit
+                                  </MenuItem>
+                                  <MenuItem onClick={() => this.deleteGroup(group.id)}>Delete</MenuItem>
+                                </Menu>
+                              </Box>
                             </Box>
-                          </Box>
-                        );
-                      })}
-                    </Box>
+                          );
+                        })}
+                      </Box>
+                      {errors.attendeeIds && touched.attendeeIds && (
+                        <small className="error">{errors.attendeeIds}</small>
+                      )}
+                    </FormControl>
                   </DialogContent>
                   <DialogActions className="dialog-button-group">
                     <Button className="cancel-button" onClick={() => this.handleEditMeetingModal()}>
@@ -824,7 +910,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                 <em>Select Building</em>
               </MenuItem>
               {this.state.buildingsList.map((building: any) => {
-                return <MenuItem>GA Meeting</MenuItem>;
+                return <MenuItem key={building.id}>{building.name}</MenuItem>;
               })}
             </Select>
             <Select value="" name="meetingType" displayEmpty className="dialog-select-input">
@@ -891,7 +977,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                           />
                         </TableCell>
                         <TableCell>{user.attributes.full_name}</TableCell>
-                        <TableCell>{"-"}</TableCell>
+                        <TableCell>{user.attributes.building_management.name}</TableCell>
                         <TableCell>{user.attributes.unit_number}</TableCell>
                         <TableCell>{user.attributes.floor_number}</TableCell>
                         <TableCell>{user.attributes.user_type.toString()}</TableCell>

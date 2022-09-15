@@ -22,8 +22,8 @@ export const DocumentReportStyleWeb: any = {
       justifyContent: "space-between",
       flexDirection: "row",
       width: "100%",
-      marginTop: 15,
-      marginBottom: 20,
+      marginTop: 10,
+      marginBottom: 0,
     },
     "& .navigation .sub-heading": {
       fontWeight: 600,

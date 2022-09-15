@@ -1,7 +1,4 @@
 // Customizable Area Start
-//@ts-nocheck
-//@ts-ignore
-
 import React from "react";
 import {
   Button,
@@ -27,18 +24,11 @@ import {
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import CloseIcon from "@material-ui/icons/Close";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
-import DocumentListChairmanController, {
-  Props,
-} from "./DocumentListChairmanController.web";
+import DocumentListChairmanController, { Props } from "./DocumentListChairmanController.web";
 import { DocumentReportStyleWeb } from "./DocumentReportStyle.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
-import Document from "../assets/document.png";
-import UploadImage from "../assets/upload.png";
-import DeleteImage from "../assets/delete.png";
-import ShareImage from "../assets/share.png";
-import DownloadImage from "../assets/download.png";
-import PdfImage from "../assets/pdf.png";
+import { Document, UploadImage, DeleteImage, ShareImage, DownloadImage, PdfImage } from "./assets";
 import { Menu } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/core.css";
 import {
@@ -61,8 +51,8 @@ import {
 } from "react-share";
 import moment from "moment";
 import { Formik, Form } from "formik";
-import { withTranslation } from 'react-i18next';
-import '../../../web/src/i18n.js';
+import { withTranslation } from "react-i18next";
+import "../../../web/src/i18n.js";
 
 class DocumentListChairman extends DocumentListChairmanController {
   constructor(props: Props) {
@@ -70,7 +60,7 @@ class DocumentListChairman extends DocumentListChairmanController {
   }
 
   render() {
-    const {t} = this.props
+    const { t }: any = this.props;
     const { classes } = this.props;
 
     const sharePopupWidth = 500;
@@ -81,9 +71,7 @@ class DocumentListChairman extends DocumentListChairmanController {
 
     window.addEventListener("pageshow", (event) => {
       const historyTraversal =
-        event.persisted ||
-        (typeof window.performance != "undefined" &&
-          window.performance.navigation.type === 2);
+        event.persisted || (typeof window.performance != "undefined" && window.performance.navigation.type === 2);
 
       if (historyTraversal) {
         window.location.reload();
@@ -92,10 +80,7 @@ class DocumentListChairman extends DocumentListChairmanController {
 
     return (
       <>
-        <Box
-          style={{ background: "#F4F7FF" }}
-          className={classes.documentChairman}
-        >
+        <Box style={{ background: "#F4F7FF" }} className={classes.documentChairman}>
           {/* Dashboard Header -- */}
           <DashboardHeader {...this.props} />
           <Box style={{ display: "flex" }}>
@@ -126,44 +111,25 @@ class DocumentListChairman extends DocumentListChairmanController {
                           <Typography variant="h5" className="sub-heading">
                             {this.state.docName}
                           </Typography>
-                          {this.state.docName.toLowerCase() ===
-                          "resolutions" ? (
-                            <Button
-                              onClick={() => this.handleAddResolutionsModal()}
-                            >
-                              {t("Add New Resolution")}
-                            </Button>
+                          {this.state.docName.toLowerCase() === "resolutions" ? (
+                            <Button onClick={() => this.handleAddResolutionsModal()}>{t("Add New Resolution")}</Button>
                           ) : (
-                            <Button
-                              onClick={() => this.handleAddDocumentModal()}
-                            >
-                              {t("Upload Documents")}
-                            </Button>
+                            <Button onClick={() => this.handleAddDocumentModal()}>{t("Upload Documents")}</Button>
                           )}
                         </Box>
                       </Box>
                     </Box>
                     <Box
                       className={`document-box ${
-                        this.state.docName.toLowerCase() === "resolutions"
-                          ? "resolutions"
-                          : ""
+                        this.state.docName.toLowerCase() === "resolutions" ? "resolutions" : ""
                       }`}
                     >
                       {this.state.docName.toLowerCase() === "resolutions" ? (
                         <Grid container spacing={2}>
-                          {this.state.resolutionList.length === 0 && (
-                            <span>{("No Resolution Available!!")}</span>
-                          )}
+                          {this.state.resolutionList.length === 0 && <span>{"No Resolution Available!!"}</span>}
                           {this.state.resolutionList.map((resolution: any) => {
                             return (
-                              <Grid
-                                item
-                                xs={12}
-                                md={6}
-                                lg={4}
-                                key={resolution.id}
-                              >
+                              <Grid item xs={12} md={6} lg={4} key={resolution.id}>
                                 <Card className="card-item">
                                   <div className="heading">
                                     <h4>{resolution.attributes.title}</h4>
@@ -176,28 +142,15 @@ class DocumentListChairman extends DocumentListChairmanController {
                                         }
                                       >
                                         <MenuItem>
-                                          <Link
-                                            href={
-                                              resolution.attributes
-                                                .attachments[0].url
-                                            }
-                                            target="_blank"
-                                          >
+                                          <Link href={resolution.attributes.meeting_mins_pdf.url} target="_blank">
                                             {t("Download")}
                                           </Link>
                                         </MenuItem>
                                         <MenuItem
                                           onClick={() => {
-                                            this.setState(
-                                              {
-                                                ...this.state,
-                                                selectedDocumentId:
-                                                  resolution.id,
-                                              },
-                                              () => {
-                                                this.handleDeleteDocumentModal();
-                                              }
-                                            );
+                                            this.setState({ ...this.state, selectedDocumentId: resolution.id }, () => {
+                                              this.handleDeleteDocumentModal();
+                                            });
                                           }}
                                         >
                                           {t("Delete")}
@@ -207,11 +160,8 @@ class DocumentListChairman extends DocumentListChairmanController {
                                             this.setState(
                                               {
                                                 ...this.state,
-                                                shareUrl:
-                                                  resolution.attributes
-                                                    .attachments[0].url,
-                                                shareQuote:
-                                                  resolution.attributes.title,
+                                                shareUrl: resolution.attributes.meeting_mins_pdf.url,
+                                                shareQuote: resolution.attributes.title,
                                               },
                                               () => {
                                                 this.handleShareModal();
@@ -227,25 +177,17 @@ class DocumentListChairman extends DocumentListChairmanController {
                                   <div className="res-info">
                                     <div className="info-item">
                                       <p>{t("Date & Time")}</p>
-                                      <span>
-                                        {moment(
-                                          resolution.attributes.created_at
-                                        ).format("DD-MM-YYYY HH:mm")}
-                                      </span>
+                                      <span>{moment(resolution.attributes.created_at).format("DD-MM-YYYY HH:mm")}</span>
                                     </div>
                                     <div className="info-item">
                                       <p>{t("Building")}</p>
-                                      <span>
-                                        {resolution.attributes.buidling_name}
-                                      </span>
+                                      <span>{resolution.attributes.buidling_name}</span>
                                     </div>
                                   </div>
                                   <div className="item">
                                     <div className="item-title">
                                       <img src={PdfImage} />
-                                      <h6>
-                                        {resolution.attributes.meeting.title}
-                                      </h6>
+                                      <h6>{resolution.attributes.meeting.title}</h6>
                                     </div>
                                     <div className="icons">
                                       <img
@@ -254,12 +196,8 @@ class DocumentListChairman extends DocumentListChairmanController {
                                           this.setState(
                                             {
                                               ...this.state,
-                                              shareUrl:
-                                                resolution.attributes
-                                                  .meeting_mins_pdf.url,
-                                              shareQuote:
-                                                resolution.attributes.meeting
-                                                  .title,
+                                              shareUrl: resolution.attributes.meeting_mins_pdf.url,
+                                              shareQuote: resolution.attributes.meeting.title,
                                             },
                                             () => {
                                               this.handleShareModal();
@@ -267,13 +205,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                                           );
                                         }}
                                       />
-                                      <Link
-                                        href={
-                                          resolution.attributes.meeting_mins_pdf
-                                            .url
-                                        }
-                                        target="_blank"
-                                      >
+                                      <Link href={resolution.attributes.meeting_mins_pdf.url} target="_blank">
                                         <img src={DownloadImage} />
                                       </Link>
                                     </div>
@@ -285,26 +217,15 @@ class DocumentListChairman extends DocumentListChairmanController {
                         </Grid>
                       ) : (
                         <Grid container spacing={2}>
-                          {this.state.documentList.length === 0 && (
-                            <span>{t("No Document Available!!")}</span>
-                          )}
+                          {this.state.documentList.length === 0 && <span>{t("No Document Available!!")}</span>}
                           {this.state.documentList.map((document: any) => {
                             return (
                               <Grid item xs={12} md={12} lg={12}>
                                 <Box className="item">
-                                  <Link
-                                    href={`/DocumentChairman/${
-                                      this.state.docName
-                                    }/${document.id}/view`}
-                                  >
+                                  <Link href={`/DocumentChairman/${this.state.docName}/${document.id}/view`}>
                                     <div className="heading">
                                       <img src={Document} />
-                                      <h4>
-                                        {
-                                          document.attributes.images[0]
-                                            .file_name
-                                        }
-                                      </h4>
+                                      <h4>{document.attributes.images[0].file_name}</h4>
                                     </div>
                                   </Link>
                                   <div className="menu">
@@ -316,13 +237,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                                       }
                                     >
                                       <MenuItem>
-                                        <Link
-                                          href={
-                                            document.attributes.images[0]
-                                              .download_url
-                                          }
-                                          target="_blank"
-                                        >
+                                        <Link href={document.attributes.images[0].download_url} target="_blank">
                                           {t("Download")}
                                         </Link>
                                       </MenuItem>
@@ -346,11 +261,8 @@ class DocumentListChairman extends DocumentListChairmanController {
                                           this.setState(
                                             {
                                               ...this.state,
-                                              shareUrl:
-                                                document.attributes.images[0]
-                                                  .url,
-                                              shareQuote:
-                                                document.attributes.title,
+                                              shareUrl: document.attributes.images[0].url,
+                                              shareQuote: document.attributes.title,
                                             },
                                             () => {
                                               this.handleShareModal();
@@ -408,17 +320,9 @@ class DocumentListChairman extends DocumentListChairmanController {
               );
             }}
           >
-            {({
-              values,
-              errors,
-              touched,
-              handleChange,
-              handleBlur,
-              handleSubmit,
-              setFieldValue,
-            }) => {
+            {({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue }) => {
               return (
-                <Form onSubmit={handleSubmit}>
+                <Form onSubmit={handleSubmit} translate>
                   <DialogContent dividers>
                     <FormControl fullWidth>
                       <input
@@ -432,9 +336,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                           marginTop: "0",
                         }}
                       />
-                      {errors.title && touched.title && (
-                        <small className="error">{errors.title}</small>
-                      )}
+                      {errors.title && touched.title && <small className="error">{errors.title}</small>}
                     </FormControl>
                     <FormControl fullWidth>
                       <div
@@ -458,20 +360,13 @@ class DocumentListChairman extends DocumentListChairmanController {
                         onBlur={handleBlur}
                         name="file"
                       />
-                      {values.file && (
-                        <span className="file-name">{values.file.name}</span>
-                      )}
-                      {errors.file && touched.file && (
-                        <small className="error">{errors.file}</small>
-                      )}
+                      {values.file && <span className="file-name">{values.file.name}</span>}
+                      {errors.file && touched.file && <small className="error">{errors.file}</small>}
                       <span />
                     </FormControl>
                   </DialogContent>
                   <DialogActions className="dialog-button-group">
-                    <Button
-                      onClick={() => this.handleAddDocumentModal()}
-                      className="cancel-button"
-                    >
+                    <Button onClick={() => this.handleAddDocumentModal()} className="cancel-button">
                       {t("Cancel")}
                     </Button>
                     <Button type="submit" className="add-button">
@@ -495,14 +390,9 @@ class DocumentListChairman extends DocumentListChairmanController {
             <Box textAlign="center">
               <img src={DeleteImage} alt="delete" />
               <Typography variant="h6">{t("Delete Document")}</Typography>
-              <Typography variant="body1">
-                {t("Are you sure want to delete?")}
-              </Typography>
+              <Typography variant="body1">{t("Are you sure want to delete?")}</Typography>
               <DialogActions className="dialog-button-group">
-                <Button
-                  className="cancel-button"
-                  onClick={() => this.handleDeleteDocumentModal()}
-                >
+                <Button className="cancel-button" onClick={() => this.handleDeleteDocumentModal()}>
                   {t("No, Don't Delete")}
                 </Button>
                 <Button
@@ -551,9 +441,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                 }}
               />
               {this.state.title.length > 100 && (
-                <span className="error">
-                  {t("Maximum length of title should be 100 character")}
-                </span>
+                <span className="error">{t("Maximum length of title should be 100 character")}</span>
               )}
             </FormControl>
             <FormControl fullWidth>
@@ -574,34 +462,21 @@ class DocumentListChairman extends DocumentListChairmanController {
                 onChange={this.onChangeFile.bind(this)}
                 accept=".pdf"
               />
-              {this.state.file && (
-                <span className="file-name">{this.state.file.name}</span>
-              )}
+              {this.state.file && <span className="file-name">{this.state.file.name}</span>}
             </FormControl>
             {this.state.selectedMeeting ? (
               <div className="change-meeting">
-                <span>
-                  {this.state.selectedMeeting &&
-                    this.state.selectedMeeting.attributes.title}
-                </span>
-                <span onClick={() => this.handleSelectMeetingModal()}>
-                  {t("Change")}
-                </span>
+                <span>{this.state.selectedMeeting && this.state.selectedMeeting.attributes.title}</span>
+                <span onClick={() => this.handleSelectMeetingModal()}>{t("Change")}</span>
               </div>
             ) : (
-              <div
-                className="choose-meeting"
-                onClick={() => this.handleSelectMeetingModal()}
-              >
+              <div className="choose-meeting" onClick={() => this.handleSelectMeetingModal()}>
                 <span>{t("Choose Meeting")}</span>
               </div>
             )}
           </DialogContent>
           <DialogActions className="dialog-button-group">
-            <Button
-              className="cancel-button"
-              onClick={() => this.handleAddResolutionsModal()}
-            >
+            <Button className="cancel-button" onClick={() => this.handleAddResolutionsModal()}>
               {t("Cancel")}
             </Button>
             <Button
@@ -635,17 +510,15 @@ class DocumentListChairman extends DocumentListChairmanController {
             </IconButton>
           </MuiDialogTitle>
           <DialogContent dividers>
-            Meeting Module will come soon!!
-            {/* <List>
+            {/* Meeting Module will come soon!! */}
+            <List>
               <ListItem dense className="list-heading">
                 <ListItemIcon />
                 <ListItemText primary="Title" />
                 <ListItemText primary="Agenda" />
                 <ListItemText primary="Date & Time" />
               </ListItem>
-              {this.state.meetingsList.length === 0 && (
-                <span>No Meetings Available!!</span>
-              )}
+              {this.state.meetingsList.length === 0 && <span>No Meetings Available!!</span>}
               {this.state.meetingsList.map((meeting: any) => {
                 return (
                   <ListItem key={meeting.id}>
@@ -654,10 +527,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                         edge="start"
                         tabIndex={-1}
                         disableRipple
-                        checked={
-                          this.state.selectedMeeting &&
-                          this.state.selectedMeeting.id === meeting.id
-                        }
+                        checked={this.state.selectedMeeting && this.state.selectedMeeting.id === meeting.id}
                         onChange={(e) => {
                           if (e.target.checked) {
                             this.setState({
@@ -675,26 +545,18 @@ class DocumentListChairman extends DocumentListChairmanController {
                     </ListItemIcon>
                     <ListItemText primary={meeting.attributes.title} />
                     <ListItemText primary={meeting.attributes.agenda} />
-                    <ListItemText
-                      primary={meeting.attributes.meeting_date_time}
-                    />
+                    <ListItemText primary={meeting.attributes.meeting_date_time} />
                   </ListItem>
                 );
               })}
-            </List> */}
+            </List>
           </DialogContent>
           <DialogActions className="dialog-button-group">
             <div className="selected-meeting">
-              <h4>
-                {this.state.selectedMeeting &&
-                  this.state.selectedMeeting.attributes.title}
-              </h4>
+              <h4>{this.state.selectedMeeting && this.state.selectedMeeting.attributes.title}</h4>
             </div>
             <div className="button-group">
-              <Button
-                className="cancel-button"
-                onClick={() => this.handleSelectMeetingModal()}
-              >
+              <Button className="cancel-button" onClick={() => this.handleSelectMeetingModal()}>
                 {t("Cancel")}
               </Button>
               <Button
@@ -723,78 +585,78 @@ class DocumentListChairman extends DocumentListChairmanController {
           <DialogContent>
             <div className="share-box">
               <FacebookShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <FacebookIcon />
-              </FacebookShareButton>
+                // @ts-ignore
+                children={<FacebookIcon />}
+                translate
+              />
               <TwitterShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <TwitterIcon />
-              </TwitterShareButton>
+                // @ts-ignore
+                children={<TwitterIcon />}
+                translate
+              />
               <WhatsappShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
                 separator=":: "
-              >
-                <WhatsappIcon />
-              </WhatsappShareButton>
+                // @ts-ignore
+                children={<WhatsappIcon />}
+                translate
+              />
               <LinkedinShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <LinkedinIcon />
-              </LinkedinShareButton>
+                // @ts-ignore
+                children={<LinkedinIcon />}
+                translate
+              />
               <EmailShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <EmailIcon />
-              </EmailShareButton>
+                // @ts-ignore
+                children={<EmailIcon />}
+                translate
+              />
               <RedditShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <RedditIcon />
-              </RedditShareButton>
+                // @ts-ignore
+                children={<RedditIcon />}
+                translate
+              />
               <TelegramShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <TelegramIcon />
-              </TelegramShareButton>
+                // @ts-ignore
+                children={<TelegramIcon />}
+                translate
+              />
               <TumblrShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <TumblrIcon />
-              </TumblrShareButton>
+                // @ts-ignore
+                children={<TumblrIcon />}
+                translate
+              />
             </div>
           </DialogContent>
         </Dialog>
