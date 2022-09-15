@@ -102,6 +102,8 @@ export default class PollingController extends BlockComponent<
   pollPreviewAnswer: string;
   submitPollAnswer:string;
   getGenerateReport:string;
+  getLivePollsSurveys: string;
+  getOldPollsSurveys:string;
   // Customizable Area End
 
   constructor(props: Props) {
@@ -241,7 +243,8 @@ export default class PollingController extends BlockComponent<
     this.getRecentPolls();
     this.getRecentSurveys();
     this.apiCallFunction();
-    
+    this.livePollsSurveysData();
+    this.oldPollsSurveysData();
     // Customizable Area End
 
   }
@@ -319,6 +322,15 @@ export default class PollingController extends BlockComponent<
       });
     }
 
+    oldPollsSurveysData = async () => {
+      const societyID = localStorage.getItem("society_id")
+      this.getOldPollsSurveys = await this.apiCall({
+        contentType: configJSON.exampleApiContentType,
+        method: configJSON.httpGetMethod,
+        endPoint: `/society_managements/${societyID}/bx_block_polling/poll_surveys/old_polls_surveys`,
+      });
+    }
+
     //==============================================
 
     livePollsData = async () => {
@@ -329,6 +341,15 @@ export default class PollingController extends BlockComponent<
         endPoint: `/society_managements/${societyID}/bx_block_polling/polls/live_polls`,
       });
     }
+
+  livePollsSurveysData = async () => {
+    const societyID = localStorage.getItem("society_id")
+    this.getLivePollsSurveys = await this.apiCall({
+      contentType: configJSON.exampleApiContentType,
+      method: configJSON.httpGetMethod,
+      endPoint: `/society_managements/${societyID}/bx_block_polling/poll_surveys/live_polls_surveys`,
+    });
+  }
 
     //==============================================
 
@@ -370,6 +391,25 @@ export default class PollingController extends BlockComponent<
     
 
     //==============================================
+
+
+  handlePollSurveyNavigation (isTaken:any,type:any,id:any) {
+    console.log("SUEVEY NEVIGATION",isTaken,type)
+    if(isTaken && type === "poll"){
+      // @ts-ignore
+      this.props.history.push("/PollVoteView?id="+id)
+    }
+    if(!isTaken && type === "poll"){
+        // @ts-ignore
+      this.props.history.push("/SubmitPoll?id="+id)
+    }
+    if(type === "survey") {
+      // @ts-ignore
+      this.props.history.push("/TakeSurvey?id="+id)
+    }
+    // if(isTaken && type === poll)
+    // item?.attributes?.flag ? this.props.history.push("/PollVoteView?id="+item.id) : this.props.history.push("/SubmitPoll?id="+item.id)
+  }
 
 
     handleCloseFilterModal () {
@@ -822,10 +862,10 @@ export default class PollingController extends BlockComponent<
       this.getRecentPollsResponse(responseJson)
      }
      if(apiRequestCallId === this.getOldPolls) {
-      this.getOldPollsData(responseJson)
+      // this.getOldPollsData(responseJson)
      }
      if(apiRequestCallId === this.getLivePolls) {
-      this.getLivePollsData(responseJson)
+      // this.getLivePollsData(responseJson)
      }
      if(apiRequestCallId === this.pollPreviewAnswer) {
       this.getPollPreviewAnswerData(responseJson)
@@ -851,6 +891,14 @@ export default class PollingController extends BlockComponent<
         console.log("ERROR!!",responseJson)
       }
      }
+     if(apiRequestCallId === this.getLivePollsSurveys){
+       console.log("LIVE POLLS AND SURVEYS",responseJson)
+       this.setState({livePollsData: responseJson.polls_survey.data})
+     }
+      if(apiRequestCallId === this.getOldPollsSurveys){
+        console.log("OLD POLLS AND SURVEYS",responseJson)
+        this.setState({oldPollsData: responseJson.polls_survey.data})
+      }
     }
 //Error Block    
     else if (responseJson && responseJson?.error || responseJson?.errors) {
