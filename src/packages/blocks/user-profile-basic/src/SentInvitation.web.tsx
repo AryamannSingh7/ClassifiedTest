@@ -135,7 +135,7 @@ render() {
                                         <TableRow>
                                             <TableCell style={{color:"grey"}}>#</TableCell>
                                             <TableCell style={{color:"grey"}} align="left">{t("Name")}</TableCell>
-                                            <TableCell style={{color:"grey"}} align="left">{t("Unit No.")}</TableCell>
+                                            <TableCell style={{color:"grey"}} align="left">{t("Unit Number")}</TableCell>
                                             <TableCell style={{color:"grey"}} align="left">{t("Invitation sent on")}</TableCell>
                                             <TableCell style={{color:"grey"}} align="left">{t("Phone Number")}</TableCell>
                                             <TableCell style={{color:"grey"}} align="left">{t("Email Address")}</TableCell>
@@ -162,7 +162,7 @@ render() {
                                 <Pagination count={10} variant="outlined" shape="rounded" />
                             </Box>
                         </Box> 
-                         <Menu
+                        <Menu
                             id="simple-menu"
                             anchorEl={this.state.anchorEl}
                             keepMounted
@@ -175,7 +175,7 @@ render() {
                             <MenuItem onClick={this.handleClose} style={{margin:"7px", cursor:'pointer'}}>{t("Download")}</MenuItem>
                             <hr style={{margin:"0px"}}/>
                             <MenuItem onClick={this.handleClose} style={{margin:"7px", cursor:'pointer'}}>{t("Share")}</MenuItem>
-                            </Menu>                           
+                        </Menu>                           
                     </Container>
                 </Grid>
             </Box>
@@ -201,36 +201,6 @@ const dashBoardActions = {
         marginBottom: 20,
         marginLeft:10
     },
-    YearMain:{
-        background: "#fff",
-        border: "1px solid #dfd4d4",
-        borderRadius: 5,
-        paddingLeft:15,
-        paddingRight: 15,
-    },
-    Cards: {
-        paddingTop: 30,
-        paddingLeft: 15,
-        paddingBottom: 25,
-        background: "#fff",
-        borderRadius: 10,
-    },
-    CardsIcons:{
-        border: "1px solid #d9d4d3",
-        borderRadius: "50%",
-        width: 25,
-        height: 25,
-        padding: 15,
-        color:"#054c94",
-    },
-    bottomColor:{
-        color: "red"
-    },
-    bottomTwoSpan:{
-        display: "flex", 
-        gap: 5, 
-        marginTop: 10
-    },
     TableHeader:{
         display: "flex",
         borderBottom: "1px solid grey",
@@ -251,36 +221,5 @@ const dashBoardActions = {
         padding: "16px 32px 24px",
         width:"700px"
     },
-    modalHeader: {
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-    },
-    subHeadingFont:{
-        fontWeight:600
-    },
-    genrateReceipt:{
-        display: "flex",
-        alignItems:'center'
-    },
-    commonColor:{
-        color:"#181d257a"
-    },
-    residetails:{
-        marginTop:15
-    },
-    summary:{
-        backgroundColor:"#F9F9F9",
-        padding:"10px 20px 20px",
-        marginTop:15
-    },
-    receiptbtn:{
-        borderRadius:8,
-        width:"100%",
-        backgroundColor:"#2b6fed",
-        height:45,
-        fontWeight:600,
-        color:"#fff"
-    }
 };
   // Customizable Area End

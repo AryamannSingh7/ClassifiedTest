@@ -4,6 +4,7 @@ import { runEngine } from "../../../framework/src/RunEngine";
 import MessageEnum, {
   getName
 } from "../../../framework/src/Messages/MessageEnum";
+import * as Yup from 'yup';
 
 // Customizable Area Start
 import { imgPasswordInVisible, imgPasswordVisible } from "./assets";
@@ -22,6 +23,8 @@ interface S {
   openToolTip: boolean;
   anchorEl:any;
   popUPText:string;
+  setOpen:boolean;
+  invitationData:any;
   // Customizable Area End
 
 }
@@ -54,7 +57,9 @@ export default class CommunityUserProfileController extends BlockComponent<
     this.state = {
       openToolTip: false,
       anchorEl:null,
-      popUPText:""
+      popUPText:"",
+      setOpen:false,
+      invitationData:""
       
     };
     // Customizable Area End
@@ -89,5 +94,34 @@ export default class CommunityUserProfileController extends BlockComponent<
     this.setState({ anchorEl: event.currentTarget });
     this.setState({ popUPText: text });
   };
+
+  handleOpen = () => {
+    this.setState({setOpen:true});
+  };
+
+  handleClose = () => {
+    this.setState({setOpen:false});
+  };
+
+  InvitationSchema() {
+    const validations = Yup.object().shape({
+      email: Yup.string()
+        .email('Invalid email format')
+        .strict(true)
+        .lowercase(`Please enter all values in lowercase`)
+        .trim()
+        .required(`This field is required.`),
+      usertype: Yup.string().required(`This field is required`),
+      fullname: Yup.string().required(`This field is required`),
+      phoneno: Yup.string().required(`This field is required`),
+      building: Yup.string().required(`This field is required`),
+      unit: Yup.string().required(`This field is required`),
+    });
+    return validations
+  }
+
+  invitationData = (values: any) => {
+    this.setState({invitationData:values})
+  }
 
 }
