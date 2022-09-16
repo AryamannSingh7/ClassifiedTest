@@ -61,7 +61,7 @@ class EditProfile extends ProfileController {
                     male: profileData?.attributes?.gender?.gender === 'Male' ? true : false,
                     female: profileData?.attributes?.gender?.gender === 'Female' ? true : false,
                     DOB: profileData?.attributes?.date_of_birth?.date_of_birth,
-                    hobbies: profileData?.attributes?.hobbies?.hobbies,
+                    hobbies: profileData?.attributes?.hobbies?.hobbies ? profileData?.attributes?.hobbies?.hobbies :[] ,
                     twitter: profileData?.attributes?.website[0].twitter_link,
                     fb: profileData?.attributes?.website[2].fb_link,
                     insta: profileData?.attributes?.website[1].instagram_link,

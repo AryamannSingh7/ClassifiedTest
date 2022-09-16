@@ -42,7 +42,7 @@ import i18next from 'i18next';
 const MenuList = [
   {
     name: "Profile",
-    url: "",
+    url: "profile",
     img: "",
   },
   {

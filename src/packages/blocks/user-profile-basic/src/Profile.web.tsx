@@ -125,15 +125,15 @@ this.getProfile()
 
               <Box style={{fontSize:"0.75rem"}}>
                 <label className='label'>
-                  Gender :
+                    {profileData?.attributes?.gender?.gender && 'Gender :'}
                 </label>
                 <span>
-                    {" "}  {profileData?.attributes?.gender?.gender || 'N/A'}
+                    {" "}  {profileData?.attributes?.gender?.gender }
                 </span>
               </Box>
                 <Box style={{ fontSize: "0.75rem" }}>
                 <label className='label'>
-                  DOB :
+                    {profileData?.attributes?.date_of_birth?.date_of_birth &&'DOB :'}
                 </label>
                 <span>
                     {" "} {profileData?.attributes?.date_of_birth?.date_of_birth}
@@ -162,7 +162,8 @@ this.getProfile()
             </Grid>
 
        {
-              profileData?.attributes?.hobbies?.hobbies.length>0 && <>
+              profileData?.attributes?.hobbies?.hobbies != null &&  profileData?.attributes?.hobbies?.hobbies.length>0 &&
+              <>
                 <Grid container>
                   <Grid item xs={12}>
 
@@ -232,106 +233,113 @@ this.getProfile()
 
               </Grid>
             </Grid>
-            <Grid container>
-              <Grid item xs={12}>
 
-                <p style={{ fontWeight: 'bold', fontSize: '1.25rem', marginTop: '0.5rem', marginBottom: '0.25rem' }}>
-                  My Family
-                </p>
+            {
+              localStorage.getItem('userType') !== 'Owner' &&
+              <>
+                <Grid container>
+                  <Grid item xs={12}>
 
-              </Grid>
-            </Grid>
-            <Grid container>
-              <Grid item xs={12}>
-                  {
+                    <p style={{ fontWeight: 'bold', fontSize: '1.25rem', marginTop: '0.5rem', marginBottom: '0.25rem' }}>
+                      My Family
+                    </p>
 
-                    profileData?.attributes?.families.families.map((item:any)=>
-                      <>
-                        <Grid xs={12} className="card fam">
-                          <div className="flex">
-                            <div style={{ display: "flex", alignItems: 'center', gap: '0.5rem' }}>
+                  </Grid>
+                </Grid>
+                <Grid container>
+                  <Grid item xs={12}>
+                    {
 
-                              {/* <Avatar src={item?.attributes?.member_pic} /> */}
-                              <p className="text-bold">
+                      profileData?.attributes?.families.families &&     profileData?.attributes?.families.families.map((item: any) =>
+                        <>
+                          <Grid xs={12} className="card fam">
+                            <div className="flex">
+                              <div style={{ display: "flex", alignItems: 'center', gap: '0.5rem' }}>
 
-                                {item.attributes.name}
+                                {/* <Avatar src={item?.attributes?.member_pic} /> */}
+                                <p className="text-bold">
+
+                                  {item.attributes.name}
+                                </p>
+                              </div>
+                              <IconButton
+                                aria-label="more"
+                                aria-controls="long-menu"
+                                aria-haspopup="true"
+                                onClick={this.handleClick2}
+                              >
+                                <MoreVertIcon />
+                              </IconButton>
+                              <Menu
+                                id="long-menu"
+                                anchorEl={this.state.anchorEl}
+                                keepMounted
+                                open={this.state.showDialog2}
+                                onClose={this.handleClose}
+
+
+                              >
+                                <MenuItem key="1" onClick={() => this.handleClose(item)}>
+                                  Edit
+                                </MenuItem>
+                                <MenuItem key="2" onClick={() => { this.setState({ showDialogDelete: true }); localStorage.setItem('selectFamily', JSON.stringify(item)) }}>
+                                  Delete
+                                </MenuItem>
+                              </Menu>
+                            </div>
+
+                            <div>
+                              <p className="fam-label">
+                                Relation:
                               </p>
-                              </div>
-                            <IconButton
-                              aria-label="more"
-                              aria-controls="long-menu"
-                              aria-haspopup="true"
-                              onClick={this.handleClick2}
-                            >
-                              <MoreVertIcon />
-                            </IconButton>
-                            <Menu
-                              id="long-menu"
-                              anchorEl={this.state.anchorEl}
-                              keepMounted
-                              open={this.state.showDialog2}
-                              onClose={this.handleClose}
+                              <p className="fam-value">
+                                {item.attributes.relation.name}
+                              </p>
+                            </div>
+                            <div>
+                              <p className="fam-label">
+                                ID:
+                              </p>
+                              <p className="fam-value">
+                                {item.attributes.id_number}
+                              </p>
+                            </div>
+                          </Grid>
+                        </>
+                      )
+                    }
 
 
-                            >
-                              <MenuItem key="1" onClick={() => this.handleClose(item)}>
-                                Edit
-                              </MenuItem>
-                              <MenuItem key="2" onClick={() => { this.setState({ showDialogDelete: true }); localStorage.setItem('selectFamily', JSON.stringify(item)) }}>
-                                Delete
-                              </MenuItem>
-                            </Menu>
-                              </div>
+                  </Grid>
+                </Grid>
+                <Grid container >
+                  <Grid xs={12} style={{ display: 'flex', justifyContent: 'center' }}>
+                    <Button
+                      fullWidth={true}
+                      className={'btn'}
+                      variant="contained"
+                      type="submit"
+                      onClick={() => this.props.history.push("/NewFamily")}
+                      style={{
+                        border: "1px solid #2B6FEC",
+                        background: 'white',
+                        borderRadius: 16,
+                        height: 54,
+                        boxShadow: "none",
+                        color: "#2B6FEC",
+                        fontWeight: 600,
+                        fontSize: 16,
+                        maxWidth: 350
+                      }}
 
-                          <div>
-                            <p className="fam-label">
-                              Relation:
-                            </p>
-                            <p className="fam-value">
-                              {item.attributes.relation.name}
-                            </p>
-                          </div>
-                          <div>
-                            <p className="fam-label">
-                              ID:
-                            </p>
-                            <p className="fam-value">
-                              {item.attributes.id_number}
-                            </p>
-                          </div>
-                        </Grid>
-                      </>
-                    )
-                  }
+                    >
+                      Add Family Details
+                    </Button>
+                  </Grid>
+                </Grid>
+              </>
+            }
 
-
-              </Grid>
-            </Grid>
-            <Grid container >
-              <Grid xs={12} style={{ display: 'flex', justifyContent: 'center' }}>
-                <Button
-                  fullWidth={true}
-                  className={'btn'}
-                  variant="contained"
-                  type="submit"
-                  onClick={() => this.props.history.push("/NewFamily")}
-                  style={{
-                    border: "1px solid #2B6FEC",
-                    background:'white',
-                    borderRadius: 16,
-                    height: 54,
-                    boxShadow: "none",
-                    color: "#2B6FEC",
-                    fontWeight: 600,
-                    fontSize: 16,
-                    maxWidth: 350
-                  }}
-
-                >
-                  Add Family Details
-                </Button>
-              </Grid>
-            </Grid>
 
 
 

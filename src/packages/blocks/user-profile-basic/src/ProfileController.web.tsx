@@ -1566,11 +1566,11 @@ this.setState({loading:true})
         .max(99999999999, "Maximum 11 digits are allowed."),
       email: Yup.string().required(`This field is required`).trim(),
       DOB: Yup.date().required(`This field is required`),
-      hobbies: Yup.string().required(`This field is required`).trim(),
-      fb: Yup.string().matches(/(?:(?:http|https):\/\/)?(?:www.)?facebook.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\w\-]*)?/, `Invalid facebook URL`),
-      insta: Yup.string().matches(/(?:(?:http|https):\/\/)?(?:www\.)?(?:instagram\.com|instagr\.am)\/([A-Za-z0-9-_\.]+)/im, `Invalid instagram URL`),
-      twitter: Yup.string().matches(/http(?:s)?:\/\/(?:www\.)?twitter\.com\/([a-zA-Z0-9_]+)/, `Invalid twitter URL`),
-      snap: Yup.string().matches(/http(?:s)?:\/\/(?:www\.)?snapchat\.com\/([a-zA-Z0-9_]+)/, `Invalid snapchat URL`),
+      hobbies: Yup.string().required(`This field is required`).nullable(),
+      fb: Yup.string().matches(/(?:(?:http|https):\/\/)?(?:www.)?facebook.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\w\-]*)?/, `Invalid facebook URL`).nullable(),
+      insta: Yup.string().matches(/(?:(?:http|https):\/\/)?(?:www\.)?(?:instagram\.com|instagr\.am)\/([A-Za-z0-9-_\.]+)/im, `Invalid instagram URL`).nullable(),
+      twitter: Yup.string().matches(/http(?:s)?:\/\/(?:www\.)?twitter\.com\/([a-zA-Z0-9_]+)/, `Invalid twitter URL`).nullable(),
+      snap: Yup.string().matches(/http(?:s)?:\/\/(?:www\.)?snapchat\.com\/([a-zA-Z0-9_]+)/, `Invalid snapchat URL`).nullable(),
 
 
     });
@@ -1790,13 +1790,14 @@ this.setState({loading:true})
 
   }
   handleAddChip=(fn:any,data:any,values:any)=>{
+    console.log('hi')
 values.push(data)
 fn('hobbies',values)
     console.log(values)
 
   }
   handleDeleteChip = (fn: any, data: any, values: any,index:any)=>{
-
+    console.log('bye')
     values.splice(index, 1)
     fn('hobbies', values)
 console.log(data,index)
