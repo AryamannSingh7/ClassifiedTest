@@ -146,9 +146,16 @@ class NeighboursListing extends NeighboursController {
                              }
                              </Box>
                              <Box className="social-raw">
-                               <Box className="blocks">
-                                 <img src={Chat_Icon}  className="icons" alt="info-icon" />
-                               </Box>
+                             {
+                                 val?.account?.data?.attributes?.disable_chat ?
+                                 <Box className="blocks">
+                                  <img src={Chat_Icon} className="icons" alt="info-icon" />
+                                </Box>
+                                :
+                                <Box className="blocks">
+                                <img src={Chat_Disable_Icon} className="icons" alt="info-icon" />
+                              </Box>
+                               }
                                {
                                 val?.account?.data?.attributes?.full_phone_number?.publilc_access ? 
                                 <Box className="blocks">
@@ -185,7 +192,7 @@ class NeighboursListing extends NeighboursController {
                            <Box onClick={()=>this.getNeighboursDetails(val?.account?.data?.id)}>
                             <img src={val?.account?.data?.attributes?.profile_pic||NoProfile_Img} className="info-icon" alt="No profile" />
                             <Typography component="h4">
-                              "Anonymous"
+                              Anonymous
                             </Typography>
                             {/* <Typography component="h5">
                              {val?.apartment_name}
