@@ -50,7 +50,7 @@ class FamilyList extends FamilyController {
           <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset', overflowY: 'auto', overflowX: 'hidden' }}>
             <Grid container>
               <Grid xs={12} style={{ display: 'flex', alignItems: 'center' }}>
-                <ArrowBackIcon onClick={() => window.history.back()} />
+                <ArrowBackIcon onClick={this.redirectToDashboard} />
                 <p style={{ fontWeight: 600, fontSize: '1.25rem' }}>
 
                   My Family
@@ -66,7 +66,7 @@ class FamilyList extends FamilyController {
                 <Grid container style={{height:'85%',overflowX:'auto'}}>
                   {
                       this.state.allVehcile.map(item=><>
-                        <Grid xs={12} className="card fam">
+                        <Grid xs={12} key={item.id} className="card fam">
                           <div className="flex">
                             <div style={{display:"flex",alignItems:'center',gap:'0.5rem'}}>
 
@@ -80,7 +80,7 @@ class FamilyList extends FamilyController {
                               aria-label="more"
                               aria-controls="long-menu"
                               aria-haspopup="true"
-                              onClick={this.handleClick}
+                              onClick={(e)=>this.handleClick(e,item)}
                             >
                               <MoreVertIcon />
                             </IconButton>
@@ -93,10 +93,10 @@ class FamilyList extends FamilyController {
 
 
                             >
-                              <MenuItem key="1" onClick={()=>this.handleClose(item)}>
+                              <MenuItem key={item.id} onClick={() => this.handleClose(item)}>
                                 Edit
                               </MenuItem>
-                              <MenuItem key="2" onClick={() => { this.setState({ showDialogDelete: true }); localStorage.setItem('selectFamily', JSON.stringify(item)) }}>
+                              <MenuItem key={item.id} onClick={() => { this.setState({ showDialogDelete: true });  }}>
                                 Delete
                               </MenuItem>
                             </Menu>

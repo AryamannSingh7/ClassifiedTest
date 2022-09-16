@@ -686,5 +686,18 @@ if(this.state.allVehcile.length<5){
     runEngine.sendMessage(requestMessage.id, requestMessage);
     return true;
   }
+  redirectToDashboard = () => {
+    let userType = localStorage.getItem('userType')
+    if (userType == 'Owner') {
+      //@ts-ignore
+      //@ts-nocheck
+      this.props.history.push('/OwnerDashboard')
+    } else {
+      //@ts-ignore
+      //@ts-nocheck
+      this.props.history.push('/residentDashboard')
+    }
+
+  }
   // Customizable Area End
 }

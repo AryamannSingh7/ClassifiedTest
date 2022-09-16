@@ -802,13 +802,15 @@ this.setState({loading:true})
     return true;
   }
 
-handleClick= (event)=>{
+handleClick= (event,item)=>{
+localStorage.setItem('selectFamily',JSON.stringify(item))
     this.setState({ anchorEl: event.currentTarget,showDialog:true})
   };
 
 handleClose = (item) =>{
+
  if(item.id){
-   localStorage.setItem('selectFamily', JSON.stringify(item))
+  //  localStorage.setItem('selectFamily', JSON.stringify(item))
    this.props.history.push("/editfamily")
 
  }else{
@@ -816,5 +818,18 @@ handleClose = (item) =>{
  }
     // this.setState({ anchorEl:null,showDialog:false })
   };
+  redirectToDashboard = () => {
+    let userType = localStorage.getItem('userType')
+    if (userType == 'Owner') {
+      //@ts-ignore
+      //@ts-nocheck
+      this.props.history.push('/OwnerDashboard')
+    } else {
+      //@ts-ignore
+      //@ts-nocheck
+      this.props.history.push('/residentDashboard')
+    }
+
+  }
   // Customizable Area End
 }

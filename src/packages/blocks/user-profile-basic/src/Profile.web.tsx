@@ -12,7 +12,7 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import HomeIcon from '@material-ui/icons/Home';
-import { Building1, email, fb, instaedit, message, phone, snapedit, twitter } from "./assets";
+import { Building1, email, fb, FB_Icon, instaedit, Instagram_Icon, message, phone, Snapchat_Icon, snapedit, twitter, Twitter_Icon } from "./assets";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
 import '../assets/css/style.scss';
@@ -46,7 +46,7 @@ this.getProfile()
                 <div className="flex" style={{width:'100%'}}>
                   <div style={{ display: "flex", alignItems: 'center', gap: '0.5rem' }}>
 
-                    <ArrowBackIcon onClick={() => window.history.back()} />
+                    <ArrowBackIcon onClick={this.redirectToDashboard} />
                     <p style={{ fontWeight: 600, fontSize: '1.25rem' }}>
 
                       My Profile
@@ -77,10 +77,15 @@ this.getProfile()
                       }>
                       Edit profile
                     </MenuItem>
-                    <MenuItem key="2" >
+                    <MenuItem key="2" onClick={() => {// @ts-ignore
+                      // @ts-nocheck
+                      localStorage.setItem('profileData', JSON.stringify(profileData));
+                      this.props.history.push('/publicview')
+                    }
+                    }>
                       Publish details for others
                     </MenuItem>
-                    <MenuItem key="3" >
+                    <MenuItem key="3" onClick={this.disablechat} >
                       Disable Chat
                     </MenuItem>
                   </Menu>
@@ -202,16 +207,24 @@ this.getProfile()
               <Grid item xs={12}>
                 <Box display='flex' justifyContent='start' marginTop='1rem'>
                   {
-                    profileData?.attributes?.website[0].twitter_link && <img src={twitter} />
+                    profileData?.attributes?.website[0].twitter_link && <Button href={profileData?.attributes?.website[0].twitter_link} target="_blank">
+                      <img src={Twitter_Icon} className="icon" alt="FB_Icon" />
+                    </Button>
                   }
                   {
-                    profileData?.attributes?.website[1].instagram_link && <img src={instaedit} className='third_icon' />
+                    profileData?.attributes?.website[1].instagram_link && <Button href={profileData?.attributes?.website[1].instagram_link} target="_blank">
+                      <img src={Instagram_Icon} className="icon" alt="FB_Icon" />
+                    </Button>
                   }
                   {
-                    profileData?.attributes?.website[2].fb_link && <img src={fb} className='third_icon' />
+                    profileData?.attributes?.website[2].fb_link && <Button href={profileData?.attributes?.website[2].fb_link} target="_blank">
+                      <img src={FB_Icon} className="icon" alt="FB_Icon" />
+                    </Button>
                   }
                   {
-                    profileData?.attributes?.website[3].snapchat_link && <img src={snapedit} className='third_icon' />
+                    profileData?.attributes?.website[3].snapchat_link && <Button href={profileData?.attributes?.website[3].snapchat_link} target="_blank">
+                      <img src={Snapchat_Icon} className="icon" alt="FB_Icon" />
+                    </Button>
                   }
 
 

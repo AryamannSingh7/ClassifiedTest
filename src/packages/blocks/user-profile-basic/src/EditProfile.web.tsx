@@ -23,6 +23,7 @@ import { dailCode } from "../../email-account-registration/src/code";
 import CircleCheckedFilled from '@material-ui/icons/CheckCircle';
 import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 import ChipInput from 'material-ui-chip-input'
+import OtpInput from 'react-otp-input';
 class EditProfile extends ProfileController {
   constructor(props: Props) {
     super(props);
@@ -34,7 +35,7 @@ class EditProfile extends ProfileController {
   }
   render() {
     let profileData = JSON.parse(localStorage.getItem('profileData'))
-    console.log(profileData)
+
     return (
 
       <>
@@ -45,7 +46,7 @@ class EditProfile extends ProfileController {
                 <ArrowBackIcon onClick={() => window.history.back()} />
                 <p style={{ fontWeight: 600, fontSize: '1.25rem' }}>
 
-                  Family Members
+                  Edit My Profile
                 </p>
               </Grid>
             </Grid>
@@ -55,15 +56,15 @@ class EditProfile extends ProfileController {
                 <Grid xs={12}>
                   <Formik initialValues={{
                     full_name: profileData?.attributes?.full_name?.name,
-                    phone: profileData?.attributes?.full_phone_number?.full_phone_number,
+                    phone: profileData?.attributes?.full_phone_number?.phone_number,
                     email: profileData?.attributes?.email?.email,
-                    male: profileData?.attributes?.gender?.gender == 'Male' ? true : false,
-                    female: profileData?.attributes?.gender?.gender == 'Female' ? true : false,
+                    male: profileData?.attributes?.gender?.gender === 'Male' ? true : false,
+                    female: profileData?.attributes?.gender?.gender === 'Female' ? true : false,
                     DOB: profileData?.attributes?.date_of_birth?.date_of_birth,
                     hobbies: profileData?.attributes?.hobbies?.hobbies,
                     twitter: profileData?.attributes?.website[0].twitter_link,
-                    fb: profileData?.attributes?.website[1].instagram_link,
-                    insta: profileData?.attributes?.website[2].fb_link,
+                    fb: profileData?.attributes?.website[2].fb_link,
+                    insta: profileData?.attributes?.website[1].instagram_link,
                     snap: profileData?.attributes?.website[3].snapchat_link,
                     bio: profileData?.attributes?.bio?.bio
                   }}
@@ -191,6 +192,7 @@ class EditProfile extends ProfileController {
                                   id="demo-simple-select-outlined"
                                   onChange={this.handleChange}
                                   label="Unit"
+                                  disabled
                                   value={this.state.selectCode}
                                 >
                                   <MenuItem value="">
@@ -211,6 +213,7 @@ class EditProfile extends ProfileController {
                             <Field
                               name="phone"
                               id="mobile"
+                              disabled
                               value={values.phone}
                               placeholder={"Mobile"}
                               style={{
@@ -241,7 +244,7 @@ class EditProfile extends ProfileController {
                               <ErrorMessage className="text-error" component="Typography" name="phone" />
                             </Typography>
                           ) : null}
-                          <p style={{ color:'#FC8434',textAlign:'right',fontWeight:'bold'}} onClick={()=>this.setState({showDialog:true})}>
+                          <p style={{ color:'#FC8434',textAlign:'right',fontWeight:'bold',cursor:'pointer'}} onClick={()=>this.setState({showDialog:true})}>
                             Verify number to update
                           </p>
                           {/* email */}
@@ -313,11 +316,11 @@ class EditProfile extends ProfileController {
 
                             <div>
 
-                              <Checkbox name="male" onChange={handleChange} value={values.male} icon={<CircleUnchecked />}
+                              <Checkbox name="male" onChange={handleChange} checked={values.male} icon={<CircleUnchecked />}
                                 checkedIcon={<CircleCheckedFilled />} id="loginCheckbox"
                               />
                               <label htmlFor="loginCheckbox" className="checkboxLabel">Male</label>
-                              <Checkbox name="female" onChange={handleChange} value={values.female} icon={<CircleUnchecked />}
+                              <Checkbox name="female" onChange={handleChange} checked={values.female} icon={<CircleUnchecked />}
                                 checkedIcon={<CircleCheckedFilled />} id="loginCheckbox"
                               />
                               <label htmlFor="loginCheckbox" className="checkboxLabel">Female</label>
@@ -407,6 +410,7 @@ class EditProfile extends ProfileController {
                             <Field
                               className="formInput"
                               name="twitter"
+                              type='url'
                               value={values.twitter}
                               placeholder={"Twitter profile link"}
 
@@ -439,6 +443,7 @@ class EditProfile extends ProfileController {
                             <Field
                               className="formInput"
                               name="fb"
+                              type='url'
                               value={values.fb}
                               placeholder={"Faceook  profile link"}
 
@@ -470,6 +475,7 @@ class EditProfile extends ProfileController {
                             <Field
                               className="formInput"
                               name="insta"
+                              type='url'
                               value={values.insta}
                               placeholder={"Instagram profile link"}
 
@@ -501,6 +507,7 @@ class EditProfile extends ProfileController {
                             <Field
                               className="formInput"
                               name="snap"
+                              type='url'
                               value={values.snap}
                               placeholder={"Snapchat profile link"}
 
@@ -698,7 +705,7 @@ class EditProfile extends ProfileController {
           PaperProps={{
             style: {
               borderRadius: '15px',
-              padding: '2rem',
+              padding: '1rem',
               margin: 0
             },
           }}
@@ -713,7 +720,7 @@ class EditProfile extends ProfileController {
             <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
 
               <p style={{ fontWeight: 600, fontSize: '1.25rem', textAlign: 'center' }}>
-                Add New Mobile Number
+                Verify New Mobile Number
 
               </p>
             </Grid>
@@ -721,109 +728,23 @@ class EditProfile extends ProfileController {
           <Grid container>
             <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
               <p style={{ fontWeight: 400, fontSize: '0.8rem', textAlign: 'center' }}>
-                Add new mobile number in the
-                below field
+                Enter OTP sent to your mobile number for verification.
               </p>
             </Grid>
           </Grid>
           <Grid container>
-            <Grid item>
-              <Formik initialValues={{
-                phone: '',
-              }}
-                validationSchema={this.addPhoneSchema()}
-                validateOnMount={true}
-                onSubmit={(values) => { this.updatePhone(values) }}
-              >
-                {({ values,
-                  errors,
-                  touched,
-                  isValid, handleChange,
-                  setFieldValue, setFieldError }) => (
-                  <Form className="commonForm" translate="yes" >
-
-                    <Box
-                      marginTop='1rem'
-                      className='formInputGrp'
-                      display="flex"
-                      overflow="hidden"
-                      alignItems="center"
-                      height="56px"
-                      border="0.1px solid rgb(209 209 209 / 44%)"
-                      borderRadius="25px"
-                      bgcolor="#f9f9f9"
-                    >
-                      <Box>
-                        <FormControl variant="outlined" >
-                          {/* <InputLabel id="demo-simple-select-outlined-label"><img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AF.svg`} width='15' height='15' />
-                          sd</InputLabel> */}
-                          <Select
-                            name='selectCode'
-                            labelId="demo-simple-select-outlined-label"
-
-                            id="demo-simple-select-outlined"
-                            onChange={this.handleChange}
-                            label="Unit"
-                            value={this.state.selectCode}
-                          >
-                            <MenuItem value="">
-                              <em>None</em>
-                            </MenuItem>
-                            {dailCode.map((item) =>
-                              <MenuItem key={item.dial_code} value={item.dial_code}> <img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/${item.code}.svg`} width='15' height='15' style={{ marginRight: '5px' }} />
-                                {item.dial_code}</MenuItem>
-
-                            )
-                            }
-
-                          </Select>
-                        </FormControl>
-
-                      </Box>
-
-                      <Field
-                        name="phone"
-                        id="mobile"
-                        placeholder={"Mobile"}
-                        style={{
-                          border: "none",
-                          height: "42%",
-                          width: "80%",
-                          color: "rgba(0, 0, 0, 0.6)",
-                          fontWeight: 400,
-                          fontSize: 16,
-                          marginRight: 10,
-                          marginLeft: 21,
-                          outline: "none",
-                          backgroundColor: '#f9f9f9'
-                        }}
-                      />
-                    </Box>
-
-                    {errors.phone && touched.phone ? (
-                      <Typography
-                        style={{
-                          color: "#F14E24",
-                          fontWeight: 300,
-                          fontSize: 14,
-                          marginTop: 5,
-                          marginLeft: 10
-                        }}
-                      >
-                        <ErrorMessage className="text-error" component="Typography" name="phone" />
-                      </Typography>
-                    ) : null}
-                    <Box className="dialog-footer desktop-ui">
-                      <DialogActions className="customButton">
-                        <Button
-                          type="submit" variant="contained" >
-                          Submit
-                        </Button>
-                      </DialogActions>
-                    </Box>
-                  </Form>
-                )}
-              </Formik>
+            <Grid item className="commonForm">
+              <Box className="formGroup otpBlock">
+                <OtpInput className="formOutlineInput"
+                  value={"111111"}
+                  onChange={this.handleChange}
+                  numInputs={6}
+                // separator={<span>-</span>}
+                />
+              </Box>
+              <Box className="customButton row-btn">
+                <Button variant="contained" onClick={() => { this.verifyOtp() }}>SEND</Button>
+              </Box>
             </Grid>
           </Grid>
 
