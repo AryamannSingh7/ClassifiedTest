@@ -1,6 +1,3 @@
-//@ts-ignore
-//@ts-nocheck
-
 import * as React from "react";
 // custom components
 import {
@@ -22,11 +19,6 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ProfileController from "./ProfileController.web";
 import FamilyListWeb from "../../customform/src/FamilyList.web";
 class Profile extends ProfileController {
-  constructor(props: Props) {
-    super(props);
-    // Customizable Area Start
-    // Customizable Area End
-  }
 
   async componentDidMount() {
 this.getProfile()
@@ -70,16 +62,19 @@ this.getProfile()
 
                   >
                     <MenuItem key="1" onClick={() =>
-                    {// @ts-ignore
-                    // @ts-nocheck
+                    {
+
                     localStorage.setItem('profileData',JSON.stringify(profileData));
+                        // @ts-ignore
+                    // @ts-nocheck
                       this.props.history.push('/editprofile')}
                       }>
                       Edit profile
                     </MenuItem>
-                    <MenuItem key="2" onClick={() => {// @ts-ignore
-                      // @ts-nocheck
+                    <MenuItem key="2" onClick={() => {
                       localStorage.setItem('profileData', JSON.stringify(profileData));
+                      // @ts-ignore
+                      // @ts-nocheck
                       this.props.history.push('/publicview')
                     }
                     }>
@@ -121,7 +116,7 @@ this.getProfile()
               </Grid>
             </Grid>
             <Grid container>
-              <Grid item xs={12} style={{display:'flex',justifyContent:'center',fontsize:'0.75rem',marginTop:'1rem',gap:'1rem'}}>
+              <Grid item xs={12} style={{display:'flex',justifyContent:'center',marginTop:'1rem',gap:'1rem'}}>
 
               <Box style={{fontSize:"0.75rem"}}>
                 <label className='label'>
@@ -181,7 +176,7 @@ this.getProfile()
                 <Grid container>
                   <Grid item xs={12}>
                     {
-                      profileData?.attributes?.hobbies?.hobbies.map(item => <>
+                      profileData?.attributes?.hobbies?.hobbies.map((item:any) => <>
                         <span className="hobbies">
                           {item}
                         </span>
@@ -319,7 +314,12 @@ this.getProfile()
                       className={'btn'}
                       variant="contained"
                       type="submit"
-                      onClick={() => this.props.history.push("/NewFamily")}
+
+                      onClick={() => {
+                        // @ts-ignore
+                      // @ts-nocheck
+                        this.props.history.push("/NewFamily")
+                      }}
                       style={{
                         border: "1px solid #2B6FEC",
                         background: 'white',
@@ -405,62 +405,9 @@ this.getProfile()
   }
 
 }
+// @ts-ignore
+// @ts-nocheck
 export default withRouter(Profile)
 
-function NoVehicle({ props }) {
-  return <>
-    <div style={{ height: '81vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
 
-      <Grid container>
-        <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
-
-          {/* <img src={NoVehicles} /> */}
-        </Grid>
-      </Grid>
-      <Grid container>
-        <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
-
-          <p style={{ fontWeight: 600, fontSize: '1.25rem', textAlign: 'center' }}>
-            No Family Member
-            <br />
-            Registered
-          </p>
-        </Grid>
-      </Grid>
-      <Grid container>
-        <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
-          <p style={{ fontWeight: 400, fontSize: '0.8rem', textAlign: 'center' }}>
-            Looks like you havn’t registered any family Members!
-            You can register a new family member by tapping the below button.
-          </p>
-        </Grid>
-      </Grid>
-    </div>
-    <Grid container >
-      <Grid xs={12} style={{ display: 'flex', justifyContent: 'center' }}>
-        <Button
-          fullWidth={true}
-          className={'btn'}
-          variant="contained"
-          type="submit"
-          onClick={() => props.history.push("/NewFamily")}
-          style={{
-            backgroundColor: "#2B6FEC",
-            borderRadius: 16,
-            height: 54,
-            boxShadow: "none",
-            color: "#F7F7FC",
-            fontWeight: 600,
-            fontSize: 16,
-            maxWidth: 350
-          }}
-
-        >
-          Add member to my family
-        </Button>
-      </Grid>
-    </Grid>
-    <Loader loading={this.state.loading} />
-  </>
-}
 

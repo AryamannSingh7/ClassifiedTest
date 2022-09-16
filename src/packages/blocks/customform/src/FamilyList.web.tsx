@@ -1,6 +1,3 @@
-//@ts-ignore
-//@ts-nocheck
-
 import * as React from "react";
 // custom components
 import {
@@ -12,10 +9,10 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import HomeIcon from '@material-ui/icons/Home';
-import { Building1, info, NoVehicles, owner, resident_owner, tenet } from "./assets";
+import { Building1, info, NoVehicles } from "./assets";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
-import VeichleListController from "./VeichleListController.web";
+
 import '../assets/css/style.scss';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -30,11 +27,7 @@ import FamilyController from "./FamilyController.web";
 
 
 class FamilyList extends FamilyController {
-  constructor(props: Props) {
-    super(props);
-    // Customizable Area Start
-    // Customizable Area End
-  }
+
 
   async componentDidMount() {
 
@@ -131,7 +124,10 @@ class FamilyList extends FamilyController {
                         className={'btn'}
                         variant="contained"
                         type="submit"
-                        onClick={() => this.props.history.push("/NewFamily")}
+                        onClick={() =>{
+                          //@ts-ignore
+                          //@ts-nocheck
+                          this.props.history.push("/NewFamily")}}
                         style={{
                           backgroundColor: "#2B6FEC",
                           borderRadius: 16,
@@ -285,8 +281,10 @@ class FamilyList extends FamilyController {
   }
 
 }
+//@ts-ignore
+      //@ts-nocheck
 export default withRouter(FamilyList)
-
+// @ts-ignore
 function NoVehicle({ props }) {
   return <>
     <div style={{ height: '81vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
@@ -323,7 +321,10 @@ function NoVehicle({ props }) {
           className={'btn'}
           variant="contained"
           type="submit"
-          onClick={() => props.history.push("/NewFamily")}
+          onClick={() => {
+            //@ts-ignore
+      //@ts-nocheck
+            props.history.push("/NewFamily")}}
           style={{
             backgroundColor: "#2B6FEC",
             borderRadius: 16,

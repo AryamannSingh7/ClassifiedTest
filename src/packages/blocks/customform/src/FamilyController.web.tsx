@@ -1,6 +1,3 @@
-// @ts-ignore
-// @ts-nocheck
-
 import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
@@ -58,6 +55,7 @@ interface S {
   anchorEl:any;
   allRelation:any[];
   allIdType:any[];
+  showDialogDelete:boolean;
   // Customizable Area End
 }
 
@@ -103,7 +101,8 @@ export default class FamilyController extends BlockComponent<Props, S, SS> {
       showDialog: false,
       anchorEl:null,
       allRelation:[],
-      allIdType:[]
+      allIdType:[],
+      showDialogDelete:false
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -278,9 +277,9 @@ export default class FamilyController extends BlockComponent<Props, S, SS> {
         if (apiRequestCallId === this.updateVehicleApiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
+            localStorage.removeItem('selectCar')
             //@ts-ignore
             //@ts-nocheck
-            localStorage.removeItem('selectCar')
             this.props.history.push('/familylist')
           } else {
             //Check Error Response
@@ -559,6 +558,7 @@ export default class FamilyController extends BlockComponent<Props, S, SS> {
 
   updateVehicle = async (values: any) => {
     console.log(values)
+    // @ts-ignore
     let item = JSON.parse(localStorage.getItem('selectFamily'))
     try {
       const header = {
@@ -802,15 +802,17 @@ this.setState({loading:true})
     return true;
   }
 
-handleClick= (event,item)=>{
+handleClick= (event:any,item:any)=>{
 localStorage.setItem('selectFamily',JSON.stringify(item))
     this.setState({ anchorEl: event.currentTarget,showDialog:true})
   };
 
-handleClose = (item) =>{
+handleClose = (item:any) =>{
 
  if(item.id){
-  //  localStorage.setItem('selectFamily', JSON.stringify(item))
+
+   //@ts-ignore
+      //@ts-nocheck
    this.props.history.push("/editfamily")
 
  }else{

@@ -1,6 +1,3 @@
-//@ts-ignore
-//@ts-nocheck
-
 import * as React from "react";
 // custom components
 import {
@@ -12,7 +9,7 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import HomeIcon from '@material-ui/icons/Home';
-import { Building1, info, NoVehicles, owner, resident_owner, tenet } from "./assets";
+import { Building1, info, NoVehicles, } from "./assets";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
 import VeichleListController from "./VeichleListController.web";
@@ -26,11 +23,6 @@ import '../assets/css/style.scss';
 
 
 class VeichleList extends VeichleListController {
-  constructor(props: Props) {
-    super(props);
-    // Customizable Area Start
-    // Customizable Area End
-  }
 
   async componentDidMount() {
 
@@ -265,8 +257,11 @@ class VeichleList extends VeichleListController {
   }
 
 }
+//@ts-ignore
+      //@ts-nocheck
 export default withRouter(VeichleList)
-
+//@ts-ignore
+      //@ts-nocheck
 function NoVehicle({props}){
 return <>
 <div style={{height:'81vh',display:'flex',flexDirection:'column',justifyContent:'center'}}>

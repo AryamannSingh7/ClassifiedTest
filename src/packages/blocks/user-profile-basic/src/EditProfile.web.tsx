@@ -1,6 +1,3 @@
-//@ts-ignore
-//@ts-nocheck
-
 import * as React from "react";
 // custom components
 import {
@@ -12,10 +9,9 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import HomeIcon from '@material-ui/icons/Home';
-import { Building1, calendar, Car, emailedit, fbedit, Hash, heart, Hyperlink, instaedit, ListCopy, message, mobile, owner, palette, resident_owner, snapedit, tenet, twitteredit, upload, user, User3 } from "./assets";
+import { Building1, calendar, emailedit, fbedit, heart, instaedit,  message, mobile, snapedit,twitteredit, user,} from "./assets";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
-import VeichleListController from "./VeichleListController.web";
 import '../assets/css/style.scss';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import ProfileController from "./ProfileController.web";
@@ -25,16 +21,13 @@ import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 import ChipInput from 'material-ui-chip-input'
 import OtpInput from 'react-otp-input';
 class EditProfile extends ProfileController {
-  constructor(props: Props) {
-    super(props);
-    // Customizable Area Start
-    // Customizable Area End
-  }
   async componentDidMount() {
     // this.getProfile()
   }
   render() {
-    let profileData = JSON.parse(localStorage.getItem('profileData'))
+    // @ts-ignore
+// @ts-nocheck
+    let profileData:any = JSON.parse(localStorage.getItem('profileData'))
 
     return (
 
@@ -55,7 +48,9 @@ class EditProfile extends ProfileController {
               <Grid container className="main-content-block">
                 <Grid xs={12}>
                   <Formik initialValues={{
+                    bannerUrl:'',
                     full_name: profileData?.attributes?.full_name?.name,
+                    banner:'',
                     phone: profileData?.attributes?.full_phone_number?.phone_number,
                     email: profileData?.attributes?.email?.email,
                     male: profileData?.attributes?.gender?.gender === 'Male' ? true : false,
@@ -88,7 +83,7 @@ class EditProfile extends ProfileController {
                           }}>
                             <Avatar src={values.bannerUrl} />
 
-                            <label for="file1"
+                            <label htmlFor="file1"
                               style={{ color: '#FC8434', fontWeight: 'bold' }}>
                               Change Profile Picture
                             </label>
@@ -757,4 +752,6 @@ class EditProfile extends ProfileController {
   }
 
 }
+// @ts-ignore
+// @ts-nocheck
 export default withRouter(EditProfile)

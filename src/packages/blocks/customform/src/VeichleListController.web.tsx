@@ -1,6 +1,3 @@
-// @ts-ignore
-// @ts-nocheck
-
 import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
@@ -55,6 +52,7 @@ interface S {
   loading:boolean;
   allVehcile:any[];
   showDialog:boolean;
+  lodaing:boolean;
   // Customizable Area End
 }
 
@@ -95,7 +93,8 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
       error:null,
       loading:false,
       allVehcile:[],
-      showDialog:false
+      showDialog:false,
+      lodaing:false
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -189,6 +188,8 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
           if (!responseJson.errors) {
             console.log(responseJson)
             this.setState({lodaing:false})
+            //@ts-ignore
+      //@ts-nocheck
             this.props.history.push('/NewRequest')
                     } else if (responseJson?.errors) {
             let error = responseJson.errors[0];
@@ -218,7 +219,8 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
             //@ts-ignore
             //@ts-nocheck
             localStorage.removeItem('selectCar')
-
+//@ts-ignore
+      //@ts-nocheck
             this.props.history.push('/veichleList')
           } else {
             //Check Error Response
@@ -233,6 +235,8 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
             //@ts-ignore
             //@ts-nocheck
             localStorage.removeItem('selectCar')
+            //@ts-ignore
+      //@ts-nocheck
             this.props.history.push('/editRequest')
           } else {
             //Check Error Response
@@ -511,6 +515,8 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
   updateVehicle = async (values: any) => {
     this.setState({ loading: true })
     console.log(values)
+    //@ts-ignore
+      //@ts-nocheck
     let item = JSON.parse(localStorage.getItem('selectCar'))
     try {
       const header = {
