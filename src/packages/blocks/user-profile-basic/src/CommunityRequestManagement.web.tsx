@@ -14,7 +14,12 @@ import {
   InputAdornment,
   TextField,
   Paper,
-  Popover 
+  Popover ,
+  Modal,
+  Backdrop,
+  Fade,
+  InputLabel,
+  FormLabel 
 } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import { withStyles } from '@material-ui/core/styles';
@@ -46,7 +51,7 @@ import MailOutlineOutlinedIcon from '@material-ui/icons/MailOutlineOutlined';
 import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined';
 
 //resorces
-import { invite, addgroup, newMember, info, cancle } from "./assets";
+import { invite, addgroup, newMember, info, cancle, user_icon, email_icon, phone_icon, building, unit } from "./assets";
 
 class CommunityRequestManagement extends CommunityUserProfileController {
   constructor(props: Props) {
@@ -55,7 +60,6 @@ class CommunityRequestManagement extends CommunityUserProfileController {
 
   render() {
     const {t}: any = this.props
-    const statusArray=["Unresolved", "Resolved", "Pending Confirmation"]
     return (
       <>
         <Box className="incident-Listing-wrapper desktop-ui" style={{ background: "#E5ECFF" }}>
@@ -80,7 +84,8 @@ class CommunityRequestManagement extends CommunityUserProfileController {
                   {/* Request Management -- */}
                   <Box style={{marginTop:"20px"}}>
                     <div style={dashBoard.gaMemberCard}>
-                        <Paper elevation={3} style={dashBoard.managementPaper}>
+                        <Paper elevation={3} style={dashBoard.managementPaper}
+                            onClick={this.handleOpen}>
                             <div style={dashBoard.invitemember}>
                                 <img src= {newMember} style={dashBoard.inviteIcon}/>
                             </div>
@@ -106,14 +111,17 @@ class CommunityRequestManagement extends CommunityUserProfileController {
                                     }}
                                     onClose={(e: any) => this.handleToolTip(e, "fdfdfdfdfdfdfdfd")}
                                     >
-                                    <h6 style={{lineHeight:"20px", margin:"12px"}}>This section will allow you to invite new owners, residents, and team members to join the platform and start engaging with the building community</h6>
+                                    <h6 style={{lineHeight:"20px", margin:"12px"}}>{t("Info")}</h6>
                                     <img src={cancle}
                                     //@ts-ignore 
                                     style={dashBoard.cancleIcon} onClick={(e: any) => this.handleToolTip(e, "")}/>
                                 </RequestManagementDetailPopover>
-                            <h6>{t("Invite a new Member")}</h6>
+                            <h6>{t("Invite Member")}</h6>
                         </Paper>
-                        <Paper elevation={3} style={dashBoard.managementPaper}>
+                        <Paper elevation={3} style={dashBoard.managementPaper} 
+                            onClick={() => {
+                            //@ts-ignore
+                            this.props.history.push("/PendingRequest")}}>
                             <div style={dashBoard.imgRound}> 
                                 <img src= {addgroup} style={dashBoard.mailIcon}/>
                             </div>
@@ -140,15 +148,17 @@ class CommunityRequestManagement extends CommunityUserProfileController {
                                     }}
                                     onClose={(e: any) => this.handleToolTip(e, "fdfdfdfdfdfdfdfd")}
                                     >
-                                    <h6 style={{lineHeight:"20px", margin:"12px"}}>This section will allow you to invite new owners, residents, and team members to join the platform and start engaging with the building community</h6>
+                                    <h6 style={{lineHeight:"20px", margin:"12px"}}>{t("Info")}</h6>
                                     <img src={cancle}
                                     //@ts-ignore 
                                     style={dashBoard.cancleIcon} onClick={(e: any) => this.handleToolTip(e, "")}/>
                                 </RequestManagementDetailPopover>
-                            <h6>{t("Invite a new Member")}</h6>
                             <Typography variant="h6" style={dashBoard.subHeading}>16</Typography>
                         </Paper>
-                        <Paper elevation={3} style={dashBoard.managementPaper}>
+                        <Paper elevation={3} style={dashBoard.managementPaper} 
+                        onClick={() => {
+                          //@ts-ignore
+                          this.props.history.push("/AwaitingAcceptece")}}>
                             <div style={dashBoard.imgRound}>
                                 <img src= {invite} style={dashBoard.mailIcon}/>
                             </div>
@@ -175,12 +185,11 @@ class CommunityRequestManagement extends CommunityUserProfileController {
                                     }}
                                     onClose={(e: any) => this.handleToolTip(e, "fdfdfdfdfdfdfdfd")}
                                     >
-                                    <h6 style={{lineHeight:"20px", margin:"12px"}} onClick={(e: any) => this.handleToolTip(e, "")}>This section will allow you to invite new owners, residents, and team members to join the platform and start engaging with the building community</h6>
+                                    <h6 style={{lineHeight:"20px", margin:"12px"}} onClick={(e: any) => this.handleToolTip(e, "")}>{t("Info")}</h6>
                                     <img src={cancle} 
                                     //@ts-ignore
                                     style={dashBoard.cancleIcon} onClick={(e: any) => this.handleToolTip(e, "")}/>
                                 </RequestManagementDetailPopover>
-                                <h6>{t("Invite a new Member")}</h6>
                             <Typography variant="h6" style={dashBoard.subHeading}>67</Typography>
                         </Paper>
                     </div>
@@ -188,35 +197,243 @@ class CommunityRequestManagement extends CommunityUserProfileController {
 
                   <Box style={dashBoard.invitationReq}>
                     <Paper elevation={3} style={dashBoard.managementPaper}>
-                        <Typography variant="h6" style={dashBoard.subHeading}>Invitation Requests</Typography>
+                        <Typography variant="h6" style={dashBoard.subHeading}>{t("Invitation Requests")}</Typography>
                         <hr />
                         <div>
                             <div style={dashBoard.facility}>
-                                <h6 style={{color:"d3d3d3", margin:"20px 0px 10px 0px"}}>Title</h6>
-                                <h6 style={{color:"d3d3d3", margin:"20px 0px 10px 0px"}}>Count</h6>
+                                <h6 style={{color:"d3d3d3", margin:"20px 0px 10px 0px"}}>{t("Title")}</h6>
+                                <h6 style={{color:"d3d3d3", margin:"20px 0px 10px 0px"}}>{t("Count")}</h6>
                             </div>
                             <div style={dashBoard.facility}  
                             onClick={() => {
                             //@ts-ignore
                             this.props.history.push("/SentInvitation")}}>
-                                <h6>Total Sent Invitations</h6>
+                                <h6>{t("Total Sent Invitations")}</h6>
                                 <Typography variant="h6" style={dashBoard.invitationCont}>150</Typography>
                             </div>
                             <div style={dashBoard.facility}>
-                                <h6>Accepted Invitations by users</h6>
+                                <h6>{t("Accepted Invitations by users")}</h6>
                                 <Typography variant="h6" style={dashBoard.invitationCont}>99</Typography>
                             </div>
                             <div style={dashBoard.facility}>
-                                <h6>Rejected Invitation by users</h6>
+                                <h6>{t("Rejected Invitation by users")}</h6>
                                 <Typography variant="h6" style={dashBoard.invitationCont}>14</Typography>
                             </div>
                             <div style={dashBoard.facility}>
-                                <h6 style={dashBoard.inviteTitle}>Total received join requests</h6>
+                                <h6 style={dashBoard.inviteTitle}>{t("Total received join requests")}</h6>
                                 <Typography variant="h6" style={dashBoard.invitationCont}>50</Typography>
                             </div>
                         </div>
                     </Paper>
                   </Box>
+
+                  {/* Invite Member modal */}
+                  <Modal
+                    style={dashBoard.modal}
+                    open={Boolean(this.state.setOpen)}
+                    onClose={this.handleClose}
+                    closeAfterTransition
+                    BackdropComponent={Backdrop}
+                    BackdropProps={{
+                    timeout: 500,
+                    }}
+                    >
+                    <Fade in={Boolean(this.state.setOpen)}>
+                      <div style={dashBoard.paper}>
+                        <img src={cancle}
+                        onClick={this.handleClose}
+                        //@ts-ignore 
+                        style={dashBoard.modalCacle}/>
+                        <Formik
+                    initialValues={{
+                      email: "",
+                      usertype: "",
+                      fullname: "",
+                      phoneno: "",
+                      building: " ",
+                      unit:""
+                    }}
+                    validationSchema={this.InvitationSchema()}
+                    validateOnMount={true}
+                     onSubmit={(values) => {
+                       console.log("valus=========>", values)
+                       // same shape as initial values
+                       this.invitationData(values);
+                    }}
+                  >
+                    {({ values, touched, errors, isValid, setFieldValue }) => (
+                        <Form translate={true} className="commonForm ">
+                          <Grid container spacing={3}>
+                            <Grid item xs={12} sm={6}>
+                              <Box className="formGroup customSelect">
+                                  <FormLabel component="legend" style={dashBoard.labelsStyle}>{t("Select User Type")}</FormLabel>
+                                  <FormControl variant="outlined" >
+                                    <span className="frmLeftIcons">
+                                      <img src={user_icon} className="frm-icons" alt="User Icon" />
+                                    </span>
+                                    <InputLabel id="demo-simple-select-outlined-label" style={dashBoard.formLabels}>{t("Select User Type")}</InputLabel> 
+                                    <Select
+                                      name="usertype"
+                                      labelId="demo-simple-select-outlined-label"
+                                      id="demo-simple-select-outlined"
+                                      style={{ paddingLeft: '45px' }}
+                                      // label="Select User Type"
+                                      onChange={(e) => {
+                                        (e.target.value != " ") && setFieldValue("usertype", e.target.value)
+                                      }}
+                                      value={values.usertype}
+                                    >
+                                      <MenuItem  disabled value=" ">
+                                        {t("Select User Type")}
+                                      </MenuItem>
+                                      <MenuItem value={"user1"}>User1</MenuItem>
+                                      <MenuItem value={"user2"}>User2</MenuItem>
+                                      <MenuItem value={"user3"}>User3</MenuItem>
+                                      <MenuItem value={"user4"}>User4</MenuItem>
+
+                                      {/* {
+                                        this.state?.userTypeData?.map((val, index) => (
+                                          <MenuItem
+                                            key={index}
+                                            value={val?.name}
+                                          >
+                                            {val?.name}
+                                          </MenuItem>
+                                        ))
+                                      } */}
+
+                                    </Select>
+                                  </FormControl>
+                              </Box>
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <Box className="formGroup">
+                              <FormLabel component="legend" style={dashBoard.labelsStyle}>{t("Member full name")}</FormLabel>
+                              <Field name="fullname" type="text" placeholder={t("Member full name")} style={dashBoard.inviteInput} />
+                              <span
+                              //@ts-ignore 
+                              style={dashBoard.formLeftIcn}>
+                                <img src={user_icon} className="frm-icons" alt="User Icon" />
+                              </span>
+                            </Box>
+                            </Grid>
+                          </Grid>
+                          <Grid container spacing={3}>
+                            <Grid item xs={12} sm={6}>
+                              <Box className="formGroup">
+                              <FormLabel component="legend" style={dashBoard.labelsStyle}>{t("Email Address")}</FormLabel>
+                              <Field name="email" type="text" placeholder={t("Email Address")} style={dashBoard.inviteInput} />
+                              <span 
+                              //@ts-ignore 
+                              style={dashBoard.formLeftIcn}>
+                                <img src={email_icon} className="frm-icons" alt="Email Icon" />
+                              </span>
+                            </Box>
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <Box className="formGroup">
+                              <FormLabel component="legend" style={dashBoard.labelsStyle}>{t("Phone Number")}</FormLabel>
+                              <Field name="phoneno" type="text" placeholder={t("Phone Number")} style={dashBoard.inviteInput} />
+                              <span 
+                              //@ts-ignore 
+                              style={dashBoard.formLeftIcn}>
+                                <img src={phone_icon} className="frm-icons" alt="Phone Icon" />
+                              </span>
+                            </Box>
+                            </Grid>
+                          </Grid>
+                          <Grid container spacing={3}>
+                            <Grid item xs={12} sm={6}>
+                              <Box className="formGroup customSelect">
+                              <FormLabel component="legend" style={dashBoard.labelsStyle}>{t("Select Building")}</FormLabel>
+                                <FormControl variant="outlined" >
+                                  <span className="frmLeftIcons">
+                                    <img src={building} className="frm-icons" alt="Building Icon" />
+                                  </span>
+                                  <InputLabel id="demo-simple-select-outlined-label" style={dashBoard.formLabels}>{t("Select Building")}</InputLabel> 
+                                  <Select
+                                    name="building"
+                                    labelId="demo-simple-select-outlined-label"
+                                    id="demo-simple-select-outlined"
+                                    style={{ paddingLeft: '45px' }}
+                                    // label="Select User Type"
+                                    onChange={(e) => {
+                                      (e.target.value != " ") && setFieldValue("building", e.target.value)
+                                    }}
+                                    value={values.building}
+                                  >
+                                    <MenuItem  disabled value=" ">
+                                      {t("Select Building")}
+                                    </MenuItem>
+                                    <MenuItem value={"building1"}>User1</MenuItem>
+                                    <MenuItem value={"building2"}>User2</MenuItem>
+                                    <MenuItem value={"building3"}>User3</MenuItem>
+                                    <MenuItem value={"building4"}>User4</MenuItem>
+
+                                    {/* {
+                                      this.state?.userTypeData?.map((val, index) => (
+                                        <MenuItem
+                                          key={index}
+                                          value={val?.name}
+                                        >
+                                          {val?.name}
+                                        </MenuItem>
+                                      ))
+                                    } */}
+
+                                  </Select>
+                                </FormControl>
+                              </Box>
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <Box className="formGroup customSelect">
+                              <FormLabel component="legend" style={dashBoard.labelsStyle}>{t("Select Unit")}</FormLabel>
+                                  <FormControl variant="outlined" >
+                                    <span className="frmLeftIcons">
+                                      <img src={unit} className="frm-icons" alt="Unit Icon" />
+                                    </span>
+                                    <InputLabel id="demo-simple-select-outlined-label" style={dashBoard.formLabels}>{t("Select Unit")}</InputLabel> 
+                                    <Select
+                                      name="unit"
+                                      labelId="demo-simple-select-outlined-label"
+                                      id="demo-simple-select-outlined"
+                                      style={{ paddingLeft: '45px' }}
+                                      // label="Select User Type"
+                                      onChange={(e) => {
+                                        (e.target.value != " ") && setFieldValue("unit", e.target.value)
+                                      }}
+                                      value={values.unit}
+                                    >
+                                      <MenuItem  disabled value=" ">
+                                        {t("Select Unit")}
+                                      </MenuItem>
+                                      <MenuItem value={"unit1"}>User1</MenuItem>
+                                      <MenuItem value={"unit2"}>User2</MenuItem>
+                                      <MenuItem value={"unit3"}>User3</MenuItem>
+                                      <MenuItem value={"unit4"}>User4</MenuItem>
+
+                                      {/* {
+                                        this.state?.userTypeData?.map((val, index) => (
+                                          <MenuItem
+                                            key={index}
+                                            value={val?.name}
+                                          >
+                                            {val?.name}
+                                          </MenuItem>
+                                        ))
+                                      } */}
+
+                                    </Select>
+                                  </FormControl>
+                              </Box>
+                            </Grid>
+                          </Grid>
+                        </Form>
+                        )}
+                        </Formik>
+                      </div>
+                    </Fade>
+                  </Modal>
               </Container>
             </Grid>
           </Box>
@@ -246,28 +463,10 @@ const dashBoard = {
   inviteTitle:{
     margin:'10px 0px 10px 0px'
   },
-  YearMain: {
-    background: "#fff",
-    border: "none",
-    borderRadius: 5,
-    padding: 5,
-  },
   SideBar: {
     background: "#f9f6f6",
     position: "relative",
     paddingBottom: 150,
-  },
-  searchButton:{
-    margin:8
-  },
-  backColor:{
-   backgroundColor: "#2D6EED",
-   padding:"9px 16px"
-  },
-  boxStyling:{
-    display:"flex",
-    alignItems:"center",
-    marginTop:20
   },
   gaMemberCard:{
     display: "grid",
@@ -301,6 +500,12 @@ cancleIcon:{
     top:15,
     right:15
 },
+modalCacle:{
+  top:15,
+  right:15,
+  float:"right",
+  cursor:"pointer"
+},
 invitationReq:{
     marginTop:30
 },
@@ -311,6 +516,41 @@ facility: {
     borderBottom:"1px solid #f8f8f8",
     cursor:"pointer"
   },
+  modal:{
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  paper: {
+    backgroundColor: "#fff",
+    borderRadius: '10px',
+    // boxShadow: theme.shadows[5],
+    padding: "16px 32px 24px",
+    width:"700px"
+},
+  formLabels:{
+    paddingLeft:35
+},
+  labelsStyle:{
+    color:"#212121",
+    margin:"10px 0px 10px 0px"
+},
+formLeftIcn:{
+  position:"absolute",
+  left: 20,
+  top: 44,
+  color: "#b9b9b9"
+},
+inviteInput:{
+  padding: "18px 18px 18px 50px",
+  color: "#b5b5b5",
+  borderRadius: "10px",
+  border: "1px solid #e9dede",
+  backgroundColor: "#f9f9f9",
+  fontSize: "16px",
+  outline: 0,
+  width:"100%"
+}
 };
 
 const RequestManagementDetailPopover = withStyles({

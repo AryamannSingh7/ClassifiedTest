@@ -4,7 +4,6 @@ import { runEngine } from "../../../framework/src/RunEngine";
 import MessageEnum, {
   getName
 } from "../../../framework/src/Messages/MessageEnum";
-import * as Yup from 'yup';
 
 // Customizable Area Start
 import { imgPasswordInVisible, imgPasswordVisible } from "./assets";
@@ -20,11 +19,9 @@ export interface Props {
 
 interface S {
   // Customizable Area Start
-  openToolTip: boolean;
-  anchorEl:any;
-  popUPText:string;
-  setOpen:boolean;
-  invitationData:any;
+    dataSearch: any,
+    anchorEl: any,
+    anchorEl1: any
   // Customizable Area End
 
 }
@@ -35,7 +32,7 @@ interface SS {
   // Customizable Area End
 }
 
-export default class CommunityUserProfileController extends BlockComponent<
+export default class UserDetailedProfileController extends BlockComponent<
   Props,
   S,
   SS
@@ -55,11 +52,9 @@ export default class CommunityUserProfileController extends BlockComponent<
     ];
 
     this.state = {
-      openToolTip: false,
-      anchorEl:null,
-      popUPText:"",
-      setOpen:false,
-      invitationData:""
+        dataSearch: "",
+        anchorEl: null,
+        anchorEl1: null
       
     };
     // Customizable Area End
@@ -89,39 +84,19 @@ export default class CommunityUserProfileController extends BlockComponent<
     // Customizable Area End
   }
 
-  handleToolTip = (event: any, text: any) => {
-    this.setState({ openToolTip: !this.state.openToolTip });
-    this.setState({ anchorEl: event.currentTarget });
-    this.setState({ popUPText: text });
-  };
-
-  handleOpen = () => {
-    this.setState({setOpen:true});
-  };
-
-  handleClose = () => {
-    this.setState({setOpen:false});
-  };
-
-  InvitationSchema() {
-    const validations = Yup.object().shape({
-      email: Yup.string()
-        .email('Invalid email format')
-        .strict(true)
-        .lowercase(`Please enter all values in lowercase`)
-        .trim()
-        .required(`This field is required.`),
-      usertype: Yup.string().required(`This field is required`),
-      fullname: Yup.string().required(`This field is required`),
-      phoneno: Yup.string().required(`This field is required`),
-      building: Yup.string().required(`This field is required`),
-      unit: Yup.string().required(`This field is required`),
-    });
-    return validations
+  handleMoreClose = () => {
+    this.setState({anchorEl:null});
   }
 
-  invitationData = (values: any) => {
-    this.setState({invitationData:values})
+  handleMoreClick = (e: any) => {
+    this.setState({anchorEl:e.currentTarget});
   }
 
+  handleUnitMoreClose = () => {
+    this.setState({anchorEl1:null});
+  }
+
+  handleUnitMoreClick = (e: any) => {
+    this.setState({anchorEl1:e.currentTarget});
+  }
 }

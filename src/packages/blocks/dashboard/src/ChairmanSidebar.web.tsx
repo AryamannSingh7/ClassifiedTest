@@ -141,7 +141,7 @@ class ChairmanSidebar extends DashboardController {
               }}
             >
               <Typography variant="body2" className="cursor-pointer">
-                {t("Request Managementtt")}
+                {t("Request Management")}
               </Typography>
             </AccordionDetails>
             <AccordionDetails

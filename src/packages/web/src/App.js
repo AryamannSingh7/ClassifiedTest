@@ -210,6 +210,9 @@ import PropertysManager from '../../blocks/user-profile-basic/src/PropertysManag
 import CommunityRequestManagement from '../../blocks/user-profile-basic/src/CommunityRequestManagement.web';
 
 import SentInvitation from "../../blocks/user-profile-basic/src/SentInvitation.web";
+import PendingRequest from '../../blocks/user-profile-basic/src/PendingRequest.web';
+import AwaitingAcceptece from '../../blocks/user-profile-basic/src/AwaitingAcceptece.web';
+import UserDetailedProfile from '../../blocks/user-profile-basic/src/UserDetailedProfile.web';
 
 const routeMap = {
   //done
@@ -1275,6 +1278,18 @@ const routeMap = {
   SentInvitation:{
     component:SentInvitation,
     path:'/SentInvitation'
+  },
+  PendingRequest:{
+    component:PendingRequest,
+    path:"/PendingRequest"
+  },
+  AwaitingAcceptece:{
+    component:AwaitingAcceptece,
+    path:"/AwaitingAcceptece"
+  },
+  UserDetailedProfile:{
+    component:UserDetailedProfile,
+    path:"/UserDetailedProfile"
   },
 
   AlertWeb: {

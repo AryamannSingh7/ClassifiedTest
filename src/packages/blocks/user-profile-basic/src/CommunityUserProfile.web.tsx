@@ -43,6 +43,8 @@ import MailOutlineOutlinedIcon from '@material-ui/icons/MailOutlineOutlined';
 import CallOutlinedIcon from '@material-ui/icons/CallOutlined';
 import QuestionAnswerOutlinedIcon from '@material-ui/icons/QuestionAnswerOutlined';
 
+import { call_org, email_org, chat } from "./assets";
+
 const ProfileData = [ 
   {
   image:"https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2080&q=80",
@@ -112,7 +114,7 @@ const Residents = [
   content:"Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica",
   unitno:"B-1405",
   name:"Marlen Eagleston",
-  userType:"Residents",
+  userType:"Resident",
   mail:<MailOutlineOutlinedIcon />,
   call:<CallOutlinedIcon />,
   chat:<QuestionAnswerOutlinedIcon />
@@ -122,7 +124,7 @@ const Residents = [
   content:"Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica",
   unitno:"B-1405, C-1020",
   name:"Marlen Eagleston",
-  userType:"Residents",
+  userType:"Resident",
   mail:<MailOutlineOutlinedIcon />,
   call:<CallOutlinedIcon />,
   chat:<QuestionAnswerOutlinedIcon />
@@ -132,7 +134,7 @@ const Residents = [
   content:"Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica",
   unitno:"B-1405, C-1020",
   name:"Marlen Eagleston",
-  userType:"Residents",
+  userType:"Resident",
   mail:<MailOutlineOutlinedIcon />,
   call:<CallOutlinedIcon />,
   chat:<QuestionAnswerOutlinedIcon />
@@ -142,7 +144,7 @@ const Residents = [
   content:"Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica",
   unitno:"B-1405, C-1020, D-3070",
   name:"Marlen Eagleston",
-  userType:"Residents",
+  userType:"Resident",
   mail:<MailOutlineOutlinedIcon />,
   call:<CallOutlinedIcon />,
   chat:<QuestionAnswerOutlinedIcon />
@@ -227,7 +229,7 @@ class CommunityUserProfile extends CommunityUserProfileController {
                             // value={this.state.Year}
                             // onChange={this.handleChange}
                           >
-                            <option value={2022}>Select Unit</option>
+                            <option value={2022}>{t("Select Unit")}</option>
                             <option value={2021}>2021</option>
                             <option value={2020}>2020</option>
                             <option value={2019}>2019</option>
@@ -240,7 +242,7 @@ class CommunityUserProfile extends CommunityUserProfileController {
                             // value={this.state.Year}
                             // onChange={this.handleChange}
                           >
-                            <option value={2022}>Select User Type</option>
+                            <option value={2022}>{t("Select User Type")}</option>
                             <option value={2021}>2021</option>
                             <option value={2020}>2020</option>
                             <option value={2019}>2019</option>
@@ -250,15 +252,15 @@ class CommunityUserProfile extends CommunityUserProfileController {
                       <Grid item xs={4}>
                         <Button variant="contained" style={dashBoard.backColor}><InputAdornment position="start">
                                 <SearchIcon />
-                              </InputAdornment>Search</Button>
+                              </InputAdornment>{t("Search")}</Button>
                       </Grid>
                     </Grid>
-                    <Grid container  xs={6} md={6} sm={6} spacing={2} style={{justifyContent:"end"}}>
+                    <Grid container  xs={6} sm={8} spacing={2} style={{justifyContent:"end"}}>
                     <div className="search-box">
                         <TextField
                           style={dashBoard.searchButton}
                           id="input-with-icon-textfield"
-                          placeholder="search by name"
+                          placeholder={t("Search by name")}
                           InputProps={{
                             startAdornment: (
                               <InputAdornment position="start">
@@ -286,7 +288,10 @@ class CommunityUserProfile extends CommunityUserProfileController {
                           </Grid>
                     </Grid>
                   </Box>
-                  <Box style={{marginTop:"10px"}}>
+                  <Box style={{marginTop:"10px"}}
+                   onClick={() => {
+                    //@ts-ignore
+                    this.props.history.push("/UserDetailedProfile")}}>
                     <div style={dashBoard.gaMemberCard}>
                       <>
                       {ProfileData.slice(0, 4).map((item, index) => {
@@ -310,7 +315,11 @@ class CommunityUserProfile extends CommunityUserProfileController {
                                 <Typography variant="h6" style={dashBoard.userType}>{item.userType}</Typography>
                               </div>
                               <div style={dashBoard.contactIcon}>
-                                {item.chat}{item.mail}{item.call}
+                                <div style={dashBoard.relatedMemberCard}>
+                                  <img src={chat} style={{width:"40px", margin:"0 auto"}}/>
+                                  <img src={email_org} style={{width:"40px", margin:"0 auto"}}/>
+                                  <img src={call_org} style={{width:"40px", margin:"0 auto"}}/>
+                                </div>
                               </div>
                               </CardContent>
                             </CardActionArea>
@@ -364,7 +373,11 @@ class CommunityUserProfile extends CommunityUserProfileController {
                                 <Typography variant="h6" style={dashBoard.userType}>{item.userType}</Typography>
                               </div>
                               <div style={dashBoard.contactIcon}>
-                                {item.chat}{item.mail}{item.call}
+                                <div style={dashBoard.relatedMemberCard}>
+                                  <img src={chat} style={{width:"40px", margin:"0 auto"}}/>
+                                  <img src={email_org} style={{width:"40px", margin:"0 auto"}}/>
+                                  <img src={call_org} style={{width:"40px", margin:"0 auto"}}/>
+                                </div>
                               </div>
                               </CardContent>
                             </CardActionArea>
@@ -417,7 +430,11 @@ class CommunityUserProfile extends CommunityUserProfileController {
                                 <Typography variant="h6" style={dashBoard.userType}>{item.userType}</Typography>
                               </div>
                               <div style={dashBoard.contactIcon}>
-                                {item.chat}{item.mail}{item.call}
+                                <div style={dashBoard.relatedMemberCard}>
+                                  <img src={chat} style={{width:"40px", margin:"0 auto"}}/>
+                                  <img src={email_org} style={{width:"40px", margin:"0 auto"}}/>
+                                  <img src={call_org} style={{width:"40px", margin:"0 auto"}}/>
+                                </div>
                               </div>
                               </CardContent>
                             </CardActionArea>
@@ -454,85 +471,11 @@ const dashBoard = {
     fontWeight: 600,
     marginTop: 15,
   },
-  cardBottom: {
-    display: "flex",
-    gap: 20,
-    marginTop: 10
-  },
-  bottomColor: {
-    color: "red"
-  },
-  bottomTwoSpan: {
-    display: "flex",
-    gap: 20,
-    marginTop: 10
-  },
-  Cards: {
-    paddingTop: 30,
-    paddingLeft: 15,
-    paddingBottom: 25,
-    background: "#fff",
-    borderRadius: 10,
-  },
-  CardsIcons: {
-    border: "1px solid #d9d4d3",
-    borderRadius: "50%",
-    width: 25,
-    height: 25,
-    padding: 15,
-    color: "#054c94",
-  },
-  EventsHeading: {
-    fontWeight: 600,
-    marginTop: 50,
-  },
-  EventsCards: {
-    paddingTop: 15,
-    paddingLeft: 15,
-    paddingBottom: 15,
-    background: "#fff",
-    borderRadius: 10,
-  },
-  EventsTitle: {
-    fontWeight: 600,
-    fontSize: 18,
-    marginTop: 10,
-  },
-  EventsIconsText: {
-    display: "flex",
-    alignItems: "center",
-    gap: 5,
-    marginTop: 15,
-    fontSize: 14,
-  },
-  EventsIconsData: {
-    display: "flex",
-    alignItems: "center",
-    gap: 25,
-    marginTop: 15,
-  },
-  EventsIconsDataBox: {
-    display: "flex",
-    alignItems: "center",
-    gap: 5,
-  },
   YearMain: {
     background: "#fff",
     border: "none",
     borderRadius: 5,
     padding: 5,
-  },
-  facility: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  PricePaid: {
-    marginRight: 70,
-    background: "#dcf5f0",
-    padding: 6,
-    borderRadius: 30,
-    color: "green",
   },
   SideBar: {
     background: "#f9f6f6",
@@ -566,6 +509,11 @@ const dashBoard = {
   gaMemberCard:{
     display: "grid",
     gridTemplateColumns: "3fr 3fr 3fr 3fr",
+    gap: 20
+  },
+  relatedMemberCard:{
+    display: "grid",
+    gridTemplateColumns: "3fr 3fr 3fr",
     gap: 20
   },
   profileImage:{
