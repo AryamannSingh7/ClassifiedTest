@@ -23,8 +23,9 @@ interface S {
   openToolTip: boolean;
   anchorEl:any;
   popUPText:string;
-  setOpen:boolean;
+  setRejectOpen:boolean;
   invitationData:any;
+  setAcceptOpen:any;
   // Customizable Area End
 
 }
@@ -35,7 +36,7 @@ interface SS {
   // Customizable Area End
 }
 
-export default class CommunityUserProfileController extends BlockComponent<
+export default class PendingRequestController extends BlockComponent<
   Props,
   S,
   SS
@@ -58,8 +59,9 @@ export default class CommunityUserProfileController extends BlockComponent<
       openToolTip: false,
       anchorEl:null,
       popUPText:"",
-      setOpen:false,
-      invitationData:""
+      setRejectOpen:false,
+      invitationData:"",
+      setAcceptOpen:""
       
     };
     // Customizable Area End
@@ -95,33 +97,21 @@ export default class CommunityUserProfileController extends BlockComponent<
     this.setState({ popUPText: text });
   };
 
-  handleOpen = () => {
-    this.setState({setOpen:true});
+  handleRejectOpen = () => {
+    this.setState({setRejectOpen:true});
   };
 
-  handleClose = () => {
-    this.setState({setOpen:false});
+  handleRejectClose = () => {
+    this.setState({setRejectOpen:false});
   };
 
-  InvitationSchema() {
-    const validations = Yup.object().shape({
-      email: Yup.string()
-        .email('Invalid email format')
-        .strict(true)
-        .lowercase(`Please enter all values in lowercase`)
-        .trim()
-        .required(`This field is required.`),
-      usertype: Yup.string().required(`This field is required`),
-      fullname: Yup.string().required(`This field is required`),
-      phoneno: Yup.string().required(`This field is required`),
-      building: Yup.string().required(`This field is required`),
-      unit: Yup.string().required(`This field is required`),
-    });
-    return validations
-  }
+  handleAcceptOpen = () => {
+    this.setState({setAcceptOpen:true});
+  };
 
-  invitationData = (values: any) => {
-    this.setState({invitationData:values})
-  }
+  handleAcceptClose = () => {
+    this.setState({setAcceptOpen:false});
+  };
+
 
 }

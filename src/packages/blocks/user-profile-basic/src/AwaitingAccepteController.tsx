@@ -20,10 +20,10 @@ export interface Props {
 
 interface S {
   // Customizable Area Start
-  openToolTip: boolean;
-  anchorEl:any;
-  popUPText:string;
-  setOpen:boolean;
+  setAcceptOpen:any;
+  anchorEl1:any;
+  setRequestOpen:boolean;
+  setDeleteRequest:boolean;
   invitationData:any;
   // Customizable Area End
 
@@ -35,7 +35,7 @@ interface SS {
   // Customizable Area End
 }
 
-export default class CommunityUserProfileController extends BlockComponent<
+export default class AwaitingAccepteController extends BlockComponent<
   Props,
   S,
   SS
@@ -55,12 +55,11 @@ export default class CommunityUserProfileController extends BlockComponent<
     ];
 
     this.state = {
-      openToolTip: false,
-      anchorEl:null,
-      popUPText:"",
-      setOpen:false,
+      setAcceptOpen:"",
+      anchorEl1:null,
+      setRequestOpen:false,
+      setDeleteRequest:false,
       invitationData:""
-      
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this, this.subScribedMessages);
@@ -89,19 +88,37 @@ export default class CommunityUserProfileController extends BlockComponent<
     // Customizable Area End
   }
 
-  handleToolTip = (event: any, text: any) => {
-    this.setState({ openToolTip: !this.state.openToolTip });
-    this.setState({ anchorEl: event.currentTarget });
-    this.setState({ popUPText: text });
-  };
+  // More Button click
 
-  handleOpen = () => {
-    this.setState({setOpen:true});
-  };
+  handleMoreClose = () => {
+    this.setState({anchorEl1:null});
+  }
 
-  handleClose = () => {
-    this.setState({setOpen:false});
-  };
+  handleMoreClick = (e: any) => {
+    this.setState({anchorEl1:e.currentTarget});
+  }
+
+  // Resend Request popup
+
+  handleResendRequest = () => {
+    this.setState({setRequestOpen:true})
+    this.setState({anchorEl1:null});
+  }
+
+  handleRequestClose = () => {
+    this.setState({setRequestOpen:false})
+  }
+
+  // Delete Invitation Request popup
+
+  handleDeleteRequestOpen = () => {
+    this.setState({setDeleteRequest:true})
+    this.setState({anchorEl1:null});
+  }
+
+  handleDeleteRequestClose = () => {
+    this.setState({setDeleteRequest:false})
+  }
 
   InvitationSchema() {
     const validations = Yup.object().shape({
@@ -123,5 +140,4 @@ export default class CommunityUserProfileController extends BlockComponent<
   invitationData = (values: any) => {
     this.setState({invitationData:values})
   }
-
 }
