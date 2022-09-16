@@ -96,11 +96,7 @@ export default class ProfileController extends BlockComponent<
   createVehicleApiCallId:any;
   deleteVehicleAPICallId:any;
   getProfileDataAPiCallId:any;
-
-
-
-
-
+  chatSettingApiCallId:any;
   validationApiCallId: string = "";
 
   imgPasswordVisible: any;
@@ -263,25 +259,13 @@ export default class ProfileController extends BlockComponent<
         } else if (apiRequestCallId === this.verifyOtpApiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
-            //@ts-ignore
+               //@ts-ignore
             //@ts-nocheck
-            this.setState({ loading: false })
-            //@ts-ignore
-            //@ts-nocheck
-            this.props.history.push('/registerunit')
-            // if (this.props.history.location.state?.data) {
-            //   //@ts-ignore
-            //   //@ts-nocheck
-            //   this.props.history.push('/registerunit')
-            // } else {
-            //   //@ts-ignore
-            //   //@ts-nocheck
-            //   this.props.history.push('/selecttype')
-            // }
-            // //@ts-ignore
-            // //@ts-nocheck
-            // this.props.history.push('/selecttype')
-
+            let profileData:any = JSON.parse(localStorage.getItem('profileData'))
+            profileData.attributes.full_phone_number.phone_number =responseJson.phone_number
+            localStorage.setItem('profileData',JSON.stringify(profileData))
+            this.setState({ selectCode: responseJson.country_code })
+            location.reload();
 
           } else if (responseJson?.errors) {
             let error = responseJson.errors[0];
@@ -294,15 +278,24 @@ export default class ProfileController extends BlockComponent<
 
         } else if (apiRequestCallId === this.updatePhoneApicallId) {
           if (!responseJson.errors) {
-
-
             console.log(responseJson)
-            this.setState({showDialogDelete:true,showDialog:false,loading:false})
-            //@ts-ignore
-            //@ts-nocheck
-            this.props.history.push('/otp')
+            this.setState({ showDialogDelete: true, showDialog: false, loading: false })
+          } else if (responseJson?.errors) {
+            let error = responseJson.errors[0];
+            this.setState({ error });
+            this.parseApiCatchErrorResponse(this.state.error);
+            this.parseApiCatchErrorResponse(errorReponse);
+          } else {
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
+            this.parseApiCatchErrorResponse(this.state.error);
+            this.parseApiCatchErrorResponse(errorReponse);
+          }
+          this.setState({ loading: false })
 
-
+        } else if (apiRequestCallId === this.chatSettingApiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            this.handleClose('')
           } else if (responseJson?.errors) {
             let error = responseJson.errors[0];
             this.setState({ error });
@@ -1462,39 +1455,32 @@ this.setState({loading:true})
   verifyOtp = (): boolean => {
 
     const header = {
-      "Content-Type": configJSON.contentTypeApiAddDetail
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      token: localStorage.getItem("userToken")
     };
-    const httpBody = {
-      otp: this.state?.otp || "111111",
-      email: localStorage.getItem('user_email')
-    };
+
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
     );
-    console.log(this.changeUserTypeApiCallId)
-    console.log(requestMessage.messageId)
+
     //@ts-ignore
     //@ts-nocheck
     this.setState({ loading: true })
     this.verifyOtpApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `account_block/accounts/verify_user`
+      `bx_block_profile/profiles/verify_otp?otp=111111`
     );
 
     requestMessage.addData(
       getName(MessageEnum.RestAPIRequestHeaderMessage),
       JSON.stringify(header)
-    );
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestBodyMessage),
-      JSON.stringify(httpBody)
-    );
+    )
 
 
     requestMessage.addData(
       getName(MessageEnum.RestAPIRequestMethodMessage),
-      'POST'
+      'GET'
     );
 
     runEngine.sendMessage(requestMessage.id, requestMessage);
@@ -1512,8 +1498,8 @@ this.setState({loading:true})
       };
       const formData = new FormData();
       formData.append("[data][attributes][full_name]", values.full_name)
-      formData.append("[data][attributes][full_phone_number]", values.phone)
-      formData.append("[data][attributes][gender]", values.male ? '1' : '2')
+      formData.append("[data][attributes][full_phone_number]", `${this.state.selectCode}${values.phone}`)
+      formData.append("[data][attributes][gender]", values.male ? '0' : '1')
       formData.append("[data][attributes][date_of_birth]", values.DOB)
       formData.append("[data][attributes][profile_bio]", values.bio)
       formData.append("[data][attributes][twitter_link]", values.twitter)
@@ -1571,10 +1557,21 @@ this.setState({loading:true})
     const validations = Yup.object().shape({
 
       full_name: Yup.string().required(`This field is required`).trim(),
-      phone: Yup.string().required(`This field is required`).trim(),
+      phone: Yup.number()
+        .typeError("Only numbers are allowed.")
+        .required("Mobile number is required.")
+        .positive("Negative numbers are not allowed.")
+        .integer("Number can't contain a decimal.")
+        .min(10000000, "Minimum 8 digits are required.")
+        .max(99999999999, "Maximum 11 digits are allowed."),
       email: Yup.string().required(`This field is required`).trim(),
-      DOB: Yup.string().required(`This field is required`).trim(),
-      hobbies: Yup.string().required(`This field is required`).trim(),
+      DOB: Yup.date().required(`This field is required`),
+      hobbies: Yup.string().required(`This field is required`).nullable(),
+      fb: Yup.string().matches(/(?:(?:http|https):\/\/)?(?:www.)?facebook.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\w\-]*)?/, `Invalid facebook URL`).nullable(),
+      insta: Yup.string().matches(/(?:(?:http|https):\/\/)?(?:www\.)?(?:instagram\.com|instagr\.am)\/([A-Za-z0-9-_\.]+)/im, `Invalid instagram URL`).nullable(),
+      twitter: Yup.string().matches(/http(?:s)?:\/\/(?:www\.)?twitter\.com\/([a-zA-Z0-9_]+)/, `Invalid twitter URL`).nullable(),
+      snap: Yup.string().matches(/http(?:s)?:\/\/(?:www\.)?snapchat\.com\/([a-zA-Z0-9_]+)/, `Invalid snapchat URL`).nullable(),
+
 
     });
     return validations
@@ -1593,8 +1590,14 @@ this.setState({loading:true})
       this.props.history.push("/editfamily")
 
     } else {
-      this.setState({ anchorEl: item.currentTarget, showDialog2: false })
+      this.setState({ anchorEl: item.currentTarget, showDialog: false })
     }
+    // this.setState({ anchorEl:null,showDialog:false })
+  };
+  handleClose2 = (item: any) => {
+
+      this.setState({ anchorEl: item.currentTarget, showDialog2: false })
+
     // this.setState({ anchorEl:null,showDialog:false })
   };
   deleteRequest() {
@@ -1660,7 +1663,8 @@ this.setState({loading:true})
 
   };
   updatePublicProfile=(values:any)=>{
-    if(values.full_name){
+    console.log(values)
+    if(!values.full_name){
       this.setState({showDialog:true,values:values})
     }else{
       this.setState({ values: values })
@@ -1670,27 +1674,31 @@ this.setState({loading:true})
   }
 
   publicViewAPI=(values:any)=>{
-    this.setState({ showDialog: false })
+    this.setState({ loading: true })
     try {
       const header = {
 
-        token: localStorage.getItem("userToken")
+        token: localStorage.getItem("userToken"),
+        'content-type': 'application/json'
       };
       const data = {
-          name: this.state.values.full_name,
-              email: this.state.values.email,
-              appartment_number: this.state.values.unit,
-              full_phone_number: this.state.values.phone,
-              gender: this.state.values.gender,
-              date_of_birth: this.state.values.full_name,
-              hobbies: this.state.values.full_name,
-              twitter_link: this.state.values.full_name,
-              fb_link: this.state.values.full_name,
-              instagram_link: this.state.values.full_name,
-              snapchat_link: this.state.values.full_name,
-              family_detail: this.state.values.full_name
+        "data": {
+          "attributes": {
+            name_public: this.state.values.full_name,
+            email_public: this.state.values.email,
+            apartment_no_public: this.state.values.unit,
+            phone_no_public: this.state.values.phone,
+            gender_public: this.state.values.gender,
+            date_of_birth_public: this.state.values.DOB,
+            hobbies_public: this.state.values.hobbies,
+            twitter_public: this.state.values.twitter,
+            facebook_public: this.state.values.full_fbname,
+            instagram_public: this.state.values.insta,
+            snapchat_public: this.state.values.snap,
+            family_details_public: this.state.values.family
 
-
+          }
+        }
 
       }
       const requestMessage = new Message(
@@ -1701,7 +1709,7 @@ this.setState({loading:true})
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        'bx_block_profile/permision'
+        'bx_block_profile/profiles/public_profile'
       );
 
       requestMessage.addData(
@@ -1746,17 +1754,20 @@ this.setState({loading:true})
 
 this.setState({loading:true})
     const header = {
-      "token": localStorage.getItem('userToken')
+      "token": localStorage.getItem('userToken'),
+
     };
     const formData = new FormData();
-    formData.append("[data][attributes][full_name]", 'values.phone')
+    formData.append("new_phone_number", `${values.phone}`)
+    formData.append("country_code", `${this.state.selectCode}`)
+
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
     );
     this.updatePhoneApicallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      'bx_block_profile/verify_number'
+      'bx_block_profile/profiles/verify_number'
     );
 
     requestMessage.addData(
@@ -1779,16 +1790,65 @@ this.setState({loading:true})
 
   }
   handleAddChip=(fn:any,data:any,values:any)=>{
+    console.log('hi')
 values.push(data)
 fn('hobbies',values)
     console.log(values)
 
   }
   handleDeleteChip = (fn: any, data: any, values: any,index:any)=>{
-
+    console.log('bye')
     values.splice(index, 1)
     fn('hobbies', values)
 console.log(data,index)
   }
+  disablechat=()=>{
+
+    this.setState({ loading: true })
+    const header = {
+      "token": localStorage.getItem('userToken'),
+
+    };
+
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+    this.chatSettingApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      'bx_block_chat/chats/disable_enable_chat?disbale_chat=true'
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      'PATCH'
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+
+  }
+
+  redirectToDashboard=()=>{
+let userType=localStorage.getItem('userType')
+    if (userType == 'Owner'){
+      //@ts-ignore
+      //@ts-nocheck
+      this.props.history.push('/OwnerDashboard')
+    }else{
+      //@ts-ignore
+      //@ts-nocheck
+      this.props.history.push('/residentDashboard')
+    }
+
+  }
+
   // Customizable Area End
 }

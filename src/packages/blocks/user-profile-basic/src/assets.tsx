@@ -27,3 +27,7 @@ export const fbedit = require("../assets/fbedit.png");
 export const instaedit = require("../assets/instaedit.png");
 export const snapedit = require("../assets/snapedit.png");
 export const mobile = require("../assets/mobile.png");
+export const FB_Icon = require("../assets/facebook-icon.png");
+export const Twitter_Icon = require("../assets/twitter-icon.png");
+export const Instagram_Icon = require("../assets/instagram-icon.png");
+export const Snapchat_Icon = require("../assets/snapchat-icon.png");

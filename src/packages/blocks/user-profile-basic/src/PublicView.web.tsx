@@ -35,6 +35,7 @@ class PublicView extends ProfileController {
 
   }
   render() {
+    let profileData = JSON.parse(localStorage.getItem('profileData'))
     return (
 
       <>
@@ -61,18 +62,19 @@ class PublicView extends ProfileController {
               <Grid container className="main-content-block">
                 <Grid xs={12}>
                   <Formik initialValues={{
-                    full_name: false,
-                    unit: false,
-                    phone: false,
-                    email: false,
-                    gender: false,
-                    DOB: false,
-                    hobbies: false,
-                    twitter: false,
-                    fb: false,
-                    insta: false,
-                    snap: false,
-                    family:false
+                    full_name: profileData?.attributes?.full_name?.publilc_access,
+                    unit: profileData?.attributes?.full_name?.publilc_access,
+                    phone: profileData?.attributes?.full_phone_number?.publilc_access,
+                    email: profileData?.attributes?.email?.publilc_access,
+                    gender: profileData?.attributes?.gender?.publilc_access,
+                    DOB: profileData?.attributes?.date_of_birth?.publilc_access,
+                    hobbies: profileData?.attributes?.hobbies?.publilc_access,
+                    twitter: profileData?.attributes?.website[0].publilc_access,
+                    fb: profileData?.attributes?.website[1].publilc_access,
+                    insta: profileData?.attributes?.website[2].publilc_access,
+                    snap: profileData?.attributes?.website[3].publilc_access,
+                    bio: profileData?.attributes?.bio?.publilc_access,
+                    family: profileData?.attributes?.families?.publilc_access
                   }}
                     onSubmit={(values) => { this.updatePublicProfile(values) }}
                   >
@@ -90,9 +92,13 @@ class PublicView extends ProfileController {
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '95%' }}>
                               <div>
                                 <label htmlFor="loginCheckboxna" className="checkboxLabel">Name</label>
+                                <p style={{marginTop:'0.25rem'}}>
+                                  {profileData.attributes.full_name.name}
+                                </p>
+
                               </div>
                               <div>
-                                <Checkbox name="full_name" onChange={handleChange} value={values.full_name} icon={<CircleUnchecked />}
+                                <Checkbox name="full_name" onChange={handleChange} checked={values.full_name} icon={<CircleUnchecked />}
                                   checkedIcon={<CircleCheckedFilled />} id="loginCheckboxna"
                                 />
                               </div>
@@ -104,9 +110,12 @@ class PublicView extends ProfileController {
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '95%' }}>
                               <div>
                                 <label htmlFor="loginCheckboxu" className="checkboxLabel">Apartment No.</label>
+                                <p style={{ marginTop: '0.25rem' }}>
+                                  {profileData.attributes.apartment_number.apartment_number}
+                                </p>
                               </div>
                               <div>
-                                <Checkbox name="unit" onChange={handleChange} value={values.unit} icon={<CircleUnchecked />}
+                                <Checkbox name="unit" onChange={handleChange} checked={values.unit} icon={<CircleUnchecked />}
                                   checkedIcon={<CircleCheckedFilled />} id="loginCheckboxu"
                                 />
                               </div>
@@ -117,9 +126,12 @@ class PublicView extends ProfileController {
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '95%' }}>
                               <div>
                                 <label htmlFor="loginCheckboxp" className="checkboxLabel">Phone No.</label>
+                                <p style={{ marginTop: '0.25rem' }}>
+                                  {profileData.attributes.full_phone_number.full_phone_number}
+                                </p>
                               </div>
                               <div>
-                                <Checkbox name="phone" onChange={handleChange} value={values.phone} icon={<CircleUnchecked />}
+                                <Checkbox name="phone" onChange={handleChange} checked={values.phone} icon={<CircleUnchecked />}
                                   checkedIcon={<CircleCheckedFilled />} id="loginCheckboxp"
                                 />
                               </div>
@@ -130,9 +142,12 @@ class PublicView extends ProfileController {
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '95%' }}>
                               <div>
                                 <label htmlFor="loginCheckboxe" className="checkboxLabel">Email Address</label>
+                                <p style={{ marginTop: '0.25rem' }}>
+                                  {profileData.attributes.email.email}
+                                </p>
                               </div>
                               <div>
-                                <Checkbox name="email" onChange={handleChange} value={values.email} icon={<CircleUnchecked />}
+                                <Checkbox name="email" onChange={handleChange} checked={values.email} icon={<CircleUnchecked />}
                                   checkedIcon={<CircleCheckedFilled />} id="loginCheckboxe"
                                 />
                               </div>
@@ -143,9 +158,12 @@ class PublicView extends ProfileController {
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '95%' }}>
                               <div>
                                 <label htmlFor="loginCheckboxg" className="checkboxLabel">Gender</label>
+                                <p style={{ marginTop: '0.25rem' }}>
+                                  {profileData.attributes.gender.gender}
+                                </p>
                               </div>
                               <div>
-                                <Checkbox name="gender" onChange={handleChange} value={values.gender} icon={<CircleUnchecked />}
+                                <Checkbox name="gender" onChange={handleChange} checked={values.gender} icon={<CircleUnchecked />}
                                   checkedIcon={<CircleCheckedFilled />} id="loginCheckboxg"
                                 />
                               </div>
@@ -156,9 +174,12 @@ class PublicView extends ProfileController {
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '95%' }}>
                               <div>
                                 <label htmlFor="loginCheckboxdb" className="checkboxLabel">Date of Birth</label>
+                                <p style={{ marginTop: '0.25rem' }}>
+                                  {profileData.attributes.date_of_birth.date_of_birth}
+                                </p>
                               </div>
                               <div>
-                                <Checkbox name="DOB" onChange={handleChange} value={values.DOB} icon={<CircleUnchecked />}
+                                <Checkbox name="DOB" onChange={handleChange} checked={values.DOB} icon={<CircleUnchecked />}
                                   checkedIcon={<CircleCheckedFilled />} id="loginCheckboxdb"
                                 />
                               </div>
@@ -169,9 +190,12 @@ class PublicView extends ProfileController {
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '95%' }}>
                               <div>
                                 <label htmlFor="loginCheckboxh" className="checkboxLabel">Hobbies</label>
+                                <p style={{ marginTop: '0.25rem' }}>
+                                  {profileData.attributes.hobbies.hobbies.join(',')}
+                                </p>
                               </div>
                               <div>
-                                <Checkbox name="hobbies" onChange={handleChange} value={values.hobbies} icon={<CircleUnchecked />}
+                                <Checkbox name="hobbies" onChange={handleChange} checked={values.hobbies} icon={<CircleUnchecked />}
                                   checkedIcon={<CircleCheckedFilled />} id="loginCheckboxh"
                                 />
                               </div>
@@ -182,9 +206,12 @@ class PublicView extends ProfileController {
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '95%' }}>
                               <div>
                                 <label htmlFor="loginCheckboxt" className="checkboxLabel">Twitter</label>
+                                <p style={{ marginTop: '0.25rem' }}>
+                                  {profileData.attributes.website[0].twitter_link}
+                                </p>
                               </div>
                               <div>
-                                <Checkbox name="twitter" onChange={handleChange} value={values.twitter} icon={<CircleUnchecked />}
+                                <Checkbox name="twitter" onChange={handleChange} checked={values.twitter} icon={<CircleUnchecked />}
                                   checkedIcon={<CircleCheckedFilled />} id="loginCheckboxt"
                                 />
                               </div>
@@ -195,9 +222,12 @@ class PublicView extends ProfileController {
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '95%' }}>
                               <div>
                                 <label htmlFor="loginCheckboxb" className="checkboxLabel">Facebook</label>
+                                <p style={{ marginTop: '0.25rem' }}>
+                                  {profileData.attributes.website[2].fb_link}
+                                </p>
                               </div>
                               <div>
-                                <Checkbox name="fb" onChange={handleChange} value={values.fb} icon={<CircleUnchecked />}
+                                <Checkbox name="fb" onChange={handleChange} checked={values.fb} icon={<CircleUnchecked />}
                                   checkedIcon={<CircleCheckedFilled />} id="loginCheckboxb"
                                 />
                               </div>
@@ -208,9 +238,12 @@ class PublicView extends ProfileController {
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '95%' }}>
                               <div>
                                 <label htmlFor="loginCheckboxi" className="checkboxLabel">Instagram</label>
+                                <p style={{ marginTop: '0.25rem' }}>
+                                  {profileData.attributes.website[1].instagram_link}
+                                </p>
                               </div>
                               <div>
-                                <Checkbox name="insta" onChange={handleChange} value={values.insta} icon={<CircleUnchecked />}
+                                <Checkbox name="insta" onChange={handleChange} checked={values.insta} icon={<CircleUnchecked />}
                                   checkedIcon={<CircleCheckedFilled />} id="loginCheckboxi"
                                 />
                               </div>
@@ -221,9 +254,12 @@ class PublicView extends ProfileController {
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '95%' }}>
                               <div>
                                 <label htmlFor="loginCheckboxs" className="checkboxLabel">Snapchat</label>
+                                <p style={{ marginTop: '0.25rem' }}>
+                                  {profileData.attributes.website[3].snapchat_link}
+                                </p>
                               </div>
                               <div>
-                                <Checkbox name="snap" onChange={handleChange} value={values.snap} icon={<CircleUnchecked />}
+                                <Checkbox name="snap" onChange={handleChange} checked={values.snap} icon={<CircleUnchecked />}
                                   checkedIcon={<CircleCheckedFilled />} id="loginCheckboxs"
                                 />
                               </div>
@@ -234,9 +270,12 @@ class PublicView extends ProfileController {
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '95%' }}>
                               <div>
                                 <label htmlFor="loginCheckboxf" className="checkboxLabel">Family Details</label>
+                                <p style={{ marginTop: '0.25rem' }}>
+                                  {profileData.attributes.families.families.length + ' Members'}
+                                </p>
                               </div>
                               <div>
-                                <Checkbox name="family" onChange={handleChange} value={values.family} icon={<CircleUnchecked />}
+                                <Checkbox name="family" onChange={handleChange} checked={values.family} icon={<CircleUnchecked />}
                                   checkedIcon={<CircleCheckedFilled />} id="loginCheckboxf"
                                 />
                               </div>
