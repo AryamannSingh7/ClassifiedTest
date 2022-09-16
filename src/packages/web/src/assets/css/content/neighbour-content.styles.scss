@@ -5,13 +5,19 @@
   & .content-block-wrapper {
     & .neighbour-form {
       padding-top: 20px;
+      & .neighborSelect {
+        & .MuiOutlinedInput-input {
+          padding-left: 30px;
+        }
+      }
     }
     &.common-incident-block {
       @include scrollbars();
       overflow-y: scroll;
-      margin: 10px auto;
+      margin: 10px;
       @include mq(tablet-portrait-medium-up) {
         width: 450px;
+        margin: 10px auto;
       }
     }
   }
@@ -35,6 +41,10 @@
     }
     & h4 {
       padding-left: 10px;
+      white-space: nowrap;
+      &.neighbor-title {
+        display: none !important;
+      }
     }
     & .icons {
       padding: 0 5px;
@@ -45,6 +55,19 @@
         background-color: transparent;
       }
     }
+    & .searchTexfieldBox {
+      width: 100%;
+      margin: 0;
+      padding: 0 20px;
+      & .MuiOutlinedInput-input {
+        padding: 0;
+        font-weight: 600;
+        color: #949494;
+        &::placeholder {
+          font-weight: 600;
+        }
+      }
+    }
   }
   & .note-row {
     padding-top: 20px;
@@ -53,16 +76,27 @@
     }
   }
   & .neighbour-detail-section {
+    
     & .relation-row {
       display: flex;
       justify-content: space-around;
-      padding: 15px 0;
+      padding: 15px 0 10px 0;
+      & h4
+      {
+        &.MuiTypography-body1
+        {
+          padding: 0 10px;
+        }
+      }
       & .blocks {
         margin: 0 15px;
         & .title {
           font-weight: 100;
           font-family: $Gotham_Light;
-          padding-left: 10px;
+          padding-left: 5px;
+          @include mq(tablet-portrait-large-up) {
+            font-size: 14px;
+          }
         }
       }
     }

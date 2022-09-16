@@ -9,13 +9,13 @@ import {Editor, EditorState} from 'draft-js';
 import 'draft-js/dist/Draft.css';
 
 import {
-  Container,
-  Typography,
-  TextField,
-  Input,
-  Link,
-  Button,
-  MenuItem,
+    Container,
+    Typography,
+    TextField,
+    Input,
+    Link,
+    Button,
+    MenuItem, InputAdornment,
 } from "@material-ui/core";
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -43,10 +43,10 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import InfoIcon from '@material-ui/icons/Info';
 // Icons
 
-import SurveyController, {
+import CreateSurveyController, {
   Props,
   configJSON,
-} from "./SurveyController";
+} from "./CreateSurveyController";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import TextEditor from "./TextEditor.web";
@@ -55,6 +55,7 @@ import AudienceModal from "./AudienceModal.web";
 import { withRouter } from 'react-router';
 import { withTranslation } from 'react-i18next';
 import '../../../web/src/i18n.js';
+import DateRangeOutlinedIcon from "@material-ui/icons/DateRangeOutlined";
 
 
 const currencies = [
@@ -76,7 +77,7 @@ const currencies = [
     },
   ];
 
-class CreateSurveys extends SurveyController {
+class CreateSurveys extends CreateSurveyController {
   constructor(props: Props) {
     super(props);
 
@@ -111,58 +112,53 @@ class CreateSurveys extends SurveyController {
                                 <Box className="createPSCards">
                                     <TextField label={t("Name of the Survey")} variant="outlined"
                                     name="title"
-                                    value={this.state.PollData.title}
+                                    value={this.state.SurveyData.title}
                                     onChange={this.handlePollDataChange}
                                     required fullWidth
                                     />
-
+                                    <p style={{color:"red"}}>{this.state.pollTitleError}</p>
                                     <Box className="DateSection">
-                                        {/* <MuiPickersUtilsProvider utils={MomentUtils}>
-                                        <Grid container justifyContent="space-between">
-                                            <KeyboardDatePicker
-                                            className="DateBox"
-                                            disableToolbar
-                                            variant="inline"
-                                            format="MM/DD/yyyy"
-                                            margin="normal"
-                                            id="date-picker-inline"
-                                            label="Start Date"
-                                            value={this.state.selectedDate}
-                                            onChange={this.handleDateChange}
-                                            KeyboardButtonProps={{
-                                                'aria-label': 'change date',
-                                            }}
-                                            fullWidth
+                                        <Box style={{width:"100%"}}>
+                                            <TextField
+                                                label="Start Date" variant="outlined"
+                                                style={{width:"100%"}}
+                                                type="date" name="startDate"  fullWidth
+                                                format='DD/MM/YYYY'
+                                                value={this.state.SurveyData.startDate}
+                                                onChange={this.handlePollDataChange}
+                                                InputProps={{
+                                                    // min: "2019-01-24",
+                                                    //@ts-ignore
+                                                    max: "5000-05-31",
+                                                    startAdornment: (
+                                                        <InputAdornment position="start">
+                                                            <DateRangeOutlinedIcon />
+                                                        </InputAdornment>
+                                                    ),
+                                                }
+                                                }
                                             />
-                                            <KeyboardDatePicker
-                                            className="DateBox"
-                                            margin="normal"
-                                            id="date-picker-dialog"
-                                            label="End Date"
-                                            format="MM/DD/yyyy"
-                                            onChange={this.handleDateChange}
-                                            value={this.state.selectedDate}
-                                            KeyboardButtonProps={{
-                                                'aria-label': 'change date',
-                                            }}
-                                            fullWidth
+                                            <p style={{color:"red"}}>{this.state.pollDateError}</p>
+                                        </Box>
+                                        <Box style={{width:"100%"}}>
+                                            <TextField label="End Date" variant="outlined"
+                                                       type="date" name="endDate"  fullWidth
+                                                       style={{width:"100%"}}
+                                                       value={this.state.SurveyData.endDate}
+                                                       onChange={this.handlePollDataChange}
+                                                       InputProps={{
+                                                           // min: "2019-01-24",
+                                                           //@ts-ignore
+                                                           max: "5000-05-31",
+                                                           startAdornment: (
+                                                               <InputAdornment position="start">
+                                                                   <DateRangeOutlinedIcon />
+                                                               </InputAdornment>
+                                                           )
+                                                       }}
                                             />
-                                        </Grid>
-                                        </MuiPickersUtilsProvider> */}
-
-                                        <TextField label={t("Start Date")} variant="outlined"
-                                        name="startDate"
-                                        value={this.state.PollData.startDate}
-                                        onChange={this.handlePollDataChange}
-                                        required fullWidth
-                                        />
-                                        <TextField label={t("End Date")} variant="outlined"
-                                        name="endDate"
-                                        value={this.state.PollData.endDate}
-                                        onChange={this.handlePollDataChange}
-                                        required fullWidth
-                                        />
-
+                                            <p style={{color:"red"}}>{this.state.pollEndDateError}</p>
+                                        </Box>
                                     </Box>
                                     <Box className="infoIcon">
                                         <Typography variant="subtitle1">Description</Typography>
@@ -170,7 +166,7 @@ class CreateSurveys extends SurveyController {
                                     </Box>
                                     <Box className="descriptionEditor">
                                         <TextEditor
-                                            markup={this.state.textEditorVal}
+                                            markup={this.state.textEditor}
                                             onChange={this.onChangeTextEditor} />
                                     </Box>
                                     <p style={{color:"red"}}>{this.state.pollDescriptionError}</p>
@@ -198,7 +194,7 @@ class CreateSurveys extends SurveyController {
                                                     <Select
                                                         labelId="question-type"
                                                         id="question-type-select"
-                                                        value={item.questionType}
+                                                        value={item.question_type}
                                                         label="Age"
                                                         style={{width:"100%",border:"1px solid #ECECEC",borderRadius:"10px",backgroundColor:"#f9f9f9",marginRight:"10px"}}
                                                         onChange={(e)=> this.handleQuestionType(key,e)}
@@ -207,28 +203,35 @@ class CreateSurveys extends SurveyController {
                                                         <MenuItem value="checkbox">Multiple Choice Questions</MenuItem>
                                                         <MenuItem value="options">Options</MenuItem>
                                                     </Select>
+                                                    <p style={{color:"red"}}>{item.questionTypeError}</p>
                                                 </FormControl>
+
                                                 <TextField  label="enter question" variant="outlined"
                                                             name="question"
-                                                            value={item.question}
+                                                            value={item.title}
                                                             onChange={(e)=>this.handleQuestion(key,e)}
                                                             required fullWidth style={{marginTop:20}}
                                                 />
+                                                <p style={{color:"red"}}>{item.questionError}</p>
                                                 {
-                                                    item.questionType !== "shortAns" && item.options.map((inputfield:any , index:any) => {
+                                                    item.question_type !== "short_answers" && item.survey_options_attributes.map((inputfield:any , index:any) => {
                                                         return(
-                                                            <TextField key={index}
-                                                                       label={"option - " + (index + 1)} variant="outlined"
-                                                                       name="text"
-                                                                       value={inputfield.text}
-                                                                       onChange={(event) => this.handleOptionsChange(key,index, event)}
-                                                                       required fullWidth style={{marginTop:20}}
-                                                            />
+                                                            <>
+                                                                <TextField
+                                                                   key={index}
+                                                                   label={"option - " + (index + 1)} variant="outlined"
+                                                                   name="text"
+                                                                   value={inputfield.text}
+                                                                   onChange={(event) => this.handleOptionsChange(key,index, event)}
+                                                                   required fullWidth style={{marginTop:20}}
+                                                                />
+                                                                <p style={{color:"red"}}>{inputfield.error}</p>
+                                                            </>
                                                         )
                                                     })
                                                 }
                                                 {
-                                                    this.state.questionType !== "shortAns" &&
+                                                    this.state.questionType !== "short_answers" &&
                                                     <Button variant="outlined" color="primary"
                                                             onClick={() => this.addOptionsFields(key)}
                                                             className="addOptions"
@@ -306,12 +309,10 @@ class CreateSurveys extends SurveyController {
                             <Grid  item sm={12} md={12} xs={12}>
                                 <Box className="BottomButtonSurvey">
                                     <Box className="Previewbtn">
-                                        <Link href="/SurveyPreview">
-                                            <Button variant="contained" color="primary">{t("PREVIEW")}</Button>
-                                        </Link>
+                                        <Button onClick={this.handlePriviewData} variant="contained" color="primary">PREVIEW</Button>
                                     </Box>
                                     <Box className="Publishbtn">
-                                        <Button type="submit" variant="outlined" color="primary">{t("PUBLISH")}</Button>
+                                        <Button onClick={this.handleSurveyDataSubmit} type="submit" variant="outlined" color="primary">PUBLISH</Button>
                                     </Box>
                                 </Box>
                             </Grid>

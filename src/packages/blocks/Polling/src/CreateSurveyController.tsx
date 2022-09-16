@@ -31,7 +31,7 @@ interface S {
   isSubmitted:any;
   PreViewSurveyData:any;
   SurveyTitleError:any;
-  textEditorVal:any;
+  textEditor:any;
   initialtextEditorVal:any;
   pollTitleError:string;
   pollDateError:string;
@@ -80,14 +80,15 @@ export default class CoverImageController extends BlockComponent<
       audienceModal:false,
       surveyQuestions: [
         {
-          questionType: "",
-          questionTypeError:"",
-          question:"",
+          question_type: "",
+          question_typeError:"",
+          title:"",
           questionError:"",
-          options: [
+          survey_options_attributes: [
             {text: "",_destroy: "false",error:""},
             {text: "",_destroy: "false",error:""}
           ],
+          error:false,
           _destroy: "false",
         }
       ],
@@ -95,7 +96,7 @@ export default class CoverImageController extends BlockComponent<
       isSubmitted:false,
       SurveyTitleError:"",
       PreViewSurveyData: {},
-      textEditorVal: '',
+      textEditor: '',
       initialtextEditorVal: '',
       pollDateError:"",
       pollEndDateError:"",
@@ -110,14 +111,24 @@ export default class CoverImageController extends BlockComponent<
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
 
     this.handlePollDataChange = this.handlePollDataChange.bind(this)
-    this.handlePollDataSubmit = this.handlePollDataSubmit.bind(this)
+    this.handleSurveyDataSubmit = this.handleSurveyDataSubmit.bind(this)
     this.handleValidation = this.handleValidation.bind(this)
     this.handlePriviewData = this.handlePriviewData.bind(this)
 
   }
 
   async componentDidMount() {
-
+    if(localStorage.getItem("Survey_Data")){
+      const surveyPreview:any = JSON.parse(localStorage.getItem("Survey_Data") || "")
+      if(surveyPreview){
+        await this.setState({
+          textEditor:surveyPreview.PollDescription,
+          SurveyData:surveyPreview.PollFormData,
+          surveyQuestions:surveyPreview.PollOptions
+        })
+      }
+      await localStorage.removeItem("Survey_Data")
+    }
   }
 
 
@@ -128,6 +139,14 @@ export default class CoverImageController extends BlockComponent<
       var errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if(this.apiEmailLoginCallId === apiRequestCallId ){
         console.log(responseJson,errorReponse)
+      }
+      if(this.createSurvey === apiRequestCallId){
+        if(responseJson.code === 200){
+          this.props.history.push("/polling")
+        }else{
+          console.log("SOMETHING WENT WRONG")
+        }
+        // @ts-ignore
       }
     }
   }
@@ -140,11 +159,11 @@ export default class CoverImageController extends BlockComponent<
   }
 
   onChangeTextEditor = (value:any) => {
-    this.setState({textEditorVal:value})
+    this.setState({textEditor:value})
     if(this.state.isSubmitted){
       this.handleValidation()
     }
-    this.state.SurveyData.description = this.state.textEditorVal
+    this.state.SurveyData.description = this.state.textEditor
   };
 
   dateIsValid(dateStr:any) {
@@ -170,8 +189,8 @@ export default class CoverImageController extends BlockComponent<
     let startDateValidation = false
     let endDateValidation = false
     let DescriptionValidation = false
-    let questionValidation = false
     let optionValidation = false
+    console.log("THIS IS FROM DATA",this.state)
     if(this.state.SurveyData.title){
       if(this.state.SurveyData.title.length >=5){
         this.setState({
@@ -249,31 +268,110 @@ export default class CoverImageController extends BlockComponent<
       this.setState({pollDescriptionError: "description can't be empty"})
     }
 
-    let updatedArry = this.state.surveyQuestions.map((item:any) => {
-      if(item?.text === ""){
-        return{
-          ...item,
-          error:"Option can't be blank"
-        }
-      }else{
-        return{
-          ...item,
-          error:""
-        }
-      }
+    let updatedArray = this.state.surveyQuestions.map((item:any) => {
+       let question_typeValidation = false
+       let questionValidation = false
+       let optionsValidation = false
+       if(item.question_type !== ""){
+         question_typeValidation = true
+       }
+       if(item.title !== ""){
+         questionValidation = true
+       }
+        let updatedArry = item.survey_options_attributes.map((item:any) => {
+          if(item?.text === ""){
+            return{
+              ...item,
+              error:"Option can't be blank"
+            }
+          }else{
+            return{
+              ...item,
+              error:""
+            }
+          }
+        })
+        updatedArry.forEach((item:any)=>{
+          if(item.error !== ""){
+            return
+          }else{
+            optionsValidation = true
+          }
+        })
+       if(!questionValidation || !question_typeValidation)
+       {
+          let updatedObject = item
+          if(!questionValidation){
+            updatedObject = {
+              ...updatedObject,
+              questionError:"Question Can't be empty",
+              error:true
+            }
+          }else{
+            updatedObject =  {
+              ...updatedObject,
+              questionError:""
+            }
+          }
+          if(!question_typeValidation){
+            updatedObject =  {
+              ...updatedObject,
+              question_typeError:"Please select Question Type",
+              error:true
+            }
+          }else{
+            updatedObject =  {
+              ...updatedObject,
+              question_typeError:"",
+            }
+          }
+          return {
+            ...updatedObject,
+            survey_options_attributes:updatedArry
+          }
+       }else{
+         if(question_typeValidation && questionValidation && optionsValidation){
+           return {
+             ...item,
+             survey_options_attributes:updatedArry,
+             questionError:"",
+             question_typeError:"",
+             error:false
+           }
+         }else{
+           if(item.question_type === "short_answers"){
+             return {
+               ...item,
+               survey_options_attributes:updatedArry,
+               questionError:"",
+               question_typeError:"",
+               error:false
+             }
+           }else{
+             return {
+               ...item,
+               survey_options_attributes:updatedArry,
+               questionError:"",
+               question_typeError:"",
+               error:true
+             }
+           }
+         }
+       }
     })
-    // this.setState({
-    //   surveyOptions:updatedArry
-    // })
-    updatedArry.forEach((item:any)=>{
-      if(item.error !== ""){
+    console.log("THIS IS UPDATED ARRAY",updatedArray)
+    this.setState({
+      surveyQuestions:updatedArray
+    })
+    updatedArray.forEach((item:any)=>{
+      if(item.error){
         return
       }else{
         optionValidation = true
       }
     })
     console.log("ARRAY",optionValidation)
-    if(titleValidation && startDateValidation && endDateValidation && DescriptionValidation && questionValidation && optionValidation){
+    if(titleValidation && startDateValidation && endDateValidation && DescriptionValidation && optionValidation){
       return true
     }else{
       return false
@@ -285,9 +383,9 @@ export default class CoverImageController extends BlockComponent<
       if(key === index){
         return{
           ...item,
-          options:[
+          survey_options_attributes:[
             // @ts-ignore
-            ...item.options,
+            ...item.survey_options_attributes,
             {text: "",_destroy: "false",error:""}
           ]
         }
@@ -303,7 +401,7 @@ export default class CoverImageController extends BlockComponent<
       if(key === index){
         return{
           ...item,
-          questionType:event.target.value,
+          question_type:event.target.value,
         }
       }else{
         return item
@@ -317,7 +415,7 @@ export default class CoverImageController extends BlockComponent<
       if(key === index){
         return{
           ...item,
-          question:event.target.value,
+          title:event.target.value,
         }
       }else{
         return item
@@ -337,7 +435,7 @@ export default class CoverImageController extends BlockComponent<
     const updatedArray = this.state.surveyQuestions.map((item:any,key:any)=>{
       if(key === mainIndex){
         // @ts-ignore
-        const updateOptions = item.options.map((item,key)=>{
+        const updateOptions = item.survey_options_attributes.map((item,key)=>{
           if(key === subIndex){
             return{
               ...item,
@@ -349,7 +447,7 @@ export default class CoverImageController extends BlockComponent<
         })
         return{
           ...item,
-          options:updateOptions
+          survey_options_attributes:updateOptions
         }
       }else{
         return item
@@ -361,11 +459,11 @@ export default class CoverImageController extends BlockComponent<
 
   addQuestionFields = () => {
     this.setState({surveyQuestions : [...this.state.surveyQuestions, {
-        questionType: "",
-        questionTypeError:"",
-        question:"",
+        question_type: "",
+        question_typeError:"",
+        title:"",
         questionError:"",
-        options: [
+        survey_options_attributes: [
           {text: "",_destroy: "false",error:""},
           {text: "",_destroy: "false",error:""}
         ],
@@ -379,75 +477,39 @@ export default class CoverImageController extends BlockComponent<
       isSubmitted:true
     })
     if(this.handleValidation()){
-      localStorage.setItem('Polls_Data', JSON.stringify({
+      localStorage.setItem('Survey_Data', JSON.stringify({
         "PollFormData":this.state.SurveyData,
         "PollOptions":this.state.surveyQuestions,
-        "PollDescription":this.state.textEditorVal
+        "PollDescription":this.state.textEditor
       }))
       // @ts-ignore
-      this.props.history.push("/PollPreview")
+      this.props.history.push("/SurveyPreview")
     }
   }
 
-  handlePollDataSubmit =  async (event:any,preview?:boolean) => {
+  handleSurveyDataSubmit =  async (event:any,preview?:boolean) => {
     event.preventDefault()
     let societyID = localStorage.getItem("society_id")
     this.setState({
-      isSubmitted:true
+      isSubmitted: true
     })
-    if(this.handleValidation() || preview){
-      if(this.state.PreViewPollData.length || Object.keys(this.state.PreViewPollData).length){
-        let reqPayload = {
-          "society_id": societyID,
-          "poll":
-              {
-                "type_name":"poll",
-                "title": this.state.PreViewSurveyData.PollFormData.title,
-                "description": this.state.PreViewSurveyData.PollFormData.description,
-                "poll_type": this.state.PreViewSurveyData.PollType,
-                "schedule": "1",
-                "start_date": this.state.PreViewSurveyData.PollFormData.startDate,
-                "end_date": this.state.PreViewSurveyData.PollFormData.endDate,
-                "question": this.state.PreViewSurveyData.PollFormData.question,
-                "polling_options_attributes": this.state.PreViewSurveyData.PollOptions,
-              }
-        }
-        await this.addSurveyData(reqPayload);
-        //@ts-ignore
-        // await this.props.history.push("/Polling")
-        this.setState({
-          SurveyData: this.state.SurveyData,
-          surveyQuestions: this.state.surveyQuestions,
-          textEditorVal : this.state.initialtextEditorVal,
-        })
-      } else{
-
-        let reqPayload = {
-          "society_id": societyID,
-          "poll":
-              {
-                "type_name":"poll",
-                "title": this.state.SurveyData.title,
-                "description": this.state.SurveyData.description,
-                "schedule": "1",
-                "start_date": this.state.SurveyData.startDate,
-                "end_date": this.state.SurveyData.endDate,
-                "question": this.state.SurveyData.question,
-                "survey_questions_attributes": this.state.surveyQuestions,
-              }
-        }
-        await this.addSurveyData(reqPayload);
-        //@ts-ignore
-        // await this.props.history.push("/Polling")
-        // this.setState({
-        //   SurveyData: this.state.InitialPollData,
-        //   options: this.state.Initialoptions,
-        //   checked: this.state.checked,
-        //   textEditorVal : this.state.initialtextEditorVal,
-        // })
+    if (this.handleValidation() || preview) {
+      let reqPayload = {
+        "society_id": societyID,
+        "survey":
+            {
+              "type_name": "survey",
+              "title": this.state.SurveyData.title,
+              "description": this.state.SurveyData.description,
+              "schedule": "1",
+              "start_date": this.state.SurveyData.startDate,
+              "end_date": this.state.SurveyData.endDate,
+              "survey_questions_attributes": this.state.surveyQuestions,
+            }
       }
+      await this.addSurveyData(reqPayload);
+      localStorage.removeItem("Survey_Data")
     }
-    await localStorage.removeItem('Polls_Data');
   }
 
   addSurveyData = async (data:any) => {
@@ -459,6 +521,19 @@ export default class CoverImageController extends BlockComponent<
       body:JSON.stringify(data)
     });
   }
+
+  handleCloseAudienceModal () {
+    this.setState({
+      audienceModal:false
+    })
+  }
+
+  handleOpenAudienceModal () {
+    this.setState({
+      audienceModal:true
+    })
+  }
+
 
   apiCall = async (data: any) => {
     const { contentType, method, endPoint, body } = data;

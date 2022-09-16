@@ -9,6 +9,7 @@ import MessageEnum, {
 // Customizable Area Start
 import * as Yup from 'yup';
 import { imgPasswordInVisible, imgPasswordVisible } from "./assets";
+import { ContactSupportOutlined } from "@material-ui/icons";
 // Customizable Area End
 
 export const configJSON = require("./config");
@@ -52,8 +53,10 @@ export interface S {
   selectCode2: string;
   anchorEl: any;
   showDialog:boolean;
+  showDialog2: boolean;
   profiledata:any;
-  values:any
+  values:any,
+  showDialogDelete:boolean
 
 
 
@@ -83,6 +86,7 @@ export default class ProfileController extends BlockComponent<
   createRequestManaulApiCallId: any;
   createRequestApiCallId: any;
   changeUserTypeApiCallId: any;
+  updatePhoneApicallId:any;
   getCountryApiCallId: any;
   getComplexApiCallId: any;
   getCityApiCallId: any;
@@ -90,12 +94,9 @@ export default class ProfileController extends BlockComponent<
   getBuildingApiCallId: any;
   getUnitApiCallId: any;
   createVehicleApiCallId:any;
+  deleteVehicleAPICallId:any;
   getProfileDataAPiCallId:any;
-
-
-
-
-
+  chatSettingApiCallId:any;
   validationApiCallId: string = "";
 
   imgPasswordVisible: any;
@@ -163,8 +164,10 @@ export default class ProfileController extends BlockComponent<
       otp: '',
       anchorEl:null,
       showDialog:false,
+      showDialog2: false,
       profiledata:null,
-      values:null
+      values:null,
+      showDialogDelete:false
       // Customizable Area End
     };
 
@@ -256,25 +259,13 @@ export default class ProfileController extends BlockComponent<
         } else if (apiRequestCallId === this.verifyOtpApiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
-            //@ts-ignore
+               //@ts-ignore
             //@ts-nocheck
-            this.setState({ loading: false })
-            //@ts-ignore
-            //@ts-nocheck
-            this.props.history.push('/registerunit')
-            // if (this.props.history.location.state?.data) {
-            //   //@ts-ignore
-            //   //@ts-nocheck
-            //   this.props.history.push('/registerunit')
-            // } else {
-            //   //@ts-ignore
-            //   //@ts-nocheck
-            //   this.props.history.push('/selecttype')
-            // }
-            // //@ts-ignore
-            // //@ts-nocheck
-            // this.props.history.push('/selecttype')
-
+            let profileData:any = JSON.parse(localStorage.getItem('profileData'))
+            profileData.attributes.full_phone_number.phone_number =responseJson.phone_number
+            localStorage.setItem('profileData',JSON.stringify(profileData))
+            this.setState({ selectCode: responseJson.country_code })
+            location.reload();
 
           } else if (responseJson?.errors) {
             let error = responseJson.errors[0];
@@ -285,19 +276,26 @@ export default class ProfileController extends BlockComponent<
           }
           this.setState({ loading: false })
 
-        } else if (apiRequestCallId === this.createManagerAccountApiCallId) {
+        } else if (apiRequestCallId === this.updatePhoneApicallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
-            localStorage.setItem('res_token', responseJson.meta.token)
-            localStorage.setItem('res_user', responseJson.data.attributes)
-            localStorage.setItem('res_user_id', responseJson.data.id)
-            localStorage.setItem('user_email', responseJson.data.attributes.email)
-            //@ts-ignore
-            //@ts-nocheck
+            this.setState({ showDialogDelete: true, showDialog: false, loading: false })
+          } else if (responseJson?.errors) {
+            let error = responseJson.errors[0];
+            this.setState({ error });
+            this.parseApiCatchErrorResponse(this.state.error);
+            this.parseApiCatchErrorResponse(errorReponse);
+          } else {
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
+            this.parseApiCatchErrorResponse(this.state.error);
+            this.parseApiCatchErrorResponse(errorReponse);
+          }
+          this.setState({ loading: false })
 
-            this.props.history.push('/otp')
-
-
+        } else if (apiRequestCallId === this.chatSettingApiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            this.handleClose('')
           } else if (responseJson?.errors) {
             let error = responseJson.errors[0];
             this.setState({ error });
@@ -343,6 +341,22 @@ this.setState({loading:false})
             //@ts-nocheck
             this.setState({ showDialog: false })
 
+
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        } if (apiRequestCallId === this.deleteVehicleAPICallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            //@ts-ignore
+            //@ts-nocheck
+            localStorage.removeItem('selectFamily')
+            this.setState({ showDialogDelete: false, showDialog: false,loading:false })
+
+            this.getProfile()
 
           } else {
             //Check Error Response
@@ -792,6 +806,8 @@ this.setState({loading:false})
 
     const data = {
       type: "email_account",
+      // @ts-ignore
+      // @ts-nocheck
       "user_type": this.props.history.location.state?.data,
       attributes: attrs
     };
@@ -912,6 +928,8 @@ this.setState({loading:false})
 
     const data = {
       type: "email_account",
+      // @ts-ignore
+      // @ts-nocheck
       "user_type": this.props.history.location.state?.data,
       attributes: attrs
     };
@@ -1038,7 +1056,6 @@ this.setState({loading:false})
       if (this.state.userType === 'Tenant') {
         //@ts-ignore
         //@ts-nocheck
-
         this.props.history.push({
           pathname: '/register',
           state: {
@@ -1050,7 +1067,6 @@ this.setState({loading:false})
       if (this.state.userType === 'Owner Resident') {
         //@ts-ignore
         //@ts-nocheck
-
         this.props.history.push({
           pathname: '/register',
           state: {
@@ -1077,6 +1093,8 @@ this.setState({loading:false})
     this.changeUserTypeApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
+      // @ts-ignore
+      // @ts-nocheck
       `account_block/user_type?user_type=${this.props.history.location.state?.data}&id=${localStorage.getItem('res_user_id')}`
     );
 
@@ -1437,39 +1455,32 @@ this.setState({loading:true})
   verifyOtp = (): boolean => {
 
     const header = {
-      "Content-Type": configJSON.contentTypeApiAddDetail
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      token: localStorage.getItem("userToken")
     };
-    const httpBody = {
-      otp: this.state?.otp || "111111",
-      email: localStorage.getItem('user_email')
-    };
+
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
     );
-    console.log(this.changeUserTypeApiCallId)
-    console.log(requestMessage.messageId)
+
     //@ts-ignore
     //@ts-nocheck
     this.setState({ loading: true })
     this.verifyOtpApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `account_block/accounts/verify_user`
+      `bx_block_profile/profiles/verify_otp?otp=111111`
     );
 
     requestMessage.addData(
       getName(MessageEnum.RestAPIRequestHeaderMessage),
       JSON.stringify(header)
-    );
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestBodyMessage),
-      JSON.stringify(httpBody)
-    );
+    )
 
 
     requestMessage.addData(
       getName(MessageEnum.RestAPIRequestMethodMessage),
-      'POST'
+      'GET'
     );
 
     runEngine.sendMessage(requestMessage.id, requestMessage);
@@ -1478,108 +1489,6 @@ this.setState({loading:true})
 
 
   }
-
-  addressSchema() {
-    const validations = Yup.object().shape({
-
-      selectCountry: Yup.string().required(`This field is required`).trim(),
-      selectCity: Yup.string().required(`This field is required`).trim(),
-      selectBuilding: Yup.string().required(`This field is required`).trim(),
-      selectComplex: Yup.string().required(`This field is required`).trim(),
-      selectUnit: Yup.string().required(`This field is required`).trim(),
-
-    });
-    return validations
-  }
-  addressSchemaManual() {
-    const validations = Yup.object().shape({
-
-
-      selectBuilding: Yup.string().required(`This field is required`).trim(),
-      selectComplex: Yup.string().required(`This field is required`).trim(),
-      selectUnit: Yup.string().required(`This field is required`).trim(),
-
-    });
-    return validations
-  }
-  signupSchemaManager() {
-    const validations = Yup.object().shape({
-
-      company_name: Yup.string().required(`This field is required`).trim(),
-      managerName: Yup.string().required(`This field is required`).trim(),
-      ownerName: Yup.string().required(`This field is required`).trim(),
-      email: Yup.string().required(`This field is required`).trim(),
-      owner_email: Yup.string().required(`This field is required`).trim(),
-      phone: Yup.number()
-        .typeError("Only numbers are allowed.")
-        .required("Mobile number is required.")
-        .positive("Negative numbers are not allowed.")
-        .integer("Number can't contain a decimal.")
-        .min(10000000, "Minimum 5 digits are required.")
-        .max(99999999999, "Maximum 11 digits are allowed.")
-      ,
-      owner_phone: Yup.number()
-        .typeError("Only numbers are allowed.")
-        .required("Mobile number is required.")
-        .positive("Negative numbers are not allowed.")
-        .integer("Number can't contain a decimal.")
-        .min(10000000, "Minimum 5 digits are required.")
-        .max(99999999999, "Maximum 11 digits are allowed."),
-      password: Yup
-        .string()
-        .min(8, `Minimum Password length is 8.`)
-        .max(16, `Maximum Password length is 16.`)
-        .required(`New Password is required.`)
-        .matches(
-          /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,}$/,
-          `Password must contain atleast a capital letter, a lowercase letter, a number and a special character.`
-        ),
-      confirm_password: Yup
-        .string()
-        .oneOf([Yup.ref("password"), null], `Password must match`)
-        .required(`Confirm Password is required.`),
-
-    });
-    return validations
-  }
-  signupSchema() {
-    const validations = Yup.object().shape({
-
-      full_name: Yup.string().required(`This field is required`).trim(),
-      email: Yup.string().required(`This field is required`).trim(),
-      phone: Yup.number()
-        .typeError("Only numbers are allowed.")
-        .required("Mobile number is required.")
-        .positive("Negative numbers are not allowed.")
-        .integer("Number can't contain a decimal.")
-        .min(10000000, "Minimum 5 digits are required.")
-        .max(99999999999, "Maximum 11 digits are allowed."),
-      password: Yup
-        .string()
-        .min(8, `Minimum Password length is 8.`)
-        .max(16, `Maximum Password length is 16.`)
-        .required(`New Password is required.`)
-        .matches(
-          /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,}$/,
-          `Password must contain atleast a capital letter, a lowercase letter, a number and a special character.`
-        ),
-      confirm_password: Yup
-        .string()
-        .oneOf([Yup.ref("password"), null], `Password must match`)
-        .required(`Confirm Password is required.`),
-
-    });
-    return validations
-  }
-  EmailSchema() {
-    const validations = Yup.object().shape({
-      email: Yup.string()
-        .trim()
-        .required("This field is required.")
-    });
-    return validations
-  }
-
   updateProfile = async(values: any) => {
     this.setState({ loading: true })
     try {
@@ -1589,15 +1498,19 @@ this.setState({loading:true})
       };
       const formData = new FormData();
       formData.append("[data][attributes][full_name]", values.full_name)
-      formData.append("[data][attributes][full_phone_number]", values.phone)
-      formData.append("[data][attributes][gender]", values.male ? '1' : '2')
+      formData.append("[data][attributes][full_phone_number]", `${this.state.selectCode}${values.phone}`)
+      formData.append("[data][attributes][gender]", values.male ? '0' : '1')
       formData.append("[data][attributes][date_of_birth]", values.DOB)
-      formData.append("[data][attributes][profile_bio]", 'values.DOB')
+      formData.append("[data][attributes][profile_bio]", values.bio)
       formData.append("[data][attributes][twitter_link]", values.twitter)
       formData.append("[data][attributes][fb_link]", values.fb)
       formData.append("[data][attributes][instagram_link]", values.insta)
       formData.append("[data][attributes][snapchat_link]", values.snap)
-      formData.append("[data][attributes][hobby_ids]", values.hobbies)
+      console.log(values.hobbies)
+      values.hobbies.map((item:any)=>{
+        formData.append('[data][attributes][hobbies][]',item)
+      })
+
 
       // formData.append("vehicle[color]", values.carColor)
       let blob = await fetch(values.bannerUrl).then(r => r.blob());
@@ -1644,20 +1557,36 @@ this.setState({loading:true})
     const validations = Yup.object().shape({
 
       full_name: Yup.string().required(`This field is required`).trim(),
-      phone: Yup.string().required(`This field is required`).trim(),
+      phone: Yup.number()
+        .typeError("Only numbers are allowed.")
+        .required("Mobile number is required.")
+        .positive("Negative numbers are not allowed.")
+        .integer("Number can't contain a decimal.")
+        .min(10000000, "Minimum 8 digits are required.")
+        .max(99999999999, "Maximum 11 digits are allowed."),
       email: Yup.string().required(`This field is required`).trim(),
-      DOB: Yup.string().required(`This field is required`).trim(),
-      hobbies: Yup.string().required(`This field is required`).trim(),
+      DOB: Yup.date().required(`This field is required`),
+      hobbies: Yup.string().required(`This field is required`).nullable(),
+      fb: Yup.string().matches(/(?:(?:http|https):\/\/)?(?:www.)?facebook.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\w\-]*)?/, `Invalid facebook URL`).nullable(),
+      insta: Yup.string().matches(/(?:(?:http|https):\/\/)?(?:www\.)?(?:instagram\.com|instagr\.am)\/([A-Za-z0-9-_\.]+)/im, `Invalid instagram URL`).nullable(),
+      twitter: Yup.string().matches(/http(?:s)?:\/\/(?:www\.)?twitter\.com\/([a-zA-Z0-9_]+)/, `Invalid twitter URL`).nullable(),
+      snap: Yup.string().matches(/http(?:s)?:\/\/(?:www\.)?snapchat\.com\/([a-zA-Z0-9_]+)/, `Invalid snapchat URL`).nullable(),
+
 
     });
     return validations
   }
-  handleClick = (event) => {
+  handleClick = (event: any) => {
     this.setState({ anchorEl: event.currentTarget, showDialog: true })
   };
-  handleClose = (item) => {
+  handleClick2 = (event: any) => {
+    this.setState({ anchorEl: event.currentTarget, showDialog2: true })
+  };
+  handleClose = (item: any) => {
     if (item.id) {
       localStorage.setItem('selectFamily', JSON.stringify(item))
+      // @ts-ignore
+      // @ts-nocheck
       this.props.history.push("/editfamily")
 
     } else {
@@ -1665,6 +1594,47 @@ this.setState({loading:true})
     }
     // this.setState({ anchorEl:null,showDialog:false })
   };
+  handleClose2 = (item: any) => {
+
+      this.setState({ anchorEl: item.currentTarget, showDialog2: false })
+
+    // this.setState({ anchorEl:null,showDialog:false })
+  };
+  deleteRequest() {
+    this.setState({loading: true })
+    // @ts-nocheck
+    // @ts-ignore
+    let item = JSON.parse(localStorage.getItem('selectFamily'))
+    const header = {
+
+      "token": localStorage.getItem('userToken')
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+
+    this.deleteVehicleAPICallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_family/families/${item.id}`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      'DELETE'
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  }
   handleSelectBanner = (
     e: any,
     setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
@@ -1693,7 +1663,8 @@ this.setState({loading:true})
 
   };
   updatePublicProfile=(values:any)=>{
-    if(values.full_name){
+    console.log(values)
+    if(!values.full_name){
       this.setState({showDialog:true,values:values})
     }else{
       this.setState({ values: values })
@@ -1703,30 +1674,31 @@ this.setState({loading:true})
   }
 
   publicViewAPI=(values:any)=>{
-    this.setState({ showDialog: false })
+    this.setState({ loading: true })
     try {
       const header = {
 
-        token: localStorage.getItem("userToken")
+        token: localStorage.getItem("userToken"),
+        'content-type': 'application/json'
       };
       const data = {
+        "data": {
+          "attributes": {
+            name_public: this.state.values.full_name,
+            email_public: this.state.values.email,
+            apartment_no_public: this.state.values.unit,
+            phone_no_public: this.state.values.phone,
+            gender_public: this.state.values.gender,
+            date_of_birth_public: this.state.values.DOB,
+            hobbies_public: this.state.values.hobbies,
+            twitter_public: this.state.values.twitter,
+            facebook_public: this.state.values.full_fbname,
+            instagram_public: this.state.values.insta,
+            snapchat_public: this.state.values.snap,
+            family_details_public: this.state.values.family
 
-
-
-              name: this.state.values.full_name,
-              email: this.state.values.email,
-              appartment_number: this.state.values.unit,
-              full_phone_number: this.state.values.phone,
-              gender: this.state.values.gender,
-              date_of_birth: this.state.values.full_name,
-              hobbies: this.state.values.full_name,
-              twitter_link: this.state.values.full_name,
-              fb_link: this.state.values.full_name,
-              instagram_link: this.state.values.full_name,
-              snapchat_link: this.state.values.full_name,
-              family_detail: this.state.values.full_name
-
-
+          }
+        }
 
       }
       const requestMessage = new Message(
@@ -1737,7 +1709,7 @@ this.setState({loading:true})
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        'bx_block_profile/permision'
+        'bx_block_profile/profiles/public_profile'
       );
 
       requestMessage.addData(
@@ -1764,5 +1736,119 @@ this.setState({loading:true})
     }
 
   }
+  addPhoneSchema=()=>{
+    const validations = Yup.object().shape({
+      phone: Yup.number()
+        .typeError("Only numbers are allowed.")
+        .required("Mobile number is required.")
+        .positive("Negative numbers are not allowed.")
+        .integer("Number can't contain a decimal.")
+        .min(10000000, "Minimum 8 digits are required.")
+        .max(99999999999, "Maximum 11 digits are allowed.")
+
+
+    });
+    return validations
+  }
+  updatePhone=(values:any)=>{
+
+this.setState({loading:true})
+    const header = {
+      "token": localStorage.getItem('userToken'),
+
+    };
+    const formData = new FormData();
+    formData.append("new_phone_number", `${values.phone}`)
+    formData.append("country_code", `${this.state.selectCode}`)
+
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+    this.updatePhoneApicallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      'bx_block_profile/profiles/verify_number'
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestBodyMessage),
+      formData
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      'POST'
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+
+  }
+  handleAddChip=(fn:any,data:any,values:any)=>{
+    console.log('hi')
+values.push(data)
+fn('hobbies',values)
+    console.log(values)
+
+  }
+  handleDeleteChip = (fn: any, data: any, values: any,index:any)=>{
+    console.log('bye')
+    values.splice(index, 1)
+    fn('hobbies', values)
+console.log(data,index)
+  }
+  disablechat=()=>{
+
+    this.setState({ loading: true })
+    const header = {
+      "token": localStorage.getItem('userToken'),
+
+    };
+
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+    this.chatSettingApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      'bx_block_chat/chats/disable_enable_chat?disbale_chat=true'
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      'PATCH'
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+
+  }
+
+  redirectToDashboard=()=>{
+let userType=localStorage.getItem('userType')
+    if (userType == 'Owner'){
+      //@ts-ignore
+      //@ts-nocheck
+      this.props.history.push('/OwnerDashboard')
+    }else{
+      //@ts-ignore
+      //@ts-nocheck
+      this.props.history.push('/residentDashboard')
+    }
+
+  }
+
   // Customizable Area End
 }
