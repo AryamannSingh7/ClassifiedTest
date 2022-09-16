@@ -112,7 +112,9 @@ class PollDetails extends SurveyDetailsMainController {
                                             <Typography className="PollNamedate">Start Date</Typography>
                                             <Typography className="PollNameText">
                                                 {/* June 7, 2022 */}
-                                                {moment(this.state.SurveyPreviewAnswer?.start_dat).format("MMMM DD, YYYY")}</Typography>
+                                                {/*{moment(this.state.SurveyPreviewAnswer?.start_date).format("MMMM DD, YYYY")}*/}
+                                                {this.state.SurveyPreviewAnswer?.start_date}
+                                            </Typography>
                                         </Box>    
                                     </Box>
                                     <Box className="datebox">
@@ -121,7 +123,9 @@ class PollDetails extends SurveyDetailsMainController {
                                             <Typography className="PollNamedate">End Date</Typography>
                                             <Typography className="PollNameText">
                                                 {/* June 7, 2022 */}
-                                            {moment(this.state.SurveyPreviewAnswer?.end_date).format("MMMM DD, YYYY")}</Typography>
+                                                {/*{moment(this.state.SurveyPreviewAnswer?.end_date).format("MMMM DD, YYYY")}*/}
+                                                {this.state.SurveyPreviewAnswer?.end_date}
+                                            </Typography>
                                         </Box>    
                                     </Box>
                                 </Box>
