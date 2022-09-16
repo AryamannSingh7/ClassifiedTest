@@ -15,8 +15,12 @@ import {
     Input,
     Link,
     Button,
-    MenuItem, InputAdornment,
+    MenuItem,
+    InputAdornment,
+    Divider,
+    CircularProgress,
 } from "@material-ui/core";
+import {withStyles} from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Select from "@material-ui/core/Select";
@@ -25,6 +29,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Modal from "@material-ui/core/Modal";
 import Fade from "@material-ui/core/Fade";
+import {audienceCheck,audienceChecked} from "./assets";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import Switch from '@material-ui/core/Switch';
 
@@ -56,7 +61,8 @@ import { withRouter } from 'react-router';
 import { withTranslation } from 'react-i18next';
 import '../../../web/src/i18n.js';
 import DateRangeOutlinedIcon from "@material-ui/icons/DateRangeOutlined";
-
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Menu from '@material-ui/core/Menu';
 
 const currencies = [
     {
@@ -102,16 +108,18 @@ class CreateSurveys extends CreateSurveyController {
                             <Typography variant="body1" >
                             {t("Poll and survey")} / <Box component="span" style={{color: "blue"}}>{t("Create a Survey")}</Box>
                             </Typography>
-                            <Typography variant="h5" className="subHeading">{t("Create a Survey")}</Typography>
+                            <Typography variant="h4" className="subHeading">{t("Create a Survey")}</Typography>
                         </Box>
                     </Box>
 
                     <form>
-                        <Grid container spacing={4} style={{marginTop: 15}}>
+                        <Grid container spacing={4} style={{marginTop: 4}}>
                             <Grid item sm={12} md={12} xs={12}>
                                 <Box className="createPSCards">
                                     <TextField label={t("Name of the Survey")} variant="outlined"
                                     name="title"
+                                    maxlength = "40"
+                                    id="SurveyQuestion"
                                     value={this.state.SurveyData.title}
                                     onChange={this.handlePollDataChange}
                                     required fullWidth
@@ -123,6 +131,7 @@ class CreateSurveys extends CreateSurveyController {
                                                 label="Start Date" variant="outlined"
                                                 style={{width:"100%"}}
                                                 type="date" name="startDate"  fullWidth
+                                                id="SurveyQuestion"
                                                 format='DD/MM/YYYY'
                                                 value={this.state.SurveyData.startDate}
                                                 onChange={this.handlePollDataChange}
@@ -144,6 +153,7 @@ class CreateSurveys extends CreateSurveyController {
                                             <TextField label="End Date" variant="outlined"
                                                        type="date" name="endDate"  fullWidth
                                                        style={{width:"100%"}}
+                                                       id="SurveyQuestion"
                                                        value={this.state.SurveyData.endDate}
                                                        onChange={this.handlePollDataChange}
                                                        InputProps={{
@@ -176,13 +186,17 @@ class CreateSurveys extends CreateSurveyController {
                                             <InfoIcon style={{color:"grey", fontSize:18}}/>
                                         </Box>
                                         <Box className="targetOne">
-                                            <Button variant="outlined" color="primary">{t("OWNERS")}</Button>
-                                            <Button variant="outlined" color="primary">{t("RESIDENTS")}</Button>
+                                            <AudienceSelectBox name="OWNERS" selected={true} isMenu={false}/>
+                                            <AudienceSelectBox name="RESIDENTS" selected={false} isMenu={false}/>
+                                            <AudienceSelectBox name="Floor 12" selected={false} isMenu={true}/>
                                             <Typography variant="subtitle1">{t("Or")}, </Typography>
-                                            <Button variant="contained" color="primary" onClick={this.handleOpenAudienceModal}>{t("CREATE AUDIENCE")}</Button>
+                                            <AudienceButton variant="contained" color="primary" onClick={this.handleOpenAudienceModal}>{t("CREATE AUDIENCE")}</AudienceButton>
                                         </Box>
                                     </Box>
                                 </Box>
+                            </Grid>
+                            <Grid item xs={12} style={{marginTop:"40px"}}>
+
                             </Grid>
                             {
                                 this.state.surveyQuestions.map((item,key)=>{
@@ -196,6 +210,7 @@ class CreateSurveys extends CreateSurveyController {
                                                         id="question-type-select"
                                                         value={item.question_type}
                                                         label="Age"
+                                                        className="selectSurveyType"
                                                         style={{width:"100%",border:"1px solid #ECECEC",borderRadius:"10px",backgroundColor:"#f9f9f9",marginRight:"10px"}}
                                                         onChange={(e)=> this.handleQuestionType(key,e)}
                                                     >
@@ -205,12 +220,13 @@ class CreateSurveys extends CreateSurveyController {
                                                     </Select>
                                                     <p style={{color:"red"}}>{item.questionTypeError}</p>
                                                 </FormControl>
-
-                                                <TextField  label="enter question" variant="outlined"
+                                                <TextField  label="Enter question" variant="outlined"
                                                             name="question"
+                                                            maxlength = "40"
+                                                            id="SurveyQuestion"
                                                             value={item.title}
                                                             onChange={(e)=>this.handleQuestion(key,e)}
-                                                            required fullWidth style={{marginTop:20}}
+                                                            required fullWidth style={{marginTop:20,borderRadius:"10px"}}
                                                 />
                                                 <p style={{color:"red"}}>{item.questionError}</p>
                                                 {
@@ -219,8 +235,10 @@ class CreateSurveys extends CreateSurveyController {
                                                             <>
                                                                 <TextField
                                                                    key={index}
-                                                                   label={"option - " + (index + 1)} variant="outlined"
+                                                                   label={"Option - " + (index + 1)} variant="outlined"
                                                                    name="text"
+                                                                   maxlength = "40"
+                                                                   id="SurveyQuestionOptions"
                                                                    value={inputfield.text}
                                                                    onChange={(event) => this.handleOptionsChange(key,index, event)}
                                                                    required fullWidth style={{marginTop:20}}
@@ -231,7 +249,7 @@ class CreateSurveys extends CreateSurveyController {
                                                     })
                                                 }
                                                 {
-                                                    this.state.questionType !== "short_answers" &&
+                                                    item.question_type !== "short_answers" &&
                                                     <Button variant="outlined" color="primary"
                                                             onClick={() => this.addOptionsFields(key)}
                                                             className="addOptions"
@@ -309,16 +327,15 @@ class CreateSurveys extends CreateSurveyController {
                             <Grid  item sm={12} md={12} xs={12}>
                                 <Box className="BottomButtonSurvey">
                                     <Box className="Previewbtn">
-                                        <Button onClick={this.handlePriviewData} variant="contained" color="primary">PREVIEW</Button>
+                                        <AudienceButton onClick={this.handlePriviewData} variant="contained" color="primary">PREVIEW</AudienceButton>
                                     </Box>
                                     <Box className="Publishbtn">
-                                        <Button onClick={this.handleSurveyDataSubmit} type="submit" variant="outlined" color="primary">PUBLISH</Button>
+                                        <PublishButton onClick={this.handleSurveyDataSubmit} disabled={this.state.loading} type="submit" variant="outlined" color="primary">{this.state.loading && <CircularProgress color="inherit" size={20}/> } {" "}PUBLISH</PublishButton>
                                     </Box>
                                 </Box>
                             </Grid>
                         </Grid>
                     </form>
-                    
                 </Container>
                 <Modal
                     aria-labelledby="filterModal"
@@ -357,4 +374,87 @@ const dashBoard = {
     },
 }
 
+const AudienceSelectBox = (props:any) => {
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+    return(
+        <>
+            <Box
+                style={
+                    props.selected ?
+                        {border:"1px solid #2b6fed",borderRadius:"8px",cursor:'pointer'}
+                        :
+                        {border:"1px solid #f0f0f0",borderRadius:"8px",cursor:'pointer',backgroundColor:"#f9f9f9"}
+                }
+            >
+                <Box
+                    style={{padding:"10px 13px",display:"flex",alignItems:"center"}}
+                >
+                    <img
+                        src={props.selected ? audienceChecked : audienceCheck}
+                        height="10px"
+                    />
+                    <Typography
+                        variant="body2"
+                        style={
+                            props.selected ?
+                            {fontWeight:"bold",color:"#2b6fed",marginLeft:"5px",fontFamily:"Century Gothic",textTransform:"uppercase"}
+                            :
+                            {fontWeight:"bold",color:"#9a9fa5",marginLeft:"5px",fontFamily:"Century Gothic",textTransform:"uppercase"}
+                        }
+                    >
+                        {props.name}
+                    </Typography>
+                    {
+                        props.isMenu &&
+                        <Box onClick={handleClick} style={{marginLeft:"8px"}}>
+                            <MoreVertIcon style={{color:"#c0c0c0"}} />
+                        </Box>
+                    }
+                    <Menu
+                        id="simple-menu"
+                        anchorEl={anchorEl}
+                        keepMounted
+                        open={Boolean(anchorEl)}
+                        onClose={handleClose}
+                    >
+                        <MenuItem onClick={handleClose}>Edit</MenuItem>
+                        <Divider/>
+                        <MenuItem onClick={handleClose}>Delete</MenuItem>
+                    </Menu>
+                </Box>
+            </Box>
+        </>
+    )
+}
+
+const AudienceButton = withStyles((theme) => ({
+    root: {
+        color: "white",
+        backgroundColor: "#2b6fed",
+        fontWeight:"bold",
+        height:"45px",
+        '&:hover': {
+            backgroundColor: "#2b6fef",
+        },
+    },
+}))(Button);
+
+const PublishButton = withStyles((theme) => ({
+    root: {
+        color: "#2b6fed",
+        backgroundColor: "white",
+        fontWeight:"bold",
+        height:"45px",
+        '&:hover': {
+            color: "#2b6fef",
+        },
+    },
+}))(Button);
 // Customizable Area End
