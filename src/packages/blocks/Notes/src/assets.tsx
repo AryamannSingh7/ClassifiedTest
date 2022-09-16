@@ -7,3 +7,5 @@ export const DeleteImage = require("../assets/delete.png");
 export const ShareImage = require("../assets/share.png");
 export const DownloadImage = require("../assets/download.png");
 export const PdfImage = require("../assets/pdf.png");
+export const BuildingLogo = require("../assets/building.png");
+export const NoPdf = require("../assets/no-pdf.png");

@@ -56,6 +56,9 @@ import {
   WhatsappIcon,
 } from "react-share";
 import { ROLE } from "../../../framework/src/Enum";
+import { withTranslation } from "react-i18next";
+import "../../../web/src/i18n.js";
+import moment from "moment";
 
 class MeetingMinutes extends MeetingMinutesController {
   constructor(props: Props) {
@@ -81,6 +84,7 @@ class MeetingMinutes extends MeetingMinutesController {
 
   render() {
     const { classes } = this.props;
+    const { t }: any = this.props;
 
     const sharePopupWidth = 500;
     const sharePopupHeight = 700;
@@ -104,13 +108,13 @@ class MeetingMinutes extends MeetingMinutesController {
                 <Box className="navigation">
                   <Box>
                     <Typography variant="body1">
-                      Meetings /{" "}
+                      {t("Meetings")} /{" "}
                       <Box component="span" style={{ color: "blue" }}>
-                        Meeting Minutes
+                        {t("Meeting Minutes")}
                       </Box>
                     </Typography>
                     <Typography variant="h5" className="sub-heading">
-                      Meeting Minutes
+                      {t("Meeting Minutes")}
                     </Typography>
                   </Box>
                 </Box>
@@ -129,7 +133,7 @@ class MeetingMinutes extends MeetingMinutesController {
                         className="select-input"
                       >
                         <MenuItem value="" disabled>
-                          <em>Select Building</em>
+                          <em>{t("Select Building")}</em>
                         </MenuItem>
                         {this.state.buildingsList.map((building: any) => {
                           return <MenuItem value={building.name}>{building.name}</MenuItem>;
@@ -148,11 +152,11 @@ class MeetingMinutes extends MeetingMinutesController {
                       className="select-input"
                     >
                       <MenuItem value="" disabled>
-                        <em>Select Status</em>
+                        <em>{t("Select Status")}</em>
                       </MenuItem>
-                      <MenuItem value="pending">Pending</MenuItem>
-                      <MenuItem value="approved">Approved</MenuItem>
-                      <MenuItem value="rejected">Rejected</MenuItem>
+                      <MenuItem value="pending">{t("Pending")}</MenuItem>
+                      <MenuItem value="approved">{t("Approved")}</MenuItem>
+                      <MenuItem value="rejected">{t("Rejected")}</MenuItem>
                     </Select>
                     <Input
                       value={this.state.date}
@@ -163,7 +167,7 @@ class MeetingMinutes extends MeetingMinutesController {
                         });
                       }}
                       type="text"
-                      placeholder="Date"
+                      placeholder={t("Date")}
                       className="input date"
                       onFocus={(e: any) => (e.target.type = "date")}
                       onBlur={(e: any) => (e.target.type = "text")}
@@ -182,18 +186,18 @@ class MeetingMinutes extends MeetingMinutesController {
                         });
                       }}
                     >
-                      Search
+                      {t("Search")}
                     </Button>
                   </Box>
                 </Box>
                 <Grid className="meeting-table">
                   <Grid item sm={12} md={12} xs={12}>
                     <Box className="table-top">
-                      <h3>Meeting Minutes</h3>
+                      <h3>{t("Meeting Minutes")}</h3>
                       <div className="search-box">
                         <SearchIcon />
                         <InputBase
-                          placeholder="Search by title"
+                          placeholder={t("Search by title")}
                           className="search"
                           value={this.state.filter.title}
                           onChange={(e: any) => {
@@ -213,18 +217,18 @@ class MeetingMinutes extends MeetingMinutesController {
                       <TableHead>
                         <TableRow>
                           <TableCell>#</TableCell>
-                          <TableCell>Title</TableCell>
-                          <TableCell>Agenda</TableCell>
-                          {localStorage.getItem("userType") === ROLE.MANAGER && <TableCell>Building</TableCell>}
-                          <TableCell>Date & Time</TableCell>
-                          <TableCell>Status</TableCell>
+                          <TableCell>{t("Title")}</TableCell>
+                          <TableCell>{t("Agenda")}</TableCell>
+                          {localStorage.getItem("userType") === ROLE.MANAGER && <TableCell>{t("Building")}</TableCell>}
+                          <TableCell>{t("Date & Time")}</TableCell>
+                          <TableCell>{t("Status")}</TableCell>
                           <TableCell />
                         </TableRow>
                       </TableHead>
                       <TableBody>
                         {this.state.meetingMinuteList.length === 0 && (
                           <TableRow>
-                            <TableCell colSpan={5}>No Meeting Minutes Available!!</TableCell>
+                            <TableCell colSpan={5}>{t("No Meeting Minutes Available!!")}</TableCell>
                           </TableRow>
                         )}
                         {this.state.meetingMinuteList.map((meeting: any, index: number) => {
@@ -236,7 +240,11 @@ class MeetingMinutes extends MeetingMinutesController {
                               {localStorage.getItem("userType") === ROLE.MANAGER && (
                                 <TableCell>{meeting.attributes.building.name}</TableCell>
                               )}
-                              <TableCell>{meeting.attributes.meeting_date_time}</TableCell>
+                              <TableCell>
+                                {moment(meeting.attributes.meeting_date_time, "DD-MM-YYYY HH:mm", true).format(
+                                  "DD-MMM-YYYY HH:mm"
+                                )}
+                              </TableCell>
                               <TableCell>
                                 <span className={meeting.attributes.meeting_mins_status}>
                                   {meeting.attributes.meeting_mins_status}
@@ -251,22 +259,22 @@ class MeetingMinutes extends MeetingMinutesController {
                                   }
                                 >
                                   <MenuItem>
-                                    <Link to={`/MeetingMinute/${meeting.id}`}>View</Link>
+                                    <Link to={`/MeetingMinute/${meeting.id}`}>{t("View")}</Link>
                                   </MenuItem>
                                   {!meeting.attributes.meeting_mins_pdf ? (
                                     <>
-                                      <MenuItem onClick={() => toast.error("No meeting document available!!")}>
-                                        Download
+                                      <MenuItem onClick={() => toast.error(`${t("No meeting document available!!")}`)}>
+                                        {t("Download")}
                                       </MenuItem>
-                                      <MenuItem onClick={() => toast.error("No meeting document available!!")}>
-                                        Share
+                                      <MenuItem onClick={() => toast.error(`${t("No meeting document available!!")}`)}>
+                                        {t("Share")}
                                       </MenuItem>
                                     </>
                                   ) : (
                                     <>
                                       <MenuItem>
                                         <NavLink href={meeting.attributes.meeting_mins_pdf.url} target="_blank">
-                                          Download
+                                          {t("Download")}
                                         </NavLink>
                                       </MenuItem>
                                       <MenuItem
@@ -276,7 +284,7 @@ class MeetingMinutes extends MeetingMinutesController {
                                           });
                                         }}
                                       >
-                                        Share
+                                        {t("Share")}
                                       </MenuItem>
                                     </>
                                   )}
@@ -329,7 +337,7 @@ class MeetingMinutes extends MeetingMinutesController {
           className="select-meeting"
         >
           <MuiDialogTitle disableTypography className="dialog-heading">
-            <Typography variant="h6">Share</Typography>
+            <Typography variant="h6">{t("Share")}</Typography>
             <IconButton onClick={() => this.handleShareModal()}>
               <CloseIcon />
             </IconButton>
@@ -417,5 +425,5 @@ class MeetingMinutes extends MeetingMinutesController {
   }
 }
 
-export default withStyles(MeetingsStyleWeb)(MeetingMinutes);
+export default withTranslation()(withStyles(MeetingsStyleWeb)(MeetingMinutes));
 // Customizable Area End

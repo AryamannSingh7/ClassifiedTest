@@ -177,7 +177,9 @@ class DocumentListChairman extends DocumentListChairmanController {
                                   <div className="res-info">
                                     <div className="info-item">
                                       <p>{t("Date & Time")}</p>
-                                      <span>{moment(resolution.attributes.created_at).format("DD-MM-YYYY HH:mm")}</span>
+                                      <span>
+                                        {moment(resolution.attributes.created_at).format("DD-MMM-YYYY HH:mm")}
+                                      </span>
                                     </div>
                                     <div className="info-item">
                                       <p>{t("Building")}</p>
@@ -187,7 +189,12 @@ class DocumentListChairman extends DocumentListChairmanController {
                                   <div className="item">
                                     <div className="item-title">
                                       <img src={PdfImage} />
-                                      <h6>{resolution.attributes.meeting.title}</h6>
+                                      <h6>
+                                        Meeting Minute{" "}
+                                        {moment(resolution.attributes.meeting_date_time, "DD-MM-YYYY HH:mm").format(
+                                          "DD-MMM-YYYY"
+                                        )}
+                                      </h6>
                                     </div>
                                     <div className="icons">
                                       <img
@@ -243,15 +250,9 @@ class DocumentListChairman extends DocumentListChairmanController {
                                       </MenuItem>
                                       <MenuItem
                                         onClick={() => {
-                                          this.setState(
-                                            {
-                                              ...this.state,
-                                              selectedDocumentId: document.id,
-                                            },
-                                            () => {
-                                              this.handleDeleteDocumentModal();
-                                            }
-                                          );
+                                          this.setState({ ...this.state, selectedDocumentId: document.id }, () => {
+                                            this.handleDeleteDocumentModal();
+                                          });
                                         }}
                                       >
                                         {t("Delete")}
@@ -307,17 +308,10 @@ class DocumentListChairman extends DocumentListChairmanController {
             }}
             validationSchema={this.validationAddForm}
             onSubmit={(values, { resetForm }) => {
-              this.setState(
-                {
-                  ...this.state,
-                  title: values.title.trim(),
-                  file: values.file,
-                },
-                () => {
-                  this.createDocument();
-                  resetForm();
-                }
-              );
+              this.setState({ ...this.state, title: values.title.trim(), file: values.file }, () => {
+                this.createDocument();
+                resetForm();
+              });
             }}
           >
             {({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue }) => {
@@ -398,11 +392,9 @@ class DocumentListChairman extends DocumentListChairmanController {
                 <Button
                   className="add-button"
                   onClick={() => {
-                    if (this.state.docName.toLowerCase() === "resolutions") {
-                      this.deleteResolution();
-                    } else {
-                      this.deleteCategory();
-                    }
+                    this.state.docName.toLowerCase() === "resolutions"
+                      ? this.deleteResolution()
+                      : this.deleteCategory();
                   }}
                 >
                   {t("Yes Delete")}

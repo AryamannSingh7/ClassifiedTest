@@ -5,6 +5,9 @@ import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import MyMeetingsController, { Props } from "./MyMeetingsController.web";
 import { BuildingLogo, DownloadIcon, PdfIcon } from "./assets";
 import { MeetingsStyleWeb } from "./MeetingsStyle.web";
+import { withTranslation } from "react-i18next";
+import "../../../web/src/i18n.js";
+import moment from "moment";
 
 class MyMeetingMinuteDetail extends MyMeetingsController {
   constructor(props: Props) {
@@ -13,18 +16,14 @@ class MyMeetingMinuteDetail extends MyMeetingsController {
 
   async componentDidMount(): Promise<void> {
     const meeting_id = this.props.navigation.getParam("id");
-    this.setState(
-      {
-        scheduleMeetingId: meeting_id,
-      },
-      () => {
-        this.getMeetingById();
-      }
-    );
+    this.setState({ scheduleMeetingId: meeting_id }, () => {
+      this.getMeetingById();
+    });
   }
 
   render() {
     const { classes } = this.props;
+    const { t }: any = this.props;
 
     console.log(this.state);
 
@@ -41,7 +40,7 @@ class MyMeetingMinuteDetail extends MyMeetingsController {
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    Meeting Minutes
+                    {t("Meeting Minutes")}
                   </div>
                 </Box>
                 <Container>
@@ -53,10 +52,6 @@ class MyMeetingMinuteDetail extends MyMeetingsController {
                             __html: this.state.meeting && this.state.meeting.attributes.meeting_mins_notes,
                           }}
                         />
-                        {/* <iframe
-                          src={this.state.meeting && this.state.meeting.attributes.meeting_mins_pdf.url}
-                          title="description"
-                        /> */}
                       </Box>
                     </Box>
                     <div className="upload-button meeting-pdf">
@@ -64,7 +59,11 @@ class MyMeetingMinuteDetail extends MyMeetingsController {
                         <div className="heading">
                           <img src={PdfIcon} alt="pdf" />
                           <h6>
-                            Meeting Minutes {this.state.meeting && this.state.meeting.attributes.meeting_date_time}
+                            Meeting Minutes{" "}
+                            {this.state.meeting &&
+                              moment(this.state.meeting.attributes.meeting_date_time, "DD-MM-YYYY HH:mm", true).format(
+                                "DD-MMM-YYYY HH:mm"
+                              )}
                           </h6>
                         </div>
                         <Link
@@ -92,5 +91,5 @@ class MyMeetingMinuteDetail extends MyMeetingsController {
   }
 }
 
-export default withStyles(MeetingsStyleWeb)(MyMeetingMinuteDetail);
+export default withTranslation()(withStyles(MeetingsStyleWeb)(MyMeetingMinuteDetail));
 // Customizable Area End
