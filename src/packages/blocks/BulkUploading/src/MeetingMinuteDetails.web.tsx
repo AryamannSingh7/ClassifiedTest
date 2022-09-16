@@ -26,6 +26,9 @@ import { MeetingsStyleWeb } from "./MeetingsStyle.web";
 import { DownloadIcon, PdfIcon, CheckIcon } from "./assets";
 import { Link } from "react-router-dom";
 import { ROLE } from "../../../framework/src/Enum";
+import { withTranslation } from "react-i18next";
+import "../../../web/src/i18n.js";
+import moment from "moment";
 
 class MeetingMinuteDetails extends MeetingMinutesController {
   constructor(props: Props) {
@@ -34,18 +37,14 @@ class MeetingMinuteDetails extends MeetingMinutesController {
 
   async componentDidMount(): Promise<void> {
     const meeting_id = this.props.navigation.getParam("id");
-    this.setState(
-      {
-        meetingMinuteId: meeting_id,
-      },
-      () => {
-        this.MinuteMeetingDetail();
-      }
-    );
+    this.setState({ meetingMinuteId: meeting_id }, () => {
+      this.MinuteMeetingDetail();
+    });
   }
 
   render() {
     const { classes } = this.props;
+    const { t }: any = this.props;
 
     console.log(this.state);
 
@@ -65,13 +64,13 @@ class MeetingMinuteDetails extends MeetingMinutesController {
                 <Box className="navigation">
                   <Box>
                     <Typography variant="body1">
-                      Meetings / Meeting Minutes /{" "}
+                      {t("Meetings")} / {t("Meeting Minutes")} /{" "}
                       <Box component="span" style={{ color: "blue" }}>
                         {this.state.meetingMinuteDetails && this.state.meetingMinuteDetails.attributes.title}
                       </Box>
                     </Typography>
                     <Typography variant="h5" className="sub-heading">
-                      Meeting Minutes Details
+                      {t("Meeting Minutes Details")}
                     </Typography>
                   </Box>
                 </Box>
@@ -79,7 +78,14 @@ class MeetingMinuteDetails extends MeetingMinutesController {
                   <>
                     <Box className="meeting-detail-box">
                       <Box className="meeting-top">
-                        <h3>Meeting Minutes {this.state.meetingMinuteDetails.attributes.meeting_date_time}</h3>
+                        <h3>
+                          Meeting Minutes{" "}
+                          {moment(
+                            this.state.meetingMinuteDetails.attributes.meeting_date_time,
+                            "DD-MM-YYYY HH:mm",
+                            true
+                          ).format("DD-MMM-YYYY HH:mm")}
+                        </h3>
                         <span className={this.state.meetingMinuteStatus}>{this.state.meetingMinuteStatus}</span>
                       </Box>
                       <Divider />
@@ -94,7 +100,14 @@ class MeetingMinuteDetails extends MeetingMinutesController {
                         <Box className="pdf-detail">
                           <div className="heading">
                             <img src={PdfIcon} alt="pdf" />
-                            <h6>Meeting Minutes 01-04-2022</h6>
+                            <h6>
+                              Meeting Minutes{" "}
+                              {moment(
+                                this.state.meetingMinuteDetails.attributes.meeting_date_time,
+                                "DD-MM-YYYY HH:mm",
+                                true
+                              ).format("DD-MMM-YYYY HH:mm")}
+                            </h6>
                           </div>
                           <NavLink
                             href={this.state.meetingMinuteDetails.attributes.meeting_mins_pdf.url}
@@ -108,7 +121,7 @@ class MeetingMinuteDetails extends MeetingMinutesController {
                     {this.state.meetingMinuteDetails.attributes.meeting_mins_status === "rejected" && (
                       <Box className="rejection-box">
                         <Card>
-                          <h4>Rejection Reason</h4>
+                          <h4>{t("Rejection Reason")}</h4>
                           <p>{this.state.meetingMinuteDetails.attributes.meeting_reject_note.note}</p>
                         </Card>
                       </Box>
@@ -116,7 +129,7 @@ class MeetingMinuteDetails extends MeetingMinutesController {
                     {localStorage.getItem("userType") === ROLE.MANAGER && (
                       <Box className="button-box">
                         <Link to={`/MeetingMinute/${this.state.meetingMinuteId}/Note`}>
-                          <Button className="edit">Edit</Button>
+                          <Button className="edit">{t("Edit")}</Button>
                         </Link>
                       </Box>
                     )}
@@ -124,21 +137,21 @@ class MeetingMinuteDetails extends MeetingMinutesController {
                       localStorage.getItem("userType") === ROLE.CHAIRMAN && (
                         <Box className="button-box">
                           <Button className="cancel" onClick={() => this.handleRejectMeetingModal()}>
-                            Reject
+                            {t("Reject")}
                           </Button>
                           <Button className="edit" onClick={() => this.handleApproveMeetingModal()}>
-                            Approve
+                            {t("Approve")}
                           </Button>
                         </Box>
                       )}
                   </>
                 ) : (
                   <Box className="no-available">
-                    <Card>No Meeting Minute Available !!</Card>
+                    <Card>{t("No Meeting Minute Available!!")}</Card>
                     {localStorage.getItem("userType") === ROLE.MANAGER && (
                       <Box className="button-box">
                         <Link to={`/MeetingMinute/${this.state.meetingMinuteId}/Note`}>
-                          <Button className="edit">Add</Button>
+                          <Button className="edit">{t("Add")}</Button>
                         </Link>
                       </Box>
                     )}
@@ -151,7 +164,14 @@ class MeetingMinuteDetails extends MeetingMinutesController {
 
         <Dialog fullWidth className="add-meeting" open={this.state.isRejectMeetingModalOpen}>
           <MuiDialogTitle disableTypography className="dialog-heading">
-            <Typography variant="h6">Reject Meeting Minutes 01-04-2022 18:30</Typography>
+            <Typography variant="h6">
+              Reject Meeting Minutes{" "}
+              {moment(
+                this.state.meetingMinuteDetails && this.state.meetingMinuteDetails.attributes.meeting_date_time,
+                "DD-MM-YYYY HH:mm",
+                true
+              ).format("DD-MMM-YYYY HH:mm")}
+            </Typography>
             <IconButton onClick={() => this.handleRejectMeetingModal()}>
               <CloseIcon />
             </IconButton>
@@ -160,7 +180,7 @@ class MeetingMinuteDetails extends MeetingMinutesController {
             <FormControl fullWidth>
               <TextareaAutosize
                 className="reject-note"
-                placeholder="Add Notes"
+                placeholder={t("Add Notes")}
                 value={this.state.rejectNote}
                 onChange={(e: any) => {
                   this.setState({
@@ -172,14 +192,14 @@ class MeetingMinuteDetails extends MeetingMinutesController {
           </DialogContent>
           <DialogActions className="dialog-button-group">
             <Button className="cancel-button" onClick={() => this.handleRejectMeetingModal()}>
-              Cancel
+              {t("Cancel")}
             </Button>
             <Button
               className="add-button"
               disabled={this.state.rejectNote.length === 0 || this.isInputOnlyWhiteSpace(this.state.rejectNote)}
               onClick={() => this.updateMinuteMeeting("rejected")}
             >
-              Confirm
+              {t("Confirm")}
             </Button>
           </DialogActions>
         </Dialog>
@@ -195,11 +215,20 @@ class MeetingMinuteDetails extends MeetingMinutesController {
               <img className="comment-image" src={CheckIcon} alt="check" />
               <Typography variant="h6">
                 Approve meeting minutes{" "}
-                {this.state.meetingMinuteDetails && this.state.meetingMinuteDetails.attributes.meeting_date_time}
+                {moment(
+                  this.state.meetingMinuteDetails && this.state.meetingMinuteDetails.attributes.meeting_date_time,
+                  "DD-MM-YYYY HH:mm",
+                  true
+                ).format("DD-MMM-YYYY HH:mm")}
               </Typography>
               <Typography variant="body1" style={{ marginBottom: "0px" }}>
                 Are you sure you want to approve meeting minutes{" "}
-                {this.state.meetingMinuteDetails && this.state.meetingMinuteDetails.attributes.meeting_date_time}?
+                {moment(
+                  this.state.meetingMinuteDetails && this.state.meetingMinuteDetails.attributes.meeting_date_time,
+                  "DD-MM-YYYY HH:mm",
+                  true
+                ).format("DD-MMM-YYYY HH:mm")}
+                ?
               </Typography>
               <DialogActions className="dialog-button-group">
                 <Button
@@ -207,14 +236,14 @@ class MeetingMinuteDetails extends MeetingMinutesController {
                   style={{ width: "200px" }}
                   onClick={() => this.handleApproveMeetingModal()}
                 >
-                  Close
+                  {t("Close")}
                 </Button>
                 <Button
                   style={{ width: "200px" }}
                   className="add-button"
                   onClick={() => this.updateMinuteMeeting("approved")}
                 >
-                  Confirm
+                  {t("Confirm")}
                 </Button>
               </DialogActions>
             </Box>
@@ -225,5 +254,5 @@ class MeetingMinuteDetails extends MeetingMinutesController {
   }
 }
 
-export default withStyles(MeetingsStyleWeb)(MeetingMinuteDetails);
+export default withTranslation()(withStyles(MeetingsStyleWeb)(MeetingMinuteDetails));
 // Customizable Area End

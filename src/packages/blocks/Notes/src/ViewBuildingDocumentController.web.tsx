@@ -1,10 +1,9 @@
 import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
-import MessageEnum, {
-  getName,
-} from "../../../framework/src/Messages/MessageEnum";
+import MessageEnum, { getName } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
+import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
 
 // Customizable Area Start
 // Customizable Area End
@@ -40,11 +39,7 @@ interface SS {
   id: any;
 }
 
-export default class ViewBuildingDocumentController extends BlockComponent<
-  Props,
-  S,
-  SS
-> {
+export default class ViewBuildingDocumentController extends BlockComponent<Props, S, SS> {
   GetDocumentCallId: any;
   GetResolutionCallId: any;
 
@@ -53,10 +48,7 @@ export default class ViewBuildingDocumentController extends BlockComponent<
     this.receive = this.receive.bind(this);
     console.disableYellowBox = true;
     // Customizable Area Start
-    this.subScribedMessages = [
-      getName(MessageEnum.RestAPIResponceMessage),
-      getName(MessageEnum.RestAPIRequestMessage),
-    ];
+    this.subScribedMessages = [getName(MessageEnum.RestAPIResponceMessage), getName(MessageEnum.RestAPIRequestMessage)];
 
     this.state = {
       documentType: "",
@@ -82,14 +74,11 @@ export default class ViewBuildingDocumentController extends BlockComponent<
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.GetDocumentCallId !== null &&
-      this.GetDocumentCallId ===
-        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+      this.GetDocumentCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.GetDocumentCallId = null;
 
-      var responseJson = message.getData(
-        getName(MessageEnum.RestAPIResponceSuccessMessage)
-      );
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson.data) {
         this.setState({
@@ -97,56 +86,46 @@ export default class ViewBuildingDocumentController extends BlockComponent<
           document: responseJson.data,
           documentTitle: responseJson.data.attributes.title,
           documentUrl: responseJson.data.attributes.images[0].url,
-          documentDownloadUrl:
-            responseJson.data.attributes.images[0].download_url,
+          documentDownloadUrl: responseJson.data.attributes.images[0].download_url,
         });
       }
 
-      var errorReponse = message.getData(
-        getName(MessageEnum.RestAPIResponceErrorMessage)
-      );
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
         runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
       } else {
-        this.parseApiErrorResponse(responseJson);
+        ApiErrorResponse(responseJson);
       }
-      this.parseApiCatchErrorResponse(errorReponse);
+      ApiCatchErrorResponse(errorResponse);
     }
 
     // Get Resolution
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.GetResolutionCallId !== null &&
-      this.GetResolutionCallId ===
-        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+      this.GetResolutionCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.GetResolutionCallId = null;
 
-      var responseJson = message.getData(
-        getName(MessageEnum.RestAPIResponceSuccessMessage)
-      );
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson.code === 200) {
         this.setState({
           ...this.state,
           document: responseJson.resolution.data,
           documentTitle: responseJson.resolution.data.attributes.title,
-          documentUrl:
-            responseJson.resolution.data.attributes.attachments[0].url,
-          documentDownloadUrl:
-            responseJson.resolution.data.attributes.attachments[0].url,
+          documentUrl: responseJson.resolution.data.attributes.meeting_mins_pdf.url,
+          documentDownloadUrl: responseJson.resolution.data.attributes.meeting_mins_pdf.url,
         });
       }
 
-      var errorReponse = message.getData(
-        getName(MessageEnum.RestAPIResponceErrorMessage)
-      );
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
         runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
       } else {
-        this.parseApiErrorResponse(responseJson);
+        ApiErrorResponse(responseJson);
       }
-      this.parseApiCatchErrorResponse(errorReponse);
+      ApiCatchErrorResponse(errorResponse);
     }
     // Customizable Area End
   }
@@ -190,20 +169,12 @@ export default class ViewBuildingDocumentController extends BlockComponent<
     const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_my_document/building_documents/${
-        this.state.documentId
-      }`
+      `society_managements/${society_id}/bx_block_my_document/building_documents/${this.state.documentId}`
     );
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypeGet
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
@@ -223,20 +194,12 @@ export default class ViewBuildingDocumentController extends BlockComponent<
 
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_my_document/resolutions/${
-        this.state.documentId
-      }`
+      `society_managements/${society_id}/bx_block_my_document/resolutions/${this.state.documentId}`
     );
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypeGet
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;

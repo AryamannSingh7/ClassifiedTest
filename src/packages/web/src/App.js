@@ -175,16 +175,16 @@ import BuildingDocuments from '../../blocks/Notes/src/BuildingDocuments.web';
 import BuildingDocumentList from '../../blocks/Notes/src/BuildingDocumentList.web';
 import ViewBuildingDocument from '../../blocks/Notes/src/ViewBuildingDocument.web';
 
-import ContractsList from "../../blocks/RolesPermissions2/src/ContractsList.web";
-import ContractDetail from "../../blocks/RolesPermissions2/src/ContractDetail.web";
-import TemplateDetail from "../../blocks/RolesPermissions2/src/TemplateDetail.web";
-import IssueContract from "../../blocks/RolesPermissions2/src/IssueContract.web";
-import IssueLease from "../../blocks/RolesPermissions2/src/IssueLease.web";
-import SelectedTemplate from "../../blocks/RolesPermissions2/src/SelectedTemplate.web";
-import LeaseForm from "../../blocks/RolesPermissions2/src/LeaseForm.web";
-import ChangedSelectedTemplate from "../../blocks/RolesPermissions2/src/ChangedSelectedTemplate.web";
-import ReviewTemplate from "../../blocks/RolesPermissions2/src/ReviewTemplate.web";
-import AddCondition from "../../blocks/RolesPermissions2/src/AddCondition.web";
+import ContractsList from '../../blocks/RolesPermissions2/src/ContractsList.web';
+import ContractDetail from '../../blocks/RolesPermissions2/src/ContractDetail.web';
+import TemplateDetail from '../../blocks/RolesPermissions2/src/TemplateDetail.web';
+import IssueContract from '../../blocks/RolesPermissions2/src/IssueContract.web';
+import IssueLease from '../../blocks/RolesPermissions2/src/IssueLease.web';
+import SelectedTemplate from '../../blocks/RolesPermissions2/src/SelectedTemplate.web';
+import LeaseForm from '../../blocks/RolesPermissions2/src/LeaseForm.web';
+import ChangedSelectedTemplate from '../../blocks/RolesPermissions2/src/ChangedSelectedTemplate.web';
+import ReviewTemplate from '../../blocks/RolesPermissions2/src/ReviewTemplate.web';
+import AddCondition from '../../blocks/RolesPermissions2/src/AddCondition.web';
 
 import ChairmanScheduledMeeting from '../../blocks/BulkUploading/src/ScheduledMeeting.web';
 import ScheduledMeetingDetails from '../../blocks/BulkUploading/src/ScheduledMeetingDetails.web';
@@ -216,7 +216,7 @@ import Announcements from '../../blocks/user-profile-basic/src/Announcements.web
 import AnnouncementDetails from '../../blocks/user-profile-basic/src/AnnouncementDetails.web';
 import CommunityRequestManagement from '../../blocks/user-profile-basic/src/CommunityRequestManagement.web';
 
-import SentInvitation from "../../blocks/user-profile-basic/src/SentInvitation.web";
+import SentInvitation from '../../blocks/user-profile-basic/src/SentInvitation.web';
 import PendingRequest from '../../blocks/user-profile-basic/src/PendingRequest.web';
 import AwaitingAcceptece from '../../blocks/user-profile-basic/src/AwaitingAcceptece.web';
 import UserDetailedProfile from '../../blocks/user-profile-basic/src/UserDetailedProfile.web';
@@ -452,7 +452,7 @@ const routeMap = {
     path: '/ClassifiedManagerListing',
     exact: true
   },
-  
+
   // RolesPermissions2: {
   //   component: RolesPermissions2,
   //   path: '/RolesPermissions2'
@@ -510,12 +510,12 @@ const routeMap = {
 
   SurveyFill: {
     component: SurveyParticipate,
-    path: "/SurveyParticipate"
+    path: '/SurveyParticipate'
   },
 
   SurveyResponse: {
     component: SurveyMyResponse,
-    path: "/SurveyResponse"
+    path: '/SurveyResponse'
   },
 
   CreateSurveys: {
@@ -1312,25 +1312,25 @@ const routeMap = {
     path: '/AnnouncementDetails',
     exact: true
   },
-  CommunityRequestManagement:{
-    component:CommunityRequestManagement,
-    path:'/CommunityRequestManagement'
+  CommunityRequestManagement: {
+    component: CommunityRequestManagement,
+    path: '/CommunityRequestManagement'
   },
-  SentInvitation:{
-    component:SentInvitation,
-    path:'/SentInvitation'
+  SentInvitation: {
+    component: SentInvitation,
+    path: '/SentInvitation'
   },
-  PendingRequest:{
-    component:PendingRequest,
-    path:"/PendingRequest"
+  PendingRequest: {
+    component: PendingRequest,
+    path: '/PendingRequest'
   },
-  AwaitingAcceptece:{
-    component:AwaitingAcceptece,
-    path:"/AwaitingAcceptece"
+  AwaitingAcceptece: {
+    component: AwaitingAcceptece,
+    path: '/AwaitingAcceptece'
   },
-  UserDetailedProfile:{
-    component:UserDetailedProfile,
-    path:"/UserDetailedProfile"
+  UserDetailedProfile: {
+    component: UserDetailedProfile,
+    path: '/UserDetailedProfile'
   },
 
   AlertWeb: {
