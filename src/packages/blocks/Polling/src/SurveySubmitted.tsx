@@ -1,9 +1,4 @@
-//@ts-ignore
-//@ts-nocheck
-
 import * as React from "react";
-import DOMPurify from 'dompurify'
-// custom components
 import {
     Button, Grid, Box, TextField, Typography, LinearProgress,InputAdornment,Checkbox
 } from "@material-ui/core";
@@ -13,62 +8,9 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { withRouter } from 'react-router';
 import SurveyParticipateController, {
   Props
-} from "./SurveyParticipateController.tsx";
+} from "./SurveyParticipateController";
 import Loader from "../../../components/src/Loader.web";
 import "./Polling.web.css"
-const exampleQuestion = [
-    {
-        question:"Would you like to join events organized by building ? ",
-        options:[
-            {
-                text:"yes"
-            },
-            {
-                text:"no"
-            }
-        ],
-        showTextBox:true,
-        textBoxLabel:"if No,Please share your concerns"
-    },
-    {
-        question:"What kind of events would you like to be part of ?",
-        options:[
-            {
-                text:"Charity Events"
-            },
-            {
-                text:"Speaker Sessions"
-            },
-            {
-                text:"Holiday Celebrations"
-            },
-            {
-                text:"Others"
-            },
-
-        ],
-        showTextBox:true,
-        textBoxLabel:"Please share your concerns"
-    },
-    {
-        question:"How often would you like to attend an event in a year",
-        options:[
-            {
-                text:"Once a year"
-            },
-            {
-                text:"Twice a year"
-            },
-            {
-                text:"Once a every Quarter"
-            },
-            {
-                text:"Once a month"
-            },
-        ],
-        showTextBox:false,
-    },
-]
 
 class SurveyParticipate extends SurveyParticipateController {
     constructor(props: Props) {
