@@ -84,7 +84,7 @@ class NeighboursDetails extends NeighboursController {
                 <Box className="content-block-wrapper neighbor-content-block-wrapper common-incident-block desktop-ui">
                   {/* neighbour detail section */}
                   {
-                    !attributes?.full_name?.publilc_access ?
+                    attributes?.full_name?.publilc_access ?
                       <Box className="neighbour-detail-section">
                         <Card className="neighbour-card neighbour-detail-card card">
                           <CardContent className="card-content">
@@ -93,7 +93,6 @@ class NeighboursDetails extends NeighboursController {
                               <Typography component="h4">
                                 {attributes?.full_name?.name}
                               </Typography>
-
                               <Box className="social-raw">
                                 <Box className="blocks">
                                   <img src={Chat_Icon} className="icons" alt="info-icon" />

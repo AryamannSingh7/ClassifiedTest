@@ -14,6 +14,7 @@
     &.common-incident-block {
       @include scrollbars();
       overflow-y: scroll;
+      overflow-x: hidden;
       margin: 10px;
       @include mq(tablet-portrait-medium-up) {
         width: 450px;
