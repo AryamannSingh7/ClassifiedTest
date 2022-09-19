@@ -31,7 +31,16 @@ import ScheduledMeetingController, { Props } from "./ScheduledMeetingController.
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { MeetingsStyleWeb } from "./MeetingsStyle.web";
-import { CommentIcon, RejectIcon, AcceptIcon, AwaitIcon, SearchIconImage, Dots } from "./assets";
+import {
+  CommentIcon,
+  RejectIcon,
+  AcceptIcon,
+  AwaitIcon,
+  SearchIconImage,
+  Dots,
+  BlueCheckIcon,
+  GreyCheckIcon,
+} from "./assets";
 import { Formik, Form } from "formik";
 import moment from "moment";
 //@ts-ignore
@@ -128,14 +137,15 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                     <h4>{t("Meeting Details")}</h4>
                     <Box className="items">
                       <span>{t("Date & Time")}: </span>
-                      <p>
-                        {moment(
-                          this.state.scheduleMeetingDetails &&
+                      {this.state.scheduleMeetingDetails && (
+                        <p>
+                          {moment(
                             this.state.scheduleMeetingDetails.attributes.meeting_date_time,
-                          "DD-MM-YYYY HH:mm",
-                          true
-                        ).format("DD-MMM-YYYY HH:mm")}
-                      </p>
+                            "DD-MM-YYYY HH:mm",
+                            true
+                          ).format("DD-MMM-YYYY HH:mm")}
+                        </p>
+                      )}
                     </Box>
                     <Box className="items">
                       <span>{t("Place")}: </span>
@@ -165,15 +175,16 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                     </Box>
                     <Box className="items">
                       <span>{t("Scheduled On")}: </span>
-                      <p>
-                        {moment(
-                          this.state.scheduleMeetingDetails &&
+                      {this.state.scheduleMeetingDetails && (
+                        <p>
+                          {moment(
                             this.state.scheduleMeetingDetails.attributes.meeting_schedule_detail &&
-                            this.state.scheduleMeetingDetails.attributes.meeting_schedule_detail.scheduled_on,
-                          "DD-MM-YYYY HH:mm",
-                          true
-                        ).format("DD-MMM-YYYY HH:mm")}
-                      </p>
+                              this.state.scheduleMeetingDetails.attributes.meeting_schedule_detail.scheduled_on,
+                            "DD-MM-YYYY HH:mm",
+                            true
+                          ).format("DD-MMM-YYYY HH:mm")}
+                        </p>
+                      )}
                     </Box>
                   </Box>
                   {this.state.scheduleMeetingStatus === "cancelled" &&
@@ -346,7 +357,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                         className="dialog-select-input"
                       >
                         <MenuItem value="" disabled>
-                          <em>{t("Select Meeting Type")}</em>
+                          {t("Select Meeting Type")}
                         </MenuItem>
                         <MenuItem value="ga_meeting">{t("GA Meeting")}</MenuItem>
                         <MenuItem value="regular_meeting">{t("Regular Meeting")}</MenuItem>
@@ -421,7 +432,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                         className="dialog-select-input"
                       >
                         <MenuItem value="" disabled>
-                          <em>{t("Select Building")}</em>
+                          {t("Select Building")}
                         </MenuItem>
                         {this.state.buildingsList.map((building: any) => {
                           return (
@@ -472,7 +483,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                         className="dialog-select-input"
                       >
                         <MenuItem value="" disabled>
-                          <em>Designated Meeting of Minutes writer</em>
+                          Designated Meeting of Minutes writer
                         </MenuItem>
                         {this.state.managersList.map((manager: any) => {
                           return (
@@ -498,7 +509,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                         className="dialog-select-input"
                       >
                         <MenuItem value="" disabled>
-                          <em>{t("Select Status")}</em>
+                          {t("Select Status")}
                         </MenuItem>
                         <MenuItem value="scheduled">{t("Scheduled")}</MenuItem>
                         <MenuItem value="completed">{t("Completed")}</MenuItem>
@@ -520,6 +531,11 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                             touched["attendeeIds"] = true;
                           }}
                         >
+                          {this.state.selectedGroup.includes("owner") ? (
+                            <img src={BlueCheckIcon} alt="" />
+                          ) : (
+                            <img src={GreyCheckIcon} alt="" />
+                          )}
                           <span>{t("Owner")}</span>
                         </Box>
                         <Box
@@ -529,6 +545,11 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                             touched["attendeeIds"] = true;
                           }}
                         >
+                          {this.state.selectedGroup.includes("resident") ? (
+                            <img src={BlueCheckIcon} alt="" />
+                          ) : (
+                            <img src={GreyCheckIcon} alt="" />
+                          )}
                           <span>{t("Resident")}</span>
                         </Box>
                         {this.state.groupList.map((group: any) => {
@@ -538,6 +559,11 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                               className={`${this.state.selectedGroup.includes(group.id.toString()) &&
                                 "active"} attendee`}
                             >
+                              {this.state.selectedGroup.includes(group.id.toString()) ? (
+                                <img src={BlueCheckIcon} alt="" />
+                              ) : (
+                                <img src={GreyCheckIcon} alt="" />
+                              )}
                               <span
                                 onClick={() => {
                                   this.handleSelectedGroupList(group.id.toString());
@@ -609,7 +635,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
           <DialogContent dividers className="filter">
             <Select value="" name="meetingType" displayEmpty className="dialog-select-input">
               <MenuItem value="" disabled>
-                <em>{t("Select Building")}</em>
+                {t("Select Building")}
               </MenuItem>
               {this.state.buildingsList.map((building: any) => {
                 return <MenuItem key={building.id}>{building.name}</MenuItem>;
@@ -617,14 +643,14 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
             </Select>
             <Select value="" name="meetingType" displayEmpty className="dialog-select-input">
               <MenuItem value="" disabled>
-                <em>{t("Select Floor")}</em>
+                {t("Select Floor")}
               </MenuItem>
               <MenuItem>GA Meeting</MenuItem>
               <MenuItem>Regular Meeting</MenuItem>
             </Select>
             <Select value="" name="meetingType" displayEmpty className="dialog-select-input">
               <MenuItem value="" disabled>
-                <em>{t("User Type")}</em>
+                {t("User Type")}
               </MenuItem>
               <MenuItem value="">{t("Owner")}</MenuItem>
               <MenuItem value="">{t("Resident")}</MenuItem>
@@ -681,7 +707,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
           <DialogActions className="dialog-button-group">
             <div className="selected-meeting">
               <h4>
-                <span>{this.state.selectedUser.length} </span>User Selected
+                <span>{this.state.selectedUser.length} </span>user selected
               </h4>
             </div>
             <div className="button-group">

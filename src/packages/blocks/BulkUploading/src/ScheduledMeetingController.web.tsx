@@ -338,6 +338,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
         toast.success(responseJson.message);
         if (this.props.navigation.getParam("id")) {
           this.getScheduleMeetingDetail();
+          this.getMeetingResponseList();
         }
       });
 
@@ -702,7 +703,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
     const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_meeting/meetings?place=${place}&status=${status}&title=${title}&date=${date}&page=${page}&search_building=${building}`
+      `society_managements/${society_id}/bx_block_meeting/meetings?place=${place}&status=${status}&title=${title.trim()}&date=${date}&page=${page}&search_building=${building}`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));

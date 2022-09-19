@@ -133,7 +133,7 @@ class MeetingMinutes extends MeetingMinutesController {
                         className="select-input"
                       >
                         <MenuItem value="" disabled>
-                          <em>{t("Select Building")}</em>
+                          {t("Select Building")}
                         </MenuItem>
                         {this.state.buildingsList.map((building: any) => {
                           return <MenuItem value={building.name}>{building.name}</MenuItem>;
@@ -152,7 +152,7 @@ class MeetingMinutes extends MeetingMinutesController {
                       className="select-input"
                     >
                       <MenuItem value="" disabled>
-                        <em>{t("Select Status")}</em>
+                        {t("Select Status")}
                       </MenuItem>
                       <MenuItem value="pending">{t("Pending")}</MenuItem>
                       <MenuItem value="approved">{t("Approved")}</MenuItem>
@@ -205,7 +205,7 @@ class MeetingMinutes extends MeetingMinutesController {
                               ...this.state,
                               filter: {
                                 ...this.state.filter,
-                                title: e.target.value.trim(),
+                                title: e.target.value,
                               },
                             });
                           }}
