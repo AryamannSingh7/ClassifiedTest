@@ -271,7 +271,7 @@ class PublicView extends ProfileController {
                               <div>
                                 <label htmlFor="loginCheckboxf" className="checkboxLabel">Family Details</label>
                                 <p style={{ marginTop: '0.25rem' }}>
-                                  {profileData.attributes.families.families.length + ' Members'}
+                                  {profileData?.attributes.families?.families?.length || '0' + ' Members'}
                                 </p>
                               </div>
                               <div>
