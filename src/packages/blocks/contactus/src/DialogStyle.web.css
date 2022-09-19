@@ -676,6 +676,11 @@
   align-items: center;
 }
 
+.schedule-dialog .choice-box .active.radio-select .MuiTypography-root{
+  color: #2b6fec;
+  font-weight: 600;
+}
+
 .edit-profile .profile-picture {
   display: flex;
   align-items: center;

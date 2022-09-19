@@ -247,7 +247,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                               </TableCell>
                               <TableCell>
                                 {moment(meeting.attributes.meeting_date_time, "DD-MM-YYYY HH:mm", true).format(
-                                  "DD-MMM-YYYY HH:mm"
+                                  "MMMM DD, YYYY HH:mm"
                                 )}
                               </TableCell>
                               {localStorage.getItem("userType") === ROLE.MANAGER && (
@@ -906,7 +906,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                   this.state.scheduleMeetingDetails && this.state.scheduleMeetingDetails.attributes.meeting_date_time,
                   "DD-MM-YYYY HH:mm",
                   true
-                ).format("DD-MMM-YYYY HH:mm")}{" "}
+                ).format("MMMM DD, YYYY HH:mm")}{" "}
                 at {this.state.scheduleMeetingDetails && this.state.scheduleMeetingDetails.attributes.place}? Once
                 cancelled, attendees will receive a meeting cancelation notification.
               </Typography>

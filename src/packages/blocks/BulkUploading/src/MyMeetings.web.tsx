@@ -121,7 +121,7 @@ class MyMeetings extends MyMeetingsController {
                                               meeting.attributes.meeting_date_time,
                                               "DD-MM-YYYY HH:mm",
                                               true
-                                            ).format("DD-MMM-YYYY HH:mm")}
+                                            ).format("MMMM DD, YYYY HH:mm")}
                                           </p>
                                         </Grid>
                                         <Grid item xs={12}>
@@ -194,7 +194,7 @@ class MyMeetings extends MyMeetingsController {
                                               meeting.attributes.meeting_date_time,
                                               "DD-MM-YYYY HH:mm",
                                               true
-                                            ).format("DD-MMM-YYYY HH:mm")}
+                                            ).format("MMMM DD, YYYY HH:mm")}
                                           </p>
                                         </Grid>
                                         <Grid item xs={12}>

@@ -739,6 +739,9 @@ export const MeetingsStyleWeb: any = {
       borderRadius: "8px",
       boxShadow: "none",
     },
+    "& .meeting-detail .meeting-card p": {
+      fontWeight: "600",
+    },
     "& .scheduled-detail .scheduled-card": {
       padding: "20px",
       borderRadius: "8px",

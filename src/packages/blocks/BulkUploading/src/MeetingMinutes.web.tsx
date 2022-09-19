@@ -242,7 +242,7 @@ class MeetingMinutes extends MeetingMinutesController {
                               )}
                               <TableCell>
                                 {moment(meeting.attributes.meeting_date_time, "DD-MM-YYYY HH:mm", true).format(
-                                  "DD-MMM-YYYY HH:mm"
+                                  "MMMM DD, YYYY HH:mm"
                                 )}
                               </TableCell>
                               <TableCell>

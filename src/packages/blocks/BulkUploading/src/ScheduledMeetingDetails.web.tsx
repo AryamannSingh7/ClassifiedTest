@@ -143,7 +143,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                             this.state.scheduleMeetingDetails.attributes.meeting_date_time,
                             "DD-MM-YYYY HH:mm",
                             true
-                          ).format("DD-MMM-YYYY HH:mm")}
+                          ).format("MMMM DD, YYYY HH:mm")}
                         </p>
                       )}
                     </Box>
@@ -182,7 +182,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                               this.state.scheduleMeetingDetails.attributes.meeting_schedule_detail.scheduled_on,
                             "DD-MM-YYYY HH:mm",
                             true
-                          ).format("DD-MMM-YYYY HH:mm")}
+                          ).format("MMMM DD, YYYY HH:mm")}
                         </p>
                       )}
                     </Box>
@@ -202,7 +202,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                               this.state.scheduleMeetingDetails.attributes.meeting_cancel_detail.cancelled_on,
                               "DD-MM-YYYY HH:mm",
                               true
-                            ).format("DD-MMM-YYYY HH:mm")}
+                            ).format("MMMM DD, YYYY HH:mm")}
                           </p>
                         </Box>
                       </Box>
@@ -761,7 +761,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                     this.state.scheduleMeetingDetails.attributes.meeting_schedule_detail.scheduled_on,
                   "DD-MM-YYYY HH:mm",
                   true
-                ).format("DD-MMM-YYYY HH:mm")}{" "}
+                ).format("MMMM DD, YYYY HH:mm")}{" "}
                 at {this.state.scheduleMeetingDetails && this.state.scheduleMeetingDetails.attributes.place}? Once
                 cancelled, attendees will receive a meeting cancelation notification.
               </Typography>
@@ -803,7 +803,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                     this.state.scheduleMeetingDetails.attributes.meeting_schedule_detail.scheduled_on,
                   "DD-MM-YYYY HH:mm",
                   true
-                ).format("DD-MMM-YYYY HH:mm")}{" "}
+                ).format("MMMM DD, YYYY HH:mm")}{" "}
                 at {this.state.scheduleMeetingDetails && this.state.scheduleMeetingDetails.attributes.place}? Once
                 completed, attendees will receive a meeting completion notification.
               </Typography>

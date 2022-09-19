@@ -27,7 +27,7 @@ interface S {
 
   meeting: any;
 
-  response: boolean;
+  response: string;
 
   scheduleMeetingList: any[];
   minuteMeetingList: any[];
@@ -62,7 +62,7 @@ export default class MyMeetingsController extends BlockComponent<Props, S, SS> {
 
       meeting: null,
 
-      response: true,
+      response: "true",
 
       scheduleMeetingList: [],
       minuteMeetingList: [],
@@ -299,7 +299,7 @@ export default class MyMeetingsController extends BlockComponent<Props, S, SS> {
     const body = {
       meeting_response: {
         meeting_id: this.state.scheduleMeetingId,
-        status: this.state.response,
+        status: this.state.response === "true",
       },
     };
 
@@ -333,7 +333,7 @@ export default class MyMeetingsController extends BlockComponent<Props, S, SS> {
     const body = {
       meeting_response: {
         meeting_id: this.state.scheduleMeetingId,
-        status: this.state.response,
+        status: this.state.response === "true",
       },
     };
 

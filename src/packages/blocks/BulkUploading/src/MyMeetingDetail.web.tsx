@@ -93,7 +93,7 @@ class MyMeetingDetail extends MyMeetingsController {
                                   this.state.meeting && this.state.meeting.attributes.meeting_date_time,
                                   "DD-MM-YYYY HH:mm",
                                   true
-                                ).format("DD-MMM-YYYY HH:mm")}
+                                ).format("MMMM DD, YYYY HH:mm")}
                               </p>
                             </Grid>
                             <Grid item xs={12}>
@@ -133,7 +133,7 @@ class MyMeetingDetail extends MyMeetingsController {
                                       this.state.meeting.attributes.meeting_schedule_detail.scheduled_on,
                                     "DD-MM-YYYY HH:mm",
                                     true
-                                  ).format("DD-MMM-YYYY HH:mm")}
+                                  ).format("MMMM DD, YYYY HH:mm")}
                                 </p>
                               </Box>
                             </Grid>
@@ -153,11 +153,11 @@ class MyMeetingDetail extends MyMeetingsController {
                               <Button
                                 onClick={() => {
                                   if (this.state.meeting.attributes.meeting_response === "accepted") {
-                                    this.setState({ response: true }, () => {
+                                    this.setState({ response: "true" }, () => {
                                       this.handleAttendMeetingModal();
                                     });
                                   } else {
-                                    this.setState({ response: false }, () => {
+                                    this.setState({ response: "false" }, () => {
                                       this.handleAttendMeetingModal();
                                     });
                                   }
@@ -211,19 +211,19 @@ class MyMeetingDetail extends MyMeetingsController {
                 value={this.state.response}
                 onChange={(e: any) => {
                   this.setState({
-                    response: e.target.value === "true",
+                    response: e.target.value,
                   });
                 }}
               >
                 <FormControlLabel
-                  value={true}
-                  className="radio-select"
+                  value={"true"}
+                  className={`${this.state.response === "true" && "active"} radio-select`}
                   control={<OrangeRadio />}
                   label={t("I will attend")}
                 />
                 <FormControlLabel
-                  value={false}
-                  className="radio-select"
+                  value={"false"}
+                  className={`${this.state.response === "false" && "active"} radio-select`}
                   control={<OrangeRadio />}
                   label={t("I won't attend")}
                 />

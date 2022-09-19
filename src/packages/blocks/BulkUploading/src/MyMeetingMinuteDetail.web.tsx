@@ -62,7 +62,7 @@ class MyMeetingMinuteDetail extends MyMeetingsController {
                             Meeting Minutes{" "}
                             {this.state.meeting &&
                               moment(this.state.meeting.attributes.meeting_date_time, "DD-MM-YYYY HH:mm", true).format(
-                                "DD-MMM-YYYY HH:mm"
+                                "MMMM DD, YYYY HH:mm"
                               )}
                           </h6>
                         </div>
