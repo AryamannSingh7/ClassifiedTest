@@ -2,6 +2,7 @@ import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
 import { runEngine } from "../../../framework/src/RunEngine";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import MessageEnum, {
   getName
 } from "../../../framework/src/Messages/MessageEnum";
@@ -14,7 +15,7 @@ import { ContactSupportOutlined } from "@material-ui/icons";
 
 export const configJSON = require("./config");
 
-export interface Props {
+export interface Props extends RouteComponentProps {
   navigation: any;
   id: string;
 }
@@ -1669,11 +1670,11 @@ this.setState({loading:true})
     }else{
       this.setState({ values: values })
 
-      this.publicViewAPI(values)
+      this.publicViewAPI()
     }
   }
 
-  publicViewAPI=(values:any)=>{
+  publicViewAPI=()=>{
     this.setState({ loading: true })
     try {
       const header = {

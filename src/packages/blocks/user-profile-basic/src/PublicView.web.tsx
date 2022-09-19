@@ -1,6 +1,3 @@
-//@ts-ignore
-//@ts-nocheck
-
 import * as React from "react";
 // custom components
 import {
@@ -12,10 +9,9 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import HomeIcon from '@material-ui/icons/Home';
-import { Building1, Car, Hash, Hyperlink, ListCopy, message, owner, palette, resident_owner, tenet, upload, user, User3, username } from "./assets";
+import { Building1, username } from "./assets";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
-import VeichleListController from "./VeichleListController.web";
 import '../assets/css/style.scss';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import ProfileController from "./ProfileController.web";
@@ -23,11 +19,7 @@ import { dailCode } from "../../email-account-registration/src/code";
 import CircleCheckedFilled from '@material-ui/icons/CheckCircle';
 import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 class PublicView extends ProfileController {
-  constructor(props: Props) {
-    super(props);
-    // Customizable Area Start
-    // Customizable Area End
-  }
+
   async componentDidMount() {
 
     // this.getRelation()
@@ -35,6 +27,8 @@ class PublicView extends ProfileController {
 
   }
   render() {
+    // @ts-ignore
+// @ts-nocheck
     let profileData = JSON.parse(localStorage.getItem('profileData'))
     return (
 
@@ -309,7 +303,7 @@ class PublicView extends ProfileController {
         </Grid>
         <Dialog
           open={this.state.showDialog}
-          onClose={() => this.setState({ showDialog: false, showDialog: false })}
+          onClose={() => this.setState({ showDialog: false })}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
           className="diloag-wrapper"
@@ -362,6 +356,7 @@ class PublicView extends ProfileController {
   }
 
 }
+
 // @ts-igonre
 // @ts-nocheck
 export default withRouter(PublicView)
