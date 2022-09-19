@@ -259,9 +259,9 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                           <TableCell colSpan={5}>{t("No User Available!!")}</TableCell>
                         </TableRow>
                       )}
-                      {this.state.responseList.map((user: any) => {
+                      {this.state.responseList.map((user: any, index: number) => {
                         return (
-                          <TableRow key={user.id}>
+                          <TableRow key={index}>
                             <TableCell>{user.attributes.name}</TableCell>
                             <TableCell>{user.attributes.building_name}</TableCell>
                             <TableCell>{user.attributes.unit_number}</TableCell>

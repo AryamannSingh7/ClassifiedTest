@@ -312,7 +312,7 @@ export const MeetingsStyleWeb: any = {
       padding: "20px",
     },
     "& .meeting-detail-box .meeting-details h4": {
-      marginBottom: "20px",
+      marginBottom: "10px",
     },
     "& .meeting-detail-box .meeting-details .items": {
       borderBottom: "1px solid #f0f0f0",
@@ -502,6 +502,7 @@ export const MeetingsStyleWeb: any = {
       background: "#FFFFFF",
       padding: "5px 20px",
       justifyContent: "space-between",
+      zIndex: "9999",
     },
     "& .top-bar .left-icon": {
       display: "flex",
@@ -656,6 +657,7 @@ export const MeetingsStyleWeb: any = {
       padding: "10px 20px",
       justifyContent: "space-between",
       borderBottom: "2px solid lightgray",
+      zIndex: "9999",
     },
     "& .top-bar .left-icon": {
       display: "flex",

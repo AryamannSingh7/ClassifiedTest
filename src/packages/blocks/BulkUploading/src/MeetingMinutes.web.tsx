@@ -238,7 +238,7 @@ class MeetingMinutes extends MeetingMinutesController {
                               <TableCell className="ellipse">{meeting.attributes.title}</TableCell>
                               <TableCell className="ellipse">{meeting.attributes.agenda}</TableCell>
                               {localStorage.getItem("userType") === ROLE.MANAGER && (
-                                <TableCell>{meeting.attributes.building.name}</TableCell>
+                                <TableCell>{meeting.attributes?.building?.name}</TableCell>
                               )}
                               <TableCell>
                                 {moment(meeting.attributes.meeting_date_time, "DD-MM-YYYY HH:mm", true).format(

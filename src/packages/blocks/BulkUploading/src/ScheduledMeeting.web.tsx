@@ -251,7 +251,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                                 )}
                               </TableCell>
                               {localStorage.getItem("userType") === ROLE.MANAGER && (
-                                <TableCell>{meeting.attributes.building.name}</TableCell>
+                                <TableCell>{meeting.attributes?.building?.name}</TableCell>
                               )}
                               <TableCell className="ellipse">{meeting.attributes.place}</TableCell>
                               <TableCell className="ellipse">{meeting.attributes.agenda}</TableCell>
