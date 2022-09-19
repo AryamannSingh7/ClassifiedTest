@@ -17,3 +17,5 @@ export const UserIcon = require("../assets/user.png");
 export const CalenderBlueIcon = require("../assets/calender-blue.png");
 export const DownloadIcon = require("../assets/download.png");
 export const PdfIcon = require("../assets/pdf.png");
+export const GreyCheckIcon = require("../assets/grey-check.png");
+export const BlueCheckIcon = require("../assets/blue-check.png");
