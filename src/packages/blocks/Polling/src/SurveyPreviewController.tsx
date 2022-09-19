@@ -141,6 +141,16 @@ export default class SurveyPreviewController extends BlockComponent<
       if(this.apiEmailLoginCallId === apiRequestCallId ){
         console.log(responseJson,errorReponse)
       }
+      if(this.createSurveyFromPreview === apiRequestCallId){
+        if(responseJson.code === 200){
+          this.setState({
+            loading:false
+          })
+          this.props.history.push("/polling")
+        }else{
+          console.log("SOMETHING WENT WRONG")
+        }
+      }
     }
   }
 
@@ -487,6 +497,9 @@ export default class SurveyPreviewController extends BlockComponent<
       isSubmitted: true
     })
     if (this.handleValidation() || preview) {
+      this.setState({
+        loading:true,
+      })
       let reqPayload = {
         "society_id": societyID,
         "survey":

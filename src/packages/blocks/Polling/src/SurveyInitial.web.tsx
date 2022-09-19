@@ -35,98 +35,96 @@ class SurveyInitial extends SurveyInitialController {
           </Grid>
         </Grid>
 
-    <Box style={{background: "#E5ECFF",height:"100vh",display:'flex',flexDirection:"column",alignItems:'center'}}>
-
-        <Grid container style={{ margin: '1rem', width: '90%' }}>
-            
-          <Grid xs={12} style={{ display:"flex", alignItems:"center", justifyContent:"space-between"}}>
-          <Grid xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
-                <p style={{ fontSize: '1rem', fontWeight: 600 }}>
-                    {this.state.SurveyPreviewAnswer.title}
-                </p>
+    <Box style={{background: "#E5ECFF",minHeight:"100vh",display:'flex',flexDirection:"column",alignItems:'center',justifyContent:"space-between"}}>
+        <Box>
+            <Grid container style={{ margin: '1rem 1rem', width: '90%' }}>
+                <Grid xs={12} style={{ display:"flex", alignItems:"center", justifyContent:"space-between"}}>
+                    <Grid xs={12} style={{ display:"flex", alignItems:"center", gap:".5rem"}}>
+                        <p style={{ fontSize: '1rem', fontWeight: 600 }}>
+                            {this.state.SurveyPreviewAnswer.title}
+                        </p>
+                    </Grid>
+                    <Box className="EventsIconsText">
+                        <p className="statusCompleted" style={{fontWeight: 600}}>Ongoing</p>
+                    </Box>
+                </Grid>
             </Grid>
-            <Box className="EventsIconsText">
-                <p className="statusCompleted" style={{fontWeight: 600}}>Ongoing</p>
-            </Box>
-          </Grid>
-        </Grid>
-
-        <Grid container style={{ marginLeft: '1rem', marginRight: '1rem', width: '90%' }}>
-            <Grid xs={12}>
-                <Box
-                borderRadius="15px"
-                bgcolor="white"
-                marginTop='1rem'
-                padding='1rem'
-                >
-                    <Box marginTop='1rem'>
-                        <Typography variant="subtitle2" color="textSecondary">Purpose:</Typography>
-                        <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}
-                          dangerouslySetInnerHTML={
-                            { __html: DOMPurify.sanitize(this.state.SurveyPreviewAnswer.description) }
-                          }
-                        >  
-                        </p>
-                    </Box>
-                    <Box marginTop='1rem'>
-                        <Typography variant="subtitle2" color="textSecondary">End Date:</Typography>
-                        <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}>
-                          {this.state.SurveyPreviewAnswer.end_date}
-                        </p>
-                    </Box>
-                    <Box marginTop='1rem'>
-                        <Typography variant="subtitle2" color="textSecondary">Building:</Typography>
-                        <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}>
-                          {this.state.SurveyPreviewAnswer.building_name}
-                        </p>
-                    </Box>
-                </Box>
-              </Grid>
-              <Grid xs={12}>
-                <Box marginTop='1.5rem'>
-                    <p style={{ fontSize: '1rem', fontWeight: 600 }}>
-                    Publishing Details
-                    </p>
-                </Box>
-              </Grid>
-              <Grid xs={12}>
-                <Box
-                borderRadius="15px"
-                bgcolor="white"
-                marginTop='1.5em'
-                padding='1rem'
-                >
-                    <Box display='flex' marginTop='1rem'>
-                        <AccountCircleOutlinedIcon style={{color:'#054c94'}}/>
-                        <Box marginLeft='0.5rem'>
-                            <p>Published By:</p>
+            <Grid container style={{ marginLeft: '1rem', marginRight: '1rem', width: '90%' }}>
+                <Grid xs={12}>
+                    <Box
+                        borderRadius="15px"
+                        bgcolor="white"
+                        padding='1rem'
+                    >
+                        <Box marginTop='1rem'>
+                            <Typography variant="subtitle2" color="textSecondary">Purpose:</Typography>
+                            <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}
+                               dangerouslySetInnerHTML={
+                                   { __html: DOMPurify.sanitize(this.state.SurveyPreviewAnswer.description) }
+                               }
+                            >
+                            </p>
+                        </Box>
+                        <Box marginTop='1rem'>
+                            <Typography variant="subtitle2" color="textSecondary">End Date:</Typography>
                             <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}>
-                            {this.state.SurveyPreviewAnswer.publish_by}
+                                {this.state.SurveyPreviewAnswer.end_date}
+                            </p>
+                        </Box>
+                        <Box marginTop='1rem'>
+                            <Typography variant="subtitle2" color="textSecondary">Building:</Typography>
+                            <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}>
+                                {this.state.SurveyPreviewAnswer.building_name}
                             </p>
                         </Box>
                     </Box>
-                   
-                    <Box display='flex' marginTop='1.5rem'>
-                        <DateRangeOutlinedIcon style={{color:'#054c94'}}/>
-                        <Box marginLeft='0.5rem'>
-                            <p>Published Date:</p>
-                            <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}>
-                              {this.state.SurveyPreviewAnswer.publish_date}
-                            </p>
-                        </Box>
+                </Grid>
+                <Grid xs={12}>
+                    <Box marginTop='1.5rem'>
+                        <p style={{ fontSize: '1rem', fontWeight: 600 }}>
+                            Publishing Details
+                        </p>
                     </Box>
+                </Grid>
+                <Grid xs={12}>
+                    <Box
+                        borderRadius="15px"
+                        bgcolor="white"
+                        marginTop='1.5em'
+                        padding='1rem'
+                    >
+                        <Box display='flex' marginTop='1rem'>
+                            <AccountCircleOutlinedIcon style={{color:'#054c94'}}/>
+                            <Box marginLeft='0.5rem'>
+                                <p>Published By:</p>
+                                <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}>
+                                    {this.state.SurveyPreviewAnswer.publish_by}
+                                </p>
+                            </Box>
+                        </Box>
 
-                </Box>
-              </Grid>
-              <Grid xs={12}>
-                <Box marginTop='1.5rem'>
-                    <p style={{ fontSize: '1rem', fontWeight: 600 }}>
-                    {this.state.SurveyPreviewAnswer.question}
-                    </p>
-                </Box>
-              </Grid>
-        </Grid>
-        <Grid container style={{position:"absolute",bottom:"0px", margin: '1rem', width: '90%' }}>
+                        <Box display='flex' marginTop='1.5rem'>
+                            <DateRangeOutlinedIcon style={{color:'#054c94'}}/>
+                            <Box marginLeft='0.5rem'>
+                                <p>Published Date:</p>
+                                <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}>
+                                    {this.state.SurveyPreviewAnswer.publish_date}
+                                </p>
+                            </Box>
+                        </Box>
+
+                    </Box>
+                </Grid>
+                <Grid xs={12}>
+                    <Box marginTop='1.5rem'>
+                        <p style={{ fontSize: '1rem', fontWeight: 600 }}>
+                            {this.state.SurveyPreviewAnswer.question}
+                        </p>
+                    </Box>
+                </Grid>
+            </Grid>
+        </Box>
+        <Grid container style={{width: '90%',marginBottom:"50px"}}>
           <Button variant="contained" onClick={() => this.props.history.push(`/SurveyParticipate?id=${this.state.SurveyPreviewAnswerID}`)} fullWidth style={{borderRadius:"50px",}} size="large" color="primary">Take The Survey</Button>
         </Grid>
     </Box>
