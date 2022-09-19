@@ -79,9 +79,9 @@ class PollReport extends SurveyReportController {
                         <Box className="navigation">
                             <Box>
                                 <Typography variant="body1" >
-                                Poll and survey / Create a Survery / Survery Details/ <Box component="span" style={{color: "blue"}}>Survey Report</Box>
+                                Poll and survey / Create a Survey / Survey Details/ <Box component="span" style={{color: "blue"}}>Survey Report</Box>
                                 </Typography>
-                                <Typography variant="h5" className="subHeading">Poll Report</Typography>
+                                <Typography variant="h5" className="subHeading">Survey Report</Typography>
                             </Box>  
                             <Box className="downloadReport">
                                 <button onClick={this.handleDownload} className="reportbtn">
@@ -93,7 +93,7 @@ class PollReport extends SurveyReportController {
                     <Grid style={{marginTop: "2rem", marginBottom:"5rem"}} className="PollResponseMain">
                         <Grid item sm={12} md={12} xs={12}>
                             <Box class="tableTopSearch">
-                                <h4>Poll Title Name</h4>
+                                <h4>Survey Title Name</h4>
                                 <div className="searchBox">
                                     <div className="searchIcon">
                                     <SearchIcon />
@@ -121,28 +121,25 @@ class PollReport extends SurveyReportController {
                                         </TableRow>
                                     </TableHead>
                                     {
-                                        rows.length > 0 &&
+                                        this.state.surveyReport.length > 0 &&
                                         <TableBody>
-                                            {rows.map((row, index) => (
+                                            {this.state.surveyReport.map((row, index) => (
                                                 <TableRow key={row.name}>
                                                     <TableCell component="th" scope="row">{index + 1}</TableCell>
                                                     <TableCell align="start">{row.name}</TableCell>
                                                     <TableCell align="start">
-                                                        {/*{*/}
-                                                        {/*    row.attributes?.name_and_option?.data?.attributes?.unit_number?.map((item,key)=>{*/}
-                                                        {/*        return(*/}
-                                                        {/*            <>*/}
-                                                        {/*                {item}*/}
-                                                        {/*            </>*/}
-                                                        {/*        )*/}
-                                                        {/*    })*/}
-
-                                                        {/*}*/}
                                                         {
-                                                            row.unit
+                                                            row.unit_number?.map((item,key)=>{
+                                                                return(
+                                                                    <>
+                                                                        {item}
+                                                                    </>
+                                                                )
+                                                            })
+
                                                         }
                                                     </TableCell>
-                                                    <TableCell align="start"><Button variant="contained" color="inherit" onClick={this.handleOpenAudienceModal}>View</Button></TableCell>
+                                                    <TableCell align="start"><Button variant="contained" color="inherit" onClick={()=>this.handleOpenAudienceModal(row.response_details)}>View</Button></TableCell>
                                                 </TableRow>
                                             ))}
                                         </TableBody>
@@ -172,7 +169,7 @@ class PollReport extends SurveyReportController {
                         {/*@ts-ignore*/}
                         <Fade in={this.state.audienceModal}>
                             <div>
-                                <SurveryResponse handleClose={this.handleCloseAudienceModal} />
+                                <SurveryResponse handleClose={this.handleCloseAudienceModal} response={this.state.responseModalData} />
                             </div>
                         </Fade>
                     </Modal>

@@ -14,11 +14,17 @@ export interface Props {
   navigation: any;
   id: string;
   handleClose:any;
+  isEdit:any
 }
 
 interface S {
   audienceData:Array<Object>;
   selectedAudience:Array<any>;
+  selectBuilding:any;
+  floorNumber:any;
+  searchText:any;
+  userType:any;
+  audienceName:any;
 }
 
 interface SS {
@@ -103,7 +109,12 @@ export default class CoverImageController extends BlockComponent<
           selected:"false"
         },
       ],
-      selectedAudience:[]
+      selectedAudience:[],
+      selectBuilding:"",
+      floorNumber:"",
+      searchText:"",
+      userType:"",
+      audienceName:"",
     };
 
     this.emailReg = new RegExp("");
@@ -111,10 +122,12 @@ export default class CoverImageController extends BlockComponent<
 
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
 
+    this.handleSelectAll = this.handleSelectAll.bind(this)
+
   }
 
   async componentDidMount() {
-
+    console.log("PROPS",this.props.isEdit)
   }
 
 
@@ -126,6 +139,44 @@ export default class CoverImageController extends BlockComponent<
       if(this.apiEmailLoginCallId === apiRequestCallId ){
         console.log(responseJson,errorReponse)
       }
+    }
+  }
+
+  handleSelectAll (e:any) {
+    console.log("SELECT ALL", e.target.checked)
+    if(e.target.checked){
+      const ids = this.state.audienceData.map((item:any)=>{
+        return item.id
+      })
+      this.setState({
+        selectedAudience:ids
+      })
+    }else{
+      this.setState({
+        selectedAudience:[]
+      })
+    }
+  }
+
+  removeItemOnce(arr:any, value:any) {
+    let index = arr.indexOf(value);
+    if (index > -1) {
+      arr.splice(index, 1);
+    }
+    return arr;
+  }
+
+  handleCheck (value:any) {
+    if(this.state.selectedAudience.find((item:any)=> item === value)){
+      let updatedArray = this.removeItemOnce(this.state.selectedAudience,value)
+      this.setState({
+        selectedAudience:updatedArray
+      })
+    }else{
+      this.setState({selectedAudience:[
+          ...this.state.selectedAudience,
+          value
+        ]})
     }
   }
 
