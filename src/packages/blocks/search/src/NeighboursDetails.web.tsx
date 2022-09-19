@@ -162,6 +162,7 @@ class NeighboursDetails extends NeighboursController {
                                   </Box>
                                   : null
                               }
+                              <br></br>
                               {
                                 attributes?.hobbies?.publilc_access ?
                                   <Box className="bio-row" >
