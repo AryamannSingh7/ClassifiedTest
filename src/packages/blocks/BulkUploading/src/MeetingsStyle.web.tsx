@@ -312,7 +312,7 @@ export const MeetingsStyleWeb: any = {
       padding: "20px",
     },
     "& .meeting-detail-box .meeting-details h4": {
-      marginBottom: "20px",
+      marginBottom: "10px",
     },
     "& .meeting-detail-box .meeting-details .items": {
       borderBottom: "1px solid #f0f0f0",
@@ -498,10 +498,11 @@ export const MeetingsStyleWeb: any = {
       alignItems: "center",
       fontWeight: "600",
       cursor: "pointer",
-      marginBottom: "18px",
+      marginBottom: "10px",
       background: "#FFFFFF",
-      padding: "10px 20px",
+      padding: "5px 20px",
       justifyContent: "space-between",
+      zIndex: "9999",
     },
     "& .top-bar .left-icon": {
       display: "flex",
@@ -511,7 +512,7 @@ export const MeetingsStyleWeb: any = {
     "& .top-bar .right-icon": {
       display: "flex",
       alignItems: "center",
-      gap: "10px",
+      // gap: "10px",
     },
     "& .right-image": {
       padding: "25px 60px",
@@ -523,7 +524,7 @@ export const MeetingsStyleWeb: any = {
       display: "flex",
       overflowX: "auto",
       alignItems: "center",
-      marginBottom: "20px",
+      paddingBottom: "10px",
     },
     "& .select .MuiTab-root": {
       borderRadius: "20px",
@@ -545,6 +546,7 @@ export const MeetingsStyleWeb: any = {
       overflowY: "auto",
       overflowX: "hidden",
       height: "75vh",
+      paddingTop: "10px",
     },
     "& .content-box": {
       position: "relative",
@@ -655,6 +657,7 @@ export const MeetingsStyleWeb: any = {
       padding: "10px 20px",
       justifyContent: "space-between",
       borderBottom: "2px solid lightgray",
+      zIndex: "9999",
     },
     "& .top-bar .left-icon": {
       display: "flex",
@@ -673,7 +676,7 @@ export const MeetingsStyleWeb: any = {
     "& .content-box": {
       position: "relative",
       width: "100%",
-      height: "72vh",
+      height: "78vh",
     },
     "& .content-box > .MuiGrid-root": {
       alignContent: "flex-start",
@@ -738,6 +741,9 @@ export const MeetingsStyleWeb: any = {
       borderRadius: "8px",
       boxShadow: "none",
     },
+    "& .meeting-detail .meeting-card p": {
+      fontWeight: "600",
+    },
     "& .scheduled-detail .scheduled-card": {
       padding: "20px",
       borderRadius: "8px",
@@ -751,6 +757,7 @@ export const MeetingsStyleWeb: any = {
     "& .meeting-pdf": {
       display: "block",
       background: "white",
+      padding: "0",
     },
     "& .meeting-pdf .pdf-detail": {
       border: "1px solid #f0f0f0",
@@ -759,7 +766,7 @@ export const MeetingsStyleWeb: any = {
       justifyContent: "space-between",
       alignItems: "center",
       padding: "10px 20px",
-      marginTop: "20px",
+      // marginTop: "20px",
       background: "white",
     },
     "& .meeting-pdf .pdf-detail .heading": {

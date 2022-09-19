@@ -84,7 +84,7 @@ class MeetingMinuteDetails extends MeetingMinutesController {
                             this.state.meetingMinuteDetails.attributes.meeting_date_time,
                             "DD-MM-YYYY HH:mm",
                             true
-                          ).format("DD-MMM-YYYY HH:mm")}
+                          ).format("MMMM DD, YYYY HH:mm")}
                         </h3>
                         <span className={this.state.meetingMinuteStatus}>{this.state.meetingMinuteStatus}</span>
                       </Box>
@@ -106,7 +106,7 @@ class MeetingMinuteDetails extends MeetingMinutesController {
                                 this.state.meetingMinuteDetails.attributes.meeting_date_time,
                                 "DD-MM-YYYY HH:mm",
                                 true
-                              ).format("DD-MMM-YYYY HH:mm")}
+                              ).format("MMMM DD, YYYY HH:mm")}
                             </h6>
                           </div>
                           <NavLink
@@ -170,7 +170,7 @@ class MeetingMinuteDetails extends MeetingMinutesController {
                 this.state.meetingMinuteDetails && this.state.meetingMinuteDetails.attributes.meeting_date_time,
                 "DD-MM-YYYY HH:mm",
                 true
-              ).format("DD-MMM-YYYY HH:mm")}
+              ).format("MMMM DD, YYYY HH:mm")}
             </Typography>
             <IconButton onClick={() => this.handleRejectMeetingModal()}>
               <CloseIcon />
@@ -219,7 +219,7 @@ class MeetingMinuteDetails extends MeetingMinutesController {
                   this.state.meetingMinuteDetails && this.state.meetingMinuteDetails.attributes.meeting_date_time,
                   "DD-MM-YYYY HH:mm",
                   true
-                ).format("DD-MMM-YYYY HH:mm")}
+                ).format("MMMM DD, YYYY HH:mm")}
               </Typography>
               <Typography variant="body1" style={{ marginBottom: "0px" }}>
                 Are you sure you want to approve meeting minutes{" "}
@@ -227,7 +227,7 @@ class MeetingMinuteDetails extends MeetingMinutesController {
                   this.state.meetingMinuteDetails && this.state.meetingMinuteDetails.attributes.meeting_date_time,
                   "DD-MM-YYYY HH:mm",
                   true
-                ).format("DD-MMM-YYYY HH:mm")}
+                ).format("MMMM DD, YYYY HH:mm")}
                 ?
               </Typography>
               <DialogActions className="dialog-button-group">
