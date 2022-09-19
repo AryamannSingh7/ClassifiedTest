@@ -217,7 +217,7 @@ export default class MyMeetingsController extends BlockComponent<Props, S, SS> {
     let APIEndPoint = `society_managements/${society_id}/bx_block_meeting/meetings/shaduled_meeting`;
 
     if (filter === "asc" || filter === "desc") {
-      APIEndPoint = APIEndPoint + "?short_by=" + filter;
+      APIEndPoint = APIEndPoint + "?sort=" + filter;
     } else if (filter === "accepted" || filter === "rejected") {
       APIEndPoint = APIEndPoint + "?response=" + filter;
     } else if (filter === "scheduled" || filter === "cancelled") {
