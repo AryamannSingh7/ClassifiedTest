@@ -70,7 +70,7 @@ class NeighboursDetails extends NeighboursController {
                   <Box className="left-block blocks">
                     <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
                     {
-                      attributes?.apartment_number?.publilc_access ?
+                      attributes?.full_name?.publilc_access && attributes?.apartment_number?.publilc_access ?
                         <h4>{attributes?.apartment_number?.apartment_number}</h4>
                         :
                         <h4>My Neighbours</h4>
@@ -94,9 +94,16 @@ class NeighboursDetails extends NeighboursController {
                                 {attributes?.full_name?.name}
                               </Typography>
                               <Box className="social-raw">
-                                <Box className="blocks">
+                               {
+                                 attributes?.disable_chat ?
+                                 <Box className="blocks">
                                   <img src={Chat_Icon} className="icons" alt="info-icon" />
                                 </Box>
+                                :
+                                <Box className="blocks">
+                                <img src={Chat_Disable_Icon} className="icons" alt="info-icon" />
+                              </Box>
+                               }
                                 {attributes?.full_phone_number?.publilc_access ?
                                   <Box className="blocks">
                                     <a href={`tel:${attributes?.full_phone_number?.full_phone_number}`}>
@@ -131,7 +138,7 @@ class NeighboursDetails extends NeighboursController {
                                       : null
                                   }
                                   {
-                                    attributes?.date_of_birth?.date_of_birth ?
+                                    attributes?.date_of_birth?.publilc_access ?
                                       <Typography component="h4">
                                         DOB:
                                         <span className="title">{attributes?.date_of_birth?.date_of_birth}</span>

@@ -11,14 +11,14 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
 import DateRangeOutlinedIcon from '@material-ui/icons/DateRangeOutlined';
 import { withRouter } from 'react-router';
-import PollingController, {
+import SurveyInitialController, {
   Props
-} from "./PollingController.tsx";
+} from "./SurveyInitialController.tsx";
 import Loader from "../../../components/src/Loader.web";
 import "./Polling.web.css"
 
 
-class PollVoteSubmitted extends PollingController {
+class SurveyInitial extends SurveyInitialController {
   constructor(props: Props) {
     super(props);
   }
@@ -30,7 +30,7 @@ class PollVoteSubmitted extends PollingController {
           <Grid xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
             <ArrowBackIcon onClick={() => this.props.history.push("/PollsSurvey")} />
             <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
-              Survey Title
+                {this.state.SurveyPreviewAnswer.title}
             </p>
           </Grid>
         </Grid>
@@ -42,7 +42,7 @@ class PollVoteSubmitted extends PollingController {
           <Grid xs={12} style={{ display:"flex", alignItems:"center", justifyContent:"space-between"}}>
           <Grid xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
                 <p style={{ fontSize: '1rem', fontWeight: 600 }}>
-                    Survey Title
+                    {this.state.SurveyPreviewAnswer.title}
                 </p>
             </Grid>
             <Box className="EventsIconsText">
@@ -63,7 +63,7 @@ class PollVoteSubmitted extends PollingController {
                         <Typography variant="subtitle2" color="textSecondary">Purpose:</Typography>
                         <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}
                           dangerouslySetInnerHTML={
-                            { __html: DOMPurify.sanitize(this.state.pollPreviewAnswer?.poll?.data.attributes.description) }
+                            { __html: DOMPurify.sanitize(this.state.SurveyPreviewAnswer.description) }
                           }
                         >  
                         </p>
@@ -71,13 +71,13 @@ class PollVoteSubmitted extends PollingController {
                     <Box marginTop='1rem'>
                         <Typography variant="subtitle2" color="textSecondary">End Date:</Typography>
                         <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}>
-                          {this.state.pollPreviewAnswer?.poll?.data.attributes.end_date}
+                          {this.state.SurveyPreviewAnswer.end_date}
                         </p>
                     </Box>
                     <Box marginTop='1rem'>
                         <Typography variant="subtitle2" color="textSecondary">Building:</Typography>
                         <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}>
-                          {this.state.pollPreviewAnswer?.poll?.data.attributes.building_name}
+                          {this.state.SurveyPreviewAnswer.building_name}
                         </p>
                     </Box>
                 </Box>
@@ -101,7 +101,7 @@ class PollVoteSubmitted extends PollingController {
                         <Box marginLeft='0.5rem'>
                             <p>Published By:</p>
                             <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}>
-                            {this.state.pollPreviewAnswer?.poll?.data.attributes.publish_by}
+                            {this.state.SurveyPreviewAnswer.publish_by}
                             </p>
                         </Box>
                     </Box>
@@ -111,7 +111,7 @@ class PollVoteSubmitted extends PollingController {
                         <Box marginLeft='0.5rem'>
                             <p>Published Date:</p>
                             <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}>
-                              {this.state.pollPreviewAnswer?.poll?.data.attributes.publish_date}
+                              {this.state.SurveyPreviewAnswer.publish_date}
                             </p>
                         </Box>
                     </Box>
@@ -121,13 +121,13 @@ class PollVoteSubmitted extends PollingController {
               <Grid xs={12}>
                 <Box marginTop='1.5rem'>
                     <p style={{ fontSize: '1rem', fontWeight: 600 }}>
-                    {this.state.pollPreviewAnswer?.poll?.data.attributes.question}
+                    {this.state.SurveyPreviewAnswer.question}
                     </p>
                 </Box>
               </Grid>
         </Grid>
         <Grid container style={{position:"absolute",bottom:"0px", margin: '1rem', width: '90%' }}>
-          <Button variant="contained" onClick={() => this.props.history.push("/Surveyfill")} fullWidth style={{borderRadius:"50px",}} size="large" color="primary">Take The Survey</Button>
+          <Button variant="contained" onClick={() => this.props.history.push(`/SurveyParticipate?id=${this.state.SurveyPreviewAnswerID}`)} fullWidth style={{borderRadius:"50px",}} size="large" color="primary">Take The Survey</Button>
         </Grid>
     </Box>
 
@@ -135,6 +135,6 @@ class PollVoteSubmitted extends PollingController {
     );
   }
 }
-export default withRouter(PollVoteSubmitted)
+export default withRouter(SurveyInitial)
 
 // Customizable Area End

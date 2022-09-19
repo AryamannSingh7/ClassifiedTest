@@ -124,6 +124,7 @@ import OwnerDashboard from "../../blocks/dashboard/src/OwnerDashboard.web"
 import ResidentDashboard from "../../blocks/dashboard/src/ResidentDashboard.web"
 import PollVoteSubmitted from "../../blocks/Polling/src/PollVoteSubmitted.web"
 import PollResponseCompleted from "../../blocks/Polling/src/PollResponseCompleted.web"
+import SurveyMyResponse from "../../blocks/Polling/src/SurveyMyResponse.web"
 import VeichleList from "../../blocks/customform/src/VeichleList.web"
 import NewVeichleList from "../../blocks/customform/src/NewVehicle.web"
 import NewFamily from "../../blocks/customform/src/NewFamily.web"
@@ -506,7 +507,12 @@ const routeMap = {
 
   SurveyFill: {
     component: SurveyParticipate,
-    path: '/SurveyFill'
+    path: "/SurveyParticipate"
+  },
+
+  SurveyResponse: {
+    component: SurveyMyResponse,
+    path: "/SurveyResponse"
   },
 
   CreateSurveys: {

@@ -129,7 +129,6 @@ class PollsSurvey extends PollingController {
                   {/*</Box>*/}
 
                 {this.state.livePollsData?.length ? this.state.livePollsData?.map((item) => {
-                  console.log("ITEMS",this.item?.attributes?.flag)
                   if(item.attributes.status !== "upcoming"){
                       return(
                           <Box
@@ -141,10 +140,10 @@ class PollsSurvey extends PollingController {
                               marginTop='2rem'
                               padding='1rem'
                               key={item.id}
-                              onClick={() => item?.attributes?.flag ? this.props.history.push("/PollVoteView?id="+item.id) : this.props.history.push("/SubmitPoll?id="+item.id)}
+                              onClick={() => this.handlePollSurveyNavigation(item?.attributes?.flag,item.attributes.type_name,item.id)}
                           >
                               <Box style={{minWidth:"100%"}}>
-                                  <Box marginTop='1rem'><p>Poll</p></Box>
+                                  <Box marginTop='1rem'><p>{item.attributes.type_name}</p></Box>
                                   <Box marginTop='1rem'><h4>{item.attributes.title}</h4></Box>
                                   <Box marginTop='0.4rem' style={{width:"95%",overflow:"hidden"}}>
                                       <p
@@ -225,7 +224,7 @@ class PollsSurvey extends PollingController {
                           onClick={() => this.props.history.push("/PollVoteView?id="+items.id)}
                         >
                           <Box style={{minWidth:"100%"}}>
-                            <Box marginTop='1rem'><p>Poll</p></Box>
+                            <Box marginTop='1rem'><p>{items.attributes.type_name}</p></Box>
                             <Box marginTop='1rem' style={{width:"95%",overflow:"hidden"}}><h4>{items.attributes.title}</h4></Box>
                             <Box marginTop='0.4rem' >
                               <p
