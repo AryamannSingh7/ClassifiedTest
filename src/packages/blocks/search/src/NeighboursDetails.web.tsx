@@ -93,7 +93,6 @@ class NeighboursDetails extends NeighboursController {
                               <Typography component="h4">
                                 {attributes?.full_name?.name}
                               </Typography>
-
                               <Box className="social-raw">
                                {
                                  attributes?.disable_chat ?
@@ -163,6 +162,7 @@ class NeighboursDetails extends NeighboursController {
                                   </Box>
                                   : null
                               }
+                              <br></br>
                               {
                                 attributes?.hobbies?.publilc_access ?
                                   <Box className="bio-row" >
