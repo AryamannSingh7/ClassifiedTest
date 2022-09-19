@@ -81,7 +81,10 @@ this.getProfile()
                       Publish details for others
                     </MenuItem>
                     <MenuItem key="3" onClick={this.disablechat} >
-                      Disable Chat
+                      {
+                        profileData?.attributes?.disable_chat ? 'Enable Chat' : 'Disable Chat'
+                      }
+
                     </MenuItem>
                   </Menu>
                 </div>
