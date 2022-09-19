@@ -38,6 +38,8 @@ interface S {
   pollEndDateError:string;
   pollDescriptionError:string;
   PreViewPollData:any;
+  isAudienceEdit:boolean;
+  deleteModal:boolean;
 }
 
 interface SS {
@@ -103,6 +105,8 @@ export default class CoverImageController extends BlockComponent<
       pollDescriptionError:"",
       pollTitleError:"",
       PreViewPollData:"",
+      isAudienceEdit:false,
+      deleteModal:false
     };
 
     this.emailReg = new RegExp("");
@@ -116,6 +120,10 @@ export default class CoverImageController extends BlockComponent<
     this.handlePriviewData = this.handlePriviewData.bind(this)
     this.handleOpenAudienceModal = this.handleOpenAudienceModal.bind(this)
     this.handleCloseAudienceModal = this.handleCloseAudienceModal.bind(this)
+    this.handleOpenAudienceModalEditMode = this.handleOpenAudienceModalEditMode.bind(this)
+    this.handleDeleteModal = this.handleDeleteModal.bind(this)
+    this.closeDeleteModal = this.closeDeleteModal.bind(this)
+
   }
 
   async componentDidMount() {
@@ -404,6 +412,19 @@ export default class CoverImageController extends BlockComponent<
     this.setState({surveyQuestions :updatedArray})
   }
 
+  handleDeleteModal () {
+    this.setState({
+      deleteModal:true
+    })
+  }
+
+  closeDeleteModal () {
+    this.setState({
+      deleteModal:false
+    })
+  }
+
+
   handleQuestionType(index:any,event:any) {
     const updatedArray = this.state.surveyQuestions.map((item:any,key:any)=>{
       if(key === index){
@@ -535,7 +556,8 @@ export default class CoverImageController extends BlockComponent<
 
   handleCloseAudienceModal () {
     this.setState({
-      audienceModal:false
+      audienceModal:false,
+      isAudienceEdit:false,
     })
   }
 
@@ -545,6 +567,12 @@ export default class CoverImageController extends BlockComponent<
     })
   }
 
+  handleOpenAudienceModalEditMode () {
+    this.setState({
+      audienceModal:true,
+      isAudienceEdit:true,
+    })
+  }
 
   apiCall = async (data: any) => {
     const { contentType, method, endPoint, body } = data;

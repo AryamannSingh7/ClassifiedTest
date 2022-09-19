@@ -35,6 +35,7 @@ import { withTranslation } from 'react-i18next';
 import '../../../web/src/i18n.js';
 import moment from "moment";
 import {awated, CheckMark} from "./assets";
+import {withStyles} from "@material-ui/core/styles";
 
 const alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
 
@@ -165,10 +166,10 @@ class SurveyPreview extends SurveyPreviewController {
                               <Grid  item sm={12} md={12} xs={12}>
                                   <Box className="BottomButtonSurvey">
                                       <Box className="Previewbtn">
-                                          <Button onClick={this.handlePriviewData} variant="contained" color="primary">Edit</Button>
+                                          <AudienceButton onClick={this.handlePriviewData} variant="contained" color="primary">Edit</AudienceButton>
                                       </Box>
                                       <Box className="Publishbtn">
-                                          <Button onClick={this.handleSurveyDataSubmit} type="submit" variant="outlined" color="primary">PUBLISH</Button>
+                                          <PublishButton onClick={this.handleSurveyDataSubmit} type="submit" variant="outlined" color="primary">PUBLISH</PublishButton>
                                       </Box>
                                   </Box>
                               </Grid>
@@ -191,4 +192,28 @@ const dashBoard = {
         paddingBottom: 150,
     },
 }
+
+const AudienceButton = withStyles((theme) => ({
+    root: {
+        color: "white",
+        backgroundColor: "#2b6fed",
+        fontWeight:"bold",
+        height:"45px",
+        '&:hover': {
+            backgroundColor: "#2b6fef",
+        },
+    },
+}))(Button);
+
+const PublishButton = withStyles((theme) => ({
+    root: {
+        color: "#2b6fed",
+        backgroundColor: "white",
+        fontWeight:"bold",
+        height:"45px",
+        '&:hover': {
+            color: "#2b6fef",
+        },
+    },
+}))(Button);
 // Customizable Area End

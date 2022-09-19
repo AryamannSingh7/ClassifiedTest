@@ -26,7 +26,7 @@ class AudienceModal extends AudienceModalController {
   render() {
     return (
       <>
-        <Box style={{width:"55vw",height:"650px",marginTop:'15px',backgroundColor:"white",padding:'20px',borderRadius:"10px",overflow:"scroll"}}>
+        <Box style={{width:"55vw",maxHeight:"650px",marginTop:'15px',backgroundColor:"white",padding:'20px',borderRadius:"10px",overflowY:"scroll"}}>
             <Box style={{display:'flex',justifyContent:"space-between",alignItems:"center",marginBottom:"5px"}}>
                 <Typography variant="h5" style={{fontWeight:"bold"}}> Create Target Audience </Typography>
                 <IconButton onClick={this.props.handleClose}>
@@ -43,6 +43,8 @@ class AudienceModal extends AudienceModalController {
                                 labelId="question-type"
                                 id="question-type-select"
                                 label="Age"
+                                value={this.state.selectBuilding}
+                                onChange={(e)=>this.setState({selectBuilding:e.target.value})}
                                 style={{width:"180px",border:"1px solid #ECECEC",borderRadius:"10px",backgroundColor:"#f9f9f9",marginRight:"10px"}}
                             >
                                 <MenuItem value={10}>Building 1</MenuItem>
@@ -55,6 +57,8 @@ class AudienceModal extends AudienceModalController {
                             variant="outlined"
                             style={{border:"1px solid #ECECEC",borderRadius:"10px",backgroundColor:"#f9f9f9",marginRight:"10px"}}
                             placeholder="Enter Floor Number."
+                            value={this.state.floorNumber}
+                            onChange={(e)=>this.setState({floorNumber:e.target.value})}
                             type="number"
                         />
                     </Grid>
@@ -62,6 +66,8 @@ class AudienceModal extends AudienceModalController {
                         <TextField
                             variant="outlined"
                             style={{border:"1px solid #ECECEC",borderRadius:"10px",backgroundColor:"#f9f9f9",marginRight:"10px"}}
+                            value={this.state.searchText}
+                            onChange={(e)=>this.setState({searchText:e.target.value})}
                             placeholder="Enter Unit Number. / Name"
                         />
                     </Grid>
@@ -72,6 +78,8 @@ class AudienceModal extends AudienceModalController {
                                 labelId="question-type"
                                 id="question-type-select"
                                 label="Age"
+                                value={this.state.userType}
+                                onChange={(e)=>this.setState({userType:e.target.value})}
                                 style={{width:"180px",border:"1px solid #ECECEC",borderRadius:"10px",backgroundColor:"#f9f9f9",marginRight:"10px"}}
                             >
                                 <MenuItem value={10}>Owner</MenuItem>
@@ -89,7 +97,7 @@ class AudienceModal extends AudienceModalController {
             <Divider/>
             <Box style={{margin:"20px 0px"}}>
                 <TableContainer>
-                    <Table aria-label="simple table">
+                    <Table aria-label="simple table" size="small">
                         <TableHead>
                             <TableRow >
                                 <TableCell style={{borderBottom:"none"}} align="left"><Checkbox
@@ -99,8 +107,9 @@ class AudienceModal extends AudienceModalController {
                                     checkedIcon={<CheckBoxIcon style={{color:"#fc8434"}}/>}
                                     icon={<CheckBoxOutlineBlankIcon style={{color:"#e2e2e2"}}/>}
                                     inputProps={{ 'aria-label': 'decorative checkbox' }}
+                                    onChange={(e)=>this.handleSelectAll(e)}
                                 /></TableCell>
-                                <TableCell style={{borderBottom:"none",fontWeight:"bold"}} align="left">Name</TableCell>
+                                <TableCell style={{borderBottom:"none",fontWeight:"bold"}} align="left" >Name</TableCell>
                                 <TableCell style={{borderBottom:"none",fontWeight:"bold"}} align="left">Unit No.</TableCell>
                                 <TableCell style={{borderBottom:"none",fontWeight:"bold"}} align="left">Floor Number</TableCell>
                                 <TableCell style={{borderBottom:"none",fontWeight:"bold"}} align="left">UserType</TableCell>
@@ -110,13 +119,16 @@ class AudienceModal extends AudienceModalController {
                             {this.state.audienceData.map((item:any,key) => (
                                 <TableRow key={key}>
                                     <TableCell style={{borderBottom:"none"}} component="th" scope="row">
+
                                         <Checkbox
                                             disableRipple
                                             color="default"
                                             style={{padding:"0"}}
                                             checkedIcon={<CheckBoxIcon style={{color:"#fc8434"}}/>}
+                                            checked={!!this.state.selectedAudience.find((itemA:any)=> itemA === item.id)}
                                             icon={<CheckBoxOutlineBlankIcon style={{color:"#e2e2e2"}}/>}
                                             inputProps={{ 'aria-label': 'decorative checkbox' }}
+                                            onChange={(e)=>this.handleCheck(item.id)}
                                         />
                                     </TableCell>
                                     <TableCell style={{borderBottom:"none"}} align="left">{item.name}</TableCell>
@@ -141,8 +153,10 @@ class AudienceModal extends AudienceModalController {
                         style={{border:"1px solid #ECECEC",borderRadius:"10px",backgroundColor:"#f9f9f9",marginRight:"10px"}}
                         placeholder="Audience Name"
                         type="number"
+                        value={this.state.audienceName}
+                        onChange={(e) => this.setState({audienceName:e.target.value})}
                     />
-                    <AudienceButton variant="contained" color="primary" style={{fontWeight:"bold",width:"200px",borderRadius:"10px",height:"55px",fontSize:"16px"}}>
+                    <AudienceButton onClick={()=>console.log("SelectedAudience",this.state.selectedAudience)} variant="contained" color="primary" style={{fontWeight:"bold",width:"200px",borderRadius:"10px",height:"55px",fontSize:"16px"}}>
                         Create Audience
                     </AudienceButton>
                 </Box>

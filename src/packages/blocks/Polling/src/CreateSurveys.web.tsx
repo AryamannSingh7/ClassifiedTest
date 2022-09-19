@@ -54,7 +54,7 @@ import CreateSurveyController, {
 } from "./CreateSurveyController";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
-import TextEditor from "./TextEditor.web";
+import TextEditor from "./TextEditorSurvey.web";
 import Backdrop from "@material-ui/core/Backdrop";
 import AudienceModal from "./AudienceModal.web";
 import { withRouter } from 'react-router';
@@ -186,9 +186,9 @@ class CreateSurveys extends CreateSurveyController {
                                             <InfoIcon style={{color:"grey", fontSize:18}}/>
                                         </Box>
                                         <Box className="targetOne">
-                                            <AudienceSelectBox name="OWNERS" selected={true} isMenu={false}/>
-                                            <AudienceSelectBox name="RESIDENTS" selected={false} isMenu={false}/>
-                                            <AudienceSelectBox name="Floor 12" selected={false} isMenu={true}/>
+                                            <AudienceSelectBox name="OWNERS" selected={true} isMenu={false} manageEdit={() => this.handleOpenAudienceModalEditMode()} manageDelete={() => this.handleDeleteModal()}/>
+                                            <AudienceSelectBox name="RESIDENTS" selected={false} isMenu={false} manageEdit={() => this.handleOpenAudienceModalEditMode()} manageDelete={() => this.handleDeleteModal()}/>
+                                            <AudienceSelectBox name="Floor 12" selected={false} isMenu={true} manageEdit={() => this.handleOpenAudienceModalEditMode()} manageDelete={() => this.handleDeleteModal()}/>
                                             <Typography variant="subtitle1">{t("Or")}, </Typography>
                                             <AudienceButton variant="contained" color="primary" onClick={this.handleOpenAudienceModal}>{t("CREATE AUDIENCE")}</AudienceButton>
                                         </Box>
@@ -352,8 +352,35 @@ class CreateSurveys extends CreateSurveyController {
                     {/*@ts-ignore*/}
                     <Fade in={this.state.audienceModal}>
                         <div>
-                            <AudienceModal handleClose={this.handleCloseAudienceModal} />
+                            <AudienceModal handleClose={this.handleCloseAudienceModal} isEdit={this.state.isAudienceEdit} />
                         </div>
+                    </Fade>
+                </Modal>
+                <Modal
+                    aria-labelledby="transition-modal-title"
+                    aria-describedby="transition-modal-description"
+                    className="modalStyle"
+                    // @ts-ignore
+                    open={this.state.deleteModal}
+                    onClose={this.closeDeleteModal}
+                    closeAfterTransition
+                    BackdropComponent={Backdrop}
+                    BackdropProps={{
+                        timeout: 500,
+                    }}
+                >
+                    {/*@ts-ignore*/}
+                    <Fade in={this.state.deleteModal}>
+                        <Box style={{width:"30vw",marginTop:'15px',backgroundColor:"white",padding:'20px',borderRadius:"20px"}}>
+                            <Typography variant="h6" style={{color:"black",fontWeight:"bold",marginBottom:"10px"}}>
+                                Are you sure you want to delete this audience?
+                            </Typography>
+                            <Box style={{display:'flex',justifyContent:'flex-end',marginTop:"15px"}}>
+                                {/*@ts-ignore*/}
+                                <AudienceButton variant="outlined" style={{marginRight:"10px"}} onClick={this.closeDeleteModal}>Cancel</AudienceButton>
+                                <PublishButton variant="contained" onClick={this.closeDeleteModal} >Ok</PublishButton>
+                            </Box>
+                        </Box>
                     </Fade>
                 </Modal>
             </Grid>
@@ -383,6 +410,17 @@ const AudienceSelectBox = (props:any) => {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    const handleEdit = () => {
+        setAnchorEl(null);
+        props.manageEdit()
+    }
+
+    const handleDelete = () => {
+        setAnchorEl(null);
+        props.manageDelete()
+    }
+
     return(
         <>
             <Box
@@ -424,9 +462,9 @@ const AudienceSelectBox = (props:any) => {
                         open={Boolean(anchorEl)}
                         onClose={handleClose}
                     >
-                        <MenuItem onClick={handleClose}>Edit</MenuItem>
+                        <MenuItem onClick={handleEdit}>Edit</MenuItem>
                         <Divider/>
-                        <MenuItem onClick={handleClose}>Delete</MenuItem>
+                        <MenuItem onClick={handleDelete}>Delete</MenuItem>
                     </Menu>
                 </Box>
             </Box>
