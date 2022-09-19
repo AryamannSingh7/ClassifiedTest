@@ -407,26 +407,30 @@
     border: 0;
     margin-bottom: 10px;
     cursor: pointer;
-    &.neighbour-list-card
-    {
-      &:hover{
+    &.neighbour-list-card {
+      &:hover {
         box-shadow: 1px 1px 9px 0px #cccc;
       }
     }
-    
+
     & .MuiCardContent-root {
       display: flex;
       flex-direction: column;
       align-items: center;
+      text-align: center;
     }
     & h4 {
       &.MuiTypography-body1 {
         margin: 10px 0;
         font-size: 17px;
-
         @include mq(tablet-portrait-large-up) {
-          font-size: 15px;
+          font-size: 14px;
         }
+      }
+    }
+    & h5 {
+      &.MuiTypography-body1 {
+        font-weight: 500;
       }
     }
     & .social-raw {
@@ -435,6 +439,9 @@
       padding: 12px;
       border-radius: 20px;
       margin-top: 10px;
+      @include mq(tablet-portrait-large-up) {
+        padding: 8px 2px;
+      }
       & .blocks {
         border-right: 2px solid #d7dbe4;
         &:last-child {
@@ -445,6 +452,10 @@
           width: 18px;
           object-fit: contain;
           border-radius: 0;
+          @include mq(tablet-portrait-large-up) {
+            height: 15px;
+            width: 15px;
+          }
         }
         padding: 0 10px;
       }
@@ -459,7 +470,18 @@
   &.neighbour-detail-card {
     width: 450px;
     margin: 0 auto;
-
+    & .card-content {
+      align-items: flex-start;
+      & .card-top-block {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+      }
+    }
+    & .MuiCardContent-root {
+      text-align: left;
+    }
     @include mq(tablet-portrait-large-up) {
       width: 100%;
     }
@@ -473,7 +495,6 @@
         border-bottom: 1px solid #f6f6f6;
         width: 100%;
       }
-
       &::after {
         content: " ";
         position: absolute;
@@ -489,8 +510,13 @@
 
       & .bio-content-row {
         // width: 100%;
-        padding: 16px;
+        padding: 0 16px 16px 16px;
         & .bio-row {
+          & h4 {
+            &.MuiTypography-body1 {
+              margin-top: 0;
+            }
+          }
           & .customButton {
             display: flex;
             padding-top: 0;

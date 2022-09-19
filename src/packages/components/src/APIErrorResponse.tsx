@@ -12,6 +12,12 @@ export const ApiErrorResponse = (responseJson: any) => {
   }
   const errors: any[] = responseJson.errors;
 
+  if (errors.length !== 0 && errors[0].token) {
+    toast.error(errors[0].token);
+    localStorage.clear();
+    window.location.href = "/";
+  }
+
   let allErrors = "";
   errors.map((object: string) => {
     const newLocal = JSON.stringify(object);

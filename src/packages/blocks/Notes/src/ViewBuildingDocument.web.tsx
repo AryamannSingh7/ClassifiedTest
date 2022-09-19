@@ -1,7 +1,4 @@
 // Customizable Area Start
-//@ts-nocheck
-//@ts-ignore
-
 import React from "react";
 import {
   Container,
@@ -18,14 +15,9 @@ import {
 import CloseIcon from "@material-ui/icons/Close";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
-import ViewBuildingDocumentController, {
-  Props,
-} from "./ViewBuildingDocumentController.web";
+import ViewBuildingDocumentController, { Props } from "./ViewBuildingDocumentController.web";
 import { DocumentReportStyleWeb } from "./DocumentReportStyle.web";
-import DownloadImage from "../assets/download.png";
-import BuildingLogo from "../assets/building.png";
-import PdfImage from "../assets/pdf.png";
-import ShareImage from "../assets/share.png";
+import { DownloadImage, BuildingLogo, PdfImage, ShareImage } from "./assets";
 import {
   EmailShareButton,
   FacebookShareButton,
@@ -44,6 +36,7 @@ import {
   TwitterIcon,
   WhatsappIcon,
 } from "react-share";
+import moment from "moment";
 
 class ViewBuildingDocument extends ViewBuildingDocumentController {
   constructor(props: Props) {
@@ -61,16 +54,10 @@ class ViewBuildingDocument extends ViewBuildingDocumentController {
 
     return (
       <>
-        <Box
-          className={classes.buildingDocument}
-          style={{ background: "#F8F9FE", height: "100vh" }}
-        >
+        <Box className={classes.buildingDocument} style={{ background: "#F8F9FE", height: "100vh" }}>
           <Grid container>
             <Grid item xs={12} md={7}>
-              <Box
-                display={{ xs: "flex", md: "flex" }}
-                className="menu building-document-menu"
-              >
+              <Box display={{ xs: "flex", md: "flex" }} className="menu building-document-menu">
                 <div className="name">
                   <Link href={`/BuildingDocuments/${this.state.documentType}`}>
                     <IconButton>
@@ -93,8 +80,11 @@ class ViewBuildingDocument extends ViewBuildingDocumentController {
                       <div className="item-title">
                         <img src={PdfImage} />
                         <h6>
-                          {this.state.document &&
-                            this.state.document.attributes.meeting.title}
+                          Meeting Minute{" "}
+                          {moment(
+                            this.state.document && this.state.document.attributes.meeting_date_time,
+                            "DD-MM-YYYY HH:mm"
+                          ).format("DD-MMM-YYYY HH:mm")}
                         </h6>
                       </div>
                       <div className="icons">
@@ -104,13 +94,8 @@ class ViewBuildingDocument extends ViewBuildingDocumentController {
                             this.setState(
                               {
                                 ...this.state,
-                                shareUrl:
-                                  this.state.document &&
-                                  this.state.document.attributes
-                                    .meeting_mins_pdf.url,
-                                shareQuote:
-                                  this.state.document &&
-                                  this.state.document.attributes.meeting.title,
+                                shareUrl: this.state.document && this.state.document.attributes.meeting_mins_pdf.url,
+                                shareQuote: this.state.document && this.state.document.attributes.meeting.title,
                               },
                               () => {
                                 this.handleShareModal();
@@ -119,10 +104,7 @@ class ViewBuildingDocument extends ViewBuildingDocumentController {
                           }}
                         />
                         <Link
-                          href={
-                            this.state.document &&
-                            this.state.document.attributes.meeting_mins_pdf.url
-                          }
+                          href={this.state.document && this.state.document.attributes.meeting_mins_pdf.url}
                           target="_blank"
                         >
                           <img src={DownloadImage} />
@@ -134,24 +116,17 @@ class ViewBuildingDocument extends ViewBuildingDocumentController {
                       <Card className="card">
                         <p>Date & Time:</p>
                         <span>
-                          {this.state.document &&
-                            this.state.document.attributes.meeting_date_time}
+                          {moment(
+                            this.state.document && this.state.document.attributes.meeting_date_time,
+                            "DD-MM-YYYY HH:mm"
+                          ).format("DD-MMM-YYYY HH:mm")}
                         </span>
                         <p>Place:</p>
-                        <span>
-                          {this.state.document &&
-                            this.state.document.attributes.meeting.place}
-                        </span>
+                        <span>{this.state.document && this.state.document.attributes.meeting.place}</span>
                         <p>Building:</p>
-                        <span>
-                          {this.state.document &&
-                            this.state.document.attributes.buidling_name}
-                        </span>
+                        <span>{this.state.document && this.state.document.attributes.buidling_name}</span>
                         <p>Agenda:</p>
-                        <span>
-                          {this.state.document &&
-                            this.state.document.attributes.meeting.agenda}
-                        </span>
+                        <span>{this.state.document && this.state.document.attributes.meeting.agenda}</span>
                       </Card>
                     </div>
                   </>
@@ -159,11 +134,8 @@ class ViewBuildingDocument extends ViewBuildingDocumentController {
               </Container>
             </Grid>
             <Grid item xs={12} md={5}>
-              <Box
-                className="right-block right-image"
-                display={{ xs: "none", md: "flex" }}
-              >
-                <img src={BuildingLogo} className="building-logo" alt="" />
+              <Box className="right-block right-image" display={{ xs: "none", md: "flex" }}>
+                <img src={BuildingLogo.default} className="building-logo" alt="" />
               </Box>
             </Grid>
           </Grid>
@@ -184,78 +156,78 @@ class ViewBuildingDocument extends ViewBuildingDocumentController {
           <DialogContent>
             <div className="share-box">
               <FacebookShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <FacebookIcon />
-              </FacebookShareButton>
+                // @ts-ignore
+                children={<FacebookIcon />}
+                translate
+              />
               <TwitterShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <TwitterIcon />
-              </TwitterShareButton>
+                // @ts-ignore
+                children={<TwitterIcon />}
+                translate
+              />
               <WhatsappShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
                 separator=":: "
-              >
-                <WhatsappIcon />
-              </WhatsappShareButton>
+                // @ts-ignore
+                children={<WhatsappIcon />}
+                translate
+              />
               <LinkedinShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <LinkedinIcon />
-              </LinkedinShareButton>
+                // @ts-ignore
+                children={<LinkedinIcon />}
+                translate
+              />
               <EmailShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <EmailIcon />
-              </EmailShareButton>
+                // @ts-ignore
+                children={<EmailIcon />}
+                translate
+              />
               <RedditShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <RedditIcon />
-              </RedditShareButton>
+                // @ts-ignore
+                children={<RedditIcon />}
+                translate
+              />
               <TelegramShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <TelegramIcon />
-              </TelegramShareButton>
+                // @ts-ignore
+                children={<TelegramIcon />}
+                translate
+              />
               <TumblrShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <TumblrIcon />
-              </TumblrShareButton>
+                // @ts-ignore
+                children={<TumblrIcon />}
+                translate
+              />
             </div>
           </DialogContent>
         </Dialog>

@@ -87,5 +87,6 @@ export default class SentInvitationController extends BlockComponent<
   }
 
   handleClick = (e: any) => {
+    this.setState({anchorEl:e.currentTarget});
   }
 }

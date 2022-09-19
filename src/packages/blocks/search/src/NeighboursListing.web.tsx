@@ -1,7 +1,4 @@
-//@ts-ignore
-//@ts-nocheck
 import React from "react";
-
 //components
 import {
   Box,
@@ -48,10 +45,11 @@ import {
   from "../src/assets";
 import { building } from "../../email-account-registration/src/assets";
 class NeighboursListing extends NeighboursController {
+  //@ts-ignore
   constructor(props: Props) {
     super(props);
   }
-  componentDidMount() {
+  componentDidMount(): any {
     this.getNeighboursListing('','')
     this.getBuilding() 
   }
@@ -63,11 +61,11 @@ class NeighboursListing extends NeighboursController {
         <Box className="login-wrapper incident-wrapper neighbour-listing-wrapper">
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
-              <Box className="content-block common_content_block">
+              <Box className="content-block common_content_block common_content_block">
                 <Box className="content-header">
                   <Box className="left-block blocks">
                     <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
-                    <h4 style={{display: "flex"}} className={this.state.searchOrCancel === true ? "neighbor-title" : null} >My Neighbours</h4>
+                    <h4 style={{display: "flex"}} className={this.state?.searchOrCancel === true ? "neighbor-title" : ""} >My Neighbours</h4>
                   </Box>
                   {
                      this.state.searchOrCancel === true ? 
@@ -96,7 +94,7 @@ class NeighboursListing extends NeighboursController {
                 </Box>
                 <Box className="content-block-wrapper common-incident-block desktop-ui">
                   <Box className="commonForm neighbour-form">
-                      <Box className="formGroup customSelect neighborSelect">
+                      <Box className="formGroup customSelect neighborSelect neighborSelect">
                         <FormControl variant="outlined" >
                           <span className="frmLeftIcons">
                             <img src={Building_Icon} className="frm-icons" alt="House Icon" />
@@ -112,7 +110,7 @@ class NeighboursListing extends NeighboursController {
                               Select Park
                             </MenuItem>
                             {
-                              this.state?.buildingListing?.map((val, index) => (
+                              this.state?.buildingListing?.map((val:any, index : any) => (
                                 <MenuItem
                                   key={index}
                                   value={`${val?.id}`}
@@ -129,36 +127,91 @@ class NeighboursListing extends NeighboursController {
                   <Grid container spacing={2}>
                     {
                       this.state?.neighboursListing?.map((val:any,index: any)=>(
+                        val?.account?.data?.attributes?.full_name?.publilc_access ?
                         <Grid item xs={this.state?.neighboursListing.length===1? 12 : 6} md={6}  key={index}>
                          <Card className="neighbour-card neighbour-list-card card" >
                            <CardContent>
                             <Box onClick={()=>this.getNeighboursDetails(val?.account?.data?.id)}>
                              <img src={val?.account?.data?.attributes?.profile_pic||NoProfile_Img} className="info-icon" alt="No profile" />
                              <Typography component="h4">
-                              {val?.account?.data?.attributes?.full_name || "Anonymous"}
+                              {val?.account?.data?.attributes?.full_name?.name}
                              </Typography>
-                             <Typography component="h5">
+                             {
+                              val?.account?.data?.attributes?.apartment_number?.publilc_access ?
+                              <Typography component="h5">
                               {val?.apartment_name}
-                             </Typography>
+                             </Typography> 
+                             :
+                             null
+                             }
                              </Box>
                              <Box className="social-raw">
-                               <Box className="blocks">
-                                 <img src={Chat_Icon}  className="icons" alt="info-icon" />
-                               </Box>
-                               <Box className="blocks">
-                                <a href={`tel:${val?.account?.data?.attributes?.full_phone_number}`}>
+                             {
+                                 val?.account?.data?.attributes?.disable_chat ?
+                                 <Box className="blocks">
+                                  <img src={Chat_Icon} className="icons" alt="info-icon" />
+                                </Box>
+                                :
+                                <Box className="blocks">
+                                <img src={Chat_Disable_Icon} className="icons" alt="info-icon" />
+                              </Box>
+                               }
+                               {
+                                val?.account?.data?.attributes?.full_phone_number?.publilc_access ? 
+                                <Box className="blocks">
+                                <a href={`tel:${val?.account?.data?.attributes?.full_phone_number?.full_phone_number}`}>
                                  <img src={Contact_Icon} className="icons" alt="info-icon" />
                                  </a>
                                </Box>
-                               <Box className="blocks">
-                               <a  href={`mailto:${val?.account?.data?.attributes?.email}`}>
-                                 <img src={Email_Msg_Icon} className="icons" alt="info-icon" />
-                                 </a>
-                               </Box>
+                                :
+                                <Box className="blocks">
+                                <img src={Contact_Disable_Icon} className="icons" alt="info-icon" />
+                              </Box>
+                              }
+                              {
+                                val?.account?.data?.attributes?.email?.publilc_access?
+                                <Box className="blocks">
+                                <a  href={`mailto:${val?.account?.data?.attributes?.email?.email}`}>
+                                  <img src={Email_Msg_Icon} className="icons" alt="info-icon" />
+                                  </a>
+                                </Box>
+                                :
+                                <Box className="blocks">
+                                <img src={Email_Disable_Icon} className="icons" alt="info-icon" />
+                              </Box>
+                              }
+                              
                              </Box>
                            </CardContent>
                          </Card>
                        </Grid>
+                        :
+                        <Grid item xs={this.state?.neighboursListing.length===1? 12 : 6} md={6}  key={index}>
+                        <Card className="neighbour-card neighbour-list-card card" >
+                          <CardContent>
+                           <Box onClick={()=>this.getNeighboursDetails(val?.account?.data?.id)}>
+                            <img src={val?.account?.data?.attributes?.profile_pic||NoProfile_Img} className="info-icon" alt="No profile" />
+                            <Typography component="h4">
+                              Anonymous
+                            </Typography>
+                            {/* <Typography component="h5">
+                             {val?.apartment_name}
+                            </Typography> */}
+                            </Box>
+                            <Box className="social-raw">
+                          <Box className="blocks">
+                            <img src={Chat_Disable_Icon} className="icons" alt="info-icon" />
+                          </Box>
+                          <Box className="blocks">
+                            <img src={Contact_Disable_Icon} className="icons" alt="info-icon" />
+                          </Box>
+                          <Box className="blocks">
+                            <img src={Email_Disable_Icon} className="icons" alt="info-icon" />
+                          </Box>
+                        </Box>
+                          </CardContent>
+                        </Card>
+                      </Grid>
                       ))
                     }        
                   </Grid>
@@ -177,5 +230,5 @@ class NeighboursListing extends NeighboursController {
     )
   }
 }
-
+//@ts-ignore
 export default withRouter(NeighboursListing)
