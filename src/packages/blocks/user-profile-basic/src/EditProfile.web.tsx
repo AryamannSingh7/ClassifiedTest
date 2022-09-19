@@ -566,6 +566,9 @@ class EditProfile extends ProfileController {
             },
           }}
         >
+          <Box style={{ fontSize: "1.25rem", fontWeight: 'bold', textAlign: 'right' }} onClick={() => this.setState({ showDialog: false })}>
+            x
+          </Box>
           <Grid container>
             <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
 
@@ -705,6 +708,9 @@ class EditProfile extends ProfileController {
             },
           }}
         >
+          <Box style={{ fontSize: "1.25rem", fontWeight: 'bold', textAlign: 'right' }} onClick={() => this.setState({ showDialogDelete: false })}>
+            x
+          </Box>
           <Grid container>
             <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
 
@@ -727,7 +733,7 @@ class EditProfile extends ProfileController {
               </p>
             </Grid>
           </Grid>
-          <Grid container>
+          <Grid container justifyContent="center">
             <Grid item className="commonForm">
               <Box className="formGroup otpBlock">
                 <OtpInput className="formOutlineInput"

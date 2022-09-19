@@ -85,7 +85,7 @@ class PollDetails extends SurveyDetailsMainController {
                                 <Box className="PreviewName">
                                     <Box className="PollName">
                                         <Typography className="subHeading">Survey Name: </Typography>
-                                        <Typography className="PollNameText">
+                                        <Typography className="PollNameText textwrap">
                                             {this.state.SurveyPreviewAnswer.title}
                                         </Typography>
                                     </Box>

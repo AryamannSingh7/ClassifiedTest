@@ -128,7 +128,7 @@ export default class SurveyParticipateController extends BlockComponent<
       }
       if(this.createSurveyResponse === apiRequestCallId){
         if(responseJson.code === 200){
-          this.props.history.push("/pollsSurvey")
+          this.props.history.push("/SurveySuccess")
         }
       }
     }

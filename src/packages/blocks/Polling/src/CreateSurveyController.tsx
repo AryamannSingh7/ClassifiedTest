@@ -38,6 +38,8 @@ interface S {
   pollEndDateError:string;
   pollDescriptionError:string;
   PreViewPollData:any;
+  isAudienceEdit:boolean;
+  deleteModal:boolean;
 }
 
 interface SS {
@@ -103,6 +105,8 @@ export default class CoverImageController extends BlockComponent<
       pollDescriptionError:"",
       pollTitleError:"",
       PreViewPollData:"",
+      isAudienceEdit:false,
+      deleteModal:false
     };
 
     this.emailReg = new RegExp("");
@@ -114,6 +118,11 @@ export default class CoverImageController extends BlockComponent<
     this.handleSurveyDataSubmit = this.handleSurveyDataSubmit.bind(this)
     this.handleValidation = this.handleValidation.bind(this)
     this.handlePriviewData = this.handlePriviewData.bind(this)
+    this.handleOpenAudienceModal = this.handleOpenAudienceModal.bind(this)
+    this.handleCloseAudienceModal = this.handleCloseAudienceModal.bind(this)
+    this.handleOpenAudienceModalEditMode = this.handleOpenAudienceModalEditMode.bind(this)
+    this.handleDeleteModal = this.handleDeleteModal.bind(this)
+    this.closeDeleteModal = this.closeDeleteModal.bind(this)
 
   }
 
@@ -142,11 +151,13 @@ export default class CoverImageController extends BlockComponent<
       }
       if(this.createSurvey === apiRequestCallId){
         if(responseJson.code === 200){
+          this.setState({
+            loading:false
+          })
           this.props.history.push("/polling")
         }else{
           console.log("SOMETHING WENT WRONG")
         }
-        // @ts-ignore
       }
     }
   }
@@ -237,8 +248,13 @@ export default class CoverImageController extends BlockComponent<
         let today = new Date();
         today.setHours(0,0,0,0);
         let endDate = new Date(this.state.SurveyData?.endDate)
-        if (endDate <= today) {
-          this.setState({pollEndDateError: "You can not use previous date."})
+        let startDate = new Date(this.state.SurveyData?.startDate)
+        if (endDate <= today || endDate <= startDate) {
+          if(endDate <= today){
+            this.setState({pollEndDateError: "You can not use previous date."})
+          }else{
+            this.setState({pollEndDateError: "You can not use previous date then start date"})
+          }
         }else{
           this.setState({
             pollEndDateError:""
@@ -396,6 +412,19 @@ export default class CoverImageController extends BlockComponent<
     this.setState({surveyQuestions :updatedArray})
   }
 
+  handleDeleteModal () {
+    this.setState({
+      deleteModal:true
+    })
+  }
+
+  closeDeleteModal () {
+    this.setState({
+      deleteModal:false
+    })
+  }
+
+
   handleQuestionType(index:any,event:any) {
     const updatedArray = this.state.surveyQuestions.map((item:any,key:any)=>{
       if(key === index){
@@ -491,9 +520,12 @@ export default class CoverImageController extends BlockComponent<
     event.preventDefault()
     let societyID = localStorage.getItem("society_id")
     this.setState({
-      isSubmitted: true
+      isSubmitted: true,
     })
     if (this.handleValidation() || preview) {
+      this.setState({
+        loading:true
+      })
       let reqPayload = {
         "society_id": societyID,
         "survey":
@@ -524,7 +556,8 @@ export default class CoverImageController extends BlockComponent<
 
   handleCloseAudienceModal () {
     this.setState({
-      audienceModal:false
+      audienceModal:false,
+      isAudienceEdit:false,
     })
   }
 
@@ -534,6 +567,12 @@ export default class CoverImageController extends BlockComponent<
     })
   }
 
+  handleOpenAudienceModalEditMode () {
+    this.setState({
+      audienceModal:true,
+      isAudienceEdit:true,
+    })
+  }
 
   apiCall = async (data: any) => {
     const { contentType, method, endPoint, body } = data;
