@@ -1,7 +1,4 @@
 // Customizable Area Start
-//@ts-nocheck
-//@ts-ignore
-
 import React from "react";
 import {
   Container,
@@ -18,15 +15,9 @@ import {
 import CloseIcon from "@material-ui/icons/Close";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
-import BuildingDocumentListController, {
-  Props,
-} from "./BuildingDocumentListController.web";
+import BuildingDocumentListController, { Props } from "./BuildingDocumentListController.web";
 import { DocumentReportStyleWeb } from "./DocumentReportStyle.web";
-import NoPdf from "../assets/no-pdf.png";
-import BuildingLogo from "../assets/building.png";
-import PdfImage from "../assets/pdf.png";
-import ShareImage from "../assets/share.png";
-import DownloadImage from "../assets/download.png";
+import { BuildingLogo, PdfImage, ShareImage, DownloadImage, NoPdf } from "./assets";
 import moment from "moment";
 import {
   EmailShareButton,
@@ -63,10 +54,7 @@ class BuildingDocumentList extends BuildingDocumentListController {
 
     return (
       <>
-        <Box
-          className={classes.buildingDocument}
-          style={{ background: "#F8F9FE", height: "100vh" }}
-        >
+        <Box className={classes.buildingDocument} style={{ background: "#F8F9FE", height: "100vh" }}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box display={{ xs: "flex", md: "flex" }} className="menu">
@@ -93,17 +81,11 @@ class BuildingDocumentList extends BuildingDocumentListController {
                     {this.state.documentType.toLowerCase() === "resolutions" ? (
                       <>
                         {this.state.documentsList.map((document: any) => {
-                          const date = document.attributes.meeting_date_time.split(
-                            " "
-                          )[0];
+                          const date = document.attributes.meeting_date_time.split(" ")[0];
                           return (
                             <Grid item xs={12} md={6} lg={6} key={document.id}>
                               <Card className="card-item">
-                                <Link
-                                  href={`/BuildingDocuments/${
-                                    this.state.documentType
-                                  }/${document.id}/view`}
-                                >
+                                <Link href={`/BuildingDocuments/${this.state.documentType}/${document.id}/view`}>
                                   <div className="heading">
                                     <h4>{document.attributes.title}</h4>
                                   </div>
@@ -111,23 +93,22 @@ class BuildingDocumentList extends BuildingDocumentListController {
                                 <div className="res-info">
                                   <div className="info-item">
                                     <p>Date & Time</p>
-                                    <span>
-                                      {moment(
-                                        document.attributes.created_at
-                                      ).format("DD-MM-YYYY HH:mm")}
-                                    </span>
+                                    <span>{moment(document.attributes.created_at).format("DD-MMM-YYYY HH:mm")}</span>
                                   </div>
                                   <div className="info-item">
                                     <p>Building</p>
-                                    <span>
-                                      {document.attributes.buidling_name}
-                                    </span>
+                                    <span>{document.attributes.buidling_name}</span>
                                   </div>
                                 </div>
                                 <div className="meeting-item">
                                   <div className="item-title">
                                     <img src={PdfImage} />
-                                    <h6>{document.attributes.meeting.title}</h6>
+                                    <h6>
+                                      Meeting Minute{" "}
+                                      {moment(document.attributes.meeting_date_time, "DD-MM-YYYY HH:mm").format(
+                                        "DD-MMM-YYYY"
+                                      )}
+                                    </h6>
                                   </div>
                                   <div className="icons">
                                     <img
@@ -136,11 +117,8 @@ class BuildingDocumentList extends BuildingDocumentListController {
                                         this.setState(
                                           {
                                             ...this.state,
-                                            shareUrl:
-                                              document.attributes
-                                                .meeting_mins_pdf.url,
-                                            shareQuote:
-                                              document.attributes.meeting.title,
+                                            shareUrl: document.attributes.meeting_mins_pdf.url,
+                                            shareQuote: document.attributes.meeting.title,
                                           },
                                           () => {
                                             this.handleShareModal();
@@ -148,12 +126,7 @@ class BuildingDocumentList extends BuildingDocumentListController {
                                         );
                                       }}
                                     />
-                                    <Link
-                                      href={
-                                        document.attributes.meeting_mins_pdf.url
-                                      }
-                                      target="_blank"
-                                    >
+                                    <Link href={document.attributes.meeting_mins_pdf.url} target="_blank">
                                       <img src={DownloadImage} />
                                     </Link>
                                   </div>
@@ -167,19 +140,9 @@ class BuildingDocumentList extends BuildingDocumentListController {
                       <>
                         {this.state.documentsList.map((document: any) => {
                           return (
-                            <Grid
-                              item
-                              xs={12}
-                              md={12}
-                              lg={12}
-                              key={document.id}
-                            >
+                            <Grid item xs={12} md={12} lg={12} key={document.id}>
                               <Box className="item document">
-                                <Link
-                                  href={`/BuildingDocuments/${
-                                    this.state.documentType
-                                  }/${document.id}/view`}
-                                >
+                                <Link href={`/BuildingDocuments/${this.state.documentType}/${document.id}/view`}>
                                   <div className="left-side">
                                     <div className="image">
                                       <img src={PdfImage} />
@@ -209,11 +172,8 @@ class BuildingDocumentList extends BuildingDocumentListController {
               </Container>
             </Grid>
             <Grid item xs={12} md={5}>
-              <Box
-                className="right-block right-image"
-                display={{ xs: "none", md: "flex" }}
-              >
-                <img src={BuildingLogo} className="building-logo" alt="" />
+              <Box className="right-block right-image" display={{ xs: "none", md: "flex" }}>
+                <img src={BuildingLogo.default} className="building-logo" alt="" />
               </Box>
             </Grid>
           </Grid>
@@ -234,78 +194,78 @@ class BuildingDocumentList extends BuildingDocumentListController {
           <DialogContent>
             <div className="share-box">
               <FacebookShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <FacebookIcon />
-              </FacebookShareButton>
+                // @ts-ignore
+                children={<FacebookIcon />}
+                translate
+              />
               <TwitterShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <TwitterIcon />
-              </TwitterShareButton>
+                // @ts-ignore
+                children={<TwitterIcon />}
+                translate
+              />
               <WhatsappShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
                 separator=":: "
-              >
-                <WhatsappIcon />
-              </WhatsappShareButton>
+                // @ts-ignore
+                children={<WhatsappIcon />}
+                translate
+              />
               <LinkedinShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <LinkedinIcon />
-              </LinkedinShareButton>
+                // @ts-ignore
+                children={<LinkedinIcon />}
+                translate
+              />
               <EmailShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <EmailIcon />
-              </EmailShareButton>
+                // @ts-ignore
+                children={<EmailIcon />}
+                translate
+              />
               <RedditShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <RedditIcon />
-              </RedditShareButton>
+                // @ts-ignore
+                children={<RedditIcon />}
+                translate
+              />
               <TelegramShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <TelegramIcon />
-              </TelegramShareButton>
+                // @ts-ignore
+                children={<TelegramIcon />}
+                translate
+              />
               <TumblrShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <TumblrIcon />
-              </TumblrShareButton>
+                // @ts-ignore
+                children={<TumblrIcon />}
+                translate
+              />
             </div>
           </DialogContent>
         </Dialog>

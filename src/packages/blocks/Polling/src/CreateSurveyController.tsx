@@ -38,6 +38,12 @@ interface S {
   pollEndDateError:string;
   pollDescriptionError:string;
   PreViewPollData:any;
+  isAudienceEdit:any;
+  deleteModal:boolean;
+  isDataLoading:boolean;
+  audienceList:any;
+  selectedAudience:any;
+  deleteAudienceId:any;
 }
 
 interface SS {
@@ -54,6 +60,8 @@ export default class CoverImageController extends BlockComponent<
   emailReg: RegExp;
   labelTitle: string = "";
   createSurvey:string = "";
+  getAudienceListId:string = "";
+  deleteAudienceId:string = "";
 
   constructor(props: Props) {
 
@@ -62,6 +70,7 @@ export default class CoverImageController extends BlockComponent<
 
     this.subScribedMessages = [
       getName(MessageEnum.RestAPIResponceMessage),
+      getName(MessageEnum.PostDetailDataMessage)
     ]
     
     this.state = {
@@ -103,6 +112,12 @@ export default class CoverImageController extends BlockComponent<
       pollDescriptionError:"",
       pollTitleError:"",
       PreViewPollData:"",
+      isAudienceEdit:false,
+      deleteModal:false,
+      isDataLoading:false,
+      audienceList:[],
+      selectedAudience:[],
+      deleteAudienceId:"",
     };
 
     this.emailReg = new RegExp("");
@@ -114,10 +129,16 @@ export default class CoverImageController extends BlockComponent<
     this.handleSurveyDataSubmit = this.handleSurveyDataSubmit.bind(this)
     this.handleValidation = this.handleValidation.bind(this)
     this.handlePriviewData = this.handlePriviewData.bind(this)
+    this.handleOpenAudienceModal = this.handleOpenAudienceModal.bind(this)
+    this.handleCloseAudienceModal = this.handleCloseAudienceModal.bind(this)
+    this.handleOpenAudienceModalEditMode = this.handleOpenAudienceModalEditMode.bind(this)
+    this.handleDeleteModal = this.handleDeleteModal.bind(this)
+    this.closeDeleteModal = this.closeDeleteModal.bind(this)
 
   }
 
   async componentDidMount() {
+    this.getAudienceList()
     if(localStorage.getItem("Survey_Data")){
       const surveyPreview:any = JSON.parse(localStorage.getItem("Survey_Data") || "")
       if(surveyPreview){
@@ -131,8 +152,24 @@ export default class CoverImageController extends BlockComponent<
     }
   }
 
+  getAudienceList = async () => {
+    const societyID = localStorage.getItem("society_id")
+    this.setState({
+      isDataLoading:true,
+    })
+    this.getAudienceListId = await this.apiCall({
+      contentType: configJSON.exampleApiContentType,
+      method: configJSON.httpGetMethod,
+      endPoint: `/society_managements/${societyID}/bx_block_survey/survey_audiences`,
+    });
+  }
 
   async receive(from: string, message: Message) {
+    if(getName(MessageEnum.PostDetailDataMessage) === message.id){
+      if(message.properties.text === "UPDATE_AUDIENCE_LIST"){
+        this.getAudienceList()
+      }
+    }
     if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
@@ -142,15 +179,56 @@ export default class CoverImageController extends BlockComponent<
       }
       if(this.createSurvey === apiRequestCallId){
         if(responseJson.code === 200){
+          this.setState({
+            loading:false
+          })
           this.props.history.push("/polling")
         }else{
           console.log("SOMETHING WENT WRONG")
         }
-        // @ts-ignore
+      }
+      if(this.getAudienceListId === apiRequestCallId){
+        if(responseJson.hasOwnProperty('data')){
+          this.setState({
+            audienceList:responseJson.data
+          })
+        }
+      }
+      if(this.deleteAudienceId === apiRequestCallId){
+        if(responseJson.hasOwnProperty('data')){
+          this.setState({
+            deleteModal:false,
+            deleteAudienceId:"",
+          })
+          this.getAudienceList()
+        }
       }
     }
   }
 
+  removeItemOnce(arr:any, value:any) {
+    let index = arr.indexOf(value);
+    if (index > -1) {
+      arr.splice(index, 1);
+    }
+    return arr;
+  }
+
+  selectAudience(value:any){
+    console.log("SELECTED",value)
+    if(this.state.selectedAudience.find((item:any)=> item === value)){
+      let updatedArray = this.removeItemOnce(this.state.selectedAudience,value)
+      this.setState({
+        selectedAudience:updatedArray
+      })
+    }else{
+      this.setState({selectedAudience:[
+          ...this.state.selectedAudience,
+          value
+        ]})
+    }
+    console.log("SELECTED",this.state.selectedAudience)
+  }
   handlePollDataChange = (event:any) => {
     this.setState({ SurveyData: {...this.state.SurveyData, [event.target.name] : event.target.value}})
     if(this.state.isSubmitted){
@@ -237,8 +315,13 @@ export default class CoverImageController extends BlockComponent<
         let today = new Date();
         today.setHours(0,0,0,0);
         let endDate = new Date(this.state.SurveyData?.endDate)
-        if (endDate <= today) {
-          this.setState({pollEndDateError: "You can not use previous date."})
+        let startDate = new Date(this.state.SurveyData?.startDate)
+        if (endDate <= today || endDate < startDate) {
+          if(endDate <= today){
+            this.setState({pollEndDateError: "You can not use previous date."})
+          }else{
+            this.setState({pollEndDateError: "You can not use previous date then start date"})
+          }
         }else{
           this.setState({
             pollEndDateError:""
@@ -396,6 +479,22 @@ export default class CoverImageController extends BlockComponent<
     this.setState({surveyQuestions :updatedArray})
   }
 
+  handleDeleteModal (value:any) {
+    console.log("DELETE",value)
+    this.setState({
+      deleteModal:true,
+      deleteAudienceId:value
+    })
+  }
+
+  closeDeleteModal () {
+    this.setState({
+      deleteModal:false,
+      deleteAudienceId:""
+    })
+  }
+
+
   handleQuestionType(index:any,event:any) {
     const updatedArray = this.state.surveyQuestions.map((item:any,key:any)=>{
       if(key === index){
@@ -491,9 +590,12 @@ export default class CoverImageController extends BlockComponent<
     event.preventDefault()
     let societyID = localStorage.getItem("society_id")
     this.setState({
-      isSubmitted: true
+      isSubmitted: true,
     })
     if (this.handleValidation() || preview) {
+      this.setState({
+        loading:true
+      })
       let reqPayload = {
         "society_id": societyID,
         "survey":
@@ -522,9 +624,19 @@ export default class CoverImageController extends BlockComponent<
     });
   }
 
+  deleteAudience = async () => {
+    const societyID = localStorage.getItem("society_id")
+    this.deleteAudienceId = await this.apiCall({
+      contentType: configJSON.exampleApiContentType,
+      method: configJSON.httpDeleteMethod,
+      endPoint: `/society_managements/${societyID}/bx_block_survey/survey_audiences/${this.state.deleteAudienceId}`,
+    });
+  }
+
   handleCloseAudienceModal () {
     this.setState({
-      audienceModal:false
+      audienceModal:false,
+      isAudienceEdit:false,
     })
   }
 
@@ -534,6 +646,12 @@ export default class CoverImageController extends BlockComponent<
     })
   }
 
+  handleOpenAudienceModalEditMode (value:any) {
+    this.setState({
+      audienceModal:true,
+      isAudienceEdit:value,
+    })
+  }
 
   apiCall = async (data: any) => {
     const { contentType, method, endPoint, body } = data;

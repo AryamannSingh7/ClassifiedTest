@@ -23,6 +23,10 @@ import { BuildingLogo, CommentIcon, UserIcon, CalenderBlueIcon } from "./assets"
 import { MeetingsStyleWeb } from "./MeetingsStyle.web";
 import { orange } from "@material-ui/core/colors";
 import moment from "moment";
+import { withTranslation } from "react-i18next";
+import "../../../web/src/i18n.js";
+import MuiDialogTitle from "@material-ui/core/DialogTitle";
+import CloseIcon from "@material-ui/icons/Close";
 
 const OrangeRadio = withStyles({
   root: {
@@ -40,20 +44,17 @@ class MyMeetingDetail extends MyMeetingsController {
 
   async componentDidMount(): Promise<void> {
     const meeting_id = this.props.navigation.getParam("id");
-    this.setState(
-      {
-        scheduleMeetingId: meeting_id,
-      },
-      () => {
-        this.getMeetingById();
-      }
-    );
+    this.setState({ scheduleMeetingId: meeting_id }, () => {
+      this.getMeetingById();
+    });
   }
 
   render() {
     const { classes } = this.props;
+    const { t }: any = this.props;
 
     console.log(this.state);
+    console.log(this.state.meeting && this.state.meeting.attributes.meeting_date_time);
 
     return (
       <>
@@ -76,7 +77,7 @@ class MyMeetingDetail extends MyMeetingsController {
                     <Box className="meeting-details">
                       <Box className="meeting-detail">
                         <Box className="heading">
-                          <h4>Meeting Details</h4>
+                          <h4>{t("Meeting Details")}</h4>
                           {this.state.meeting && this.state.meeting.attributes.meeting_response && (
                             <span className={this.state.meeting.attributes.meeting_response}>
                               {this.state.meeting.attributes.meeting_response}
@@ -86,15 +87,21 @@ class MyMeetingDetail extends MyMeetingsController {
                         <Card className="meeting-card">
                           <Grid container spacing={2}>
                             <Grid item xs={12}>
-                              <span>Date & Time: </span>
-                              <p>{this.state.meeting && this.state.meeting.attributes.meeting_date_time}</p>
+                              <span>{t("Date & Time")}: </span>
+                              <p>
+                                {moment(
+                                  this.state.meeting && this.state.meeting.attributes.meeting_date_time,
+                                  "DD-MM-YYYY HH:mm",
+                                  true
+                                ).format("MMMM DD, YYYY HH:mm")}
+                              </p>
                             </Grid>
                             <Grid item xs={12}>
-                              <span>Place: </span>
+                              <span>{t("Place")}: </span>
                               <p>{this.state.meeting && this.state.meeting.attributes.place}</p>
                             </Grid>
                             <Grid item xs={12}>
-                              <span>Agenda: </span>
+                              <span>{t("Agenda")}: </span>
                               <p>{this.state.meeting && this.state.meeting.attributes.agenda}</p>
                             </Grid>
                           </Grid>
@@ -102,14 +109,14 @@ class MyMeetingDetail extends MyMeetingsController {
                       </Box>
                       <Box className="scheduled-detail">
                         <Box className="heading">
-                          <h4>Scheduling Details</h4>
+                          <h4>{t("Scheduling Details")}</h4>
                         </Box>
                         <Card className="scheduled-card">
                           <Grid container spacing={2}>
                             <Grid item xs={6} className="item">
                               <img src={UserIcon} alt="" />
                               <Box>
-                                <span>Scheduled By: </span>
+                                <span>{t("Scheduled By")}: </span>
                                 <p>
                                   {this.state.meeting &&
                                     this.state.meeting.attributes.meeting_schedule_detail.scheduled_by}
@@ -119,10 +126,14 @@ class MyMeetingDetail extends MyMeetingsController {
                             <Grid item xs={6} className="item">
                               <img src={CalenderBlueIcon} alt="" />
                               <Box>
-                                <span>Scheduled On: </span>
+                                <span>{t("Scheduled On")}: </span>
                                 <p>
-                                  {this.state.meeting &&
-                                    this.state.meeting.attributes.meeting_schedule_detail.scheduled_on}
+                                  {moment(
+                                    this.state.meeting &&
+                                      this.state.meeting.attributes.meeting_schedule_detail.scheduled_on,
+                                    "DD-MM-YYYY HH:mm",
+                                    true
+                                  ).format("MMMM DD, YYYY HH:mm")}
                                 </p>
                               </Box>
                             </Grid>
@@ -135,32 +146,24 @@ class MyMeetingDetail extends MyMeetingsController {
                         <Grid container>
                           <Grid item xs={12} md={12}>
                             {!this.state.meeting.attributes.meeting_response ? (
-                              <Button onClick={() => this.handleAttendMeetingModal()}>Submit Your Response</Button>
+                              <Button onClick={() => this.handleAttendMeetingModal()}>
+                                {t("Submit Your Response")}
+                              </Button>
                             ) : (
                               <Button
                                 onClick={() => {
                                   if (this.state.meeting.attributes.meeting_response === "accepted") {
-                                    this.setState(
-                                      {
-                                        response: true,
-                                      },
-                                      () => {
-                                        this.handleAttendMeetingModal();
-                                      }
-                                    );
+                                    this.setState({ response: "true" }, () => {
+                                      this.handleAttendMeetingModal();
+                                    });
                                   } else {
-                                    this.setState(
-                                      {
-                                        response: false,
-                                      },
-                                      () => {
-                                        this.handleAttendMeetingModal();
-                                      }
-                                    );
+                                    this.setState({ response: "false" }, () => {
+                                      this.handleAttendMeetingModal();
+                                    });
                                   }
                                 }}
                               >
-                                Edit Your Response
+                                {t("Edit Your Response")}
                               </Button>
                             )}
                           </Grid>
@@ -185,13 +188,22 @@ class MyMeetingDetail extends MyMeetingsController {
           onClose={() => this.handleAttendMeetingModal()}
           open={this.state.isAttendMeetingModalOpen}
         >
+          <MuiDialogTitle disableTypography className="attendee-heading">
+            <IconButton onClick={() => this.handleAttendMeetingModal()}>
+              <CloseIcon />
+            </IconButton>
+          </MuiDialogTitle>
           <DialogContent>
             <Box textAlign="center">
               <img src={CommentIcon} alt="CommentIcon" />
-              <Typography variant="h6">Are you attending the meeting?</Typography>
+              <Typography variant="h6">{t("Are you attending the meeting?")}</Typography>
               <Typography variant="body1">
                 Please confirm whether you are going to attend meeting on{" "}
-                {moment(this.state.meeting && this.state.meeting.attributes.meeting_date_time).format("DD MMM, YYYY")}{" "}
+                {moment(
+                  this.state.meeting && this.state.meeting.attributes.meeting_date_time,
+                  "DD-MM-YYYY HH:mm",
+                  true
+                ).format("DD MMM, YYYY")}{" "}
                 or not.
               </Typography>
               <RadioGroup
@@ -199,21 +211,21 @@ class MyMeetingDetail extends MyMeetingsController {
                 value={this.state.response}
                 onChange={(e: any) => {
                   this.setState({
-                    response: e.target.value === "true",
+                    response: e.target.value,
                   });
                 }}
               >
                 <FormControlLabel
-                  value={true}
-                  className="radio-select"
+                  value={"true"}
+                  className={`${this.state.response === "true" && "active"} radio-select`}
                   control={<OrangeRadio />}
-                  label="I will attend"
+                  label={t("I will attend")}
                 />
                 <FormControlLabel
-                  value={false}
-                  className="radio-select"
+                  value={"false"}
+                  className={`${this.state.response === "false" && "active"} radio-select`}
                   control={<OrangeRadio />}
-                  label="I won't attend"
+                  label={t("I won't attend")}
                 />
               </RadioGroup>
               <DialogActions className="dialog-button-group">
@@ -227,7 +239,7 @@ class MyMeetingDetail extends MyMeetingsController {
                     }
                   }}
                 >
-                  Submit
+                  {t("Submit")}
                 </Button>
               </DialogActions>
             </Box>
@@ -238,5 +250,5 @@ class MyMeetingDetail extends MyMeetingsController {
   }
 }
 
-export default withStyles(MeetingsStyleWeb)(MyMeetingDetail);
+export default withTranslation()(withStyles(MeetingsStyleWeb)(MyMeetingDetail));
 // Customizable Area End

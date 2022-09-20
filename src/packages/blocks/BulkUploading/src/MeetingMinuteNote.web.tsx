@@ -19,6 +19,9 @@ import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { MeetingsStyleWeb } from "./MeetingsStyle.web";
 import RichTextEditor from "react-rte";
 import { CheckIcon } from "./assets";
+import { withTranslation } from "react-i18next";
+import "../../../web/src/i18n.js";
+import moment from "moment";
 
 class MeetingMinuteNote extends MeetingMinutesController {
   constructor(props: Props) {
@@ -27,7 +30,6 @@ class MeetingMinuteNote extends MeetingMinutesController {
 
   async componentDidMount(): Promise<void> {
     const meeting_id = this.props.navigation.getParam("id");
-    console.log(window.location.pathname);
 
     this.setState({ meetingMinuteId: meeting_id }, () => {
       this.MinuteMeetingDetail();
@@ -36,6 +38,7 @@ class MeetingMinuteNote extends MeetingMinutesController {
 
   render() {
     const { classes } = this.props;
+    const { t }: any = this.props;
 
     console.log(this.state);
 
@@ -56,31 +59,31 @@ class MeetingMinuteNote extends MeetingMinutesController {
                   {this.state.isNotePreviewOpen ? (
                     <Box>
                       <Typography variant="body1">
-                        Meetings / Scheduled Meetings / Meeting Details /{" "}
+                        {t("Meetings")} / {t("Scheduled Meetings")} / {t("Meeting Details")} /{" "}
                         <Box component="span" style={{ color: "blue" }}>
-                          Preview Meeting Minutes
+                          {t("Preview Meeting Minutes")}
                         </Box>
                       </Typography>
                       <Typography variant="h5" className="sub-heading">
-                        Preview Meeting Minutes
+                        {t("Preview Meeting Minutes")}
                       </Typography>
                     </Box>
                   ) : (
                     <Box>
                       <Typography variant="body1">
-                        Meetings / Scheduled Meetings / Meeting Details /{" "}
+                        {t("Meetings")} / {t("Scheduled Meetings")} / {t("Meeting Details")} /{" "}
                         <Box component="span" style={{ color: "blue" }}>
                           {this.state.meetingMinuteDetails &&
                           this.state.meetingMinuteDetails.attributes.meeting_mins_notes
-                            ? "Edit Meeting Minutes"
-                            : "Add Meeting Minutes"}
+                            ? `${t("Edit Meeting Minutes")}`
+                            : `${t("Add Meeting Minutes")}`}
                         </Box>
                       </Typography>
                       <Typography variant="h5" className="sub-heading">
                         {this.state.meetingMinuteDetails &&
                         this.state.meetingMinuteDetails.attributes.meeting_mins_notes
-                          ? "Edit Meeting Minutes"
-                          : "Add Meeting Minutes"}
+                          ? `${t("Edit Meeting Minutes")}`
+                          : `${t("Add Meeting Minutes")}`}
                       </Typography>
                     </Box>
                   )}
@@ -90,8 +93,12 @@ class MeetingMinuteNote extends MeetingMinutesController {
                     <Card>
                       <h4 style={{ marginBottom: "20px" }}>
                         Meeting Minutes{" "}
-                        {this.state.meetingMinuteDetails &&
-                          this.state.meetingMinuteDetails.attributes.meeting_date_time}
+                        {moment(
+                          this.state.meetingMinuteDetails &&
+                            this.state.meetingMinuteDetails.attributes.meeting_date_time,
+                          "DD-MM-YYYY HH:mm",
+                          true
+                        ).format("MMMM DD, YYYY HH:mm")}
                       </h4>
                       <Divider />
                       <div
@@ -103,21 +110,21 @@ class MeetingMinuteNote extends MeetingMinutesController {
                     </Card>
                   ) : (
                     <Card>
-                      <p>Details</p>
+                      <p>{t("Details")}</p>
                       <RichTextEditor className="editor" value={this.state.meetingNote} onChange={this.onChange} />
                     </Card>
                   )}
                   {this.state.isNotePreviewOpen ? (
                     <Box className="note-button">
                       <Button className="submit" onClick={() => this.handleNotePreview()}>
-                        Edit
+                        {t("Edit")}
                       </Button>
                       <Button
                         className="preview"
                         disabled={!this.state.meetingNote._cache.html}
                         onClick={() => this.handleSubmitNoteModal()}
                       >
-                        Submit
+                        {t("Submit")}
                       </Button>
                     </Box>
                   ) : (
@@ -127,10 +134,10 @@ class MeetingMinuteNote extends MeetingMinutesController {
                         disabled={!this.state.meetingNote._cache.html}
                         onClick={() => this.handleSubmitNoteModal()}
                       >
-                        Submit
+                        {t("Submit")}
                       </Button>
                       <Button className="preview" onClick={() => this.handleNotePreview()}>
-                        Preview
+                        {t("Preview")}
                       </Button>
                     </Box>
                   )}
@@ -149,9 +156,9 @@ class MeetingMinuteNote extends MeetingMinutesController {
           <DialogContent style={{ margin: "15px 0" }}>
             <Box textAlign="center">
               <img className="comment-image" src={CheckIcon} alt="check" />
-              <Typography variant="h6">Submit Meeting Minutes</Typography>
+              <Typography variant="h6">{t("Submit Meeting Minutes")}</Typography>
               <Typography variant="body1" style={{ marginBottom: "0px" }}>
-                Are you sure you want to submit meeting minutes?
+                {t("Are you sure you want to submit meeting minutes?")}
               </Typography>
               <DialogActions className="dialog-button-group">
                 <Button
@@ -159,10 +166,10 @@ class MeetingMinuteNote extends MeetingMinutesController {
                   style={{ width: "200px" }}
                   onClick={() => this.handleSubmitNoteModal()}
                 >
-                  Close
+                  {t("Close")}
                 </Button>
                 <Button style={{ width: "200px" }} className="add-button" onClick={() => this.meetingMinuteNote()}>
-                  Confirm
+                  {t("Confirm")}
                 </Button>
               </DialogActions>
             </Box>
@@ -173,5 +180,5 @@ class MeetingMinuteNote extends MeetingMinutesController {
   }
 }
 
-export default withStyles(MeetingsStyleWeb)(MeetingMinuteNote);
+export default withTranslation()(withStyles(MeetingsStyleWeb)(MeetingMinuteNote));
 // Customizable Area End

@@ -2,6 +2,7 @@ import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
 import { runEngine } from "../../../framework/src/RunEngine";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import MessageEnum, {
   getName
 } from "../../../framework/src/Messages/MessageEnum";
@@ -14,7 +15,7 @@ import { ContactSupportOutlined } from "@material-ui/icons";
 
 export const configJSON = require("./config");
 
-export interface Props {
+export interface Props extends RouteComponentProps {
   navigation: any;
   id: string;
 }
@@ -57,11 +58,6 @@ export interface S {
   profiledata:any;
   values:any,
   showDialogDelete:boolean
-
-
-
-
-
   // Customizable Area End
 }
 
@@ -262,10 +258,11 @@ export default class ProfileController extends BlockComponent<
                //@ts-ignore
             //@ts-nocheck
             let profileData:any = JSON.parse(localStorage.getItem('profileData'))
-            profileData.attributes.full_phone_number.phone_number =responseJson.phone_number
+            profileData.attributes.full_phone_number.phone_number = responseJson.phone_number
+            profileData.attributes.full_phone_number.country_code = responseJson.country_code
             localStorage.setItem('profileData',JSON.stringify(profileData))
             this.setState({ selectCode: responseJson.country_code })
-            location.reload();
+            // location.reload();
 
           } else if (responseJson?.errors) {
             let error = responseJson.errors[0];
@@ -296,6 +293,7 @@ export default class ProfileController extends BlockComponent<
           if (!responseJson.errors) {
             console.log(responseJson)
             this.handleClose('')
+            this.getProfile()
           } else if (responseJson?.errors) {
             let error = responseJson.errors[0];
             this.setState({ error });
@@ -1030,9 +1028,6 @@ this.setState({loading:false})
     if (this.state.userType) {
 
       if (this.state.userType === 'Owner') {
-        //@ts-ignore
-        //@ts-nocheck
-
         this.props.history.push({
           pathname: '/registerowner',
           state: {
@@ -1669,11 +1664,11 @@ this.setState({loading:true})
     }else{
       this.setState({ values: values })
 
-      this.publicViewAPI(values)
+      this.publicViewAPI()
     }
   }
 
-  publicViewAPI=(values:any)=>{
+  publicViewAPI=()=>{
     this.setState({ loading: true })
     try {
       const header = {
@@ -1814,9 +1809,13 @@ console.log(data,index)
       getName(MessageEnum.RestAPIRequestMessage)
     );
     this.chatSettingApiCallId = requestMessage.messageId;
+    let value = this.state.profiledata.attributes.disable_chat
+    console.log(!value)
+    console.log(this.state.profiledata.attributes.disable_chat)
+
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      'bx_block_chat/chats/disable_enable_chat?disbale_chat=true'
+      `bx_block_chat/chats/disable_enable_chat?disable_chat=${!value}`
     );
 
     requestMessage.addData(

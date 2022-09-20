@@ -6,6 +6,9 @@ import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import MyMeetingsController, { Props } from "./MyMeetingsController.web";
 import { BuildingLogo, SortIcon, FilterIcon, TrueIcon, FalseIcon } from "./assets";
 import { MeetingsStyleWeb } from "./MeetingsStyle.web";
+import { withTranslation } from "react-i18next";
+import "../../../web/src/i18n.js";
+import moment from "moment";
 
 class MyMeetings extends MyMeetingsController {
   constructor(props: Props) {
@@ -17,8 +20,15 @@ class MyMeetings extends MyMeetingsController {
     this.getMinuteMeetingList();
   }
 
+  async componentDidUpdate(prevProps: any, prevState: any): Promise<void> {
+    if (prevState.filter !== this.state.filter) {
+      this.getScheduledMeetingList();
+    }
+  }
+
   render() {
     const { classes } = this.props;
+    const { t }: any = this.props;
 
     console.log(this.state);
 
@@ -35,30 +45,32 @@ class MyMeetings extends MyMeetingsController {
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    My Meetings
+                    {t("My Meetings")}
                   </div>
                   <div className="right-icon">
                     <Menu
+                      className="sort-menu"
                       menuButton={
                         <IconButton>
                           <img src={SortIcon} alt="SortIcon" />
                         </IconButton>
                       }
                     >
-                      <MenuItem>Ascending</MenuItem>
-                      <MenuItem>Descending</MenuItem>
+                      <MenuItem onClick={() => this.setState({ filter: "asc" })}>{t("Ascending")}</MenuItem>
+                      <MenuItem onClick={() => this.setState({ filter: "desc" })}>{t("Descending")}</MenuItem>
                     </Menu>
                     <Menu
+                      className="filter-menu"
                       menuButton={
                         <IconButton>
                           <img src={FilterIcon} alt="FilterIcon" />
                         </IconButton>
                       }
                     >
-                      <MenuItem>New</MenuItem>
-                      <MenuItem>Accepted</MenuItem>
-                      <MenuItem>Rejected</MenuItem>
-                      <MenuItem>Cancelled</MenuItem>
+                      <MenuItem onClick={() => this.setState({ filter: "desc" })}>{t("New")}</MenuItem>
+                      <MenuItem onClick={() => this.setState({ filter: "accepted" })}>{t("Accepted")}</MenuItem>
+                      <MenuItem onClick={() => this.setState({ filter: "rejected" })}>{t("Rejected")}</MenuItem>
+                      <MenuItem onClick={() => this.setState({ filter: "canceled" })}>{t("Cancelled")}</MenuItem>
                     </Menu>
                   </div>
                 </Box>
@@ -66,28 +78,16 @@ class MyMeetings extends MyMeetingsController {
                   <Box className="select">
                     <Tab
                       onClick={() => {
-                        this.setState(
-                          {
-                            ...this.state,
-                            isScheduledMeetingOpen: true,
-                          },
-                          () => {}
-                        );
+                        this.setState({ ...this.state, isScheduledMeetingOpen: true });
                       }}
-                      label="Scheduled Meetings"
+                      label={t("Scheduled Meetings")}
                       className={this.state.isScheduledMeetingOpen ? "active" : ""}
                     />
                     <Tab
                       onClick={() => {
-                        this.setState(
-                          {
-                            ...this.state,
-                            isScheduledMeetingOpen: false,
-                          },
-                          () => {}
-                        );
+                        this.setState({ ...this.state, isScheduledMeetingOpen: false });
                       }}
-                      label="Meeting Minutes"
+                      label={t("Meeting Minutes")}
                       className={!this.state.isScheduledMeetingOpen ? "active" : ""}
                     />
                   </Box>
@@ -98,7 +98,7 @@ class MyMeetings extends MyMeetingsController {
                           <Grid container spacing={2}>
                             {this.state.scheduleMeetingList.length === 0 && (
                               <Grid item xs={12}>
-                                <Card className="meeting">No Scheduled Meeting Available!!</Card>
+                                <Card className="meeting">{t("No Scheduled Meeting Available!!")}</Card>
                               </Grid>
                             )}
                             {this.state.scheduleMeetingList.map((meeting: any) => {
@@ -115,15 +115,21 @@ class MyMeetings extends MyMeetingsController {
                                       </Grid>
                                       <Grid container spacing={2} className="info">
                                         <Grid item xs={12}>
-                                          <span>Date & Time:</span>
-                                          <p>{meeting.attributes.meeting_date_time}</p>
+                                          <span>{t("Date & Time")}:</span>
+                                          <p>
+                                            {moment(
+                                              meeting.attributes.meeting_date_time,
+                                              "DD-MM-YYYY HH:mm",
+                                              true
+                                            ).format("MMMM DD, YYYY HH:mm")}
+                                          </p>
                                         </Grid>
                                         <Grid item xs={12}>
-                                          <span>Place:</span>
+                                          <span>{t("Place")}:</span>
                                           <p>{meeting.attributes.place}</p>
                                         </Grid>
                                         <Grid item xs={12}>
-                                          <span>Agenda:</span>
+                                          <span>{t("Agenda")}:</span>
                                           <p>{meeting.attributes.agenda}</p>
                                         </Grid>
                                       </Grid>
@@ -132,7 +138,7 @@ class MyMeetings extends MyMeetingsController {
                                           <Divider />
                                           {!meeting.attributes.meeting_response ? (
                                             <Box className="decision">
-                                              <h6>Are you attending?</h6>
+                                              <h6>{t("Are you attending?")}</h6>
                                               <div className="status-images">
                                                 <img src={TrueIcon} alt="true" />
                                                 <img src={FalseIcon} alt="false" />
@@ -140,7 +146,7 @@ class MyMeetings extends MyMeetingsController {
                                             </Box>
                                           ) : (
                                             <Box className="decision">
-                                              <p>Your Response</p>
+                                              <p>{t("Your Response")}</p>
                                               <span className={`status ${meeting.attributes.meeting_response}`}>
                                                 {meeting.attributes.meeting_response}
                                               </span>
@@ -165,7 +171,7 @@ class MyMeetings extends MyMeetingsController {
                           <Grid container spacing={2}>
                             {this.state.minuteMeetingList.length === 0 && (
                               <Grid item xs={12}>
-                                <Card className="meeting">No Meeting Minutes Available!!</Card>
+                                <Card className="meeting">{t("No Meeting Minutes Available!!")}</Card>
                               </Grid>
                             )}
                             {this.state.minuteMeetingList.map((meeting: any) => {
@@ -182,11 +188,17 @@ class MyMeetings extends MyMeetingsController {
                                       </Grid>
                                       <Grid container spacing={2} className="info">
                                         <Grid item xs={12}>
-                                          <span>Date & Time:</span>
-                                          <p>{meeting.attributes.meeting_date_time}</p>
+                                          <span>{t("Date & Time")}:</span>
+                                          <p>
+                                            {moment(
+                                              meeting.attributes.meeting_date_time,
+                                              "DD-MM-YYYY HH:mm",
+                                              true
+                                            ).format("MMMM DD, YYYY HH:mm")}
+                                          </p>
                                         </Grid>
                                         <Grid item xs={12}>
-                                          <span>Agenda:</span>
+                                          <span>{t("Agenda")}:</span>
                                           <p>{meeting.attributes.agenda}</p>
                                         </Grid>
                                       </Grid>
@@ -215,5 +227,5 @@ class MyMeetings extends MyMeetingsController {
   }
 }
 
-export default withStyles(MeetingsStyleWeb)(MyMeetings);
+export default withTranslation()(withStyles(MeetingsStyleWeb)(MyMeetings));
 // Customizable Area End

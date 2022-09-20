@@ -725,3 +725,26 @@
     display: grid;
     place-content: center;
 }
+
+#question-type-select{
+    font-weight: 400;
+}
+
+#SurveyQuestion {
+    font-weight: 400;
+    border-radius: 10px;
+}
+
+#SurveyQuestionOptions{
+    font-weight: 400;
+    border-radius: 10px;
+}
+
+#question-type-select{
+    border-radius: 10px !important;
+    background-color: rgb(249, 249, 249) !important;
+}
+
+.outlined-multiline-static{
+    padding:12px 12px 10px !important;
+}

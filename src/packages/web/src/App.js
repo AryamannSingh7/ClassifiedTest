@@ -19,22 +19,22 @@ import Chatbot6 from "../../blocks/Chatbot6/src/Chatbot6";
 import EmailNotifications from "../../blocks/EmailNotifications/src/EmailNotifications";
 import BroadcastMessage from "../../blocks/BroadcastMessage/src/BroadcastMessage";
 // import BulkUploading from "../../blocks/BulkUploading/src/BulkUploading";
-import Location from "../../blocks/location/src/Location";
-import SocialMediaAccountLoginScreen from "../../blocks/social-media-account-login/src/SocialMediaAccountLoginScreen";
-import Invitefriends from "../../blocks/invitefriends/src/Invitefriends";
-import ReviewAndApproval from "../../blocks/ReviewAndApproval/src/ReviewAndApproval";
-import LanguageOptions from "../../blocks/LanguageOptions/src/LanguageOptions";
-import Polling from "../../blocks/Polling/src/Polling";
-import Customisableusersubscriptions from "../../blocks/customisableusersubscriptions/src/Customisableusersubscriptions";
-import SubscriptionDetails from "../../blocks/customisableusersubscriptions/src/SubscriptionDetails";
-import Interactivefaqs from "../../blocks/interactivefaqs/src/Interactivefaqs";
-import AddInteractivefaqs from "../../blocks/interactivefaqs/src/AddInteractivefaqs";
-import PhotoLibrary3 from "../../blocks/PhotoLibrary3/src/PhotoLibrary3";
-import ExpenseTracking from "../../blocks/ExpenseTracking/src/ExpenseTracking";
-import Search from "../../blocks/search/src/Search";
-import MultipleCurrencySupport from "../../blocks/multiplecurrencysupport/src/MultipleCurrencySupport";
-import NewPassword from "../../blocks/forgot-password/src/NewPassword";
-import Feedback from "../../blocks/Feedback/src/Feedback";
+import Location from '../../blocks/location/src/Location';
+import SocialMediaAccountLoginScreen from '../../blocks/social-media-account-login/src/SocialMediaAccountLoginScreen';
+import Invitefriends from '../../blocks/invitefriends/src/Invitefriends';
+import ReviewAndApproval from '../../blocks/ReviewAndApproval/src/ReviewAndApproval';
+import LanguageOptions from '../../blocks/LanguageOptions/src/LanguageOptions';
+import Polling from '../../blocks/Polling/src/Polling';
+import Customisableusersubscriptions from '../../blocks/customisableusersubscriptions/src/Customisableusersubscriptions';
+import SubscriptionDetails from '../../blocks/customisableusersubscriptions/src/SubscriptionDetails';
+import Interactivefaqs from '../../blocks/interactivefaqs/src/Interactivefaqs';
+import AddInteractivefaqs from '../../blocks/interactivefaqs/src/AddInteractivefaqs';
+import PhotoLibrary3 from '../../blocks/PhotoLibrary3/src/PhotoLibrary3';
+import ExpenseTracking from '../../blocks/ExpenseTracking/src/ExpenseTracking';
+import Search from '../../blocks/search/src/Search';
+import MultipleCurrencySupport from '../../blocks/multiplecurrencysupport/src/MultipleCurrencySupport';
+import NewPassword from '../../blocks/forgot-password/src/NewPassword';
+import Feedback from '../../blocks/Feedback/src/Feedback';
 // import Contactus from "../../blocks/contactus/src/Contactus";
 import AddContactus from "../../blocks/contactus/src/AddContactus";
 import CountryCodeSelector from "../../blocks/country-code-selector/src/CountryCodeSelector";
@@ -125,6 +125,7 @@ import ResidentDashboard from "../../blocks/dashboard/src/ResidentDashboard.web"
 import PollVoteSubmitted from "../../blocks/Polling/src/PollVoteSubmitted.web"
 import PollResponseCompleted from "../../blocks/Polling/src/PollResponseCompleted.web"
 import SurveyMyResponse from "../../blocks/Polling/src/SurveyMyResponse.web"
+import SurveySubmitted from "../../blocks/Polling/src/SurveySubmitted"
 import VeichleList from "../../blocks/customform/src/VeichleList.web"
 import NewVeichleList from "../../blocks/customform/src/NewVehicle.web"
 import NewFamily from "../../blocks/customform/src/NewFamily.web"
@@ -175,16 +176,16 @@ import BuildingDocuments from '../../blocks/Notes/src/BuildingDocuments.web';
 import BuildingDocumentList from '../../blocks/Notes/src/BuildingDocumentList.web';
 import ViewBuildingDocument from '../../blocks/Notes/src/ViewBuildingDocument.web';
 
-import ContractsList from "../../blocks/RolesPermissions2/src/ContractsList.web";
-import ContractDetail from "../../blocks/RolesPermissions2/src/ContractDetail.web";
-import TemplateDetail from "../../blocks/RolesPermissions2/src/TemplateDetail.web";
-import IssueContract from "../../blocks/RolesPermissions2/src/IssueContract.web";
-import IssueLease from "../../blocks/RolesPermissions2/src/IssueLease.web";
-import SelectedTemplate from "../../blocks/RolesPermissions2/src/SelectedTemplate.web";
-import LeaseForm from "../../blocks/RolesPermissions2/src/LeaseForm.web";
-import ChangedSelectedTemplate from "../../blocks/RolesPermissions2/src/ChangedSelectedTemplate.web";
-import ReviewTemplate from "../../blocks/RolesPermissions2/src/ReviewTemplate.web";
-import AddCondition from "../../blocks/RolesPermissions2/src/AddCondition.web";
+import ContractsList from '../../blocks/RolesPermissions2/src/ContractsList.web';
+import ContractDetail from '../../blocks/RolesPermissions2/src/ContractDetail.web';
+import TemplateDetail from '../../blocks/RolesPermissions2/src/TemplateDetail.web';
+import IssueContract from '../../blocks/RolesPermissions2/src/IssueContract.web';
+import IssueLease from '../../blocks/RolesPermissions2/src/IssueLease.web';
+import SelectedTemplate from '../../blocks/RolesPermissions2/src/SelectedTemplate.web';
+import LeaseForm from '../../blocks/RolesPermissions2/src/LeaseForm.web';
+import ChangedSelectedTemplate from '../../blocks/RolesPermissions2/src/ChangedSelectedTemplate.web';
+import ReviewTemplate from '../../blocks/RolesPermissions2/src/ReviewTemplate.web';
+import AddCondition from '../../blocks/RolesPermissions2/src/AddCondition.web';
 
 import ChairmanScheduledMeeting from '../../blocks/BulkUploading/src/ScheduledMeeting.web';
 import ScheduledMeetingDetails from '../../blocks/BulkUploading/src/ScheduledMeetingDetails.web';
@@ -216,7 +217,7 @@ import Announcements from '../../blocks/user-profile-basic/src/Announcements.web
 import AnnouncementDetails from '../../blocks/user-profile-basic/src/AnnouncementDetails.web';
 import CommunityRequestManagement from '../../blocks/user-profile-basic/src/CommunityRequestManagement.web';
 
-import SentInvitation from "../../blocks/user-profile-basic/src/SentInvitation.web";
+import SentInvitation from '../../blocks/user-profile-basic/src/SentInvitation.web';
 import PendingRequest from '../../blocks/user-profile-basic/src/PendingRequest.web';
 import AwaitingAcceptece from '../../blocks/user-profile-basic/src/AwaitingAcceptece.web';
 import UserDetailedProfile from '../../blocks/user-profile-basic/src/UserDetailedProfile.web';
@@ -456,7 +457,7 @@ const routeMap = {
     path: '/ClassifiedManagerListing',
     exact: true
   },
-  
+
   // RolesPermissions2: {
   //   component: RolesPermissions2,
   //   path: '/RolesPermissions2'
@@ -514,12 +515,17 @@ const routeMap = {
 
   SurveyFill: {
     component: SurveyParticipate,
-    path: "/SurveyParticipate"
+    path: '/SurveyParticipate'
   },
 
   SurveyResponse: {
     component: SurveyMyResponse,
-    path: "/SurveyResponse"
+    path: '/SurveyResponse'
+  },
+
+  SurveySuccess: {
+    component: SurveySubmitted,
+    path: '/SurveySuccess'
   },
 
   CreateSurveys: {
@@ -1316,25 +1322,25 @@ const routeMap = {
     path: '/AnnouncementDetails',
     exact: true
   },
-  CommunityRequestManagement:{
-    component:CommunityRequestManagement,
-    path:'/CommunityRequestManagement'
+  CommunityRequestManagement: {
+    component: CommunityRequestManagement,
+    path: '/CommunityRequestManagement'
   },
-  SentInvitation:{
-    component:SentInvitation,
-    path:'/SentInvitation'
+  SentInvitation: {
+    component: SentInvitation,
+    path: '/SentInvitation'
   },
-  PendingRequest:{
-    component:PendingRequest,
-    path:"/PendingRequest"
+  PendingRequest: {
+    component: PendingRequest,
+    path: '/PendingRequest'
   },
-  AwaitingAcceptece:{
-    component:AwaitingAcceptece,
-    path:"/AwaitingAcceptece"
+  AwaitingAcceptece: {
+    component: AwaitingAcceptece,
+    path: '/AwaitingAcceptece'
   },
-  UserDetailedProfile:{
-    component:UserDetailedProfile,
-    path:"/UserDetailedProfile"
+  UserDetailedProfile: {
+    component: UserDetailedProfile,
+    path: '/UserDetailedProfile'
   },
 
   BuildingandComplex:{
