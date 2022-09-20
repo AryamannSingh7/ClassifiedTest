@@ -46,8 +46,21 @@ export const MeetingsStyleWeb: any = {
     "& .top-bar .filter .input.date": {
       width: "170px",
     },
-    "& .top-bar .filter .select-input .MuiSelect-root ": {
+    "& .top-bar .filter .select-input .MuiSelect-root": {
       background: "#FFFFFF",
+      // color: "#A2A2A2",
+    },
+    "& ::placeholder": {
+      color: "black !important",
+      opacity: "1",
+    },
+    "& :-ms-input-placeholder": {
+      color: "black !important",
+      opacity: "1",
+    },
+    "& ::-ms-input-placeholder": {
+      color: "black !important",
+      opacity: "1",
     },
     "& .top-bar .filter .select-input:before": {
       border: 0,
@@ -498,9 +511,9 @@ export const MeetingsStyleWeb: any = {
       alignItems: "center",
       fontWeight: "600",
       cursor: "pointer",
-      marginBottom: "10px",
+      marginBottom: "15px",
       background: "#FFFFFF",
-      padding: "5px 20px",
+      padding: "10px 20px",
       justifyContent: "space-between",
       zIndex: "9999",
     },
@@ -508,6 +521,9 @@ export const MeetingsStyleWeb: any = {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
+    },
+    "& .top-bar .left-icon span": {
+      lineHeight: "18px",
     },
     "& .top-bar .right-icon": {
       display: "flex",
@@ -524,7 +540,8 @@ export const MeetingsStyleWeb: any = {
       display: "flex",
       overflowX: "auto",
       alignItems: "center",
-      paddingBottom: "10px",
+      paddingBottom: "7px",
+      marginBottom: "8px",
     },
     "& .select .MuiTab-root": {
       borderRadius: "20px",
@@ -546,7 +563,7 @@ export const MeetingsStyleWeb: any = {
       overflowY: "auto",
       overflowX: "hidden",
       height: "75vh",
-      paddingTop: "10px",
+      // paddingTop: "10px",
     },
     "& .content-box": {
       position: "relative",
@@ -656,7 +673,7 @@ export const MeetingsStyleWeb: any = {
       background: "#FFFFFF",
       padding: "10px 20px",
       justifyContent: "space-between",
-      borderBottom: "2px solid lightgray",
+      // borderBottom: "2px solid lightgray",
       zIndex: "9999",
     },
     "& .top-bar .left-icon": {
