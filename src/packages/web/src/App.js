@@ -221,6 +221,10 @@ import PendingRequest from '../../blocks/user-profile-basic/src/PendingRequest.w
 import AwaitingAcceptece from '../../blocks/user-profile-basic/src/AwaitingAcceptece.web';
 import UserDetailedProfile from '../../blocks/user-profile-basic/src/UserDetailedProfile.web';
 
+import BuildingandComplex from '../../blocks/LeadManagement/src/BuildingandComplex.web';
+import ComplexandApartment from '../../blocks/LeadManagement/src/ComplexandApartment.web';
+import UnitDetails from '../../blocks/LeadManagement/src/UnitDetails.web';
+
 const routeMap = {
   //done
   LandingPage: {
@@ -1331,6 +1335,20 @@ const routeMap = {
   UserDetailedProfile:{
     component:UserDetailedProfile,
     path:"/UserDetailedProfile"
+  },
+
+  BuildingandComplex:{
+    component:BuildingandComplex,
+    path:"/BuildingandComplex"
+  },
+
+  ComplexandApartment:{
+    component:ComplexandApartment,
+    path:"/ComplexandApartment"
+  },
+  UnitDetails:{
+    component:UnitDetails,
+    path:"/UnitDetails"
   },
 
   AlertWeb: {

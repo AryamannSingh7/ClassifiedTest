@@ -1,0 +1,489 @@
+import React from "react";
+
+//components
+import {
+  Container,
+  Typography,
+  Link,
+  Button,
+  withStyles,
+  InputAdornment,
+  TextField,
+  Paper,
+  TableContainer,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Menu,
+  MenuItem
+} from "@material-ui/core";
+import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
+
+import '../../dashboard/src/Dashboard.web.css';
+
+import { Formik, Form, Field, ErrorMessage } from "formik";
+
+import Box from '@material-ui/core/Box';
+//@ts-ignore
+import Pagination from '@material-ui/lab/Pagination';
+import Grid from '@material-ui/core/Grid';
+
+//resources
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { withRouter } from 'react-router';
+import Loader from "../../../components/src/Loader.web";
+import { Input } from "react-native-elements";
+import * as Yup from "yup";
+import CountryCodeSelector from "../../country-code-selector/src/CountryCodeSelector";
+import BuildingandComplexController, { Props } from "./BuildingandComplexController";
+import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
+import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
+import { withTranslation } from 'react-i18next';
+import '../../../web/src/i18n.js';
+import './style.css';
+
+import { upload, Document, configuration, city, country, floor, purchase_date, purchase_price, valuation, region, size } from "./assets";
+
+const tabs = [
+  {
+      id: 1,
+      tabTitle: 'Documents',
+      title: 'Documents',
+      content: 'Las tabs se generan automáticamente a partir de un array de objetos, el cual tiene las propiedades: id, tabTitle, title y content.'
+  },
+  {
+      id: 2,
+      tabTitle: 'Shared Area',
+      title: 'Shared Area',
+      content: 'Contenido de tab 3.'
+  },
+];
+
+function createData( no:any, Unit_Number:any, Floor_Number:any, Resident_Name:any, Owner:any, Status:any, more:any) {
+  return { no, Unit_Number, Floor_Number, Resident_Name, Owner, Status, more };
+}
+
+const rows = [
+  createData(1, 'A202', "15", 'Anaru Hakopa', 'Andries Grootoonk', 'Rented', <MoreVertIcon color='disabled' />),
+  createData(2, 'A203', "15", 'Anaru Hakopa', 'Florieke Krebber', 'Empty', <MoreVertIcon color='disabled' />),
+  createData(3, 'A204', "15",'Beatriz Brito', 'Gabriel Soares', 'Occupied', <MoreVertIcon color='disabled' />),
+  createData(4, 'A205', "15",'-', 'Miriam de Jesús', 'Empty',  <MoreVertIcon color='disabled' />),
+  createData(5, 'A206', "15",'Mbah Enow', 'Slavcho Karbashewski', 'Occupied', <MoreVertIcon color='disabled' />),
+  createData(6, 'A207', "15", '-', 'Somun Ae-Ri', 'Rented', <MoreVertIcon color='disabled' />),
+  createData(7, 'A208', "15", 'Sakane Miiko', 'Somun Ae-Ri', 'Empty', <MoreVertIcon color='disabled' />),
+];
+
+class UnitDetails extends BuildingandComplexController {
+  constructor(props: Props) {
+    super(props);
+  }
+
+  render() {
+    const {t}: any = this.props
+    return (
+      <>
+        <Box className="incident-Listing-wrapper desktop-ui" style={{ background: "#E5ECFF", zIndex:-23}}>
+          {/* Dashboard Header -- */}
+          <DashboardHeader {...this.props} />
+          <Box style={{ display: "flex" }}>
+            <Grid item xs={3} md={3} sm={3} className="SideBar">
+              {/* Chairman Sidebar -- */}
+              <ChairmanSidebar {...this.props} />
+            </Grid>
+            <Grid xs={9} md={9} sm={9} spacing={4} style={{ paddingTop: 35 }}>
+              <Container>
+                <Box style={dashBoard.navigation}>
+                  <Box>
+                    <Typography variant="body1" >
+                      {t("Building & Apartments")} / {t("Buildings ")} / <Box component="span" style={{ color: "blue" }}> {t("Unit 309")}</Box>
+                    </Typography>
+                    
+                  </Box>
+                </Box>
+                <Typography variant="h4" style={dashBoard.subHeading}>{t("Unit 309")}</Typography>
+                  {/* GA MEMBERS -- */}
+                <Box>
+                <Grid container style={dashBoard.gaMemberMain}> 
+                        <Grid item xs={6}>
+                        <Typography variant="h5" style={dashBoard.subHeading}>{t("Building Location Details")}</Typography>
+                        </Grid>
+                        <Grid item xs={12} sm={2}>
+                            <Button variant="contained" color="primary" style={{width:"100%", backgroundColor:"#2B6FED", fontWeight:600, height:"50px"}}>
+                                Edit Details
+                            </Button>
+                        </Grid>
+                </Grid>
+                </Box>
+
+                {/* Building Location Details */}
+                <Box style={{marginTop:"50px"}}>
+                  <div style={dashBoard.relatedMemberCard}>
+                      <Paper elevation={3} style={dashBoard.managementPaper}>
+                          <div>
+                            <img src={country} />
+                              <Typography variant="h6">{t("Building Area")}</Typography>
+                              <Typography variant="h5" style={dashBoard.buildingCount}>1500 sqft</Typography>
+                          </div>
+                      </Paper>
+
+                      <Paper elevation={3} style={dashBoard.managementPaper}>
+                          <div>
+                              <Typography variant="h6">{t("Total Floors")}</Typography>
+                              <Typography variant="h5" style={dashBoard.buildingCount}>16</Typography>
+                          </div>
+                      </Paper>
+
+                      <Paper elevation={3} style={dashBoard.managementPaper}>
+                          <div>
+                              <Typography variant="h6">{t("Total Units")}</Typography>
+                              <Typography variant="h5" style={dashBoard.buildingCount}>16</Typography>
+                          </div>
+                      </Paper>
+                  </div>
+                </Box>
+
+                <Box style={{marginTop:"50px"}}>
+                  <div style={dashBoard.relatedMemberCard}>
+                      <Paper elevation={3} style={dashBoard.managementPaper}>
+                          <div>
+                              <Typography variant="h6">{t("Building Area")}</Typography>
+                              <Typography variant="h5" style={dashBoard.buildingCount}>1500 sqft</Typography>
+                          </div>
+                      </Paper>
+
+                      <Paper elevation={3} style={dashBoard.managementPaper}>
+                          <div>
+                              <Typography variant="h6">{t("Total Floors")}</Typography>
+                              <Typography variant="h5" style={dashBoard.buildingCount}>16</Typography>
+                          </div>
+                      </Paper>
+
+                      <Paper elevation={3} style={dashBoard.managementPaper}>
+                          <div>
+                              <Typography variant="h6">{t("Total Units")}</Typography>
+                              <Typography variant="h5" style={dashBoard.buildingCount}>16</Typography>
+                          </div>
+                      </Paper>
+                  </div>
+                </Box>
+
+                <div className='tabs'>
+                  {/* {console.log("this.props.currentTab==>", this.state.currentTab)} */}
+                  {tabs.map((tab: any , i: any) =>
+                  //@ts-ignore
+                      <button key={i} id={tab.id} disabled={this.state.currentTab == `${tab.id}`} onClick={(e:any) => this.handleTabChange(e)}>{tab.tabTitle}</button>
+                  )}
+                </div>
+
+                <Paper className='content'>
+                      <div>
+                          {
+                            //@ts-ignore
+                          this.state.currentTab === "1" ?
+                          <> 
+                          <div style={dashBoard.commonDisplay}>
+                            <div>
+                              <p className='title'>Documents</p>
+                            </div>
+                            <div style={dashBoard.commonDisplay}>
+                              <img src={upload} style={{marginRight:"15px"}}/> <Typography variant="h5" style={dashBoard.tabLabel}>Upload</Typography>
+                            </div>
+                          </div>
+                          <Box className="document-box">
+                            <Grid container spacing={2}>
+                              <Grid item xs={12} md={6} lg={4}>
+                                <Link href="/DocumentChairman/Policy">
+                                  <Box className="item">
+                                    <div className="heading">
+                                      <img src={Document} />
+                                      <h4>{t("Policy")}</h4>
+                                    </div>
+                                    <Button className="color-btn">
+                                        {/* {this.state.policy}  */}0
+                                      </Button>
+                                    {/* {this.state.policy > 0 && (
+                                      <Button className="color-btn">
+                                        {this.state.policy}
+                                      </Button>
+                                    )} */}
+                                  </Box>
+                                </Link>
+                              </Grid>
+                              <Grid item xs={12} md={6} lg={4}>
+                                <Link href="/DocumentChairman/Guidelines">
+                                  <Box className="item">
+                                    <div className="heading">
+                                      <img src={Document} />
+                                      <h4>{t("Guidelines")}</h4>
+                                    </div>
+                                    <Button className="color-btn">
+                                        {/* {this.state.policy}  */}0
+                                      </Button>
+                                    {/* {this.state.guidelines > 0 && (
+                                      <Button className="color-btn">
+                                        {this.state.guidelines}
+                                      </Button>
+                                    )} */}
+                                  </Box>
+                                </Link>
+                              </Grid>
+                              <Grid item xs={12} md={6} lg={4}>
+                                <Link href="/DocumentChairman/Roles">
+                                  <Box className="item">
+                                    <div className="heading">
+                                      <img src={Document} />
+                                      <h4>{t("Roles")}</h4>
+                                    </div>
+                                    <Button className="color-btn">
+                                        {/* {this.state.policy}  */}0
+                                      </Button>
+                                    {/* {this.state.roles > 0 && (
+                                      <Button className="color-btn">
+                                        {this.state.roles}
+                                      </Button>
+                                    )} */}
+                                  </Box>
+                                </Link>
+                              </Grid>
+                              <Grid item xs={12} md={6} lg={4}>
+                                <Link href="/DocumentChairman/Resolutions">
+                                  <Box className="item">
+                                    <div className="heading">
+                                      <img src={Document} />
+                                      <h4>{t("Resolution")}</h4>
+                                    </div>
+                                    <Button className="color-btn">
+                                        {/* {this.state.policy}  */}0
+                                      </Button>
+                                    {/* {this.state.resolution > 0 && (
+                                      <Button className="color-btn">
+                                        {this.state.resolution}
+                                      </Button>
+                                    )} */}
+                                  </Box>
+                                </Link>
+                              </Grid>
+                              <Grid item xs={12} md={6} lg={4}>
+                                <Link href="/DocumentChairman/Building-Plans">
+                                  <Box className="item">
+                                    <div className="heading">
+                                      <img src={Document} />
+                                      <h4>{t("Building Plans")}</h4>
+                                    </div>
+                                    <Button className="color-btn">
+                                        {/* {this.state.policy}  */}0
+                                      </Button>
+                                    {/* {this.state.buildingPlans > 0 && (
+                                      <Button className="color-btn">
+                                        {this.state.buildingPlans}
+                                      </Button>
+                                    )} */}
+                                  </Box>
+                                </Link>
+                              </Grid>
+                            </Grid>
+                          </Box>
+                          </>
+                          :
+                          this.state.currentTab === "2" ?  
+                          <> 
+                          <div style={dashBoard.commonDisplay}>
+                            <div>
+                              <p className='title'>Shared Area</p>
+                            </div>
+                          </div>
+                          <Box className="document-box">
+                            <Grid container spacing={2}>
+                              <Grid item xs={12} md={6} lg={4}>
+                                <Link href="/DocumentChairman/Policy">
+                                  <Box className="item">
+                                    <div className="heading">
+                                      <img src={Document} />
+                                      <h4>{t("Community Hall")}</h4>
+                                    </div>
+                                  </Box>
+                                </Link>
+                              </Grid>
+                              <Grid item xs={12} md={6} lg={4}>
+                                <Link href="/DocumentChairman/Guidelines">
+                                  <Box className="item">
+                                    <div className="heading">
+                                      <img src={Document} />
+                                      <h4>{t("Garden")}</h4>
+                                    </div>
+                                  </Box>
+                                </Link>
+                              </Grid>
+                              <Grid item xs={12} md={6} lg={4}>
+                                <Link href="/DocumentChairman/Roles">
+                                  <Box className="item">
+                                    <div className="heading">
+                                      <img src={Document} />
+                                      <h4>{t("Common Parking")}</h4>
+                                    </div>
+                                  </Box>
+                                </Link>
+                              </Grid>
+                              <Grid item xs={12} md={6} lg={4}>
+                                <Link href="/DocumentChairman/Resolutions">
+                                  <Box className="item">
+                                    <div className="heading">
+                                      <img src={Document} />
+                                      <h4>{t("Swimming Pool")}</h4>
+                                    </div>
+                                  </Box>
+                                </Link>
+                              </Grid>
+                              <Grid item xs={12} md={6} lg={4}>
+                                <Link href="/DocumentChairman/Building-Plans">
+                                  <Box className="item">
+                                    <div className="heading">
+                                      <img src={Document} />
+                                      <h4>{t("Park")}</h4>
+                                    </div>
+                                  </Box>
+                                </Link>
+                              </Grid>
+                            </Grid>
+                          </Box>
+                          </> : ""
+                          }
+                      </div>
+                </Paper>
+
+              </Container>
+            </Grid>
+          </Box>
+        </Box>
+        {/* <Loader loading={this.state.loading} /> */}
+      </>
+    )
+  }
+}
+
+//@ts-ignore
+export default withTranslation()(withRouter(UnitDetails)); 
+
+const dashBoard = {
+  navigation: {
+    display: "flex",
+    justifyContent: "space-between",
+  },
+  subHeading: {
+    fontWeight: 600,
+    marginTop: 15,
+  },
+  buildingCount:{
+    color:"#FC8434",
+    fontWeight: 600,
+    marginTop: 15,
+  },
+  buildingCard:{
+    color:"#FC8434",
+    fontWeight: 600,
+    marginTop: 15,
+    border: "1px solid #E4E4E4",
+    borderRadius: 10,
+    padding: 12
+  },
+  tabLabel:{
+    color:"#FC8434",
+    fontWeight: 600,
+  },
+  YearMain: {
+    background: "#fff",
+    border: "none",
+    borderRadius: 5,
+    padding: 5,
+  },
+  SideBar: {
+    background: "#f9f6f6",
+    position: "relative",
+    paddingBottom: 150,
+  },
+  searchButton:{
+    margin:8
+  },
+  backColor:{
+   backgroundColor: "#2D6EED",
+   padding:"9px 16px"
+  },
+  boxStyling:{
+    display:"flex",
+    alignItems:"center",
+    marginTop:20
+  },
+  gaMemberMain:{
+    display:"flex",
+    alignItems:"center",
+    marginTop:20,
+    justifyContent:"space-between"
+  },
+  viewMore:{
+    marginTop: 15,
+    textDecoration:"underline", 
+    color:"#E5B08D",
+    fontWeight:600,
+  },
+  relatedMemberCard:{
+    display: "grid",
+    gridTemplateColumns: "3fr 3fr 3fr",
+    gap: 20
+  },
+  BuildingListCard:{
+    display: "grid",
+    gridTemplateColumns: "3fr 3fr 3fr",
+    gap: 20,
+    padding:25
+  },
+  profileImage:{
+    borderRadius: "100%",
+    width: 70,
+    height: 70,
+    margin: "35px auto"
+  },
+  userType:{
+    backgroundColor: "aliceblue",
+    borderRadius: 30,
+    display: "inline-block",
+    padding: "3px 20px",
+    color:"#2D6EED",
+    fontWeight:600
+  },
+  unitno:{
+    marginTop:15,
+    fontWeight: 600,
+    textAlign:"center"
+  },
+  contactIcon:{
+    display: "flex",
+    justifyContent: "space-around",
+    alignItems: "center",
+    marginTop:15
+  },
+  commonDisplay:{
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  cardStyle:{
+    borderRadius:10,
+    maxWidth:345
+  },
+  cursorPointer:{
+    cursor:"pointer"
+  },
+  managementPaper:{
+    padding:20
+  },
+  TableHeader:{
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    margin:"10px 0px 20px 0px"
+},
+};
+
+// Customizable Area End
