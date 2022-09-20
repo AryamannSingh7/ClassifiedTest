@@ -76,7 +76,7 @@ class SurveyPreview extends SurveyPreviewController {
                                       <Box className="PreviewName">
                                           <Box className="PollName">
                                               <Typography className="subHeading">Survey Name: </Typography>
-                                              <Typography className="PollNameText">
+                                              <Typography className="PollNameText textwrap">
                                                   {this.state.SurveyData.title}
                                               </Typography>
                                           </Box>

@@ -33,7 +33,7 @@ class AudienceModal extends AudienceModalController {
     const {t} = this.props
     return (
       <>
-        <Box style={{width:"55vw",maxHeight:"650px",marginTop:'15px',backgroundColor:"white",padding:'20px',borderRadius:"10px"}}>
+        <Box style={{width:"55vw",maxHeight:"680px",marginTop:'15px',backgroundColor:"white",padding:'20px',borderRadius:"10px"}}>
             <Box style={{display:'flex',justifyContent:"space-between",alignItems:"center",marginBottom:"5px"}}>
                 <Typography variant="h5" style={{fontWeight:"bold"}}> {this.props.isEdit ? t("Edit Target Audience") : t("Create Target Audience")} </Typography>
                 <IconButton onClick={this.props.handleClose}>
@@ -54,8 +54,15 @@ class AudienceModal extends AudienceModalController {
                                 onChange={(e)=>this.setState({selectBuilding:e.target.value})}
                                 style={{width:"180px",border:"1px solid #ECECEC",borderRadius:"10px",backgroundColor:"#f9f9f9",marginRight:"10px"}}
                             >
-                                <MenuItem value={10}>Building 1</MenuItem>
-                                <MenuItem value={20}>Building 2</MenuItem>
+                                <MenuItem value="">None</MenuItem>
+                                {
+                                    this.state.listOfBuilding.map((item:any,key:any)=> {
+                                        console.log("ITEM",item)
+                                        return(
+                                            <MenuItem key={key} value={item.id}>{item.name}</MenuItem>
+                                        )
+                                    })
+                                }
                             </Select>
                         </FormControl>
                     </Grid>
@@ -129,10 +136,11 @@ class AudienceModal extends AudienceModalController {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {this.state.audienceData.map((item:any,key) => (
+                                    {
+                                        this.state.audienceData.length > 0 ?
+                                        this.state.audienceData.map((item:any,key) => (
                                         <TableRow key={key}>
                                             <TableCell style={{borderBottom:"none"}} component="th" scope="row">
-
                                                 <Checkbox
                                                     disableRipple
                                                     color="default"
@@ -149,7 +157,11 @@ class AudienceModal extends AudienceModalController {
                                             <TableCell style={{borderBottom:"none"}} align="left">{item?.attributes?.floor_number}</TableCell>
                                             <TableCell style={{borderBottom:"none"}} align="left">{item.attributes.user_type.join(", ")}</TableCell>
                                         </TableRow>
-                                    ))}
+                                    )):
+                                        <Box style={{width:"100%",display:'flex',alignItems:'center'}}>
+                                            <Typography>No data found..!!</Typography>
+                                        </Box>
+                                    }
                                 </TableBody>
                             </Table>
                         </TableContainer>

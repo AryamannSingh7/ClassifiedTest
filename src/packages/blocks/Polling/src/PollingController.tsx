@@ -37,6 +37,7 @@ interface S {
   allPollsData: any,
   dateSelection:any,
   totalPollsCount: any,
+  totalSurveyCount: any,
   recentPolls: any,
   recentSurveys:any,
   selectQuestion: any,
@@ -95,6 +96,7 @@ export default class PollingController extends BlockComponent<
   getAllPolls:string;
   createPoll:string;
   totalPollsCount: string;
+  totalSurveyCount:string;
   getRecentPollsData: string;
   getRecentSurveyData:string;
   getLivePolls: string;
@@ -215,6 +217,7 @@ export default class PollingController extends BlockComponent<
         }
       ],
       audienceType:"",
+      totalSurveyCount:"",
       // Customizable Area End
 
     };
@@ -240,19 +243,19 @@ export default class PollingController extends BlockComponent<
     
     this.onGetPolls(this.state.Year);
     this.getTotalPollCount();
+    this.getTotalSurveyCount();
     this.getRecentPolls();
     this.getRecentSurveys();
     this.apiCallFunction();
-    this.livePollsSurveysData();
-    this.oldPollsSurveysData();
+
     // Customizable Area End
 
   }
     // Customizable Area Start
 
     apiCallFunction = async () =>  {
-      await this.livePollsData();
-      await this.oldPollsData();
+      this.livePollsSurveysData();
+      this.oldPollsSurveysData();
       if(window.location.search !== ""){
         await this.getPollPreviewAnswer();
         await this.getPollGenerateReport(this.state.currentReportPage)
@@ -288,6 +291,15 @@ export default class PollingController extends BlockComponent<
       });
     }
 
+  getTotalSurveyCount = async () => {
+    const societyID = localStorage.getItem("society_id")
+    this.totalSurveyCount = await this.apiCall({
+      contentType: configJSON.exampleApiContentType,
+      method: configJSON.httpGetMethod,
+      endPoint: `/society_managements/${societyID}/bx_block_survey/surveys/total_surveys`,
+    });
+  }
+
     //==============================================
 
     onGetPolls = async (filter:any) => {
@@ -312,15 +324,6 @@ export default class PollingController extends BlockComponent<
     }
 
     //==============================================
-
-    oldPollsData = async () => {
-      const societyID = localStorage.getItem("society_id")
-      this.getOldPolls = await this.apiCall({
-        contentType: configJSON.exampleApiContentType,
-        method: configJSON.httpGetMethod,
-        endPoint: `/society_managements/${societyID}/bx_block_polling/polls/old_polls`,
-      });
-    }
 
     oldPollsSurveysData = async () => {
       const societyID = localStorage.getItem("society_id")
@@ -405,6 +408,19 @@ export default class PollingController extends BlockComponent<
     if(type === "survey") {
       // @ts-ignore
       this.props.history.push("/TakeSurvey?id="+id)
+    }
+    // if(isTaken && type === poll)
+    // item?.attributes?.flag ? this.props.history.push("/PollVoteView?id="+item.id) : this.props.history.push("/SubmitPoll?id="+item.id)
+  }
+
+  handlePollSurveyNavigationOld (isTaken:any,type:any,id:any) {
+    if(type === "poll"){
+      // @ts-ignore
+      this.props.history.push("/PollVoteView?id="+id)
+    }
+    if(type === "survey") {
+      // @ts-ignore
+      this.props.history.push(`/TakeSurvey?id=${id}`)
     }
     // if(isTaken && type === poll)
     // item?.attributes?.flag ? this.props.history.push("/PollVoteView?id="+item.id) : this.props.history.push("/SubmitPoll?id="+item.id)
@@ -850,6 +866,10 @@ export default class PollingController extends BlockComponent<
      if(apiRequestCallId === this.totalPollsCount){
       this.getTotalPollsCountResponse(responseJson)
      }
+      if(apiRequestCallId === this.totalSurveyCount){
+        this.getTotalSurveyCountResponse(responseJson)
+      }
+
      if(apiRequestCallId === this.getRecentPollsData) {
       this.getRecentPollsResponse(responseJson)
      }
@@ -927,6 +947,10 @@ export default class PollingController extends BlockComponent<
 
   getTotalPollsCountResponse = async (response: any) => {
     this.setState({totalPollsCount: response})
+  }
+
+  getTotalSurveyCountResponse = async (response: any) => {
+    this.setState({totalSurveyCount: response})
   }
 
   getRecentPollsResponse = async (response: any) => {
