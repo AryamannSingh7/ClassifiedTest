@@ -744,3 +744,7 @@
     border-radius: 10px !important;
     background-color: rgb(249, 249, 249) !important;
 }
+
+.outlined-multiline-static{
+    padding:12px 12px 10px !important;
+}

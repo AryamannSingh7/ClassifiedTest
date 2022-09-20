@@ -118,10 +118,12 @@ class CreateSurveys extends CreateSurveyController {
                                 <Box className="createPSCards">
                                     <TextField label={t("Name of the Survey")} variant="outlined"
                                     name="title"
-                                    maxlength = "40"
                                     id="SurveyQuestion"
                                     value={this.state.SurveyData.title}
                                     onChange={this.handlePollDataChange}
+                                    inputProps={{
+                                        maxLength: 40
+                                    }}
                                     required fullWidth
                                     />
                                     <p style={{color:"red"}}>{this.state.pollTitleError}</p>
@@ -186,12 +188,56 @@ class CreateSurveys extends CreateSurveyController {
                                             <InfoIcon style={{color:"grey", fontSize:18}}/>
                                         </Box>
                                         <Box className="targetOne">
-                                            <AudienceSelectBox name="OWNERS" selected={true} isMenu={false} manageEdit={() => this.handleOpenAudienceModalEditMode()} manageDelete={() => this.handleDeleteModal()}/>
-                                            <AudienceSelectBox name="RESIDENTS" selected={false} isMenu={false} manageEdit={() => this.handleOpenAudienceModalEditMode()} manageDelete={() => this.handleDeleteModal()}/>
-                                            <AudienceSelectBox name="Floor 12" selected={false} isMenu={true} manageEdit={() => this.handleOpenAudienceModalEditMode()} manageDelete={() => this.handleDeleteModal()}/>
-                                            <Typography variant="subtitle1">{t("Or")}, </Typography>
-                                            <AudienceButton variant="contained" color="primary" onClick={this.handleOpenAudienceModal}>{t("CREATE AUDIENCE")}</AudienceButton>
-                                        </Box>
+                                            <Grid container spacing={2}>
+                                                <Grid item>
+                                                    <AudienceSelectBox
+                                                        name="OWNERS"
+                                                        selected={this.state.selectedAudience.find((check:any)=> check === "Owner") ? true : false}
+                                                        isMenu={false}
+                                                        manageEdit={() => this.handleOpenAudienceModalEditMode()}
+                                                        manageDelete={() => this.handleDeleteModal()}
+                                                        selectAudience={(id)=> this.selectAudience(id)}
+                                                        audienceId={"Owner"}
+                                                    />
+                                                </Grid>
+                                                <Grid item>
+                                                    <AudienceSelectBox
+                                                        name="RESIDENTS"
+                                                        selected={this.state.selectedAudience.find((check:any)=> check === "Resident") ? true : false}
+                                                        isMenu={false}
+                                                        manageEdit={(id) => this.handleOpenAudienceModalEditMode(id)}
+                                                        manageDelete={(id) => this.handleDeleteModal(id)}
+                                                        selectAudience={(id)=> this.selectAudience(id)}
+                                                        audienceId={"Resident"}
+                                                    />
+                                                </Grid>
+                                                {
+                                                    this.state.audienceList.length > 0 &&
+                                                    this.state.audienceList.map((item,key)=> {
+                                                        return(
+                                                            <Grid item key={key}>
+                                                                <AudienceSelectBox
+                                                                    name={item.attributes.audience_name}
+                                                                    selected={this.state.selectedAudience.find((check:any)=> check === item.id) ? true : false}
+                                                                    isMenu={true}
+                                                                    manageEdit={(id) => this.handleOpenAudienceModalEditMode(id)}
+                                                                    manageDelete={(id) => this.handleDeleteModal(id)}
+                                                                    selectAudience={(id)=> this.selectAudience(id)}
+                                                                    audienceId={item.id}
+                                                                />
+                                                            </Grid>
+                                                        )
+                                                    })
+                                                }
+                                                <Grid item style={{display:'flex',alignItems:'center'}}>
+                                                    <Typography variant="subtitle1">{t("Or")}, </Typography>
+                                                </Grid>
+                                                <Grid item>
+                                                    <AudienceButton variant="contained" color="primary" onClick={this.handleOpenAudienceModal}>{t("CREATE AUDIENCE")}</AudienceButton>
+                                                </Grid>
+                                            </Grid>
+
+                                              </Box>
                                     </Box>
                                 </Box>
                             </Grid>
@@ -222,7 +268,9 @@ class CreateSurveys extends CreateSurveyController {
                                                 </FormControl>
                                                 <TextField  label="Enter question" variant="outlined"
                                                             name="question"
-                                                            maxlength = "40"
+                                                            inputProps={{
+                                                                maxLength: 30
+                                                            }}
                                                             id="SurveyQuestion"
                                                             value={item.title}
                                                             onChange={(e)=>this.handleQuestion(key,e)}
@@ -237,7 +285,9 @@ class CreateSurveys extends CreateSurveyController {
                                                                    key={index}
                                                                    label={"Option - " + (index + 1)} variant="outlined"
                                                                    name="text"
-                                                                   maxlength = "40"
+                                                                   inputProps={{
+                                                                       maxLength: 20
+                                                                   }}
                                                                    id="SurveyQuestionOptions"
                                                                    value={inputfield.text}
                                                                    onChange={(event) => this.handleOptionsChange(key,index, event)}
@@ -378,7 +428,7 @@ class CreateSurveys extends CreateSurveyController {
                             <Box style={{display:'flex',justifyContent:'flex-end',marginTop:"15px"}}>
                                 {/*@ts-ignore*/}
                                 <AudienceButton variant="outlined" style={{marginRight:"10px"}} onClick={this.closeDeleteModal}>Cancel</AudienceButton>
-                                <PublishButton variant="contained" onClick={this.closeDeleteModal} >Ok</PublishButton>
+                                <PublishButton variant="contained" onClick={this.deleteAudience} >Ok</PublishButton>
                             </Box>
                         </Box>
                     </Fade>
@@ -413,12 +463,12 @@ const AudienceSelectBox = (props:any) => {
 
     const handleEdit = () => {
         setAnchorEl(null);
-        props.manageEdit()
+        props.manageEdit(props.audienceId)
     }
 
     const handleDelete = () => {
         setAnchorEl(null);
-        props.manageDelete()
+        props.manageDelete(props.audienceId)
     }
 
     return(
@@ -428,27 +478,29 @@ const AudienceSelectBox = (props:any) => {
                     props.selected ?
                         {border:"1px solid #2b6fed",borderRadius:"8px",cursor:'pointer'}
                         :
-                        {border:"1px solid #f0f0f0",borderRadius:"8px",cursor:'pointer',backgroundColor:"#f9f9f9"}
+                        {border:"1px solid #f0f0f0",borderRadius:"8px",cursor:'pointer',backgroundColor:"#f9f9f9",minHeight:"24px"}
                 }
             >
                 <Box
                     style={{padding:"10px 13px",display:"flex",alignItems:"center"}}
                 >
-                    <img
-                        src={props.selected ? audienceChecked : audienceCheck}
-                        height="10px"
-                    />
-                    <Typography
-                        variant="body2"
-                        style={
-                            props.selected ?
-                            {fontWeight:"bold",color:"#2b6fed",marginLeft:"5px",fontFamily:"Century Gothic",textTransform:"uppercase"}
-                            :
-                            {fontWeight:"bold",color:"#9a9fa5",marginLeft:"5px",fontFamily:"Century Gothic",textTransform:"uppercase"}
-                        }
-                    >
-                        {props.name}
-                    </Typography>
+                    <Box style={{display:'flex',alignItems:'center'}} onClick={()=>props.selectAudience(props.audienceId)}>
+                        <img
+                            src={props.selected ? audienceChecked : audienceCheck}
+                            height="10px"
+                        />
+                        <Typography
+                            variant="body2"
+                            style={
+                                props.selected ?
+                                    {minHeight:"24px",fontWeight:"bold",color:"#2b6fed",marginLeft:"5px",fontFamily:"Century Gothic",textTransform:"uppercase"}
+                                    :
+                                    {minHeight:"24px",fontWeight:"bold",color:"#9a9fa5",marginLeft:"5px",fontFamily:"Century Gothic",textTransform:"uppercase"}
+                            }
+                        >
+                            {props.name}
+                        </Typography>
+                    </Box>
                     {
                         props.isMenu &&
                         <Box onClick={handleClick} style={{marginLeft:"8px"}}>

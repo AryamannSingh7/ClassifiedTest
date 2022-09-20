@@ -71,6 +71,14 @@ class ScheduledMeeting extends ScheduledMeetingController {
     ) {
       await this.getAllMeetings();
     }
+
+    if (
+      prevState.userFilter.buildingName !== this.state.userFilter.buildingName ||
+      prevState.userFilter.floorId !== this.state.userFilter.floorId ||
+      prevState.userFilter.userType !== this.state.userFilter.userType
+    ) {
+      await this.getUserList();
+    }
   }
 
   render() {
@@ -948,29 +956,73 @@ class ScheduledMeeting extends ScheduledMeetingController {
             </IconButton>
           </MuiDialogTitle>
           <DialogContent dividers className="filter">
-            <Select value="" name="meetingType" displayEmpty className="dialog-select-input">
+            <Select value={this.state.buildingName} displayEmpty className="dialog-select-input">
               <MenuItem value="" disabled>
                 {t("Select Building")}
               </MenuItem>
               {this.state.buildingsList.map((building: any) => {
-                return <MenuItem key={building.id}>{building.name}</MenuItem>;
+                return (
+                  <MenuItem
+                    key={building.id}
+                    value={building.name}
+                    onClick={() => {
+                      this.setState({ buildingName: building.name }, () => {
+                        this.getFloorIdsList(building.id);
+                      });
+                    }}
+                  >
+                    {building.name}
+                  </MenuItem>
+                );
               })}
             </Select>
-            <Select value="" name="meetingType" displayEmpty className="dialog-select-input">
+            <Select
+              value={this.state.floorId}
+              displayEmpty
+              className="dialog-select-input"
+              onChange={(e: any) => {
+                this.setState({ floorId: e.target.value });
+              }}
+            >
               <MenuItem value="" disabled>
                 {t("Select Floor")}
               </MenuItem>
-              <MenuItem>GA Meeting</MenuItem>
-              <MenuItem>Regular Meeting</MenuItem>
+              {this.state.floorList.map((floor: any) => {
+                return (
+                  <MenuItem key={floor} value={floor}>
+                    {floor}
+                  </MenuItem>
+                );
+              })}
             </Select>
-            <Select value="" name="meetingType" displayEmpty className="dialog-select-input">
+            <Select
+              value={this.state.userType}
+              displayEmpty
+              className="dialog-select-input"
+              onChange={(e: any) => {
+                this.setState({ userType: e.target.value });
+              }}
+            >
               <MenuItem value="" disabled>
                 {t("User Type")}
               </MenuItem>
-              <MenuItem value="">{t("Owner")}</MenuItem>
-              <MenuItem value="">{t("Resident")}</MenuItem>
+              <MenuItem value="Owner">{t("Owner")}</MenuItem>
+              <MenuItem value="Resident">{t("Resident")}</MenuItem>
             </Select>
-            <Button className="filter-button" startIcon={<img src={SearchIconImage} />}>
+            <Button
+              className="filter-button"
+              startIcon={<img src={SearchIconImage} />}
+              onClick={() => {
+                this.setState({
+                  userFilter: {
+                    ...this.state.userFilter,
+                    buildingName: this.state.buildingName,
+                    floorId: this.state.floorId,
+                    userType: this.state.userType,
+                  },
+                });
+              }}
+            >
               {t("Search")}
             </Button>
           </DialogContent>

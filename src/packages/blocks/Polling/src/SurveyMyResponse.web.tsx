@@ -1,8 +1,4 @@
-//@ts-ignore
-//@ts-nocheck
-
 import * as React from "react";
-import DOMPurify from 'dompurify'
 // custom components
 import {
     Button, Grid, Box, TextField, Typography, LinearProgress,InputAdornment,Checkbox
@@ -15,13 +11,16 @@ import DateRangeOutlinedIcon from '@material-ui/icons/DateRangeOutlined';
 import { withRouter } from 'react-router';
 import SurveyParticipateController, {
   Props
-} from "./SurveyParticipateController.tsx";
+} from "./SurveyParticipateController";
 import Loader from "../../../components/src/Loader.web";
 import "./Polling.web.css"
 
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import Divider from "@material-ui/core/Divider";
+import {withTranslation} from "react-i18next";
+import '../../../web/src/i18n.js';
+
 const exampleQuestion = [
     {
         question:"Would you like to join events organized by building ? ",
@@ -81,21 +80,23 @@ class SurveyParticipate extends SurveyParticipateController {
         super(props);
     }
     render() {
+    // @ts-ignore
+    const {t} = this.props
     return (
         <>
           <Grid container>
               <Grid xs={10} style={{ display:"flex", alignItems:"center", gap:"1rem",margin:"10px 10px"}}>
                 <ArrowBackIcon onClick={() => this.props.history.push("/PollsSurvey")} style={{cursor:"pointer",marginLeft:"5px"}}/>
                 <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
-                    View My Response
+                    {t("View My Response")}
                 </p>
               </Grid>
               <Grid xs={12}>
               <Box style={{background: "#E5ECFF",height:"100%",display:'flex',flexDirection:"column",alignItems:'center'}}>
                   <Box style={{width:"95%"}}>
                       {
-                          this.state.SurveyQuestions.map((item,key) => {
-                              console.log("ITEM",item)
+                          this.state.SurveyQuestions.map((item:any,key:any) => {
+
                               return(
                                   <>
                                       <Box style={{margin:"1rem",display:'flex',flexDirection:"column",alignItems:'center'}}>
@@ -133,18 +134,17 @@ class SurveyParticipate extends SurveyParticipateController {
                                           <Box style={{width:"90%"}}>
                                               {
                                                   item.question_type !== "short_answers" &&
-                                                  item.survey_options.map((data, i) => {
+                                                  item.survey_options.map((data:any, i:any) => {
                                                       if(item.question_type === "options"){
                                                           return (
                                                               <>
                                                                   <Grid container key={i}>
                                                                       <Grid xs={12}>
-                                                                          <Box container key={data.id}
+                                                                          <Box key={data.id}
                                                                                style={{display:'flex',marginTop:'1rem', width:"90%",alignItems:'center'}}>
                                                                               <Box className="customRadioButton" style={{height:"100%",display:'flex',alignItems:"center",justifyContent:"flex-end"}}>
                                                                                   <input type="radio" id={data.id}
                                                                                          name="options" value={data.id}
-                                                                                         id={i}
                                                                                          disabled
                                                                                          style={{marginRight:"10px",marginBottom:"15px",fontSize:"2rem",fontFamily:"system-ui, sans-serif"}}
                                                                                          defaultChecked={this.state.questionOptionAnswer.find((item:any)=> item == data.id) ? true : false}
@@ -155,7 +155,6 @@ class SurveyParticipate extends SurveyParticipateController {
                                                                               <Box style={{width:"100%"}}>
                                                                                   <label
                                                                                       className="para"
-                                                                                      for={data.id}
                                                                                   >
                                                                                       <Box
                                                                                           style={{
@@ -185,10 +184,10 @@ class SurveyParticipate extends SurveyParticipateController {
                                                               <>
                                                                   <Grid container key={i}>
                                                                       <Grid xs={12}>
-                                                                          <Box container key={data.id}
+                                                                          <Box key={data.id}
                                                                                style={{display:'flex',marginTop:'1rem', width:"90%",alignItems:'baseline'}}>
                                                                               <Box >
-                                                                                  <Checkbox type="checkBox" id={data.id}
+                                                                                  <Checkbox id={data.id}
                                                                                             name="options" value={data.id}
                                                                                             style={{marginBottom:"15px"}}
                                                                                             icon={<RadioButtonUncheckedIcon style={{color:"#808080",marginTop:"10px"}}/>}
@@ -200,7 +199,6 @@ class SurveyParticipate extends SurveyParticipateController {
                                                                               <Box style={{width:"100%"}}>
                                                                                   <label
                                                                                       className="para"
-                                                                                      for={data.id}
                                                                                   >
                                                                                       <Box
                                                                                           style={{
@@ -232,7 +230,7 @@ class SurveyParticipate extends SurveyParticipateController {
                                               {
                                                   item.question_type !== "short_answers" &&
                                                   <Box style={{width:"92%"}}>
-                                                      <Typography varian="subtitle2" style={{fontWeight:"bold"}}>Please share your concern</Typography>
+                                                      <Typography variant="subtitle2" style={{fontWeight:"bold"}}>{t("Please share your concern")}</Typography>
                                                       <TextField
                                                           id="outlined-multiline-static"
                                                           multiline
@@ -271,7 +269,7 @@ class SurveyParticipate extends SurveyParticipateController {
     );
     }
 }
-export default withRouter(SurveyParticipate)
+export default  withTranslation()(withRouter(SurveyParticipate))
 
 const BorderLinearProgress = withStyles((theme) => ({
     root: {
