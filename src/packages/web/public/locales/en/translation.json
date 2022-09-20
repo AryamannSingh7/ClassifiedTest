@@ -244,7 +244,7 @@
   "Poll and surveys": "Poll and surveys",
   "Poll and survey": "Poll and survey",
   "Title of the Poll": "Title of the Poll",
-  "enter question": "enter question",
+  "enter question": "Enter question",
   "Create a New Polls/Survey": "Create a New Polls/Survey",
   "To discuss new vehicle guidlines": "To discuss new vehicle guidlines",
   "Choose Options": "Choose Options",
@@ -463,5 +463,18 @@
   "Info":"This section will allow you to invite new owners, residents, and team members to join the platform and start engaging with the building community",
   "Invitations":"Invitations",
   "Invitation sent on":"Invitation sent on",
-  "Search by name or unit number":"Search by name or unit number"
+  "Search by name or unit number":"Search by name or unit number",
+  "Response Details":"Response Details",
+  "Survey Name":"Survey Name",
+  "Poll Report": "Poll Report",
+  "DOWNLOAD REPORT": "DOWNLOAD REPORT",
+  "Survey Details": "Survey Details",
+  "Survey Report": "Survey Report",
+  "Survey Response Submitted": "Survey Response Submitted",
+  "Survey Response Submitted Description": "Your Event Planning Survey Response has been submitted successfully. You can check your response under View My Response section",
+  "View My Response": "View My Response",
+  "Please share your concern": "Please share your concern",
+  "Create Target Audience": "Create Target Audience",
+  "Enter Floor Number": "Enter Floor Number",
+  "Enter Unit Number. / Name": "Enter Unit Number. / Name"
 }
