@@ -20,6 +20,12 @@ class MyMeetings extends MyMeetingsController {
     this.getMinuteMeetingList();
   }
 
+  async componentDidUpdate(prevProps: any, prevState: any): Promise<void> {
+    if (prevState.filter !== this.state.filter) {
+      this.getScheduledMeetingList();
+    }
+  }
+
   render() {
     const { classes } = this.props;
     const { t }: any = this.props;
@@ -43,26 +49,28 @@ class MyMeetings extends MyMeetingsController {
                   </div>
                   <div className="right-icon">
                     <Menu
+                      className="sort-menu"
                       menuButton={
                         <IconButton>
                           <img src={SortIcon} alt="SortIcon" />
                         </IconButton>
                       }
                     >
-                      <MenuItem>{t("Ascending")}</MenuItem>
-                      <MenuItem>{t("Descending")}</MenuItem>
+                      <MenuItem onClick={() => this.setState({ filter: "asc" })}>{t("Ascending")}</MenuItem>
+                      <MenuItem onClick={() => this.setState({ filter: "desc" })}>{t("Descending")}</MenuItem>
                     </Menu>
                     <Menu
+                      className="filter-menu"
                       menuButton={
                         <IconButton>
                           <img src={FilterIcon} alt="FilterIcon" />
                         </IconButton>
                       }
                     >
-                      <MenuItem>{t("New")}</MenuItem>
-                      <MenuItem>{t("Accepted")}</MenuItem>
-                      <MenuItem>{t("Rejected")}</MenuItem>
-                      <MenuItem>{t("Cancelled")}</MenuItem>
+                      <MenuItem onClick={() => this.setState({ filter: "desc" })}>{t("New")}</MenuItem>
+                      <MenuItem onClick={() => this.setState({ filter: "accepted" })}>{t("Accepted")}</MenuItem>
+                      <MenuItem onClick={() => this.setState({ filter: "rejected" })}>{t("Rejected")}</MenuItem>
+                      <MenuItem onClick={() => this.setState({ filter: "canceled" })}>{t("Cancelled")}</MenuItem>
                     </Menu>
                   </div>
                 </Box>
@@ -113,7 +121,7 @@ class MyMeetings extends MyMeetingsController {
                                               meeting.attributes.meeting_date_time,
                                               "DD-MM-YYYY HH:mm",
                                               true
-                                            ).format("DD-MMM-YYYY HH:mm")}
+                                            ).format("MMMM DD, YYYY HH:mm")}
                                           </p>
                                         </Grid>
                                         <Grid item xs={12}>
@@ -186,7 +194,7 @@ class MyMeetings extends MyMeetingsController {
                                               meeting.attributes.meeting_date_time,
                                               "DD-MM-YYYY HH:mm",
                                               true
-                                            ).format("DD-MMM-YYYY HH:mm")}
+                                            ).format("MMMM DD, YYYY HH:mm")}
                                           </p>
                                         </Grid>
                                         <Grid item xs={12}>

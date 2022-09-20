@@ -133,7 +133,7 @@ class MeetingMinutes extends MeetingMinutesController {
                         className="select-input"
                       >
                         <MenuItem value="" disabled>
-                          <em>{t("Select Building")}</em>
+                          {t("Select Building")}
                         </MenuItem>
                         {this.state.buildingsList.map((building: any) => {
                           return <MenuItem value={building.name}>{building.name}</MenuItem>;
@@ -152,7 +152,7 @@ class MeetingMinutes extends MeetingMinutesController {
                       className="select-input"
                     >
                       <MenuItem value="" disabled>
-                        <em>{t("Select Status")}</em>
+                        {t("Select Status")}
                       </MenuItem>
                       <MenuItem value="pending">{t("Pending")}</MenuItem>
                       <MenuItem value="approved">{t("Approved")}</MenuItem>
@@ -205,7 +205,7 @@ class MeetingMinutes extends MeetingMinutesController {
                               ...this.state,
                               filter: {
                                 ...this.state.filter,
-                                title: e.target.value.trim(),
+                                title: e.target.value,
                               },
                             });
                           }}
@@ -238,11 +238,11 @@ class MeetingMinutes extends MeetingMinutesController {
                               <TableCell className="ellipse">{meeting.attributes.title}</TableCell>
                               <TableCell className="ellipse">{meeting.attributes.agenda}</TableCell>
                               {localStorage.getItem("userType") === ROLE.MANAGER && (
-                                <TableCell>{meeting.attributes.building.name}</TableCell>
+                                <TableCell>{meeting.attributes?.building?.name}</TableCell>
                               )}
                               <TableCell>
                                 {moment(meeting.attributes.meeting_date_time, "DD-MM-YYYY HH:mm", true).format(
-                                  "DD-MMM-YYYY HH:mm"
+                                  "MMMM DD, YYYY HH:mm"
                                 )}
                               </TableCell>
                               <TableCell>
