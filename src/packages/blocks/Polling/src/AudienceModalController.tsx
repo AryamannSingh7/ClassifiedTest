@@ -28,6 +28,7 @@ interface S {
   audienceName:any;
   isDataLoading:boolean;
   isSubmitLoading:boolean;
+  listOfBuilding:any;
 }
 
 interface SS {
@@ -47,6 +48,7 @@ export default class CoverImageController extends BlockComponent<
   getAudienceEditDataId :string = "";
   createAudienceId:string = "";
   updateAudienceId:string = "";
+  getBuldingDataId:string = "";
   constructor(props: Props) {
 
     super(props);
@@ -67,6 +69,7 @@ export default class CoverImageController extends BlockComponent<
       error:"",
       isDataLoading:false,
       isSubmitLoading:false,
+      listOfBuilding:[],
     };
 
     this.emailReg = new RegExp("");
@@ -84,6 +87,7 @@ export default class CoverImageController extends BlockComponent<
     if(this.props.isEdit){
       this.getAudienceEditData(this.props.isEdit)
     }
+    this.getBuldingData()
     this.getAudienceData()
   }
 
@@ -97,6 +101,19 @@ export default class CoverImageController extends BlockComponent<
       contentType: configJSON.exampleApiContentType,
       method: configJSON.httpGetMethod,
       endPoint: `/society_managements/${societyID}/bx_block_survey/survey_audiences/add_audience_member?search_building=${this.state.selectBuilding}&search_floor_number=${this.state.floorNumber}&user_type=${this.state.userType}&unit_number=${this.state.searchText}`,
+    });
+  }
+
+  getBuldingData = async () => {
+    const societyID = localStorage.getItem("society_id")
+    this.setState({
+      isDataLoading:true,
+      selectedAudience:[]
+    })
+    this.getBuldingDataId = await this.apiCall({
+      contentType: configJSON.exampleApiContentType,
+      method: configJSON.httpGetMethod,
+      endPoint: `/society_managements/${societyID}/bx_block_survey/survey_audiences/buiding_list`,
     });
   }
 
@@ -154,10 +171,12 @@ export default class CoverImageController extends BlockComponent<
           })
         }else{
           console.log("ERROR",responseJson)
+          this.setState({
+            isDataLoading:false
+          })
         }
       }
       if(this.createAudienceId === apiRequestCallId){
-        console.log("AUDIENCE CREATED",responseJson)
         if(responseJson.hasOwnProperty('data')){
           this.sentMessage("UPDATE_AUDIENCE_LIST")
           this.props.handleClose()
@@ -175,11 +194,30 @@ export default class CoverImageController extends BlockComponent<
         const updatedArray = responseJson.data.attributes?.accounts.map((item:any)=> {
           return item.id.toString()
         })
-        console.log("UPDATED ARRAY",updatedArray)
         this.setState({
           selectedAudience:updatedArray,
           audienceName:responseJson.data.attributes.audience_name
         })
+      }if(this.getBuldingDataId === apiRequestCallId){
+        console.log("BUILDINGS",responseJson)
+        if(responseJson.hasOwnProperty('buildings')){
+          this.setState({
+            listOfBuilding:responseJson?.buildings
+          })
+        }else{
+          console.log("Error",responseJson)
+        }
+      }
+      if(this.updateAudienceId === apiRequestCallId){
+        if(responseJson.hasOwnProperty('data')){
+          this.sentMessage("UPDATE_AUDIENCE_LIST")
+          this.props.handleClose()
+        }else{
+          this.setState({
+            isSubmitLoading:false,
+            error:"Something went wrong."
+          })
+        }
       }
     }
   }
@@ -231,7 +269,7 @@ export default class CoverImageController extends BlockComponent<
       if(this.props.isEdit){
         const response = {
           survey_audience:{
-            group_name:this.state.audienceName,
+            audience_name:this.state.audienceName,
             account_ids:this.state.selectedAudience,
           }
         }

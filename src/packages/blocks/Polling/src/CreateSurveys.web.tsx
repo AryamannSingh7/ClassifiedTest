@@ -111,9 +111,11 @@ class CreateSurveys extends CreateSurveyController {
                             <Typography variant="h4" className="subHeading">{t("Create a Survey")}</Typography>
                         </Box>
                     </Box>
+                    <Box style={{marginTop:"50px"}}>
 
+                    </Box>
                     <form>
-                        <Grid container spacing={4} style={{marginTop: 4}}>
+                        <Grid container spacing={4}>
                             <Grid item sm={12} md={12} xs={12}>
                                 <Box className="createPSCards">
                                     <TextField label={t("Name of the Survey")} variant="outlined"
@@ -176,7 +178,7 @@ class CreateSurveys extends CreateSurveyController {
                                         <Typography variant="subtitle1">Description</Typography>
                                         <InfoIcon style={{color:"grey", fontSize:18}}/>
                                     </Box>
-                                    <Box className="descriptionEditor">
+                                    <Box className="descriptionEditor" style={{maxHeight:"200px",overflow:"hidden"}}>
                                         <TextEditor
                                             markup={this.state.textEditor}
                                             onChange={this.onChangeTextEditor} />

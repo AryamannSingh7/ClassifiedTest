@@ -112,8 +112,7 @@ class CreatePolls extends PollingController {
                                                         <DateRangeOutlinedIcon />
                                                     </InputAdornment>
                                                 ),
-                                            }
-                                            }
+                                            }}
                                         />
                                         <p style={{color:"red"}}>{this.state.pollDateError}</p>
                                     </Box>
