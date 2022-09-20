@@ -59,7 +59,7 @@ class FamilyList extends FamilyController {
                 <Grid container style={{height:'85%',overflowX:'auto'}}>
                   {
                       this.state.allVehcile.map(item=><>
-                        <Grid xs={12} key={item.id} className="card fam">
+                        <Grid xs={12} key={item.id} className="card fam" style={{margin:'0.25rem'}}>
                           <div className="flex">
                             <div style={{display:"flex",alignItems:'center',gap:'0.5rem'}}>
 

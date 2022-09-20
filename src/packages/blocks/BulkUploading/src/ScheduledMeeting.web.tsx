@@ -403,9 +403,9 @@ class ScheduledMeeting extends ScheduledMeetingController {
                               name="date"
                               className="date"
                               min={moment().format("YYYY-MM-DD")}
-                              type="date"
+                              type="text"
                               placeholder={t("Date")}
-                              // onFocus={(e: any) => (e.target.type = "date")}
+                              onFocus={(e: any) => (e.target.type = "date")}
                             />
                           </div>
                           {errors.date && touched.date && <small className="error">{t(errors.date)}</small>}
@@ -423,9 +423,9 @@ class ScheduledMeeting extends ScheduledMeetingController {
                               onBlur={handleBlur}
                               name="time"
                               fullWidth
-                              type="time"
+                              type="text"
                               placeholder={t("Time")}
-                              // onFocus={(e: any) => (e.target.type = "time")}
+                              onFocus={(e: any) => (e.target.type = "time")}
                             />
                           </div>
                           {errors.time && touched.time && <small className="error">{t(errors.time)}</small>}
