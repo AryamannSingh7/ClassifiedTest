@@ -1,7 +1,7 @@
 import * as React from "react";
 // custom components
 import {
-  Button, Grid, Box, Typography, Link, IconButton, FormControl, InputLabel, Select, MenuItem, Avatar, Checkbox, Dialog, DialogActions
+  Button, Grid, Box, Typography, Link, IconButton, FormControl, InputLabel, Select, MenuItem, Avatar, Checkbox, Dialog, DialogActions, RadioGroup, FormControlLabel, Radio
 } from "@material-ui/core";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
@@ -35,17 +35,17 @@ class EditProfile extends ProfileController {
         <Grid container spacing={2} className="auth-container">
           <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset' }}>
             <Grid container>
-              <Grid xs={12} style={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid #f2f2f2' }}>
-                <ArrowBackIcon onClick={() => window.history.back()} />
+              <Grid xs={12} style={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid #f2f2f2',gap:'0.25rem',marginTop:'1rem' }}>
+                <ArrowBackIcon onClick={() => window.history.back()} /> {" "}
                 <p style={{ fontWeight: 600, fontSize: '1.25rem' }}>
 
-                  Edit My Profile
+                 {" "} Edit My Profile
                 </p>
               </Grid>
             </Grid>
             <div>
 
-              <Grid container className="main-content-block">
+              <Grid container className="main-content-block" style={{marginTop:'1rem'}}>
                 <Grid xs={12}>
                   <Formik initialValues={{
                     bannerUrl:'',
@@ -56,6 +56,7 @@ class EditProfile extends ProfileController {
                     male: profileData?.attributes?.gender?.gender === 'Male' ? true : false,
                     female: profileData?.attributes?.gender?.gender === 'Female' ? true : false,
                     DOB: profileData?.attributes?.date_of_birth?.date_of_birth,
+                    gender: profileData?.attributes?.gender?.gender,
                     hobbies: profileData?.attributes?.hobbies?.hobbies ? profileData?.attributes?.hobbies?.hobbies :[] ,
                     twitter: profileData?.attributes?.website[0].twitter_link,
                     fb: profileData?.attributes?.website[2].fb_link,
@@ -143,7 +144,7 @@ class EditProfile extends ProfileController {
                               className="formInput"
                               name="full_name"
                               value={values.full_name}
-                              placeholder={"Enter you name"}
+                              placeholder={"Enter your name"}
 
                             />
                             <span className="frmLeftIcons">
@@ -251,7 +252,7 @@ class EditProfile extends ProfileController {
                               value={values.email}
 
                               name="email"
-                              placeholder={"Enter your email"}
+                              placeholder={"Email ID"}
 
                             />
                             <span className="frmLeftIcons">
@@ -309,16 +310,25 @@ class EditProfile extends ProfileController {
                               Gender
                             </div>
 
-                            <div>
+                            <div style={{display:'flex'}}>
+                              <div>
+                                <RadioGroup
+                                  aria-labelledby="demo-radio-buttons-group-label"
+                                  name="radio-buttons-group"
+                                  defaultValue={values.gender}
+                                  style={{ display: 'flex',flexDirection:'row' }}
+                                >
+                                  {/* <FormControlLabel name={values.gender} value="Female" control={<Radio />} label="Female" /> */}
+                                  <FormControlLabel name='gender' onChange={handleChange} value="Male" control={<Radio />} label="Male" style={{ paddingRight: 30, borderRadius: 25, border: '1px solid #e9dede' }} />
+                                  <FormControlLabel name='gender' onChange={handleChange} value="Female" control={<Radio />} label="Female" style={{ paddingRight: 30, borderRadius: 25, border: '1px solid #e9dede' }} />
 
-                              <Checkbox name="male" onChange={handleChange} checked={values.male} icon={<CircleUnchecked />}
+                                </RadioGroup>
+                              {/* <Checkbox name="male" onChange={handleChange} checked={values.male} icon={<CircleUnchecked />}
                                 checkedIcon={<CircleCheckedFilled />} id="loginCheckbox"
                               />
-                              <label htmlFor="loginCheckbox" className="checkboxLabel">Male</label>
-                              <Checkbox name="female" onChange={handleChange} checked={values.female} icon={<CircleUnchecked />}
-                                checkedIcon={<CircleCheckedFilled />} id="loginCheckbox"
-                              />
-                              <label htmlFor="loginCheckbox" className="checkboxLabel">Female</label>
+                              <label htmlFor="loginCheckbox" className="checkboxLabel">Male</label> */}
+                              </div>
+
                               </div>
                            </Box>
                           {/* DOB */}
