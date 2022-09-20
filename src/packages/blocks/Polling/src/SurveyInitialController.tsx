@@ -74,6 +74,7 @@ export default class SurveyInitialController extends BlockComponent<
     if(window.location.search !== ""){
       this.getSurveyPreviewAnswer()
     }
+    console.log("LOCATION",this.props)
   }
 
   getSurveyPreviewAnswer = async () => {
