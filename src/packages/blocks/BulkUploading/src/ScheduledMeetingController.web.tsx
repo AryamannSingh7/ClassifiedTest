@@ -452,10 +452,8 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
 
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      console.log(responseJson);
-
       if (responseJson.data) {
-        this.setState({ userList: responseJson.data.data });
+        this.setState({ userList: responseJson.data });
       }
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
@@ -737,7 +735,20 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
       .matches(/\S/, "Required"),
     time: Yup.string()
       .required("Required")
-      .matches(/\S/, "Required"),
+      .matches(/\S/, "Required")
+      .when("date", (date, schema) => {
+        const newDate = date && moment(date, "YYYY-MM-DD").format("DD-MM-YYYY");
+        return schema.test({
+          test: (time: any) => {
+            if (date && time) {
+              const test = moment(newDate + ` ${time}`, "DD-MM-YYYY HH:mm").format("YYYY-MM-DD HH:mm");
+              return moment(test).isAfter(new Date());
+            }
+            return true;
+          },
+          message: "You have entered past time!",
+        });
+      }),
     // momWriter: Yup.string()
     //   .required("Required")
     //   .matches(/\S/, "Required"),
