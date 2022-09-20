@@ -123,7 +123,7 @@ export default class ProfileController extends BlockComponent<
     this.isStringNullOrBlank = this.isStringNullOrBlank.bind(this);
 
     runEngine.attachBuildingBlock(this, this.subScribedMessages);
-
+    const profileData = JSON.parse(localStorage.getItem('profileData'))
     this.state = {
       // Customizable Area Start
       firstName: "",
@@ -148,8 +148,8 @@ export default class ProfileController extends BlockComponent<
       selectBuilding: '',
       allUnit: [],
       selectUnit: '',
-      selectCode: '+966',
-      selectCode2: '+966',
+      selectCode: `+${profileData?.attributes?.full_phone_number?.country_code}` || '+966' ,
+      selectCode2: `+${profileData?.attributes?.full_phone_number?.country_code}` || '+966',
       selectEmail: '',
       unitRegisterType: '',
       allComplex: [],

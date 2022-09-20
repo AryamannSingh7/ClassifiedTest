@@ -28,14 +28,12 @@ class EditProfile extends ProfileController {
     // @ts-ignore
 // @ts-nocheck
     let profileData:any = JSON.parse(localStorage.getItem('profileData'))
-
     return (
-
       <>
         <Grid container spacing={2} className="auth-container">
           <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset' }}>
             <Grid container>
-              <Grid xs={12} style={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid #f2f2f2',gap:'0.25rem',marginTop:'1rem' }}>
+              <Grid xs={12} style={{ display: 'flex', alignItems: 'center', borderBottom: '3px solid #f2f2f2',gap:'0.25rem',marginTop:'1.25rem', }}>
                 <ArrowBackIcon onClick={() => window.history.back()} /> {" "}
                 <p style={{ fontWeight: 600, fontSize: '1.25rem' }}>
 
@@ -45,7 +43,7 @@ class EditProfile extends ProfileController {
             </Grid>
             <div>
 
-              <Grid container className="main-content-block" style={{marginTop:'1rem'}}>
+              <Grid container className="main-content-block" style={{marginTop:'1.5rem'}}>
                 <Grid xs={12}>
                   <Formik initialValues={{
                     bannerUrl:'',
@@ -316,11 +314,12 @@ class EditProfile extends ProfileController {
                                   aria-labelledby="demo-radio-buttons-group-label"
                                   name="radio-buttons-group"
                                   defaultValue={values.gender}
-                                  style={{ display: 'flex',flexDirection:'row' }}
+                                  style={{ display: 'flex',flexDirection:'row',marginTop:'0.25rem' }}
                                 >
                                   {/* <FormControlLabel name={values.gender} value="Female" control={<Radio />} label="Female" /> */}
-                                  <FormControlLabel name='gender' onChange={handleChange} value="Male" control={<Radio />} label="Male" style={{ paddingRight: 30, borderRadius: 25, border: '1px solid #e9dede' }} />
-                                  <FormControlLabel name='gender' onChange={handleChange} value="Female" control={<Radio />} label="Female" style={{ paddingRight: 30, borderRadius: 25, border: '1px solid #e9dede' }} />
+                                  <FormControlLabel className={values.gender == 'Female' ? 'active':'unactive'} name='gender' onChange={handleChange} value="Female" control={<Radio />} label="Female" style={{ paddingRight: 30, borderRadius: 25, border: '1px solid #e9dede' }}  />
+                                  <FormControlLabel
+                                    className={values.gender == 'Male' ? 'active' : 'unactive'} name='gender' onChange={handleChange} value="Male" control={<Radio />} label="Male" style={{ paddingRight: 30, borderRadius: 25, border: '1px solid #e9dede' }} />
 
                                 </RadioGroup>
                               {/* <Checkbox name="male" onChange={handleChange} checked={values.male} icon={<CircleUnchecked />}
