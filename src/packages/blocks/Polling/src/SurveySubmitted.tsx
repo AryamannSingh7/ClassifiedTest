@@ -11,12 +11,16 @@ import SurveyParticipateController, {
 } from "./SurveyParticipateController";
 import Loader from "../../../components/src/Loader.web";
 import "./Polling.web.css"
+import {withTranslation} from "react-i18next";
+import '../../../web/src/i18n.js';
 
 class SurveyParticipate extends SurveyParticipateController {
     constructor(props: Props) {
         super(props);
     }
     render() {
+    // @ts-ignore
+    const {t} = this.props
     return (
         <>
           <Grid container>
@@ -24,18 +28,18 @@ class SurveyParticipate extends SurveyParticipateController {
                 <ArrowBackIcon onClick={() => this.props.history.push("/PollsSurvey")} style={{cursor:"pointer",marginLeft:"5px"}}/>
               </Grid>
               <Grid xs={12}>
-              <Box style={{background: "#E5ECFF",height:"94.5vh",display:'flex',flexDirection:"column",alignItems:'center'}}>
+              <Box style={{height:"94.5vh",display:'flex',flexDirection:"column",alignItems:'center'}}>
                 <Box style={{display:'flex',flexDirection:"column",alignItems:"center",justifyContent:"center",height:"100%"}}>
                     <img src={success} style={{marginBottom:"15px"}} />
-                    <Typography variant="h4" style={{textAlign:'center',fontFamily: "Century Gothic",fontWeight:"bold"}}>
-                        Survey Response Submitted
+                    <Typography variant="h5" style={{textAlign:'center',fontFamily: "Century Gothic",fontWeight:"bold"}}>
+                        {t("Survey Response Submitted")}
                     </Typography>
                     <Typography variant="body1" style={{textAlign:'center',fontFamily: "Century Gothic",marginTop:"30px",width:"90%"}}>
-                        Your Event Planning Survey Response has been submitted successfully. You can check your response under View My Response section
+                        {t("Survey Response Submitted Description")}
                     </Typography>
                 </Box>
                 <Box style={{width:"90%",marginBottom:"25px"}}>
-                    <OkButton fullWidth onClick={() => this.props.history.push("/pollsSurvey")}>Okay</OkButton>
+                    <OkButton fullWidth size="large" onClick={() => this.props.history.push("/pollsSurvey")}>{t("Okay")}</OkButton>
                 </Box>
               </Box>
           </Grid>
@@ -44,7 +48,7 @@ class SurveyParticipate extends SurveyParticipateController {
     );
     }
 }
-export default withRouter(SurveyParticipate)
+export default withTranslation()(withRouter(SurveyParticipate));
 
 const BorderLinearProgress = withStyles((theme) => ({
     root: {
@@ -66,6 +70,7 @@ const OkButton = withStyles((theme) => ({
         backgroundColor: "#2b6fed",
         fontWeight:"bold",
         height:"45px",
+        fontSize:"16px",
         textTransform:"initial",
         borderRadius:"100px",
         '&:hover': {
