@@ -58,11 +58,6 @@ export interface S {
   profiledata:any;
   values:any,
   showDialogDelete:boolean
-
-
-
-
-
   // Customizable Area End
 }
 
@@ -128,7 +123,7 @@ export default class ProfileController extends BlockComponent<
     this.isStringNullOrBlank = this.isStringNullOrBlank.bind(this);
 
     runEngine.attachBuildingBlock(this, this.subScribedMessages);
-
+    const profileData = JSON.parse(localStorage.getItem('profileData'))
     this.state = {
       // Customizable Area Start
       firstName: "",
@@ -153,8 +148,8 @@ export default class ProfileController extends BlockComponent<
       selectBuilding: '',
       allUnit: [],
       selectUnit: '',
-      selectCode: '+966',
-      selectCode2: '+966',
+      selectCode: `+${profileData?.attributes?.full_phone_number?.country_code}` || '+966' ,
+      selectCode2: `+${profileData?.attributes?.full_phone_number?.country_code}` || '+966',
       selectEmail: '',
       unitRegisterType: '',
       allComplex: [],
@@ -263,10 +258,11 @@ export default class ProfileController extends BlockComponent<
                //@ts-ignore
             //@ts-nocheck
             let profileData:any = JSON.parse(localStorage.getItem('profileData'))
-            profileData.attributes.full_phone_number.phone_number =responseJson.phone_number
+            profileData.attributes.full_phone_number.phone_number = responseJson.phone_number
+            profileData.attributes.full_phone_number.country_code = responseJson.country_code
             localStorage.setItem('profileData',JSON.stringify(profileData))
             this.setState({ selectCode: responseJson.country_code })
-            location.reload();
+            // location.reload();
 
           } else if (responseJson?.errors) {
             let error = responseJson.errors[0];
@@ -1032,9 +1028,6 @@ this.setState({loading:false})
     if (this.state.userType) {
 
       if (this.state.userType === 'Owner') {
-        //@ts-ignore
-        //@ts-nocheck
-
         this.props.history.push({
           pathname: '/registerowner',
           state: {

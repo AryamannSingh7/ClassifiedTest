@@ -463,5 +463,18 @@
   "Info":"سيسمح لك هذا القسم بدعوة المالكين والمقيمين وأعضاء الفريق الجدد للانضمام إلى النظام الأساسي والبدء في التفاعل مع مجتمع المبنى",
   "Invitations":"الدعوات",
   "Invitation sent on":"تم إرسال الدعوة في",
-  "Search by name or unit number":"البحث بالاسم أو رقم الوحدة"
+  "Search by name or unit number":"البحث بالاسم أو رقم الوحدة",
+  "Response Details":"تفاصيل الرد",
+  "Survey Name":"اسم الاستطلاع",
+  "Poll Report": "تقرير الاستطلاع",
+  "DOWNLOAD REPORT": "قم بتنزيل التقرير",
+  "Survey Details": "تفاصيل المسح",
+  "Survey Report": "تقرير استطلاع",
+  "Survey Response Submitted": "تم إرسال الرد على الاستبيان",
+  "Survey Response Submitted Description": "تم إرسال ردك على استبيان تخطيط الحدث بنجاح. يمكنك التحقق من إجابتك ضمن قسم عرض ردي",
+  "View My Response": "عرض ردي",
+  "Please share your concern": "يرجى مشاركة قلقك",
+  "Create Target Audience": "إنشاء الجمهور المستهدف",
+  "Enter Floor Number": "أدخل رقم الطابق",
+  "Enter Unit Number. / Name": 
 }

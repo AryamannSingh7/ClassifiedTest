@@ -30,9 +30,10 @@ import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import SearchIcon from '@material-ui/icons/Search';
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
-import AudienceModal from "./AudienceModal.web";
 import Modal from "@material-ui/core/Modal";
 import SurveryResponse from "./SurveyResponseModal.web"
+import { withTranslation } from 'react-i18next';
+import '../../../web/src/i18n.js';
 function createData(name:any, unit:any, response:any) {
     return { name, unit, response};
 }
@@ -59,8 +60,7 @@ class PollReport extends SurveyReportController {
   }
 
   render() {
-    console.log("poll pollPreviewAnswer #######", this.state.pollPreviewAnswer?.poll?.data,this.props.location.state)
-    console.log("POLL REPORT: ",this.state.generatePollReport)
+    const {t} = this.props
     return ( 
       <>
     <Box style={{background: "#E5ECFF"}}>
@@ -79,13 +79,13 @@ class PollReport extends SurveyReportController {
                         <Box className="navigation">
                             <Box>
                                 <Typography variant="body1" >
-                                Poll and survey / Create a Survey / Survey Details/ <Box component="span" style={{color: "blue"}}>Survey Report</Box>
+                                    {t("Poll and survey")} / {t("Create a Survey")} / {t("Survey Details")}/ <Box component="span" style={{color: "blue"}}>{t("Survey Report")}</Box>
                                 </Typography>
-                                <Typography variant="h5" className="subHeading">Survey Report</Typography>
+                                <Typography variant="h5" className="subHeading">{t("Survey Report")}</Typography>
                             </Box>  
                             <Box className="downloadReport">
                                 <button onClick={this.handleDownload} className="reportbtn">
-                                    DOWNLOAD REPORT
+                                    {t("DOWNLOAD REPORT")}
                                 </button>
                             </Box>
                         </Box>
@@ -93,7 +93,7 @@ class PollReport extends SurveyReportController {
                     <Grid style={{marginTop: "2rem", marginBottom:"5rem"}} className="PollResponseMain">
                         <Grid item sm={12} md={12} xs={12}>
                             <Box class="tableTopSearch">
-                                <h4>Survey Title Name</h4>
+                                <h4>{this.state.surveyName}</h4>
                                 <div className="searchBox">
                                     <div className="searchIcon">
                                     <SearchIcon />
@@ -115,9 +115,9 @@ class PollReport extends SurveyReportController {
                                     <TableHead>
                                         <TableRow>
                                             <TableCell style={{fontWeight:"600"}}>#</TableCell>
-                                            <TableCell style={{fontWeight:"600"}} align="start">Name</TableCell>
-                                            <TableCell style={{fontWeight:"600"}} align="start">Unit Number</TableCell>
-                                            <TableCell style={{fontWeight:"600"}} align="start">Response</TableCell>
+                                            <TableCell style={{fontWeight:"600"}} align="start">{t("Name")}</TableCell>
+                                            <TableCell style={{fontWeight:"600"}} align="start">{t("Unit Number")}</TableCell>
+                                            <TableCell style={{fontWeight:"600"}} align="start">{t("Response")}</TableCell>
                                         </TableRow>
                                     </TableHead>
                                     {
@@ -139,7 +139,7 @@ class PollReport extends SurveyReportController {
 
                                                         }
                                                     </TableCell>
-                                                    <TableCell align="start"><Button variant="contained" color="inherit" onClick={()=>this.handleOpenAudienceModal(row.response_details)}>View</Button></TableCell>
+                                                    <TableCell align="start"><Button variant="contained" color="inherit" onClick={()=>this.handleOpenAudienceModal(row.response_details)}>{t("View")}</Button></TableCell>
                                                 </TableRow>
                                             ))}
                                         </TableBody>
@@ -149,7 +149,7 @@ class PollReport extends SurveyReportController {
 
                             <Divider />
                             <Box className="TableHeader">
-                                <h5>Showing {this.state.reportPagination.total_count > 10 ? (this.state.reportPagination.total_count * this.state.reportPagination.page) : this.state.reportPagination.total_count} of {this.state.reportPagination.total_count} results</h5>
+                                <h5>{t("Showing")} {this.state.reportPagination.total_count > 10 ? (this.state.reportPagination.total_count * this.state.reportPagination.page) : this.state.reportPagination.total_count} of {this.state.reportPagination.total_count} {t("results")}</h5>
                                 <Pagination count={Math.round(this.state.reportPagination.total_count/10)} onChange={this.handleReportPagination} variant="outlined" shape="rounded" />
                             </Box>
                         </Grid>
@@ -183,7 +183,7 @@ class PollReport extends SurveyReportController {
   }
 }
 
-export default withRouter(PollReport)
+export default withTranslation()(withRouter(PollReport));
 
 const dashBoard = {
     SideBar: {

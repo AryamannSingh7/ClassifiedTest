@@ -92,12 +92,12 @@ class SurveyParticipate extends SurveyParticipateController {
               <Grid xs={12}>
               <Box style={{background: "#E5ECFF",minHeight:"100vh",display:'flex',flexDirection:"column",alignItems:'center',justifyContent:"space-between"}}>
                       <Box style={{width:"95%"}}>
-                          <Box style={{marginTop:"10px"}}>
-                              <BorderLinearProgress variant="determinate" value={(100/(this.state.totalQuestion+1))*(this.state.currentQuestion+1)}/>
+                          <Box style={{marginTop:"15px",marginBottom:"10px"}}>
+                              <BorderLinearProgress variant="determinate" value={(100/(this.state.totalQuestion+1))*(this.state.currentQuestion+1)} style={{border:".5px gray"}}/>
                           </Box>
                           <Box style={{margin:"1rem",display:'flex',flexDirection:"column",alignItems:'center'}}>
-                              <Box>
-                                  <p style={{ fontSize: '1rem', fontWeight: 600}}>
+                              <Box style={{marginLeft: "-10px",width:"90%"}}>
+                                  <p style={{ fontSize: '1rem', fontWeight: 600,textAlign:"left"}}>
                                       {
                                           this.state.SurveyQuestions[this.state.currentQuestion]?.title
                                       }
@@ -105,7 +105,7 @@ class SurveyParticipate extends SurveyParticipateController {
                               </Box>
                               {
                                   this.state.SurveyQuestions[this.state.currentQuestion]?.question_type === "short_answers" &&
-                                  <Box style={{marginLeft: "-15px",width:"90%"}}>
+                                  <Box style={{marginLeft: "-10px",width:"90%"}}>
                                       <TextField
                                           id="outlined-multiline-static"
                                           multiline
@@ -140,7 +140,6 @@ class SurveyParticipate extends SurveyParticipateController {
                                                                   <Box className="customRadioButton" style={{height:"100%",display:'flex',alignItems:"center",justifyContent:"flex-end"}}>
                                                                       <input type="radio" id={data.id}
                                                                              name="options" value={data.id}
-                                                                             id={i}
                                                                              style={{marginRight:"10px",marginBottom:"15px",fontSize:"2rem",fontFamily:"system-ui, sans-serif"}}
                                                                              defaultChecked={this.state.questionOptionAnswer.find((item:any)=> item == data.id) ? true : false}
                                                                              onChange={(e) => this.getPollSelectedAnswer(e.target.value)}
@@ -161,7 +160,7 @@ class SurveyParticipate extends SurveyParticipateController {
                                                                                   color: "#F7F7FC",
                                                                                   fontWeight: 600,
                                                                                   fontSize: '1rem',
-                                                                                  width:"100%",
+                                                                                  width:"95%",
                                                                                   padding: '1rem'
                                                                               }}
                                                                           >
@@ -181,18 +180,18 @@ class SurveyParticipate extends SurveyParticipateController {
                                                       <Grid container key={i}>
                                                           <Grid xs={12}>
                                                               <Box container key={data.id}
-                                                                   style={{display:'flex',marginTop:'1rem', width:"90%",alignItems:'baseline'}}>
+                                                                   style={{display:'flex',marginTop:'1rem', width:"90%",alignItems:'baseline',marginLeft:"-12px"}}>
                                                                   <Box >
                                                                       <Checkbox type="checkBox" id={data.id}
                                                                                 name="options" value={data.id}
                                                                                 style={{marginBottom:"15px"}}
                                                                                 icon={<RadioButtonUncheckedIcon style={{color:"#808080",marginTop:"10px"}}/>}
                                                                                 checkedIcon={<RadioButtonCheckedIcon style={{color:"#2B6FEC",marginTop:"10px"}}/>}
-                                                                                defaultChecked={this.state.questionOptionAnswer.find((item:any)=> item == data.id) ? true : false}
+                                                                                checked={this.state.questionOptionAnswer.find((item:any)=> item == data.id) ? true : false}
                                                                                 onChange={(e) => this.getPollSelectedMultiAns(e.target.value)}
                                                                       />
                                                                   </Box>
-                                                                  <Box style={{width:"100%"}}>
+                                                                  <Box style={{width:"100%",cursor:"pointer"}} onClick={()=>this.getPollSelectedMultiAns(data.id)}>
                                                                       <label
                                                                           className="para"
                                                                           for={data.id}
@@ -206,7 +205,7 @@ class SurveyParticipate extends SurveyParticipateController {
                                                                                   color: "#F7F7FC",
                                                                                   fontWeight: 600,
                                                                                   fontSize: '1rem',
-                                                                                  width:"100%",
+                                                                                  width:"98%",
                                                                                   padding: '1rem'
                                                                               }}
                                                                           >
@@ -226,7 +225,7 @@ class SurveyParticipate extends SurveyParticipateController {
                                   }
                                   {
                                       this.state.SurveyQuestions[this.state.currentQuestion]?.question_type !== "short_answers" &&
-                                      <Box style={{width:"92%"}}>
+                                      <Box style={{width:"93%",marginTop:"15px"}}>
                                           <Typography varian="subtitle2" style={{fontWeight:"bold"}}>Please share your concern</Typography>
                                           <TextField
                                               id="outlined-multiline-static"
@@ -236,7 +235,7 @@ class SurveyParticipate extends SurveyParticipateController {
                                               onChange={this.handleShortAns}
                                               variant="filled"
                                               fullWidth
-                                              style={{marginTop:"15px",border:"1px solid gray",borderRadius:"15px"}}
+                                              style={{marginTop:"15px",border:".5px solid gray",borderRadius:"15px",overflow:"hidden"} }
                                               InputProps={{
                                                   startAdornment: (
                                                       <InputAdornment position="start">

@@ -143,7 +143,7 @@ class PollsSurvey extends PollingController {
                               onClick={() => this.handlePollSurveyNavigation(item?.attributes?.flag,item.attributes.type_name,item.id)}
                           >
                               <Box style={{minWidth:"100%"}}>
-                                  <Box marginTop='1rem'><p>{item.attributes.type_name}</p></Box>
+                                  <Box marginTop='1rem' style={{textTransform:"capitalize"}}><p>{item.attributes.type_name}</p></Box>
                                   <Box marginTop='1rem'><h4>{item.attributes.title}</h4></Box>
                                   <Box marginTop='0.4rem' style={{width:"95%",overflow:"hidden"}}>
                                       <p
@@ -221,10 +221,10 @@ class PollsSurvey extends PollingController {
                           marginTop='2rem'
                           padding='1rem'
                           key={items.id}
-                          onClick={() => this.props.history.push("/PollVoteView?id="+items.id)}
+                          onClick={() => this.handlePollSurveyNavigationOld(items?.attributes?.flag,items.attributes.type_name,items.id)}
                         >
                           <Box style={{minWidth:"100%"}}>
-                            <Box marginTop='1rem'><p>{items.attributes.type_name}</p></Box>
+                            <Box marginTop='1rem' style={{textTransform:"capitalize"}}><p>{items.attributes.type_name}</p></Box>
                             <Box marginTop='1rem' style={{width:"95%",overflow:"hidden"}}><h4>{items.attributes.title}</h4></Box>
                             <Box marginTop='0.4rem' >
                               <p

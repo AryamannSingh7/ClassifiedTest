@@ -35,17 +35,24 @@ class SurveyInitial extends SurveyInitialController {
           </Grid>
         </Grid>
 
-    <Box style={{background: "#E5ECFF",minHeight:"100vh",display:'flex',flexDirection:"column",alignItems:'center',justifyContent:"space-between"}}>
+    <Box style={{background: "#E5ECFF",height:"100%",display:'flex',flexDirection:"column",alignItems:'center',justifyContent:"space-between"}}>
         <Box>
             <Grid container style={{ margin: '1rem 1rem', width: '90%' }}>
                 <Grid xs={12} style={{ display:"flex", alignItems:"center", justifyContent:"space-between"}}>
                     <Grid xs={12} style={{ display:"flex", alignItems:"center", gap:".5rem"}}>
-                        <p style={{ fontSize: '1rem', fontWeight: 600 }}>
+                        <p className="textwrapStatus" style={{ fontSize: '1rem', fontWeight: 600 }}>
                             {this.state.SurveyPreviewAnswer.title}
                         </p>
                     </Grid>
                     <Box className="EventsIconsText">
-                        <p className="statusCompleted" style={{fontWeight: 600}}>Ongoing</p>
+                        {
+                            this.state.SurveyPreviewAnswer?.status == "ongoing" &&
+                            <Typography variant="body2" className={"statusOngoingRed"}>{this.state.SurveyPreviewAnswer?.status}</Typography>
+                        }
+                        {
+                            this.state.SurveyPreviewAnswer?.status == "completed" &&
+                            <Typography variant="body2" className={"statusOngoingGreen"}>{this.state.SurveyPreviewAnswer?.status}</Typography>
+                        }
                     </Box>
                 </Grid>
             </Grid>
@@ -125,8 +132,16 @@ class SurveyInitial extends SurveyInitialController {
             </Grid>
         </Box>
         <Grid container style={{width: '90%',marginBottom:"50px"}}>
-          <Button variant="contained" onClick={() => this.props.history.push(`/SurveyParticipate?id=${this.state.SurveyPreviewAnswerID}`)} fullWidth style={{borderRadius:"50px",}} size="large" color="primary">Take The Survey</Button>
-        </Grid>
+            {
+                console.log("FLAG FOR SURVEY GIVEN OR NOT",this.state.SurveyPreviewAnswer.flag)
+            }
+            {
+                this.state.SurveyPreviewAnswer.flag ?
+                    <Button variant="contained" onClick={() => this.props.history.push(`SurveyResponse?id=${this.state.SurveyPreviewAnswerID}`)} fullWidth style={{borderRadius:"50px",}} size="large" color="primary">View My Response</Button>
+                    :
+                    <Button variant="contained" onClick={() => this.props.history.push(`/SurveyParticipate?id=${this.state.SurveyPreviewAnswerID}`)} fullWidth style={{borderRadius:"50px",}} size="large" color="primary">Take The Survey</Button>
+            }
+          </Grid>
     </Box>
 
       </>

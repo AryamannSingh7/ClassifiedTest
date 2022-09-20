@@ -156,10 +156,14 @@ class Polling extends PollingController {
                             </Box>
                             <Typography className="subHeading">{t("Surveys Created")}</Typography>
                             <Box className="bottomTwoSpan">
-                                <Typography variant="body2" className="bottomColor">344</Typography>
+                                <Typography variant="body2" className="bottomColor">
+                                    {this.state.totalSurveyCount.survey_count ? this.state.totalSurveyCount.survey_count : ''}
+                                </Typography>
                             </Box>
                             <Box className="bottomTwoSpan">
-                                <Typography variant="body2">{t("Last Survey created on")} 12-02-2022</Typography>
+                                <Typography variant="body2">{t("Last Survey created on")} {" "}
+                                    {this.state.totalSurveyCount.last_survey_created_at ? this.state.totalSurveyCount.last_survey_created_at : ''}
+                                </Typography>
                             </Box>
                         </Box>
                     </Grid>
@@ -381,4 +385,5 @@ const dashBoard = {
         paddingBottom: 150,
     },
 }
+
 // Customizable Area End
