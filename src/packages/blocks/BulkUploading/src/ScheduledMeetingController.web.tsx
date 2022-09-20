@@ -53,6 +53,12 @@ interface Filter {
   building: string;
 }
 
+interface UserFilter {
+  buildingName: string;
+  floorId: string;
+  userType: string;
+}
+
 interface S {
   // Customizable Area Start
   isCreateMeetingModalOpen: boolean;
@@ -69,6 +75,7 @@ interface S {
   responseList: any[];
   userList: any[];
   groupList: any[];
+  floorList: any[];
 
   pagination: any | Pagination;
 
@@ -89,6 +96,11 @@ interface S {
   groupName: string;
   selectedGroup: any[];
   isIdAddingToList: boolean;
+
+  buildingName: string;
+  floorId: string;
+  userType: string;
+  userFilter: UserFilter;
   // Customizable Area End
 }
 
@@ -114,6 +126,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
   // GetGroupIdsCallId: any;
   GetOwnerIdsCallId: any;
   GetResidentIdsCallId: any;
+  GetFloorListCallId: any;
 
   constructor(props: Props) {
     super(props);
@@ -137,6 +150,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
       responseList: [],
       userList: [],
       groupList: [],
+      floorList: [],
 
       pagination: null,
 
@@ -176,6 +190,15 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
       groupName: "",
       selectedGroup: [],
       isIdAddingToList: false,
+
+      buildingName: "",
+      floorId: "",
+      userType: "",
+      userFilter: {
+        buildingName: "",
+        floorId: "",
+        userType: "",
+      },
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -664,6 +687,31 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
       }
       ApiCatchErrorResponse(errorResponse);
     }
+
+    // Get Floor List API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.GetFloorListCallId !== null &&
+      this.GetFloorListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.GetFloorListCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      console.log(responseJson.floors);
+      if (responseJson.floors) {
+        this.setState({ floorList: responseJson.floors });
+      }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
     // Customizable Area End
   }
 
@@ -957,6 +1005,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
 
   // Get User List API
   getUserList = () => {
+    const { buildingName, floorId, userType } = this.state.userFilter;
     const header = {
       "Content-Type": configJSON.ApiContentType,
       token: localStorage.getItem("userToken"),
@@ -969,7 +1018,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
     const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_meeting/meeting_groups/add_group_member?building_management_id=${society_id}`
+      `society_managements/${society_id}/bx_block_meeting/meeting_groups/add_group_member?search_building=${buildingName}&search_floor_number=${floorId}&user_type=${userType}`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
@@ -1190,6 +1239,31 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
       `society_managements/${society_id}/bx_block_meeting/meeting_groups/resident?building_management_id=${society_id}`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  // Get Floor List API
+  getFloorIdsList = (buildingId: any) => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.GetFloorListCallId = apiRequest.messageId;
+
+    const society_id = localStorage.getItem("society_id");
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `society_managements/${society_id}/bx_block_meeting/meeting_groups/floor_listing?building_id=${buildingId}`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
