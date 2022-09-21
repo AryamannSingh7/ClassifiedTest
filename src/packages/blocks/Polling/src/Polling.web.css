@@ -347,7 +347,7 @@
     color: #f27200;
     display: initial;
     min-height: 20px;
-    min-width: 50px;
+    min-width: 20px;
     text-transform: capitalize;
     font-weight: 800 !important;
 }
@@ -756,3 +756,26 @@
 .outlined-multiline-static{
     padding:12px 12px 10px !important;
 }
+
+.optionBoxSelected {
+    background-color: #2B6FEC;
+    border-radius: 5rem;
+    margin-bottom: 14px;
+    box-shadow: none;
+    color: #F7F7FC;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 1rem;
+}
+
+.optionBox {
+    background-color: #f9f9f9;
+    border-radius: 5rem;
+    margin-bottom: 14px;
+    box-shadow: none;
+    color: #212121;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 1rem;
+}
+

@@ -222,6 +222,11 @@ import PendingRequest from '../../blocks/user-profile-basic/src/PendingRequest.w
 import AwaitingAcceptece from '../../blocks/user-profile-basic/src/AwaitingAcceptece.web';
 import UserDetailedProfile from '../../blocks/user-profile-basic/src/UserDetailedProfile.web';
 
+// Announcement Imports
+import Announcement from '../../blocks/BroadcastMessage/src/Announcement.web'
+import BuildingAnnouncement from "../../blocks/BroadcastMessage/src/BuildingAnnouncement.web"
+import AnnouncementInfo from "../../blocks/BroadcastMessage/src/AnnouncementDetails.web"
+
 const routeMap = {
   //done
   LandingPage: {
@@ -1308,6 +1313,25 @@ const routeMap = {
     path: '/SuggestionDetails',
     exact: true
   },
+
+  Announcement: {
+    component: Announcement,
+    path: '/Announcement',
+    exact: true
+  },
+
+  BuildingAnnouncement: {
+    component: BuildingAnnouncement,
+    path: '/BuildingAnnouncement',
+    exact: true
+  },
+
+  AnnouncementInfo: {
+    component: AnnouncementInfo,
+    path: '/AnnouncementInfo',
+    exact: true
+  },
+
   Announcements: {
     component: Announcements,
     path: '/Announcements',
