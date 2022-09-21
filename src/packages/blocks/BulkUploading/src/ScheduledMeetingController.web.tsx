@@ -746,7 +746,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
             }
             return true;
           },
-          message: "You have entered past time!",
+          message: "You have entered past time",
         });
       }),
     // momWriter: Yup.string()

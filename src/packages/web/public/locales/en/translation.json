@@ -487,5 +487,10 @@
   "Car Color": "Car Color",
   "Add Registration Card Copy": "Add Registration Card Copy",
   "Vehicle Request": "Vehicle Request",
-  "Added": "Added"
+  "Added": "Added",
+  "Minimum length of mobile should be 10": "Minimum length of mobile should be 10",
+  "Maximum length of mobile should be 10": "Maximum length of mobile should be 10",
+  "You have entered past time": "You have entered past time",
+  "Mobile Number":"Mobile Number",
+  "Message":"Message"
 }
