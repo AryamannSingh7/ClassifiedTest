@@ -223,7 +223,7 @@ class ChairmanSidebar extends DashboardController {
               <Typography>
                 <DashboardOutlinedIcon />
               </Typography>
-              <Typography className="ListItemText" onClick={() => this.props.navigation.navigate("BuildingandComplex")}>Buildings & Apartments</Typography>
+              <Typography className="ListItemText" onClick={() => this.props.navigation.navigate("ComplexandApartment")}>Buildings & Apartments</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Typography variant="body2" className="cursor-pointer">

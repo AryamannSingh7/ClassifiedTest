@@ -11,4 +11,7 @@ export const purchase_price = require("../assets/purchase-price.png");
 export const region = require("../assets/region.png");
 export const size = require("../assets/size.png");
 export const valuation = require("../assets/valuation.png");
-
+export const call_org = require("../assets/call-org.png");
+export const email_org = require("../assets/email-org.png");
+export const chat = require("../assets/chat.png");
+export const bentalyLogo = require("../assets/bentalylogo.png");

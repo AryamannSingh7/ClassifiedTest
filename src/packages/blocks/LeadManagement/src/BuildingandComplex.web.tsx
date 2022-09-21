@@ -346,7 +346,7 @@ class BuildingandComplex extends BuildingandComplexController {
                               onClose={this.handleClose}
                               style={{padding:"0px", cursor:'pointer'}}
                               >
-                              <MenuItem onClick={this.handleClose} style={{margin:"7px", cursor:'pointer'}}>{t("View")}</MenuItem>
+                              <MenuItem style={{margin:"7px", cursor:'pointer'}} onClick={() => this.props.navigation.navigate("UnitDetails")}>{t("View")}</MenuItem>
                               </Menu>    
                             </> 
                           :

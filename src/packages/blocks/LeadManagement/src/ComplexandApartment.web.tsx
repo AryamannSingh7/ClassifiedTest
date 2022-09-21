@@ -140,23 +140,23 @@ class ComplexandApartment extends BuildingandComplexController {
                     <Paper>
                         <Box style={{marginTop:"50px"}}>
                             <div style={dashBoard.BuildingListCard }>
-                                <div style={{textAlign:"center"}}>
+                                <div style={{textAlign:"center", cursor:"pointer"}} onClick={() => this.props.navigation.navigate("BuildingandComplex")}>
                                     <Typography variant="h5" style={dashBoard.buildingCard}>Building 1</Typography>
                                 </div>
 
                             
-                                <div style={{textAlign:"center"}}>
+                                <div style={{textAlign:"center", cursor:"pointer"}}>
                                     <Typography variant="h5" style={dashBoard.buildingCard}>Building 2</Typography>
                                 </div>
 
 
-                                <div style={{textAlign:"center"}}>
+                                <div style={{textAlign:"center", cursor:"pointer"}}>
                                     <Typography variant="h5" style={dashBoard.buildingCard}>Building 3</Typography>
                                 </div>
-                                <div style={{textAlign:"center"}}>
+                                <div style={{textAlign:"center", cursor:"pointer"}}>
                                     <Typography variant="h5" style={dashBoard.buildingCard}>Building 4</Typography>
                                 </div>
-                                <div style={{textAlign:"center"}}>
+                                <div style={{textAlign:"center", cursor:"pointer"}}>
                                     <Typography variant="h5" style={dashBoard.buildingCard}>Building 5</Typography>
                                 </div>
                             </div>

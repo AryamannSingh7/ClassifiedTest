@@ -53,7 +53,7 @@ class DashboardHeader extends DashboardController {
                   menuButton={<img src={globalIcon} alt="GlobalIcon" />}
                 >
                   <MenuItem onClick={() => this.handleEngLngChange()}>English</MenuItem>
-                  <MenuItem onClick={() => this.handleAreLngChange()}>Arabic</MenuItem>
+                  <MenuItem onClick={() => this.handleAreLngChange()}>Arabicc</MenuItem>
                 </Menu>
               </Box>
               <img src={chatIcon} alt="GlobalIcon" style={{ marginLeft: "10px" }} />
