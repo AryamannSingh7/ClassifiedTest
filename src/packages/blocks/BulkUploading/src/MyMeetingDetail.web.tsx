@@ -25,6 +25,8 @@ import { orange } from "@material-ui/core/colors";
 import moment from "moment";
 import { withTranslation } from "react-i18next";
 import "../../../web/src/i18n.js";
+import MuiDialogTitle from "@material-ui/core/DialogTitle";
+import CloseIcon from "@material-ui/icons/Close";
 
 const OrangeRadio = withStyles({
   root: {
@@ -52,6 +54,7 @@ class MyMeetingDetail extends MyMeetingsController {
     const { t }: any = this.props;
 
     console.log(this.state);
+    console.log(this.state.meeting && this.state.meeting.attributes.meeting_date_time);
 
     return (
       <>
@@ -90,7 +93,7 @@ class MyMeetingDetail extends MyMeetingsController {
                                   this.state.meeting && this.state.meeting.attributes.meeting_date_time,
                                   "DD-MM-YYYY HH:mm",
                                   true
-                                ).format("DD-MMM-YYYY HH:mm")}
+                                ).format("MMMM DD, YYYY HH:mm")}
                               </p>
                             </Grid>
                             <Grid item xs={12}>
@@ -130,7 +133,7 @@ class MyMeetingDetail extends MyMeetingsController {
                                       this.state.meeting.attributes.meeting_schedule_detail.scheduled_on,
                                     "DD-MM-YYYY HH:mm",
                                     true
-                                  ).format("DD-MMM-YYYY HH:mm")}
+                                  ).format("MMMM DD, YYYY HH:mm")}
                                 </p>
                               </Box>
                             </Grid>
@@ -150,11 +153,11 @@ class MyMeetingDetail extends MyMeetingsController {
                               <Button
                                 onClick={() => {
                                   if (this.state.meeting.attributes.meeting_response === "accepted") {
-                                    this.setState({ response: true }, () => {
+                                    this.setState({ response: "true" }, () => {
                                       this.handleAttendMeetingModal();
                                     });
                                   } else {
-                                    this.setState({ response: false }, () => {
+                                    this.setState({ response: "false" }, () => {
                                       this.handleAttendMeetingModal();
                                     });
                                   }
@@ -185,13 +188,22 @@ class MyMeetingDetail extends MyMeetingsController {
           onClose={() => this.handleAttendMeetingModal()}
           open={this.state.isAttendMeetingModalOpen}
         >
+          <MuiDialogTitle disableTypography className="attendee-heading">
+            <IconButton onClick={() => this.handleAttendMeetingModal()}>
+              <CloseIcon />
+            </IconButton>
+          </MuiDialogTitle>
           <DialogContent>
             <Box textAlign="center">
               <img src={CommentIcon} alt="CommentIcon" />
               <Typography variant="h6">{t("Are you attending the meeting?")}</Typography>
               <Typography variant="body1">
                 Please confirm whether you are going to attend meeting on{" "}
-                {moment(this.state.meeting && this.state.meeting.attributes.meeting_date_time).format("DD MMM, YYYY")}{" "}
+                {moment(
+                  this.state.meeting && this.state.meeting.attributes.meeting_date_time,
+                  "DD-MM-YYYY HH:mm",
+                  true
+                ).format("DD MMM, YYYY")}{" "}
                 or not.
               </Typography>
               <RadioGroup
@@ -199,19 +211,19 @@ class MyMeetingDetail extends MyMeetingsController {
                 value={this.state.response}
                 onChange={(e: any) => {
                   this.setState({
-                    response: e.target.value === "true",
+                    response: e.target.value,
                   });
                 }}
               >
                 <FormControlLabel
-                  value={true}
-                  className="radio-select"
+                  value={"true"}
+                  className={`${this.state.response === "true" && "active"} radio-select`}
                   control={<OrangeRadio />}
                   label={t("I will attend")}
                 />
                 <FormControlLabel
-                  value={false}
-                  className="radio-select"
+                  value={"false"}
+                  className={`${this.state.response === "false" && "active"} radio-select`}
                   control={<OrangeRadio />}
                   label={t("I won't attend")}
                 />

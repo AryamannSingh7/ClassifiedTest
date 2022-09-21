@@ -98,7 +98,7 @@ class MeetingMinuteNote extends MeetingMinutesController {
                             this.state.meetingMinuteDetails.attributes.meeting_date_time,
                           "DD-MM-YYYY HH:mm",
                           true
-                        ).format("DD-MMM-YYYY HH:mm")}
+                        ).format("MMMM DD, YYYY HH:mm")}
                       </h4>
                       <Divider />
                       <div

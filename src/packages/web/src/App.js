@@ -19,22 +19,22 @@ import Chatbot6 from "../../blocks/Chatbot6/src/Chatbot6";
 import EmailNotifications from "../../blocks/EmailNotifications/src/EmailNotifications";
 import BroadcastMessage from "../../blocks/BroadcastMessage/src/BroadcastMessage";
 // import BulkUploading from "../../blocks/BulkUploading/src/BulkUploading";
-import Location from "../../blocks/location/src/Location";
-import SocialMediaAccountLoginScreen from "../../blocks/social-media-account-login/src/SocialMediaAccountLoginScreen";
-import Invitefriends from "../../blocks/invitefriends/src/Invitefriends";
-import ReviewAndApproval from "../../blocks/ReviewAndApproval/src/ReviewAndApproval";
-import LanguageOptions from "../../blocks/LanguageOptions/src/LanguageOptions";
-import Polling from "../../blocks/Polling/src/Polling";
-import Customisableusersubscriptions from "../../blocks/customisableusersubscriptions/src/Customisableusersubscriptions";
-import SubscriptionDetails from "../../blocks/customisableusersubscriptions/src/SubscriptionDetails";
-import Interactivefaqs from "../../blocks/interactivefaqs/src/Interactivefaqs";
-import AddInteractivefaqs from "../../blocks/interactivefaqs/src/AddInteractivefaqs";
-import PhotoLibrary3 from "../../blocks/PhotoLibrary3/src/PhotoLibrary3";
-import ExpenseTracking from "../../blocks/ExpenseTracking/src/ExpenseTracking";
-import Search from "../../blocks/search/src/Search";
-import MultipleCurrencySupport from "../../blocks/multiplecurrencysupport/src/MultipleCurrencySupport";
-import NewPassword from "../../blocks/forgot-password/src/NewPassword";
-import Feedback from "../../blocks/Feedback/src/Feedback";
+import Location from '../../blocks/location/src/Location';
+import SocialMediaAccountLoginScreen from '../../blocks/social-media-account-login/src/SocialMediaAccountLoginScreen';
+import Invitefriends from '../../blocks/invitefriends/src/Invitefriends';
+import ReviewAndApproval from '../../blocks/ReviewAndApproval/src/ReviewAndApproval';
+import LanguageOptions from '../../blocks/LanguageOptions/src/LanguageOptions';
+import Polling from '../../blocks/Polling/src/Polling';
+import Customisableusersubscriptions from '../../blocks/customisableusersubscriptions/src/Customisableusersubscriptions';
+import SubscriptionDetails from '../../blocks/customisableusersubscriptions/src/SubscriptionDetails';
+import Interactivefaqs from '../../blocks/interactivefaqs/src/Interactivefaqs';
+import AddInteractivefaqs from '../../blocks/interactivefaqs/src/AddInteractivefaqs';
+import PhotoLibrary3 from '../../blocks/PhotoLibrary3/src/PhotoLibrary3';
+import ExpenseTracking from '../../blocks/ExpenseTracking/src/ExpenseTracking';
+import Search from '../../blocks/search/src/Search';
+import MultipleCurrencySupport from '../../blocks/multiplecurrencysupport/src/MultipleCurrencySupport';
+import NewPassword from '../../blocks/forgot-password/src/NewPassword';
+import Feedback from '../../blocks/Feedback/src/Feedback';
 // import Contactus from "../../blocks/contactus/src/Contactus";
 import AddContactus from "../../blocks/contactus/src/AddContactus";
 import CountryCodeSelector from "../../blocks/country-code-selector/src/CountryCodeSelector";
@@ -222,6 +222,10 @@ import SentInvitation from '../../blocks/user-profile-basic/src/SentInvitation.w
 import PendingRequest from '../../blocks/user-profile-basic/src/PendingRequest.web';
 import AwaitingAcceptece from '../../blocks/user-profile-basic/src/AwaitingAcceptece.web';
 import UserDetailedProfile from '../../blocks/user-profile-basic/src/UserDetailedProfile.web';
+
+import BuildingandComplex from '../../blocks/LeadManagement/src/BuildingandComplex.web';
+import ComplexandApartment from '../../blocks/LeadManagement/src/ComplexandApartment.web';
+import UnitDetails from '../../blocks/LeadManagement/src/UnitDetails.web';
 
 const routeMap = {
   //done
@@ -1342,6 +1346,20 @@ const routeMap = {
   UserDetailedProfile: {
     component: UserDetailedProfile,
     path: '/UserDetailedProfile'
+  },
+
+  BuildingandComplex:{
+    component:BuildingandComplex,
+    path:"/BuildingandComplex"
+  },
+
+  ComplexandApartment:{
+    component:ComplexandApartment,
+    path:"/ComplexandApartment"
+  },
+  UnitDetails:{
+    component:UnitDetails,
+    path:"/UnitDetails"
   },
 
   AlertWeb: {

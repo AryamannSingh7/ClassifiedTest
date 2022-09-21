@@ -18,11 +18,6 @@ export interface Props {
   // Customizable Area End
 }
 
-interface Filters {
-  sort: string;
-  filter: string;
-}
-
 interface S {
   // Customizable Area Start
   isScheduledMeetingOpen: boolean;
@@ -32,12 +27,12 @@ interface S {
 
   meeting: any;
 
-  response: boolean;
+  response: string;
 
   scheduleMeetingList: any[];
   minuteMeetingList: any[];
 
-  filters: Filters;
+  filter: string;
   // Customizable Area End
 }
 
@@ -67,15 +62,12 @@ export default class MyMeetingsController extends BlockComponent<Props, S, SS> {
 
       meeting: null,
 
-      response: true,
+      response: "true",
 
       scheduleMeetingList: [],
       minuteMeetingList: [],
 
-      filters: {
-        sort: "",
-        filter: "",
-      },
+      filter: "scheduled",
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -219,6 +211,19 @@ export default class MyMeetingsController extends BlockComponent<Props, S, SS> {
   // Customizable Area Start
   // Get All Scheduled Meeting API
   getScheduledMeetingList = () => {
+    const { filter } = this.state;
+
+    const society_id = localStorage.getItem("society_id");
+    let APIEndPoint = `society_managements/${society_id}/bx_block_meeting/meetings/shaduled_meeting`;
+
+    if (filter === "asc" || filter === "desc") {
+      APIEndPoint = APIEndPoint + "?sort=" + filter;
+    } else if (filter === "accepted" || filter === "rejected") {
+      APIEndPoint = APIEndPoint + "?response=" + filter;
+    } else if (filter === "scheduled" || filter === "cancelled") {
+      APIEndPoint = APIEndPoint + "?status=" + filter;
+    }
+
     const header = {
       "Content-Type": configJSON.ApiContentType,
       token: localStorage.getItem("userToken"),
@@ -228,11 +233,8 @@ export default class MyMeetingsController extends BlockComponent<Props, S, SS> {
 
     this.GetAllScheduledMeetingsCallId = apiRequest.messageId;
 
-    const society_id = localStorage.getItem("society_id");
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_meeting/meetings/shaduled_meeting`
-    );
+    // const society_id = localStorage.getItem("society_id");
+    apiRequest.addData(getName(MessageEnum.RestAPIResponceEndPointMessage), APIEndPoint);
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
@@ -297,7 +299,7 @@ export default class MyMeetingsController extends BlockComponent<Props, S, SS> {
     const body = {
       meeting_response: {
         meeting_id: this.state.scheduleMeetingId,
-        status: this.state.response,
+        status: this.state.response === "true",
       },
     };
 
@@ -331,7 +333,7 @@ export default class MyMeetingsController extends BlockComponent<Props, S, SS> {
     const body = {
       meeting_response: {
         meeting_id: this.state.scheduleMeetingId,
-        status: this.state.response,
+        status: this.state.response === "true",
       },
     };
 

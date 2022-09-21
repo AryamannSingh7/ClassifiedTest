@@ -489,9 +489,17 @@
 .TabsList .MuiTabs-scroller .PrivateTabIndicator-colorSecondary-4{
     background-color: #E5ECFF !important;
 }
+
+.descriptionEditor .notranslate > div  {
+    max-height: 10px;
+}
+
 .descriptionEditor .RichTextEditor__root___2QXK-{
     border-radius: 5px;
+    max-height: 180px;
+    overflow: hidden;
 }
+
 .descriptionEditor .EditorToolbar__root___3_Aqz{
     border-bottom: none;
     padding: 15px 0;
@@ -743,4 +751,8 @@
 #question-type-select{
     border-radius: 10px !important;
     background-color: rgb(249, 249, 249) !important;
+}
+
+.outlined-multiline-static{
+    padding:12px 12px 10px !important;
 }

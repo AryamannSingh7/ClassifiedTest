@@ -1,6 +1,4 @@
 // Customizable Area Start
-//@ts-ignore
-//@ts-nocheck
 
 import React from "react";
 import "./Polling.web.css"
@@ -19,6 +17,7 @@ import {
 } from "@material-ui/core";
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
+// @ts-ignore
 import Pagination from '@material-ui/lab/Pagination';
 import PollingController, {
   Props,
@@ -28,25 +27,12 @@ import { withRouter } from "react-router-dom";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import SearchIcon from '@material-ui/icons/Search';
+import { withTranslation } from 'react-i18next';
+import '../../../web/src/i18n.js';
 
 function createData(name:any, unit:any, response:any) {
     return { name, unit, response};
 }
-const rows = [
-    createData('Frozen yoghurt', 159, "Yes"),
-    createData('Ice cream', 237, "Yes"),
-    createData('Eclair', 262, "No"),
-    createData('Cupcake', 305, "No"),
-    createData('Gingerbread', 35, "Yes"),
-    createData('Ginger', 56, "Yes"),
-    createData('bread', 56, "No"),
-    createData('Gingerbread', 56, "No"),
-    createData('Gingerbread', 35, "No"),
-    createData('Ginger', 56, "Yes"),
-    createData('bread', 56, "No"),
-    createData('Gingerbread', 56, "Yes"),
-];
-
 
 class PollReport extends PollingController {
   constructor(props: Props) {
@@ -55,8 +41,8 @@ class PollReport extends PollingController {
   }
 
   render() {
-    console.log("poll pollPreviewAnswer #######", this.state.pollPreviewAnswer?.poll?.data,this.props.location.state)
-    console.log("POLL REPORT: ",this.state.generatePollReport)
+    // @ts-ignore
+    const {t} = this.props
     return ( 
       <>
     <Box style={{background: "#E5ECFF"}}>
@@ -75,20 +61,20 @@ class PollReport extends PollingController {
                         <Box className="navigation">
                             <Box>
                                 <Typography variant="body1" >
-                                Poll and survey / Create a Poll / Poll Details/ <Box component="span" style={{color: "blue"}}>Poll Report</Box>
+                                    {t("Poll and survey")} / {t("Create a Poll")} / {t("Poll Details")}/ <Box component="span" style={{color: "blue"}}>{t("Poll Report")}</Box>
                                 </Typography>
-                                <Typography variant="h5" className="subHeading">Poll Report</Typography>
+                                <Typography variant="h5" className="subHeading">{t("Poll Report")}</Typography>
                             </Box>  
                             <Box className="downloadReport">
                                 <button onClick={this.handleDownload} className="reportbtn">
-                                    DOWNLOAD REPORT
+                                    {t("DOWNLOAD REPORT")}
                                 </button>
                             </Box>
                         </Box>
                     </Grid>
                     <Grid style={{marginTop: "2rem", marginBottom:"5rem"}} className="PollResponseMain">
                         <Grid item sm={12} md={12} xs={12}>
-                            <Box class="tableTopSearch">
+                            <Box className="tableTopSearch">
                                 <h4>Poll Title Name</h4>
                                 <div className="searchBox">
                                     <div className="searchIcon">
@@ -110,22 +96,22 @@ class PollReport extends PollingController {
                                 <Table  aria-label="simple table">
                                     <TableHead>
                                         <TableRow>
-                                            <TableCell style={{fontWeight:"600"}}>#</TableCell>
-                                            <TableCell style={{fontWeight:"600"}} align="start">Name</TableCell>
-                                            <TableCell style={{fontWeight:"600"}} align="start">Unit Number</TableCell>
-                                            <TableCell style={{fontWeight:"600"}} align="start">Response</TableCell>
+                                            <TableCell style={{fontWeight:600}}>#</TableCell>
+                                            <TableCell style={{fontWeight:600}} align="left">{t("Name")}</TableCell>
+                                            <TableCell style={{fontWeight:600}} align="left">{t("Unit Number")}</TableCell>
+                                            <TableCell style={{fontWeight:600}} align="left">{t("Response")}</TableCell>
                                         </TableRow>
                                     </TableHead>
                                     {
                                         this.state.generatePollReport?.length > 0 &&
                                         <TableBody>
-                                            {this.state?.generatePollReport?.map((row, index) => (
+                                            {this.state?.generatePollReport?.map((row:any, index:any) => (
                                                 <TableRow key={row.name}>
                                                     <TableCell component="th" scope="row">{index + 1}</TableCell>
-                                                    <TableCell align="start">{row.attributes?.name_and_option?.data?.attributes?.full_name}</TableCell>
-                                                    <TableCell align="start">
+                                                    <TableCell align="left">{row.attributes?.name_and_option?.data?.attributes?.full_name}</TableCell>
+                                                    <TableCell align="left">
                                                         {
-                                                            row.attributes?.name_and_option?.data?.attributes?.unit_number?.map((item,key)=>{
+                                                            row.attributes?.name_and_option?.data?.attributes?.unit_number?.map((item:any,key:any)=>{
                                                                 return(
                                                                     <>
                                                                         {item}
@@ -135,7 +121,7 @@ class PollReport extends PollingController {
 
                                                         }
                                                     </TableCell>
-                                                    <TableCell align="start">{row.attributes?.name_and_option?.data?.attributes?.option}</TableCell>
+                                                    <TableCell align="left">{row.attributes?.name_and_option?.data?.attributes?.option}</TableCell>
                                                 </TableRow>
                                             ))}
                                         </TableBody>
@@ -145,7 +131,7 @@ class PollReport extends PollingController {
 
                             <Divider />
                             <Box className="TableHeader">
-                                <h5>Showing {this.state.reportPagination.total_count > 10 ? (this.state.reportPagination.total_count * this.state.reportPagination.page) : this.state.reportPagination.total_count} of {this.state.reportPagination.total_count} results</h5>
+                                <h5>{t("Showing")} {this.state.reportPagination.total_count > 10 ? (this.state.reportPagination.total_count * this.state.reportPagination.page) : this.state.reportPagination.total_count} of {this.state.reportPagination.total_count} {t("results")}</h5>
                                 <Pagination count={Math.round(this.state.reportPagination.total_count/10)} onChange={this.handleReportPagination} variant="outlined" shape="rounded" />
                             </Box>
                         </Grid>
@@ -160,7 +146,8 @@ class PollReport extends PollingController {
   }
 }
 
-export default withRouter(PollReport)
+// @ts-ignore
+export default  withTranslation()(withRouter(PollReport));
 
 const dashBoard = {
     SideBar: {

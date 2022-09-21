@@ -37,6 +37,7 @@ interface S {
   allPollsData: any,
   dateSelection:any,
   totalPollsCount: any,
+  totalSurveyCount: any,
   recentPolls: any,
   recentSurveys:any,
   selectQuestion: any,
@@ -95,6 +96,7 @@ export default class PollingController extends BlockComponent<
   getAllPolls:string;
   createPoll:string;
   totalPollsCount: string;
+  totalSurveyCount:string;
   getRecentPollsData: string;
   getRecentSurveyData:string;
   getLivePolls: string;
@@ -215,6 +217,7 @@ export default class PollingController extends BlockComponent<
         }
       ],
       audienceType:"",
+      totalSurveyCount:"",
       // Customizable Area End
 
     };
@@ -240,19 +243,19 @@ export default class PollingController extends BlockComponent<
     
     this.onGetPolls(this.state.Year);
     this.getTotalPollCount();
+    this.getTotalSurveyCount();
     this.getRecentPolls();
     this.getRecentSurveys();
     this.apiCallFunction();
-    this.livePollsSurveysData();
-    this.oldPollsSurveysData();
+
     // Customizable Area End
 
   }
     // Customizable Area Start
 
     apiCallFunction = async () =>  {
-      await this.livePollsData();
-      await this.oldPollsData();
+      this.livePollsSurveysData();
+      this.oldPollsSurveysData();
       if(window.location.search !== ""){
         await this.getPollPreviewAnswer();
         await this.getPollGenerateReport(this.state.currentReportPage)
@@ -288,6 +291,15 @@ export default class PollingController extends BlockComponent<
       });
     }
 
+  getTotalSurveyCount = async () => {
+    const societyID = localStorage.getItem("society_id")
+    this.totalSurveyCount = await this.apiCall({
+      contentType: configJSON.exampleApiContentType,
+      method: configJSON.httpGetMethod,
+      endPoint: `/society_managements/${societyID}/bx_block_survey/surveys/total_surveys`,
+    });
+  }
+
     //==============================================
 
     onGetPolls = async (filter:any) => {
@@ -312,15 +324,6 @@ export default class PollingController extends BlockComponent<
     }
 
     //==============================================
-
-    oldPollsData = async () => {
-      const societyID = localStorage.getItem("society_id")
-      this.getOldPolls = await this.apiCall({
-        contentType: configJSON.exampleApiContentType,
-        method: configJSON.httpGetMethod,
-        endPoint: `/society_managements/${societyID}/bx_block_polling/polls/old_polls`,
-      });
-    }
 
     oldPollsSurveysData = async () => {
       const societyID = localStorage.getItem("society_id")
@@ -394,7 +397,6 @@ export default class PollingController extends BlockComponent<
 
 
   handlePollSurveyNavigation (isTaken:any,type:any,id:any) {
-    console.log("SUEVEY NEVIGATION",isTaken,type)
     if(isTaken && type === "poll"){
       // @ts-ignore
       this.props.history.push("/PollVoteView?id="+id)
@@ -406,6 +408,19 @@ export default class PollingController extends BlockComponent<
     if(type === "survey") {
       // @ts-ignore
       this.props.history.push("/TakeSurvey?id="+id)
+    }
+    // if(isTaken && type === poll)
+    // item?.attributes?.flag ? this.props.history.push("/PollVoteView?id="+item.id) : this.props.history.push("/SubmitPoll?id="+item.id)
+  }
+
+  handlePollSurveyNavigationOld (isTaken:any,type:any,id:any) {
+    if(type === "poll"){
+      // @ts-ignore
+      this.props.history.push("/PollVoteView?id="+id)
+    }
+    if(type === "survey") {
+      // @ts-ignore
+      this.props.history.push(`/TakeSurvey?id=${id}`)
     }
     // if(isTaken && type === poll)
     // item?.attributes?.flag ? this.props.history.push("/PollVoteView?id="+item.id) : this.props.history.push("/SubmitPoll?id="+item.id)
@@ -443,7 +458,6 @@ export default class PollingController extends BlockComponent<
   }
 
     getPollSelectedAnswer = (value:any) => {
-      console.log("poll option answer##################", value)
       this.setState({pollOptionAnswer:value})
     }
 
@@ -682,9 +696,6 @@ export default class PollingController extends BlockComponent<
         }
       })
 
-      console.log("ARRAY",optionValidation)
-
-
       if(titleValidation && startDateValidation && endDateValidation && DescriptionValidation && questionValidation && optionValidation){
         return true
       }else{
@@ -784,7 +795,6 @@ export default class PollingController extends BlockComponent<
     };
   
     handleChange = (event:any) => {
-      console.log("year", event.target.value)
       this.setState({Year: event.target.value});
       this.onGetPolls(event.target.value)
     };
@@ -796,8 +806,6 @@ export default class PollingController extends BlockComponent<
   //============================= API CALL BLOCK ==========================================================
   apiCall = async (data: any) => {
     const { contentType, method, endPoint, body } = data;
-    // console.log("Called 1",data);
-
     const token = localStorage.getItem('userToken') ;
     
     const header = {
@@ -858,6 +866,10 @@ export default class PollingController extends BlockComponent<
      if(apiRequestCallId === this.totalPollsCount){
       this.getTotalPollsCountResponse(responseJson)
      }
+      if(apiRequestCallId === this.totalSurveyCount){
+        this.getTotalSurveyCountResponse(responseJson)
+      }
+
      if(apiRequestCallId === this.getRecentPollsData) {
       this.getRecentPollsResponse(responseJson)
      }
@@ -876,7 +888,6 @@ export default class PollingController extends BlockComponent<
      if(apiRequestCallId === this.getGenerateReport) {
        if(responseJson.hasOwnProperty("report")){
          this.getGeneratePollReport(responseJson?.report?.data)
-         console.log("Details for pagination",responseJson.meta)
          this.setState({
             reportPagination:responseJson.meta
          })
@@ -892,11 +903,9 @@ export default class PollingController extends BlockComponent<
       }
      }
      if(apiRequestCallId === this.getLivePollsSurveys){
-       console.log("LIVE POLLS AND SURVEYS",responseJson)
        this.setState({livePollsData: responseJson.polls_survey.data})
      }
       if(apiRequestCallId === this.getOldPollsSurveys){
-        console.log("OLD POLLS AND SURVEYS",responseJson)
         this.setState({oldPollsData: responseJson.polls_survey.data})
       }
     }
@@ -929,19 +938,19 @@ export default class PollingController extends BlockComponent<
     this.getPollGenerateReport(this.state.currentReportPage,e.target.value)
   }
   getCreatePollResponse = async (response: any) => {
-    // console.log('Success',response);
     this.setState({PreViewPollData: response})
   }
 
   getPollSuccessResponse = async (response: any) => {
-    // console.log('Success',response);
     this.setState({allPollsData: response})
-    console.log("allPollsData==========",  this.state.allPollsData)
   }
 
   getTotalPollsCountResponse = async (response: any) => {
-    // console.log('get Total Polls Count Response',response);
     this.setState({totalPollsCount: response})
+  }
+
+  getTotalSurveyCountResponse = async (response: any) => {
+    this.setState({totalSurveyCount: response})
   }
 
   getRecentPollsResponse = async (response: any) => {
@@ -962,17 +971,14 @@ export default class PollingController extends BlockComponent<
 
   getSubmitPollAnswer = async (response: any) => {
     this.setState({finalPollAnswer: response})
-    // console.log('get poll answer Response==>>>',this.state.finalPollAnswer);
   }
 
   getGeneratePollReport = async (response: any) => {
     this.setState({generatePollReport: response})
-    console.log('get generatePollReport Response==>>>',this.state.generatePollReport);
   }
 
   handleDownload () {
     const pollID =  window.location.search ? window.location.search.split("=")[1] : null;
-    console.log("THIS IS BASE URL",`${baseURL}/society_managements/4/bx_block_polling/polls/${pollID}/download_report.pdf`)
       window.open(`${baseURL}/society_managements/4/bx_block_polling/polls/${pollID}/download_report.pdf`,'_blank')
   }
 
@@ -987,7 +993,6 @@ export default class PollingController extends BlockComponent<
   // Error Block
   
   getPollErrorResponse = async (response: any) => {
-    console.log('Error',response);
     
-    }
+  }
 }

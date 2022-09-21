@@ -91,42 +91,39 @@ class SurveyParticipate extends SurveyParticipateController {
               </Grid>
               <Grid xs={12}>
               <Box style={{background: "#E5ECFF",minHeight:"100vh",display:'flex',flexDirection:"column",alignItems:'center',justifyContent:"space-between"}}>
-                      <Box style={{width:"95%"}}>
-                          <Box style={{marginTop:"10px"}}>
-                              <BorderLinearProgress variant="determinate" value={(100/(this.state.totalQuestion+1))*(this.state.currentQuestion+1)}/>
+                      <Box style={{width:"90%"}}>
+                          <Box style={{marginTop:"25px",marginBottom:"10px"}}>
+                              <BorderLinearProgress variant="determinate" value={(100/(this.state.totalQuestion+1))*(this.state.currentQuestion+1)} style={{border:".5px gray"}}/>
                           </Box>
                           <Box style={{margin:"1rem",display:'flex',flexDirection:"column",alignItems:'center'}}>
-                              <Box>
-                                  <p style={{ fontSize: '1rem', fontWeight: 600}}>
+                              <Box style={{width:"90%",marginTop:"5px"}}>
+                                  <p style={{ fontSize: '1rem', fontWeight: 600,textAlign:"left"}}>
                                       {
                                           this.state.SurveyQuestions[this.state.currentQuestion]?.title
                                       }
                                   </p>
-                              </Box>
-                              {
-                                  this.state.SurveyQuestions[this.state.currentQuestion]?.question_type === "short_answers" &&
-                                  <Box style={{marginLeft: "-15px",width:"90%"}}>
-                                      <TextField
-                                          id="outlined-multiline-static"
-                                          multiline
-                                          rows={4}
-                                          variant="filled"
-                                          value={this.state.questionShortAns}
-                                          onChange={this.handleShortAns}
-                                          fullWidth
-                                          style={{marginTop:"15px",border:"1px solid gray",borderRadius:"15px"}}
-                                          InputProps={{
-                                              startAdornment: (
-                                                  <InputAdornment position="start">
-                                                      <img src={clipBoard} />
-                                                  </InputAdornment>
-                                              ),
-                                              disableUnderline: true
-                                          }}
-                                      />
-                                  </Box>
-                              }
-                              <Box style={{width:"90%"}}>
+                                  {
+                                      this.state.SurveyQuestions[this.state.currentQuestion]?.question_type === "short_answers" &&
+                                      <Box style={{width:"100%",marginTop:"15px"}}>
+                                          <TextField
+                                              id="outlined-multiline-static"
+                                              multiline
+                                              minRows={5}
+                                              value={this.state.questionShortAns}
+                                              onChange={this.handleShortAns}
+                                              fullWidth
+                                              style={{marginTop:"15px",border:"1px solid #f0f0f0",borderRadius:"20px",overflow:"hidden",backgroundColor:"#f9f9f9"}}
+                                              InputProps={{
+                                                  startAdornment: (
+                                                      <InputAdornment position="start">
+                                                          <img src={clipBoard} style={{margin:"10px"}} />
+                                                      </InputAdornment>
+                                                  ),
+                                                  disableUnderline: true
+                                              }}
+                                          />
+                                      </Box>
+                                  }
                                   {
                                       this.state.SurveyQuestions[this.state.currentQuestion]?.question_type !== "short_answers" &&
                                       this.state.SurveyQuestions[this.state.currentQuestion]?.survey_options.map((data, i) => {
@@ -140,9 +137,8 @@ class SurveyParticipate extends SurveyParticipateController {
                                                                   <Box className="customRadioButton" style={{height:"100%",display:'flex',alignItems:"center",justifyContent:"flex-end"}}>
                                                                       <input type="radio" id={data.id}
                                                                              name="options" value={data.id}
-                                                                             id={i}
                                                                              style={{marginRight:"10px",marginBottom:"15px",fontSize:"2rem",fontFamily:"system-ui, sans-serif"}}
-                                                                             defaultChecked={this.state.questionOptionAnswer.find((item:any)=> item == data.id) ? true : false}
+                                                                             checked={this.state.questionOptionAnswer.find((item:any)=> item == data.id) ? true : false}
                                                                              onChange={(e) => this.getPollSelectedAnswer(e.target.value)}
                                                                       />
                                                                       <label htmlFor={i}/>
@@ -153,17 +149,32 @@ class SurveyParticipate extends SurveyParticipateController {
                                                                           for={data.id}
                                                                       >
                                                                           <Box
-                                                                              style={{
-                                                                                  backgroundColor: "#2B6FEC",
-                                                                                  borderRadius: '5rem',
-                                                                                  marginBottom: 14,
-                                                                                  boxShadow: "none",
-                                                                                  color: "#F7F7FC",
-                                                                                  fontWeight: 600,
-                                                                                  fontSize: '1rem',
-                                                                                  width:"100%",
-                                                                                  padding: '1rem'
-                                                                              }}
+                                                                              style={
+                                                                                  this.state.questionOptionAnswer.find((item:any)=> item == data.id) ?
+                                                                                  {
+                                                                                      backgroundColor: "#2B6FEC",
+                                                                                      borderRadius: '5rem',
+                                                                                      marginBottom: 14,
+                                                                                      boxShadow: "none",
+                                                                                      color: "#F7F7FC",
+                                                                                      fontWeight: 600,
+                                                                                      fontSize: '1rem',
+                                                                                      width:"95%",
+                                                                                      padding: '1rem'
+                                                                                  }
+                                                                                  :
+                                                                                  {
+                                                                                      backgroundColor: "#f9f9f9",
+                                                                                      borderRadius: '5rem',
+                                                                                      marginBottom: 14,
+                                                                                      boxShadow: "none",
+                                                                                      color: "#212121",
+                                                                                      fontWeight: 600,
+                                                                                      fontSize: '1rem',
+                                                                                      width:"95%",
+                                                                                      padding: '1rem'
+                                                                                  }
+                                                                              }
                                                                           >
                                                                               {data.text}
                                                                           </Box>
@@ -181,34 +192,49 @@ class SurveyParticipate extends SurveyParticipateController {
                                                       <Grid container key={i}>
                                                           <Grid xs={12}>
                                                               <Box container key={data.id}
-                                                                   style={{display:'flex',marginTop:'1rem', width:"90%",alignItems:'baseline'}}>
+                                                                   style={{display:'flex',marginTop:'1rem', width:"90%",alignItems:'baseline',marginLeft:"-12px"}}>
                                                                   <Box >
                                                                       <Checkbox type="checkBox" id={data.id}
                                                                                 name="options" value={data.id}
                                                                                 style={{marginBottom:"15px"}}
                                                                                 icon={<RadioButtonUncheckedIcon style={{color:"#808080",marginTop:"10px"}}/>}
                                                                                 checkedIcon={<RadioButtonCheckedIcon style={{color:"#2B6FEC",marginTop:"10px"}}/>}
-                                                                                defaultChecked={this.state.questionOptionAnswer.find((item:any)=> item == data.id) ? true : false}
+                                                                                checked={this.state.questionOptionAnswer.find((item:any)=> item == data.id) ? true : false}
                                                                                 onChange={(e) => this.getPollSelectedMultiAns(e.target.value)}
                                                                       />
                                                                   </Box>
-                                                                  <Box style={{width:"100%"}}>
+                                                                  <Box style={{width:"100%",cursor:"pointer"}} onClick={()=>this.getPollSelectedMultiAns(data.id)}>
                                                                       <label
                                                                           className="para"
                                                                           for={data.id}
                                                                       >
                                                                           <Box
-                                                                              style={{
-                                                                                  backgroundColor: "#2B6FEC",
-                                                                                  borderRadius: '5rem',
-                                                                                  marginBottom: 14,
-                                                                                  boxShadow: "none",
-                                                                                  color: "#F7F7FC",
-                                                                                  fontWeight: 600,
-                                                                                  fontSize: '1rem',
-                                                                                  width:"100%",
-                                                                                  padding: '1rem'
-                                                                              }}
+                                                                              style={
+                                                                                  this.state.questionOptionAnswer.find((item:any)=> item == data.id) ?
+                                                                                      {
+                                                                                          backgroundColor: "#2B6FEC",
+                                                                                          borderRadius: '5rem',
+                                                                                          marginBottom: 14,
+                                                                                          boxShadow: "none",
+                                                                                          color: "#F7F7FC",
+                                                                                          fontWeight: 600,
+                                                                                          fontSize: '1rem',
+                                                                                          width:"95%",
+                                                                                          padding: '1rem'
+                                                                                      }
+                                                                                      :
+                                                                                      {
+                                                                                          backgroundColor: "#f9f9f9",
+                                                                                          borderRadius: '5rem',
+                                                                                          marginBottom: 14,
+                                                                                          boxShadow: "none",
+                                                                                          color: "#212121",
+                                                                                          fontWeight: 600,
+                                                                                          fontSize: '1rem',
+                                                                                          width:"95%",
+                                                                                          padding: '1rem'
+                                                                                      }
+                                                                              }
                                                                           >
                                                                               {data.text}
                                                                           </Box>
@@ -226,21 +252,20 @@ class SurveyParticipate extends SurveyParticipateController {
                                   }
                                   {
                                       this.state.SurveyQuestions[this.state.currentQuestion]?.question_type !== "short_answers" &&
-                                      <Box style={{width:"92%"}}>
+                                      <Box style={{width:"93%",marginTop:"15px"}}>
                                           <Typography varian="subtitle2" style={{fontWeight:"bold"}}>Please share your concern</Typography>
                                           <TextField
                                               id="outlined-multiline-static"
                                               multiline
-                                              rows={4}
+                                              minRows={5}
                                               value={this.state.questionShortAns}
                                               onChange={this.handleShortAns}
-                                              variant="filled"
                                               fullWidth
-                                              style={{marginTop:"15px",border:"1px solid gray",borderRadius:"15px"}}
+                                              style={{marginTop:"15px",border:"1px solid #f0f0f0",borderRadius:"20px",overflow:"hidden",backgroundColor:"#f9f9f9"}}
                                               InputProps={{
                                                   startAdornment: (
                                                       <InputAdornment position="start">
-                                                          <img src={clipBoard} />
+                                                          <img src={clipBoard} style={{margin:"10px"}}/>
                                                       </InputAdornment>
                                                   ),
                                                   disableUnderline: true

@@ -34,6 +34,7 @@ interface S {
     total_count:any
   };
   responseModalData:any;
+  surveyName:any;
 }
 
 interface SS {
@@ -75,7 +76,8 @@ export default class CoverImageController extends BlockComponent<
         page:1,
         total_count:""
       },
-      responseModalData:{}
+      responseModalData:{},
+      surveyName:"",
     };
 
     this.emailReg = new RegExp("");
@@ -105,7 +107,8 @@ export default class CoverImageController extends BlockComponent<
         console.log("REPORT RESPONSE",responseJson.report?.data?.attributes?.name_and_option?.responses)
         this.setState({
           reportPagination:responseJson.meta,
-          surveyReport:responseJson.report?.data?.attributes?.name_and_option?.responses
+          surveyReport:responseJson.report?.data?.attributes?.name_and_option?.responses,
+          surveyName:responseJson.report?.data?.attributes?.name_and_option?.survey_name,
         })
       }
     }

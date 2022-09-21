@@ -31,7 +31,16 @@ import ScheduledMeetingController, { Props } from "./ScheduledMeetingController.
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { MeetingsStyleWeb } from "./MeetingsStyle.web";
-import { CommentIcon, RejectIcon, AcceptIcon, AwaitIcon, SearchIconImage, Dots } from "./assets";
+import {
+  CommentIcon,
+  RejectIcon,
+  AcceptIcon,
+  AwaitIcon,
+  SearchIconImage,
+  Dots,
+  BlueCheckIcon,
+  GreyCheckIcon,
+} from "./assets";
 import { Formik, Form } from "formik";
 import moment from "moment";
 //@ts-ignore
@@ -63,6 +72,14 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
   async componentDidUpdate(prevProps: any, prevState: any): Promise<void> {
     if (prevState.filter.page !== this.state.filter.page) {
       await this.getMeetingResponseList();
+    }
+
+    if (
+      prevState.userFilter.buildingName !== this.state.userFilter.buildingName ||
+      prevState.userFilter.floorId !== this.state.userFilter.floorId ||
+      prevState.userFilter.userType !== this.state.userFilter.userType
+    ) {
+      await this.getUserList();
     }
   }
 
@@ -128,14 +145,15 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                     <h4>{t("Meeting Details")}</h4>
                     <Box className="items">
                       <span>{t("Date & Time")}: </span>
-                      <p>
-                        {moment(
-                          this.state.scheduleMeetingDetails &&
+                      {this.state.scheduleMeetingDetails && (
+                        <p>
+                          {moment(
                             this.state.scheduleMeetingDetails.attributes.meeting_date_time,
-                          "DD-MM-YYYY HH:mm",
-                          true
-                        ).format("DD-MMM-YYYY HH:mm")}
-                      </p>
+                            "DD-MM-YYYY HH:mm",
+                            true
+                          ).format("MMMM DD, YYYY HH:mm")}
+                        </p>
+                      )}
                     </Box>
                     <Box className="items">
                       <span>{t("Place")}: </span>
@@ -165,15 +183,16 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                     </Box>
                     <Box className="items">
                       <span>{t("Scheduled On")}: </span>
-                      <p>
-                        {moment(
-                          this.state.scheduleMeetingDetails &&
+                      {this.state.scheduleMeetingDetails && (
+                        <p>
+                          {moment(
                             this.state.scheduleMeetingDetails.attributes.meeting_schedule_detail &&
-                            this.state.scheduleMeetingDetails.attributes.meeting_schedule_detail.scheduled_on,
-                          "DD-MM-YYYY HH:mm",
-                          true
-                        ).format("DD-MMM-YYYY HH:mm")}
-                      </p>
+                              this.state.scheduleMeetingDetails.attributes.meeting_schedule_detail.scheduled_on,
+                            "DD-MM-YYYY HH:mm",
+                            true
+                          ).format("MMMM DD, YYYY HH:mm")}
+                        </p>
+                      )}
                     </Box>
                   </Box>
                   {this.state.scheduleMeetingStatus === "cancelled" &&
@@ -191,7 +210,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                               this.state.scheduleMeetingDetails.attributes.meeting_cancel_detail.cancelled_on,
                               "DD-MM-YYYY HH:mm",
                               true
-                            ).format("DD-MMM-YYYY HH:mm")}
+                            ).format("MMMM DD, YYYY HH:mm")}
                           </p>
                         </Box>
                       </Box>
@@ -248,9 +267,9 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                           <TableCell colSpan={5}>{t("No User Available!!")}</TableCell>
                         </TableRow>
                       )}
-                      {this.state.responseList.map((user: any) => {
+                      {this.state.responseList.map((user: any, index: number) => {
                         return (
-                          <TableRow key={user.id}>
+                          <TableRow key={index}>
                             <TableCell>{user.attributes.name}</TableCell>
                             <TableCell>{user.attributes.building_name}</TableCell>
                             <TableCell>{user.attributes.unit_number}</TableCell>
@@ -346,7 +365,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                         className="dialog-select-input"
                       >
                         <MenuItem value="" disabled>
-                          <em>{t("Select Meeting Type")}</em>
+                          {t("Select Meeting Type")}
                         </MenuItem>
                         <MenuItem value="ga_meeting">{t("GA Meeting")}</MenuItem>
                         <MenuItem value="regular_meeting">{t("Regular Meeting")}</MenuItem>
@@ -421,7 +440,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                         className="dialog-select-input"
                       >
                         <MenuItem value="" disabled>
-                          <em>{t("Select Building")}</em>
+                          {t("Select Building")}
                         </MenuItem>
                         {this.state.buildingsList.map((building: any) => {
                           return (
@@ -472,7 +491,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                         className="dialog-select-input"
                       >
                         <MenuItem value="" disabled>
-                          <em>Designated Meeting of Minutes writer</em>
+                          Designated Meeting of Minutes writer
                         </MenuItem>
                         {this.state.managersList.map((manager: any) => {
                           return (
@@ -498,7 +517,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                         className="dialog-select-input"
                       >
                         <MenuItem value="" disabled>
-                          <em>{t("Select Status")}</em>
+                          {t("Select Status")}
                         </MenuItem>
                         <MenuItem value="scheduled">{t("Scheduled")}</MenuItem>
                         <MenuItem value="completed">{t("Completed")}</MenuItem>
@@ -520,6 +539,11 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                             touched["attendeeIds"] = true;
                           }}
                         >
+                          {this.state.selectedGroup.includes("owner") ? (
+                            <img src={BlueCheckIcon} alt="" />
+                          ) : (
+                            <img src={GreyCheckIcon} alt="" />
+                          )}
                           <span>{t("Owner")}</span>
                         </Box>
                         <Box
@@ -529,6 +553,11 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                             touched["attendeeIds"] = true;
                           }}
                         >
+                          {this.state.selectedGroup.includes("resident") ? (
+                            <img src={BlueCheckIcon} alt="" />
+                          ) : (
+                            <img src={GreyCheckIcon} alt="" />
+                          )}
                           <span>{t("Resident")}</span>
                         </Box>
                         {this.state.groupList.map((group: any) => {
@@ -538,6 +567,11 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                               className={`${this.state.selectedGroup.includes(group.id.toString()) &&
                                 "active"} attendee`}
                             >
+                              {this.state.selectedGroup.includes(group.id.toString()) ? (
+                                <img src={BlueCheckIcon} alt="" />
+                              ) : (
+                                <img src={GreyCheckIcon} alt="" />
+                              )}
                               <span
                                 onClick={() => {
                                   this.handleSelectedGroupList(group.id.toString());
@@ -607,29 +641,73 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
             </IconButton>
           </MuiDialogTitle>
           <DialogContent dividers className="filter">
-            <Select value="" name="meetingType" displayEmpty className="dialog-select-input">
+            <Select value={this.state.buildingName} displayEmpty className="dialog-select-input">
               <MenuItem value="" disabled>
-                <em>{t("Select Building")}</em>
+                {t("Select Building")}
               </MenuItem>
               {this.state.buildingsList.map((building: any) => {
-                return <MenuItem key={building.id}>{building.name}</MenuItem>;
+                return (
+                  <MenuItem
+                    key={building.id}
+                    value={building.name}
+                    onClick={() => {
+                      this.setState({ buildingName: building.name }, () => {
+                        this.getFloorIdsList(building.id);
+                      });
+                    }}
+                  >
+                    {building.name}
+                  </MenuItem>
+                );
               })}
             </Select>
-            <Select value="" name="meetingType" displayEmpty className="dialog-select-input">
+            <Select
+              value={this.state.floorId}
+              displayEmpty
+              className="dialog-select-input"
+              onChange={(e: any) => {
+                this.setState({ floorId: e.target.value });
+              }}
+            >
               <MenuItem value="" disabled>
-                <em>{t("Select Floor")}</em>
+                {t("Select Floor")}
               </MenuItem>
-              <MenuItem>GA Meeting</MenuItem>
-              <MenuItem>Regular Meeting</MenuItem>
+              {this.state.floorList.map((floor: any) => {
+                return (
+                  <MenuItem key={floor} value={floor}>
+                    {floor}
+                  </MenuItem>
+                );
+              })}
             </Select>
-            <Select value="" name="meetingType" displayEmpty className="dialog-select-input">
+            <Select
+              value={this.state.userType}
+              displayEmpty
+              className="dialog-select-input"
+              onChange={(e: any) => {
+                this.setState({ userType: e.target.value });
+              }}
+            >
               <MenuItem value="" disabled>
-                <em>{t("User Type")}</em>
+                {t("User Type")}
               </MenuItem>
-              <MenuItem value="">{t("Owner")}</MenuItem>
-              <MenuItem value="">{t("Resident")}</MenuItem>
+              <MenuItem value="Owner">{t("Owner")}</MenuItem>
+              <MenuItem value="Resident">{t("Resident")}</MenuItem>
             </Select>
-            <Button className="filter-button" startIcon={<img src={SearchIconImage} />}>
+            <Button
+              className="filter-button"
+              startIcon={<img src={SearchIconImage} />}
+              onClick={() => {
+                this.setState({
+                  userFilter: {
+                    ...this.state.userFilter,
+                    buildingName: this.state.buildingName,
+                    floorId: this.state.floorId,
+                    userType: this.state.userType,
+                  },
+                });
+              }}
+            >
               {t("Search")}
             </Button>
           </DialogContent>
@@ -681,7 +759,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
           <DialogActions className="dialog-button-group">
             <div className="selected-meeting">
               <h4>
-                <span>{this.state.selectedUser.length} </span>User Selected
+                <span>{this.state.selectedUser.length} </span>user selected
               </h4>
             </div>
             <div className="button-group">
@@ -735,7 +813,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                     this.state.scheduleMeetingDetails.attributes.meeting_schedule_detail.scheduled_on,
                   "DD-MM-YYYY HH:mm",
                   true
-                ).format("DD-MMM-YYYY HH:mm")}{" "}
+                ).format("MMMM DD, YYYY HH:mm")}{" "}
                 at {this.state.scheduleMeetingDetails && this.state.scheduleMeetingDetails.attributes.place}? Once
                 cancelled, attendees will receive a meeting cancelation notification.
               </Typography>
@@ -777,7 +855,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                     this.state.scheduleMeetingDetails.attributes.meeting_schedule_detail.scheduled_on,
                   "DD-MM-YYYY HH:mm",
                   true
-                ).format("DD-MMM-YYYY HH:mm")}{" "}
+                ).format("MMMM DD, YYYY HH:mm")}{" "}
                 at {this.state.scheduleMeetingDetails && this.state.scheduleMeetingDetails.attributes.place}? Once
                 completed, attendees will receive a meeting completion notification.
               </Typography>

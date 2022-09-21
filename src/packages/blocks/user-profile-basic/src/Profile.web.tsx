@@ -9,7 +9,7 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import HomeIcon from '@material-ui/icons/Home';
-import { Building1, email, fb, FB_Icon, instaedit, Instagram_Icon, message, phone, Snapchat_Icon, snapedit, twitter, Twitter_Icon } from "./assets";
+import { Building1, email, fb, FB_Icon, instaedit, Instagram_Icon, message, Pencil, phone, Snapchat_Icon, snapedit, twitter, Twitter_Icon } from "./assets";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
 import '../assets/css/style.scss';
@@ -35,7 +35,7 @@ this.getProfile()
           <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset', overflowY: 'auto', overflowX: 'hidden' }}>
             <Grid container>
               <Grid xs={12} style={{ display: 'flex', alignItems: 'center' }}>
-                <div className="flex" style={{width:'100%'}}>
+                <div className="flex" style={{width:'100%',borderBottom:'3px solid #F2F2F2',marginTop:'1.25rem'}}>
                   <div style={{ display: "flex", alignItems: 'center', gap: '0.5rem' }}>
 
                     <ArrowBackIcon onClick={this.redirectToDashboard} />
@@ -81,7 +81,10 @@ this.getProfile()
                       Publish details for others
                     </MenuItem>
                     <MenuItem key="3" onClick={this.disablechat} >
-                      Disable Chat
+                      {
+                        profileData?.attributes?.disable_chat ? 'Enable Chat' : 'Disable Chat'
+                      }
+
                     </MenuItem>
                   </Menu>
                 </div>
@@ -174,7 +177,7 @@ this.getProfile()
               profileData?.attributes?.hobbies?.hobbies && <>
 
                 <Grid container>
-                  <Grid item xs={12}>
+                  <Grid item xs={12} style={{marginTop:'0.5rem',marginBottom:'0.5rem'}}>
                     {
                       profileData?.attributes?.hobbies?.hobbies.map((item:any) => <>
                         <span className="hobbies">
@@ -233,21 +236,24 @@ this.getProfile()
               localStorage.getItem('userType') !== 'Owner' &&
               <>
                 <Grid container>
-                  <Grid item xs={12}>
+                  <Grid item xs={12} style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
 
                     <p style={{ fontWeight: 'bold', fontSize: '1.25rem', marginTop: '0.5rem', marginBottom: '0.25rem' }}>
                       My Family
                     </p>
 
+                    <img src={Pencil} width='25' height='25' onClick={()=>this.props.history.push('/familylist')}/>
+
+
                   </Grid>
                 </Grid>
                 <Grid container>
-                  <Grid item xs={12}>
+                  <Grid item xs={12} style={{ margin: '0.25rem' }}>
                     {
 
                       profileData?.attributes?.families.families &&     profileData?.attributes?.families.families.map((item: any) =>
                         <>
-                          <Grid xs={12} className="card fam">
+                          <Grid xs={12} className="card fam" >
                             <div className="flex">
                               <div style={{ display: "flex", alignItems: 'center', gap: '0.5rem' }}>
 

@@ -1,6 +1,3 @@
-//@ts-ignore
-//@ts-nocheck
-
 import * as React from "react";
 // custom components
 import {
@@ -12,10 +9,9 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import HomeIcon from '@material-ui/icons/Home';
-import { Building1, Car, Hash, Hyperlink, ListCopy, message, owner, palette, resident_owner, tenet, upload, user, User3, username } from "./assets";
+import { Building1, username } from "./assets";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
-import VeichleListController from "./VeichleListController.web";
 import '../assets/css/style.scss';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import ProfileController from "./ProfileController.web";
@@ -23,11 +19,7 @@ import { dailCode } from "../../email-account-registration/src/code";
 import CircleCheckedFilled from '@material-ui/icons/CheckCircle';
 import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 class PublicView extends ProfileController {
-  constructor(props: Props) {
-    super(props);
-    // Customizable Area Start
-    // Customizable Area End
-  }
+
   async componentDidMount() {
 
     // this.getRelation()
@@ -35,6 +27,8 @@ class PublicView extends ProfileController {
 
   }
   render() {
+    // @ts-ignore
+// @ts-nocheck
     let profileData = JSON.parse(localStorage.getItem('profileData'))
     return (
 
@@ -42,7 +36,7 @@ class PublicView extends ProfileController {
         <Grid container spacing={2} className="auth-container">
           <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset' }}>
             <Grid container>
-              <Grid xs={12} style={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid #f2f2f2' }}>
+              <Grid xs={12} style={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid #f2f2f2',marginTop:'1.25rem' }}>
                 <ArrowBackIcon onClick={() => window.history.back()} />
                 <p style={{ fontWeight: 600, fontSize: '1.25rem' }}>
 
@@ -52,7 +46,7 @@ class PublicView extends ProfileController {
             </Grid>
             <Grid container>
               <Grid item xs={12}>
-                <div style={{ background:'#E4E4E4', padding:'0.5rem',marginTop:'1rem'}}>
+                <div style={{ background:'rgb(228 228 228 / 60%)', padding:'0.5rem',marginTop:'1rem'}}>
                   This screen will allow you to select which of your information wil be visible to the rest of the residents in the building.
                 </div>
               </Grid>
@@ -98,7 +92,7 @@ class PublicView extends ProfileController {
 
                               </div>
                               <div>
-                                <Checkbox name="full_name" onChange={handleChange} checked={values.full_name} icon={<CircleUnchecked />}
+                                <Checkbox className="radio-toolbar" name="full_name" onChange={handleChange} checked={values.full_name} icon={<CircleUnchecked />}
                                   checkedIcon={<CircleCheckedFilled />} id="loginCheckboxna"
                                 />
                               </div>
@@ -115,7 +109,7 @@ class PublicView extends ProfileController {
                                 </p>
                               </div>
                               <div>
-                                <Checkbox name="unit" onChange={handleChange} checked={values.unit} icon={<CircleUnchecked />}
+                                <Checkbox className="radio-toolbar" name="unit" onChange={handleChange} checked={values.unit} icon={<CircleUnchecked />}
                                   checkedIcon={<CircleCheckedFilled />} id="loginCheckboxu"
                                 />
                               </div>
@@ -131,7 +125,7 @@ class PublicView extends ProfileController {
                                 </p>
                               </div>
                               <div>
-                                <Checkbox name="phone" onChange={handleChange} checked={values.phone} icon={<CircleUnchecked />}
+                                <Checkbox className="radio-toolbar" name="phone" onChange={handleChange} checked={values.phone} icon={<CircleUnchecked />}
                                   checkedIcon={<CircleCheckedFilled />} id="loginCheckboxp"
                                 />
                               </div>
@@ -147,7 +141,7 @@ class PublicView extends ProfileController {
                                 </p>
                               </div>
                               <div>
-                                <Checkbox name="email" onChange={handleChange} checked={values.email} icon={<CircleUnchecked />}
+                                <Checkbox className="radio-toolbar" name="email" onChange={handleChange} checked={values.email} icon={<CircleUnchecked />}
                                   checkedIcon={<CircleCheckedFilled />} id="loginCheckboxe"
                                 />
                               </div>
@@ -163,7 +157,7 @@ class PublicView extends ProfileController {
                                 </p>
                               </div>
                               <div>
-                                <Checkbox name="gender" onChange={handleChange} checked={values.gender} icon={<CircleUnchecked />}
+                                <Checkbox className="radio-toolbar" name="gender" onChange={handleChange} checked={values.gender} icon={<CircleUnchecked />}
                                   checkedIcon={<CircleCheckedFilled />} id="loginCheckboxg"
                                 />
                               </div>
@@ -179,7 +173,7 @@ class PublicView extends ProfileController {
                                 </p>
                               </div>
                               <div>
-                                <Checkbox name="DOB" onChange={handleChange} checked={values.DOB} icon={<CircleUnchecked />}
+                                <Checkbox className="radio-toolbar" name="DOB" onChange={handleChange} checked={values.DOB} icon={<CircleUnchecked />}
                                   checkedIcon={<CircleCheckedFilled />} id="loginCheckboxdb"
                                 />
                               </div>
@@ -195,7 +189,7 @@ class PublicView extends ProfileController {
                                 </p>
                               </div>
                               <div>
-                                <Checkbox name="hobbies" onChange={handleChange} checked={values.hobbies} icon={<CircleUnchecked />}
+                                <Checkbox className="radio-toolbar" name="hobbies" onChange={handleChange} checked={values.hobbies} icon={<CircleUnchecked />}
                                   checkedIcon={<CircleCheckedFilled />} id="loginCheckboxh"
                                 />
                               </div>
@@ -211,7 +205,7 @@ class PublicView extends ProfileController {
                                 </p>
                               </div>
                               <div>
-                                <Checkbox name="twitter" onChange={handleChange} checked={values.twitter} icon={<CircleUnchecked />}
+                                <Checkbox className="radio-toolbar" name="twitter" onChange={handleChange} checked={values.twitter} icon={<CircleUnchecked />}
                                   checkedIcon={<CircleCheckedFilled />} id="loginCheckboxt"
                                 />
                               </div>
@@ -227,7 +221,7 @@ class PublicView extends ProfileController {
                                 </p>
                               </div>
                               <div>
-                                <Checkbox name="fb" onChange={handleChange} checked={values.fb} icon={<CircleUnchecked />}
+                                <Checkbox className="radio-toolbar" name="fb" onChange={handleChange} checked={values.fb} icon={<CircleUnchecked />}
                                   checkedIcon={<CircleCheckedFilled />} id="loginCheckboxb"
                                 />
                               </div>
@@ -243,7 +237,7 @@ class PublicView extends ProfileController {
                                 </p>
                               </div>
                               <div>
-                                <Checkbox name="insta" onChange={handleChange} checked={values.insta} icon={<CircleUnchecked />}
+                                <Checkbox className="radio-toolbar" name="insta" onChange={handleChange} checked={values.insta} icon={<CircleUnchecked />}
                                   checkedIcon={<CircleCheckedFilled />} id="loginCheckboxi"
                                 />
                               </div>
@@ -259,7 +253,7 @@ class PublicView extends ProfileController {
                                 </p>
                               </div>
                               <div>
-                                <Checkbox name="snap" onChange={handleChange} checked={values.snap} icon={<CircleUnchecked />}
+                                <Checkbox className="radio-toolbar" name="snap" onChange={handleChange} checked={values.snap} icon={<CircleUnchecked />}
                                   checkedIcon={<CircleCheckedFilled />} id="loginCheckboxs"
                                 />
                               </div>
@@ -271,11 +265,11 @@ class PublicView extends ProfileController {
                               <div>
                                 <label htmlFor="loginCheckboxf" className="checkboxLabel">Family Details</label>
                                 <p style={{ marginTop: '0.25rem' }}>
-                                  {profileData.attributes.families.families.length + ' Members'}
+                                  {profileData?.attributes.families?.families?.length || '0' + ' Members'}
                                 </p>
                               </div>
                               <div>
-                                <Checkbox name="family" onChange={handleChange} checked={values.family} icon={<CircleUnchecked />}
+                                <Checkbox className="radio-toolbar" name="family" onChange={handleChange} checked={values.family} icon={<CircleUnchecked />}
                                   checkedIcon={<CircleCheckedFilled />} id="loginCheckboxf"
                                 />
                               </div>
@@ -309,7 +303,7 @@ class PublicView extends ProfileController {
         </Grid>
         <Dialog
           open={this.state.showDialog}
-          onClose={() => this.setState({ showDialog: false, showDialog: false })}
+          onClose={() => this.setState({ showDialog: false })}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
           className="diloag-wrapper"
@@ -362,6 +356,7 @@ class PublicView extends ProfileController {
   }
 
 }
+
 // @ts-igonre
 // @ts-nocheck
 export default withRouter(PublicView)

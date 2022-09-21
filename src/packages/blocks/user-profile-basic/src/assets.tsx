@@ -48,3 +48,4 @@ export const FB_Icon = require("../assets/facebook-icon.png");
 export const Twitter_Icon = require("../assets/twitter-icon.png");
 export const Instagram_Icon = require("../assets/instagram-icon.png");
 export const Snapchat_Icon = require("../assets/snapchat-icon.png");
+export const Pencil = require("../assets/Pencil.png");
