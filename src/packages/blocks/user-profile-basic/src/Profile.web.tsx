@@ -117,7 +117,7 @@ this.getProfile()
                 </Box> */}
                 <Box className="card-top-block">
                   <img src={profileData?.attributes?.profile_pic || NoProfile_Img} className="info-icon" alt="info-icon" />
-                  <Typography component="h4">
+                  <Typography component="h4" className="title" style={{fontSize:'18px'}}>
                     {profileData?.attributes?.full_name?.name}
                   </Typography>
                   <Box className="social-raw">
@@ -143,23 +143,29 @@ this.getProfile()
                   </Box>
                   <Box className="relation-row">
                     <Box className="blocks" style={{ display: 'flex',gap:'1rem' }}>
+                      <div>
+
                       {
                         profileData?.attributes?.gender?.publilc_access ?
                           <Typography component="h4">
                             Gender:
-                            <span className="title">{profileData?.attributes?.gender?.gender}</span>
+                            <span className="" style={{fontWeight:600}}>{profileData?.attributes?.gender?.gender}</span>
                           </Typography>
                           : null
                       }
+                      </div>
+                      <div>
+
                       {
                         profileData?.attributes?.date_of_birth?.publilc_access ?
                           <Typography component="h4">
                             DOB:
-                            <span className="title">{profileData?.attributes?.date_of_birth?.date_of_birth}</span>
+                            <span className="" style={{fontWeight:600}}>{profileData?.attributes?.date_of_birth?.date_of_birth}</span>
                           </Typography>
                           :
                           null
                       }
+                      </div>
                     </Box>
                   </Box>
                 </Box>
