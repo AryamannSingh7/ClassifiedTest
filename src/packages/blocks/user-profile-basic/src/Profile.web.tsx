@@ -9,7 +9,7 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import HomeIcon from '@material-ui/icons/Home';
-import { Building1, email, fb, FB_Icon, instaedit, Instagram_Icon, message, Pencil, phone, Snapchat_Icon, snapedit, twitter, Twitter_Icon } from "./assets";
+import { Building1, Chat_Icon, Contact_Icon, email, Email_Disable_Icon, Email_Msg_Icon, fb, FB_Icon, instaedit, Instagram_Icon, message, NoProfile_Img, Pencil, phone, Snapchat_Icon, snapedit, twitter, Twitter_Icon } from "./assets";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
 import '../assets/css/style.scss';
@@ -92,7 +92,7 @@ this.getProfile()
               </Grid>
             </Grid>
 
-            <Grid container>
+            {/* <Grid container>
               <Grid item xs={12}>
                 <Box display='flex' justifyContent='center' marginTop='1rem' alignItems='center' flexDirection='column'>
 
@@ -102,18 +102,66 @@ this.getProfile()
                   </p>
                   </Box>
               </Grid>
-            </Grid>
-            <Grid container>
-              <Grid item xs={12}>
+            </Grid> */}
+            <Grid container style={{marginTop:'1.5rem'}}>
+              <Grid item xs={12} >
 
               </Grid>
             </Grid>
             <Grid container>
               <Grid item xs={12}>
-                <Box display='flex' justifyContent='center' marginTop='1rem'>
+                {/* <Box display='flex' justifyContent='center' marginTop='1rem'>
                   <img src={message} className='first_icon'/>
                   <img src={phone} className='second_icon' onClick={() => document.location.href = `tel:${profileData?.attributes?.full_phone_number?.full_phone_number}`}/>
                   <img src={email} className='third_icon' onClick={() => document.location.href = `mailto:${profileData?.attributes?.email?.email}`} />
+                </Box> */}
+                <Box className="card-top-block">
+                  <img src={profileData?.attributes?.profile_pic || NoProfile_Img} className="info-icon" alt="info-icon" />
+                  <Typography component="h4">
+                    {profileData?.attributes?.full_name?.name}
+                  </Typography>
+                  <Box className="social-raw">
+
+                        <Box className="blocks">
+                          <img src={Chat_Icon} className="icons" alt="info-icon" />
+                        </Box>
+
+
+                      <Box className="blocks">
+                        <a href={`tel:${profileData?.attributes?.full_phone_number?.full_phone_number}`}>
+                          <img src={Contact_Icon} className="icons" alt="info-icon" />
+                        </a>
+                      </Box>
+
+
+                      <Box className="blocks">
+                        <a href={`mailto:${profileData?.attributes?.email?.email}`}>
+                          <img src={Email_Msg_Icon} className="icons" alt="info-icon" />
+                        </a>
+                      </Box>
+
+                  </Box>
+                  <Box className="relation-row">
+                    <Box className="blocks" style={{ display: 'flex',gap:'1rem' }}>
+                      {
+                        profileData?.attributes?.gender?.publilc_access ?
+                          <Typography component="h4">
+                            Gender:
+                            <span className="title">{profileData?.attributes?.gender?.gender}</span>
+                          </Typography>
+                          : null
+                      }
+                      {
+                        profileData?.attributes?.date_of_birth?.publilc_access ?
+                          <Typography component="h4">
+                            DOB:
+                            <span className="title">{profileData?.attributes?.date_of_birth?.date_of_birth}</span>
+                          </Typography>
+                          :
+                          null
+                      }
+                    </Box>
+                  </Box>
                 </Box>
 
               </Grid>
@@ -121,22 +169,8 @@ this.getProfile()
             <Grid container>
               <Grid item xs={12} style={{display:'flex',justifyContent:'center',marginTop:'1rem',gap:'1rem'}}>
 
-              <Box style={{fontSize:"0.75rem"}}>
-                <label className='label'>
-                    {profileData?.attributes?.gender?.gender && 'Gender :'}
-                </label>
-                <span>
-                    {" "}  {profileData?.attributes?.gender?.gender }
-                </span>
-              </Box>
-                <Box style={{ fontSize: "0.75rem" }}>
-                <label className='label'>
-                    {profileData?.attributes?.date_of_birth?.date_of_birth &&'DOB :'}
-                </label>
-                <span>
-                    {" "} {profileData?.attributes?.date_of_birth?.date_of_birth}
-                </span>
-              </Box>
+
+
               </Grid>
             </Grid>
 
