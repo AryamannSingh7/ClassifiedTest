@@ -264,7 +264,7 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
             profileData.attributes.full_phone_number.country_code = responseJson.country_code
             localStorage.setItem('profileData',JSON.stringify(profileData))
             this.setState({ selectCode: responseJson.country_code })
-            // location.reload();
+            location.reload();
 
           } else if (responseJson?.errors) {
             let error = responseJson.errors[0];
