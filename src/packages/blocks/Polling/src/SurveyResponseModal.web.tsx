@@ -10,6 +10,7 @@ class SurveyResponseModal extends Component<any, any> {
   }
   render() {
     const {t,response,handleClose} = this.props
+      console.log("RESPONSE FOR SURVEY",response)
     return (
       <>
         <Box style={{width:"55vw",maxHeight:"500px",marginTop:'15px',backgroundColor:"white",padding:'20px',borderRadius:"10px",overflowY:"scroll"}}>
@@ -35,14 +36,39 @@ class SurveyResponseModal extends Component<any, any> {
                         <Box style={{marginTop:"20px"}} key={key}>
                             <Typography variant={"h6"} style={{fontWeight:"bold"}}>Q{key+1}. {item.survey_question}</Typography>
                             {
-                                item.response &&
-                                <Typography style={{marginTop:"5px"}}>Response : {item.response}</Typography>
+                                item.survey_question_type === "short_answers" &&
+                                <Typography style={{marginTop:"5px"}}>Short Answer : {item.concern}</Typography>
                             }
                             {
-                                item.concern &&
-                                <Typography style={{marginTop:"5px"}}>{item.response && item.concern ? "Comment":"Short Answer"} : {item.concern}</Typography>
+                                item.survey_question_type === "Option" &&
+                                    item.survey_options.length > 0 &&
+                                        item.survey_options.map((itemA:any,key:any)=>{
+                                            return(
+                                                <>
+                                                    <Typography style={{marginTop:"5px"}}>Response : {itemA.response}</Typography>
+                                                    <Typography style={{marginTop:"5px"}}>Comment : {item.concern}</Typography>
+                                                </>
+                                            )
+                                        })
                             }
-
+                            {
+                                item.survey_question_type === "checkbox" &&
+                                item.survey_options.length > 0 &&
+                                <>
+                                    <Typography style={{marginTop:"5px"}}>Response : {" "}
+                                        {item.survey_options.map((itemA: any, key: any) => {
+                                            console.log("RESPONSE", itemA)
+                                            return (
+                                                <>
+                                                    {itemA.response}
+                                                    {key+1 !== item.survey_options?.length && ","}
+                                                </>
+                                            )
+                                        })}
+                                    </Typography>
+                                    <Typography style={{marginTop:"5px"}}>Comment : {item.concern}</Typography>
+                                </>
+                            }
                         </Box>
                     )
                 })

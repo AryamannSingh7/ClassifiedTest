@@ -123,7 +123,9 @@ export default class ProfileController extends BlockComponent<
     this.isStringNullOrBlank = this.isStringNullOrBlank.bind(this);
 
     runEngine.attachBuildingBlock(this, this.subScribedMessages);
-    const profileData = JSON.parse(localStorage.getItem('profileData'))
+
+
+const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
     this.state = {
       // Customizable Area Start
       firstName: "",
