@@ -123,7 +123,9 @@ export default class ProfileController extends BlockComponent<
     this.isStringNullOrBlank = this.isStringNullOrBlank.bind(this);
 
     runEngine.attachBuildingBlock(this, this.subScribedMessages);
-    const profileData = JSON.parse(localStorage.getItem('profileData'))
+
+
+const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
     this.state = {
       // Customizable Area Start
       firstName: "",
@@ -262,7 +264,7 @@ export default class ProfileController extends BlockComponent<
             profileData.attributes.full_phone_number.country_code = responseJson.country_code
             localStorage.setItem('profileData',JSON.stringify(profileData))
             this.setState({ selectCode: responseJson.country_code })
-            // location.reload();
+            location.reload();
 
           } else if (responseJson?.errors) {
             let error = responseJson.errors[0];

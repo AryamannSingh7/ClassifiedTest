@@ -137,8 +137,6 @@ import ManagerList from "../../blocks/customform/src/ManagerList.web"
 import Inbox from "../../blocks/customform/src/Inbox.web"
 import Chatbox from "../../blocks/customform/src/Chatbox.web"
 
-
-
 import ViewVeichle from "../../blocks/customform/src/ViewVehicle.web"
 import FamilyList from "../../blocks/customform/src/FamilyList.web"
 
@@ -156,6 +154,7 @@ import IncidentManagement from "../../blocks/ContentManagement/src/IncidentManag
 import IncidentManagementDetail from "../../blocks/ContentManagement/src/IncidentManagementDetail.web";
 
 import ClassifiedManagerListing from "../../blocks/ContentManagement/src/ClassifiedManagerListing.web";
+import ClassifiedManagerDetail from "../../blocks/ContentManagement/src/ClassifiedManagerDetail.web";
 
 import NeighboursDetails from '../../blocks/search/src/NeighboursDetails.web';
 import NeighboursListing from '../../blocks/search/src/NeighboursListing.web';
@@ -226,6 +225,11 @@ import UserDetailedProfile from '../../blocks/user-profile-basic/src/UserDetaile
 import Announcement from '../../blocks/BroadcastMessage/src/Announcement.web'
 import BuildingAnnouncement from "../../blocks/BroadcastMessage/src/BuildingAnnouncement.web"
 import AnnouncementInfo from "../../blocks/BroadcastMessage/src/AnnouncementDetails.web"
+
+import BuildingandComplex from '../../blocks/LeadManagement/src/BuildingandComplex.web';
+import ComplexandApartment from '../../blocks/LeadManagement/src/ComplexandApartment.web';
+import UnitDetails from '../../blocks/LeadManagement/src/UnitDetails.web';
+
 
 const routeMap = {
   //done
@@ -458,7 +462,11 @@ const routeMap = {
     path: '/ClassifiedManagerListing',
     exact: true
   },
-
+ ClassifiedManagerDetail: {
+    component: ClassifiedManagerDetail,
+    path: '/ClassifiedManagerDetail',
+    exact: true
+  },
   // RolesPermissions2: {
   //   component: RolesPermissions2,
   //   path: '/RolesPermissions2'
@@ -1361,6 +1369,20 @@ const routeMap = {
   UserDetailedProfile: {
     component: UserDetailedProfile,
     path: '/UserDetailedProfile'
+  },
+
+  BuildingandComplex:{
+    component:BuildingandComplex,
+    path:"/BuildingandComplex"
+  },
+
+  ComplexandApartment:{
+    component:ComplexandApartment,
+    path:"/ComplexandApartment"
+  },
+  UnitDetails:{
+    component:UnitDetails,
+    path:"/UnitDetails"
   },
 
   AlertWeb: {

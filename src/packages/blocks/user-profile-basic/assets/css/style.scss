@@ -28,9 +28,9 @@
   margin-top: 0.5rem;
   font-size: 0.8rem;
   font-weight: bold;
-  color: #FC8434;
+  color: #fc8434;
   margin-left: 0.5rem;
-  background: #c5b1e73d;
+  background-color: #fff6ee;
   border-radius: 25px;
   padding: 0.5rem;
 }
@@ -50,5 +50,40 @@
 }
 
 .MuiTypography-body1 {
-  font-weight: bold !important;
+  font-weight: bold;
+}
+
+h4.MuiTypography-body1 {
+  font-size: 14px;
+  margin: 10px 0;
+  font-weight: 600;
+  color: #181d25;
+}
+
+.card-top-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.social-raw .blocks {
+  border-right: 2px solid #d7dbe4;
+  padding: 0 10px;
+}
+
+.social-raw {
+  position: relative;
+}
+
+.social-raw {
+  padding: 8px 2px;
+}
+
+.social-raw {
+  display: flex;
+  background-color: #f6f6f6;
+  padding: 12px;
+  border-radius: 20px;
+  margin-top: 10px;
 }
