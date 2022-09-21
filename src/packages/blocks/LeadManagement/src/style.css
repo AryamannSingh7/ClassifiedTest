@@ -1,0 +1,105 @@
+.tabs {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+    width:50%
+}
+
+.tabs button {
+    /* background-color: lightgray; */
+    border: none;
+    color: #888888;
+    cursor: pointer;
+    padding: 25px;
+    width: 100%;
+    background-color: #fff;
+    transition: all 0.5s ease-out;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    margin-right: -7px;
+    /* background: linear-gradient(0deg, gray -100%, #FFFFFF 45%); */
+    box-shadow: 0px 0px 17px -8px black;
+    color:#2B6FED;
+    font-weight: 600;
+    /* z-index: -1; */
+}
+
+/* .tabs button:hover {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.15);
+} */
+
+.tabs button:disabled {
+    background: linear-gradient(0deg, #FFFFFF -100%, #2B6FED 45%);
+    color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    font-weight: 600;
+    /* z-index: -1; */
+}
+
+.title {
+    color: black;
+    font-size: medium;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: 600;
+    padding: 20px 20px 0px 20px;
+}
+
+.content {
+    padding: 30px 20px 30px 20px;
+    background-color: white;
+    font-weight: 300;
+    line-height: 30px;
+    font-size: 16px;
+    text-align: justify;
+    margin-top: -10px;
+    border-radius: 20px;
+}
+
+.content,
+button {
+    font-size: 15px;
+}
+
+.document-box{
+    margin-bottom: 20px;
+    border-radius: 5px;
+    background: #FFF;
+    padding: 20px;
+}
+
+.document-box .item{
+    min-height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    padding: 15px;
+    border-radius: 10px;
+    border: 2px solid lightgray;
+  }
+
+  .document-box .item .heading{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+  }
+
+  .document-box .item .heading h4 {
+    font-weight: 600;
+    font-size: 16px;
+    margin-left: 10px;
+    word-break: break-all;
+    /* // textTransform: capitalize; */
+  }
+
+  .document-box .item button.color-btn {
+    padding: 5px 11px;
+    min-width: 60px;
+    border-radius: 25px;
+    font-weight: 600;
+    background: #FEF9F3;
+    color: #FD9048;
+  }
