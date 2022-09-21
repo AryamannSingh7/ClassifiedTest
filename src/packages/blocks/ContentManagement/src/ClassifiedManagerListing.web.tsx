@@ -47,14 +47,15 @@ class ClassifiedManagerListing  extends ClassifiedManagerController {
     super(props);
   }
   componentDidMount(): any {
-   // this.getIncidentListing();
+    this.getClassifiedsListing();
     this.getBuildingName();
   }
 
   render() {
     const {t ,classes} : any = this.props;
     console.log("this.state.buildingName=================>/",this.state.buildingNameData);
-    const statusArray=["Unresolved", "Resolved", "Pending Confirmation"]
+    const statusArray=["Pending Approved", "Published", "Rejected"]
+    const classifiedType = ["buyer" ,"seller" ,'generic','All'] ;
     return (
       <>
         <Box className="incident-Listing-wrapper desktop-ui" style={{ background: "#E5ECFF" }}>
@@ -70,25 +71,37 @@ class ClassifiedManagerListing  extends ClassifiedManagerController {
                 <Box className={classes.navigation}>
                   <Box>
                     <Typography variant="body1" >
-                      {t("My Dashboard")} / {t("General Dashboard")} /<Box component="span" style={{ color: "blue" }}> {t("Incidents")}</Box>
+                      {t("My Dashboard")} / {t("General Dashboard")} /<Box component="span" style={{ color: "blue" }}> {t("Classified")}</Box>
                     </Typography>
-                    <Typography variant="h5" className={classes.subHeading}>{t("Incidents")}</Typography>
+                    <Typography variant="h5" className={classes.subHeading}>{t("Classified")}</Typography>
                   </Box>
-                  {/* <Box>
-                    <FormControl style={dashBoard.YearMain} className='yearTab'>
-                      <NativeSelect className='yearSelection'
-                        value={this.state.Year}
-                        onChange={this.handleChange}
-                      >
-                        <option value={2022}>2022</option>
-                        <option value={2021}>2021</option>
-                        <option value={2020}>2020</option>
-                        <option value={2019}>2019</option>
-                      </NativeSelect>
-                    </FormControl>
-                  </Box> */}
                 </Box>
                 <Box className="sorting-header">
+                <Box className="formGroup customSelect">
+                            <FormControl variant="outlined" >
+                              <Select
+                                name="classifiedType"
+                                labelId="demo-simple-select-outlined-label"
+                                id="demo-simple-select-outlined"
+                                 onChange={(e) => {this.onChange(e)}}
+                                value={this.state.classifiedType}
+                              >
+                                <MenuItem disabled value=" ">
+                                  {t("Classified Type")}
+                                </MenuItem>
+                                {
+                                classifiedType?.map((val, index) => (
+                                  <MenuItem
+                                    key={index}
+                                    value={val}
+                                  >
+                                    {val}
+                                  </MenuItem>
+                                ))
+                              }
+                              </Select>
+                    </FormControl>
+                  </Box>                     
                           <Box className="formGroup customSelect">
                             <FormControl variant="outlined" >
                               <Select
@@ -105,7 +118,7 @@ class ClassifiedManagerListing  extends ClassifiedManagerController {
                                 this.state?.buildingNameData?.map((val : any, index : any) => (
                                   <MenuItem
                                     key={index}
-                                    value={`${val?.id},${val?.attributes?.name}`}
+                                    value={val?.id}
                                   >
                                     {val?.attributes?.name}
                                   </MenuItem>
@@ -114,33 +127,6 @@ class ClassifiedManagerListing  extends ClassifiedManagerController {
                               </Select>
                             </FormControl>
                           </Box>
-                         <Box className="formGroup customSelect">
-                            <FormControl variant="outlined" >
-                              <Select
-                                name="unitName"
-                                labelId="demo-simple-select-outlined-label"
-                                id="demo-simple-select-outlined"
-                                onChange={(e) => {this.onChange(e)}}
-                                value={this.state.unitName}
-                              >
-                                   <MenuItem disabled value=" ">
-                                  {t("Select Unit")}
-                                </MenuItem>
-                                {
-                                    this.state?.unitNameData?.map((val :any, index :any) => (
-                                      <MenuItem
-                                        key={index}
-                                        value={val?.apartment_name}
-                                        disabled ={this.state.buildingName ? false:true }
-                                      >
-                                        {val?.apartment_name}
-                                      </MenuItem>
-                                    ))
-                                }
-                              </Select>
-                            </FormControl>
-                          </Box>
-                            
                           <Box className="formGroup customSelect">
                             <FormControl variant="outlined" >
                               <Select
@@ -175,28 +161,29 @@ class ClassifiedManagerListing  extends ClassifiedManagerController {
                 </Box>
                 <Grid container spacing={2} style={{ marginTop: 15, marginBottom: 15 }}>
                   {
-                    this.state?.incidentListing?.map((val : any , index : any) => (
-                      <Grid item sm={4} key={index} onClick={() => this.getIncidentDetails(val.id)}>
+                    this.state?.classifiedsListing?.map((val : any , index : any) => (
+                      <Grid item sm={4} key={index} onClick={() => this.getClassifiedDetails(val.id)}>
                         <Card className="management-card card" key={index}>
                           <CardContent className="costom-card-content">
-                            <Box className="customButton">
-                              <Button variant="contained" className={val?.attributes?.incident_status === 'Pending Confirmation' ? "contain warning" : val?.attributes?.incident_status === 'Resolved' ? 'contain success' : 'contain danger'} type="submit">
-                                {val?.attributes?.incident_status}</Button>
-                            </Box>
                             <Typography component="h4">
-                              {val?.attributes?.incident_related?.name}
+                            classified title
+                            </Typography>
+                            <Typography component="h4">
+                            of twice the depth or point size of the type or letter named or understood a two-line initial a two-line letter —distinguished from double.
+                            </Typography>
+                            <Typography component="span">
+                            available to buy
                             </Typography>
                             <Box className="card-rows">
-                              <img src={Bank_Icon} alt="Bank Icon" />
-                              <h5>{val?.attributes?.apartment_management?.building_name}</h5>
+                              <h5>1/1/1/ to 1/1/1</h5>
                             </Box>
                             <Box className="card-rows">
                               <img src={Box_Icon} alt="Bank Icon" />
-                              <h5>{val?.attributes?.apartment_management?.apartment_name}</h5>
+                              <h5>{}</h5>
                             </Box>
-                            <Box className="card-rows">
-                              <img src={Users_Icon} alt="Bank Icon" />
-                              <h5>{val?.attributes?.reported_by?.full_name}</h5>
+                            <Box className="customButton">
+                              <Button variant="contained" className={val?.attributes?.classified_status === 'Pending Approved' ? "contain warning" : val?.attributes?.classified_status === 'Published' ? 'contain success' : 'contain danger'} type="submit">
+                                {val?.attributes?.classified_status}</Button>
                             </Box>
                           </CardContent>
                         </Card>
@@ -310,6 +297,5 @@ const dashBoard : any = {
     paddingBottom: 150,
   },
 };
-//@ts-ignore
 export default withTranslation()(withStyles(dashBoard)(withRouter(ClassifiedManagerListing))); 
 // Customizable Area End
