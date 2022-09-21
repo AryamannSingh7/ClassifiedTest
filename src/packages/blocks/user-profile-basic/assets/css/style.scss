@@ -25,8 +25,30 @@
 }
 
 .hobbies {
+  margin-top: 0.5rem;
   font-size: 0.8rem;
   font-weight: bold;
   color: #FC8434;
   margin-left: 0.5rem;
+  background: #c5b1e73d;
+  border-radius: 25px;
+  padding: 0.5rem;
+}
+
+.active {
+
+  color: blue;
+  font-weight: bold !important;
+  border: 5px solid gray;
+}
+
+
+.unactive {
+
+  color: gray;
+  font-weight: bold !important;
+}
+
+.MuiTypography-body1 {
+  font-weight: bold;
 }

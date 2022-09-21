@@ -124,6 +124,8 @@ export default class ProfileController extends BlockComponent<
 
     runEngine.attachBuildingBlock(this, this.subScribedMessages);
 
+
+const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
     this.state = {
       // Customizable Area Start
       firstName: "",
@@ -148,8 +150,8 @@ export default class ProfileController extends BlockComponent<
       selectBuilding: '',
       allUnit: [],
       selectUnit: '',
-      selectCode: '+966',
-      selectCode2: '+966',
+      selectCode: `+${profileData?.attributes?.full_phone_number?.country_code}` || '+966' ,
+      selectCode2: `+${profileData?.attributes?.full_phone_number?.country_code}` || '+966',
       selectEmail: '',
       unitRegisterType: '',
       allComplex: [],
@@ -262,7 +264,7 @@ export default class ProfileController extends BlockComponent<
             profileData.attributes.full_phone_number.country_code = responseJson.country_code
             localStorage.setItem('profileData',JSON.stringify(profileData))
             this.setState({ selectCode: responseJson.country_code })
-            // location.reload();
+            location.reload();
 
           } else if (responseJson?.errors) {
             let error = responseJson.errors[0];
