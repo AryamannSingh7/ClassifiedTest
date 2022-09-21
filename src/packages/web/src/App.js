@@ -156,6 +156,7 @@ import IncidentManagement from "../../blocks/ContentManagement/src/IncidentManag
 import IncidentManagementDetail from "../../blocks/ContentManagement/src/IncidentManagementDetail.web";
 
 import ClassifiedManagerListing from "../../blocks/ContentManagement/src/ClassifiedManagerListing.web";
+import ClassifiedManagerDetail from "../../blocks/ContentManagement/src/ClassifiedManagerDetail.web";
 
 import NeighboursDetails from '../../blocks/search/src/NeighboursDetails.web';
 import NeighboursListing from '../../blocks/search/src/NeighboursListing.web';
@@ -453,7 +454,11 @@ const routeMap = {
     path: '/ClassifiedManagerListing',
     exact: true
   },
-
+ ClassifiedManagerDetail: {
+    component: ClassifiedManagerDetail,
+    path: '/ClassifiedManagerDetail',
+    exact: true
+  },
   // RolesPermissions2: {
   //   component: RolesPermissions2,
   //   path: '/RolesPermissions2'
