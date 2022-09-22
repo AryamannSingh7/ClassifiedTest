@@ -37,6 +37,9 @@ interface S {
   pollDateError:string;
   pollEndDateError:string;
   pollDescriptionError:string;
+  selectedAudience:any;
+  selectedAudienceId:any
+  selectedAudienceName:any,
   PreViewPollData:any;
 }
 
@@ -103,6 +106,9 @@ export default class SurveyPreviewController extends BlockComponent<
       pollDescriptionError:"",
       pollTitleError:"",
       PreViewPollData:"",
+      selectedAudience:"",
+      selectedAudienceId:"",
+      selectedAudienceName:"",
     };
 
     this.emailReg = new RegExp("");
@@ -125,7 +131,10 @@ export default class SurveyPreviewController extends BlockComponent<
         this.setState({
           textEditor:surveyPreview.PollDescription,
           SurveyData:surveyPreview.PollFormData,
-          surveyQuestions:surveyPreview.PollOptions
+          surveyQuestions:surveyPreview.PollOptions,
+          selectedAudience:surveyPreview.selectedAudience,
+          selectedAudienceId:surveyPreview.selectedAudienceId,
+          selectedAudienceName:surveyPreview.selectedAudienceName,
         })
       }
       localStorage.removeItem("Survey_Data")
@@ -481,9 +490,12 @@ export default class SurveyPreviewController extends BlockComponent<
     })
     if(this.handleValidation()){
       localStorage.setItem('Survey_Data', JSON.stringify({
-        "PollFormData":this.state.SurveyData,
-        "PollOptions":this.state.surveyQuestions,
-        "PollDescription":this.state.textEditor
+        PollFormData:this.state.SurveyData,
+        PollOptions:this.state.surveyQuestions,
+        PollDescription:this.state.textEditor,
+        selectedAudience:this.state.selectedAudience,
+        selectedAudienceId:this.state.selectedAudienceId,
+        selectedAudienceName:this.state.selectedAudienceName,
       }))
       // @ts-ignore
       this.props.history.push("/CreateSurveys")
@@ -508,6 +520,8 @@ export default class SurveyPreviewController extends BlockComponent<
               "title": this.state.SurveyData.title,
               "description": this.state.SurveyData.description,
               "schedule": "1",
+              "target_audience_type":this.state.selectedAudience,
+              "survey_audience_ids":this.state.selectedAudienceId ? [this.state.selectedAudienceId] : "",
               "start_date": this.state.SurveyData.startDate,
               "end_date": this.state.SurveyData.endDate,
               "survey_questions_attributes": this.state.surveyQuestions,
