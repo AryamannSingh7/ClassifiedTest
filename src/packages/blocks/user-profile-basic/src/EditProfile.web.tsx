@@ -9,7 +9,7 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import HomeIcon from '@material-ui/icons/Home';
-import { Building1, calendar, emailedit, fbedit, heart, instaedit, message, mobile, snapedit, twitteredit, user, } from "./assets";
+import { Building1, calendar, emailedit, fbedit, heart, instaedit,  message, mobile, snapedit,twitteredit, user,} from "./assets";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
 import '../assets/css/style.scss';
@@ -20,44 +20,42 @@ import CircleCheckedFilled from '@material-ui/icons/CheckCircle';
 import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 import ChipInput from 'material-ui-chip-input'
 import OtpInput from 'react-otp-input';
-import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
-import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 class EditProfile extends ProfileController {
   async componentDidMount() {
     // this.getProfile()
   }
   render() {
     // @ts-ignore
-    // @ts-nocheck
-    let profileData: any = JSON.parse(localStorage.getItem('profileData'))
+// @ts-nocheck
+    let profileData:any = JSON.parse(localStorage.getItem('profileData'))
     return (
       <>
         <Grid container spacing={2} className="auth-container">
           <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset' }}>
             <Grid container>
-              <Grid xs={12} style={{ display: 'flex', alignItems: 'center', borderBottom: '3px solid #f2f2f2', gap: '0.25rem', marginTop: '1.25rem', }}>
+              <Grid xs={12} style={{ display: 'flex', alignItems: 'center', borderBottom: '3px solid #f2f2f2',gap:'0.25rem',marginTop:'1.25rem', }}>
                 <ArrowBackIcon onClick={() => window.history.back()} /> {" "}
                 <p style={{ fontWeight: 600, fontSize: '1.25rem' }}>
 
-                  {" "} Edit My Profile
+                 {" "} Edit My Profile
                 </p>
               </Grid>
             </Grid>
             <div>
 
-              <Grid container className="main-content-block" style={{ marginTop: '1.5rem' }}>
+              <Grid container className="main-content-block" style={{marginTop:'1.5rem'}}>
                 <Grid xs={12}>
                   <Formik initialValues={{
-                    bannerUrl: '',
+                    bannerUrl:'',
                     full_name: profileData?.attributes?.full_name?.name,
-                    banner: '',
+                    banner:'',
                     phone: profileData?.attributes?.full_phone_number?.phone_number,
                     email: profileData?.attributes?.email?.email,
                     male: profileData?.attributes?.gender?.gender === 'Male' ? true : false,
                     female: profileData?.attributes?.gender?.gender === 'Female' ? true : false,
                     DOB: profileData?.attributes?.date_of_birth?.date_of_birth,
                     gender: profileData?.attributes?.gender?.gender,
-                    hobbies: profileData?.attributes?.hobbies?.hobbies ? profileData?.attributes?.hobbies?.hobbies : [],
+                    hobbies: profileData?.attributes?.hobbies?.hobbies ? profileData?.attributes?.hobbies?.hobbies :[] ,
                     twitter: profileData?.attributes?.website[0].twitter_link,
                     fb: profileData?.attributes?.website[2].fb_link,
                     insta: profileData?.attributes?.website[1].instagram_link,
@@ -240,14 +238,14 @@ class EditProfile extends ProfileController {
                               <ErrorMessage className="text-error" component="Typography" name="phone" />
                             </Typography>
                           ) : null}
-                          <p style={{ color: '#FC8434', textAlign: 'right', fontWeight: 'bold', cursor: 'pointer' }} onClick={() => this.setState({ showDialog: true })}>
+                          <p style={{ color:'#FC8434',textAlign:'right',fontWeight:'bold',cursor:'pointer'}} onClick={()=>this.setState({showDialog:true})}>
                             Verify number to update
                           </p>
                           {/* email */}
                           <Box
                             className="formInputGrp"
                           >
-                            <Field
+                                                        <Field
                               className="formInput"
                               value={values.email}
 
@@ -304,34 +302,34 @@ class EditProfile extends ProfileController {
                               <ErrorMessage className="text-error" component="Typography" name="bio" />
                             </Typography>
                           ) : null}
-                          {/* gender */}
-                          <Box className="formGroup formCheckbox" style={{ flexDirection: 'column', marginTop: '1rem', marginLeft: '1rem', fontWeight: 'bold' }}>
+{/* gender */}
+                          <Box className="formGroup formCheckbox" style={{flexDirection:'column',marginTop:'1rem',marginLeft:'1rem',fontWeight:'bold'}}>
                             <div>
                               Gender
                             </div>
 
-                            <div style={{ display: 'flex' }}>
+                            <div style={{display:'flex'}}>
                               <div>
                                 <RadioGroup
                                   aria-labelledby="demo-radio-buttons-group-label"
                                   name="radio-buttons-group"
                                   defaultValue={values.gender}
-                                  style={{ display: 'flex', flexDirection: 'row', marginTop: '0.25rem' }}
+                                  style={{ display: 'flex',flexDirection:'row',marginTop:'0.25rem' }}
                                 >
                                   {/* <FormControlLabel name={values.gender} value="Female" control={<Radio />} label="Female" /> */}
-                                  <FormControlLabel className={values.gender == 'Female' ? 'active' : 'unactive'} name='gender' onChange={handleChange} value="Female" control={<Radio icon={<RadioButtonUncheckedIcon style={{ color: '#E2E2E2' }} />} checkedIcon={<RadioButtonCheckedIcon style={{ color: '#FC8434' }} />} />} label="Female" style={{ paddingRight: 30, borderRadius: 25, border: '1px solid #e9dede' }} />
+                                  <FormControlLabel className={values.gender == 'Female' ? 'active':'unactive'} name='gender' onChange={handleChange} value="Female" control={<Radio />} label="Female" style={{ paddingRight: 30, borderRadius: 25, border: '1px solid #e9dede' }}  />
                                   <FormControlLabel
-                                    className={values.gender == 'Male' ? 'active' : 'unactive'} name='gender' onChange={handleChange} value="Male" control={<Radio icon={<RadioButtonUncheckedIcon style={{ color: '#E2E2E2' }} />} checkedIcon={<RadioButtonCheckedIcon style={{ color: '#FC8434' }} />} />} label="Male" style={{ paddingRight: 30, borderRadius: 25, border: '1px solid #e9dede' }} />
+                                    className={values.gender == 'Male' ? 'active' : 'unactive'} name='gender' onChange={handleChange} value="Male" control={<Radio />} label="Male" style={{ paddingRight: 30, borderRadius: 25, border: '1px solid #e9dede' }} />
 
                                 </RadioGroup>
-                                {/* <Checkbox name="male" onChange={handleChange} checked={values.male} icon={<CircleUnchecked />}
+                              {/* <Checkbox name="male" onChange={handleChange} checked={values.male} icon={<CircleUnchecked />}
                                 checkedIcon={<CircleCheckedFilled />} id="loginCheckbox"
                               />
                               <label htmlFor="loginCheckbox" className="checkboxLabel">Male</label> */}
                               </div>
 
-                            </div>
-                          </Box>
+                              </div>
+                           </Box>
                           {/* DOB */}
                           <Box
                             className="formInputGrp"
@@ -381,7 +379,7 @@ class EditProfile extends ProfileController {
                             <ChipInput
                               className="formInput"
                               placeholder="Hobbies"
-                              style={{ padding: '10px 0px 6px 50px', width: '85%' }}
+                              style={{ padding:'10px 0px 6px 50px',width:'85%'}}
                               disableUnderline={true}
                               value={values.hobbies}
                               // onChange={(chip) => setFieldValue('hobbies', chip)}
@@ -537,7 +535,7 @@ class EditProfile extends ProfileController {
                             </Typography>
                           ) : null}
 
-                        </Box>
+                           </Box>
                         <Box className="customButton">
 
                           <Button
