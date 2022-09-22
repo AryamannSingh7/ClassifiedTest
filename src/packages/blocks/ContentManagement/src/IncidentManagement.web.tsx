@@ -55,9 +55,9 @@ class IncidentManagement extends IncidentManagementController {
   }
 
   render() {
-    const {t} = this.props
-    console.log("this.state.buildingName=================>/",this.state.buildingNameData);
-    const statusArray=["Unresolved", "Resolved", "Pending Confirmation"]
+    const { t } = this.props
+    console.log("this.state.buildingName=================>/", this.state.buildingNameData);
+    const statusArray = ["Unresolved", "Resolved", "Pending Confirmation"]
     return (
       <>
         <Box className="incident-Listing-wrapper desktop-ui" style={{ background: "#E5ECFF" }}>
@@ -92,81 +92,81 @@ class IncidentManagement extends IncidentManagementController {
                   </Box>
                 </Box>
                 <Box className="sorting-header">
-                          <Box className="formGroup customSelect">
-                            <FormControl variant="outlined" >
-                              <Select
-                                name="buildingName"
-                                labelId="demo-simple-select-outlined-label"
-                                id="demo-simple-select-outlined"
-                                onChange={(e) => {this.onChange(e)}}
-                                value={this.state.buildingName}
-                              >
-                               <MenuItem disabled value=" ">
-                               {t("Select Building")}
-                              </MenuItem>
-                                {
-                                this.state?.buildingNameData?.map((val, index) => (
-                                  <MenuItem
-                                    key={index}
-                                    value={`${val?.id},${val?.attributes?.name}`}
-                                  >
-                                    {val?.attributes?.name}
-                                  </MenuItem>
-                                ))
-                              }
-                              </Select>
-                            </FormControl>
-                          </Box>
-                         <Box className="formGroup customSelect">
-                            <FormControl variant="outlined" >
-                              <Select
-                                name="unitName"
-                                labelId="demo-simple-select-outlined-label"
-                                id="demo-simple-select-outlined"
-                                onChange={(e) => {this.onChange(e)}}
-                                value={this.state.unitName}
-                              >
-                                   <MenuItem disabled value=" ">
-                                  {t("Select Unit")}
-                                </MenuItem>
-                                {
-                                    this.state?.unitNameData?.map((val, index) => (
-                                      <MenuItem
-                                        key={index}
-                                        value={val?.apartment_name}
-                                        disabled ={this.state.buildingName ? false:true }
-                                      >
-                                        {val?.apartment_name}
-                                      </MenuItem>
-                                    ))
-                                }
-                              </Select>
-                            </FormControl>
-                          </Box>
-                            
-                          <Box className="formGroup customSelect">
-                            <FormControl variant="outlined" >
-                              <Select
-                                name="status"
-                                labelId="demo-simple-select-outlined-label"
-                                id="demo-simple-select-outlined"
-                                 onChange={(e) => {this.onChange(e)}}
-                                value={this.state.status}
-                              >
-                                <MenuItem disabled value=" ">
-                                  {t("Select Status")}
-                                </MenuItem>
-                                {
-                                statusArray?.map((val, index) => (
-                                  <MenuItem
-                                    key={index}
-                                    value={val}
-                                  >
-                                    {val}
-                                  </MenuItem>
-                                ))
-                              }
-                              </Select>
+                  <Box className="formGroup customSelect">
+                    <FormControl variant="outlined" >
+                      <Select
+                        name="buildingName"
+                        labelId="demo-simple-select-outlined-label"
+                        id="demo-simple-select-outlined"
+                        onChange={(e) => { this.onChange(e) }}
+                        value={this.state.buildingName}
+                      >
+                        <MenuItem disabled value=" ">
+                          {t("Select Building")}
+                        </MenuItem>
+                        {
+                          this.state?.buildingNameData?.map((val, index) => (
+                            <MenuItem
+                              key={index}
+                              value={`${val?.id},${val?.attributes?.name}`}
+                            >
+                              {val?.attributes?.name}
+                            </MenuItem>
+                          ))
+                        }
+                      </Select>
+                    </FormControl>
+                  </Box>
+                  <Box className="formGroup customSelect">
+                    <FormControl variant="outlined" >
+                      <Select
+                        name="unitName"
+                        labelId="demo-simple-select-outlined-label"
+                        id="demo-simple-select-outlined"
+                        onChange={(e) => { this.onChange(e) }}
+                        value={this.state.unitName}
+                      >
+                        <MenuItem disabled value=" ">
+                          {t("Select Unit")}
+                        </MenuItem>
+                        {
+                          this.state?.unitNameData?.map((val, index) => (
+                            <MenuItem
+                              key={index}
+                              value={val?.apartment_name}
+                              disabled={this.state.buildingName ? false : true}
+                            >
+                              {val?.apartment_name}
+                            </MenuItem>
+                          ))
+                        }
+                      </Select>
+                    </FormControl>
+                  </Box>
+
+                  <Box className="formGroup customSelect">
+                    <FormControl variant="outlined" >
+                      <Select
+                        name="status"
+                        labelId="demo-simple-select-outlined-label"
+                        id="demo-simple-select-outlined"
+                        onChange={(e) => { this.onChange(e) }}
+                        value={this.state.status}
+                      >
+                        <MenuItem disabled value=" ">
+                          {t("Select Status")}
+                        </MenuItem>
+                        {
+                          statusArray?.map((val, index) => (
+                            <MenuItem
+                              key={index}
+                              value={val}
+                            >
+                              {val}
+                            </MenuItem>
+                          ))
+                        }
+                      </Select>
 
                     </FormControl>
                   </Box>
@@ -217,7 +217,7 @@ class IncidentManagement extends IncidentManagementController {
   }
 }
 
-export default withTranslation()(withStyles(dashBoard)(withRouter(IncidentManagement))); 
+export default withTranslation()(withStyles(dashBoard)(withRouter(IncidentManagement)));
 
 const dashBoard = {
   navigation: {

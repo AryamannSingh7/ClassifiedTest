@@ -8,7 +8,9 @@ import {
   CardContent,
   CardActions,
   Button,
-  withStyles
+  withStyles,
+  TextField,
+  InputAdornment
 } from "@material-ui/core";
 
 import '../../dashboard/src/Dashboard.web.css'
@@ -26,6 +28,7 @@ import NativeSelect from "@material-ui/core/NativeSelect";
 import Grid from '@material-ui/core/Grid';
 
 //resources
+import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import { withRouter } from 'react-router';
@@ -76,87 +79,105 @@ class ClassifiedManagerListing extends ClassifiedManagerController {
                     <Typography variant="h5" className={classes.subHeading}>{t("Classified")}</Typography>
                   </Box>
                 </Box>
-                <Box className="sorting-header">
-                  <Box className="formGroup customSelect">
-                    <FormControl variant="outlined" >
-                      <Select
-                        name="classifiedType"
-                        labelId="demo-simple-select-outlined-label"
-                        id="demo-simple-select-outlined"
-                        onChange={(e) => { this.onChange(e) }}
-                        value={this.state.classifiedType}
-                      >
-                        <MenuItem disabled value=" ">
-                          {t("Classified Type")}
-                        </MenuItem>
-                        {
-                          classifiedType?.map((val, index) => (
-                            <MenuItem
-                              key={index}
-                              value={val}
-                            >
-                              {val}
-                            </MenuItem>
-                          ))
-                        }
-                      </Select>
-                    </FormControl>
-                  </Box>
-                  <Box className="formGroup customSelect">
-                    <FormControl variant="outlined" >
-                      <Select
-                        name="buildingName"
-                        labelId="demo-simple-select-outlined-label"
-                        id="demo-simple-select-outlined"
-                        onChange={(e) => { this.onChange(e) }}
-                        value={this.state.buildingName}
-                      >
-                        <MenuItem disabled value=" ">
-                          {t("Select Building")}
-                        </MenuItem>
-                        {
-                          this.state?.buildingNameData?.map((val: any, index: any) => (
-                            <MenuItem
-                              key={index}
-                              value={val?.id}
-                            >
-                              {val?.attributes?.name}
-                            </MenuItem>
-                          ))
-                        }
-                      </Select>
-                    </FormControl>
-                  </Box>
-                  <Box className="formGroup customSelect">
-                    <FormControl variant="outlined" >
-                      <Select
-                        name="status"
-                        labelId="demo-simple-select-outlined-label"
-                        id="demo-simple-select-outlined"
-                        onChange={(e) => { this.onChange(e) }}
-                        value={this.state.status}
-                      >
-                        <MenuItem disabled value=" ">
-                          {t("Select Status")}
-                        </MenuItem>
-                        {
-                          statusArray?.map((val, index) => (
-                            <MenuItem
-                              key={index}
-                              value={val}
-                            >
-                              {val}
-                            </MenuItem>
-                          ))
-                        }
-                      </Select>
+                <Box className="sorting-header classified-sorting-header">
+                  <div className="left-block">
+                    <Box className="formGroup customSelect">
+                      <FormControl variant="outlined" >
+                        <Select
+                          name="classifiedType"
+                          labelId="demo-simple-select-outlined-label"
+                          id="demo-simple-select-outlined"
+                          onChange={(e) => { this.onChange(e) }}
+                          value={this.state.classifiedType}
+                        >
+                          <MenuItem disabled value=" ">
+                            {t("Classified Type")}
+                          </MenuItem>
+                          {
+                            classifiedType?.map((val, index) => (
+                              <MenuItem
+                                key={index}
+                                value={val}
+                              >
+                                {val}
+                              </MenuItem>
+                            ))
+                          }
+                        </Select>
+                      </FormControl>
+                    </Box>
+                    <Box className="formGroup customSelect">
+                      <FormControl variant="outlined" >
+                        <Select
+                          name="buildingName"
+                          labelId="demo-simple-select-outlined-label"
+                          id="demo-simple-select-outlined"
+                          onChange={(e) => { this.onChange(e) }}
+                          value={this.state.buildingName}
+                        >
+                          <MenuItem disabled value=" ">
+                            {t("Select Building")}
+                          </MenuItem>
+                          {
+                            this.state?.buildingNameData?.map((val: any, index: any) => (
+                              <MenuItem
+                                key={index}
+                                value={val?.id}
+                              >
+                                {val?.attributes?.name}
+                              </MenuItem>
+                            ))
+                          }
+                        </Select>
+                      </FormControl>
+                    </Box>
+                    <Box className="formGroup customSelect">
+                      <FormControl variant="outlined" >
+                        <Select
+                          name="status"
+                          labelId="demo-simple-select-outlined-label"
+                          id="demo-simple-select-outlined"
+                          onChange={(e) => { this.onChange(e) }}
+                          value={this.state.status}
+                        >
+                          <MenuItem disabled value=" ">
+                            {t("Select Status")}
+                          </MenuItem>
+                          {
+                            statusArray?.map((val, index) => (
+                              <MenuItem
+                                key={index}
+                                value={val}
+                              >
+                                {val}
+                              </MenuItem>
+                            ))
+                          }
+                        </Select>
 
-                    </FormControl>
-                  </Box>
-                  <Box className="customButton">
-                    <Button variant="contained" onClick={() => this.serachHandle()}>
-                      {t("Search")}
-                    </Button>
+                      </FormControl>
+                    </Box>
+                    <Box className="customButton">
+                      <Button variant="contained" onClick={() => this.serachHandle()}>
+                        {t("Search")}
+                      </Button>
+                    </Box>
+                  </div>
+                  <Box className="formGroup classified-search-iput">
+                    <TextField
+                      variant="outlined"
+                      style={{ border: "1px solid #ECECEC", borderRadius: "10px", backgroundColor: "#f9f9f9", marginRight: "10px" }}
+                      placeholder={t("Search by unit number")}
+                      type="text"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <SearchOutlinedIcon />
+                          </InputAdornment>
+                        ),
+                      }}
+
+                    />
                   </Box>
                 </Box>
                 <Grid container spacing={2} style={{ marginTop: 15, marginBottom: 15 }}>
@@ -208,7 +229,7 @@ class ClassifiedManagerListing extends ClassifiedManagerController {
                             <hr className="hr"></hr>
                             <Box className="card-footer">
                               <div className="left-block">
-                                <img src={Dollar_Icon} className="dollar-icon" alt="Dollar Icon" />
+                                {/* <img src={Dollar_Icon} className="dollar-icon" alt="Dollar Icon" /> */}
                                 <Typography component="h4">
                                   500 - SR 650
                                 </Typography>
