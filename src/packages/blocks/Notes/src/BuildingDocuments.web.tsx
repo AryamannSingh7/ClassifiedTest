@@ -1,25 +1,13 @@
 // Customizable Area Start
-//@ts-nocheck
-//@ts-ignore
-
 import React from "react";
-import {
-  Button,
-  Container,
-  IconButton,
-  Link,
-  withStyles,
-  Box,
-  Grid,
-} from "@material-ui/core";
+import { Button, Container, IconButton, Link, withStyles, Box, Grid } from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import BuildingLogo from "../assets/building.png";
+import { BuildingLogo, Document } from "./assets";
 import { DocumentReportStyleWeb } from "./DocumentReportStyle.web";
-import Document from "../assets/document.png";
-import BuildingDocumentController, {
-  Props,
-} from "./BuildingDocumentsController.web";
+import BuildingDocumentController, { Props } from "./BuildingDocumentsController.web";
+import { withTranslation } from "react-i18next";
+import "../../../web/src/i18n.js";
 
 class BuildingDocuments extends BuildingDocumentController {
   constructor(props: Props) {
@@ -28,30 +16,20 @@ class BuildingDocuments extends BuildingDocumentController {
 
   render() {
     const { classes } = this.props;
-
-    console.log(this.state);
+    const { t }: any = this.props;
 
     return (
       <>
-        <Box
-          className={classes.buildingDocument}
-          style={{ background: "#F8F9FE", height: "100vh" }}
-        >
+        <Box className={classes.buildingDocument} style={{ background: "#F8F9FE", height: "100vh" }}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box display={{ xs: "flex", md: "flex" }} className="menu">
-                <Link
-                  href={
-                    localStorage.getItem("userType") === "Owner"
-                      ? "/OwnerDashboard"
-                      : ""
-                  }
-                >
+                <Link href={localStorage.getItem("userType") === "Owner" ? "/OwnerDashboard" : ""}>
                   <IconButton>
                     <KeyboardBackspaceIcon />
                   </IconButton>
                 </Link>{" "}
-                Building Documents
+                {t("Building Documents")}
               </Box>
               <Container className="content-area document-box">
                 <Grid container spacing={2}>
@@ -60,14 +38,10 @@ class BuildingDocuments extends BuildingDocumentController {
                       <Box className="item">
                         <div className="heading">
                           <img src={Document} />
-                          <h4>Policy</h4>
+                          <h4>{t("Policy")}</h4>
                         </div>
                         <div>
-                          {this.state.policy > 0 && (
-                            <Button className="color-btn">
-                              {this.state.policy}
-                            </Button>
-                          )}
+                          {this.state.policy > 0 && <Button className="color-btn">{this.state.policy}</Button>}
                           <IconButton>
                             <ChevronRightIcon />
                           </IconButton>
@@ -80,14 +54,10 @@ class BuildingDocuments extends BuildingDocumentController {
                       <Box className="item">
                         <div className="heading">
                           <img src={Document} />
-                          <h4>Resolutions</h4>
+                          <h4>{t("Resolutions")}</h4>
                         </div>
                         <div>
-                          {this.state.resolution > 0 && (
-                            <Button className="color-btn">
-                              {this.state.resolution}
-                            </Button>
-                          )}
+                          {this.state.resolution > 0 && <Button className="color-btn">{this.state.resolution}</Button>}
                           <IconButton>
                             <ChevronRightIcon />
                           </IconButton>
@@ -100,14 +70,10 @@ class BuildingDocuments extends BuildingDocumentController {
                       <Box className="item">
                         <div className="heading">
                           <img src={Document} />
-                          <h4>Roles</h4>
+                          <h4>{t("Roles")}</h4>
                         </div>
                         <div>
-                          {this.state.roles > 0 && (
-                            <Button className="color-btn">
-                              {this.state.roles}
-                            </Button>
-                          )}
+                          {this.state.roles > 0 && <Button className="color-btn">{this.state.roles}</Button>}
                           <IconButton>
                             <ChevronRightIcon />
                           </IconButton>
@@ -120,14 +86,10 @@ class BuildingDocuments extends BuildingDocumentController {
                       <Box className="item">
                         <div className="heading">
                           <img src={Document} />
-                          <h4>Guidelines</h4>
+                          <h4>{t("Guidelines")}</h4>
                         </div>
                         <div>
-                          {this.state.guidelines > 0 && (
-                            <Button className="color-btn">
-                              {this.state.guidelines}
-                            </Button>
-                          )}
+                          {this.state.guidelines > 0 && <Button className="color-btn">{this.state.guidelines}</Button>}
                           <IconButton>
                             <ChevronRightIcon />
                           </IconButton>
@@ -140,13 +102,11 @@ class BuildingDocuments extends BuildingDocumentController {
                       <Box className="item">
                         <div className="heading">
                           <img src={Document} />
-                          <h4>Building Plans</h4>
+                          <h4>{t("Building Plans")}</h4>
                         </div>
                         <div>
                           {this.state.buildingPlans > 0 && (
-                            <Button className="color-btn">
-                              {this.state.buildingPlans}
-                            </Button>
+                            <Button className="color-btn">{this.state.buildingPlans}</Button>
                           )}
                           <IconButton>
                             <ChevronRightIcon />
@@ -159,11 +119,8 @@ class BuildingDocuments extends BuildingDocumentController {
               </Container>
             </Grid>
             <Grid item xs={12} md={5}>
-              <Box
-                className="right-block right-image"
-                display={{ xs: "none", md: "flex" }}
-              >
-                <img src={BuildingLogo} className="building-logo" alt="" />
+              <Box className="right-block right-image" display={{ xs: "none", md: "flex" }}>
+                <img src={BuildingLogo.default} className="building-logo" alt="" />
               </Box>
             </Grid>
           </Grid>
@@ -173,5 +130,5 @@ class BuildingDocuments extends BuildingDocumentController {
   }
 }
 
-export default withStyles(DocumentReportStyleWeb)(BuildingDocuments);
+export default withTranslation()(withStyles(DocumentReportStyleWeb)(BuildingDocuments));
 // Customizable Area End

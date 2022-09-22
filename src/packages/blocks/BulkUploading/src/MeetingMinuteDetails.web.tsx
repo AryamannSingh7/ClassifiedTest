@@ -110,10 +110,10 @@ class MeetingMinuteDetails extends MeetingMinutesController {
                             </h6>
                           </div>
                           <NavLink
-                            href={this.state.meetingMinuteDetails.attributes.meeting_mins_pdf.url}
-                            target="_blank"
+                          // href={this.state.meetingMinuteDetails.attributes.meeting_mins_pdf.url}
+                          // target="_blank"
                           >
-                            <img src={DownloadIcon} alt="download" />
+                            <img src={DownloadIcon} alt="download" onClick={() => alert("Coming soon!!")} />
                           </NavLink>
                         </Box>
                       </Box>

@@ -50,9 +50,9 @@ class ContactUsChairman extends ContactUsController {
                 </Box>
                 <Box className="contact-us-form">
                   <Typography variant="body1" style={{ color: "black", marginBottom: "15px" }}>
-                    Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a
-                    typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before
-                    final copy is available.
+                    {t(
+                      "Thank you for contacting us and for being a loyal customer. Please use the form below to provide us with you inquiries or comments. Your input will be directed to the proper team for analysis and action."
+                    )}
                   </Typography>
 
                   <Grid xs={6} style={{ paddingTop: 35 }}>

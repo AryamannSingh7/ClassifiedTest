@@ -1,13 +1,12 @@
 import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
-import MessageEnum, {
-  getName,
-} from "../../../framework/src/Messages/MessageEnum";
+import MessageEnum, { getName } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
 
 // Customizable Area Start
 import * as Yup from "yup";
+import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
 // Customizable Area End
 
 export const configJSON = require("./config.js");
@@ -50,11 +49,7 @@ interface SS {
   id: any;
 }
 
-export default class DocumentListChairmanController extends BlockComponent<
-  Props,
-  S,
-  SS
-> {
+export default class DocumentListChairmanController extends BlockComponent<Props, S, SS> {
   ChairmanDocumentsCallId: any;
   CreateDocumentCallId: any;
   DeleteDocumentCallId: any;
@@ -69,10 +64,7 @@ export default class DocumentListChairmanController extends BlockComponent<
     this.receive = this.receive.bind(this);
     console.disableYellowBox = true;
     // Customizable Area Start
-    this.subScribedMessages = [
-      getName(MessageEnum.RestAPIResponceMessage),
-      getName(MessageEnum.RestAPIRequestMessage),
-    ];
+    this.subScribedMessages = [getName(MessageEnum.RestAPIResponceMessage), getName(MessageEnum.RestAPIRequestMessage)];
 
     this.state = {
       docName: "",
@@ -106,14 +98,11 @@ export default class DocumentListChairmanController extends BlockComponent<
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.ChairmanDocumentsCallId !== null &&
-      this.ChairmanDocumentsCallId ===
-        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+      this.ChairmanDocumentsCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.ChairmanDocumentsCallId = null;
 
-      var responseJson = message.getData(
-        getName(MessageEnum.RestAPIResponceSuccessMessage)
-      );
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson.data) {
         this.setState({
@@ -122,29 +111,24 @@ export default class DocumentListChairmanController extends BlockComponent<
         });
       }
 
-      var errorReponse = message.getData(
-        getName(MessageEnum.RestAPIResponceErrorMessage)
-      );
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
         runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
       } else {
-        this.parseApiErrorResponse(responseJson);
+        ApiErrorResponse(responseJson);
       }
-      this.parseApiCatchErrorResponse(errorReponse);
+      ApiCatchErrorResponse(errorResponse);
     }
 
     // Create Document
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.CreateDocumentCallId !== null &&
-      this.CreateDocumentCallId ===
-        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+      this.CreateDocumentCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.CreateDocumentCallId = null;
 
-      var responseJson = message.getData(
-        getName(MessageEnum.RestAPIResponceSuccessMessage)
-      );
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson.data) {
         this.setState(
@@ -158,34 +142,27 @@ export default class DocumentListChairmanController extends BlockComponent<
         );
       }
 
-      var errorReponse = message.getData(
-        getName(MessageEnum.RestAPIResponceErrorMessage)
-      );
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
         runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
       } else {
-        this.parseApiErrorResponse(responseJson);
+        ApiErrorResponse(responseJson);
       }
-      this.parseApiCatchErrorResponse(errorReponse);
+      ApiCatchErrorResponse(errorResponse);
     }
 
     // Delete Document
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.DeleteDocumentCallId !== null &&
-      this.DeleteDocumentCallId ===
-        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+      this.DeleteDocumentCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.DeleteDocumentCallId = null;
 
-      var responseJson = message.getData(
-        getName(MessageEnum.RestAPIResponceSuccessMessage)
-      );
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson.data) {
-        const newDocumentList = this.state.documentList.filter(
-          (document: any) => document.id !== responseJson.data.id
-        );
+        const newDocumentList = this.state.documentList.filter((document: any) => document.id !== responseJson.data.id);
 
         this.setState(
           {
@@ -198,29 +175,24 @@ export default class DocumentListChairmanController extends BlockComponent<
         );
       }
 
-      var errorReponse = message.getData(
-        getName(MessageEnum.RestAPIResponceErrorMessage)
-      );
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
         runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
       } else {
-        this.parseApiErrorResponse(responseJson);
+        ApiErrorResponse(responseJson);
       }
-      this.parseApiCatchErrorResponse(errorReponse);
+      ApiCatchErrorResponse(errorResponse);
     }
 
     // Get Meetings
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.MeetingsCallId !== null &&
-      this.MeetingsCallId ===
-        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+      this.MeetingsCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.MeetingsCallId = null;
 
-      var responseJson = message.getData(
-        getName(MessageEnum.RestAPIResponceSuccessMessage)
-      );
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson.code === 200) {
         this.setState({
@@ -229,29 +201,24 @@ export default class DocumentListChairmanController extends BlockComponent<
         });
       }
 
-      // var errorReponse = message.getData(
-      //   getName(MessageEnum.RestAPIResponceErrorMessage)
-      // );
-      // if (responseJson && responseJson.meta && responseJson.meta.token) {
-      //   runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      // } else {
-      //   this.parseApiErrorResponse(responseJson);
-      // }
-      // this.parseApiCatchErrorResponse(errorReponse);
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
     }
 
     // Get Resolutions
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.ResolutionsCallId !== null &&
-      this.ResolutionsCallId ===
-        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+      this.ResolutionsCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.ResolutionsCallId = null;
 
-      var responseJson = message.getData(
-        getName(MessageEnum.RestAPIResponceSuccessMessage)
-      );
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson.code === 200) {
         this.setState({
@@ -260,65 +227,52 @@ export default class DocumentListChairmanController extends BlockComponent<
         });
       }
 
-      var errorReponse = message.getData(
-        getName(MessageEnum.RestAPIResponceErrorMessage)
-      );
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
         runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
       } else {
-        this.parseApiErrorResponse(responseJson);
+        ApiErrorResponse(responseJson);
       }
-      this.parseApiCatchErrorResponse(errorReponse);
+      ApiCatchErrorResponse(errorResponse);
     }
 
     // Delete Resolutions
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.DeleteResolutionCallId !== null &&
-      this.DeleteResolutionCallId ===
-        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+      this.DeleteResolutionCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.DeleteResolutionCallId = null;
 
-      var responseJson = message.getData(
-        getName(MessageEnum.RestAPIResponceSuccessMessage)
-      );
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       this.getResolutions();
       this.handleDeleteDocumentModal();
 
-      var errorReponse = message.getData(
-        getName(MessageEnum.RestAPIResponceErrorMessage)
-      );
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
         runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
       } else {
-        this.parseApiErrorResponse(responseJson);
+        ApiErrorResponse(responseJson);
       }
-      this.parseApiCatchErrorResponse(errorReponse);
+      ApiCatchErrorResponse(errorResponse);
     }
 
     // Create Resolution
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.CreateResolutionCallId !== null &&
-      this.CreateResolutionCallId ===
-        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+      this.CreateResolutionCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.CreateResolutionCallId = null;
 
-      var responseJson = message.getData(
-        getName(MessageEnum.RestAPIResponceSuccessMessage)
-      );
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson.code === 200) {
         this.setState(
           {
             ...this.state,
-            resolutionList: [
-              ...this.state.resolutionList,
-              responseJson.resolution.data,
-            ],
+            resolutionList: [...this.state.resolutionList, responseJson.resolution.data],
           },
           () => {
             this.handleAddResolutionsModal();
@@ -326,15 +280,13 @@ export default class DocumentListChairmanController extends BlockComponent<
         );
       }
 
-      var errorReponse = message.getData(
-        getName(MessageEnum.RestAPIResponceErrorMessage)
-      );
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
         runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
       } else {
-        this.parseApiErrorResponse(responseJson);
+        ApiErrorResponse(responseJson);
       }
-      this.parseApiCatchErrorResponse(errorReponse);
+      ApiCatchErrorResponse(errorResponse);
     }
     // Customizable Area End
   }
@@ -382,15 +334,9 @@ export default class DocumentListChairmanController extends BlockComponent<
       `society_managements/${society_id}/bx_block_meeting/meeting_mins`
     );
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypeGet
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
@@ -413,15 +359,9 @@ export default class DocumentListChairmanController extends BlockComponent<
       `society_managements/${society_id}/bx_block_my_document/resolutions`
     );
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypeGet
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
@@ -441,20 +381,12 @@ export default class DocumentListChairmanController extends BlockComponent<
 
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_my_document/resolutions/${
-        this.state.selectedDocumentId
-      }`
+      `society_managements/${society_id}/bx_block_my_document/resolutions/${this.state.selectedDocumentId}`
     );
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypeDelete
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeDelete);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
@@ -481,17 +413,11 @@ export default class DocumentListChairmanController extends BlockComponent<
       `society_managements/${society_id}/bx_block_my_document/resolutions`
     );
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestBodyMessage), data);
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypePost
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePost);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
@@ -520,20 +446,11 @@ export default class DocumentListChairmanController extends BlockComponent<
       APIEndpoint = `society_managements/${society_id}/bx_block_my_document/building_plan_document`;
     }
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      APIEndpoint
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIResponceEndPointMessage), APIEndpoint);
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypeGet
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
@@ -569,17 +486,11 @@ export default class DocumentListChairmanController extends BlockComponent<
       `society_managements/${society_id}/bx_block_my_document/building_documents`
     );
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestBodyMessage), data);
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypePost
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePost);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
@@ -599,20 +510,12 @@ export default class DocumentListChairmanController extends BlockComponent<
     const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_my_document/building_documents/${
-        this.state.selectedDocumentId
-      }`
+      `society_managements/${society_id}/bx_block_my_document/building_documents/${this.state.selectedDocumentId}`
     );
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypeDelete
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeDelete);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
