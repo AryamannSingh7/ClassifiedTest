@@ -1,25 +1,13 @@
 // Customizable Area Start
-//@ts-nocheck
-//@ts-ignore
-
 import React from "react";
-import {
-  Button,
-  Container,
-  IconButton,
-  Link,
-  withStyles,
-  Box,
-  Grid,
-} from "@material-ui/core";
+import { Button, Container, IconButton, Link, withStyles, Box, Grid } from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import BuildingLogo from "../assets/building.png";
+import { BuildingLogo, Document } from "./assets";
 import { DocumentReportStyleWeb } from "./DocumentReportStyle.web";
-import Document from "../assets/document.png";
-import PersonalDocumentController, {
-  Props,
-} from "./PersonalDocumentsController.web";
+import PersonalDocumentController, { Props } from "./PersonalDocumentsController.web";
+import { withTranslation } from "react-i18next";
+import "../../../web/src/i18n.js";
 
 class PersonalDocument extends PersonalDocumentController {
   constructor(props: Props) {
@@ -28,30 +16,20 @@ class PersonalDocument extends PersonalDocumentController {
 
   render() {
     const { classes } = this.props;
-
-    console.log(this.state);
+    const { t }: any = this.props;
 
     return (
       <>
-        <Box
-          className={classes.personalDocument}
-          style={{ background: "#F8F9FE", height: "100vh" }}
-        >
+        <Box className={classes.personalDocument} style={{ background: "#F8F9FE", height: "100vh" }}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box display={{ xs: "flex", md: "flex" }} className="menu">
-                <Link
-                  href={
-                    localStorage.getItem("userType") === "Owner"
-                      ? "/OwnerDashboard"
-                      : ""
-                  }
-                >
+                <Link href={localStorage.getItem("userType") === "Owner" ? "/OwnerDashboard" : ""}>
                   <IconButton>
                     <KeyboardBackspaceIcon />
                   </IconButton>
                 </Link>{" "}
-                Personal Documents
+                {t("Personal Documents")}
               </Box>
               <Container className="content-area document-box">
                 <Grid container spacing={2}>
@@ -60,13 +38,11 @@ class PersonalDocument extends PersonalDocumentController {
                       <Box className="item">
                         <div className="heading">
                           <img src={Document} />
-                          <h4>Rent Contract</h4>
+                          <h4>{t("Rent Contract")}</h4>
                         </div>
                         <div>
                           {this.state.rent_contract > 0 && (
-                            <Button className="color-btn">
-                              {this.state.rent_contract}
-                            </Button>
+                            <Button className="color-btn">{this.state.rent_contract}</Button>
                           )}
                           <IconButton>
                             <ChevronRightIcon />
@@ -80,14 +56,10 @@ class PersonalDocument extends PersonalDocumentController {
                       <Box className="item">
                         <div className="heading">
                           <img src={Document} />
-                          <h4>Unit Plan</h4>
+                          <h4>{t("Unit Plan")}</h4>
                         </div>
                         <div>
-                          {this.state.unit_plan > 0 && (
-                            <Button className="color-btn">
-                              {this.state.unit_plan}
-                            </Button>
-                          )}
+                          {this.state.unit_plan > 0 && <Button className="color-btn">{this.state.unit_plan}</Button>}
                           <IconButton>
                             <ChevronRightIcon />
                           </IconButton>
@@ -100,13 +72,11 @@ class PersonalDocument extends PersonalDocumentController {
                       <Box className="item">
                         <div className="heading">
                           <img src={Document} />
-                          <h4>Other Documents</h4>
+                          <h4>{t("Other Documents")}</h4>
                         </div>
                         <div>
                           {this.state.other_document > 0 && (
-                            <Button className="color-btn">
-                              {this.state.other_document}
-                            </Button>
+                            <Button className="color-btn">{this.state.other_document}</Button>
                           )}
                           <IconButton>
                             <ChevronRightIcon />
@@ -119,11 +89,8 @@ class PersonalDocument extends PersonalDocumentController {
               </Container>
             </Grid>
             <Grid item xs={12} md={5}>
-              <Box
-                className="right-block right-image"
-                display={{ xs: "none", md: "flex" }}
-              >
-                <img src={BuildingLogo} className="building-logo" alt="" />
+              <Box className="right-block right-image" display={{ xs: "none", md: "flex" }}>
+                <img src={BuildingLogo.default} className="building-logo" alt="" />
               </Box>
             </Grid>
           </Grid>
@@ -133,5 +100,5 @@ class PersonalDocument extends PersonalDocumentController {
   }
 }
 
-export default withStyles(DocumentReportStyleWeb)(PersonalDocument);
+export default withTranslation()(withStyles(DocumentReportStyleWeb)(PersonalDocument));
 // Customizable Area End

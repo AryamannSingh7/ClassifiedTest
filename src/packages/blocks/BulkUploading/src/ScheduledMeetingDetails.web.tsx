@@ -692,7 +692,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                 {t("User Type")}
               </MenuItem>
               <MenuItem value="Owner">{t("Owner")}</MenuItem>
-              <MenuItem value="Resident">{t("Resident")}</MenuItem>
+              <MenuItem value="Tenant">{t("Tenant")}</MenuItem>
             </Select>
             <Button
               className="filter-button"
