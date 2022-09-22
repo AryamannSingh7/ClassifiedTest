@@ -194,22 +194,18 @@ class CreateSurveys extends CreateSurveyController {
                                                 <Grid item>
                                                     <AudienceSelectBox
                                                         name="OWNERS"
-                                                        selected={this.state.selectedAudience.find((check:any)=> check === "Owner") ? true : false}
+                                                        selected={this.state.selectedAudience === "Owner"}
                                                         isMenu={false}
-                                                        manageEdit={() => this.handleOpenAudienceModalEditMode()}
-                                                        manageDelete={() => this.handleDeleteModal()}
-                                                        selectAudience={(id)=> this.selectAudience(id)}
+                                                        selectAudience={(id,name)=> this.selectAudience(id,name)}
                                                         audienceId={"Owner"}
                                                     />
                                                 </Grid>
                                                 <Grid item>
                                                     <AudienceSelectBox
                                                         name="RESIDENTS"
-                                                        selected={this.state.selectedAudience.find((check:any)=> check === "Resident") ? true : false}
+                                                        selected={this.state.selectedAudience === "Resident"}
                                                         isMenu={false}
-                                                        manageEdit={(id) => this.handleOpenAudienceModalEditMode(id)}
-                                                        manageDelete={(id) => this.handleDeleteModal(id)}
-                                                        selectAudience={(id)=> this.selectAudience(id)}
+                                                        selectAudience={(id,name)=> this.selectAudience(id,name)}
                                                         audienceId={"Resident"}
                                                     />
                                                 </Grid>
@@ -220,11 +216,11 @@ class CreateSurveys extends CreateSurveyController {
                                                             <Grid item key={key}>
                                                                 <AudienceSelectBox
                                                                     name={item.attributes.audience_name}
-                                                                    selected={this.state.selectedAudience.find((check:any)=> check === item.id) ? true : false}
+                                                                    selected={this.state.selectedAudienceId === item.id}
                                                                     isMenu={true}
                                                                     manageEdit={(id) => this.handleOpenAudienceModalEditMode(id)}
                                                                     manageDelete={(id) => this.handleDeleteModal(id)}
-                                                                    selectAudience={(id)=> this.selectAudience(id)}
+                                                                    selectAudience={(id,name)=> this.selectAudience(id,name)}
                                                                     audienceId={item.id}
                                                                 />
                                                             </Grid>
@@ -237,9 +233,10 @@ class CreateSurveys extends CreateSurveyController {
                                                 <Grid item>
                                                     <AudienceButton variant="contained" color="primary" onClick={this.handleOpenAudienceModal}>{t("CREATE AUDIENCE")}</AudienceButton>
                                                 </Grid>
-                                            </Grid>
 
-                                              </Box>
+                                            </Grid>
+                                      </Box>
+                                        <p style={{color:"red"}}>{this.state.audienceValidationError}</p>
                                     </Box>
                                 </Box>
                             </Grid>
@@ -486,7 +483,7 @@ const AudienceSelectBox = (props:any) => {
                 <Box
                     style={{padding:"10px 13px",display:"flex",alignItems:"center"}}
                 >
-                    <Box style={{display:'flex',alignItems:'center'}} onClick={()=>props.selectAudience(props.audienceId)}>
+                    <Box style={{display:'flex',alignItems:'center'}} onClick={()=>props.selectAudience(props.audienceId,props.name)}>
                         <img
                             src={props.selected ? audienceChecked : audienceCheck}
                             height="10px"

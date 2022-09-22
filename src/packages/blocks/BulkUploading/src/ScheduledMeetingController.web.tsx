@@ -736,7 +736,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
     time: Yup.string()
       .required("Required")
       .matches(/\S/, "Required")
-      .when("date", (date: any, schema: any) => {
+      .when("date", (date:any, schema:any) => {
         const newDate = date && moment(date, "YYYY-MM-DD").format("DD-MM-YYYY");
         return schema.test({
           test: (time: any) => {
