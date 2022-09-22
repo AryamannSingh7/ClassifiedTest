@@ -69,6 +69,10 @@ class OwnerDashboard extends DashboardController {
     this.setState({ isMenuOpen: !this.state.isMenuOpen });
   };
 
+  handleLogoutModal = () => {
+    this.setState({ isLogoutModalOpen: !this.state.isLogoutModalOpen });
+  };
+
   handleEngLngChange = () => {
     i18next.changeLanguage("en");
   };
