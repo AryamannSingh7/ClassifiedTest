@@ -859,3 +859,29 @@
 ::-webkit-scrollbar {
   height: 5px;
 }
+
+.chairman-logout .dialog-button-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+
+.chairman-logout .dialog-button-group button.close {
+  background-color: white;
+  border-radius: 8px;
+  color: #2b6fec;
+  font-weight: 600;
+  border: 2px solid #2b6fec;
+  padding: 12px 30px;
+}
+
+.chairman-logout .dialog-button-group button.logout {
+  background-color: #2b6fec;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  border: 1px solid #2b6fec;
+  padding: 12px 30px;
+  margin: 0;
+}

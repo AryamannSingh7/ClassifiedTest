@@ -67,11 +67,11 @@ class MyMeetingMinuteDetail extends MyMeetingsController {
                           </h6>
                         </div>
                         <Link
-                          href={this.state.meeting && this.state.meeting.attributes.meeting_mins_pdf.url}
+                          // href={this.state.meeting && this.state.meeting.attributes.meeting_mins_pdf.url}
                           target="_blank"
                           className="download-pdf"
                         >
-                          <img src={DownloadIcon} alt="download" />
+                          <img src={DownloadIcon} alt="download" onClick={() => alert("Coming soon!!")} />
                         </Link>
                       </Box>
                     </div>

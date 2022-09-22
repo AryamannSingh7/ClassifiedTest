@@ -29,3 +29,6 @@ export const approvedbudget = require("../assets/approvedbudget.png");
 export const chatIcon = require("../assets/chat.png");
 export const ProfileIcon = require("../assets/profile.png");
 export const LogoutIcon = require("../assets/logout.png");
+export const LogoutDialogIcon = require("../assets/logout-dialog.png");
+export const BuildingLogo = require("../assets/building1.png");
+export const hamburgerIcon = require("../assets/hamburger.png");
