@@ -491,6 +491,9 @@
   "Minimum length of mobile should be 10": "Minimum length of mobile should be 10",
   "Maximum length of mobile should be 10": "Maximum length of mobile should be 10",
   "You have entered past time": "You have entered past time",
-  "Mobile Number":"Mobile Number",
-  "Message":"Message"
+  "Mobile Number": "Mobile Number",
+  "Message": "Message",
+  "Thank you for contacting us and for being a loyal customer. Please use the form below to provide us with you inquiries or comments. Your input will be directed to the proper team for analysis and action.": "Thank you for contacting us and for being a loyal customer. Please use the form below to provide us with you inquiries or comments. Your input will be directed to the proper team for analysis and action.",
+  "Select Category": "Select Category",
+  "Paid on": "Paid on"
 }
