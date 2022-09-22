@@ -84,7 +84,7 @@ class ResidentDashboard extends DashboardController {
 
   render() {
     const { t }: any = this.props;
-    const { classes } = this.props;
+    const { classes }: any = this.props;
 
     return (
       <>
