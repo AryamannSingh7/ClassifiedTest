@@ -119,6 +119,11 @@ export default class SurveyParticipateController extends BlockComponent<
         console.log(responseJson,errorReponse)
       }
       if(this.surveyPreviewAnswerData === apiRequestCallId){
+        console.log("RESPONSE",responseJson)
+
+        const updatedResponse = responseJson?.survey?.my_responses.map((item:any) => {
+          console.log("Items",item)
+        })
         this.setState({
           SurveyQuestions:responseJson?.survey?.my_responses || [],
           loading:false

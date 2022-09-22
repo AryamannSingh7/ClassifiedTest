@@ -20,6 +20,7 @@ import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import Divider from "@material-ui/core/Divider";
 import {withTranslation} from "react-i18next";
 import '../../../web/src/i18n.js';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 const exampleQuestion = [
     {
@@ -93,41 +94,37 @@ class SurveyParticipate extends SurveyMyResponseController {
               </Grid>
               <Grid xs={12}>
               <Box style={{background: "#E5ECFF",height:"100%",display:'flex',flexDirection:"column",alignItems:'center'}}>
-                  <Box style={{width:"95%"}}>
+                  <Box style={{width:"85%"}}>
                       {
                           this.state.SurveyQuestions.length > 0 &&
-                          this.state.SurveyQuestions.map((res:any,key:any) => {
-                              return(
-                              res.map((item:any,key:any)=> {
-                                  console.log("Item",item)
+                          this.state.SurveyQuestions.map((item:any,key:any) => {
                                   return(
                                       <>
-                                          <Box key={key} style={{margin:"1rem",display:'flex',flexDirection:"column",alignItems:'center'}}>
+                                          <Box key={key} style={{marginTop:"1rem",marginBottom:"1rem",display:'flex',flexDirection:"column",alignItems:'center'}}>
                                               <Box style={{alignSelf: "flex-start"}}>
-                                                  <p style={{ fontSize: '1rem', fontWeight: 600,marginLeft:"20px"}}>
+                                                  <p style={{ fontSize: '1rem', fontWeight: 600}}>
                                                       {
-                                                          `Q-${key+1} ${item.survey_question}`
+                                                          `${item.survey_question}`
                                                       }
                                                   </p>
                                               </Box>
                                               {
                                                   item.survey_question_type === "short_answers" &&
-                                                  <Box style={{width:"90%"}}>
-                                                      <Box style={{width:"92%"}}>
+                                                  <Box style={{width:"100%"}}>
+                                                      <Box style={{width:"100%"}}>
                                                       <TextField
                                                           id="outlined-multiline-static"
                                                           multiline
-                                                          rows={4}
-                                                          variant="filled"
+                                                          minRows={5}
                                                           value={item.concern}
                                                           onChange={this.handleShortAns}
                                                           fullWidth
                                                           disabled
-                                                          style={{marginTop:"15px",border:"1px solid gray",borderRadius:"15px",overflow:"hidden"}}
+                                                          style={{marginTop:"15px",border:"1px solid #f0f0f0",borderRadius:"20px",overflow:"hidden",backgroundColor:"#f9f9f9"}}
                                                           InputProps={{
                                                               startAdornment: (
                                                                   <InputAdornment position="start">
-                                                                      <img src={clipBoard} />
+                                                                      <img src={clipBoard} style={{margin:"10px"}} />
                                                                   </InputAdornment>
                                                               ),
                                                               disableUnderline: true
@@ -136,46 +133,29 @@ class SurveyParticipate extends SurveyMyResponseController {
                                                       </Box>
                                                   </Box>
                                               }
-                                              <Box style={{width:"90%"}}>
+                                              <Box style={{width:"100%"}}>
                                                   {
                                                       item.survey_question_type !== "short_answers" &&
-                                                      item.survey_options?.map((data:any, i:any) => {
+                                                      item.options[0].survey_options?.map((data:any, i:any) => {
                                                           if(item.survey_question_type === "options"){
                                                               return (
                                                                   <>
                                                                       <Grid container key={i}>
                                                                           <Grid xs={12}>
                                                                               <Box key={data.id}
-                                                                                   style={{display:'flex',marginTop:'1rem', width:"90%",alignItems:'center'}}>
-                                                                                  <Box className="customRadioButton" style={{height:"100%",display:'flex',alignItems:"center",justifyContent:"flex-end"}}>
+                                                                                   style={{display:'flex',marginTop:'1rem', width:"100%",alignItems:'center'}}>
+                                                                                  <Box className="customRadioButton" style={{height:"100%",display:'flex',alignItems:"center",justifyContent:"flex-start"}}>
                                                                                       <input type="radio" id={data.id}
                                                                                              name="options" value={data.id}
-                                                                                             disabled
                                                                                              style={{marginRight:"10px",marginBottom:"15px",fontSize:"2rem",fontFamily:"system-ui, sans-serif"}}
-                                                                                             defaultChecked={this.state.questionOptionAnswer.find((item:any)=> item == data.id) ? true : false}
+                                                                                             checked={item.selected_options.findIndex((item:any)=> item.id == data.id) != -1 ? true : false}
                                                                                              onChange={(e) => this.getPollSelectedAnswer(e.target.value)}
                                                                                       />
                                                                                       <label htmlFor={i}/>
                                                                                   </Box>
                                                                                   <Box style={{width:"100%"}}>
-                                                                                      <label
-                                                                                          className="para"
-                                                                                      >
-                                                                                          <Box
-                                                                                              style={{
-                                                                                                  backgroundColor: "gray",
-                                                                                                  borderRadius: '5rem',
-                                                                                                  marginBottom: 14,
-                                                                                                  boxShadow: "none",
-                                                                                                  color: "#F7F7FC",
-                                                                                                  fontWeight: 600,
-                                                                                                  fontSize: '1rem',
-                                                                                                  width:"90%",
-                                                                                                  padding: '1rem'
-                                                                                              }}
-                                                                                          >
-                                                                                              {data.text}
-                                                                                          </Box>
+                                                                                      <label className="para" >
+                                                                                          <Box className={item.selected_options.findIndex((item:any)=> item.id == data.id) != -1 ? "optionBoxSelected" : "optionBox"}>{data.text}</Box>
                                                                                       </label>
                                                                                   </Box>
                                                                               </Box>
@@ -190,36 +170,20 @@ class SurveyParticipate extends SurveyMyResponseController {
                                                                       <Grid container key={i}>
                                                                           <Grid xs={12}>
                                                                               <Box key={data.id}
-                                                                                   style={{display:'flex',marginTop:'1rem', width:"90%",alignItems:'baseline'}}>
-                                                                                  <Box >
+                                                                                   style={{display:'flex',marginTop:'1rem', width:"100%",alignItems:'baseline'}}>
+                                                                                  <Box style={{marginLeft:"-12px"}}>
                                                                                       <Checkbox id={data.id}
                                                                                                 name="options" value={data.id}
                                                                                                 style={{marginBottom:"15px"}}
+                                                                                                disabled
                                                                                                 icon={<RadioButtonUncheckedIcon style={{color:"#808080",marginTop:"10px"}}/>}
-                                                                                                checkedIcon={<RadioButtonCheckedIcon style={{color:"#2B6FEC",marginTop:"10px"}}/>}
-                                                                                                defaultChecked={this.state.questionOptionAnswer.find((item:any)=> item == data.id) ? true : false}
-                                                                                                onChange={(e) => this.getPollSelectedMultiAns(e.target.value)}
+                                                                                                checkedIcon={<CheckCircleIcon style={{color:"#2B6FEC",marginTop:"10px"}}/>}
+                                                                                                defaultChecked={item.selected_options.find((item:any)=> item.id == data.id) ? true : false}
                                                                                       />
                                                                                   </Box>
                                                                                   <Box style={{width:"100%"}}>
-                                                                                      <label
-                                                                                          className="para"
-                                                                                      >
-                                                                                          <Box
-                                                                                              style={{
-                                                                                                  backgroundColor: "#2B6FEC",
-                                                                                                  borderRadius: '5rem',
-                                                                                                  marginBottom: 14,
-                                                                                                  boxShadow: "none",
-                                                                                                  color: "#F7F7FC",
-                                                                                                  fontWeight: 600,
-                                                                                                  fontSize: '1rem',
-                                                                                                  width:"90%",
-                                                                                                  padding: '1rem'
-                                                                                              }}
-                                                                                          >
-                                                                                              {data.text}
-                                                                                          </Box>
+                                                                                      <label className="para">
+                                                                                          <Box className={item.selected_options.findIndex((item:any)=> item.id == data.id) != -1 ? "optionBoxSelected" : "optionBox"}> {data.text} </Box>
                                                                                       </label>
                                                                                   </Box>
                                                                               </Box>
@@ -234,22 +198,21 @@ class SurveyParticipate extends SurveyMyResponseController {
                                                   }
                                                   {
                                                       item.survey_question_type !== "short_answers" &&
-                                                      <Box style={{width:"92%"}}>
-                                                          <Typography variant="subtitle2" style={{fontWeight:"bold"}}>{t("Please share your concern")}</Typography>
+                                                      <Box style={{width:"100%"}}>
+                                                          <Typography variant="subtitle2" style={{fontWeight:"bold"}}>{t("Your Comment")}</Typography>
                                                           <TextField
                                                               id="outlined-multiline-static"
                                                               multiline
-                                                              rows={4}
+                                                              minRows={5}
                                                               value={item.concern}
-                                                              disabled
                                                               onChange={this.handleShortAns}
-                                                              variant="filled"
                                                               fullWidth
-                                                              style={{marginTop:"15px",border:"1px solid gray",borderRadius:"15px",overflow:"hidden"}}
+                                                              disabled
+                                                              style={{marginTop:"15px",border:"1px solid #f0f0f0",borderRadius:"20px",overflow:"hidden",backgroundColor:"#f9f9f9"}}
                                                               InputProps={{
                                                                   startAdornment: (
                                                                       <InputAdornment position="start">
-                                                                          <img src={clipBoard} />
+                                                                          <img src={clipBoard} style={{margin:"10px"}} />
                                                                       </InputAdornment>
                                                                   ),
                                                                   disableUnderline: true
@@ -265,8 +228,8 @@ class SurveyParticipate extends SurveyMyResponseController {
                                           }
                                       </>
                                   )
-                              }))
-                          })
+                              }
+                          )
                       }
                   </Box>
               </Box>

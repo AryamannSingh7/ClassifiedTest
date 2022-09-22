@@ -1,0 +1,10 @@
+.countRed{
+    background: #ffdede;
+    padding: 7px 15px;
+    border-radius: 30px;
+    color: #f27200;
+    display: initial;
+    min-height: 10px;
+    text-transform: capitalize;
+    font-weight: 800 !important;
+}
