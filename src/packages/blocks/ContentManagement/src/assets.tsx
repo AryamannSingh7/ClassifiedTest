@@ -29,3 +29,5 @@ export const Box_Icon = require("../assets/box-icon.svg");
 export const Checkmark_Icon = require("../assets/checkmark-icon.png");
 export const Error_Icon = require("../assets/error-icon.png");
 export const Close_Icon = require("../assets/icon-close.png");
+export const Dollar_Icon = require("../assets/dollar_icon.png");
+export const Classified_CorrectIcon = require("../assets/classified_correct_icon.png");
