@@ -1,12 +1,11 @@
 import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
-import MessageEnum, {
-  getName,
-} from "../../../framework/src/Messages/MessageEnum";
+import MessageEnum, { getName } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
 
 // Customizable Area Start
+import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
 // Customizable Area End
 
 export const configJSON = require("./config.js");
@@ -34,11 +33,7 @@ interface SS {
   id: any;
 }
 
-export default class ViewPersonalDocumentController extends BlockComponent<
-  Props,
-  S,
-  SS
-> {
+export default class ViewPersonalDocumentController extends BlockComponent<Props, S, SS> {
   GetDocumentCallId: any;
 
   constructor(props: Props) {
@@ -46,10 +41,7 @@ export default class ViewPersonalDocumentController extends BlockComponent<
     this.receive = this.receive.bind(this);
     console.disableYellowBox = true;
     // Customizable Area Start
-    this.subScribedMessages = [
-      getName(MessageEnum.RestAPIResponceMessage),
-      getName(MessageEnum.RestAPIRequestMessage),
-    ];
+    this.subScribedMessages = [getName(MessageEnum.RestAPIResponceMessage), getName(MessageEnum.RestAPIRequestMessage)];
 
     this.state = {
       documentType: "",
@@ -70,34 +62,28 @@ export default class ViewPersonalDocumentController extends BlockComponent<
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.GetDocumentCallId !== null &&
-      this.GetDocumentCallId ===
-        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+      this.GetDocumentCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.GetDocumentCallId = null;
 
-      var responseJson = message.getData(
-        getName(MessageEnum.RestAPIResponceSuccessMessage)
-      );
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson.data) {
         this.setState({
           ...this.state,
           documentTitle: responseJson.data.attributes.title,
           documentUrl: responseJson.data.attributes.images[0].url,
-          documentDownloadUrl:
-            responseJson.data.attributes.images[0].download_url,
+          documentDownloadUrl: responseJson.data.attributes.images[0].download_url,
         });
       }
 
-      var errorReponse = message.getData(
-        getName(MessageEnum.RestAPIResponceErrorMessage)
-      );
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
         runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
       } else {
-        this.parseApiErrorResponse(responseJson);
+        ApiErrorResponse(responseJson);
       }
-      this.parseApiCatchErrorResponse(errorReponse);
+      ApiCatchErrorResponse(errorResponse);
     }
     // Customizable Area End
   }
@@ -139,20 +125,12 @@ export default class ViewPersonalDocumentController extends BlockComponent<
     const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_my_document/personal_documents/${
-        this.state.documentId
-      }`
+      `society_managements/${society_id}/bx_block_my_document/personal_documents/${this.state.documentId}`
     );
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypeGet
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;

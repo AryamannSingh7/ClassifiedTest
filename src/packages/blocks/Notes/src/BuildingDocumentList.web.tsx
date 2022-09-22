@@ -37,6 +37,8 @@ import {
   TwitterIcon,
   WhatsappIcon,
 } from "react-share";
+import { withTranslation } from "react-i18next";
+import "../../../web/src/i18n.js";
 
 class BuildingDocumentList extends BuildingDocumentListController {
   constructor(props: Props) {
@@ -45,12 +47,11 @@ class BuildingDocumentList extends BuildingDocumentListController {
 
   render() {
     const { classes } = this.props;
+    const { t }: any = this.props;
 
     const sharePopupWidth = 500;
     const sharePopupHeight = 700;
     const shareTitle = "TI 1 Final Leap";
-
-    console.log(this.state);
 
     return (
       <>
@@ -64,16 +65,19 @@ class BuildingDocumentList extends BuildingDocumentListController {
                   </IconButton>
                 </Link>{" "}
                 {this.state.documentType.toLowerCase() === "building-plans"
-                  ? "Building Plans"
-                  : this.state.documentType}
+                  ? `${t("Building Plans")}`
+                  : `${t(this.state.documentType)}`}
               </Box>
-              <Container className="content-area document-box list">
+              <Container
+                className={`${this.state.documentType.toLowerCase() === "resolutions" &&
+                  "resolution-box"} content-area document-box list`}
+              >
                 <div className="personal-documents">
                   {this.state.documentsList.length === 0 && (
                     <div className="empty-list">
                       <div className="content-box">
                         <img src={NoPdf} />
-                        <h3>No Document Found</h3>
+                        <h3>{t("No Document Found")}</h3>
                       </div>
                     </div>
                   )}
@@ -81,7 +85,6 @@ class BuildingDocumentList extends BuildingDocumentListController {
                     {this.state.documentType.toLowerCase() === "resolutions" ? (
                       <>
                         {this.state.documentsList.map((document: any) => {
-                          const date = document.attributes.meeting_date_time.split(" ")[0];
                           return (
                             <Grid item xs={12} md={6} lg={6} key={document.id}>
                               <Card className="card-item">
@@ -92,11 +95,11 @@ class BuildingDocumentList extends BuildingDocumentListController {
                                 </Link>
                                 <div className="res-info">
                                   <div className="info-item">
-                                    <p>Date & Time</p>
+                                    <p>{t("Date & Time")}</p>
                                     <span>{moment(document.attributes.created_at).format("DD-MMM-YYYY HH:mm")}</span>
                                   </div>
                                   <div className="info-item">
-                                    <p>Building</p>
+                                    <p>{t("Building")}</p>
                                     <span>{document.attributes.buidling_name}</span>
                                   </div>
                                 </div>
@@ -126,7 +129,11 @@ class BuildingDocumentList extends BuildingDocumentListController {
                                         );
                                       }}
                                     />
-                                    <Link href={document.attributes.meeting_mins_pdf.url} target="_blank">
+                                    <Link
+                                      //  href={document.attributes.meeting_mins_pdf.url}
+                                      onClick={() => alert("Coming soon!!")}
+                                      target="_blank"
+                                    >
                                       <img src={DownloadImage} />
                                     </Link>
                                   </div>
@@ -149,15 +156,6 @@ class BuildingDocumentList extends BuildingDocumentListController {
                                     </div>
                                     <div className="info">
                                       <h4>{document.attributes.title}</h4>
-                                      {/* <div className="more-info">
-                                        <p>
-                                          <span>55</span>pages
-                                        </p>
-                                        <p>
-                                          <span>5</span>MB
-                                        </p>
-                                        <p>08/12/2022</p>
-                                      </div> */}
                                     </div>
                                   </div>
                                 </Link>
@@ -274,5 +272,5 @@ class BuildingDocumentList extends BuildingDocumentListController {
   }
 }
 
-export default withStyles(DocumentReportStyleWeb)(BuildingDocumentList);
+export default withTranslation()(withStyles(DocumentReportStyleWeb)(BuildingDocumentList));
 // Customizable Area End

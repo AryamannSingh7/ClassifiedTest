@@ -25,16 +25,18 @@ import "../../../web/src/i18n.js";
 import i18next from "i18next";
 
 class DashboardHeader extends DashboardController {
-  constructor(props: Props) {
-    super(props);
-  }
-
   handleEngLngChange = () => {
+    localStorage.setItem("language", "en");
     i18next.changeLanguage("en");
   };
 
   handleAreLngChange = () => {
+    localStorage.setItem("language", "ar");
     i18next.changeLanguage("ar");
+  };
+
+  handleLogoutModal = () => {
+    this.setState({ isLogoutModalOpen: !this.state.isLogoutModalOpen });
   };
 
   logout = () => {
@@ -47,6 +49,8 @@ class DashboardHeader extends DashboardController {
   };
 
   render() {
+    const { t }: any = this.props;
+
     return (
       <Box style={dashBoard.Header}>
         <Grid container spacing={2}>
@@ -67,8 +71,18 @@ class DashboardHeader extends DashboardController {
                   align="center"
                   menuButton={<img src={globalIcon} alt="GlobalIcon" />}
                 >
-                  <MenuItem onClick={() => this.handleEngLngChange()}>English</MenuItem>
-                  <MenuItem onClick={() => this.handleAreLngChange()}>Arabic</MenuItem>
+                  <MenuItem
+                    className={localStorage.getItem("language") === "en" ? "active" : ""}
+                    onClick={() => this.handleEngLngChange()}
+                  >
+                    English
+                  </MenuItem>
+                  <MenuItem
+                    className={localStorage.getItem("language") === "ar" ? "active" : ""}
+                    onClick={() => this.handleAreLngChange()}
+                  >
+                    Arabic
+                  </MenuItem>
                 </Menu>
               </Box>
               <img src={chatIcon} alt="GlobalIcon" style={{ marginLeft: "10px" }} />
@@ -93,10 +107,10 @@ class DashboardHeader extends DashboardController {
               }
             >
               <MenuItem onClick={() => this.gotoProfilePage()}>
-                <img src={ProfileIcon} alt="profile" /> Profile
+                <img src={ProfileIcon} alt="profile" /> {t("Profile")}
               </MenuItem>
               <MenuItem onClick={() => this.handleLogoutModal()}>
-                <img src={LogoutIcon} alt="logout" /> Logout
+                <img src={LogoutIcon} alt="logout" /> {t("Logout")}
               </MenuItem>
             </Menu>
           </Grid>
@@ -111,11 +125,15 @@ class DashboardHeader extends DashboardController {
           <DialogContent>
             <Box textAlign="center">
               <img src={LogoutDialogIcon} alt="ExclamationIcon" />
-              <Typography variant="h6">Are you sure you want to logout?</Typography>
-              <Typography variant="body1">You will be returned to the login screen</Typography>
+              <Typography variant="h6">{t("Are you sure you want to logout?")}</Typography>
+              <Typography variant="body1">{t("You will be returned to the login screen")}</Typography>
               <DialogActions className="dialog-button-group">
-                <Button className="close" onClick={() => this.handleLogoutModal()}>Close</Button>
-                <Button className="logout" onClick={() => this.logout()}>Logout</Button>
+                <Button className="close" onClick={() => this.handleLogoutModal()}>
+                  {t("Close")}
+                </Button>
+                <Button className="logout" onClick={() => this.logout()}>
+                  {t("Logout")}
+                </Button>
               </DialogActions>
             </Box>
           </DialogContent>
@@ -184,5 +202,5 @@ const dashBoard = {
   },
 };
 
-export default DashboardHeader;
+export default withTranslation()(DashboardHeader);
 // Customizable Area End

@@ -68,10 +68,12 @@ class ResidentDashboard extends DashboardController {
   };
 
   handleEngLngChange = () => {
+    localStorage.setItem("language", "en");
     i18next.changeLanguage("en");
   };
 
   handleAreLngChange = () => {
+    localStorage.setItem("language", "ar");
     i18next.changeLanguage("ar");
   };
 
@@ -149,8 +151,18 @@ class ResidentDashboard extends DashboardController {
                       align="center"
                       menuButton={<img src={globalIcon} alt="GlobalIcon" />}
                     >
-                      <MenuItem onClick={() => this.handleEngLngChange()}>English</MenuItem>
-                      <MenuItem onClick={() => this.handleAreLngChange()}>Arabic</MenuItem>
+                      <MenuItem
+                        className={localStorage.getItem("language") === "en" ? "active" : ""}
+                        onClick={() => this.handleEngLngChange()}
+                      >
+                        English
+                      </MenuItem>
+                      <MenuItem
+                        className={localStorage.getItem("language") === "ar" ? "active" : ""}
+                        onClick={() => this.handleAreLngChange()}
+                      >
+                        Arabic
+                      </MenuItem>
                     </Menu>
                   </Box>
                   <div>
@@ -303,8 +315,8 @@ class ResidentDashboard extends DashboardController {
               <Typography variant="h6">{t("Are you sure you want to logout?")}</Typography>
               <Typography variant="body1">{t("You will be returned to the login screen")}</Typography>
               <DialogActions className="dialog-button-group">
-                <Button onClick={() => this.logout()}>Logout</Button>
-                <Button onClick={() => this.handleLogoutModal()}>Cancel</Button>
+                <Button onClick={() => this.logout()}>{t("Logout")}</Button>
+                <Button onClick={() => this.handleLogoutModal()}>{t("Cancel")}</Button>
               </DialogActions>
             </Box>
           </DialogContent>
