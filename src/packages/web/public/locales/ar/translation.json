@@ -474,6 +474,7 @@
   "Survey Response Submitted Description": "تم إرسال ردك على استبيان تخطيط الحدث بنجاح. يمكنك التحقق من إجابتك ضمن قسم عرض ردي",
   "View My Response": "عرض ردي",
   "Please share your concern": "يرجى مشاركة قلقك",
+  "Your Comment": "تعليقك",
   "Create Target Audience": "إنشاء الجمهور المستهدف",
   "Enter Floor Number": "أدخل رقم الطابق",
   "Enter Unit Number. / Name": "أدخل رقم الوحدة. / اسم",
@@ -487,5 +488,10 @@
   "Car Color": "لون السيارة",
   "Add Registration Card Copy": "إضافة نسخة من بطاقة التسجيل",
   "Vehicle Request": "طلب مركبة",
-  "Added": "مضاف"
+  "Added": "مضاف",
+  "Minimum length of mobile should be 10": "يجب ألا يقل طول الجوال عن 10",
+  "Maximum length of mobile should be 10": "يجب أن يكون الحد الأقصى لطول الهاتف المحمول 10",
+  "You have entered past time": "لقد دخلت الوقت الماضي",
+  "Mobile Number": "رقم الهاتف المحمول",
+  "Message": "رسالة"
 }

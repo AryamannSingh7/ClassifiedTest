@@ -118,7 +118,7 @@ class SurveyPreview extends SurveyPreviewController {
                                       <Box className="PollName" style={{marginTop:15}}>
                                           <Typography className="subHeading">Target Audience: </Typography>
                                           <Typography className="PollNameText" style={{color:"#2B6FED"}}>
-                                              GA Members
+                                              {this.state.selectedAudienceName}
                                           </Typography>
                                       </Box>
                                   </Box>

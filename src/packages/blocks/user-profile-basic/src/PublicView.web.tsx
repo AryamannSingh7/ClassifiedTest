@@ -57,7 +57,7 @@ class PublicView extends ProfileController {
                 <Grid xs={12}>
                   <Formik initialValues={{
                     full_name: profileData?.attributes?.full_name?.publilc_access,
-                    unit: profileData?.attributes?.full_name?.publilc_access,
+                    unit: profileData?.attributes?.apartment_number?.publilc_access,
                     phone: profileData?.attributes?.full_phone_number?.publilc_access,
                     email: profileData?.attributes?.email?.publilc_access,
                     gender: profileData?.attributes?.gender?.publilc_access,
