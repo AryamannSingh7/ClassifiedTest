@@ -255,7 +255,7 @@ class ResidentDashboard extends DashboardController {
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
-                    <Link href="">
+                    <Link href="/Announcement">
                       <DashboardCard
                         image={keyhand}
                         heading={t("Announcements")}
@@ -265,7 +265,7 @@ class ResidentDashboard extends DashboardController {
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
-                    <Link href="">
+                    <Link href="/Visitors">
                       <DashboardCard
                         image={keyhand}
                         heading={t("Visitors")}
