@@ -232,6 +232,7 @@ import UnitDetails from '../../blocks/LeadManagement/src/UnitDetails.web';
 
 // Visitor Imports
 import Visitors from "../../blocks/invitefriends/src/Visitors.web"
+import PastVisitors from "../../blocks/invitefriends/src/PastVisitors.web"
 const routeMap = {
   //done
   LandingPage: {
@@ -1358,6 +1359,12 @@ const routeMap = {
     path: '/visitors',
     exact: true
   },
+
+   PastVisitors:{
+      component: PastVisitors,
+      path: '/PastVisitors',
+      exact: true
+   },
 
   CommunityRequestManagement: {
     component: CommunityRequestManagement,
