@@ -42,16 +42,22 @@ class SurveyInitial extends SurveyInitialController {
                             {this.state.SurveyPreviewAnswer.title}
                         </p>
                     </Grid>
-                    <Box className="EventsIconsText">
-                        {
-                            this.state.SurveyPreviewAnswer?.status == "ongoing" &&
-                            <Typography variant="body2" className={"statusOngoingRed"}>{this.state.SurveyPreviewAnswer?.status}</Typography>
-                        }
-                        {
-                            this.state.SurveyPreviewAnswer?.status == "completed" &&
-                            <Typography variant="body2" className={"statusOngoingGreen"}>{this.state.SurveyPreviewAnswer?.status}</Typography>
-                        }
-                    </Box>
+                    {
+                        !this.state.SurveyPreviewAnswer.flag ?
+                            <Box className="EventsIconsText">
+                                {
+                                    this.state.SurveyPreviewAnswer?.status == "ongoing" &&
+                                    <Typography variant="body2" className={"statusOngoingRed"}>{ this.state.SurveyPreviewAnswer?.status}</Typography>
+                                }
+                                {
+                                    this.state.SurveyPreviewAnswer?.status == "completed" &&
+                                    <Typography variant="body2" className={"statusOngoingGreen"}>{ this.state.SurveyPreviewAnswer?.status}</Typography>
+                                }
+                            </Box> :
+                            <Box className="EventsIconsText">
+                                <Typography variant="body2" className={"statusOngoingGreen"}>Submitted</Typography>
+                            </Box>
+                    }
                 </Grid>
             </Grid>
             <Grid container style={{ marginLeft: '1rem', marginRight: '1rem', width: '90%' }}>

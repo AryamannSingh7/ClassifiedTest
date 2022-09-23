@@ -230,7 +230,9 @@ import BuildingandComplex from '../../blocks/LeadManagement/src/BuildingandCompl
 import ComplexandApartment from '../../blocks/LeadManagement/src/ComplexandApartment.web';
 import UnitDetails from '../../blocks/LeadManagement/src/UnitDetails.web';
 
-
+// Visitor Imports
+import Visitors from "../../blocks/invitefriends/src/Visitors.web"
+import PastVisitors from "../../blocks/invitefriends/src/PastVisitors.web"
 const routeMap = {
   //done
   LandingPage: {
@@ -1345,11 +1347,25 @@ const routeMap = {
     path: '/Announcements',
     exact: true
   },
+
   AnnouncementDetails: {
     component: AnnouncementDetails,
     path: '/AnnouncementDetails',
     exact: true
   },
+
+  Visitors:{
+    component: Visitors,
+    path: '/visitors',
+    exact: true
+  },
+
+   PastVisitors:{
+      component: PastVisitors,
+      path: '/PastVisitors',
+      exact: true
+   },
+
   CommunityRequestManagement: {
     component: CommunityRequestManagement,
     path: '/CommunityRequestManagement'

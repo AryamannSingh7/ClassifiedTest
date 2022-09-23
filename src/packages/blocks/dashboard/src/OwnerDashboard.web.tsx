@@ -342,8 +342,13 @@ class OwnerDashboard extends DashboardController {
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
-                    <Link href="">
-                      <DashboardCard image={keyhand} heading={t("Announcements")} title={t("Unopened")} value="75" />
+                    <Link href="/Announcement">
+                      <DashboardCard
+                        image={keyhand}
+                        heading={t("Announcements")}
+                        title={t("Unopened")}
+                        value="75"
+                      />
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
@@ -382,8 +387,13 @@ class OwnerDashboard extends DashboardController {
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
-                    <Link href="/familylist">
-                      <DashboardCard image={keyhand} heading={t("My Visitors")} title={t("Scheduled")} value="75" />
+                    <Link href="/Visitors">
+                      <DashboardCard
+                        image={keyhand}
+                        heading={t("My Visitors")}
+                        title={t("Scheduled")}
+                        value="75"
+                      />
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
