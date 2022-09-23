@@ -67,11 +67,7 @@ class ViewBuildingDocument extends ViewBuildingDocumentController {
                   </Link>{" "}
                   <span>{this.state.documentTitle}</span>
                 </div>
-                <Link
-                  //  href={this.state.documentDownloadUrl}
-                  onClick={() => alert("Coming soon!!")}
-                  target="_blank"
-                >
+                <Link href={this.state.documentDownloadUrl} target="_blank">
                   <img src={DownloadImage} alt="download" />
                 </Link>
               </Box>

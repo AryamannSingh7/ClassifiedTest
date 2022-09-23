@@ -31,11 +31,7 @@ class ViewPersonalDocument extends ViewPersonalDocumentController {
                   </Link>{" "}
                   <span>{this.state.documentTitle}</span>
                 </div>
-                <Link
-                  //  href={this.state.documentDownloadUrl}
-                  onClick={() => alert("Coming soon!!")}
-                  target="_blank"
-                >
+                <Link href={this.state.documentDownloadUrl} target="_blank">
                   <IconButton>
                     <img src={DownloadImage} alt="download" />
                   </IconButton>
