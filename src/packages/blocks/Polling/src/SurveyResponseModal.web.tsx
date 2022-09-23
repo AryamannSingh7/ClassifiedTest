@@ -40,7 +40,7 @@ class SurveyResponseModal extends Component<any, any> {
                                 <Typography style={{marginTop:"5px"}}>Short Answer : {item.concern}</Typography>
                             }
                             {
-                                item.survey_question_type === "Option" &&
+                                item.survey_question_type === "options" &&
                                     item.survey_options.length > 0 &&
                                         item.survey_options.map((itemA:any,key:any)=>{
                                             return(

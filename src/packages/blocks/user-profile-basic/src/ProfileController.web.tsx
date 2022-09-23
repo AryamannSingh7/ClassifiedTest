@@ -1609,8 +1609,6 @@ this.setState({loading:true})
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
     );
-
-
     this.deleteVehicleAPICallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),

@@ -159,16 +159,22 @@ class PollsSurvey extends PollsSurveyController {
                                           <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
                                           <p style={{color:"black"}}>{item.attributes.end_date}</p>
                                       </Box>
-                                      <Box className="EventsIconsText">
-                                          {
-                                              item.attributes.status == "ongoing" &&
-                                              <Typography variant="body2" className={"statusOngoingRed"}>{item.attributes.status}</Typography>
-                                          }
-                                          {
-                                              item.attributes.status == "completed" &&
-                                              <Typography variant="body2" className={"statusOngoingGreen"}>{item.attributes.status}</Typography>
-                                          }
-                                      </Box>
+                                      {
+                                          !item.attributes.flag ?
+                                              <Box className="EventsIconsText">
+                                                  {
+                                                      item.attributes.status == "ongoing" &&
+                                                      <Typography variant="body2" className={"statusOngoingRed"}>{item.attributes.status}</Typography>
+                                                  }
+                                                  {
+                                                      item.attributes.status == "completed" &&
+                                                      <Typography variant="body2" className={"statusOngoingGreen"}>{item.attributes.status}</Typography>
+                                                  }
+                                              </Box> :
+                                              <Box className="EventsIconsText">
+                                                  <Typography variant="body2" className={"statusOngoingGreen"}>Submitted</Typography>
+                                              </Box>
+                                      }
                                   </Box>
                               </Box>
                           </Box>
@@ -242,16 +248,22 @@ class PollsSurvey extends PollsSurveyController {
                                     <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
                                     <p style={{color:"black"}}>{items.attributes.end_date}</p>
                                 </Box>
-                                <Box className="EventsIconsText">
-                                    {
-                                        items.attributes.status == "ongoing" &&
-                                        <Typography variant="body2" className={"statusOngoingRed"}>{items.attributes.status}</Typography>
-                                    }
-                                    {
-                                        items.attributes.status == "completed" &&
-                                        <Typography variant="body2" className={"statusOngoingGreen"}>{items.attributes.status}</Typography>
-                                    }
-                                </Box>
+                                {
+                                    !items.attributes.flag ?
+                                        <Box className="EventsIconsText">
+                                            {
+                                                items.attributes.status == "ongoing" &&
+                                                <Typography variant="body2" className={"statusOngoingRed"}>{items.attributes.status}</Typography>
+                                            }
+                                            {
+                                                items.attributes.status == "completed" &&
+                                                <Typography variant="body2" className={"statusOngoingGreen"}>{items.attributes.status}</Typography>
+                                            }
+                                        </Box> :
+                                        <Box className="EventsIconsText">
+                                            <Typography variant="body2" className={"statusOngoingGreen"}>Submitted</Typography>
+                                        </Box>
+                                }
                             </Box>
                           </Box>
                         </Box>

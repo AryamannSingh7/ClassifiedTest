@@ -33,7 +33,7 @@ class AudienceModal extends AudienceModalController {
     const {t} = this.props
     return (
       <>
-        <Box style={{width:"55vw",maxHeight:"680px",marginTop:'15px',backgroundColor:"white",padding:'20px',borderRadius:"10px"}}>
+        <Box style={{width:"65vw",maxHeight:"700px",marginTop:'15px',backgroundColor:"white",padding:'20px',borderRadius:"10px"}}>
             <Box style={{display:'flex',justifyContent:"space-between",alignItems:"center",marginBottom:"5px"}}>
                 <Typography variant="h5" style={{fontWeight:"bold"}}> {this.props.isEdit ? t("Edit Target Audience") : t("Create Target Audience")} </Typography>
                 <IconButton onClick={this.props.handleClose}>
