@@ -251,8 +251,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                                     >
                                       <MenuItem>
                                         <Link
-                                          // href={document.attributes.images[0].download_url}
-                                          onClick={() => alert("Coming soon!!")}
+                                          href={document.attributes.images[0].download_url}
                                           target="_blank"
                                         >
                                           {t("Download")}
