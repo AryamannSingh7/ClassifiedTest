@@ -87,3 +87,25 @@ h4.MuiTypography-body1 {
   border-radius: 20px;
   margin-top: 10px;
 }
+
+.social-raw {
+  position: relative;
+
+  &::before {
+    content: " ";
+    position: absolute;
+    top: 20px;
+    left: -100%;
+    border-bottom: 1px solid #f6f6f6;
+    width: 100%;
+  }
+
+  &::after {
+    content: " ";
+    position: absolute;
+    top: 20px;
+    right: -100%;
+    border-bottom: 1px solid #f6f6f6;
+    width: 100%;
+  }
+}
