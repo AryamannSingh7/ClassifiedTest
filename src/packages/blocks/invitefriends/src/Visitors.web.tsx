@@ -43,7 +43,7 @@ class Visitors extends VisitorController{
                                 bgcolor="white"
                                 marginTop='1.5rem'
                                 padding='1.5rem'
-                                onClick={()=>this.props.history.push("/BuildingAnnouncement?type=scheduled")}
+                                onClick={()=>this.props.history.push("/ScheduledVisitors")}
                             >
                                 <Box style={{minWidth:"100%"}}>
                                     <Box style={{display:"flex",alignItems:"center"}}>
@@ -64,7 +64,7 @@ class Visitors extends VisitorController{
                                 bgcolor="white"
                                 marginTop='1rem'
                                 padding='1.5rem'
-                                onClick={()=>this.props.history.push("/BuildingAnnouncement?type=scheduled")}
+                                onClick={()=>this.props.history.push("/PastVisitors")}
                             >
                                 <Box style={{minWidth:"100%"}}>
                                     <Box style={{display:"flex",alignItems:"center"}}>

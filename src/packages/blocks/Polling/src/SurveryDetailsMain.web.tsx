@@ -162,7 +162,7 @@ class PollDetails extends SurveyDetailsMainController {
                                     </Box>
                                     <Box className="VoteCountBottomBox" style={{paddingLeft:"50px"}}>
                                         <img src={CheckMark} alt="CheckMark" />
-                                        <p>{this.state.SurveyPreviewAnswer?.total_responses} Response Received</p>
+                                        <p>{this.state.SurveyPreviewAnswer?.total_response} Response Received</p>
                                     </Box>
                                 </Box>
                             </Grid>
