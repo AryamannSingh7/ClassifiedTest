@@ -11,6 +11,7 @@ import MessageEnum, {
 import * as Yup from 'yup';
 import { imgPasswordInVisible, imgPasswordVisible } from "./assets";
 import { ContactSupportOutlined } from "@material-ui/icons";
+import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
 // Customizable Area End
 
 export const configJSON = require("./config");
@@ -280,10 +281,11 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
             console.log(responseJson)
             this.setState({ showDialogDelete: true, showDialog: false, loading: false })
           } else if (responseJson?.errors) {
-            let error = responseJson.errors[0];
+            let error = responseJson.errors;
             this.setState({ error });
-            this.parseApiCatchErrorResponse(this.state.error);
-            this.parseApiCatchErrorResponse(errorReponse);
+            ApiCatchErrorResponse(error)
+            // this.parseApiCatchErrorResponse(this.state.error);
+            // this.parseApiCatchErrorResponse(errorReponse);
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
             this.parseApiCatchErrorResponse(this.state.error);
