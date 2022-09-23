@@ -149,7 +149,7 @@ this.getProfile()
                         profileData?.attributes?.gender?.publilc_access ?
                           <Typography component="h4">
                             Gender:
-                            <span className="" style={{fontWeight:600}}>{profileData?.attributes?.gender?.gender}</span>
+                            <span className="" style={{fontWeight:400}}>{profileData?.attributes?.gender?.gender}</span>
                           </Typography>
                           : null
                       }
@@ -160,7 +160,7 @@ this.getProfile()
                         profileData?.attributes?.date_of_birth?.publilc_access ?
                           <Typography component="h4">
                             DOB:
-                            <span className="" style={{fontWeight:600}}>{profileData?.attributes?.date_of_birth?.date_of_birth}</span>
+                            <span className="" style={{fontWeight:400}}>{profileData?.attributes?.date_of_birth?.date_of_birth}</span>
                           </Typography>
                           :
                           null
