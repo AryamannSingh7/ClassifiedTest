@@ -225,6 +225,7 @@ import UserDetailedProfile from '../../blocks/user-profile-basic/src/UserDetaile
 import BuildingandComplex from '../../blocks/LeadManagement/src/BuildingandComplex.web';
 import ComplexandApartment from '../../blocks/LeadManagement/src/ComplexandApartment.web';
 import UnitDetails from '../../blocks/LeadManagement/src/UnitDetails.web';
+import SharedArea from '../../blocks/LeadManagement/src/SharedArea.web';
 
 const routeMap = {
   //done
@@ -1355,6 +1356,10 @@ const routeMap = {
   UnitDetails:{
     component:UnitDetails,
     path:"/UnitDetails"
+  },
+  SharedArea:{
+    component:SharedArea,
+    path:"/SharedArea"
   },
 
   AlertWeb: {

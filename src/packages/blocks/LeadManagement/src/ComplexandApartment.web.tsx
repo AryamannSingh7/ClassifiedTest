@@ -10,14 +10,11 @@ import {
   InputAdornment,
   TextField,
   Paper,
-  TableContainer,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  Menu,
-  MenuItem
+  Modal, 
+  Backdrop,
+  Fade,
+  FormLabel,
+  TextareaAutosize
 } from "@material-ui/core";
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 
@@ -37,14 +34,14 @@ import Loader from "../../../components/src/Loader.web";
 import { Input } from "react-native-elements";
 import * as Yup from "yup";
 import CountryCodeSelector from "../../country-code-selector/src/CountryCodeSelector";
-import BuildingandComplexController, { Props } from "./BuildingandComplexController";
+import ComplexandApartmentController, { Props } from "./ComplexandApartmentController";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import { withTranslation } from 'react-i18next';
 import '../../../web/src/i18n.js';
 import './style.css';
 
-import { upload, Document } from "./assets";
+import { upload, Document, sizebw, building, unitbw, cancle } from "./assets";
 
 const tabs = [
   {
@@ -75,7 +72,7 @@ const rows = [
   createData(7, 'A208', "15", 'Sakane Miiko', 'Somun Ae-Ri', 'Empty', <MoreVertIcon color='disabled' />),
 ];
 
-class ComplexandApartment extends BuildingandComplexController {
+class ComplexandApartment extends ComplexandApartmentController {
   constructor(props: Props) {
     super(props);
   }
@@ -119,12 +116,121 @@ class ComplexandApartment extends BuildingandComplexController {
                         <Typography variant="h5" style={dashBoard.subHeading}>{t("Complex")}</Typography>
                         </Grid>
                         <Grid item xs={12} sm={2}>
-                            <Button variant="contained" color="primary" style={{width:"100%", backgroundColor:"#2B6FED", fontWeight:600, height:"50px"}}>
+                            <Button variant="contained" color="primary" style={{width:"100%", backgroundColor:"#2B6FED", fontWeight:600, height:"50px"}} onClick={this.handleComplexEditOpen}>
                                 Edit Details
                             </Button>
                         </Grid>
                 </Grid>
                 </Box>
+
+                {/* Edit unitdetails modal */}
+                <Modal
+                    style={dashBoard.modal}
+                    open={Boolean(this.state.setComplexEditOpen)}
+                    onClose={this.handleComplexEditClose}
+                    closeAfterTransition
+                    BackdropComponent={Backdrop}
+                    BackdropProps={{
+                    timeout: 500,
+                    }}
+                    >
+                    <Fade in={Boolean(this.state.setComplexEditOpen)}>
+                      <div style={dashBoard.paper}>
+                        <div style={dashBoard.commonDisplay}>
+                          <div>
+                            <Typography variant="h6" style={dashBoard.commonFont}>Edit Unit Details</Typography>
+                          </div>
+                          <div>
+                            <img src={cancle}
+                            onClick={this.handleComplexEditClose} style={{cursor:"pointer"}}/>
+                          </div>
+                        </div>
+                        <hr />
+                        <Formik
+                    initialValues={{
+                      countryname: "",
+                      buildingname: "",
+                      buildingarea: "",
+                      totalfloors:"",
+                      totalunits:"",
+                      purchasedate:"",
+                      currentvaluation:"",
+                      size:"",
+                    }}
+                    validationSchema={this.EditSchema()}
+                    validateOnMount={true}
+                     onSubmit={(values) => {
+                       console.log("valus=========>", values)
+                       // same shape as initial values
+                       this.invitationData(values);
+                    }}
+                  >
+                    {({ values, touched, errors, isValid, setFieldValue }) => (
+                        <Form translate={true} className="commonForm ">
+                          <Grid container>
+                            <Grid xs={12} sm={12}>
+                            <FormLabel component="legend" style={dashBoard.labelsStyle}>{t("About Us")}</FormLabel>
+                              <TextareaAutosize aria-label="minimum height" minRows={10} placeholder="About Us" style={{width:"100%", borderRadius:"10px", padding:"15px"}}/>   
+                            </Grid>
+                          </Grid>
+                          <Grid container spacing={3}>
+                            <Grid item xs={12} sm={6}>
+                              <Box className="formGroup customSelect">
+                                <FormLabel component="legend" style={dashBoard.labelsStyle}>{t("Building Area")}</FormLabel>
+                                <Field name="buildingarea" type="text" placeholder={t("Building Area")} style={dashBoard.inviteInput} />
+                                <span
+                                //@ts-ignore 
+                                style={dashBoard.formLeftIcn}>
+                                  <img src={sizebw} className="frm-icons" alt="User Icon" />
+                                </span>
+                              </Box>
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <Box className="formGroup customSelect">
+                                <FormLabel component="legend" style={dashBoard.labelsStyle}>{t("Total Floors")}</FormLabel>
+                                <Field name="totalfloors" type="text" placeholder={t("Total Floors")} style={dashBoard.inviteInput} />
+                                <span
+                                //@ts-ignore 
+                                style={dashBoard.formLeftIcn}>
+                                  <img src={building} className="frm-icons" alt="User Icon" />
+                                </span>
+                              </Box>
+                            </Grid>
+                          </Grid>
+                          <Grid container spacing={3}>
+                            <Grid item xs={12} sm={12}>
+                              <Box className="formGroup customSelect">
+                                <FormLabel component="legend" style={dashBoard.labelsStyle}>{t("Total Units")}</FormLabel>
+                                <Field name="totalunits" type="text" placeholder={t("Total Units")} style={dashBoard.inviteInput} />
+                                <span
+                                //@ts-ignore 
+                                style={dashBoard.formLeftIcn}>
+                                  <img src={unitbw} className="frm-icons" alt="User Icon" />
+                                </span>
+                              </Box>
+                            </Grid>
+                          </Grid>
+                          <Grid container spacing={3} style={{marginTop:"20px"}}>
+                          <Grid item xs={12} sm={6} style={{marginBottom:"20px"}}>
+                          </Grid>
+                            <Grid item xs={12} sm={3} style={{marginBottom:"20px"}}>
+                                <Button variant="outlined" style={{width:"100%", color:"#2B6FED", border:"1px solid #2B6FED", fontWeight:600, height:"50px"}} onClick={this.handleComplexEditClose}>
+                                    CLOSE   
+                                </Button>
+                               
+                            </Grid>
+                            <Grid item xs={12} sm={3}>
+                                <Button variant="contained" color="primary" style={{width:"100%", backgroundColor:"#2B6FED", fontWeight:600, height:"50px"}}>
+                                    YES, DELETE
+                                </Button>
+                            </Grid>
+                            </Grid>
+                        </Form>
+                        )}
+                        </Formik>
+                      </div>
+                    </Fade>
+                </Modal>
 
                 <Box style={{marginTop:"25px"}}>
                   <Paper>
@@ -496,13 +602,49 @@ const dashBoard = {
     cursor:"pointer"
   },
   managementPaper:{
-    padding:20
+    padding:20,
+    borderRadius:10
   },
   TableHeader:{
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
     margin:"10px 0px 20px 0px"
+},
+modal:{
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+},
+labelsStyle:{
+  color:"#212121",
+  margin:"10px 0px 10px 0px"
+},
+paper: {
+  backgroundColor: "#fff",
+  borderRadius: '10px',
+  // boxShadow: theme.shadows[5],
+  padding: "16px 32px 24px",
+  width:"700px",
+},
+commonFont:{
+  fontWeight:600
+},
+inviteInput:{
+  padding: "18px 18px 18px 50px",
+  color: "#b5b5b5",
+  borderRadius: "10px",
+  border: "1px solid #e9dede",
+  backgroundColor: "#f9f9f9",
+  fontSize: "16px",
+  outline: 0,
+  width:"100%"
+},
+formLeftIcn:{
+  position:"absolute",
+  left: 20,
+  top: 44,
+  color: "#b9b9b9"
 },
 };
 
