@@ -1,23 +1,12 @@
 // Customizable Area Start
-//@ts-nocheck
-//@ts-ignore
-
 import React from "react";
-import {
-  Container,
-  IconButton,
-  Link,
-  withStyles,
-  Box,
-  Grid,
-} from "@material-ui/core";
+import { Container, IconButton, Link, withStyles, Box, Grid } from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
-import ViewPersonalDocumentController, {
-  Props,
-} from "./ViewPersonalDocumentController.web";
+import ViewPersonalDocumentController, { Props } from "./ViewPersonalDocumentController.web";
 import { DocumentReportStyleWeb } from "./DocumentReportStyle.web";
-import DownloadImage from "../assets/download.png";
-import BuildingLogo from "../assets/building.png";
+import { BuildingLogo, DownloadImage } from "./assets";
+import { withTranslation } from "react-i18next";
+import "../../../web/src/i18n.js";
 
 class ViewPersonalDocument extends ViewPersonalDocumentController {
   constructor(props: Props) {
@@ -26,21 +15,14 @@ class ViewPersonalDocument extends ViewPersonalDocumentController {
 
   render() {
     const { classes } = this.props;
-
-    console.log(this.state);
+    const { t }: any = this.props;
 
     return (
       <>
-        <Box
-          className={classes.personalDocument}
-          style={{ background: "#F8F9FE", height: "100vh" }}
-        >
+        <Box className={classes.personalDocument} style={{ background: "#F8F9FE", height: "100vh" }}>
           <Grid container>
             <Grid item xs={12} md={7}>
-              <Box
-                display={{ xs: "flex", md: "flex" }}
-                className="menu personal-document-menu"
-              >
+              <Box display={{ xs: "flex", md: "flex" }} className="menu personal-document-menu">
                 <div className="name">
                   <Link href={`/PersonalDocument/${this.state.documentType}`}>
                     <IconButton>
@@ -62,11 +44,8 @@ class ViewPersonalDocument extends ViewPersonalDocumentController {
               </Container>
             </Grid>
             <Grid item xs={12} md={5}>
-              <Box
-                className="right-block right-image"
-                display={{ xs: "none", md: "flex" }}
-              >
-                <img src={BuildingLogo} className="building-logo" alt="" />
+              <Box className="right-block right-image" display={{ xs: "none", md: "flex" }}>
+                <img src={BuildingLogo.default} className="building-logo" alt="" />
               </Box>
             </Grid>
           </Grid>
@@ -76,5 +55,5 @@ class ViewPersonalDocument extends ViewPersonalDocumentController {
   }
 }
 
-export default withStyles(DocumentReportStyleWeb)(ViewPersonalDocument);
+export default withTranslation()(withStyles(DocumentReportStyleWeb)(ViewPersonalDocument));
 // Customizable Area End

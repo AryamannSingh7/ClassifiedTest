@@ -7,6 +7,7 @@ import MessageEnum, {
 } from "../../../framework/src/Messages/MessageEnum";
 
 // Customizable Area Start
+import {RouteComponentProps} from 'react-router';
 import * as Yup from 'yup';
 import { imgPasswordInVisible, imgPasswordVisible } from "./assets";
 import { valueContainerCSS } from "react-select/src/components/containers";
@@ -14,7 +15,7 @@ import { valueContainerCSS } from "react-select/src/components/containers";
 
 export const configJSON = require("./config");
 
-export interface Props {
+export interface Props extends RouteComponentProps{
   navigation: any;
   id: string;
 }
@@ -52,7 +53,7 @@ export interface S {
   file:any;
   commonAreaData:any;
   incidentRelatedData:any;
-  incidentListing:any;
+  classifiedsListing:any;
   unitName : any;
   serachBuildingName:any;
   SearchIncident:any;
@@ -61,6 +62,9 @@ export interface S {
   providerNameListing:any;
   providerListing:any;
   buildingNameData:any;
+  classifiedType:any;
+  addNote:any;
+  getClassifiedDetails:any;
   // Customizable Area End
 }
 
@@ -68,6 +72,10 @@ export interface SS {
   // Customizable Area Start
   id: any;
   // Customizable Area End
+}
+export interface Props extends RouteComponentProps {
+  navigation: any;
+  id: string;
 }
 
 export default class ClassifiedManagerContorller extends BlockComponent<
@@ -81,19 +89,14 @@ export default class ClassifiedManagerContorller extends BlockComponent<
   emailReg: RegExp;
   createAccountApiCallId: any;
 
-  apicreateIncidentCallId: any;
+
   validationApiCallId: any;
-  getIncidentListingApiCallId: any;
-  getIncidentDetailsByIdApiCallId : any ;
+  getClassifiedsListingApiCallId: any;
+  getClassifiedDetailsByIdApiCallId : any ;
   getBuildingNameApiCallId : any ;
   getUnitRelatedApiCallId:any ;
-  getIncidentRelatedApiCallId:any;
   searchIncidentListingApiCallId:any;
-  apiAssginProviderCallId:any;
-  apiUpdateProviderCallId:any;
-  apiUpdateStatusCallId:any;
-  getProviderNameApiCallId:any;
-  getProviderListingApiCallId:any;
+  rejectedOrPublishedAPICallId:any;
 
   imgPasswordVisible: any;
   imgPasswordInVisible: any;
@@ -143,7 +146,6 @@ export default class ClassifiedManagerContorller extends BlockComponent<
       loading: false,
       commonAreaData:null,
       incidentRelatedData:null,
-      incidentListing: null,
       anchorEl:null,
       anchorEl_1:null,
       getIncidentDetails:null,
@@ -152,18 +154,17 @@ export default class ClassifiedManagerContorller extends BlockComponent<
       status :" ",
       serachBuildingName:" ",
       statusDetail:" ",
-      providerWork:" ",
-      providerName :" ",
-      provider_id:null,
       imageShowDialog:false,
       file:{},
       statusShowDialog:false,
       SearchIncident:null,
       showDialog:false,
       unitNameData:null,
-      providerNameListing :null,
-      providerListing:null,
       buildingNameData:null,
+      classifiedType : " ",
+      classifiedsListing:null,
+      addNote:"",
+      getClassifiedDetails:null
       // Customizable Area End
     };
 
@@ -187,16 +188,6 @@ export default class ClassifiedManagerContorller extends BlockComponent<
     this.btnTextSignUp = configJSON.btnTextSignUp;
     // Customizable Area End
   }
-
-  // async componentDidUpdate(prevProps: any, prevState: any) {
-  //   if (
-  //     prevState.serachBuildingName !== this.state.serachBuildingName ||
-  //     prevState.unitName !== this.state.unitName   ||
-  //     prevState.status !== this.state.status       
-  //   ) {
-  //    this.getIncidentListing(this.state.serachBuildingName ,this.state.unitName,this.state.status)
-  //   }
-  // }
 
   async receive(from: string, message: Message) {
     // Customizable Area Start
@@ -237,26 +228,11 @@ export default class ClassifiedManagerContorller extends BlockComponent<
             }
           }
         } 
-        else if (apiRequestCallId === this.apiAssginProviderCallId) {
+        else if (apiRequestCallId === this.rejectedOrPublishedAPICallId) {
           if (responseJson && responseJson.data) {
-            console.log("apiAssginProviderCallId===========>",responseJson)
-            const id = localStorage.getItem("incidentManagementDetailId")
-            this.getIncidentDetailsById(id);
-            this.setState({loading: false})      
-          } else if (responseJson?.errors) {
-            let error = Object.values(responseJson.errors[0])[0] as string;
-            this.setState({ error });
-          } else {
-            this.setState({ error: responseJson?.error || "Something went wrong!" });
-          }
-          this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({loading: false , error:null})
-        }
-        else if (apiRequestCallId === this.apiUpdateProviderCallId) {
-          if (responseJson && responseJson.data) {
-            console.log("apiUpdateProviderCallId===========>",responseJson)
-            const id = localStorage.getItem("incidentManagementDetailId")
-            this.getIncidentDetailsById(id);
+            console.log("rejectedOrPublishedAPICallId===========>",responseJson)
+            const id = localStorage.getItem("classifiedManagerDetailId")
+            this.getClassifiedDetailsById(id);
             this.setState({loading: false})      
           } else if (responseJson?.errors) {
             let error = responseJson.errors[0] as string;
@@ -264,21 +240,6 @@ export default class ClassifiedManagerContorller extends BlockComponent<
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
           }
-         
-          this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({loading: false , error:null})
-        }
-      else if (apiRequestCallId === this.apiUpdateStatusCallId) {
-          if (responseJson && responseJson.data) {
-            console.log("apiUpdateStatusCallId===========>",responseJson)
-            this.setState({loading: false})      
-          } else if (responseJson?.errors) {
-            let error = Object.values(responseJson.errors[0])[0] as string;
-            this.setState({ error });
-          } else {
-            this.setState({ error: responseJson?.error || "Something went wrong!" });
-          }
-         
           this.parseApiCatchErrorResponse(this.state.error);
           this.setState({loading: false , error:null})
         }
@@ -296,66 +257,10 @@ export default class ClassifiedManagerContorller extends BlockComponent<
           this.parseApiCatchErrorResponse(this.state.error);
           this.setState({loading: false , error:null})
         }
-        else if (apiRequestCallId === this.getProviderNameApiCallId) {
+        else if (apiRequestCallId === this.getClassifiedsListingApiCallId) {
           if (responseJson && responseJson?.data ) {
-          console.log("getProviderNameApiCallId ========================>",responseJson)
-          this.setState({providerNameListing :responseJson?.data})
-          this.setState({loading: false})
-          } else if (responseJson?.errors) {
-            let error = responseJson.errors[0] as string;
-            this.setState({ error });
-          } else {
-            this.setState({ error: responseJson?.error || "Something went wrong!" });
-          }
-          this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({loading: false , error:null})
-        }
-        else if (apiRequestCallId === this.getProviderListingApiCallId) {
-          if (responseJson || responseJson?.data ) {
-          console.log("getProviderListingApiCallId ========================>",responseJson)
-          this.setState({providerListing :responseJson})
-          this.setState({loading: false})
-          } else if (responseJson?.errors) {
-            let error = responseJson.errors[0] as string;
-            this.setState({ error });
-          } else {
-            this.setState({ error: responseJson?.error || "Something went wrong!" });
-          }
-          this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({loading: false , error:null})
-        }
-        else if (apiRequestCallId === this.getProviderNameApiCallId) {
-          if (responseJson && responseJson?.data ) {
-          console.log("getProviderNameApiCallId ========================>",responseJson)
-          this.setState({providerNameListing :responseJson?.data})
-          this.setState({loading: false})
-          } else if (responseJson?.errors) {
-            let error = responseJson.errors[0] as string;
-            this.setState({ error });
-          } else {
-            this.setState({ error: responseJson?.error || "Something went wrong!" });
-          }
-          this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({loading: false , error:null})
-        }
-        else if (apiRequestCallId === this.getProviderListingApiCallId) {
-          if (responseJson || responseJson?.data ) {
-          console.log("getProviderListingApiCallId ========================>",responseJson)
-          this.setState({providerListing :responseJson})
-          this.setState({loading: false})
-          } else if (responseJson?.errors) {
-            let error = responseJson.errors[0] as string;
-            this.setState({ error });
-          } else {
-            this.setState({ error: responseJson?.error || "Something went wrong!" });
-          }
-          this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({loading: false , error:null})
-        }
-        else if (apiRequestCallId === this.getIncidentListingApiCallId) {
-          if (responseJson && responseJson?.data ) {
-          console.log("getIncidentListingApiCallId ========================>",responseJson)
-          this.setState({incidentListing :responseJson?.data})
+          console.log("getClassifiedsListingApiCallId ========================>",responseJson)
+          this.setState({classifiedsListing :responseJson?.data})
           this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
@@ -366,27 +271,11 @@ export default class ClassifiedManagerContorller extends BlockComponent<
           this.parseApiCatchErrorResponse(this.state.error);
           this.setState({loading: false , error:null})
         }
-        else if (apiRequestCallId === this.getIncidentDetailsByIdApiCallId) {
+        else if (apiRequestCallId === this.getClassifiedDetailsByIdApiCallId) {
           if (responseJson && responseJson?.data ) {
-            const work_type = responseJson?.data?.attributes?.assign_incidents?.data?.attributes?.provider?.work_type;
-            const apartment_management_id= responseJson?.data?.attributes?.apartment_management?.apartment_management_id;
-            const providerWork =`${apartment_management_id},${work_type}`;
-            const providerName = responseJson?.data?.attributes?.assign_incidents?.data?.attributes?.provider?.id;
-            const statusDetail = responseJson?.data?.attributes?.incident_status;
-          
-         if(responseJson?.data?.attributes?.assign_incidents?.data === null )
-              this.setState({getIncidentDetails : responseJson?.data , statusDetail}) 
-         else
-         {
-          this.getProviderName(apartment_management_id , work_type)
-          this.setState({getIncidentDetails : responseJson?.data , statusDetail , providerWork , providerName})
-         }
-            console.log("providerWork  providerName   statusDetail ========>",providerWork,providerName,statusDetail)
-          this.setState({loading: false})
+             const statusDetail = responseJson?.data?.attributes?.classified_status;
+            this.setState({loading: false,statusDetail ,getClassifiedDetails :responseJson?.data})
           } else if (responseJson?.errors) {
-            console.log("responseJson?.errors====>",responseJson?.errors)
-              //@ts-ignore
-            this.props.history.push("/IncidentManagementDetail")
             let error = responseJson.errors[0] as string;
             this.setState({ error });
           } else {
@@ -415,7 +304,7 @@ export default class ClassifiedManagerContorller extends BlockComponent<
           this.setState({buildingNameData :responseJson?.data})
           this.setState({loading: false})
           } else if (responseJson?.errors) {
-            let error = Object.values(responseJson.errors[0])[0] as string;
+            let error = responseJson.errors[0] as string;
             this.setState({ error });
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
@@ -659,47 +548,30 @@ clear= () => {
   this.props.history.push("/");
 }
 
-getIncidentDetails= (id :any) => {
- localStorage.setItem("incidentManagementDetailId",id)
+getClassifiedDetails= (id :any) => {
+ localStorage.setItem("classifiedManagerDetailId",id)
  //@ts-ignore
   this.props.history.push({
-    pathname: "/IncidentManagementDetail",
+    pathname: "/ClassifiedManagerDetail",
 });
 }
 
 serachHandle=()=>{
-  this.getIncidentListing(this.state.serachBuildingName ,this.state.unitName,this.state.status)
+  this.getClassifiedsListing()
 }
 
 onChange =(e :any)=>{
   if(e.target.name === 'buildingName'){
-    const array = e.target?.value?.split(",");
-    const id = array [0]
-    const name = array[1] 
-    this.getUnit(id)
-    this.setState({ buildingName:e.target?.value})
-    this.setState({ serachBuildingName:name})
+    const id = e.target?.value
+    this.setState({ buildingName:id})
+    this.setState({ serachBuildingName:id})
   }
   else if(e.target.name === "statusDetail"){
     const  value = e.target.value
     //@ts-ignore
     this.setState({ [e.target.name]:e.target.value})
      this.setState({ statusShowDialog: true })
-    
   }
-  else if(e.target.name === 'providerWork'){
-    const array = e.target?.value?.split(",");
-    const id = array [0]
-    const name = array[1] 
-    this.getProviderName(id , name)
-    this.setState({ providerWork:e.target?.value})
-  }
-  // else if(e.target.name === 'ProviderName'){
-  //   const array = e.target?.value?.split(",");
-  //   const id = array [0] 
-  //   this.setState({ provider_id:id})
-  //   this.setState({ ProviderName:e.target?.value})
-  // }
   else if(e.target.name === "statusDetail"){
     const  value = e.target.value
     //@ts-ignore
@@ -707,79 +579,13 @@ onChange =(e :any)=>{
     // this.setState({ statusShowDialog: false })
     // this.updateStatus(value);
   }
-  else if(e.target.name === 'providerWork'){
-    const array = e.target?.value?.split(",");
-    const id = array [0]
-    const name = array[1] 
-    this.getProviderName(id , name)
-    this.setState({ providerWork:e.target?.value})
-  }
-  // else if(e.target.name === 'ProviderName'){
-  //   const array = e.target?.value?.split(",");
-  //   const id = array [0] 
-  //   this.setState({ provider_id:id})
-  //   this.setState({ ProviderName:e.target?.value})
-  // }
   else {
     //@ts-ignore
     this.setState({ [e.target.name]:e.target.value}) 
   }
 }
 
-
-  updateStatus = (val : any) => {
-    
-    const header = {
-      token :localStorage.getItem("userToken")
-    };
-    const  id = localStorage.getItem("incidentManagementDetailId")
-    const formData = new FormData();
-    console.log("this.state?.statusDetail=========>",val)
-   
-    if(val ==="Resolved")
-    //@ts-ignore
-    formData.append('incident[mark_resolved_by_reporter]', true);
-    else
-    //@ts-ignore
-    formData.append('incident[mark_resolved_by_reporter]', false);
-   
-    formData.append('incident[incident_status]', val);
-   console.log("formData.getAll('description')==================>",formData.get('incident[mark_resolved_by_reporter]'))
-   const httpBody = formData;
-   
-    this.setState({loading: true,statusShowDialog:false}) 
-    const requestMessage = new Message(
-      getName(MessageEnum.RestAPIRequestMessage)
-    );
-
-    this.apiUpdateStatusCallId = requestMessage.messageId;
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_custom_form/incidents/${id}`
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestBodyMessage),
-      httpBody
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.PatchAPiMethod
-    );
-
-    runEngine.sendMessage(requestMessage.id, requestMessage);
-
-    return true;
-  };
-
- 
-  getIncidentListing= (serachBuildingName : any , unitName : any, status:any)  => {
+  getClassifiedsListing= ()  => {
     try {
       const header = {
         "Content-Type": configJSON.validationApiContentType,
@@ -790,12 +596,11 @@ onChange =(e :any)=>{
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
-      this.getIncidentListingApiCallId = requestMessage.messageId;
+      this.getClassifiedsListingApiCallId = requestMessage.messageId;
       this.setState({ loading: true });
      
      //const  url = `bx_block_custom_form/incidents`
-     const  getSortByOrStatus = `bx_block_custom_form/incidents?search_building=${this.state?.serachBuildingName}&search_unit=${this.state?.unitName}&filter_by=${this.state?.status}`
-    
+     const  getSortByOrStatus = `bx_block_posts/classifieds?search_building=${this.state?.serachBuildingName}&filter_by=${this.state.classifiedType}&classified_status=${this.state?.status}`
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
         getSortByOrStatus
@@ -820,7 +625,6 @@ onChange =(e :any)=>{
 
   searchIncidentListing= (serachBuildingName : any ,unitName : any,status:any)  => {
     try {
-      console.log("serachBuildingName unitName status ======>", status ,unitName ,serachBuildingName)
       const header = {
         "Content-Type": configJSON.validationApiContentType,
         token :localStorage.getItem("userToken")
@@ -833,7 +637,7 @@ onChange =(e :any)=>{
       this.searchIncidentListingApiCallId = requestMessage.messageId;
       this.setState({ loading: true });
      
-     const  getSortByOrStatus = `bx_block_custom_form/incidents?search_building=${serachBuildingName}&search_unit=${unitName}`
+     const  getSortByOrStatus = `bx_block_posts/classifieds?search_building=${this.state?.serachBuildingName}&filter_by=${this.state.classifiedType}&classified_status=${this.state?.status}`
        
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
@@ -863,7 +667,7 @@ onChange =(e :any)=>{
         "Content-Type": configJSON.validationApiContentType,
         token :localStorage.getItem("userToken")
       };
-      const society_id = localStorage.getItem("society_id")
+     // const society_id = localStorage.getItem("society_id")
       //const id = localStorage.getItem("userId");
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
@@ -873,7 +677,7 @@ onChange =(e :any)=>{
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `bx_block_settings/building_managements`
+        `/bx_block_settings/building_managements`
       );
 
       requestMessage.addData(
@@ -929,7 +733,7 @@ onChange =(e :any)=>{
     }
   };
 
-  getIncidentDetailsById= (id : any ,) => {
+  getClassifiedDetailsById= (id : any ,) => {
     try {
       const header = {
         "Content-Type": configJSON.validationApiContentType,
@@ -939,12 +743,12 @@ onChange =(e :any)=>{
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
-      this.getIncidentDetailsByIdApiCallId = requestMessage.messageId;
+      this.getClassifiedDetailsByIdApiCallId = requestMessage.messageId;
       this.setState({ loading: true });
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `bx_block_custom_form/incidents/${id}`
+        `/bx_block_posts/classifieds/${id}`
       );
 
       requestMessage.addData(
@@ -963,29 +767,41 @@ onChange =(e :any)=>{
       console.log(error);
     }
   };
-  
-  updateProvider = (assign_incidentsi_id:any) => {
-    
+
+  rejectedOrPublished = (val : any) =>{
+    if(val ==="Published")
+    this.updateStatus("Published")
+    else
+    this.updateStatus("Rejected")
+  }
+
+  updateStatus= (val :any)  => {
     const header = {
       token :localStorage.getItem("userToken")
     };
-    const  incident_id : any= localStorage.getItem("incidentManagementDetailId")
+    const  id : any= localStorage.getItem("classifiedManagerDetailId")
     const formData = new FormData();
+    if(val ==="Published"){
+    formData.append('classified[classified_status]',val)
+    this.setState({statusShowDialog :false})   
+  }
+    else
+    {
+    formData.append('classified[classified_status]',val);
+    formData.append('classified[notes]',this.state?.addNote)
+    this.setState({showDialog :false}) 
+    }
+    const httpBody = formData;
    
-    formData.append('assign_incident[incident_id]', incident_id);
-    formData.append('assign_incident[provider_id]',this.state.providerName);
-   //console.log("formData.getAll('description')==================>",formData.get('incident[mark_resolved_by_reporter]'))
-   const httpBody = formData;
-   
-    this.setState({loading: true,showDialog: false}) 
+    this.setState({loading: true ,showDialog :false ,}) 
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
     );
 
-    this.apiUpdateProviderCallId = requestMessage.messageId;
+    this.rejectedOrPublishedAPICallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_custom_form/assign_incidents/${assign_incidentsi_id}`
+      `/bx_block_posts/classifieds/${id}`
     );
 
     requestMessage.addData(
@@ -1009,119 +825,5 @@ onChange =(e :any)=>{
   };
 
 
-  assginProvider= ()  => {
-    const header = {
-      token :localStorage.getItem("userToken")
-    };
-    const  id : any= localStorage.getItem("incidentManagementDetailId")
-    const provider_id = this.state?.providerName;
-    const formData = new FormData();
-    console.log("asgin provide iiifh ============>",provider_id,id)
-    formData.append('assign_incident[incident_id]',id);
-    formData.append('assign_incident[provider_id]',provider_id);
-   
-    const httpBody = formData;
-   
-    this.setState({loading: true ,showDialog :false}) 
-    const requestMessage = new Message(
-      getName(MessageEnum.RestAPIRequestMessage)
-    );
-
-    this.apiAssginProviderCallId = requestMessage.messageId;
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `/bx_block_custom_form/assign_incidents`
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestBodyMessage),
-      httpBody
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.exampleAPiMethod
-    );
-
-    runEngine.sendMessage(requestMessage.id, requestMessage);
-
-    return true;
-  };
-
-
-  getProviderName= (id :any , name : any)  => {
-    try { 
-      //this.setState({ showDialog: true }) 
-      const header = {
-        "Content-Type": configJSON.validationApiContentType,
-        token :localStorage.getItem("userToken")
-      };
-
-      const requestMessage = new Message(
-        getName(MessageEnum.RestAPIRequestMessage)
-      );
-      this.getProviderNameApiCallId = requestMessage.messageId;
-      this.setState({ loading: true ,providerName:" "});
-     const  providerList = `account_block/providers/work_provider_list?apartment_management_id=${id}&work_type=${name}`
-    
-      requestMessage.addData(
-        getName(MessageEnum.RestAPIResponceEndPointMessage),
-        providerList
-      );
-
-      requestMessage.addData(
-        getName(MessageEnum.RestAPIRequestHeaderMessage),
-        JSON.stringify(header)
-      );
-
-      requestMessage.addData(
-        getName(MessageEnum.RestAPIRequestMethodMessage),
-        configJSON.validationApiMethodType
-      );
-
-      runEngine.sendMessage(requestMessage.id, requestMessage);
-      return true;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  providerList= (id :any)  => {
-    try { 
-
-      const header = {
-        "Content-Type": configJSON.validationApiContentType,
-        token :localStorage.getItem("userToken")
-      };
-      const requestMessage = new Message(
-        getName(MessageEnum.RestAPIRequestMessage)
-      );
-      this.getProviderListingApiCallId = requestMessage.messageId;
-      this.setState({ loading: true,showDialog: true ,});
-     
-     const  providerList = `account_block/providers?apartment_management_id=${id}`
-      requestMessage.addData(
-        getName(MessageEnum.RestAPIResponceEndPointMessage),
-        providerList
-      );
-      requestMessage.addData(
-        getName(MessageEnum.RestAPIRequestHeaderMessage),
-        JSON.stringify(header)
-      );
-      requestMessage.addData(
-        getName(MessageEnum.RestAPIRequestMethodMessage),
-        configJSON.validationApiMethodType
-      );
-      runEngine.sendMessage(requestMessage.id, requestMessage);
-      return true;
-    } catch (error) {
-      console.log(error);
-    }
-  };
   // Customizable Area End
 }

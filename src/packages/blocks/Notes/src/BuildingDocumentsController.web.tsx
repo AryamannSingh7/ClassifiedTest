@@ -1,10 +1,9 @@
 import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
-import MessageEnum, {
-  getName,
-} from "../../../framework/src/Messages/MessageEnum";
+import MessageEnum, { getName } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
+import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
 
 // Customizable Area Start
 // Customizable Area End
@@ -33,11 +32,7 @@ interface SS {
   id: any;
 }
 
-export default class BuildingDocumentController extends BlockComponent<
-  Props,
-  S,
-  SS
-> {
+export default class BuildingDocumentController extends BlockComponent<Props, S, SS> {
   GetDocumentCountCallId: any;
 
   constructor(props: Props) {
@@ -45,10 +40,7 @@ export default class BuildingDocumentController extends BlockComponent<
     this.receive = this.receive.bind(this);
     console.disableYellowBox = true;
     // Customizable Area Start
-    this.subScribedMessages = [
-      getName(MessageEnum.RestAPIResponceMessage),
-      getName(MessageEnum.RestAPIRequestMessage),
-    ];
+    this.subScribedMessages = [getName(MessageEnum.RestAPIResponceMessage), getName(MessageEnum.RestAPIRequestMessage)];
 
     this.state = {
       policy: 0,
@@ -66,14 +58,11 @@ export default class BuildingDocumentController extends BlockComponent<
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.GetDocumentCountCallId !== null &&
-      this.GetDocumentCountCallId ===
-        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+      this.GetDocumentCountCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.GetDocumentCountCallId = null;
 
-      var responseJson = message.getData(
-        getName(MessageEnum.RestAPIResponceSuccessMessage)
-      );
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson.data) {
         this.setState({
@@ -86,15 +75,13 @@ export default class BuildingDocumentController extends BlockComponent<
         });
       }
 
-      var errorReponse = message.getData(
-        getName(MessageEnum.RestAPIResponceErrorMessage)
-      );
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
         runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
       } else {
-        this.parseApiErrorResponse(responseJson);
+        ApiErrorResponse(responseJson);
       }
-      this.parseApiCatchErrorResponse(errorReponse);
+      ApiCatchErrorResponse(errorResponse);
     }
     // Customizable Area End
   }
@@ -121,15 +108,9 @@ export default class BuildingDocumentController extends BlockComponent<
       `society_managements/${society_id}/bx_block_my_document/document_count`
     );
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypeGet
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;

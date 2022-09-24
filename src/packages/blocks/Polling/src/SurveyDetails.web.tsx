@@ -136,7 +136,6 @@ class PollDetails extends PollingController {
                                         dangerouslySetInnerHTML={
                                             { __html: DOMPurify.sanitize(this.state.pollPreviewAnswer?.poll?.data?.attributes?.description) }
                                         }
-                                        
                                         />
                                     </Box>
                                 </Box>

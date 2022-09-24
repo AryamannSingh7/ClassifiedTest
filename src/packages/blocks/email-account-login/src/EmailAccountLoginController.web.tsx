@@ -13,6 +13,7 @@ import MessageEnum, {
 // Customizable Area Start
 import * as Yup from 'yup';
 import { imgPasswordInVisible, imgPasswordVisible } from "./assets";
+import i18next from "i18next";
 // Customizable Area End
 
 export const configJSON = require("./config");
@@ -196,6 +197,8 @@ export default class EmailAccountLoginController extends BlockComponent<
             localStorage.setItem("userId", responseJson?.meta?.id)
             localStorage.setItem("userType", responseJson?.meta?.role.name)
             localStorage.setItem("society_id", responseJson.meta?.society_id)
+            localStorage.setItem("language", "en");
+            i18next.changeLanguage("en");
             console.log('ehhlo sir')
             this.getRegistrationRequest();
           // this.props.history.push("/RegistrationRequest")

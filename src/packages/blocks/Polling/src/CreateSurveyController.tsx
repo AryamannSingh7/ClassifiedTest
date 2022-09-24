@@ -43,6 +43,9 @@ interface S {
   isDataLoading:boolean;
   audienceList:any;
   selectedAudience:any;
+  selectedAudienceId:any
+  selectedAudienceName:any,
+  audienceValidationError:any;
   deleteAudienceId:any;
 }
 
@@ -116,8 +119,11 @@ export default class CoverImageController extends BlockComponent<
       deleteModal:false,
       isDataLoading:false,
       audienceList:[],
-      selectedAudience:[],
+      selectedAudience:"",
+      selectedAudienceId:"",
+      selectedAudienceName:"",
       deleteAudienceId:"",
+      audienceValidationError:"",
     };
 
     this.emailReg = new RegExp("");
@@ -145,7 +151,10 @@ export default class CoverImageController extends BlockComponent<
         await this.setState({
           textEditor:surveyPreview.PollDescription,
           SurveyData:surveyPreview.PollFormData,
-          surveyQuestions:surveyPreview.PollOptions
+          surveyQuestions:surveyPreview.PollOptions,
+          selectedAudience:surveyPreview.selectedAudience,
+          selectedAudienceId:surveyPreview.selectedAudienceId,
+          selectedAudienceName:surveyPreview.selectedAudienceName,
         })
       }
       await localStorage.removeItem("Survey_Data")
@@ -214,20 +223,35 @@ export default class CoverImageController extends BlockComponent<
     return arr;
   }
 
-  selectAudience(value:any){
-    console.log("SELECTED",value)
-    if(this.state.selectedAudience.find((item:any)=> item === value)){
-      let updatedArray = this.removeItemOnce(this.state.selectedAudience,value)
+  selectAudience(value:any,name:any){
+    // console.log("SELECTED",value)
+    // if(this.state.selectedAudience.find((item:any)=> item === value)){
+    //   let updatedArray = this.removeItemOnce(this.state.selectedAudience,value)
+    //   this.setState({
+    //     selectedAudience:updatedArray
+    //   })
+    // }else{
+    //   this.setState({selectedAudience:[
+    //       ...this.state.selectedAudience,
+    //       value
+    //     ]})
+    // }
+    if(value === "Owner" || value === "Resident"){
       this.setState({
-        selectedAudience:updatedArray
+        selectedAudience:value,
+        selectedAudienceId:"",
+        audienceValidationError:"",
+        selectedAudienceName:name,
       })
     }else{
-      this.setState({selectedAudience:[
-          ...this.state.selectedAudience,
-          value
-        ]})
+      this.setState({
+        selectedAudienceId:value,
+        selectedAudience:"",
+        selectedAudienceName:name,
+        audienceValidationError:"",
+      })
     }
-    console.log("SELECTED",this.state.selectedAudience)
+
   }
   handlePollDataChange = (event:any) => {
     this.setState({ SurveyData: {...this.state.SurveyData, [event.target.name] : event.target.value}})
@@ -268,6 +292,7 @@ export default class CoverImageController extends BlockComponent<
     let endDateValidation = false
     let DescriptionValidation = false
     let optionValidation = false
+    let targetAudienceValidation = false
     console.log("THIS IS FROM DATA",this.state)
     if(this.state.SurveyData.title){
       if(this.state.SurveyData.title.length >=5){
@@ -453,8 +478,16 @@ export default class CoverImageController extends BlockComponent<
         optionValidation = true
       }
     })
+
+    if(this.state.selectedAudience === "" && this.state.selectedAudienceId === ""){
+      this.setState({
+        audienceValidationError:"Please select audience"
+      })
+    }else{
+      targetAudienceValidation = true
+    }
     console.log("ARRAY",optionValidation)
-    if(titleValidation && startDateValidation && endDateValidation && DescriptionValidation && optionValidation){
+    if(titleValidation && startDateValidation && endDateValidation && DescriptionValidation && optionValidation && targetAudienceValidation){
       return true
     }else{
       return false
@@ -577,9 +610,12 @@ export default class CoverImageController extends BlockComponent<
     })
     if(this.handleValidation()){
       localStorage.setItem('Survey_Data', JSON.stringify({
-        "PollFormData":this.state.SurveyData,
-        "PollOptions":this.state.surveyQuestions,
-        "PollDescription":this.state.textEditor
+        PollFormData:this.state.SurveyData,
+        PollOptions:this.state.surveyQuestions,
+        PollDescription:this.state.textEditor,
+        selectedAudience:this.state.selectedAudience,
+        selectedAudienceId:this.state.selectedAudienceId,
+        selectedAudienceName:this.state.selectedAudienceName,
       }))
       // @ts-ignore
       this.props.history.push("/SurveyPreview")
@@ -603,6 +639,8 @@ export default class CoverImageController extends BlockComponent<
               "type_name": "survey",
               "title": this.state.SurveyData.title,
               "description": this.state.SurveyData.description,
+              "target_audience_type":this.state.selectedAudience,
+              "survey_audience_ids":this.state.selectedAudienceId ? [this.state.selectedAudienceId] : "",
               "schedule": "1",
               "start_date": this.state.SurveyData.startDate,
               "end_date": this.state.SurveyData.endDate,

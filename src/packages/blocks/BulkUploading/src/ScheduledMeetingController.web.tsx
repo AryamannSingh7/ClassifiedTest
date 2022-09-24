@@ -34,6 +34,7 @@ interface Form {
   meetingType: string;
   attendeeIds: any[];
   meetingGroupIds: any[];
+  role: any[];
 }
 
 interface Pagination {
@@ -183,6 +184,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
         meetingType: "",
         attendeeIds: [],
         meetingGroupIds: [],
+        role: [],
       },
 
       groupId: "",
@@ -746,7 +748,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
             }
             return true;
           },
-          message: "You have entered past time!",
+          message: "You have entered past time",
         });
       }),
     // momWriter: Yup.string()
@@ -882,6 +884,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
         meeting_type: values.meetingType,
         joinee_ids: values.attendeeIds,
         meeting_group_ids: values.meetingGroupIds,
+        meeting_attandees_type: values.role,
       },
     };
 
@@ -925,6 +928,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
         meeting_type: values.meetingType,
         joinee_ids: values.attendeeIds,
         meeting_group_ids: values.meetingGroupIds,
+        meeting_attandees_type: values.role,
       },
     };
 
@@ -1326,14 +1330,17 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
     const meetingGroupList = meeting.attributes.meeting_groups.meeting_group.map((group: any) => group.id.toString());
 
     let selectedGroupList: any[] = [...meetingGroupList];
+    let meetingRole: any[] = [];
     if (meeting.attributes.meeting_groups.meeting_owner) {
       selectedGroupList = [...selectedGroupList, "owner"];
+      meetingRole = [...meetingRole, "owner"];
       this.setState({ isIdAddingToList: true }, () => {
         this.getOwnerIdsList();
       });
     }
     if (meeting.attributes.meeting_groups.meeting_resident) {
       selectedGroupList = [...selectedGroupList, "resident"];
+      meetingRole = [...meetingRole, "resident"];
       this.setState({ isIdAddingToList: true }, () => {
         this.getResidentIdsList();
       });
@@ -1359,6 +1366,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
           status: meeting.attributes.status,
           meetingType: meeting.attributes.meeting_type,
           meetingGroupIds: meetingGroupList,
+          role: [...meetingRole],
         },
       },
       () => {
@@ -1382,6 +1390,7 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
           meetingType: "",
           attendeeIds: [],
           meetingGroupIds: [],
+          role: [],
         },
       },
       () => {
@@ -1465,6 +1474,18 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
           });
         }
       });
+    }
+
+    if ((Id === ROLE.Owner || Id === ROLE.Resident) && this.state.meetingForm.role.includes(Id)) {
+      const newRoleList = this.state.meetingForm.role.filter((id: any) => id !== Id);
+      this.setState({
+        meetingForm: {
+          ...this.state.meetingForm,
+          role: newRoleList,
+        },
+      });
+    } else {
+      this.setState({ meetingForm: { ...this.state.meetingForm, role: [...this.state.meetingForm.role, Id] } });
     }
   };
   // Customizable Area End

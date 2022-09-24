@@ -18,9 +18,9 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-import PollingController, {
+import PollsSurveyController, {
   Props
-} from "./PollingController.tsx";
+} from "./PollsSurveyController";
 import "./Polling.web.css"
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
@@ -28,7 +28,7 @@ import Fade from "@material-ui/core/Fade";
 import './style.css'
 
 
-class PollsSurvey extends PollingController {
+class PollsSurvey extends PollsSurveyController {
   constructor(props: Props) {
     super(props);
   }
@@ -159,16 +159,22 @@ class PollsSurvey extends PollingController {
                                           <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
                                           <p style={{color:"black"}}>{item.attributes.end_date}</p>
                                       </Box>
-                                      <Box className="EventsIconsText">
-                                          {
-                                              item.attributes.status == "ongoing" &&
-                                              <Typography variant="body2" className={"statusOngoingRed"}>{item.attributes.status}</Typography>
-                                          }
-                                          {
-                                              item.attributes.status == "completed" &&
-                                              <Typography variant="body2" className={"statusOngoingGreen"}>{item.attributes.status}</Typography>
-                                          }
-                                      </Box>
+                                      {
+                                          !item.attributes.flag ?
+                                              <Box className="EventsIconsText">
+                                                  {
+                                                      item.attributes.status == "ongoing" &&
+                                                      <Typography variant="body2" className={"statusOngoingRed"}>{item.attributes.status}</Typography>
+                                                  }
+                                                  {
+                                                      item.attributes.status == "completed" &&
+                                                      <Typography variant="body2" className={"statusOngoingGreen"}>{item.attributes.status}</Typography>
+                                                  }
+                                              </Box> :
+                                              <Box className="EventsIconsText">
+                                                  <Typography variant="body2" className={"statusOngoingGreen"}>Submitted</Typography>
+                                              </Box>
+                                      }
                                   </Box>
                               </Box>
                           </Box>
@@ -242,16 +248,22 @@ class PollsSurvey extends PollingController {
                                     <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
                                     <p style={{color:"black"}}>{items.attributes.end_date}</p>
                                 </Box>
-                                <Box className="EventsIconsText">
-                                    {
-                                        items.attributes.status == "ongoing" &&
-                                        <Typography variant="body2" className={"statusOngoingRed"}>{items.attributes.status}</Typography>
-                                    }
-                                    {
-                                        items.attributes.status == "completed" &&
-                                        <Typography variant="body2" className={"statusOngoingGreen"}>{items.attributes.status}</Typography>
-                                    }
-                                </Box>
+                                {
+                                    !items.attributes.flag ?
+                                        <Box className="EventsIconsText">
+                                            {
+                                                items.attributes.status == "ongoing" &&
+                                                <Typography variant="body2" className={"statusOngoingRed"}>{items.attributes.status}</Typography>
+                                            }
+                                            {
+                                                items.attributes.status == "completed" &&
+                                                <Typography variant="body2" className={"statusOngoingGreen"}>{items.attributes.status}</Typography>
+                                            }
+                                        </Box> :
+                                        <Box className="EventsIconsText">
+                                            <Typography variant="body2" className={"statusOngoingGreen"}>Submitted</Typography>
+                                        </Box>
+                                }
                             </Box>
                           </Box>
                         </Box>
@@ -284,7 +296,7 @@ class PollsSurvey extends PollingController {
                             <Box style={{margin:"15px"}}>
                                 <Box style={{display:'flex',justifyContent:"space-between",alignItems:"center"}}>
                                     <Typography variant="h6" style={{fontWeight:"bold"}}>Filter</Typography>
-                                    <Button style={{color:"darkgray"}}>Clear All</Button>
+                                    <Button style={{color:"darkgray"}} onClick={() => this.setState({selectedFilter:""})}>Clear All</Button>
                                 </Box>
                                 <Box style={{marginTop:"15px"}}>
                                     <Typography variant="body1" style={{fontWeight:"bold"}}>Type</Typography>
@@ -293,7 +305,9 @@ class PollsSurvey extends PollingController {
                                             <FormControlLabel
                                                 value="poll"
                                                 control={<Radio color="primary" />}
+                                                checked={this.state.selectedFilter === "poll"}
                                                 label="Poll"
+                                                onChange={(e)=> this.setState({selectedFilter:e.target.value})}
                                                 labelPlacement="start"
                                                 style={{width:"100%",display:"flex",justifyContent:'space-between',margin:"5px"}}
                                             />
@@ -301,8 +315,9 @@ class PollsSurvey extends PollingController {
                                                 value="survey"
                                                 control={<Radio color="primary" />}
                                                 label="Survey"
+                                                checked={this.state.selectedFilter === "survey"}
+                                                onChange={(e)=> this.setState({selectedFilter:e.target.value})}
                                                 labelPlacement="start"
-                                                disabled
                                                 style={{width:"100%",display:"flex",justifyContent:'space-between',margin:"5px"}}
                                             />
                                         </RadioGroup>
@@ -310,7 +325,7 @@ class PollsSurvey extends PollingController {
                                 </Box>
                             </Box>
                             <Box style={{margin:"15px",marginTop:"50px"}}>
-                                <Button onClick={this.handleCloseFilterModal} variant="contained" color="primary" fullWidth style={{borderRadius:"50px"}}>Apply</Button>
+                                <Button onClick={this.applyFilter} variant="contained" color="primary" fullWidth style={{borderRadius:"50px"}}>Apply</Button>
                             </Box>
                         </Box>
 

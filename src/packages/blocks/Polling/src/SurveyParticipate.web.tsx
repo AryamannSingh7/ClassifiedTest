@@ -21,6 +21,8 @@ import "./Polling.web.css"
 
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+
 const exampleQuestion = [
     {
         question:"Would you like to join events organized by building ? ",
@@ -91,12 +93,12 @@ class SurveyParticipate extends SurveyParticipateController {
               </Grid>
               <Grid xs={12}>
               <Box style={{background: "#E5ECFF",minHeight:"100vh",display:'flex',flexDirection:"column",alignItems:'center',justifyContent:"space-between"}}>
-                      <Box style={{width:"90%"}}>
+                      <Box style={{width:"85%"}}>
                           <Box style={{marginTop:"25px",marginBottom:"10px"}}>
                               <BorderLinearProgress variant="determinate" value={(100/(this.state.totalQuestion+1))*(this.state.currentQuestion+1)} style={{border:".5px gray"}}/>
                           </Box>
                           <Box style={{margin:"1rem",display:'flex',flexDirection:"column",alignItems:'center'}}>
-                              <Box style={{width:"90%",marginTop:"5px"}}>
+                              <Box style={{width:"100%",marginTop:"5px"}}>
                                   <p style={{ fontSize: '1rem', fontWeight: 600,textAlign:"left"}}>
                                       {
                                           this.state.SurveyQuestions[this.state.currentQuestion]?.title
@@ -133,8 +135,8 @@ class SurveyParticipate extends SurveyParticipateController {
                                                       <Grid container key={i}>
                                                           <Grid xs={12}>
                                                               <Box container key={data.id}
-                                                                   style={{display:'flex',marginTop:'1rem', width:"90%",alignItems:'center'}}>
-                                                                  <Box className="customRadioButton" style={{height:"100%",display:'flex',alignItems:"center",justifyContent:"flex-end"}}>
+                                                                   style={{display:'flex',marginTop:'1rem', width:"100%",alignItems:'center'}}>
+                                                                  <Box className="customRadioButton" style={{height:"100%",display:'flex',alignItems:"center",justifyContent:"flex-start"}}>
                                                                       <input type="radio" id={data.id}
                                                                              name="options" value={data.id}
                                                                              style={{marginRight:"10px",marginBottom:"15px",fontSize:"2rem",fontFamily:"system-ui, sans-serif"}}
@@ -159,7 +161,6 @@ class SurveyParticipate extends SurveyParticipateController {
                                                                                       color: "#F7F7FC",
                                                                                       fontWeight: 600,
                                                                                       fontSize: '1rem',
-                                                                                      width:"95%",
                                                                                       padding: '1rem'
                                                                                   }
                                                                                   :
@@ -171,7 +172,6 @@ class SurveyParticipate extends SurveyParticipateController {
                                                                                       color: "#212121",
                                                                                       fontWeight: 600,
                                                                                       fontSize: '1rem',
-                                                                                      width:"95%",
                                                                                       padding: '1rem'
                                                                                   }
                                                                               }
@@ -192,13 +192,13 @@ class SurveyParticipate extends SurveyParticipateController {
                                                       <Grid container key={i}>
                                                           <Grid xs={12}>
                                                               <Box container key={data.id}
-                                                                   style={{display:'flex',marginTop:'1rem', width:"90%",alignItems:'baseline',marginLeft:"-12px"}}>
-                                                                  <Box >
+                                                                   style={{display:'flex',marginTop:'1rem', width:"100%",alignItems:'baseline',justifyContent:"flex-start"}}>
+                                                                  <Box style={{marginLeft:"-12px"}}>
                                                                       <Checkbox type="checkBox" id={data.id}
                                                                                 name="options" value={data.id}
                                                                                 style={{marginBottom:"15px"}}
                                                                                 icon={<RadioButtonUncheckedIcon style={{color:"#808080",marginTop:"10px"}}/>}
-                                                                                checkedIcon={<RadioButtonCheckedIcon style={{color:"#2B6FEC",marginTop:"10px"}}/>}
+                                                                                checkedIcon={<CheckCircleIcon style={{color:"#2B6FEC",marginTop:"10px"}}/>}
                                                                                 checked={this.state.questionOptionAnswer.find((item:any)=> item == data.id) ? true : false}
                                                                                 onChange={(e) => this.getPollSelectedMultiAns(e.target.value)}
                                                                       />
@@ -219,7 +219,6 @@ class SurveyParticipate extends SurveyParticipateController {
                                                                                           color: "#F7F7FC",
                                                                                           fontWeight: 600,
                                                                                           fontSize: '1rem',
-                                                                                          width:"95%",
                                                                                           padding: '1rem'
                                                                                       }
                                                                                       :
@@ -231,7 +230,6 @@ class SurveyParticipate extends SurveyParticipateController {
                                                                                           color: "#212121",
                                                                                           fontWeight: 600,
                                                                                           fontSize: '1rem',
-                                                                                          width:"95%",
                                                                                           padding: '1rem'
                                                                                       }
                                                                               }
@@ -252,7 +250,7 @@ class SurveyParticipate extends SurveyParticipateController {
                                   }
                                   {
                                       this.state.SurveyQuestions[this.state.currentQuestion]?.question_type !== "short_answers" &&
-                                      <Box style={{width:"93%",marginTop:"15px"}}>
+                                      <Box style={{width:"100%",marginTop:"15px"}}>
                                           <Typography varian="subtitle2" style={{fontWeight:"bold"}}>Please share your concern</Typography>
                                           <TextField
                                               id="outlined-multiline-static"

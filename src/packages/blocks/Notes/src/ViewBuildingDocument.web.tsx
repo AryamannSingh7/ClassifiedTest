@@ -37,6 +37,8 @@ import {
   WhatsappIcon,
 } from "react-share";
 import moment from "moment";
+import { withTranslation } from "react-i18next";
+import "../../../web/src/i18n.js";
 
 class ViewBuildingDocument extends ViewBuildingDocumentController {
   constructor(props: Props) {
@@ -45,12 +47,11 @@ class ViewBuildingDocument extends ViewBuildingDocumentController {
 
   render() {
     const { classes } = this.props;
+    const { t }: any = this.props;
 
     const sharePopupWidth = 500;
     const sharePopupHeight = 700;
     const shareTitle = "TI 1 Final Leap";
-
-    console.log(this.state);
 
     return (
       <>
@@ -104,7 +105,8 @@ class ViewBuildingDocument extends ViewBuildingDocumentController {
                           }}
                         />
                         <Link
-                          href={this.state.document && this.state.document.attributes.meeting_mins_pdf.url}
+                          // href={this.state.document && this.state.document.attributes.meeting_mins_pdf.url}
+                          onClick={() => alert("Coming soon!!")}
                           target="_blank"
                         >
                           <img src={DownloadImage} />
@@ -112,20 +114,20 @@ class ViewBuildingDocument extends ViewBuildingDocumentController {
                       </div>
                     </div>
                     <div className="meeting-details">
-                      <h4>Meeting Details</h4>
+                      <h4>{t("Meeting Details")}</h4>
                       <Card className="card">
-                        <p>Date & Time:</p>
+                        <p>{t("Date & Time")}:</p>
                         <span>
                           {moment(
                             this.state.document && this.state.document.attributes.meeting_date_time,
                             "DD-MM-YYYY HH:mm"
                           ).format("DD-MMM-YYYY HH:mm")}
                         </span>
-                        <p>Place:</p>
+                        <p>{t("Place")}:</p>
                         <span>{this.state.document && this.state.document.attributes.meeting.place}</span>
-                        <p>Building:</p>
+                        <p>{t("Building")}:</p>
                         <span>{this.state.document && this.state.document.attributes.buidling_name}</span>
-                        <p>Agenda:</p>
+                        <p>{t("Agenda")}:</p>
                         <span>{this.state.document && this.state.document.attributes.meeting.agenda}</span>
                       </Card>
                     </div>
@@ -148,7 +150,7 @@ class ViewBuildingDocument extends ViewBuildingDocumentController {
           className="select-meeting"
         >
           <MuiDialogTitle disableTypography className="dialog-heading">
-            <Typography variant="h6">Share</Typography>
+            <Typography variant="h6">{t("Share")}</Typography>
             <IconButton onClick={() => this.handleShareModal()}>
               <CloseIcon />
             </IconButton>
@@ -236,5 +238,5 @@ class ViewBuildingDocument extends ViewBuildingDocumentController {
   }
 }
 
-export default withStyles(DocumentReportStyleWeb)(ViewBuildingDocument);
+export default withTranslation()(withStyles(DocumentReportStyleWeb)(ViewBuildingDocument));
 // Customizable Area End

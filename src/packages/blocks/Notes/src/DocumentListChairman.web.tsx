@@ -67,8 +67,6 @@ class DocumentListChairman extends DocumentListChairmanController {
     const sharePopupHeight = 700;
     const shareTitle = "TI 1 Final Leap";
 
-    console.log(this.state);
-
     window.addEventListener("pageshow", (event) => {
       const historyTraversal =
         event.persisted || (typeof window.performance != "undefined" && window.performance.navigation.type === 2);
@@ -104,12 +102,12 @@ class DocumentListChairman extends DocumentListChairmanController {
                         <Typography variant="body1">
                           {t("Documents")} /{" "}
                           <Box component="span" style={{ color: "blue" }}>
-                            {this.state.docName}
+                            {t(this.state.docName)}
                           </Box>
                         </Typography>
                         <Box className="top-heading">
                           <Typography variant="h5" className="sub-heading">
-                            {this.state.docName}
+                            {t(this.state.docName)}
                           </Typography>
                           {this.state.docName.toLowerCase() === "resolutions" ? (
                             <Button onClick={() => this.handleAddResolutionsModal()}>{t("Add New Resolution")}</Button>
@@ -142,7 +140,11 @@ class DocumentListChairman extends DocumentListChairmanController {
                                         }
                                       >
                                         <MenuItem>
-                                          <Link href={resolution.attributes.meeting_mins_pdf.url} target="_blank">
+                                          <Link
+                                            // href={resolution.attributes.meeting_mins_pdf.url}
+                                            onClick={() => alert("Coming soon!!")}
+                                            target="_blank"
+                                          >
                                             {t("Download")}
                                           </Link>
                                         </MenuItem>
@@ -212,7 +214,11 @@ class DocumentListChairman extends DocumentListChairmanController {
                                           );
                                         }}
                                       />
-                                      <Link href={resolution.attributes.meeting_mins_pdf.url} target="_blank">
+                                      <Link
+                                        // href={resolution.attributes.meeting_mins_pdf.url}
+                                        onClick={() => alert("Coming soon!!")}
+                                        target="_blank"
+                                      >
                                         <img src={DownloadImage} />
                                       </Link>
                                     </div>
@@ -244,7 +250,10 @@ class DocumentListChairman extends DocumentListChairmanController {
                                       }
                                     >
                                       <MenuItem>
-                                        <Link href={document.attributes.images[0].download_url} target="_blank">
+                                        <Link
+                                          href={document.attributes.images[0].download_url}
+                                          target="_blank"
+                                        >
                                           {t("Download")}
                                         </Link>
                                       </MenuItem>
@@ -324,7 +333,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         name="title"
-                        placeholder="Title"
+                        placeholder={t("Title")}
                         className="dialog-input"
                         style={{
                           marginTop: "0",
@@ -426,7 +435,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                     title: e.target.value,
                   });
                 }}
-                placeholder="Resolution Title"
+                placeholder={t("Resolution Title")}
                 className="dialog-input"
                 style={{
                   marginTop: "0",
@@ -502,15 +511,14 @@ class DocumentListChairman extends DocumentListChairmanController {
             </IconButton>
           </MuiDialogTitle>
           <DialogContent dividers>
-            {/* Meeting Module will come soon!! */}
             <List>
               <ListItem dense className="list-heading">
                 <ListItemIcon />
-                <ListItemText primary="Title" />
-                <ListItemText primary="Agenda" />
-                <ListItemText primary="Date & Time" />
+                <ListItemText primary={t("Title")} />
+                <ListItemText primary={t("Agenda")} />
+                <ListItemText primary={t("Date & Time")} />
               </ListItem>
-              {this.state.meetingsList.length === 0 && <span>No Meetings Available!!</span>}
+              {this.state.meetingsList.length === 0 && <span>{t("No Meetings Available!!")}</span>}
               {this.state.meetingsList.map((meeting: any) => {
                 return (
                   <ListItem key={meeting.id}>

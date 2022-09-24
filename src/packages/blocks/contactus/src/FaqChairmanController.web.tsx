@@ -1,10 +1,9 @@
 import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
-import MessageEnum, {
-  getName,
-} from "../../../framework/src/Messages/MessageEnum";
+import MessageEnum, { getName } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
+import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
 
 // Customizable Area Start
 // Customizable Area End
@@ -53,11 +52,7 @@ interface SS {
   id: any;
 }
 
-export default class FaqChairmanController extends BlockComponent<
-  Props,
-  S,
-  SS
-> {
+export default class FaqChairmanController extends BlockComponent<Props, S, SS> {
   FaqCategoryCallId: any;
   CreateFaqCategoryCallId: any;
   DeleteFaqCategoryCallId: any;
@@ -71,10 +66,7 @@ export default class FaqChairmanController extends BlockComponent<
     this.receive = this.receive.bind(this);
     console.disableYellowBox = true;
     // Customizable Area Start
-    this.subScribedMessages = [
-      getName(MessageEnum.RestAPIResponceMessage),
-      getName(MessageEnum.RestAPIRequestMessage),
-    ];
+    this.subScribedMessages = [getName(MessageEnum.RestAPIResponceMessage), getName(MessageEnum.RestAPIRequestMessage)];
 
     this.state = {
       expanded: "",
@@ -113,57 +105,41 @@ export default class FaqChairmanController extends BlockComponent<
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.FaqCategoryCallId !== null &&
-      this.FaqCategoryCallId ===
-        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+      this.FaqCategoryCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.FaqCategoryCallId = null;
 
-      var responseJson = message.getData(
-        getName(MessageEnum.RestAPIResponceSuccessMessage)
-      );
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson.data) {
         this.setState({
           ...this.state,
           catagoriesList: responseJson.data,
-          selectedCategoryId:
-            responseJson.data.length > 0 ? responseJson.data[0].id : "",
-          createCategoryId:
-            responseJson.data.length > 0 ? responseJson.data[0].id : "",
-          selectedCategoryName:
-            responseJson.data.length > 0
-              ? responseJson.data[0].attributes.name
-              : "",
-          faqList:
-            responseJson.data.length > 0
-              ? responseJson.data[0].attributes.FAQ
-              : [],
+          selectedCategoryId: responseJson.data.length > 0 ? responseJson.data[0].id : "",
+          createCategoryId: responseJson.data.length > 0 ? responseJson.data[0].id : "",
+          selectedCategoryName: responseJson.data.length > 0 ? responseJson.data[0].attributes.name : "",
+          faqList: responseJson.data.length > 0 ? responseJson.data[0].attributes.FAQ : [],
         });
       }
 
-      var errorReponse = message.getData(
-        getName(MessageEnum.RestAPIResponceErrorMessage)
-      );
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
         runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
       } else {
-        this.parseApiErrorResponse(responseJson);
+        ApiErrorResponse(responseJson);
       }
-      this.parseApiCatchErrorResponse(errorReponse);
+      ApiCatchErrorResponse(errorResponse);
     }
 
     // Create Category
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.CreateFaqCategoryCallId !== null &&
-      this.CreateFaqCategoryCallId ===
-        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+      this.CreateFaqCategoryCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.CreateFaqCategoryCallId = null;
 
-      var responseJson = message.getData(
-        getName(MessageEnum.RestAPIResponceSuccessMessage)
-      );
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson.data) {
         this.setState(
@@ -180,56 +156,46 @@ export default class FaqChairmanController extends BlockComponent<
         );
       }
 
-      var errorReponse = message.getData(
-        getName(MessageEnum.RestAPIResponceErrorMessage)
-      );
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
         runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
       } else {
-        this.parseApiErrorResponse(responseJson);
+        ApiErrorResponse(responseJson);
       }
-      this.parseApiCatchErrorResponse(errorReponse);
+      ApiCatchErrorResponse(errorResponse);
     }
 
     // Delete Category
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.DeleteFaqCategoryCallId !== null &&
-      this.DeleteFaqCategoryCallId ===
-        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+      this.DeleteFaqCategoryCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.DeleteFaqCategoryCallId = null;
 
-      var responseJson = message.getData(
-        getName(MessageEnum.RestAPIResponceSuccessMessage)
-      );
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       this.getFaqCategory();
       this.handleDeleteAllCategoryModal();
 
-      var errorReponse = message.getData(
-        getName(MessageEnum.RestAPIResponceErrorMessage)
-      );
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
         runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
       } else {
-        this.parseApiErrorResponse(responseJson);
+        ApiErrorResponse(responseJson);
       }
-      this.parseApiCatchErrorResponse(errorReponse);
+      ApiCatchErrorResponse(errorResponse);
     }
 
     // Edit Faq
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.EditFaqCallId !== null &&
-      this.EditFaqCallId ===
-        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+      this.EditFaqCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.EditFaqCallId = null;
 
-      var responseJson = message.getData(
-        getName(MessageEnum.RestAPIResponceSuccessMessage)
-      );
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson) {
         this.setState(
@@ -246,58 +212,48 @@ export default class FaqChairmanController extends BlockComponent<
         );
       }
 
-      var errorReponse = message.getData(
-        getName(MessageEnum.RestAPIResponceErrorMessage)
-      );
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
         runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
       } else {
-        this.parseApiErrorResponse(responseJson);
+        ApiErrorResponse(responseJson);
       }
-      this.parseApiCatchErrorResponse(errorReponse);
+      ApiCatchErrorResponse(errorResponse);
     }
 
     // Delete Faq
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.DeleteFaqCallId !== null &&
-      this.DeleteFaqCallId ===
-        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+      this.DeleteFaqCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.DeleteFaqCallId = null;
 
-      var responseJson = message.getData(
-        getName(MessageEnum.RestAPIResponceSuccessMessage)
-      );
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson) {
         this.getCategoryByCategoryId();
         this.handleDeleteQuestionModal();
       }
 
-      var errorReponse = message.getData(
-        getName(MessageEnum.RestAPIResponceErrorMessage)
-      );
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
         runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
       } else {
-        this.parseApiErrorResponse(responseJson);
+        ApiErrorResponse(responseJson);
       }
-      this.parseApiCatchErrorResponse(errorReponse);
+      ApiCatchErrorResponse(errorResponse);
     }
 
     // Create Faq
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.CreateFaqCallId !== null &&
-      this.CreateFaqCallId ===
-        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+      this.CreateFaqCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.CreateFaqCallId = null;
 
-      var responseJson = message.getData(
-        getName(MessageEnum.RestAPIResponceSuccessMessage)
-      );
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson.data) {
         this.setState(
@@ -312,29 +268,24 @@ export default class FaqChairmanController extends BlockComponent<
         // this.getFaqCategory();
       }
 
-      var errorReponse = message.getData(
-        getName(MessageEnum.RestAPIResponceErrorMessage)
-      );
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
         runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
       } else {
-        this.parseApiErrorResponse(responseJson);
+        ApiErrorResponse(responseJson);
       }
-      this.parseApiCatchErrorResponse(errorReponse);
+      ApiCatchErrorResponse(errorResponse);
     }
 
     // Get Category Id
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.CategoryByIdCallId !== null &&
-      this.CategoryByIdCallId ===
-        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+      this.CategoryByIdCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.CategoryByIdCallId = null;
 
-      var responseJson = message.getData(
-        getName(MessageEnum.RestAPIResponceSuccessMessage)
-      );
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson.data) {
         const data = this.state.catagoriesList.map((category: any) =>
@@ -348,15 +299,13 @@ export default class FaqChairmanController extends BlockComponent<
         });
       }
 
-      var errorReponse = message.getData(
-        getName(MessageEnum.RestAPIResponceErrorMessage)
-      );
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
         runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
       } else {
-        this.parseApiErrorResponse(responseJson);
+        ApiErrorResponse(responseJson);
       }
-      this.parseApiCatchErrorResponse(errorReponse);
+      ApiCatchErrorResponse(errorResponse);
     }
 
     // Customizable Area End
@@ -384,15 +333,9 @@ export default class FaqChairmanController extends BlockComponent<
       `society_managements/${society_id}/bx_block_interactive_faqs/interactive_faq_categories`
     );
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypeGet
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
@@ -424,20 +367,11 @@ export default class FaqChairmanController extends BlockComponent<
       `society_managements/${society_id}/bx_block_interactive_faqs/interactive_faq_categories`
     );
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestBodyMessage),
-      JSON.stringify(body)
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestBodyMessage), JSON.stringify(body));
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypePost
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePost);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
@@ -462,15 +396,9 @@ export default class FaqChairmanController extends BlockComponent<
       }`
     );
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypeDelete
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeDelete);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
@@ -500,25 +428,14 @@ export default class FaqChairmanController extends BlockComponent<
     const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_interactive_faqs/interactive_faqs/${
-        this.state.selectedFaqId
-      }`
+      `society_managements/${society_id}/bx_block_interactive_faqs/interactive_faqs/${this.state.selectedFaqId}`
     );
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestBodyMessage),
-      JSON.stringify(body)
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestBodyMessage), JSON.stringify(body));
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypePut
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePut);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
@@ -538,20 +455,12 @@ export default class FaqChairmanController extends BlockComponent<
     const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_interactive_faqs/interactive_faqs/${
-        this.state.selectedFaqId
-      }`
+      `society_managements/${society_id}/bx_block_interactive_faqs/interactive_faqs/${this.state.selectedFaqId}`
     );
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypeDelete
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeDelete);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
@@ -584,20 +493,11 @@ export default class FaqChairmanController extends BlockComponent<
       `society_managements/${society_id}/bx_block_interactive_faqs/interactive_faqs`
     );
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestBodyMessage),
-      JSON.stringify(body)
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestBodyMessage), JSON.stringify(body));
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypePost
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePost);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
@@ -622,15 +522,9 @@ export default class FaqChairmanController extends BlockComponent<
       }`
     );
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypeGet
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
