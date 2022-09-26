@@ -36,14 +36,14 @@ import MultipleCurrencySupport from '../../blocks/multiplecurrencysupport/src/Mu
 import NewPassword from '../../blocks/forgot-password/src/NewPassword';
 import Feedback from '../../blocks/Feedback/src/Feedback';
 // import Contactus from "../../blocks/contactus/src/Contactus";
-import AddContactus from "../../blocks/contactus/src/AddContactus";
-import CountryCodeSelector from "../../blocks/country-code-selector/src/CountryCodeSelector";
-import TaskAllocator from "../../blocks/TaskAllocator/src/TaskAllocator";
-import FriendList from "../../blocks/FriendList/src/FriendList";
-import FormApprovalWorkflow from "../../blocks/FormApprovalWorkflow/src/FormApprovalWorkflow";
-import AdminConsole3 from "../../blocks/AdminConsole3/src/AdminConsole3";
-import OTPInputAuth from "../../blocks/otp-input-confirmation/src/OTPInputAuth";
-import Maps from "../../blocks/maps/src/Maps";
+import AddContactus from '../../blocks/contactus/src/AddContactus';
+import CountryCodeSelector from '../../blocks/country-code-selector/src/CountryCodeSelector';
+import TaskAllocator from '../../blocks/TaskAllocator/src/TaskAllocator';
+import FriendList from '../../blocks/FriendList/src/FriendList';
+import FormApprovalWorkflow from '../../blocks/FormApprovalWorkflow/src/FormApprovalWorkflow';
+import AdminConsole3 from '../../blocks/AdminConsole3/src/AdminConsole3';
+import OTPInputAuth from '../../blocks/otp-input-confirmation/src/OTPInputAuth';
+import Maps from '../../blocks/maps/src/Maps';
 // import Notes from "../../blocks/Notes/src/Notes";
 import EmailAccountLoginBlock from "../../blocks/email-account-login/src/EmailAccountLoginBlock";
 import TaxCalculator from "../../blocks/TaxCalculator/src/TaxCalculator";
@@ -234,6 +234,14 @@ import SharedArea from '../../blocks/LeadManagement/src/SharedArea.web';
 // Visitor Imports
 import Visitors from '../../blocks/invitefriends/src/Visitors.web';
 import PastVisitors from '../../blocks/invitefriends/src/PastVisitors.web';
+import ScheduledVisitors from '../../blocks/invitefriends/src/ScheduledVisitors.web';
+import VisitorDetails from '../../blocks/invitefriends/src/VisitorDetails.web';
+import VisitorAddSuccess from '../../blocks/invitefriends/src/VisitorAdded';
+import VisitorUpdateSuccess from '../../blocks/invitefriends/src/VisitorUpdated';
+import VisitorAdd from '../../blocks/invitefriends/src/VisitorAdd.web';
+import VisitorList from '../../blocks/invitefriends/src/VisitorsList.web';
+import VisitorsDetails from '../../blocks/invitefriends/src/VisitorDetailsManager.web';
+
 const routeMap = {
   //done
   LandingPage: {
@@ -1360,10 +1368,50 @@ const routeMap = {
     path: '/visitors',
     exact: true
   },
+  VisitorAdd: {
+    component: VisitorAdd,
+    path: '/AddVisitor',
+    exact: true
+  },
 
   PastVisitors: {
     component: PastVisitors,
     path: '/PastVisitors',
+    exact: true
+  },
+
+  VisitorList: {
+    component: VisitorList,
+    path: '/VisitorList',
+    exact: true
+  },
+
+  ScheduledVisitors: {
+    component: ScheduledVisitors,
+    path: '/ScheduledVisitors',
+    exact: true
+  },
+
+  VisitorDetails: {
+    component: VisitorDetails,
+    path: '/VisitorDetails',
+    exact: true
+  },
+
+  VisitorsDetails: {
+    component: VisitorsDetails,
+    path: '/VisitorsDetails',
+    exact: true
+  },
+  VisitorAddSuccess: {
+    component: VisitorAddSuccess,
+    path: '/VisitorAddSuccess',
+    exact: true
+  },
+
+  VisitorUpdateSuccess: {
+    component: VisitorUpdateSuccess,
+    path: '/VisitorUpdateSuccess',
     exact: true
   },
 
