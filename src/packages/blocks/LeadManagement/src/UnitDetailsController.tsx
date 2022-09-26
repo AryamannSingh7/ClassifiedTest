@@ -28,8 +28,13 @@ interface S {
   currentTab:any;
   dataSearch: any;
   anchorEl:any;
-  setComplexEditOpen:boolean;
+  anchorEl1:any;
+  setUnitOpen:boolean;
   invitationData:any;
+  setDelinkOpen:boolean;
+  setSuspendOpen:boolean;
+  setEditOpen:boolean;
+  unitImages:any;
   // Customizable Area End
 }
 
@@ -39,7 +44,7 @@ interface SS {
   // Customizable Area End
 }
 
-export default class BuildingandComplexController extends BlockComponent<
+export default class UnitDetailsController extends BlockComponent<
   Props,
   S,
   SS
@@ -65,8 +70,13 @@ export default class BuildingandComplexController extends BlockComponent<
       currentTab:"1",
       dataSearch: "",
       anchorEl:null,
-      setComplexEditOpen:false,
+      anchorEl1:null,
+      setUnitOpen:false,
       invitationData:"",
+      setDelinkOpen:false,
+      setSuspendOpen:false,
+      setEditOpen:false,
+      unitImages:[]
       // Customizable Area Start
       // Customizable Area End
     };
@@ -150,30 +160,44 @@ export default class BuildingandComplexController extends BlockComponent<
   };
 
   // Customizable Area Start
-  handleTabChange = (e: any) => {
-    console.log("currentTab=====>>", typeof this.state.currentTab)
-    this.setState({currentTab:e.target.id})
-  };
+//   handleTabChange = (e: any) => {
+//     console.log("currentTab=====>>", typeof this.state.currentTab)
+//     this.setState({currentTab:e.target.id})
+//   };
   
-  handleClose = () => {
-    this.setState({anchorEl:null})
-  }
+//   handleClose = () => {
+//     this.setState({anchorEl:null})
+//   }
 
-  handleMoreClick = (e: any) => {
-    this.setState({anchorEl:e.currentTarget});
-  }
-
-  handleComplexEditClose = () => {
-      this.setState({setComplexEditOpen:false})
-  }
-
-  handleComplexEditOpen = () => {
-      this.setState({setComplexEditOpen:true})
-  }
-
-  invitationData = (values: any) => {
-    this.setState({invitationData:values})
+handleMoreClose = () => {
+    this.setState({anchorEl:null});
 }
+
+handleMoreClick = (e: any) => {
+this.setState({anchorEl:e.currentTarget});
+}
+
+handleFamilyMoreClick = (e: any) => {
+    this.setState({anchorEl1:e.currentTarget});
+}
+
+handleFamilyClose = (e: any) => {
+    this.setState({anchorEl1:null});
+}
+
+InvitationSchema() {
+    const validations = Yup.object().shape({
+        complexname: Yup.string().required(`This field is required`),
+        buildingname: Yup.string().required(`This field is required`),
+        unitno: Yup.string().required(`This field is required`),
+        configuration: Yup.string().required(`This field is required`),
+        purchaseprice:Yup.string().required(`This field is required`),
+        purchasedate:Yup.string().required(`This field is required`),
+        currentvaluation:Yup.string().required(`This field is required`),
+        size: Yup.string().required(`This field is required`),
+    });
+    return validations
+  }
 
   EditSchema() {
     const validations = Yup.object().shape({
@@ -188,5 +212,47 @@ export default class BuildingandComplexController extends BlockComponent<
     });
     return validations
   }
+
+  
+invitationData = (values: any) => {
+    this.setState({invitationData:values})
+}
+    
+handleUnitClose = () => {
+    this.setState({setUnitOpen:false})
+}
+handleUnitOpen = () => {
+    this.setState({setUnitOpen:true});
+};
+
+handleDelinkOpen = () => {
+    this.setState({setDelinkOpen:true})
+}
+handleDelinkClose = () => {
+    this.setState({setDelinkOpen:false})
+}
+
+handleSuspendClose = () => {
+    this.setState({setSuspendOpen:false})
+}
+
+handleSuspendOpen = () => {
+    this.setState({setSuspendOpen:true})
+}
+
+handleEditClose = () => {
+    this.setState({setEditOpen:false})
+}
+
+handleEditOpen = () => {
+    this.setState({setEditOpen:true})
+}
+
+imageonChange = (imageList: any, addUpdateIndex: any) => {
+  // data for submit
+  console.log(imageList, addUpdateIndex);
+  this.setState({unitImages:imageList})
+};
+
   // Customizable Area End
 }

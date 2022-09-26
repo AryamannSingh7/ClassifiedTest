@@ -25,11 +25,10 @@ interface S {
   txtSavedValue: string;
   enableField: boolean;
   // Customizable Area Start
-  currentTab:any;
   dataSearch: any;
-  anchorEl:any;
   setComplexEditOpen:boolean;
   invitationData:any;
+  unitImages:any;
   // Customizable Area End
 }
 
@@ -39,7 +38,7 @@ interface SS {
   // Customizable Area End
 }
 
-export default class BuildingandComplexController extends BlockComponent<
+export default class SharedAreaController extends BlockComponent<
   Props,
   S,
   SS
@@ -62,11 +61,10 @@ export default class BuildingandComplexController extends BlockComponent<
       txtInputValue: "",
       txtSavedValue: "A",
       enableField: false,
-      currentTab:"1",
       dataSearch: "",
-      anchorEl:null,
       setComplexEditOpen:false,
       invitationData:"",
+      unitImages:[]
       // Customizable Area Start
       // Customizable Area End
     };
@@ -150,19 +148,6 @@ export default class BuildingandComplexController extends BlockComponent<
   };
 
   // Customizable Area Start
-  handleTabChange = (e: any) => {
-    console.log("currentTab=====>>", typeof this.state.currentTab)
-    this.setState({currentTab:e.target.id})
-  };
-  
-  handleClose = () => {
-    this.setState({anchorEl:null})
-  }
-
-  handleMoreClick = (e: any) => {
-    this.setState({anchorEl:e.currentTarget});
-  }
-
   handleComplexEditClose = () => {
       this.setState({setComplexEditOpen:false})
   }
@@ -188,5 +173,11 @@ export default class BuildingandComplexController extends BlockComponent<
     });
     return validations
   }
+
+  imageonChange = (imageList: any, addUpdateIndex: any) => {
+    // data for submit
+    console.log(imageList, addUpdateIndex);
+    this.setState({unitImages:imageList})
+  };
   // Customizable Area End
 }
