@@ -231,8 +231,15 @@ import ComplexandApartment from '../../blocks/LeadManagement/src/ComplexandApart
 import UnitDetails from '../../blocks/LeadManagement/src/UnitDetails.web';
 
 // Visitor Imports
-import Visitors from "../../blocks/invitefriends/src/Visitors.web"
-import PastVisitors from "../../blocks/invitefriends/src/PastVisitors.web"
+import Visitors from "../../blocks/invitefriends/src/Visitors.web";
+import PastVisitors from "../../blocks/invitefriends/src/PastVisitors.web";
+import ScheduledVisitors from "../../blocks/invitefriends/src/ScheduledVisitors.web";
+import VisitorDetails from "../../blocks/invitefriends/src/VisitorDetails.web";
+import VisitorAddSuccess from "../../blocks/invitefriends/src/VisitorAdded";
+import VisitorUpdateSuccess from "../../blocks/invitefriends/src/VisitorUpdated";
+import VisitorAdd from "../../blocks/invitefriends/src/VisitorAdd.web";
+import VisitorList from "../../blocks/invitefriends/src/VisitorsList.web";
+import VisitorsDetails from "../../blocks/invitefriends/src/VisitorDetailsManager.web"
 const routeMap = {
   //done
   LandingPage: {
@@ -1359,12 +1366,53 @@ const routeMap = {
     path: '/visitors',
     exact: true
   },
+  VisitorAdd:{
+    component: VisitorAdd,
+    path: '/AddVisitor',
+    exact: true
+  },
 
    PastVisitors:{
       component: PastVisitors,
       path: '/PastVisitors',
       exact: true
    },
+
+  VisitorList:{
+    component: VisitorList,
+    path: '/VisitorList',
+    exact: true
+  },
+
+  ScheduledVisitors:{
+    component: ScheduledVisitors,
+    path: '/ScheduledVisitors',
+    exact: true
+  },
+
+  VisitorDetails:{
+    component: VisitorDetails,
+    path: '/VisitorDetails',
+    exact: true
+  },
+
+  VisitorsDetails:{
+    component: VisitorsDetails,
+    path: '/VisitorsDetails',
+    exact: true
+  },
+  VisitorAddSuccess:{
+    component: VisitorAddSuccess,
+    path: '/VisitorAddSuccess',
+    exact: true
+  },
+
+  VisitorUpdateSuccess:{
+    component: VisitorUpdateSuccess,
+    path: '/VisitorUpdateSuccess',
+    exact: true
+  },
+
 
   CommunityRequestManagement: {
     component: CommunityRequestManagement,
