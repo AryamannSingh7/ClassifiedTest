@@ -23,7 +23,7 @@ class Visitors extends VisitorController{
         <>
             <Grid item xs={12} md={12} className="auth-cols">
                 <Grid container style={{ margin: '1rem', width: '90%' }} >
-                  <Grid xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem",justifyContent:"space-between"}} >
+                  <Grid item xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem",justifyContent:"space-between"}} >
                       <Box style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
                           <ArrowBackIcon onClick={() => this.props.history.push("/")} />
                           <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
@@ -32,7 +32,7 @@ class Visitors extends VisitorController{
                       </Box>
                   </Grid>
                 </Grid>
-                <Box style={{background: "#E5ECFF",minHeight:"95%",display:'flex',flexDirection:"column",alignItems:'center',justifyContent:"space-between"}} >
+                <Box style={{background: "#F7F9FE",minHeight:"95%",display:'flex',flexDirection:"column",alignItems:'center',justifyContent:"space-between"}} >
                     <Grid container spacing={2} style={{width:"90%"}}>
                         <Grid item xs={12}>
                             <Box
@@ -43,6 +43,7 @@ class Visitors extends VisitorController{
                                 bgcolor="white"
                                 marginTop='1.5rem'
                                 padding='1.5rem'
+                                style={{boxShadow:"rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"}}
                                 onClick={()=>this.props.history.push("/ScheduledVisitors")}
                             >
                                 <Box style={{minWidth:"100%"}}>
@@ -64,6 +65,7 @@ class Visitors extends VisitorController{
                                 bgcolor="white"
                                 marginTop='1rem'
                                 padding='1.5rem'
+                                style={{boxShadow:"rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"}}
                                 onClick={()=>this.props.history.push("/PastVisitors")}
                             >
                                 <Box style={{minWidth:"100%"}}>

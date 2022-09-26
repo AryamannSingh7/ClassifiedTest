@@ -24,14 +24,15 @@ interface S {
   loading: boolean;
   sortBy:any;
   status:any;
-  pollListing:any;
+  VisitorDetails:any;
+  deleteConfirmModal:boolean;
 }
 
 interface SS {
   id: any;
 }
 
-export default class CoverImageController extends BlockComponent<
+export default class VisitorDetailsController extends BlockComponent<
   Props,
   S,
   SS
@@ -56,7 +57,16 @@ export default class CoverImageController extends BlockComponent<
       loading:false,
       sortBy : "" ,
       status:"",
-      pollListing:[],
+      VisitorDetails:{
+          id:"1",
+          name:"Sean K. Wilt",
+          profilePic:"https://www.shareicon.net/data/128x128/2016/09/15/829453_user_512x512.png",
+          time:"16:30",
+          date:"10-03-2022",
+          building:"Green Villa",
+          phoneNo:"+966-1234567890"
+        },
+      deleteConfirmModal:false,
     };
 
     this.emailReg = new RegExp("");
@@ -64,12 +74,26 @@ export default class CoverImageController extends BlockComponent<
 
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
 
+    this.handleOpenDeleteModal = this.handleOpenDeleteModal.bind(this)
+    this.handleCloseDeleteModal = this.handleCloseDeleteModal.bind(this)
+
   }
 
   async componentDidMount() {
 
   }
 
+  handleCloseDeleteModal() {
+    this.setState({
+      deleteConfirmModal:false
+    })
+  }
+
+  handleOpenDeleteModal() {
+    this.setState({
+      deleteConfirmModal:true
+    })
+  }
 
   async receive(from: string, message: Message) {
     if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {
