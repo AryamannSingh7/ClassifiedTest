@@ -4,20 +4,20 @@ import { View } from 'react-native';
 import firebase from 'firebase';
 import { connect } from 'react-firebase';
 
-import WebRoutesGenerator from "../../components/src/NativeWebRouteWrapper";
-import { ModalContainer } from "react-router-modal";
-import HomeScreen from "../../components/src/HomeScreen";
-import TopNav from "../../components/src/TopNav";
+import WebRoutesGenerator from '../../components/src/NativeWebRouteWrapper';
+import { ModalContainer } from 'react-router-modal';
+import HomeScreen from '../../components/src/HomeScreen';
+import TopNav from '../../components/src/TopNav';
 
 import { ROLE } from '../../framework/src/Enum';
 import { Toaster } from 'react-hot-toast';
 
-import InfoPage from '../../blocks/info-page/src/InfoPageBlock'
-import AlertBlock from '../../blocks/alert/src/AlertBlock.web'
+import InfoPage from '../../blocks/info-page/src/InfoPageBlock';
+import AlertBlock from '../../blocks/alert/src/AlertBlock.web';
 // import RolesPermissions2 from "../../blocks/RolesPermissions2/src/RolesPermissions2";
-import Chatbot6 from "../../blocks/Chatbot6/src/Chatbot6";
-import EmailNotifications from "../../blocks/EmailNotifications/src/EmailNotifications";
-import BroadcastMessage from "../../blocks/BroadcastMessage/src/BroadcastMessage";
+import Chatbot6 from '../../blocks/Chatbot6/src/Chatbot6';
+import EmailNotifications from '../../blocks/EmailNotifications/src/EmailNotifications';
+import BroadcastMessage from '../../blocks/BroadcastMessage/src/BroadcastMessage';
 // import BulkUploading from "../../blocks/BulkUploading/src/BulkUploading";
 import Location from '../../blocks/location/src/Location';
 import SocialMediaAccountLoginScreen from '../../blocks/social-media-account-login/src/SocialMediaAccountLoginScreen';
@@ -222,18 +222,18 @@ import AwaitingAcceptece from '../../blocks/user-profile-basic/src/AwaitingAccep
 import UserDetailedProfile from '../../blocks/user-profile-basic/src/UserDetailedProfile.web';
 
 // Announcement Imports
-import Announcement from '../../blocks/BroadcastMessage/src/Announcement.web'
-import BuildingAnnouncement from "../../blocks/BroadcastMessage/src/BuildingAnnouncement.web"
-import AnnouncementInfo from "../../blocks/BroadcastMessage/src/AnnouncementDetails.web"
+import Announcement from '../../blocks/BroadcastMessage/src/Announcement.web';
+import BuildingAnnouncement from '../../blocks/BroadcastMessage/src/BuildingAnnouncement.web';
+import AnnouncementInfo from '../../blocks/BroadcastMessage/src/AnnouncementDetails.web';
 
-import BuildingandComplex from '../../blocks/LeadManagement/src/BuildingandComplex.web';
+import Buildings from '../../blocks/LeadManagement/src/Buildings.web';
 import ComplexandApartment from '../../blocks/LeadManagement/src/ComplexandApartment.web';
 import UnitDetails from '../../blocks/LeadManagement/src/UnitDetails.web';
 import SharedArea from '../../blocks/LeadManagement/src/SharedArea.web';
 
 // Visitor Imports
-import Visitors from "../../blocks/invitefriends/src/Visitors.web"
-import PastVisitors from "../../blocks/invitefriends/src/PastVisitors.web"
+import Visitors from '../../blocks/invitefriends/src/Visitors.web';
+import PastVisitors from '../../blocks/invitefriends/src/PastVisitors.web';
 const routeMap = {
   //done
   LandingPage: {
@@ -465,7 +465,7 @@ const routeMap = {
     path: '/ClassifiedManagerListing',
     exact: true
   },
- ClassifiedManagerDetail: {
+  ClassifiedManagerDetail: {
     component: ClassifiedManagerDetail,
     path: '/ClassifiedManagerDetail',
     exact: true
@@ -1355,17 +1355,17 @@ const routeMap = {
     exact: true
   },
 
-  Visitors:{
+  Visitors: {
     component: Visitors,
     path: '/visitors',
     exact: true
   },
 
-   PastVisitors:{
-      component: PastVisitors,
-      path: '/PastVisitors',
-      exact: true
-   },
+  PastVisitors: {
+    component: PastVisitors,
+    path: '/PastVisitors',
+    exact: true
+  },
 
   CommunityRequestManagement: {
     component: CommunityRequestManagement,
@@ -1387,23 +1387,26 @@ const routeMap = {
     component: UserDetailedProfile,
     path: '/UserDetailedProfile'
   },
-
-  BuildingandComplex:{
-    component:BuildingandComplex,
-    path:"/BuildingandComplex"
+  // Building and Complex
+  Buildings: {
+    component: Buildings,
+    path: '/Buildings',
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER]
   },
-
-  ComplexandApartment:{
-    component:ComplexandApartment,
-    path:"/ComplexandApartment"
+  ComplexandApartment: {
+    component: ComplexandApartment,
+    path: '/ComplexandApartment',
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER]
   },
-  UnitDetails:{
-    component:UnitDetails,
-    path:"/UnitDetails"
+  UnitDetails: {
+    component: UnitDetails,
+    path: '/UnitDetails',
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER]
   },
-  SharedArea:{
-    component:SharedArea,
-    path:"/SharedArea"
+  SharedArea: {
+    component: SharedArea,
+    path: '/SharedArea',
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER]
   },
 
   AlertWeb: {

@@ -185,6 +185,15 @@ class ChairmanSidebar extends DashboardController {
               <Typography variant="body2">Payment History</Typography>
             </AccordionDetails>
           </Accordion>
+          {/* Buildings & Apartments */}
+          <Box className="SingleLink">
+            <Typography className="SingleLinkSize">
+              <DashboardOutlinedIcon />
+            </Typography>
+            <div onClick={() => this.props.navigation.navigate("Buildings")}>
+              <Typography className="SingleLinkSize">Buildings & Apartments</Typography>
+            </div>
+          </Box>
           {/* Meetings */}
           <Accordion expanded={this.state.expanded == `panel5`} onChange={this.handleAccordinoChange(`panel5`)}>
             <AccordionSummary
@@ -213,24 +222,6 @@ class ChairmanSidebar extends DashboardController {
               </Typography>
             </AccordionDetails>
           </Accordion>
-          {/* Buildings & Apartments */}
-          <Accordion expanded={this.state.expanded == `panel6`} onChange={this.handleAccordinoChange(`panel6`)}>
-            <AccordionSummary
-              expandIcon={<ArrowForwardIosOutlinedIcon style={{ width: 16, height: 16 }} />}
-              id="ListItem"
-              className="ListItem"
-            >
-              <Typography>
-                <DashboardOutlinedIcon />
-              </Typography>
-              <Typography className="ListItemText" onClick={() => this.props.navigation.navigate("ComplexandApartment")}>Buildings & Apartments</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography variant="body2" className="cursor-pointer">
-                sub headings
-              </Typography>
-            </AccordionDetails>
-          </Accordion>
           {/* Poll / Survey */}
           <Box className="SingleLink">
             <Typography className="SingleLinkSize">
@@ -246,7 +237,7 @@ class ChairmanSidebar extends DashboardController {
             </div>
           </Box>
           {/* Document & Reports */}
-          <Accordion expanded={this.state.expanded == `panel7`} onChange={this.handleAccordinoChange(`panel7`)}>
+          <Accordion expanded={this.state.expanded == `panel6`} onChange={this.handleAccordinoChange(`panel6`)}>
             <AccordionSummary
               expandIcon={<ArrowForwardIosOutlinedIcon style={{ width: 16, height: 16 }} />}
               style={dashBoard.ListItem}
@@ -282,7 +273,7 @@ class ChairmanSidebar extends DashboardController {
             </div>
           </Box>
           {/* Help */}
-          <Accordion expanded={this.state.expanded == `panel8`} onChange={this.handleAccordinoChange(`panel8`)}>
+          <Accordion expanded={this.state.expanded == `panel7`} onChange={this.handleAccordinoChange(`panel7`)}>
             <AccordionSummary
               expandIcon={<ArrowForwardIosOutlinedIcon style={{ width: 16, height: 16 }} />}
               style={dashBoard.ListItem}
