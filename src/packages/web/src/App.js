@@ -229,6 +229,7 @@ import AnnouncementInfo from "../../blocks/BroadcastMessage/src/AnnouncementDeta
 import BuildingandComplex from '../../blocks/LeadManagement/src/BuildingandComplex.web';
 import ComplexandApartment from '../../blocks/LeadManagement/src/ComplexandApartment.web';
 import UnitDetails from '../../blocks/LeadManagement/src/UnitDetails.web';
+import SharedArea from '../../blocks/LeadManagement/src/SharedArea.web';
 
 // Visitor Imports
 import Visitors from "../../blocks/invitefriends/src/Visitors.web"
@@ -1399,6 +1400,10 @@ const routeMap = {
   UnitDetails:{
     component:UnitDetails,
     path:"/UnitDetails"
+  },
+  SharedArea:{
+    component:SharedArea,
+    path:"/SharedArea"
   },
 
   AlertWeb: {

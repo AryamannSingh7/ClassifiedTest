@@ -39,7 +39,7 @@ interface SS {
   // Customizable Area End
 }
 
-export default class BuildingandComplexController extends BlockComponent<
+export default class ComplexandApartmentController extends BlockComponent<
   Props,
   S,
   SS
