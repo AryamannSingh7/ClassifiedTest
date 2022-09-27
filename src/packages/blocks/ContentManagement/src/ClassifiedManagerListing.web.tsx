@@ -56,7 +56,7 @@ class ClassifiedManagerListing extends ClassifiedManagerController {
 
   render() {
     const { t, classes }: any = this.props;
-    console.log("this.state.buildingName=================>/", this.state.buildingNameData);
+    console.log("this.state.buildingName=================>/", this.state.classifiedsListing);
     const statusArray = ["Pending Approved", "Published", "Rejected"]
     const classifiedType = ["buyer", "seller", 'generic', 'All'];
     return (
@@ -122,7 +122,7 @@ class ClassifiedManagerListing extends ClassifiedManagerController {
                             this.state?.buildingNameData?.map((val: any, index: any) => (
                               <MenuItem
                                 key={index}
-                                value={val?.id}
+                                value={val?.attributes?.name}
                               >
                                 {val?.attributes?.name}
                               </MenuItem>
@@ -187,17 +187,17 @@ class ClassifiedManagerListing extends ClassifiedManagerController {
                         <Card className="classified-card card" key={index}>
                           <CardContent className="costom-card-content">
                             <Typography component="h4">
-                              classified title
+                            {val?.attributes?.title}
                             </Typography>
                             <Typography component="p">
-                              of twice the depth or point size of the type or letter named or understood a two-line initial a two-line letter.
-                            </Typography>
+                              {val?.attributes?.description}
+                             </Typography>
                             <Box className="content-row">
                               <Typography component="span">
                                 Available to buy
                               </Typography>
                               <Typography component="p">
-                                1/1/1/ to 1/1/1
+                                {val?.attributes?.duration_from} to {val?.attributes?.duration_to}
                               </Typography>
                               <Box className="content-blocks-row">
                                 <Box className="content-sub-row">
@@ -215,12 +215,12 @@ class ClassifiedManagerListing extends ClassifiedManagerController {
                                 <Box className="content-sub-row">
                                   <Box className="blocks">
                                     <Typography component="p">
-                                      Building 1
+                                     {val?.attributes?.building_management?.name}
                                     </Typography>
                                   </Box>
                                   <Box className="blocks">
                                     <Typography component="p">
-                                      Buy
+                                    {val?.attributes?.classified_type}
                                     </Typography>
                                   </Box>
                                 </Box>
@@ -231,7 +231,7 @@ class ClassifiedManagerListing extends ClassifiedManagerController {
                               <div className="left-block">
                                 {/* <img src={Dollar_Icon} className="dollar-icon" alt="Dollar Icon" /> */}
                                 <Typography component="h4">
-                                  500 - SR 650
+                                  {val?.attributes?.price_from} {val?.attributes?.currency?.currency} - {val?.attributes?.currency?.currency} {val?.attributes?.price_to}
                                 </Typography>
                               </div>
                               <Box className="customButton">
