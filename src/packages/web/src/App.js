@@ -227,7 +227,7 @@ import BuildingAnnouncement from '../../blocks/BroadcastMessage/src/BuildingAnno
 import AnnouncementInfo from '../../blocks/BroadcastMessage/src/AnnouncementDetails.web';
 
 import Buildings from '../../blocks/LeadManagement/src/Buildings.web';
-import ComplexandApartment from '../../blocks/LeadManagement/src/ComplexandApartment.web';
+import Complex from '../../blocks/LeadManagement/src/Complex.web';
 import UnitDetails from '../../blocks/LeadManagement/src/UnitDetails.web';
 import SharedArea from '../../blocks/LeadManagement/src/SharedArea.web';
 
@@ -1441,9 +1441,9 @@ const routeMap = {
     path: '/Buildings',
     roles: [ROLE.CHAIRMAN, ROLE.MANAGER]
   },
-  ComplexandApartment: {
-    component: ComplexandApartment,
-    path: '/ComplexandApartment',
+  Complex: {
+    component: Complex,
+    path: '/Complex',
     roles: [ROLE.CHAIRMAN, ROLE.MANAGER]
   },
   UnitDetails: {

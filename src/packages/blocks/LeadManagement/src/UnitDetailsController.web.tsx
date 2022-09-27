@@ -3,9 +3,10 @@ import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
 import MessageEnum, { getName } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
+import * as Yup from "yup";
 
 // Customizable Area Start
-import * as Yup from "yup";
+import { imgPasswordInVisible, imgPasswordVisible } from "./assets";
 // Customizable Area End
 
 export const configJSON = require("./config");
@@ -20,15 +21,14 @@ export interface Props {
 
 interface S {
   // Customizable Area Start
+  setDeLinkOpen: boolean;
+  setSuspendOpen: boolean;
+  setEditOpen: boolean;
+  setUnitOpen: boolean;
   imageBox: boolean;
+  unitImages: any;
+
   photoIndex: number;
-
-  currentTab: number;
-
-  isEditBuildingModalOpen: boolean;
-
-  dataSearch: any;
-  invitationData: any;
   // Customizable Area End
 }
 
@@ -38,7 +38,7 @@ interface SS {
   // Customizable Area End
 }
 
-export default class BuildingsController extends BlockComponent<Props, S, SS> {
+export default class UnitDetailsController extends BlockComponent<Props, S, SS> {
   // Customizable Area Start
   // Customizable Area End
 
@@ -54,17 +54,14 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
     ];
 
     this.state = {
+      setDeLinkOpen: false,
+      setUnitOpen: false,
+      setSuspendOpen: false,
+      setEditOpen: false,
       imageBox: false,
+      unitImages: [],
+
       photoIndex: 0,
-
-      currentTab: 0,
-
-      isEditBuildingModalOpen: false,
-
-      dataSearch: "",
-      invitationData: "",
-      // Customizable Area Start
-      // Customizable Area End
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
 
@@ -80,19 +77,28 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
   }
 
   // Customizable Area Start
+  //   handleTabChange = (e: any) => {
+  //     console.log("currentTab=====>>", typeof this.state.currentTab)
+  //     this.setState({currentTab:e.target.id})
+  //   };
 
-  // Handle State
-  handleTabChange = (event: any, newValue: number) => {
-    this.setState({ currentTab: newValue });
-  };
+  //   handleClose = () => {
+  //     this.setState({anchorEl:null})
+  //   }
 
-  invitationData = (values: any) => {
-    this.setState({ invitationData: values });
-  };
-
-  handleEditBuildingModal = () => {
-    this.setState({ isEditBuildingModalOpen: !this.state.isEditBuildingModalOpen });
-  };
+  InvitationSchema() {
+    const validations = Yup.object().shape({
+      complexname: Yup.string().required(`This field is required`),
+      buildingname: Yup.string().required(`This field is required`),
+      unitno: Yup.string().required(`This field is required`),
+      configuration: Yup.string().required(`This field is required`),
+      purchaseprice: Yup.string().required(`This field is required`),
+      purchasedate: Yup.string().required(`This field is required`),
+      currentvaluation: Yup.string().required(`This field is required`),
+      size: Yup.string().required(`This field is required`),
+    });
+    return validations;
+  }
 
   EditSchema() {
     const validations = Yup.object().shape({
@@ -107,5 +113,28 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
     });
     return validations;
   }
+
+  handleDeLinkModal = () => {
+    this.setState({ setDeLinkOpen: !this.state.setDeLinkOpen });
+  };
+
+  handleSuspendModal = () => {
+    this.setState({ setSuspendOpen: !this.state.setSuspendOpen });
+  };
+
+  handleEditModal = () => {
+    this.setState({ setEditOpen: !this.state.setEditOpen });
+  };
+
+  handleUnitModal = () => {
+    this.setState({ setUnitOpen: !this.state.setUnitOpen });
+  };
+
+  imageonChange = (imageList: any, addUpdateIndex: any) => {
+    // data for submit
+    console.log(imageList, addUpdateIndex);
+    this.setState({ unitImages: imageList });
+  };
+
   // Customizable Area End
 }

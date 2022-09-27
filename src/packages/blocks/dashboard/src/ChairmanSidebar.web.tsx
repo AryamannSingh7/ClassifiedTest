@@ -190,8 +190,8 @@ class ChairmanSidebar extends DashboardController {
             <Typography className="SingleLinkSize">
               <DashboardOutlinedIcon />
             </Typography>
-            <div onClick={() => this.props.navigation.navigate("Buildings")}>
-              <Typography className="SingleLinkSize">Buildings & Apartments</Typography>
+            <div onClick={() => this.props.navigation.navigate("Complex")}>
+              <Typography className="SingleLinkSize">Complex & Apartments</Typography>
             </div>
           </Box>
           {/* Meetings */}

@@ -7,14 +7,7 @@ import {
   withStyles,
   InputAdornment,
   TextField,
-  TableContainer,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
   TextareaAutosize,
-  Grid,
   Card,
   Tabs,
   Tab,
@@ -22,66 +15,29 @@ import {
   Dialog,
   IconButton,
   DialogContent,
-  DialogActions,
   InputLabel,
+  DialogActions,
   Input,
-  Select,
-  MenuItem,
-  ListItemIcon,
-  OutlinedInput,
 } from "@material-ui/core";
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import "../../dashboard/src/Dashboard.web.css";
 import Box from "@material-ui/core/Box";
-//@ts-ignore
-import Pagination from "@material-ui/lab/Pagination";
+import Grid from "@material-ui/core/Grid";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import BuildingsController, { Props } from "./BuildingsController.web";
+import ComplexController, { Props } from "./ComplexController.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import { withTranslation } from "react-i18next";
 import "../../../web/src/i18n.js";
 import "./style.css";
-import {
-  upload,
-  Document,
-  sizebw,
-  unitbw,
-  bentalyLogo,
-  location,
-  uploadbw,
-  del_image,
-  floorIcon,
-  earthIcon,
-  complexbw,
-} from "./assets";
-import { BuildingApartmentStyle } from "./BuildingApartmentStyle.web";
 //@ts-ignore
 import Slider from "react-slick";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
+import { upload, Document, sizebw, unitbw, bentalyLogo, location, del_image, uploadbw, floorIcon } from "./assets";
+import { BuildingApartmentStyle } from "./BuildingApartmentStyle.web";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
-
-const TabPanel = (props: any) => {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`full-width-tabpanel-${index}`}
-      aria-labelledby={`full-width-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-};
 
 function createData(
   no: any,
@@ -105,6 +61,26 @@ const rows = [
   createData(7, "A208", "15", "Sakane Miiko", "Somun Ae-Ri", "Empty", <MoreVertIcon color="disabled" />),
 ];
 
+const TabPanel = (props: any) => {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`full-width-tabpanel-${index}`}
+      aria-labelledby={`full-width-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+};
+
 const settings = {
   infinite: false,
   slidesToShow: 5,
@@ -118,7 +94,7 @@ const images = [
   "//placekitten.com/1500/1500",
 ];
 
-class Buildings extends BuildingsController {
+class Complex extends ComplexController {
   constructor(props: Props) {
     super(props);
   }
@@ -150,9 +126,9 @@ class Buildings extends BuildingsController {
                 <Box style={dashBoard.navigation}>
                   <Box>
                     <Typography variant="body1">
-                      {t("Building & Apartments")} /{" "}
+                      {t("Complex & Apartments")} /{" "}
                       <Box component="span" style={{ color: "blue" }}>
-                        {t("Buildings")}
+                        {t("Complex ")}
                       </Box>
                     </Typography>
                   </Box>
@@ -221,15 +197,125 @@ class Buildings extends BuildingsController {
                   </Card>
                 </Box>
 
+                {this.state.imageBox && (
+                  <Lightbox
+                    mainSrc={images[this.state.photoIndex]}
+                    nextSrc={images[(this.state.photoIndex + 1) % images.length]}
+                    prevSrc={images[(this.state.photoIndex + images.length - 1) % images.length]}
+                    onCloseRequest={() => this.setState({ imageBox: false })}
+                    onMovePrevRequest={() =>
+                      this.setState({
+                        photoIndex: (this.state.photoIndex + images.length - 1) % images.length,
+                      })
+                    }
+                    onMoveNextRequest={() =>
+                      this.setState({
+                        photoIndex: (this.state.photoIndex + 1) % images.length,
+                      })
+                    }
+                  />
+                )}
+
                 <Box className="about-building">
                   <Card>
-                    <h4>{t("About Building Name")}</h4>
+                    <h4> {t("About Complex")}</h4>
                     <p>
                       Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
                       the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of
                       type and scrambled it to make a type specimen book. It has survived not only five centuries, but
                       also the leap into electronic typesetting, remaining essentially unchanged
                     </p>
+                  </Card>
+                </Box>
+
+                <Box className="building-list">
+                  <Card>
+                    <Box className="top-content">
+                      <Box className="heading">
+                        <h4>Buildings</h4>
+                      </Box>
+                      <TextField
+                        className="search-unit"
+                        placeholder="Search by building name"
+                        onChange={(e) => {}}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <SearchOutlinedIcon />
+                            </InputAdornment>
+                          ),
+                        }}
+                      />
+                    </Box>
+                    <Divider />
+                    <Box className="bottom-content">
+                      <Grid container spacing={2}>
+                        <Grid item xs={4}>
+                          <Box className="building-box">
+                            <h5>Building 1</h5>
+                          </Box>
+                        </Grid>
+                        <Grid item xs={4}>
+                          <Box className="building-box">
+                            <h5>Building 1</h5>
+                          </Box>
+                        </Grid>
+                        <Grid item xs={4}>
+                          <Box className="building-box">
+                            <h5>Building 1</h5>
+                          </Box>
+                        </Grid>
+                        <Grid item xs={4}>
+                          <Box className="building-box">
+                            <h5>Building 1</h5>
+                          </Box>
+                        </Grid>
+                        <Grid item xs={4}>
+                          <Box className="building-box">
+                            <h5>Building 1</h5>
+                          </Box>
+                        </Grid>
+                        <Grid item xs={4}>
+                          <Box className="building-box">
+                            <h5>Building 1</h5>
+                          </Box>
+                        </Grid>
+                      </Grid>
+                    </Box>
+                    {/* <Box style={{ marginTop: "50px" }}>
+                      <div style={dashBoard.BuildingListCard}>
+                        <div
+                          style={{ textAlign: "center", cursor: "pointer" }}
+                          onClick={() => this.props.navigation.navigate("BuildingandComplex")}
+                        >
+                          <Typography variant="h5" style={dashBoard.buildingCard}>
+                            Building 1
+                          </Typography>
+                        </div>
+
+                        <div style={{ textAlign: "center", cursor: "pointer" }}>
+                          <Typography variant="h5" style={dashBoard.buildingCard}>
+                            Building 2
+                          </Typography>
+                        </div>
+
+                        <div style={{ textAlign: "center", cursor: "pointer" }}>
+                          <Typography variant="h5" style={dashBoard.buildingCard}>
+                            Building 3
+                          </Typography>
+                        </div>
+                        <div style={{ textAlign: "center", cursor: "pointer" }}>
+                          <Typography variant="h5" style={dashBoard.buildingCard}>
+                            Building 4
+                          </Typography>
+                        </div>
+                        <div style={{ textAlign: "center", cursor: "pointer" }}>
+                          <Typography variant="h5" style={dashBoard.buildingCard}>
+                            Building 5
+                          </Typography>
+                        </div>
+                      </div>
+                    </Box> */}
                   </Card>
                 </Box>
 
@@ -259,7 +345,6 @@ class Buildings extends BuildingsController {
                 <Box className="content-boxes">
                   <Tabs value={this.state.currentTab} onChange={this.handleTabChange}>
                     <Tab label={t("Documents")} />
-                    <Tab label={t("Units")} />
                     <Tab label={t("Shared Area")} />
                   </Tabs>
                   <Box className="tab-content">
@@ -365,69 +450,6 @@ class Buildings extends BuildingsController {
                       <>
                         <Box className="top-content">
                           <Box className="heading">
-                            <h2>{t("Units")}</h2>
-                          </Box>
-                          <Box className="right-content">
-                            <select value="" className="unit-select">
-                              <option disabled value="">
-                                Status
-                              </option>
-                            </select>
-                            <TextField
-                              className="search-unit"
-                              placeholder="Search by unit number"
-                              onChange={(e) => this.setState({ dataSearch: e.target.value })}
-                              InputProps={{
-                                startAdornment: (
-                                  <InputAdornment position="start">
-                                    <SearchOutlinedIcon />
-                                  </InputAdornment>
-                                ),
-                              }}
-                            />
-                          </Box>
-                        </Box>
-                        <Divider />
-                        <TableContainer>
-                          <Table className="unit-table">
-                            <TableHead>
-                              <TableRow>
-                                <TableCell>#</TableCell>
-                                <TableCell>{t("Unit Number")}</TableCell>
-                                <TableCell>{t("Floor Number")}</TableCell>
-                                <TableCell>{t("Resident Name")}</TableCell>
-                                <TableCell>{t("Owner")}</TableCell>
-                                <TableCell>{t("Status")}</TableCell>
-                                <TableCell />
-                              </TableRow>
-                            </TableHead>
-                            <TableBody>
-                              {searchData.map((row) => (
-                                <TableRow key={row.no}>
-                                  <TableCell>{row.no}</TableCell>
-                                  <TableCell>{row.Unit_Number}</TableCell>
-                                  <TableCell>{row.Floor_Number}</TableCell>
-                                  <TableCell>{row.Resident_Name}</TableCell>
-                                  <TableCell>{row.Owner}</TableCell>
-                                  <TableCell>{row.Status}</TableCell>
-                                  {/* <TableCell onClick={(e: any) => this.handleMoreClick(e)}>{row.more}</TableCell> */}
-                                </TableRow>
-                              ))}
-                            </TableBody>
-                          </Table>
-                        </TableContainer>
-                        <Box className="unit-pagination">
-                          <p>
-                            {t("Showing")} <span>5</span> {t("of")} <span>{rows.length}</span> {t("results")}
-                          </p>
-                          <Pagination count={10} variant="outlined" shape="rounded" />
-                        </Box>
-                      </>
-                    </TabPanel>
-                    <TabPanel value={this.state.currentTab} index={2}>
-                      <>
-                        <Box className="top-content">
-                          <Box className="heading">
                             <h2>{t("Shared Area")}</h2>
                           </Box>
                         </Box>
@@ -495,25 +517,6 @@ class Buildings extends BuildingsController {
           </Box>
         </Box>
 
-        {this.state.imageBox && (
-          <Lightbox
-            mainSrc={images[this.state.photoIndex]}
-            nextSrc={images[(this.state.photoIndex + 1) % images.length]}
-            prevSrc={images[(this.state.photoIndex + images.length - 1) % images.length]}
-            onCloseRequest={() => this.setState({ imageBox: false })}
-            onMovePrevRequest={() =>
-              this.setState({
-                photoIndex: (this.state.photoIndex + images.length - 1) % images.length,
-              })
-            }
-            onMoveNextRequest={() =>
-              this.setState({
-                photoIndex: (this.state.photoIndex + 1) % images.length,
-              })
-            }
-          />
-        )}
-
         <Dialog
           className="edit-profile"
           open={this.state.isEditBuildingModalOpen}
@@ -566,39 +569,11 @@ class Buildings extends BuildingsController {
                 <TextareaAutosize className="about-us" placeholder="About Us" />
               </Grid>
               <Grid item md={6}>
-                <InputLabel>Building Name</InputLabel>
-                <Select fullWidth value="" className="select-box" displayEmpty input={<OutlinedInput />}>
-                  <MenuItem value="" disabled>
-                    <ListItemIcon>
-                      <img src={complexbw} alt="" />
-                    </ListItemIcon>
-                    Building Name
-                  </MenuItem>
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
-                </Select>
-              </Grid>
-              <Grid item md={6}>
-                <InputLabel>Country</InputLabel>
-                <Select fullWidth value="" className="select-box" displayEmpty input={<OutlinedInput />}>
-                  <MenuItem value="" disabled>
-                    <ListItemIcon>
-                      <img src={earthIcon} alt="" />
-                    </ListItemIcon>
-                    Country Name
-                  </MenuItem>
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
-                </Select>
-              </Grid>
-              <Grid item md={6}>
-                <InputLabel>Building Area</InputLabel>
+                <InputLabel>Complex Area</InputLabel>
                 <Input
                   className="input-with-icon"
                   fullWidth
-                  placeholder="Building Area"
+                  placeholder="Complex Area"
                   startAdornment={
                     <InputAdornment position="start">
                       <img src={sizebw} alt="icon" />
@@ -607,11 +582,11 @@ class Buildings extends BuildingsController {
                 />
               </Grid>
               <Grid item md={6}>
-                <InputLabel>Total Floors</InputLabel>
+                <InputLabel>Total Buildings</InputLabel>
                 <Input
                   className="input-with-icon"
                   fullWidth
-                  placeholder="Total Floors"
+                  placeholder="Total Buildings"
                   startAdornment={
                     <InputAdornment position="start">
                       <img src={floorIcon} alt="icon" />
@@ -649,7 +624,7 @@ class Buildings extends BuildingsController {
 }
 
 //@ts-ignore
-export default withTranslation()(withStyles(BuildingApartmentStyle)(Buildings));
+export default withTranslation()(withStyles(BuildingApartmentStyle)(Complex));
 
 const dashBoard = {
   navigation: {
@@ -658,11 +633,20 @@ const dashBoard = {
   },
   subHeading: {
     fontWeight: 600,
+    margin: 0,
   },
   buildingCount: {
     color: "#FC8434",
     fontWeight: 600,
     marginTop: 15,
+  },
+  buildingCard: {
+    color: "#FC8434",
+    fontWeight: 600,
+    marginTop: 15,
+    border: "1px solid #E4E4E4",
+    borderRadius: 10,
+    padding: 12,
   },
   tabLabel: {
     color: "#FC8434",
@@ -703,15 +687,16 @@ const dashBoard = {
     color: "#E5B08D",
     fontWeight: 600,
   },
-  gaMemberCard: {
-    display: "grid",
-    gridTemplateColumns: "3fr 3fr 3fr 3fr",
-    gap: 20,
-  },
   relatedMemberCard: {
     display: "grid",
     gridTemplateColumns: "3fr 3fr 3fr",
     gap: 20,
+  },
+  BuildingListCard: {
+    display: "grid",
+    gridTemplateColumns: "3fr 3fr 3fr",
+    gap: 20,
+    padding: 25,
   },
   profileImage: {
     borderRadius: "100%",
@@ -765,9 +750,6 @@ const dashBoard = {
     alignItems: "center",
     justifyContent: "center",
   },
-  commonFont: {
-    fontWeight: 600,
-  },
   labelsStyle: {
     color: "#212121",
     margin: "10px 0px 10px 0px",
@@ -778,6 +760,9 @@ const dashBoard = {
     // boxShadow: theme.shadows[5],
     padding: "16px 32px 24px",
     width: "700px",
+  },
+  commonFont: {
+    fontWeight: 600,
   },
   inviteInput: {
     padding: "18px 18px 18px 50px",

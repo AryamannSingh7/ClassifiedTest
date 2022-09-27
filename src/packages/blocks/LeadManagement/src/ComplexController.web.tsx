@@ -6,6 +6,7 @@ import { runEngine } from "../../../framework/src/RunEngine";
 
 // Customizable Area Start
 import * as Yup from "yup";
+import { imgPasswordInVisible, imgPasswordVisible } from "./assets";
 // Customizable Area End
 
 export const configJSON = require("./config");
@@ -38,7 +39,7 @@ interface SS {
   // Customizable Area End
 }
 
-export default class BuildingsController extends BlockComponent<Props, S, SS> {
+export default class ComplexController extends BlockComponent<Props, S, SS> {
   // Customizable Area Start
   // Customizable Area End
 
@@ -54,6 +55,7 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
     ];
 
     this.state = {
+      // Customizable Area Start
       imageBox: false,
       photoIndex: 0,
 
@@ -63,7 +65,6 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
 
       dataSearch: "",
       invitationData: "",
-      // Customizable Area Start
       // Customizable Area End
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -74,13 +75,11 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
 
   async receive(from: string, message: Message) {
     runEngine.debugLog("Message Recived", message);
-
     // Customizable Area Start
     // Customizable Area End
   }
 
   // Customizable Area Start
-
   // Handle State
   handleTabChange = (event: any, newValue: number) => {
     this.setState({ currentTab: newValue });
