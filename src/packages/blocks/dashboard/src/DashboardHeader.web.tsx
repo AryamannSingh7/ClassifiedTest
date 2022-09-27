@@ -1,9 +1,20 @@
 // Customizable Area Start
 import React from "react";
 import "./Dashboard.web.css";
-import { globalIcon, notification, chatIcon } from "./assets";
+import { globalIcon, notification, chatIcon, LogoutDialogIcon } from "./assets";
 import "../../../web/src/assets/css/style.scss";
-import { Box, Grid, IconButton, Typography, Link, MenuItem } from "@material-ui/core";
+import {
+  Box,
+  Grid,
+  IconButton,
+  Typography,
+  Link,
+  MenuItem,
+  Dialog,
+  DialogContent,
+  DialogActions,
+  Button,
+} from "@material-ui/core";
 import { ProfileIcon, LogoutIcon, buildingLogo, chairmanUser } from "./assets";
 import { Menu } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/core.css";
@@ -15,11 +26,17 @@ import i18next from "i18next";
 
 class DashboardHeader extends DashboardController {
   handleEngLngChange = () => {
+    localStorage.setItem("language", "en");
     i18next.changeLanguage("en");
   };
 
   handleAreLngChange = () => {
+    localStorage.setItem("language", "ar");
     i18next.changeLanguage("ar");
+  };
+
+  handleLogoutModal = () => {
+    this.setState({ isLogoutModalOpen: !this.state.isLogoutModalOpen });
   };
 
   logout = () => {
@@ -32,6 +49,8 @@ class DashboardHeader extends DashboardController {
   };
 
   render() {
+    const { t }: any = this.props;
+
     return (
       <Box style={dashBoard.Header}>
         <Grid container spacing={2}>
@@ -52,8 +71,18 @@ class DashboardHeader extends DashboardController {
                   align="center"
                   menuButton={<img src={globalIcon} alt="GlobalIcon" />}
                 >
-                  <MenuItem onClick={() => this.handleEngLngChange()}>English</MenuItem>
-                  <MenuItem onClick={() => this.handleAreLngChange()}>Arabicc</MenuItem>
+                  <MenuItem
+                    className={localStorage.getItem("language") === "en" ? "active" : ""}
+                    onClick={() => this.handleEngLngChange()}
+                  >
+                    English
+                  </MenuItem>
+                  <MenuItem
+                    className={localStorage.getItem("language") === "ar" ? "active" : ""}
+                    onClick={() => this.handleAreLngChange()}
+                  >
+                    Arabic
+                  </MenuItem>
                 </Menu>
               </Box>
               <img src={chatIcon} alt="GlobalIcon" style={{ marginLeft: "10px" }} />
@@ -64,7 +93,7 @@ class DashboardHeader extends DashboardController {
               <img src={chairmanUser.default} alt="ChairmanUser" width={50} style={{ borderRadius: "50%" }} />
               <Box>
                 <Typography variant="subtitle1">User Name</Typography>
-                <Typography variant="body2">Chairman</Typography>
+                <Typography variant="body2">{localStorage.getItem("userType")}</Typography>
               </Box>
             </Box>
             <Menu
@@ -78,14 +107,37 @@ class DashboardHeader extends DashboardController {
               }
             >
               <MenuItem onClick={() => this.gotoProfilePage()}>
-                <img src={ProfileIcon} alt="profile" /> Profile
+                <img src={ProfileIcon} alt="profile" /> {t("Profile")}
               </MenuItem>
-              <MenuItem onClick={() => this.logout()}>
-                <img src={LogoutIcon} alt="logout" /> Logout
+              <MenuItem onClick={() => this.handleLogoutModal()}>
+                <img src={LogoutIcon} alt="logout" /> {t("Logout")}
               </MenuItem>
             </Menu>
           </Grid>
         </Grid>
+
+        <Dialog
+          className="delete-document personal chairman-logout"
+          fullWidth
+          onClose={() => this.handleLogoutModal()}
+          open={this.state.isLogoutModalOpen}
+        >
+          <DialogContent>
+            <Box textAlign="center">
+              <img src={LogoutDialogIcon} alt="ExclamationIcon" />
+              <Typography variant="h6">{t("Are you sure you want to logout?")}</Typography>
+              <Typography variant="body1">{t("You will be returned to the login screen")}</Typography>
+              <DialogActions className="dialog-button-group">
+                <Button className="close" onClick={() => this.handleLogoutModal()}>
+                  {t("Close")}
+                </Button>
+                <Button className="logout" onClick={() => this.logout()}>
+                  {t("Logout")}
+                </Button>
+              </DialogActions>
+            </Box>
+          </DialogContent>
+        </Dialog>
       </Box>
     );
   }
@@ -150,5 +202,5 @@ const dashBoard = {
   },
 };
 
-export default DashboardHeader;
+export default withTranslation()(DashboardHeader);
 // Customizable Area End

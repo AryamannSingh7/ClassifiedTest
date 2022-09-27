@@ -26,6 +26,9 @@ interface S {
   Year: any;
   expanded: any;
   anchorEl:any;
+
+  isMenuOpen: boolean;
+  isLogoutModalOpen: boolean;
   // Customizable Area End
 }
 interface SS {
@@ -56,7 +59,10 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
       loading: false,
       Year: "",
       expanded: '',
-      anchorEl:null
+      anchorEl:null,
+
+      isLogoutModalOpen: false,
+      isMenuOpen: false,
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);

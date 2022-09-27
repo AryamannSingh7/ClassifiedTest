@@ -673,7 +673,7 @@ export const MeetingsStyleWeb: any = {
       background: "#FFFFFF",
       padding: "10px 20px",
       justifyContent: "space-between",
-      // borderBottom: "2px solid lightgray",
+      borderBottom: "1px solid lightgray",
       zIndex: "9999",
     },
     "& .top-bar .left-icon": {
@@ -793,6 +793,8 @@ export const MeetingsStyleWeb: any = {
     },
     "& .meeting-pdf .pdf-detail .heading h6": {
       fontWeight: "600",
+      width: "85%",
+      lineHeight: "20px"
     },
     "& .meeting-pdf .download-pdf img": {
       width: "20px",

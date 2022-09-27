@@ -1,0 +1,104 @@
+.countRed{
+    background: #ffdede;
+    padding: 7px 15px;
+    border-radius: 30px;
+    color: #f27200;
+    display: initial;
+    min-height: 10px;
+    text-transform: capitalize;
+    font-weight: 800 !important;
+}
+
+.add-visitor .date-time .MuiInput-underline:before,
+.add-visitor .dialog-select-input:before,
+.add-visitor .date-time .MuiInput-underline:after,
+.add-visitor .dialog-select-input:after,
+.add-visitor .dialog-input::after,
+.add-visitor .dialog-input::before {
+    content: "";
+    border: 0;
+    outline: none;
+    position: unset;
+}
+
+.add-visitor .date-time {
+    display: flex;
+    background-color: #f9f9f9;
+    align-items: center;
+    border: 1px solid lightgray;
+    padding: 15px 12px;
+    border-radius: 30px;
+    margin-top: 20px;
+}
+
+.add-visitor .date-time input.date {
+    width: 100%;
+    border: 0;
+    outline: none;
+    background: #f9f9f9;
+    padding: 4px 0;
+    min-height: 32px;
+    font-size: 16px;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 400 !important;
+    font-size: 16px;
+}
+
+.add-visitor .reject-note {
+    border-radius: 5px;
+    border: 1px solid lightgray;
+    font-size: 16px;
+    padding: 15px 26px 15px 12px;
+    color: #494949;
+    background-color: white;
+    min-height: 150px !important;
+    outline: none;
+    margin-top: 20px;
+}
+
+.add-visitor .date-time input[type="date"]::-webkit-calendar-picker-indicator,
+.add-visitor .date-time input[type="time"]::-webkit-calendar-picker-indicator {
+    color: rgba(0, 0, 0, 0);
+    opacity: 1;
+    display: block;
+    background: url(../assets/calender.png) no-repeat;
+    width: 20px;
+    height: 20px;
+    border-width: thin;
+    cursor: pointer;
+}
+
+.add-visitor .date-time input[type="time"]::-webkit-calendar-picker-indicator {
+    background: url(../assets/time.png) no-repeat;
+    margin-top: 10px;
+}
+
+.image-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 2px dashed lightgray;
+    margin-top: 10px;
+    padding: 30px 20px;
+    border-radius: 15px;
+}
+
+.add-visitor .dialog-input {
+    margin-top: 15px;
+    border-radius: 8px;
+    padding: 8px 12px;
+}
+
+.add-visitor .dialog-textarea {
+    margin-top: 15px;
+    border-radius: 8px;
+    padding: 8px 12px;
+    height: 100px !important;
+    border: 1px solid lightgray;
+    outline: none;
+    background-color: #efefef;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 400 !important;
+    font-size: 16px;
+}

@@ -5,6 +5,7 @@ import MessageEnum, {
   getName,
 } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
+import * as Yup from 'yup';
 
 // Customizable Area Start
 import { imgPasswordInVisible, imgPasswordVisible } from "./assets";
@@ -27,6 +28,8 @@ interface S {
   currentTab:any;
   dataSearch: any;
   anchorEl:any;
+  setComplexEditOpen:boolean;
+  invitationData:any;
   // Customizable Area End
 }
 
@@ -61,7 +64,9 @@ export default class BuildingandComplexController extends BlockComponent<
       enableField: false,
       currentTab:"1",
       dataSearch: "",
-      anchorEl:null
+      anchorEl:null,
+      setComplexEditOpen:false,
+      invitationData:"",
       // Customizable Area Start
       // Customizable Area End
     };
@@ -156,6 +161,32 @@ export default class BuildingandComplexController extends BlockComponent<
 
   handleMoreClick = (e: any) => {
     this.setState({anchorEl:e.currentTarget});
+  }
+
+  handleComplexEditClose = () => {
+      this.setState({setComplexEditOpen:false})
+  }
+
+  handleComplexEditOpen = () => {
+      this.setState({setComplexEditOpen:true})
+  }
+
+  invitationData = (values: any) => {
+    this.setState({invitationData:values})
+}
+
+  EditSchema() {
+    const validations = Yup.object().shape({
+        countryname: Yup.string().required(`This field is required`),
+        buildingname: Yup.string().required(`This field is required`),
+        buildingarea: Yup.string().required(`This field is required`),
+        totalfloors: Yup.string().required(`This field is required`),
+        totalunits:Yup.string().required(`This field is required`),
+        purchasedate:Yup.string().required(`This field is required`),
+        currentvaluation:Yup.string().required(`This field is required`),
+        size: Yup.string().required(`This field is required`),
+    });
+    return validations
   }
   // Customizable Area End
 }

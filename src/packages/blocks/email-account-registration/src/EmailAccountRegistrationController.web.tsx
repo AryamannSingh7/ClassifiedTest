@@ -1116,14 +1116,13 @@ console.log(attributes)
     }
 
   }
-  handleChange = (e: any) => {
 
+  handleChange = (e: any) => {
     if (e.target.value) {
       // @ts-ignore
       // @ts-nocheck
       this.setState({ ...this.state, [e.target.name]: e.target.value }, () => this.getData(e))
     }
-
   }
   //@ts-ignore
   //@ts-nocheck

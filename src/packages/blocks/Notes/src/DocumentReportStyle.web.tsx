@@ -327,8 +327,10 @@ export const DocumentReportStyleWeb: any = {
       flexDirection: "row",
       padding: 15,
       borderRadius: 10,
-      // border: "2px solid lightgray",
       background: "white",
+    },
+    "& .document-box.resolution-box": {
+      background: "#F8F9FE",
     },
     "& .document-box .item .heading": {
       display: "flex",
@@ -419,6 +421,7 @@ export const DocumentReportStyleWeb: any = {
       fontSize: "14px",
       marginLeft: "5px",
       textTransform: "capitalize",
+      lineHeight: "18px",
     },
     "& .document-box .meeting-item": {
       minHeight: "34px",
@@ -441,6 +444,7 @@ export const DocumentReportStyleWeb: any = {
     "& .view .item-title h6": {
       fontWeight: "600",
       marginLeft: "10px",
+      lineHeight: "18px",
     },
     "& .view": {
       marginTop: "15px",

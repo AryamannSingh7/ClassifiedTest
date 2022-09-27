@@ -1,12 +1,11 @@
 import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
-import MessageEnum, {
-  getName,
-} from "../../../framework/src/Messages/MessageEnum";
+import MessageEnum, { getName } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
 
 // Customizable Area Start
+import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
 // Customizable Area End
 
 export const configJSON = require("./config.js");
@@ -36,11 +35,7 @@ interface SS {
   id: any;
 }
 
-export default class BuildingDocumentListController extends BlockComponent<
-  Props,
-  S,
-  SS
-> {
+export default class BuildingDocumentListController extends BlockComponent<Props, S, SS> {
   DocumentsCallId: any;
   ResolutionsCallId: any;
 
@@ -49,10 +44,7 @@ export default class BuildingDocumentListController extends BlockComponent<
     this.receive = this.receive.bind(this);
     console.disableYellowBox = true;
     // Customizable Area Start
-    this.subScribedMessages = [
-      getName(MessageEnum.RestAPIResponceMessage),
-      getName(MessageEnum.RestAPIRequestMessage),
-    ];
+    this.subScribedMessages = [getName(MessageEnum.RestAPIResponceMessage), getName(MessageEnum.RestAPIRequestMessage)];
 
     this.state = {
       isShareModalOpen: false,
@@ -74,14 +66,11 @@ export default class BuildingDocumentListController extends BlockComponent<
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.DocumentsCallId !== null &&
-      this.DocumentsCallId ===
-        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+      this.DocumentsCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.DocumentsCallId = null;
 
-      var responseJson = message.getData(
-        getName(MessageEnum.RestAPIResponceSuccessMessage)
-      );
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson.data) {
         this.setState({
@@ -90,29 +79,24 @@ export default class BuildingDocumentListController extends BlockComponent<
         });
       }
 
-      var errorReponse = message.getData(
-        getName(MessageEnum.RestAPIResponceErrorMessage)
-      );
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
         runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
       } else {
-        this.parseApiErrorResponse(responseJson);
+        ApiErrorResponse(responseJson);
       }
-      this.parseApiCatchErrorResponse(errorReponse);
+      ApiCatchErrorResponse(errorResponse);
     }
 
     // Get Resolutions
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.ResolutionsCallId !== null &&
-      this.ResolutionsCallId ===
-        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+      this.ResolutionsCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.ResolutionsCallId = null;
 
-      var responseJson = message.getData(
-        getName(MessageEnum.RestAPIResponceSuccessMessage)
-      );
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson.code === 200) {
         this.setState({
@@ -121,15 +105,13 @@ export default class BuildingDocumentListController extends BlockComponent<
         });
       }
 
-      var errorReponse = message.getData(
-        getName(MessageEnum.RestAPIResponceErrorMessage)
-      );
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
         runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
       } else {
-        this.parseApiErrorResponse(responseJson);
+        ApiErrorResponse(responseJson);
       }
-      this.parseApiCatchErrorResponse(errorReponse);
+      ApiCatchErrorResponse(errorResponse);
     }
     // Customizable Area End
   }
@@ -181,20 +163,11 @@ export default class BuildingDocumentListController extends BlockComponent<
       APIEndpoint = `society_managements/${society_id}/bx_block_my_document/building_plan_document`;
     }
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      APIEndpoint
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIResponceEndPointMessage), APIEndpoint);
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypeGet
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
@@ -217,15 +190,9 @@ export default class BuildingDocumentListController extends BlockComponent<
       `society_managements/${society_id}/bx_block_my_document/resolutions`
     );
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypeGet
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
