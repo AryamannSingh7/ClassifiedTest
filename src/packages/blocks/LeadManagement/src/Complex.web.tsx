@@ -87,13 +87,6 @@ const settings = {
   swipeToSlide: true,
 };
 
-const images = [
-  "//placekitten.com/1500/500",
-  "//placekitten.com/4000/3000",
-  "//placekitten.com/800/1200",
-  "//placekitten.com/1500/1500",
-];
-
 class Complex extends ComplexController {
   constructor(props: Props) {
     super(props);
@@ -103,13 +96,15 @@ class Complex extends ComplexController {
     const { t }: any = this.props;
     const { classes } = this.props;
 
-    var searchData = rows.filter((item) => {
+    var searchData = this.state.complexData.buildingList.filter((building: any) => {
       if (this.state.dataSearch === "") {
-        return item;
-      } else if (item.Unit_Number.toLowerCase().includes(this.state.dataSearch.toLowerCase())) {
-        return item;
+        return building;
+      } else if (building.Unit_Number.toLowerCase().includes(this.state.dataSearch.toLowerCase())) {
+        return building;
       }
     });
+
+    console.log(this.state);
 
     return (
       <>
@@ -128,7 +123,7 @@ class Complex extends ComplexController {
                     <Typography variant="body1">
                       {t("Complex & Apartments")} /{" "}
                       <Box component="span" style={{ color: "blue" }}>
-                        {t("Complex ")}
+                        {t("Complex")}
                       </Box>
                     </Typography>
                   </Box>
@@ -138,7 +133,7 @@ class Complex extends ComplexController {
                   <Grid container style={dashBoard.gaMemberMain}>
                     <Grid item xs={6}>
                       <Typography variant="h5" style={dashBoard.subHeading}>
-                        {t("Buildings & Apartments")}
+                        {t("Complex")}
                       </Typography>
                     </Grid>
                     <Grid item xs={12} sm={2}>
@@ -158,10 +153,10 @@ class Complex extends ComplexController {
                   <Card>
                     <Box className="building-info-top">
                       <Box className="building-info-left">
-                        <img src={bentalyLogo} alt="logo" />
+                        <img src={this.state.complexData.logo} alt="" />
                         <Box className="building-name-country">
-                          <h4>Building Name</h4>
-                          <p>Abu Dhabi</p>
+                          <h4>{this.state.complexData.complexName}</h4>
+                          <p>{this.state.complexData.country}</p>
                         </Box>
                       </Box>
                       <Box className="building-info-right">
@@ -171,27 +166,13 @@ class Complex extends ComplexController {
                     </Box>
                     <Box className="building-info-bottom">
                       <Slider {...settings}>
-                        <div onClick={() => this.setState({ imageBox: true })}>
-                          <img src="https://tinyurl.com/5dznmsms" alt="" />
-                        </div>
-                        <div onClick={() => this.setState({ imageBox: true })}>
-                          <img src="https://tinyurl.com/5dznmsms" alt="" />
-                        </div>
-                        <div onClick={() => this.setState({ imageBox: true })}>
-                          <img src="https://tinyurl.com/5dznmsms" alt="" />
-                        </div>
-                        <div onClick={() => this.setState({ imageBox: true })}>
-                          <img src="https://tinyurl.com/5dznmsms" alt="" />
-                        </div>
-                        <div onClick={() => this.setState({ imageBox: true })}>
-                          <img src="https://tinyurl.com/5dznmsms" alt="" />
-                        </div>
-                        <div onClick={() => this.setState({ imageBox: true })}>
-                          <img src="https://tinyurl.com/5dznmsms" alt="" />
-                        </div>
-                        <div onClick={() => this.setState({ imageBox: true })}>
-                          <img src="https://tinyurl.com/5dznmsms" alt="" />
-                        </div>
+                        {this.state.complexData.photos.map((image: any, index: number) => {
+                          return (
+                            <div onClick={() => this.setState({ imageBox: true, photoIndex: index })}>
+                              <img src="https://tinyurl.com/5dznmsms" alt="" />
+                            </div>
+                          );
+                        })}
                       </Slider>
                     </Box>
                   </Card>
@@ -199,18 +180,27 @@ class Complex extends ComplexController {
 
                 {this.state.imageBox && (
                   <Lightbox
-                    mainSrc={images[this.state.photoIndex]}
-                    nextSrc={images[(this.state.photoIndex + 1) % images.length]}
-                    prevSrc={images[(this.state.photoIndex + images.length - 1) % images.length]}
+                    mainSrc={this.state.complexData.photos[this.state.photoIndex]}
+                    nextSrc={
+                      this.state.complexData.photos[(this.state.photoIndex + 1) % this.state.complexData.photos.length]
+                    }
+                    prevSrc={
+                      this.state.complexData.photos[
+                        (this.state.photoIndex + this.state.complexData.photos.length - 1) %
+                          this.state.complexData.photos.length
+                      ]
+                    }
                     onCloseRequest={() => this.setState({ imageBox: false })}
                     onMovePrevRequest={() =>
                       this.setState({
-                        photoIndex: (this.state.photoIndex + images.length - 1) % images.length,
+                        photoIndex:
+                          (this.state.photoIndex + this.state.complexData.photos.length - 1) %
+                          this.state.complexData.photos.length,
                       })
                     }
                     onMoveNextRequest={() =>
                       this.setState({
-                        photoIndex: (this.state.photoIndex + 1) % images.length,
+                        photoIndex: (this.state.photoIndex + 1) % this.state.complexData.photos.length,
                       })
                     }
                   />
@@ -219,12 +209,7 @@ class Complex extends ComplexController {
                 <Box className="about-building">
                   <Card>
                     <h4> {t("About Complex")}</h4>
-                    <p>
-                      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                      the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of
-                      type and scrambled it to make a type specimen book. It has survived not only five centuries, but
-                      also the leap into electronic typesetting, remaining essentially unchanged
-                    </p>
+                    <p>{this.state.complexData.aboutUs}</p>
                   </Card>
                 </Box>
 
@@ -236,8 +221,11 @@ class Complex extends ComplexController {
                       </Box>
                       <TextField
                         className="search-unit"
+                        value={this.state.dataSearch}
                         placeholder="Search by building name"
-                        onChange={(e) => {}}
+                        onChange={(e: any) => {
+                          this.setState({ dataSearch: e.target.value });
+                        }}
                         InputProps={{
                           startAdornment: (
                             <InputAdornment position="start">
@@ -250,72 +238,17 @@ class Complex extends ComplexController {
                     <Divider />
                     <Box className="bottom-content">
                       <Grid container spacing={2}>
-                        <Grid item xs={4}>
-                          <Box className="building-box">
-                            <h5>Building 1</h5>
-                          </Box>
-                        </Grid>
-                        <Grid item xs={4}>
-                          <Box className="building-box">
-                            <h5>Building 1</h5>
-                          </Box>
-                        </Grid>
-                        <Grid item xs={4}>
-                          <Box className="building-box">
-                            <h5>Building 1</h5>
-                          </Box>
-                        </Grid>
-                        <Grid item xs={4}>
-                          <Box className="building-box">
-                            <h5>Building 1</h5>
-                          </Box>
-                        </Grid>
-                        <Grid item xs={4}>
-                          <Box className="building-box">
-                            <h5>Building 1</h5>
-                          </Box>
-                        </Grid>
-                        <Grid item xs={4}>
-                          <Box className="building-box">
-                            <h5>Building 1</h5>
-                          </Box>
-                        </Grid>
+                        {searchData.map((building: any) => {
+                          return (
+                            <Grid item xs={4}>
+                              <Box className="building-box">
+                                <h5>-Building 1-</h5>
+                              </Box>
+                            </Grid>
+                          );
+                        })}
                       </Grid>
                     </Box>
-                    {/* <Box style={{ marginTop: "50px" }}>
-                      <div style={dashBoard.BuildingListCard}>
-                        <div
-                          style={{ textAlign: "center", cursor: "pointer" }}
-                          onClick={() => this.props.navigation.navigate("BuildingandComplex")}
-                        >
-                          <Typography variant="h5" style={dashBoard.buildingCard}>
-                            Building 1
-                          </Typography>
-                        </div>
-
-                        <div style={{ textAlign: "center", cursor: "pointer" }}>
-                          <Typography variant="h5" style={dashBoard.buildingCard}>
-                            Building 2
-                          </Typography>
-                        </div>
-
-                        <div style={{ textAlign: "center", cursor: "pointer" }}>
-                          <Typography variant="h5" style={dashBoard.buildingCard}>
-                            Building 3
-                          </Typography>
-                        </div>
-                        <div style={{ textAlign: "center", cursor: "pointer" }}>
-                          <Typography variant="h5" style={dashBoard.buildingCard}>
-                            Building 4
-                          </Typography>
-                        </div>
-                        <div style={{ textAlign: "center", cursor: "pointer" }}>
-                          <Typography variant="h5" style={dashBoard.buildingCard}>
-                            Building 5
-                          </Typography>
-                        </div>
-                      </div>
-                    </Box> */}
                   </Card>
                 </Box>
 
@@ -323,20 +256,20 @@ class Complex extends ComplexController {
                   <Grid container spacing={2}>
                     <Grid item sm={4}>
                       <Card>
-                        <p>{t("Building Area")}</p>
-                        <h2>1500 sqft</h2>
+                        <p>{t("Complex Area")}</p>
+                        <h2>{this.state.complexData.complexArea || "-"}</h2>
                       </Card>
                     </Grid>
                     <Grid item sm={4}>
                       <Card>
-                        <p>{t("Total Floors")}</p>
-                        <h2>1500 sqft</h2>
+                        <p>{t("Total Buildings")}</p>
+                        <h2>{this.state.complexData.totalBuilding}</h2>
                       </Card>
                     </Grid>
                     <Grid item sm={4}>
                       <Card>
                         <p>{t("Total Units")}</p>
-                        <h2>1500 sqft</h2>
+                        <h2>{this.state.complexData.totalUnits}</h2>
                       </Card>
                     </Grid>
                   </Grid>
@@ -354,10 +287,12 @@ class Complex extends ComplexController {
                           <Box className="heading">
                             <h2>{t("Documents")}</h2>
                           </Box>
-                          <Box className="right-content">
-                            <img src={upload} alt="|" />
-                            <span>Upload</span>
-                          </Box>
+                          <Link href="/DocumentChairman">
+                            <Box className="right-content">
+                              <img src={upload} alt="|" />
+                              <span>Upload</span>
+                            </Box>
+                          </Link>
                         </Box>
                         <Divider />
                         <Box className="document-box">
@@ -369,12 +304,9 @@ class Complex extends ComplexController {
                                     <img src={Document} />
                                     <h4>{t("Policy")}</h4>
                                   </div>
-                                  <Button className="color-btn">{/* {this.state.policy}  */}0</Button>
-                                  {/* {this.state.policy > 0 && (
-                                      <Button className="color-btn">
-                                        {this.state.policy}
-                                      </Button>
-                                    )} */}
+                                  {this.state.documentCount.policy > 0 && (
+                                    <Button className="color-btn">{this.state.documentCount.policy}</Button>
+                                  )}
                                 </Box>
                               </Link>
                             </Grid>
@@ -385,12 +317,9 @@ class Complex extends ComplexController {
                                     <img src={Document} />
                                     <h4>{t("Guidelines")}</h4>
                                   </div>
-                                  <Button className="color-btn">{/* {this.state.policy}  */}0</Button>
-                                  {/* {this.state.guidelines > 0 && (
-                                      <Button className="color-btn">
-                                        {this.state.guidelines}
-                                      </Button>
-                                    )} */}
+                                  {this.state.documentCount.guidelines > 0 && (
+                                    <Button className="color-btn">{this.state.documentCount.guidelines}</Button>
+                                  )}
                                 </Box>
                               </Link>
                             </Grid>
@@ -401,12 +330,9 @@ class Complex extends ComplexController {
                                     <img src={Document} />
                                     <h4>{t("Roles")}</h4>
                                   </div>
-                                  <Button className="color-btn">{/* {this.state.policy}  */}0</Button>
-                                  {/* {this.state.roles > 0 && (
-                                      <Button className="color-btn">
-                                        {this.state.roles}
-                                      </Button>
-                                    )} */}
+                                  {this.state.documentCount.roles > 0 && (
+                                    <Button className="color-btn">{this.state.documentCount.roles}</Button>
+                                  )}
                                 </Box>
                               </Link>
                             </Grid>
@@ -417,12 +343,9 @@ class Complex extends ComplexController {
                                     <img src={Document} />
                                     <h4>{t("Resolution")}</h4>
                                   </div>
-                                  <Button className="color-btn">{/* {this.state.policy}  */}0</Button>
-                                  {/* {this.state.resolution > 0 && (
-                                      <Button className="color-btn">
-                                        {this.state.resolution}
-                                      </Button>
-                                    )} */}
+                                  {this.state.documentCount.resolution > 0 && (
+                                    <Button className="color-btn">{this.state.documentCount.resolution}</Button>
+                                  )}
                                 </Box>
                               </Link>
                             </Grid>
@@ -433,12 +356,9 @@ class Complex extends ComplexController {
                                     <img src={Document} />
                                     <h4>{t("Building Plans")}</h4>
                                   </div>
-                                  <Button className="color-btn">{/* {this.state.policy}  */}0</Button>
-                                  {/* {this.state.buildingPlans > 0 && (
-                                      <Button className="color-btn">
-                                        {this.state.buildingPlans}
-                                      </Button>
-                                    )} */}
+                                  {this.state.documentCount.buildingPlans > 0 && (
+                                    <Button className="color-btn">{this.state.documentCount.buildingPlans}</Button>
+                                  )}
                                 </Box>
                               </Link>
                             </Grid>
@@ -533,16 +453,41 @@ class Complex extends ComplexController {
           <DialogContent dividers>
             <Box className="profile-picture">
               <img src={bentalyLogo} alt="profile" className="picture building" />
-              <p>Change Logo</p>
+              <p onClick={() => this.uploadLogo.click()}>Change Logo</p>
+              <input
+                type="file"
+                ref={(ref: any) => (this.uploadLogo = ref)}
+                style={{ display: "none" }}
+                accept="image/*"
+                onChange={(e: any) => {
+                  console.log(e.currentTarget.files[0]);
+                  // setFieldValue("file", e.currentTarget.files[0]);
+                }}
+                // onBlur={handleBlur}
+                name="file"
+              />
             </Box>
             <Grid container spacing={2} className="edit-building">
               <Grid item md={12}>
                 <InputLabel>Upload Photos</InputLabel>
                 <Grid container spacing={4}>
                   <Grid item md={3}>
-                    <Box className="upload-photo">
+                    <Box className="upload-photo" onClick={() => this.uploadImages.click()}>
                       <img src={uploadbw} alt="" />
                     </Box>
+                    <input
+                      type="file"
+                      ref={(ref: any) => (this.uploadImages = ref)}
+                      style={{ display: "none" }}
+                      accept="image/*"
+                      onChange={(e: any) => {
+                        console.log(e.currentTarget.files[0]);
+                        // setFieldValue("file", e.currentTarget.files[0]);
+                      }}
+                      // onBlur={handleBlur}
+                      name="file"
+                      multiple
+                    />
                   </Grid>
                   <Grid item md={3}>
                     <Box className="building-image">
@@ -592,6 +537,7 @@ class Complex extends ComplexController {
                       <img src={floorIcon} alt="icon" />
                     </InputAdornment>
                   }
+                  readOnly
                 />
               </Grid>
               <Grid item md={12}>
@@ -605,6 +551,7 @@ class Complex extends ComplexController {
                       <img src={unitbw} alt="icon" />
                     </InputAdornment>
                   }
+                  readOnly
                 />
               </Grid>
             </Grid>

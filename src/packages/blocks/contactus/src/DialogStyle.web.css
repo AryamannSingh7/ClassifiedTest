@@ -700,6 +700,10 @@
   margin: 20px;
 }
 
+.edit-profile .profile-picture p {
+  cursor: pointer;
+}
+
 .add-meeting input::placeholder,
 .add-meeting textarea::placeholder {
   color: black;
@@ -949,6 +953,6 @@
   min-width: 30px;
 }
 
-.edit-building .input-with-icon{
+.edit-building .input-with-icon {
   padding: 10px;
 }
