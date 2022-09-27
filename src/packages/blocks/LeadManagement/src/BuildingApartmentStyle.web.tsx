@@ -37,6 +37,7 @@ export const BuildingApartmentStyle: any = {
     "& .building-info .MuiCard-root": {
       boxShadow: "none",
       padding: "15px",
+      borderRadius: "8px",
     },
     "& .building-info": {
       marginTop: 12,
@@ -239,6 +240,44 @@ export const BuildingApartmentStyle: any = {
     "& .building-list .bottom-content .building-box h5": {
       color: "#FC8434",
       fontWeight: 600,
+    },
+    "& .building-info .shared-area-image": {
+      margin: 0,
+    },
+    "& .about-building .bottom-detail": {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      marginTop: "20px",
+    },
+    "& .about-building .bottom-detail p": {
+      color: "black",
+      marginBottom: "10px",
+    },
+    "& .about-building .bottom-detail p span": {
+      color: "#FC8434",
+      fontWeight: 600,
+    },
+    "& .about-building .bottom-detail .right-detail": {
+      border: "2px solid lightgrey",
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      padding: "10px",
+      borderRadius: "8px",
+      width: "280px",
+    },
+    "& .about-building .bottom-detail .right-detail .name": {
+      display: "flex",
+      alignItems: "center",
+      gap: "12px",
+    },
+    "& .about-building .bottom-detail .right-detail .name h6": {
+      fontWeight: 600,
+    },
+    "& .shared-table .MuiCard-root": {
+      boxShadow: "none",
+      borderRadius: "8px",
     },
   },
   unitDetails: {
