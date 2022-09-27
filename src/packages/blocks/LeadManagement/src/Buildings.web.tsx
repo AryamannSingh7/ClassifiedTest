@@ -269,10 +269,12 @@ class Buildings extends BuildingsController {
                           <Box className="heading">
                             <h2>{t("Documents")}</h2>
                           </Box>
-                          <Box className="right-content">
-                            <img src={upload} alt="|" />
-                            <span>Upload</span>
-                          </Box>
+                          <Link href="/DocumentChairman">
+                            <Box className="right-content">
+                              <img src={upload} alt="|" />
+                              <span>Upload</span>
+                            </Box>
+                          </Link>
                         </Box>
                         <Divider />
                         <Box className="document-box">
@@ -284,12 +286,9 @@ class Buildings extends BuildingsController {
                                     <img src={Document} />
                                     <h4>{t("Policy")}</h4>
                                   </div>
-                                  <Button className="color-btn">{/* {this.state.policy}  */}0</Button>
-                                  {/* {this.state.policy > 0 && (
-                                      <Button className="color-btn">
-                                        {this.state.policy}
-                                      </Button>
-                                    )} */}
+                                  {this.state.documentCount.policy > 0 && (
+                                    <Button className="color-btn">{this.state.documentCount.policy}</Button>
+                                  )}
                                 </Box>
                               </Link>
                             </Grid>
@@ -300,12 +299,9 @@ class Buildings extends BuildingsController {
                                     <img src={Document} />
                                     <h4>{t("Guidelines")}</h4>
                                   </div>
-                                  <Button className="color-btn">{/* {this.state.policy}  */}0</Button>
-                                  {/* {this.state.guidelines > 0 && (
-                                      <Button className="color-btn">
-                                        {this.state.guidelines}
-                                      </Button>
-                                    )} */}
+                                  {this.state.documentCount.guidelines > 0 && (
+                                    <Button className="color-btn">{this.state.documentCount.guidelines}</Button>
+                                  )}
                                 </Box>
                               </Link>
                             </Grid>
@@ -316,12 +312,9 @@ class Buildings extends BuildingsController {
                                     <img src={Document} />
                                     <h4>{t("Roles")}</h4>
                                   </div>
-                                  <Button className="color-btn">{/* {this.state.policy}  */}0</Button>
-                                  {/* {this.state.roles > 0 && (
-                                      <Button className="color-btn">
-                                        {this.state.roles}
-                                      </Button>
-                                    )} */}
+                                  {this.state.documentCount.roles > 0 && (
+                                    <Button className="color-btn">{this.state.documentCount.roles}</Button>
+                                  )}
                                 </Box>
                               </Link>
                             </Grid>
@@ -332,12 +325,9 @@ class Buildings extends BuildingsController {
                                     <img src={Document} />
                                     <h4>{t("Resolution")}</h4>
                                   </div>
-                                  <Button className="color-btn">{/* {this.state.policy}  */}0</Button>
-                                  {/* {this.state.resolution > 0 && (
-                                      <Button className="color-btn">
-                                        {this.state.resolution}
-                                      </Button>
-                                    )} */}
+                                  {this.state.documentCount.resolution > 0 && (
+                                    <Button className="color-btn">{this.state.documentCount.resolution}</Button>
+                                  )}
                                 </Box>
                               </Link>
                             </Grid>
@@ -348,12 +338,9 @@ class Buildings extends BuildingsController {
                                     <img src={Document} />
                                     <h4>{t("Building Plans")}</h4>
                                   </div>
-                                  <Button className="color-btn">{/* {this.state.policy}  */}0</Button>
-                                  {/* {this.state.buildingPlans > 0 && (
-                                      <Button className="color-btn">
-                                        {this.state.buildingPlans}
-                                      </Button>
-                                    )} */}
+                                  {this.state.documentCount.buildingPlans > 0 && (
+                                    <Button className="color-btn">{this.state.documentCount.buildingPlans}</Button>
+                                  )}
                                 </Box>
                               </Link>
                             </Grid>

@@ -39,28 +39,6 @@ import { BuildingApartmentStyle } from "./BuildingApartmentStyle.web";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
 
-function createData(
-  no: any,
-  Unit_Number: any,
-  Floor_Number: any,
-  Resident_Name: any,
-  Owner: any,
-  Status: any,
-  more: any
-) {
-  return { no, Unit_Number, Floor_Number, Resident_Name, Owner, Status, more };
-}
-
-const rows = [
-  createData(1, "A202", "15", "Anaru Hakopa", "Andries Grootoonk", "Rented", <MoreVertIcon color="disabled" />),
-  createData(2, "A203", "15", "Anaru Hakopa", "Florieke Krebber", "Empty", <MoreVertIcon color="disabled" />),
-  createData(3, "A204", "15", "Beatriz Brito", "Gabriel Soares", "Occupied", <MoreVertIcon color="disabled" />),
-  createData(4, "A205", "15", "-", "Miriam de Jesús", "Empty", <MoreVertIcon color="disabled" />),
-  createData(5, "A206", "15", "Mbah Enow", "Slavcho Karbashewski", "Occupied", <MoreVertIcon color="disabled" />),
-  createData(6, "A207", "15", "-", "Somun Ae-Ri", "Rented", <MoreVertIcon color="disabled" />),
-  createData(7, "A208", "15", "Sakane Miiko", "Somun Ae-Ri", "Empty", <MoreVertIcon color="disabled" />),
-];
-
 const TabPanel = (props: any) => {
   const { children, value, index, ...other } = props;
 
@@ -143,7 +121,7 @@ class Complex extends ComplexController {
                         color="primary"
                         onClick={() => this.handleEditBuildingModal()}
                       >
-                        Edit Details
+                        {t("Edit Details")}
                       </Button>
                     </Grid>
                   </Grid>
@@ -156,12 +134,12 @@ class Complex extends ComplexController {
                         <img src={this.state.complexData.logo} alt="" />
                         <Box className="building-name-country">
                           <h4>{this.state.complexData.complexName}</h4>
-                          <p>{this.state.complexData.country}</p>
+                          <p>{this.state.complexData.country || "-"}</p>
                         </Box>
                       </Box>
                       <Box className="building-info-right">
                         <img src={location} alt="|" />
-                        <span>See building on map</span>
+                        <span>{t("See building on map")}</span>
                       </Box>
                     </Box>
                     <Box className="building-info-bottom">
@@ -178,7 +156,7 @@ class Complex extends ComplexController {
                   </Card>
                 </Box>
 
-                {this.state.imageBox && (
+                {this.state.imageBox && this.state.complexData.photos.length > 0 && (
                   <Lightbox
                     mainSrc={this.state.complexData.photos[this.state.photoIndex]}
                     nextSrc={
@@ -209,7 +187,7 @@ class Complex extends ComplexController {
                 <Box className="about-building">
                   <Card>
                     <h4> {t("About Complex")}</h4>
-                    <p>{this.state.complexData.aboutUs}</p>
+                    <p>{this.state.complexData.aboutUs || "-"}</p>
                   </Card>
                 </Box>
 
@@ -217,12 +195,12 @@ class Complex extends ComplexController {
                   <Card>
                     <Box className="top-content">
                       <Box className="heading">
-                        <h4>Buildings</h4>
+                        <h4>{t("Buildings")}</h4>
                       </Box>
                       <TextField
                         className="search-unit"
                         value={this.state.dataSearch}
-                        placeholder="Search by building name"
+                        placeholder={t("Search by building name")}
                         onChange={(e: any) => {
                           this.setState({ dataSearch: e.target.value });
                         }}
@@ -238,6 +216,7 @@ class Complex extends ComplexController {
                     <Divider />
                     <Box className="bottom-content">
                       <Grid container spacing={2}>
+                        {searchData.length === 0 && <p>{t("No Building Available")}</p>}
                         {searchData.map((building: any) => {
                           return (
                             <Grid item xs={4}>
@@ -290,7 +269,7 @@ class Complex extends ComplexController {
                           <Link href="/DocumentChairman">
                             <Box className="right-content">
                               <img src={upload} alt="|" />
-                              <span>Upload</span>
+                              <span>{t("Upload")}</span>
                             </Box>
                           </Link>
                         </Box>
@@ -445,7 +424,7 @@ class Complex extends ComplexController {
           maxWidth="md"
         >
           <MuiDialogTitle disableTypography className="dialog-heading">
-            <Typography variant="h6">Edit Details</Typography>
+            <Typography variant="h6">{t("Edit Details")}</Typography>
             <IconButton onClick={() => this.handleEditBuildingModal()}>
               <CloseIcon />
             </IconButton>
@@ -453,7 +432,7 @@ class Complex extends ComplexController {
           <DialogContent dividers>
             <Box className="profile-picture">
               <img src={bentalyLogo} alt="profile" className="picture building" />
-              <p onClick={() => this.uploadLogo.click()}>Change Logo</p>
+              <p onClick={() => this.uploadLogo.click()}>{t("Change Logo")}</p>
               <input
                 type="file"
                 ref={(ref: any) => (this.uploadLogo = ref)}
@@ -469,7 +448,7 @@ class Complex extends ComplexController {
             </Box>
             <Grid container spacing={2} className="edit-building">
               <Grid item md={12}>
-                <InputLabel>Upload Photos</InputLabel>
+                <InputLabel>{t("Upload Photos")}</InputLabel>
                 <Grid container spacing={4}>
                   <Grid item md={3}>
                     <Box className="upload-photo" onClick={() => this.uploadImages.click()}>
@@ -510,15 +489,15 @@ class Complex extends ComplexController {
                 </Grid>
               </Grid>
               <Grid item md={12}>
-                <InputLabel>About Us</InputLabel>
-                <TextareaAutosize className="about-us" placeholder="About Us" />
+                <InputLabel>{t("About Us")}</InputLabel>
+                <TextareaAutosize className="about-us" placeholder={t("About Us")} />
               </Grid>
               <Grid item md={6}>
-                <InputLabel>Complex Area</InputLabel>
+                <InputLabel>{t("Complex Area")}</InputLabel>
                 <Input
                   className="input-with-icon"
                   fullWidth
-                  placeholder="Complex Area"
+                  placeholder={t("Complex Area")}
                   startAdornment={
                     <InputAdornment position="start">
                       <img src={sizebw} alt="icon" />
@@ -527,11 +506,11 @@ class Complex extends ComplexController {
                 />
               </Grid>
               <Grid item md={6}>
-                <InputLabel>Total Buildings</InputLabel>
+                <InputLabel>{t("Total Buildings")}</InputLabel>
                 <Input
                   className="input-with-icon"
                   fullWidth
-                  placeholder="Total Buildings"
+                  placeholder={t("Total Buildings")}
                   startAdornment={
                     <InputAdornment position="start">
                       <img src={floorIcon} alt="icon" />
@@ -541,11 +520,11 @@ class Complex extends ComplexController {
                 />
               </Grid>
               <Grid item md={12}>
-                <InputLabel>Total Units</InputLabel>
+                <InputLabel>{t("Total Units")}</InputLabel>
                 <Input
                   className="input-with-icon"
                   fullWidth
-                  placeholder="Total Units"
+                  placeholder={t("Total Units")}
                   startAdornment={
                     <InputAdornment position="start">
                       <img src={unitbw} alt="icon" />
@@ -558,9 +537,9 @@ class Complex extends ComplexController {
           </DialogContent>
           <DialogActions className="dialog-button-group">
             <Button className="cancel-button" onClick={() => this.handleEditBuildingModal()}>
-              Cancel
+              {t("Cancel")}
             </Button>
-            <Button className="add-button">Save</Button>
+            <Button className="add-button">{t("Save")}</Button>
           </DialogActions>
         </Dialog>
 

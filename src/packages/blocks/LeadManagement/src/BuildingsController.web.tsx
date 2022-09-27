@@ -6,6 +6,7 @@ import { runEngine } from "../../../framework/src/RunEngine";
 
 // Customizable Area Start
 import * as Yup from "yup";
+import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
 // Customizable Area End
 
 export const configJSON = require("./config");
@@ -18,6 +19,14 @@ export interface Props {
   // Customizable Area End
 }
 
+interface DocumentCount {
+  policy: number;
+  guidelines: number;
+  roles: number;
+  resolution: number;
+  buildingPlans: number;
+}
+
 interface S {
   // Customizable Area Start
   imageBox: boolean;
@@ -28,7 +37,8 @@ interface S {
   isEditBuildingModalOpen: boolean;
 
   dataSearch: any;
-  invitationData: any;
+
+  documentCount: DocumentCount;
   // Customizable Area End
 }
 
@@ -39,19 +49,14 @@ interface SS {
 }
 
 export default class BuildingsController extends BlockComponent<Props, S, SS> {
-  // Customizable Area Start
-  // Customizable Area End
+  GetDocumentCountCallId: any;
 
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
 
     // Customizable Area Start
-    this.subScribedMessages = [
-      getName(MessageEnum.AccoutLoginSuccess),
-      // Customizable Area Start
-      // Customizable Area End
-    ];
+    this.subScribedMessages = [getName(MessageEnum.RestAPIResponceMessage), getName(MessageEnum.RestAPIRequestMessage)];
 
     this.state = {
       imageBox: false,
@@ -62,7 +67,14 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
       isEditBuildingModalOpen: false,
 
       dataSearch: "",
-      invitationData: "",
+
+      documentCount: {
+        policy: 0,
+        guidelines: 0,
+        roles: 0,
+        resolution: 0,
+        buildingPlans: 0,
+      },
       // Customizable Area Start
       // Customizable Area End
     };
@@ -76,18 +88,72 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
     runEngine.debugLog("Message Recived", message);
 
     // Customizable Area Start
+    // Get Document Count API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.GetDocumentCountCallId !== null &&
+      this.GetDocumentCountCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.GetDocumentCountCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      if (responseJson.data) {
+        this.setState({
+          documentCount: {
+            policy: responseJson.data.policy_count,
+            guidelines: responseJson.data.guideline_count,
+            roles: responseJson.data.role_count,
+            resolution: responseJson.data.resolution_count,
+            buildingPlans: responseJson.data.building_plan_count,
+          },
+        });
+      }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
     // Customizable Area End
   }
 
-  // Customizable Area Start
+  async componentDidMount(): Promise<void> {
+    this.getDocumentCount();
+  }
+
+  // Get Complex Details API
+  // Get Document Count API
+  getDocumentCount = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.GetDocumentCountCallId = apiRequest.messageId;
+
+    const society_id = localStorage.getItem("society_id");
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `society_managements/${society_id}/bx_block_my_document/document_count`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
 
   // Handle State
   handleTabChange = (event: any, newValue: number) => {
     this.setState({ currentTab: newValue });
-  };
-
-  invitationData = (values: any) => {
-    this.setState({ invitationData: values });
   };
 
   handleEditBuildingModal = () => {
