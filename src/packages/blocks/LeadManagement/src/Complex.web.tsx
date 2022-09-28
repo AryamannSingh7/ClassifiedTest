@@ -50,6 +50,7 @@ import {
 import { BuildingApartmentStyle } from "./BuildingApartmentStyle.web";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
+import { Formik, Form } from "formik";
 
 const TabPanel = (props: any) => {
   const { children, value, index, ...other } = props;
@@ -131,7 +132,7 @@ class Complex extends ComplexController {
                         className="edit-button"
                         variant="contained"
                         color="primary"
-                        onClick={() => this.handleEditBuildingModal()}
+                        onClick={() => this.openEditBuildingModal()}
                       >
                         {t("Edit Details")}
                       </Button>
@@ -161,7 +162,7 @@ class Complex extends ComplexController {
                             {this.state.complexData.photos.map((image: any, index: number) => {
                               return (
                                 <div onClick={() => this.setState({ imageBox: true, photoIndex: index })}>
-                                  <img src="https://tinyurl.com/5dznmsms" alt="" />
+                                  <img src={image} alt="" />
                                 </div>
                               );
                             })}
@@ -453,118 +454,145 @@ class Complex extends ComplexController {
               <CloseIcon />
             </IconButton>
           </MuiDialogTitle>
-          <DialogContent dividers>
-            <Box className="profile-picture">
-              <img src={bentalyLogo} alt="profile" className="picture building" />
-              <p onClick={() => this.uploadLogo.click()}>{t("Change Logo")}</p>
-              <input
-                type="file"
-                ref={(ref: any) => (this.uploadLogo = ref)}
-                style={{ display: "none" }}
-                accept="image/*"
-                onChange={(e: any) => {
-                  console.log(e.currentTarget.files[0]);
-                  // setFieldValue("file", e.currentTarget.files[0]);
-                }}
-                // onBlur={handleBlur}
-                name="file"
-              />
-            </Box>
-            <Grid container spacing={2} className="edit-building">
-              <Grid item md={12}>
-                <InputLabel>{t("Upload Photos")}</InputLabel>
-                <Grid container spacing={4}>
-                  <Grid item md={3}>
-                    <Box className="upload-photo" onClick={() => this.uploadImages.click()}>
-                      <img src={uploadbw} alt="" />
+          <Formik
+            enableReinitialize={true}
+            initialValues={this.state.editForm}
+            // validationSchema={this.addMeetingValidation}
+            onSubmit={(values, { resetForm }) => {
+              console.log(values);
+            }}
+          >
+            {({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue }) => {
+              console.log("values", values);
+              console.log("errors", errors);
+              console.log("touched", touched);
+
+              return (
+                <Form onSubmit={handleSubmit} translate>
+                  <DialogContent dividers>
+                    <Box className="profile-picture">
+                      <img src={values.displayLogo} alt="profile" className="picture building" />
+                      <p onClick={() => this.uploadLogo.click()}>{t("Change Logo")}</p>
+                      <input
+                        type="file"
+                        ref={(ref: any) => (this.uploadLogo = ref)}
+                        style={{ display: "none" }}
+                        accept="image/*"
+                        onChange={(e: any) => {
+                          const file = e.target.files[0];
+                          let reader = new FileReader();
+                          reader.onloadend = () => {
+                            setFieldValue("displayLogo", reader.result);
+                            setFieldValue("logo", file);
+                          };
+                          reader.readAsDataURL(file);
+                        }}
+                        onBlur={handleBlur}
+                        name="logo"
+                      />
                     </Box>
-                    <input
-                      type="file"
-                      ref={(ref: any) => (this.uploadImages = ref)}
-                      style={{ display: "none" }}
-                      accept="image/*"
-                      onChange={(e: any) => {
-                        console.log(e.currentTarget.files[0]);
-                        // setFieldValue("file", e.currentTarget.files[0]);
-                      }}
-                      // onBlur={handleBlur}
-                      name="file"
-                      multiple
-                    />
-                  </Grid>
-                  <Grid item md={3}>
-                    <Box className="building-image">
-                      <img src={del_image} className="delete-image" />
-                      <img src="https://tinyurl.com/5dznmsms" alt="" />
-                    </Box>
-                  </Grid>
-                  <Grid item md={3}>
-                    <Box className="building-image">
-                      <img src={del_image} className="delete-image" />
-                      <img src="https://tinyurl.com/5dznmsms" alt="" />
-                    </Box>
-                  </Grid>
-                  <Grid item md={3}>
-                    <Box className="building-image">
-                      <img src={del_image} className="delete-image" />
-                      <img src="https://tinyurl.com/5dznmsms" alt="" />
-                    </Box>
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid item md={12}>
-                <InputLabel>{t("About Us")}</InputLabel>
-                <TextareaAutosize className="about-us" placeholder={t("About Us")} />
-              </Grid>
-              <Grid item md={6}>
-                <InputLabel>{t("Complex Area")}</InputLabel>
-                <Input
-                  className="input-with-icon"
-                  fullWidth
-                  placeholder={t("Complex Area")}
-                  startAdornment={
-                    <InputAdornment position="start">
-                      <img src={sizebw} alt="icon" />
-                    </InputAdornment>
-                  }
-                />
-              </Grid>
-              <Grid item md={6}>
-                <InputLabel>{t("Total Buildings")}</InputLabel>
-                <Input
-                  className="input-with-icon"
-                  fullWidth
-                  placeholder={t("Total Buildings")}
-                  startAdornment={
-                    <InputAdornment position="start">
-                      <img src={floorIcon} alt="icon" />
-                    </InputAdornment>
-                  }
-                  readOnly
-                />
-              </Grid>
-              <Grid item md={12}>
-                <InputLabel>{t("Total Units")}</InputLabel>
-                <Input
-                  className="input-with-icon"
-                  fullWidth
-                  placeholder={t("Total Units")}
-                  startAdornment={
-                    <InputAdornment position="start">
-                      <img src={unitbw} alt="icon" />
-                    </InputAdornment>
-                  }
-                  readOnly
-                />
-              </Grid>
-            </Grid>
-          </DialogContent>
-          <DialogActions className="dialog-button-group">
-            <Button className="cancel-button" onClick={() => this.handleEditBuildingModal()}>
-              {t("Cancel")}
-            </Button>
-            <Button className="add-button">{t("Save")}</Button>
-          </DialogActions>
+                    <Grid container spacing={2} className="edit-building">
+                      <Grid item md={12}>
+                        <InputLabel>{t("Upload Photos")}</InputLabel>
+                        <Grid container spacing={4}>
+                          <Grid item md={3}>
+                            <Box className="upload-photo" onClick={() => this.uploadImages.click()}>
+                              <img src={uploadbw} alt="" />
+                            </Box>
+                            <input
+                              type="file"
+                              ref={(ref: any) => (this.uploadImages = ref)}
+                              style={{ display: "none" }}
+                              accept="image/*"
+                              onChange={(e: any) => {
+                                console.log(e.currentTarget.files[0]);
+                                // setFieldValue("photos", e.currentTarget.files);
+                              }}
+                              onBlur={handleBlur}
+                              name="photos"
+                              multiple
+                            />
+                          </Grid>
+                          <Grid item md={3}>
+                            <Box className="building-image">
+                              <img src={del_image} className="delete-image" />
+                              <img src="https://tinyurl.com/5dznmsms" alt="" />
+                            </Box>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                      <Grid item md={12}>
+                        <InputLabel>{t("About Us")}</InputLabel>
+                        <TextareaAutosize
+                          className="about-us"
+                          placeholder={t("About Us")}
+                          value={values.aboutUs}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          name="aboutUs"
+                        />
+                      </Grid>
+                      <Grid item md={6}>
+                        <InputLabel>{t("Complex Area")}</InputLabel>
+                        <Input
+                          className="input-with-icon"
+                          fullWidth
+                          placeholder={t("Complex Area")}
+                          value={values.complexArea}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          name="complexArea"
+                          startAdornment={
+                            <InputAdornment position="start">
+                              <img src={sizebw} alt="icon" />
+                            </InputAdornment>
+                          }
+                        />
+                      </Grid>
+                      <Grid item md={6}>
+                        <InputLabel>{t("Total Buildings")}</InputLabel>
+                        <Input
+                          className="input-with-icon"
+                          fullWidth
+                          value={values.totalBuilding}
+                          placeholder={t("Total Buildings")}
+                          startAdornment={
+                            <InputAdornment position="start">
+                              <img src={floorIcon} alt="icon" />
+                            </InputAdornment>
+                          }
+                          readOnly
+                        />
+                      </Grid>
+                      <Grid item md={12}>
+                        <InputLabel>{t("Total Units")}</InputLabel>
+                        <Input
+                          className="input-with-icon"
+                          fullWidth
+                          value={values.totalUnits}
+                          placeholder={t("Total Units")}
+                          startAdornment={
+                            <InputAdornment position="start">
+                              <img src={unitbw} alt="icon" />
+                            </InputAdornment>
+                          }
+                          readOnly
+                        />
+                      </Grid>
+                    </Grid>
+                  </DialogContent>
+                  <DialogActions className="dialog-button-group">
+                    <Button className="cancel-button" onClick={() => this.handleEditBuildingModal()}>
+                      {t("Cancel")}
+                    </Button>
+                    <Button type="submit" className="add-button">
+                      {t("Save")}
+                    </Button>
+                  </DialogActions>
+                </Form>
+              );
+            }}
+          </Formik>
         </Dialog>
 
         {/* <Loader loading={this.state.loading} /> */}

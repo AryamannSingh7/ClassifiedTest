@@ -39,6 +39,16 @@ interface ComplexData {
   totalBuilding: number;
 }
 
+interface EditForm {
+  logo: any;
+  displayLogo: any;
+  aboutUs: string;
+  photos: any[];
+  complexArea: string;
+  totalUnits: string;
+  totalBuilding: number;
+}
+
 interface S {
   // Customizable Area Start
   imageBox: boolean;
@@ -53,6 +63,8 @@ interface S {
 
   complexDetails: any;
   complexData: ComplexData;
+
+  editForm: EditForm;
   // Customizable Area End
 }
 
@@ -101,6 +113,16 @@ export default class ComplexController extends BlockComponent<Props, S, SS> {
         photos: [],
         buildingList: [],
         complexArea: "",
+        totalUnits: "",
+        totalBuilding: 0,
+      },
+
+      editForm: {
+        logo: null,
+        displayLogo: null,
+        photos: [],
+        complexArea: "",
+        aboutUs: "",
         totalUnits: "",
         totalBuilding: 0,
       },
@@ -165,7 +187,7 @@ export default class ComplexController extends BlockComponent<Props, S, SS> {
             complexName: responseJson.data.attributes.name,
             country: "",
             aboutUs: responseJson.data.attributes.description,
-            photos: responseJson.data.attributes.photos,
+            photos: responseJson.data.attributes.photos.map((image: any) => image.url),
             buildingList: [],
             complexArea: responseJson.data.attributes.complex_area,
             totalUnits: "",
@@ -188,8 +210,8 @@ export default class ComplexController extends BlockComponent<Props, S, SS> {
   // Customizable Area Start
   uploadLogo: any;
   uploadImages: any;
-
   slider: any;
+  
   nextImage = () => {
     this.slider.slickNext();
   };
@@ -261,18 +283,23 @@ export default class ComplexController extends BlockComponent<Props, S, SS> {
     this.setState({ isEditBuildingModalOpen: !this.state.isEditBuildingModalOpen });
   };
 
-  EditSchema() {
-    const validations = Yup.object().shape({
-      countryname: Yup.string().required(`This field is required`),
-      buildingname: Yup.string().required(`This field is required`),
-      buildingarea: Yup.string().required(`This field is required`),
-      totalfloors: Yup.string().required(`This field is required`),
-      totalunits: Yup.string().required(`This field is required`),
-      purchasedate: Yup.string().required(`This field is required`),
-      currentvaluation: Yup.string().required(`This field is required`),
-      size: Yup.string().required(`This field is required`),
-    });
-    return validations;
-  }
+  openEditBuildingModal = () => {
+    this.setState(
+      {
+        editForm: {
+          logo: this.state.complexData.logo,
+          displayLogo: this.state.complexData.logo,
+          photos: this.state.complexData.photos,
+          complexArea: this.state.complexData.complexArea,
+          aboutUs: this.state.complexData.aboutUs,
+          totalUnits: this.state.complexData.totalUnits,
+          totalBuilding: this.state.complexData.totalBuilding,
+        },
+      },
+      () => {
+        this.handleEditBuildingModal();
+      }
+    );
+  };
   // Customizable Area End
 }

@@ -27,6 +27,29 @@ interface DocumentCount {
   buildingPlans: number;
 }
 
+interface BuildingData {
+  buildingName: string;
+  country: string;
+  logo: string;
+  photos: any[];
+  aboutBuilding: string;
+  buildingArea: string;
+  totalFloor: string;
+  totalUnit: string;
+}
+
+interface EditForm {
+  logo: string;
+  displayLogo: string;
+  photos: any[];
+  buildingArea: string;
+  aboutBuilding: string;
+  buildingName: string;
+  totalUnits: string;
+  totalFloor: string;
+  country: string;
+}
+
 interface S {
   // Customizable Area Start
   imageBox: boolean;
@@ -39,6 +62,13 @@ interface S {
   dataSearch: any;
 
   documentCount: DocumentCount;
+
+  buildingId: string;
+  buildingData: BuildingData;
+
+  unitList: any[];
+
+  editForm: EditForm;
   // Customizable Area End
 }
 
@@ -50,6 +80,8 @@ interface SS {
 
 export default class BuildingsController extends BlockComponent<Props, S, SS> {
   GetDocumentCountCallId: any;
+  GetBuildingDetailsCallId: any;
+  GetUnitListCallId: any;
 
   constructor(props: Props) {
     super(props);
@@ -75,6 +107,33 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
         resolution: 0,
         buildingPlans: 0,
       },
+
+      buildingId: "",
+
+      buildingData: {
+        buildingName: "",
+        country: "",
+        logo: "",
+        photos: [],
+        aboutBuilding: "",
+        buildingArea: "",
+        totalFloor: "",
+        totalUnit: "",
+      },
+
+      unitList: [],
+
+      editForm: {
+        logo: "",
+        displayLogo: "",
+        photos: [],
+        buildingArea: "",
+        aboutBuilding: "",
+        buildingName: "",
+        totalUnits: "",
+        totalFloor: "",
+        country: "",
+      },
       // Customizable Area Start
       // Customizable Area End
     };
@@ -86,8 +145,64 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
 
   async receive(from: string, message: Message) {
     runEngine.debugLog("Message Recived", message);
-
     // Customizable Area Start
+    // Get Unit List API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.GetUnitListCallId !== null &&
+      this.GetUnitListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.GetUnitListCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      if (responseJson.data) {
+        this.setState({ unitList: responseJson.data.unit_apartments });
+      }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // Get Building Details API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.GetBuildingDetailsCallId !== null &&
+      this.GetBuildingDetailsCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.GetBuildingDetailsCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      if (responseJson.data) {
+        this.setState({
+          buildingData: {
+            buildingName: responseJson.data.attributes.name,
+            country: "",
+            logo: responseJson.data.attributes.logo,
+            photos: responseJson.data.attributes.photos.map((image: any) => image.url),
+            aboutBuilding: responseJson.data.attributes.description,
+            buildingArea: responseJson.data.attributes.building_area,
+            totalFloor: responseJson.data.attributes.total_floors,
+            totalUnit: responseJson.data.attributes.total_units,
+          },
+        });
+      }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
     // Get Document Count API Response
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
@@ -122,9 +237,62 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
   }
 
   async componentDidMount(): Promise<void> {
-    this.getDocumentCount();
+    const building_id = this.props.navigation.getParam("id");
+    this.setState({ buildingId: building_id }, () => {
+      this.getBuildingDetail();
+      this.getDocumentCount();
+      this.getUnitList();
+    });
   }
-  
+
+  // Get Unit List API
+  getUnitList = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.GetUnitListCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_address/apartment_list?id=${this.state.buildingId}`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  // Get Building Details API
+  getBuildingDetail = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.GetBuildingDetailsCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_settings/building_managements/${this.state.buildingId}`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
   // Get Document Count API
   getDocumentCount = () => {
     const header = {
@@ -152,13 +320,16 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
 
   // Handle State
   slider: any;
+  uploadLogo: any;
+  uploadImages: any;
+
   nextImage = () => {
     this.slider.slickNext();
   };
   previousImage = () => {
     this.slider.slickPrev();
   };
-  
+
   handleTabChange = (event: any, newValue: number) => {
     this.setState({ currentTab: newValue });
   };
@@ -167,18 +338,25 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
     this.setState({ isEditBuildingModalOpen: !this.state.isEditBuildingModalOpen });
   };
 
-  EditSchema() {
-    const validations = Yup.object().shape({
-      countryname: Yup.string().required(`This field is required`),
-      buildingname: Yup.string().required(`This field is required`),
-      buildingarea: Yup.string().required(`This field is required`),
-      totalfloors: Yup.string().required(`This field is required`),
-      totalunits: Yup.string().required(`This field is required`),
-      purchasedate: Yup.string().required(`This field is required`),
-      currentvaluation: Yup.string().required(`This field is required`),
-      size: Yup.string().required(`This field is required`),
-    });
-    return validations;
-  }
+  openEditBuildingModal = () => {
+    this.setState(
+      {
+        editForm: {
+          logo: this.state.buildingData.logo,
+          displayLogo: this.state.buildingData.logo,
+          photos: this.state.buildingData.photos,
+          buildingArea: this.state.buildingData.buildingArea,
+          aboutBuilding: this.state.buildingData.aboutBuilding,
+          buildingName: this.state.buildingData.buildingName,
+          totalUnits: this.state.buildingData.totalUnit,
+          totalFloor: this.state.buildingData.totalFloor,
+          country: this.state.buildingData.country,
+        },
+      },
+      () => {
+        this.handleEditBuildingModal();
+      }
+    );
+  };
   // Customizable Area End
 }

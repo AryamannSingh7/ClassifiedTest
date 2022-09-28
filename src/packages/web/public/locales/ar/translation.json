@@ -532,5 +532,13 @@
   "Upload": "تحميل",
   "Change Logo": "تغيير الشعار",
   "Upload Photos": "تحميل الصور",
-  "About Us": "معلومات عنا"
+  "About Us": "معلومات عنا",
+  "Building & Apartments": "بناء وشقق",
+  "About Building Name": "حول اسم المبنى",
+  "Building Area": "منطقة بناء",
+  "Total Floors": "مجموع الطوابق",
+  "Units": "الوحدات",
+  "Search by unit number": "البحث عن طريق رقم الوحدة",
+  "Resident Name": "اسم المقيم",
+  "Country": "دولة"
 }
