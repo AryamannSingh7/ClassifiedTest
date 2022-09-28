@@ -56,3 +56,32 @@ export const Contact_Disable_Icon = require("../assets/contact-disable-icon.svg"
 export const Email_Msg_Icon = require("../assets/email-msg-icon.png");
 export const Email_Disable_Icon = require("../assets/email-disable-icon.svg");
 export const NoProfile_Img = require("../assets/no-profile.png");
+
+
+const id= [
+    {
+        "name":"HallFan1",
+        "deviceId":"631f07d4689451a5b08fb0e7",
+        "type":"tinxy",
+        "deviceNo":"1"
+    },
+    {
+        "name":"HallFan2",
+        "deviceId":"631f07d4689451a5b08fb0e7",
+        "type":"tinxy",
+        "deviceNo":"2"
+    },
+    {
+        "name":"DiningHallFan",
+        "deviceId":"631f0edbf99effb9f947c7b7",
+        "type":"tinxy",
+        "deviceNo":"1"
+    },
+    {
+        "name":"BedroomLight",
+        "deviceId":"631f1e1c689451a5b0906f0e",
+        "type":"tinxy",
+        "deviceNo":"1"
+    },
+
+]

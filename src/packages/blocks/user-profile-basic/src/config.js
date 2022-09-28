@@ -1,4 +1,3 @@
-// Customizable Area Start
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -23,9 +22,10 @@ exports.endPointApiGetUserProfile = "profile/profile";
 exports.contentTypeApiGetUserProfile = "application/json";
 exports.methodTypeApiGetUserProfile = "GET";
 
+// Customizable Area Start
 exports.placeHolderEmail = "Email";
 exports.labelHeader =
-  "This is your profile, Here you can see and update your personal information.";
+    "This is your profile, Here you can see and update your personal information.";
 exports.labelFirstName = "First name";
 exports.lastName = "Last name";
 exports.labelArea = "Area";
@@ -48,6 +48,4 @@ exports.errorReTypePasswordNotValid = "Re-type password not valid.";
 exports.hintCountryCode = "Select Country";
 exports.errorBlankField = "can't be blank";
 exports.errorEmailNotValid = "Email not valid.";
-
 // Customizable Area End
-
