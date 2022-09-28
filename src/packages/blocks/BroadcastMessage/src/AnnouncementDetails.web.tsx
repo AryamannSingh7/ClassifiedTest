@@ -8,9 +8,9 @@ import DateRangeOutlinedIcon from '@material-ui/icons/DateRangeOutlined';
 import { makeStyles,withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router';
 import {building, calendar, exampleImg, user} from "./assets";
-import AnnouncementController, {
+import AnnouncementDetailsController, {
   Props
-} from "./AnnouncementController";
+} from "./AnnouncementDetailsController";
 import './style.css';
 
 const data = {
@@ -18,7 +18,7 @@ const data = {
     description:"Due to increasing COVID 19 cases, we have decided to close swimming pool for next 5 days. You can use it from 29/03/2022 onwards. "
 }
 
-class Announcement extends AnnouncementController{
+class Announcement extends AnnouncementDetailsController{
   constructor(props: Props) {
     super(props);
   }
@@ -30,7 +30,7 @@ class Announcement extends AnnouncementController{
                 <Grid container style={{ margin: '1rem', width: '90%' }} >
                   <Grid xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem",justifyContent:"space-between"}} >
                       <Box style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
-                          <ArrowBackIcon onClick={() => this.props.history.push("/")} />
+                          <ArrowBackIcon onClick={() => window.history.back()} />
                           <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
                               Complex Name
                           </p>
@@ -42,18 +42,18 @@ class Announcement extends AnnouncementController{
                         <Grid item xs={12} style={{marginTop:"1.5rem"}}>
                             <Box>
                                 <Typography variant="h6" style={{fontWeight:"bold"}}>
-                                    {data.title}
+                                    {this.state.AnnouncementDetails.title}
                                 </Typography>
                             </Box>
-                            <Box style={{display:'flex',justifyContent:"center",marginTop:"15px"}}>
-                                {
-                                    console.log("exampleImg",exampleImg)
-                                }
-                                <img src={exampleImg.default} width="100%" style={{borderRadius:"15px"}}/>
-                            </Box>
+                            {
+                                this.state?.AnnouncementDetails?.img?.url &&
+                                <Box style={{display:'flex',justifyContent:"center",marginTop:"15px"}}>
+                                    <img src={this.state?.AnnouncementDetails?.img?.url} width="100%" style={{borderRadius:"15px"}}/>
+                                </Box>
+                            }
                             <Box style={{marginTop:"1.5rem"}}>
                                 <Typography variant="body2" style={{fontSize:"18px"}}>
-                                    {data.description}
+                                    {this.state.AnnouncementDetails.description}
                                 </Typography>
                             </Box>
                             <Box style={{backgroundColor:"white",borderRadius:"10px",marginTop:"20px"}}>
@@ -65,7 +65,7 @@ class Announcement extends AnnouncementController{
                                             </Box>
                                             <Box>
                                                 <Typography variant="subtitle2" color="textSecondary" >Announce By</Typography>
-                                                <Typography variant="subtitle2">Mr. Ali Khan</Typography>
+                                                <Typography variant="subtitle2">{this.state.AnnouncementDetails.announcement_by}</Typography>
                                             </Box>
                                         </Grid>
                                         <Grid xs={6} style={{display:'flex',alignItems:'center'}}>
@@ -74,7 +74,7 @@ class Announcement extends AnnouncementController{
                                             </Box>
                                             <Box>
                                                 <Typography variant="subtitle2" color="textSecondary" >Announced On</Typography>
-                                                <Typography variant="subtitle2" >15/03/2022 14:21</Typography>
+                                                <Typography variant="subtitle2" >{this.state.AnnouncementDetails.announcement_on}</Typography>
                                             </Box>
                                         </Grid>
                                     </Grid>

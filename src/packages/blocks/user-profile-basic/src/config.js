@@ -22,6 +22,7 @@ exports.endPointApiGetUserProfile = "profile/profile";
 exports.contentTypeApiGetUserProfile = "application/json";
 exports.methodTypeApiGetUserProfile = "GET";
 
+
 // Customizable Area Start
 exports.placeHolderEmail = "Email";
 exports.labelHeader =

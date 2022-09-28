@@ -27,7 +27,7 @@ import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { SuggestionStyleWeb } from "./SuggestionStyle.web";
 import SearchIcon from "@material-ui/icons/Search";
-import { Link } from "react-router-dom";
+import { Link,withRouter } from "react-router-dom";
 import { SearchIconImage, UploadImage } from "./assets";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
@@ -37,13 +37,8 @@ class Announcements extends AnnouncementsController {
     super(props);
   }
 
-  async componentDidMount(): Promise<void> {}
-
   render() {
     const { classes } = this.props;
-
-    console.log(this.state);
-
     return (
       <>
         <Box style={{ background: "#F4F7FF" }} className={classes.announcements}>
@@ -72,23 +67,33 @@ class Announcements extends AnnouncementsController {
                 </Box>
                 <Box className="top-bar">
                   <Box className="filter">
-                    <Select displayEmpty value="" className="select-input">
+                    <Select displayEmpty value={this.state.filterCategory} className="select-input"  onChange={(e) => this.setState({filterCategory:e.target.value})}>
                       <MenuItem value="" disabled>
                         <em>Category</em>
                       </MenuItem>
-                      <MenuItem value={10}>Ten</MenuItem>
-                      <MenuItem value={20}>Twenty</MenuItem>
-                      <MenuItem value={30}>Thirty</MenuItem>
+                      {
+                        this.state.categoryList.length > 0 &&
+                          this.state.categoryList.map((item:any,key:any)=>{
+                            return(
+                                <MenuItem key={key} value={item.id}>{item.attributes.category_title}</MenuItem>
+                            )
+                          })
+                      }
                     </Select>
-                    <Select displayEmpty value="" className="select-input">
+                    <Select displayEmpty value={this.state.filerYear} className="select-input" onChange={(e)=> this.setState({filerYear:e.target.value})}>
                       <MenuItem value="" disabled>
                         <em>Year</em>
                       </MenuItem>
-                      <MenuItem value={10}>Ten</MenuItem>
-                      <MenuItem value={20}>Twenty</MenuItem>
-                      <MenuItem value={30}>Thirty</MenuItem>
+                      {
+                        this.state.yearArray.map((item:any,key:any)=>{
+                          let year = (new Date().getFullYear()) - item
+                          return(
+                              <MenuItem key={key} value={year}>{year}</MenuItem>
+                          )
+                        })
+                      }
                     </Select>
-                    <Button startIcon={<img src={SearchIconImage} />}>Search</Button>
+                    <Button onClick={this.handleFilterBy} startIcon={<img src={SearchIconImage} />}>Search</Button>
                   </Box>
                   <Box className="create-meeting">
                     <Button onClick={() => this.handleCreateAnnouncementModal()}>Create New Announcement</Button>
@@ -103,18 +108,18 @@ class Announcements extends AnnouncementsController {
                           <SearchIcon />
                           <InputBase placeholder="Search" className="search" />
                         </Box>
-                        <Select displayEmpty value="" className="select-input">
+                        <Select displayEmpty value={this.state.shortBy} className="select-input" onChange={(e)=>this.shortByAction(e)} >
                           <MenuItem value="" disabled>
                             <em>Sort By</em>
                           </MenuItem>
-                          <MenuItem value={10}>Ten</MenuItem>
-                          <MenuItem value={20}>Twenty</MenuItem>
-                          <MenuItem value={30}>Thirty</MenuItem>
+                          <MenuItem value="announcement_by">Announcement By</MenuItem>
+                          <MenuItem value="announcement_on">Announcement Date</MenuItem>
+                          <MenuItem value="title">Title</MenuItem>
                         </Select>
                       </Box>
                     </Box>
                     <Divider />
-                    <Table className="table-box">
+                    <Table className="table-box" style={{paddingBottom:"25px"}}>
                       <TableHead>
                         <TableRow>
                           <TableCell>#</TableCell>
@@ -125,20 +130,20 @@ class Announcements extends AnnouncementsController {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        <TableRow>
-                          <TableCell>1</TableCell>
-                          <TableCell className="ellipse">Title</TableCell>
-                          <TableCell>Announced On</TableCell>
-                          <TableCell>Category</TableCell>
-                          <TableCell>Announced By</TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell>2</TableCell>
-                          <TableCell className="ellipse">Title</TableCell>
-                          <TableCell>Announced On</TableCell>
-                          <TableCell>Category</TableCell>
-                          <TableCell>Announced By</TableCell>
-                        </TableRow>
+                        {
+                          this.state.announcementList.length > 0 &&
+                            this.state.announcementList.map((item:any,key:any)=> {
+                              return(
+                                  <TableRow key={key} onClick={()=> this.props.history.push(`AnnouncementDetails?id=${item.id}`)} style={{cursor:"pointer"}}>
+                                    <TableCell>{key+1}</TableCell>
+                                    <TableCell className="ellipse">{item.attributes.title}</TableCell>
+                                    <TableCell>{item.attributes.announcement_on}</TableCell>
+                                    <TableCell>{item.attributes.announcement_category}</TableCell>
+                                    <TableCell>{item.attributes.announcement_by}</TableCell>
+                                  </TableRow>
+                              )
+                            })
+                        }
                       </TableBody>
                     </Table>
                   </Grid>
@@ -161,9 +166,26 @@ class Announcements extends AnnouncementsController {
             </IconButton>
           </MuiDialogTitle>
           <DialogContent dividers>
+            <FormControl fullWidth style={{marginBottom:"15px"}}>
+              <select className="dialog-select-input" value={this.state.selectedBuilding} onChange={(e)=> this.setState({selectedBuilding:e.target.value})}>
+                <option value="" disabled>
+                  Select Building
+                </option>
+                {
+                  this.state.buildingList.length > 0 &&
+                    this.state.buildingList.map((item:any,key:any)=> {
+                      return(
+                          <option key={key} value={item.id}>{item.name}</option>
+                      )
+                    })
+                }
+              </select>
+            </FormControl>
             <FormControl fullWidth>
               <input
                 placeholder="Title"
+                value={this.state.selectedTitle}
+                onChange={(e)=> this.setState({selectedTitle:e.target.value})}
                 className="dialog-input"
                 style={{
                   marginTop: "0",
@@ -171,17 +193,22 @@ class Announcements extends AnnouncementsController {
               />
             </FormControl>
             <FormControl fullWidth>
-              <select className="dialog-select-input" value="">
+              <select className="dialog-select-input" value={this.state.selectedCategory} onChange={(e)=> this.setState({selectedCategory:e.target.value})}>
                 <option value="" disabled>
                   Select Category
                 </option>
-                <option value="1">Select Category 1</option>
-                <option value="2">Select Category 2</option>
-                <option value="3">Select Category 3</option>
+                {
+                    this.state.categoryList.length > 0 &&
+                    this.state.categoryList.map((item:any,key:any)=>{
+                      return(
+                          <option key={key} value={item.id}>{item.attributes.category_title}</option>
+                      )
+                    })
+                }
               </select>
             </FormControl>
             <FormControl fullWidth>
-              <textarea className="dialog-textarea-input" placeholder="Description" />
+              <textarea className="dialog-textarea-input" placeholder="Description" value={this.state.selectedDescription} onChange={(e) => this.setState({selectedDescription:e.target.value})} />
             </FormControl>
             <FormControl fullWidth>
               <div
@@ -196,6 +223,7 @@ class Announcements extends AnnouncementsController {
               <input
                 id="myInput"
                 type="file"
+                accept="image/png, image/gif, image/jpeg"
                 ref={(ref: any) => (this.upload = ref)}
                 style={{ display: "none" }}
                 onChange={this.onChangeFile.bind(this)}
@@ -206,7 +234,7 @@ class Announcements extends AnnouncementsController {
             <Button className="cancel-button" onClick={() => this.handleCreateAnnouncementModal()}>
               Cancel
             </Button>
-            <Button className="add-button" onClick={() => {}}>
+            <Button className="add-button" onClick={this.handleSubmit}>
               Create
             </Button>
           </DialogActions>
@@ -216,5 +244,6 @@ class Announcements extends AnnouncementsController {
   }
 }
 
-export default withStyles(SuggestionStyleWeb)(Announcements);
+// @ts-ignore
+export default withStyles(SuggestionStyleWeb)(withRouter(Announcements));
 // Customizable Area End
