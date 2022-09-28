@@ -34,7 +34,19 @@ import "./style.css";
 import Slider from "react-slick";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
-import { upload, Document, sizebw, unitbw, bentalyLogo, location, del_image, uploadbw, floorIcon } from "./assets";
+import {
+  upload,
+  Document,
+  sizebw,
+  unitbw,
+  bentalyLogo,
+  location,
+  del_image,
+  uploadbw,
+  floorIcon,
+  nextIcon,
+  previousIcon,
+} from "./assets";
 import { BuildingApartmentStyle } from "./BuildingApartmentStyle.web";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
@@ -143,15 +155,27 @@ class Complex extends ComplexController {
                       </Box>
                     </Box>
                     <Box className="building-info-bottom">
-                      <Slider {...settings}>
-                        {this.state.complexData.photos.map((image: any, index: number) => {
-                          return (
-                            <div onClick={() => this.setState({ imageBox: true, photoIndex: index })}>
-                              <img src="https://tinyurl.com/5dznmsms" alt="" />
-                            </div>
-                          );
-                        })}
-                      </Slider>
+                      {this.state.complexData.photos.length > 0 && (
+                        <>
+                          <Slider ref={(c: any) => (this.slider = c)} {...settings}>
+                            {this.state.complexData.photos.map((image: any, index: number) => {
+                              return (
+                                <div onClick={() => this.setState({ imageBox: true, photoIndex: index })}>
+                                  <img src="https://tinyurl.com/5dznmsms" alt="" />
+                                </div>
+                              );
+                            })}
+                          </Slider>
+                          <Box className="slick-bottom">
+                            <Box className="button prev" onClick={this.previousImage}>
+                              <img src={previousIcon} alt="" />
+                            </Box>
+                            <Box className="button next" onClick={this.nextImage}>
+                              <img src={nextIcon} alt="" />
+                            </Box>
+                          </Box>
+                        </>
+                      )}
                     </Box>
                   </Card>
                 </Box>

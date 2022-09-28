@@ -124,8 +124,7 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
   async componentDidMount(): Promise<void> {
     this.getDocumentCount();
   }
-
-  // Get Complex Details API
+  
   // Get Document Count API
   getDocumentCount = () => {
     const header = {
@@ -152,6 +151,14 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
   };
 
   // Handle State
+  slider: any;
+  nextImage = () => {
+    this.slider.slickNext();
+  };
+  previousImage = () => {
+    this.slider.slickPrev();
+  };
+  
   handleTabChange = (event: any, newValue: number) => {
     this.setState({ currentTab: newValue });
   };

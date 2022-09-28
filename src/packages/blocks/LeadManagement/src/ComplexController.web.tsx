@@ -189,6 +189,14 @@ export default class ComplexController extends BlockComponent<Props, S, SS> {
   uploadLogo: any;
   uploadImages: any;
 
+  slider: any;
+  nextImage = () => {
+    this.slider.slickNext();
+  };
+  previousImage = () => {
+    this.slider.slickPrev();
+  };
+
   async componentDidMount(): Promise<void> {
     this.getDocumentCount();
     this.getComplexDetails();

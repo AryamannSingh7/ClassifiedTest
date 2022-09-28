@@ -75,6 +75,8 @@ import {
   true_mark,
   uploadbw,
   del_image,
+  nextIcon,
+  previousIcon,
 } from "./assets";
 import { BuildingApartmentStyle } from "./BuildingApartmentStyle.web";
 //@ts-ignore
@@ -146,7 +148,6 @@ class UnitDetails extends UnitDetailsController {
                       </Box>
                     </Box>
                   </Box>
-
                   <Box className="location-data">
                     <Grid container spacing={2}>
                       <Grid item sm={4}>
@@ -521,7 +522,7 @@ class UnitDetails extends UnitDetailsController {
                         </Box>
                         <img src={bentalyLogo} alt="" style={{ marginBottom: "5px" }} />
                         <Box className="incident-data">
-                          <p>{t("Owner Name:")}:</p>
+                          <p>{t("Owner Name")}:</p>
                           <p>
                             <span>Own Apartment</span>
                           </p>
@@ -636,7 +637,7 @@ class UnitDetails extends UnitDetailsController {
                   </Box>
                   <Card>
                     <Box className="building-info-bottom">
-                      <Slider {...settings}>
+                      <Slider ref={(c: any) => (this.slider = c)} {...settings}>
                         <div onClick={() => this.setState({ imageBox: true })}>
                           <img src="https://tinyurl.com/5dznmsms" alt="" />
                         </div>
@@ -659,6 +660,14 @@ class UnitDetails extends UnitDetailsController {
                           <img src="https://tinyurl.com/5dznmsms" alt="" />
                         </div>
                       </Slider>
+                      <Box className="slick-bottom">
+                        <Box className="button prev" onClick={this.previousImage}>
+                          <img src={previousIcon} alt="" />
+                        </Box>
+                        <Box className="button next" onClick={this.nextImage}>
+                          <img src={nextIcon} alt="" />
+                        </Box>
+                      </Box>
                     </Box>
                   </Card>
                 </Box>
@@ -1381,6 +1390,7 @@ const dashBoard = {
   subHeading: {
     fontWeight: 600,
     marginTop: 15,
+    fontSize: "30px",
   },
   commonFont: {
     fontWeight: 600,

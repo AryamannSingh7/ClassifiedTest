@@ -77,6 +77,14 @@ export default class SharedAreaController extends BlockComponent<Props, S, SS> {
   }
 
   // Customizable Area Start
+  slider: any;
+  nextImage = () => {
+    this.slider.slickNext();
+  };
+  previousImage = () => {
+    this.slider.slickPrev();
+  };
+
   handleComplexEditModal = () => {
     this.setState({ setComplexEditOpen: !this.state.setComplexEditOpen });
   };

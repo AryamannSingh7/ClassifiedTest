@@ -37,7 +37,7 @@ import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
-import { uploadbw, del_image, downloadIcon, Document } from "./assets";
+import { uploadbw, del_image, downloadIcon, Document, nextIcon, previousIcon } from "./assets";
 import { BuildingApartmentStyle } from "./BuildingApartmentStyle.web";
 
 const maxNumber = 69;
@@ -129,7 +129,7 @@ class SharedArea extends SharedAreaController {
                 <Box className="building-info">
                   <Card>
                     <Box className="building-info-bottom shared-area-image">
-                      <Slider {...settings}>
+                      <Slider ref={(c: any) => (this.slider = c)} {...settings}>
                         <div onClick={() => this.setState({ imageBox: true })}>
                           <img src="https://tinyurl.com/5dznmsms" alt="" />
                         </div>
@@ -152,6 +152,14 @@ class SharedArea extends SharedAreaController {
                           <img src="https://tinyurl.com/5dznmsms" alt="" />
                         </div>
                       </Slider>
+                      <Box className="slick-bottom">
+                        <Box className="button prev" onClick={this.previousImage}>
+                          <img src={previousIcon} alt="" />
+                        </Box>
+                        <Box className="button next" onClick={this.nextImage}>
+                          <img src={nextIcon} alt="" />
+                        </Box>
+                      </Box>
                     </Box>
                   </Card>
                 </Box>

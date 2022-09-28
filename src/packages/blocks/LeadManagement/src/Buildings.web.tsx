@@ -54,6 +54,8 @@ import {
   floorIcon,
   earthIcon,
   complexbw,
+  nextIcon,
+  previousIcon,
 } from "./assets";
 import { BuildingApartmentStyle } from "./BuildingApartmentStyle.web";
 //@ts-ignore
@@ -194,7 +196,7 @@ class Buildings extends BuildingsController {
                       </Box>
                     </Box>
                     <Box className="building-info-bottom">
-                      <Slider {...settings}>
+                      <Slider ref={(c: any) => (this.slider = c)} {...settings}>
                         <div onClick={() => this.setState({ imageBox: true })}>
                           <img src="https://tinyurl.com/5dznmsms" alt="" />
                         </div>
@@ -217,6 +219,14 @@ class Buildings extends BuildingsController {
                           <img src="https://tinyurl.com/5dznmsms" alt="" />
                         </div>
                       </Slider>
+                      <Box className="slick-bottom">
+                        <Box className="button prev" onClick={this.previousImage}>
+                          <img src={previousIcon} alt="" />
+                        </Box>
+                        <Box className="button next" onClick={this.nextImage}>
+                          <img src={nextIcon} alt="" />
+                        </Box>
+                      </Box>
                     </Box>
                   </Card>
                 </Box>
