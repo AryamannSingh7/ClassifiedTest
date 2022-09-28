@@ -32,6 +32,6 @@ export const cancle = require("../assets/cancle.png");
 export const true_mark = require("../assets/true-mark.png");
 export const uploadbw = require("../assets/uploadbw.png");
 export const del_image = require("../assets/del-image.png");
-
-
-
+export const floorIcon = require("../assets/floor-icon.png");
+export const earthIcon = require("../assets/earth-icon.png");
+export const downloadIcon = require("../assets/download.png");
