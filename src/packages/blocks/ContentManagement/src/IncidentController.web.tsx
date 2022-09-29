@@ -8,6 +8,7 @@ import MessageEnum, {
 
 // Customizable Area Start
 import * as Yup from 'yup';
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import { imgPasswordInVisible, imgPasswordVisible } from "./assets";
 import { valueContainerCSS } from "react-select/src/components/containers";
 import { truncateSync } from "fs";
@@ -15,7 +16,7 @@ import { truncateSync } from "fs";
 
 export const configJSON = require("./config");
 
-export interface Props {
+export interface Props extends RouteComponentProps {
   navigation: any;
   id: string;
 }
@@ -582,10 +583,7 @@ onSubmit =(values:any)=>{
 }
 getIncidentDetails= (id :any) => {
    //@ts-ignore
-  this.props.history.push({
-    pathname: "/IncidentDetails",
-    id,
-});
+  this.props.history.push({pathname: "/IncidentDetails",id});
 
   //this.getIncidentDetailsById(id)
 }
@@ -1009,6 +1007,7 @@ createIncidentSchema() {
 
       const formData = new FormData();
       formData.append("chat[chatable_type]", 'BxBlockCustomForm::Incident');
+      // @ts-ignore
       formData.append("chat[chatable_id]", this.props.history.location?.id);
 
 

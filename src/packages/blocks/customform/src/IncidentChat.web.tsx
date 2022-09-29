@@ -1,5 +1,3 @@
-//@ts-ignore
-//@ts-nocheck
 import React from "react";
 import { StyleSheet, Platform } from "react-native";
 import {
@@ -32,7 +30,7 @@ import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 // import { backIcon, logo, newMessage, pdfIcon } from "./assets";
 import { Formik, Form, Field } from "formik";
 import AttachFileIcon from '@material-ui/icons/AttachFile';
-import InboxController from "./inboxController.web";
+import InboxController,{Props} from "./inboxController.web";
 import '../assets/css/style.scss'
 
 class IncidentChatBox extends InboxController {
@@ -40,31 +38,26 @@ class IncidentChatBox extends InboxController {
     const messagesEndRef = React.createRef()
     super(props);
     this.handleClick1 = this.handleClick1.bind(this);
-    this.state = {
-      selectedMedia: null,
-      accept: false,
-      file: null
-
-    }
-
 
     // Customizable Area Start
     // Customizable Area End
   }
 
-  handleClick1(e) {
+  handleClick1(e:any) {
     console.log(e)
+    // @ts-ignore
+// @ts-nocheck
     this.refs.fileUploader.click();
   }
 
-  handleFile2(file) {
+  handleFile2(file:any) {
     this.setState({ selectedMedia: { url: URL.createObjectURL(file), mimetype: file.type }, accept: true, file: file },)
 
   }
 
   // Customizable Area Start
   // Customizable Area End
-  displaytime(time) {
+  displaytime(time:any) {
     let date = new Date(time)
 
     let d = date.getHours();
@@ -73,28 +66,23 @@ class IncidentChatBox extends InboxController {
     return `${d}:${m < 9 ? `0` + m : m}`
 
   }
-  _handleKeyDown(e) {
+  _handleKeyDown(e:any) {
     if (e.key === 'Enter') {
       this.createMessages()
 
     }
   }
 
-  scrollToBottom = () => {
-    this.el.scrollIntoView({ behavior: 'smooth' });
-  }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.getAllChat()
-    this.scrollToBottom();
+
   }
 
-  componentDidUpdate() {
-    this.scrollToBottom();
-  }
 
   render() {
-
+// @ts-ignore
+// @ts-nocheck
     const item = JSON.parse(localStorage.getItem('selectedChat'))
     const currentAccountId = localStorage.getItem('userId')
 
@@ -129,11 +117,11 @@ class IncidentChatBox extends InboxController {
 
 
           <Grid xs={12}>
-            <List style={{ overflowY: "auto", maxHeight: "84vh", minHeight: "84vh" }} ref={el => { this.el = el; }}>
+            <List style={{ overflowY: "auto", maxHeight: "84vh", minHeight: "84vh" }}>
               {/* {
   this.state.allInboxKey ? 'hey':'bye'
 } */}
-              {this.state.allInboxKey?.length != 0 && this.state.allInboxKey?.map((date, i) => (
+              {this.state.allInboxKey?.length != 0 && this.state.allInboxKey?.map((date:any, i:any) => (
                 <>
 
                   <Box key={i} display='flex' justifyContent='center'>
@@ -147,13 +135,15 @@ class IncidentChatBox extends InboxController {
                   </Box>
 
                   {
-                    this.state.singleChatRoom[date]?.map((message, i) => <>
+                    this.state.singleChatRoom[date]?.map((message:any, i:any) => <>
 
 
                       <ListItem key={i}>
                         <Grid container>
                           <Grid item xs={12}
                             style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem' }}
+                            //@ts-ignore
+                            //@ts-nocheck
                             style={message.message.account_id == currentAccountId ? { 'display': 'flex', 'justifyContent': 'end', alignItems: 'center' } : { 'display': 'flex', 'justifyContent': 'start', alignItems: 'center' }}
                           >
 
@@ -257,7 +247,10 @@ class IncidentChatBox extends InboxController {
                   }}
 
                   onChange={(e) => this.CreateNewMessage(e)} type="" style={{ border: '1px solid #EDEDED', color: '#726363', borderRadius: 15, padding: 10, width: '100%' }} placeholder="Start a new message" value={this.state.newMessage} />
-                <AttachFileIcon onClick={this.handleClick1} for="BtnBrowseHidden" style={{ cursor: 'pointer' }} />
+
+                {// @ts-ignore
+// @ts-nocheck
+ <AttachFileIcon onClick={this.handleClick1} for="BtnBrowseHidden" style={{ cursor: 'pointer' }} />}
                 <input
 
                   id="BtnBrowseHidden"
@@ -280,7 +273,7 @@ class IncidentChatBox extends InboxController {
                 />
               </Grid>
 
-              <SendIcon style={{ cursor: 'pointer' }} onClick={() => this.createMessages(item.id)} />
+              <SendIcon style={{ cursor: 'pointer' }} onClick={() => this.createMessages()} />
 
             </Grid>
 
@@ -319,6 +312,8 @@ class IncidentChatBox extends InboxController {
                   fontFamily: 'Poppins',
                   fontSize: 13,
                   marginTop: 10,
+                  // @ts-nocheck
+                  // @ts-ignore
                   marginRight: 10,
                   width: 150
                 }}>
@@ -363,11 +358,6 @@ const styles = StyleSheet.create({
     width: Platform.OS === "web" ? "75%" : "100%",
     maxWidth: 650,
     backgroundColor: "#fff"
-  },
-  text: {
-
-    fontSize: '1.2rem'
-
   },
   titleWhySignUp: {
     marginBottom: 16,
@@ -470,5 +460,6 @@ const styles = StyleSheet.create({
   helperText: { marginTop: 10 }
 });
 // Customizable Area End
-
+// @ts-ignore
+// @ts-nocheck
 export default withRouter(IncidentChatBox as React.ComponentType<any>)

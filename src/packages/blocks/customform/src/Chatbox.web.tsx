@@ -1,5 +1,3 @@
-//@ts-ignore
-//@ts-nocheck
 import React from "react";
 import { StyleSheet, Platform } from "react-native";
 import {
@@ -32,7 +30,7 @@ import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 // import { backIcon, logo, newMessage, pdfIcon } from "./assets";
 import { Formik, Form, Field } from "formik";
 import AttachFileIcon from '@material-ui/icons/AttachFile';
-import InboxController from "./inboxController.web";
+import InboxController,{Props} from "./inboxController.web";
 import '../assets/css/style.scss'
 
 class ChatBox extends InboxController {
@@ -40,62 +38,57 @@ class ChatBox extends InboxController {
     const messagesEndRef = React.createRef()
     super(props);
     this.handleClick1 = this.handleClick1.bind(this);
-    this.state = {
-      selectedMedia: null,
-      accept: false,
-      file: null
-
-    }
 
 
     // Customizable Area Start
     // Customizable Area End
   }
 
-  handleClick1(e) {
+  handleClick1(e:any) {
     console.log(e)
+    //@ts-ignore
+//@ts-nocheck
     this.refs.fileUploader.click();
   }
 
-  handleFile2(file) {
+  handleFile2(file:any) {
+    //@ts-ignore
+//@ts-nocheck
     this.setState({ selectedMedia: { url: URL.createObjectURL(file), mimetype: file.type }, accept: true, file: file },)
 
   }
 
   // Customizable Area Start
   // Customizable Area End
-  displaytime(time) {
-    let date = new Date(time)
 
-    let d = date.getHours();
-    let m = date.getMinutes();
-
-    return `${d}:${m < 9 ? `0` + m : m}`
-
-  }
-  _handleKeyDown(e) {
+  _handleKeyDown(e:any) {
     if (e.key === 'Enter') {
       this.createMessages()
 
     }
   }
 
-  scrollToBottom = () => {
-    this.el.scrollIntoView({ behavior: 'smooth' });
-  }
 
-  componentDidMount() {
+  async componentDidMount() {
 this.getAllChat()
-    this.scrollToBottom();
-  }
 
-  componentDidUpdate() {
-    this.scrollToBottom();
+  }
+  displaytime(time: any) {
+
+    let date = new Date(time.attributes.created_at)
+
+    let d = date.getHours();
+    let m = date.getMinutes();
+    //@ts-ignore
+    //@ts-nocheck
+    return `${d}:${m < 9 ? `0` + m : m}`
+
   }
 
   render() {
-
-    const item =JSON.parse(localStorage.getItem('selectedChat'))
+    //@ts-ignore
+//@ts-nocheck
+    const item =JSON.parse(localStorage.getItem('selectedChat') || {})
     const currentAccountId = localStorage.getItem('userId')
 
 
@@ -114,7 +107,7 @@ this.getAllChat()
           </Grid>
 
           <Grid xs={12}>
-            <List style={{ overflowY: "auto", maxHeight: "84vh", minHeight: "84vh" }} ref={el => { this.el = el; }}>
+            <List style={{ overflowY: "auto", maxHeight: "84vh", minHeight: "84vh" }} >
 {/* {
   this.state.allInboxKey ? 'hey':'bye'
 } */}
@@ -132,13 +125,14 @@ this.getAllChat()
                 </Box>
 
                 {
-                  this.state.singleChatRoom[date]?.map((message,i)=><>
+                  this.state.singleChatRoom[date]?.map((message:any,i:any)=><>
 
 
                   <ListItem key={i}>
                     <Grid container>
                       <Grid item xs={12}
                       style={{display:'flex',alignItems:'flex-start',gap:'0.5rem'}}
+                      // @ts-ignore
                           style={message.message.account_id == currentAccountId ? { 'display': 'flex', 'justifyContent': 'end', alignItems: 'center' } : { 'display': 'flex', 'justifyContent': 'start', alignItems: 'center' }}
                       >
 
@@ -209,7 +203,10 @@ this.getAllChat()
                               message?.message?.images.length !=0 ?
                           <Grid item xs={12}
                           >
-                                  <img style={{ 'cursor': 'pointer' }} onClick={() => this.setState({ selectedMedia: message.message.images[0] })} src={message.message.images[0].url} width="75" height="75" />
+
+                                  <img style={{ 'cursor': 'pointer' }} onClick={() => {//@ts-ignore
+//@ts-nocheck
+this.setState({ selectedMedia: message.message.images[0] })}} src={message.message.images[0].url} width="75" height="75" />
                           </Grid>
                           :
                           null
@@ -242,7 +239,9 @@ this.getAllChat()
                   }}
 
                   onChange={(e) => this.CreateNewMessage(e)} type="" style={{ border: '1px solid #EDEDED', color: '#726363', borderRadius: 15, padding: 10, width: '100%' }} placeholder="Start a new message" value={this.state.newMessage}/>
-                <AttachFileIcon onClick={this.handleClick1} for="BtnBrowseHidden" style={{ cursor: 'pointer' }} />
+                {// @ts-ignore
+// @ts-nocheck
+<AttachFileIcon onClick={this.handleClick1} for="BtnBrowseHidden" style={{ cursor: 'pointer' }} />}
                 <input
 
                   id="BtnBrowseHidden"
@@ -265,7 +264,7 @@ this.getAllChat()
                 />
               </Grid>
 
-              <SendIcon style={{ cursor: 'pointer' }} onClick={()=>this.createMessages(item.id)} />
+              <SendIcon style={{ cursor: 'pointer' }} onClick={()=>this.createMessages()} />
 
             </Grid>
 
@@ -275,10 +274,12 @@ this.getAllChat()
 
 
         <Modal
+        //@ts-ignore
+//@ts-nocheck
+
           open={this.state.selectedMedia}
           style={{ display: 'flex', alignItems: 'center', flexDirection: 'column-reverse', justifyContent: 'center' }}
-
-          onClose={() => this.setState({ selectedMedia: null, accept: false })}
+             onClose={() => this.setState({ selectedMedia: null, accept: false })}
           aria-labelledby="alert-Modal-title"
           aria-describedby="alert-dialog-description"
         >
@@ -304,6 +305,8 @@ this.getAllChat()
                   fontFamily: 'Poppins',
                   fontSize: 13,
                   marginTop: 10,
+                  // @ts-ignore
+// @ts-nocheck
                   marginRight: 10,
                   width: 150
                 }}>
@@ -349,11 +352,7 @@ const styles = StyleSheet.create({
     maxWidth: 650,
     backgroundColor: "#fff"
   },
-  text: {
 
-    fontSize: '1.2rem'
-
-  },
   titleWhySignUp: {
     marginBottom: 16,
     fontSize: 16,
@@ -455,5 +454,6 @@ const styles = StyleSheet.create({
   helperText: { marginTop: 10 }
 });
 // Customizable Area End
-
+// @ts-ignore
+// @ts-nocheck
 export default withRouter(ChatBox as React.ComponentType<any>)

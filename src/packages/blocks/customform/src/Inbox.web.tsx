@@ -1,5 +1,3 @@
-//@ts-ignore
-//@ts-nocheck
 import React from "react";
 //components
 import {
@@ -15,7 +13,7 @@ import {
 } from "@material-ui/core";
 
 //resources
-import { Building1, Delete_Icon, info, Landing_Banner, NoChat, request, Search, Tick } from "./assets";
+import { Building1, NoChat, Search, Tick } from "./assets";
 import { withRouter } from 'react-router';
 import { Formik, Form, Field } from "formik";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
@@ -27,88 +25,26 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import InboxController from "./inboxController.web";
 class Inbox extends InboxController {
-  constructor(props: Props) {
-    super(props);
-  }
 
   async componentDidMount() {
 
     this.getInbox()
 
   }
-  displaytime(time) {
+  displaytime(time:any) {
 
     let date = new Date(time.attributes.created_at)
 
     let d = date.getHours();
     let m = date.getMinutes();
+    //@ts-ignore
+//@ts-nocheck
     return `${d}:${m < 9 ? `0` + m : m} (${moment(time.attributes.created_at).format("DD MMM YYYY")})`
 
   }
-  displayText(data) {
-    const { t } = this.props;
-
-    if (data.attributes.body) {
-      return data.attributes.body
-    } else {
-      return t("file")
-    }
-  }
-  displayOtherAccountName(data) {
 
 
-    if (data.accounts.data.length > 1) {
-
-      return `${data.admin.data.attributes.first_name} `
-
-    } else {
-
-      const id = localStorage.getItem("userId")
-      const filteredPeople = data.accounts.data.filter((item) => item.id !== id);
-
-
-      if (filteredPeople.length) {
-
-        return filteredPeople[0].attributes?.first_name
-      } else {
-        return ` ${data.admin.data.attributes.first_name}`
-
-      }
-    }
-
-    return null;
-
-
-
-  }
-  displayOtherAccountImage(data) {
-
-
-
-    if (data.accounts.data.length > 1) {
-
-      return data.admin.data.attributes.profile_picture
-
-    } else {
-
-      const id = localStorage.getItem("userId")
-      const filteredPeople = data.accounts.data.filter((item) => item.id !== id);
-
-
-      if (filteredPeople.length) {
-
-        return filteredPeople[0].attributes?.profile_picture
-      } else {
-        return ` ${data.admin.data.attributes.profile_picture}`
-
-      }
-    }
-
-
-
-  }
-
-  getLastMessage=(obj)=>{
+  getLastMessage=(obj:any)=>{
     let value = obj[Object.keys(obj)[Object.keys(obj).length - 1]]
     console.log(value)
     return value[0].message.message || 'he'
@@ -130,7 +66,7 @@ class Inbox extends InboxController {
           </Box>
               <Box display='flex' alignItems='center' width="100%">
 
-                <Box width="100%" display='flex' style={{gap:'0.5rem'}} justifyContent='end' alignItems='center' gap='0.5rem'>
+                <Box width="100%" display='flex' style={{gap:'0.5rem'}} justifyContent='end' alignItems='center'>
                 {
                     this.state.isSearch ? <> <input autoFocus className="inputbox" onChange={(e) => this.getInboxBySearch(e.target.value)} /> <span onClick={this.handlesearchIcon} style={{ fontWeight: 'bold',cursor:'pointer' }} >X</span></> :
                       <img src={Search} style={{ float: 'right', cursor: 'pointer' }}  onClick={this.handlesearchIcon}/>
@@ -260,6 +196,8 @@ class Inbox extends InboxController {
     );
   }
 }
+//@ts-ignore
+//@ts-nocheck
 export default withRouter(Inbox)
 
 // Customizable Area End

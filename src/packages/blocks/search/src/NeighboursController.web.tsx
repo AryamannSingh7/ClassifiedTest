@@ -2,6 +2,7 @@ import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
 import { runEngine } from "../../../framework/src/RunEngine";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import MessageEnum, {
   getName
 } from "../../../framework/src/Messages/MessageEnum";
@@ -15,7 +16,7 @@ import { truncateSync } from "fs";
 
 export const configJSON = require("./config");
 
-export interface Props {
+export interface Props extends RouteComponentProps {
   navigation: any;
   id: string;
 }
@@ -667,7 +668,7 @@ getNeighboursDetails= (id :any) => {
 
       const formData = new FormData();
       formData.append("chat[chatable_type]", 'AccountBlock::Account');
-      formData.append("chat[chatable_id]", localStorage.getItem('userId'));
+      formData.append("chat[chatable_id]", localStorage.getItem('userId') || '{}');
       formData.append("chat[chat_with_account]", id);
 
 

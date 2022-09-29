@@ -1,9 +1,7 @@
-// @ts-ignore
-// @ts-nocheck
-
 import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import MessageEnum, {
   getName,
 } from "../../../framework/src/Messages/MessageEnum";
@@ -31,7 +29,7 @@ const options = {
 
 export const configJSON = require("./config");
 
-export interface Props {
+export interface Props extends RouteComponentProps {
   navigation: any;
   id: string;
   // Customizable Area Start
@@ -63,6 +61,10 @@ interface S {
   isSearch:boolean;
   newMessage:any;
   singleChatRoom:any[];
+  selectedMedia:any;
+  accept: boolean;
+  file:any;
+  selectedChatRoomId:any;
   // Customizable Area End
 }
 
@@ -81,6 +83,8 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
   getInboxApiCallId:string ='';
   getSingleInboxApiCallId:string='';
   getCreateMessagesApiCallId: any = "";
+  chatSettingApiCallId:any='';
+
   // Customizable Area End
   constructor(props: Props) {
     super(props);
@@ -118,6 +122,10 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
       allInboxKey:[],
       isSearch:false,
       newMessage:'',
+      selectedMedia:null,
+      accept:false,
+      file:null,
+      selectedChatRoomId:null
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -237,7 +245,20 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
           if (!responseJson.errors) {
             console.log(responseJson.data)
             if (responseJson.data) {
-              this.setState({allInbox: responseJson.data }, () => console.log(this.state.allInbox))
+              this.setState({ allInbox: responseJson.data }, () => console.log(this.state.allInbox))
+            }
+          } else {
+            //Check Error Response
+            // this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        } if (apiRequestCallId === this.chatSettingApiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson.data)
+            if (responseJson.data) {
+              window.location.reload();
+              // this.setState({ allInbox: responseJson.data }, () => console.log(this.state.allInbox))
             }
           } else {
             //Check Error Response
@@ -566,7 +587,7 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
 
   updateVehicle = async (values: any) => {
     console.log(values)
-    let item = JSON.parse(localStorage.getItem('selectFamily'))
+    let item = JSON.parse(localStorage.getItem('selectFamily')||'{}')
     try {
       const header = {
 
@@ -778,11 +799,11 @@ console.log('hi')
     return true;
   }
 
-  handleClick = (event) => {
+  handleClick = (event:any) => {
     this.setState({ anchorEl: event.currentTarget, showDialog: true })
   };
 
-  handleClose = (item) => {
+  handleClose = (item:any) => {
     if (item.id) {
       localStorage.setItem('selectFamily', JSON.stringify(item))
       this.props.history.push("/editfamily")
@@ -793,19 +814,19 @@ console.log('hi')
     // this.setState({ anchorEl:null,showDialog:false })
   };
 
-  openChat=(item)=>{
+  openChat=(item:any)=>{
 
     localStorage.setItem('selectedChat',JSON.stringify(item))
     this.props.history.push('/chatbox')
 
   }
-  CreateNewMessage(value) {
+  CreateNewMessage(value:any) {
     let data = value.target.value;
     this.setState({ newMessage: data })
   }
 
   createMessages = async () => {
-    const item= JSON.parse(localStorage.getItem('selectedChat'))
+    const item= JSON.parse(localStorage.getItem('selectedChat') || '{}')
 
     const message = this.state.newMessage;
 
@@ -858,7 +879,7 @@ console.log('hi')
   }
   getAllChat(){
 
-    const item = JSON.parse(localStorage.getItem('selectedChat'))
+    const item = JSON.parse(localStorage.getItem('selectedChat') || '{}')
     console.timeLog(item)
     this.setState({ singleChatRoom: item.attributes.messages, selectedChatRoomId: item.id, allInboxKey: Object.keys(item.attributes.messages) }, () => console.log(this.state.singleChatRoom))
   }
@@ -875,7 +896,7 @@ console.log('hi')
 
     this.createFileMessages(file)
   };
-  createFileMessages = async (file) => {
+  createFileMessages = async (file:any) => {
     const message = this.state.newMessage;
     const chatRoomId = this.state.selectedChatRoomId;
 
@@ -973,7 +994,7 @@ console.log('hi')
 
   }
   getSingleInbox() {
-    const item = JSON.parse(localStorage.getItem('selectedChat'))
+    const item = JSON.parse(localStorage.getItem('selectedChat')||'{}')
     const header = {
       "Content-Type": configJSON.contentTypeApiAddDetail,
       "token": localStorage.getItem('userToken')
