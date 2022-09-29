@@ -35,3 +35,5 @@ export const del_image = require("../assets/del-image.png");
 export const floorIcon = require("../assets/floor-icon.png");
 export const earthIcon = require("../assets/earth-icon.png");
 export const downloadIcon = require("../assets/download.png");
+export const nextIcon = require("../assets/right-arrow.png");
+export const previousIcon = require("../assets/left-arrow.png");

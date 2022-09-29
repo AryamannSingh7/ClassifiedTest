@@ -77,15 +77,14 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
   }
 
   // Customizable Area Start
-  //   handleTabChange = (e: any) => {
-  //     console.log("currentTab=====>>", typeof this.state.currentTab)
-  //     this.setState({currentTab:e.target.id})
-  //   };
-
-  //   handleClose = () => {
-  //     this.setState({anchorEl:null})
-  //   }
-
+  slider: any;
+  nextImage = () => {
+    this.slider.slickNext();
+  };
+  previousImage = () => {
+    this.slider.slickPrev();
+  };
+  
   InvitationSchema() {
     const validations = Yup.object().shape({
       complexname: Yup.string().required(`This field is required`),

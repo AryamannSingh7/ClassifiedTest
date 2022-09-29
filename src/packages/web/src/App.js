@@ -139,24 +139,23 @@ import IncidentChat from "../../blocks/customform/src/IncidentChat.web"
 
 import Chatbox from "../../blocks/customform/src/Chatbox.web"
 
-import ViewVeichle from "../../blocks/customform/src/ViewVehicle.web"
-import FamilyList from "../../blocks/customform/src/FamilyList.web"
+import ViewVeichle from '../../blocks/customform/src/ViewVehicle.web';
+import FamilyList from '../../blocks/customform/src/FamilyList.web';
 
-import ManagerViewVehicle from "../../blocks/customform/src/ManagerViewVehicle.web"
+import ManagerViewVehicle from '../../blocks/customform/src/ManagerViewVehicle.web';
 
+import PollDetails from '../../blocks/Polling/src/PollDetails.web';
+import PollReport from '../../blocks/Polling/src/PollReport.web';
+import CreateIncident from '../../blocks/ContentManagement/src/CreateIncident.web';
+import IncidentDetails from '../../blocks/ContentManagement/src/IncidentDetails.web';
+import IncidentListing from '../../blocks/ContentManagement/src/IncidentListing.web';
+import IncidentReportedSuccessfully from '../../blocks/ContentManagement/src/IncidentReportedSuccessfully.web';
+import IncidentPreview from '../../blocks/ContentManagement/src/IncidentPreview.web';
+import IncidentManagement from '../../blocks/ContentManagement/src/IncidentManagement.web';
+import IncidentManagementDetail from '../../blocks/ContentManagement/src/IncidentManagementDetail.web';
 
-import PollDetails from "../../blocks/Polling/src/PollDetails.web"
-import PollReport from "../../blocks/Polling/src/PollReport.web"
-import CreateIncident from "../../blocks/ContentManagement/src/CreateIncident.web";
-import IncidentDetails from "../../blocks/ContentManagement/src/IncidentDetails.web";
-import IncidentListing from "../../blocks/ContentManagement/src/IncidentListing.web";
-import IncidentReportedSuccessfully from "../../blocks/ContentManagement/src/IncidentReportedSuccessfully.web";
-import IncidentPreview from "../../blocks/ContentManagement/src/IncidentPreview.web";
-import IncidentManagement from "../../blocks/ContentManagement/src/IncidentManagement.web";
-import IncidentManagementDetail from "../../blocks/ContentManagement/src/IncidentManagementDetail.web";
-
-import ClassifiedManagerListing from "../../blocks/ContentManagement/src/ClassifiedManagerListing.web";
-import ClassifiedManagerDetail from "../../blocks/ContentManagement/src/ClassifiedManagerDetail.web";
+import ClassifiedManagerListing from '../../blocks/ContentManagement/src/ClassifiedManagerListing.web';
+import ClassifiedManagerDetail from '../../blocks/ContentManagement/src/ClassifiedManagerDetail.web';
 
 import NeighboursDetails from '../../blocks/search/src/NeighboursDetails.web';
 import NeighboursListing from '../../blocks/search/src/NeighboursListing.web';
@@ -1446,7 +1445,7 @@ const routeMap = {
   // Building and Complex
   Buildings: {
     component: Buildings,
-    path: '/Buildings',
+    path: '/Building/:id',
     roles: [ROLE.CHAIRMAN, ROLE.MANAGER]
   },
   Complex: {
@@ -1456,12 +1455,12 @@ const routeMap = {
   },
   UnitDetails: {
     component: UnitDetails,
-    path: '/UnitDetails',
+    path: '/UnitDetail/:id',
     roles: [ROLE.CHAIRMAN, ROLE.MANAGER]
   },
   SharedArea: {
     component: SharedArea,
-    path: '/SharedArea',
+    path: '/SharedArea/:id',
     roles: [ROLE.CHAIRMAN, ROLE.MANAGER]
   },
 
