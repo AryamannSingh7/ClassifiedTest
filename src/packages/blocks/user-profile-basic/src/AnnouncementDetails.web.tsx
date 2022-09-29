@@ -13,24 +13,19 @@ import {
   DialogContent,
   DialogActions,
 } from "@material-ui/core";
-import AnnouncementsController, { Props } from "./AnnouncementsController.web";
+import {withRouter} from "react-router-dom"
+import AnnouncementDetailsController, { Props } from "./AnnouncementDetailsController";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { SuggestionStyleWeb } from "./SuggestionStyle.web";
 import { avatarIcon, calenderIcon, CheckIcon, phone, poolImage } from "./assets";
 
-class AnnouncementDetails extends AnnouncementsController {
+class AnnouncementDetails extends AnnouncementDetailsController {
   constructor(props: Props) {
     super(props);
   }
-
-  async componentDidMount(): Promise<void> {}
-
   render() {
     const { classes } = this.props;
-
-    console.log(this.state);
-
     return (
       <>
         <Box style={{ background: "#F4F7FF" }} className={classes.suggestionDetails}>
@@ -61,32 +56,33 @@ class AnnouncementDetails extends AnnouncementsController {
                 <Box className="content-box">
                   <Box className="suggestion-detail">
                     <Card>
-                      <img src={poolImage.default} />
+                      {
+                        this.state?.AnnouncementDetails?.image?.url &&
+                          <img src={this.state?.AnnouncementDetails?.image?.url} />
+                      }
                       <Box className="heading">
                         <p>
-                          <span>Swimming Pool will be closed till 28/03/22</span>
+                          <span>{this.state.AnnouncementDetails?.title}</span>
                         </p>
-                        <span className="blue-span">Building Rules</span>
+                        <span className="blue-span">{this.state.AnnouncementDetails?.announcement_category}</span>
                       </Box>
-                      <p>Description</p>
+                      <p>Description :</p>
                       <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio aliquid sint non numquam repellat
-                        quos, at culpa inventore dicta totam dolore asperiores molestias accusamus, dolorum, saepe
-                        assumenda natus nobis sequi.
+                        {this.state.AnnouncementDetails?.description}
                       </p>
                       <Box className="suggestion-info">
                         <Box className="info">
                           <img src={avatarIcon} />
                           <Box>
                             <p className="heading">Announced By:</p>
-                            <p>Mr. Ali Khan</p>
+                            <p>{this.state.AnnouncementDetails?.announcement_by}</p>
                           </Box>
                         </Box>
                         <Box className="info">
                           <img src={calenderIcon} />
                           <Box>
                             <p className="heading">Announced On:</p>
-                            <p>11-11-1111 11:11</p>
+                            <p>{this.state.AnnouncementDetails?.announcement_on}</p>
                           </Box>
                         </Box>
                       </Box>
@@ -116,7 +112,7 @@ class AnnouncementDetails extends AnnouncementsController {
                 <Button className="cancel-button" style={{ width: "200px" }} onClick={() => this.handleWithdrawModal()}>
                   Close
                 </Button>
-                <Button style={{ width: "200px" }} className="add-button" onClick={() => {}}>
+                <Button style={{ width: "200px" }} className="add-button" onClick={this.handleWithdraw}>
                   Confirm
                 </Button>
               </DialogActions>
@@ -128,5 +124,5 @@ class AnnouncementDetails extends AnnouncementsController {
   }
 }
 
-export default withStyles(SuggestionStyleWeb)(AnnouncementDetails);
+export default withStyles(SuggestionStyleWeb)(withRouter(AnnouncementDetails));
 // Customizable Area End

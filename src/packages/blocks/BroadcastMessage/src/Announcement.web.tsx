@@ -59,7 +59,8 @@ class Announcement extends AnnouncementController{
                 <Box style={{background: "#E5ECFF",minHeight:"100vh",display:'flex',flexDirection:"column",alignItems:'center'}} >
                     <Grid container spacing={2} style={{width:"90%"}}>
                         {
-                            data.map((item:any,key:any)=> {
+                            this.state.buildingListing.length > 0 &&
+                            this.state.buildingListing.map((item:any,key:any)=> {
                                 return(
                                     <Grid item xs={12} key={key}>
                                         <Box
@@ -75,10 +76,10 @@ class Announcement extends AnnouncementController{
                                             <Box style={{minWidth:"100%"}}>
                                                 <Box style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
                                                     <Typography variant={"body2"} style={{fontWeight:"bold"}}>
-                                                        {item.complexName}
+                                                        {item.attributes.complex_name}
                                                     </Typography>
                                                     <Typography variant={"body2"} className="countRed">
-                                                        {item.buildingCount}
+                                                        {item.attributes.total_announcement}
                                                     </Typography>
                                                 </Box>
                                                 <Grid container spacing={1} style={{marginTop:"10px",marginBottom:"5px"}}>
@@ -88,7 +89,7 @@ class Announcement extends AnnouncementController{
                                                         </Box>
                                                         <Box>
                                                             <Typography variant="subtitle2" >Building Name</Typography>
-                                                            <Typography variant="subtitle2" style={{fontWeight:"bold"}}>{item.buildingName}</Typography>
+                                                            <Typography variant="subtitle2" style={{fontWeight:"bold"}}>{item.attributes.building_name}</Typography>
                                                         </Box>
                                                     </Grid>
                                                     <Grid xs={6} style={{display:'flex',alignItems:'center'}}>
@@ -97,7 +98,7 @@ class Announcement extends AnnouncementController{
                                                         </Box>
                                                         <Box>
                                                             <Typography variant="subtitle2" >Unit Number</Typography>
-                                                            <Typography variant="subtitle2" style={{fontWeight:"bold"}}>{item.unitNo}</Typography>
+                                                            <Typography variant="subtitle2" style={{fontWeight:"bold"}}>{item.attributes?.unit_number?.join(",") || 0}</Typography>
                                                         </Box>
                                                     </Grid>
                                                 </Grid>
