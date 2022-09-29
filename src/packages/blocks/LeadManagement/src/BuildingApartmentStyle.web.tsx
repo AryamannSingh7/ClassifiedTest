@@ -65,6 +65,11 @@ export const BuildingApartmentStyle: any = {
     },
     "& .building-info .building-name-country h4": {
       marginBottom: "8px",
+      textTransform: "capitalize",
+    },
+    "& .building-info .building-name-country p": {
+      marginBottom: "8px",
+      textTransform: "capitalize",
     },
     "& .building-info .building-info-right": {
       display: "flex",

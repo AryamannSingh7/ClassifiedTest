@@ -1452,7 +1452,7 @@ const routeMap = {
   },
   SharedArea: {
     component: SharedArea,
-    path: '/SharedArea',
+    path: '/SharedArea/:id',
     roles: [ROLE.CHAIRMAN, ROLE.MANAGER]
   },
 

@@ -66,6 +66,7 @@ import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
 import { Formik, Form } from "formik";
 import { Menu } from "@szhsin/react-menu";
+import Loader from "../../../components/src/Loader.web";
 
 const TabPanel = (props: any) => {
   const { children, value, index, ...other } = props;
@@ -105,15 +106,15 @@ class Buildings extends BuildingsController {
     var searchData = this.state.unitList.filter((item: any) => {
       if (this.state.dataSearch === "") {
         return item;
-      } else if (item.Unit_Number.toLowerCase().includes(this.state.dataSearch.toLowerCase())) {
+      } else if (item.apartment_name.toLowerCase().includes(this.state.dataSearch.toLowerCase())) {
         return item;
       }
     });
 
-    console.log(this.state);
-
     return (
       <>
+        <Loader loading={this.state.loading} />
+
         <Box className={classes.building} style={{ background: "#F4F7FF" }}>
           {/* Dashboard Header -- */}
           <DashboardHeader {...this.props} />
@@ -162,7 +163,7 @@ class Buildings extends BuildingsController {
                         <img src={this.state.buildingData.logo} />
                         <Box className="building-name-country">
                           <h4>{this.state.buildingData.buildingName || "-"}</h4>
-                          <p>{this.state.buildingData.country || "-"}</p>
+                          <p>{this.state.buildingData.city || "-"}</p>
                         </Box>
                       </Box>
                       <Box className="building-info-right">
@@ -177,7 +178,7 @@ class Buildings extends BuildingsController {
                             {this.state.buildingData.photos.map((image: any, index: number) => {
                               return (
                                 <div onClick={() => this.setState({ imageBox: true, photoIndex: index })}>
-                                  <img src={image} alt="" />
+                                  <img src={image.url} alt="" />
                                 </div>
                               );
                             })}
@@ -198,17 +199,17 @@ class Buildings extends BuildingsController {
 
                 {this.state.imageBox && this.state.buildingData.photos.length > 0 && (
                   <Lightbox
-                    mainSrc={this.state.buildingData.photos[this.state.photoIndex]}
+                    mainSrc={this.state.buildingData.photos[this.state.photoIndex].url}
                     nextSrc={
                       this.state.buildingData.photos[
                         (this.state.photoIndex + 1) % this.state.buildingData.photos.length
-                      ]
+                      ].url
                     }
                     prevSrc={
                       this.state.buildingData.photos[
                         (this.state.photoIndex + this.state.buildingData.photos.length - 1) %
                           this.state.buildingData.photos.length
-                      ]
+                      ].url
                     }
                     onCloseRequest={() => this.setState({ imageBox: false })}
                     onMovePrevRequest={() =>
@@ -363,6 +364,7 @@ class Buildings extends BuildingsController {
                             <TextField
                               className="search-unit"
                               placeholder={t("Search by unit number")}
+                              value={this.state.dataSearch}
                               onChange={(e) => this.setState({ dataSearch: e.target.value })}
                               InputProps={{
                                 startAdornment: (
@@ -392,7 +394,7 @@ class Buildings extends BuildingsController {
                               {searchData.map((unit: any, index: number) => (
                                 <TableRow key={unit.id}>
                                   <TableCell>{index + 1}</TableCell>
-                                  <TableCell>-</TableCell>
+                                  <TableCell>{unit.apartment_name}</TableCell>
                                   <TableCell>{unit.floor_number}</TableCell>
                                   <TableCell>-</TableCell>
                                   <TableCell>-</TableCell>
@@ -427,56 +429,23 @@ class Buildings extends BuildingsController {
                         <Divider />
                         <Box className="document-box">
                           <Grid container spacing={2}>
-                            <Grid item xs={12} md={6} lg={4}>
-                              {/* <Link href="/DocumentChairman/Policy"> */}
-                              <Box className="item" style={dashBoard.cursorPointer}>
-                                <div className="heading" onClick={() => this.props.navigation.navigate("SharedArea")}>
-                                  <img src={Document} />
-                                  <h4>{t("Community Hall")}</h4>
-                                </div>
-                              </Box>
-                              {/* </Link> */}
-                            </Grid>
-                            <Grid item xs={12} md={6} lg={4}>
-                              <Link href="/DocumentChairman/Guidelines">
-                                <Box className="item">
-                                  <Box className="heading">
-                                    <img src={Document} />
-                                    <h4>{t("Garden")}</h4>
-                                  </Box>
-                                </Box>
-                              </Link>
-                            </Grid>
-                            <Grid item xs={12} md={6} lg={4}>
-                              <Link href="/DocumentChairman/Roles">
-                                <Box className="item">
-                                  <Box className="heading">
-                                    <img src={Document} />
-                                    <h4>{t("Common Parking")}</h4>
-                                  </Box>
-                                </Box>
-                              </Link>
-                            </Grid>
-                            <Grid item xs={12} md={6} lg={4}>
-                              <Link href="/DocumentChairman/Resolutions">
-                                <Box className="item">
-                                  <Box className="heading">
-                                    <img src={Document} />
-                                    <h4>{t("Swimming Pool")}</h4>
-                                  </Box>
-                                </Box>
-                              </Link>
-                            </Grid>
-                            <Grid item xs={12} md={6} lg={4}>
-                              <Link href="/DocumentChairman/Building-Plans">
-                                <Box className="item">
-                                  <Box className="heading">
-                                    <img src={Document} />
-                                    <h4>{t("Park")}</h4>
-                                  </Box>
-                                </Box>
-                              </Link>
-                            </Grid>
+                            {this.state.buildingData.sharedAreaList.map((sharedArea: any) => {
+                              return (
+                                <Grid item xs={12} md={6} lg={4} key={sharedArea.id}>
+                                  <Link href={`/SharedArea/${sharedArea.id}`}>
+                                    <Box className="item" style={dashBoard.cursorPointer}>
+                                      <div
+                                        className="heading"
+                                        onClick={() => this.props.navigation.navigate("SharedArea")}
+                                      >
+                                        <img src={Document} />
+                                        <h4>{sharedArea.name}</h4>
+                                      </div>
+                                    </Box>
+                                  </Link>
+                                </Grid>
+                              );
+                            })}
                           </Grid>
                         </Box>
                       </>
@@ -504,16 +473,13 @@ class Buildings extends BuildingsController {
           <Formik
             enableReinitialize={true}
             initialValues={this.state.editForm}
-            // validationSchema={this.addMeetingValidation}
+            validationSchema={this.editBuildingDetailValidation}
             onSubmit={(values, { resetForm }) => {
-              console.log(values);
+              this.handleEditBuildingModal();
+              this.handleSaveBuildingDetails(values);
             }}
           >
             {({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue }) => {
-              console.log("values", values);
-              console.log("errors", errors);
-              console.log("touched", touched);
-
               return (
                 <Form onSubmit={handleSubmit} translate>
                   <DialogContent dividers>
@@ -537,6 +503,7 @@ class Buildings extends BuildingsController {
                         onBlur={handleBlur}
                         name="logo"
                       />
+                      {errors.logo && touched.logo && <small className="error">{t(errors.logo)}</small>}
                     </Box>
                     <Grid container spacing={2} className="edit-building">
                       <Grid item md={12}>
@@ -552,21 +519,42 @@ class Buildings extends BuildingsController {
                               style={{ display: "none" }}
                               accept="image/*"
                               onChange={(e: any) => {
-                                console.log(e.currentTarget.files[0]);
-                                // setFieldValue("photos", e.currentTarget.files);
+                                for (let i = 0; i < e.target.files.length; i++) {
+                                  const file = e.target.files[i];
+                                  let reader = new FileReader();
+                                  reader.onloadend = () => {
+                                    values.photos = [...values.photos, reader.result];
+                                    setFieldValue("photos", values.photos);
+                                  };
+                                  reader.readAsDataURL(file);
+                                }
                               }}
                               onBlur={handleBlur}
                               name="photos"
                               multiple
                             />
                           </Grid>
-                          <Grid item md={3}>
-                            <Box className="building-image">
-                              <img src={del_image} className="delete-image" />
-                              <img src="https://tinyurl.com/5dznmsms" alt="" />
-                            </Box>
-                          </Grid>
+                          {values.photos.map((image: any, index: number) => {
+                            return (
+                              <Grid item md={3} key={index}>
+                                <Box className="building-image">
+                                  <img
+                                    src={del_image}
+                                    className="delete-image"
+                                    onClick={() => {
+                                      const remainImage = values.photos.filter(
+                                        (img: any, idx: number) => idx !== index
+                                      );
+                                      setFieldValue("photos", remainImage);
+                                    }}
+                                  />
+                                  <img src={image} alt="" />
+                                </Box>
+                              </Grid>
+                            );
+                          })}
                         </Grid>
+                        {errors.photos && touched.photos && <small className="error">{t(errors.photos)}</small>}
                       </Grid>
                       <Grid item md={12}>
                         <InputLabel>{t("About Us")}</InputLabel>
@@ -578,6 +566,9 @@ class Buildings extends BuildingsController {
                           onBlur={handleBlur}
                           name="aboutBuilding"
                         />
+                        {errors.aboutBuilding && touched.aboutBuilding && (
+                          <small className="error">{t(errors.aboutBuilding)}</small>
+                        )}
                       </Grid>
                       <Grid item md={6}>
                         <InputLabel>{t("Building Name")}</InputLabel>
@@ -595,6 +586,9 @@ class Buildings extends BuildingsController {
                           onBlur={handleBlur}
                           name="buildingName"
                         />
+                        {errors.buildingName && touched.buildingName && (
+                          <small className="error">{t(errors.buildingName)}</small>
+                        )}
                       </Grid>
                       <Grid item md={6}>
                         <InputLabel>{t("Country")}</InputLabel>
@@ -610,17 +604,6 @@ class Buildings extends BuildingsController {
                           value={values.country}
                           readOnly
                         />
-                        {/* <Select fullWidth value="" className="select-box" displayEmpty input={<OutlinedInput />}>
-                          <MenuItem value="" disabled>
-                            <ListItemIcon>
-                              <img src={earthIcon} alt="" />
-                            </ListItemIcon>
-                            Country Name
-                          </MenuItem>
-                          <MenuItem value={10}>Ten</MenuItem>
-                          <MenuItem value={20}>Twenty</MenuItem>
-                          <MenuItem value={30}>Thirty</MenuItem>
-                        </Select> */}
                       </Grid>
                       <Grid item md={6}>
                         <InputLabel>{t("Building Area")}</InputLabel>
@@ -638,6 +621,9 @@ class Buildings extends BuildingsController {
                           onBlur={handleBlur}
                           name="buildingArea"
                         />
+                        {errors.buildingArea && touched.buildingArea && (
+                          <small className="error">{t(errors.buildingArea)}</small>
+                        )}
                       </Grid>
                       <Grid item md={6}>
                         <InputLabel>{t("Total Floors")}</InputLabel>
@@ -684,8 +670,6 @@ class Buildings extends BuildingsController {
             }}
           </Formik>
         </Dialog>
-
-        {/* <Loader loading={this.state.loading} /> */}
       </>
     );
   }

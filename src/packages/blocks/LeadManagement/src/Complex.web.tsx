@@ -51,6 +51,7 @@ import { BuildingApartmentStyle } from "./BuildingApartmentStyle.web";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
 import { Formik, Form } from "formik";
+import Loader from "../../../components/src/Loader.web";
 
 const TabPanel = (props: any) => {
   const { children, value, index, ...other } = props;
@@ -90,15 +91,15 @@ class Complex extends ComplexController {
     var searchData = this.state.complexData.buildingList.filter((building: any) => {
       if (this.state.dataSearch === "") {
         return building;
-      } else if (building.Unit_Number.toLowerCase().includes(this.state.dataSearch.toLowerCase())) {
+      } else if (building.building_name.toLowerCase().includes(this.state.dataSearch.toLowerCase())) {
         return building;
       }
     });
 
-    console.log(this.state);
-
     return (
       <>
+        <Loader loading={this.state.loading} />
+
         <Box className={classes.building} style={{ background: "#F4F7FF" }}>
           {/* Dashboard Header -- */}
           <DashboardHeader {...this.props} />
@@ -147,7 +148,7 @@ class Complex extends ComplexController {
                         <img src={this.state.complexData.logo} alt="" />
                         <Box className="building-name-country">
                           <h4>{this.state.complexData.complexName}</h4>
-                          <p>{this.state.complexData.country || "-"}</p>
+                          <p>{this.state.complexData.city || "-"}</p>
                         </Box>
                       </Box>
                       <Box className="building-info-right">
@@ -162,7 +163,7 @@ class Complex extends ComplexController {
                             {this.state.complexData.photos.map((image: any, index: number) => {
                               return (
                                 <div onClick={() => this.setState({ imageBox: true, photoIndex: index })}>
-                                  <img src={image} alt="" />
+                                  <img src={image.url} alt="" />
                                 </div>
                               );
                             })}
@@ -183,15 +184,16 @@ class Complex extends ComplexController {
 
                 {this.state.imageBox && this.state.complexData.photos.length > 0 && (
                   <Lightbox
-                    mainSrc={this.state.complexData.photos[this.state.photoIndex]}
+                    mainSrc={this.state.complexData.photos[this.state.photoIndex].url}
                     nextSrc={
                       this.state.complexData.photos[(this.state.photoIndex + 1) % this.state.complexData.photos.length]
+                        .url
                     }
                     prevSrc={
                       this.state.complexData.photos[
                         (this.state.photoIndex + this.state.complexData.photos.length - 1) %
                           this.state.complexData.photos.length
-                      ]
+                      ].url
                     }
                     onCloseRequest={() => this.setState({ imageBox: false })}
                     onMovePrevRequest={() =>
@@ -245,9 +247,11 @@ class Complex extends ComplexController {
                         {searchData.map((building: any) => {
                           return (
                             <Grid item xs={4}>
-                              <Box className="building-box">
-                                <h5>-Building 1-</h5>
-                              </Box>
+                              <Link href={`/Building/${building.building_management_id}`}>
+                                <Box className="building-box">
+                                  <h5>{building.building_name}</h5>
+                                </Box>
+                              </Link>
                             </Grid>
                           );
                         })}
@@ -380,56 +384,23 @@ class Complex extends ComplexController {
                         <Divider />
                         <Box className="document-box">
                           <Grid container spacing={2}>
-                            <Grid item xs={12} md={6} lg={4}>
-                              {/* <Link href="/DocumentChairman/Policy"> */}
-                              <Box className="item" style={dashBoard.cursorPointer}>
-                                <div className="heading" onClick={() => this.props.navigation.navigate("SharedArea")}>
-                                  <img src={Document} />
-                                  <h4>{t("Community Hall")}</h4>
-                                </div>
-                              </Box>
-                              {/* </Link> */}
-                            </Grid>
-                            <Grid item xs={12} md={6} lg={4}>
-                              <Link href="/DocumentChairman/Guidelines">
-                                <Box className="item">
-                                  <div className="heading">
-                                    <img src={Document} />
-                                    <h4>{t("Garden")}</h4>
-                                  </div>
-                                </Box>
-                              </Link>
-                            </Grid>
-                            <Grid item xs={12} md={6} lg={4}>
-                              <Link href="/DocumentChairman/Roles">
-                                <Box className="item">
-                                  <div className="heading">
-                                    <img src={Document} />
-                                    <h4>{t("Common Parking")}</h4>
-                                  </div>
-                                </Box>
-                              </Link>
-                            </Grid>
-                            <Grid item xs={12} md={6} lg={4}>
-                              <Link href="/DocumentChairman/Resolutions">
-                                <Box className="item">
-                                  <div className="heading">
-                                    <img src={Document} />
-                                    <h4>{t("Swimming Pool")}</h4>
-                                  </div>
-                                </Box>
-                              </Link>
-                            </Grid>
-                            <Grid item xs={12} md={6} lg={4}>
-                              <Link href="/DocumentChairman/Building-Plans">
-                                <Box className="item">
-                                  <div className="heading">
-                                    <img src={Document} />
-                                    <h4>{t("Park")}</h4>
-                                  </div>
-                                </Box>
-                              </Link>
-                            </Grid>
+                            {this.state.complexData.sharedAreaList.map((sharedArea: any) => {
+                              return (
+                                <Grid item xs={12} md={6} lg={4} key={sharedArea.id}>
+                                  <Link href={`/SharedArea/${sharedArea.id}`}>
+                                    <Box className="item" style={dashBoard.cursorPointer}>
+                                      <div
+                                        className="heading"
+                                        onClick={() => this.props.navigation.navigate("SharedArea")}
+                                      >
+                                        <img src={Document} />
+                                        <h4>{sharedArea.name}</h4>
+                                      </div>
+                                    </Box>
+                                  </Link>
+                                </Grid>
+                              );
+                            })}
                           </Grid>
                         </Box>
                       </>
@@ -450,23 +421,20 @@ class Complex extends ComplexController {
         >
           <MuiDialogTitle disableTypography className="dialog-heading">
             <Typography variant="h6">{t("Edit Details")}</Typography>
-            <IconButton onClick={() => this.handleEditBuildingModal()}>
+            <IconButton onClick={() => this.handleEditComplexModal()}>
               <CloseIcon />
             </IconButton>
           </MuiDialogTitle>
           <Formik
             enableReinitialize={true}
             initialValues={this.state.editForm}
-            // validationSchema={this.addMeetingValidation}
+            validationSchema={this.editComplexDetailValidation}
             onSubmit={(values, { resetForm }) => {
-              console.log(values);
+              this.handleEditComplexModal();
+              this.handleSaveComplexDetails(values);
             }}
           >
             {({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue }) => {
-              console.log("values", values);
-              console.log("errors", errors);
-              console.log("touched", touched);
-
               return (
                 <Form onSubmit={handleSubmit} translate>
                   <DialogContent dividers>
@@ -490,6 +458,7 @@ class Complex extends ComplexController {
                         onBlur={handleBlur}
                         name="logo"
                       />
+                      {errors.logo && touched.logo && <small className="error">{t(errors.logo)}</small>}
                     </Box>
                     <Grid container spacing={2} className="edit-building">
                       <Grid item md={12}>
@@ -505,21 +474,42 @@ class Complex extends ComplexController {
                               style={{ display: "none" }}
                               accept="image/*"
                               onChange={(e: any) => {
-                                console.log(e.currentTarget.files[0]);
-                                // setFieldValue("photos", e.currentTarget.files);
+                                for (let i = 0; i < e.target.files.length; i++) {
+                                  const file = e.target.files[i];
+                                  let reader = new FileReader();
+                                  reader.onloadend = () => {
+                                    values.photos = [...values.photos, reader.result];
+                                    setFieldValue("photos", values.photos);
+                                  };
+                                  reader.readAsDataURL(file);
+                                }
                               }}
                               onBlur={handleBlur}
                               name="photos"
                               multiple
                             />
                           </Grid>
-                          <Grid item md={3}>
-                            <Box className="building-image">
-                              <img src={del_image} className="delete-image" />
-                              <img src="https://tinyurl.com/5dznmsms" alt="" />
-                            </Box>
-                          </Grid>
+                          {values.photos.map((image: any, index: number) => {
+                            return (
+                              <Grid item md={3} key={index}>
+                                <Box className="building-image">
+                                  <img
+                                    src={del_image}
+                                    className="delete-image"
+                                    onClick={() => {
+                                      const remainImage = values.photos.filter(
+                                        (img: any, idx: number) => idx !== index
+                                      );
+                                      setFieldValue("photos", remainImage);
+                                    }}
+                                  />
+                                  <img src={image} alt="" />
+                                </Box>
+                              </Grid>
+                            );
+                          })}
                         </Grid>
+                        {errors.photos && touched.photos && <small className="error">{t(errors.photos)}</small>}
                       </Grid>
                       <Grid item md={12}>
                         <InputLabel>{t("About Us")}</InputLabel>
@@ -531,6 +521,7 @@ class Complex extends ComplexController {
                           onBlur={handleBlur}
                           name="aboutUs"
                         />
+                        {errors.aboutUs && touched.aboutUs && <small className="error">{t(errors.aboutUs)}</small>}
                       </Grid>
                       <Grid item md={6}>
                         <InputLabel>{t("Complex Area")}</InputLabel>
@@ -548,6 +539,9 @@ class Complex extends ComplexController {
                             </InputAdornment>
                           }
                         />
+                        {errors.complexArea && touched.complexArea && (
+                          <small className="error">{t(errors.complexArea)}</small>
+                        )}
                       </Grid>
                       <Grid item md={6}>
                         <InputLabel>{t("Total Buildings")}</InputLabel>
@@ -582,7 +576,7 @@ class Complex extends ComplexController {
                     </Grid>
                   </DialogContent>
                   <DialogActions className="dialog-button-group">
-                    <Button className="cancel-button" onClick={() => this.handleEditBuildingModal()}>
+                    <Button className="cancel-button" onClick={() => this.handleEditComplexModal()}>
                       {t("Cancel")}
                     </Button>
                     <Button type="submit" className="add-button">

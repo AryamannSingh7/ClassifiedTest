@@ -7,6 +7,7 @@ import { runEngine } from "../../../framework/src/RunEngine";
 // Customizable Area Start
 import * as Yup from "yup";
 import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
+import toast from "react-hot-toast";
 // Customizable Area End
 
 export const configJSON = require("./config");
@@ -30,20 +31,21 @@ interface DocumentCount {
 interface ComplexData {
   logo: any;
   complexName: string;
-  country: string;
+  city: string;
   aboutUs: string;
   photos: any[];
-  buildingList: any[];
   complexArea: string;
   totalUnits: string;
   totalBuilding: number;
+  buildingList: any[];
+  sharedAreaList: any[];
 }
 
 interface EditForm {
   logo: any;
   displayLogo: any;
-  aboutUs: string;
   photos: any[];
+  aboutUs: string;
   complexArea: string;
   totalUnits: string;
   totalBuilding: number;
@@ -51,6 +53,8 @@ interface EditForm {
 
 interface S {
   // Customizable Area Start
+  loading: boolean;
+
   imageBox: boolean;
   photoIndex: number;
 
@@ -77,6 +81,8 @@ interface SS {
 export default class ComplexController extends BlockComponent<Props, S, SS> {
   GetDocumentCountCallId: any;
   GetComplexDetailsCallId: any;
+  GetBuildingListCallId: any;
+  EditComplexDetailCallId: any;
 
   constructor(props: Props) {
     super(props);
@@ -87,6 +93,8 @@ export default class ComplexController extends BlockComponent<Props, S, SS> {
 
     this.state = {
       // Customizable Area Start
+      loading: false,
+
       imageBox: false,
       photoIndex: 0,
 
@@ -108,13 +116,14 @@ export default class ComplexController extends BlockComponent<Props, S, SS> {
       complexData: {
         logo: null,
         complexName: "",
-        country: "",
+        city: "",
         aboutUs: "",
         photos: [],
-        buildingList: [],
         complexArea: "",
         totalUnits: "",
         totalBuilding: 0,
+        buildingList: [],
+        sharedAreaList: [],
       },
 
       editForm: {
@@ -183,16 +192,43 @@ export default class ComplexController extends BlockComponent<Props, S, SS> {
           complexDetails: responseJson.data,
           complexData: {
             ...this.state.complexData,
-            logo: responseJson.data.attributes.logo,
+            logo: responseJson.data.attributes.logo && responseJson.data.attributes.logo.url,
             complexName: responseJson.data.attributes.name,
-            country: "",
+            city: responseJson.data.attributes.city,
             aboutUs: responseJson.data.attributes.description,
-            photos: responseJson.data.attributes.photos.map((image: any) => image.url),
-            buildingList: [],
+            photos: responseJson.data.attributes.photos,
             complexArea: responseJson.data.attributes.complex_area,
-            totalUnits: "",
+            totalUnits: responseJson.data.attributes.total_units && responseJson.data.attributes.total_units[0],
             totalBuilding: responseJson.data.attributes.total_buildings,
+            buildingList: responseJson.data.attributes.building_list,
+            sharedAreaList: responseJson.data.attributes.shared_area,
           },
+        });
+      }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // Edit Complex Details API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.EditComplexDetailCallId !== null &&
+      this.EditComplexDetailCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.EditComplexDetailCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      if (responseJson.data) {
+        this.setState({ loading: false }, () => {
+          toast.success("Details updated successfully");
+          this.getComplexDetails();
         });
       }
 
@@ -211,7 +247,7 @@ export default class ComplexController extends BlockComponent<Props, S, SS> {
   uploadLogo: any;
   uploadImages: any;
   slider: any;
-  
+
   nextImage = () => {
     this.slider.slickNext();
   };
@@ -274,22 +310,108 @@ export default class ComplexController extends BlockComponent<Props, S, SS> {
     return true;
   };
 
+  // Edit Complex Detail API
+  handleSaveComplexDetails = async (values: EditForm) => {
+    this.setState({ loading: true });
+    var data = new FormData();
+    data.append("society_management[description]", values.aboutUs);
+    data.append("society_management[complex_area]", values.complexArea);
+
+    if (typeof values.logo === "object" && values.logo !== null) {
+      data.append("society_management[logo]", values.logo);
+    }
+
+    values.photos.map((image: any) => {
+      data.append("society_management[photos][]", this.dataURLtoFile(image));
+    });
+
+    const header = {
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.EditComplexDetailCallId = apiRequest.messageId;
+
+    const society_id = localStorage.getItem("society_id");
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_society_management/society_managements/${society_id}`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestBodyMessage), data);
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePatch);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
   // Handle State
   handleTabChange = (event: any, newValue: number) => {
     this.setState({ currentTab: newValue });
   };
 
-  handleEditBuildingModal = () => {
+  handleEditComplexModal = () => {
     this.setState({ isEditBuildingModalOpen: !this.state.isEditBuildingModalOpen });
   };
 
-  openEditBuildingModal = () => {
+  toDataURL = (url: any) =>
+    fetch(url)
+      .then((response: any) => response.blob())
+      .then(
+        (blob: any) =>
+          new Promise((resolve: any, reject: any) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result);
+            reader.onerror = reject;
+            reader.readAsDataURL(blob);
+          })
+      );
+
+  dataURLtoFile = (dataurl: any) => {
+    var arr = dataurl.split(","),
+      mime = arr[0].match(/:(.*?);/)[1],
+      bstr = atob(arr[1]),
+      n = bstr.length,
+      u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], "imageName.jpg", { type: mime });
+  };
+
+  editComplexDetailValidation = Yup.object().shape({
+    logo: Yup.mixed().required("Required"),
+    aboutUs: Yup.string()
+      .required("Required")
+      .matches(/\S/, "Required"),
+    complexArea: Yup.string()
+      .required("Required")
+      .matches(/\S/, "Required"),
+    photos: Yup.array().min(1, "Required"),
+  });
+
+  openEditBuildingModal = async () => {
+    this.setState({ loading: true });
+
+    const imageUrlPromise: any[] = this.state.complexData.photos.map(async (image: any) => {
+      return new Promise(async (resolve, reject) => {
+        let blobString = await this.toDataURL(image.url);
+        resolve(blobString);
+      });
+    });
+    let photos = await Promise.allSettled(imageUrlPromise);
+
     this.setState(
       {
+        loading: false,
         editForm: {
           logo: this.state.complexData.logo,
           displayLogo: this.state.complexData.logo,
-          photos: this.state.complexData.photos,
+          photos: photos.map((image: any) => image.value),
           complexArea: this.state.complexData.complexArea,
           aboutUs: this.state.complexData.aboutUs,
           totalUnits: this.state.complexData.totalUnits,
@@ -297,7 +419,7 @@ export default class ComplexController extends BlockComponent<Props, S, SS> {
         },
       },
       () => {
-        this.handleEditBuildingModal();
+        this.handleEditComplexModal();
       }
     );
   };

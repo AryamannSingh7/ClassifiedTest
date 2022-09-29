@@ -7,6 +7,7 @@ import { runEngine } from "../../../framework/src/RunEngine";
 // Customizable Area Start
 import * as Yup from "yup";
 import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
+import toast from "react-hot-toast";
 // Customizable Area End
 
 export const configJSON = require("./config");
@@ -29,6 +30,7 @@ interface DocumentCount {
 
 interface BuildingData {
   buildingName: string;
+  city: string;
   country: string;
   logo: string;
   photos: any[];
@@ -36,6 +38,7 @@ interface BuildingData {
   buildingArea: string;
   totalFloor: string;
   totalUnit: string;
+  sharedAreaList: any[];
 }
 
 interface EditForm {
@@ -52,6 +55,8 @@ interface EditForm {
 
 interface S {
   // Customizable Area Start
+  loading: boolean;
+
   imageBox: boolean;
   photoIndex: number;
 
@@ -82,6 +87,7 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
   GetDocumentCountCallId: any;
   GetBuildingDetailsCallId: any;
   GetUnitListCallId: any;
+  EditBuildingDetailCallId: any;
 
   constructor(props: Props) {
     super(props);
@@ -91,6 +97,8 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
     this.subScribedMessages = [getName(MessageEnum.RestAPIResponceMessage), getName(MessageEnum.RestAPIRequestMessage)];
 
     this.state = {
+      loading: false,
+
       imageBox: false,
       photoIndex: 0,
 
@@ -112,6 +120,7 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
 
       buildingData: {
         buildingName: "",
+        city: "",
         country: "",
         logo: "",
         photos: [],
@@ -119,6 +128,7 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
         buildingArea: "",
         totalFloor: "",
         totalUnit: "",
+        sharedAreaList: [],
       },
 
       unitList: [],
@@ -183,13 +193,15 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
         this.setState({
           buildingData: {
             buildingName: responseJson.data.attributes.name,
-            country: "",
-            logo: responseJson.data.attributes.logo,
-            photos: responseJson.data.attributes.photos.map((image: any) => image.url),
+            city: responseJson.data.attributes.city,
+            country: responseJson.data.attributes.country,
+            logo: responseJson.data.attributes.logo && responseJson.data.attributes.logo.url,
+            photos: responseJson.data.attributes.photos,
             aboutBuilding: responseJson.data.attributes.description,
             buildingArea: responseJson.data.attributes.building_area,
             totalFloor: responseJson.data.attributes.total_floors,
             totalUnit: responseJson.data.attributes.total_units,
+            sharedAreaList: responseJson.data.attributes.shared_area,
           },
         });
       }
@@ -222,6 +234,32 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
             resolution: responseJson.data.resolution_count,
             buildingPlans: responseJson.data.building_plan_count,
           },
+        });
+      }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // Edit Complex Details API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.EditBuildingDetailCallId !== null &&
+      this.EditBuildingDetailCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.EditBuildingDetailCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      if (responseJson.data) {
+        this.setState({ loading: false }, () => {
+          toast.success("Details updated successfully");
+          this.getBuildingDetail();
         });
       }
 
@@ -318,6 +356,45 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
     return true;
   };
 
+  handleSaveBuildingDetails = (values: EditForm) => {
+    this.setState({ loading: true });
+
+    var data = new FormData();
+    data.append("building_management[name]", values.buildingName);
+    data.append("building_management[building_area]", values.buildingArea);
+    data.append("building_management[description]", values.aboutBuilding);
+
+    if (typeof values.logo === "object" && values.logo !== null) {
+      data.append("building_management[logo]", values.logo);
+    }
+
+    values.photos.map((image: any) => {
+      data.append("building_management[photos][]", this.dataURLtoFile(image));
+    });
+
+    const header = {
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.EditBuildingDetailCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_settings/building_managements/${this.state.buildingId}`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestBodyMessage), data);
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePatch);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
   // Handle State
   slider: any;
   uploadLogo: any;
@@ -338,13 +415,63 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
     this.setState({ isEditBuildingModalOpen: !this.state.isEditBuildingModalOpen });
   };
 
-  openEditBuildingModal = () => {
+  toDataURL = (url: any) =>
+    fetch(url)
+      .then((response: any) => response.blob())
+      .then(
+        (blob: any) =>
+          new Promise((resolve: any, reject: any) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result);
+            reader.onerror = reject;
+            reader.readAsDataURL(blob);
+          })
+      );
+
+  dataURLtoFile = (dataurl: any) => {
+    var arr = dataurl.split(","),
+      mime = arr[0].match(/:(.*?);/)[1],
+      bstr = atob(arr[1]),
+      n = bstr.length,
+      u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], "imageName.jpg", { type: mime });
+  };
+
+  editBuildingDetailValidation = Yup.object().shape({
+    logo: Yup.mixed().required("Required"),
+    aboutBuilding: Yup.string()
+      .required("Required")
+      .matches(/\S/, "Required"),
+    buildingName: Yup.string()
+      .required("Required")
+      .matches(/\S/, "Required"),
+    buildingArea: Yup.string()
+      .required("Required")
+      .matches(/\S/, "Required"),
+    photos: Yup.array().min(1, "Required"),
+  });
+
+  openEditBuildingModal = async () => {
+    this.setState({ loading: true });
+
+    const imageUrlPromise: any[] = this.state.buildingData.photos.map(async (image: any) => {
+      return new Promise(async (resolve, reject) => {
+        let blobString = await this.toDataURL(image.url);
+        resolve(blobString);
+      });
+    });
+    let photos = await Promise.allSettled(imageUrlPromise);
+
     this.setState(
       {
+        loading: false,
         editForm: {
           logo: this.state.buildingData.logo,
           displayLogo: this.state.buildingData.logo,
-          photos: this.state.buildingData.photos,
+          photos: photos.map((image: any) => image.value),
           buildingArea: this.state.buildingData.buildingArea,
           aboutBuilding: this.state.buildingData.aboutBuilding,
           buildingName: this.state.buildingData.buildingName,
