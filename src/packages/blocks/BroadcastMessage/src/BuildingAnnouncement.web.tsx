@@ -113,7 +113,7 @@ class Announcement extends BuildingAnnouncementController{
                                                 <Box>
                                                     <Box display="flex">
                                                         <Typography variant={"body1"} style={{fontWeight:"bold",marginTop:"5px"}}>
-                                                            {item.title}
+                                                            {item.attributes.title}
                                                         </Typography>
                                                         {
                                                             this.state.deleteSelectFlag &&
@@ -125,7 +125,7 @@ class Announcement extends BuildingAnnouncementController{
                                                         }
                                                     </Box>
                                                     <Typography variant={"body2"} style={{marginTop:"8px",marginBottom:"5px"}} >
-                                                        {item.description}
+                                                        {item.attributes.description}
                                                     </Typography>
                                                 </Box>
                                             </Box>
@@ -161,7 +161,8 @@ class Announcement extends BuildingAnnouncementController{
                                         <Box style={{marginTop:"15px"}}>
                                             <FormControl component="fieldset" style={{width:"100%"}}>
                                                 {
-                                                    filterList.map((item,key) => {
+                                                    this.state.categoryList.length > 0 &&
+                                                    this.state.categoryList.map((item:any,key:any) => {
                                                         return(
                                                             <FormControlLabel
                                                                 value={item.id}
@@ -175,7 +176,7 @@ class Announcement extends BuildingAnnouncementController{
                                                                         checkedIcon={<CheckCircleIcon style={{color:"#FC8434"}} />}
                                                                     />
                                                                 }
-                                                                label={<Typography variant="body2" style={{fontSize:"15px"}}>{item.name}</Typography>}
+                                                                label={<Typography variant="body2" style={{fontSize:"15px"}}>{item.attributes.category_title}</Typography>}
                                                                 labelPlacement="start"
                                                                 style={{width:"100%",display:"flex",justifyContent:'space-between',margin:"5px",fontWeight:"normal"}}
                                                             />

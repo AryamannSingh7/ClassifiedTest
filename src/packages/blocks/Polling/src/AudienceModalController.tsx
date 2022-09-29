@@ -83,7 +83,6 @@ export default class CoverImageController extends BlockComponent<
   }
 
   async componentDidMount() {
-    console.log("PROPS",this.props.isEdit)
     if(this.props.isEdit){
       this.getAudienceEditData(this.props.isEdit)
     }

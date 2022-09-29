@@ -120,3 +120,20 @@
     border: none;
   }
 }
+
+.inputbox {
+  width: 90%;
+  border: 0;
+  height: 2rem;
+}
+
+.danger {
+  white-space: nowrap !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  color: #fc3e34 !important;
+  border-radius: 30px !important;
+  padding: 5px 15px !important;
+  box-shadow: none !important;
+  background-color: #ffeded !important;
+}

@@ -31,6 +31,7 @@ interface S {
   selectedAnnoucment:Array<any>;
   deleteConfirmModal:boolean;
   announcementList:any;
+  categoryList:any;
 }
 
 interface SS {
@@ -46,7 +47,8 @@ export default class CoverImageController extends BlockComponent<
   apiEmailLoginCallId: string = "";
   emailReg: RegExp;
   labelTitle: string = "";
-
+  getAnnouncementListId:string = "";
+  getCategoryListId:string = "";
   constructor(props: Props) {
 
     super(props);
@@ -67,28 +69,8 @@ export default class CoverImageController extends BlockComponent<
       deleteSelectFlag:false,
       selectedAnnoucment:[],
       deleteConfirmModal:false,
-      announcementList:[
-        {
-          id:"1",
-          title:"Swimming Pool will be closed till 28/03/22",
-          description:"Swimming pool will be closed till 28/03/2022 due to covid 19 cases."
-        },
-        {
-          id:"2",
-          title:"Home isolation regulations updated",
-          description:"Home isolation regulations have been updated with increased covid."
-        },
-        {
-          id:"3",
-          title:"New manager has been appointed",
-          description:"Mr. Imran Ali has been appointed as new chairman."
-        },
-        {
-          id:"4",
-          title:"Management fee details email sent to all owners",
-          description:"Management fee details email has been sent to all owners.Kindly pay before due date to avoid any penalty."
-        },
-      ]
+      announcementList:[],
+      categoryList:[],
     };
 
     this.emailReg = new RegExp("");
@@ -105,7 +87,27 @@ export default class CoverImageController extends BlockComponent<
   }
 
   async componentDidMount() {
+    this.getAnnouncementBuildingList()
+    this.onGetCategoryList()
+  }
 
+  getAnnouncementBuildingList = async () => {
+    const societyID = localStorage.getItem("society_id")
+    const buildingId =  window.location.search ? window.location.search.split("=")[1] : null;
+    this.getAnnouncementListId = await this.apiCall({
+      contentType: configJSON.exampleApiContentType,
+      method: configJSON.validationApiMethodType,
+      endPoint: `/society_managements/${societyID}/bx_block_announcement/announcements/Resident_announcement_list`,
+    });
+  }
+
+  onGetCategoryList = async () => {
+    const societyID = localStorage.getItem("society_id")
+    this.getCategoryListId = await this.apiCall({
+      contentType: configJSON.exampleApiContentType,
+      method: configJSON.validationApiMethodType,
+      endPoint: `/society_managements/${societyID}/bx_block_announcement/announcement_categories`,
+    });
   }
 
   DeleteFlagTrue() {
@@ -189,47 +191,58 @@ export default class CoverImageController extends BlockComponent<
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
       var errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if(this.apiEmailLoginCallId === apiRequestCallId ){
+      if(this.getAnnouncementListId === apiRequestCallId ){
         console.log(responseJson,errorReponse)
+        if(responseJson.hasOwnProperty("announcement")){
+          this.setState({
+            announcementList:responseJson.announcement.data
+          })
+        }
+      }
+      if(apiRequestCallId === this.getCategoryListId){
+        if(responseJson.code === 200){
+          this.setState({
+            categoryList:responseJson.announcement_categories.data
+          })
+        }
       }
     }
   }
 
-  doEmailLogIn(data:any): boolean {
+  apiCall = async (data: any) => {
+    const { contentType, method, endPoint, body } = data;
+
+    const token = localStorage.getItem('userToken') ;
+
     const header = {
-      "Content-Type": configJSON.loginApiContentType
+      "Content-Type": contentType,
+      token
     };
-
     const requestMessage = new Message(
-      getName(MessageEnum.RestAPIRequestMessage)
+        getName(MessageEnum.RestAPIRequestMessage)
     );
-
-    this.apiEmailLoginCallId = requestMessage.messageId;
-
     requestMessage.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      configJSON.loginAPiEndPoint
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
     );
-
     requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        endPoint
     );
-
     requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestBodyMessage),
-      JSON.stringify(data)
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        method
     );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.loginAPiMethod
+    body && requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestBodyMessage),
+        body
     );
-
     runEngine.sendMessage(requestMessage.id, requestMessage);
+    // console.log("Called",requestMessage);
+    return requestMessage.messageId;
+  };
 
-    return true;
-  }
+
   handleClick = (event:any) => {
     this.setState({anchorEl:event.currentTarget })
   };

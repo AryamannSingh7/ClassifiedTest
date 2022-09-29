@@ -126,16 +126,18 @@ import PollVoteSubmitted from "../../blocks/Polling/src/PollVoteSubmitted.web"
 import PollResponseCompleted from "../../blocks/Polling/src/PollResponseCompleted.web"
 import SurveyMyResponse from "../../blocks/Polling/src/SurveyMyResponse.web"
 import SurveySubmitted from "../../blocks/Polling/src/SurveySubmitted"
-import VeichleList from '../../blocks/customform/src/VeichleList.web';
-import NewVeichleList from '../../blocks/customform/src/NewVehicle.web';
-import NewFamily from '../../blocks/customform/src/NewFamily.web';
-import EditVeichleList from '../../blocks/customform/src/EditVehicle.web';
-import EditFamily from '../../blocks/customform/src/EditFamily.web';
-import EditRequest from '../../blocks/customform/src/EditRequest.web';
-import NewRequest from '../../blocks/customform/src/NewRequest.web';
-import ManagerList from '../../blocks/customform/src/ManagerList.web';
-import Inbox from '../../blocks/customform/src/Inbox.web';
-import Chatbox from '../../blocks/customform/src/Chatbox.web';
+import VeichleList from "../../blocks/customform/src/VeichleList.web"
+import NewVeichleList from "../../blocks/customform/src/NewVehicle.web"
+import NewFamily from "../../blocks/customform/src/NewFamily.web"
+import EditVeichleList from "../../blocks/customform/src/EditVehicle.web"
+import EditFamily from "../../blocks/customform/src/EditFamily.web"
+import EditRequest from "../../blocks/customform/src/EditRequest.web"
+import NewRequest from "../../blocks/customform/src/NewRequest.web"
+import ManagerList from "../../blocks/customform/src/ManagerList.web"
+import Inbox from "../../blocks/customform/src/Inbox.web"
+import IncidentChat from "../../blocks/customform/src/IncidentChat.web"
+
+import Chatbox from "../../blocks/customform/src/Chatbox.web"
 
 import ViewVeichle from '../../blocks/customform/src/ViewVehicle.web';
 import FamilyList from '../../blocks/customform/src/FamilyList.web';
@@ -252,6 +254,12 @@ const routeMap = {
   Profile: {
     component: Profile,
     path: '/profile',
+    exact: true
+    // roles: [ROLE.PRIVATE]
+  },
+  IncidentChat: {
+    component: IncidentChat,
+    path: '/IncidentChat',
     exact: true
     // roles: [ROLE.PRIVATE]
   },
