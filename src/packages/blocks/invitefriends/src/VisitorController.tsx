@@ -15,7 +15,7 @@ export interface Props {
   id: string;
   history:any;
   match:any;
-  location:any;
+  location:any; 
 }
 
 interface S {

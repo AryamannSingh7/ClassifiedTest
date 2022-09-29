@@ -9,9 +9,37 @@
     display: flex;
     align-items: center;
     width: 100%;
+    &.classified-sorting-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      & .left-block {
+        display: flex;
+      }
+      & .classified-search-iput {
+        &::placeholder {
+          color: $DARK;
+          font-size: 18px;
+          font-weight: 500;
+        }
+        & .MuiOutlinedInput-input {
+          padding: 10px 32px 10px 0;
+          &::placeholder {
+            color: $DARK;
+            font-size: 18px;
+            font-weight: 500;
+          }
+        }
+        & .MuiSvgIcon-root {
+          color: #515151;
+        }
+      }
+    }
+
     & .MuiOutlinedInput-input {
       padding: 10px 32px 10px 14px;
     }
+
     & .customSelect {
       margin-right: 10px;
       margin-bottom: 0;

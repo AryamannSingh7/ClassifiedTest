@@ -96,7 +96,7 @@ class Announcement extends PastVisitorController{
                           </Menu>
                   </Grid>
                 </Grid>
-                <Box style={{background: "#E5ECFF",minHeight:"100vh",display:'flex',flexDirection:"column",alignItems:'center'}} >
+                <Box style={{background: "#F7F9FE",minHeight:"100vh",display:'flex',flexDirection:"column",alignItems:'center'}} >
                     <Grid container spacing={2} style={{width:"90%",marginTop:"10px"}}>
                         {
                             this.state.visitorListing.map((item:any,key:any)=> {
@@ -110,6 +110,7 @@ class Announcement extends PastVisitorController{
                                             bgcolor="white"
                                             marginTop='1rem'
                                             padding='1rem'
+                                            style={{boxShadow:"rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"}}
                                             onClick={()=> this.props.history.push(`/VisitorDetails?id=${item.id}`)}
                                         >
                                             <Box style={{minWidth:"100%"}}>

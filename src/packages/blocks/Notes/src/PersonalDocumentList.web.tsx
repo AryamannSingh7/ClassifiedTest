@@ -131,11 +131,7 @@ class PersonalDocumentList extends PersonalDocumentListController {
                                     }
                                   >
                                     <MenuItem>
-                                      <Link
-                                        // href={document.attributes.images[0].download_url}
-                                        onClick={() => alert("Coming soon!!")}
-                                        target="_blank"
-                                      >
+                                      <Link href={document.attributes.images[0].download_url} target="_blank">
                                         {t("Download")}
                                       </Link>
                                     </MenuItem>

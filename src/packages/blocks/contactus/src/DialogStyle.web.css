@@ -724,6 +724,10 @@
   border-radius: 50%;
 }
 
+.edit-profile .profile-picture .picture.building {
+  border: 2px solid lightgray;
+}
+
 .edit-profile .profile-picture .no-picture {
   border-radius: 50%;
   padding: 20px;
@@ -887,4 +891,64 @@
   border: 1px solid #2b6fec;
   padding: 12px 30px;
   margin: 0;
+}
+
+.edit-building .upload-photo {
+  height: 120px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  border: 2px dashed lightgray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit-building .building-image img {
+  height: 120px;
+  width: 200px;
+  border-radius: 8px;
+}
+
+.edit-building .building-image {
+  position: relative;
+}
+
+.edit-building .building-image .delete-image {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 35px;
+  height: 35px;
+}
+
+.edit-building label {
+  margin-bottom: 8px;
+  color: black;
+}
+
+.edit-building .about-us {
+  border-radius: 5px;
+  border: 1px solid lightgray;
+  font-size: 16px;
+  padding: 15px 26px 15px 12px;
+  color: #494949;
+  background-color: #f9f9f9;
+  min-height: 150px !important;
+  outline: none;
+  width: 100%;
+}
+
+.edit-building .select-box .MuiSelect-root {
+  border: 1px solid #c6c6c6;
+  border-radius: 8px !important;
+  background-color: #f9f9f9;
+  padding: 15px;
+}
+
+.edit-building .select-box .MuiListItemIcon-root {
+  min-width: 30px;
+}
+
+.edit-building .input-with-icon{
+  padding: 10px;
 }

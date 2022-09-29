@@ -8,7 +8,9 @@ import {
   CardContent,
   CardActions,
   Button,
-  withStyles
+  withStyles,
+  TextField,
+  InputAdornment
 } from "@material-ui/core";
 
 import '../../dashboard/src/Dashboard.web.css'
@@ -26,6 +28,7 @@ import NativeSelect from "@material-ui/core/NativeSelect";
 import Grid from '@material-ui/core/Grid';
 
 //resources
+import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import { withRouter } from 'react-router';
@@ -40,9 +43,9 @@ import { withTranslation } from 'react-i18next';
 import '../../../web/src/i18n.js';
 
 //resorces
-import { Users_Icon, Bank_Icon, Box_Icon, Building1 } from "../src/assets";
+import { Dollar_Icon } from "../src/assets";
 
-class ClassifiedManagerListing  extends ClassifiedManagerController {
+class ClassifiedManagerListing extends ClassifiedManagerController {
   constructor(props: Props) {
     super(props);
   }
@@ -52,10 +55,10 @@ class ClassifiedManagerListing  extends ClassifiedManagerController {
   }
 
   render() {
-    const {t ,classes} : any = this.props;
-    console.log("this.state.buildingName=================>/",this.state.buildingNameData);
-    const statusArray=["Pending Approved", "Published", "Rejected"]
-    const classifiedType = ["buyer" ,"seller" ,'generic','All'] ;
+    const { t, classes }: any = this.props;
+    console.log("this.state.buildingName=================>/", this.state.classifiedsListing);
+    const statusArray = ["Pending Approved", "Published", "Rejected"]
+    const classifiedType = ["buyer", "seller", 'generic', 'All'];
     return (
       <>
         <Box className="incident-Listing-wrapper desktop-ui" style={{ background: "#E5ECFF" }}>
@@ -76,115 +79,174 @@ class ClassifiedManagerListing  extends ClassifiedManagerController {
                     <Typography variant="h5" className={classes.subHeading}>{t("Classified")}</Typography>
                   </Box>
                 </Box>
-                <Box className="sorting-header">
-                <Box className="formGroup customSelect">
-                            <FormControl variant="outlined" >
-                              <Select
-                                name="classifiedType"
-                                labelId="demo-simple-select-outlined-label"
-                                id="demo-simple-select-outlined"
-                                 onChange={(e) => {this.onChange(e)}}
-                                value={this.state.classifiedType}
+                <Box className="sorting-header classified-sorting-header">
+                  <div className="left-block">
+                    <Box className="formGroup customSelect">
+                      <FormControl variant="outlined" >
+                        <Select
+                          name="classifiedType"
+                          labelId="demo-simple-select-outlined-label"
+                          id="demo-simple-select-outlined"
+                          onChange={(e) => { this.onChange(e) }}
+                          value={this.state.classifiedType}
+                        >
+                          <MenuItem disabled value=" ">
+                            {t("Classified Type")}
+                          </MenuItem>
+                          {
+                            classifiedType?.map((val, index) => (
+                              <MenuItem
+                                key={index}
+                                value={val}
                               >
-                                <MenuItem disabled value=" ">
-                                  {t("Classified Type")}
-                                </MenuItem>
-                                {
-                                classifiedType?.map((val, index) => (
-                                  <MenuItem
-                                    key={index}
-                                    value={val}
-                                  >
-                                    {val}
-                                  </MenuItem>
-                                ))
-                              }
-                              </Select>
-                    </FormControl>
-                  </Box>                     
-                          <Box className="formGroup customSelect">
-                            <FormControl variant="outlined" >
-                              <Select
-                                name="buildingName"
-                                labelId="demo-simple-select-outlined-label"
-                                id="demo-simple-select-outlined"
-                                onChange={(e) => {this.onChange(e)}}
-                                value={this.state.buildingName}
-                              >
-                               <MenuItem disabled value=" ">
-                               {t("Select Building")}
+                                {val}
                               </MenuItem>
-                                {
-                                this.state?.buildingNameData?.map((val : any, index : any) => (
-                                  <MenuItem
-                                    key={index}
-                                    value={val?.id}
-                                  >
-                                    {val?.attributes?.name}
-                                  </MenuItem>
-                                ))
-                              }
-                              </Select>
-                            </FormControl>
-                          </Box>
-                          <Box className="formGroup customSelect">
-                            <FormControl variant="outlined" >
-                              <Select
-                                name="status"
-                                labelId="demo-simple-select-outlined-label"
-                                id="demo-simple-select-outlined"
-                                 onChange={(e) => {this.onChange(e)}}
-                                value={this.state.status}
+                            ))
+                          }
+                        </Select>
+                      </FormControl>
+                    </Box>
+                    <Box className="formGroup customSelect">
+                      <FormControl variant="outlined" >
+                        <Select
+                          name="buildingName"
+                          labelId="demo-simple-select-outlined-label"
+                          id="demo-simple-select-outlined"
+                          onChange={(e) => { this.onChange(e) }}
+                          value={this.state.buildingName}
+                        >
+                          <MenuItem disabled value=" ">
+                            {t("Select Building")}
+                          </MenuItem>
+                          {
+                            this.state?.buildingNameData?.map((val: any, index: any) => (
+                              <MenuItem
+                                key={index}
+                                value={val?.attributes?.name}
                               >
-                                <MenuItem disabled value=" ">
-                                  {t("Select Status")}
-                                </MenuItem>
-                                {
-                                statusArray?.map((val, index) => (
-                                  <MenuItem
-                                    key={index}
-                                    value={val}
-                                  >
-                                    {val}
-                                  </MenuItem>
-                                ))
-                              }
-                              </Select>
+                                {val?.attributes?.name}
+                              </MenuItem>
+                            ))
+                          }
+                        </Select>
+                      </FormControl>
+                    </Box>
+                    <Box className="formGroup customSelect">
+                      <FormControl variant="outlined" >
+                        <Select
+                          name="status"
+                          labelId="demo-simple-select-outlined-label"
+                          id="demo-simple-select-outlined"
+                          onChange={(e) => { this.onChange(e) }}
+                          value={this.state.status}
+                        >
+                          <MenuItem disabled value=" ">
+                            {t("Select Status")}
+                          </MenuItem>
+                          {
+                            statusArray?.map((val, index) => (
+                              <MenuItem
+                                key={index}
+                                value={val}
+                              >
+                                {val}
+                              </MenuItem>
+                            ))
+                          }
+                        </Select>
 
-                    </FormControl>
-                  </Box>
-                  <Box className="customButton">
-                    <Button variant="contained" onClick={() => this.serachHandle()}>
-                      {t("Search")}
-                    </Button>
+                      </FormControl>
+                    </Box>
+                    <Box className="customButton">
+                      <Button variant="contained" onClick={() => this.serachHandle()}>
+                        {t("Search")}
+                      </Button>
+                    </Box>
+                  </div>
+                  <Box className="formGroup classified-search-iput">
+                    <TextField
+                      variant="outlined"
+                      style={{ border: "1px solid #ECECEC", borderRadius: "10px", backgroundColor: "#f9f9f9", marginRight: "10px" }}
+                      placeholder={t("Search by unit number")}
+                      type="text"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <SearchOutlinedIcon />
+                          </InputAdornment>
+                        ),
+                      }}
+
+                    />
                   </Box>
                 </Box>
                 <Grid container spacing={2} style={{ marginTop: 15, marginBottom: 15 }}>
                   {
-                    this.state?.classifiedsListing?.map((val : any , index : any) => (
+                    this.state?.classifiedsListing?.map((val: any, index: any) => (
                       <Grid item sm={4} key={index} onClick={() => this.getClassifiedDetails(val.id)}>
-                        <Card className="management-card card" key={index}>
+                        <Card className="classified-card card" key={index}>
                           <CardContent className="costom-card-content">
                             <Typography component="h4">
-                            classified title
+                            {val?.attributes?.title}
                             </Typography>
-                            <Typography component="h4">
-                            of twice the depth or point size of the type or letter named or understood a two-line initial a two-line letter —distinguished from double.
-                            </Typography>
-                            <Typography component="span">
-                            available to buy
-                            </Typography>
-                            <Box className="card-rows">
-                              <h5>1/1/1/ to 1/1/1</h5>
+                            <Typography component="p">
+                              {val?.attributes?.description}
+                             </Typography>
+                            <Box className="content-row">
+                              <Typography component="span">
+                                Available to buy
+                              </Typography>
+                              <Typography component="p">
+                                {val?.attributes?.duration_from} to {val?.attributes?.duration_to}
+                              </Typography>
+                              <Box className="content-blocks-row">
+                                <Box className="content-sub-row">
+                                  <Box className="blocks">
+                                    <Typography component="span">
+                                      Building:
+                                    </Typography>
+                                  </Box>
+                                  <Box className="blocks">
+                                    <Typography component="span">
+                                      Type:
+                                    </Typography>
+                                  </Box>
+                                </Box>
+                                <Box className="content-sub-row">
+                                  <Box className="blocks">
+                                    <Typography component="p">
+                                     {val?.attributes?.building_management?.name}
+                                    </Typography>
+                                  </Box>
+                                  <Box className="blocks">
+                                    <Typography component="p">
+                                    {val?.attributes?.classified_type}
+                                    </Typography>
+                                  </Box>
+                                </Box>
+                              </Box>
                             </Box>
-                            <Box className="card-rows">
+                            <hr className="hr"></hr>
+                            <Box className="card-footer">
+                              <div className="left-block">
+                                {/* <img src={Dollar_Icon} className="dollar-icon" alt="Dollar Icon" /> */}
+                                <Typography component="h4">
+                                  {val?.attributes?.price_from} {val?.attributes?.currency?.currency} - {val?.attributes?.currency?.currency} {val?.attributes?.price_to}
+                                </Typography>
+                              </div>
+                              <Box className="customButton">
+                                <Button variant="contained" className={val?.attributes?.classified_status === 'Pending Approved' ? "contain warning" : val?.attributes?.classified_status === 'Published' ? 'contain success' : 'contain danger'} type="submit">
+                                  {val?.attributes?.classified_status}</Button>
+                              </Box>
+                            </Box>
+                            {/* <Box className="card-rows">
                               <img src={Box_Icon} alt="Bank Icon" />
-                              <h5>{}</h5>
+                              <h5>{ }</h5>
                             </Box>
                             <Box className="customButton">
                               <Button variant="contained" className={val?.attributes?.classified_status === 'Pending Approved' ? "contain warning" : val?.attributes?.classified_status === 'Published' ? 'contain success' : 'contain danger'} type="submit">
                                 {val?.attributes?.classified_status}</Button>
-                            </Box>
+                            </Box> */}
                           </CardContent>
                         </Card>
                       </Grid>
@@ -201,7 +263,7 @@ class ClassifiedManagerListing  extends ClassifiedManagerController {
   }
 }
 
-const dashBoard : any = {
+const dashBoard: any = {
   navigation: {
     display: "flex",
     justifyContent: "space-between",
@@ -297,5 +359,5 @@ const dashBoard : any = {
     paddingBottom: 150,
   },
 };
-export default withTranslation()(withStyles(dashBoard)(withRouter(ClassifiedManagerListing))); 
+export default withTranslation()(withStyles(dashBoard)(withRouter(ClassifiedManagerListing)));
 // Customizable Area End
