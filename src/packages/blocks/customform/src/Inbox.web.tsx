@@ -132,8 +132,8 @@ class Inbox extends InboxController {
 
                 <Box width="100%" display='flex' style={{gap:'0.5rem'}} justifyContent='end' alignItems='center' gap='0.5rem'>
                 {
-                    this.state.isSearch ? <> <input autoFocus className="inputbox" onChange={(e) => this.getInboxBySearch(e.target.value)} /> <span onClick={this.handlesearchIcon} style={{ fontWeight: 'bold' }} >X</span></> :
-                  <img src={Search} style={{float:'right'}}  onClick={this.handlesearchIcon}/>
+                    this.state.isSearch ? <> <input autoFocus className="inputbox" onChange={(e) => this.getInboxBySearch(e.target.value)} /> <span onClick={this.handlesearchIcon} style={{ fontWeight: 'bold',cursor:'pointer' }} >X</span></> :
+                      <img src={Search} style={{ float: 'right', cursor: 'pointer' }}  onClick={this.handlesearchIcon}/>
 
                 }
               </Box>

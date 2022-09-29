@@ -33,9 +33,11 @@ import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import { Formik, Form, Field } from "formik";
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import InboxController from "./inboxController.web";
+import '../assets/css/style.scss'
 
 class IncidentChatBox extends InboxController {
   constructor(props: Props) {
+    const messagesEndRef = React.createRef()
     super(props);
     this.handleClick1 = this.handleClick1.bind(this);
     this.state = {
@@ -68,37 +70,42 @@ class IncidentChatBox extends InboxController {
     let d = date.getHours();
     let m = date.getMinutes();
 
-    return `${d}:${m < 9 ? `0` + m : m}   (${moment(time).format("DD MMM YYYY")})`
+    return `${d}:${m < 9 ? `0` + m : m}`
 
   }
   _handleKeyDown(e) {
     if (e.key === 'Enter') {
-      this.createMessage()
+      this.createMessages()
 
     }
   }
 
-
+  scrollToBottom = () => {
+    this.el.scrollIntoView({ behavior: 'smooth' });
+  }
 
   componentDidMount() {
+    this.getAllChat()
+    this.scrollToBottom();
+  }
 
-    // this.getAllChat()
-
+  componentDidUpdate() {
+    this.scrollToBottom();
   }
 
   render() {
 
-    // const item =JSON.parse(localStorage.getItem('selectedChat'))
-
+    const item = JSON.parse(localStorage.getItem('selectedChat'))
+    const currentAccountId = localStorage.getItem('userId')
 
 
     return (
-      <div style={{ paddingRight: "0.3rem", backgroundColor: "#ffff",padding:'0.5rem' }}>
+      <div style={{ padding: "0.3rem", backgroundColor: "#ffff", paddingLeft: '0.3rem', marginTop: '1rem' }}>
         <Grid container>
           <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between' }}>
             <Box display='flex' alignItems='center' onClick={() => window.history.back()}>
               <KeyboardBackspaceIcon />
-              <span style={{ fontWeight: 'bold',marginLeft:'1rem' }}>
+              <span style={{ fontWeight: 'bold', marginLeft: '1rem' }}>
                 Ticket
               </span>
             </Box>
@@ -106,113 +113,135 @@ class IncidentChatBox extends InboxController {
 
           </Grid>
           <Box marginTop={5} display='flex' justifyContent='space-between' width='100%'>
-              <Box >
+            <Box >
 
-              <p style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>Incident Title</p>
-              <p style={{ fontWeight: 'bold',fontSize:'0.8rem',color:'aqua' }}>
-                ticket ID:123456
-                </p>
-              </Box>
-              <Box>
-              <Button variant="contained" className="contain danger"  >Unresolved</Button>
-              </Box>
-
+              <p style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>{item?.attributes?.chatable?.attributes?.incident_title}</p>
+              <p style={{ fontWeight: 'bold', fontSize: '0.8rem', color: 'aqua' }}>
+                ticket ID:{item?.attributes?.chatable?.id}
+              </p>
+            </Box>
+            <Box>
+              <Button variant="contained" className="contain danger"  >{item?.attributes?.chatable?.attributes?.incident_status}</Button>
             </Box>
 
+          </Box>
+
+
+
           <Grid xs={12}>
-            <List style={{ overflowY: "auto", minHeight: "84vh" }}>
-              {/* {this.state.singleChatRoom && this.state.singleChatRoom.map((message, i) => (
+            <List style={{ overflowY: "auto", maxHeight: "84vh", minHeight: "84vh" }} ref={el => { this.el = el; }}>
+              {/* {
+  this.state.allInboxKey ? 'hey':'bye'
+} */}
+              {this.state.allInboxKey?.length != 0 && this.state.allInboxKey?.map((date, i) => (
                 <>
-                  <ListItem key={i}>
-                    <Grid container>
-                      <Grid item xs={12}
-                      style={{display:'flex',alignItems:'flex-start',gap:'0.5rem'}}
-                      // style={message.attributes.account_id == currentAccountId ? { 'display': 'flex', 'justifyContent': 'end', alignItems: 'center' } : { 'display': 'flex', 'justifyContent': 'start', alignItems: 'center' }}
-                      >
 
-                        <Avatar style={{ width: '40px', height: '40px' }} src={message?.attributes?.account?.data?.attributes?.profile_picture} />
-
-
-                      <Box>
-
-
-                        <Typography
-                          style={{
-                            color: "#081F32",
-                            fontFamily: "Poppins",
-                            fontWeight: 500,
-                            fontSize: 14,
-                            marginLeft: 5
-                          }}
-                        // align={
-                        //   message.attributes.account_id == currentAccountId
-                        //     ? "right"
-                        //     : "left"
-                        // }
-                        >
-
-                        </Typography>
-
-
-                        {
-                          message.attributes.message.length > 45 ?
-                            <>
-                              <Typography
-                                style={{
-                                  color: "#081F32",
-                                  fontFamily: "Poppins",
-                                  fontWeight: 500,
-                                  fontSize: 14,
-                                  wordBreak: 'break-all'
-                                }}
-                                align='left'
-                              >
-                                {message.attributes.message}
-                              </Typography>
-
-
-                            </>
-
-                            :
-
-                            <>
-                              <Typography
-                                style={{
-                                  color: "#081F32",
-                                  fontFamily: "Poppins",
-                                  fontWeight: 500,
-                                  fontSize: 14,
-                                  wordBreak: 'break-all'
-                                }}
-                              >
-                                {message.attributes.message}
-                              </Typography>
-
-                            </>
-                        }
-
-
+                  <Box key={i} display='flex' justifyContent='center'>
+                    <p>
 
                       {
-                        message.attributes.attachments ?
-                          <Grid item xs={12}
-                          >
-                            <img style={{ 'cursor': 'pointer' }} onClick={() => this.setState({ selectedMedia: message.attributes.attachments[0] })} src={message.attributes.attachments[0].url} width="75" height="75" />
-                          </Grid>
-                          :
-                          null
-
+                        i > 1 ? moment.utc(date).fromNow() : moment.utc(date).format('MMM-DD-YYYY')
                       }
 
-                        <ListItemText
-                          secondary={this.displaytime(message.attributes.created_at)}
-                        />
-                     </Box>
-                      </Grid>
-                    </Grid>
-                  </ListItem>
+                    </p>
+                  </Box>
+
+                  {
+                    this.state.singleChatRoom[date]?.map((message, i) => <>
+
+
+                      <ListItem key={i}>
+                        <Grid container>
+                          <Grid item xs={12}
+                            style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem' }}
+                            style={message.message.account_id == currentAccountId ? { 'display': 'flex', 'justifyContent': 'end', alignItems: 'center' } : { 'display': 'flex', 'justifyContent': 'start', alignItems: 'center' }}
+                          >
+
+
+
+
+                            <Box>
+
+
+                              <Typography
+                                style={{
+                                  color: "#081F32",
+                                  fontFamily: "Poppins",
+                                  fontWeight: 500,
+                                  fontSize: 14,
+                                  marginLeft: 5
+                                }}
+                                align={
+                                  message.message.account_id == currentAccountId
+                                    ? "right"
+                                    : "left"
+                                }
+                              >
+
+                              </Typography>
+
+
+                              {
+                                message.message.message.length > 45 ?
+                                  <>
+                                    <Typography
+                                      style={{
+                                        color: "#081F32",
+                                        fontFamily: "Poppins",
+                                        fontWeight: 500,
+                                        fontSize: 14,
+                                        wordBreak: 'break-all'
+                                      }}
+                                      align='left'
+                                    >
+                                      {message.message.message}
+                                    </Typography>
+
+
+                                  </>
+
+                                  :
+
+                                  <>
+                                    <Typography
+                                      style={{
+                                        color: "#081F32",
+                                        fontFamily: "Poppins",
+                                        fontWeight: 500,
+                                        fontSize: 14,
+                                        wordBreak: 'break-all'
+                                      }}
+                                    >
+                                      {message.message.message}
+                                    </Typography>
+
+                                  </>
+                              }
+
+
+
+                              {
+                                message?.message?.images.length != 0 ?
+                                  <Grid item xs={12}
+                                  >
+                                    <img style={{ 'cursor': 'pointer' }} onClick={() => this.setState({ selectedMedia: message.message.images[0] })} src={message.message.images[0].url} width="75" height="75" />
+                                  </Grid>
+                                  :
+                                  null
+
+                              }
+
+                              <ListItemText
+                                secondary={this.displaytime(message.message.created_at)}
+                              />
+                            </Box>
+                          </Grid>
+                        </Grid>
+                      </ListItem>
+                    </>)
+                  }
                 </>
-              ))} */}
+              ))}
             </List>
 
 
@@ -223,11 +252,11 @@ class IncidentChatBox extends InboxController {
                 <input
                   onKeyPress={event => {
                     if (event.key === 'Enter') {
-                      createMessage()
+                      this.createMessages()
                     }
                   }}
 
-                  onChange={(e) => this.CreateNewMessage(e)} type="" style={{ border: '1px solid #EDEDED', color: '#726363', borderRadius: 15, padding: 10, width: '100%' }} placeholder="Start a new message" />
+                  onChange={(e) => this.CreateNewMessage(e)} type="" style={{ border: '1px solid #EDEDED', color: '#726363', borderRadius: 15, padding: 10, width: '100%' }} placeholder="Start a new message" value={this.state.newMessage} />
                 <AttachFileIcon onClick={this.handleClick1} for="BtnBrowseHidden" style={{ cursor: 'pointer' }} />
                 <input
 
@@ -271,9 +300,9 @@ class IncidentChatBox extends InboxController {
           <div>
 
             {this.state.selectedMedia?.mimetype !== "application/pdf" ? (
-              <Avatar src={this.state.selectedMedia?.url} style={{ width: '600px', height: '56rem', borderRadius: 0 }} />
+              <Avatar src={this.state.selectedMedia?.url} style={{ width: '300px', height: '26rem', borderRadius: 0 }} />
             ) : (
-              <iframe src={this.state.selectedMedia?.url} style={{ width: '600px', height: '56rem' }} />
+              <iframe src={this.state.selectedMedia?.url} style={{ width: '300px', height: '26rem' }} />
             )}
 
 
