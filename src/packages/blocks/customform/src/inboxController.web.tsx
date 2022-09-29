@@ -59,6 +59,9 @@ interface S {
   allRelation: any[];
   allIdType: any[];
   allInbox:any[];
+  allInboxKey: any[];
+  isSearch:boolean;
+  newMessage:any;
   singleChatRoom:any[];
   // Customizable Area End
 }
@@ -76,6 +79,7 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
   getRelationListApiCallId: string = '';
   getIDTypeListApiCallId: string = ''
   getInboxApiCallId:string ='';
+  getSingleInboxApiCallId:string='';
   getCreateMessagesApiCallId: any = "";
   // Customizable Area End
   constructor(props: Props) {
@@ -110,7 +114,10 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
       allRelation: [],
       allIdType: [],
       allInbox:[],
-      singleChatRoom:[]
+      singleChatRoom:[],
+      allInboxKey:[],
+      isSearch:false,
+      newMessage:'',
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -228,9 +235,9 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
 
         } if (apiRequestCallId === this.getInboxApiCallId) {
           if (!responseJson.errors) {
-            console.log(responseJson)
+            console.log(responseJson.data)
             if (responseJson.data) {
-              this.setState({ allInbox: responseJson.data }, () => console.log(this.state.allInbox))
+              this.setState({allInbox: responseJson.data }, () => console.log(this.state.allInbox))
             }
           } else {
             //Check Error Response
@@ -251,10 +258,11 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
         }
         if (apiRequestCallId === this.getCreateMessagesApiCallId) {
           if (!responseJson.errors) {
-            let tempArray = this.state.singleChatRoom
+            this.getSingleInbox()
+            // let tempArray = this.state.singleChatRoom[Object.keys(this.state.singleChatRoom)[Object.keys(obj).length - 1]]
 
-            tempArray.push(responseJson.data)
-            this.setState({ singleChatRoom: tempArray, newMessage: '' });
+            // tempArray.push(responseJson.data)
+            this.setState({  newMessage: '' });
           } else {
             //Check Error Response
             // this.parseApiErrorResponse(responseJson);
@@ -262,16 +270,11 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
 
           this.parseApiCatchErrorResponse(errorReponse);
         }
-        if (apiRequestCallId === this.deleteVehicleAPICallId) {
+        if (apiRequestCallId === this.getSingleInboxApiCallId) {
           if (!responseJson.errors) {
-            console.log(responseJson)
-            //@ts-ignore
-            //@ts-nocheck
-            localStorage.removeItem('selectCar')
-            this.setState({ showDialogDelete: false, showDialog: false })
-
-            this.getVehicle()
-
+            console.log(responseJson.data)
+            this.setState({ singleChatRoom: responseJson.data[0].attributes.messages })
+            localStorage.setItem('selectedChat', JSON.stringify(responseJson.data[0]))
           } else {
             //Check Error Response
             this.parseApiErrorResponse(responseJson);
@@ -678,8 +681,9 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
     runEngine.sendMessage(requestMessage.id, requestMessage);
     return true;
   }
-  getRelation() {
 
+  getInboxBySearch(value:any) {
+console.log('hi')
     const header = {
       "Content-Type": configJSON.contentTypeApiAddDetail,
       "token": localStorage.getItem('userToken')
@@ -689,42 +693,10 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
     );
 
 
-    this.getRelationListApiCallId = requestMessage.messageId;
+    this.getInboxApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `/bx_block_family/relations`
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
-
-
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.validationApiMethodType
-    );
-
-    runEngine.sendMessage(requestMessage.id, requestMessage);
-    return true;
-  }
-  getIdType() {
-
-    const header = {
-      "Content-Type": configJSON.contentTypeApiAddDetail,
-      "token": localStorage.getItem('userToken')
-    };
-    const requestMessage = new Message(
-      getName(MessageEnum.RestAPIRequestMessage)
-    );
-
-
-    this.getIDTypeListApiCallId = requestMessage.messageId;
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `/bx_block_family/id_proofs`
+      `bx_block_chat/chats/search?query=${value}&chatable_id=${localStorage.getItem('userId')}`
     );
 
     requestMessage.addData(
@@ -831,8 +803,9 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
     let data = value.target.value;
     this.setState({ newMessage: data })
   }
-  createMessages = async (id) => {
 
+  createMessages = async () => {
+    const item= JSON.parse(localStorage.getItem('selectedChat'))
 
     const message = this.state.newMessage;
 
@@ -848,7 +821,7 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `bx_block_chat/messages?chat_id=${id}`
+        `bx_block_chat/messages?chat_id=${item.id}`
       );
 
       const header = {
@@ -884,9 +857,10 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
 
   }
   getAllChat(){
-    console.log('i am here')
+
     const item = JSON.parse(localStorage.getItem('selectedChat'))
-    this.setState({ singleChatRoom: item.attributes.messages, selectedChatRoomId:item.id},()=>console.log(this.state.singleChatRoom))
+    console.timeLog(item)
+    this.setState({ singleChatRoom: item.attributes.messages, selectedChatRoomId: item.id, allInboxKey: Object.keys(item.attributes.messages) }, () => console.log(this.state.singleChatRoom))
   }
   handleSelectFile = (
     file: any
@@ -954,6 +928,81 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
 
 
   }
+  disablechat = () => {
 
+    this.setState({ loading: true })
+    const header = {
+      "token": localStorage.getItem('userToken'),
+
+    };
+
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+    this.chatSettingApiCallId = requestMessage.messageId;
+    let value = this.state.allInbox[0].attributes.chat_with_account_disable_chat
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_chat/chats/disable_enable_chat?disable_chat=${!value}`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      'PATCH'
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+
+  }
+  handlesearchIcon=()=>{
+    this.setState({isSearch:!this.state.isSearch},()=>{
+      if (!this.state.isSearch)
+        this.getInbox()
+    })
+
+  }
+  getSingleInbox() {
+    const item = JSON.parse(localStorage.getItem('selectedChat'))
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      "token": localStorage.getItem('userToken')
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+
+    this.getSingleInboxApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_chat/chats/${item.id}`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.validationApiMethodType
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  }
   // Customizable Area End
 }

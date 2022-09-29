@@ -78,6 +78,7 @@ export default class NeighboursController extends BlockComponent<
   getIncidentListingApiCallId: any;
   getNeighboursDetailsByIdApiCallId : any ;
   getNeighboursListingApiCallId : any ;
+  createChatRoomAPIId:any;
   getIncidentRelatedApiCallId:any;
   getMyApartmentListApiCallId:any;
   getBuildingListApiCallId:any
@@ -204,7 +205,7 @@ export default class NeighboursController extends BlockComponent<
               this.emailReg = new RegExp(regexData.email_validation_regexp);
             }
           }
-        } 
+        }
         else if (apiRequestCallId === this.getBuildingListApiCallId) {
           if (responseJson && responseJson?.data ) {
           console.log("getNeighboursListingApiCallId ========================>",responseJson)
@@ -220,10 +221,10 @@ export default class NeighboursController extends BlockComponent<
           this.setState({loading: false , error:null})
         }
         else if (apiRequestCallId === this.getNeighboursListingApiCallId) {
-          if (responseJson && responseJson?.data ) {
-          console.log("getNeighboursListingApiCallId ========================>",responseJson)
-          this.setState({neighboursListing :responseJson?.data?.neighbours_list})
-          this.setState({loading: false})
+          if (responseJson && responseJson?.data) {
+            console.log("getNeighboursListingApiCallId ========================>", responseJson)
+            this.setState({ neighboursListing: responseJson?.data?.neighbours_list })
+            this.setState({ loading: false })
           } else if (responseJson?.errors) {
             let error = responseJson.errors[0] as string;
             this.setState({ error });
@@ -231,7 +232,22 @@ export default class NeighboursController extends BlockComponent<
             this.setState({ error: responseJson?.error || "Something went wrong!" });
           }
           this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({loading: false , error:null})
+          this.setState({ loading: false, error: null })
+        }
+        else if (apiRequestCallId === this.createChatRoomAPIId) {
+          if (responseJson && responseJson?.data) {
+            console.log("createChatRoom ========================>", responseJson)
+            localStorage.setItem('selectedChat', JSON.stringify(responseJson.data))
+            this.props.history.push('/chatbox')
+            this.setState({ loading: false })
+          } else if (responseJson?.errors) {
+            let error = responseJson.errors[0] as string;
+            this.setState({ error });
+          } else {
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
+          }
+          this.parseApiCatchErrorResponse(this.state.error);
+          this.setState({ loading: false, error: null })
         }
         else if (apiRequestCallId === this.getNeighboursDetailsByIdApiCallId) {
           if (responseJson && responseJson?.data ) {
@@ -250,7 +266,7 @@ export default class NeighboursController extends BlockComponent<
           this.parseApiCatchErrorResponse(this.state.error);
           this.setState({loading: false , error:null})
         }
-        
+
       }
     }
 
@@ -481,25 +497,25 @@ export default class NeighboursController extends BlockComponent<
   };
 
   onCancel= ()=>{
-    this.setState({searchOrCancel : false ,serachApartmentName :''}) 
+    this.setState({searchOrCancel : false ,serachApartmentName :''})
     this.getNeighboursListing('',this.state?.myApartment);
-  }  
- 
+  }
+
   onSearch= ()=>{
-    this.setState({searchOrCancel : true}) 
-  }  
+    this.setState({searchOrCancel : true})
+  }
 
   onChange =(e :any)=>{
     if(e.target.name === 'myApartment'){
       //@ts-ignore
-      this.setState({ [e.target.name]:e.target.value}) 
-     
+      this.setState({ [e.target.name]:e.target.value})
+
       this.getNeighboursListing(this.state?.serachApartmentName,e.target.value);
     }
      else if(e.target.name === 'serachApartmentName'){
       console.log("e.target.value==========>",e.target.value)
         //@ts-ignore
-      this.setState({ [e.target.name]:e.target.value}) 
+      this.setState({ [e.target.name]:e.target.value})
       setTimeout(()=>{
         this.getNeighboursListing(this.state?.serachApartmentName,this.state?.myApartment);
      }, 1000)
@@ -533,7 +549,7 @@ getNeighboursDetails= (id :any) => {
       );
       this.getNeighboursListingApiCallId = requestMessage.messageId;
       this.setState({ loading: true });
-       
+
       const getNeighboursListing =`/account_block/accounts/neighobour_list?search_term=${serachApartmentName}&building_management_id=${myApartment}`
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
@@ -556,7 +572,7 @@ getNeighboursDetails= (id :any) => {
       console.log(error);
     }
   };
-  
+
 
   getNeighboursDetailsById= (id : any) => {
     try {
@@ -592,7 +608,7 @@ getNeighboursDetails= (id :any) => {
       console.log(error);
     }
   };
-  
+
   getBuilding= () => {
     try {
       const header = {
@@ -627,5 +643,53 @@ getNeighboursDetails= (id :any) => {
       console.log(error);
     }
   };
-  
+  createChatRoom = async (id:any) => {
+
+    try {
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+      this.createChatRoomAPIId = requestMessage.messageId;
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        `bx_block_chat/chats`
+      );
+
+      const header = {
+        token: localStorage.getItem("userToken"),
+      };
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+
+      const formData = new FormData();
+      formData.append("chat[chatable_type]", 'AccountBlock::Account');
+      formData.append("chat[chatable_id]", localStorage.getItem('userId'));
+      formData.append("chat[chat_with_account]", id);
+
+
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestBodyMessage),
+        formData
+      );
+
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        'POST'
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+
+      return true;
+    } catch (error) {
+      console.log(error);
+    }
+
+
+  }
 }

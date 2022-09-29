@@ -101,7 +101,7 @@ class NeighboursDetails extends NeighboursController {
                                 </Box>
                                 :
                                 <Box className="blocks">
-                                <img src={Chat_Disable_Icon} className="icons" alt="info-icon" />
+                                      <img src={Chat_Disable_Icon} onClick={() => this.createChatRoom(attributes?.id)} className="icons" alt="info-icon" />
                               </Box>
                                }
                                 {attributes?.full_phone_number?.publilc_access ?

@@ -135,6 +135,8 @@ import EditRequest from "../../blocks/customform/src/EditRequest.web"
 import NewRequest from "../../blocks/customform/src/NewRequest.web"
 import ManagerList from "../../blocks/customform/src/ManagerList.web"
 import Inbox from "../../blocks/customform/src/Inbox.web"
+import IncidentChat from "../../blocks/customform/src/IncidentChat.web"
+
 import Chatbox from "../../blocks/customform/src/Chatbox.web"
 
 import ViewVeichle from "../../blocks/customform/src/ViewVehicle.web"
@@ -244,6 +246,12 @@ const routeMap = {
   Profile: {
     component: Profile,
     path: '/profile',
+    exact: true
+    // roles: [ROLE.PRIVATE]
+  },
+  IncidentChat: {
+    component: IncidentChat,
+    path: '/IncidentChat',
     exact: true
     // roles: [ROLE.PRIVATE]
   },

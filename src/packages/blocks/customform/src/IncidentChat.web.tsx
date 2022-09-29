@@ -33,11 +33,9 @@ import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import { Formik, Form, Field } from "formik";
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import InboxController from "./inboxController.web";
-import '../assets/css/style.scss'
 
-class ChatBox extends InboxController {
+class IncidentChatBox extends InboxController {
   constructor(props: Props) {
-    const messagesEndRef = React.createRef()
     super(props);
     this.handleClick1 = this.handleClick1.bind(this);
     this.state = {
@@ -70,79 +68,69 @@ class ChatBox extends InboxController {
     let d = date.getHours();
     let m = date.getMinutes();
 
-    return `${d}:${m < 9 ? `0` + m : m}`
+    return `${d}:${m < 9 ? `0` + m : m}   (${moment(time).format("DD MMM YYYY")})`
 
   }
   _handleKeyDown(e) {
     if (e.key === 'Enter') {
-      this.createMessages()
+      this.createMessage()
 
     }
   }
 
-  scrollToBottom = () => {
-    this.el.scrollIntoView({ behavior: 'smooth' });
-  }
+
 
   componentDidMount() {
-this.getAllChat()
-    this.scrollToBottom();
-  }
 
-  componentDidUpdate() {
-    this.scrollToBottom();
+    // this.getAllChat()
+
   }
 
   render() {
 
-    const item =JSON.parse(localStorage.getItem('selectedChat'))
-    const currentAccountId = localStorage.getItem('userId')
+    // const item =JSON.parse(localStorage.getItem('selectedChat'))
+
 
 
     return (
-      <div style={{ padding: "0.3rem", backgroundColor: "#ffff",paddingLeft:'0.3rem',marginTop:'1rem'}}>
+      <div style={{ paddingRight: "0.3rem", backgroundColor: "#ffff",padding:'0.5rem' }}>
         <Grid container>
           <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between' }}>
             <Box display='flex' alignItems='center' onClick={() => window.history.back()}>
               <KeyboardBackspaceIcon />
-              <span style={{ fontWeight: 'bold' }}>
-                {item?.attributes?.chat_with_account?.attributes?.full_name}
+              <span style={{ fontWeight: 'bold',marginLeft:'1rem' }}>
+                Ticket
               </span>
             </Box>
 
 
           </Grid>
+          <Box marginTop={5} display='flex' justifyContent='space-between' width='100%'>
+              <Box >
+
+              <p style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>Incident Title</p>
+              <p style={{ fontWeight: 'bold',fontSize:'0.8rem',color:'aqua' }}>
+                ticket ID:123456
+                </p>
+              </Box>
+              <Box>
+              <Button variant="contained" className="contain danger"  >Unresolved</Button>
+              </Box>
+
+            </Box>
 
           <Grid xs={12}>
-            <List style={{ overflowY: "auto", maxHeight: "84vh", minHeight: "84vh" }} ref={el => { this.el = el; }}>
-{/* {
-  this.state.allInboxKey ? 'hey':'bye'
-} */}
-            {this.state.allInboxKey?.length!=0 && this.state.allInboxKey?.map((date, i) => (
+            <List style={{ overflowY: "auto", minHeight: "84vh" }}>
+              {/* {this.state.singleChatRoom && this.state.singleChatRoom.map((message, i) => (
                 <>
-
-                <Box key={i} display='flex' justifyContent='center'>
-                  <p>
-
-                    {
-                      i > 1 ? moment.utc(date).fromNow() : moment.utc(date).format('MMM-DD-YYYY')
-                    }
-
-                  </p>
-                </Box>
-
-                {
-                  this.state.singleChatRoom[date]?.map((message,i)=><>
-
-
                   <ListItem key={i}>
                     <Grid container>
                       <Grid item xs={12}
                       style={{display:'flex',alignItems:'flex-start',gap:'0.5rem'}}
-                          style={message.message.account_id == currentAccountId ? { 'display': 'flex', 'justifyContent': 'end', alignItems: 'center' } : { 'display': 'flex', 'justifyContent': 'start', alignItems: 'center' }}
+                      // style={message.attributes.account_id == currentAccountId ? { 'display': 'flex', 'justifyContent': 'end', alignItems: 'center' } : { 'display': 'flex', 'justifyContent': 'start', alignItems: 'center' }}
                       >
 
-
+                        <Avatar style={{ width: '40px', height: '40px' }} src={message?.attributes?.account?.data?.attributes?.profile_picture} />
 
 
                       <Box>
@@ -156,18 +144,18 @@ this.getAllChat()
                             fontSize: 14,
                             marginLeft: 5
                           }}
-                        align={
-                          message.message.account_id == currentAccountId
-                            ? "right"
-                            : "left"
-                        }
+                        // align={
+                        //   message.attributes.account_id == currentAccountId
+                        //     ? "right"
+                        //     : "left"
+                        // }
                         >
 
                         </Typography>
 
 
                         {
-                              message.message.message.length > 45 ?
+                          message.attributes.message.length > 45 ?
                             <>
                               <Typography
                                 style={{
@@ -179,7 +167,7 @@ this.getAllChat()
                                 }}
                                 align='left'
                               >
-                                    {message.message.message}
+                                {message.attributes.message}
                               </Typography>
 
 
@@ -197,7 +185,7 @@ this.getAllChat()
                                   wordBreak: 'break-all'
                                 }}
                               >
-                                    {message.message.message}
+                                {message.attributes.message}
                               </Typography>
 
                             </>
@@ -206,10 +194,10 @@ this.getAllChat()
 
 
                       {
-                              message?.message?.images.length !=0 ?
+                        message.attributes.attachments ?
                           <Grid item xs={12}
                           >
-                                  <img style={{ 'cursor': 'pointer' }} onClick={() => this.setState({ selectedMedia: message.message.images[0] })} src={message.message.images[0].url} width="75" height="75" />
+                            <img style={{ 'cursor': 'pointer' }} onClick={() => this.setState({ selectedMedia: message.attributes.attachments[0] })} src={message.attributes.attachments[0].url} width="75" height="75" />
                           </Grid>
                           :
                           null
@@ -217,16 +205,14 @@ this.getAllChat()
                       }
 
                         <ListItemText
-                              secondary={this.displaytime(message.message.created_at)}
+                          secondary={this.displaytime(message.attributes.created_at)}
                         />
                      </Box>
                       </Grid>
                     </Grid>
                   </ListItem>
-                  </>)
-                }
                 </>
-              ))}
+              ))} */}
             </List>
 
 
@@ -237,11 +223,11 @@ this.getAllChat()
                 <input
                   onKeyPress={event => {
                     if (event.key === 'Enter') {
-                      this.createMessages()
+                      createMessage()
                     }
                   }}
 
-                  onChange={(e) => this.CreateNewMessage(e)} type="" style={{ border: '1px solid #EDEDED', color: '#726363', borderRadius: 15, padding: 10, width: '100%' }} placeholder="Start a new message" value={this.state.newMessage}/>
+                  onChange={(e) => this.CreateNewMessage(e)} type="" style={{ border: '1px solid #EDEDED', color: '#726363', borderRadius: 15, padding: 10, width: '100%' }} placeholder="Start a new message" />
                 <AttachFileIcon onClick={this.handleClick1} for="BtnBrowseHidden" style={{ cursor: 'pointer' }} />
                 <input
 
@@ -265,7 +251,7 @@ this.getAllChat()
                 />
               </Grid>
 
-              <SendIcon style={{ cursor: 'pointer' }} onClick={()=>this.createMessages(item.id)} />
+              <SendIcon style={{ cursor: 'pointer' }} onClick={() => this.createMessages(item.id)} />
 
             </Grid>
 
@@ -285,9 +271,9 @@ this.getAllChat()
           <div>
 
             {this.state.selectedMedia?.mimetype !== "application/pdf" ? (
-              <Avatar src={this.state.selectedMedia?.url} style={{ width: '300px', height: '26rem', borderRadius: 0 }} />
+              <Avatar src={this.state.selectedMedia?.url} style={{ width: '600px', height: '56rem', borderRadius: 0 }} />
             ) : (
-              <iframe src={this.state.selectedMedia?.url} style={{ width: '300px', height: '26rem' }} />
+              <iframe src={this.state.selectedMedia?.url} style={{ width: '600px', height: '56rem' }} />
             )}
 
 
@@ -309,7 +295,7 @@ this.getAllChat()
                 }}>
                   Cancel
                 </button>
-                  <button onClick={() => this.setState({ selectedMedia: null, accept: false }, () => this.handleSelectFile(this.state.file))} style={{
+                <button onClick={() => this.setState({ selectedMedia: null, accept: false }, () => this.handleSelectFile(this.state.file))} style={{
                   backgroundColor: '#ffff',
                   border: '1px solid red',
                   borderRadius: '16px',
@@ -456,4 +442,4 @@ const styles = StyleSheet.create({
 });
 // Customizable Area End
 
-export default withRouter(ChatBox as React.ComponentType<any>)
+export default withRouter(IncidentChatBox as React.ComponentType<any>)
