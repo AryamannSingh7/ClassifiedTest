@@ -16,6 +16,7 @@ export interface Props {
   history:any;
   match:any;
   location:any;
+  classes: any;
 }
 
 interface S {
@@ -24,14 +25,17 @@ interface S {
   loading: boolean;
   sortBy:any;
   status:any;
-  buildingListing:any;
+  AnnouncementDetails:any;
+  deleteConfirmModal:boolean;
+  announcementID:any;
+  isWithdrawAnnouncementModalOpen:boolean;
 }
 
 interface SS {
   id: any;
 }
 
-export default class CoverImageController extends BlockComponent<
+export default class VisitorDetailsController extends BlockComponent<
   Props,
   S,
   SS
@@ -40,8 +44,8 @@ export default class CoverImageController extends BlockComponent<
   apiEmailLoginCallId: string = "";
   emailReg: RegExp;
   labelTitle: string = "";
-  getAnnouncementBuildingListId:string = "";
-
+  announcementDataId:string = "";
+  withdrawAnnouncementId:string = "";
   constructor(props: Props) {
 
     super(props);
@@ -57,47 +61,87 @@ export default class CoverImageController extends BlockComponent<
       loading:false,
       sortBy : "" ,
       status:"",
-      buildingListing:[],
+      AnnouncementDetails:[],
+      deleteConfirmModal:false,
+      isWithdrawAnnouncementModalOpen:false,
+      announcementID:""
     };
 
     this.emailReg = new RegExp("");
     this.labelTitle = configJSON.labelTitle;
 
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
-
   }
+
+  handleWithdrawModal = () => {
+    this.setState({
+      isWithdrawAnnouncementModalOpen: !this.state.isWithdrawAnnouncementModalOpen,
+    });
+  };
 
   async componentDidMount() {
-    this.getAnnouncementBuildingList()
+    this.getAnnouncementDetails()
   }
 
-  getAnnouncementBuildingList = async () => {
+  handleWithdraw = () => {
+    const request = {
+      "announcement": {
+        "ids":[this.state.announcementID]
+      }
+    }
+    this.withdrawAnnouncementCall(request)
+  }
+
+  getAnnouncementDetails = async () => {
+    console.log("DID I CALLED")
     const societyID = localStorage.getItem("society_id")
-    this.getAnnouncementBuildingListId = await this.apiCall({
-      contentType: configJSON.exampleApiContentType,
-      method: configJSON.validationApiMethodType,
-      endPoint: `/society_managements/${societyID}/bx_block_announcement/announcements/buildings_announcements`,
+    const announcementID =  window.location.search ? window.location.search.split("=")[1] : null;
+    this.setState({announcementID:announcementID})
+    this.announcementDataId = await this.apiCall({
+      contentType: configJSON.contentTypeApiGetUserProfile,
+      method: configJSON.methodTypeApiGetUserProfile,
+      endPoint: `/society_managements/${societyID}/bx_block_announcement/announcements/${announcementID}`,
     });
   }
 
-
-
+  withdrawAnnouncementCall = async (data:any) => {
+    const societyID = localStorage.getItem("society_id")
+    this.withdrawAnnouncementId = await this.apiCall({
+      contentType: configJSON.contentTypeApiGetUserProfile,
+      method: configJSON.callTypeApiValidateMobileNo,
+      endPoint: `/society_managements/${societyID}/bx_block_announcement/announcements/withdraw_announcement`,
+      body:data
+    });
+  }
 
   async receive(from: string, message: Message) {
     if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
       var errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if(this.getAnnouncementBuildingListId === apiRequestCallId ){
-        console.log(responseJson,errorReponse)
-        if(responseJson.hasOwnProperty("buildings")){
+      if(this.announcementDataId === apiRequestCallId ){
+        console.log(responseJson?.announcement?.data?.attributes)
+        if(responseJson.hasOwnProperty("announcement")){
           this.setState({
-            buildingListing:responseJson.buildings.data
+            AnnouncementDetails:responseJson?.announcement?.data?.attributes
           })
+        }
+      }
+      if(this.withdrawAnnouncementId === apiRequestCallId){
+        console.log("THIS",responseJson)
+        if(responseJson.message === "announcement deleted"){
+          this.setState({
+            deleteConfirmModal:false
+          })
+          this.props.history.push("/Announcements")
         }
       }
     }
   }
+
+  handleClick = (event:any) => {
+    this.setState({anchorEl:event.currentTarget })
+  };
 
   apiCall = async (data: any) => {
     const { contentType, method, endPoint, body } = data;
@@ -114,7 +158,7 @@ export default class CoverImageController extends BlockComponent<
     );
     requestMessage.addData(
         getName(MessageEnum.RestAPIRequestHeaderMessage),
-        JSON.stringify(header)
+        header
     );
     requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
@@ -124,17 +168,12 @@ export default class CoverImageController extends BlockComponent<
         getName(MessageEnum.RestAPIRequestMethodMessage),
         method
     );
-    body && requestMessage.addData(
+    requestMessage.addData(
         getName(MessageEnum.RestAPIRequestBodyMessage),
-        body
+        JSON.stringify(body)
     );
     runEngine.sendMessage(requestMessage.id, requestMessage);
-    // console.log("Called",requestMessage);
     return requestMessage.messageId;
-  };
-
-  handleClick = (event:any) => {
-    this.setState({anchorEl:event.currentTarget })
   };
 
   handleClose = (e?:any, v?:any) => {

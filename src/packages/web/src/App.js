@@ -4,20 +4,20 @@ import { View } from 'react-native';
 import firebase from 'firebase';
 import { connect } from 'react-firebase';
 
-import WebRoutesGenerator from "../../components/src/NativeWebRouteWrapper";
-import { ModalContainer } from "react-router-modal";
-import HomeScreen from "../../components/src/HomeScreen";
-import TopNav from "../../components/src/TopNav";
+import WebRoutesGenerator from '../../components/src/NativeWebRouteWrapper';
+import { ModalContainer } from 'react-router-modal';
+import HomeScreen from '../../components/src/HomeScreen';
+import TopNav from '../../components/src/TopNav';
 
 import { ROLE } from '../../framework/src/Enum';
 import { Toaster } from 'react-hot-toast';
 
-import InfoPage from '../../blocks/info-page/src/InfoPageBlock'
-import AlertBlock from '../../blocks/alert/src/AlertBlock.web'
+import InfoPage from '../../blocks/info-page/src/InfoPageBlock';
+import AlertBlock from '../../blocks/alert/src/AlertBlock.web';
 // import RolesPermissions2 from "../../blocks/RolesPermissions2/src/RolesPermissions2";
-import Chatbot6 from "../../blocks/Chatbot6/src/Chatbot6";
-import EmailNotifications from "../../blocks/EmailNotifications/src/EmailNotifications";
-import BroadcastMessage from "../../blocks/BroadcastMessage/src/BroadcastMessage";
+import Chatbot6 from '../../blocks/Chatbot6/src/Chatbot6';
+import EmailNotifications from '../../blocks/EmailNotifications/src/EmailNotifications';
+import BroadcastMessage from '../../blocks/BroadcastMessage/src/BroadcastMessage';
 // import BulkUploading from "../../blocks/BulkUploading/src/BulkUploading";
 import Location from '../../blocks/location/src/Location';
 import SocialMediaAccountLoginScreen from '../../blocks/social-media-account-login/src/SocialMediaAccountLoginScreen';
@@ -36,14 +36,14 @@ import MultipleCurrencySupport from '../../blocks/multiplecurrencysupport/src/Mu
 import NewPassword from '../../blocks/forgot-password/src/NewPassword';
 import Feedback from '../../blocks/Feedback/src/Feedback';
 // import Contactus from "../../blocks/contactus/src/Contactus";
-import AddContactus from "../../blocks/contactus/src/AddContactus";
-import CountryCodeSelector from "../../blocks/country-code-selector/src/CountryCodeSelector";
-import TaskAllocator from "../../blocks/TaskAllocator/src/TaskAllocator";
-import FriendList from "../../blocks/FriendList/src/FriendList";
-import FormApprovalWorkflow from "../../blocks/FormApprovalWorkflow/src/FormApprovalWorkflow";
-import AdminConsole3 from "../../blocks/AdminConsole3/src/AdminConsole3";
-import OTPInputAuth from "../../blocks/otp-input-confirmation/src/OTPInputAuth";
-import Maps from "../../blocks/maps/src/Maps";
+import AddContactus from '../../blocks/contactus/src/AddContactus';
+import CountryCodeSelector from '../../blocks/country-code-selector/src/CountryCodeSelector';
+import TaskAllocator from '../../blocks/TaskAllocator/src/TaskAllocator';
+import FriendList from '../../blocks/FriendList/src/FriendList';
+import FormApprovalWorkflow from '../../blocks/FormApprovalWorkflow/src/FormApprovalWorkflow';
+import AdminConsole3 from '../../blocks/AdminConsole3/src/AdminConsole3';
+import OTPInputAuth from '../../blocks/otp-input-confirmation/src/OTPInputAuth';
+import Maps from '../../blocks/maps/src/Maps';
 // import Notes from "../../blocks/Notes/src/Notes";
 import EmailAccountLoginBlock from "../../blocks/email-account-login/src/EmailAccountLoginBlock";
 import TaxCalculator from "../../blocks/TaxCalculator/src/TaxCalculator";
@@ -135,13 +135,24 @@ import EditRequest from "../../blocks/customform/src/EditRequest.web"
 import NewRequest from "../../blocks/customform/src/NewRequest.web"
 import ManagerList from "../../blocks/customform/src/ManagerList.web"
 import Inbox from "../../blocks/customform/src/Inbox.web"
+import IncidentChat from "../../blocks/customform/src/IncidentChat.web"
+
 import Chatbox from "../../blocks/customform/src/Chatbox.web"
 
-import ViewVeichle from "../../blocks/customform/src/ViewVehicle.web"
-import FamilyList from "../../blocks/customform/src/FamilyList.web"
+import ViewVeichle from '../../blocks/customform/src/ViewVehicle.web';
+import FamilyList from '../../blocks/customform/src/FamilyList.web';
 
-import ManagerViewVehicle from "../../blocks/customform/src/ManagerViewVehicle.web"
+import ManagerViewVehicle from '../../blocks/customform/src/ManagerViewVehicle.web';
 
+import PollDetails from '../../blocks/Polling/src/PollDetails.web';
+import PollReport from '../../blocks/Polling/src/PollReport.web';
+import CreateIncident from '../../blocks/ContentManagement/src/CreateIncident.web';
+import IncidentDetails from '../../blocks/ContentManagement/src/IncidentDetails.web';
+import IncidentListing from '../../blocks/ContentManagement/src/IncidentListing.web';
+import IncidentReportedSuccessfully from '../../blocks/ContentManagement/src/IncidentReportedSuccessfully.web';
+import IncidentPreview from '../../blocks/ContentManagement/src/IncidentPreview.web';
+import IncidentManagement from '../../blocks/ContentManagement/src/IncidentManagement.web';
+import IncidentManagementDetail from '../../blocks/ContentManagement/src/IncidentManagementDetail.web';
 
 import PollDetails from "../../blocks/Polling/src/PollDetails.web"
 import PollReport from "../../blocks/Polling/src/PollReport.web"
@@ -226,25 +237,26 @@ import AwaitingAcceptece from '../../blocks/user-profile-basic/src/AwaitingAccep
 import UserDetailedProfile from '../../blocks/user-profile-basic/src/UserDetailedProfile.web';
 
 // Announcement Imports
-import Announcement from '../../blocks/BroadcastMessage/src/Announcement.web'
-import BuildingAnnouncement from "../../blocks/BroadcastMessage/src/BuildingAnnouncement.web"
-import AnnouncementInfo from "../../blocks/BroadcastMessage/src/AnnouncementDetails.web"
+import Announcement from '../../blocks/BroadcastMessage/src/Announcement.web';
+import BuildingAnnouncement from '../../blocks/BroadcastMessage/src/BuildingAnnouncement.web';
+import AnnouncementInfo from '../../blocks/BroadcastMessage/src/AnnouncementDetails.web';
 
-import BuildingandComplex from '../../blocks/LeadManagement/src/BuildingandComplex.web';
-import ComplexandApartment from '../../blocks/LeadManagement/src/ComplexandApartment.web';
+import Buildings from '../../blocks/LeadManagement/src/Buildings.web';
+import Complex from '../../blocks/LeadManagement/src/Complex.web';
 import UnitDetails from '../../blocks/LeadManagement/src/UnitDetails.web';
 import SharedArea from '../../blocks/LeadManagement/src/SharedArea.web';
 
 // Visitor Imports
-import Visitors from "../../blocks/invitefriends/src/Visitors.web";
-import PastVisitors from "../../blocks/invitefriends/src/PastVisitors.web";
-import ScheduledVisitors from "../../blocks/invitefriends/src/ScheduledVisitors.web";
-import VisitorDetails from "../../blocks/invitefriends/src/VisitorDetails.web";
-import VisitorAddSuccess from "../../blocks/invitefriends/src/VisitorAdded";
-import VisitorUpdateSuccess from "../../blocks/invitefriends/src/VisitorUpdated";
-import VisitorAdd from "../../blocks/invitefriends/src/VisitorAdd.web";
-import VisitorList from "../../blocks/invitefriends/src/VisitorsList.web";
-import VisitorsDetails from "../../blocks/invitefriends/src/VisitorDetailsManager.web"
+import Visitors from '../../blocks/invitefriends/src/Visitors.web';
+import PastVisitors from '../../blocks/invitefriends/src/PastVisitors.web';
+import ScheduledVisitors from '../../blocks/invitefriends/src/ScheduledVisitors.web';
+import VisitorDetails from '../../blocks/invitefriends/src/VisitorDetails.web';
+import VisitorAddSuccess from '../../blocks/invitefriends/src/VisitorAdded';
+import VisitorUpdateSuccess from '../../blocks/invitefriends/src/VisitorUpdated';
+import VisitorAdd from '../../blocks/invitefriends/src/VisitorAdd.web';
+import VisitorList from '../../blocks/invitefriends/src/VisitorsList.web';
+import VisitorsDetails from '../../blocks/invitefriends/src/VisitorDetailsManager.web';
+
 const routeMap = {
   //done
   LandingPage: {
@@ -256,6 +268,12 @@ const routeMap = {
   Profile: {
     component: Profile,
     path: '/profile',
+    exact: true
+    // roles: [ROLE.PRIVATE]
+  },
+  IncidentChat: {
+    component: IncidentChat,
+    path: '/IncidentChat',
     exact: true
     // roles: [ROLE.PRIVATE]
   },
@@ -476,7 +494,7 @@ const routeMap = {
     path: '/ClassifiedManagerListing',
     exact: true
   },
- ClassifiedManagerDetail: {
+  ClassifiedManagerDetail: {
     component: ClassifiedManagerDetail,
     path: '/ClassifiedManagerDetail',
     exact: true
@@ -1376,58 +1394,57 @@ const routeMap = {
     exact: true
   },
 
-  Visitors:{
+  Visitors: {
     component: Visitors,
     path: '/visitors',
     exact: true
   },
-  VisitorAdd:{
+  VisitorAdd: {
     component: VisitorAdd,
     path: '/AddVisitor',
     exact: true
   },
 
-   PastVisitors:{
-      component: PastVisitors,
-      path: '/PastVisitors',
-      exact: true
-   },
+  PastVisitors: {
+    component: PastVisitors,
+    path: '/PastVisitors',
+    exact: true
+  },
 
-  VisitorList:{
+  VisitorList: {
     component: VisitorList,
     path: '/VisitorList',
     exact: true
   },
 
-  ScheduledVisitors:{
+  ScheduledVisitors: {
     component: ScheduledVisitors,
     path: '/ScheduledVisitors',
     exact: true
   },
 
-  VisitorDetails:{
+  VisitorDetails: {
     component: VisitorDetails,
     path: '/VisitorDetails',
     exact: true
   },
 
-  VisitorsDetails:{
+  VisitorsDetails: {
     component: VisitorsDetails,
     path: '/VisitorsDetails',
     exact: true
   },
-  VisitorAddSuccess:{
+  VisitorAddSuccess: {
     component: VisitorAddSuccess,
     path: '/VisitorAddSuccess',
     exact: true
   },
 
-  VisitorUpdateSuccess:{
+  VisitorUpdateSuccess: {
     component: VisitorUpdateSuccess,
     path: '/VisitorUpdateSuccess',
     exact: true
   },
-
 
   CommunityRequestManagement: {
     component: CommunityRequestManagement,
@@ -1449,23 +1466,26 @@ const routeMap = {
     component: UserDetailedProfile,
     path: '/UserDetailedProfile'
   },
-
-  BuildingandComplex:{
-    component:BuildingandComplex,
-    path:"/BuildingandComplex"
+  // Building and Complex
+  Buildings: {
+    component: Buildings,
+    path: '/Building/:id',
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER]
   },
-
-  ComplexandApartment:{
-    component:ComplexandApartment,
-    path:"/ComplexandApartment"
+  Complex: {
+    component: Complex,
+    path: '/Complex',
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER]
   },
-  UnitDetails:{
-    component:UnitDetails,
-    path:"/UnitDetails"
+  UnitDetails: {
+    component: UnitDetails,
+    path: '/UnitDetail/:id',
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER]
   },
-  SharedArea:{
-    component:SharedArea,
-    path:"/SharedArea"
+  SharedArea: {
+    component: SharedArea,
+    path: '/SharedArea/:id',
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER]
   },
 
   AlertWeb: {
