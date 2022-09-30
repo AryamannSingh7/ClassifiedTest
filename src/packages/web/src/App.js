@@ -155,6 +155,10 @@ import IncidentManagementDetail from "../../blocks/ContentManagement/src/Inciden
 
 import ClassifiedManagerListing from "../../blocks/ContentManagement/src/ClassifiedManagerListing.web";
 import ClassifiedManagerDetail from "../../blocks/ContentManagement/src/ClassifiedManagerDetail.web";
+import CreateClassified from "../../blocks/ContentManagement/src/CreateClassified.web";
+import ClassifiedType from "../../blocks/ContentManagement/src/ClassifiedType.web";
+
+
 
 import NeighboursDetails from '../../blocks/search/src/NeighboursDetails.web';
 import NeighboursListing from '../../blocks/search/src/NeighboursListing.web';
@@ -475,6 +479,16 @@ const routeMap = {
  ClassifiedManagerDetail: {
     component: ClassifiedManagerDetail,
     path: '/ClassifiedManagerDetail',
+    exact: true
+  },
+  CreateClassified: {
+    component: CreateClassified,
+    path: '/CreateClassified',
+    exact: true
+  },
+  ClassifiedType: {
+    component: ClassifiedType,
+    path: '/ClassifiedType',
     exact: true
   },
   // RolesPermissions2: {
