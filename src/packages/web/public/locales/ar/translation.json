@@ -540,5 +540,7 @@
   "Units": "الوحدات",
   "Search by unit number": "البحث عن طريق رقم الوحدة",
   "Resident Name": "اسم المقيم",
-  "Country": "دولة"
+  "Country": "دولة",
+  "Location": "موقع",
+  "No Location Available": "لا يوجد موقع متاح"
 }

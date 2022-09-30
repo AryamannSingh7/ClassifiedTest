@@ -1,6 +1,4 @@
 // Customizable Area Start
-//@ts-nocheck
-//@ts-ignore
 import React from "react";
 import {
   Button,
@@ -42,18 +40,19 @@ import {
   TwitterIcon,
   WhatsappIcon,
 } from "react-share";
-import BuildingLogo from "../assets/building.png";
-import SortIcon from "../assets/sort.png";
-import FilterIcon from "../assets/filter.png";
-import TemplateIcon from "../assets/template.png";
+import { BuildingLogo, SortIcon, FilterIcon, TemplateIcon } from "./assets";
+import { withTranslation } from "react-i18next";
+import "../../../web/src/i18n.js";
+import moment from "moment";
 
 class ContractsList extends ContractsListController {
   constructor(props: Props) {
     super(props);
   }
 
-  componentDidMount(): Promise<void> {
+  async componentDidMount(): Promise<void> {
     this.getTemplatesList();
+    this.getContractsList();
   }
 
   render() {
@@ -62,6 +61,10 @@ class ContractsList extends ContractsListController {
     const sharePopupWidth = 500;
     const sharePopupHeight = 700;
     const shareTitle = "TI 1 Final Leap";
+
+    const { t }: any = this.props;
+
+    console.log(this.state);
 
     return (
       <>
@@ -96,7 +99,10 @@ class ContractsList extends ContractsListController {
                         </IconButton>
                       }
                     >
-                      <MenuItem>New</MenuItem>
+                      <MenuItem>Active</MenuItem>
+                      <MenuItem>Terminated</MenuItem>
+                      <MenuItem>Pending</MenuItem>
+                      <MenuItem>Closed</MenuItem>
                     </Menu>
                   </div>
                 </Box>
@@ -134,108 +140,83 @@ class ContractsList extends ContractsListController {
                       <div className="content-box">
                         <div className="contracts-list">
                           <Grid container spacing={2}>
-                            <Grid item xs={12}>
-                              <Card className="contract">
-                                <Grid container spacing={2}>
-                                  <Grid item xs={12}>
-                                    <div className="header">
-                                      <Link href={``}>
-                                        <h4>asdasdasdadd</h4>
-                                      </Link>
-                                      <div className="right-menu">
-                                        <Menu
-                                          menuButton={
-                                            <IconButton>
-                                              <MoreVertIcon />
-                                            </IconButton>
-                                          }
-                                        >
-                                          <MenuItem>Download</MenuItem>
-                                          <MenuItem>Share</MenuItem>
-                                        </Menu>
-                                      </div>
-                                    </div>
-                                  </Grid>
+                            {this.state.contractsList.length === 0 && (
+                              <Grid item xs={12}>
+                                <Card className="contract">No Contract Available!!</Card>
+                              </Grid>
+                            )}
+                            {this.state.contractsList.map((contract: any) => {
+                              return (
+                                <Grid item xs={12} key={contract.id}>
+                                  <Card className="contract">
+                                    <Grid container spacing={2}>
+                                      <Grid item xs={12}>
+                                        <div className="header">
+                                          <Link href={`/Contract/${contract.id}`}>
+                                            <h4>{`Contract ${contract.id}`}</h4>
+                                          </Link>
+                                          <div className="right-menu">
+                                            <Menu
+                                              menuButton={
+                                                <IconButton>
+                                                  <MoreVertIcon />
+                                                </IconButton>
+                                              }
+                                            >
+                                              <MenuItem>
+                                                <Link href={contract.attributes.template_pdf.url} target="_blank">
+                                                  Download
+                                                </Link>
+                                              </MenuItem>
+                                              <MenuItem
+                                                onClick={() => {
+                                                  this.setState(
+                                                    { shareUrl: contract.attributes.template_pdf.url },
+                                                    () => {
+                                                      this.handleShareModal();
+                                                    }
+                                                  );
+                                                }}
+                                              >
+                                                Share
+                                              </MenuItem>
+                                            </Menu>
+                                          </div>
+                                        </div>
+                                      </Grid>
+                                    </Grid>
+                                    <Grid container spacing={2} className="info">
+                                      <Grid item xs={6}>
+                                        <span>Expires on</span>
+                                        <p>
+                                          {moment(contract.attributes.expires_on, "YYYY-MM-DD").format("MMMM DD, YYYY")}
+                                        </p>
+                                      </Grid>
+                                      <Grid item xs={6}>
+                                        <span>Building</span>
+                                        <p>-</p>
+                                      </Grid>
+                                      <Grid item xs={6}>
+                                        <span>Unit</span>
+                                        <p>-</p>
+                                      </Grid>
+                                      <Grid item xs={6}>
+                                        <span>Tenant Name</span>
+                                        <p>{contract.attributes.tenant_name}</p>
+                                      </Grid>
+                                      <Grid item xs={6}>
+                                        <span>Contract Type</span>
+                                        <p>-</p>
+                                      </Grid>
+                                      <Grid item xs={6}>
+                                        <span>Contract State</span>
+                                        <p className="state">{contract.attributes.status}</p>
+                                      </Grid>
+                                    </Grid>
+                                  </Card>
                                 </Grid>
-                                <Grid container spacing={2} className="info">
-                                  <Grid item xs={6}>
-                                    <span>Expires on</span>
-                                    <p>30-04-2022</p>
-                                  </Grid>
-                                  <Grid item xs={6}>
-                                    <span>Building</span>
-                                    <p>Building</p>
-                                  </Grid>
-                                  <Grid item xs={6}>
-                                    <span>Unit</span>
-                                    <p>Unit</p>
-                                  </Grid>
-                                  <Grid item xs={6}>
-                                    <span>Company Name</span>
-                                    <p>Company Name</p>
-                                  </Grid>
-                                  <Grid item xs={6}>
-                                    <span>Contract Type</span>
-                                    <p>Contract Type</p>
-                                  </Grid>
-                                  <Grid item xs={6}>
-                                    <span>Contract State</span>
-                                    <p>Contract State</p>
-                                  </Grid>
-                                </Grid>
-                              </Card>
-                            </Grid>
-                            <Grid item xs={12}>
-                              <Card className="contract">
-                                <Grid container spacing={2}>
-                                  <Grid item xs={12}>
-                                    <div className="header">
-                                      <Link href={``}>
-                                        <h4>asdasdasdadd</h4>
-                                      </Link>
-                                      <div className="right-menu">
-                                        <Menu
-                                          menuButton={
-                                            <IconButton>
-                                              <MoreVertIcon />
-                                            </IconButton>
-                                          }
-                                        >
-                                          <MenuItem>Download</MenuItem>
-                                          <MenuItem>Share</MenuItem>
-                                        </Menu>
-                                      </div>
-                                    </div>
-                                  </Grid>
-                                </Grid>
-                                <Grid container spacing={2} className="info">
-                                  <Grid item xs={6}>
-                                    <span>Expires on</span>
-                                    <p>30-04-2022</p>
-                                  </Grid>
-                                  <Grid item xs={6}>
-                                    <span>Building</span>
-                                    <p>Building</p>
-                                  </Grid>
-                                  <Grid item xs={6}>
-                                    <span>Unit</span>
-                                    <p>Unit</p>
-                                  </Grid>
-                                  <Grid item xs={6}>
-                                    <span>Tenant Name</span>
-                                    <p>Tenant Name</p>
-                                  </Grid>
-                                  <Grid item xs={6}>
-                                    <span>Contract Type</span>
-                                    <p>Contract Type</p>
-                                  </Grid>
-                                  <Grid item xs={6}>
-                                    <span>Contract State</span>
-                                    <p>Contract State</p>
-                                  </Grid>
-                                </Grid>
-                              </Card>
-                            </Grid>
+                              );
+                            })}
                           </Grid>
                         </div>
                         <div className="upload-button">
@@ -257,7 +238,7 @@ class ContractsList extends ContractsListController {
                           <Grid container spacing={2}>
                             {this.state.templatesList.length === 0 && (
                               <Grid item xs={12}>
-                                No Template Available!!
+                                <Card className="template">No Template Available!!</Card>
                               </Grid>
                             )}
                             {this.state.templatesList.map((template: any) => {
@@ -281,25 +262,16 @@ class ContractsList extends ContractsListController {
                                         }
                                       >
                                         <MenuItem>
-                                          <Link
-                                            href={template.attributes.lease_template[0].url}
-                                            target="_blank"
-                                          >
+                                          <Link href={template.attributes.template_pdf.url} target="_blank">
                                             Download
                                           </Link>
                                         </MenuItem>
                                         <MenuItem>Edit</MenuItem>
                                         <MenuItem
                                           onClick={() => {
-                                            this.setState(
-                                              {
-                                                shareUrl: template.attributes.lease_template[0].url,
-                                                shareQuote: template.attributes.title,
-                                              },
-                                              () => {
-                                                this.handleShareModal();
-                                              }
-                                            );
+                                            this.setState({ shareUrl: template.attributes.template_pdf.url }, () => {
+                                              this.handleShareModal();
+                                            });
                                           }}
                                         >
                                           Share
@@ -329,7 +301,7 @@ class ContractsList extends ContractsListController {
             </Grid>
             <Grid item xs={12} md={5}>
               <Box className="right-block right-image" display={{ xs: "none", md: "flex" }}>
-                <img src={BuildingLogo} className="building-logo" alt="" />
+                <img src={BuildingLogo.default} className="building-logo" alt="" />
               </Box>
             </Grid>
           </Grid>
@@ -350,78 +322,78 @@ class ContractsList extends ContractsListController {
           <DialogContent>
             <div className="share-box">
               <FacebookShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <FacebookIcon />
-              </FacebookShareButton>
+                // @ts-ignore
+                children={<FacebookIcon />}
+                translate
+              />
               <TwitterShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <TwitterIcon />
-              </TwitterShareButton>
+                // @ts-ignore
+                children={<TwitterIcon />}
+                translate
+              />
               <WhatsappShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
                 separator=":: "
-              >
-                <WhatsappIcon />
-              </WhatsappShareButton>
+                // @ts-ignore
+                children={<WhatsappIcon />}
+                translate
+              />
               <LinkedinShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <LinkedinIcon />
-              </LinkedinShareButton>
+                // @ts-ignore
+                children={<LinkedinIcon />}
+                translate
+              />
               <EmailShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <EmailIcon />
-              </EmailShareButton>
+                // @ts-ignore
+                children={<EmailIcon />}
+                translate
+              />
               <RedditShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <RedditIcon />
-              </RedditShareButton>
+                // @ts-ignore
+                children={<RedditIcon />}
+                translate
+              />
               <TelegramShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <TelegramIcon />
-              </TelegramShareButton>
+                // @ts-ignore
+                children={<TelegramIcon />}
+                translate
+              />
               <TumblrShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <TumblrIcon />
-              </TumblrShareButton>
+                // @ts-ignore
+                children={<TumblrIcon />}
+                translate
+              />
             </div>
           </DialogContent>
         </Dialog>
@@ -430,5 +402,5 @@ class ContractsList extends ContractsListController {
   }
 }
 
-export default withStyles(ContractsStyleWeb)(ContractsList);
+export default withTranslation()(withStyles(ContractsStyleWeb)(ContractsList));
 // Customizable Area End

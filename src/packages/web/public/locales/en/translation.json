@@ -540,5 +540,7 @@
   "Units": "Units",
   "Search by unit number": "Search by unit number",
   "Resident Name": "Resident Name",
-  "Country": "Country"
+  "Country": "Country",
+  "Location": "Location",
+  "No Location Available": "No Location Available"
 }

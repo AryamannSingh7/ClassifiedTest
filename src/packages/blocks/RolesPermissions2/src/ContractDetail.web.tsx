@@ -1,6 +1,4 @@
 // Customizable Area Start
-//@ts-nocheck
-//@ts-ignore
 import React from "react";
 import {
   Button,
@@ -36,16 +34,11 @@ import {
   TwitterIcon,
   WhatsappIcon,
 } from "react-share";
-
-import ContractDetailController, {
-  Props,
-} from "./ContractDetailController.web";
+import ContractDetailController, { Props } from "./ContractDetailController.web";
 import { ContractsStyleWeb } from "./ContractsStyle.web";
-
-import BuildingLogo from "../assets/building.png";
-import DownloadIcon from "../assets/download.png";
-import ShareIcon from "../assets/share.png";
-import ExclamationIcon from "../assets/exclamation.png";
+import { BuildingLogo, DownloadIcon, ShareIcon, ExclamationIcon } from "./assets";
+import { withTranslation } from "react-i18next";
+import "../../../web/src/i18n.js";
 
 class ContractDetail extends ContractDetailController {
   constructor(props: Props) {
@@ -59,14 +52,13 @@ class ContractDetail extends ContractDetailController {
     const sharePopupHeight = 700;
     const shareTitle = "TI 1 Final Leap";
 
+    const { t }: any = this.props;
+
     console.log(this.state);
 
     return (
       <>
-        <Box
-          style={{ background: "#F4F7FF", height: "100vh" }}
-          className={classes.detailPage}
-        >
+        <Box style={{ background: "#F4F7FF", height: "100vh" }} className={classes.detailPage}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box className="faq-step">
@@ -77,19 +69,18 @@ class ContractDetail extends ContractDetailController {
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    Contracts 1
+                    Contracts {this.state.contractId}
                   </div>
                   <div className="right-icon">
-                    <img src={DownloadIcon} alt="SortIcon" />
+                    <Link target="_blank" href={this.state.contractData.templateUrl}>
+                      <img src={DownloadIcon} alt="SortIcon" />
+                    </Link>
                   </div>
                 </Box>
                 <Container>
                   <Box className="content-box">
                     <div className="contracts-list">
-                      <iframe
-                        src="http://www.africau.edu/images/default/sample.pdf"
-                        // style={{ width: "100%" }}
-                      />
+                      {/* <iframe src={this.state.contractData.templateUrl} /> */}
                     </div>
                     <Box className="upload-button">
                       <Box className="upload-button-group">
@@ -110,7 +101,9 @@ class ContractDetail extends ContractDetailController {
                           <Box
                             className="image"
                             onClick={() => {
-                              this.handleShareModal();
+                              this.setState({ shareUrl: this.state.contractData.templateUrl }, () => {
+                                this.handleShareModal();
+                              });
                             }}
                           >
                             <img src={ShareIcon} alt="" />
@@ -123,11 +116,8 @@ class ContractDetail extends ContractDetailController {
               </Box>
             </Grid>
             <Grid item xs={12} md={5}>
-              <Box
-                className="right-block right-image"
-                display={{ xs: "none", md: "flex" }}
-              >
-                <img src={BuildingLogo} className="building-logo" alt="" />
+              <Box className="right-block right-image" display={{ xs: "none", md: "flex" }}>
+                <img src={BuildingLogo.default} className="building-logo" alt="" />
               </Box>
             </Grid>
           </Grid>
@@ -144,8 +134,8 @@ class ContractDetail extends ContractDetailController {
               <img src={ExclamationIcon} alt="ExclamationIcon" />
               <Typography variant="h6">Terminate Contract?</Typography>
               <Typography variant="body1">
-                Are you sure want to terminate lease contract with Ali Khan?
-                Once terminated you won't be able to retrieve.
+                Are you sure want to terminate lease contract with Ali Khan? Once terminated you won't be able to
+                retrieve.
               </Typography>
               <DialogActions className="dialog-button-group">
                 <Button
@@ -182,78 +172,78 @@ class ContractDetail extends ContractDetailController {
           <DialogContent>
             <div className="share-box">
               <FacebookShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <FacebookIcon />
-              </FacebookShareButton>
+                // @ts-ignore
+                children={<FacebookIcon />}
+                translate
+              />
               <TwitterShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <TwitterIcon />
-              </TwitterShareButton>
+                // @ts-ignore
+                children={<TwitterIcon />}
+                translate
+              />
               <WhatsappShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
                 separator=":: "
-              >
-                <WhatsappIcon />
-              </WhatsappShareButton>
+                // @ts-ignore
+                children={<WhatsappIcon />}
+                translate
+              />
               <LinkedinShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <LinkedinIcon />
-              </LinkedinShareButton>
+                // @ts-ignore
+                children={<LinkedinIcon />}
+                translate
+              />
               <EmailShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <EmailIcon />
-              </EmailShareButton>
+                // @ts-ignore
+                children={<EmailIcon />}
+                translate
+              />
               <RedditShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <RedditIcon />
-              </RedditShareButton>
+                // @ts-ignore
+                children={<RedditIcon />}
+                translate
+              />
               <TelegramShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <TelegramIcon />
-              </TelegramShareButton>
+                // @ts-ignore
+                children={<TelegramIcon />}
+                translate
+              />
               <TumblrShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <TumblrIcon />
-              </TumblrShareButton>
+                // @ts-ignore
+                children={<TumblrIcon />}
+                translate
+              />
             </div>
           </DialogContent>
         </Dialog>
@@ -262,5 +252,5 @@ class ContractDetail extends ContractDetailController {
   }
 }
 
-export default withStyles(ContractsStyleWeb)(ContractDetail);
+export default withTranslation()(withStyles(ContractsStyleWeb)(ContractDetail));
 // Customizable Area End
