@@ -5,7 +5,7 @@ import {
   GestureResponderEvent,
 } from "react-native";
 
-import GenericLabel from "./GenericLabel";
+// import GenericLabel from "./GenericLabel";
 
 interface Props {
   onPress: (e: GestureResponderEvent) => void;
@@ -24,13 +24,13 @@ const GenericSelectionButton: FunctionComponent<Props> = (props) => {
 
   return (
     <TouchableOpacity style={buttonStyles} onPress={props.onPress} testID={props.testID}>
-      <GenericLabel
+      {/* <GenericLabel
         fontSize={12}
         color={props.isSelected ? "rgba(11, 11, 11, 1)" : "rgb(143, 155, 179)"}
         onPress={props.onPress}
       >
         {props.children}
-      </GenericLabel>
+      </GenericLabel> */}
     </TouchableOpacity>
   );
 };
