@@ -90,7 +90,7 @@ class CreateClassified extends ClassifiedController {
                     onSubmit={(values) =>
                       !this.state?.sizeError && !this.state?.notImageOrVideoError ?
                         (
-                         console.log(values)
+                          this.onSubmit(values)
                         )
                         :
                         (

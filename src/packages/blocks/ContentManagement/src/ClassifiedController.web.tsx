@@ -217,9 +217,8 @@ export default class ClassifiedController extends BlockComponent<
       else if (apiRequestCallId === this.apicreateIncidentCallId) {
           if (responseJson && responseJson.data) {
             console.log("apicreateIncidentCallId===========>",responseJson)
-            localStorage.setItem("createIncidentId",responseJson.data.id)
             //@ts-ignore
-            this.props.history.push("/IncidentReportedSuccessfully")
+            this.props.history.push("/ClassifiedReportedSuccessfully")
             this.setState({loading: false})      
           } else if (responseJson?.errors) {
             let error = responseJson.errors[0]
@@ -576,7 +575,7 @@ onSubmit =(values:any)=>{
   console.log("onsbumit=========>", values);
     this.setState({ loading: true })
     //@ts-ignore
-    //this.props.history.push("/ClassifiedPreview")
+    this.props.history.push("/ClassifiedPreview")
 }
 // getIncidentDetails= (id :any) => {
 //    //@ts-ignore
@@ -640,37 +639,36 @@ confirmOrRejectIncident =(id : any,val : any)=>{
 
 }
 
-
-
-  createIncident = async(incidentFromData: any ,incidentRelated : any) => {
+createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
   try   
    {
      const header = {
       token :localStorage.getItem("userToken")
     };
-   // console.log("values create==================>",incidentFromData.media[0].file );
+   // console.log("values create==================>",classifiedFromData.media[0].file );
     const formData = new FormData();
-   formData.append('incident[common_area_id]', incidentFromData?.commonArea?.id);
-   formData.append('incident[incident_related_id]', incidentRelated[0]);
-   formData.append('incident[incident_title]', incidentFromData.incidentTitle);
-   formData.append('incident[description]', incidentFromData.description);
-  //  formData.append('incident[attachments]', incidentFromData.media[0].file);
-   formData.append('incident[apartment_management_id]', incidentFromData.myApartment.id);
+   formData.append('classified[full_phone_number]', classifiedFromData?.phone);
+   formData.append('classified[classified_type]', classifiedUserType);
+   formData.append('classified[email]', classifiedFromData.email);
+   formData.append('classified[title]', classifiedFromData.classifiedTitle);
+   formData.append('classified[currency_id]', classifiedFromData.currency);
+   formData.append('classified[duration_from]', classifiedFromData.startDate);
+   formData.append('classified[duration_to]', classifiedFromData.endDate);
+   formData.append('classified[price_to]', classifiedFromData.price);
    
-   for (let j = 0; j < incidentFromData.media.length; j += 1) {
-    let blob = await fetch(incidentFromData.media[j].url).then(r => r.blob());
+   for (let j = 0; j < classifiedFromData.media.length; j += 1) {
+    let blob = await fetch(classifiedFromData.media[j].url).then(r => r.blob());
       //@ts-ignore
-     blob.name = incidentFromData.media[j].file.name
+     blob.name = classifiedFromData.media[j].file.name
     console.log("bolb ==================>",blob);
 
     formData.append(
-      "incident[attachments][]",
+      "classified[attachments][]",
       blob
     );
-    console.log("incident[attachments][] ==================>",incidentFromData.media[j].file);
+    //console.log("classified[attachments][] ==================>",classifiedFromData.media[j].file);
   }
    
-   console.log("formData.getAll('apartment_management_id')==================>",formData.get('incident[attachments][]'))
    const httpBody = formData;
     this.setState({loading: true}) 
     const requestMessage = new Message(
@@ -680,7 +678,7 @@ confirmOrRejectIncident =(id : any,val : any)=>{
     this.apicreateIncidentCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      configJSON.createIncident
+      `bx_block_posts/classifieds`
     );
 
     requestMessage.addData(
@@ -971,21 +969,32 @@ else {
   
 createIncidentSchema() {
     const validations = Yup.object().shape({
-      phone: Yup.string().required(`This field is required`).trim(),
-      email: Yup.string().required(`This field is required`).trim(),
+      phone: Yup.number()
+      .typeError("Only numbers are allowed.")
+      .required("Mobile number is required.")
+      .positive("Negative numbers are not allowed.")
+      .integer("Number can't contain a decimal.")
+      .min(10000000, "Minimum 5 digits are required.")
+      .max(9999999999999, "Maximum 11 digits are allowed."),
+      email: Yup.string()
+      .email("Please enter a valid email address.")
+      .required("Email is required."),
       classifiedTitle: Yup.string().required(`This field is required`).max(50, "Too Long!"),
       description: Yup.string().required(`This field is required`).max(200, "Too Long!"),
-      myApartment:Yup.string().required(`This field is required`).trim(),
-      price:Yup.string().required(`This field is required`).trim(),
+      price:Yup.number()
+      .typeError("Only numbers are allowed.")
+      .required(" Price is required.")
+      .positive("Negative numbers are not allowed.")
+      .integer("Number can't contain a decimal."),
       currency:Yup.string().required(`This field is required`).trim(),
       //@ts-ignore
       startDate: Yup.date().default(() => new Date()).required(`This field is required`),
-      //@ts-ignore
       endDate: Yup.date()
       .when(
+        //@ts-ignore
           "startDate",
-           //@ts-ignore
-          (startDate, schema) => startDate && schema.min(startDate),"End date can't be before Start date").required(`This field is required`),
+          //@ts-ignore
+          (startDate, schema) => startDate && schema.min(startDate)).required(`This field is required`),
     });
        
     return validations ;

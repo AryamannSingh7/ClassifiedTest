@@ -45,6 +45,7 @@ class ClassifiedPreview extends ClassifiedController {
   render() {
     const { navigation } = this.props;
     const classifiedFromData = JSON.parse(localStorage.getItem("classifiedPreview") || '{}')
+    const classifiedUserType = localStorage.getItem("classifiedUserType")
     console.log("this.state?.file?.type===============>", this.state?.file);
     if (!classifiedFromData) {
       //@ts-ignore
@@ -61,63 +62,69 @@ class ClassifiedPreview extends ClassifiedController {
                 <Box className="content-header">
                   <Box className="left-block blocks">
                     <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
-                    <h4>Request Preview</h4>
+                    <h4>Seller Request</h4>
                   </Box>
                 </Box>
                 <Box className="content-block-wrapper common-incident-block">
                   <Box className="incident-content-wrapper">
-                    {/* <Box className="incident-rows">
-                      <h4>Incident  Details</h4>
-                    </Box> */}
+                    <Box className="incident-rows">
+                      <h4>Request  Preview</h4>
+                    </Box>
                     <Card className="incident-card card">
                       <CardContent>
                         <Typography component="span">
-                          Affected Area:
+                          Moblie Number:
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                          {incidentFromData?.commonArea?.name}
+                          {classifiedFromData?.phone}
                         </Typography>
                         <Typography component="span">
-                          Incident is related to:
+                          Email Id:
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                          {""}
+                          {classifiedFromData?.email}
                         </Typography>
                         <Typography component="span">
-                          Incident Title:
+                          Title:
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                          {incidentFromData?.incidentTitle}
+                          {classifiedFromData?.classifiedTitle}
                         </Typography>
 
                         <Typography component="span">
-                          Building:
+                        Description:
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                          {incidentFromData?.myApartment?.attributes?.building_management?.name}
+                          {classifiedFromData?.description}
                         </Typography>
 
                         <Typography component="span">
-                          Unit:
+                          Price:
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                          {incidentFromData?.myApartment?.attributes?.apartment_name}
+                          {classifiedFromData?.price}
                         </Typography>
                         <Typography component="span">
-                          Description:
+                          From:
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                          {incidentFromData.description}
+                          {classifiedFromData.startDate}
+                        </Typography>
+                        <Typography component="span">
+                          To:
+                        </Typography>
+                        <Typography className="sub-title" component="h5">
+                          {classifiedFromData.description}
                         </Typography>
                         {
-                          incidentFromData?.media.length !== 0 ?
+                          classifiedFromData?.media.length !== 0 ?
                             <>
                               <Typography component="span">
                                 Photos
                               </Typography>
                               <CardActions className="card-img-row">
                                 {
-                                  incidentFromData?.media?.map((val:any, index:any) => (
+                                  classifiedFromData?.media?.map((val:any, index:any) => (
                                     val?.file.type === "video/mp4" || val?.file.type === "video/x-m4v" ?
                                       <Box className="video-img" key={index} onClick={() => { this.setState({ showDialog: true, file: { url: val.url, type: val?.file.type, name: val?.file?.name } }) }}>
                                         <Box className="img-layer"></Box>
@@ -144,7 +151,7 @@ class ClassifiedPreview extends ClassifiedController {
                     </Card>
                   </Box>
                   <Box className="customButton preview-submit">
-                    <Button variant="contained" onClick={() => this.createIncident(incidentFromData, incidentRelated)}>submit</Button>
+                    <Button variant="contained" onClick={() => this.createClassified(classifiedFromData, classifiedUserType)}>submit</Button>
                   </Box>
                 </Box>
                 {/* <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>
