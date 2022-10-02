@@ -53,7 +53,7 @@ class Inbox extends InboxController {
   render() {
     return (
       <>
-        <Box className="login-wrapper reg-wrapper">
+        <Box className="login-wrapper reg-wrapper" style={{margin:0}}>
           <Grid container style={{padding:'0 1rem' }}>
             <Grid item xs={12} style={{display:'flex',justifyContent:'space-between'}}>
           <Box  display='flex' alignItems='center' width={this.state.isSearch ? '7%':'100%'} onClick={() => window.history.back()}>
