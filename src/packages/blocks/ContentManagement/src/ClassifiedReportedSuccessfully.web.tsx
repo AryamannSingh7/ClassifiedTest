@@ -22,7 +22,7 @@ import Loader from "../../../components/src/Loader.web";
 import { Input } from "react-native-elements";
 import * as Yup from "yup";
 import CountryCodeSelector from "../../country-code-selector/src/CountryCodeSelector";
-import IncidentController, { Props } from "./IncidentController.web";
+import ClassifiedController, { Props } from "./ClassifiedController.web";
 //Customizable Area End
 
 //resorces

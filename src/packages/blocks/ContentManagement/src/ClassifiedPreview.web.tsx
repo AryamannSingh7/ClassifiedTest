@@ -31,7 +31,7 @@ import { Input } from "react-native-elements";
 import * as Yup from "yup";
 import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import CountryCodeSelector from "../../country-code-selector/src/CountryCodeSelector";
-import IncidentController, { Props } from "./IncidentController.web";
+import ClassifiedController, { Props } from "./ClassifiedController.web";
 //Customizable Area End
 
 //resorces
