@@ -13,4 +13,11 @@ exports.labelTitleText = "LeadManagement";
 exports.labelBodyText = "LeadManagement Body";
 
 exports.btnExampleTitle = "CLICK ME";
+
+exports.ApiContentType = "application/json";
+
+exports.apiMethodTypeGet = "GET";
+exports.apiMethodTypePost = "POST";
+exports.apiMethodTypeDelete = "DELETE";
+exports.apiMethodTypePatch = "PATCH";
 // Customizable Area End
