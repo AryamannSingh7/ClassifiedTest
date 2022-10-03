@@ -614,7 +614,7 @@ class Complex extends ComplexController {
               </GoogleMapReact>
             </Box>
           ) : (
-            <Box className="no-google-map-box">No Location Available</Box>
+            <Box className="no-google-map-box">{t("No Location Available")}</Box>
           )}
         </Dialog>
       </>

@@ -108,7 +108,7 @@ class SharedArea extends SharedAreaController {
                         color="primary"
                         onClick={() => this.openSharedAreaEditModal()}
                       >
-                        Edit Details
+                        {t("Edit Details")}
                       </Button>
                     </Grid>
                   </Grid>
@@ -118,7 +118,7 @@ class SharedArea extends SharedAreaController {
                   <Card>
                     <Box className="building-info-bottom shared-area-image">
                       {this.state.sharedAreaData.photos.length === 0 ? (
-                        <span>No Photos Available</span>
+                        <span>{t("No Photos Available")}</span>
                       ) : (
                         <>
                           <Slider ref={(c: any) => (this.slider = c)} {...settings}>
@@ -182,10 +182,11 @@ class SharedArea extends SharedAreaController {
                     <Box className="bottom-detail">
                       <Box className="left-detail">
                         <p>
-                          Total Area: <span>{this.state.sharedAreaData.totalArea || "-"}</span>
+                          {t("Total Area")}: <span>{this.state.sharedAreaData.totalArea || "-"}</span>
                         </p>
                         <p>
-                          Reservation fees: <span>{this.state.sharedAreaData.reservationFee || "-"} per hour</span>
+                          {t("Reservation fees")}:{" "}
+                          <span>{this.state.sharedAreaData.reservationFee || "-"} per hour</span>
                         </p>
                       </Box>
                       <Box className="right-detail">
@@ -208,7 +209,7 @@ class SharedArea extends SharedAreaController {
                       <Box className="right-content">
                         <select value="" className="unit-select">
                           <option disabled value="">
-                            Building
+                            {t("Building")}
                           </option>
                         </select>
                       </Box>
@@ -255,7 +256,7 @@ class SharedArea extends SharedAreaController {
 
         <Dialog className="edit-profile" open={this.state.setComplexEditOpen} scroll="paper" fullWidth maxWidth="md">
           <MuiDialogTitle disableTypography className="dialog-heading">
-            <Typography variant="h6">Edit Details</Typography>
+            <Typography variant="h6">{t("Edit Details")}</Typography>
             <IconButton onClick={() => this.handleSharedAreaEditModal()}>
               <CloseIcon />
             </IconButton>
@@ -275,7 +276,7 @@ class SharedArea extends SharedAreaController {
                   <DialogContent dividers>
                     <Grid container spacing={2} className="edit-building">
                       <Grid item md={12}>
-                        <InputLabel>Upload Photos</InputLabel>
+                        <InputLabel>{t("Upload Photos")}</InputLabel>
                         <Grid container spacing={4}>
                           <Grid item md={3}>
                             <Box className="upload-photo" onClick={() => this.uploadImages.click()}>
@@ -325,10 +326,10 @@ class SharedArea extends SharedAreaController {
                         {errors.photos && touched.photos && <small className="error">{t(errors.photos)}</small>}
                       </Grid>
                       <Grid item md={12}>
-                        <InputLabel>Details</InputLabel>
+                        <InputLabel>{t("Details")}</InputLabel>
                         <TextareaAutosize
                           className="about-us"
-                          placeholder="Details"
+                          placeholder={t("Details")}
                           value={values.details}
                           onChange={handleChange}
                           onBlur={handleBlur}
@@ -337,11 +338,11 @@ class SharedArea extends SharedAreaController {
                         {errors.details && touched.details && <small className="error">{t(errors.details)}</small>}
                       </Grid>
                       <Grid item md={12}>
-                        <InputLabel>Total Area</InputLabel>
+                        <InputLabel>{t("Total Area")}</InputLabel>
                         <Input
                           className="input-with-icon"
                           fullWidth
-                          placeholder="Total Area"
+                          placeholder={t("Total Area")}
                           value={values.totalArea}
                           onChange={handleChange}
                           onBlur={handleBlur}
@@ -352,11 +353,11 @@ class SharedArea extends SharedAreaController {
                         )}
                       </Grid>
                       <Grid item md={12}>
-                        <InputLabel>Reservation Fees (Per hour)</InputLabel>
+                        <InputLabel>{t("Reservation Fees (Per hour)")}</InputLabel>
                         <Input
                           className="input-with-icon"
                           fullWidth
-                          placeholder="Reservation Fees (Per hour)"
+                          placeholder={t("Reservation Fees (Per hour)")}
                           value={values.fees}
                           onChange={handleChange}
                           onBlur={handleBlur}
@@ -365,7 +366,7 @@ class SharedArea extends SharedAreaController {
                         {errors.fees && touched.fees && <small className="error">{t(errors.fees)}</small>}
                       </Grid>
                       <Grid item md={12}>
-                        <InputLabel>Floor Plan</InputLabel>
+                        <InputLabel>{t("Floor Plan")}</InputLabel>
                         <Box className="floor-plan-box">
                           <input
                             type="file"
@@ -380,7 +381,7 @@ class SharedArea extends SharedAreaController {
                             name="floorPlan"
                           />
                           {!values.floorPlan ? (
-                            <span className="placeholder">Floor Plan</span>
+                            <span className="placeholder">{t("Floor Plan")}</span>
                           ) : (
                             <Chip
                               label={values.floorPlanName}
@@ -402,10 +403,10 @@ class SharedArea extends SharedAreaController {
                   </DialogContent>
                   <DialogActions className="dialog-button-group">
                     <Button className="cancel-button" onClick={() => this.handleSharedAreaEditModal()}>
-                      Cancel
+                      {t("Cancel")}
                     </Button>
                     <Button type="submit" className="add-button">
-                      Save
+                      {t("Save")}
                     </Button>
                   </DialogActions>
                 </Form>

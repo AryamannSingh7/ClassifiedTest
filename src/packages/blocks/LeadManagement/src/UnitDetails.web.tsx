@@ -19,6 +19,7 @@ import {
   Input,
   Grid,
   DialogActions,
+  Select,
 } from "@material-ui/core";
 import { Menu } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/core.css";
@@ -108,7 +109,7 @@ class UnitDetails extends UnitDetailsController {
                 <Box style={dashBoard.navigation}>
                   <Box>
                     <Typography variant="body1">
-                      {t("Building & Apartments")} / {t("Buildings ")} /{" "}
+                      {t("Building & Apartments")} / {t("Buildings")} /{" "}
                       <Box component="span" style={{ color: "blue" }}>
                         {this.state.unitData.unitName}
                       </Box>
@@ -126,7 +127,7 @@ class UnitDetails extends UnitDetailsController {
                     <Box className="heading-right">
                       <Box className="map-modal" onClick={() => this.handleMapModal()}>
                         <img src={location} alt="" />
-                        <span>See building on map</span>
+                        <span>{t("See building on map")}</span>
                       </Box>
                     </Box>
                   </Box>
@@ -170,7 +171,7 @@ class UnitDetails extends UnitDetailsController {
                     <Box className="heading-right">
                       <Box className="edit-modal" onClick={() => this.openEditUnitModal()}>
                         <img src={pencil} />
-                        <span>Edit</span>
+                        <span>{t("Edit")}</span>
                       </Box>
                     </Box>
                   </Box>
@@ -265,7 +266,7 @@ class UnitDetails extends UnitDetailsController {
 
                         <Box className="user-menu">
                           <Menu menuButton={<MoreVertIcon />}>
-                            <MenuItem onClick={this.handleDeLinkModal}>{t("Delink User ")}</MenuItem>
+                            <MenuItem onClick={this.handleDeLinkModal}>{t("Delink User")}</MenuItem>
                             <MenuItem onClick={this.handleSuspendModal}>{t("Suspend User")}</MenuItem>
                           </Menu>
                         </Box>
@@ -286,18 +287,37 @@ class UnitDetails extends UnitDetailsController {
                           <Grid item sm={4} key={family.id}>
                             <Card className="user-details">
                               <Box className="heading">
-                                <h4>Ali Khan</h4>
+                                <h4>{family.attributes.name}</h4>
                                 <Box className="user-menu">
                                   <Menu menuButton={<MoreVertIcon />}>
-                                    <MenuItem>{t("Edit")}</MenuItem>
-                                    <MenuItem>{t("Delete")}</MenuItem>
+                                    <MenuItem
+                                      onClick={() => {
+                                        this.setState({ familyId: family.id }, () => {
+                                          this.openFamilyModal(family);
+                                        });
+                                      }}
+                                    >
+                                      {t("Edit")}
+                                    </MenuItem>
+                                    <MenuItem
+                                      onClick={() => {
+                                        this.setState(
+                                          { familyId: family.id, familyMemberName: family.attributes.name },
+                                          () => {
+                                            this.handleDeleteFamilyMemberModal();
+                                          }
+                                        );
+                                      }}
+                                    >
+                                      {t("Delete")}
+                                    </MenuItem>
                                   </Menu>
                                 </Box>
                               </Box>
-                              <p className="label">Relation:</p>
+                              <p className="label">{t("Relation")}:</p>
                               <Box className="user-info">
-                                <p>Wife</p>
-                                <p>A456 - A2324 342</p>
+                                <p>{family.attributes.relation.name}</p>
+                                <p>{family.attributes.id_number || ""}</p>
                               </Box>
                             </Card>
                           </Grid>
@@ -316,41 +336,35 @@ class UnitDetails extends UnitDetailsController {
                     <Grid container spacing={4}>
                       {this.state.unitData.activeIncidents.map((incident: any) => {
                         return (
-                          <Grid item sm={6}>
+                          <Grid item sm={6} key={incident.id}>
                             <Card className="incident-card">
                               <Box className="heading">
-                                <h4>Title</h4>
-                                <span style={{ background: "#e4edff", color: "#2B6FED" }}>Pending</span>
+                                <h4>{incident.incident_title}</h4>
+                                <span className={incident.incident_status}>{incident.incident_status}</span>
                               </Box>
                               <Box className="incident-data">
                                 <p>{t("Affected Area")}:</p>
                                 <p>
-                                  <span>Own Apartment</span>
+                                  <span>{incident.affected_area || "-"}</span>
                                 </p>
                               </Box>
                               <Box className="incident-data">
                                 <p>{t("Incident is related to")}:</p>
-                                <p>
-                                  <span>Plumbing</span>
-                                </p>
+                                <p>{/* <span>{incident}</span> */}</p>
                               </Box>
                               <Box className="incident-data">
                                 <p>{t("Reported on")}:</p>
                                 <p>
-                                  <span>20-20-2020 20:20</span>
+                                  <span>{moment(incident.reported_on).format("MMMM DD, YYYY")}</span>
                                 </p>
                               </Box>
                               <Box className="incident-data">
                                 <p>{t("Building")}:</p>
-                                <p>
-                                  <span>Building 5</span>
-                                </p>
+                                <p>{/* <span>{incident}</span> */}</p>
                               </Box>
                               <Box className="incident-data">
                                 <p>{t("Unit")}:</p>
-                                <p>
-                                  <span>1502</span>
-                                </p>
+                                <p>{/* <span>{incident}</span> */}</p>
                               </Box>
                             </Card>
                           </Grid>
@@ -376,7 +390,7 @@ class UnitDetails extends UnitDetailsController {
                               </Box>
                               <img src={bentalyLogo} alt="" style={{ marginBottom: "5px" }} />
                               <Box className="incident-data">
-                                <p>{t("Owner Name:")}:</p>
+                                <p>{t("Owner Name")}:</p>
                                 <p>
                                   <span>Own Apartment</span>
                                 </p>
@@ -424,7 +438,7 @@ class UnitDetails extends UnitDetailsController {
                         <Card>
                           <img src={flag} style={dashBoard.locationIcon} />
                           <Box className="location-info">
-                            <p>{t("Unit Status ")}</p>
+                            <p>{t("Unit Status")}</p>
                             <h4>Rented</h4>
                           </Box>
                         </Card>
@@ -470,21 +484,24 @@ class UnitDetails extends UnitDetailsController {
                       <Grid container spacing={2}>
                         {this.state.unitData.rentHistory.map((rent: any) => {
                           return (
-                            <Grid item sm={6}>
+                            <Grid item sm={6} key={rent.id}>
                               <Card>
-                                <h4>Mr. Ali Khan</h4>
-                                <p className="date">May 2022 to June 2023</p>
+                                <h4>{rent.tenant_name}</h4>
+                                <p className="date">
+                                  {moment(rent.start_date, "YYYY-MM-DD").format("MMMM YY")} to{" "}
+                                  {moment(rent.end_date, "YYYY-MM-DD").format("MMMM YY")}
+                                </p>
                                 <Divider />
-                                <Box className="history-info">
-                                  <p>Rent Amount</p>
+                                <Box className="history-info" style={{ marginTop: "8px" }}>
+                                  <p>{t("Rent Amount")}</p>
                                   <p>
-                                    <span>$ 234</span>
+                                    <span>{rent.rent_amount || 0}</span>
                                   </p>
                                 </Box>
                                 <Box className="history-info">
-                                  <p>Received Amount</p>
+                                  <p>{t("Received Amount")}</p>
                                   <p>
-                                    <span>$ 0</span>
+                                    <span>{rent.received_amount || 0}</span>
                                   </p>
                                 </Box>
                               </Card>
@@ -500,7 +517,7 @@ class UnitDetails extends UnitDetailsController {
                 {this.state.unitData.photos.length > 0 && (
                   <Box className="building-info">
                     <Box className="heading">
-                      <h4>Unit Pictures</h4>
+                      <h4>{t("Unit Pictures")}</h4>
                     </Box>
                     <Card>
                       <Box className="building-info-bottom">
@@ -576,7 +593,7 @@ class UnitDetails extends UnitDetailsController {
                         //@ts-ignore
                         style={dashBoard.unitno}
                       >
-                        Delink user
+                        Delink User
                       </Typography>
                       <Typography variant="subtitle1" style={{ marginTop: "20px" }}>
                         User will be removed from this unit Are you sure you want to delink the user?{" "}
@@ -874,8 +891,151 @@ class UnitDetails extends UnitDetailsController {
               </GoogleMapReact>
             </Box>
           ) : (
-            <Box className="no-google-map-box">No Location Available</Box>
+            <Box className="no-google-map-box">{t("No Location Available")}</Box>
           )}
+        </Dialog>
+
+        <Dialog
+          className="edit-family-modal"
+          open={this.state.isEditFamilyModalOpen}
+          scroll="paper"
+          fullWidth
+          maxWidth="sm"
+        >
+          <MuiDialogTitle disableTypography className="dialog-heading">
+            <Typography variant="h6">{t("Edit Family Member")}</Typography>
+            <IconButton onClick={() => this.handleEditFamilyMemberModal()}>
+              <CloseIcon />
+            </IconButton>
+          </MuiDialogTitle>
+          <Formik
+            enableReinitialize={true}
+            initialValues={this.state.editFamilyForm}
+            validationSchema={this.editFamilyMemberValidation}
+            onSubmit={(values, { resetForm }) => {
+              this.handleEditFamilyMemberModal();
+              this.handleEditFamilyMember(values);
+            }}
+          >
+            {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
+              return (
+                <Form onSubmit={handleSubmit} translate>
+                  <DialogContent dividers>
+                    <Grid container spacing={2} className="edit-building">
+                      <Grid item md={6}>
+                        <InputLabel>{t("Family Member Name")}</InputLabel>
+                        <Input
+                          fullWidth
+                          placeholder={t("Member Name")}
+                          value={values.name}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          name="name"
+                        />
+                        {errors.name && touched.name && <small className="error">{t(errors.name)}</small>}
+                      </Grid>
+                      <Grid item md={6}>
+                        <InputLabel>{t("Relation")}</InputLabel>
+                        <Select
+                          displayEmpty
+                          fullWidth
+                          value={values.relation}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          name="relation"
+                          className="select-input"
+                        >
+                          <MenuItem value="" disabled>
+                            {t("Select Relation")}
+                          </MenuItem>
+                          {this.state.relationList.map((relation: any) => {
+                            return <MenuItem value={relation.id}>{relation.name}</MenuItem>;
+                          })}
+                        </Select>
+                        {errors.relation && touched.relation && <small className="error">{t(errors.relation)}</small>}
+                      </Grid>
+                      <Grid item md={6}>
+                        <InputLabel>{t("Type of ID Proof")}</InputLabel>
+                        <Select
+                          displayEmpty
+                          fullWidth
+                          value={values.idProof}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          name="idProof"
+                          className="select-input"
+                        >
+                          <MenuItem value="" disabled>
+                            {t("Select ID Proof")}
+                          </MenuItem>
+                          {this.state.idProofList.map((idProof: any) => {
+                            return <MenuItem value={idProof.id}>{idProof.name}</MenuItem>;
+                          })}
+                        </Select>
+                        {errors.idProof && touched.idProof && <small className="error">{t(errors.idProof)}</small>}
+                      </Grid>
+                      <Grid item md={6}>
+                        <InputLabel>{t("ID Number")}</InputLabel>
+                        <Input
+                          className="input-with-icon"
+                          fullWidth
+                          placeholder={t("ID Number")}
+                          value={values.idNumber}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          name="idNumber"
+                        />
+                      </Grid>
+                    </Grid>
+                  </DialogContent>
+                  <DialogActions className="dialog-button-group">
+                    <Button className="cancel-button" onClick={() => this.handleEditFamilyMemberModal()}>
+                      {t("Cancel")}
+                    </Button>
+                    <Button type="submit" className="add-button">
+                      {t("Save")}
+                    </Button>
+                  </DialogActions>
+                </Form>
+              );
+            }}
+          </Formik>
+        </Dialog>
+
+        <Dialog
+          className="delete-dialog"
+          fullWidth
+          onClose={() => this.handleDeleteFamilyMemberModal()}
+          open={this.state.isDeleteFamilyModalOpen}
+        >
+          <DialogContent style={{ margin: "15px 0" }}>
+            <Box textAlign="center">
+              <img className="comment-image" src={true_mark} alt="comment" />
+              <Typography variant="h6">{t("Delete Family Member")}</Typography>
+              <Typography variant="body1" style={{ marginBottom: "0px" }}>
+                {t("Member will be remove from this unit")}
+              </Typography>
+              <Typography variant="body1" style={{ marginBottom: "15px" }}>
+                {t("Are you sure you want to delete the")} {this.state.familyMemberName}?
+              </Typography>
+              <DialogActions className="dialog-button-group">
+                <Button
+                  onClick={() => this.handleDeleteFamilyMemberModal()}
+                  className="cancel-button"
+                  style={{ width: "200px" }}
+                >
+                  {t("Close")}
+                </Button>
+                <Button
+                  onClick={() => this.handleDeleteFamilyMember()}
+                  style={{ width: "200px" }}
+                  className="add-button"
+                >
+                  {t("Delete")}
+                </Button>
+              </DialogActions>
+            </Box>
+          </DialogContent>
         </Dialog>
       </>
     );

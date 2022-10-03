@@ -47,7 +47,7 @@ import {
   Document,
   sizebw,
   unitbw,
-  bentalyLogo,
+  mapLocation,
   location,
   uploadbw,
   del_image,
@@ -67,6 +67,8 @@ import CloseIcon from "@material-ui/icons/Close";
 import { Formik, Form } from "formik";
 import { Menu } from "@szhsin/react-menu";
 import Loader from "../../../components/src/Loader.web";
+//@ts-ignore
+import GoogleMapReact from "google-map-react";
 
 const TabPanel = (props: any) => {
   const { children, value, index, ...other } = props;
@@ -93,6 +95,8 @@ const settings = {
   slidesToShow: 5,
   swipeToSlide: true,
 };
+
+const LocationPin = ({  }: any) => <img src={mapLocation} />;
 
 class Buildings extends BuildingsController {
   constructor(props: Props) {
@@ -166,7 +170,7 @@ class Buildings extends BuildingsController {
                           <p>{this.state.buildingData.city || "-"}</p>
                         </Box>
                       </Box>
-                      <Box className="building-info-right">
+                      <Box className="building-info-right" onClick={() => this.handleMapModal()}>
                         <img src={location} alt="|" />
                         <span>{t("See building on map")}</span>
                       </Box>
@@ -360,6 +364,9 @@ class Buildings extends BuildingsController {
                               <option disabled value="">
                                 {t("Status")}
                               </option>
+                              <option value="Empty">{t("Empty")}</option>
+                              <option value="Rented">{t("Rented")}</option>
+                              <option value="Occupied">{t("Occupied")}</option>
                             </select>
                             <TextField
                               className="search-unit"
@@ -669,6 +676,31 @@ class Buildings extends BuildingsController {
               );
             }}
           </Formik>
+        </Dialog>
+
+        <Dialog className="edit-profile" open={this.state.isOpenMapModalOpen} scroll="paper" fullWidth maxWidth="sm">
+          <MuiDialogTitle disableTypography className="dialog-heading">
+            <Typography variant="h6">{t("Location")}</Typography>
+            <IconButton onClick={() => this.handleMapModal()}>
+              <CloseIcon />
+            </IconButton>
+          </MuiDialogTitle>
+          {this.state.buildingData.lat && this.state.buildingData.long ? (
+            <Box className="google-map-box">
+              <GoogleMapReact
+                bootstrapURLKeys={{ key: "AIzaSyA1NvS9-cKp1dl_kMQDVFr4Gmbnv97MTtk" }}
+                defaultCenter={{
+                  lat: this.state.buildingData.lat,
+                  lng: this.state.buildingData.long,
+                }}
+                defaultZoom={15}
+              >
+                <LocationPin lat={this.state.buildingData.lat} lng={this.state.buildingData.long} />
+              </GoogleMapReact>
+            </Box>
+          ) : (
+            <Box className="no-google-map-box">{t("No Location Available")}</Box>
+          )}
         </Dialog>
       </>
     );

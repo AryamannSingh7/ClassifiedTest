@@ -1019,3 +1019,38 @@
   color: darkgray;
   padding-left: 5px;
 }
+
+.edit-family-modal .MuiInput-root::before,
+.edit-family-modal .MuiInput-root::after {
+  content: "";
+  border: 0;
+  position: unset;
+}
+
+.edit-family-modal .MuiInput-root {
+  border-radius: 5px;
+  border: 1px solid lightgray;
+  font-size: 16px;
+  padding: 10px;
+  color: #494949;
+  background-color: #efefef;
+}
+
+.edit-family-modal .MuiSelect-root{
+  background-color: #efefef !important;
+}
+
+.edit-family-modal input::placeholder {
+  color: black;
+  opacity: 1; /* Firefox */
+}
+
+.edit-family-modal input:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: black;
+}
+
+.edit-family-modal input::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: black;
+}
