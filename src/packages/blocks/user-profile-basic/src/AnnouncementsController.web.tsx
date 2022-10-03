@@ -6,6 +6,7 @@ import { runEngine } from "../../../framework/src/RunEngine";
 
 // Customizable Area Start
 import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
+import {search} from "components/dist/blocks/email-account-registration/src/assets";
 // Customizable Area End
 
 export const configJSON = require("./config.js");
@@ -39,6 +40,7 @@ interface S {
   descriptionError:any;
   categoryError:any;
   announcementList:any;
+  searchKey:any;
   // Customizable Area End
 }
 
@@ -52,6 +54,7 @@ export default class AnnouncementsController extends BlockComponent<Props, S, SS
   getCategoryListId:string = "";
   getAnnouncementListId:string = "";
   createAnnouncementId:string = "";
+  getAnnouncementListSearchId:string = "";
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
@@ -78,6 +81,7 @@ export default class AnnouncementsController extends BlockComponent<Props, S, SS
       descriptionError:"",
       categoryError:"",
       announcementList:[],
+      searchKey:"",
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -98,6 +102,13 @@ export default class AnnouncementsController extends BlockComponent<Props, S, SS
 
   handleFilterBy = () => {
       this.onGetAnnouncementList(this.state.filterCategory,this.state.filerYear,this.state.shortBy)
+  }
+
+  handleSearch = (e:any) => {
+    this.setState({
+      searchKey:e.target.value
+    })
+    this.onGetAnnouncementBySearchList(e.target.value,this.state.filterCategory,this.state.filerYear,this.state.shortBy)
   }
 
 
@@ -186,6 +197,17 @@ export default class AnnouncementsController extends BlockComponent<Props, S, SS
           })
         }
       }
+      if(apiRequestCallId === this.getAnnouncementListSearchId){
+        if(responseJson.hasOwnProperty("announcements")){
+          this.setState({
+            announcementList:responseJson.announcements.data
+          })
+        }else{
+          this.setState({
+            announcementList:[]
+          })
+        }
+      }
       if(apiRequestCallId === this.createAnnouncementId){
         console.log("DATA",responseJson)
         if(responseJson.message === "Successfully created"){
@@ -231,6 +253,15 @@ export default class AnnouncementsController extends BlockComponent<Props, S, SS
       contentType: configJSON.contentTypeApiGetUserProfile,
       method: configJSON.methodTypeApiGetUserProfile,
       endPoint: `/society_managements/${societyID}/bx_block_announcement/announcements?category=${category}&year=${year}&sort_by=${shortBy}`,
+    });
+  }
+
+  onGetAnnouncementBySearchList = async (search:string,category:string,year:string,shortBy:string) => {
+    const societyID = localStorage.getItem("society_id")
+    this.getAnnouncementListSearchId = await this.apiCall({
+      contentType: configJSON.contentTypeApiGetUserProfile,
+      method: configJSON.methodTypeApiGetUserProfile,
+      endPoint: `/society_managements/${societyID}/bx_block_announcement/announcements/search_by_title?search=${search}`,
     });
   }
 

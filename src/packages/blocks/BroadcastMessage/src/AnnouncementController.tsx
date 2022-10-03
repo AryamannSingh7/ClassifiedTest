@@ -76,12 +76,15 @@ export default class CoverImageController extends BlockComponent<
     this.getAnnouncementBuildingListId = await this.apiCall({
       contentType: configJSON.exampleApiContentType,
       method: configJSON.validationApiMethodType,
-      endPoint: `/society_managements/${societyID}/bx_block_announcement/announcements/buildings_announcements`,
+      endPoint: `/society_managements/${societyID}/bx_block_announcement/announcements/building_list_for_resident`,
     });
   }
 
 
-
+  manageRedirect = (id:any,complexName:any) => {
+    this.props.history.push("/BuildingAnnouncement?id="+id)
+    localStorage.setItem("buildingName",complexName)
+  }
 
   async receive(from: string, message: Message) {
     if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {

@@ -32,6 +32,7 @@ interface S {
   deleteConfirmModal:boolean;
   announcementList:any;
   categoryList:any;
+  filterCategory:any;
 }
 
 interface SS {
@@ -49,6 +50,7 @@ export default class CoverImageController extends BlockComponent<
   labelTitle: string = "";
   getAnnouncementListId:string = "";
   getCategoryListId:string = "";
+  deleteAnnouncementId:string = "";
   constructor(props: Props) {
 
     super(props);
@@ -71,6 +73,8 @@ export default class CoverImageController extends BlockComponent<
       deleteConfirmModal:false,
       announcementList:[],
       categoryList:[],
+      filterCategory:[]
+
     };
 
     this.emailReg = new RegExp("");
@@ -94,10 +98,15 @@ export default class CoverImageController extends BlockComponent<
   getAnnouncementBuildingList = async () => {
     const societyID = localStorage.getItem("society_id")
     const buildingId =  window.location.search ? window.location.search.split("=")[1] : null;
+    const data = {
+      category_ids:this.state.filterCategory,
+      building_management_id:buildingId
+    }
     this.getAnnouncementListId = await this.apiCall({
       contentType: configJSON.exampleApiContentType,
-      method: configJSON.validationApiMethodType,
-      endPoint: `/society_managements/${societyID}/bx_block_announcement/announcements/Resident_announcement_list`,
+      method: configJSON.exampleAPiMethod,
+      endPoint: `/society_managements/${societyID}/bx_block_announcement/announcements/announcements_list_for_resident`,
+      body:JSON.stringify(data)
     });
   }
 
@@ -110,6 +119,24 @@ export default class CoverImageController extends BlockComponent<
     });
   }
 
+  onDeleteAnnouncement = async (data:any) => {
+    const societyID = localStorage.getItem("society_id")
+    this.deleteAnnouncementId = await this.apiCall({
+      contentType: configJSON.exampleApiContentType,
+      method: configJSON.exampleAPiMethodDelete,
+      endPoint: `/society_managements/${societyID}/bx_block_announcement/delete_announcement`,
+      body:JSON.stringify(data)
+    });
+  }
+
+  handleDelete = () => {
+    const data = {
+      "announcement": {
+        "ids":this.state.selectedAnnoucment
+      }
+    }
+    this.onDeleteAnnouncement(data)
+  }
   DeleteFlagTrue() {
     this.setState({
       deleteSelectFlag:true
@@ -122,6 +149,12 @@ export default class CoverImageController extends BlockComponent<
     })
   }
 
+  handleApplyFilter = () => {
+    this.setState({
+      filterModal:false
+    })
+    this.getAnnouncementBuildingList()
+  }
   handleCloseFilterModal () {
     this.setState({
       filterModal:false
@@ -147,7 +180,17 @@ export default class CoverImageController extends BlockComponent<
   }
 
   handleChecked (value:any) {
-    console.log("CHECKED", value)
+    if(this.state.filterCategory.find((item:any)=> item === value)){
+      let updatedArray = this.removeItemOnce(this.state.filterCategory,value)
+      this.setState({
+        filterCategory:updatedArray
+      })
+    }else{
+      this.setState({filterCategory:[
+          ...this.state.filterCategory,
+          value
+        ]})
+    }
   }
 
   removeItemOnce(arr:any, value:any) {
@@ -204,6 +247,15 @@ export default class CoverImageController extends BlockComponent<
           this.setState({
             categoryList:responseJson.announcement_categories.data
           })
+        }
+      }
+      if(this.deleteAnnouncementId === apiRequestCallId){
+        if(responseJson.message = "announcement deleted"){
+          this.setState({
+            deleteConfirmModal:false,
+            deleteSelectFlag:false
+          })
+          this.getAnnouncementBuildingList()
         }
       }
     }

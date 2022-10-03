@@ -59,6 +59,7 @@ class Announcement extends BuildingAnnouncementController{
   }
 
   render() {
+    const complexName = localStorage.getItem("buildingName")
     return (
         <>
             <Grid item xs={12} md={12} className="auth-cols">
@@ -67,7 +68,7 @@ class Announcement extends BuildingAnnouncementController{
                       <Box style={{ display:"flex", alignItems:"center", gap:"5px"}}>
                           <ArrowBackIcon onClick={() => this.props.history.push("/")} />
                           <p style={{ fontSize: '1rem', fontWeight: 600 }}>
-                              Complex Name
+                              {complexName || ""}
                           </p>
                       </Box>
                       {
@@ -111,7 +112,7 @@ class Announcement extends BuildingAnnouncementController{
                                         >
                                             <Box style={{minWidth:"100%"}}>
                                                 <Box>
-                                                    <Box display="flex">
+                                                    <Box display="flex" style={{justifyContent:"space-between",alignItems:"center"}}>
                                                         <Typography variant={"body1"} style={{fontWeight:"bold",marginTop:"5px"}}>
                                                             {item.attributes.title}
                                                         </Typography>
@@ -170,6 +171,7 @@ class Announcement extends BuildingAnnouncementController{
                                                                 control={
                                                                     <Checkbox
                                                                         onChange={()=>this.handleChecked(item.id)}
+                                                                        checked={this.state.filterCategory.find((check:any)=> check === item.id) ? true : false}
                                                                         name="checkedB"
                                                                         color="primary"
                                                                         icon={<RadioButtonUncheckedIcon style={{color:"#E2E2E2"}} />}
@@ -188,7 +190,7 @@ class Announcement extends BuildingAnnouncementController{
                                     </Box>
                                     <Divider/>
                                     <Box style={{margin:"15px",marginTop:"50px"}}>
-                                        <CloseButton onClick={this.handleCloseFilterModal} variant="contained" color="primary" fullWidth style={{borderRadius:"50px"}}>Apply</CloseButton>
+                                        <CloseButton onClick={this.handleApplyFilter} variant="contained" color="primary" fullWidth style={{borderRadius:"50px"}}>Apply</CloseButton>
                                     </Box>
                                 </Box>
                             </Box>
@@ -223,8 +225,8 @@ class Announcement extends BuildingAnnouncementController{
                                 </Typography>
                                 <Box style={{marginTop:"15px",width:"90%",display:"flex",flexDirection:"column",alignItems:"center"}}>
                                     {/*@ts-ignore*/}
-                                    <CloseButton variant="outlined" fullWidth style={{marginRight:"10px",marginBottom:"15px"}} onClick={this.closeDeleteModal}>Yes, Delete</CloseButton>
-                                    <PublishButton fullWidth onClick={this.handleCloseDeleteModal} >No, Don't Delete</PublishButton>
+                                    <CloseButton variant="outlined" fullWidth style={{marginRight:"10px",marginBottom:"15px"}} onClick={this.handleDelete}  >Yes, Delete</CloseButton>
+                                    <PublishButton fullWidth onClick={this.handleCloseDeleteModal}>No, Don't Delete</PublishButton>
                                 </Box>
                             </Box>
                         </Box>
