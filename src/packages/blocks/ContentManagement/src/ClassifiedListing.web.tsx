@@ -98,13 +98,13 @@ class ClassifiedListing extends ClassifiedController {
                     {
                       this.state?.classifiedtListing?.map((val: any, index: any) => (
                         <>
-                          <Card className="classified-card card" key={index} onClick={() => this.getIncidentDetails(val.id)}>
+                          <Card className="classified-card card"  style={{ position: "relative",zIndex: 1}} key={index} onClick={() => this.getIncidentDetails(val.id)}>
                             <CardContent className="costom-card-content">
                               <Box className="classified-card-header">
                                 <Typography component="h4">
                                   Classified Title
                                 </Typography>
-                                <Button aria-controls="simple-menu" aria-haspopup="true" onClick={(e: any) => this.handleClick(e)}>
+                                <Button  style={{ position: "absolute",right:"10px" ,zIndex: 10}} aria-controls="simple-menu" aria-haspopup="true" onClick={(e: any) => this.handleClick(e)}>
                                   <img src={Setting_Icon} className="grid-icon icons" alt="" />
                                 </Button>
                                 <Menu

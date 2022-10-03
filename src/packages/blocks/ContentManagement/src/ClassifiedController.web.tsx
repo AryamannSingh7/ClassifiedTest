@@ -76,7 +76,7 @@ export default class ClassifiedController extends BlockComponent<
   apicreateIncidentCallId: any;
   validationApiCallId: any;
   getClassifiedListingApiCallId: any;
-  getIncidentDetailsByIdApiCallId : any ;
+  getClassifiedDetailsByIdApiCallId : any ;
   getCommonAreaApiCallId : any ;
   getIncidentRelatedApiCallId:any;
   getMyApartmentListApiCallId:any;
@@ -260,9 +260,9 @@ export default class ClassifiedController extends BlockComponent<
           this.parseApiCatchErrorResponse(this.state.error);
           this.setState({loading: false , error:null})
         }
-        else if (apiRequestCallId === this.getIncidentDetailsByIdApiCallId) {
+        else if (apiRequestCallId === this.getClassifiedDetailsByIdApiCallId) {
           if (responseJson && responseJson?.data ) {
-          console.log("getIncidentDetailsByIdApiCallId ========================>",responseJson)
+          console.log("getClassifiedDetailsByIdApiCallId ========================>",responseJson)
           this.setState({getIncidentDetails :responseJson?.data})
           console.log("responseJson getIncidentDetails========================>",this.state?.getIncidentDetails)
           this.setState({loading: false})
@@ -585,7 +585,7 @@ getIncidentDetails= (id :any) => {
     id,
 });
   
-  this.getIncidentDetailsById(id)
+  this.getClassifiedDetailsById(id)
 }
 
 confirmOrRejectIncident =(id : any,val : any)=>{
@@ -854,7 +854,7 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
     }
   };
 
-  getIncidentDetailsById= (id : any) => {
+  getClassifiedDetailsById= (id : any) => {
     try {
       const header = {
         "Content-Type": configJSON.validationApiContentType,
@@ -864,7 +864,7 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
-      this.getIncidentDetailsByIdApiCallId = requestMessage.messageId;
+      this.getClassifiedDetailsByIdApiCallId = requestMessage.messageId;
       this.setState({ loading: true });
 
       requestMessage.addData(
