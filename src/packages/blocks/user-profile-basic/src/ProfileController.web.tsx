@@ -55,6 +55,7 @@ export interface S {
   selectCode2: string;
   anchorEl: any;
   showDialog:boolean;
+  showDialog1:boolean;
   showDialog2: boolean;
   profiledata:any;
   values:any,
@@ -93,6 +94,7 @@ export default class ProfileController extends BlockComponent<
   createVehicleApiCallId:any;
   deleteVehicleAPICallId:any;
   getProfileDataAPiCallId:any;
+  updateChairmenProfileAPiId:any;
   chatSettingApiCallId:any;
   validationApiCallId: string = "";
 
@@ -166,7 +168,9 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
       showDialog2: false,
       profiledata:null,
       values:null,
-      showDialogDelete:false
+      showDialogDelete:false,
+  showDialog1:false
+
       // Customizable Area End
     };
 
@@ -320,6 +324,20 @@ this.setState({loading:false})
             this.props.history.push({
               pathname: '/profile'
             })
+
+
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        }else if (apiRequestCallId === this.updateChairmenProfileAPiId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            this.getProfile()
+this.setState({loading:false,showDialog:false})
+          
 
 
           } else {
@@ -1522,6 +1540,70 @@ this.setState({loading:true})
       );
 
       this.createVehicleApiCallId = requestMessage.messageId;
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        'bx_block_profile/profiles_update'
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestBodyMessage),
+        formData
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        'PUT'
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+      return true;
+
+    } catch (error) {
+      // this.setState({ loading: false })
+      console.log(error);
+    }
+
+  }
+  updateChairmenProfile = async(values: any) => {
+    this.setState({ loading: true })
+    try {
+      const header = {
+
+        token: localStorage.getItem("userToken")
+      };
+      const formData = new FormData();
+      formData.append("[data][attributes][full_name]", values.full_name)
+      formData.append("[data][attributes][full_phone_number]", `${this.state.selectCode}${values.phone}`)
+      formData.append("[data][attributes][gender]", values.male ? '0' : '1')
+      formData.append("[data][attributes][date_of_birth]", values.DOB)
+      formData.append("[data][attributes][profile_bio]", values.bio)
+      formData.append("[data][attributes][twitter_link]", values.twitter)
+      formData.append("[data][attributes][fb_link]", values.fb)
+      formData.append("[data][attributes][instagram_link]", values.insta)
+      formData.append("[data][attributes][snapchat_link]", values.snap)
+      console.log(values.hobbies)
+      values.hobbies.map((item:any)=>{
+        formData.append('[data][attributes][hobbies][]',item)
+      })
+
+
+      // formData.append("vehicle[color]", values.carColor)
+      let blob = await fetch(values.bannerUrl).then(r => r.blob());
+      formData.append(
+        "[data][attributes][image]",
+        blob
+      );
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+
+      this.updateChairmenProfileAPiId = requestMessage.messageId;
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
