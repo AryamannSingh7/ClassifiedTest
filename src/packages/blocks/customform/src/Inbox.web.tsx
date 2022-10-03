@@ -96,7 +96,7 @@ class Inbox extends InboxController {
                 >
                     <MenuItem key="1" onClick={() => this.setState({ showSuccessModal :true,showDialog:false})}>
                       {
-                        this.state.allInbox[0]?.attributes?.chat_with_account_disable_chat ? 'Enable Chat' : 'Disable Chat'
+                        this.state.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ? 'Enable Chat' : 'Disable Chat'
                       }
 
                   </MenuItem>
@@ -115,7 +115,7 @@ class Inbox extends InboxController {
               <>
 
 
-                  <Box key={item} display='flex' style={{ gap: '1rem',maxHeight:'5rem',marginTop:'1rem' }} onClick={() => this.openChat(item)}>
+                  <Box key={item} display='flex' style={{ gap: '1rem',maxHeight:'5rem',marginTop:'1rem',cursor:'pointer' }} onClick={() => this.openChat(item)}>
                     <img src={item?.attributes?.chat_with_account?.attributes?.profile_pic?.url ||'https://images.freeimages.com/images/large-previews/e04/yellow-frontal-with-ivy-1228121.jpg'} width='50' height='50' style={{ borderRadius: 25 }} />
                     <Box padding='0.25rem'>
                       <h5>
@@ -173,7 +173,9 @@ class Inbox extends InboxController {
             <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
 
               <p style={{ fontWeight: 600, fontSize: '1.25rem', textAlign: 'center' }}>
-                Disabled Chat Functionality?
+               {
+                this.state.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ? 'Enabled Chat' :'Disabled Chat'
+               }  Functionality?
 
               </p>
             </Grid>
@@ -181,7 +183,9 @@ class Inbox extends InboxController {
           <Grid container>
             <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
               <p style={{ fontWeight: 400, fontSize: '0.8rem', textAlign: 'center' }}>
-                Are you sure want to disabled chat functionality? No one will be able to send you any messages while it is disabled.
+                Are you sure want to {
+                this.state.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ? 'Enabled Chat' :'Disabled Chat'
+               } chat functionality? No one will be able to send you any messages while it is disabled.
               </p>
             </Grid>
           </Grid>
