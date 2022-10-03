@@ -3,50 +3,57 @@ import React from "react";
 import {
   Container,
   Typography,
-  FormControl,
-  Tab,
-  withStyles,
+  TextField,
   Button,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
+  Link,
   Dialog,
-  DialogContent,
   DialogActions,
-  IconButton,
-  Card,
-  Input,
-  InputAdornment,
+  DialogTitle,
+  TableContainer,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Divider,
+  InputBase,
+  Avatar,
+  FormControl,
   Select,
   MenuItem,
-  ListItemIcon,
-  Avatar,
-  FormControlLabel,
   RadioGroup,
-  Radio,
+  FormControlLabel,
+  Radio
 } from "@material-ui/core";
+import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import MuiDialogTitle from "@material-ui/core/DialogTitle";
-import CloseIcon from "@material-ui/icons/Close";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
-import EditIcon from "@material-ui/icons/Edit";
-import Box from "@material-ui/core/Box";
-import AddIcon from "@material-ui/icons/Add";
-import Grid from "@material-ui/core/Grid";
+// Icons
+import InfoIcon from '@material-ui/icons/Info';
+import CalendarTodayOutlinedIcon from '@material-ui/icons/CalendarTodayOutlined';
+// Icons
 
+
+import { withRouter } from "react-router-dom";
+import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
-import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
-import { ProfileStyleWeb } from "./ProfileStyle.web";
-import ProfileController,{Props} from "../../user-profile-basic/src/ProfileController.web";
-import { calendar, emailedit, fbedit, heart, instaedit, message, NoProfile_Img, snapedit, twitteredit, user } from "../../user-profile-basic/src/assets";
+import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
+import SearchIcon from '@material-ui/icons/Search';
+import HighlightOffOutlinedIcon from "@material-ui/icons/HighlightOffOutlined";
+import { withTranslation } from 'react-i18next';
+import '../../../web/src/i18n.js';
+import ProfileController,{Props} from "./ProfileController.web";
+import { calendar, Call, Chatgreen, emailedit, EmailGreen, fbedit, FbGreen, heart, instaedit, InstaGreen, message, NoProfile_Img, snapedit, SnapGreen, twitteredit, TwitterGreen, user } from "./assets";
+import { profile } from "console";
 import { dailCode } from "../../email-account-registration/src/code";
 import ChipInput from "material-ui-chip-input";
-import { AvatarIcon, CallIcon, ChatIcon, EmailIcon, FacebookIcon, InstagramIcon, SettingIcon, SnapchatIcon, TwitterIcon } from "./assets";
 
-class ChairmanProfile extends ProfileController {
+
+
+class ChairmenProfile extends ProfileController {
   constructor(props: Props) {
     super(props);
+    
   }
   async componentDidMount() {
     this.getProfile()
@@ -55,148 +62,151 @@ class ChairmanProfile extends ProfileController {
       }
 
   render() {
-     //@ts-ignore
-            //@ts-nocheck
-    const { classes } = this.props;
     let profileData =this.state.profiledata
-
-    return (
+    //@ts-ignore
+    const {t} = this.props
+    return ( 
       <>
-        <Box
-          style={{ background: "#F4F7FF" }}
-          className={classes.ChairmanProfile}
-        >
-          {/* Dashboard Header -- */}
-          <DashboardHeader {...this.props} />
-          <Box style={{ display: "flex" }}>
-            <Grid item xs={3} md={3} sm={3} className="SideBar">
-              {/* Chairman Sidebar -- */}
-              <ChairmanSidebarWeb {...this.props} />
-            </Grid>
-
-            <Grid item xs={9} md={9} sm={9} style={{ paddingTop: 35 }}>
-              <Container>
+        <Box style={{background: "#E5ECFF"}}>
+            <DashboardHeader {...this.props}/>
+        <Box style={{display: "flex"}}>
+        <Grid item xs={3} md={3} sm={3} className="SideBar">
+            <ChairmanSidebar {...this.props}/>
+        </Grid>
+        <Grid xs={9} md={9} sm={9} spacing={4} style={{paddingTop: 35}}>
+            <Container>
                 <Box className="navigation">
-                  <Box>
-                    <Typography variant="body1">
-                      <Box component="span" style={{ color: "blue" }}>
-                        My Profile
-                      </Box>
-                    </Typography>
-                    <Typography variant="h5" className="sub-heading">
-                      My Profile
-                    </Typography>
-                  </Box>
-                </Box>
-                <Box className="my-profile-box">
-                  <Box className="heading">
-                    <Typography variant="h6" className="sub-heading">
-                      General Details
-                    </Typography>
-                    <Box className="setting">
-                      <img src={SettingIcon} alt="setting" />
-                      <span>Other Can See</span>
-                    </Box>
-                  </Box>
-                  <Card className="profile-details-box">
-                    <Grid container>
-                      <Grid item xs={3} className="left-side">
-                        <img
-                          src={profileData?.attributes?.profile_pic||AvatarIcon.default}
-                          alt="avatar"
-                          className="profile"
-                        />
-                        <Typography variant="h6" className="sub-heading">
-                        {profileData?.attributes?.full_name.name || 'N/A'}
+                    <Box>
+                        <Typography variant="body1" >
+                        <Box component="span" style={{color: "blue"}}>{t("My Profile")}</Box>
                         </Typography>
-                        <p>{profileData?.attributes?.apartment_number?.apartment_number || 'N/A'}</p>
-                        <Box className="icons">
-                          <img src={ChatIcon} alt="chat" />
-                          <img src={CallIcon} alt="phone" onClick={() => document.location.href = `tel:${profileData?.attributes?.full_phone_number?.full_phone_number}`}/>
-                          <img src={EmailIcon} alt="email" onClick={() => document.location.href = `mailto:${profileData?.attributes?.email?.email}`}/>
-                        </Box>
-                      </Grid>
-                      <Grid item xs={1} className="border" />
-                      <Grid item xs={8} className="right-side">
-                        <Grid container className="about">
-                          <Grid item xs={12}>
-                            <span>About</span>
-                            <p>
-                            {profileData?.attributes?.bio?.bio || 'N/A'}
-                            </p>
-                          </Grid>
-                        </Grid>
-                        <Grid container className="info">
-                          <Grid item xs={3}>
-                            <span>Gender</span>
-                            <p>{profileData?.attributes?.gender?.gender || 'N/A'}</p>
-                          </Grid>
-                          <Grid item xs={3}>
-                            <span>Birthday</span>
-                            <p> {profileData?.attributes?.date_of_birth?.date_of_birth || 'N/A'}</p>
-                          </Grid>
-                          <Grid item xs={6}>
-                            <span>Hobbies</span>
-                            <Box className="hobbies">
-                            {
+                        <Typography variant="h5" className="subHeading">{t("My Profile")}</Typography>
+                        <Typography variant="h5" className="subHeading">{t("General Details")}</Typography>
+                    </Box>
+                </Box>
+                <Grid container spacing={4} style={{marginTop: 15}}>
+                <Grid xs={9} md={9} sm={9} spacing={4} style={{paddingTop: 35}}>
+
+<Box className="white-box">
+    <Box className="left-side">
+<Avatar style={{height:'100px',width:'100px'}}/>
+<Box component="p"  style={{marginLeft:'0.5rem'}}>{profileData?.attributes?.full_name.name || 'N/A'}</Box>
+<Box component="p" style={{marginLeft:'0.5rem'}}>{profileData?.attributes?.apartment_number?.apartment_number || 'N/A'}</Box>
+<Box className="icons">
+    <img src={Chatgreen} />
+    <img src={Call} style={{cursor:'pointer'}} onClick={() => document.location.href = `tel:${profileData?.attributes?.full_phone_number?.full_phone_number}`}/>
+    <img src={EmailGreen} style={{cursor:'pointer'}} onClick={() => document.location.href = `mailto:${profileData?.attributes?.email?.email}`}/>
+</Box>
+
+    </Box>
+    <Box className="right-side">
+<p className="heading">
+    About
+
+</p>
+
+<p className="content">
+    {profileData?.attributes?.bio?.bio || 'N/A'}
+
+</p>
+
+<Box style={{display:'flex',gap:'7rem'}}>
+<Box>
+<p className="heading">
+    Gender
+
+</p>
+
+<p className="content">
+    {profileData?.attributes?.gender?.gender || 'N/A'}
+
+</p>
+</Box>
+<Box>
+<p className="heading">
+    DOB
+
+</p>
+
+<p className="content">
+    {profileData?.attributes?.date_of_birth?.date_of_birth || 'N/A'}
+
+</p>
+</Box>
+<Box>
+<p className="heading">
+Hobbies
+
+</p>
+
+{
               profileData?.attributes?.hobbies?.hobbies && <>
 
-      
+                <Grid container>
+                  <Grid item xs={12} style={{marginTop:'0.5rem',marginBottom:'0.5rem'}}>
                     {
                       profileData?.attributes?.hobbies?.hobbies.map((item:any) => <>
-                        <span>
+                        <span className="hobbies">
                           {item}
                         </span>
                       </>)
-  }
+                    }
+
+
+                  </Grid>
+                </Grid>
               </>
 }
-                              
-                            </Box>
-                          </Grid>
-                        </Grid>
-                        <Grid container className="social">
-                          <Grid item xs={12}>
-                            <span>Social Media</span>
-                            <Box className="icons">
-                            {
+</Box>
+</Box>
+
+<Box className="social-icon">
+
+<p className="heading">
+Social Media
+
+</p>
+
+<Box display='flex' justifyContent='start' marginTop='1rem'>
+                  {
                     profileData?.attributes?.website[0].twitter_link && <Button href={profileData?.attributes?.website[0].twitter_link} target="_blank">
-                      <img src={TwitterIcon} alt="phone" />
+                      <img src={TwitterGreen} className="icon" alt="FB_Icon" />
                     </Button>
                   }
                   {
                     profileData?.attributes?.website[1].instagram_link && <Button href={profileData?.attributes?.website[1].instagram_link} target="_blank">
-                     <img src={InstagramIcon} alt="chat" />
+                      <img src={InstaGreen} className="icon" alt="FB_Icon" />
                     </Button>
                   }
                   {
                     profileData?.attributes?.website[2].fb_link && <Button href={profileData?.attributes?.website[2].fb_link} target="_blank">
-                     <img src={FacebookIcon} alt="chat" />
+                      <img src={FbGreen} className="icon" alt="FB_Icon" />
                     </Button>
                   }
                   {
                     profileData?.attributes?.website[3].snapchat_link && <Button href={profileData?.attributes?.website[3].snapchat_link} target="_blank">
-                      <img src={SnapchatIcon} alt="email" />
+                      <img src={SnapGreen} className="icon-1" alt="FB_Icon" />
                     </Button>
                   }
-                             
-                            </Box>
-                          </Grid>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                  </Card>
-                </Box>
-                <Box className="edit-button">
-                  <Button onClick={() => this.setState({showDialog:true})}>
-                    Edit Detail
-                  </Button>
-                </Box>
-              </Container>
-            </Grid>
-          </Box>
 
-          <Dialog
+
+                </Box>
+
+</Box>
+    </Box>
+
+</Box>
+                </Grid>
+                    </Grid>
+                    <Box>
+                        <Button onClick={()=>this.setState({showDialog:true})}>Edit Details</Button>
+                    </Box>
+              
+            </Container>
+        </Grid>
+        </Box>
+    </Box>
+    <Dialog
           open={this.state.showDialog}
           onClose={() => this.setState({ showDialog: false })}
           aria-labelledby="alert-dialog-title"
@@ -763,11 +773,18 @@ class ChairmanProfile extends ProfileController {
             </DialogActions>
           </Box>
         </Dialog>
-        </Box>
-      </>
-    );
+     </>
+      );
   }
 }
 
-export default withStyles(ProfileStyleWeb)(ChairmanProfile);
+export default withTranslation()(withRouter(ChairmenProfile));
+
+const dashBoard = {
+    SideBar: {
+        background: "#f9f6f6",
+        position:"relative",
+        paddingBottom: 150,
+    },
+}
 // Customizable Area End

@@ -111,7 +111,7 @@ class Inbox extends InboxController {
             <Grid item xs={12} md={7}
               className="auth-cols" style={{ justifyContent :'normal'}} >
             {
-              this.state.allInbox.length!=0 &&     this.state.allInbox.map(item=>
+              this.state.allInbox.length!=0 ?     this.state.allInbox.map(item=>
               <>
 
 
@@ -134,7 +134,12 @@ class Inbox extends InboxController {
                   </Box>
 
               </>
+              
               )
+              :
+              <div>
+                No chat 
+              </div>
             }
             </Grid>
             <Grid item xs={12} md={5} className="auth-cols">
