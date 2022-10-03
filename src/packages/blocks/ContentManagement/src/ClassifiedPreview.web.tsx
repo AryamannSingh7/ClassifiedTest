@@ -47,7 +47,7 @@ class ClassifiedPreview extends ClassifiedController {
     const classifiedFromData = JSON.parse(localStorage.getItem("classifiedPreview") || '{}')
     const classifiedUserType = localStorage.getItem("classifiedUserType")
     console.log("this.state?.file?.type===============>", this.state?.file);
-    if (!classifiedFromData) {
+    if (!classifiedFromData && !classifiedUserType) {
       //@ts-ignore
       this.props.history.replace("/CreateClassified");
       return null;

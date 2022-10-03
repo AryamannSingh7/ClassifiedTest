@@ -51,7 +51,7 @@ export interface S {
   file : any,
   commonAreaData:any,
   incidentRelatedData:any,
-  incidentListing:any,
+  classifiedtListing:any,
   showDialog:any;
   // Customizable Area End
 }
@@ -75,7 +75,7 @@ export default class ClassifiedController extends BlockComponent<
   apiupdateIncidentCallId:any;
   apicreateIncidentCallId: any;
   validationApiCallId: any;
-  getIncidentListingApiCallId: any;
+  getClassifiedListingApiCallId: any;
   getIncidentDetailsByIdApiCallId : any ;
   getCommonAreaApiCallId : any ;
   getIncidentRelatedApiCallId:any;
@@ -129,7 +129,7 @@ export default class ClassifiedController extends BlockComponent<
       loading: false,
       commonAreaData:null,
       incidentRelatedData:null,
-      incidentListing: null,
+      classifiedtListing: null,
       anchorEl:null,
       anchorEl_1:null,
       getIncidentDetails:null,
@@ -171,7 +171,7 @@ export default class ClassifiedController extends BlockComponent<
       prevState.status !== this.state.status 
 
     ) {
-     this.getIncidentListing(this.state.sortBy ,this.state.status)
+     this.getClassifiedListing(this.state.sortBy ,this.state.status)
     }
   }
 
@@ -234,7 +234,7 @@ export default class ClassifiedController extends BlockComponent<
           if (responseJson && responseJson.data) {
             console.log("apiupdateIncidentCallId===========>",responseJson)
                //@ts-ignore
-              this.props.history.push("/IncidentListing")
+              this.props.history.push("/ClassifiedtListing")
             this.setState({loading: false})      
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
@@ -246,10 +246,10 @@ export default class ClassifiedController extends BlockComponent<
           this.parseApiCatchErrorResponse(this.state.error);
           this.setState({loading: false , error:null})
         }
-        else if (apiRequestCallId === this.getIncidentListingApiCallId) {
+        else if (apiRequestCallId === this.getClassifiedListingApiCallId) {
           if (responseJson && responseJson?.data ) {
-          console.log("getIncidentListingApiCallId ========================>",responseJson)
-          this.setState({incidentListing :responseJson?.data})
+          console.log("getClassifiedListingApiCallId ========================>",responseJson)
+          this.setState({classifiedtListing :responseJson?.data})
           this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
@@ -270,7 +270,7 @@ export default class ClassifiedController extends BlockComponent<
             let error = responseJson.errors[0] as string;
                      //@ts-ignore
                     //@ts-nocheck
-              this.props.history.push("/IncidentListing")
+              this.props.history.push("/ClassifiedtListing")
             this.setState({ error });
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
@@ -577,15 +577,16 @@ onSubmit =(values:any)=>{
     //@ts-ignore
     this.props.history.push("/ClassifiedPreview")
 }
-// getIncidentDetails= (id :any) => {
-//    //@ts-ignore
-//   this.props.history.push({
-//     pathname: "/IncidentDetails",
-//     id,
-// });
+getIncidentDetails= (id :any) => {
+   //@ts-ignore
+  this.props.history.push({
+    pathname: "/ClassifiedDetails",
+     //@ts-ignore
+    id,
+});
   
-//   //this.getIncidentDetailsById(id)
-// }
+  this.getIncidentDetailsById(id)
+}
 
 confirmOrRejectIncident =(id : any,val : any)=>{
   const header = {
@@ -654,7 +655,7 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
    formData.append('classified[currency_id]', classifiedFromData.currency);
    formData.append('classified[duration_from]', classifiedFromData.startDate);
    formData.append('classified[duration_to]', classifiedFromData.endDate);
-   formData.append('classified[price_to]', classifiedFromData.price);
+   formData.append('classified[price]', classifiedFromData.price);
    
    for (let j = 0; j < classifiedFromData.media.length; j += 1) {
     let blob = await fetch(classifiedFromData.media[j].url).then(r => r.blob());
@@ -707,7 +708,7 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
   };
 
  
-  getIncidentListing= (sortBy : any ,status : any)  => {
+  getClassifiedListing= (sortBy : any ,status : any)  => {
     try {
       const header = {
         "Content-Type": configJSON.validationApiContentType,
@@ -718,7 +719,7 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
-      this.getIncidentListingApiCallId = requestMessage.messageId;
+      this.getClassifiedListingApiCallId = requestMessage.messageId;
       this.setState({ loading: true });
      
      const  getSortByOrStatus = `bx_block_custom_form/incidents?sort_type=${sortBy}&filter_by=${status}`

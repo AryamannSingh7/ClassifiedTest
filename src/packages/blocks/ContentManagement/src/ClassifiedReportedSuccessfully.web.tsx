@@ -1,5 +1,3 @@
-//@ts-ignore
-//@ts-nocheck
 import React from "react";
 
 //components
@@ -35,13 +33,6 @@ class ClassifiedReportedSuccessfully extends ClassifiedController {
 
   render() {
    const { navigation } = this.props;
-   const id = localStorage?.getItem("createIncidentId")
-   console.log("id=====>",id );
-    if (!id) {
-      //@ts-ignore
-      this.props.history.replace("/CreateIncident");
-      return null;
-    }
     return (
       <>
         <Box className="login-wrapper auth-wrapper">
@@ -50,10 +41,10 @@ class ClassifiedReportedSuccessfully extends ClassifiedController {
               <Box className="content-block">
                 {/* <Box className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box> */}
                 <Box className="logo-block common-top-padding" display={{ xs: 'none', md: 'flex' }}>
-                  <Link href="/EmailAccountLogin">
+                 
                     <img src={Building_Logo.default} className="head-logo" alt="" />
                     <h4>Building Name</h4>
-                  </Link>
+                  
                 </Box>
                 <Box className="main-content-block change-password-mainblock">
                   <Box className="header-block header-block-changepassword">
@@ -65,6 +56,7 @@ class ClassifiedReportedSuccessfully extends ClassifiedController {
                   <Box className="row-btn customButton">
                     <Button variant="contained" onClick={() => {
                       localStorage.removeItem("classifiedPreview");
+                      localStorage.removeItem("classifiedUserType");
                       //@ts-ignore
                       this.props.history.push("/ClassifiedListing");
                     }}>Okay</Button>

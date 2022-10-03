@@ -11,8 +11,6 @@ import {
   InputAdornment,
   TextField
 } from "@material-ui/core";
-
-
 //resources
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';

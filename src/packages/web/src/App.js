@@ -163,7 +163,7 @@ import ClassifiedType from "../../blocks/ContentManagement/src/ClassifiedType.we
 import ClassifiedListing from "../../blocks/ContentManagement/src/ClassifiedListing.web";
 import ClassifiedReportedSuccessfully from "../../blocks/ContentManagement/src/ClassifiedReportedSuccessfully.web";
 import ClassifiedPreview from "../../blocks/ContentManagement/src/ClassifiedPreview.web";
-
+import ClassifiedDetails from "../../blocks/ContentManagement/src/ClassifiedDetails.web";
 
 
 import NeighboursDetails from '../../blocks/search/src/NeighboursDetails.web';
@@ -502,6 +502,11 @@ const routeMap = {
   ClassifiedType: {
     component: ClassifiedType,
     path: '/ClassifiedType',
+    exact: true
+  },
+  ClassifiedDetails: {
+    component: ClassifiedDetails,
+    path: '/ClassifiedDetails',
     exact: true
   },
   ClassifiedListing: {
