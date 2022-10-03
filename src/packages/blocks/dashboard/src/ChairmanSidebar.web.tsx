@@ -207,7 +207,7 @@ class ChairmanSidebar extends DashboardController {
               <DashboardOutlinedIcon />
             </Typography>
             <div onClick={() => this.props.navigation.navigate("Complex")}>
-              <Typography className="SingleLinkSize">Complex & Apartments</Typography>
+              <Typography className="SingleLinkSize">{t("Complex & Apartments")}</Typography>
             </div>
           </Box>
           {/* Meetings */}
@@ -261,7 +261,7 @@ class ChairmanSidebar extends DashboardController {
               <Typography>
                 <DashboardOutlinedIcon />
               </Typography>
-              <Typography className="ListItemText">Documents & Reports</Typography>
+              <Typography className="ListItemText">{t("Documents & Reports")}</Typography>
             </AccordionSummary>
             <AccordionDetails style={dashBoard.Item} onClick={() => this.props.navigation.navigate("DocumentChairman")}>
               <Typography variant="body2" className="cursor-pointer">

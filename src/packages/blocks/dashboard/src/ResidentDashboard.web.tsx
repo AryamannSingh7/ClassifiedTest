@@ -166,7 +166,7 @@ class ResidentDashboard extends DashboardController {
                     </Menu>
                   </Box>
                   <div>
-                    <Link href="#">
+                    <Link href="/inbox">
                       <img src={chatIcon} alt="GlobalIcon" />
                     </Link>
                   </div>

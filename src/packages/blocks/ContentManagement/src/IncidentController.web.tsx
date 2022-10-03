@@ -8,6 +8,7 @@ import MessageEnum, {
 
 // Customizable Area Start
 import * as Yup from 'yup';
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import { imgPasswordInVisible, imgPasswordVisible } from "./assets";
 import { valueContainerCSS } from "react-select/src/components/containers";
 import { truncateSync } from "fs";
@@ -15,7 +16,7 @@ import { truncateSync } from "fs";
 
 export const configJSON = require("./config");
 
-export interface Props {
+export interface Props extends RouteComponentProps {
   navigation: any;
   id: string;
 }
@@ -79,7 +80,7 @@ export default class IncidentController extends BlockComponent<
   getCommonAreaApiCallId : any ;
   getIncidentRelatedApiCallId:any;
   getMyApartmentListApiCallId:any;
-
+  createChatRoomAPIId:any;
   imgPasswordVisible: any;
   imgPasswordInVisible: any;
 
@@ -167,7 +168,7 @@ export default class IncidentController extends BlockComponent<
   async componentDidUpdate(prevProps: any, prevState: any) {
     if (
       prevState.sortBy !== this.state.sortBy ||
-      prevState.status !== this.state.status 
+      prevState.status !== this.state.status
 
     ) {
      this.getIncidentListing(this.state.sortBy ,this.state.status)
@@ -212,21 +213,21 @@ export default class IncidentController extends BlockComponent<
               this.emailReg = new RegExp(regexData.email_validation_regexp);
             }
           }
-        } 
+        }
       else if (apiRequestCallId === this.apicreateIncidentCallId) {
           if (responseJson && responseJson.data) {
             console.log("apicreateIncidentCallId===========>",responseJson)
             localStorage.setItem("createIncidentId",responseJson.data.id)
             //@ts-ignore
             this.props.history.push("/IncidentReportedSuccessfully")
-            this.setState({loading: false})      
+            this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = responseJson.errors[0]
             this.setState({ error });
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
           }
-         
+
           this.parseApiCatchErrorResponse(this.state.error);
           this.setState({loading: false , error:null})
         }
@@ -235,14 +236,14 @@ export default class IncidentController extends BlockComponent<
             console.log("apiupdateIncidentCallId===========>",responseJson)
                //@ts-ignore
               this.props.history.push("/IncidentListing")
-            this.setState({loading: false})      
+            this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
             this.setState({ error });
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
           }
-         
+
           this.parseApiCatchErrorResponse(this.state.error);
           this.setState({loading: false , error:null})
         }
@@ -282,7 +283,7 @@ export default class IncidentController extends BlockComponent<
           if (responseJson && responseJson?.data ) {
           console.log("getCommonAreaApiCallId  ========================>",responseJson)
           this.setState({commonAreaData :responseJson?.data.common_areas})
-        
+
           this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
@@ -297,7 +298,7 @@ export default class IncidentController extends BlockComponent<
           if (responseJson && responseJson?.data ) {
           console.log("getIncidentRelatedApiCallId========================>",responseJson)
           this.setState({incidentRelatedData :responseJson?.data.incident_relateds})
-        
+
           this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
@@ -307,12 +308,26 @@ export default class IncidentController extends BlockComponent<
           }
           this.parseApiCatchErrorResponse(this.state.error);
           this.setState({loading: false , error:null})
+        } else if (apiRequestCallId === this.createChatRoomAPIId) {
+          if (responseJson && responseJson?.data) {
+            console.log("createChatRoom ========================>", responseJson)
+            localStorage.setItem('selectedChat', JSON.stringify(responseJson.data))
+            this.props.history.push('/incidentchat')
+            this.setState({ loading: false })
+          } else if (responseJson?.errors) {
+            let error = responseJson.errors[0] as string;
+            this.setState({ error });
+          } else {
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
+          }
+          this.parseApiCatchErrorResponse(this.state.error);
+          this.setState({ loading: false, error: null })
         }
         else if (apiRequestCallId === this.getMyApartmentListApiCallId) {
           if (responseJson && responseJson?.data ) {
           console.log("getMyApartmentListApiCallId========================>",responseJson)
           this.setState({myApartmentList :responseJson?.data})
-        
+
           this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
@@ -568,11 +583,8 @@ onSubmit =(values:any)=>{
 }
 getIncidentDetails= (id :any) => {
    //@ts-ignore
-  this.props.history.push({
-    pathname: "/IncidentDetails",
-    id,
-});
-  
+  this.props.history.push({pathname: "/IncidentDetails",id});
+
   //this.getIncidentDetailsById(id)
 }
 
@@ -590,13 +602,13 @@ confirmOrRejectIncident =(id : any,val : any)=>{
     formData.append('incident[mark_resolved_by_reporter]', false);
     formData.append('incident[incident_status]', 'Unresolved');
   }
- 
- 
+
+
  console.log("formData.getAll('apartment_management_id')==================>",formData.get('incident[incident_status]'))
  const httpBody = formData;
  console.log("httpBody httpBody==================>",httpBody);
- 
-  this.setState({loading: true}) 
+
+  this.setState({loading: true})
   const requestMessage = new Message(
     getName(MessageEnum.RestAPIRequestMessage)
   );
@@ -631,7 +643,7 @@ confirmOrRejectIncident =(id : any,val : any)=>{
 
 
   createIncident = async(incidentFromData: any ,incidentRelated : any) => {
-  try   
+  try
    {
      const header = {
       token :localStorage.getItem("userToken")
@@ -644,7 +656,7 @@ confirmOrRejectIncident =(id : any,val : any)=>{
    formData.append('incident[description]', incidentFromData.description);
   //  formData.append('incident[attachments]', incidentFromData.media[0].file);
    formData.append('incident[apartment_management_id]', incidentFromData.myApartment.id);
-   
+
    for (let j = 0; j < incidentFromData.media.length; j += 1) {
     let blob = await fetch(incidentFromData.media[j].url).then(r => r.blob());
       //@ts-ignore
@@ -657,10 +669,10 @@ confirmOrRejectIncident =(id : any,val : any)=>{
     );
     console.log("incident[attachments][] ==================>",incidentFromData.media[j].file);
   }
-   
+
    console.log("formData.getAll('apartment_management_id')==================>",formData.get('incident[attachments][]'))
    const httpBody = formData;
-    this.setState({loading: true}) 
+    this.setState({loading: true})
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
     );
@@ -696,7 +708,7 @@ confirmOrRejectIncident =(id : any,val : any)=>{
     }
   };
 
- 
+
   getIncidentListing= (sortBy : any ,status : any)  => {
     try {
       const header = {
@@ -710,9 +722,9 @@ confirmOrRejectIncident =(id : any,val : any)=>{
       );
       this.getIncidentListingApiCallId = requestMessage.messageId;
       this.setState({ loading: true });
-     
+
      const  getSortByOrStatus = `bx_block_custom_form/incidents?sort_type=${sortBy}&filter_by=${status}`
-       
+
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
         getSortByOrStatus
@@ -734,7 +746,7 @@ confirmOrRejectIncident =(id : any,val : any)=>{
       console.log(error);
     }
   };
-  
+
   getMyApartmentList = () => {
     try {
       const header = {
@@ -877,8 +889,8 @@ confirmOrRejectIncident =(id : any,val : any)=>{
       console.log(error);
     }
   };
-  
-  
+
+
   handleClick = (event:any) => {
     this.setState({anchorEl:event.currentTarget })
   };
@@ -893,11 +905,11 @@ confirmOrRejectIncident =(id : any,val : any)=>{
     }
     this.setState({anchorEl:null,sortBy : sortBy})
   };
-  
+
   handleClick_1 = (event :any) => {
     this.setState({anchorEl_1:event.currentTarget})
   };
-   
+
   handleClose_1 = (e:any, v:any) => {
    let status : any ;
     if(v === undefined || v === null){
@@ -908,7 +920,7 @@ confirmOrRejectIncident =(id : any,val : any)=>{
     }
     this.setState({anchorEl_1:null ,status :status})
   };
-  
+
   handleSelectMedia  =   (
     e: any,
     existingMedia: any[],
@@ -918,8 +930,8 @@ confirmOrRejectIncident =(id : any,val : any)=>{
     let media = [];
     let files = e.target.files;
     console.log("filessss=====>",files);
-  
-    
+
+
 if(files.length !== 0){
   for (let i = 0; i < files.length; i += 1) {
     if(files[i] && !["image/jpg", "image/jpeg", "image/gif", "image/png","video/mp4","video/x-m4v" ].includes(files[i].type))
@@ -927,7 +939,7 @@ if(files.length !== 0){
       console.log("type=====>",files[i].type);
       this.setState({upload: false,sizeError : false,notImageOrVideoError:true});
        return ;
-    } 
+    }
     else if(files[i] && files[i].size >= 10e6)
     {
        console.log("size=====>",files[i].size);
@@ -954,9 +966,9 @@ if(files.length !== 0){
 else {
   this.setState({upload: false,sizeError : false,notImageOrVideoError:false});
 }
-   
+
   };
-  
+
 createIncidentSchema() {
     const validations = Yup.object().shape({
       commonArea: Yup.string().required(`This field is required`).trim(),
@@ -966,11 +978,59 @@ createIncidentSchema() {
       myApartment:Yup.string().required(`This field is required`).trim(),
       //media: Yup.array()
       // .min(1, ("Atleast one image required"))
-      // .required(`This field is required.`)   
+      // .required(`This field is required.`)
     });
-       
+
     return validations ;
   }
+  createChatRoom = async (id: any) => {
 
+    try {
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+      this.createChatRoomAPIId = requestMessage.messageId;
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        `bx_block_chat/chats`
+      );
+
+      const header = {
+        token: localStorage.getItem("userToken"),
+      };
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+
+      const formData = new FormData();
+      formData.append("chat[chatable_type]", 'BxBlockCustomForm::Incident');
+      // @ts-ignore
+      formData.append("chat[chatable_id]", this.props.history.location?.id);
+
+
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestBodyMessage),
+        formData
+      );
+
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        'POST'
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+
+      return true;
+    } catch (error) {
+      console.log(error);
+    }
+
+
+  }
   // Customizable Area End
 }

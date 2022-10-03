@@ -1,7 +1,7 @@
 import React, { FunctionComponent, ReactNode } from "react";
 import { View, StyleSheet } from "react-native";
 
-import GenericLabel from "./GenericLabel";
+// import GenericLabel from "./GenericLabel";
 
 interface Props {
   children: ReactNode;
@@ -13,9 +13,9 @@ const GenericCard: FunctionComponent<Props> = (props) => {
     <View style={styles.container}>
       {props.title ? (
         <View style={styles.titleWrapper}>
-          <GenericLabel fontSize={15} lineHeight={18} fontWeight='700'>
+          {/* <GenericLabel fontSize={15} lineHeight={18} fontWeight='700'>
             {props.title}
-          </GenericLabel>
+          </GenericLabel> */}
         </View>
       ) : null}
       {props.children}
