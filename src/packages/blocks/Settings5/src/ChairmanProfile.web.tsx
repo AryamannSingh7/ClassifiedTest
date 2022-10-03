@@ -39,10 +39,11 @@ import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { ProfileStyleWeb } from "./ProfileStyle.web";
 import ProfileController,{Props} from "../../user-profile-basic/src/ProfileController.web";
-import { calendar, emailedit, fbedit, heart, instaedit, message, NoProfile_Img, snapedit, twitteredit, user } from "../../user-profile-basic/src/assets";
+import { calendar, emailedit, fbedit, heart, instaedit, message, mobile, NoProfile_Img, snapedit, twitteredit, user } from "../../user-profile-basic/src/assets";
 import { dailCode } from "../../email-account-registration/src/code";
 import ChipInput from "material-ui-chip-input";
 import { AvatarIcon, CallIcon, ChatIcon, EmailIcon, FacebookIcon, InstagramIcon, SettingIcon, SnapchatIcon, TwitterIcon } from "./assets";
+import OtpInput from "react-otp-input";
 
 class ChairmanProfile extends ProfileController {
   constructor(props: Props) {
@@ -418,7 +419,7 @@ class ChairmanProfile extends ProfileController {
                               <ErrorMessage className="text-error" component="Typography" name="phone" />
                             </Typography>
                           ) : null}
-                          <p style={{ color:'#FC8434',textAlign:'right',fontWeight:'bold',cursor:'pointer'}} onClick={()=>this.setState({showDialog:true})}>
+                          <p style={{ color:'#FC8434',textAlign:'right',fontWeight:'bold',cursor:'pointer'}} onClick={()=>this.setState({showDialog1:true})}>
                             Verify number to update
                           </p>
 </Box>
@@ -762,6 +763,204 @@ class ChairmanProfile extends ProfileController {
               </Button> */}
             </DialogActions>
           </Box>
+        </Dialog>
+        <Dialog
+          open={this.state.showDialog1}
+          onClose={() => this.setState({ showDialog1: false })}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+          className="diloag-wrapper"
+          PaperProps={{
+            style: {
+              borderRadius: '15px',
+              padding: '2rem',
+              margin: 0
+            },
+          }}
+        >
+          <Box style={{ fontSize: "1.25rem", fontWeight: 'bold', textAlign: 'right' }} onClick={() => this.setState({ showDialog1: false })}>
+            x
+          </Box>
+          <Grid container>
+            <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
+
+              <img src={mobile} />
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
+
+              <p style={{ fontWeight: 600, fontSize: '1.25rem', textAlign: 'center' }}>
+                Add New Mobile Number
+
+              </p>
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
+              <p style={{ fontWeight: 400, fontSize: '0.8rem', textAlign: 'center' }}>
+                Add new mobile number in the
+                below field
+              </p>
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid item>
+              <Formik initialValues={{
+                phone: '',
+              }}
+                validationSchema={this.addPhoneSchema()}
+                validateOnMount={true}
+                onSubmit={(values) => { this.updatePhone(values) }}
+              >
+                {({ values,
+                  errors,
+                  touched,
+                  isValid, handleChange,
+                  setFieldValue, setFieldError }) => (
+                  <Form className="commonForm" translate="yes" >
+
+                    <Box
+                      marginTop='1rem'
+                      className='formInputGrp'
+                      display="flex"
+                      overflow="hidden"
+                      alignItems="center"
+                      height="56px"
+                      border="0.1px solid rgb(209 209 209 / 44%)"
+                      borderRadius="25px"
+                      bgcolor="#f9f9f9"
+                    >
+                      <Box>
+                        <FormControl variant="outlined" >
+                          {/* <InputLabel id="demo-simple-select-outlined-label"><img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AF.svg`} width='15' height='15' />
+                          sd</InputLabel> */}
+                          <Select
+                            name='selectCode'
+                            labelId="demo-simple-select-outlined-label"
+
+                            id="demo-simple-select-outlined"
+                            onChange={this.handleChange}
+                            label="Unit"
+                            value={this.state.selectCode}
+                          >
+                            <MenuItem value="">
+                              <em>None</em>
+                            </MenuItem>
+                            {dailCode.map((item) =>
+                              <MenuItem key={item.dial_code} value={item.dial_code}> <img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/${item.code}.svg`} width='15' height='15' style={{ marginRight: '5px' }} />
+                                {item.dial_code}</MenuItem>
+
+                            )
+                            }
+
+                          </Select>
+                        </FormControl>
+
+                      </Box>
+
+                      <Field
+                        name="phone"
+                        id="mobile"
+                        placeholder={"Mobile"}
+                        style={{
+                          border: "none",
+                          height: "42%",
+                          width: "80%",
+                          color: "rgba(0, 0, 0, 0.6)",
+                          fontWeight: 400,
+                          fontSize: 16,
+                          marginRight: 10,
+                          marginLeft: 21,
+                          outline: "none",
+                          backgroundColor: '#f9f9f9'
+                        }}
+                      />
+                    </Box>
+
+                    {errors.phone && touched.phone ? (
+                      <Typography
+                        style={{
+                          color: "#F14E24",
+                          fontWeight: 300,
+                          fontSize: 14,
+                          marginTop: 5,
+                          marginLeft: 10
+                        }}
+                      >
+                        <ErrorMessage className="text-error" component="Typography" name="phone" />
+                      </Typography>
+                    ) : null}
+                    <Box className="dialog-footer desktop-ui">
+                      <DialogActions className="customButton">
+                        <Button
+                          type="submit" variant="contained" >
+                          Submit
+                        </Button>
+                      </DialogActions>
+                    </Box>
+                  </Form>
+                )}
+              </Formik>
+            </Grid>
+          </Grid>
+
+        </Dialog>
+        <Dialog
+          open={this.state.showDialogDelete}
+          onClose={() => this.setState({ showDialogDelete: false })}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+          className="diloag-wrapper"
+          PaperProps={{
+            style: {
+              borderRadius: '15px',
+              padding: '1rem',
+              margin: 0
+            },
+          }}
+        >
+          <Box style={{ fontSize: "1.25rem", fontWeight: 'bold', textAlign: 'right' }} onClick={() => this.setState({ showDialogDelete: false })}>
+            x
+          </Box>
+          <Grid container>
+            <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
+
+              <img src={mobile} />
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
+
+              <p style={{ fontWeight: 600, fontSize: '1.25rem', textAlign: 'center' }}>
+                Verify New Mobile Number
+
+              </p>
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
+              <p style={{ fontWeight: 400, fontSize: '0.8rem', textAlign: 'center' }}>
+                Enter OTP sent to your mobile number for verification.
+              </p>
+            </Grid>
+          </Grid>
+          <Grid container justifyContent="center">
+            <Grid item className="commonForm">
+              <Box className="formGroup otpBlock">
+                <OtpInput className="formOutlineInput"
+                  value={"111111"}
+                  onChange={this.handleChange}
+                  numInputs={6}
+                // separator={<span>-</span>}
+                />
+              </Box>
+              <Box className="customButton row-btn">
+                <Button variant="contained" onClick={() => { this.verifyOtp() }}>SEND</Button>
+              </Box>
+            </Grid>
+          </Grid>
+
         </Dialog>
         </Box>
       </>

@@ -55,6 +55,7 @@ export interface S {
   selectCode2: string;
   anchorEl: any;
   showDialog:boolean;
+  showDialog1:boolean;
   showDialog2: boolean;
   profiledata:any;
   values:any,
@@ -167,7 +168,9 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
       showDialog2: false,
       profiledata:null,
       values:null,
-      showDialogDelete:false
+      showDialogDelete:false,
+  showDialog1:false
+
       // Customizable Area End
     };
 
