@@ -349,6 +349,7 @@ export const BuildingApartmentStyle: any = {
     "& h4": {
       fontWeight: 600,
       fontSize: "22px",
+      textTransform: "capitalize",
     },
     "& .location-details .heading": {
       display: "flex",

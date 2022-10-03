@@ -966,3 +966,56 @@
 .no-google-map-box {
   padding: 0 24px 16px;
 }
+
+.edit-profile form {
+  margin: 0;
+}
+
+.edit-profile.edit-unit.MuiDialog-root .MuiDialogContent-dividers {
+  border-bottom: 0;
+}
+
+.edit-unit input[type="date"]::-webkit-inner-spin-button,
+.edit-unit input[type="date"]::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+}
+
+.floor-plan-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f9f9f9;
+  border-radius: 8px;
+  padding: 5px 26px 5px 5px;
+  height: 42px;
+  border: 1px solid #c6c6c6;
+}
+
+.floor-plan-box .MuiChip-root {
+  background: white;
+  border: 1px solid #c6c6c6;
+  border-radius: 8px;
+  color: black;
+  height: 100%;
+}
+
+.floor-plan-box img {
+  cursor: pointer;
+}
+
+.floor-plan-box .MuiChip-root img {
+  width: 15px;
+  height: 15px;
+  margin: 0 12px 0 -6px;
+}
+
+.floor-plan-box .MuiChip-root span {
+  margin-right: 12px;
+  font-size: 14px;
+}
+
+.floor-plan-box .placeholder {
+  color: darkgray;
+  padding-left: 5px;
+}

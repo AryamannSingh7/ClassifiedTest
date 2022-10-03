@@ -81,7 +81,7 @@ const settings = {
   swipeToSlide: true,
 };
 
-const AnyReactComponent = () => <img src={mapLocation} alt="Marker" />;
+const LocationPin = ({  }: any) => <img src={mapLocation} />;
 
 class Complex extends ComplexController {
   constructor(props: Props) {
@@ -99,8 +99,6 @@ class Complex extends ComplexController {
         return building;
       }
     });
-
-    const LocationPin = ({  }: any) => <img src={mapLocation} />;
 
     return (
       <>

@@ -2,42 +2,30 @@ import React from "react";
 import {
   Container,
   Typography,
-  Link,
   Button,
   withStyles,
   InputAdornment,
-  TextField,
-  Paper,
-  CardActionArea,
   Card,
-  CardContent,
   CardMedia,
   MenuItem,
   Modal,
   Fade,
-  FormLabel,
-  FormControl,
-  Select,
   InputLabel,
   Backdrop,
-  TextareaAutosize,
   Divider,
+  Dialog,
+  IconButton,
+  DialogContent,
+  Input,
+  Grid,
+  DialogActions,
 } from "@material-ui/core";
 import { Menu } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/core.css";
-import ImageUploading from "react-images-uploading";
 import "../../dashboard/src/Dashboard.web.css";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form } from "formik";
 import Box from "@material-ui/core/Box";
-//@ts-ignore
-import Pagination from "@material-ui/lab/Pagination";
-import Grid from "@material-ui/core/Grid";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import { withRouter } from "react-router";
-import Loader from "../../../components/src/Loader.web";
-import { Input } from "react-native-elements";
-import * as Yup from "yup";
-import CountryCodeSelector from "../../country-code-selector/src/CountryCodeSelector";
 import UnitDetailsController, { Props } from "./UnitDetailsController.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
@@ -69,13 +57,10 @@ import {
   sizebw,
   purchase_pricebw,
   purchase_datebw,
-  complexbw,
   building,
-  cancle,
   true_mark,
-  uploadbw,
-  del_image,
   nextIcon,
+  mapLocation,
   previousIcon,
 } from "./assets";
 import { BuildingApartmentStyle } from "./BuildingApartmentStyle.web";
@@ -83,8 +68,11 @@ import { BuildingApartmentStyle } from "./BuildingApartmentStyle.web";
 import Slider from "react-slick";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
-
-const maxNumber = 69;
+//@ts-ignore
+import GoogleMapReact from "google-map-react";
+import MuiDialogTitle from "@material-ui/core/DialogTitle";
+import CloseIcon from "@material-ui/icons/Close";
+import moment from "moment";
 
 const settings = {
   infinite: false,
@@ -92,12 +80,7 @@ const settings = {
   swipeToSlide: true,
 };
 
-const images = [
-  "//placekitten.com/1500/500",
-  "//placekitten.com/4000/3000",
-  "//placekitten.com/800/1200",
-  "//placekitten.com/1500/1500",
-];
+const LocationPin = ({  }: any) => <img src={mapLocation} />;
 
 class UnitDetails extends UnitDetailsController {
   constructor(props: Props) {
@@ -107,6 +90,8 @@ class UnitDetails extends UnitDetailsController {
   render() {
     const { t }: any = this.props;
     const { classes } = this.props;
+
+    console.log(this.state);
 
     return (
       <>
@@ -118,33 +103,30 @@ class UnitDetails extends UnitDetailsController {
               {/* Chairman Sidebar -- */}
               <ChairmanSidebar {...this.props} />
             </Grid>
-            <Grid xs={9} md={9} sm={9} spacing={4} style={{ paddingTop: 35 }}>
+            <Grid xs={9} md={9} sm={9} spacing={4} style={{ padding: "35px 0" }}>
               <Container>
                 <Box style={dashBoard.navigation}>
                   <Box>
                     <Typography variant="body1">
                       {t("Building & Apartments")} / {t("Buildings ")} /{" "}
                       <Box component="span" style={{ color: "blue" }}>
-                        Unit 309
+                        {this.state.unitData.unitName}
                       </Box>
                     </Typography>
                   </Box>
                 </Box>
                 <Typography variant="h5" style={dashBoard.subHeading}>
-                  Unit 309
+                  {this.state.unitData.unitName}
                 </Typography>
 
+                {/* Building Location Details */}
                 <Box className="location-details">
                   <Box className="heading">
                     <h4>{t("Building Location Details")}</h4>
                     <Box className="heading-right">
-                      <Box className="map-modal">
+                      <Box className="map-modal" onClick={() => this.handleMapModal()}>
                         <img src={location} alt="" />
                         <span>See building on map</span>
-                      </Box>
-                      <Box className="edit-modal">
-                        <img src={pencil} />
-                        <span>Edit</span>
                       </Box>
                     </Box>
                   </Box>
@@ -155,7 +137,7 @@ class UnitDetails extends UnitDetailsController {
                           <img src={country} style={dashBoard.locationIcon} />
                           <Box className="location-info">
                             <p>{t("Country")}</p>
-                            <h4>UAE</h4>
+                            <h4>{this.state.unitData.country || "-"}</h4>
                           </Box>
                         </Card>
                       </Grid>
@@ -164,7 +146,7 @@ class UnitDetails extends UnitDetailsController {
                           <img src={region} style={dashBoard.locationIcon} />
                           <Box className="location-info">
                             <p>{t("Region")}</p>
-                            <h4>Eastern</h4>
+                            <h4>{this.state.unitData.region || "-"}</h4>
                           </Box>
                         </Card>
                       </Grid>
@@ -173,7 +155,7 @@ class UnitDetails extends UnitDetailsController {
                           <img src={city} style={dashBoard.locationIcon} />
                           <Box className="location-info">
                             <p>{t("City")}</p>
-                            <h4>Dubai</h4>
+                            <h4>{this.state.unitData.city || "-"}</h4>
                           </Box>
                         </Card>
                       </Grid>
@@ -181,11 +163,12 @@ class UnitDetails extends UnitDetailsController {
                   </Box>
                 </Box>
 
+                {/* Unit Details */}
                 <Box className="location-details unit-details">
                   <Box className="heading">
                     <h4>{t("Unit Details")}</h4>
                     <Box className="heading-right">
-                      <Box className="edit-modal" onClick={this.handleUnitModal}>
+                      <Box className="edit-modal" onClick={() => this.openEditUnitModal()}>
                         <img src={pencil} />
                         <span>Edit</span>
                       </Box>
@@ -199,7 +182,7 @@ class UnitDetails extends UnitDetailsController {
                           <img src={floor} style={dashBoard.locationIcon} />
                           <Box className="location-info">
                             <p>{t("Floor Number")}</p>
-                            <h4>15</h4>
+                            <h4>{this.state.unitData.floor || "-"}</h4>
                           </Box>
                         </Card>
                       </Grid>
@@ -208,7 +191,7 @@ class UnitDetails extends UnitDetailsController {
                           <img src={size} style={dashBoard.locationIcon} />
                           <Box className="location-info">
                             <p>{t("Size")}</p>
-                            <h4>2550 sqft</h4>
+                            <h4>{this.state.unitData.size || "-"}</h4>
                           </Box>
                         </Card>
                       </Grid>
@@ -217,7 +200,7 @@ class UnitDetails extends UnitDetailsController {
                           <img src={configuration} style={dashBoard.locationIcon} />
                           <Box className="location-info">
                             <p>{t("Configuration")}</p>
-                            <h4> 2 BHK</h4>
+                            <h4>{this.state.unitData.configuration || "-"}</h4>
                           </Box>
                         </Card>
                       </Grid>
@@ -226,7 +209,7 @@ class UnitDetails extends UnitDetailsController {
                           <img src={purchase_price} style={dashBoard.locationIcon} />
                           <Box className="location-info">
                             <p>{t("Purchase Price")}</p>
-                            <h4>SR 57,992</h4>
+                            <h4>{this.state.unitData.purchasePrice || "-"}</h4>
                           </Box>
                         </Card>
                       </Grid>
@@ -235,7 +218,11 @@ class UnitDetails extends UnitDetailsController {
                           <img src={purchase_date} style={dashBoard.locationIcon} />
                           <Box className="location-info">
                             <p>{t("Purchase Date")}</p>
-                            <h4>2 June, 2022</h4>
+                            <h4>
+                              {this.state.unitData.purchaseDate
+                                ? moment(this.state.unitData.purchaseDate).format("MMMM DD, YYYY")
+                                : "-"}
+                            </h4>
                           </Box>
                         </Card>
                       </Grid>
@@ -244,7 +231,7 @@ class UnitDetails extends UnitDetailsController {
                           <img src={valuation} style={dashBoard.locationIcon} />
                           <Box className="location-info">
                             <p>{t("Current Valuation")}</p>
-                            <h4>SR 50,000</h4>
+                            <h4>{this.state.unitData.currentValuation || "-"}</h4>
                           </Box>
                         </Card>
                       </Grid>
@@ -252,6 +239,7 @@ class UnitDetails extends UnitDetailsController {
                   </Box>
                 </Box>
 
+                {/* Related People */}
                 <Box className="related-people">
                   <Box className="heading">
                     <h4>{t("Related People")}</h4>
@@ -286,276 +274,146 @@ class UnitDetails extends UnitDetailsController {
                   </Grid>
                 </Box>
 
-                <Box className="related-people family-details">
-                  <Box className="heading">
-                    <h4>{t("Family Members")}</h4>
+                {/* Family Members */}
+                {this.state.familyList.length > 0 && (
+                  <Box className="related-people family-details">
+                    <Box className="heading">
+                      <h4>{t("Family Members")}</h4>
+                    </Box>
+                    <Grid container spacing={2}>
+                      {this.state.familyList.map((family: any) => {
+                        return (
+                          <Grid item sm={4} key={family.id}>
+                            <Card className="user-details">
+                              <Box className="heading">
+                                <h4>Ali Khan</h4>
+                                <Box className="user-menu">
+                                  <Menu menuButton={<MoreVertIcon />}>
+                                    <MenuItem>{t("Edit")}</MenuItem>
+                                    <MenuItem>{t("Delete")}</MenuItem>
+                                  </Menu>
+                                </Box>
+                              </Box>
+                              <p className="label">Relation:</p>
+                              <Box className="user-info">
+                                <p>Wife</p>
+                                <p>A456 - A2324 342</p>
+                              </Box>
+                            </Card>
+                          </Grid>
+                        );
+                      })}
+                    </Grid>
                   </Box>
-                  <Grid container spacing={2}>
-                    <Grid item sm={4}>
-                      <Card className="user-details">
-                        <Box className="heading">
-                          <h4>Ali Khan</h4>
-                          <Box className="user-menu">
-                            <Menu menuButton={<MoreVertIcon />}>
-                              <MenuItem>{t("Edit")}</MenuItem>
-                              <MenuItem>{t("Delete")}</MenuItem>
-                            </Menu>
-                          </Box>
-                        </Box>
-                        <p className="label">Relation:</p>
-                        <Box className="user-info">
-                          <p>Wife</p>
-                          <p>A456 - A2324 342</p>
-                        </Box>
-                      </Card>
-                    </Grid>
-                  </Grid>
-                </Box>
+                )}
 
-                <Box className="active-incident">
-                  <Box className="heading">
-                    <h4>{t("Active Incidents")}</h4>
+                {/* Active Incidents */}
+                {this.state.unitData.activeIncidents.length > 0 && (
+                  <Box className="active-incident">
+                    <Box className="heading">
+                      <h4>{t("Active Incidents")}</h4>
+                    </Box>
+                    <Grid container spacing={4}>
+                      {this.state.unitData.activeIncidents.map((incident: any) => {
+                        return (
+                          <Grid item sm={6}>
+                            <Card className="incident-card">
+                              <Box className="heading">
+                                <h4>Title</h4>
+                                <span style={{ background: "#e4edff", color: "#2B6FED" }}>Pending</span>
+                              </Box>
+                              <Box className="incident-data">
+                                <p>{t("Affected Area")}:</p>
+                                <p>
+                                  <span>Own Apartment</span>
+                                </p>
+                              </Box>
+                              <Box className="incident-data">
+                                <p>{t("Incident is related to")}:</p>
+                                <p>
+                                  <span>Plumbing</span>
+                                </p>
+                              </Box>
+                              <Box className="incident-data">
+                                <p>{t("Reported on")}:</p>
+                                <p>
+                                  <span>20-20-2020 20:20</span>
+                                </p>
+                              </Box>
+                              <Box className="incident-data">
+                                <p>{t("Building")}:</p>
+                                <p>
+                                  <span>Building 5</span>
+                                </p>
+                              </Box>
+                              <Box className="incident-data">
+                                <p>{t("Unit")}:</p>
+                                <p>
+                                  <span>1502</span>
+                                </p>
+                              </Box>
+                            </Card>
+                          </Grid>
+                        );
+                      })}
+                    </Grid>
                   </Box>
-                  <Grid container spacing={4}>
-                    <Grid item sm={6}>
-                      <Card className="incident-card">
-                        <Box className="heading">
-                          <h4>Title</h4>
-                          <span style={{ background: "#e4edff", color: "#2B6FED" }}>Pending</span>
-                        </Box>
-                        <Box className="incident-data">
-                          <p>{t("Affected Area")}:</p>
-                          <p>
-                            <span>Own Apartment</span>
-                          </p>
-                        </Box>
-                        <Box className="incident-data">
-                          <p>{t("Incident is related to")}:</p>
-                          <p>
-                            <span>Plumbing</span>
-                          </p>
-                        </Box>
-                        <Box className="incident-data">
-                          <p>{t("Reported on")}:</p>
-                          <p>
-                            <span>20-20-2020 20:20</span>
-                          </p>
-                        </Box>
-                        <Box className="incident-data">
-                          <p>{t("Building")}:</p>
-                          <p>
-                            <span>Building 5</span>
-                          </p>
-                        </Box>
-                        <Box className="incident-data">
-                          <p>{t("Unit")}:</p>
-                          <p>
-                            <span>1502</span>
-                          </p>
-                        </Box>
-                      </Card>
-                    </Grid>
-                    <Grid item sm={6}>
-                      <Card className="incident-card">
-                        <Box className="heading">
-                          <h4>Title</h4>
-                          <span style={{ background: "#e4edff", color: "#2B6FED" }}>Pending</span>
-                        </Box>
-                        <Box className="incident-data">
-                          <p>{t("Affected Area")}:</p>
-                          <p>
-                            <span>Own Apartment</span>
-                          </p>
-                        </Box>
-                        <Box className="incident-data">
-                          <p>{t("Incident is related to")}:</p>
-                          <p>
-                            <span>Plumbing</span>
-                          </p>
-                        </Box>
-                        <Box className="incident-data">
-                          <p>{t("Reported on")}:</p>
-                          <p>
-                            <span>20-20-2020 20:20</span>
-                          </p>
-                        </Box>
-                        <Box className="incident-data">
-                          <p>{t("Building")}:</p>
-                          <p>
-                            <span>Building 5</span>
-                          </p>
-                        </Box>
-                        <Box className="incident-data">
-                          <p>{t("Unit")}:</p>
-                          <p>
-                            <span>1502</span>
-                          </p>
-                        </Box>
-                      </Card>
-                    </Grid>
-                  </Grid>
-                </Box>
+                )}
 
-                <Box className="active-incident vehicle-details">
-                  <Box className="heading">
-                    <h4>{t("Vehicle Details")}</h4>
+                {/* Vehicle Details */}
+                {this.state.unitData.vehicleDetails.length > 0 && (
+                  <Box className="active-incident vehicle-details">
+                    <Box className="heading">
+                      <h4>{t("Vehicle Details")}</h4>
+                    </Box>
+                    <Grid container spacing={4}>
+                      {this.state.unitData.vehicleDetails.map((vehicle: any) => {
+                        return (
+                          <Grid item sm={6}>
+                            <Card className="incident-card">
+                              <Box className="heading">
+                                <h4>A ASDFG 1234</h4>
+                              </Box>
+                              <img src={bentalyLogo} alt="" style={{ marginBottom: "5px" }} />
+                              <Box className="incident-data">
+                                <p>{t("Owner Name:")}:</p>
+                                <p>
+                                  <span>Own Apartment</span>
+                                </p>
+                              </Box>
+                              <Box className="incident-data">
+                                <p>{t("Registration Card Number")}:</p>
+                                <p>
+                                  <span>Plumbing</span>
+                                </p>
+                              </Box>
+                              <Box className="incident-data">
+                                <p>{t("Car Details")}:</p>
+                                <p>
+                                  <span>20-20-2020 20:20</span>
+                                </p>
+                              </Box>
+                              <Box className="incident-data">
+                                <p>{t("Building")}:</p>
+                                <p>
+                                  <span>Building 5</span>
+                                </p>
+                              </Box>
+                              <Box className="incident-data">
+                                <p>{t("Unit")}:</p>
+                                <p>
+                                  <span>1502</span>
+                                </p>
+                              </Box>
+                            </Card>
+                          </Grid>
+                        );
+                      })}
+                    </Grid>
                   </Box>
-                  <Grid container spacing={4}>
-                    <Grid item sm={6}>
-                      <Card className="incident-card">
-                        <Box className="heading">
-                          <h4>A ASDFG 1234</h4>
-                        </Box>
-                        <img src={bentalyLogo} alt="" style={{ marginBottom: "5px" }} />
-                        <Box className="incident-data">
-                          <p>{t("Owner Name:")}:</p>
-                          <p>
-                            <span>Own Apartment</span>
-                          </p>
-                        </Box>
-                        <Box className="incident-data">
-                          <p>{t("Registration Card Number")}:</p>
-                          <p>
-                            <span>Plumbing</span>
-                          </p>
-                        </Box>
-                        <Box className="incident-data">
-                          <p>{t("Car Details")}:</p>
-                          <p>
-                            <span>20-20-2020 20:20</span>
-                          </p>
-                        </Box>
-                        <Box className="incident-data">
-                          <p>{t("Building")}:</p>
-                          <p>
-                            <span>Building 5</span>
-                          </p>
-                        </Box>
-                        <Box className="incident-data">
-                          <p>{t("Unit")}:</p>
-                          <p>
-                            <span>1502</span>
-                          </p>
-                        </Box>
-                      </Card>
-                    </Grid>
-                    <Grid item sm={6}>
-                      <Card className="incident-card">
-                        <Box className="heading">
-                          <h4>A ASDFG 1234</h4>
-                        </Box>
-                        <img src={bentalyLogo} alt="" style={{ marginBottom: "5px" }} />
-                        <Box className="incident-data">
-                          <p>{t("Owner Name:")}:</p>
-                          <p>
-                            <span>Own Apartment</span>
-                          </p>
-                        </Box>
-                        <Box className="incident-data">
-                          <p>{t("Registration Card Number")}:</p>
-                          <p>
-                            <span>Plumbing</span>
-                          </p>
-                        </Box>
-                        <Box className="incident-data">
-                          <p>{t("Car Details")}:</p>
-                          <p>
-                            <span>20-20-2020 20:20</span>
-                          </p>
-                        </Box>
-                        <Box className="incident-data">
-                          <p>{t("Building")}:</p>
-                          <p>
-                            <span>Building 5</span>
-                          </p>
-                        </Box>
-                        <Box className="incident-data">
-                          <p>{t("Unit")}:</p>
-                          <p>
-                            <span>1502</span>
-                          </p>
-                        </Box>
-                      </Card>
-                    </Grid>
-                    <Grid item sm={6}>
-                      <Card className="incident-card">
-                        <Box className="heading">
-                          <h4>A ASDFG 1234</h4>
-                        </Box>
-                        <img src={bentalyLogo} alt="" style={{ marginBottom: "5px" }} />
-                        <Box className="incident-data">
-                          <p>{t("Owner Name:")}:</p>
-                          <p>
-                            <span>Own Apartment</span>
-                          </p>
-                        </Box>
-                        <Box className="incident-data">
-                          <p>{t("Registration Card Number")}:</p>
-                          <p>
-                            <span>Plumbing</span>
-                          </p>
-                        </Box>
-                        <Box className="incident-data">
-                          <p>{t("Car Details")}:</p>
-                          <p>
-                            <span>20-20-2020 20:20</span>
-                          </p>
-                        </Box>
-                        <Box className="incident-data">
-                          <p>{t("Building")}:</p>
-                          <p>
-                            <span>Building 5</span>
-                          </p>
-                        </Box>
-                        <Box className="incident-data">
-                          <p>{t("Unit")}:</p>
-                          <p>
-                            <span>1502</span>
-                          </p>
-                        </Box>
-                      </Card>
-                    </Grid>
-                    <Grid item sm={6}>
-                      <Card className="incident-card">
-                        <Box className="heading">
-                          <h4>A ASDFG 1234</h4>
-                        </Box>
-                        <img src={bentalyLogo} alt="" style={{ marginBottom: "5px" }} />
-                        <Box className="incident-data">
-                          <p>{t("Owner Name")}:</p>
-                          <p>
-                            <span>Own Apartment</span>
-                          </p>
-                        </Box>
-                        <Box className="incident-data">
-                          <p>{t("Registration Card Number")}:</p>
-                          <p>
-                            <span>Plumbing</span>
-                          </p>
-                        </Box>
-                        <Box className="incident-data">
-                          <p>{t("Car Details")}:</p>
-                          <p>
-                            <span>20-20-2020 20:20</span>
-                          </p>
-                        </Box>
-                        <Box className="incident-data">
-                          <p>{t("Building")}:</p>
-                          <p>
-                            <span>Building 5</span>
-                          </p>
-                        </Box>
-                        <Box className="incident-data">
-                          <p>{t("Unit")}:</p>
-                          <p>
-                            <span>1502</span>
-                          </p>
-                        </Box>
-                      </Card>
-                    </Grid>
-                  </Grid>
-                </Box>
+                )}
 
+                {/* Rent Status */}
                 <Box className="location-details unit-details rent-status">
                   <Box className="heading">
                     <h4> {t("Rent Status")}</h4>
@@ -602,660 +460,99 @@ class UnitDetails extends UnitDetailsController {
                   </Box>
                 </Box>
 
-                <Box className="rent-history">
-                  <Box className="heading">
-                    <h4>{t("Rent History ")}</h4>
-                  </Box>
-                  <Box className="history-data">
-                    <Grid container spacing={2}>
-                      <Grid item sm={6}>
-                        <Card>
-                          <h4>Mr. Ali Khan</h4>
-                          <p className="date">May 2022 to June 2023</p>
-                          <Divider />
-                          <Box className="history-info">
-                            <p>Rent Amount</p>
-                            <p>
-                              <span>$ 234</span>
-                            </p>
-                          </Box>
-                          <Box className="history-info">
-                            <p>Received Amount</p>
-                            <p>
-                              <span>$ 0</span>
-                            </p>
-                          </Box>
-                        </Card>
+                {/* Rent History */}
+                {this.state.unitData.rentHistory.length > 0 && (
+                  <Box className="rent-history">
+                    <Box className="heading">
+                      <h4>{t("Rent History")}</h4>
+                    </Box>
+                    <Box className="history-data">
+                      <Grid container spacing={2}>
+                        {this.state.unitData.rentHistory.map((rent: any) => {
+                          return (
+                            <Grid item sm={6}>
+                              <Card>
+                                <h4>Mr. Ali Khan</h4>
+                                <p className="date">May 2022 to June 2023</p>
+                                <Divider />
+                                <Box className="history-info">
+                                  <p>Rent Amount</p>
+                                  <p>
+                                    <span>$ 234</span>
+                                  </p>
+                                </Box>
+                                <Box className="history-info">
+                                  <p>Received Amount</p>
+                                  <p>
+                                    <span>$ 0</span>
+                                  </p>
+                                </Box>
+                              </Card>
+                            </Grid>
+                          );
+                        })}
                       </Grid>
-                    </Grid>
+                    </Box>
                   </Box>
-                </Box>
+                )}
 
-                <Box className="building-info">
-                  <Box className="heading">
-                    <h4>Unit Pictures</h4>
-                  </Box>
-                  <Card>
-                    <Box className="building-info-bottom">
-                      <Slider ref={(c: any) => (this.slider = c)} {...settings}>
-                        <div onClick={() => this.setState({ imageBox: true })}>
-                          <img src="https://tinyurl.com/5dznmsms" alt="" />
-                        </div>
-                        <div onClick={() => this.setState({ imageBox: true })}>
-                          <img src="https://tinyurl.com/5dznmsms" alt="" />
-                        </div>
-                        <div onClick={() => this.setState({ imageBox: true })}>
-                          <img src="https://tinyurl.com/5dznmsms" alt="" />
-                        </div>
-                        <div onClick={() => this.setState({ imageBox: true })}>
-                          <img src="https://tinyurl.com/5dznmsms" alt="" />
-                        </div>
-                        <div onClick={() => this.setState({ imageBox: true })}>
-                          <img src="https://tinyurl.com/5dznmsms" alt="" />
-                        </div>
-                        <div onClick={() => this.setState({ imageBox: true })}>
-                          <img src="https://tinyurl.com/5dznmsms" alt="" />
-                        </div>
-                        <div onClick={() => this.setState({ imageBox: true })}>
-                          <img src="https://tinyurl.com/5dznmsms" alt="" />
-                        </div>
-                      </Slider>
-                      <Box className="slick-bottom">
-                        <Box className="button prev" onClick={this.previousImage}>
-                          <img src={previousIcon} alt="" />
-                        </Box>
-                        <Box className="button next" onClick={this.nextImage}>
-                          <img src={nextIcon} alt="" />
+                {/* Unit Pictures */}
+                {this.state.unitData.photos.length > 0 && (
+                  <Box className="building-info">
+                    <Box className="heading">
+                      <h4>Unit Pictures</h4>
+                    </Box>
+                    <Card>
+                      <Box className="building-info-bottom">
+                        <Slider ref={(c: any) => (this.slider = c)} {...settings}>
+                          {this.state.unitData.photos.map((image: any, index: number) => {
+                            return (
+                              <div onClick={() => this.setState({ imageBox: true, photoIndex: index })}>
+                                <img src={image.url} alt="" />
+                              </div>
+                            );
+                          })}
+                        </Slider>
+                        <Box className="slick-bottom">
+                          <Box className="button prev" onClick={this.previousImage}>
+                            <img src={previousIcon} alt="" />
+                          </Box>
+                          <Box className="button next" onClick={this.nextImage}>
+                            <img src={nextIcon} alt="" />
+                          </Box>
                         </Box>
                       </Box>
-                    </Box>
-                  </Card>
-                </Box>
+                    </Card>
+                  </Box>
+                )}
 
-                {this.state.imageBox && (
+                {this.state.imageBox && this.state.unitData.photos.length > 0 && (
                   <Lightbox
-                    mainSrc={images[this.state.photoIndex]}
-                    nextSrc={images[(this.state.photoIndex + 1) % images.length]}
-                    prevSrc={images[(this.state.photoIndex + images.length - 1) % images.length]}
+                    mainSrc={this.state.unitData.photos[this.state.photoIndex].url}
+                    nextSrc={
+                      this.state.unitData.photos[(this.state.photoIndex + 1) % this.state.unitData.photos.length].url
+                    }
+                    prevSrc={
+                      this.state.unitData.photos[
+                        (this.state.photoIndex + this.state.unitData.photos.length - 1) %
+                          this.state.unitData.photos.length
+                      ].url
+                    }
                     onCloseRequest={() => this.setState({ imageBox: false })}
                     onMovePrevRequest={() =>
                       this.setState({
-                        photoIndex: (this.state.photoIndex + images.length - 1) % images.length,
+                        photoIndex:
+                          (this.state.photoIndex + this.state.unitData.photos.length - 1) %
+                          this.state.unitData.photos.length,
                       })
                     }
                     onMoveNextRequest={() =>
                       this.setState({
-                        photoIndex: (this.state.photoIndex + 1) % images.length,
+                        photoIndex: (this.state.photoIndex + 1) % this.state.unitData.photos.length,
                       })
                     }
                   />
                 )}
-
-                {/* Edit unitdetails modal */}
-                <Modal
-                  style={dashBoard.modal}
-                  open={Boolean(this.state.setEditOpen)}
-                  onClose={this.handleEditModal}
-                  closeAfterTransition
-                  BackdropComponent={Backdrop}
-                  BackdropProps={{
-                    timeout: 500,
-                  }}
-                >
-                  <Fade in={Boolean(this.state.setEditOpen)}>
-                    <div style={dashBoard.paper}>
-                      <div style={dashBoard.commonDisplay}>
-                        <div>
-                          <Typography variant="h6" style={dashBoard.commonFont}>
-                            Edit Details
-                          </Typography>
-                        </div>
-                        <div>
-                          <img src={cancle} onClick={this.handleEditModal} style={{ cursor: "pointer" }} />
-                        </div>
-                      </div>
-                      <hr />
-                      <Formik
-                        initialValues={{
-                          countryname: "",
-                          buildingname: "",
-                          buildingarea: "",
-                          totalfloors: "",
-                          totalunits: "",
-                          purchasedate: "",
-                          currentvaluation: "",
-                          size: "",
-                        }}
-                        validationSchema={this.EditSchema()}
-                        validateOnMount={true}
-                        onSubmit={(values) => {
-                          console.log("valus=========>", values);
-                          // same shape as initial values
-                          // this.invitationData(values);
-                        }}
-                      >
-                        {({ values, touched, errors, isValid, setFieldValue }) => (
-                          <Form translate={true} className="commonForm ">
-                            <FormLabel component="legend" style={dashBoard.labelsStyle}>
-                              {t("Upload Photos")}
-                            </FormLabel>
-
-                            <Grid container>
-                              <Grid xs={12} sm={12}>
-                                <FormLabel component="legend" style={dashBoard.labelsStyle}>
-                                  {t("About Us")}
-                                </FormLabel>
-                                <TextareaAutosize
-                                  aria-label="minimum height"
-                                  minRows={10}
-                                  placeholder="About Us"
-                                  style={{ width: "100%", borderRadius: "10px", padding: "15px" }}
-                                />
-                              </Grid>
-                            </Grid>
-                            <Grid container spacing={3}>
-                              <Grid item xs={12} sm={6}>
-                                <Box className="formGroup customSelect">
-                                  <FormLabel component="legend" style={dashBoard.labelsStyle}>
-                                    {t("Building Name")}
-                                  </FormLabel>
-                                  <FormControl variant="outlined">
-                                    <span className="frmLeftIcons">
-                                      <img src={building} className="frm-icons" alt="User Icon" />
-                                    </span>
-                                    <InputLabel id="demo-simple-select-outlined-label" style={dashBoard.formLabels}>
-                                      {t("Building Name")}
-                                    </InputLabel>
-                                    <Select
-                                      name="buildingname"
-                                      labelId="demo-simple-select-outlined-label"
-                                      id="demo-simple-select-outlined"
-                                      style={{ paddingLeft: "45px" }}
-                                      // label="Select User Type"
-                                      onChange={(e) => {
-                                        e.target.value != " " && setFieldValue("buildingname", e.target.value);
-                                      }}
-                                      value={values.buildingname}
-                                    >
-                                      <MenuItem disabled value=" ">
-                                        {t("Select Building Name")}
-                                      </MenuItem>
-                                      <MenuItem value={"user1"}>User1</MenuItem>
-                                      <MenuItem value={"user2"}>User2</MenuItem>
-                                      <MenuItem value={"user3"}>User3</MenuItem>
-                                      <MenuItem value={"user4"}>User4</MenuItem>
-
-                                      {/* {
-                                          this.state?.userTypeData?.map((val, index) => (
-                                            <MenuItem
-                                              key={index}
-                                              value={val?.name}
-                                            >
-                                              {val?.name}
-                                            </MenuItem>
-                                          ))
-                                        } */}
-                                    </Select>
-                                  </FormControl>
-                                </Box>
-                              </Grid>
-                              <Grid item xs={12} sm={6}>
-                                <Box className="formGroup customSelect">
-                                  <FormLabel component="legend" style={dashBoard.labelsStyle}>
-                                    {t("Country")}
-                                  </FormLabel>
-                                  <FormControl variant="outlined">
-                                    <span className="frmLeftIcons">
-                                      <img src={building} className="frm-icons" alt="User Icon" />
-                                    </span>
-                                    <InputLabel id="demo-simple-select-outlined-label" style={dashBoard.formLabels}>
-                                      {t("Country")}
-                                    </InputLabel>
-                                    <Select
-                                      name="countryname"
-                                      labelId="demo-simple-select-outlined-label"
-                                      id="demo-simple-select-outlined"
-                                      style={{ paddingLeft: "45px" }}
-                                      // label="Select User Type"
-                                      onChange={(e) => {
-                                        e.target.value != " " && setFieldValue("countryname", e.target.value);
-                                      }}
-                                      value={values.countryname}
-                                    >
-                                      <MenuItem disabled value=" ">
-                                        {t("Select Country")}
-                                      </MenuItem>
-                                      <MenuItem value={"user1"}>User1</MenuItem>
-                                      <MenuItem value={"user2"}>User2</MenuItem>
-                                      <MenuItem value={"user3"}>User3</MenuItem>
-                                      <MenuItem value={"user4"}>User4</MenuItem>
-
-                                      {/* {
-                                          this.state?.userTypeData?.map((val, index) => (
-                                            <MenuItem
-                                              key={index}
-                                              value={val?.name}
-                                            >
-                                              {val?.name}
-                                            </MenuItem>
-                                          ))
-                                        } */}
-                                    </Select>
-                                  </FormControl>
-                                </Box>
-                              </Grid>
-                            </Grid>
-                            <Grid container spacing={3}>
-                              <Grid item xs={12} sm={6}>
-                                <Box className="formGroup customSelect">
-                                  <FormLabel component="legend" style={dashBoard.labelsStyle}>
-                                    {t("Building Area")}
-                                  </FormLabel>
-                                  <Field
-                                    name="buildingarea"
-                                    type="text"
-                                    placeholder={t("Building Area")}
-                                    style={dashBoard.inviteInput}
-                                  />
-                                  <span
-                                    //@ts-ignore
-                                    style={dashBoard.formLeftIcn}
-                                  >
-                                    <img src={configurationbw} className="frm-icons" alt="User Icon" />
-                                  </span>
-                                </Box>
-                              </Grid>
-                              <Grid item xs={12} sm={6}>
-                                <Box className="formGroup customSelect">
-                                  <FormLabel component="legend" style={dashBoard.labelsStyle}>
-                                    {t("Total Floors")}
-                                  </FormLabel>
-                                  <Field
-                                    name="totalfloors"
-                                    type="text"
-                                    placeholder={t("Total Floors")}
-                                    style={dashBoard.inviteInput}
-                                  />
-                                  <span
-                                    //@ts-ignore
-                                    style={dashBoard.formLeftIcn}
-                                  >
-                                    <img src={purchase_pricebw} className="frm-icons" alt="User Icon" />
-                                  </span>
-                                </Box>
-                              </Grid>
-                            </Grid>
-                            <Grid container spacing={3}>
-                              <Grid item xs={12} sm={12}>
-                                <Box className="formGroup customSelect">
-                                  <FormLabel component="legend" style={dashBoard.labelsStyle}>
-                                    {t("Total Units")}
-                                  </FormLabel>
-                                  <Field
-                                    name="totalunits"
-                                    type="text"
-                                    placeholder={t("Total Units")}
-                                    style={dashBoard.inviteInput}
-                                  />
-                                  <span
-                                    //@ts-ignore
-                                    style={dashBoard.formLeftIcn}
-                                  >
-                                    <img src={purchase_datebw} className="frm-icons" alt="User Icon" />
-                                  </span>
-                                </Box>
-                              </Grid>
-                            </Grid>
-                            <Grid container spacing={3}>
-                              <Grid item xs={12} sm={6} />
-                              <Grid item xs={12} sm={3}>
-                                <Button
-                                  variant="outlined"
-                                  style={{
-                                    width: "100%",
-                                    color: "#2B6FED",
-                                    border: "1px solid #2B6FED",
-                                    fontWeight: 600,
-                                    height: "50px",
-                                  }}
-                                  onClick={this.handleEditModal}
-                                >
-                                  CLOSE
-                                </Button>
-                              </Grid>
-                              <Grid item xs={12} sm={3}>
-                                <Button
-                                  variant="contained"
-                                  color="primary"
-                                  style={{ width: "100%", backgroundColor: "#2B6FED", fontWeight: 600, height: "50px" }}
-                                >
-                                  YES, DELETE
-                                </Button>
-                              </Grid>
-                            </Grid>
-                          </Form>
-                        )}
-                      </Formik>
-                    </div>
-                  </Fade>
-                </Modal>
-
-                {/* Edit unitdetails modal */}
-                <Modal
-                  style={dashBoard.modal}
-                  open={Boolean(this.state.setUnitOpen)}
-                  onClose={this.handleUnitModal}
-                  closeAfterTransition
-                  BackdropComponent={Backdrop}
-                  BackdropProps={{
-                    timeout: 500,
-                  }}
-                >
-                  <Fade in={Boolean(this.state.setUnitOpen)}>
-                    <div style={dashBoard.paper}>
-                      <div style={dashBoard.commonDisplay}>
-                        <div>
-                          <Typography variant="h6" style={dashBoard.commonFont}>
-                            Edit Unit Details
-                          </Typography>
-                        </div>
-                        <div>
-                          <img src={cancle} onClick={this.handleUnitModal} style={{ cursor: "pointer" }} />
-                        </div>
-                      </div>
-                      <hr />
-                      <Formik
-                        initialValues={{
-                          complexname: "",
-                          buildingname: "",
-                          unitno: "",
-                          configuration: "",
-                          purchaseprice: "",
-                          purchasedate: "",
-                          currentvaluation: "",
-                          size: "",
-                        }}
-                        validationSchema={this.InvitationSchema()}
-                        validateOnMount={true}
-                        onSubmit={(values) => {
-                          console.log("valus=========>", values);
-                          // same shape as initial values
-                          // this.invitationData(values);
-                        }}
-                      >
-                        {({ values, touched, errors, isValid, setFieldValue }) => (
-                          <Form translate={true} className="commonForm ">
-                            <Grid container spacing={3}>
-                              <Grid item xs={12} sm={6}>
-                                <Box className="formGroup customSelect">
-                                  <FormLabel component="legend" style={dashBoard.labelsStyle}>
-                                    {t("Complex Name")}
-                                  </FormLabel>
-                                  <Field
-                                    name="complexname"
-                                    type="text"
-                                    placeholder={t("Complex Name")}
-                                    style={dashBoard.inviteInput}
-                                  />
-                                  <span
-                                    //@ts-ignore
-                                    style={dashBoard.formLeftIcn}
-                                  >
-                                    <img src={complexbw} className="frm-icons" alt="User Icon" />
-                                  </span>
-                                </Box>
-                              </Grid>
-                              <Grid item xs={12} sm={6}>
-                                <Box className="formGroup customSelect">
-                                  <FormLabel component="legend" style={dashBoard.labelsStyle}>
-                                    {t("Building Name")}
-                                  </FormLabel>
-                                  <FormControl variant="outlined">
-                                    <span className="frmLeftIcons">
-                                      <img src={building} className="frm-icons" alt="User Icon" />
-                                    </span>
-                                    <InputLabel id="demo-simple-select-outlined-label" style={dashBoard.formLabels}>
-                                      {t("Building Name")}
-                                    </InputLabel>
-                                    <Select
-                                      name="buildingname"
-                                      labelId="demo-simple-select-outlined-label"
-                                      id="demo-simple-select-outlined"
-                                      style={{ paddingLeft: "45px" }}
-                                      // label="Select User Type"
-                                      onChange={(e) => {
-                                        e.target.value != " " && setFieldValue("buildingname", e.target.value);
-                                      }}
-                                      value={values.buildingname}
-                                    >
-                                      <MenuItem disabled value=" ">
-                                        {t("Select Building Name")}
-                                      </MenuItem>
-                                      <MenuItem value={"user1"}>User1</MenuItem>
-                                      <MenuItem value={"user2"}>User2</MenuItem>
-                                      <MenuItem value={"user3"}>User3</MenuItem>
-                                      <MenuItem value={"user4"}>User4</MenuItem>
-
-                                      {/* {
-                                        this.state?.userTypeData?.map((val, index) => (
-                                          <MenuItem
-                                            key={index}
-                                            value={val?.name}
-                                          >
-                                            {val?.name}
-                                          </MenuItem>
-                                        ))
-                                      } */}
-                                    </Select>
-                                  </FormControl>
-                                </Box>
-                              </Grid>
-                            </Grid>
-                            <Grid container spacing={3}>
-                              <Grid item xs={12} sm={6}>
-                                <Box className="formGroup customSelect">
-                                  <FormLabel component="legend" style={dashBoard.labelsStyle}>
-                                    {t("Unit Number")}
-                                  </FormLabel>
-                                  <FormControl variant="outlined">
-                                    <span className="frmLeftIcons">
-                                      <img src={unitbw} className="frm-icons" alt="User Icon" />
-                                    </span>
-                                    <InputLabel id="demo-simple-select-outlined-label" style={dashBoard.formLabels}>
-                                      {t("Unit Number")}
-                                    </InputLabel>
-                                    <Select
-                                      name="unitno"
-                                      labelId="demo-simple-select-outlined-label"
-                                      id="demo-simple-select-outlined"
-                                      style={{ paddingLeft: "45px" }}
-                                      // label="Select User Type"
-                                      onChange={(e) => {
-                                        e.target.value != " " && setFieldValue("unitno", e.target.value);
-                                      }}
-                                      value={values.unitno}
-                                    >
-                                      <MenuItem disabled value=" ">
-                                        {t("Select Unit Number")}
-                                      </MenuItem>
-                                      <MenuItem value={"user1"}>User1</MenuItem>
-                                      <MenuItem value={"user2"}>User2</MenuItem>
-                                      <MenuItem value={"user3"}>User3</MenuItem>
-                                      <MenuItem value={"user4"}>User4</MenuItem>
-
-                                      {/* {
-                                          this.state?.userTypeData?.map((val, index) => (
-                                            <MenuItem
-                                              key={index}
-                                              value={val?.name}
-                                            >
-                                              {val?.name}
-                                            </MenuItem>
-                                          ))
-                                        } */}
-                                    </Select>
-                                  </FormControl>
-                                </Box>
-                              </Grid>
-                              <Grid item xs={12} sm={6}>
-                                <Box className="formGroup customSelect">
-                                  <FormLabel component="legend" style={dashBoard.labelsStyle}>
-                                    {t("Size")}
-                                  </FormLabel>
-                                  <FormControl variant="outlined">
-                                    <span className="frmLeftIcons">
-                                      <img src={sizebw} className="frm-icons" alt="User Icon" />
-                                    </span>
-                                    <InputLabel id="demo-simple-select-outlined-label" style={dashBoard.formLabels}>
-                                      {t("Size")}
-                                    </InputLabel>
-                                    <Select
-                                      name="size"
-                                      labelId="demo-simple-select-outlined-label"
-                                      id="demo-simple-select-outlined"
-                                      style={{ paddingLeft: "45px" }}
-                                      // label="Select User Type"
-                                      onChange={(e) => {
-                                        e.target.value != " " && setFieldValue("size", e.target.value);
-                                      }}
-                                      value={values.size}
-                                    >
-                                      <MenuItem disabled value=" ">
-                                        {t("Select Size")}
-                                      </MenuItem>
-                                      <MenuItem value={"user1"}>User1</MenuItem>
-                                      <MenuItem value={"user2"}>User2</MenuItem>
-                                      <MenuItem value={"user3"}>User3</MenuItem>
-                                      <MenuItem value={"user4"}>User4</MenuItem>
-
-                                      {/* {
-                                        this.state?.userTypeData?.map((val, index) => (
-                                          <MenuItem
-                                            key={index}
-                                            value={val?.name}
-                                          >
-                                            {val?.name}
-                                          </MenuItem>
-                                        ))
-                                      } */}
-                                    </Select>
-                                  </FormControl>
-                                </Box>
-                              </Grid>
-                            </Grid>
-                            <Grid container spacing={3}>
-                              <Grid item xs={12} sm={6}>
-                                <Box className="formGroup customSelect">
-                                  <FormLabel component="legend" style={dashBoard.labelsStyle}>
-                                    {t("Configuration")}
-                                  </FormLabel>
-                                  <Field
-                                    name="configuration"
-                                    type="text"
-                                    placeholder={t("Configuration")}
-                                    style={dashBoard.inviteInput}
-                                  />
-                                  <span
-                                    //@ts-ignore
-                                    style={dashBoard.formLeftIcn}
-                                  >
-                                    <img src={configurationbw} className="frm-icons" alt="User Icon" />
-                                  </span>
-                                </Box>
-                              </Grid>
-                              <Grid item xs={12} sm={6}>
-                                <Box className="formGroup customSelect">
-                                  <FormLabel component="legend" style={dashBoard.labelsStyle}>
-                                    {t("Purchase Price")}
-                                  </FormLabel>
-                                  <Field
-                                    name="purchaseprice"
-                                    type="text"
-                                    placeholder={t("Purchase Price")}
-                                    style={dashBoard.inviteInput}
-                                  />
-                                  <span
-                                    //@ts-ignore
-                                    style={dashBoard.formLeftIcn}
-                                  >
-                                    <img src={purchase_pricebw} className="frm-icons" alt="User Icon" />
-                                  </span>
-                                </Box>
-                              </Grid>
-                            </Grid>
-                            <Grid container spacing={3}>
-                              <Grid item xs={12} sm={6}>
-                                <Box className="formGroup customSelect">
-                                  <FormLabel component="legend" style={dashBoard.labelsStyle}>
-                                    {t("Purchase Date")}
-                                  </FormLabel>
-                                  <Field
-                                    name="purchasedate"
-                                    type="text"
-                                    placeholder={t("Purchase Date")}
-                                    style={dashBoard.inviteInput}
-                                  />
-                                  <span
-                                    //@ts-ignore
-                                    style={dashBoard.formLeftIcn}
-                                  >
-                                    <img src={purchase_datebw} className="frm-icons" alt="User Icon" />
-                                  </span>
-                                </Box>
-                              </Grid>
-                              <Grid item xs={12} sm={6}>
-                                <Box className="formGroup customSelect">
-                                  <FormLabel component="legend" style={dashBoard.labelsStyle}>
-                                    {t("Current Valuation")}
-                                  </FormLabel>
-                                  <Field
-                                    name="currentvaluation"
-                                    type="text"
-                                    placeholder={t("Current Valuation")}
-                                    style={dashBoard.inviteInput}
-                                  />
-                                  <span
-                                    //@ts-ignore
-                                    style={dashBoard.formLeftIcn}
-                                  >
-                                    <img src={valutionbw} className="frm-icons" alt="User Icon" />
-                                  </span>
-                                </Box>
-                              </Grid>
-                            </Grid>
-                            <Grid container spacing={3}>
-                              <Grid item xs={12} sm={6} />
-                              <Grid item xs={12} sm={3}>
-                                <Button
-                                  variant="outlined"
-                                  style={{
-                                    width: "100%",
-                                    color: "#2B6FED",
-                                    border: "1px solid #2B6FED",
-                                    fontWeight: 600,
-                                    height: "50px",
-                                  }}
-                                  onClick={this.handleUnitModal}
-                                >
-                                  CLOSE
-                                </Button>
-                              </Grid>
-                              <Grid item xs={12} sm={3}>
-                                <Button
-                                  variant="contained"
-                                  color="primary"
-                                  style={{ width: "100%", backgroundColor: "#2B6FED", fontWeight: 600, height: "50px" }}
-                                >
-                                  YES, DELETE
-                                </Button>
-                              </Grid>
-                            </Grid>
-                          </Form>
-                        )}
-                      </Formik>
-                    </div>
-                  </Fade>
-                </Modal>
 
                 {/* Modal Delink Related People */}
                 <Modal
@@ -1374,7 +671,212 @@ class UnitDetails extends UnitDetailsController {
             </Grid>
           </Box>
         </Box>
-        {/* <Loader loading={this.state.loading} /> */}
+
+        <Dialog className="edit-profile edit-unit" open={this.state.setUnitOpen} scroll="paper" fullWidth maxWidth="md">
+          <MuiDialogTitle disableTypography className="dialog-heading">
+            <Typography variant="h6">{t("Edit Unit Details")}</Typography>
+            <IconButton onClick={() => this.handleUnitModal()}>
+              <CloseIcon />
+            </IconButton>
+          </MuiDialogTitle>
+          <Formik
+            enableReinitialize={true}
+            initialValues={this.state.editForm}
+            validationSchema={this.editUnitDetailValidation}
+            onSubmit={(values, { resetForm }) => {
+              this.handleUnitModal();
+              this.handleSaveUnitDetails(values);
+            }}
+          >
+            {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
+              return (
+                <Form onSubmit={handleSubmit} translate>
+                  <DialogContent dividers>
+                    <Grid container spacing={2} className="edit-building">
+                      <Grid item md={6}>
+                        <InputLabel>{t("Complex Name")}</InputLabel>
+                        <Input
+                          className="input-with-icon"
+                          fullWidth
+                          placeholder={t("Complex Name")}
+                          value={values.complexName}
+                          startAdornment={
+                            <InputAdornment position="start">
+                              <img src={sizebw} alt="icon" />
+                            </InputAdornment>
+                          }
+                          readOnly
+                        />
+                      </Grid>
+                      <Grid item md={6}>
+                        <InputLabel>{t("Building Name")}</InputLabel>
+                        <Input
+                          className="input-with-icon"
+                          fullWidth
+                          value={values.buildingName}
+                          placeholder={t("Building Name")}
+                          startAdornment={
+                            <InputAdornment position="start">
+                              <img src={building} alt="icon" />
+                            </InputAdornment>
+                          }
+                          readOnly
+                        />
+                      </Grid>
+                      <Grid item md={6}>
+                        <InputLabel>{t("Unit Number")}</InputLabel>
+                        <Input
+                          className="input-with-icon"
+                          fullWidth
+                          value={values.unitName}
+                          placeholder={t("Unit Number")}
+                          startAdornment={
+                            <InputAdornment position="start">
+                              <img src={unitbw} alt="icon" />
+                            </InputAdornment>
+                          }
+                          readOnly
+                        />
+                      </Grid>
+                      <Grid item md={6}>
+                        <InputLabel>{t("Size")}</InputLabel>
+                        <Input
+                          className="input-with-icon"
+                          fullWidth
+                          placeholder={t("Size")}
+                          startAdornment={
+                            <InputAdornment position="start">
+                              <img src={sizebw} alt="icon" />
+                            </InputAdornment>
+                          }
+                          value={values.size}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          name="size"
+                        />
+                        {errors.size && touched.size && <small className="error">{t(errors.size)}</small>}
+                      </Grid>
+                      <Grid item md={6}>
+                        <InputLabel>{t("Configuration")}</InputLabel>
+                        <Input
+                          className="input-with-icon"
+                          fullWidth
+                          placeholder={t("Configuration")}
+                          startAdornment={
+                            <InputAdornment position="start">
+                              <img src={configurationbw} alt="icon" />
+                            </InputAdornment>
+                          }
+                          value={values.configuration}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          name="configuration"
+                        />
+                        {errors.configuration && touched.configuration && (
+                          <small className="error">{t(errors.configuration)}</small>
+                        )}
+                      </Grid>
+                      <Grid item md={6}>
+                        <InputLabel>{t("Purchase Price")}</InputLabel>
+                        <Input
+                          className="input-with-icon"
+                          fullWidth
+                          placeholder={t("Purchase Price")}
+                          startAdornment={
+                            <InputAdornment position="start">
+                              <img src={purchase_pricebw} alt="icon" />
+                            </InputAdornment>
+                          }
+                          value={values.purchasePrice}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          name="purchasePrice"
+                        />
+                        {errors.purchasePrice && touched.purchasePrice && (
+                          <small className="error">{t(errors.purchasePrice)}</small>
+                        )}
+                      </Grid>
+                      <Grid item md={6}>
+                        <InputLabel>{t("Purchase Date")}</InputLabel>
+                        <Input
+                          className="input-with-icon"
+                          fullWidth
+                          placeholder={t("Purchase Date")}
+                          startAdornment={
+                            <InputAdornment position="start">
+                              <img src={purchase_datebw} alt="icon" />
+                            </InputAdornment>
+                          }
+                          type="date"
+                          value={values.purchaseDate}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          name="purchaseDate"
+                        />
+                        {errors.purchaseDate && touched.purchaseDate && (
+                          <small className="error">{t(errors.purchaseDate)}</small>
+                        )}
+                      </Grid>
+                      <Grid item md={6}>
+                        <InputLabel>{t("Current Valuation")}</InputLabel>
+                        <Input
+                          className="input-with-icon"
+                          fullWidth
+                          placeholder={t("Current Valuation")}
+                          startAdornment={
+                            <InputAdornment position="start">
+                              <img src={valutionbw} alt="icon" />
+                            </InputAdornment>
+                          }
+                          value={values.currentValuation}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          name="currentValuation"
+                        />
+                        {errors.currentValuation && touched.currentValuation && (
+                          <small className="error">{t(errors.currentValuation)}</small>
+                        )}
+                      </Grid>
+                    </Grid>
+                  </DialogContent>
+                  <DialogActions className="dialog-button-group">
+                    <Button className="cancel-button" onClick={() => this.handleUnitModal()}>
+                      {t("Cancel")}
+                    </Button>
+                    <Button type="submit" className="add-button">
+                      {t("Save")}
+                    </Button>
+                  </DialogActions>
+                </Form>
+              );
+            }}
+          </Formik>
+        </Dialog>
+
+        <Dialog className="edit-profile" open={this.state.isOpenMapModalOpen} scroll="paper" fullWidth maxWidth="sm">
+          <MuiDialogTitle disableTypography className="dialog-heading">
+            <Typography variant="h6">{t("Location")}</Typography>
+            <IconButton onClick={() => this.handleMapModal()}>
+              <CloseIcon />
+            </IconButton>
+          </MuiDialogTitle>
+          {this.state.unitData.lat && this.state.unitData.long ? (
+            <Box className="google-map-box">
+              <GoogleMapReact
+                bootstrapURLKeys={{ key: "AIzaSyA1NvS9-cKp1dl_kMQDVFr4Gmbnv97MTtk" }}
+                defaultCenter={{
+                  lat: this.state.unitData.lat,
+                  lng: this.state.unitData.long,
+                }}
+                defaultZoom={15}
+              >
+                <LocationPin lat={this.state.unitData.lat} lng={this.state.unitData.long} />
+              </GoogleMapReact>
+            </Box>
+          ) : (
+            <Box className="no-google-map-box">No Location Available</Box>
+          )}
+        </Dialog>
       </>
     );
   }
@@ -1557,14 +1059,12 @@ const dashBoard = {
   paper: {
     backgroundColor: "#fff",
     borderRadius: "10px",
-    // boxShadow: theme.shadows[5],
     padding: "16px 32px 24px",
     width: "700px",
   },
   delinkPaper: {
     backgroundColor: "#fff",
     borderRadius: "10px",
-    // boxShadow: theme.shadows[5],
     padding: "16px 32px 24px",
     width: "500px",
     textAlign: "center",
@@ -1592,39 +1092,4 @@ const dashBoard = {
     cursor: "pointer",
   },
 };
-
-{
-  /* <ImageUploading
-  multiple
-  value={this.state.unitImages}
-  onChange={this.imageonChange}
-  maxNumber={maxNumber}
-  dataURLKey="data_url"
-  acceptType={["jpg"]}
->
-  {({ imageList, onImageUpload, onImageRemoveAll, onImageUpdate, onImageRemove, isDragging, dragProps }): any => (
-    <div className="upload__image-wrapper">
-      <button
-        style={isDragging ? { color: "red" } : null}
-        onClick={onImageUpload}
-        className="upload-btn btn-dashed"
-        {...dragProps}
-      >
-        <img src={uploadbw} />
-      </button>
-      &nbsp;
-      {imageList.map((image: any, index: any) => (
-        <div key={index} className="image-item">
-          <img src={image.data_url} alt="" className="images" />
-          <div className="image-item__btn-wrapper">
-            <span onClick={() => onImageRemove(index)} className="image-span">
-              <img src={del_image} />
-            </span>
-          </div>
-        </div>
-      ))}
-    </div>
-  )}
-</ImageUploading> */
-}
 // Customizable Area End

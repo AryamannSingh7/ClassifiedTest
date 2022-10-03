@@ -38,3 +38,4 @@ export const downloadIcon = require("../assets/download.png");
 export const nextIcon = require("../assets/right-arrow.png");
 export const previousIcon = require("../assets/left-arrow.png");
 export const mapLocation = require("../assets/map-location.png");
+export const DeleteIcon = require("../assets/cross.png");

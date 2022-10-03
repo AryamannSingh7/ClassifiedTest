@@ -19,6 +19,7 @@ import {
   Input,
   DialogActions,
   DialogContent,
+  Chip,
 } from "@material-ui/core";
 import "../../dashboard/src/Dashboard.web.css";
 import Box from "@material-ui/core/Box";
@@ -37,10 +38,10 @@ import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
-import { uploadbw, del_image, downloadIcon, Document, nextIcon, previousIcon } from "./assets";
+import { uploadbw, del_image, downloadIcon, Document, nextIcon, previousIcon, DeleteIcon } from "./assets";
 import { BuildingApartmentStyle } from "./BuildingApartmentStyle.web";
-
-const maxNumber = 69;
+import Loader from "../../../components/src/Loader.web";
+import { Formik, Form } from "formik";
 
 function createData(no: any, Reserved_By: any, Building: any, Unit_Number: any, Reserved_On: any, Duration: any) {
   return { no, Reserved_By, Building, Unit_Number, Reserved_On, Duration };
@@ -59,13 +60,6 @@ const settings = {
   swipeToSlide: true,
 };
 
-const images = [
-  "//placekitten.com/1500/500",
-  "//placekitten.com/4000/3000",
-  "//placekitten.com/800/1200",
-  "//placekitten.com/1500/1500",
-];
-
 class SharedArea extends SharedAreaController {
   constructor(props: Props) {
     super(props);
@@ -75,16 +69,10 @@ class SharedArea extends SharedAreaController {
     const { t }: any = this.props;
     const { classes } = this.props;
 
-    var searchData = rows.filter((item) => {
-      if (this.state.dataSearch === "") {
-        return item;
-      } else if (item.Unit_Number.toLowerCase().includes(this.state.dataSearch.toLowerCase())) {
-        return item;
-      }
-    });
-
     return (
       <>
+        <Loader loading={this.state.loading} />
+
         <Box className={classes.building} style={{ background: "#F4F7FF" }}>
           {/* Dashboard Header -- */}
           <DashboardHeader {...this.props} />
@@ -100,7 +88,7 @@ class SharedArea extends SharedAreaController {
                     <Typography variant="body1">
                       {t("Building & Apartments")} / {t("Buildings")} /{" "}
                       <Box component="span" style={{ color: "blue" }}>
-                        {t("Commercial Hall")}
+                        {this.state.sharedAreaData.name}
                       </Box>
                     </Typography>
                   </Box>
@@ -110,7 +98,7 @@ class SharedArea extends SharedAreaController {
                   <Grid container style={dashBoard.gaMemberMain}>
                     <Grid item xs={6}>
                       <Typography variant="h5" style={dashBoard.subHeading}>
-                        {t("Commercial Hall")}
+                        {this.state.sharedAreaData.name}
                       </Typography>
                     </Grid>
                     <Grid item xs={12} sm={2}>
@@ -118,7 +106,7 @@ class SharedArea extends SharedAreaController {
                         className="edit-button"
                         variant="contained"
                         color="primary"
-                        onClick={this.handleComplexEditModal}
+                        onClick={() => this.openSharedAreaEditModal()}
                       >
                         Edit Details
                       </Button>
@@ -129,55 +117,58 @@ class SharedArea extends SharedAreaController {
                 <Box className="building-info">
                   <Card>
                     <Box className="building-info-bottom shared-area-image">
-                      <Slider ref={(c: any) => (this.slider = c)} {...settings}>
-                        <div onClick={() => this.setState({ imageBox: true })}>
-                          <img src="https://tinyurl.com/5dznmsms" alt="" />
-                        </div>
-                        <div onClick={() => this.setState({ imageBox: true })}>
-                          <img src="https://tinyurl.com/5dznmsms" alt="" />
-                        </div>
-                        <div onClick={() => this.setState({ imageBox: true })}>
-                          <img src="https://tinyurl.com/5dznmsms" alt="" />
-                        </div>
-                        <div onClick={() => this.setState({ imageBox: true })}>
-                          <img src="https://tinyurl.com/5dznmsms" alt="" />
-                        </div>
-                        <div onClick={() => this.setState({ imageBox: true })}>
-                          <img src="https://tinyurl.com/5dznmsms" alt="" />
-                        </div>
-                        <div onClick={() => this.setState({ imageBox: true })}>
-                          <img src="https://tinyurl.com/5dznmsms" alt="" />
-                        </div>
-                        <div onClick={() => this.setState({ imageBox: true })}>
-                          <img src="https://tinyurl.com/5dznmsms" alt="" />
-                        </div>
-                      </Slider>
-                      <Box className="slick-bottom">
-                        <Box className="button prev" onClick={this.previousImage}>
-                          <img src={previousIcon} alt="" />
-                        </Box>
-                        <Box className="button next" onClick={this.nextImage}>
-                          <img src={nextIcon} alt="" />
-                        </Box>
-                      </Box>
+                      {this.state.sharedAreaData.photos.length === 0 ? (
+                        <span>No Photos Available</span>
+                      ) : (
+                        <>
+                          <Slider ref={(c: any) => (this.slider = c)} {...settings}>
+                            {this.state.sharedAreaData.photos.map((image: any, index: number) => {
+                              return (
+                                <div onClick={() => this.setState({ imageBox: true, photoIndex: index })}>
+                                  <img src={image.url} alt="" />
+                                </div>
+                              );
+                            })}
+                          </Slider>
+                          <Box className="slick-bottom">
+                            <Box className="button prev" onClick={this.previousImage}>
+                              <img src={previousIcon} alt="" />
+                            </Box>
+                            <Box className="button next" onClick={this.nextImage}>
+                              <img src={nextIcon} alt="" />
+                            </Box>
+                          </Box>
+                        </>
+                      )}
                     </Box>
                   </Card>
                 </Box>
 
-                {this.state.imageBox && (
+                {this.state.imageBox && this.state.sharedAreaData.photos.length > 0 && (
                   <Lightbox
-                    mainSrc={images[this.state.photoIndex]}
-                    nextSrc={images[(this.state.photoIndex + 1) % images.length]}
-                    prevSrc={images[(this.state.photoIndex + images.length - 1) % images.length]}
+                    mainSrc={this.state.sharedAreaData.photos[this.state.photoIndex].url}
+                    nextSrc={
+                      this.state.sharedAreaData.photos[
+                        (this.state.photoIndex + 1) % this.state.sharedAreaData.photos.length
+                      ].url
+                    }
+                    prevSrc={
+                      this.state.sharedAreaData.photos[
+                        (this.state.photoIndex + this.state.sharedAreaData.photos.length - 1) %
+                          this.state.sharedAreaData.photos.length
+                      ].url
+                    }
                     onCloseRequest={() => this.setState({ imageBox: false })}
                     onMovePrevRequest={() =>
                       this.setState({
-                        photoIndex: (this.state.photoIndex + images.length - 1) % images.length,
+                        photoIndex:
+                          (this.state.photoIndex + this.state.sharedAreaData.photos.length - 1) %
+                          this.state.sharedAreaData.photos.length,
                       })
                     }
                     onMoveNextRequest={() =>
                       this.setState({
-                        photoIndex: (this.state.photoIndex + 1) % images.length,
+                        photoIndex: (this.state.photoIndex + 1) % this.state.sharedAreaData.photos.length,
                       })
                     }
                   />
@@ -186,20 +177,15 @@ class SharedArea extends SharedAreaController {
                 <Box className="about-building">
                   <Card>
                     <h4> {t("Details")}</h4>
-                    <p>
-                      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                      the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of
-                      type and scrambled it to make a type specimen book. It has survived not only five centuries, but
-                      also the leap into electronic typesetting, remaining essentially unchanged
-                    </p>
+                    <p>{this.state.sharedAreaData.details || "-"}</p>
 
                     <Box className="bottom-detail">
                       <Box className="left-detail">
                         <p>
-                          Total Area: <span>1800 sqft</span>
+                          Total Area: <span>{this.state.sharedAreaData.totalArea || "-"}</span>
                         </p>
                         <p>
-                          Reservation fees: <span>SR 50 per hour</span>
+                          Reservation fees: <span>{this.state.sharedAreaData.reservationFee || "-"} per hour</span>
                         </p>
                       </Box>
                       <Box className="right-detail">
@@ -241,7 +227,7 @@ class SharedArea extends SharedAreaController {
                           </TableRow>
                         </TableHead>
                         <TableBody>
-                          {searchData.map((row) => (
+                          {rows.map((row: any) => (
                             <TableRow key={row.no}>
                               <TableCell>{row.no}</TableCell>
                               <TableCell align="left">{row.Reserved_By}</TableCell>
@@ -270,60 +256,162 @@ class SharedArea extends SharedAreaController {
         <Dialog className="edit-profile" open={this.state.setComplexEditOpen} scroll="paper" fullWidth maxWidth="md">
           <MuiDialogTitle disableTypography className="dialog-heading">
             <Typography variant="h6">Edit Details</Typography>
-            <IconButton onClick={() => this.handleComplexEditModal()}>
+            <IconButton onClick={() => this.handleSharedAreaEditModal()}>
               <CloseIcon />
             </IconButton>
           </MuiDialogTitle>
-          <DialogContent dividers>
-            <Grid container spacing={2} className="edit-building">
-              <Grid item md={12}>
-                <InputLabel>Upload Photos</InputLabel>
-                <Grid container spacing={4}>
-                  <Grid item md={3}>
-                    <Box className="upload-photo">
-                      <img src={uploadbw} alt="" />
-                    </Box>
-                  </Grid>
-                  <Grid item md={3}>
-                    <Box className="building-image">
-                      <img src={del_image} className="delete-image" />
-                      <img src="https://tinyurl.com/5dznmsms" alt="" />
-                    </Box>
-                  </Grid>
-                  <Grid item md={3}>
-                    <Box className="building-image">
-                      <img src={del_image} className="delete-image" />
-                      <img src="https://tinyurl.com/5dznmsms" alt="" />
-                    </Box>
-                  </Grid>
-                  <Grid item md={3}>
-                    <Box className="building-image">
-                      <img src={del_image} className="delete-image" />
-                      <img src="https://tinyurl.com/5dznmsms" alt="" />
-                    </Box>
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid item md={12}>
-                <InputLabel>Details</InputLabel>
-                <TextareaAutosize className="about-us" placeholder="Details" />
-              </Grid>
-              <Grid item md={12}>
-                <InputLabel>Total Area</InputLabel>
-                <Input className="input-with-icon" fullWidth placeholder="Total Area" />
-              </Grid>
-              <Grid item md={12}>
-                <InputLabel>Reservation Fees (Per hour)</InputLabel>
-                <Input className="input-with-icon" fullWidth placeholder="Reservation Fees (Per hour)" />
-              </Grid>
-            </Grid>
-          </DialogContent>
-          <DialogActions className="dialog-button-group">
-            <Button className="cancel-button" onClick={() => this.handleComplexEditModal()}>
-              Cancel
-            </Button>
-            <Button className="add-button">Save</Button>
-          </DialogActions>
+          <Formik
+            enableReinitialize={true}
+            initialValues={this.state.editForm}
+            validationSchema={this.editAreaDetailValidation}
+            onSubmit={(values, { resetForm }) => {
+              this.handleSharedAreaEditModal();
+              this.handleSaveSharedAreaDetails(values);
+            }}
+          >
+            {({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue }) => {
+              return (
+                <Form onSubmit={handleSubmit} translate>
+                  <DialogContent dividers>
+                    <Grid container spacing={2} className="edit-building">
+                      <Grid item md={12}>
+                        <InputLabel>Upload Photos</InputLabel>
+                        <Grid container spacing={4}>
+                          <Grid item md={3}>
+                            <Box className="upload-photo" onClick={() => this.uploadImages.click()}>
+                              <img src={uploadbw} alt="" />
+                            </Box>
+                            <input
+                              type="file"
+                              ref={(ref: any) => (this.uploadImages = ref)}
+                              style={{ display: "none" }}
+                              accept="image/*"
+                              onChange={(e: any) => {
+                                for (let i = 0; i < e.target.files.length; i++) {
+                                  const file = e.target.files[i];
+                                  let reader = new FileReader();
+                                  reader.onloadend = () => {
+                                    values.photos = [...values.photos, reader.result];
+                                    setFieldValue("photos", values.photos);
+                                  };
+                                  reader.readAsDataURL(file);
+                                }
+                              }}
+                              onBlur={handleBlur}
+                              name="photos"
+                              multiple
+                            />
+                          </Grid>
+                          {values.photos.map((image: any, index: number) => {
+                            return (
+                              <Grid item md={3} key={index}>
+                                <Box className="building-image">
+                                  <img
+                                    src={del_image}
+                                    className="delete-image"
+                                    onClick={() => {
+                                      const remainImage = values.photos.filter(
+                                        (img: any, idx: number) => idx !== index
+                                      );
+                                      setFieldValue("photos", remainImage);
+                                    }}
+                                  />
+                                  <img src={image} alt="" />
+                                </Box>
+                              </Grid>
+                            );
+                          })}
+                        </Grid>
+                        {errors.photos && touched.photos && <small className="error">{t(errors.photos)}</small>}
+                      </Grid>
+                      <Grid item md={12}>
+                        <InputLabel>Details</InputLabel>
+                        <TextareaAutosize
+                          className="about-us"
+                          placeholder="Details"
+                          value={values.details}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          name="details"
+                        />
+                        {errors.details && touched.details && <small className="error">{t(errors.details)}</small>}
+                      </Grid>
+                      <Grid item md={12}>
+                        <InputLabel>Total Area</InputLabel>
+                        <Input
+                          className="input-with-icon"
+                          fullWidth
+                          placeholder="Total Area"
+                          value={values.totalArea}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          name="totalArea"
+                        />
+                        {errors.totalArea && touched.totalArea && (
+                          <small className="error">{t(errors.totalArea)}</small>
+                        )}
+                      </Grid>
+                      <Grid item md={12}>
+                        <InputLabel>Reservation Fees (Per hour)</InputLabel>
+                        <Input
+                          className="input-with-icon"
+                          fullWidth
+                          placeholder="Reservation Fees (Per hour)"
+                          value={values.fees}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          name="fees"
+                        />
+                        {errors.fees && touched.fees && <small className="error">{t(errors.fees)}</small>}
+                      </Grid>
+                      <Grid item md={12}>
+                        <InputLabel>Floor Plan</InputLabel>
+                        <Box className="floor-plan-box">
+                          <input
+                            type="file"
+                            ref={(ref: any) => (this.uploadFile = ref)}
+                            style={{ display: "none" }}
+                            onChange={(e: any) => {
+                              const file = e.target.files[0];
+                              setFieldValue("floorPlan", file);
+                              setFieldValue("floorPlanName", file.name);
+                            }}
+                            onBlur={handleBlur}
+                            name="floorPlan"
+                          />
+                          {!values.floorPlan ? (
+                            <span className="placeholder">Floor Plan</span>
+                          ) : (
+                            <Chip
+                              label={values.floorPlanName}
+                              onDelete={() => {
+                                setFieldValue("floorPlan", null);
+                                setFieldValue("floorPlanName", "");
+                              }}
+                              deleteIcon={<img src={DeleteIcon} />}
+                              className={classes.chip}
+                            />
+                          )}
+                          <img onClick={() => this.uploadFile.click()} src={uploadbw} />
+                        </Box>
+                        {errors.floorPlan && touched.floorPlan && (
+                          <small className="error">{t(errors.floorPlan)}</small>
+                        )}
+                      </Grid>
+                    </Grid>
+                  </DialogContent>
+                  <DialogActions className="dialog-button-group">
+                    <Button className="cancel-button" onClick={() => this.handleSharedAreaEditModal()}>
+                      Cancel
+                    </Button>
+                    <Button type="submit" className="add-button">
+                      Save
+                    </Button>
+                  </DialogActions>
+                </Form>
+              );
+            }}
+          </Formik>
         </Dialog>
 
         {/* <Loader loading={this.state.loading} /> */}
@@ -332,7 +420,6 @@ class SharedArea extends SharedAreaController {
   }
 }
 
-//@ts-ignore
 export default withTranslation()(withStyles(BuildingApartmentStyle)(SharedArea));
 
 const dashBoard = {
