@@ -30,4 +30,5 @@ export const Checkmark_Icon = require("../assets/checkmark-icon.png");
 export const Error_Icon = require("../assets/error-icon.png");
 export const Close_Icon = require("../assets/icon-close.png");
 export const Dollar_Icon = require("../assets/dollar_icon.png");
+export const Setting_Icon = require("../assets/setting_icon.png");
 export const Classified_CorrectIcon = require("../assets/classified_correct_icon.png");

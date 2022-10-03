@@ -100,7 +100,30 @@
 
     & .incident-content-wrapper {
       margin-top: 10px;
-
+      & .classified-header {
+        display: flex;
+        & .customButton {
+          margin-right: 15px;
+        }
+        & .MuiButton-root {
+          padding: 10px 15px;
+         
+        }
+        & .btn-gray {
+          & .MuiButton-contained {
+            width: 100%;
+            background-color: $LIGHT_GRAY_SHADE6;
+            color: $LIGHT_GRAY_SHADE7;
+            font-size: 15px;
+            box-shadow: none;
+            & .MuiButton-label {
+              font-size: 14px;
+              color: $LIGHT_GRAY_SHADE7;
+              text-transform: capitalize;
+            }
+          }
+        }
+      }
       @include mq(tablet-portrait-medium-up) {
         margin-top: 25px;
       }

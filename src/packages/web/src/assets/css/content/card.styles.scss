@@ -227,6 +227,17 @@
         margin: 10px 0;
       }
     }
+    & .classified-card-header
+    {
+      display: flex;
+      justify-content: space-between;
+      & .MuiButtonBase-root
+      {
+        &:hover{
+          background-color: transparent;
+        }
+      }
+    }
     & .card-footer {
       display: flex;
       justify-content: space-between;
@@ -249,6 +260,18 @@
         width: 30px;
         object-fit: contain;
       }
+    }
+    & .classified-footer
+    { 
+        & .customButton
+        {
+          padding: 0;
+        }
+        & h4 {
+          &.MuiTypography-body1 {
+           padding-left: 0 !important;
+          }
+        }
     }
   }
   &.incident-detail-card {
@@ -301,7 +324,6 @@
         & .MuiOutlinedInput-root {
           background-color: $GREEN_SHADE1;
         }
-
         & .MuiInputBase-input {
           color: $GREEN;
           font-weight: bold;
@@ -358,7 +380,6 @@
       display: flex;
     }
   }
-
   &.reporting-card {
     margin-bottom: 20px;
 
@@ -387,7 +408,6 @@
       }
     }
   }
-
   &.confirmation-card {
     & .confirmation-card-content {
       display: flex;
@@ -471,7 +491,6 @@
       }
     }
   }
-
   &.neighbour-card {
     box-shadow: none;
     border: 0;
@@ -536,7 +555,6 @@
       object-fit: contain;
     }
   }
-
   &.neighbour-detail-card {
     width: 450px;
     margin: 0 auto;
