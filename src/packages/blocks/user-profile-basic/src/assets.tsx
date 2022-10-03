@@ -56,3 +56,11 @@ export const Contact_Disable_Icon = require("../assets/contact-disable-icon.svg"
 export const Email_Msg_Icon = require("../assets/email-msg-icon.png");
 export const Email_Disable_Icon = require("../assets/email-disable-icon.svg");
 export const NoProfile_Img = require("../assets/no-profile.png");
+export const Call = require("../assets/call.png");
+export const Chatgreen = require("../assets/chat-green.png");
+export const FbGreen = require("../assets/fb-grren.png");
+export const TwitterGreen = require("../assets/twitter-green.png");
+export const InstaGreen = require("../assets/insta.png");
+export const SnapGreen = require("../assets/snap-green.png");
+export const EmailGreen = require("../assets/email-green.png");
+

@@ -21,7 +21,7 @@ import {
 
 import { Colors } from "./CustomformController";
 
-import GenericLabel from "../../../components/src/GenericLabel";
+// import GenericLabel from "../../../components/src/GenericLabel";
 
 const screenWidth = Math.round(Dimensions.get("window").width);
 // Customizable Area End
@@ -42,7 +42,7 @@ export default class Customform extends CustomformController {
   renderModal = () => {
     return (
       <Modal visible={this.state.showSuccessModal} transparent>
-        <View style={styles.modalWapper}>
+        {/* <View style={styles.modalWapper}>
           <View style={styles.modalContent}>
             <GenericLabel fontSize={24} lineHeight={32} align="center">
               {configJSON.congrats}
@@ -66,7 +66,7 @@ export default class Customform extends CustomformController {
               </GenericLabel>
             </TouchableOpacity>
           </View>
-        </View>
+        </View> */}
       </Modal>
     );
   };
@@ -87,9 +87,9 @@ export default class Customform extends CustomformController {
           <View>
             <View style={styles.contentContainer}>
               <View style={styles.formInputWrapper}>
-                <GenericLabel {...this.inputLabelProps}>
+                {/* <GenericLabel {...this.inputLabelProps}>
                   {this.labelShopName}
-                </GenericLabel>
+                </GenericLabel> */}
                 <View style={styles.inputWrapper}>
                   <TextInput
                     testID="shopName"
@@ -99,9 +99,9 @@ export default class Customform extends CustomformController {
                 </View>
               </View>
               <View style={styles.formInputWrapper}>
-                <GenericLabel {...this.inputLabelProps}>
+                {/* <GenericLabel {...this.inputLabelProps}>
                   {this.labelServiceProvided}
-                </GenericLabel>
+                </GenericLabel> */}
                 <View style={styles.servicesWrapper}>
                   {this.services.map((service, index) => (
                     <View
@@ -152,12 +152,12 @@ const SelectionWrapper = ({ option, isSelected, onPress, onClearPress }) => {
           { borderColor: isSelected ? Colors.borderYellow : Colors.borderGrey },
         ]}
       >
-        <GenericLabel
+        {/* <GenericLabel
           color={isSelected ? Colors.borderYellow : "rgb(46, 58, 89)"}
           onPress={onPress}
         >
           {option.label}
-        </GenericLabel>
+        </GenericLabel> */}
         {isSelected && (
           <TouchableWithoutFeedback>
             <TouchableOpacity onPress={onClearPress}>
