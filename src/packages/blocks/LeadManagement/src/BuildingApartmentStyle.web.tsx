@@ -349,6 +349,7 @@ export const BuildingApartmentStyle: any = {
     "& h4": {
       fontWeight: 600,
       fontSize: "22px",
+      textTransform: "capitalize",
     },
     "& .location-details .heading": {
       display: "flex",
@@ -595,6 +596,18 @@ export const BuildingApartmentStyle: any = {
       position: "absolute",
       top: "30px",
       left: "0px",
+    },
+    "& .Pending": {
+      background: "#e4edff",
+      color: "#2B6FED",
+    },
+    "& .Resolved": {
+      color: "#1EC65B",
+      background: "#D4FFE3",
+    },
+    "& .Unresolved": {
+      background: "#FFEAEA",
+      color: "#F21717",
     },
   },
 };

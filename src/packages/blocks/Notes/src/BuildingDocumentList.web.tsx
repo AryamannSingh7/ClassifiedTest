@@ -129,11 +129,7 @@ class BuildingDocumentList extends BuildingDocumentListController {
                                         );
                                       }}
                                     />
-                                    <Link
-                                      //  href={document.attributes.meeting_mins_pdf.url}
-                                      onClick={() => alert("Coming soon!!")}
-                                      target="_blank"
-                                    >
+                                    <Link href={document.attributes.meeting_mins_pdf.url} target="_blank">
                                       <img src={DownloadImage} />
                                     </Link>
                                   </div>

@@ -105,8 +105,7 @@ class ViewBuildingDocument extends ViewBuildingDocumentController {
                           }}
                         />
                         <Link
-                          // href={this.state.document && this.state.document.attributes.meeting_mins_pdf.url}
-                          onClick={() => alert("Coming soon!!")}
+                          href={this.state.document && this.state.document.attributes.meeting_mins_pdf.url}
                           target="_blank"
                         >
                           <img src={DownloadImage} />
