@@ -110,7 +110,7 @@ class Buildings extends BuildingsController {
     var searchData = this.state.unitList.filter((item: any) => {
       if (this.state.dataSearch === "") {
         return item;
-      } else if (item.apartment_name.toLowerCase().includes(this.state.dataSearch.toLowerCase())) {
+      } else if (item.attributes.apartment_name.toLowerCase().includes(this.state.dataSearch.toLowerCase())) {
         return item;
       }
     });
@@ -181,7 +181,7 @@ class Buildings extends BuildingsController {
                           <Slider ref={(c: any) => (this.slider = c)} {...settings}>
                             {this.state.buildingData.photos.map((image: any, index: number) => {
                               return (
-                                <div onClick={() => this.setState({ imageBox: true, photoIndex: index })}>
+                                <div onClick={() => this.setState({ imageBox: true, photoIndex: index })} key={index}>
                                   <img src={image.url} alt="" />
                                 </div>
                               );
@@ -398,31 +398,47 @@ class Buildings extends BuildingsController {
                               </TableRow>
                             </TableHead>
                             <TableBody>
-                              {searchData.map((unit: any, index: number) => (
-                                <TableRow key={unit.id}>
-                                  <TableCell>{index + 1}</TableCell>
-                                  <TableCell>{unit.apartment_name}</TableCell>
-                                  <TableCell>{unit.floor_number}</TableCell>
-                                  <TableCell>-</TableCell>
-                                  <TableCell>-</TableCell>
-                                  <TableCell>-</TableCell>
-                                  <TableCell>
-                                    <Menu menuButton={<MoreVertIcon />}>
-                                      <MenuItem>
-                                        <Link href={`/UnitDetail/${unit.id}`}>{t("View")}</Link>
-                                      </MenuItem>
-                                    </Menu>
-                                  </TableCell>
-                                </TableRow>
-                              ))}
+                              {searchData.map((unit: any, index: number) => {
+                                return (
+                                  <TableRow key={unit.id}>
+                                    <TableCell>{index + 1}</TableCell>
+                                    <TableCell>{unit.attributes.apartment_name}</TableCell>
+                                    <TableCell>{unit.attributes.floor_number}</TableCell>
+                                    <TableCell>-</TableCell>
+                                    <TableCell>-</TableCell>
+                                    <TableCell>
+                                      <span className={unit.attributes.status}>{unit.attributes.status}</span>
+                                    </TableCell>
+                                    <TableCell>
+                                      <Menu menuButton={<MoreVertIcon />}>
+                                        <MenuItem>
+                                          <Link href={`/UnitDetail/${unit.id}`}>{t("View")}</Link>
+                                        </MenuItem>
+                                      </Menu>
+                                    </TableCell>
+                                  </TableRow>
+                                );
+                              })}
                             </TableBody>
                           </Table>
                         </TableContainer>
                         <Box className="unit-pagination">
                           <p>
-                            {t("Showing")} <span>5</span> {t("of")} <span>12</span> {t("results")}
+                            {t("Showing")} <span>5</span> {t("of")}{" "}
+                            <span>{this.state.pagination ? this.state.pagination.total_count : 0}</span> {t("results")}
                           </p>
-                          <Pagination count={10} variant="outlined" shape="rounded" />
+                          {this.state.pagination && (
+                            <Pagination
+                              onChange={(event: any, value: any) => {
+                                this.setState({ page: Number(value) });
+                              }}
+                              count={this.state.pagination.total_pages}
+                              page={this.state.pagination.current_page}
+                              siblingCount={2}
+                              variant="outlined"
+                              shape="rounded"
+                            />
+                          )}
                         </Box>
                       </>
                     </TabPanel>

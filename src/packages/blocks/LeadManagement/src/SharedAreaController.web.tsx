@@ -51,6 +51,7 @@ interface SharedAreaData {
   details: string;
   totalArea: string;
   reservationFee: string;
+  floorPlan: any;
 }
 
 interface SS {
@@ -85,6 +86,7 @@ export default class SharedAreaController extends BlockComponent<Props, S, SS> {
         details: "",
         totalArea: "",
         reservationFee: "",
+        floorPlan: null,
       },
 
       editForm: {
@@ -120,6 +122,7 @@ export default class SharedAreaController extends BlockComponent<Props, S, SS> {
             details: responseJson.data.attributes.details,
             totalArea: responseJson.data.attributes.total_area,
             reservationFee: responseJson.data.attributes.reservation_fee,
+            floorPlan: responseJson.data.attributes.floor_plan,
           },
         });
       }
@@ -205,9 +208,9 @@ export default class SharedAreaController extends BlockComponent<Props, S, SS> {
     values.photos.map((image: any) => {
       data.append("common_area[photos][]", this.dataURLtoFile(image));
     });
-    // if (typeof values.logo === "object" && values.logo !== null) {
-    //   data.append("building_management[logo]", values.logo);
-    // }
+    if (typeof values.floorPlan === "object" && values.floorPlan !== null) {
+      data.append("common_area[floor_plan]", values.floorPlan);
+    }
 
     const header = {
       token: localStorage.getItem("userToken"),
@@ -257,7 +260,7 @@ export default class SharedAreaController extends BlockComponent<Props, S, SS> {
   };
 
   editAreaDetailValidation = Yup.object().shape({
-    // logo: Yup.mixed().required("Required"),
+    floorPlan: Yup.mixed().required("Required"),
     details: Yup.string()
       .required("Required")
       .matches(/\S/, "Required"),
@@ -299,11 +302,11 @@ export default class SharedAreaController extends BlockComponent<Props, S, SS> {
         loading: false,
         editForm: {
           photos: photos.map((image: any) => image.value),
-          details: this.state.sharedAreaData.details,
-          totalArea: this.state.sharedAreaData.totalArea,
-          fees: this.state.sharedAreaData.reservationFee,
-          floorPlan: null,
-          floorPlanName: "",
+          details: this.state.sharedAreaData.details || "",
+          totalArea: this.state.sharedAreaData.totalArea || "",
+          fees: this.state.sharedAreaData.reservationFee || "",
+          floorPlan: this.state.sharedAreaData.floorPlan?.url || "",
+          floorPlanName: this.state.sharedAreaData.floorPlan?.file_name || "",
         },
       },
       () => {

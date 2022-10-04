@@ -360,11 +360,15 @@ class UnitDetails extends UnitDetailsController {
                               </Box>
                               <Box className="incident-data">
                                 <p>{t("Building")}:</p>
-                                <p>{/* <span>{incident}</span> */}</p>
+                                <p>
+                                  <span>{this.state.unitData.buildingName}</span>
+                                </p>
                               </Box>
                               <Box className="incident-data">
                                 <p>{t("Unit")}:</p>
-                                <p>{/* <span>{incident}</span> */}</p>
+                                <p>
+                                  <span>{this.state.unitData.unitName}</span>
+                                </p>
                               </Box>
                             </Card>
                           </Grid>
