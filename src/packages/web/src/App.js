@@ -245,6 +245,7 @@ import VisitorsDetails from '../../blocks/invitefriends/src/VisitorDetailsManage
 // Register Tenant
 import TenantList from '../../blocks/RequestManagement/src/TenantList.web';
 import TenantDetails from '../../blocks/RequestManagement/src/TenantDetails.web';
+import RegisterTenant from '../../blocks/RequestManagement/src/RegisterTenant.web';
 
 const routeMap = {
   //done
@@ -1480,6 +1481,11 @@ const routeMap = {
   TenantDetails: {
     component: TenantDetails,
     path: '/Tenant/:id',
+    roles: [ROLE.OWNER]
+  },
+  RegisterTenant: {
+    component: RegisterTenant,
+    path: '/RegisterTenant',
     roles: [ROLE.OWNER]
   },
 
