@@ -20,6 +20,7 @@ import {
   DialogActions,
   DialogContent,
   Chip,
+  Link,
 } from "@material-ui/core";
 import "../../dashboard/src/Dashboard.web.css";
 import Box from "@material-ui/core/Box";
@@ -124,7 +125,7 @@ class SharedArea extends SharedAreaController {
                           <Slider ref={(c: any) => (this.slider = c)} {...settings}>
                             {this.state.sharedAreaData.photos.map((image: any, index: number) => {
                               return (
-                                <div onClick={() => this.setState({ imageBox: true, photoIndex: index })}>
+                                <div onClick={() => this.setState({ imageBox: true, photoIndex: index })} key={index}>
                                   <img src={image.url} alt="" />
                                 </div>
                               );
@@ -189,13 +190,17 @@ class SharedArea extends SharedAreaController {
                           <span>{this.state.sharedAreaData.reservationFee || "-"} per hour</span>
                         </p>
                       </Box>
-                      <Box className="right-detail">
-                        <Box className="name">
-                          <img src={Document} alt="" />
-                          <h6>Floor Plan</h6>
+                      {this.state.sharedAreaData.floorPlan && (
+                        <Box className="right-detail">
+                          <Box className="name">
+                            <img src={Document} alt="" />
+                            <h6>{t("Floor Plan")}</h6>
+                          </Box>
+                          <Link href={this.state.sharedAreaData.floorPlan.url} target="_blank">
+                            <img src={downloadIcon} alt="" />
+                          </Link>
                         </Box>
-                        <img src={downloadIcon} alt="" />
-                      </Box>
+                      )}
                     </Box>
                   </Card>
                 </Box>
@@ -228,7 +233,11 @@ class SharedArea extends SharedAreaController {
                           </TableRow>
                         </TableHead>
                         <TableBody>
-                          {rows.map((row: any) => (
+                          <TableRow>
+                            <TableCell colSpan={6}>Coming soon!!</TableCell>
+                          </TableRow>
+                          {/* <TableRow colSpan="6">Coming soon</TableRow> */}
+                          {/* {rows.map((row: any) => (
                             <TableRow key={row.no}>
                               <TableCell>{row.no}</TableCell>
                               <TableCell align="left">{row.Reserved_By}</TableCell>
@@ -237,16 +246,16 @@ class SharedArea extends SharedAreaController {
                               <TableCell align="left">{row.Reserved_On}</TableCell>
                               <TableCell align="left">{row.Duration}</TableCell>
                             </TableRow>
-                          ))}
+                          ))} */}
                         </TableBody>
                       </Table>
                     </TableContainer>
-                    <Box className="unit-pagination">
+                    {/* <Box className="unit-pagination">
                       <p>
                         {t("Showing")} <span>5</span> {t("of")} <span>{rows.length}</span> {t("results")}
                       </p>
                       <Pagination count={10} variant="outlined" shape="rounded" />
-                    </Box>
+                    </Box> */}
                   </Card>
                 </Box>
               </Container>
@@ -372,6 +381,7 @@ class SharedArea extends SharedAreaController {
                             type="file"
                             ref={(ref: any) => (this.uploadFile = ref)}
                             style={{ display: "none" }}
+                            accept=".pdf"
                             onChange={(e: any) => {
                               const file = e.target.files[0];
                               setFieldValue("floorPlan", file);
@@ -414,8 +424,6 @@ class SharedArea extends SharedAreaController {
             }}
           </Formik>
         </Dialog>
-
-        {/* <Loader loading={this.state.loading} /> */}
       </>
     );
   }

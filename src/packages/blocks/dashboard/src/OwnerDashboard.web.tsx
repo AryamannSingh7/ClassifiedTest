@@ -297,7 +297,7 @@ class OwnerDashboard extends DashboardController {
                     <Typography variant="h5">{t("Building Categories")}</Typography>
                   </Grid>
                   <Grid item xs={6} sm={6}>
-                    <Link href="">
+                    <Link href="/Tenants">
                       <DashboardCard image={keyhand} heading={t("My tenants")} title={t("Total")} value="75" />
                     </Link>
                   </Grid>
@@ -343,12 +343,7 @@ class OwnerDashboard extends DashboardController {
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="/Announcement">
-                      <DashboardCard
-                        image={keyhand}
-                        heading={t("Announcements")}
-                        title={t("Unopened")}
-                        value="75"
-                      />
+                      <DashboardCard image={keyhand} heading={t("Announcements")} title={t("Unopened")} value="75" />
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
@@ -388,12 +383,7 @@ class OwnerDashboard extends DashboardController {
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="/Visitors">
-                      <DashboardCard
-                        image={keyhand}
-                        heading={t("My Visitors")}
-                        title={t("Scheduled")}
-                        value="75"
-                      />
+                      <DashboardCard image={keyhand} heading={t("My Visitors")} title={t("Scheduled")} value="75" />
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
