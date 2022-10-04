@@ -245,6 +245,13 @@ import VisitorAdd from '../../blocks/invitefriends/src/VisitorAdd.web';
 import VisitorList from '../../blocks/invitefriends/src/VisitorsList.web';
 import VisitorsDetails from '../../blocks/invitefriends/src/VisitorDetailsManager.web';
 
+// My Team Imports
+import MyTeam from "../../blocks/FriendList/src/MyTeam.web"
+import MyTeamCore from "../../blocks/FriendList/src/MyTeamCore.web"
+import MyTeamUserDetails from "../../blocks/FriendList/src/MyTeamUserDetails.web"
+import ChairmanNominationMain from "../../blocks/FriendList/src/ChairmanNominationMain.web"
+import NominationDetails from "../../blocks/FriendList/src/NominationDetails.web"
+
 const routeMap = {
   //done
   LandingPage: {
@@ -1418,6 +1425,7 @@ const routeMap = {
     path: '/VisitorsDetails',
     exact: true
   },
+
   VisitorAddSuccess: {
     component: VisitorAddSuccess,
     path: '/VisitorAddSuccess',
@@ -1427,6 +1435,49 @@ const routeMap = {
   VisitorUpdateSuccess: {
     component: VisitorUpdateSuccess,
     path: '/VisitorUpdateSuccess',
+    exact: true
+  },
+
+  // My Team
+
+  MyTeam: {
+    component: MyTeam,
+    path: '/TeamMembers',
+    exact: true
+  },
+  MyTeamCore: {
+    component: MyTeamCore,
+    path: '/TeamMembers/CoreTeam',
+    exact: true
+  },
+
+  MyTeamSub: {
+    component: MyTeamCore,
+    path: '/TeamMembers/SubTeam',
+    exact: true
+  },
+
+  MyTeamService: {
+    component: MyTeamCore,
+    path: '/TeamMembers/ServiceProviders',
+    exact: true
+  },
+
+  TeamUserDetails: {
+    component: MyTeamUserDetails,
+    path: '/TeamMembers/userDetails',
+    exact: true
+  },
+
+  ChairmanNominationMain:{
+    component: ChairmanNominationMain,
+    path: '/Nominations',
+    exact: true
+  },
+
+  NominationDetails :{
+    component: NominationDetails,
+    path: '/NominationDetails',
     exact: true
   },
 

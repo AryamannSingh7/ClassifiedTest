@@ -100,9 +100,25 @@ class ChairmanSidebar extends DashboardController {
               </Typography>
               <Typography className="ListItemText">My Team</Typography>
             </AccordionSummary>
-            <AccordionDetails>
+            <AccordionDetails onClick={() => {
+              //@ts-ignore
+              this.props.history.push("/TeamMembers")}}>
               <Typography variant="body2" className="cursor-pointer">
-                sub headings
+                Team Members
+              </Typography>
+            </AccordionDetails>
+            <AccordionDetails onClick={() => {
+              //@ts-ignore
+              this.props.history.push("/Nominations")}}>
+              <Typography variant="body2" className="cursor-pointer">
+                Chairman and Vice Chairman Nomination
+              </Typography>
+            </AccordionDetails>
+            <AccordionDetails onClick={() => {
+              //@ts-ignore
+              this.props.history.push("/TaskManagement")}}>
+              <Typography variant="body2" className="cursor-pointer">
+                Task Management
               </Typography>
             </AccordionDetails>
           </Accordion>
