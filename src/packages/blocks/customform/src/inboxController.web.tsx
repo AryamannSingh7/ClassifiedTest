@@ -257,7 +257,7 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
           if (!responseJson.errors) {
             console.log(responseJson)
             if (responseJson) {
-              window.location.reload();
+              // window.location.reload();
               // this.setState({ allInbox: responseJson.data }, () => console.log(this.state.allInbox))
             }
           } else {
@@ -962,8 +962,7 @@ console.log('hi')
       getName(MessageEnum.RestAPIRequestMessage)
     );
     this.chatSettingApiCallId = requestMessage.messageId;
-    let value = this.state.allInbox[0]?.attributes?.chat_with_account_disable_chat || 'ture'
-
+    let value = this.state.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat 
 
 
     requestMessage.addData(
