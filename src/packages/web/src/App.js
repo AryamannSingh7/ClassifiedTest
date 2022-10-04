@@ -64,31 +64,6 @@ import PhoneNumberInput from "../../blocks/mobile-account-registration/src/Phone
 import AdditionalDetailForm from "../../blocks/mobile-account-registration/src/AdditionalDetailForm";
 import Settings5 from "../../blocks/Settings5/src/Settings5";
 import UserProfileBasicBlock from "../../blocks/user-profile-basic/src/UserProfileBasicBlock";
-import RequestManagement from "../../blocks/RequestManagement/src/RequestManagement";
-import LeadManagement from "../../blocks/LeadManagement/src/LeadManagement";
-import SocialMediaAccountRegistrationScreen from "../../blocks/social-media-account-registration/src/SocialMediaAccountRegistrationScreen";
-import Notifications from "../../blocks/notifications/src/Notifications";
-import MobileAccountLoginBlock from "../../blocks/mobile-account-login/src/MobileAccountLoginBlock";
-import Registration from "../../blocks/email-account-registration/src/Registration.web";
-import OwnerRegistration from "../../blocks/email-account-registration/src/OwnerRegistration.web";
-import ManagerRegistration from "../../blocks/email-account-registration/src/ManagerRegistration.web";
-import SelectOwner from "../../blocks/email-account-registration/src/SelectOwner.web";
-
-
-import VerifyOTP from "../../blocks/email-account-registration/src/VerifyOTP.web";
-import SelectType from "../../blocks/email-account-registration/src/SelectType.web";
-import UnitRegister from "../../blocks/email-account-registration/src/UnitRegister.web";
-import RegisterUnitManually from "../../blocks/email-account-registration/src/RegisterUnitManually.web";
-import RegisterAddressLink from "../../blocks/email-account-registration/src/RegisterAddressLink.web";
-
-import RegistrationRequestSignup from "../../blocks/email-account-registration/src/RegistrationRequestSignup.web";
-
-
-import SearchComplex from "../../blocks/email-account-registration/src/SearchComplex.web";
-
-
-import Address from "../../blocks/email-account-registration/src/Address.web";
-
 import  './assets/css/constants/base/global.scss'
 import LandingPage from "../../blocks/landingpage/src/LandingPage.web";
 import EmailAccountLogin from "../../blocks/email-account-login/src/EmailAccountLogin.web";
@@ -138,6 +113,28 @@ import Inbox from "../../blocks/customform/src/Inbox.web"
 import IncidentChat from "../../blocks/customform/src/IncidentChat.web"
 
 import Chatbox from "../../blocks/customform/src/Chatbox.web"
+// import RequestManagement from "../../blocks/RequestManagement/src/RequestManagement";
+import LeadManagement from '../../blocks/LeadManagement/src/LeadManagement';
+import SocialMediaAccountRegistrationScreen from '../../blocks/social-media-account-registration/src/SocialMediaAccountRegistrationScreen';
+import Notifications from '../../blocks/notifications/src/Notifications';
+import MobileAccountLoginBlock from '../../blocks/mobile-account-login/src/MobileAccountLoginBlock';
+import Registration from '../../blocks/email-account-registration/src/Registration.web';
+import OwnerRegistration from '../../blocks/email-account-registration/src/OwnerRegistration.web';
+import ManagerRegistration from '../../blocks/email-account-registration/src/ManagerRegistration.web';
+import SelectOwner from '../../blocks/email-account-registration/src/SelectOwner.web';
+
+import VerifyOTP from '../../blocks/email-account-registration/src/VerifyOTP.web';
+import SelectType from '../../blocks/email-account-registration/src/SelectType.web';
+import UnitRegister from '../../blocks/email-account-registration/src/UnitRegister.web';
+import RegisterUnitManually from '../../blocks/email-account-registration/src/RegisterUnitManually.web';
+import RegisterAddressLink from '../../blocks/email-account-registration/src/RegisterAddressLink.web';
+
+import RegistrationRequestSignup from '../../blocks/email-account-registration/src/RegistrationRequestSignup.web';
+
+import SearchComplex from '../../blocks/email-account-registration/src/SearchComplex.web';
+
+import Address from '../../blocks/email-account-registration/src/Address.web';
+
 
 import ViewVeichle from '../../blocks/customform/src/ViewVehicle.web';
 import FamilyList from '../../blocks/customform/src/FamilyList.web';
@@ -244,6 +241,10 @@ import VisitorUpdateSuccess from '../../blocks/invitefriends/src/VisitorUpdated'
 import VisitorAdd from '../../blocks/invitefriends/src/VisitorAdd.web';
 import VisitorList from '../../blocks/invitefriends/src/VisitorsList.web';
 import VisitorsDetails from '../../blocks/invitefriends/src/VisitorDetailsManager.web';
+
+// Register Tenant
+import TenantList from '../../blocks/RequestManagement/src/TenantList.web';
+import TenantDetails from '../../blocks/RequestManagement/src/TenantDetails.web';
 
 const routeMap = {
   //done
@@ -994,10 +995,10 @@ const routeMap = {
     component: UserProfileBasicBlock,
     path: '/UserProfileBasicBlock'
   },
-  RequestManagement: {
-    component: RequestManagement,
-    path: '/RequestManagement'
-  },
+  // RequestManagement: {
+  //   component: RequestManagement,
+  //   path: '/RequestManagement'
+  // },
   LeadManagement: {
     component: LeadManagement,
     path: '/LeadManagement'
@@ -1245,10 +1246,10 @@ const routeMap = {
     component: UserProfileBasicBlock,
     path: '/UserProfileBasicBlock'
   },
-  RequestManagement: {
-    component: RequestManagement,
-    path: '/RequestManagement'
-  },
+  // RequestManagement: {
+  //   component: RequestManagement,
+  //   path: '/RequestManagement'
+  // },
   LeadManagement: {
     component: LeadManagement,
     path: '/LeadManagement'
@@ -1470,6 +1471,16 @@ const routeMap = {
     component: SharedArea,
     path: '/SharedArea/:id',
     roles: [ROLE.CHAIRMAN, ROLE.MANAGER]
+  },
+  TenantList: {
+    component: TenantList,
+    path: '/Tenants',
+    roles: [ROLE.OWNER]
+  },
+  TenantDetails: {
+    component: TenantDetails,
+    path: '/Tenant/:id',
+    roles: [ROLE.OWNER]
   },
 
   AlertWeb: {
