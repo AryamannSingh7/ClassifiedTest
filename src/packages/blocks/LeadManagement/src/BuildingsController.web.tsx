@@ -20,6 +20,14 @@ export interface Props {
   // Customizable Area End
 }
 
+interface Pagination {
+  current_page: any | number;
+  next_page: any | number;
+  prev_page: any | number;
+  total_count: any | number;
+  total_pages: any | number;
+}
+
 interface DocumentCount {
   policy: number;
   guidelines: number;
@@ -75,6 +83,8 @@ interface S {
   buildingData: BuildingData;
 
   unitList: any[];
+  pagination: any | Pagination;
+  page: number;
 
   editForm: EditForm;
   // Customizable Area End
@@ -138,6 +148,8 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
       },
 
       unitList: [],
+      pagination: null,
+      page: 1,
 
       editForm: {
         logo: "",
@@ -172,8 +184,8 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
 
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      if (responseJson.data) {
-        this.setState({ unitList: responseJson.data.unit_apartments });
+      if (responseJson.apartment_managements) {
+        this.setState({ unitList: responseJson.apartment_managements.data, pagination: responseJson.meta.pagination });
       }
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
@@ -291,8 +303,15 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
     });
   }
 
+  async componentDidUpdate(prevProps: any, prevState: any): Promise<void> {
+    if (prevState.page !== this.state.page) {
+      await this.getUnitList();
+    }
+  }
+
   // Get Unit List API
   getUnitList = () => {
+    const { page } = this.state;
     const header = {
       "Content-Type": configJSON.ApiContentType,
       token: localStorage.getItem("userToken"),
@@ -304,7 +323,9 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
 
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_address/apartment_list?id=${this.state.buildingId}`
+      `bx_block_settings/apartment_managements/apartment_list?building_management_id=${
+        this.state.buildingId
+      }&per_page=5&page=${page}`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));

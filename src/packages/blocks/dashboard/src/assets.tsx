@@ -32,3 +32,7 @@ export const LogoutIcon = require("../assets/logout.png");
 export const LogoutDialogIcon = require("../assets/logout-dialog.png");
 export const BuildingLogo = require("../assets/building1.png");
 export const hamburgerIcon = require("../assets/hamburger.png");
+export const myTeam = require("../assets/myteam.png");
+export const communityManagement = require("../assets/community.png");
+export const meetings = require("../assets/meetings.png");
+export const complex = require("../assets/B&A.png");

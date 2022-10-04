@@ -332,6 +332,13 @@ export const BuildingApartmentStyle: any = {
       boxShadow: "none",
       borderRadius: "8px",
     },
+    "& .Empty": {
+      padding: "5px 12px",
+      borderRadius: "25px",
+      fontWeight: 600,
+      background: "#e4edff",
+      color: "#2B6FED",
+    },
   },
   unitDetails: {
     "& .navigation": {
