@@ -157,12 +157,14 @@ import ClassifiedManagerDetail from '../../blocks/ContentManagement/src/Classifi
 import NeighboursDetails from '../../blocks/search/src/NeighboursDetails.web';
 import NeighboursListing from '../../blocks/search/src/NeighboursListing.web';
 
+// Help
 import FaqChairman from '../../blocks/contactus/src/FaqChairman.web';
 import FaqOwner from '../../blocks/contactus/src/FaqOwner.web';
 import FaqResident from '../../blocks/contactus/src/FaqResident.web';
 import ContactUsChairman from '../../blocks/contactus/src/ContactUs.web';
 import SubscriptionDetail from '../../blocks/contactus/src/SubscriptionDetails.web';
 
+// Document
 import DocumentChairman from '../../blocks/Notes/src/DocumentChairman.web';
 import DocumentListChairman from '../../blocks/Notes/src/DocumentListChairman.web';
 import DocumentViewChairman from '../../blocks/Notes/src/DocumentViewChairman.web';
@@ -173,6 +175,7 @@ import BuildingDocuments from '../../blocks/Notes/src/BuildingDocuments.web';
 import BuildingDocumentList from '../../blocks/Notes/src/BuildingDocumentList.web';
 import ViewBuildingDocument from '../../blocks/Notes/src/ViewBuildingDocument.web';
 
+// Contract
 import ContractsList from '../../blocks/RolesPermissions2/src/ContractsList.web';
 import ContractDetail from '../../blocks/RolesPermissions2/src/ContractDetail.web';
 import TemplateDetail from '../../blocks/RolesPermissions2/src/TemplateDetail.web';
@@ -184,6 +187,7 @@ import ChangedSelectedTemplate from '../../blocks/RolesPermissions2/src/ChangedS
 import ReviewTemplate from '../../blocks/RolesPermissions2/src/ReviewTemplate.web';
 import AddCondition from '../../blocks/RolesPermissions2/src/AddCondition.web';
 
+// Meetings
 import ChairmanScheduledMeeting from '../../blocks/BulkUploading/src/ScheduledMeeting.web';
 import ScheduledMeetingDetails from '../../blocks/BulkUploading/src/ScheduledMeetingDetails.web';
 import ChairmanMeetingMinutes from '../../blocks/BulkUploading/src/MeetingMinutes.web';
@@ -226,6 +230,7 @@ import Announcement from '../../blocks/BroadcastMessage/src/Announcement.web';
 import BuildingAnnouncement from '../../blocks/BroadcastMessage/src/BuildingAnnouncement.web';
 import AnnouncementInfo from '../../blocks/BroadcastMessage/src/AnnouncementDetails.web';
 
+// Complex and Appartment
 import Buildings from '../../blocks/LeadManagement/src/Buildings.web';
 import Complex from '../../blocks/LeadManagement/src/Complex.web';
 import UnitDetails from '../../blocks/LeadManagement/src/UnitDetails.web';
@@ -246,6 +251,13 @@ import VisitorsDetails from '../../blocks/invitefriends/src/VisitorDetailsManage
 import TenantList from '../../blocks/RequestManagement/src/TenantList.web';
 import TenantDetails from '../../blocks/RequestManagement/src/TenantDetails.web';
 import RegisterTenant from '../../blocks/RequestManagement/src/RegisterTenant.web';
+
+// My Team Imports
+import MyTeam from "../../blocks/FriendList/src/MyTeam.web"
+import MyTeamCore from "../../blocks/FriendList/src/MyTeamCore.web"
+import MyTeamUserDetails from "../../blocks/FriendList/src/MyTeamUserDetails.web"
+import ChairmanNominationMain from "../../blocks/FriendList/src/ChairmanNominationMain.web"
+import NominationDetails from "../../blocks/FriendList/src/NominationDetails.web"
 
 const routeMap = {
   //done
@@ -1420,6 +1432,7 @@ const routeMap = {
     path: '/VisitorsDetails',
     exact: true
   },
+
   VisitorAddSuccess: {
     component: VisitorAddSuccess,
     path: '/VisitorAddSuccess',
@@ -1429,6 +1442,49 @@ const routeMap = {
   VisitorUpdateSuccess: {
     component: VisitorUpdateSuccess,
     path: '/VisitorUpdateSuccess',
+    exact: true
+  },
+
+  // My Team
+
+  MyTeam: {
+    component: MyTeam,
+    path: '/TeamMembers',
+    exact: true
+  },
+  MyTeamCore: {
+    component: MyTeamCore,
+    path: '/TeamMembers/CoreTeam',
+    exact: true
+  },
+
+  MyTeamSub: {
+    component: MyTeamCore,
+    path: '/TeamMembers/SubTeam',
+    exact: true
+  },
+
+  MyTeamService: {
+    component: MyTeamCore,
+    path: '/TeamMembers/ServiceProviders',
+    exact: true
+  },
+
+  TeamUserDetails: {
+    component: MyTeamUserDetails,
+    path: '/TeamMembers/userDetails',
+    exact: true
+  },
+
+  ChairmanNominationMain:{
+    component: ChairmanNominationMain,
+    path: '/Nominations',
+    exact: true
+  },
+
+  NominationDetails :{
+    component: NominationDetails,
+    path: '/NominationDetails',
     exact: true
   },
 

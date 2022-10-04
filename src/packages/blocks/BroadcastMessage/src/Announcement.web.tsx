@@ -71,7 +71,7 @@ class Announcement extends AnnouncementController{
                                             bgcolor="white"
                                             marginTop='1rem'
                                             padding='1rem'
-                                            onClick={()=>this.props.history.push("/BuildingAnnouncement?id="+item.id)}
+                                            onClick={()=>this.manageRedirect(item.id,item.attributes.complex_name)}
                                         >
                                             <Box style={{minWidth:"100%"}}>
                                                 <Box style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>

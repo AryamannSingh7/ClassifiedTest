@@ -32,6 +32,7 @@ import { Formik, Form, Field } from "formik";
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import InboxController,{Props} from "./inboxController.web";
 import '../assets/css/style.scss'
+import { info } from "./assets";
 
 class ChatBox extends InboxController {
   constructor(props: Props) {
@@ -248,6 +249,19 @@ this.setState({ selectedMedia: message.message.images[0] })}} src={message.messa
               ))}
             </List>
 
+{
+  item?.attributes?.chatable?.attributes?.disable_chat ? <>
+
+  <div style={{display:'flex',justifyContent:'center',alignItems:'center',gap:'0.5rem',background:'rgb(255 226 226)',borderRadius:'6px',boxShadow:'0px 4px 14px #f4f6fb',padding:'0.75rem'}}>
+  <img src={info} width='20' height='20'/>
+  <p>
+
+  Aryn Hossain has disabled his chat. You won’t be able to send him message unit he enables it.
+  </p>
+  </div>
+  
+  </>:
+
 
             <Grid container style={{ padding: "20px", display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
 
@@ -289,6 +303,8 @@ this.setState({ selectedMedia: message.message.images[0] })}} src={message.messa
               <SendIcon style={{ cursor: 'pointer' }} onClick={()=>this.createMessages()} />
 
             </Grid>
+
+}
 
           </Grid>
         </Grid>

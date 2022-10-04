@@ -7,6 +7,7 @@ exports.validationApiContentType = "application/json";
 exports.validationApiMethodType = "GET";
 exports.exampleAPiEndPoint = "EXAMPLE_URL";
 exports.exampleAPiMethod = "POST";
+exports.exampleAPiMethodDelete = "DELETE";
 exports.exampleApiContentType = "application/json";
 exports.textInputPlaceHolder = "Enter Text";
 exports.labelTitleText = "BroadcastMessage";

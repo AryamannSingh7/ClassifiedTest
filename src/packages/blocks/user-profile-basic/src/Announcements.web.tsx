@@ -106,7 +106,7 @@ class Announcements extends AnnouncementsController {
                       <Box className="filter">
                         <Box className="search-box">
                           <SearchIcon />
-                          <InputBase placeholder="Search" className="search" />
+                          <InputBase placeholder="Search" className="search" onChange={this.handleSearch}/>
                         </Box>
                         <Select displayEmpty value={this.state.shortBy} className="select-input" onChange={(e)=>this.shortByAction(e)} >
                           <MenuItem value="" disabled>
@@ -131,8 +131,8 @@ class Announcements extends AnnouncementsController {
                       </TableHead>
                       <TableBody>
                         {
-                          this.state.announcementList.length > 0 &&
-                            this.state.announcementList.map((item:any,key:any)=> {
+                          this.state.announcementList?.length > 0 &&
+                            this.state.announcementList?.map((item:any,key:any)=> {
                               return(
                                   <TableRow key={key} onClick={()=> this.props.history.push(`AnnouncementDetails?id=${item.id}`)} style={{cursor:"pointer"}}>
                                     <TableCell>{key+1}</TableCell>
