@@ -41,7 +41,6 @@ interface S {
 
   editForm: EditUnitForm;
 
-  familyList: any[];
   relationList: any[];
   idProofList: any[];
 
@@ -69,7 +68,14 @@ interface UnitData {
   activeIncidents: any[];
   vehicleDetails: any[];
   rentHistory: any[];
+  familyList: any[];
+  relatedPeople: any[];
   buildingName: string;
+  rentStatus: string;
+  tenantName: string;
+  rentStartDate: string;
+  rentEndDate: string;
+  rentAmount: string;
 }
 
 interface EditUnitForm {
@@ -145,7 +151,14 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
         activeIncidents: [],
         vehicleDetails: [],
         rentHistory: [],
+        familyList: [],
+        relatedPeople: [],
         buildingName: "",
+        rentStatus: "",
+        tenantName: "",
+        rentStartDate: "",
+        rentEndDate: "",
+        rentAmount: "",
       },
 
       editForm: {
@@ -159,7 +172,6 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
         currentValuation: "",
       },
 
-      familyList: [],
       relationList: [],
       idProofList: [],
 
@@ -207,10 +219,26 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
             purchasePrice: responseJson.data.attributes.purchase_price,
             purchaseDate: responseJson.data.attributes.purchase_date,
             currentValuation: responseJson.data.attributes.current_valuation,
-            activeIncidents: responseJson.data.attributes.active_incidents,
-            vehicleDetails: responseJson.data.attributes.vehicle_details,
+            activeIncidents: responseJson.data.attributes.active_incidents.data,
             rentHistory: responseJson.data.attributes.rent_history,
             buildingName: responseJson.data.attributes.building_management.name,
+            rentStatus: responseJson.data.attributes.status,
+            tenantName:
+              responseJson.data.attributes.rent_status && responseJson.data.attributes.rent_status.tenant_name,
+            rentStartDate:
+              responseJson.data.attributes.rent_status && responseJson.data.attributes.rent_status.start_date,
+            rentEndDate: responseJson.data.attributes.rent_status && responseJson.data.attributes.rent_status.end_date,
+            rentAmount:
+              responseJson.data.attributes.rent_status && responseJson.data.attributes.rent_status.rent_amount,
+            familyList: responseJson.data.attributes.family_members.data
+              ? responseJson.data.attributes.family_members.data
+              : [],
+            vehicleDetails: responseJson.data.attributes.vehicle_details.data
+              ? responseJson.data.attributes.vehicle_details.data
+              : [],
+            relatedPeople: responseJson.data.attributes.related_people.data
+              ? responseJson.data.attributes.related_people.data
+              : [],
           },
         });
       }
@@ -248,29 +276,6 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
       ApiCatchErrorResponse(errorResponse);
     }
 
-    // Get Family List API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetFamilyListCallId !== null &&
-      this.GetFamilyListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.GetFamilyListCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      if (responseJson) {
-        this.setState({ familyList: responseJson.data ? responseJson.data : [] });
-      }
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
-
     // Edit Family Family Member API Response
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
@@ -283,7 +288,7 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
 
       if (responseJson.data) {
         toast.success("Details updated successfully");
-        this.getFamilyList();
+        this.getUnitDetail();
       }
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
@@ -307,7 +312,7 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
 
       if (responseJson) {
         this.handleDeleteFamilyMemberModal();
-        this.getFamilyList();
+        this.getUnitDetail();
         toast.success("Details deleted successfully");
       }
 
@@ -372,7 +377,7 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
     const unit_id = this.props.navigation.getParam("id");
     this.setState({ unitId: unit_id }, () => {
       this.getUnitDetail();
-      this.getFamilyList();
+      // this.getFamilyList();
       this.getRelationList();
       this.getIDProofList();
     });
@@ -429,27 +434,6 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestBodyMessage), data);
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePatch);
-
-    runEngine.sendMessage(apiRequest.id, apiRequest);
-    return true;
-  };
-
-  // Get Family List API
-  getFamilyList = () => {
-    const header = {
-      "Content-Type": configJSON.ApiContentType,
-      token: localStorage.getItem("userToken"),
-    };
-
-    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
-
-    this.GetFamilyListCallId = apiRequest.messageId;
-
-    apiRequest.addData(getName(MessageEnum.RestAPIResponceEndPointMessage), `bx_block_family/families`);
-
-    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
-
-    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
