@@ -8,6 +8,7 @@ import MessageEnum, {
 
 // Customizable Area Start
 import * as Yup from 'yup';
+import moment from "moment";
 import {RouteComponentProps} from 'react-router';
 import { imgPasswordInVisible, imgPasswordVisible } from "./assets";
 import { valueContainerCSS } from "react-select/src/components/containers";
@@ -41,10 +42,10 @@ export interface S {
   userTypeData:any;
   anchorEl :any ;
   anchorEl_1 :any ;
-  getIncidentDetails : any;
+  getClassifiedDetails : any;
   sortBy : any ;
   status : any;
-  myApartmentList:any;
+  getCurrencyList:any;
   upload:any;
   notImageOrVideoError:any,
   sizeError:any,
@@ -77,9 +78,9 @@ export default class ClassifiedController extends BlockComponent<
   validationApiCallId: any;
   getClassifiedListingApiCallId: any;
   getClassifiedDetailsByIdApiCallId : any ;
-  getCommonAreaApiCallId : any ;
-  getIncidentRelatedApiCallId:any;
-  getMyApartmentListApiCallId:any;
+  getMyClassifiedListApiCallId : any ;
+  updateClassifiedApiCallId:any;
+  getCurrencyListApiCallId:any;
 
   imgPasswordVisible: any;
   imgPasswordInVisible: any;
@@ -132,10 +133,10 @@ export default class ClassifiedController extends BlockComponent<
       classifiedtListing: null,
       anchorEl:null,
       anchorEl_1:null,
-      getIncidentDetails:null,
+      getClassifiedDetails:null,
       sortBy : "" ,
       status : "",
-      myApartmentList:[],
+      getCurrencyList:[],
       upload:false,
       notImageOrVideoError:false,
       sizeError:false,
@@ -167,11 +168,9 @@ export default class ClassifiedController extends BlockComponent<
 
   async componentDidUpdate(prevProps: any, prevState: any) {
     if (
-      prevState.sortBy !== this.state.sortBy ||
       prevState.status !== this.state.status 
-
     ) {
-     this.getClassifiedListing(this.state.sortBy ,this.state.status)
+     this.getClassifiedListing(this.state.status)
     }
   }
 
@@ -249,8 +248,7 @@ export default class ClassifiedController extends BlockComponent<
         else if (apiRequestCallId === this.getClassifiedListingApiCallId) {
           if (responseJson && responseJson?.data ) {
           console.log("getClassifiedListingApiCallId ========================>",responseJson)
-          this.setState({classifiedtListing :responseJson?.data})
-          this.setState({loading: false})
+          this.setState({classifiedtListing :responseJson?.data,loading: false})
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
             this.setState({ error });
@@ -263,8 +261,8 @@ export default class ClassifiedController extends BlockComponent<
         else if (apiRequestCallId === this.getClassifiedDetailsByIdApiCallId) {
           if (responseJson && responseJson?.data ) {
           console.log("getClassifiedDetailsByIdApiCallId ========================>",responseJson)
-          this.setState({getIncidentDetails :responseJson?.data})
-          console.log("responseJson getIncidentDetails========================>",this.state?.getIncidentDetails)
+          this.setState({getClassifiedDetails :responseJson?.data})
+          console.log("responseJson getClassifiedDetails========================>",this.state?.getClassifiedDetails)
           this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = responseJson.errors[0] as string;
@@ -278,10 +276,10 @@ export default class ClassifiedController extends BlockComponent<
           this.parseApiCatchErrorResponse(this.state.error);
           this.setState({loading: false , error:null})
         }
-        else if (apiRequestCallId === this.getCommonAreaApiCallId) {
+        else if (apiRequestCallId === this.getMyClassifiedListApiCallId) {
           if (responseJson && responseJson?.data ) {
-          console.log("getCommonAreaApiCallId  ========================>",responseJson)
-          this.setState({commonAreaData :responseJson?.data.common_areas})
+          console.log("getMyClassifiedListApiCallId  ========================>",responseJson)
+          this.setState({classifiedtListing :responseJson?.data})
         
           this.setState({loading: false})
           } else if (responseJson?.errors) {
@@ -293,12 +291,10 @@ export default class ClassifiedController extends BlockComponent<
           this.parseApiCatchErrorResponse(this.state.error);
           this.setState({loading: false , error:null})
         }
-        else if (apiRequestCallId === this.getIncidentRelatedApiCallId) {
+        else if (apiRequestCallId === this.updateClassifiedApiCallId) {
           if (responseJson && responseJson?.data ) {
-          console.log("getIncidentRelatedApiCallId========================>",responseJson)
-          this.setState({incidentRelatedData :responseJson?.data.incident_relateds})
-        
-          this.setState({loading: false})
+          console.log("updateClassifiedApiCallId========================>",responseJson)
+          this.setState({incidentRelatedData :responseJson?.data,loading: false})
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
             this.setState({ error });
@@ -308,10 +304,10 @@ export default class ClassifiedController extends BlockComponent<
           this.parseApiCatchErrorResponse(this.state.error);
           this.setState({loading: false , error:null})
         }
-        else if (apiRequestCallId === this.getMyApartmentListApiCallId) {
+        else if (apiRequestCallId === this.getCurrencyListApiCallId) {
           if (responseJson && responseJson?.data ) {
-          console.log("getMyApartmentListApiCallId========================>",responseJson)
-          this.setState({myApartmentList :responseJson?.data})
+          console.log("getCurrencyListApiCallId========================>",responseJson)
+          this.setState({getCurrencyList :responseJson?.data})
         
           this.setState({loading: false})
           } else if (responseJson?.errors) {
@@ -708,7 +704,7 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
   };
 
  
-  getClassifiedListing= (sortBy : any ,status : any)  => {
+  getClassifiedListing= (status : any)  => {
     try {
       const header = {
         "Content-Type": configJSON.validationApiContentType,
@@ -722,7 +718,7 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
       this.getClassifiedListingApiCallId = requestMessage.messageId;
       this.setState({ loading: true });
      
-     const  getSortByOrStatus = `bx_block_custom_form/incidents?sort_type=${sortBy}&filter_by=${status}`
+     const  getSortByOrStatus = `/bx_block_posts/classifieds?filter_by=${status}`
        
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
@@ -746,7 +742,7 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
     }
   };
   
-  getMyApartmentList = () => {
+  getCurrencyList = () => {
     try {
       const header = {
         "Content-Type": configJSON.validationApiContentType,
@@ -757,7 +753,7 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
-      this.getMyApartmentListApiCallId = requestMessage.messageId;
+      this.getCurrencyListApiCallId = requestMessage.messageId;
       this.setState({ loading: true });
 
       requestMessage.addData(
@@ -782,7 +778,7 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
     }
   };
 
-  getCommonArea = () => {
+  getMyClassifiedList = () => {
     try {
       const header = {
         "Content-Type": configJSON.validationApiContentType,
@@ -793,12 +789,12 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
-      this.getCommonAreaApiCallId = requestMessage.messageId;
+      this.getMyClassifiedListApiCallId = requestMessage.messageId;
       this.setState({ loading: true });
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `bx_block_custom_form/incidents/common_area_list?society_management_id=${society_id}`
+        `bx_block_posts/classifieds/my_classified_list`
       );
 
       requestMessage.addData(
@@ -818,23 +814,22 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
     }
   };
 
-  getIncidentRelated = () => {
+  updateClassified = (id:any) => {
     try {
       const header = {
         "Content-Type": configJSON.validationApiContentType,
         token :localStorage.getItem("userToken")
       };
-
       //const id = localStorage.getItem("userId");
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
-      this.getIncidentRelatedApiCallId = requestMessage.messageId;
+      this.updateClassifiedApiCallId = requestMessage.messageId;
       this.setState({ loading: true });
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        configJSON.incidentRelated
+        `bx_block_posts/classifieds/${id}`
       );
 
       requestMessage.addData(
@@ -844,7 +839,7 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIRequestMethodMessage),
-        configJSON.validationApiMethodType
+        configJSON.PatchAPiMethod
       );
 
       runEngine.sendMessage(requestMessage.id, requestMessage);
@@ -869,7 +864,7 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `bx_block_custom_form/incidents/${id}`
+        `bx_block_posts/classifieds/${id}`
       );
 
       requestMessage.addData(
@@ -893,16 +888,21 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
   handleClick = (event:any) => {
     this.setState({anchorEl:event.currentTarget })
   };
-  handleClose = (e:any, v:any) => {
-    let sortBy : any ;
+  handleClose = (e:any, v:any,id :any) => {
     console.log("v=========>",v)
     if(v === undefined || v === null){
-      sortBy =this.state.sortBy
+      this.setState({anchorEl:null})
     }
-    else {
-      sortBy =v;
+    else if (v === "edit"){
+      localStorage.removeItem("classifiedUserType");
+      this.props.history.push({
+        pathname: "/CreateClassified",
+         //@ts-ignore
+        id,
+    });
     }
-    this.setState({anchorEl:null,sortBy : sortBy})
+    // else 
+    //    this.updateClassified(id)
   };
   
   handleClick_1 = (event :any) => {
@@ -990,12 +990,33 @@ createIncidentSchema() {
       currency:Yup.string().required(`This field is required`).trim(),
       //@ts-ignore
       startDate: Yup.date().default(() => new Date()).required(`This field is required`),
-      endDate: Yup.date()
-      .when(
-        //@ts-ignore
-          "startDate",
-          //@ts-ignore
-          (startDate, schema) => startDate && schema.min(startDate)).required(`This field is required`),
+      endDate: Yup.date().required(`This field is required`)
+                         .test("is-greater", "End date should be greater than Star date", function(value) {
+                         const { startDate } = this.parent;
+      return moment(value, "DD/MM/YYYY").isSameOrAfter(moment(startDate, "DD/MM/YYYY"));
+      }),
+       priceFrom:Yup.number()
+             .typeError("Only numbers are allowed.")
+             .required(" Price is required.")
+             .positive("Negative numbers are not allowed.")
+             .integer("Number can't contain a decimal."),
+    priceTo:Yup.number()
+           .typeError("Only numbers are allowed.")
+           .required(" Price is required.")
+           .positive("Negative numbers are not allowed.")
+           .integer("Number can't contain a decimal.")
+           .test("priceFrom ", "value sholud be greater than From price", function(value : number) {
+            const { priceFrom } = this.parent;
+            return value > priceFrom ;
+          }),
+    timeFrom:Yup.string().required(`star time cannot be empty`).trim(),
+    timeTo:Yup.string()
+    .required("end time cannot be empty")
+    .test("is-greater", "End time should be greater than Star time", function(value) {
+      const { timeFrom } = this.parent;
+      return moment(value, "HH:mm").isSameOrAfter(moment(timeFrom, "HH:mm"));
+    }),
+    paymentDetail:Yup.string().required(`This field is required`).trim(),  
     });
        
     return validations ;

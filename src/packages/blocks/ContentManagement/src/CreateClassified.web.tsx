@@ -50,13 +50,24 @@ class CreateClassified extends ClassifiedController {
   }
   
   componentDidMount():any {
-    this.getMyApartmentList();
-    this.getCommonArea();
-    this.getIncidentRelated();
+    this.getCurrencyList();
+     //@ts-ignore
+    const id =this.props?.history?.location?.id;
+    if (id)
+    this.getClassifiedDetailsById(id)
   }
   render() {
     const { navigation } = this.props;
-    console.log("this.state?.myApartmentList?==============>",this.state?.myApartmentList)
+    console.log("this.state?.getClassifiedDetails?==============>",this.state?.getClassifiedDetails)
+    const id = this.state?.getClassifiedDetails?.id;
+    const attributes = this.state?.getClassifiedDetails?.attributes;
+    const classifiedUserType = localStorage.getItem("classifiedUserType")
+    // if (!classifiedUserType) {
+    //   //@ts-ignore
+    //   this.props.history.replace("/ClassifiedType");
+    //   return null;
+    // }
+
     return (
       <>
         <Box className="login-wrapper incident-wrapper">
@@ -66,22 +77,31 @@ class CreateClassified extends ClassifiedController {
                 <Box className="content-header">
                   <Box className="left-block blocks">
                     <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
-                    <h4>Sellers Request</h4>
+                    { classifiedUserType === "buyer" ?<h4>Buyers Request </h4>
+                        : classifiedUserType === "seller" ?<h4>Sellers Request</h4>
+                        :  classifiedUserType === "generic" ?<h4>Generic Request</h4>
+                        : <h4>Edit Classified</h4>
+                    }
                   </Box>
                 </Box>
                 <Box className="content-block-wrapper common-incident-block desktop-ui">
                   <Formik
                     initialValues={{
-                      phone: "",
-                      email: "",
-                      classifiedTitle: "",
-                      description: "",
+                      phone:this.state?.getClassifiedDetails?.attributes?.full_phone_number || "",
+                      email:attributes?.email|| "",
+                      classifiedTitle: attributes?.title||"",
+                      description:attributes?.description|| "",
                       media: [],
-                      price: "",
-                      currency:' ',
-                      endDate: "",
-                      startDate:"",
-                      selectCode:'+966'
+                      price:"",
+                      currency:attributes?.currency?.currency||' ',
+                      endDate: attributes?.duration_to||"",
+                      startDate:attributes?.duration_from||"",
+                      selectCode:attributes?.email||'+966',
+                      priceFrom:attributes?.price_from||"",
+                      priceTo:attributes?.price_to||"",
+                      timeFrom:attributes?.time_from||"",
+                      timeTo:attributes?.time_to||"",
+                      paymentDetail:attributes?.payment_detail||""
                     }}
                     validationSchema={this.createIncidentSchema()}
                     //validateOnMount={true}
@@ -182,8 +202,6 @@ class CreateClassified extends ClassifiedController {
                           </span>
                           <ErrorMessage className="text-error" component="Typography" name="email" />
                         </Box>
-                        
-                        
                         <Box className="formGroup">
                           <Field name="classifiedTitle" type="text" placeholder="Classified Title" className="formInput" />
                           <span className="frmLeftIcons">
@@ -253,15 +271,10 @@ class CreateClassified extends ClassifiedController {
                           }
                           {/* <ErrorMessage className="text-error" component="Typography" name="media" /> */}
                         </Box>
-                        
-                        <Box className="formGroup">
-                          <Field name="price" type="text" placeholder="price" className="formInput" />
-                          <span className="frmLeftIcons">
-                            <img src={Warning_Icon} className="frm-icons" alt="Warning Icon" />
-                          </span>
-                          <ErrorMessage className="text-error" component="Typography" name="price" />
-                        </Box>
-                        <Box className="formGroup customSelect">
+                        {
+                            classifiedUserType === "generic" ? 
+                            <>
+                             <Box className="formGroup customSelect">
                           <FormControl variant="outlined" >
                             <span className="frmLeftIcons">
                               <img src={Box_Icon} className="frm-icons" alt="House Icon" />
@@ -280,7 +293,7 @@ class CreateClassified extends ClassifiedController {
                                currency
                               </MenuItem>
                               {
-                                this.state?.myApartmentList?.map((val:any, index:any) => (
+                                this.state?.getCurrencyList?.map((val:any, index:any) => (
                                   <MenuItem
                                     key={index}
                                     value={val?.id}
@@ -293,7 +306,103 @@ class CreateClassified extends ClassifiedController {
                             <ErrorMessage className="text-error" component="Typography" name="currency" />
                           </FormControl>
                         </Box>
-                        <p>Select duration to let buyers know how long your offer stays</p> 
+
+                            <Box className="formGroup">
+                            <Field name="paymentDetail" type="text" placeholder="paymentDetail" className="formInput" />
+                            <span className="frmLeftIcons">
+                              <img src={Warning_Icon} className="frm-icons" alt="Warning Icon" />
+                            </span>
+                            <ErrorMessage className="text-error" component="Typography" name="paymentDetail" />
+                          </Box>
+
+                          <p>Select timing for which you are willing to 
+                             provide/receive the service</p>
+                            
+                            <Box className="formGroup">
+                            <Field name="timeFrom" type="time" placeholder="From" className="formInput" />
+                            <span className="frmLeftIcons">
+                              <img src={Warning_Icon} className="frm-icons" alt="Warning Icon" />
+                            </span>
+                            <ErrorMessage className="text-error" component="Typography" name="timeFrom" />
+                          </Box>
+
+                          <Box className="formGroup">
+                            <Field name="timeTo" type="time" placeholder="To" className="formInput" />
+                            <span className="frmLeftIcons">
+                              <img src={Warning_Icon} className="frm-icons" alt="Warning Icon" />
+                            </span>
+                            <ErrorMessage className="text-error" component="Typography" name="timeTo" />
+                          </Box>
+                          <p>Select duration to let your potential clients know how long your offer stays</p>
+                          </>
+                            :
+                            null
+                        }
+
+                        {
+                          classifiedUserType === "buyer" ?  
+                          <>
+                       <Grid container  >
+                      <Grid xs={6}>
+                           <p>Price Range</p>
+                           </Grid>
+                       <Grid xs={6} >
+                           <Box className="formGroup customSelect">
+                          <FormControl variant="outlined" >
+                            <span className="frmLeftIcons">
+                              <img src={Box_Icon} className="frm-icons" alt="House Icon" />
+                            </span>
+                            <Select
+                              name="currency"
+                              labelId="demo-simple-select-outlined-label"
+                              id="demo-simple-select-outlined"
+                              style={{paddingLeft:50,marginTop:-3}}
+                              onChange={(e) => {
+                                (e.target.value != " ") && setFieldValue("currency", e.target.value)
+                              }}
+                              value={values.currency}
+                            >
+                              <MenuItem disabled value =" ">
+                               currency
+                              </MenuItem>
+                              {
+                                this.state?.getCurrencyList?.map((val:any, index:any) => (
+                                  <MenuItem
+                                    key={index}
+                                    value={val?.id}
+                                  >
+                                    {val?.attributes?.currency}
+                                  </MenuItem>
+                                ))
+                              }
+                            </Select>
+                            <ErrorMessage className="text-error" component="Typography" name="currency" />
+                          </FormControl>
+                        </Box>
+                     </Grid>
+                     <Grid xs={6}>
+                            <Box className="formGroup">
+                            <Field name="priceFrom" type="text" placeholder="From" className="formInput" />
+                            <span className="frmLeftIcons">
+                              <img src={Warning_Icon} className="frm-icons" alt="Warning Icon" />
+                            </span>
+                            <ErrorMessage className="text-error" component="Typography" name="priceFrom" />
+                          </Box>
+                          </Grid>
+                          <Grid xs={6}>
+                          <Box className="formGroup">
+                            <Field name="priceTo" type="text" placeholder="To" className="formInput" />
+                            <span className="frmLeftIcons">
+                              <img src={Warning_Icon} className="frm-icons" alt="Warning Icon" />
+                            </span>
+                            <ErrorMessage className="text-error" component="Typography" name="priceTo" />
+                          </Box>
+                          </Grid>
+                          </Grid>
+                         <p>Select duration to let buyers know how long your offer stays</p>
+                          </>
+                          :<p>Select duration to let buyers know how long your offer stays</p>
+                        }
                         <Box className="DateSection">
                                         <Box style={{width:"100%"}}>
                                             <TextField
@@ -339,8 +448,8 @@ class CreateClassified extends ClassifiedController {
                                     </Box>
                         <Box className="customButton">
                         <Button variant="contained" type="submit">preview</Button>
-                          {/* {JSON.stringify(errors, null, 2)} 
- {JSON.stringify(values, null, 2)} */}
+                          {JSON.stringify(errors, null, 2)} 
+ {JSON.stringify(values, null, 2)}
                         </Box>
                       </Form>
                     )}

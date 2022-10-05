@@ -35,7 +35,7 @@ class ClassifiedListing extends ClassifiedController {
     super(props);
   }
   componentDidMount(): any {
-    this.getClassifiedListing(this.state.sortBy, this.state.status)
+    this.getClassifiedListing(this.state.status)
   }
   render() {
     const { navigation } = this.props;
@@ -52,7 +52,7 @@ class ClassifiedListing extends ClassifiedController {
                     <h4>Classified</h4>
                   </Box>
                   <Box className="incident-right-block blocks">
-                    <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+                    {/* <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
                       <Button aria-controls="simple-menu" aria-haspopup="true" onClick={(e: any) => this.handleClick(e)}>
                         <img src={Grid_Icon} className="grid-icon icons" alt="" />
                       </Button>
@@ -66,7 +66,7 @@ class ClassifiedListing extends ClassifiedController {
                         <MenuItem onClick={(e) => this.handleClose(e, "asc")}>Ascending</MenuItem>
                         <MenuItem onClick={(e) => this.handleClose(e, "desc")}>Descending</MenuItem>
                       </Menu>
-                    </Box>
+                    </Box> */}
 
                     <Button aria-controls="fade-menu" aria-haspopup="true" onClick={(e: any) => this.handleClick_1(e)}>
                       <img src={Filter_Icon} className="filter-icon icons" alt="" />
@@ -78,9 +78,10 @@ class ClassifiedListing extends ClassifiedController {
                       open={Boolean(this.state.anchorEl_1)}
                       onClose={() => this.handleClose_1("", "")}
                     >
-                      <MenuItem onClick={(e) => this.handleClose_1(e, "Unresolved")}>Unresolved</MenuItem>
-                      <MenuItem onClick={(e) => this.handleClose_1(e, "Resolved")}>Resolved</MenuItem>
-                      <MenuItem onClick={(e) => this.handleClose_1(e, "Pending Confirmation")}>Pending Confirmation</MenuItem>
+                      <MenuItem onClick={(e) => this.handleClose_1(e, "seller")}>Sell</MenuItem>
+                      <MenuItem onClick={(e) => this.handleClose_1(e, "buyer")}>Buy</MenuItem>
+                      <MenuItem onClick={(e) => this.handleClose_1(e, "generic")}>Generic</MenuItem>
+                      <MenuItem onClick={(e) => this.handleClose_1(e, "All")}>All</MenuItem>
                     </Menu>
 
                   </Box>
@@ -89,20 +90,20 @@ class ClassifiedListing extends ClassifiedController {
                   <Box className="incident-content-wrapper">
                     <div className="classified-header">
                       <Box className="customButton">
-                        <Button variant="contained">All Classified</Button>
+                        <Button variant="contained" onClick={()=>this.getClassifiedListing(this.state.status)}>All Classified</Button>
                       </Box>
                       <Box className="customButton btn-gray">
-                        <Button variant="contained">My Classified</Button>
+                        <Button variant="contained"onClick={()=>this.getMyClassifiedList()}>My Classified</Button>
                       </Box>
                     </div>
                     {
                       this.state?.classifiedtListing?.map((val: any, index: any) => (
                         <>
-                          <Card className="classified-card card"  style={{ position: "relative",zIndex: 1}} key={index} onClick={() => this.getIncidentDetails(val.id)}>
+                          <Card className="classified-card card"  style={{ position: "relative",zIndex: 1}} key={index} >
                             <CardContent className="costom-card-content">
                               <Box className="classified-card-header">
                                 <Typography component="h4">
-                                  Classified Title
+                                  {val?.attributes?.title}
                                 </Typography>
                                 <Button  style={{ position: "absolute",right:"10px" ,zIndex: 10}} aria-controls="simple-menu" aria-haspopup="true" onClick={(e: any) => this.handleClick(e)}>
                                   <img src={Setting_Icon} className="grid-icon icons" alt="" />
@@ -112,32 +113,44 @@ class ClassifiedListing extends ClassifiedController {
                                   anchorEl={this.state.anchorEl}
                                   keepMounted
                                   open={Boolean(this.state.anchorEl)}
-                                  onClose={() => this.handleClose("", "")}
+                                  onClose={() => this.handleClose("","","")}
                                 >
-                                  <MenuItem onClick={(e) => this.handleClose(e, "asc")}>Ascending</MenuItem>
-                                  <MenuItem onClick={(e) => this.handleClose(e, "desc")}>Descending</MenuItem>
+                                  <MenuItem onClick={(e) => this.handleClose(e,"edit",val?.id)}>Edit</MenuItem>
+                                  <MenuItem onClick={(e) => this.handleClose(e,"delete",val?.id)}>Delete</MenuItem>
                                 </Menu>
                               </Box>
                               <Typography className="sub-title h5-title" component="h5">
-                                On the contrary,description of the services.On the contrary,description of the services.
-                              </Typography>
+                              {val?.attributes?.description}
+                               </Typography>
                               <Typography component="span">
                                 Available to buy:
                               </Typography>
                               <Typography className="sub-title h5-title" component="h5">
-                                24-3-2022 to 24-3-2022
+                               {val?.attributes?.duration_from} to {val?.attributes?.duration_to}
                               </Typography>
                               <hr />
                               <Box className="card-footer classified-footer">
                                 <div className="left-block">
                                   {/* <img src={Dollar_Icon} className="dollar-icon" alt="Dollar Icon" /> */}
                                   <Typography component="h4">
-                                    SR 500 - SR 650
+                                  {val?.attributes?.currency?.currency} {val?.attributes?.price_from} - {val?.attributes?.currency?.currency}  {val?.attributes?.price_to}
                                   </Typography>
                                 </div>
-                                <Box className="customButton">
-                                  <Button variant="contained" className="contain danger" type="submit" >Unresolved</Button>
-                                </Box>
+                                {
+                                  val?.attributes?.classified_type === "buyer" ?
+                                    <Box className="customButton">
+                                      <Button variant="contained" className="contain success" type="submit" >Buy</Button>
+                                    </Box>
+                                    :
+                                    (val?.attributes?.classified_type === "generic") ?
+                                      <Box className="customButton">
+                                        <Button variant="contained" className="contain warning" type="submit" >Generic</Button>
+                                      </Box>
+                                      :
+                                      <Box className="customButton">
+                                        <Button variant="contained" className="contain danger" type="submit" >Sell</Button>
+                                      </Box>
+                                }
                               </Box>
                             </CardContent>
                           </Card>

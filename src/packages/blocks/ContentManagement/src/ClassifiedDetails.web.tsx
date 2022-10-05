@@ -56,8 +56,8 @@ class ClassifiedDetails extends ClassifiedController {
   render() {
     console.log(",image: val===========>", this.state?.file)
     const { navigation } = this.props;
-    const id = this.state?.getIncidentDetails?.id;
-    const attributes = this.state?.getIncidentDetails?.attributes;
+    const id = this.state?.getClassifiedDetails?.id;
+    const attributes = this.state?.getClassifiedDetails?.attributes;
     return (
       <>
         <Box className="login-wrapper incident-wrapper">
