@@ -67,93 +67,40 @@ class ClassifiedDetails extends ClassifiedController {
                 <Box className="content-header">
                   <Box className="left-block blocks">
                     <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
-                    <h4>{attributes?.incident_title}</h4>
+                    <h4>{"Classified"}</h4>
                   </Box>
                 </Box>
                 <Box className="content-block-wrapper common-incident-block">
                   <Box className="incident-content-wrapper">
-                    {
-                      attributes?.incident_status === 'Pending Confirmation' ?
-                        <Card className="incident-card confirmation-card card">
-                          <CardContent className="confirmation-card-content">
-                            <Box className="info-row">
-                              <img src={Info_Icon} className="info-icon" alt="info-icon" />
-                            </Box>
 
-                            <Typography component="h4">
-                              Is your raised incident<br></br>resolved?
-                            </Typography>
-
-                            <Typography component="p">
-                              {attributes?.incident_related?.name} is claiming to have resolved
-                              you incident for ticket id {id}.
-                              Please confirm if it is resolved.
-                            </Typography>
-                            <Box className="customButton">
-                              <Box className="formGroup">
-                                <Button variant="outlined" className="reject-closure-btn" onClick={() => this.confirmOrRejectIncident(id, "reject")} >reject closure</Button>
-                                <Button variant="contained" className="confirm-closure-btn" onClick={() => this.confirmOrRejectIncident(id, "confirm")} >confirm closure</Button>
-                              </Box>
-                            </Box>
-                          </CardContent>
-                        </Card> :
-                        null
-                    }
                     <Box className="incident-rows mt-15">
-                      <h4>Incident Details</h4>
-                      <Box className="customButton">
-                        <Button variant="contained" className={attributes?.incident_status === 'Pending Confirmation' ? "contain warning" : attributes?.incident_status === 'Resolved' ? 'contain success' : 'contain danger'}  > {attributes?.incident_status}</Button>
-                      </Box>
+                      <h4>Classified Details</h4>
                     </Box>
                     <Card className="incident-card card">
                       <CardContent>
                         <Typography className="title-span" component="span">
-                          Affected Area:
+                         Title:
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                          {attributes?.common_area?.name}
+                          {attributes?.title}
                         </Typography>
                         <Typography className="title-span" component="span">
-                          Incident is related to:
+                        Description:
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                          {attributes?.incident_related?.name}
+                          {attributes?.Description}
                         </Typography>
                         <Typography className="title-span" component="span">
-                          Incident Number:
+                         Price:
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                          {id}
-                        </Typography>
-                        {/* <Typography className="title-span" component="span">
-                          Expected Resolution Date:
-                        </Typography>
-                        <Typography className="sub-title" component="h5">
-                          12-03-2021 13:45 {attributes?.expected_resolution_date}
-                        </Typography> */}
-                        <Typography component="span">
-                          Building:
-                        </Typography>
-                        <Typography className="sub-title" component="h5">
-                          {attributes?.apartment_management?.building_name}
+                        {attributes?.price_to}
                         </Typography>
                         <Typography component="span">
-                          Unit:
+                        Duration:
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                          {attributes?.apartment_management?.apartment_name}
-                        </Typography>
-                        <Typography className="title-span" component="span">
-                          Latest update from management:
-                        </Typography>
-                        <Typography className="sub-title" component="h5">
-                          {attributes?.last_update_from_management}
-                        </Typography>
-                        <Typography className="title-span" component="span">
-                          Ackwnolodged by Manager:
-                        </Typography>
-                        <Typography className="sub-title" component="h5">
-                          {attributes?.acknoledged_by_manager}
+                          {attributes?.duration_from} to {attributes?.duration_to}
                         </Typography>
                         {
                           attributes?.attachments.length !== 0 ?
@@ -197,12 +144,6 @@ class ClassifiedDetails extends ClassifiedController {
                             :
                             null
                         }
-                        <Typography className="title-span" component="span">
-                          Description:
-                        </Typography>
-                        <Typography className="sub-title" component="h5">
-                         {attributes?.description}
-                        </Typography>
                       </CardContent>
                     </Card>
                     {/* <Box className="commonForm">
@@ -218,33 +159,38 @@ class ClassifiedDetails extends ClassifiedController {
                       </Box>
                     </Box> */}
                     <Box className="incident-rows mt-20">
-                      <h4>Reporting Details</h4>
+                      <h4>Seller Details</h4>
                     </Box>
                     <Card className="incident-card reporting-card card">
                       <CardContent>
                         <Box className="reporting-row">
                           <img src={User_Icon.default} className="icons" alt="" />
                           <Box className="reporting-right-block">
-                            <h5>Reported By:</h5>
-                            <h4 className="title">Mr. {attributes?.reported_by?.full_name}</h4>
+                            <h5>Published by:</h5>
+                            <h4 className="title">Mr. {attributes?.published_by?.full_name}</h4>
                           </Box>
                         </Box>
                         <Box className="reporting-row">
                           <img src={Calender_Icon.default} className="icons" alt="" />
                           <Box className="reporting-right-block">
-                            <h5>Reported On:</h5>
-                            <h4 className="title">{attributes?.reported_on}</h4>
+                            <h5>Phone Number:</h5>
+                            <h4 className="title">{attributes?.published_by?.full_phone_number}</h4>
                           </Box>
                         </Box>
-                        {attributes?.resolved_on ?
-                          <Box className="reporting-row">
-                            <img src={Calender_Icon.default} className="icons" alt="" />
-                            <Box className="reporting-right-block">
-                              <h5>Resolved On:</h5>
-                              <h4 className="title">{attributes?.resolved_on}</h4>
-                            </Box>
-                          </Box> : null
-                        }
+                        <Box className="reporting-row">
+                          <img src={Calender_Icon.default} className="icons" alt="" />
+                          <Box className="reporting-right-block">
+                            <h5>Published On:</h5>
+                            <h4 className="title">{attributes?.published_by?.email}</h4>
+                          </Box>
+                        </Box>
+                        <Box className="reporting-row">
+                          <img src={Calender_Icon.default} className="icons" alt="" />
+                          <Box className="reporting-right-block">
+                            <h5>Email Address:</h5>
+                            <h4 className="title">{attributes?.published_by?.email || "NA"}</h4>
+                          </Box>
+                        </Box>
                       </CardContent>
                     </Card>
                     {/* <Card className="incident-card reporting-card card">*/}

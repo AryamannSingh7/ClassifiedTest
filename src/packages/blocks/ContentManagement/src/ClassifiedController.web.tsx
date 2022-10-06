@@ -54,6 +54,8 @@ export interface S {
   incidentRelatedData:any,
   classifiedtListing:any,
   showDialog:any;
+  deleteShowDialog:any;
+  classifiedId:any;
   // Customizable Area End
 }
   
@@ -73,7 +75,7 @@ export default class ClassifiedController extends BlockComponent<
   passwordReg: RegExp;
   emailReg: RegExp;
   createAccountApiCallId: any;
-  apiupdateIncidentCallId:any;
+  deleteClassifiedApiCallId:any;
   apicreateIncidentCallId: any;
   validationApiCallId: any;
   getClassifiedListingApiCallId: any;
@@ -142,6 +144,8 @@ export default class ClassifiedController extends BlockComponent<
       sizeError:false,
       file :{},
       showDialog:false,
+      deleteShowDialog:false,
+      classifiedId:null,
       // Customizable Area End
     };
 
@@ -229,12 +233,12 @@ export default class ClassifiedController extends BlockComponent<
           this.parseApiCatchErrorResponse(this.state.error);
           this.setState({loading: false , error:null})
         }
-        else if (apiRequestCallId === this.apiupdateIncidentCallId) {
-          if (responseJson && responseJson.data) {
-            console.log("apiupdateIncidentCallId===========>",responseJson)
+        else if (apiRequestCallId === this.deleteClassifiedApiCallId) {
+          if (responseJson) {
+            console.log("deleteClassifiedApiCallId===========>",responseJson)
                //@ts-ignore
               this.props.history.push("/ClassifiedtListing")
-            this.setState({loading: false})      
+            this.setState({loading: false, deleteShowDialog: false})      
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
             this.setState({ error });
@@ -584,35 +588,20 @@ getIncidentDetails= (id :any) => {
   this.getClassifiedDetailsById(id)
 }
 
-confirmOrRejectIncident =(id : any,val : any)=>{
+deleteClassified =()=>{
   const header = {
     token :localStorage.getItem("userToken")
   };
-  const formData = new FormData();
-  if(val === "confirm"){
-     //@ts-ignore
-    formData.append('incident[mark_resolved_by_reporter]', true);
-    formData.append('incident[incident_status]', 'Resolved');
-  }else{
-     //@ts-ignore
-    formData.append('incident[mark_resolved_by_reporter]', false);
-    formData.append('incident[incident_status]', 'Unresolved');
-  }
- 
- 
- console.log("formData.getAll('apartment_management_id')==================>",formData.get('incident[incident_status]'))
- const httpBody = formData;
- console.log("httpBody httpBody==================>",httpBody);
- 
+  const id =this.state?.classifiedId
   this.setState({loading: true}) 
   const requestMessage = new Message(
     getName(MessageEnum.RestAPIRequestMessage)
   );
 
-  this.apiupdateIncidentCallId = requestMessage.messageId;
+  this.deleteClassifiedApiCallId = requestMessage.messageId;
   requestMessage.addData(
     getName(MessageEnum.RestAPIResponceEndPointMessage),
-    `${configJSON.updateIncident}${id}`
+    `bx_block_posts/classifieds/${id}`
   );
 
   requestMessage.addData(
@@ -621,13 +610,8 @@ confirmOrRejectIncident =(id : any,val : any)=>{
   );
 
   requestMessage.addData(
-    getName(MessageEnum.RestAPIRequestBodyMessage),
-    httpBody
-  );
-
-  requestMessage.addData(
     getName(MessageEnum.RestAPIRequestMethodMessage),
-    configJSON.PatchAPiMethod
+    `DELETE`
   );
 
   runEngine.sendMessage(requestMessage.id, requestMessage);
@@ -644,15 +628,15 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
     };
    // console.log("values create==================>",classifiedFromData.media[0].file );
     const formData = new FormData();
-   formData.append('classified[full_phone_number]', classifiedFromData?.phone);
    formData.append('classified[classified_type]', classifiedUserType);
+   formData.append('classified[full_phone_number]', classifiedFromData?.phone);
    formData.append('classified[email]', classifiedFromData.email);
    formData.append('classified[title]', classifiedFromData.classifiedTitle);
+   formData.append('classified[description]', classifiedFromData.description);
    formData.append('classified[currency_id]', classifiedFromData.currency);
    formData.append('classified[duration_from]', classifiedFromData.startDate);
    formData.append('classified[duration_to]', classifiedFromData.endDate);
-   formData.append('classified[price]', classifiedFromData.price);
-   
+
    for (let j = 0; j < classifiedFromData.media.length; j += 1) {
     let blob = await fetch(classifiedFromData.media[j].url).then(r => r.blob());
       //@ts-ignore
@@ -665,7 +649,19 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
     );
     //console.log("classified[attachments][] ==================>",classifiedFromData.media[j].file);
   }
-   
+  if(classifiedUserType==='generic'){
+    formData.append('classified[payment_detail]', classifiedFromData.paymentDetail);
+    formData.append('classified[time_from]', classifiedFromData.timeFrom);
+    formData.append('classified[time_to]', classifiedFromData.timeTo);
+  }
+  else if(classifiedUserType==='buyer'){
+    formData.append('classified[price_from]', classifiedFromData.priceFrom);
+    formData.append('classified[price_to]', classifiedFromData.priceTo);
+  }
+  else {
+    formData.append('classified[price]', classifiedFromData.price);
+  }
+  
    const httpBody = formData;
     this.setState({loading: true}) 
     const requestMessage = new Message(
@@ -890,8 +886,10 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
   };
   handleClose = (e:any, v:any,id :any) => {
     console.log("v=========>",v)
+    let anchorEl :any ;
     if(v === undefined || v === null){
-      this.setState({anchorEl:null})
+      console.log("v=========>",v)
+      anchorEl=null
     }
     else if (v === "edit"){
       localStorage.removeItem("classifiedUserType");
@@ -901,8 +899,12 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
         id,
     });
     }
-    // else 
-    //    this.updateClassified(id)
+   else if (v === "delete"){
+     {
+      this.setState({deleteShowDialog: true , classifiedId:id }) }
+     }
+
+     this.setState({anchorEl}) 
   };
   
   handleClick_1 = (event :any) => {
@@ -912,6 +914,7 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
   handleClose_1 = (e:any, v:any) => {
    let status : any ;
     if(v === undefined || v === null){
+      console.log("v=========>",v)
       status =this.state.status;
     }
     else {
@@ -968,59 +971,111 @@ else {
    
   };
   
-createIncidentSchema() {
+createClassifiedSchemaGerenic() {
     const validations = Yup.object().shape({
       phone: Yup.number()
       .typeError("Only numbers are allowed.")
-      .required("Mobile number is required.")
       .positive("Negative numbers are not allowed.")
       .integer("Number can't contain a decimal.")
-      .min(10000000, "Minimum 5 digits are required.")
-      .max(9999999999999, "Maximum 11 digits are allowed."),
+      .min(10000000, "Minimum 8 digits are required.")
+      .max(9999999999999, "Maximum 11 digits are allowed.")
+      .required("Mobile number is required")
+     ,
       email: Yup.string()
       .email("Please enter a valid email address.")
-      .required("Email is required."),
-      classifiedTitle: Yup.string().required(`This field is required`).max(50, "Too Long!"),
-      description: Yup.string().required(`This field is required`).max(200, "Too Long!"),
-      price:Yup.number()
-      .typeError("Only numbers are allowed.")
-      .required(" Price is required.")
-      .positive("Negative numbers are not allowed.")
-      .integer("Number can't contain a decimal."),
-      currency:Yup.string().required(`This field is required`).trim(),
-      //@ts-ignore
-      startDate: Yup.date().default(() => new Date()).required(`This field is required`),
-      endDate: Yup.date().required(`This field is required`)
+      .required("Email is required"),
+      classifiedTitle: Yup.string().max(50, "Too Long!").required("Title is required"),
+      description: Yup.string().max(200, "Too Long!").required("Description is required"),
+      currency:Yup.string().trim().required("Currency is required"),
+      startDate: Yup.date().required("Start Date is required"),
+      endDate: Yup.date().required(" End Date is required")
                          .test("is-greater", "End date should be greater than Star date", function(value) {
                          const { startDate } = this.parent;
       return moment(value, "DD/MM/YYYY").isSameOrAfter(moment(startDate, "DD/MM/YYYY"));
-      }),
-       priceFrom:Yup.number()
-             .typeError("Only numbers are allowed.")
-             .required(" Price is required.")
-             .positive("Negative numbers are not allowed.")
-             .integer("Number can't contain a decimal."),
-    priceTo:Yup.number()
-           .typeError("Only numbers are allowed.")
-           .required(" Price is required.")
-           .positive("Negative numbers are not allowed.")
-           .integer("Number can't contain a decimal.")
-           .test("priceFrom ", "value sholud be greater than From price", function(value : number) {
-            const { priceFrom } = this.parent;
-            return value > priceFrom ;
-          }),
-    timeFrom:Yup.string().required(`star time cannot be empty`).trim(),
-    timeTo:Yup.string()
-    .required("end time cannot be empty")
+      })
+      ,
+    timeFrom:Yup.string().required("Start time is required"),
+    timeTo:Yup.string().required("End time is required")
     .test("is-greater", "End time should be greater than Star time", function(value) {
       const { timeFrom } = this.parent;
       return moment(value, "HH:mm").isSameOrAfter(moment(timeFrom, "HH:mm"));
-    }),
-    paymentDetail:Yup.string().required(`This field is required`).trim(),  
+    })
+    ,
+    paymentDetail:Yup.string().required("Payment Detail is required"),
     });
        
     return validations ;
   }
-
+  createClassifiedSchemaBuy() {
+    const validations = Yup.object().shape({
+      phone: Yup.number()
+      .typeError("Only numbers are allowed.")
+      .positive("Negative numbers are not allowed.")
+      .integer("Number can't contain a decimal.")
+      .min(10000000, "Minimum 8 digits are required.")
+      .max(9999999999999, "Maximum 11 digits are allowed.")
+      .required("Mobile number is required")
+     ,
+      email: Yup.string()
+      .email("Please enter a valid email address.")
+      .required("Email is required"),
+      classifiedTitle: Yup.string().max(50, "Too Long!").required("Title is required"),
+      description: Yup.string().max(200, "Too Long!").required("Description is required"),
+      currency:Yup.string().trim().required("Currency is required"),
+      startDate: Yup.date().required("Start Date is required"),
+      endDate: Yup.date().required(" End Date is required")
+                         .test("is-greater", "End date should be greater than Star date", function(value) {
+                         const { startDate } = this.parent;
+      return moment(value, "DD/MM/YYYY").isSameOrAfter(moment(startDate, "DD/MM/YYYY"));
+      })
+      ,
+    priceFrom:Yup.number()
+             .typeError("Only numbers are allowed.")
+             .positive("Negative numbers are not allowed.")
+             .integer("Number can't contain a decimal."),
+    priceTo:Yup.number()
+           .typeError("Only numbers are allowed.")
+           .positive("Negative numbers are not allowed.")
+           .integer("Number can't contain a decimal.")
+           .test("priceFrom ", "Value sholud be greater than From price", function(value : number) {
+            const { priceFrom } = this.parent;
+            return value > priceFrom ;
+          }),
+    });
+       
+    return validations ;
+  }
+  createClassifiedSchemaSell() {
+    const validations = Yup.object().shape({
+      phone: Yup.number()
+      .typeError("Only numbers are allowed.")
+      .positive("Negative numbers are not allowed.")
+      .integer("Number can't contain a decimal.")
+      .min(10000000, "Minimum 8 digits are required.")
+      .max(9999999999999, "Maximum 11 digits are allowed.")
+      .required("Mobile number is required")
+     ,
+      email: Yup.string()
+      .email("Please enter a valid email address.")
+      .required("Email is required"),
+      classifiedTitle: Yup.string().max(50, "Too Long!").required("Title is required"),
+      description: Yup.string().max(200, "Too Long!").required("Description is required"),
+      currency:Yup.string().trim().required("Currency is required"),
+      startDate: Yup.date().required("Start Date is required"),
+      endDate: Yup.date().required(" End Date is required")
+                         .test("is-greater", "End date should be greater than Star date", function(value) {
+                         const { startDate } = this.parent;
+      return moment(value, "DD/MM/YYYY").isSameOrAfter(moment(startDate, "DD/MM/YYYY"));
+      })
+      ,
+      price:Yup.number()
+      .required("Price is required")
+      .typeError("Only numbers are allowed.")
+      .positive("Negative numbers are not allowed.")
+      .integer("Number can't contain a decimal."),
+    });
+       
+    return validations ;
+  }
   // Customizable Area End
 }

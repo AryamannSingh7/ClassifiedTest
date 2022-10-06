@@ -11,6 +11,8 @@ import {
   Card,
   CardContent,
   CardActions,
+  Dialog,
+  DialogTitle,
   Menu,
   MenuItem
 } from "@material-ui/core";
@@ -177,6 +179,40 @@ class ClassifiedListing extends ClassifiedController {
                 <img src={Building1.default} className="building-logo" alt="" />
               </Box>
             </Grid>
+
+            <Dialog
+                open={this.state?.deleteShowDialog}
+                onClose={() => this.setState({ deleteShowDialog: false })}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                className="diloag-wrapper"
+                PaperProps={{
+                  style: {
+                    borderRadius: '15px',
+                    width: "500px"
+                  },
+                }}
+              >
+                <Box className="diloag-body classified-dialouge-body desktop-ui ">
+                  <Box className="diloag-header classified-header">
+                    <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
+                      {""}
+                    </DialogTitle>
+                    {/* <Button onClick={() => this.setState({ statusShowDialog: false })}>
+                      <img src={Close_Icon} className="close-icon" />
+                    </Button> */}
+                  </Box>
+                  <Box className="diloag-content classified-content diloag-management-content">
+                    <img src={"#"} className="lock-logo" alt="Lock_Icon" />
+                    <h3>Delete classified request?</h3>
+                    <p className="lead">Are you sure want to delete published classified buyers request? Once deleted no one will be able to view your request.</p>
+                    <Box className="diloag-btn customButton">
+                      <Button variant="outlined" onClick={() => this.deleteClassified()}>Yes</Button>
+                      <Button variant="contained" onClick={() =>{ this.setState({ deleteShowDialog: false }) }}>No, don’t delete</Button>
+                    </Box>
+                  </Box>
+                </Box>
+              </Dialog>
           </Grid>
         </Box>
         <Loader loading={this.state.loading} />

@@ -52,7 +52,7 @@ class ClassifiedManagerDetail extends ClassifiedManagerController {
   render() {
     const { t, classes }: any = this.props;
     const statusArray = ["Unresolved", "Resolved", "Pending Confirmation"]
-    const id = this.state?.getIncidentDetails?.id;
+    const id = this.state?.getClassifiedDetails?.id;
     const attributes = this.state?.getClassifiedDetails?.attributes;
     const apartmentManagementId = attributes?.apartment_management?.apartment_management_id;
 

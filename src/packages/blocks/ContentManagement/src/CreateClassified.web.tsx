@@ -58,9 +58,11 @@ class CreateClassified extends ClassifiedController {
   }
   render() {
     const { navigation } = this.props;
-    console.log("this.state?.getClassifiedDetails?==============>",this.state?.getClassifiedDetails)
+    console.log("this.state?.getClassifiedDetails?==============>",this.state?.getClassifiedDetails?.attributes)
     const id = this.state?.getClassifiedDetails?.id;
     const attributes = this.state?.getClassifiedDetails?.attributes;
+    console.log("this.state?.getClassifiedDetails?==============>",full_phone_number)
+   
     const classifiedUserType = localStorage.getItem("classifiedUserType")
     // if (!classifiedUserType) {
     //   //@ts-ignore
@@ -87,24 +89,25 @@ class CreateClassified extends ClassifiedController {
                 <Box className="content-block-wrapper common-incident-block desktop-ui">
                   <Formik
                     initialValues={{
-                      phone:this.state?.getClassifiedDetails?.attributes?.full_phone_number || "",
-                      email:attributes?.email|| "",
-                      classifiedTitle: attributes?.title||"",
-                      description:attributes?.description|| "",
+                      phone:attributes?.full_phone_number ||"",
+                      email:attributes.email||"",
+                      classifiedTitle:"",
+                      description:"",
                       media: [],
                       price:"",
-                      currency:attributes?.currency?.currency||' ',
-                      endDate: attributes?.duration_to||"",
-                      startDate:attributes?.duration_from||"",
-                      selectCode:attributes?.email||'+966',
-                      priceFrom:attributes?.price_from||"",
-                      priceTo:attributes?.price_to||"",
-                      timeFrom:attributes?.time_from||"",
-                      timeTo:attributes?.time_to||"",
-                      paymentDetail:attributes?.payment_detail||""
+                      currency:' ',
+                      endDate:"",
+                      startDate:"",
+                      selectCode:'+966',
+                      priceFrom:"",
+                      priceTo:"",
+                      timeFrom:"",
+                      timeTo:"",
+                      paymentDetail:""
                     }}
-                    validationSchema={this.createIncidentSchema()}
-                    //validateOnMount={true}
+                    enableReinitialize
+                    validationSchema={classifiedUserType === "generic" ? this.createClassifiedSchemaGerenic():classifiedUserType === "buyer" ? this.createClassifiedSchemaBuy():this.createClassifiedSchemaSell()}
+                    validateOnMount={true}
                     onSubmit={(values) =>
                       !this.state?.sizeError && !this.state?.notImageOrVideoError ?
                         (
@@ -401,7 +404,52 @@ class CreateClassified extends ClassifiedController {
                           </Grid>
                          <p>Select duration to let buyers know how long your offer stays</p>
                           </>
-                          :<p>Select duration to let buyers know how long your offer stays</p>
+                          :null
+                        }
+                        {   classifiedUserType === "seller" ? 
+                        <> 
+                          <Box className="formGroup">
+                            <Field name="price" type="text" placeholder="price" className="formInput" />
+                            <span className="frmLeftIcons">
+                              <img src={Warning_Icon} className="frm-icons" alt="Warning Icon" />
+                            </span>
+                            <ErrorMessage className="text-error" component="Typography" name="price" />
+                          </Box>
+                          <Box className="formGroup customSelect">
+                          <FormControl variant="outlined" >
+                            <span className="frmLeftIcons">
+                              <img src={Box_Icon} className="frm-icons" alt="House Icon" />
+                            </span>
+                            <Select
+                              name="currency"
+                              labelId="demo-simple-select-outlined-label"
+                              id="demo-simple-select-outlined"
+                              style={{paddingLeft:50,marginTop:-3}}
+                              onChange={(e) => {
+                                (e.target.value != " ") && setFieldValue("currency", e.target.value)
+                              }}
+                              value={values.currency}
+                            >
+                              <MenuItem disabled value =" ">
+                               currency
+                              </MenuItem>
+                              {
+                                this.state?.getCurrencyList?.map((val:any, index:any) => (
+                                  <MenuItem
+                                    key={index}
+                                    value={val?.id}
+                                  >
+                                    {val?.attributes?.currency}
+                                  </MenuItem>
+                                ))
+                              }
+                            </Select>
+                            <ErrorMessage className="text-error" component="Typography" name="currency" />
+                          </FormControl>
+                        </Box>
+                        <p>Select duration to let buyers know how long your offer stays</p>
+                        </>
+                        :null
                         }
                         <Box className="DateSection">
                                         <Box style={{width:"100%"}}>
