@@ -28,7 +28,8 @@ class Visitors extends VisitorAddController{
   }
 
   render() {
-    return (
+    // @ts-ignore
+      return (
         <>
             <Grid item xs={12} md={12} className="auth-cols">
                 <Grid container style={{ margin: '1rem', width: '90%' }} >
@@ -76,19 +77,7 @@ class Visitors extends VisitorAddController{
                                                     <img src={user} />
                                                 </span>
                                             </Box>
-                                            {errors.visitorName && touched.visitorName ? (
-                                                <Typography
-                                                    style={{
-                                                        color: "#F14E24",
-                                                        fontWeight: 300,
-                                                        fontSize: 14,
-                                                        marginTop: 5,
-                                                        marginLeft: 10
-                                                    }}
-                                                >
-                                                    <ErrorMessage className="text-error" component="Typography" name="full_name" />
-                                                </Typography>
-                                            ) : null}
+                                            {errors.visitorName && touched.visitorName && <small className="error">{errors.visitorName}</small>}
                                         </Grid>
                                         <Grid className='formGroup' item xs={12} style={{marginTop:"-10px"}}>
                                             <Box
@@ -141,19 +130,7 @@ class Visitors extends VisitorAddController{
                                                     }}
                                                 />
                                             </Box>
-                                            {errors.phone && touched.phone ? (
-                                                <Typography
-                                                    style={{
-                                                        color: "#F14E24",
-                                                        fontWeight: 300,
-                                                        fontSize: 14,
-                                                        marginTop: 5,
-                                                        marginLeft: 10
-                                                    }}
-                                                >
-                                                    <ErrorMessage className="text-error" component="Typography" name="phone" />
-                                                </Typography>
-                                            ) : null}
+                                            {errors.phone && touched.phone && <small className="error">{errors.phone}</small>}
                                         </Grid>
                                         <Grid item xs={12} style={{marginTop:"-10px"}}>
                                             <FormControl fullWidth>
@@ -174,12 +151,13 @@ class Visitors extends VisitorAddController{
                                                     style={{ display: "none" }}
                                                     accept="image/png, image/gif, image/jpeg"
                                                     onChange={(e: any) => {
-                                                        setFieldValue("file", e.currentTarget.files[0]);
+                                                        setFieldValue("photo", e.currentTarget.files[0]);
                                                     }}
                                                     onBlur={handleBlur}
                                                     name="photo"
                                                 />
-                                                {/*{values.file && <span className="file-name">{values.file.name}</span>}*/}
+                                                {/*@ts-ignore*/}
+                                                {values.photo && <span className="file-name">{values.photo.name}</span>}
                                                 {errors.photo && touched.photo && <small className="error">{errors.photo}</small>}
                                                 <span />
                                             </FormControl>
@@ -245,19 +223,7 @@ class Visitors extends VisitorAddController{
                                                     <img src={list} />
                                                 </span>
                                             </Box>
-                                            {errors.carPlateNo && touched.carPlateNo ? (
-                                                <Typography
-                                                    style={{
-                                                        color: "#F14E24",
-                                                        fontWeight: 300,
-                                                        fontSize: 14,
-                                                        marginTop: 5,
-                                                        marginLeft: 10
-                                                    }}
-                                                >
-                                                    <ErrorMessage className="text-error" component="Typography" name="full_name" />
-                                                </Typography>
-                                            ) : null}
+                                            {errors.carPlateNo && touched.carPlateNo && <small className="error">{errors.carPlateNo}</small>}
                                         </Grid>
                                         <Grid item xs={12}>
                                             <CloseButton type="submit" variant="contained" fullWidth size="large">

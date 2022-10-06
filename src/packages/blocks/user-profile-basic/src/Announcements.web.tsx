@@ -31,7 +31,7 @@ import { Link,withRouter } from "react-router-dom";
 import { SearchIconImage, UploadImage } from "./assets";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
-
+import moment from "moment"
 class Announcements extends AnnouncementsController {
   constructor(props: Props) {
     super(props);
@@ -69,7 +69,7 @@ class Announcements extends AnnouncementsController {
                   <Box className="filter">
                     <Select displayEmpty value={this.state.filterCategory} className="select-input"  onChange={(e) => this.setState({filterCategory:e.target.value})}>
                       <MenuItem value="" disabled>
-                        <em>Category</em>
+                        Category
                       </MenuItem>
                       {
                         this.state.categoryList.length > 0 &&
@@ -82,7 +82,7 @@ class Announcements extends AnnouncementsController {
                     </Select>
                     <Select displayEmpty value={this.state.filerYear} className="select-input" onChange={(e)=> this.setState({filerYear:e.target.value})}>
                       <MenuItem value="" disabled>
-                        <em>Year</em>
+                        Year
                       </MenuItem>
                       {
                         this.state.yearArray.map((item:any,key:any)=>{
@@ -110,7 +110,7 @@ class Announcements extends AnnouncementsController {
                         </Box>
                         <Select displayEmpty value={this.state.shortBy} className="select-input" onChange={(e)=>this.shortByAction(e)} >
                           <MenuItem value="" disabled>
-                            <em>Sort By</em>
+                            Sort By
                           </MenuItem>
                           <MenuItem value="announcement_by">Announcement By</MenuItem>
                           <MenuItem value="announcement_on">Announcement Date</MenuItem>
@@ -126,23 +126,26 @@ class Announcements extends AnnouncementsController {
                           <TableCell>Title</TableCell>
                           <TableCell>Announced On</TableCell>
                           <TableCell>Category</TableCell>
-                          <TableCell>Announced By</TableCell>
+                          <TableCell>Announcement By</TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
                         {
-                          this.state.announcementList?.length > 0 &&
+                          this.state.announcementList?.length > 0 ?
                             this.state.announcementList?.map((item:any,key:any)=> {
                               return(
                                   <TableRow key={key} onClick={()=> this.props.history.push(`AnnouncementDetails?id=${item.id}`)} style={{cursor:"pointer"}}>
                                     <TableCell>{key+1}</TableCell>
                                     <TableCell className="ellipse">{item.attributes.title}</TableCell>
-                                    <TableCell>{item.attributes.announcement_on}</TableCell>
+                                    <TableCell>{moment(item.attributes.announcement_on,'DD/MM/YYYY').format("DD MMM,YYYY")}</TableCell>
                                     <TableCell>{item.attributes.announcement_category}</TableCell>
                                     <TableCell>{item.attributes.announcement_by}</TableCell>
                                   </TableRow>
                               )
-                            })
+                            }) :
+                              <TableRow>
+                                <TableCell>No Data available!</TableCell>
+                              </TableRow>
                         }
                       </TableBody>
                     </Table>

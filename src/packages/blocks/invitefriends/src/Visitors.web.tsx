@@ -80,7 +80,7 @@ class Visitors extends VisitorController{
                         </Grid>
                     </Grid>
                     <Box style={{width:"90%",marginBottom:"50px",marginTop:"10px"}}>
-                        <CloseButton variant="contained" fullWidth size="large">
+                        <CloseButton variant="contained" fullWidth size="large" onClick={()=> this.props.history.push("/AddVisitor")}>
                             add visitor request
                         </CloseButton>
                     </Box>

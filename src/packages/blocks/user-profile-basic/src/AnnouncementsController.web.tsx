@@ -166,7 +166,6 @@ export default class AnnouncementsController extends BlockComponent<Props, S, SS
         formData.append('announcement[image]', this.state.selectedImage,this.state.selectedImage.name)
       }
       formData.append('announcement[building_management_id][]', this.state.selectedBuilding)
-      console.log("FORM DATA CHECK ",formData)
       await this.createAnnouncement(formData)
   }
 

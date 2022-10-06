@@ -240,6 +240,10 @@ export default class CoverImageController extends BlockComponent<
           this.setState({
             announcementList:responseJson.announcement.data
           })
+        }else{
+          this.setState({
+            announcementList:[]
+          })
         }
       }
       if(apiRequestCallId === this.getCategoryListId){

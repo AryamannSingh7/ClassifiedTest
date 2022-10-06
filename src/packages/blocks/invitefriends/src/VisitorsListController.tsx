@@ -26,6 +26,16 @@ interface S {
   status:any;
   VisitorDetails:any;
   deleteConfirmModal:boolean;
+  count:any;
+  page:any;
+  visitorList:any;
+  searchQuery:string;
+  buildingID:any;
+  unitId:any;
+  buildingList:any;
+  unitList:any;
+  pagination:any;
+
 }
 
 interface SS {
@@ -41,7 +51,9 @@ export default class VisitorDetailsController extends BlockComponent<
   apiEmailLoginCallId: string = "";
   emailReg: RegExp;
   labelTitle: string = "";
-
+  getVisitorListId:string = "";
+  getUnitId:string =""
+  getBuildingListId:string ="";
   constructor(props: Props) {
 
     super(props);
@@ -66,7 +78,20 @@ export default class VisitorDetailsController extends BlockComponent<
           building:"Green Villa",
           phoneNo:"+966-1234567890"
         },
+      visitorList:[],
       deleteConfirmModal:false,
+      count:20,
+      page:1,
+      buildingID:"",
+      searchQuery:"",
+      unitId:"",
+      buildingList:[],
+      unitList:[],
+      pagination:{
+        current_page:1,
+        total_count:0,
+        total_pages:1,
+      }
     };
 
     this.emailReg = new RegExp("");
@@ -80,7 +105,8 @@ export default class VisitorDetailsController extends BlockComponent<
   }
 
   async componentDidMount() {
-
+    await this.getVisitorList(this.state.searchQuery,this.state.page)
+    await this.getBuildingList()
   }
 
   handleCloseDeleteModal() {
@@ -95,52 +121,111 @@ export default class VisitorDetailsController extends BlockComponent<
     })
   }
 
+  manageSearch = (e:any) => {
+    this.setState({
+      searchQuery:e.target.value
+    })
+    this.getVisitorList(e.target.value,1)
+  }
+
   async receive(from: string, message: Message) {
     if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
       var errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if(this.apiEmailLoginCallId === apiRequestCallId ){
+      if(this.getVisitorListId === apiRequestCallId ){
         console.log(responseJson,errorReponse)
+        if(responseJson.hasOwnProperty("visitors")){
+          this.setState({
+            visitorList:responseJson.visitors.data,
+            pagination:responseJson.meta.pagination,
+          })
+        }else{
+          this.setState({
+            visitorList:[]
+          })
+        }
+      }
+      if(this.getBuildingListId === apiRequestCallId){
+        if(responseJson.hasOwnProperty("buildings")){
+          this.setState({
+            buildingList:responseJson.buildings
+          })
+        }
+      }if(this.getUnitId === apiRequestCallId){
+        console.log("UNIT LIST",responseJson)
+        if(responseJson.hasOwnProperty('apartments')){
+          this.setState({
+            unitList:responseJson.apartments
+          })
+        }
       }
     }
   }
 
-  doEmailLogIn(data:any): boolean {
-    const header = {
-      "Content-Type": configJSON.loginApiContentType
-    };
-
-    const requestMessage = new Message(
-      getName(MessageEnum.RestAPIRequestMessage)
-    );
-
-    this.apiEmailLoginCallId = requestMessage.messageId;
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      configJSON.loginAPiEndPoint
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestBodyMessage),
-      JSON.stringify(data)
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.loginAPiMethod
-    );
-
-    runEngine.sendMessage(requestMessage.id, requestMessage);
-
-    return true;
+  getVisitorList = async (search:any,page:any) => {
+    console.log("DID I CALLED ?",search)
+    const societyID = localStorage.getItem("society_id")
+    this.getVisitorListId = await this.apiCall({
+      contentType:"application/json",
+      method: "GET",
+      endPoint: `/society_managements/${societyID}/bx_block_visitor/visitors/manager_index?query=${search}&building_management_id=${this.state.unitId}&apartment_management_id=${this.state.buildingID}&count=${this.state.count}&page=${page}`,
+    });
   }
+
+  getBuildingList = async () => {
+    const societyID = localStorage.getItem("society_id")
+    this.getBuildingListId = await this.apiCall({
+      contentType:"application/json",
+      method: "GET",
+      endPoint: `/society_managements/${societyID}/bx_block_meeting/find_building`,
+    });
+  }
+
+
+  getUnitList = async (id:any) => {
+    const societyID = localStorage.getItem("society_id")
+    this.getUnitId = await this.apiCall({
+      contentType:"application/json",
+      method: "GET",
+      endPoint: `/society_managements/${societyID}/bx_block_contract/contracts/find_unit?building_management_id=${id}`,
+    });
+  }
+
+  apiCall = async (data: any) => {
+    const { contentType, method, endPoint, body } = data;
+    // console.log("Called 1",data);
+
+    const token = localStorage.getItem('userToken') ;
+
+    const header = {
+      "Content-Type": contentType,
+      token
+    };
+    const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+    );
+    requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+    );
+    requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        endPoint
+    );
+    requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        method
+    );
+    body && requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestBodyMessage),
+        body
+    );
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    // console.log("Called",requestMessage);
+    return requestMessage.messageId;
+  };
+
   handleClick = (event:any) => {
     this.setState({anchorEl:event.currentTarget })
   };
