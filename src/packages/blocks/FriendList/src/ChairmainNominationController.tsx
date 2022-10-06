@@ -24,16 +24,14 @@ interface S {
   loading: boolean;
   sortBy:any;
   status:any;
-  visitorDetails:any;
-  deleteConfirmModal:boolean;
-  visitorId:any;
+  pollListing:any;
 }
 
 interface SS {
   id: any;
 }
 
-export default class VisitorDetailsController extends BlockComponent<
+export default class CoverImageController extends BlockComponent<
   Props,
   S,
   SS
@@ -42,7 +40,7 @@ export default class VisitorDetailsController extends BlockComponent<
   apiEmailLoginCallId: string = "";
   emailReg: RegExp;
   labelTitle: string = "";
-  visitorDetailsId:string = "";
+
   constructor(props: Props) {
 
     super(props);
@@ -58,17 +56,7 @@ export default class VisitorDetailsController extends BlockComponent<
       loading:false,
       sortBy : "" ,
       status:"",
-      visitorDetails:{
-          id:"1",
-          name:"Sean K. Wilt",
-          profilePic:"https://www.shareicon.net/data/128x128/2016/09/15/829453_user_512x512.png",
-          time:"16:30",
-          date:"10-03-2022",
-          building:"Green Villa",
-          phoneNo:"+966-1234567890"
-        },
-      deleteConfirmModal:false,
-      visitorId:""
+      pollListing:[],
     };
 
     this.emailReg = new RegExp("");
@@ -76,88 +64,59 @@ export default class VisitorDetailsController extends BlockComponent<
 
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
 
-    this.handleOpenDeleteModal = this.handleOpenDeleteModal.bind(this)
-    this.handleCloseDeleteModal = this.handleCloseDeleteModal.bind(this)
-
   }
 
   async componentDidMount() {
-    this.getVisitorDetails()
+
   }
 
-  getVisitorDetails = async () => {
-    const societyID = localStorage.getItem("society_id")
-    const visitorId =  window.location.search ? window.location.search.split("=")[1] : null;
-    this.setState({visitorId:visitorId})
-    this.visitorDetailsId = await this.apiCall({
-      contentType: "application/json",
-      method: "GET",
-      endPoint: `/society_managements/${societyID}/bx_block_visitor/visitors/${visitorId}`,
-    });
-  }
-  handleCloseDeleteModal() {
-    this.setState({
-      deleteConfirmModal:false
-    })
-  }
-
-  handleOpenDeleteModal() {
-    this.setState({
-      deleteConfirmModal:true
-    })
-  }
 
   async receive(from: string, message: Message) {
     if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
       var errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if(this.visitorDetailsId === apiRequestCallId ){
+      if(this.apiEmailLoginCallId === apiRequestCallId ){
         console.log(responseJson,errorReponse)
-        if(responseJson.hasOwnProperty("visitor")){
-          this.setState({
-            visitorDetails:responseJson.visitor.data.attributes
-          })
-        }else{
-          window.history.back()
-        }
       }
     }
   }
 
-  apiCall = async (data: any) => {
-    const { contentType, method, endPoint, body } = data;
-    // console.log("Called 1",data);
-
-    const token = localStorage.getItem('userToken') ;
-
+  doEmailLogIn(data:any): boolean {
     const header = {
-      "Content-Type": contentType,
-      token
+      "Content-Type": configJSON.loginApiContentType
     };
-    const requestMessage = new Message(
-        getName(MessageEnum.RestAPIRequestMessage)
-    );
-    requestMessage.addData(
-        getName(MessageEnum.RestAPIRequestHeaderMessage),
-        header
-    );
-    requestMessage.addData(
-        getName(MessageEnum.RestAPIResponceEndPointMessage),
-        endPoint
-    );
-    requestMessage.addData(
-        getName(MessageEnum.RestAPIRequestMethodMessage),
-        method
-    );
-    requestMessage.addData(
-        getName(MessageEnum.RestAPIRequestBodyMessage),
-        JSON.stringify(body)
-    );
-    runEngine.sendMessage(requestMessage.id, requestMessage);
-    return requestMessage.messageId;
-  };
 
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+    this.apiEmailLoginCallId = requestMessage.messageId;
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      configJSON.loginAPiEndPoint
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestBodyMessage),
+      JSON.stringify(data)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.loginAPiMethod
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+
+    return true;
+  }
   handleClick = (event:any) => {
     this.setState({anchorEl:event.currentTarget })
   };

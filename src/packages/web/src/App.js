@@ -258,7 +258,11 @@ import MyTeamCore from "../../blocks/FriendList/src/MyTeamCore.web"
 import MyTeamUserDetails from "../../blocks/FriendList/src/MyTeamUserDetails.web"
 import ChairmanNominationMain from "../../blocks/FriendList/src/ChairmanNominationMain.web"
 import NominationDetails from "../../blocks/FriendList/src/NominationDetails.web"
-
+import NominationSuccess from "../../blocks/FriendList/src/NominationAdded"
+import ChairmanNominations from "../../blocks/FriendList/src/ChairmanNomination"
+import ChairmanNominationDetails from "../../blocks/FriendList/src/ChairmanNominationDetails.web"
+import NominateMySelf from "../../blocks/FriendList/src/NominateMySelf.web"
+import MyNomination from "../../blocks/FriendList/src/MyNomination.web"
 const routeMap = {
   //done
   LandingPage: {
@@ -1397,9 +1401,16 @@ const routeMap = {
     path: '/visitors',
     exact: true
   },
+
   VisitorAdd: {
     component: VisitorAdd,
     path: '/AddVisitor',
+    exact: true
+  },
+
+  VisitorEdit: {
+    component: VisitorAdd,
+    path: '/UpdateVisitor/:id',
     exact: true
   },
 
@@ -1485,6 +1496,36 @@ const routeMap = {
   NominationDetails :{
     component: NominationDetails,
     path: '/NominationDetails',
+    exact: true
+  },
+
+  ChairmanNominations:{
+    component: ChairmanNominations,
+    path: '/ChairmanNominations',
+    exact: true
+  },
+
+  ChairmanNominationDetails:{
+    component: ChairmanNominationDetails,
+    path: '/ChairmanNominationDetails',
+    exact: true
+  },
+
+  NominateMySelf:{
+    component: NominateMySelf,
+    path: '/NominateMySelf',
+    exact: true
+  },
+
+  MyNomination:{
+    component: MyNomination,
+    path: '/MyNomination',
+    exact: true
+  },
+
+  NominationSuccess:{
+    component: NominationSuccess,
+    path: '/NominationSuccess',
     exact: true
   },
 

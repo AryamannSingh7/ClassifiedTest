@@ -84,7 +84,7 @@ class Announcement extends AnnouncementDetailsController{
                         </Grid>
                     </Grid>
                     <Box style={{width:"90%",marginBottom:"50px",marginTop:"10px"}}>
-                        <CloseButton variant="contained" fullWidth size="large">
+                        <CloseButton onClick={()=> window.history.back()} variant="contained" fullWidth size="large">
                             Close
                         </CloseButton>
                     </Box>
