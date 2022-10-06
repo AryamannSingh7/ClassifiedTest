@@ -1,5 +1,3 @@
-//@ts-ignore
-//@ts-nocheck
 import * as React from "react";
 // custom components
 import {
@@ -50,7 +48,7 @@ class ClassifiedType extends ClassifiedController {
                       <Box className="middle-section">
                         <img src={SellerIcon} className="icons" />
                         {/* <img src={SellerIconSelected} className="icons" /> */}
-                        <label for="radCreateMode1" className={"radioTitle" + (this.state.userType == 'seller' ? ' active-type' : '')}>
+                        <label htmlFor="radCreateMode1" className={"radioTitle" + (this.state.userType == 'seller' ? ' active-type' : '')}>
                           I want to sell something
                         </label>
                       </Box>
@@ -64,7 +62,7 @@ class ClassifiedType extends ClassifiedController {
                       <Box className="middle-section">
                         <img src={BuyIcon} className="icons" />
                         {/* <img src={BuyIconSelected} className="icons" /> */}
-                        <label for="radCreateMode2" className={"radioTitle" + (this.state.userType == 'buyer' ? ' active-type' : '')}>
+                        <label htmlFor="radCreateMode2" className={"radioTitle" + (this.state.userType == 'buyer' ? ' active-type' : '')}>
                           I want to buy something
                         </label>
                       </Box>
@@ -78,7 +76,7 @@ class ClassifiedType extends ClassifiedController {
                       <Box className="middle-section">
                         <img src={GenericIcon} className="icons" />
                         {/* <img src={GenericIconSelected} className="icons" /> */}
-                        <label for="radCreateMode3" className={"radioTitle" + (this.state.userType == 'generic' ? ' active-type' : '')}>
+                        <label htmlFor="radCreateMode3" className={"radioTitle" + (this.state.userType == 'generic' ? ' active-type' : '')}>
                           I have a generic request
                         </label>
                       </Box>
