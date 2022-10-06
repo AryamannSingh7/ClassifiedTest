@@ -91,23 +91,27 @@ class ClassifiedListing extends ClassifiedController {
                 <Box className="content-block-wrapper common-incident-block">
                   <Box className="incident-content-wrapper">
                     <div className="classified-header">
-                      <Box className="customButton">
+                      <Box className={this.state?.myOrAllClassified ? "customButton":"customButton btn-gray"}>
                         <Button variant="contained" onClick={()=>this.getClassifiedListing(this.state.status)}>All Classified</Button>
                       </Box>
-                      <Box className="customButton btn-gray">
+                      <Box className={this.state?.myOrAllClassified ? "customButton btn-gray":"customButton"}>
                         <Button variant="contained"onClick={()=>this.getMyClassifiedList()}>My Classified</Button>
                       </Box>
                     </div>
                     {
                       this.state?.classifiedListing?.map((val: any, index: any) => (
-                        <>
                           <Card className="classified-card card" key={val?.attributes?.id} >
                             <CardContent className="costom-card-content">
                               <Box className="classified-card-header">
                                 <Typography component="h4">
                                   {val?.attributes?.title}
                                 </Typography>
-                                <Button  style={{ position: "absolute",right:"10px" ,zIndex: 10}} aria-controls="simple-menu" aria-haspopup="true" onClick={(e: any) => this.handleClick(e)}>
+                                {
+                                  this.state?.myOrAllClassified ? 
+                                  null
+                                  :
+                                  <>
+                                   <Button  aria-controls="simple-menu" aria-haspopup="true" onClick={(e: any) => this.handleClick(e ,val?.attributes?.id)}>
                                   <img src={Setting_Icon} className="grid-icon icons" alt="" />
                                 </Button>
                                 <Menu
@@ -115,11 +119,14 @@ class ClassifiedListing extends ClassifiedController {
                                   anchorEl={this.state.anchorEl}
                                   keepMounted
                                   open={Boolean(this.state.anchorEl)}
-                                  onClose={() => this.handleClose("","","")}
+                                  onClose={() => this.handleClose("","")}
                                 >
-                                  <MenuItem onClick={(e) => this.handleClose(e,"edit",val?.attributes?.id)}>Edit</MenuItem>
-                                  <MenuItem onClick={(e) => this.handleClose(e,"delete",val?.attributes?.id)}>Delete</MenuItem>
-                                </Menu>
+                                  <MenuItem onClick={(e) => this.handleClose(e,"edit")}>Edit</MenuItem>
+                                  <MenuItem onClick={(e) => this.handleClose(e,"delete")}>Delete</MenuItem>
+                                 </Menu>
+                                  </>
+                                }
+                               
                               </Box>
                               <Typography className="sub-title h5-title" component="h5">
                               {val?.attributes?.description}
@@ -156,7 +163,6 @@ class ClassifiedListing extends ClassifiedController {
                               </Box>
                             </CardContent>
                           </Card>
-                        </>
                       ))
                     }
                   </Box>

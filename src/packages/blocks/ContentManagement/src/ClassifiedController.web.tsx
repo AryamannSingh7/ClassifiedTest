@@ -56,6 +56,7 @@ export interface S {
   showDialog:any;
   deleteShowDialog:any;
   classifiedId:any;
+  myOrAllClassified:boolean;
   // Customizable Area End
 }
   
@@ -146,6 +147,7 @@ export default class ClassifiedController extends BlockComponent<
       showDialog:false,
       deleteShowDialog:false,
       classifiedId:null,
+      myOrAllClassified:true,
       // Customizable Area End
     };
 
@@ -283,11 +285,9 @@ export default class ClassifiedController extends BlockComponent<
         else if (apiRequestCallId === this.getMyClassifiedListApiCallId) {
           if (responseJson && responseJson?.data ) {
           console.log("getMyClassifiedListApiCallId  ========================>",responseJson)
-          this.setState({classifiedListing :responseJson?.data})
-        
-          this.setState({loading: false})
+          this.setState({classifiedListing :responseJson?.data,loading: false})
           } else if (responseJson?.errors) {
-            let error = Object.values(responseJson.errors[0])[0] as string;
+            let error = responseJson.errors[0] as string;
             this.setState({ error });
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
@@ -593,6 +593,7 @@ deleteClassified =()=>{
     token :localStorage.getItem("userToken")
   };
   const id =this.state?.classifiedId
+  console.log("id deleteClassified==============>",id)
   this.setState({loading: true}) 
   const requestMessage = new Message(
     getName(MessageEnum.RestAPIRequestMessage)
@@ -712,9 +713,9 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
         getName(MessageEnum.RestAPIRequestMessage)
       );
       this.getClassifiedListingApiCallId = requestMessage.messageId;
-      this.setState({ loading: true });
+      this.setState({ loading: true , myOrAllClassified:true});
      
-     const  getSortByOrStatus = `/bx_block_posts/classifieds?filter_by=${status}`
+     const  getSortByOrStatus =`bx_block_posts/classifieds?filter_by=${status}`
        
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
@@ -786,7 +787,7 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
         getName(MessageEnum.RestAPIRequestMessage)
       );
       this.getMyClassifiedListApiCallId = requestMessage.messageId;
-      this.setState({ loading: true });
+      this.setState({ loading: true ,myOrAllClassified:false });
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
@@ -923,10 +924,11 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
   };
   
   
-  handleClick = (event:any) => {
-    this.setState({anchorEl:event.currentTarget })
+  handleClick = (event:any,id:any) => {
+    console.log("id=========>",id)
+    this.setState({anchorEl:event.currentTarget ,classifiedId:id })
   };
-  handleClose = (e:any, v:any,id :any) => {
+  handleClose = (e:any, v:any) => {
     console.log("v=========>",v)
     let anchorEl :any ;
     if(v === undefined || v === null){
@@ -937,13 +939,13 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
       this.props.history.push({
         pathname: "/CreateClassified",
          //@ts-ignore
-        id,
+        id:this.state?.classifiedId
     });
     }
    else if (v === "delete"){
      {
-      console.log("classifiedId=============>",id)
-      this.setState({deleteShowDialog: true , classifiedId:id }) }
+      console.log("classifiedId=============>",this.state?.classifiedId)
+      this.setState({deleteShowDialog: true}) }
      }
 
      this.setState({anchorEl}) 
