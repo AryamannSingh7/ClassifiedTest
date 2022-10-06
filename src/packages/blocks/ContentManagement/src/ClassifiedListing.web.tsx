@@ -41,7 +41,7 @@ class ClassifiedListing extends ClassifiedController {
   }
   render() {
     const { navigation } = this.props;
-    console.log("this.state?.classifiedtListing==========>", this.state?.classifiedtListing)
+    console.log("this.state?.classifiedListing==========>", this.state?.classifiedListing)
     return (
       <>
         <Box className="login-wrapper incident-wrapper">
@@ -99,9 +99,9 @@ class ClassifiedListing extends ClassifiedController {
                       </Box>
                     </div>
                     {
-                      this.state?.classifiedtListing?.map((val: any, index: any) => (
+                      this.state?.classifiedListing?.map((val: any, index: any) => (
                         <>
-                          <Card className="classified-card card"  style={{ position: "relative",zIndex: 1}} key={index} >
+                          <Card className="classified-card card" key={val?.attributes?.id} >
                             <CardContent className="costom-card-content">
                               <Box className="classified-card-header">
                                 <Typography component="h4">
@@ -117,8 +117,8 @@ class ClassifiedListing extends ClassifiedController {
                                   open={Boolean(this.state.anchorEl)}
                                   onClose={() => this.handleClose("","","")}
                                 >
-                                  <MenuItem onClick={(e) => this.handleClose(e,"edit",val?.id)}>Edit</MenuItem>
-                                  <MenuItem onClick={(e) => this.handleClose(e,"delete",val?.id)}>Delete</MenuItem>
+                                  <MenuItem onClick={(e) => this.handleClose(e,"edit",val?.attributes?.id)}>Edit</MenuItem>
+                                  <MenuItem onClick={(e) => this.handleClose(e,"delete",val?.attributes?.id)}>Delete</MenuItem>
                                 </Menu>
                               </Box>
                               <Typography className="sub-title h5-title" component="h5">
