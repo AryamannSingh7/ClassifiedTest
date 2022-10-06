@@ -71,6 +71,8 @@ export const ProfileStyleWeb: any = {
       alignItems: "center",
       gap: "10px",
       flexWrap: "wrap",
+      background: "white",
+
     },
     "& .profile-details-box .right-side .info .hobbies span": {
       borderRadius: "25px",

@@ -64,31 +64,6 @@ import PhoneNumberInput from "../../blocks/mobile-account-registration/src/Phone
 import AdditionalDetailForm from "../../blocks/mobile-account-registration/src/AdditionalDetailForm";
 import Settings5 from "../../blocks/Settings5/src/Settings5";
 import UserProfileBasicBlock from "../../blocks/user-profile-basic/src/UserProfileBasicBlock";
-import RequestManagement from "../../blocks/RequestManagement/src/RequestManagement";
-import LeadManagement from "../../blocks/LeadManagement/src/LeadManagement";
-import SocialMediaAccountRegistrationScreen from "../../blocks/social-media-account-registration/src/SocialMediaAccountRegistrationScreen";
-import Notifications from "../../blocks/notifications/src/Notifications";
-import MobileAccountLoginBlock from "../../blocks/mobile-account-login/src/MobileAccountLoginBlock";
-import Registration from "../../blocks/email-account-registration/src/Registration.web";
-import OwnerRegistration from "../../blocks/email-account-registration/src/OwnerRegistration.web";
-import ManagerRegistration from "../../blocks/email-account-registration/src/ManagerRegistration.web";
-import SelectOwner from "../../blocks/email-account-registration/src/SelectOwner.web";
-
-
-import VerifyOTP from "../../blocks/email-account-registration/src/VerifyOTP.web";
-import SelectType from "../../blocks/email-account-registration/src/SelectType.web";
-import UnitRegister from "../../blocks/email-account-registration/src/UnitRegister.web";
-import RegisterUnitManually from "../../blocks/email-account-registration/src/RegisterUnitManually.web";
-import RegisterAddressLink from "../../blocks/email-account-registration/src/RegisterAddressLink.web";
-
-import RegistrationRequestSignup from "../../blocks/email-account-registration/src/RegistrationRequestSignup.web";
-
-
-import SearchComplex from "../../blocks/email-account-registration/src/SearchComplex.web";
-
-
-import Address from "../../blocks/email-account-registration/src/Address.web";
-
 import  './assets/css/constants/base/global.scss'
 import LandingPage from "../../blocks/landingpage/src/LandingPage.web";
 import EmailAccountLogin from "../../blocks/email-account-login/src/EmailAccountLogin.web";
@@ -138,6 +113,28 @@ import Inbox from "../../blocks/customform/src/Inbox.web"
 import IncidentChat from "../../blocks/customform/src/IncidentChat.web"
 
 import Chatbox from "../../blocks/customform/src/Chatbox.web"
+// import RequestManagement from "../../blocks/RequestManagement/src/RequestManagement";
+import LeadManagement from '../../blocks/LeadManagement/src/LeadManagement';
+import SocialMediaAccountRegistrationScreen from '../../blocks/social-media-account-registration/src/SocialMediaAccountRegistrationScreen';
+import Notifications from '../../blocks/notifications/src/Notifications';
+import MobileAccountLoginBlock from '../../blocks/mobile-account-login/src/MobileAccountLoginBlock';
+import Registration from '../../blocks/email-account-registration/src/Registration.web';
+import OwnerRegistration from '../../blocks/email-account-registration/src/OwnerRegistration.web';
+import ManagerRegistration from '../../blocks/email-account-registration/src/ManagerRegistration.web';
+import SelectOwner from '../../blocks/email-account-registration/src/SelectOwner.web';
+
+import VerifyOTP from '../../blocks/email-account-registration/src/VerifyOTP.web';
+import SelectType from '../../blocks/email-account-registration/src/SelectType.web';
+import UnitRegister from '../../blocks/email-account-registration/src/UnitRegister.web';
+import RegisterUnitManually from '../../blocks/email-account-registration/src/RegisterUnitManually.web';
+import RegisterAddressLink from '../../blocks/email-account-registration/src/RegisterAddressLink.web';
+
+import RegistrationRequestSignup from '../../blocks/email-account-registration/src/RegistrationRequestSignup.web';
+
+import SearchComplex from '../../blocks/email-account-registration/src/SearchComplex.web';
+
+import Address from '../../blocks/email-account-registration/src/Address.web';
+
 
 import ViewVeichle from '../../blocks/customform/src/ViewVehicle.web';
 import FamilyList from '../../blocks/customform/src/FamilyList.web';
@@ -169,12 +166,14 @@ import ClassifiedDetails from "../../blocks/ContentManagement/src/ClassifiedDeta
 import NeighboursDetails from '../../blocks/search/src/NeighboursDetails.web';
 import NeighboursListing from '../../blocks/search/src/NeighboursListing.web';
 
+// Help
 import FaqChairman from '../../blocks/contactus/src/FaqChairman.web';
 import FaqOwner from '../../blocks/contactus/src/FaqOwner.web';
 import FaqResident from '../../blocks/contactus/src/FaqResident.web';
 import ContactUsChairman from '../../blocks/contactus/src/ContactUs.web';
 import SubscriptionDetail from '../../blocks/contactus/src/SubscriptionDetails.web';
 
+// Document
 import DocumentChairman from '../../blocks/Notes/src/DocumentChairman.web';
 import DocumentListChairman from '../../blocks/Notes/src/DocumentListChairman.web';
 import DocumentViewChairman from '../../blocks/Notes/src/DocumentViewChairman.web';
@@ -185,6 +184,7 @@ import BuildingDocuments from '../../blocks/Notes/src/BuildingDocuments.web';
 import BuildingDocumentList from '../../blocks/Notes/src/BuildingDocumentList.web';
 import ViewBuildingDocument from '../../blocks/Notes/src/ViewBuildingDocument.web';
 
+// Contract
 import ContractsList from '../../blocks/RolesPermissions2/src/ContractsList.web';
 import ContractDetail from '../../blocks/RolesPermissions2/src/ContractDetail.web';
 import TemplateDetail from '../../blocks/RolesPermissions2/src/TemplateDetail.web';
@@ -196,6 +196,7 @@ import ChangedSelectedTemplate from '../../blocks/RolesPermissions2/src/ChangedS
 import ReviewTemplate from '../../blocks/RolesPermissions2/src/ReviewTemplate.web';
 import AddCondition from '../../blocks/RolesPermissions2/src/AddCondition.web';
 
+// Meetings
 import ChairmanScheduledMeeting from '../../blocks/BulkUploading/src/ScheduledMeeting.web';
 import ScheduledMeetingDetails from '../../blocks/BulkUploading/src/ScheduledMeetingDetails.web';
 import ChairmanMeetingMinutes from '../../blocks/BulkUploading/src/MeetingMinutes.web';
@@ -213,6 +214,8 @@ import CharmainInvoices from '../../blocks/dashboard/src/CharmainInvoices.web';
 
 import ChairmanProfile from '../../blocks/Settings5/src/ChairmanProfile.web';
 import Profile from '../../blocks/user-profile-basic/src/Profile.web';
+import ChairmenProfile from '../../blocks/user-profile-basic/src/ChairmenProfile.web';
+
 import EditProfile from '../../blocks/user-profile-basic/src/EditProfile.web';
 import PublicView from '../../blocks/user-profile-basic/src/PublicView.web';
 
@@ -236,6 +239,7 @@ import Announcement from '../../blocks/BroadcastMessage/src/Announcement.web';
 import BuildingAnnouncement from '../../blocks/BroadcastMessage/src/BuildingAnnouncement.web';
 import AnnouncementInfo from '../../blocks/BroadcastMessage/src/AnnouncementDetails.web';
 
+// Complex and Appartment
 import Buildings from '../../blocks/LeadManagement/src/Buildings.web';
 import Complex from '../../blocks/LeadManagement/src/Complex.web';
 import UnitDetails from '../../blocks/LeadManagement/src/UnitDetails.web';
@@ -252,6 +256,22 @@ import VisitorAdd from '../../blocks/invitefriends/src/VisitorAdd.web';
 import VisitorList from '../../blocks/invitefriends/src/VisitorsList.web';
 import VisitorsDetails from '../../blocks/invitefriends/src/VisitorDetailsManager.web';
 
+// Register Tenant
+import TenantList from '../../blocks/RequestManagement/src/TenantList.web';
+import TenantDetails from '../../blocks/RequestManagement/src/TenantDetails.web';
+import RegisterTenant from '../../blocks/RequestManagement/src/RegisterTenant.web';
+
+// My Team Imports
+import MyTeam from "../../blocks/FriendList/src/MyTeam.web"
+import MyTeamCore from "../../blocks/FriendList/src/MyTeamCore.web"
+import MyTeamUserDetails from "../../blocks/FriendList/src/MyTeamUserDetails.web"
+import ChairmanNominationMain from "../../blocks/FriendList/src/ChairmanNominationMain.web"
+import NominationDetails from "../../blocks/FriendList/src/NominationDetails.web"
+import NominationSuccess from "../../blocks/FriendList/src/NominationAdded"
+import ChairmanNominations from "../../blocks/FriendList/src/ChairmanNomination"
+import ChairmanNominationDetails from "../../blocks/FriendList/src/ChairmanNominationDetails.web"
+import NominateMySelf from "../../blocks/FriendList/src/NominateMySelf.web"
+import MyNomination from "../../blocks/FriendList/src/MyNomination.web"
 const routeMap = {
   //done
   LandingPage: {
@@ -263,6 +283,12 @@ const routeMap = {
   Profile: {
     component: Profile,
     path: '/profile',
+    exact: true
+    // roles: [ROLE.PRIVATE]
+  },
+  ChairmenProfile: {
+    component: ChairmenProfile,
+    path: '/ChairmenProfile',
     exact: true
     // roles: [ROLE.PRIVATE]
   },
@@ -1026,10 +1052,10 @@ ClassifiedReportedSuccessfully: {
     component: UserProfileBasicBlock,
     path: '/UserProfileBasicBlock'
   },
-  RequestManagement: {
-    component: RequestManagement,
-    path: '/RequestManagement'
-  },
+  // RequestManagement: {
+  //   component: RequestManagement,
+  //   path: '/RequestManagement'
+  // },
   LeadManagement: {
     component: LeadManagement,
     path: '/LeadManagement'
@@ -1277,10 +1303,10 @@ ClassifiedReportedSuccessfully: {
     component: UserProfileBasicBlock,
     path: '/UserProfileBasicBlock'
   },
-  RequestManagement: {
-    component: RequestManagement,
-    path: '/RequestManagement'
-  },
+  // RequestManagement: {
+  //   component: RequestManagement,
+  //   path: '/RequestManagement'
+  // },
   LeadManagement: {
     component: LeadManagement,
     path: '/LeadManagement'
@@ -1415,9 +1441,16 @@ ClassifiedReportedSuccessfully: {
     path: '/visitors',
     exact: true
   },
+
   VisitorAdd: {
     component: VisitorAdd,
     path: '/AddVisitor',
+    exact: true
+  },
+
+  VisitorEdit: {
+    component: VisitorAdd,
+    path: '/UpdateVisitor/:id',
     exact: true
   },
 
@@ -1450,6 +1483,7 @@ ClassifiedReportedSuccessfully: {
     path: '/VisitorsDetails',
     exact: true
   },
+
   VisitorAddSuccess: {
     component: VisitorAddSuccess,
     path: '/VisitorAddSuccess',
@@ -1459,6 +1493,79 @@ ClassifiedReportedSuccessfully: {
   VisitorUpdateSuccess: {
     component: VisitorUpdateSuccess,
     path: '/VisitorUpdateSuccess',
+    exact: true
+  },
+
+  // My Team
+
+  MyTeam: {
+    component: MyTeam,
+    path: '/TeamMembers',
+    exact: true
+  },
+  MyTeamCore: {
+    component: MyTeamCore,
+    path: '/TeamMembers/CoreTeam',
+    exact: true
+  },
+
+  MyTeamSub: {
+    component: MyTeamCore,
+    path: '/TeamMembers/SubTeam',
+    exact: true
+  },
+
+  MyTeamService: {
+    component: MyTeamCore,
+    path: '/TeamMembers/ServiceProviders',
+    exact: true
+  },
+
+  TeamUserDetails: {
+    component: MyTeamUserDetails,
+    path: '/TeamMembers/userDetails',
+    exact: true
+  },
+
+  ChairmanNominationMain:{
+    component: ChairmanNominationMain,
+    path: '/Nominations',
+    exact: true
+  },
+
+  NominationDetails :{
+    component: NominationDetails,
+    path: '/NominationDetails',
+    exact: true
+  },
+
+  ChairmanNominations:{
+    component: ChairmanNominations,
+    path: '/ChairmanNominations',
+    exact: true
+  },
+
+  ChairmanNominationDetails:{
+    component: ChairmanNominationDetails,
+    path: '/ChairmanNominationDetails',
+    exact: true
+  },
+
+  NominateMySelf:{
+    component: NominateMySelf,
+    path: '/NominateMySelf',
+    exact: true
+  },
+
+  MyNomination:{
+    component: MyNomination,
+    path: '/MyNomination',
+    exact: true
+  },
+
+  NominationSuccess:{
+    component: NominationSuccess,
+    path: '/NominationSuccess',
     exact: true
   },
 
@@ -1502,6 +1609,21 @@ ClassifiedReportedSuccessfully: {
     component: SharedArea,
     path: '/SharedArea/:id',
     roles: [ROLE.CHAIRMAN, ROLE.MANAGER]
+  },
+  TenantList: {
+    component: TenantList,
+    path: '/Tenants',
+    roles: [ROLE.OWNER]
+  },
+  TenantDetails: {
+    component: TenantDetails,
+    path: '/Tenant/:id',
+    roles: [ROLE.OWNER]
+  },
+  RegisterTenant: {
+    component: RegisterTenant,
+    path: '/RegisterTenant',
+    roles: [ROLE.OWNER]
   },
 
   AlertWeb: {

@@ -32,6 +32,7 @@ import { Formik, Form, Field } from "formik";
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import InboxController,{Props} from "./inboxController.web";
 import '../assets/css/style.scss'
+import { info } from "./assets";
 
 class ChatBox extends InboxController {
   constructor(props: Props) {
@@ -73,9 +74,31 @@ class ChatBox extends InboxController {
 this.getAllChat()
 
   }
-  displaytime(time: any) {
 
-    let date = new Date(time.attributes.created_at)
+   dateToFromNowDaily( myDate:any ) {
+
+    // get from-now for this date
+    var fromNow = moment.utc( myDate ).fromNow();
+console.log(moment( myDate ).calendar())
+    // ensure the date is displayed with today and yesterday
+    return moment( myDate ).calendar( null, {
+        // when the date is closer, specify custom values
+        lastWeek: '[Last] dddd',
+        lastDay:  '[Yesterday]',
+        sameDay:  '[Today]',
+        nextDay:  '[Tomorrow]',
+        nextWeek: 'dddd',
+        // when the date is further away, use from-now functionality             
+        sameElse: function () {
+            return "[" + fromNow + "]";
+        }
+    });
+}
+
+  displaytime(time: any) {
+    
+
+    let date = new Date(time|| Date.now())
 
     let d = date.getHours();
     let m = date.getMinutes();
@@ -118,7 +141,7 @@ this.getAllChat()
                   <p>
 
                     {
-                      i > 1 ? moment.utc(date).fromNow() : moment.utc(date).format('MMM-DD-YYYY')
+                      i > 1 ? this.dateToFromNowDaily(date) : moment.utc(date).format('MMM-DD-YYYY')
                     }
 
                   </p>
@@ -226,6 +249,19 @@ this.setState({ selectedMedia: message.message.images[0] })}} src={message.messa
               ))}
             </List>
 
+{
+  item?.attributes?.chatable?.attributes?.disable_chat ? <>
+
+  <div style={{display:'flex',justifyContent:'center',alignItems:'center',gap:'0.5rem',background:'rgb(255 226 226)',borderRadius:'6px',boxShadow:'0px 4px 14px #f4f6fb',padding:'0.75rem'}}>
+  <img src={info} width='20' height='20'/>
+  <p>
+
+  Aryn Hossain has disabled his chat. You won’t be able to send him message unit he enables it.
+  </p>
+  </div>
+  
+  </>:
+
 
             <Grid container style={{ padding: "20px", display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
 
@@ -267,6 +303,8 @@ this.setState({ selectedMedia: message.message.images[0] })}} src={message.messa
               <SendIcon style={{ cursor: 'pointer' }} onClick={()=>this.createMessages()} />
 
             </Grid>
+
+}
 
           </Grid>
         </Grid>

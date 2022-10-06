@@ -24,8 +24,9 @@ interface S {
   loading: boolean;
   sortBy:any;
   status:any;
-  VisitorDetails:any;
+  visitorDetails:any;
   deleteConfirmModal:boolean;
+  visitorId:any;
 }
 
 interface SS {
@@ -41,7 +42,7 @@ export default class VisitorDetailsController extends BlockComponent<
   apiEmailLoginCallId: string = "";
   emailReg: RegExp;
   labelTitle: string = "";
-
+  visitorDetailsId:string = "";
   constructor(props: Props) {
 
     super(props);
@@ -57,7 +58,7 @@ export default class VisitorDetailsController extends BlockComponent<
       loading:false,
       sortBy : "" ,
       status:"",
-      VisitorDetails:{
+      visitorDetails:{
           id:"1",
           name:"Sean K. Wilt",
           profilePic:"https://www.shareicon.net/data/128x128/2016/09/15/829453_user_512x512.png",
@@ -67,6 +68,7 @@ export default class VisitorDetailsController extends BlockComponent<
           phoneNo:"+966-1234567890"
         },
       deleteConfirmModal:false,
+      visitorId:""
     };
 
     this.emailReg = new RegExp("");
@@ -80,9 +82,19 @@ export default class VisitorDetailsController extends BlockComponent<
   }
 
   async componentDidMount() {
-
+    this.getVisitorDetails()
   }
 
+  getVisitorDetails = async () => {
+    const societyID = localStorage.getItem("society_id")
+    const visitorId =  window.location.search ? window.location.search.split("=")[1] : null;
+    this.setState({visitorId:visitorId})
+    this.visitorDetailsId = await this.apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `/society_managements/${societyID}/bx_block_visitor/visitors/${visitorId}`,
+    });
+  }
   handleCloseDeleteModal() {
     this.setState({
       deleteConfirmModal:false
@@ -100,47 +112,52 @@ export default class VisitorDetailsController extends BlockComponent<
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
       var errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if(this.apiEmailLoginCallId === apiRequestCallId ){
+      if(this.visitorDetailsId === apiRequestCallId ){
         console.log(responseJson,errorReponse)
+        if(responseJson.hasOwnProperty("visitor")){
+          this.setState({
+            visitorDetails:responseJson.visitor.data.attributes
+          })
+        }else{
+          window.history.back()
+        }
       }
     }
   }
 
-  doEmailLogIn(data:any): boolean {
+  apiCall = async (data: any) => {
+    const { contentType, method, endPoint, body } = data;
+    // console.log("Called 1",data);
+
+    const token = localStorage.getItem('userToken') ;
+
     const header = {
-      "Content-Type": configJSON.loginApiContentType
+      "Content-Type": contentType,
+      token
     };
-
     const requestMessage = new Message(
-      getName(MessageEnum.RestAPIRequestMessage)
+        getName(MessageEnum.RestAPIRequestMessage)
     );
-
-    this.apiEmailLoginCallId = requestMessage.messageId;
-
     requestMessage.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      configJSON.loginAPiEndPoint
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        header
     );
-
     requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        endPoint
     );
-
     requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestBodyMessage),
-      JSON.stringify(data)
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        method
     );
-
     requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.loginAPiMethod
+        getName(MessageEnum.RestAPIRequestBodyMessage),
+        JSON.stringify(body)
     );
-
     runEngine.sendMessage(requestMessage.id, requestMessage);
+    return requestMessage.messageId;
+  };
 
-    return true;
-  }
   handleClick = (event:any) => {
     this.setState({anchorEl:event.currentTarget })
   };

@@ -255,9 +255,9 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
           this.parseApiCatchErrorResponse(errorReponse);
         } if (apiRequestCallId === this.chatSettingApiCallId) {
           if (!responseJson.errors) {
-            console.log(responseJson.data)
-            if (responseJson.data) {
-              window.location.reload();
+            console.log(responseJson)
+            if (responseJson) {
+              // window.location.reload();
               // this.setState({ allInbox: responseJson.data }, () => console.log(this.state.allInbox))
             }
           } else {
@@ -296,6 +296,7 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
             console.log(responseJson.data)
             this.setState({ singleChatRoom: responseJson.data[0].attributes.messages })
             localStorage.setItem('selectedChat', JSON.stringify(responseJson.data[0]))
+            this.forceUpdate()
           } else {
             //Check Error Response
             this.parseApiErrorResponse(responseJson);
@@ -961,8 +962,7 @@ console.log('hi')
       getName(MessageEnum.RestAPIRequestMessage)
     );
     this.chatSettingApiCallId = requestMessage.messageId;
-    let value = this.state.allInbox[0].attributes.chat_with_account_disable_chat
-
+    let value = this.state.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat 
 
 
     requestMessage.addData(

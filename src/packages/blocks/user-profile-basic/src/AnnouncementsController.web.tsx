@@ -39,6 +39,7 @@ interface S {
   descriptionError:any;
   categoryError:any;
   announcementList:any;
+  searchKey:any;
   // Customizable Area End
 }
 
@@ -52,6 +53,7 @@ export default class AnnouncementsController extends BlockComponent<Props, S, SS
   getCategoryListId:string = "";
   getAnnouncementListId:string = "";
   createAnnouncementId:string = "";
+  getAnnouncementListSearchId:string = "";
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
@@ -78,6 +80,7 @@ export default class AnnouncementsController extends BlockComponent<Props, S, SS
       descriptionError:"",
       categoryError:"",
       announcementList:[],
+      searchKey:"",
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -98,6 +101,13 @@ export default class AnnouncementsController extends BlockComponent<Props, S, SS
 
   handleFilterBy = () => {
       this.onGetAnnouncementList(this.state.filterCategory,this.state.filerYear,this.state.shortBy)
+  }
+
+  handleSearch = (e:any) => {
+    this.setState({
+      searchKey:e.target.value
+    })
+    this.onGetAnnouncementBySearchList(e.target.value,this.state.filterCategory,this.state.filerYear,this.state.shortBy)
   }
 
 
@@ -155,7 +165,6 @@ export default class AnnouncementsController extends BlockComponent<Props, S, SS
         formData.append('announcement[image]', this.state.selectedImage,this.state.selectedImage.name)
       }
       formData.append('announcement[building_management_id][]', this.state.selectedBuilding)
-      console.log("FORM DATA CHECK ",formData)
       await this.createAnnouncement(formData)
   }
 
@@ -183,6 +192,17 @@ export default class AnnouncementsController extends BlockComponent<Props, S, SS
         if(responseJson.hasOwnProperty("announcement")){
           this.setState({
             announcementList:responseJson.announcement.data
+          })
+        }
+      }
+      if(apiRequestCallId === this.getAnnouncementListSearchId){
+        if(responseJson.hasOwnProperty("announcements")){
+          this.setState({
+            announcementList:responseJson.announcements.data
+          })
+        }else{
+          this.setState({
+            announcementList:[]
           })
         }
       }
@@ -231,6 +251,15 @@ export default class AnnouncementsController extends BlockComponent<Props, S, SS
       contentType: configJSON.contentTypeApiGetUserProfile,
       method: configJSON.methodTypeApiGetUserProfile,
       endPoint: `/society_managements/${societyID}/bx_block_announcement/announcements?category=${category}&year=${year}&sort_by=${shortBy}`,
+    });
+  }
+
+  onGetAnnouncementBySearchList = async (search:string,category:string,year:string,shortBy:string) => {
+    const societyID = localStorage.getItem("society_id")
+    this.getAnnouncementListSearchId = await this.apiCall({
+      contentType: configJSON.contentTypeApiGetUserProfile,
+      method: configJSON.methodTypeApiGetUserProfile,
+      endPoint: `/society_managements/${societyID}/bx_block_announcement/announcements/search_by_title?search=${search}`,
     });
   }
 

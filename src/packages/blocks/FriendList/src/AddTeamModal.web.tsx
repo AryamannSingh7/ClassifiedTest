@@ -1,0 +1,392 @@
+// Customizable Area Start
+import React from "react";
+import "./MyTeam.web.css"
+// @ts-ignore
+import DOMPurify from 'dompurify'
+import {
+    Container,
+    Typography,
+    Link,
+    Button,
+    FormControl,
+    Dialog,
+    DialogActions,
+    DialogTitle, IconButton, DialogContent, Backdrop, Fade, FormLabel, InputLabel, Modal,
+} from "@material-ui/core";
+import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
+import Select from "@material-ui/core/Select";
+import NativeSelect from "@material-ui/core/NativeSelect";
+import {chat, email, profileExp, telephone} from "./assets"
+import {building, cancle, CheckIcon, email_icon, phone_icon, unit, user_icon} from "../../user-profile-basic/src/assets"
+import Divider from '@material-ui/core/Divider';
+// Icons
+import DateRangeOutlinedIcon from '@material-ui/icons/DateRangeOutlined';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+
+// Icons
+
+import MyTeamController, {
+  Props,
+  configJSON,
+} from "./MyTeamController";
+import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
+import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
+import "../../../web/src/assets/css/style.scss";
+import { withRouter } from 'react-router';
+import Loader from "../../../components/src/Loader.web";
+import { withTranslation } from 'react-i18next';
+import '../../../web/src/i18n.js';
+import MenuItem from "@material-ui/core/MenuItem";
+import Menu from "@material-ui/core/Menu";
+import {withStyles} from "@material-ui/core/styles";
+import {Field, Form, Formik} from "formik";
+class Polling extends MyTeamController {
+  constructor(props: Props) {
+    super(props);
+  }
+
+  render() {
+    //@ts-ignore
+    const {t} = this.props
+    return (
+        <div style={dashBoard.paper}>
+            <Box style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:"10px"}}>
+                <Typography variant="h5" style={{fontWeight:"bold"}}>
+                    Create New Member
+                </Typography>
+                <IconButton onClick={this.handleClose}>
+                    <img src={cancle}
+                        //@ts-ignore
+                         style={dashBoard.modalCacle}/>
+                </IconButton>
+
+            </Box>
+            <Divider/>
+            <Formik
+                initialValues={{
+                    email: "",
+                    usertype: "",
+                    fullname: "",
+                    phoneno: "",
+                    building: " ",
+                    unit:""
+                }}
+                validationSchema={this.AddTeamSchema()}
+                validateOnMount={true}
+                onSubmit={(values) => {
+                    console.log("valus=========>", values)
+                    // same shape as initial values
+                    this.addTeamData(values);
+                }}
+            >
+                {({ values, touched, errors, isValid, setFieldValue }) => (
+                    <Form translate={true} className="commonForm ">
+                        <Grid container spacing={3}>
+                            <Grid item xs={12} sm={6}>
+                                <Box className="formGroup customSelect">
+                                    <FormLabel component="legend" style={dashBoard.labelsStyle}>Select User</FormLabel>
+                                    <FormControl variant="outlined" >
+                                                    <span className="frmLeftIcons">
+                                                      <img src={user_icon} className="frm-icons" alt="User Icon" />
+                                                    </span>
+                                        <InputLabel id="demo-simple-select-outlined-label" style={dashBoard.formLabels}>Select User</InputLabel>
+                                        <Select
+                                            name="usertype"
+                                            labelId="demo-simple-select-outlined-label"
+                                            id="demo-simple-select-outlined"
+                                            style={{ paddingLeft: '45px' }}
+                                            // label="Select User Type"
+                                            onChange={(e) => {
+                                                (e.target.value != " ") && setFieldValue("usertype", e.target.value)
+                                            }}
+                                            value={values.usertype}
+                                        >
+                                            <MenuItem  disabled value=" ">
+                                                Select User
+                                            </MenuItem>
+                                            <MenuItem value={"user1"}>User1</MenuItem>
+                                            <MenuItem value={"user2"}>User2</MenuItem>
+                                            <MenuItem value={"user3"}>User3</MenuItem>
+                                            <MenuItem value={"user4"}>User4</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                </Box>
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <Box className="formGroup customSelect">
+                                    <FormLabel component="legend" style={dashBoard.labelsStyle}>Select Role</FormLabel>
+                                    <FormControl variant="outlined" >
+                                                    <span className="frmLeftIcons">
+                                                      <img src={user_icon} className="frm-icons" alt="User Icon" />
+                                                    </span>
+                                        <InputLabel id="demo-simple-select-outlined-label" style={dashBoard.formLabels}>Select Role</InputLabel>
+                                        <Select
+                                            name="usertype"
+                                            labelId="demo-simple-select-outlined-label"
+                                            id="demo-simple-select-outlined"
+                                            style={{ paddingLeft: '45px' }}
+                                            // label="Select User Type"
+                                            onChange={(e) => {
+                                                (e.target.value != " ") && setFieldValue("usertype", e.target.value)
+                                            }}
+                                            value={values.usertype}
+                                        >
+                                            <MenuItem  disabled value=" ">
+                                                Select Role
+                                            </MenuItem>
+                                            <MenuItem value={"user1"}>Role 1</MenuItem>
+                                            <MenuItem value={"user2"}>Role 2</MenuItem>
+                                            <MenuItem value={"user3"}>Role 3</MenuItem>
+                                            <MenuItem value={"user4"}>Role 4</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                </Box>
+                            </Grid>
+                        </Grid>
+                        <Grid container spacing={3}>
+                            <Grid item xs={12} sm={6}>
+                                <Box className="formGroup">
+                                    <FormLabel component="legend" style={dashBoard.labelsStyle}>{t("Email Address")}</FormLabel>
+                                    <Field name="email" type="text" placeholder={t("Email Address")} style={dashBoard.inviteInput} />
+                                    <span
+                                        //@ts-ignore
+                                        style={dashBoard.formLeftIcn}>
+                                            <img src={email_icon} className="frm-icons" alt="Email Icon" />
+                                          </span>
+                                </Box>
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <Box className="formGroup">
+                                    <FormLabel component="legend" style={dashBoard.labelsStyle}>{t("Phone Number")}</FormLabel>
+                                    <Field name="phoneno" type="text" placeholder={t("Phone Number")} style={dashBoard.inviteInput} />
+                                    <span
+                                        //@ts-ignore
+                                        style={dashBoard.formLeftIcn}>
+                                            <img src={phone_icon} className="frm-icons" alt="Phone Icon" />
+                                          </span>
+                                </Box>
+                            </Grid>
+                        </Grid>
+                        <Grid container spacing={3}>
+                            <Grid item xs={12} sm={6}>
+                                <Box className="formGroup customSelect">
+                                    <FormLabel component="legend" style={dashBoard.labelsStyle}>{t("Select Building")}</FormLabel>
+                                    <FormControl variant="outlined" >
+                                              <span className="frmLeftIcons">
+                                                <img src={building} className="frm-icons" alt="Building Icon" />
+                                              </span>
+                                        <InputLabel id="demo-simple-select-outlined-label" style={dashBoard.formLabels}>{t("Select Building")}</InputLabel>
+                                        <Select
+                                            name="building"
+                                            labelId="demo-simple-select-outlined-label"
+                                            id="demo-simple-select-outlined"
+                                            style={{ paddingLeft: '45px' }}
+                                            // label="Select User Type"
+                                            onChange={(e) => {
+                                                (e.target.value != " ") && setFieldValue("building", e.target.value)
+                                            }}
+                                            value={values.building}
+                                        >
+                                            <MenuItem  disabled value=" ">
+                                                {t("Select Building")}
+                                            </MenuItem>
+                                            <MenuItem value={"building1"}>Building 1</MenuItem>
+                                            <MenuItem value={"building2"}>Building 2</MenuItem>
+                                            <MenuItem value={"building3"}>Building 3</MenuItem>
+                                            <MenuItem value={"building4"}>Building 4</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                </Box>
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <Box className="formGroup customSelect">
+                                    <FormLabel component="legend" style={dashBoard.labelsStyle}>{t("Select Unit")}</FormLabel>
+                                    <FormControl variant="outlined" >
+                                                    <span className="frmLeftIcons">
+                                                      <img src={unit} className="frm-icons" alt="Unit Icon" />
+                                                    </span>
+                                        <InputLabel id="demo-simple-select-outlined-label" style={dashBoard.formLabels}>{t("Select Unit")}</InputLabel>
+                                        <Select
+                                            name="unit"
+                                            labelId="demo-simple-select-outlined-label"
+                                            id="demo-simple-select-outlined"
+                                            style={{ paddingLeft: '45px' }}
+                                            // label="Select User Type"
+                                            onChange={(e) => {
+                                                (e.target.value != " ") && setFieldValue("unit", e.target.value)
+                                            }}
+                                            value={values.unit}
+                                        >
+                                            <MenuItem  disabled value=" ">
+                                                {t("Select Unit")}
+                                            </MenuItem>
+                                            <MenuItem value={"unit1"}>Unit 1</MenuItem>
+                                            <MenuItem value={"unit2"}>Unit 2</MenuItem>
+                                            <MenuItem value={"unit3"}>Unit 3</MenuItem>
+                                            <MenuItem value={"unit4"}>Unit 4</MenuItem>
+
+                                            {/* {
+                                        this.state?.userTypeData?.map((val, index) => (
+                                          <MenuItem
+                                            key={index}
+                                            value={val?.name}
+                                          >
+                                            {val?.name}
+                                          </MenuItem>
+                                        ))
+                                      } */}
+
+                                        </Select>
+                                    </FormControl>
+                                </Box>
+                            </Grid>
+                        </Grid>
+                        <Box style={{display:"flex",justifyContent:'flex-end'}}>
+                            <DeclineButton size="large" style={{marginRight:"15px",width:"160px"}}>Cancel</DeclineButton>
+                            <AcceptButton size="large" style={{width:"160px"}}>Create</AcceptButton>
+                        </Box>
+                    </Form>
+                )}
+            </Formik>
+        </div>
+      );
+  }
+}
+
+//@ts-ignore
+export default withTranslation()(withStyles(dashBoard)(withRouter(Polling)));
+
+const dashBoard = {
+    navigation: {
+        display: "flex",
+        justifyContent: "space-between",
+    },
+    subHeading: {
+        fontWeight: 600,
+        // marginTop: 15,
+    },
+    invitationCont:{
+        fontWeight: 600,
+        margin:'10px 0px 10px 0px'
+    },
+    inviteTitle:{
+        margin:'10px 0px 10px 0px'
+    },
+    SideBar: {
+        background: "#f9f6f6",
+        position: "relative",
+        paddingBottom: 150,
+    },
+    gaMemberCard:{
+        display: "grid",
+        gridTemplateColumns: "4fr 4fr 4fr",
+        gap: 20
+    },
+    managementPaper:{
+        padding:20
+    },
+    imgRound:{
+        border: "2px solid #F7F9FE",
+        borderRadius: "100%",
+        height: 50,
+        width: 50
+    },
+    mailIcon:{
+        padding:8
+    },
+    invitemember:{
+        border: "2px solid #F7F9FE",
+        borderRadius: "100%",
+        height: 50,
+        width: 50,
+        backgroundColor:"#FC8434"
+    },
+    inviteIcon:{
+        padding:13
+    },
+    cancleIcon:{
+        position:"absolute",
+        top:15,
+        right:15
+    },
+    modalCacle:{
+        top:15,
+        right:15,
+        float:"right",
+        cursor:"pointer"
+    },
+    invitationReq:{
+        marginTop:30
+    },
+    facility: {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        borderBottom:"1px solid #f8f8f8",
+        cursor:"pointer"
+    },
+    modal:{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    paper: {
+        backgroundColor: "#fff",
+        borderRadius: '10px',
+        // boxShadow: theme.shadows[5],
+        padding: "16px 32px 24px",
+        width:"700px"
+    },
+    formLabels:{
+        paddingLeft:35
+    },
+    labelsStyle:{
+        color:"#212121",
+        margin:"10px 0px 10px 0px"
+    },
+    formLeftIcn:{
+        position:"absolute",
+        left: 20,
+        top: 44,
+        color: "#b9b9b9"
+    },
+    inviteInput:{
+        padding: "18px 18px 18px 50px",
+        color: "#b5b5b5",
+        borderRadius: "10px",
+        border: "1px solid #e9dede",
+        backgroundColor: "#f9f9f9",
+        fontSize: "16px",
+        outline: 0,
+        width:"100%"
+    }
+};
+
+const DeclineButton = withStyles((theme) => ({
+    root: {
+        color: "#2b6fed",
+        backgroundColor: "white",
+        border:"1px solid #2b6fed",
+        fontWeight:"bold",
+        borderRadius:"10px",
+        '&:hover': {
+            backgroundColor: "white",
+        },
+    },
+}))(Button);
+
+const AcceptButton = withStyles((theme) => ({
+    root: {
+        color: "white",
+        backgroundColor: "#2b6fed",
+        fontWeight:"bold",
+        borderRadius:"10px",
+        '&:hover': {
+            backgroundColor: "#2b6fed",
+        },
+    },
+}))(Button);
+
+
+// Customizable Area End

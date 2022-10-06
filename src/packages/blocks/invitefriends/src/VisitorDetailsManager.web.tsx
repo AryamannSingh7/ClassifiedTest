@@ -22,7 +22,7 @@ import {
     FormControl,
     DialogActions,
 } from "@material-ui/core";
-import VisitorsListController, { Props } from "./VisitorsListController";
+import VisitorDetailsController, { Props } from "./VisitorDetailsController";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { SuggestionStyleWeb } from "../../user-profile-basic/src/SuggestionStyle.web";
@@ -33,13 +33,12 @@ import { Link,withRouter } from "react-router-dom";
 import { SearchIconImage, UploadImage } from "../../user-profile-basic/src/assets";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
+import moment from "moment";
 
-class VisitorsList extends VisitorsListController {
+class VisitorDetails extends VisitorDetailsController {
     constructor(props: Props) {
         super(props);
     }
-
-    async componentDidMount(): Promise<void> {}
 
     render() {
         // @ts-ignore
@@ -81,32 +80,35 @@ class VisitorsList extends VisitorsListController {
                                             <Box style={{width:"95%"}}>
                                                 <Box style={{display:"flex",margin:"10px 0px"}}>
                                                     <Typography style={{marginRight:"5px"}}>Visitor Name : </Typography>
-                                                    <Typography style={{fontWeight:"bold"}}>Peter Parker</Typography>
+                                                    {
+                                                        console.log("THIS IS VISITORS",this.state.visitorDetails)
+                                                    }
+                                                    <Typography style={{fontWeight:"bold"}}>{this.state.visitorDetails.name}</Typography>
                                                 </Box>
                                                 <Divider/>
                                                 <Box style={{display:"flex",margin:"10px 0px"}}>
                                                     <Typography style={{marginRight:"5px"}}>Resident Name : </Typography>
-                                                    <Typography style={{fontWeight:"bold"}}>Mr.Ali Khan</Typography>
+                                                    <Typography style={{fontWeight:"bold"}}>{this.state.visitorDetails.resident_name}</Typography>
                                                 </Box>
                                                 <Divider/>
                                                 <Box style={{display:"flex",margin:"10px 0px"}}>
                                                     <Typography style={{marginRight:"5px"}}>Building Name : </Typography>
-                                                    <Typography style={{fontWeight:"bold"}}>Green Villa</Typography>
+                                                    <Typography style={{fontWeight:"bold"}}>{this.state.visitorDetails?.building_management?.name}</Typography>
                                                 </Box>
                                                 <Divider/>
                                                 <Box style={{display:"flex",margin:"10px 0px"}}>
                                                     <Typography style={{marginRight:"5px"}}>Unit Number : </Typography>
-                                                    <Typography style={{fontWeight:"bold"}}>A-101</Typography>
+                                                    <Typography style={{fontWeight:"bold"}}>{this.state.visitorDetails.unit_number}</Typography>
                                                 </Box>
                                                 <Divider/>
                                                 <Box style={{display:"flex",margin:"10px 0px"}}>
                                                     <Typography style={{marginRight:"5px"}}>Date : </Typography>
-                                                    <Typography style={{fontWeight:"bold"}}>24 July 2022</Typography>
+                                                    <Typography style={{fontWeight:"bold"}}>{moment(this.state?.visitorDetails?.schedule_date).format("DD MMMM YYYY")}</Typography>
                                                 </Box>
                                                 <Divider/>
                                                 <Box style={{display:"flex",margin:"10px 0px"}}>
                                                     <Typography style={{marginRight:"5px"}}>Phone Number : </Typography>
-                                                    <Typography style={{fontWeight:"bold"}}>+1 8454648450</Typography>
+                                                    <Typography style={{fontWeight:"bold"}}>{this.state?.visitorDetails?.mobile_number?.full_mobile_number}</Typography>
                                                 </Box>
                                             </Box>
                                         </Box>
@@ -121,5 +123,5 @@ class VisitorsList extends VisitorsListController {
     }
 }
 
-export default withStyles(SuggestionStyleWeb)(withRouter(VisitorsList));
+export default withStyles(SuggestionStyleWeb)(withRouter(VisitorDetails));
 // Customizable Area End

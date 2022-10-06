@@ -189,6 +189,8 @@ export const FaqChairmanStyleWeb: any = {
       display: "flex",
       justifyContent: "space-between",
       alignItems: "center",
+      marginTop: "0",
+      gap: "5px",
     },
     "& .bottom-buttons": {
       display: "flex",

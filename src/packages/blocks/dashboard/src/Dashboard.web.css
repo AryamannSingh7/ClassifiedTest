@@ -39,7 +39,8 @@
   margin: 30px 0 30px 0;
 }
 .SingleLink .SingleLinkSize {
-  font-size: 14px;
+  font-size: 15px;
+  /* font-weight: bold; */
 }
 .SingleLink:hover {
   cursor: pointer;
@@ -53,11 +54,12 @@
 
 .AccordinoList .ListItemText {
   margin-left: 15px;
-  font-size: 14px;
+  font-size: 15px;
+  /* font-weight: bold; */
 }
 
 .SideBar {
-  background: #f9f6f6;
+  background: #fcfcfc;
   position: relative;
   padding-bottom: 150px;
 }
@@ -138,4 +140,14 @@
 .dashboard-sidebar .menu-list .list-menu .image img {
   width: 25px;
   height: 25px;
+}
+
+.AccordinoList .MuiAccordionSummary-content {
+  display: flex;
+  align-items: center;
+}
+
+.AccordinoList .MuiAccordionDetails-root {
+  display: flex;
+  padding: 8px 16px 8px 50px;
 }
