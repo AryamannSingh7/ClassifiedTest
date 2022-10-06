@@ -236,9 +236,7 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
             vehicleDetails: responseJson.data.attributes.vehicle_details.data
               ? responseJson.data.attributes.vehicle_details.data
               : [],
-            relatedPeople: responseJson.data.attributes.related_people.data
-              ? responseJson.data.attributes.related_people.data
-              : [],
+            relatedPeople: responseJson.data.attributes.related_people,
           },
         });
       }
