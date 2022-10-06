@@ -47,7 +47,7 @@ import {
   Document,
   sizebw,
   unitbw,
-  bentalyLogo,
+  mapLocation,
   location,
   uploadbw,
   del_image,
@@ -67,6 +67,8 @@ import CloseIcon from "@material-ui/icons/Close";
 import { Formik, Form } from "formik";
 import { Menu } from "@szhsin/react-menu";
 import Loader from "../../../components/src/Loader.web";
+//@ts-ignore
+import GoogleMapReact from "google-map-react";
 
 const TabPanel = (props: any) => {
   const { children, value, index, ...other } = props;
@@ -94,6 +96,8 @@ const settings = {
   swipeToSlide: true,
 };
 
+const LocationPin = ({  }: any) => <img src={mapLocation} />;
+
 class Buildings extends BuildingsController {
   constructor(props: Props) {
     super(props);
@@ -106,7 +110,7 @@ class Buildings extends BuildingsController {
     var searchData = this.state.unitList.filter((item: any) => {
       if (this.state.dataSearch === "") {
         return item;
-      } else if (item.apartment_name.toLowerCase().includes(this.state.dataSearch.toLowerCase())) {
+      } else if (item.attributes.apartment_name.toLowerCase().includes(this.state.dataSearch.toLowerCase())) {
         return item;
       }
     });
@@ -166,7 +170,7 @@ class Buildings extends BuildingsController {
                           <p>{this.state.buildingData.city || "-"}</p>
                         </Box>
                       </Box>
-                      <Box className="building-info-right">
+                      <Box className="building-info-right" onClick={() => this.handleMapModal()}>
                         <img src={location} alt="|" />
                         <span>{t("See building on map")}</span>
                       </Box>
@@ -177,7 +181,7 @@ class Buildings extends BuildingsController {
                           <Slider ref={(c: any) => (this.slider = c)} {...settings}>
                             {this.state.buildingData.photos.map((image: any, index: number) => {
                               return (
-                                <div onClick={() => this.setState({ imageBox: true, photoIndex: index })}>
+                                <div onClick={() => this.setState({ imageBox: true, photoIndex: index })} key={index}>
                                   <img src={image.url} alt="" />
                                 </div>
                               );
@@ -356,10 +360,17 @@ class Buildings extends BuildingsController {
                             <h2>{t("Units")}</h2>
                           </Box>
                           <Box className="right-content">
-                            <select value="" className="unit-select">
+                            <select
+                              value={this.state.status}
+                              className="unit-select"
+                              onChange={(e: any) => this.setState({ status: e.target.value, page: 1 })}
+                            >
                               <option disabled value="">
                                 {t("Status")}
                               </option>
+                              <option value="Empty">{t("Empty")}</option>
+                              <option value="Rented">{t("Rented")}</option>
+                              <option value="Occupied">{t("Occupied")}</option>
                             </select>
                             <TextField
                               className="search-unit"
@@ -391,31 +402,53 @@ class Buildings extends BuildingsController {
                               </TableRow>
                             </TableHead>
                             <TableBody>
-                              {searchData.map((unit: any, index: number) => (
-                                <TableRow key={unit.id}>
-                                  <TableCell>{index + 1}</TableCell>
-                                  <TableCell>{unit.apartment_name}</TableCell>
-                                  <TableCell>{unit.floor_number}</TableCell>
-                                  <TableCell>-</TableCell>
-                                  <TableCell>-</TableCell>
-                                  <TableCell>-</TableCell>
-                                  <TableCell>
-                                    <Menu menuButton={<MoreVertIcon />}>
-                                      <MenuItem>
-                                        <Link href={`/UnitDetail/${unit.id}`}>{t("View")}</Link>
-                                      </MenuItem>
-                                    </Menu>
-                                  </TableCell>
-                                </TableRow>
-                              ))}
+                              {searchData.map((unit: any, index: number) => {
+                                console.log(unit);
+
+                                return (
+                                  <TableRow key={unit.id}>
+                                    <TableCell>{index + 1}</TableCell>
+                                    <TableCell>{unit.attributes.apartment_name}</TableCell>
+                                    <TableCell>{unit.attributes.floor_number}</TableCell>
+                                    <TableCell>
+                                      {unit.attributes.resident ? unit.attributes.resident.resident_name : "-"}
+                                    </TableCell>
+                                    <TableCell>
+                                      {unit.attributes.owner ? unit.attributes.owner.owner_name : "-"}
+                                    </TableCell>
+                                    <TableCell>
+                                      <span className={unit.attributes.status}>{unit.attributes.status}</span>
+                                    </TableCell>
+                                    <TableCell>
+                                      <Menu menuButton={<MoreVertIcon />}>
+                                        <MenuItem>
+                                          <Link href={`/UnitDetail/${unit.id}`}>{t("View")}</Link>
+                                        </MenuItem>
+                                      </Menu>
+                                    </TableCell>
+                                  </TableRow>
+                                );
+                              })}
                             </TableBody>
                           </Table>
                         </TableContainer>
                         <Box className="unit-pagination">
                           <p>
-                            {t("Showing")} <span>5</span> {t("of")} <span>12</span> {t("results")}
+                            {t("Showing")} <span>{this.state.dataSearch.length || 0}</span> {t("of")}{" "}
+                            <span>{this.state.pagination ? this.state.pagination.total_count : 0}</span> {t("results")}
                           </p>
-                          <Pagination count={10} variant="outlined" shape="rounded" />
+                          {this.state.pagination && (
+                            <Pagination
+                              onChange={(event: any, value: any) => {
+                                this.setState({ page: Number(value) });
+                              }}
+                              count={this.state.pagination.total_pages}
+                              page={this.state.pagination.current_page}
+                              siblingCount={2}
+                              variant="outlined"
+                              shape="rounded"
+                            />
+                          )}
                         </Box>
                       </>
                     </TabPanel>
@@ -669,6 +702,31 @@ class Buildings extends BuildingsController {
               );
             }}
           </Formik>
+        </Dialog>
+
+        <Dialog className="edit-profile" open={this.state.isOpenMapModalOpen} scroll="paper" fullWidth maxWidth="sm">
+          <MuiDialogTitle disableTypography className="dialog-heading">
+            <Typography variant="h6">{t("Location")}</Typography>
+            <IconButton onClick={() => this.handleMapModal()}>
+              <CloseIcon />
+            </IconButton>
+          </MuiDialogTitle>
+          {this.state.buildingData.lat && this.state.buildingData.long ? (
+            <Box className="google-map-box">
+              <GoogleMapReact
+                bootstrapURLKeys={{ key: "AIzaSyA1NvS9-cKp1dl_kMQDVFr4Gmbnv97MTtk" }}
+                defaultCenter={{
+                  lat: this.state.buildingData.lat,
+                  lng: this.state.buildingData.long,
+                }}
+                defaultZoom={15}
+              >
+                <LocationPin lat={this.state.buildingData.lat} lng={this.state.buildingData.long} />
+              </GoogleMapReact>
+            </Box>
+          ) : (
+            <Box className="no-google-map-box">{t("No Location Available")}</Box>
+          )}
         </Dialog>
       </>
     );

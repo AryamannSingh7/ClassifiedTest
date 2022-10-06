@@ -6,7 +6,6 @@ import { runEngine } from "../../../framework/src/RunEngine";
 
 // Customizable Area Start
 import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
-import {search} from "components/dist/blocks/email-account-registration/src/assets";
 // Customizable Area End
 
 export const configJSON = require("./config.js");

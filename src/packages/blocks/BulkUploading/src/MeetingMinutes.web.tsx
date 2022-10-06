@@ -274,8 +274,7 @@ class MeetingMinutes extends MeetingMinutesController {
                                     <>
                                       <MenuItem>
                                         <NavLink 
-                                          onClick={() => alert("Coming soon!!")}
-                                          // href={meeting.attributes.meeting_mins_pdf.url} 
+                                          href={meeting.attributes.meeting_mins_pdf.url} 
                                           target="_blank">
                                           {t("Download")}
                                         </NavLink>

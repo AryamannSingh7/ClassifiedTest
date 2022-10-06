@@ -39,7 +39,7 @@ import {
   Document,
   sizebw,
   unitbw,
-  bentalyLogo,
+  mapLocation,
   location,
   del_image,
   uploadbw,
@@ -52,6 +52,8 @@ import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
 import { Formik, Form } from "formik";
 import Loader from "../../../components/src/Loader.web";
+//@ts-ignore
+import GoogleMapReact from "google-map-react";
 
 const TabPanel = (props: any) => {
   const { children, value, index, ...other } = props;
@@ -78,6 +80,8 @@ const settings = {
   slidesToShow: 5,
   swipeToSlide: true,
 };
+
+const LocationPin = ({  }: any) => <img src={mapLocation} />;
 
 class Complex extends ComplexController {
   constructor(props: Props) {
@@ -151,7 +155,7 @@ class Complex extends ComplexController {
                           <p>{this.state.complexData.city || "-"}</p>
                         </Box>
                       </Box>
-                      <Box className="building-info-right">
+                      <Box className="building-info-right" onClick={() => this.handleMapModal()}>
                         <img src={location} alt="|" />
                         <span>{t("See building on map")}</span>
                       </Box>
@@ -162,7 +166,7 @@ class Complex extends ComplexController {
                           <Slider ref={(c: any) => (this.slider = c)} {...settings}>
                             {this.state.complexData.photos.map((image: any, index: number) => {
                               return (
-                                <div onClick={() => this.setState({ imageBox: true, photoIndex: index })}>
+                                <div key={index} onClick={() => this.setState({ imageBox: true, photoIndex: index })}>
                                   <img src={image.url} alt="" />
                                 </div>
                               );
@@ -246,7 +250,7 @@ class Complex extends ComplexController {
                         {searchData.length === 0 && <p>{t("No Building Available")}</p>}
                         {searchData.map((building: any) => {
                           return (
-                            <Grid item xs={4}>
+                            <Grid item xs={4} key={building.building_management_id}>
                               <Link href={`/Building/${building.building_management_id}`}>
                                 <Box className="building-box">
                                   <h5>{building.building_name}</h5>
@@ -589,7 +593,30 @@ class Complex extends ComplexController {
           </Formik>
         </Dialog>
 
-        {/* <Loader loading={this.state.loading} /> */}
+        <Dialog className="edit-profile" open={this.state.isOpenMapModalOpen} scroll="paper" fullWidth maxWidth="sm">
+          <MuiDialogTitle disableTypography className="dialog-heading">
+            <Typography variant="h6">{t("Location")}</Typography>
+            <IconButton onClick={() => this.handleMapModal()}>
+              <CloseIcon />
+            </IconButton>
+          </MuiDialogTitle>
+          {this.state.complexData.lat && this.state.complexData.long ? (
+            <Box className="google-map-box">
+              <GoogleMapReact
+                bootstrapURLKeys={{ key: "AIzaSyA1NvS9-cKp1dl_kMQDVFr4Gmbnv97MTtk" }}
+                defaultCenter={{
+                  lat: this.state.complexData.lat,
+                  lng: this.state.complexData.long,
+                }}
+                defaultZoom={15}
+              >
+                <LocationPin lat={this.state.complexData.lat} lng={this.state.complexData.long} />
+              </GoogleMapReact>
+            </Box>
+          ) : (
+            <Box className="no-google-map-box">{t("No Location Available")}</Box>
+          )}
+        </Dialog>
       </>
     );
   }

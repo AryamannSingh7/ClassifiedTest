@@ -1,7 +1,7 @@
 // Customizable Area Start
 import React from "react";
 import "./Dashboard.web.css";
-import { TenantLogo } from "./assets";
+import { communityManagement, meetings, myTeam, TenantLogo } from "./assets";
 import "../../../web/src/assets/css/style.scss";
 import { Typography, Link, withStyles } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
@@ -96,7 +96,7 @@ class ChairmanSidebar extends DashboardController {
               className="ListItem"
             >
               <Typography>
-                <DashboardOutlinedIcon />
+                <img src={myTeam} alt="" />
               </Typography>
               <Typography className="ListItemText">My Team</Typography>
             </AccordionSummary>
@@ -131,7 +131,7 @@ class ChairmanSidebar extends DashboardController {
               style={dashBoard.ListItem}
             >
               <Typography>
-                <DashboardOutlinedIcon />
+                <img src={communityManagement} alt="" />
               </Typography>
               <Typography className="ListItemText">{t("Community Management")}</Typography>
             </AccordionSummary>
@@ -217,7 +217,7 @@ class ChairmanSidebar extends DashboardController {
               style={dashBoard.ListItem}
             >
               <Typography>
-                <DashboardOutlinedIcon />
+                <img src={meetings} alt="" />
               </Typography>
               <Typography className="ListItemText">{t("Meeting")}</Typography>
             </AccordionSummary>
@@ -369,6 +369,7 @@ const dashBoard = {
   ListItem: {
     // color: "black",
     marginTop: "20px",
+    alignItems: "center",
   },
   ListItemText: {
     marginLeft: 15,
