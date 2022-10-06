@@ -1,0 +1,39 @@
+@import "../constants/base/";
+.customRadio {
+  background-color: white;
+
+  & .Mui-checked {
+    position: relative;
+    &::before {
+      content: " ";
+      position: absolute;
+      left: 15px;
+      top: 15px;
+      height: 12px;
+      width: 12px;
+      border-radius: 50%;
+      background-color: red;
+    }
+  }
+  & .MuiFormControlLabel-root {
+    background-color: white;
+    margin: 0;
+
+    &.MuiSelect-select {
+      font-weight: 600;
+      font-size: 15px;
+      border-radius: $BORDER_RADIUS;
+    }
+  }
+  .MuiSvgIcon-root {
+    color: $GREEN;
+    // display: none;
+    &:last-child {
+      display: none;
+    }
+  }
+  span {
+    color: $DARK_SHADE1;
+    font-weight: 600;
+  }
+}

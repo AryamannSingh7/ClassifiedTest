@@ -58,6 +58,12 @@
     }
 
     &.common-incident-block {
+      &.classifiedtype-block {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
       @include scrollbars();
       overflow-y: scroll;
       margin: 0;
@@ -107,7 +113,6 @@
         }
         & .MuiButton-root {
           padding: 10px 15px;
-         
         }
         & .btn-gray {
           & .MuiButton-contained {

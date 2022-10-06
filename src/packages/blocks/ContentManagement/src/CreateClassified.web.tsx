@@ -38,7 +38,11 @@ import {
   Box_Icon,
   Building1,
   Checkmark_Icon,
-  Error_Icon
+  Error_Icon,
+  EmailIcon,
+  DescIcon,
+  TitleIcon,
+  CurrencyIcon
 } from "../src/assets";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import LockOpenIcon from '@material-ui/icons/LockOpen';
@@ -48,21 +52,21 @@ class CreateClassified extends ClassifiedController {
   constructor(props: Props) {
     super(props);
   }
-  
-  componentDidMount():any {
-    this.getCurrencyList();
-     //@ts-ignore
-    const id =this.props?.history?.location?.id;
+
+  componentDidMount(): any {
+    // this.getCurrencyList();
+    //@ts-ignore
+    const id = this.props?.history?.location?.id;
     if (id)
-    this.getClassifiedDetailsById(id)
+      this.getClassifiedDetailsById(id)
   }
   render() {
     const { navigation } = this.props;
-    console.log("this.state?.getClassifiedDetails?==============>",this.state?.getClassifiedDetails?.attributes)
+    // console.log("this.state?.getClassifiedDetails?==============>",this.state?.getClassifiedDetails?.attributes)
     const id = this.state?.getClassifiedDetails?.id;
     const attributes = this.state?.getClassifiedDetails?.attributes;
-    console.log("this.state?.getClassifiedDetails?==============>",full_phone_number)
-   
+    // console.log("this.state?.getClassifiedDetails?==============>",full_phone_number)
+
     const classifiedUserType = localStorage.getItem("classifiedUserType")
     // if (!classifiedUserType) {
     //   //@ts-ignore
@@ -79,34 +83,34 @@ class CreateClassified extends ClassifiedController {
                 <Box className="content-header">
                   <Box className="left-block blocks">
                     <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
-                    { classifiedUserType === "buyer" ?<h4>Buyers Request </h4>
-                        : classifiedUserType === "seller" ?<h4>Sellers Request</h4>
-                        :  classifiedUserType === "generic" ?<h4>Generic Request</h4>
-                        : <h4>Edit Classified</h4>
+                    {classifiedUserType === "buyer" ? <h4>Buyers Request </h4>
+                      : classifiedUserType === "seller" ? <h4>Sellers Request</h4>
+                        : classifiedUserType === "generic" ? <h4>Generic Request</h4>
+                          : <h4>Edit Classified</h4>
                     }
                   </Box>
                 </Box>
                 <Box className="content-block-wrapper common-incident-block desktop-ui">
                   <Formik
                     initialValues={{
-                      phone:attributes?.full_phone_number ||"",
-                      email:attributes.email||"",
-                      classifiedTitle:"",
-                      description:"",
+                      phone: "",
+                      email: "",
+                      classifiedTitle: "",
+                      description: "",
                       media: [],
-                      price:"",
-                      currency:' ',
-                      endDate:"",
-                      startDate:"",
-                      selectCode:'+966',
-                      priceFrom:"",
-                      priceTo:"",
-                      timeFrom:"",
-                      timeTo:"",
-                      paymentDetail:""
+                      price: "",
+                      currency: ' ',
+                      endDate: "",
+                      startDate: "",
+                      selectCode: '+966',
+                      priceFrom: "",
+                      priceTo: "",
+                      timeFrom: "",
+                      timeTo: "",
+                      paymentDetail: ""
                     }}
                     enableReinitialize
-                    validationSchema={classifiedUserType === "generic" ? this.createClassifiedSchemaGerenic():classifiedUserType === "buyer" ? this.createClassifiedSchemaBuy():this.createClassifiedSchemaSell()}
+                    validationSchema={classifiedUserType === "generic" ? this.createClassifiedSchemaGerenic() : classifiedUserType === "buyer" ? this.createClassifiedSchemaBuy() : this.createClassifiedSchemaSell()}
                     validateOnMount={true}
                     onSubmit={(values) =>
                       !this.state?.sizeError && !this.state?.notImageOrVideoError ?
@@ -121,102 +125,98 @@ class CreateClassified extends ClassifiedController {
                     }
                   >
                     {({ values, touched, errors, isValid, setFieldError, setFieldValue, handleChange }) => (
-                      <Form translate="yes" className="commonForm">
-                        {/* <h5 className="frm-title incident-preview-title">Incident Details</h5>
-                        */}
-                        
-                      {/* mobile */}
-
-                      <Box
-                        marginTop='1rem'
-                        className='formInputGrp'
-                        display="flex"
-                        overflow="hidden"
-                        alignItems="center"
-                        height="56px"
-                        border="0.1px solid rgb(209 209 209 / 44%)"
-                        borderRadius="25px"
-                        bgcolor="#f9f9f9"
-                      >
-                        <Box>
-                          <FormControl variant="outlined" >
-                            {/* <InputLabel id="demo-simple-select-outlined-label"><img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AF.svg`} width='15' height='15' />
+                      <Form translate="yes" className="commonForm CreateClassifiedFrm">
+                        <Box
+                          marginTop='1rem'
+                          marginBottom='1rem'
+                          className='formInputGrp'
+                          display="flex"
+                          overflow="hidden"
+                          alignItems="center"
+                          height="56px"
+                          border="0.1px solid rgb(209 209 209 / 44%)"
+                          borderRadius="25px"
+                          bgcolor="#f9f9f9"
+                        >
+                          <Box>
+                            <FormControl variant="outlined" >
+                              {/* <InputLabel id="demo-simple-select-outlined-label"><img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AF.svg`} width='15' height='15' />
                           sd</InputLabel> */}
-                            <Select
-                              name='selectCode'
-                              labelId="demo-simple-select-outlined-label"
+                              <Select
+                                name='selectCode'
+                                labelId="demo-simple-select-outlined-label"
 
-                              id="demo-simple-select-outlined"
-                              onChange={handleChange}
-                              value={values.selectCode}
-                            >
-                              <MenuItem value="">
-                                <em>None</em>
-                              </MenuItem>
-                              {dailCode.map((item) =>
-                                <MenuItem key={item.dial_code} value={item.dial_code}> <img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/${item.code}.svg`} width='15' height='15' style={{ marginRight: '5px' }} />
-                                  {item.dial_code}</MenuItem>
+                                id="demo-simple-select-outlined"
+                                onChange={handleChange}
+                                value={values.selectCode}
+                              >
+                                <MenuItem value="">
+                                  <em>None</em>
+                                </MenuItem>
+                                {dailCode.map((item) =>
+                                  <MenuItem key={item.dial_code} value={item.dial_code}> <img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/${item.code}.svg`} width='15' height='15' style={{ marginRight: '5px' }} />
+                                    {item.dial_code}</MenuItem>
 
-                              )
-                              }
+                                )
+                                }
 
-                            </Select>
-                          </FormControl>
+                              </Select>
+                            </FormControl>
 
+                          </Box>
+
+                          <Field
+                            name="phone"
+                            id="mobile"
+                            placeholder={"Mobile"}
+                            style={{
+                              border: "none",
+                              height: "42%",
+                              width: "80%",
+                              color: "rgba(0, 0, 0, 0.6)",
+                              fontWeight: 400,
+                              fontSize: 16,
+                              marginRight: 10,
+                              marginLeft: 21,
+                              outline: "none",
+                              backgroundColor: '#f9f9f9'
+                            }}
+                          />
                         </Box>
 
-                        <Field
-                          name="phone"
-                          id="mobile"
-                          placeholder={"Mobile"}
-                          style={{
-                            border: "none",
-                            height: "42%",
-                            width: "80%",
-                            color: "rgba(0, 0, 0, 0.6)",
-                            fontWeight: 400,
-                            fontSize: 16,
-                            marginRight: 10,
-                            marginLeft: 21,
-                            outline: "none",
-                            backgroundColor:'#f9f9f9'
-                          }}
-                        />
-                      </Box>
-
-                      {errors.phone && touched.phone ? (
-                        <Typography
-                          style={{
-                            color: "#F14E24",
-                            fontWeight: 300,
-                            fontSize: 14,
-                            marginTop: 5,
-                            marginLeft: 10
-                          }}
-                        >
-                          <ErrorMessage className="text-error" component="Typography" name="phone" />
-                        </Typography>
-                      ) : null}
+                        {errors.phone && touched.phone ? (
+                          <Typography
+                            style={{
+                              color: "#F14E24",
+                              fontWeight: 300,
+                              fontSize: 14,
+                              marginTop: 5,
+                              marginLeft: 10
+                            }}
+                          >
+                            <ErrorMessage className="text-error" component="Typography" name="phone" />
+                          </Typography>
+                        ) : null}
 
                         <Box className="formGroup">
                           <Field name="email" type="text" placeholder="email" className="formInput" />
                           <span className="frmLeftIcons">
-                            <img src={Warning_Icon} className="frm-icons" alt="Warning Icon" />
+                            <img src={EmailIcon} className="frm-icons" alt="Warning Icon" />
                           </span>
                           <ErrorMessage className="text-error" component="Typography" name="email" />
                         </Box>
                         <Box className="formGroup">
                           <Field name="classifiedTitle" type="text" placeholder="Classified Title" className="formInput" />
                           <span className="frmLeftIcons">
-                            <img src={Warning_Icon} className="frm-icons" alt="Warning Icon" />
+                            <img src={TitleIcon} className="frm-icons" alt="Warning Icon" />
                           </span>
                           <ErrorMessage className="text-error" component="Typography" name="classifiedTitle" />
                         </Box>
-                        
+
                         <Box className="formGroup">
                           <Field name="description" type="text" placeholder="Add description" className="formInput" />
                           <span className="frmLeftIcons">
-                            <img src={Warning_Icon} className="frm-icons" alt="Warning Icon" />
+                            <img src={EmailIcon} className="frm-icons" alt="Warning Icon" />
                           </span>
                           <ErrorMessage className="text-error" component="Typography" name="description" />
                         </Box>
@@ -275,229 +275,240 @@ class CreateClassified extends ClassifiedController {
                           {/* <ErrorMessage className="text-error" component="Typography" name="media" /> */}
                         </Box>
                         {
-                            classifiedUserType === "generic" ? 
+                          classifiedUserType === "generic" ?
                             <>
-                             <Box className="formGroup customSelect">
-                          <FormControl variant="outlined" >
-                            <span className="frmLeftIcons">
-                              <img src={Box_Icon} className="frm-icons" alt="House Icon" />
-                            </span>
-                            <Select
-                              name="currency"
-                              labelId="demo-simple-select-outlined-label"
-                              id="demo-simple-select-outlined"
-                              style={{paddingLeft:50,marginTop:-3}}
-                              onChange={(e) => {
-                                (e.target.value != " ") && setFieldValue("currency", e.target.value)
-                              }}
-                              value={values.currency}
-                            >
-                              <MenuItem disabled value =" ">
-                               currency
-                              </MenuItem>
-                              {
-                                this.state?.getCurrencyList?.map((val:any, index:any) => (
-                                  <MenuItem
-                                    key={index}
-                                    value={val?.id}
+                              <Box className="formGroup customSelect">
+                                <FormControl variant="outlined" >
+                                  <span className="frmLeftIcons">
+                                    <img src={Box_Icon} className="frm-icons" alt="House Icon" />
+                                  </span>
+                                  <Select
+                                    name="currency"
+                                    labelId="demo-simple-select-outlined-label"
+                                    id="demo-simple-select-outlined"
+                                    style={{ paddingLeft: 50, marginTop: -3 }}
+                                    onChange={(e) => {
+                                      (e.target.value != " ") && setFieldValue("currency", e.target.value)
+                                    }}
+                                    value={values.currency}
                                   >
-                                    {val?.attributes?.currency}
-                                  </MenuItem>
-                                ))
-                              }
-                            </Select>
-                            <ErrorMessage className="text-error" component="Typography" name="currency" />
-                          </FormControl>
-                        </Box>
+                                    <MenuItem disabled value=" ">
+                                      currency
+                                    </MenuItem>
+                                    {
+                                      this.state?.getCurrencyList?.map((val: any, index: any) => (
+                                        <MenuItem
+                                          key={index}
+                                          value={val?.id}
+                                        >
+                                          {val?.attributes?.currency}
+                                        </MenuItem>
+                                      ))
+                                    }
+                                  </Select>
+                                  <ErrorMessage className="text-error" component="Typography" name="currency" />
+                                </FormControl>
+                              </Box>
 
-                            <Box className="formGroup">
-                            <Field name="paymentDetail" type="text" placeholder="paymentDetail" className="formInput" />
-                            <span className="frmLeftIcons">
-                              <img src={Warning_Icon} className="frm-icons" alt="Warning Icon" />
-                            </span>
-                            <ErrorMessage className="text-error" component="Typography" name="paymentDetail" />
-                          </Box>
+                              <Box className="formGroup">
+                                <Field name="paymentDetail" type="text" placeholder="paymentDetail" className="formInput" />
+                                <span className="frmLeftIcons">
+                                  <img src={CurrencyIcon} className="frm-icons" alt="Warning Icon" />
+                                </span>
+                                <ErrorMessage className="text-error" component="Typography" name="paymentDetail" />
+                              </Box>
 
-                          <p>Select timing for which you are willing to 
-                             provide/receive the service</p>
-                            
-                            <Box className="formGroup">
-                            <Field name="timeFrom" type="time" placeholder="From" className="formInput" />
-                            <span className="frmLeftIcons">
-                              <img src={Warning_Icon} className="frm-icons" alt="Warning Icon" />
-                            </span>
-                            <ErrorMessage className="text-error" component="Typography" name="timeFrom" />
-                          </Box>
+                              <p>Select timing for which you are willing to
+                                provide/receive the service</p>
 
-                          <Box className="formGroup">
-                            <Field name="timeTo" type="time" placeholder="To" className="formInput" />
-                            <span className="frmLeftIcons">
-                              <img src={Warning_Icon} className="frm-icons" alt="Warning Icon" />
-                            </span>
-                            <ErrorMessage className="text-error" component="Typography" name="timeTo" />
-                          </Box>
-                          <p>Select duration to let your potential clients know how long your offer stays</p>
-                          </>
+                              <Box className="formGroup">
+                                <Field name="timeFrom" type="time" placeholder="From" className="formInput" />
+                                <span className="frmLeftIcons">
+                                  <img src={CurrencyIcon} className="frm-icons" alt="Warning Icon" />
+                                </span>
+                                <ErrorMessage className="text-error" component="Typography" name="timeFrom" />
+                              </Box>
+
+                              <Box className="formGroup">
+                                <Field name="timeTo" type="time" placeholder="To" className="formInput formInputBox" />
+                                <span className="frmLeftIcons">
+                                  <img src={CurrencyIcon} className="frm-icons" alt="Warning Icon" />
+                                </span>
+                                <ErrorMessage className="text-error" component="Typography" name="timeTo" />
+                              </Box>
+                              <p>Select duration to let your potential clients know how long your offer stays</p>
+                            </>
                             :
                             null
                         }
 
                         {
-                          classifiedUserType === "buyer" ?  
-                          <>
-                       <Grid container  >
-                      <Grid xs={6}>
-                           <p>Price Range</p>
-                           </Grid>
-                       <Grid xs={6} >
-                           <Box className="formGroup customSelect">
-                          <FormControl variant="outlined" >
-                            <span className="frmLeftIcons">
-                              <img src={Box_Icon} className="frm-icons" alt="House Icon" />
-                            </span>
-                            <Select
-                              name="currency"
-                              labelId="demo-simple-select-outlined-label"
-                              id="demo-simple-select-outlined"
-                              style={{paddingLeft:50,marginTop:-3}}
-                              onChange={(e) => {
-                                (e.target.value != " ") && setFieldValue("currency", e.target.value)
-                              }}
-                              value={values.currency}
-                            >
-                              <MenuItem disabled value =" ">
-                               currency
-                              </MenuItem>
-                              {
-                                this.state?.getCurrencyList?.map((val:any, index:any) => (
-                                  <MenuItem
-                                    key={index}
-                                    value={val?.id}
-                                  >
-                                    {val?.attributes?.currency}
-                                  </MenuItem>
-                                ))
-                              }
-                            </Select>
-                            <ErrorMessage className="text-error" component="Typography" name="currency" />
-                          </FormControl>
-                        </Box>
-                     </Grid>
-                     <Grid xs={6}>
-                            <Box className="formGroup">
-                            <Field name="priceFrom" type="text" placeholder="From" className="formInput" />
-                            <span className="frmLeftIcons">
-                              <img src={Warning_Icon} className="frm-icons" alt="Warning Icon" />
-                            </span>
-                            <ErrorMessage className="text-error" component="Typography" name="priceFrom" />
-                          </Box>
-                          </Grid>
-                          <Grid xs={6}>
-                          <Box className="formGroup">
-                            <Field name="priceTo" type="text" placeholder="To" className="formInput" />
-                            <span className="frmLeftIcons">
-                              <img src={Warning_Icon} className="frm-icons" alt="Warning Icon" />
-                            </span>
-                            <ErrorMessage className="text-error" component="Typography" name="priceTo" />
-                          </Box>
-                          </Grid>
-                          </Grid>
-                         <p>Select duration to let buyers know how long your offer stays</p>
-                          </>
-                          :null
+                          classifiedUserType === "buyer" ?
+                            <>
+                              <Grid container>
+                                <Grid xs={6}>
+                                  <p>Price Range</p>
+                                </Grid>
+                                <Grid xs={6} >
+                                  <Box className="formGroup customSelect">
+                                    <FormControl variant="outlined" >
+                                      <span className="frmLeftIcons">
+                                        <img src={Box_Icon} className="frm-icons" alt="House Icon" />
+                                      </span>
+                                      <Select
+                                        name="currency"
+                                        labelId="demo-simple-select-outlined-label"
+                                        id="demo-simple-select-outlined"
+                                        style={{ paddingLeft: 50, marginTop: -3 }}
+                                        onChange={(e) => {
+                                          (e.target.value != " ") && setFieldValue("currency", e.target.value)
+                                        }}
+                                        value={values.currency}
+                                      >
+                                        <MenuItem disabled value=" ">
+                                          currency
+                                        </MenuItem>
+                                        {
+                                          this.state?.getCurrencyList?.map((val: any, index: any) => (
+                                            <MenuItem
+                                              key={index}
+                                              value={val?.id}
+                                            >
+                                              {val?.attributes?.currency}
+                                            </MenuItem>
+                                          ))
+                                        }
+                                      </Select>
+                                      <ErrorMessage className="text-error" component="Typography" name="currency" />
+                                    </FormControl>
+                                  </Box>
+                                </Grid>
+                                <Grid xs={6}>
+                                  <Box className="formGroup classifiedFormGroup">
+                                    <Field name="priceFrom" type="text" placeholder="From" className="formInput" />
+                                    <span className="frmLeftIcons">
+                                      <img src={CurrencyIcon} className="frm-icons" alt="Warning Icon" />
+                                    </span>
+                                    <ErrorMessage className="text-error" component="Typography" name="priceFrom" />
+                                  </Box>
+                                </Grid>
+                                <Grid xs={6}>
+                                  <Box className="formGroup">
+                                    <Field name="priceTo" type="text" placeholder="To" className="formInput" />
+                                    <span className="frmLeftIcons">
+                                      <img src={CurrencyIcon} className="frm-icons" alt="Warning Icon" />
+                                    </span>
+                                    <ErrorMessage className="text-error" component="Typography" name="priceTo" />
+                                  </Box>
+                                </Grid>
+                              </Grid>
+                              <p>Select duration to let buyers know how long your offer stays</p>
+                            </>
+                            : null
                         }
-                        {   classifiedUserType === "seller" ? 
-                        <> 
-                          <Box className="formGroup">
-                            <Field name="price" type="text" placeholder="price" className="formInput" />
-                            <span className="frmLeftIcons">
-                              <img src={Warning_Icon} className="frm-icons" alt="Warning Icon" />
-                            </span>
-                            <ErrorMessage className="text-error" component="Typography" name="price" />
-                          </Box>
-                          <Box className="formGroup customSelect">
-                          <FormControl variant="outlined" >
-                            <span className="frmLeftIcons">
-                              <img src={Box_Icon} className="frm-icons" alt="House Icon" />
-                            </span>
-                            <Select
-                              name="currency"
-                              labelId="demo-simple-select-outlined-label"
-                              id="demo-simple-select-outlined"
-                              style={{paddingLeft:50,marginTop:-3}}
-                              onChange={(e) => {
-                                (e.target.value != " ") && setFieldValue("currency", e.target.value)
-                              }}
-                              value={values.currency}
-                            >
-                              <MenuItem disabled value =" ">
-                               currency
-                              </MenuItem>
-                              {
-                                this.state?.getCurrencyList?.map((val:any, index:any) => (
-                                  <MenuItem
-                                    key={index}
-                                    value={val?.id}
-                                  >
-                                    {val?.attributes?.currency}
+                        {classifiedUserType === "seller" ?
+                          <>
+                            <Box className="formGroup">
+                              <Field name="price" type="text" placeholder="price" className="formInput" />
+                              <span className="frmLeftIcons">
+                                <img src={Warning_Icon} className="frm-icons" alt="Warning Icon" />
+                              </span>
+                              <ErrorMessage className="text-error" component="Typography" name="price" />
+                            </Box>
+                            <Box className="formGroup customSelect">
+                              <FormControl variant="outlined" >
+                                <span className="frmLeftIcons">
+                                  <img src={Box_Icon} className="frm-icons" alt="House Icon" />
+                                </span>
+                                <Select
+                                  name="currency"
+                                  labelId="demo-simple-select-outlined-label"
+                                  id="demo-simple-select-outlined"
+                                  style={{ paddingLeft: 50, marginTop: -3 }}
+                                  onChange={(e) => {
+                                    (e.target.value != " ") && setFieldValue("currency", e.target.value)
+                                  }}
+                                  value={values.currency}
+                                >
+                                  <MenuItem disabled value=" ">
+                                    currency
                                   </MenuItem>
-                                ))
-                              }
-                            </Select>
-                            <ErrorMessage className="text-error" component="Typography" name="currency" />
-                          </FormControl>
-                        </Box>
-                        <p>Select duration to let buyers know how long your offer stays</p>
-                        </>
-                        :null
+                                  {
+                                    this.state?.getCurrencyList?.map((val: any, index: any) => (
+                                      <MenuItem
+                                        key={index}
+                                        value={val?.id}
+                                      >
+                                        {val?.attributes?.currency}
+                                      </MenuItem>
+                                    ))
+                                  }
+                                </Select>
+                                <ErrorMessage className="text-error" component="Typography" name="currency" />
+                              </FormControl>
+                            </Box>
+                            <p>Select duration to let buyers know how long your offer stays</p>
+                          </>
+                          : null
                         }
                         <Box className="DateSection">
-                                        <Box style={{width:"100%"}}>
-                                            <TextField
-                                                label="Start Date" variant="outlined"
-                                                style={{width:"100%"}}
-                                                type="date" name="startDate"  fullWidth
-                                                id="SurveyQuestion"
-                                                format='DD/MM/YYYY'
-                                                onChange={handleChange}
-                                                InputProps={{
-                                                    // min: "2019-01-24",
-                                                    //@ts-ignore
-                                                    max: "5000-05-31",
-                                                    startAdornment: (
-                                                        <InputAdornment position="start">
-                                                            <DateRangeOutlinedIcon />
-                                                        </InputAdornment>
-                                                    ),
-                                                }
-                                                }
-                                            />
-                                             <ErrorMessage className="text-error" component="Typography" name="startDate" />
-                                        </Box>
-                                        <Box style={{width:"100%"}}>
-                                            <TextField label="End Date" variant="outlined"
-                                                       type="date" name="endDate"  fullWidth
-                                                       style={{width:"100%"}}
-                                                       id="SurveyQuestion"
-                                                       onChange={handleChange}
-                                                       InputProps={{
-                                                           // min: "2019-01-24",
-                                                           //@ts-ignore
-                                                           max: "5000-05-31",
-                                                           startAdornment: (
-                                                               <InputAdornment position="start">
-                                                                   <DateRangeOutlinedIcon />
-                                                               </InputAdornment>
-                                                           )
-                                                       }}
-                                            />
-                                             <ErrorMessage className="text-error" component="Typography" name="endDate" />
-                                        </Box>
-                                    </Box>
+                          <Grid container>
+                            <Grid xs={6}>
+                              <Box className="formGroup classifiedFormGroup">
+                                <TextField
+                                  label="Start Date" variant="outlined"
+                                  style={{ width: "100%" ,borderRadius: "25px",border: "1px solid #e9dede"}}
+                                  type="date" name="startDate" fullWidth
+                                  id="SurveyQuestion"
+                                  format='DD/MM/YYYY'
+                                  onChange={handleChange}
+                                  InputProps={{
+                                    // min: "2019-01-24",
+                                    //@ts-ignore
+                                    max: "5000-05-31",
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        {/* <DateRangeOutlinedIcon /> */}
+                                      </InputAdornment>
+                                    ),
+                                    endAdornment: (
+                                      <InputAdornment position="end">
+                                        {/* <DateRangeOutlinedIcon /> */}
+                                      </InputAdornment>
+                                    ),
+                                  }
+                                  }
+                                />
+                                <ErrorMessage className="text-error" component="Typography" name="startDate" />
+                              </Box>
+                            </Grid>
+                            <Grid xs={6}>
+                              <Box className="formGroup classifiedFormGroup">
+                                <TextField label="End Date" variant="outlined"
+                                  type="date" name="endDate" fullWidth
+                                  style={{ width: "100%",borderRadius: "25px",border: "1px solid #e9dede" }}
+                                  id="SurveyQuestion"
+                                  onChange={handleChange}
+                                  InputProps={{
+                                    // min: "2019-01-24",
+                                    //@ts-ignore
+                                    max: "5000-05-31",
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        <DateRangeOutlinedIcon />
+                                      </InputAdornment>
+                                    )
+                                  }}
+                                />
+                                <ErrorMessage className="text-error" component="Typography" name="endDate" />
+                              </Box>
+                            </Grid>
+                          </Grid>
+                        </Box>
                         <Box className="customButton">
-                        <Button variant="contained" type="submit">preview</Button>
-                          {JSON.stringify(errors, null, 2)} 
- {JSON.stringify(values, null, 2)}
+                          <Button variant="contained" type="submit">preview</Button>
+                          {/* {JSON.stringify(errors, null, 2)} 
+ {JSON.stringify(values, null, 2)} */}
                         </Box>
                       </Form>
                     )}
@@ -509,14 +520,14 @@ class CreateClassified extends ClassifiedController {
                   <img src={Tenant_Logo.default} className="tenant-logo" alt="" />
                 </Box> */}
               </Box>
-            </Grid>
+            </Grid >
             <Grid item xs={12} md={5} className="auth-cols">
               <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
                 <img src={Building1.default} className="building-logo" alt="" />
               </Box>
             </Grid>
-          </Grid>
-        </Box>
+          </Grid >
+        </Box >
         <Loader loading={this.state.loading} />
       </>
     )
