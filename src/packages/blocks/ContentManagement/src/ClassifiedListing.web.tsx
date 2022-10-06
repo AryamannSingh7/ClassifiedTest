@@ -53,7 +53,11 @@ class ClassifiedListing extends ClassifiedController {
                     <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
                     <h4>Classified</h4>
                   </Box>
-                  <Box className="incident-right-block blocks">
+                  {
+                    this.state?.myOrAllClassified ? 
+                    null
+                    :
+                    <Box className="incident-right-block blocks">
                     {/* <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
                       <Button aria-controls="simple-menu" aria-haspopup="true" onClick={(e: any) => this.handleClick(e)}>
                         <img src={Grid_Icon} className="grid-icon icons" alt="" />
@@ -87,6 +91,8 @@ class ClassifiedListing extends ClassifiedController {
                     </Menu>
 
                   </Box>
+                  }
+                  
                 </Box>
                 <Box className="content-block-wrapper common-incident-block">
                   <Box className="incident-content-wrapper">
