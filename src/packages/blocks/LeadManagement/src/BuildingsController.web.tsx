@@ -85,6 +85,7 @@ interface S {
   unitList: any[];
   pagination: any | Pagination;
   page: number;
+  status: string;
 
   editForm: EditForm;
   // Customizable Area End
@@ -150,6 +151,7 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
       unitList: [],
       pagination: null,
       page: 1,
+      status: "",
 
       editForm: {
         logo: "",
@@ -162,13 +164,8 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
         totalFloor: "",
         country: "",
       },
-      // Customizable Area Start
-      // Customizable Area End
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
-
-    // Customizable Area Start
-    // Customizable Area End
   }
 
   async receive(from: string, message: Message) {
@@ -304,14 +301,14 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
   }
 
   async componentDidUpdate(prevProps: any, prevState: any): Promise<void> {
-    if (prevState.page !== this.state.page) {
+    if (prevState.page !== this.state.page || prevState.status !== this.state.status) {
       await this.getUnitList();
     }
   }
 
   // Get Unit List API
   getUnitList = () => {
-    const { page } = this.state;
+    const { page, status } = this.state;
     const header = {
       "Content-Type": configJSON.ApiContentType,
       token: localStorage.getItem("userToken"),
@@ -325,7 +322,7 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
       getName(MessageEnum.RestAPIResponceEndPointMessage),
       `bx_block_settings/apartment_managements/apartment_list?building_management_id=${
         this.state.buildingId
-      }&per_page=5&page=${page}`
+      }&per_page=5&page=${page}&status=${status}`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));

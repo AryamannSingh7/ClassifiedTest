@@ -360,7 +360,11 @@ class Buildings extends BuildingsController {
                             <h2>{t("Units")}</h2>
                           </Box>
                           <Box className="right-content">
-                            <select value="" className="unit-select">
+                            <select
+                              value={this.state.status}
+                              className="unit-select"
+                              onChange={(e: any) => this.setState({ status: e.target.value, page: 1 })}
+                            >
                               <option disabled value="">
                                 {t("Status")}
                               </option>
@@ -399,13 +403,19 @@ class Buildings extends BuildingsController {
                             </TableHead>
                             <TableBody>
                               {searchData.map((unit: any, index: number) => {
+                                console.log(unit);
+
                                 return (
                                   <TableRow key={unit.id}>
                                     <TableCell>{index + 1}</TableCell>
                                     <TableCell>{unit.attributes.apartment_name}</TableCell>
                                     <TableCell>{unit.attributes.floor_number}</TableCell>
-                                    <TableCell>-</TableCell>
-                                    <TableCell>-</TableCell>
+                                    <TableCell>
+                                      {unit.attributes.resident ? unit.attributes.resident.resident_name : "-"}
+                                    </TableCell>
+                                    <TableCell>
+                                      {unit.attributes.owner ? unit.attributes.owner.owner_name : "-"}
+                                    </TableCell>
                                     <TableCell>
                                       <span className={unit.attributes.status}>{unit.attributes.status}</span>
                                     </TableCell>
@@ -424,7 +434,7 @@ class Buildings extends BuildingsController {
                         </TableContainer>
                         <Box className="unit-pagination">
                           <p>
-                            {t("Showing")} <span>5</span> {t("of")}{" "}
+                            {t("Showing")} <span>{this.state.dataSearch.length || 0}</span> {t("of")}{" "}
                             <span>{this.state.pagination ? this.state.pagination.total_count : 0}</span> {t("results")}
                           </p>
                           {this.state.pagination && (

@@ -46,7 +46,6 @@ import {
   call_org,
   email_org,
   chat,
-  bentalyLogo,
   currency_icon,
   flag,
   profile_icon,
@@ -91,8 +90,6 @@ class UnitDetails extends UnitDetailsController {
   render() {
     const { t }: any = this.props;
     const { classes } = this.props;
-
-    console.log(this.state);
 
     return (
       <>
@@ -241,48 +238,58 @@ class UnitDetails extends UnitDetailsController {
                 </Box>
 
                 {/* Related People */}
-                <Box className="related-people">
-                  <Box className="heading">
-                    <h4>{t("Related People")}</h4>
-                  </Box>
-                  <Grid container spacing={2}>
-                    <Grid item sm={3}>
-                      <Card className="user-details">
-                        <CardMedia
-                          component="img"
-                          height="140"
-                          image="https://tinyurl.com/3mrr3dm5"
-                          alt="green iguana"
-                          style={dashBoard.profileImage}
-                        />
-                        <h4>B-140</h4>
-                        <p>Lia doe</p>
-                        <span className="role">Property Manager</span>
-                        <Box className="icons">
-                          <img src={chat} alt="" />
-                          <img src={email_org} alt="" />
-                          <img src={call_org} alt="" />
-                        </Box>
+                {this.state.unitData.relatedPeople.length > 0 && (
+                  <Box className="related-people">
+                    <Box className="heading">
+                      <h4>{t("Related People")}</h4>
+                    </Box>
+                    <Grid container spacing={2}>
+                      {this.state.unitData.relatedPeople.map((people: any) => {
+                        return (
+                          <Grid item sm={3} key={people.id}>
+                            <Card className="user-details">
+                              <CardMedia
+                                component="img"
+                                height="140"
+                                image={people.attributes.profile_pic && people.attributes.profile_pic.url}
+                                alt={people.attributes.full_name}
+                                style={dashBoard.profileImage}
+                              />
+                              <h4>B-140</h4>
+                              <p>{people.attributes.full_name}</p>
+                              <span className="role">Property Manager</span>
+                              <Box className="icons">
+                                <img src={chat} alt="" />
+                                <a href={`mailto:${people.attributes.email}`}>
+                                  <img src={email_org} alt="" />
+                                </a>
+                                <a href={`tel:${people.attributes.full_phone_number}`}>
+                                  <img src={call_org} alt="" />
+                                </a>
+                              </Box>
 
-                        <Box className="user-menu">
-                          <Menu menuButton={<MoreVertIcon />}>
-                            <MenuItem onClick={this.handleDeLinkModal}>{t("Delink User")}</MenuItem>
-                            <MenuItem onClick={this.handleSuspendModal}>{t("Suspend User")}</MenuItem>
-                          </Menu>
-                        </Box>
-                      </Card>
+                              <Box className="user-menu">
+                                <Menu menuButton={<MoreVertIcon />}>
+                                  <MenuItem onClick={this.handleDeLinkModal}>{t("Delink User")}</MenuItem>
+                                  <MenuItem onClick={this.handleSuspendModal}>{t("Suspend User")}</MenuItem>
+                                </Menu>
+                              </Box>
+                            </Card>
+                          </Grid>
+                        );
+                      })}
                     </Grid>
-                  </Grid>
-                </Box>
+                  </Box>
+                )}
 
                 {/* Family Members */}
-                {this.state.familyList.length > 0 && (
+                {this.state.unitData.familyList.length > 0 && (
                   <Box className="related-people family-details">
                     <Box className="heading">
                       <h4>{t("Family Members")}</h4>
                     </Box>
                     <Grid container spacing={2}>
-                      {this.state.familyList.map((family: any) => {
+                      {this.state.unitData.familyList.map((family: any) => {
                         return (
                           <Grid item sm={4} key={family.id}>
                             <Card className="user-details">
@@ -339,18 +346,22 @@ class UnitDetails extends UnitDetailsController {
                           <Grid item sm={6} key={incident.id}>
                             <Card className="incident-card">
                               <Box className="heading">
-                                <h4>{incident.incident_title}</h4>
-                                <span className={incident.incident_status}>{incident.incident_status}</span>
+                                <h4>{incident.attributes.incident_title}</h4>
+                                <span className={incident.attributes.incident_status}>
+                                  {incident.attributes.incident_status}
+                                </span>
                               </Box>
                               <Box className="incident-data">
                                 <p>{t("Affected Area")}:</p>
                                 <p>
-                                  <span>{incident.affected_area || "-"}</span>
+                                  <span>{incident.attributes.common_area.name || "-"}</span>
                                 </p>
                               </Box>
                               <Box className="incident-data">
                                 <p>{t("Incident is related to")}:</p>
-                                <p>{/* <span>{incident}</span> */}</p>
+                                <p>
+                                  <span>{incident.attributes.incident_related.name || "-"}</span>
+                                </p>
                               </Box>
                               <Box className="incident-data">
                                 <p>{t("Reported on")}:</p>
@@ -387,40 +398,47 @@ class UnitDetails extends UnitDetailsController {
                     <Grid container spacing={4}>
                       {this.state.unitData.vehicleDetails.map((vehicle: any) => {
                         return (
-                          <Grid item sm={6}>
+                          <Grid item sm={6} key={vehicle.id}>
                             <Card className="incident-card">
                               <Box className="heading">
-                                <h4>A ASDFG 1234</h4>
+                                <h4>-</h4>
                               </Box>
-                              <img src={bentalyLogo} alt="" style={{ marginBottom: "5px" }} />
+                              <img
+                                src={
+                                  vehicle.attributes.registration_card_copy &&
+                                  vehicle.attributes.registration_card_copy.url
+                                }
+                                alt=""
+                                style={{ marginBottom: "5px" }}
+                              />
                               <Box className="incident-data">
                                 <p>{t("Owner Name")}:</p>
                                 <p>
-                                  <span>Own Apartment</span>
+                                  <span>{vehicle.attributes.owner_name || "-"}</span>
                                 </p>
                               </Box>
                               <Box className="incident-data">
                                 <p>{t("Registration Card Number")}:</p>
                                 <p>
-                                  <span>Plumbing</span>
+                                  <span>-</span>
                                 </p>
                               </Box>
                               <Box className="incident-data">
                                 <p>{t("Car Details")}:</p>
                                 <p>
-                                  <span>20-20-2020 20:20</span>
+                                  <span>{vehicle.attributes.company_name || "-"}</span>
                                 </p>
                               </Box>
                               <Box className="incident-data">
                                 <p>{t("Building")}:</p>
                                 <p>
-                                  <span>Building 5</span>
+                                  <span>{this.state.unitData.buildingName}</span>
                                 </p>
                               </Box>
                               <Box className="incident-data">
                                 <p>{t("Unit")}:</p>
                                 <p>
-                                  <span>1502</span>
+                                  <span>{this.state.unitData.unitName}</span>
                                 </p>
                               </Box>
                             </Card>
@@ -443,37 +461,46 @@ class UnitDetails extends UnitDetailsController {
                           <img src={flag} style={dashBoard.locationIcon} />
                           <Box className="location-info">
                             <p>{t("Unit Status")}</p>
-                            <h4>Rented</h4>
+                            <h4>{this.state.unitData.rentStatus || "-"}</h4>
                           </Box>
                         </Card>
                       </Grid>
-                      <Grid item sm={4}>
-                        <Card>
-                          <img src={profile_icon} style={dashBoard.locationIcon} />
-                          <Box className="location-info">
-                            <p>{t("Tenant Name")}</p>
-                            <h4 style={{ fontWeight: 600, color: "#FC8434" }}>Mr. Mohd Khan</h4>
-                          </Box>
-                        </Card>
-                      </Grid>
-                      <Grid item sm={4}>
-                        <Card>
-                          <img src={currency_icon} style={dashBoard.locationIcon} />
-                          <Box className="location-info">
-                            <p>{t("Rent Amount")}</p>
-                            <h4>SR 5,552 / Month</h4>
-                          </Box>
-                        </Card>
-                      </Grid>
-                      <Grid item sm={4}>
-                        <Card>
-                          <img src={purchase_date} style={dashBoard.locationIcon} />
-                          <Box className="location-info">
-                            <p>{t("Rent Tenure")}</p>
-                            <h4>2/05/22 - 2/05/23</h4>
-                          </Box>
-                        </Card>
-                      </Grid>
+                      {this.state.unitData.rentStatus === "Rented" && (
+                        <>
+                          <Grid item sm={4}>
+                            <Card>
+                              <img src={profile_icon} style={dashBoard.locationIcon} />
+                              <Box className="location-info">
+                                <p>{t("Tenant Name")}</p>
+                                <h4 style={{ fontWeight: 600, color: "#FC8434" }}>
+                                  {this.state.unitData.tenantName || "-"}
+                                </h4>
+                              </Box>
+                            </Card>
+                          </Grid>
+                          <Grid item sm={4}>
+                            <Card>
+                              <img src={currency_icon} style={dashBoard.locationIcon} />
+                              <Box className="location-info">
+                                <p>{t("Rent Amount")}</p>
+                                <h4>{this.state.unitData.rentAmount || "-"} / Month</h4>
+                              </Box>
+                            </Card>
+                          </Grid>
+                          <Grid item sm={4}>
+                            <Card>
+                              <img src={purchase_date} style={dashBoard.locationIcon} />
+                              <Box className="location-info">
+                                <p>{t("Rent Tenure")}</p>
+                                <h4>
+                                  {moment(this.state.unitData.rentStartDate, "YYYY-MM-DD").format("MMM DD, YYYY")} -
+                                  {moment(this.state.unitData.rentEndDate, "YYYY-MM-DD").format("MMM DD, YYYY")}
+                                </h4>
+                              </Box>
+                            </Card>
+                          </Grid>
+                        </>
+                      )}
                     </Grid>
                   </Box>
                 </Box>
@@ -693,6 +720,7 @@ class UnitDetails extends UnitDetailsController {
           </Box>
         </Box>
 
+        {/* Edit Unit Details Modal */}
         <Dialog className="edit-profile edit-unit" open={this.state.setUnitOpen} scroll="paper" fullWidth maxWidth="md">
           <MuiDialogTitle disableTypography className="dialog-heading">
             <Typography variant="h6">{t("Edit Unit Details")}</Typography>
@@ -874,6 +902,7 @@ class UnitDetails extends UnitDetailsController {
           </Formik>
         </Dialog>
 
+        {/* Google Map */}
         <Dialog className="edit-profile" open={this.state.isOpenMapModalOpen} scroll="paper" fullWidth maxWidth="sm">
           <MuiDialogTitle disableTypography className="dialog-heading">
             <Typography variant="h6">{t("Location")}</Typography>
@@ -899,6 +928,7 @@ class UnitDetails extends UnitDetailsController {
           )}
         </Dialog>
 
+        {/* Edit Family Member */}
         <Dialog
           className="edit-family-modal"
           open={this.state.isEditFamilyModalOpen}
@@ -1004,6 +1034,43 @@ class UnitDetails extends UnitDetailsController {
               );
             }}
           </Formik>
+        </Dialog>
+
+        {/* Delete Family Member */}
+        <Dialog
+          className="delete-dialog"
+          fullWidth
+          onClose={() => this.handleDeleteFamilyMemberModal()}
+          open={this.state.isDeleteFamilyModalOpen}
+        >
+          <DialogContent style={{ margin: "15px 0" }}>
+            <Box textAlign="center">
+              <img className="comment-image" src={true_mark} alt="comment" />
+              <Typography variant="h6">{t("Delete Family Member")}</Typography>
+              <Typography variant="body1" style={{ marginBottom: "0px" }}>
+                {t("Member will be remove from this unit")}
+              </Typography>
+              <Typography variant="body1" style={{ marginBottom: "15px" }}>
+                {t("Are you sure you want to delete the")} {this.state.familyMemberName}?
+              </Typography>
+              <DialogActions className="dialog-button-group">
+                <Button
+                  onClick={() => this.handleDeleteFamilyMemberModal()}
+                  className="cancel-button"
+                  style={{ width: "200px" }}
+                >
+                  {t("Close")}
+                </Button>
+                <Button
+                  onClick={() => this.handleDeleteFamilyMember()}
+                  style={{ width: "200px" }}
+                  className="add-button"
+                >
+                  {t("Delete")}
+                </Button>
+              </DialogActions>
+            </Box>
+          </DialogContent>
         </Dialog>
 
         <Dialog
