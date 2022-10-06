@@ -66,7 +66,7 @@ class EmailAccountLogin extends EmailAccountLoginController {
                     initialValues={{
                       email: "",
                       password: "",
-                      userType:' ',
+                      userType: ' ',
                       showPassword: false,
                       stayIn: false
                     }}
@@ -104,18 +104,12 @@ class EmailAccountLogin extends EmailAccountLoginController {
                               <MenuItem value="Owner">
                                 Owner
                               </MenuItem>
-
-                              <MenuItem  value="Tenant">
+                              <MenuItem value="Tenant">
                                 Tenant
                               </MenuItem>
-
-                              <MenuItem  value="Owner Resident">
+                              <MenuItem value="Owner Resident">
                                 Owner Resident
                               </MenuItem>
-
-
-
-
                             </Select>
                             <ErrorMessage className="text-error" component="Typography" name="userType" />
                           </FormControl>
