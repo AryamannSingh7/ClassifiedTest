@@ -38,9 +38,6 @@ class VisitorsList extends VisitorsListController {
     constructor(props: Props) {
         super(props);
     }
-
-    async componentDidMount(): Promise<void> {}
-
     render() {
         // @ts-ignore
         const { classes } = this.props;
@@ -73,23 +70,33 @@ class VisitorsList extends VisitorsListController {
                                 </Box>
                                 <Box className="top-bar">
                                     <Box className="filter">
-                                        <Select displayEmpty value="" className="select-input" placeholder="Select Building">
+                                        <Select displayEmpty value={this.state.buildingID} className="select-input" placeholder="Select Building" onChange={(e)=> this.setState({buildingID:e.target.value},()=>this.getUnitList(e.target.value))}>
                                             <MenuItem value="" disabled>
-                                                <em>Select Building</em>
+                                                Select Building
                                             </MenuItem>
-                                            <MenuItem value={10}>Ten</MenuItem>
-                                            <MenuItem value={20}>Twenty</MenuItem>
-                                            <MenuItem value={30}>Thirty</MenuItem>
+                                            {
+                                                this.state?.buildingList?.length > 0 &&
+                                                    this.state.buildingList.map((item:any,key:any) => {
+                                                        return(
+                                                            <MenuItem value={item.id} key={key}>{item.name}</MenuItem>
+                                                        )
+                                                    })
+                                            }
                                         </Select>
-                                        <Select displayEmpty value="" className="select-input" placeholder="Select Unit">
+                                        <Select displayEmpty value={this.state.unitId} className="select-input" placeholder="Select Unit" onChange={(e)=> this.setState({unitId:e.target.value})}>
                                             <MenuItem value="" disabled>
-                                                <em>Select Unit</em>
+                                                Select Unit
                                             </MenuItem>
-                                            <MenuItem value={10}>Ten</MenuItem>
-                                            <MenuItem value={20}>Twenty</MenuItem>
-                                            <MenuItem value={30}>Thirty</MenuItem>
+                                            {
+                                                this.state.unitList.length > 0 &&
+                                                    this.state.unitList.map((item:any,key:any) => {
+                                                        return(
+                                                            <MenuItem value={item.id}>{item.apartment_name}</MenuItem>
+                                                        )
+                                            })
+                                            }
                                         </Select>
-                                        <Button startIcon={<img src={SearchIconImage} />}>Search</Button>
+                                        <Button onClick={()=> this.getVisitorList(this.state.searchQuery,1)} startIcon={<img src={SearchIconImage} />}>Search</Button>
                                     </Box>
                                 </Box>
                                 <Box className="meeting-table">
@@ -99,7 +106,7 @@ class VisitorsList extends VisitorsListController {
                                             <Box className="filter">
                                                 <Box className="search-box">
                                                     <SearchIcon />
-                                                    <InputBase placeholder="Search" className="search" />
+                                                    <InputBase placeholder="Search" className="search" onChange={this.manageSearch} />
                                                 </Box>
                                             </Box>
                                         </Box>
@@ -117,54 +124,38 @@ class VisitorsList extends VisitorsListController {
                                                 </TableRow>
                                             </TableHead>
                                             <TableBody>
-                                                <TableRow onClick={() => this.props.history.push("/VisitorsDetails?id=1")} style={{cursor:"pointer"}}>
-                                                    <TableCell>1</TableCell>
-                                                    <TableCell className="ellipse">Alex Walker</TableCell>
-                                                    <TableCell>Alex Walker</TableCell>
-                                                    <TableCell>Building 1 </TableCell>
-                                                    <TableCell>A-101</TableCell>
-                                                    <TableCell>25/06/2022</TableCell>
-                                                    <TableCell>+1 84544 45845</TableCell>
-                                                </TableRow>
-                                                <TableRow onClick={() => this.props.history.push("/VisitorsDetails?id=1")} style={{cursor:"pointer"}}>
-                                                    <TableCell>2</TableCell>
-                                                    <TableCell className="ellipse">Alex Walker</TableCell>
-                                                    <TableCell>Alex Walker</TableCell>
-                                                    <TableCell>Building 1 </TableCell>
-                                                    <TableCell>A-101</TableCell>
-                                                    <TableCell>25/06/2022</TableCell>
-                                                    <TableCell>+1 84544 45845</TableCell>
-                                                </TableRow>
-                                                <TableRow onClick={() => this.props.history.push("/VisitorsDetails?id=1")} style={{cursor:"pointer"}}>
-                                                    <TableCell>3</TableCell>
-                                                    <TableCell className="ellipse">Alex Walker</TableCell>
-                                                    <TableCell>Alex Walker</TableCell>
-                                                    <TableCell>Building 1 </TableCell>
-                                                    <TableCell>A-101</TableCell>
-                                                    <TableCell>25/06/2022</TableCell>
-                                                    <TableCell>+1 84544 45845</TableCell>
-                                                </TableRow>
-                                                <TableRow onClick={() => this.props.history.push("/VisitorsDetails?id=1")} style={{cursor:"pointer"}}>
-                                                    <TableCell>4</TableCell>
-                                                    <TableCell className="ellipse">Alex Walker</TableCell>
-                                                    <TableCell>Alex Walker</TableCell>
-                                                    <TableCell>Building 1 </TableCell>
-                                                    <TableCell>A-101</TableCell>
-                                                    <TableCell>25/06/2022</TableCell>
-                                                    <TableCell>+1 84544 45845</TableCell>
-                                                </TableRow>
+                                                {
+                                                    this.state.visitorList.length > 0 ?
+                                                        this.state.visitorList.map((item:any,key:any)=>{
+                                                            return(
+                                                                <TableRow key={key} onClick={() => this.props.history.push(`/VisitorsDetails?id=${item.id}`)} style={{cursor:"pointer"}}>
+                                                                    <TableCell>{key + 1}</TableCell>
+                                                                    <TableCell className="ellipse">{item.attributes.name}</TableCell>
+                                                                    <TableCell>{item.attributes.resident_name}</TableCell>
+                                                                    <TableCell>{item.attributes.building_management.name} </TableCell>
+                                                                    <TableCell>{item.attributes.unit_number}</TableCell>
+                                                                    <TableCell>{item.attributes.schedule_date}</TableCell>
+                                                                    <TableCell>{item.attributes.mobile_number.full_mobile_number}</TableCell>
+                                                                </TableRow>
+                                                            )
+                                                        })
+                                                       :
+                                                        <TableRow onClick={() => this.props.history.push("/VisitorsDetails?id=1")} style={{cursor:"pointer"}}>
+                                                            <TableCell>No Data found.</TableCell>
+                                                        </TableRow>
+                                                }
                                             </TableBody>
                                         </Table>
                                         <Divider />
                                         <Box style={{width:"100%",height:"70px",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
                                             <Box style={{display:"flex",marginLeft:"15px"}}>
                                                 <Typography style={{marginRight:"5px"}}>Showing </Typography>
-                                                <Typography style={{marginRight:"5px",fontWeight:"bold",color:"#FC8434"}}>{10} </Typography>
+                                                <Typography style={{marginRight:"5px",fontWeight:"bold",color:"#FC8434"}}>{this.state.pagination.total_count < this.state.count ? this.state.pagination.total_count : (this.state.count * this.state.page)} </Typography>
                                                 <Typography style={{marginRight:"5px"}}> of </Typography>
-                                                <Typography style={{fontWeight:"bold"}}>{180} </Typography>
+                                                <Typography style={{fontWeight:"bold"}}>{this.state.pagination.total_count} </Typography>
                                             </Box>
                                             <Box style={{marginRight:"10px"}}>
-                                                <Pagination count={10} variant="outlined" shape="rounded" />
+                                                <Pagination count={this.state.pagination.total_pages} variant="outlined" shape="rounded" />
                                             </Box>
                                         </Box>
                                     </Grid>

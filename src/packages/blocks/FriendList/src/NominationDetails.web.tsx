@@ -143,23 +143,25 @@ class MyTeamCore extends NominationDetailsController {
                     this.state.votingStatus !== "closed" &&
                     <Grid container spacing={3} style={{marginTop: 10, marginBottom:30}}>
                         <Grid item xs={12} sm={6}>
-                            <Paper elevation={3} style={{backgroundColor:"white",padding:"20px 30px",borderRadius:"15px",cursor:"pointer"}} onClick={this.handleOpenDetailsModal}>
-                                <Box style={{display:'flex',justifyContent:'space-between'}}>
-                                    <Box display="flex" alignItems="center">
-                                        <img src={profileExp}/>
-                                        <Box style={{marginLeft:"10px"}}>
-                                            <Typography style={{fontWeight:"bold"}}>Jhon Doe</Typography>
-                                            <Typography >B-104, B-105 , D-504</Typography>
+                            <Paper elevation={3} style={{backgroundColor:"white",padding:"20px 30px",borderRadius:"15px",cursor:"pointer"}} >
+                                <Box onClick={this.handleOpenDetailsModal}>
+                                    <Box style={{display:'flex',justifyContent:'space-between'}}>
+                                        <Box display="flex" alignItems="center">
+                                            <img src={profileExp}/>
+                                            <Box style={{marginLeft:"10px"}}>
+                                                <Typography style={{fontWeight:"bold"}}>Jhon Doe</Typography>
+                                                <Typography >B-104, B-105 , D-504</Typography>
+                                            </Box>
+                                        </Box>
+                                        <Box style={{marginTop:"10px"}}>
+                                            <Typography variant="subtitle2" className={"statusOngoingBlue"}>Owner</Typography>
                                         </Box>
                                     </Box>
-                                    <Box style={{marginTop:"10px"}}>
-                                        <Typography variant="subtitle2" className={"statusOngoingBlue"}>Owner</Typography>
+                                    <Box style={{width:"100%",marginTop:"20px "}}>
+                                        <Typography className="textwrapStatus">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc non erat non massa sagittis pulvinar non id lectus. Cras ultrices bibendum cursus. Mauris vel erat maximus, porta risus a, pulvinar augue. Donec sit amet enim eget est posuere posuere in in lacus. Nullam lacinia, diam sit amet molestie placerat, tellus metus dignissim massa, sed tempor magna elit pulvinar felis. In in nulla malesuada, suscipit eros et, pulvinar sapien. Curabitur et odio leo.
+                                        </Typography>
                                     </Box>
-                                </Box>
-                                <Box style={{width:"100%",marginTop:"20px "}}>
-                                    <Typography className="textwrapStatus">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc non erat non massa sagittis pulvinar non id lectus. Cras ultrices bibendum cursus. Mauris vel erat maximus, porta risus a, pulvinar augue. Donec sit amet enim eget est posuere posuere in in lacus. Nullam lacinia, diam sit amet molestie placerat, tellus metus dignissim massa, sed tempor magna elit pulvinar felis. In in nulla malesuada, suscipit eros et, pulvinar sapien. Curabitur et odio leo.
-                                    </Typography>
                                 </Box>
                                 {
                                     this.state.setVoting &&

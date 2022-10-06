@@ -7,54 +7,24 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import DateRangeOutlinedIcon from '@material-ui/icons/DateRangeOutlined';
 import { makeStyles,withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router';
-import {editIcon, deleteIcon, userIcon,calendar,phone,building,clock,exampleId} from "./assets";
+import {
+    editIcon,
+    deleteIcon,
+    userIcon,
+    calendar,
+    phone,
+    building,
+    clock,
+    exampleImg,exampleId,
+} from "./assets";
 import VisitorDetailsController, {
   Props
 } from "./VisitorDetailsController";
 import './style.css'
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
-import FormControl from "@material-ui/core/FormControl";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Radio from "@material-ui/core/Radio";
 import Modal from "@material-ui/core/Modal";
-import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import {boolean} from "yup";
-
-
-
-const filterList = [
-    {
-        id:1,
-        name:"Management Announcement"
-    },
-    {
-        id:2,
-        name:"Change in Service"
-    },
-    {
-        id:3,
-        name:"Building Rules"
-    },
-    {
-        id:4,
-        name:"New Green Initiatives"
-    },
-    {
-        id:5,
-        name:"Renovation"
-    },
-    {
-        id:6,
-        name:"Interruption"
-    },
-
-]
-
+import moment from "moment";
 
 class VisitorDetails extends VisitorDetailsController{
   constructor(props: Props) {
@@ -75,7 +45,7 @@ class VisitorDetails extends VisitorDetailsController{
                           </p>
                       </Box>
                           <Box>
-                              <IconButton style={{padding:"8px"}} onClick={this.handleClick} >
+                              <IconButton style={{padding:"8px"}} onClick={()=>this.props.history.push(`/UpdateVisitor/${this.state.visitorId}`)} >
                                   <img src={editIcon} />
                               </IconButton>
                               <IconButton style={{padding:"8px"}} onClick={this.handleOpenDeleteModal} >
@@ -100,11 +70,11 @@ class VisitorDetails extends VisitorDetailsController{
                                 <Box style={{minWidth:"100%"}}>
                                     <Box style={{display:"flex",alignItems:"center"}}>
                                         <Box style={{marginRight:"20px"}}>
-                                            <img src={this.state.VisitorDetails.profilePic} height="55px" width="55px" style={{borderRadius:"100px"}}/>
+                                            <img src={this.state.visitorDetails.profilePic || exampleImg.default} height="55px" width="55px" style={{borderRadius:"100px"}}/>
                                         </Box>
                                         <Box style={{display:'flex',flexDirection:"column",justifyContent:"center"}}>
                                             <Typography variant={"body1"} style={{fontWeight:"bold"}}>
-                                                {this.state.VisitorDetails.name}
+                                                {this.state.visitorDetails.name}
                                             </Typography>
                                         </Box>
                                     </Box>
@@ -117,7 +87,7 @@ class VisitorDetails extends VisitorDetailsController{
                                                 Scheduled Date:
                                             </Typography>
                                             <Typography variant="subtitle1" style={{fontWeight:"bold"}}>
-                                                {this.state.VisitorDetails.date}
+                                                {moment(this.state?.visitorDetails?.schedule_date).format("DD MMMM YYYY")}
                                             </Typography>
                                         </Box>
                                     </Box>
@@ -130,7 +100,7 @@ class VisitorDetails extends VisitorDetailsController{
                                                 Building Name:
                                             </Typography>
                                             <Typography variant="subtitle1" style={{fontWeight:"bold"}}>
-                                                {this.state.VisitorDetails.building}
+                                                {this.state.visitorDetails?.building_management?.name}
                                             </Typography>
                                         </Box>
                                     </Box>
@@ -143,7 +113,7 @@ class VisitorDetails extends VisitorDetailsController{
                                                 Phone Number:
                                             </Typography>
                                             <Typography variant="subtitle1" style={{fontWeight:"bold"}}>
-                                                {this.state.VisitorDetails.phoneNo}
+                                                {this.state?.visitorDetails?.mobile_number?.full_mobile_number}
                                             </Typography>
                                         </Box>
                                     </Box>
@@ -156,24 +126,29 @@ class VisitorDetails extends VisitorDetailsController{
                                                 Scheduled Time:
                                             </Typography>
                                             <Typography variant="subtitle1" style={{fontWeight:"bold"}}>
-                                                {this.state.VisitorDetails.time}
+                                                {moment(this.state.visitorDetails.schedule_time).format("hh:mm")}
                                             </Typography>
                                         </Box>
                                     </Box>
                                 </Box>
                             </Box>
-                            <Typography variant="h6" style={{marginTop:"15px",fontWeight:"bold"}}> ID </Typography>
-                            <Box
-                                display="flex"
-                                justifyContent='space-between'
-                                alignItems="center"
-                                borderRadius="15px"
-                                bgcolor="white"
-                                padding='1rem'
-                                style={{boxShadow:"rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"}}
-                            >
-                                <img src={exampleId.default} width="100%" />
-                            </Box>
+                            {
+                                this.state.visitorDetails?.image?.url &&
+                                <>
+                                    <Typography variant="h6" style={{marginTop:"15px",fontWeight:"bold"}}> ID </Typography>
+                                    <Box
+                                        display="flex"
+                                        justifyContent='space-between'
+                                        alignItems="center"
+                                        borderRadius="15px"
+                                        bgcolor="white"
+                                        padding='1rem'
+                                        style={{boxShadow:"rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"}}
+                                    >
+                                        <img src={this.state.visitorDetails.image.url} width="100%" />
+                                    </Box>
+                                </>
+                            }
                         </Grid>
                     </Grid>
                 </Box>

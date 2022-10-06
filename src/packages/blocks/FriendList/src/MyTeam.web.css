@@ -342,12 +342,27 @@
   text-align: center;
 }
 
-.nominationGrayBG {
-  background: rgba(99, 99, 99, 0.1);
-  padding: 10px 20px;
-  border-radius: 30px;
-  width: 100% !important;
-  min-height: 20px;
+.nominationOrangeBG{
+    background: rgba(252,132,52,0.1);
+    padding: 10px 20px;
+    border-radius: 30px;
+    width: 100% !important;
+    min-height: 20px;
+}
+
+.nominationOrangeText{
+    color: #fc8434;
+    text-transform: capitalize !important;
+    font-weight: 800 !important;
+    text-align: center;
+}
+
+.nominationGrayBG{
+    background: rgba(99,99,99,0.1);
+    padding: 10px 20px;
+    border-radius: 30px;
+    width: 100% !important;
+    min-height: 20px;
 }
 
 .nominationGrayText {
@@ -369,16 +384,29 @@
   font-weight: 800 !important;
 }
 
-.chairmanSelected {
-  background: #fc8434;
-  padding: 5px 15px;
-  border-radius: 30px;
-  color: white;
-  display: initial;
-  min-height: 20px;
-  text-transform: capitalize;
-  min-width: 50px;
-  font-weight: 800 !important;
+.statusOngoingRed{
+    background: #ffdede;
+    padding: 5px 15px;
+    border-radius: 30px;
+    color: #f27200;
+    display: initial;
+    min-height: 20px;
+    min-width: 50px;
+    text-transform: capitalize;
+    font-weight: 800 !important;
+}
+
+
+.chairmanSelected{
+    background: #fc8434;
+    padding: 5px 15px;
+    border-radius: 30px;
+    color: white;
+    display: initial;
+    min-height: 20px;
+    text-transform: capitalize;
+    min-width: 50px;
+    font-weight: 800 !important;
 }
 
 .tabButtonActive {

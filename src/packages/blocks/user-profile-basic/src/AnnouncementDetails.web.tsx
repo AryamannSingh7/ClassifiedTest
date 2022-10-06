@@ -19,6 +19,7 @@ import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { SuggestionStyleWeb } from "./SuggestionStyle.web";
 import { avatarIcon, calenderIcon, CheckIcon, phone, poolImage } from "./assets";
+import moment from "moment";
 
 class AnnouncementDetails extends AnnouncementDetailsController {
   constructor(props: Props) {
@@ -82,7 +83,7 @@ class AnnouncementDetails extends AnnouncementDetailsController {
                           <img src={calenderIcon} />
                           <Box>
                             <p className="heading">Announced On:</p>
-                            <p>{this.state.AnnouncementDetails?.announcement_on}</p>
+                            <p>{moment(this.state.AnnouncementDetails?.announcement_on,'DD/MM/YYYY').format("DD MMM,YYYY")}</p>
                           </Box>
                         </Box>
                       </Box>

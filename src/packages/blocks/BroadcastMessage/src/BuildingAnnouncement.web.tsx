@@ -66,7 +66,7 @@ class Announcement extends BuildingAnnouncementController{
                 <Grid container style={{ margin: '1rem', width: '95%' }} >
                   <Grid xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem",justifyContent:"space-between"}} >
                       <Box style={{ display:"flex", alignItems:"center", gap:"5px"}}>
-                          <ArrowBackIcon onClick={() => this.props.history.push("/")} />
+                          <ArrowBackIcon onClick={() =>  window.history.back()} />
                           <p style={{ fontSize: '1rem', fontWeight: 600 }}>
                               {complexName || ""}
                           </p>
@@ -95,7 +95,7 @@ class Announcement extends BuildingAnnouncementController{
                   </Grid>
                 </Grid>
                 <Box style={{background: "#E5ECFF",minHeight:"100vh",display:'flex',flexDirection:"column",alignItems:'center'}} >
-                    <Grid container spacing={2} style={{width:"90%"}}>
+                    <Grid container spacing={2} style={{width:"90%",marginBottom:"20px",marginTop:"5px"}}>
                         {
                             this.state.announcementList.map((item:any,key:any)=> {
                                 return(
