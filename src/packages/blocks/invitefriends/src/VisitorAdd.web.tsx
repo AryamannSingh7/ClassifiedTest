@@ -7,7 +7,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import DateRangeOutlinedIcon from '@material-ui/icons/DateRangeOutlined';
 import { makeStyles,withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router';
-import { list  } from "./assets";
+import {editPencil, list} from "./assets";
 import { Building1, company_logo, email, password, user } from "../../email-account-registration/src/assets";
 import VisitorAddController, {
   Props
@@ -37,7 +37,7 @@ class Visitors extends VisitorAddController{
                       <Box style={{ display:"flex", alignItems:"center", gap:"1rem",marginBottom:"05px"}}>
                           <ArrowBackIcon onClick={() => this.props.history.push("/")} />
                           <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
-                              Add Visitor Request
+                              {this.state.visitorId ? "Edit Visitor Request":"Add Visitor Request"}
                           </p>
                       </Box>
                   </Grid>
@@ -46,16 +46,17 @@ class Visitors extends VisitorAddController{
                 <Box style={{minHeight:"95%",display:'flex',flexDirection:"column",alignItems:'center',justifyContent:"space-between"}} >
                     <Grid container spacing={2} style={{width:"90%"}}>
                         <Formik initialValues={{
-                            visitorName: "",
-                            phone: "",
+                            visitorName:this.state?.visitorDetails?.name,
+                            phone: this.state?.visitorDetails?.mobile_number?.mobile_number,
                             photo:"",
-                            date:"",
-                            time:"",
-                            withCar:"true",
-                            carPlateNo:"",
+                            date:this.state?.visitorDetails?.schedule_date,
+                            time:this.state?.visitorDetails?.schedule_time ? moment(this.state?.visitorDetails?.schedule_time).format("hh:mm") : "",
+                            withCar:this.state?.visitorDetails?.comming_with_vehicle ? "true" : "false",
+                            carPlateNo: this.state?.visitorDetails?.vehicle_detail?.car_number,
                         }}
                                 validationSchema={this.visitorAddSchema()}
                                 validateOnMount={true}
+                                enableReinitialize
                                 onSubmit={(values) => { this.createVisitorRequest(values) }}
                         >
                         {({   values,
@@ -134,16 +135,22 @@ class Visitors extends VisitorAddController{
                                         </Grid>
                                         <Grid item xs={12} style={{marginTop:"-10px"}}>
                                             <FormControl fullWidth>
-                                                <div
-                                                    className="image-box"
-                                                    onClick={() => {
-                                                        this.upload.click();
-                                                    }}
-                                                >
-                                                    <AddIcon style={{fontSize:"45px",color:"#9c9c9c"}}/>
-                                                    <Typography variant="body1" color="textSecondary">Add Visitor ID copy</Typography>
-                                                    <Typography variant="body1">(optional)</Typography>
-                                                </div>
+                                                {
+                                                    this.state.visitorDetails?.image?.url ?
+                                                        <Box style={{height:"170px",backgroundImage:`url(${this.state.visitorDetails?.image?.url})`,backgroundPosition:"center",backgroundSize:"contain",backgroundRepeat:"no-repeat",display:'flex',justifyContent:'flex-end'}}>
+                                                            <IconButton onClick={() => this.upload.click()} style={{backgroundColor:"#2B6FED",height:"50px",width:"50px"}}><img src={editPencil}/></IconButton>
+                                                        </Box> :
+                                                        <div
+                                                            className="image-box"
+                                                            onClick={() => {
+                                                                this.upload.click();
+                                                            }}
+                                                        >
+                                                            <AddIcon style={{fontSize:"45px",color:"#9c9c9c"}}/>
+                                                            <Typography variant="body1" color="textSecondary">Add Visitor ID copy</Typography>
+                                                            <Typography variant="body1">(optional)</Typography>
+                                                        </div>
+                                                }
                                                 <input
                                                     id="myInput"
                                                     type="file"

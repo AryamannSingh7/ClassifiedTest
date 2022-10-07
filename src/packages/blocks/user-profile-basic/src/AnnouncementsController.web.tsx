@@ -193,6 +193,10 @@ export default class AnnouncementsController extends BlockComponent<Props, S, SS
           this.setState({
             announcementList:responseJson.announcement.data
           })
+        }else{
+          this.setState({
+            announcementList:[]
+          })
         }
       }
       if(apiRequestCallId === this.getAnnouncementListSearchId){
@@ -250,7 +254,7 @@ export default class AnnouncementsController extends BlockComponent<Props, S, SS
     this.getAnnouncementListId = await this.apiCall({
       contentType: configJSON.contentTypeApiGetUserProfile,
       method: configJSON.methodTypeApiGetUserProfile,
-      endPoint: `/society_managements/${societyID}/bx_block_announcement/announcements?category=${category}&year=${year}&sort_by=${shortBy}`,
+      endPoint: `/society_managements/${societyID}/bx_block_announcement/announcements?category_id=${category}&year=${year}&sort_by=${shortBy}`,
     });
   }
 

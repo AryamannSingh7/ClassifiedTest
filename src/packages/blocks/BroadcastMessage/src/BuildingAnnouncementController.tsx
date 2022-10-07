@@ -33,6 +33,7 @@ interface S {
   announcementList:any;
   categoryList:any;
   filterCategory:any;
+  shortBy:any;
 }
 
 interface SS {
@@ -73,8 +74,8 @@ export default class CoverImageController extends BlockComponent<
       deleteConfirmModal:false,
       announcementList:[],
       categoryList:[],
-      filterCategory:[]
-
+      filterCategory:[],
+      shortBy:true,
     };
 
     this.emailReg = new RegExp("");
@@ -91,11 +92,11 @@ export default class CoverImageController extends BlockComponent<
   }
 
   async componentDidMount() {
-    this.getAnnouncementBuildingList()
+    this.getAnnouncementBuildingList(this.state.shortBy)
     this.onGetCategoryList()
   }
 
-  getAnnouncementBuildingList = async () => {
+  getAnnouncementBuildingList = async (short:any) => {
     const societyID = localStorage.getItem("society_id")
     const buildingId =  window.location.search ? window.location.search.split("=")[1] : null;
     const data = {
@@ -105,7 +106,7 @@ export default class CoverImageController extends BlockComponent<
     this.getAnnouncementListId = await this.apiCall({
       contentType: configJSON.exampleApiContentType,
       method: configJSON.exampleAPiMethod,
-      endPoint: `/society_managements/${societyID}/bx_block_announcement/announcements/announcements_list_for_resident`,
+      endPoint: `/society_managements/${societyID}/bx_block_announcement/announcements/announcements_list_for_resident?sort_by=${short ? "asc" : "desc"}`,
       body:JSON.stringify(data)
     });
   }
@@ -153,7 +154,7 @@ export default class CoverImageController extends BlockComponent<
     this.setState({
       filterModal:false
     })
-    this.getAnnouncementBuildingList()
+    this.getAnnouncementBuildingList(this.state.shortBy)
   }
   handleCloseFilterModal () {
     this.setState({
@@ -177,6 +178,13 @@ export default class CoverImageController extends BlockComponent<
     this.setState({
       deleteConfirmModal:true
     })
+  }
+
+  handleShort = () => {
+    this.setState({
+      shortBy:!this.state.shortBy
+    })
+    this.getAnnouncementBuildingList(!this.state.shortBy)
   }
 
   handleChecked (value:any) {
@@ -259,7 +267,7 @@ export default class CoverImageController extends BlockComponent<
             deleteConfirmModal:false,
             deleteSelectFlag:false
           })
-          this.getAnnouncementBuildingList()
+          this.getAnnouncementBuildingList(this.state.shortBy)
         }
       }
     }

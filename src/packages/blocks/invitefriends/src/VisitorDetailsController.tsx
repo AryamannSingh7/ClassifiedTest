@@ -83,6 +83,7 @@ export default class VisitorDetailsController extends BlockComponent<
 
   async componentDidMount() {
     this.getVisitorDetails()
+    console.log("EDIT ?",this.props.match.params.type)
   }
 
   getVisitorDetails = async () => {

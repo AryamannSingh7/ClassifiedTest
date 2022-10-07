@@ -1438,6 +1438,12 @@ const routeMap = {
     exact: true
   },
 
+  VisitorDetailsPast: {
+    component: VisitorDetails,
+    path: '/VisitorDetails/:type',
+    exact: true
+  },
+
   VisitorsDetails: {
     component: VisitorsDetails,
     path: '/VisitorsDetails',

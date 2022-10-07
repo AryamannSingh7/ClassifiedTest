@@ -41,6 +41,7 @@ export default class CoverImageController extends BlockComponent<
   apiEmailLoginCallId: string = "";
   emailReg: RegExp;
   labelTitle: string = "";
+  getVisitorListId:String = "";
 
   constructor(props: Props) {
 
@@ -58,32 +59,7 @@ export default class CoverImageController extends BlockComponent<
       sortBy : "" ,
       status:"",
       open:false,
-      visitorListing:[
-        {
-          id:"1",
-          name:"Sean K. Wilt",
-          profilePic:"https://www.shareicon.net/data/128x128/2016/09/15/829453_user_512x512.png",
-          time:"10-03-2022, 16:30",
-        },
-        {
-          id:"4",
-          name:"Yusaf Khan",
-          profilePic:"https://www.shareicon.net/data/128x128/2016/09/15/829453_user_512x512.png",
-          time:"12-03-2022, 14:30",
-        },
-        {
-          id:"3",
-          name:"Sean K. Wilt",
-          profilePic:"https://www.shareicon.net/data/128x128/2016/09/15/829453_user_512x512.png",
-          time:"10-03-2022, 16:30",
-        },
-        {
-          id:"2",
-          name:"Yusaf Khan",
-          profilePic:"https://www.shareicon.net/data/128x128/2016/09/15/829453_user_512x512.png",
-          time:"12-03-2022, 14:30",
-        },
-      ],
+      visitorListing:[],
     };
 
     this.emailReg = new RegExp("");
@@ -94,8 +70,50 @@ export default class CoverImageController extends BlockComponent<
   }
 
   async componentDidMount() {
-
+    this.getVisitorList("")
   }
+
+  getVisitorList = async (filter:any) => {
+    const societyID = localStorage.getItem("society_id")
+    this.getVisitorListId = await this.apiCall({
+      contentType:"application/json",
+      method: "GET",
+      endPoint: `/society_managements/${societyID}/bx_block_visitor/visitors?past_visitor=true&${filter}`,
+    });
+  }
+
+  apiCall = async (data: any) => {
+    const { contentType, method, endPoint, body } = data;
+
+    const token = localStorage.getItem('userToken') ;
+
+    const header = {
+      "Content-Type": contentType,
+      token
+    };
+    const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+    );
+    requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+    );
+    requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        endPoint
+    );
+    requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        method
+    );
+    body && requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestBodyMessage),
+        body
+    );
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    // console.log("Called",requestMessage);
+    return requestMessage.messageId;
+  };
 
 
   async receive(from: string, message: Message) {
@@ -103,8 +121,16 @@ export default class CoverImageController extends BlockComponent<
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
       var errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if(this.apiEmailLoginCallId === apiRequestCallId ){
-        console.log(responseJson,errorReponse)
+      if(this.getVisitorListId === apiRequestCallId ){
+        if(responseJson.hasOwnProperty("visitors")){
+          this.setState({
+            visitorListing:responseJson.visitors.data,
+          })
+        }else{
+          this.setState({
+            visitorListing:[]
+          })
+        }
       }
     }
   }
@@ -151,7 +177,26 @@ export default class CoverImageController extends BlockComponent<
 
   handleClose = (e?:any) => {
     this.setState({anchorEl:null,open:false})
+    this.getVisitorList("last_one_month=true")
   };
+
+  handle1Month = (e?:any) => {
+    this.setState({anchorEl:null,open:false})
+    this.getVisitorList("last_one_month=true")
+  };
+  handle3Month = (e?:any) => {
+    this.setState({anchorEl:null,open:false})
+    this.getVisitorList("last_three_month=true")
+  };
+  handle6Month = (e?:any) => {
+    this.setState({anchorEl:null,open:false})
+    this.getVisitorList("last_six_month=true")
+  };
+  handle12Month = (e?:any) => {
+    this.setState({anchorEl:null,open:false})
+    this.getVisitorList("last_twelve_month=true")
+  };
+
 
 }
 

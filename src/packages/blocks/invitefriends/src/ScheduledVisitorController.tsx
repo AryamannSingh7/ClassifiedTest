@@ -26,6 +26,7 @@ interface S {
   status:any;
   visitorListing:any;
   deleteConfirmModal:boolean;
+  deleteVisitor:any;
 }
 
 interface SS {
@@ -41,7 +42,8 @@ export default class ScheduledVisitorController extends BlockComponent<
   apiEmailLoginCallId: string = "";
   emailReg: RegExp;
   labelTitle: string = "";
-
+  getVisitorListId:string = "";
+  deleteVisitorId:string = "";
   constructor(props: Props) {
 
     super(props);
@@ -57,33 +59,9 @@ export default class ScheduledVisitorController extends BlockComponent<
       loading:false,
       sortBy : "" ,
       status:"",
-      visitorListing:[
-        {
-          id:"1",
-          name:"Sean K. Wilt",
-          profilePic:"https://www.shareicon.net/data/128x128/2016/09/15/829453_user_512x512.png",
-          time:"10-03-2022, 16:30",
-        },
-        {
-          id:"4",
-          name:"Yusaf Khan",
-          profilePic:"https://www.shareicon.net/data/128x128/2016/09/15/829453_user_512x512.png",
-          time:"12-03-2022, 14:30",
-        },
-        {
-          id:"3",
-          name:"Sean K. Wilt",
-          profilePic:"https://www.shareicon.net/data/128x128/2016/09/15/829453_user_512x512.png",
-          time:"10-03-2022, 16:30",
-        },
-        {
-          id:"2",
-          name:"Yusaf Khan",
-          profilePic:"https://www.shareicon.net/data/128x128/2016/09/15/829453_user_512x512.png",
-          time:"12-03-2022, 14:30",
-        },
-      ],
+      visitorListing:[],
       deleteConfirmModal:false,
+      deleteVisitor:"",
     };
 
     this.emailReg = new RegExp("");
@@ -97,7 +75,7 @@ export default class ScheduledVisitorController extends BlockComponent<
   }
 
   async componentDidMount() {
-
+    this.getVisitorList()
   }
 
   handleCloseDeleteModal() {
@@ -106,58 +84,100 @@ export default class ScheduledVisitorController extends BlockComponent<
     })
   }
 
-  handleOpenDeleteModal() {
+  manageDeleteVisitor = () => {
+    this.deleteVisitor(this.state.deleteVisitor)
+  }
+
+  handleOpenDeleteModal(id:any) {
     this.setState({
-      deleteConfirmModal:true
+      deleteConfirmModal:true,
+      deleteVisitor:id
     })
   }
+
+
+  getVisitorList = async () => {
+    const societyID = localStorage.getItem("society_id")
+    this.getVisitorListId = await this.apiCall({
+      contentType:"application/json",
+      method: "GET",
+      endPoint: `/society_managements/${societyID}/bx_block_visitor/visitors?scheduled_visitor=true`,
+    });
+  }
+
+  deleteVisitor = async  (id:any) => {
+    const societyID = localStorage.getItem("society_id")
+    this.deleteVisitorId = await this.apiCall({
+      contentType:"application/json",
+      method: "DELETE",
+      endPoint: `/society_managements/${societyID}/bx_block_visitor/visitors/${id}`,
+    });
+  }
+
 
   async receive(from: string, message: Message) {
     if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
       var errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if(this.apiEmailLoginCallId === apiRequestCallId ){
-        console.log(responseJson,errorReponse)
+      if(this.getVisitorListId === apiRequestCallId ){
+        if(responseJson.hasOwnProperty("visitors")){
+          this.setState({
+            visitorListing:responseJson.visitors.data,
+          })
+        }else{
+          this.setState({
+            visitorListing:[]
+          })
+        }
+      }else{
+        if(this.deleteVisitorId === apiRequestCallId){
+          console.log("Data",responseJson)
+          if(responseJson.message === "Successfully deleted"){
+            this.setState({
+              deleteConfirmModal:false,
+            })
+          }
+          this.getVisitorList()
+        }
       }
     }
   }
 
-  doEmailLogIn(data:any): boolean {
+  apiCall = async (data: any) => {
+    const { contentType, method, endPoint, body } = data;
+
+    const token = localStorage.getItem('userToken') ;
+
     const header = {
-      "Content-Type": configJSON.loginApiContentType
+      "Content-Type": contentType,
+      token
     };
-
     const requestMessage = new Message(
-      getName(MessageEnum.RestAPIRequestMessage)
+        getName(MessageEnum.RestAPIRequestMessage)
     );
-
-    this.apiEmailLoginCallId = requestMessage.messageId;
-
     requestMessage.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      configJSON.loginAPiEndPoint
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
     );
-
     requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        endPoint
     );
-
     requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestBodyMessage),
-      JSON.stringify(data)
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        method
     );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.loginAPiMethod
+    body && requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestBodyMessage),
+        body
     );
-
     runEngine.sendMessage(requestMessage.id, requestMessage);
+    // console.log("Called",requestMessage);
+    return requestMessage.messageId;
+  };
 
-    return true;
-  }
+
   handleClick = (event:any) => {
     this.setState({anchorEl:event.currentTarget })
   };

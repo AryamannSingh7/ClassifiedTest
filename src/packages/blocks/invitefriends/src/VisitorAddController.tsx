@@ -28,7 +28,8 @@ interface S {
   status:any;
   pollListing:any;
   selectCode:any;
-  visitorId:"";
+  visitorId:any;
+  visitorDetails:any;
 }
 
 interface SS {
@@ -47,6 +48,7 @@ export default class CoverImageController extends BlockComponent<
   upload: any;
   createVisitorId:string = "";
   visitorDetailsId:string = "";
+  updateVisitorId:string = "";
   constructor(props: Props) {
 
     super(props);
@@ -64,7 +66,8 @@ export default class CoverImageController extends BlockComponent<
       status:"",
       pollListing:[],
       selectCode:"+966",
-      visitorId:""
+      visitorId:"",
+      visitorDetails:{}
     };
 
     this.emailReg = new RegExp("");
@@ -85,14 +88,16 @@ export default class CoverImageController extends BlockComponent<
   }
 
   getVisitorDetails = async () => {
-    const societyID = localStorage.getItem("society_id")
     const visitorId = this.props.match.params.id
-    this.setState({visitorId:visitorId})
-    this.visitorDetailsId = await this.apiCall({
-      contentType: "application/json",
-      method: "GET",
-      endPoint: `/society_managements/${societyID}/bx_block_visitor/visitors/${visitorId}`,
-    });
+    if(visitorId){
+      this.setState({visitorId:visitorId})
+      const societyID = localStorage.getItem("society_id")
+      this.visitorDetailsId = await this.apiCall({
+        contentType: "application/json",
+        method: "GET",
+        endPoint: `/society_managements/${societyID}/bx_block_visitor/visitors/${visitorId}`,
+      });
+    }
   }
 
   async receive(from: string, message: Message) {
@@ -104,6 +109,22 @@ export default class CoverImageController extends BlockComponent<
         console.log("API RESPONSE WHEN CREATE",responseJson,errorReponse)
         if(responseJson.message === "Successfully created"){
           this.props.history.push("/VisitorAddSuccess")
+        }
+      }
+      if(this.visitorDetailsId === apiRequestCallId ){
+        console.log(responseJson,errorReponse)
+        if(responseJson.hasOwnProperty("visitor")){
+          this.setState({
+            visitorDetails:responseJson.visitor.data.attributes,
+            selectCode:`+${responseJson.visitor.data.attributes.mobile_number.country_code}`
+          })
+        }else{
+          window.history.back()
+        }
+      }
+      if(this.updateVisitorId === apiRequestCallId){
+        if(responseJson.message === "Successfully updated"){
+          this.props.history.push("/VisitorUpdateSuccess")
         }
       }
     }
@@ -160,7 +181,11 @@ export default class CoverImageController extends BlockComponent<
     }
     formData.append('visitor[comming_with_vehicle]', values.withCar)
     formData.append('visitor[vehicle_detail][car_number]', values.carPlateNo)
-    this.createVisitor(formData)
+    if(this.state.visitorId){
+      this.updateVisitor(formData)
+    }else{
+      this.createVisitor(formData)
+    }
   }
 
   createVisitor = async (data:any) => {
@@ -169,6 +194,16 @@ export default class CoverImageController extends BlockComponent<
       contentType: "multipart/form-data",
       method: "POST",
       endPoint: `/society_managements/${societyID}/bx_block_visitor/visitors`,
+      body:data
+    });
+  }
+
+  updateVisitor = async (data:any) => {
+    const societyID = localStorage.getItem("society_id")
+    this.updateVisitorId = await this.apiCall({
+      contentType: "multipart/form-data",
+      method: "PUT",
+      endPoint: `/society_managements/${societyID}/bx_block_visitor/visitors/${this.state.visitorId}`,
       body:data
     });
   }
@@ -201,7 +236,6 @@ export default class CoverImageController extends BlockComponent<
         getName(MessageEnum.RestAPIRequestBodyMessage),
         body
     );
-    console.log("REQUEST INIT",requestMessage)
     runEngine.sendMessage(requestMessage.id, requestMessage);
     // console.log("Called",requestMessage);
     return requestMessage.messageId;
