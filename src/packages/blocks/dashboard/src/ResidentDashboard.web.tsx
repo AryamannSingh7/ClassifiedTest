@@ -233,7 +233,7 @@ class ResidentDashboard extends DashboardController {
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
-                    <Link href="">
+                    <Link href="/ClassifiedListing">
                       <DashboardCard image={keyhand} heading={t("Classifieds")} title={t("Last Uploaded")} value="75" />
                     </Link>
                   </Grid>

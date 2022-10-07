@@ -42,3 +42,6 @@ export const EmailIcon = require("../assets/email_icon.png");
 export const DescIcon = require("../assets/desc_icon.png");
 export const TitleIcon = require("../assets/title_icon.png");
 export const CurrencyIcon = require("../assets/currency_icon.png");
+export const CloseIcon = require("../assets/close_icon.png");
+export const PayDetailIcon = require("../assets/payment_detail_icon.png");
+export const TimeIcon = require("../assets/time_icon.png");
