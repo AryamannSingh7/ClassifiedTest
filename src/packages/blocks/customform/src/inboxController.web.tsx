@@ -65,6 +65,7 @@ interface S {
   accept: boolean;
   file:any;
   selectedChatRoomId:any;
+  profileData:any;
   // Customizable Area End
 }
 
@@ -84,6 +85,7 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
   getSingleInboxApiCallId:string='';
   getCreateMessagesApiCallId: any = "";
   chatSettingApiCallId:any='';
+  getProfileDataAPiCallId:any='';
 
   // Customizable Area End
   constructor(props: Props) {
@@ -125,7 +127,8 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
       selectedMedia:null,
       accept:false,
       file:null,
-      selectedChatRoomId:null
+      selectedChatRoomId:null,
+      profileData:null,
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -243,9 +246,10 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
 
         } if (apiRequestCallId === this.getInboxApiCallId) {
           if (!responseJson.errors) {
-            console.log(responseJson.data)
+           
             if (responseJson.data) {
-              this.setState({ allInbox: responseJson.data }, () => console.log(this.state.allInbox))
+
+              this.setState({ allInbox: responseJson.data,loading:false })
             }
           } else {
             //Check Error Response
@@ -266,10 +270,10 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
           }
 
           this.parseApiCatchErrorResponse(errorReponse);
-        } if (apiRequestCallId === this.getRelationListApiCallId) {
+        } if (apiRequestCallId === this.getProfileDataAPiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
-            this.setState({ allRelation: responseJson.relaions }, () => console.log(this.state.allRelation))
+            this.setState({ profileData: responseJson.data,loading:false }, () => console.log(this.state.profileData))
           } else {
             //Check Error Response
             // this.parseApiErrorResponse(responseJson);
@@ -1025,5 +1029,37 @@ console.log('hi')
     runEngine.sendMessage(requestMessage.id, requestMessage);
     return true;
   }
+  getProfile() {
+    this.setState({loading:true})
+        const header = {
+          "Content-Type": configJSON.contentTypeApiAddDetail,
+          "token": localStorage.getItem('userToken')
+        };
+        const requestMessage = new Message(
+          getName(MessageEnum.RestAPIRequestMessage)
+        );
+    
+    
+        this.getProfileDataAPiCallId = requestMessage.messageId;
+        requestMessage.addData(
+          getName(MessageEnum.RestAPIResponceEndPointMessage),
+          `bx_block_profile/my_profile`
+        );
+    
+        requestMessage.addData(
+          getName(MessageEnum.RestAPIRequestHeaderMessage),
+          JSON.stringify(header)
+        );
+    
+    
+    
+        requestMessage.addData(
+          getName(MessageEnum.RestAPIRequestMethodMessage),
+          configJSON.validationApiMethodType
+        );
+    
+        runEngine.sendMessage(requestMessage.id, requestMessage);
+        return true;
+      }
   // Customizable Area End
 }

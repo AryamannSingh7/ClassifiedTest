@@ -29,6 +29,7 @@ class Inbox extends InboxController {
   async componentDidMount() {
 
     this.getInbox()
+    this.getProfile()
 
   }
   displaytime(time:any) {
@@ -46,11 +47,12 @@ class Inbox extends InboxController {
 
   getLastMessage=(obj:any)=>{
     let value = obj[Object.keys(obj)[Object.keys(obj).length - 1]]
-    console.log(value)
+   
     return value[0].message.message || 'he'
   }
 
   render() {
+    let profileData =this.state.profileData
     return (
       <>
         <Box className="login-wrapper reg-wrapper" style={{margin:0}}>
@@ -96,7 +98,7 @@ class Inbox extends InboxController {
                 >
                     <MenuItem key="1" onClick={() => this.setState({ showSuccessModal :true,showDialog:false})}>
                       {
-                        this.state.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ? 'Enable Chat' : 'Disable Chat'
+                        profileData?.attributes?.disable_chat ? 'Enable Chat' : 'Disable Chat'
                       }
 
                   </MenuItem>
