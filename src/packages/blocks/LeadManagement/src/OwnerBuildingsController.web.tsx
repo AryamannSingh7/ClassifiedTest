@@ -97,7 +97,7 @@ interface SS {
   // Customizable Area End
 }
 
-export default class BuildingsController extends BlockComponent<Props, S, SS> {
+export default class OwnerBuildingsController extends BlockComponent<Props, S, SS> {
   GetDocumentCountCallId: any;
   GetBuildingDetailsCallId: any;
   GetUnitListCallId: any;

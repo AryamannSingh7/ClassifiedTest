@@ -975,12 +975,6 @@
   border-bottom: 0;
 }
 
-.edit-unit input[type="date"]::-webkit-inner-spin-button,
-.edit-unit input[type="date"]::-webkit-calendar-picker-indicator {
-  display: none;
-  -webkit-appearance: none;
-}
-
 .floor-plan-box {
   display: flex;
   align-items: center;

@@ -61,7 +61,7 @@ class ContractDetail extends ContractDetailController {
         <Box style={{ background: "#F4F7FF", height: "100vh" }} className={classes.detailPage}>
           <Grid container>
             <Grid item xs={12} md={7}>
-              <Box className="faq-step">
+              <Box className="faq-step top-bar-contract-details">
                 <Box display={{ xs: "flex", md: "flex" }} className="top-bar">
                   <div className="left-icon">
                     <Link href="/OwnerDashboard">
@@ -77,42 +77,48 @@ class ContractDetail extends ContractDetailController {
                     </Link>
                   </div>
                 </Box>
-                <Container>
-                  <Box className="content-box">
-                    <div className="contracts-list">
-                      {/* <iframe src={this.state.contractData.templateUrl} /> */}
-                    </div>
-                    <Box className="upload-button">
-                      <Box className="upload-button-group">
-                        <Box className="top">
-                          <Button
-                            onClick={() => {
-                              this.handleTerminateContractModal();
-                            }}
-                          >
-                            Terminate
-                          </Button>
-                          <Link href="/Contracts">
-                            <Button>Close</Button>
-                          </Link>
-                        </Box>
-                        <Box className="bottom">
-                          <Button>ReNew Contract</Button>
-                          <Box
-                            className="image"
-                            onClick={() => {
-                              this.setState({ shareUrl: this.state.contractData.templateUrl }, () => {
-                                this.handleShareModal();
-                              });
-                            }}
-                          >
-                            <img src={ShareIcon} alt="" />
+                <Box className="contract-detail">
+                  <Container>
+                    <Box className="content-box">
+                      <div className="contracts-list">
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: this.state.contractData.templateText,
+                          }}
+                        />
+                      </div>
+                      <Box className="upload-button">
+                        <Box className="upload-button-group">
+                          <Box className="top">
+                            <Button
+                              onClick={() => {
+                                this.handleTerminateContractModal();
+                              }}
+                            >
+                              Terminate
+                            </Button>
+                            <Link href="/Contracts">
+                              <Button>Close</Button>
+                            </Link>
+                          </Box>
+                          <Box className="bottom">
+                            <Button>ReNew Contract</Button>
+                            <Box
+                              className="image"
+                              onClick={() => {
+                                this.setState({ shareUrl: this.state.contractData.templateUrl }, () => {
+                                  this.handleShareModal();
+                                });
+                              }}
+                            >
+                              <img src={ShareIcon} alt="" />
+                            </Box>
                           </Box>
                         </Box>
                       </Box>
                     </Box>
-                  </Box>
-                </Container>
+                  </Container>
+                </Box>
               </Box>
             </Grid>
             <Grid item xs={12} md={5}>
