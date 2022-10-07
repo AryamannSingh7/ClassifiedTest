@@ -257,7 +257,7 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
           if (!responseJson.errors) {
             console.log(responseJson)
             if (responseJson) {
-              // window.location.reload();
+              window.location.reload();
               // this.setState({ allInbox: responseJson.data }, () => console.log(this.state.allInbox))
             }
           } else {

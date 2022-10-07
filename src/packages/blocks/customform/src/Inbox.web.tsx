@@ -192,10 +192,17 @@ class Inbox extends InboxController {
           <Box className="dialog-footer desktop-ui">
             <DialogActions className="customButton">
               <Button variant="contained" onClick={() => this.disablechat()}   >
-                Yes Disable
+                Yes
+                {
+                  this.state.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ? ' Enable' :' Disable'
+                }
+                 
               </Button>
               <Button variant='text' onClick={() => this.setState({ showSuccessModal: false })}>
-                No, don’t disable
+                No, don’t
+                {
+                  this.state.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ? ' Enable' :' Disable'
+                }
               </Button>
             </DialogActions>
           </Box>
