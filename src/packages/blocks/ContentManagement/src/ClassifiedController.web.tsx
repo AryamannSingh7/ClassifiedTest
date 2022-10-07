@@ -639,8 +639,8 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
    formData.append('classified[duration_from]', classifiedFromData.startDate);
    formData.append('classified[duration_to]', classifiedFromData.endDate);
 
-   for (let j = 0; j < classifiedFromData.media.length; j += 1) {
-    let blob = await fetch(classifiedFromData.media[j].url).then(r => r.blob());
+   for (let j = 0; j < classifiedFromData?.media?.length; j += 1) {
+    let blob = await fetch(classifiedFromData?.media[j]?.url).then(r => r.blob());
       //@ts-ignore
     // blob.name = classifiedFromData.media[j].file.name
     console.log("bolb ==================>",blob);

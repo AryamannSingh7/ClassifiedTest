@@ -73,12 +73,12 @@ class CreateClassified extends ClassifiedController {
     const id = this.state?.getClassifiedDetails?.id;
     const attributes = this.state?.getClassifiedDetails?.attributes;
     const classifiedUserType = localStorage.getItem("classifiedUserType")
-    if (!checkEditmode) {
-      //@ts-ignore
-      this.props.history.replace("/ClassifiedListing");
-      return null;
-    }
-    else if(!classifiedUserType){
+    // if (!checkEditmode) {
+    //   //@ts-ignore
+    //  // this.props.history.replace("/ClassifiedListing");
+    //   return null;
+    // }
+   if(!classifiedUserType){
       this.props.history.replace("/ClassifiedType");
       return null;
     }
@@ -125,7 +125,7 @@ class CreateClassified extends ClassifiedController {
                     onSubmit={(values) => {
                       !this.state?.sizeError && !this.state?.notImageOrVideoError ?
                       ( //@ts-ignore
-                        !checkEditmode ?
+                        classifiedUserType ?
                         this.onSubmit(values)
                         : this.updateClassified(values)
                       )
@@ -309,12 +309,12 @@ class CreateClassified extends ClassifiedController {
                                     <img src={CurrencyIcon} className="frm-icons" alt="House Icon" />
                                   </span>
                                   <Select
-                                    name="Currency"
+                                    name="currency"
                                     labelId="demo-simple-select-outlined-label"
                                     id="demo-simple-select-outlined"
                                     style={{ paddingLeft: 50, marginTop: -3 }}
                                     onChange={(e) => {
-                                      (e.target.value != " ") && setFieldValue("Currency", e.target.value)
+                                      (e.target.value != " ") && setFieldValue("currency", e.target.value)
                                     }}
                                     value={values.currency}
                                   >
@@ -332,7 +332,7 @@ class CreateClassified extends ClassifiedController {
                                       ))
                                     }
                                   </Select>
-                                  <ErrorMessage className="text-error" component="Typography" name="Currency" />
+                                  <ErrorMessage className="text-error" component="Typography" name="currency" />
                                 </FormControl>
                               </Box>
 
@@ -394,7 +394,7 @@ class CreateClassified extends ClassifiedController {
                                         value={values.currency}
                                       >
                                         <MenuItem disabled value=" ">
-                                          currency
+                                          Currency
                                         </MenuItem>
                                         {
                                           this.state?.getCurrencyList?.map((val: any, index: any) => (
@@ -460,7 +460,7 @@ class CreateClassified extends ClassifiedController {
                                     value={values.currency}
                                   >
                                     <MenuItem disabled value=" ">
-                                      currency
+                                      Currency
                                     </MenuItem>
                                     {
                                       this.state?.getCurrencyList?.map((val: any, index: any) => (
@@ -535,13 +535,16 @@ class CreateClassified extends ClassifiedController {
                             </Grid>
                           </Grid>
                         </Box >
-                        <Box className="customButton">
-                          <Button variant="contained" type="submit" >SAVE CHANGES</Button>
-                        </Box>
-                        :
-                        <Box className="customButton">
-                          <Button variant="contained" type="submit">preview</Button>
-                        </Box>
+                        {
+                            !classifiedUserType   ?<Box className="customButton">
+                               <Button variant="contained" type="submit" >SAVE CHANGES</Button>
+                             </Box>
+                             :
+                             <Box className="customButton">
+                               <Button variant="contained" type="submit">preview</Button>
+                             </Box>
+                        }
+                        
                       </Form>
                     )}
                   </Formik >
