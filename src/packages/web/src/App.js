@@ -151,8 +151,17 @@ import IncidentPreview from '../../blocks/ContentManagement/src/IncidentPreview.
 import IncidentManagement from '../../blocks/ContentManagement/src/IncidentManagement.web';
 import IncidentManagementDetail from '../../blocks/ContentManagement/src/IncidentManagementDetail.web';
 
-import ClassifiedManagerListing from '../../blocks/ContentManagement/src/ClassifiedManagerListing.web';
-import ClassifiedManagerDetail from '../../blocks/ContentManagement/src/ClassifiedManagerDetail.web';
+
+
+import ClassifiedManagerListing from "../../blocks/ContentManagement/src/ClassifiedManagerListing.web";
+import ClassifiedManagerDetail from "../../blocks/ContentManagement/src/ClassifiedManagerDetail.web";
+import CreateClassified from "../../blocks/ContentManagement/src/CreateClassified.web";
+import ClassifiedType from "../../blocks/ContentManagement/src/ClassifiedType.web";
+import ClassifiedListing from "../../blocks/ContentManagement/src/ClassifiedListing.web";
+import ClassifiedReportedSuccessfully from "../../blocks/ContentManagement/src/ClassifiedReportedSuccessfully.web";
+import ClassifiedPreview from "../../blocks/ContentManagement/src/ClassifiedPreview.web";
+import ClassifiedDetails from "../../blocks/ContentManagement/src/ClassifiedDetails.web";
+
 
 import NeighboursDetails from '../../blocks/search/src/NeighboursDetails.web';
 import NeighboursListing from '../../blocks/search/src/NeighboursListing.web';
@@ -511,7 +520,38 @@ const routeMap = {
     path: '/ClassifiedManagerDetail',
     exact: true
   },
-  // RolesPermissions2: {
+  CreateClassified: {
+    component: CreateClassified,
+    path: '/CreateClassified',
+    exact: true
+  },
+  ClassifiedType: {
+    component: ClassifiedType,
+    path: '/ClassifiedType',
+    exact: true
+  },
+  ClassifiedDetails: {
+    component: ClassifiedDetails,
+    path: '/ClassifiedDetails',
+    exact: true
+  },
+  ClassifiedListing: {
+  component: ClassifiedListing,
+  path: '/ClassifiedListing',
+  exact: true
+},
+ClassifiedPreview: {
+  component: ClassifiedPreview,
+  path: '/ClassifiedPreview',
+  exact: true
+},
+ClassifiedReportedSuccessfully: {
+  component: ClassifiedReportedSuccessfully,
+  path: '/ClassifiedReportedSuccessfully',
+  exact: true
+},
+
+// RolesPermissions2: {
   //   component: RolesPermissions2,
   //   path: '/RolesPermissions2'
   // },

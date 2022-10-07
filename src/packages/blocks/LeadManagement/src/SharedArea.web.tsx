@@ -147,6 +147,7 @@ class SharedArea extends SharedAreaController {
 
                 {this.state.imageBox && this.state.sharedAreaData.photos.length > 0 && (
                   <Lightbox
+                    imagePadding={120}
                     mainSrc={this.state.sharedAreaData.photos[this.state.photoIndex].url}
                     nextSrc={
                       this.state.sharedAreaData.photos[

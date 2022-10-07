@@ -350,8 +350,15 @@ export const BuildingApartmentStyle: any = {
       padding: "5px 12px",
       borderRadius: "25px",
       fontWeight: 600,
-      background: "#e4edff",
-      color: "#2B6FED",
+      background: "#d2ffe2",
+      color: "#1EC65B",
+    },
+    "& .No-Own": {
+      padding: "5px 12px",
+      borderRadius: "25px",
+      fontWeight: 600,
+      background: "#ffd9d9",
+      color: "red",
     },
   },
   unitDetails: {
