@@ -3,9 +3,8 @@ import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
 import MessageEnum, { getName } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
-
-// Customizable Area Start
-// Customizable Area End
+import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
+import toast from "react-hot-toast";
 
 export const configJSON = require("./config.js");
 
@@ -20,6 +19,11 @@ export interface Props {
 interface S {
   // Customizable Area Start
   templatesList: any[];
+  buildingList: any[];
+  unitList: any[];
+
+  buildingId: string;
+  unitId: string;
   // Customizable Area End
 }
 
@@ -29,19 +33,23 @@ interface SS {
 
 export default class IssueContractController extends BlockComponent<Props, S, SS> {
   GetTemplatesListCallId: any;
+  GetBuildingListCallId: any;
+  GetUnitListCallId: any;
 
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
     console.disableYellowBox = true;
     // Customizable Area Start
-    this.subScribedMessages = [
-      getName(MessageEnum.RestAPIResponceMessage),
-      getName(MessageEnum.RestAPIRequestMessage),
-    ];
+    this.subScribedMessages = [getName(MessageEnum.RestAPIResponceMessage), getName(MessageEnum.RestAPIRequestMessage)];
 
     this.state = {
       templatesList: [],
+      buildingList: [],
+      unitList: [],
+
+      buildingId: "",
+      unitId: "",
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -49,33 +57,83 @@ export default class IssueContractController extends BlockComponent<Props, S, SS
 
   async receive(from: string, message: Message) {
     // Customizable Area Start
-    // Get All Template List from Admin - API
+    // Get All Template List from Admin - API Response
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.GetTemplatesListCallId !== null &&
-      this.GetTemplatesListCallId ===
-        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+      this.GetTemplatesListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.GetTemplatesListCallId = null;
 
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson.data) {
-        this.setState({ ...this.state, templatesList: responseJson.data });
+        this.setState({ templatesList: responseJson.data });
       }
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
         runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
       } else {
-        this.parseApiErrorResponse(responseJson);
+        ApiErrorResponse(responseJson);
       }
-      this.parseApiCatchErrorResponse(errorResponse);
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // Get Building - API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.GetBuildingListCallId !== null &&
+      this.GetBuildingListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.GetBuildingListCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      if (responseJson.buildings) {
+        this.setState({ buildingList: responseJson.buildings });
+      }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // Get Units - API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.GetUnitListCallId !== null &&
+      this.GetUnitListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.GetUnitListCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      if (responseJson.apartments) {
+        this.setState({ unitList: responseJson.apartments });
+      }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
     }
     // Customizable Area End
   }
 
   // Customizable Area Start
+  async componentDidMount(): Promise<void> {
+    this.getTemplateListFromAdmin();
+    this.getBuilding();
+  }
+
   // Get All Template List from Admin - API
   getTemplateListFromAdmin = () => {
     const header = {
@@ -88,20 +146,108 @@ export default class IssueContractController extends BlockComponent<Props, S, SS
     this.GetTemplatesListCallId = apiRequest.messageId;
 
     // const society_id = localStorage.getItem("society_id");
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_contract/lease_templates`
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIResponceEndPointMessage), `bx_block_contract/lease_templates`);
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypeGet
-    );
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
   };
+
+  // Get Building - API
+  getBuilding = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.GetBuildingListCallId = apiRequest.messageId;
+
+    const society_id = localStorage.getItem("society_id");
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `society_managements/${society_id}/bx_block_meeting/find_building`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  // Get Units - API
+  getUnits = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.GetUnitListCallId = apiRequest.messageId;
+
+    const society_id = localStorage.getItem("society_id");
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `society_managements/${society_id}/bx_block_contract/contracts/find_unit?building_management_id=${
+        this.state.buildingId
+      }`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  handleCheckContractExist = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.GetUnitListCallId = apiRequest.messageId;
+
+    const society_id = localStorage.getItem("society_id");
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `society_managements/${society_id}/bx_block_contract/contracts/find_unit?building_management_id=${
+        this.state.buildingId
+      }`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  // Handle State
+  handleGotoTemplate = (templateId: any) => {
+    if (!this.state.buildingId) {
+      toast.error("Please select building");
+    } else if (!this.state.unitId) {
+      toast.error("Please select unit");
+    }
+    // else if (!this.state.unitId) {
+    //   toast.error("Please register tenant");
+    // }
+    if (this.state.buildingId && this.state.unitId) {
+      this.props.navigation.navigate("SelectedTemplateTwo", { id: templateId });
+    }
+  };
+
   // Customizable Area End
 }

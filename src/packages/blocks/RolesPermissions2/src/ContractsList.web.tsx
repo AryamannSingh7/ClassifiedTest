@@ -57,12 +57,12 @@ class ContractsList extends ContractsListController {
 
   render() {
     const { classes } = this.props;
+    const { t }: any = this.props;
 
     const sharePopupWidth = 500;
     const sharePopupHeight = 700;
     const shareTitle = "TI 1 Final Leap";
 
-    const { t }: any = this.props;
 
     console.log(this.state);
 
@@ -194,11 +194,11 @@ class ContractsList extends ContractsListController {
                                       </Grid>
                                       <Grid item xs={6}>
                                         <span>Building</span>
-                                        <p>-</p>
+                                        <p>{contract.attributes.building_name}</p>
                                       </Grid>
                                       <Grid item xs={6}>
                                         <span>Unit</span>
-                                        <p>-</p>
+                                        <p>{contract.attributes.unit_name}</p>
                                       </Grid>
                                       <Grid item xs={6}>
                                         <span>Tenant Name</span>
@@ -206,7 +206,7 @@ class ContractsList extends ContractsListController {
                                       </Grid>
                                       <Grid item xs={6}>
                                         <span>Contract Type</span>
-                                        <p>-</p>
+                                        <p>{contract.attributes.contract_type}</p>
                                       </Grid>
                                       <Grid item xs={6}>
                                         <span>Contract State</span>

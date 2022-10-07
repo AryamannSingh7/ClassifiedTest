@@ -156,6 +156,10 @@ export const ContractsStyleWeb: any = {
       padding: "10px 20px",
       justifyContent: "space-between",
     },
+    "& .top-bar-contract-details .top-bar": {
+      marginBottom: "0",
+      borderBottom: "2px solid lightgrey",
+    },
     "& .top-bar .left-icon": {
       display: "flex",
       alignItems: "center",
@@ -174,6 +178,17 @@ export const ContractsStyleWeb: any = {
       position: "relative",
       width: "100%",
       height: "78vh",
+    },
+    "& .contract-detail": {
+      background: "white",
+      height: "86vh",
+      paddingTop: "20px",
+    },
+    "& .contract-detail .content-box .contracts-list": {
+      height: "calc(100% - 70px)",
+    },
+    "& .contract-detail .upload-button": {
+      background: "white",
     },
     "& .content-box > .MuiGrid-root": {
       alignContent: "flex-start",
@@ -274,6 +289,9 @@ export const ContractsStyleWeb: any = {
       borderRadius: "30px",
       marginTop: "18px",
     },
+    "& .issue-lease-content .select-input-box .select-input .MuiListItemIcon-root": {
+      minWidth: "40px",
+    },
     "& .issue-lease-content .select-input-box .input.select-input": {
       padding: "12px 15px",
     },
@@ -316,6 +334,7 @@ export const ContractsStyleWeb: any = {
       boxShadow: "4px 0px 14px #ececec",
       position: "relative",
       padding: "25px",
+      cursor: "pointer",
     },
     "& .templates-list .template .content": {
       display: "flex",

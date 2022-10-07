@@ -366,9 +366,10 @@ class Buildings extends BuildingsController {
                               className="unit-select"
                               onChange={(e: any) => this.setState({ status: e.target.value, page: 1 })}
                             >
-                              <option disabled value="">
+                              <option disabled value="-">
                                 {t("Status")}
                               </option>
+                              <option value="">{t("All")}</option>
                               <option value="Empty">{t("Empty")}</option>
                               <option value="Rented">{t("Rented")}</option>
                               <option value="Occupied">{t("Occupied")}</option>

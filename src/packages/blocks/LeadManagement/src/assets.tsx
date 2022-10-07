@@ -39,3 +39,7 @@ export const nextIcon = require("../assets/right-arrow.png");
 export const previousIcon = require("../assets/left-arrow.png");
 export const mapLocation = require("../assets/map-location.png");
 export const DeleteIcon = require("../assets/cross.png");
+export const BuildingLogo = require("../assets/building-main.png");
+export const ManagementChat = require("../assets/management-chat.png");
+export const ManagementPhone = require("../assets/management-call.png");
+export const ManagementEmail = require("../assets/management-email.png");
