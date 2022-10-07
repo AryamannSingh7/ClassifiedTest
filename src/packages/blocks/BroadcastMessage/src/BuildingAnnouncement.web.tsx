@@ -81,7 +81,7 @@ class Announcement extends BuildingAnnouncementController{
                               </Box>
                               :
                               <Box>
-                                  <IconButton style={{padding:"8px"}}>
+                                  <IconButton style={{padding:"8px"}} onClick={this.handleShort}>
                                       <img src={shortIcon} />
                                   </IconButton>
                                   <IconButton style={{padding:"8px"}} onClick={this.handleOpenFilterModal} >

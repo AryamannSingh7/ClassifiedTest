@@ -40,7 +40,7 @@ export default class CoverImageController extends BlockComponent<
   apiEmailLoginCallId: string = "";
   emailReg: RegExp;
   labelTitle: string = "";
-
+  getVisitorListId:string = "";
   constructor(props: Props) {
 
     super(props);
@@ -82,41 +82,7 @@ export default class CoverImageController extends BlockComponent<
     }
   }
 
-  doEmailLogIn(data:any): boolean {
-    const header = {
-      "Content-Type": configJSON.loginApiContentType
-    };
-
-    const requestMessage = new Message(
-      getName(MessageEnum.RestAPIRequestMessage)
-    );
-
-    this.apiEmailLoginCallId = requestMessage.messageId;
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      configJSON.loginAPiEndPoint
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestBodyMessage),
-      JSON.stringify(data)
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.loginAPiMethod
-    );
-
-    runEngine.sendMessage(requestMessage.id, requestMessage);
-
-    return true;
-  }
+  
   handleClick = (event:any) => {
     this.setState({anchorEl:event.currentTarget })
   };
