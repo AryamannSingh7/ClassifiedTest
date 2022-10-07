@@ -104,88 +104,90 @@ class ClassifiedListing extends ClassifiedController {
                         <Button variant="contained" onClick={() => this.getMyClassifiedList()}>My Classified</Button>
                       </Box>
                     </div>
-
-                    <Box className="common-incident-block" style={{
-                      height: "100vh", textAlign: "center", display: "flex",
-                      justifyContent: "center", margin: "150px 5px", overflow: "hidden"
-                    }}>
-                      <p>Looks like you havn’t added any classifieds!
-                        You can create a new request by tapping the below button.</p>
-                    </Box>
                     {
-                      this.state?.classifiedListing?.map((val: any, index: any) => (
-                          <Card className="classified-card card" key={val?.attributes?.id} onClick={(e:any) => {this.getClassifiedDetails(e,val.id)}}>
-                            <CardContent className="costom-card-content">
-                              <Box className="classified-card-header">
+                      this.state?.classifiedListing?.length === 0 ?
+                      <Box className="common-incident-block" style={{
+                        height: "100vh", textAlign: "center", display: "flex",
+                        justifyContent: "center", margin: "150px 5px", overflow: "hidden"
+                      }}>
+                        <h2>No classifieds 
+                          were found</h2>
+                        <p>Looks like you havn’t added any classifieds!
+                          You can create a new request by tapping the below button.</p>
+                      </Box>
+                      : 
+                        this.state?.classifiedListing?.map((val: any, index: any) => (
+                        <Card className="classified-card card" key={val?.attributes?.id} onClick={(e:any) => {this.getClassifiedDetails(e,val.id)}}>
+                          <CardContent className="costom-card-content">
+                            <Box className="classified-card-header">
+                              <Typography component="h4">
+                                {val?.attributes?.title} {val?.attributes?.id}
+                              </Typography>
+                              {
+                                this.state?.myOrAllClassified ? 
+                                null
+                                :
+                                <>
+                                 <Button  aria-controls="simple-menu" aria-haspopup="true" onClick={(e: any) =>{ this.handleClick(e ,val?.attributes?.id)}}>
+                                <img src={Setting_Icon} className="grid-icon icons" alt="" />
+                              </Button>
+                              <Menu
+                                id="simple-menu"
+                                anchorEl={this.state.anchorEl}
+                                keepMounted
+                                open={Boolean(this.state.anchorEl)}
+                                onClose={() => this.handleClose("","")}
+                              >
+                                <MenuItem onClick={(e) => this.handleClose(e,"edit")}>Edit</MenuItem>
+                                <MenuItem onClick={(e) => this.handleClose(e,"delete")}>Delete  {val?.attributes?.id}</MenuItem>
+                               </Menu>
+                                </>
+                              }
+                             
+                            </Box>
+                            <Typography className="sub-title h5-title" component="h5">
+                            {val?.attributes?.description}
+                             </Typography>
+                            <Typography component="span">
+                              Available to buy:
+                            </Typography>
+                            <Typography className="sub-title h5-title" component="h5">
+                             {val?.attributes?.duration_from} to {val?.attributes?.duration_to}
+                            </Typography>
+                            <hr />
+                            <Box className="card-footer classified-footer">
+                              <div className="left-block">
+                                {/* <img src={Dollar_Icon} className="dollar-icon" alt="Dollar Icon" /> */}
                                 <Typography component="h4">
-                                  {val?.attributes?.title} {val?.attributes?.id}
+                                {val?.attributes?.currency?.currency} {val?.attributes?.price_from} - {val?.attributes?.currency?.currency}  {val?.attributes?.price_to}
                                 </Typography>
-                                {
-                                  this.state?.myOrAllClassified ? 
-                                  null
+                              </div>
+                              {
+                                val?.attributes?.classified_type === "buyer" ?
+                                  <Box className="customButton">
+                                    <Button variant="contained" className="contain success" type="submit" >Buy</Button>
+                                  </Box>
                                   :
-                                  <>
-                                   <Button  aria-controls="simple-menu" aria-haspopup="true" onClick={(e: any) =>{ this.handleClick(e ,val?.attributes?.id)}}>
-                                  <img src={Setting_Icon} className="grid-icon icons" alt="" />
-                                </Button>
-                                <Menu
-                                  id="simple-menu"
-                                  anchorEl={this.state.anchorEl}
-                                  keepMounted
-                                  open={Boolean(this.state.anchorEl)}
-                                  onClose={() => this.handleClose("","")}
-                                >
-                                  <MenuItem onClick={(e) => this.handleClose(e,"edit")}>Edit</MenuItem>
-                                  <MenuItem onClick={(e) => this.handleClose(e,"delete")}>Delete  {val?.attributes?.id}</MenuItem>
-                                 </Menu>
-                                  </>
-                                }
-                               
-                              </Box>
-                              <Typography className="sub-title h5-title" component="h5">
-                              {val?.attributes?.description}
-                               </Typography>
-                              <Typography component="span">
-                                Available to buy:
-                              </Typography>
-                              <Typography className="sub-title h5-title" component="h5">
-                               {val?.attributes?.duration_from} to {val?.attributes?.duration_to}
-                              </Typography>
-                              <hr />
-                              <Box className="card-footer classified-footer">
-                                <div className="left-block">
-                                  {/* <img src={Dollar_Icon} className="dollar-icon" alt="Dollar Icon" /> */}
-                                  <Typography component="h4">
-                                  {val?.attributes?.currency?.currency} {val?.attributes?.price_from} - {val?.attributes?.currency?.currency}  {val?.attributes?.price_to}
-                                  </Typography>
-                                </div>
-                                {
-                                  val?.attributes?.classified_type === "buyer" ?
+                                  (val?.attributes?.classified_type === "generic") ?
                                     <Box className="customButton">
-                                      <Button variant="contained" className="contain success" type="submit" >Buy</Button>
+                                      <Button variant="contained" className="contain warning" type="submit" >Generic</Button>
                                     </Box>
                                     :
-                                    (val?.attributes?.classified_type === "generic") ?
-                                      <Box className="customButton">
-                                        <Button variant="contained" className="contain warning" type="submit" >Generic</Button>
-                                      </Box>
-                                      :
-                                      <Box className="customButton">
-                                        <Button variant="contained" className="contain danger" type="submit" >Sell</Button>
-                                      </Box>
-                                }
-                              </Box>
-                            </CardContent>
-                          </Card>
-                      ))
-                    }
-
+                                    <Box className="customButton">
+                                      <Button variant="contained" className="contain danger" type="submit" >Sell</Button>
+                                    </Box>
+                              }
+                            </Box>
+                          </CardContent>
+                        </Card>
+                    ))
+                  }
                   </Box>
                   <Box className="customButton add-incident">
                     <Button variant="contained" onClick={() => {
                       this.setState({ loading: true });//@ts-ignore
                       this.props.history.push("/ClassifiedType")
-                    }} >Add New Incident</Button>
+                    }} >ADD Classified</Button>
                   </Box>
                 </Box>
                 {/* <Box className="footer-main-block bottomBlock">
