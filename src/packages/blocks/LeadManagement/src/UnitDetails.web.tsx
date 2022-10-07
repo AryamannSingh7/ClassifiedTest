@@ -244,26 +244,26 @@ class UnitDetails extends UnitDetailsController {
                       <h4>{t("Related People")}</h4>
                     </Box>
                     <Grid container spacing={2}>
-                      {this.state.unitData.relatedPeople.map((people: any) => {
+                      {this.state.unitData.relatedPeople.map((people: any, index: number) => {
                         return (
-                          <Grid item sm={3} key={people.id}>
+                          <Grid item sm={3} key={index}>
                             <Card className="user-details">
                               <CardMedia
                                 component="img"
                                 height="140"
-                                image={people.attributes.profile_pic && people.attributes.profile_pic.url}
-                                alt={people.attributes.full_name}
+                                image={people.account.data.attributes.profile_pic}
+                                alt={people.account.data.attributes.full_name.name}
                                 style={dashBoard.profileImage}
                               />
-                              <h4>B-140</h4>
-                              <p>{people.attributes.full_name}</p>
-                              <span className="role">Property Manager</span>
+                              <h4>{people.apartment_name}</h4>
+                              <p>{people.account.data.attributes.full_name.name}</p>
+                              <span className="role">{people.roles[0].name}</span>
                               <Box className="icons">
                                 <img src={chat} alt="" />
-                                <a href={`mailto:${people.attributes.email}`}>
+                                <a href={`mailto:${people.account.data.attributes.email.email}`}>
                                   <img src={email_org} alt="" />
                                 </a>
-                                <a href={`tel:${people.attributes.full_phone_number}`}>
+                                <a href={`tel:${people.account.data.attributes.full_phone_number.full_phone_number}`}>
                                   <img src={call_org} alt="" />
                                 </a>
                               </Box>
@@ -401,7 +401,7 @@ class UnitDetails extends UnitDetailsController {
                           <Grid item sm={6} key={vehicle.id}>
                             <Card className="incident-card">
                               <Box className="heading">
-                                <h4>-</h4>
+                                <h4>{vehicle.attributes.model_number}</h4>
                               </Box>
                               <img
                                 src={
@@ -409,7 +409,7 @@ class UnitDetails extends UnitDetailsController {
                                   vehicle.attributes.registration_card_copy.url
                                 }
                                 alt=""
-                                style={{ marginBottom: "5px" }}
+                                style={{ marginBottom: "5px", width: "150px", height: "100px", borderRadius: "8px" }}
                               />
                               <Box className="incident-data">
                                 <p>{t("Owner Name")}:</p>
@@ -420,13 +420,13 @@ class UnitDetails extends UnitDetailsController {
                               <Box className="incident-data">
                                 <p>{t("Registration Card Number")}:</p>
                                 <p>
-                                  <span>-</span>
+                                  <span>{vehicle.attributes.plate_number}</span>
                                 </p>
                               </Box>
                               <Box className="incident-data">
                                 <p>{t("Car Details")}:</p>
                                 <p>
-                                  <span>{vehicle.attributes.company_name || "-"}</span>
+                                  <span>{vehicle.attributes.description || "-"}</span>
                                 </p>
                               </Box>
                               <Box className="incident-data">
@@ -576,6 +576,7 @@ class UnitDetails extends UnitDetailsController {
 
                 {this.state.imageBox && this.state.unitData.photos.length > 0 && (
                   <Lightbox
+                    imagePadding={120}
                     mainSrc={this.state.unitData.photos[this.state.photoIndex].url}
                     nextSrc={
                       this.state.unitData.photos[(this.state.photoIndex + 1) % this.state.unitData.photos.length].url
@@ -601,120 +602,6 @@ class UnitDetails extends UnitDetailsController {
                     }
                   />
                 )}
-
-                {/* Modal Delink Related People */}
-                <Modal
-                  style={dashBoard.modal}
-                  open={Boolean(this.state.setDeLinkOpen)}
-                  onClose={this.handleDeLinkModal}
-                  closeAfterTransition
-                  BackdropComponent={Backdrop}
-                  BackdropProps={{
-                    timeout: 500,
-                  }}
-                >
-                  <Fade in={Boolean(this.state.setDeLinkOpen)}>
-                    <div
-                      //@ts-ignore
-                      style={dashBoard.delinkPaper}
-                    >
-                      <img src={true_mark} style={{ marginTop: "20px" }} />
-                      <Typography
-                        variant="h6"
-                        //@ts-ignore
-                        style={dashBoard.unitno}
-                      >
-                        Delink User
-                      </Typography>
-                      <Typography variant="subtitle1" style={{ marginTop: "20px" }}>
-                        User will be removed from this unit Are you sure you want to delink the user?{" "}
-                      </Typography>
-                      <Grid container spacing={3} style={{ marginTop: "20px" }}>
-                        <Grid item xs={12} sm={6} style={{ marginBottom: "20px" }}>
-                          <Button
-                            variant="outlined"
-                            style={{
-                              width: "100%",
-                              color: "#2B6FED",
-                              border: "1px solid #2B6FED",
-                              fontWeight: 600,
-                              height: "50px",
-                            }}
-                            onClick={this.handleDeLinkModal}
-                          >
-                            CLOSE
-                          </Button>
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                          <Button
-                            variant="contained"
-                            color="primary"
-                            style={{ width: "100%", backgroundColor: "#2B6FED", fontWeight: 600, height: "50px" }}
-                          >
-                            DELINK
-                          </Button>
-                        </Grid>
-                      </Grid>
-                    </div>
-                  </Fade>
-                </Modal>
-
-                {/* Modal Suspend user Related People */}
-                <Modal
-                  style={dashBoard.modal}
-                  open={Boolean(this.state.setSuspendOpen)}
-                  onClose={this.handleSuspendModal}
-                  closeAfterTransition
-                  BackdropComponent={Backdrop}
-                  BackdropProps={{
-                    timeout: 500,
-                  }}
-                >
-                  <Fade in={Boolean(this.state.setSuspendOpen)}>
-                    <div
-                      //@ts-ignore
-                      style={dashBoard.delinkPaper}
-                    >
-                      <img src={true_mark} style={{ marginTop: "20px" }} />
-                      <Typography
-                        variant="h6"
-                        //@ts-ignore
-                        style={dashBoard.unitno}
-                      >
-                        Suspend User
-                      </Typography>
-                      <Typography variant="subtitle1" style={{ marginTop: "20px" }}>
-                        User won’t be able use the platform services Are you sure you want to suspend the user?{" "}
-                      </Typography>
-                      <Grid container spacing={3} style={{ marginTop: "20px" }}>
-                        <Grid item xs={12} sm={6} style={{ marginBottom: "20px" }}>
-                          <Button
-                            variant="outlined"
-                            style={{
-                              width: "100%",
-                              color: "#2B6FED",
-                              border: "1px solid #2B6FED",
-                              fontWeight: 600,
-                              height: "50px",
-                            }}
-                            onClick={this.handleSuspendModal}
-                          >
-                            CLOSE
-                          </Button>
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                          <Button
-                            variant="contained"
-                            color="primary"
-                            style={{ width: "100%", backgroundColor: "#2B6FED", fontWeight: 600, height: "50px" }}
-                          >
-                            CONFIRM
-                          </Button>
-                        </Grid>
-                      </Grid>
-                    </div>
-                  </Fade>
-                </Modal>
               </Container>
             </Grid>
           </Box>
@@ -1073,36 +960,52 @@ class UnitDetails extends UnitDetailsController {
           </DialogContent>
         </Dialog>
 
+        {/* DeLink Related People  */}
         <Dialog
           className="delete-dialog"
           fullWidth
-          onClose={() => this.handleDeleteFamilyMemberModal()}
-          open={this.state.isDeleteFamilyModalOpen}
+          onClose={() => this.handleDeLinkModal()}
+          open={this.state.setDeLinkOpen}
         >
           <DialogContent style={{ margin: "15px 0" }}>
             <Box textAlign="center">
               <img className="comment-image" src={true_mark} alt="comment" />
-              <Typography variant="h6">{t("Delete Family Member")}</Typography>
-              <Typography variant="body1" style={{ marginBottom: "0px" }}>
-                {t("Member will be remove from this unit")}
-              </Typography>
+              <Typography variant="h6">{t("Delink User")}</Typography>
               <Typography variant="body1" style={{ marginBottom: "15px" }}>
-                {t("Are you sure you want to delete the")} {this.state.familyMemberName}?
+                {t("User will be removed from this unit Are you sure you want to delink the user?")}
               </Typography>
               <DialogActions className="dialog-button-group">
-                <Button
-                  onClick={() => this.handleDeleteFamilyMemberModal()}
-                  className="cancel-button"
-                  style={{ width: "200px" }}
-                >
+                <Button onClick={() => this.handleDeLinkModal()} className="cancel-button" style={{ width: "200px" }}>
                   {t("Close")}
                 </Button>
-                <Button
-                  onClick={() => this.handleDeleteFamilyMember()}
-                  style={{ width: "200px" }}
-                  className="add-button"
-                >
-                  {t("Delete")}
+                <Button onClick={() => this.handleDeLinkModal()} style={{ width: "200px" }} className="add-button">
+                  {t("Delink")}
+                </Button>
+              </DialogActions>
+            </Box>
+          </DialogContent>
+        </Dialog>
+
+        {/* Suspend Related People  */}
+        <Dialog
+          className="delete-dialog"
+          fullWidth
+          onClose={() => this.handleDeLinkModal()}
+          open={this.state.setSuspendOpen}
+        >
+          <DialogContent style={{ margin: "15px 0" }}>
+            <Box textAlign="center">
+              <img className="comment-image" src={true_mark} alt="comment" />
+              <Typography variant="h6">{t("Suspend User")}</Typography>
+              <Typography variant="body1" style={{ marginBottom: "15px" }}>
+                {t("User won’t be able use the platform services Are you sure you want to suspend the user?")}
+              </Typography>
+              <DialogActions className="dialog-button-group">
+                <Button onClick={() => this.handleDeLinkModal()} className="cancel-button" style={{ width: "200px" }}>
+                  {t("Close")}
+                </Button>
+                <Button onClick={() => this.handleDeLinkModal()} style={{ width: "200px" }} className="add-button">
+                  {t("Confirm")}
                 </Button>
               </DialogActions>
             </Box>
