@@ -39,19 +39,24 @@ class VisitorDetails extends VisitorDetailsController{
                 <Grid container style={{ margin: '1rem', width: '95%' }} >
                   <Grid xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem",justifyContent:"space-between"}} >
                       <Box style={{ display:"flex", alignItems:"center", gap:"5px"}}>
-                          <ArrowBackIcon onClick={() => this.props.history.push("/")} />
+                          <ArrowBackIcon onClick={() => window.history.back()} />
                           <p style={{ fontSize: '1rem', fontWeight: 600 }}>
-                                Visitor Details
+                              {
+                                  this.props.match.params.type !== "past" ? "Past Visitor Details" : "Visitor Details"
+                              }
                           </p>
                       </Box>
-                          <Box>
-                              <IconButton style={{padding:"8px"}} onClick={()=>this.props.history.push(`/UpdateVisitor/${this.state.visitorId}`)} >
-                                  <img src={editIcon} />
-                              </IconButton>
-                              <IconButton style={{padding:"8px"}} onClick={this.handleOpenDeleteModal} >
-                                  <img src={deleteIcon} />
-                              </IconButton>
-                          </Box>
+                          {
+                              this.props.match.params.type !== "past" &&
+                              <Box>
+                                  <IconButton style={{padding:"8px"}} onClick={()=>this.props.history.push(`/UpdateVisitor/${this.state.visitorId}`)} >
+                                      <img src={editIcon} />
+                                  </IconButton>
+                                  <IconButton style={{padding:"8px"}} onClick={this.handleOpenDeleteModal} >
+                                      <img src={deleteIcon} />
+                                  </IconButton>
+                              </Box>
+                          }
                   </Grid>
                 </Grid>
                 <Box style={{background: "#F7F9FE",minHeight:"100vh",display:'flex',flexDirection:"column",alignItems:'center'}} >

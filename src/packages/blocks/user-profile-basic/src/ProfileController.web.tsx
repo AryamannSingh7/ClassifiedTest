@@ -53,6 +53,7 @@ export interface S {
   otp: any;
   selectCode: string;
   selectCode2: string;
+  selectCode3:string;
   anchorEl: any;
   showDialog:boolean;
   showDialog1:boolean;
@@ -155,6 +156,7 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
       selectUnit: '',
       selectCode: `+${profileData?.attributes?.full_phone_number?.country_code}` || '+966' ,
       selectCode2: `+${profileData?.attributes?.full_phone_number?.country_code}` || '+966',
+      selectCode3:'+966',
       selectEmail: '',
       unitRegisterType: '',
       allComplex: [],
@@ -265,10 +267,15 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
                //@ts-ignore
             //@ts-nocheck
             let profileData:any = JSON.parse(localStorage.getItem('profileData'))
-            profileData.attributes.full_phone_number.phone_number = responseJson.phone_number
-            profileData.attributes.full_phone_number.country_code = responseJson.country_code
-            localStorage.setItem('profileData',JSON.stringify(profileData))
+            if(profileData){
+
+              profileData.attributes.full_phone_number.phone_number = responseJson.phone_number
+              profileData.attributes.full_phone_number.country_code = responseJson.country_code
+              localStorage.setItem('profileData',JSON.stringify(profileData))
+            }
             this.setState({ selectCode: responseJson.country_code })
+            this.setState({ selectCode3: responseJson.country_code })
+
             location.reload();
 
           } else if (responseJson?.errors) {
@@ -425,7 +432,7 @@ this.setState({loading:false,showDialog:false})
         } else if (apiRequestCallId === this.getProfileDataAPiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson.data)
-            this.setState({ profiledata: responseJson.data }, () => console.log(this.state.profiledata))
+            this.setState({ profiledata: responseJson.data,selectCode3:`+${responseJson.data.attributes?.full_phone_number?.country_code}` }, () => console.log(this.state.profiledata))
             this.setState({ loading: false })
 
           } else {
