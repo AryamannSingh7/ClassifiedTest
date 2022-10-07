@@ -1,6 +1,4 @@
 // Customizable Area Start
-//@ts-nocheck
-//@ts-ignore
 import React from "react";
 import {
   Container,
@@ -20,11 +18,9 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import IssueContractController, { Props } from "./IssueContractController.web";
 import { ContractsStyleWeb } from "./ContractsStyle.web";
-import BuildingLogo from "../assets/building.png";
-import TemplateIcon from "../assets/template.png";
-import EarthIcon from "../assets/earth.png";
-import BuildingIcon from "../assets/select-building.png";
-import CubeIcon from "../assets/cube.png";
+import { BuildingLogo, TemplateIcon, EarthIcon, BuildingIcon, CubeIcon } from "./assets";
+import { withTranslation } from "react-i18next";
+import "../../../web/src/i18n.js";
 
 class IssueLease extends IssueContractController {
   constructor(props: Props) {
@@ -33,6 +29,9 @@ class IssueLease extends IssueContractController {
 
   render() {
     const { classes } = this.props;
+    const { t }: any = this.props;
+
+    console.log(this.state);
 
     return (
       <>
@@ -55,11 +54,16 @@ class IssueLease extends IssueContractController {
                     <Box className="select-input-box">
                       <Select
                         displayEmpty
-                        value=""
+                        value={this.state.buildingId}
                         variant="filled"
                         fullWidth
                         className="select-input"
                         input={<OutlinedInput />}
+                        onChange={(e: any) => {
+                          this.setState({ buildingId: e.target.value }, () => {
+                            this.getUnits();
+                          });
+                        }}
                       >
                         <MenuItem value="" disabled>
                           <ListItemIcon>
@@ -67,17 +71,26 @@ class IssueLease extends IssueContractController {
                           </ListItemIcon>
                           Building Name
                         </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
+                        {this.state.buildingList.map((building: any) => {
+                          return (
+                            <MenuItem key={building.id} value={building.id}>
+                              {building.name}
+                            </MenuItem>
+                          );
+                        })}
                       </Select>
                       <Select
                         displayEmpty
-                        value=""
+                        value={this.state.unitId}
                         variant="filled"
                         fullWidth
                         className="select-input"
                         input={<OutlinedInput />}
+                        onChange={(e: any) => {
+                          this.setState({ unitId: e.target.value }, () => {
+                            this.handleCheckContractExist();
+                          });
+                        }}
                       >
                         <MenuItem value="" disabled>
                           <ListItemIcon>
@@ -85,9 +98,13 @@ class IssueLease extends IssueContractController {
                           </ListItemIcon>
                           Unit Number
                         </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
+                        {this.state.unitList.map((unit: any) => {
+                          return (
+                            <MenuItem key={unit.id} value={unit.id}>
+                              {unit.apartment_name}
+                            </MenuItem>
+                          );
+                        })}
                       </Select>
                     </Box>
                     <Box className="tenant-info">
@@ -102,71 +119,30 @@ class IssueLease extends IssueContractController {
                     <Box className="templates-list">
                       <h3>Select Lease Template</h3>
                       <Grid container spacing={2}>
-                        <Grid item xs={6}>
-                          <Link href={`/IssueContract/1`}>
-                            <Card className="template">
-                              <div className="content">
-                                <div className="image">
-                                  <img src={TemplateIcon} alt="" />
+                        {this.state.templatesList.length === 0 && (
+                          <Grid item xs={12}>
+                            <Card className="template">No Template Available</Card>
+                          </Grid>
+                        )}
+                        {this.state.templatesList.map((template: any, index: number) => {
+                          return (
+                            <Grid item xs={6} key={template.id}>
+                              <Card className="template" onClick={() => this.handleGotoTemplate(template.id)}>
+                                <div className="content">
+                                  <div className="image">
+                                    <img src={TemplateIcon} alt="" />
+                                  </div>
+                                  <h4>{template.attributes.title}</h4>
                                 </div>
-                                <h4>Lease Template 1</h4>
-                              </div>
-                              <div className="right-menu">
-                                <span>Default</span>
-                              </div>
-                            </Card>
-                          </Link>
-                        </Grid>
-                        <Grid item xs={6}>
-                          <Card className="template">
-                            <div className="content">
-                              <div className="image">
-                                <img src={TemplateIcon} alt="" />
-                              </div>
-                              <h4>Lease Template 1</h4>
-                            </div>
-                          </Card>
-                        </Grid>
-                        <Grid item xs={6}>
-                          <Card className="template">
-                            <div className="content">
-                              <div className="image">
-                                <img src={TemplateIcon} alt="" />
-                              </div>
-                              <h4>Lease Template 1</h4>
-                            </div>
-                          </Card>
-                        </Grid>
-                        <Grid item xs={6}>
-                          <Card className="template">
-                            <div className="content">
-                              <div className="image">
-                                <img src={TemplateIcon} alt="" />
-                              </div>
-                              <h4>Lease Template 1</h4>
-                            </div>
-                          </Card>
-                        </Grid>
-                        <Grid item xs={6}>
-                          <Card className="template">
-                            <div className="content">
-                              <div className="image">
-                                <img src={TemplateIcon} alt="" />
-                              </div>
-                              <h4>Lease Template 1</h4>
-                            </div>
-                          </Card>
-                        </Grid>
-                        <Grid item xs={6}>
-                          <Card className="template">
-                            <div className="content">
-                              <div className="image">
-                                <img src={TemplateIcon} alt="" />
-                              </div>
-                              <h4>Lease Template 1</h4>
-                            </div>
-                          </Card>
-                        </Grid>
+                                {index === 0 && (
+                                  <div className="right-menu">
+                                    <span>Default</span>
+                                  </div>
+                                )}
+                              </Card>
+                            </Grid>
+                          );
+                        })}
                       </Grid>
                     </Box>
                     <Box className="contract-info">
@@ -220,9 +196,8 @@ class IssueLease extends IssueContractController {
                         </Grid>
                       </Card>
                       <p>
-                        Contract is already assigned to <span>Mr Ali Khan</span> for{" "}
-                        <span>Building 1 Unit 102</span>. You will have to end or terminate contract
-                        in order to issue a new contract.
+                        Contract is already assigned to <span>Mr Ali Khan</span> for <span>Building 1 Unit 102</span>.
+                        You will have to end or terminate contract in order to issue a new contract.
                       </p>
                     </Box>
                   </Box>
@@ -231,7 +206,7 @@ class IssueLease extends IssueContractController {
             </Grid>
             <Grid item xs={12} md={5}>
               <Box className="right-block right-image" display={{ xs: "none", md: "flex" }}>
-                <img src={BuildingLogo} className="building-logo" alt="" />
+                <img src={BuildingLogo.default} className="building-logo" alt="" />
               </Box>
             </Grid>
           </Grid>
@@ -241,5 +216,5 @@ class IssueLease extends IssueContractController {
   }
 }
 
-export default withStyles(ContractsStyleWeb)(IssueLease);
+export default withTranslation()(withStyles(ContractsStyleWeb)(IssueLease));
 // Customizable Area End

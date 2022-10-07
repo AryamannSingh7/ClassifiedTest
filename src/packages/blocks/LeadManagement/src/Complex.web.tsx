@@ -188,6 +188,7 @@ class Complex extends ComplexController {
 
                 {this.state.imageBox && this.state.complexData.photos.length > 0 && (
                   <Lightbox
+                    imagePadding={120}
                     mainSrc={this.state.complexData.photos[this.state.photoIndex].url}
                     nextSrc={
                       this.state.complexData.photos[(this.state.photoIndex + 1) % this.state.complexData.photos.length]

@@ -7,7 +7,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import DateRangeOutlinedIcon from '@material-ui/icons/DateRangeOutlined';
 import { makeStyles,withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router';
-import { userIcon } from "./assets";
+import {exampleImg, userIcon} from "./assets";
 import ScheduledVisitorController, {
   Props
 } from "./ScheduledVisitorController";
@@ -25,36 +25,7 @@ import Modal from "@material-ui/core/Modal";
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import {boolean} from "yup";
-
-
-
-const filterList = [
-    {
-        id:1,
-        name:"Management Announcement"
-    },
-    {
-        id:2,
-        name:"Change in Service"
-    },
-    {
-        id:3,
-        name:"Building Rules"
-    },
-    {
-        id:4,
-        name:"New Green Initiatives"
-    },
-    {
-        id:5,
-        name:"Renovation"
-    },
-    {
-        id:6,
-        name:"Interruption"
-    },
-
-]
+import moment from "moment";
 
 
 class ScheduledVisitors  extends ScheduledVisitorController{
@@ -70,7 +41,7 @@ class ScheduledVisitors  extends ScheduledVisitorController{
                 <Grid container style={{ margin: '1rem', width: '95%' }} >
                   <Grid xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem",justifyContent:"space-between"}} >
                       <Box style={{ display:"flex", alignItems:"center", gap:"5px"}}>
-                          <ArrowBackIcon onClick={() => this.props.history.push("/")} />
+                          <ArrowBackIcon onClick={() => window.history.back()} />
                           <p style={{ fontSize: '1rem', fontWeight: 600 }}>
                               Scheduled Visitors
                           </p>
@@ -83,7 +54,7 @@ class ScheduledVisitors  extends ScheduledVisitorController{
                             this.state.visitorListing.map((item:any,key:any)=> {
                                 return(
                                     <Grid item xs={12} key={key}>
-                                        <VisitorBox item={item} handleDelete={() => this.handleOpenDeleteModal()} history={this.props.history}/>
+                                        <VisitorBox item={item} handleDelete={(id:any) => this.handleOpenDeleteModal(id)} history={this.props.history}/>
                                     </Grid>
                                 )
                             })
@@ -118,7 +89,7 @@ class ScheduledVisitors  extends ScheduledVisitorController{
                                 </Typography>
                                 <Box style={{marginTop:"15px",width:"90%",display:"flex",flexDirection:"column",alignItems:"center"}}>
                                     {/*@ts-ignore*/}
-                                    <CloseButton variant="outlined" fullWidth style={{marginRight:"10px",marginBottom:"15px"}} onClick={this.closeDeleteModal}>Yes, Cancel</CloseButton>
+                                    <CloseButton variant="outlined" fullWidth style={{marginRight:"10px",marginBottom:"15px"}} onClick={this.manageDeleteVisitor}>Yes, Cancel</CloseButton>
                                     <PublishButton fullWidth onClick={this.handleCloseDeleteModal} >No, Don't Cancel</PublishButton>
                                 </Box>
                             </Box>
@@ -145,11 +116,12 @@ const VisitorBox = (props:any) => {
 
     const handleEdit = () => {
         setAnchorEl(null);
+        props.history.push(`/UpdateVisitor/${props.item.id}`)
     }
 
     const handleDelete = () => {
         setAnchorEl(null);
-        props.handleDelete()
+        props.handleDelete(props.item.id)
     }
     return(
         <Box
@@ -161,19 +133,18 @@ const VisitorBox = (props:any) => {
             marginTop='1rem'
             padding='1rem'
             style={{boxShadow:"rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"}}
-            onClick={()=> props.history.push(`/VisitorDetails?id=${props.item.id}`)}
         >
             <Box style={{minWidth:"100%",display:"flex",justifyContent:"space-between"}}>
-                <Box style={{display:"flex",alignItems:"center"}}>
+                <Box style={{display:"flex",alignItems:"center"}} onClick={()=> props.history.push(`/VisitorDetails?id=${props.item.id}`)}>
                     <Box style={{marginRight:"20px"}}>
-                        <img src={props.item.profilePic} height="55px" width="55px" style={{borderRadius:"100px"}}/>
+                        <img src={props.item.profilePic || exampleImg.default} height="55px" width="55px" style={{borderRadius:"100px"}}/>
                     </Box>
                     <Box style={{display:'flex',flexDirection:"column",justifyContent:"center"}}>
                         <Typography variant={"body1"} style={{fontWeight:"bold"}}>
-                            {props.item.name}
+                            {props.item?.attributes?.name}
                         </Typography>
                         <Typography variant={"subtitle2"} color="textSecondary" style={{marginBottom:"5px"}} >
-                            {props.item.time}
+                            {moment(props.item?.attributes?.schedule_time).format("DD MMM YYYY - hh:mm")}
                         </Typography>
                     </Box>
                 </Box>

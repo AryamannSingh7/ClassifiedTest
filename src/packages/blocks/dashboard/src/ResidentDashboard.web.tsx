@@ -141,7 +141,7 @@ class ResidentDashboard extends DashboardController {
                   <IconButton onClick={() => this.toggleDrawer()}>
                     <img src={hamburgerIcon} alt="" />
                   </IconButton>
-                  <span className="complex-name">Complex Name</span>
+                  <span className="complex-name">{localStorage.getItem("complexName")}</span>
                 </div>
                 <div className="right-icon" style={{ display: "flex" }}>
                   <Box>
@@ -189,22 +189,12 @@ class ResidentDashboard extends DashboardController {
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="/Announcement">
-                      <DashboardCard
-                        image={keyhand}
-                        heading={t("Announcements")}
-                        title={t("Total")}
-                        value="75"
-                      />
+                      <DashboardCard image={keyhand} heading={t("Announcements")} title={t("Total")} value="75" />
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="/Visitors">
-                      <DashboardCard
-                        image={keyhand}
-                        heading={t("Visitors")}
-                        title={t("Scheduled")}
-                        value="75"
-                      />
+                      <DashboardCard image={keyhand} heading={t("Visitors")} title={t("Scheduled")} value="75" />
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>

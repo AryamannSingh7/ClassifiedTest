@@ -350,8 +350,15 @@ export const BuildingApartmentStyle: any = {
       padding: "5px 12px",
       borderRadius: "25px",
       fontWeight: 600,
-      background: "#e4edff",
-      color: "#2B6FED",
+      background: "#d2ffe2",
+      color: "#1EC65B",
+    },
+    "& .No-Own": {
+      padding: "5px 12px",
+      borderRadius: "25px",
+      fontWeight: 600,
+      background: "#ffd9d9",
+      color: "red",
     },
   },
   unitDetails: {
@@ -629,6 +636,152 @@ export const BuildingApartmentStyle: any = {
     "& .Unresolved": {
       background: "#FFEAEA",
       color: "#F21717",
+    },
+  },
+  complexDetails: {
+    "& .top-bar": {
+      display: "flex",
+      alignItems: "center",
+      fontWeight: "600",
+      cursor: "pointer",
+      background: "#FFFFFF",
+      padding: "10px 20px",
+      justifyContent: "space-between",
+      borderBottom: "2px solid lightgrey",
+    },
+    "& .top-bar .left-icon": {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    "& .right-image": {
+      padding: "23px 60px",
+    },
+    "& a": {
+      textDecoration: "none !important",
+    },
+    "& .page-container": {
+      overflowY: "auto",
+      height: "85vh",
+    },
+    "& .details-box": {
+      padding: "10px 0",
+    },
+    "& .heading-box .heading-top": {
+      display: "flex",
+      alignItems: "center",
+      gap: "20px",
+      marginTop: "15px",
+    },
+    "& .heading-box .heading-top img": {
+      width: "65px",
+      height: "65px",
+      borderRadius: "50%",
+    },
+    "& .heading-box .heading-top h4": {
+      color: "#2B6FED",
+    },
+    "& .heading-box .heading-bottom .heading": {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      marginTop: "20px",
+      marginBottom: "5px",
+    },
+    "& .heading-box .heading-bottom .heading span": {
+      color: "#FC8434",
+      fontWeight: 600,
+      cursor: "pointer",
+    },
+    "& .heading-box .heading-bottom .info-item": {
+      margin: "10px 0",
+    },
+    "& .heading-box .heading-bottom .info-item span": {
+      color: "#ACACAC",
+      fontSize: "14px",
+    },
+    "& .building-box": {
+      margin: "20px 0",
+    },
+    "& .building-box .building-card": {
+      boxShadow: "0px 2px 14px #f0f0f0",
+      borderRadius: "8px",
+      padding: "20px",
+      color: "#FC8434",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      fontWeight: 600,
+    },
+    "& .building-box h4": {
+      marginBottom: "10px",
+    },
+    "& .images-box img": {
+      width: "100px",
+      height: "100px",
+      borderRadius: "8px",
+    },
+    "& .images-box": {
+      overflow: "hidden",
+    },
+    "& .images-box h4": {
+      marginBottom: "10px",
+    },
+    "& .images-box .slick-track": {
+      display: "flex",
+    },
+    "& .images-box .slick-prev": {
+      display: "none !important",
+    },
+    "& .images-box .slick-next": {
+      display: "none !important",
+    },
+    "& .management-team": {
+      margin: "20px 0",
+    },
+    "& .management-team h4": {
+      marginBottom: "10px",
+    },
+    "& .management-team .team-member-box": {
+      boxShadow: "0px 2px 14px #f0f0f0",
+      borderRadius: "8px",
+      padding: "20px",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      flexDirection: "column",
+    },
+    "& .management-team .team-member-box > img": {
+      width: "65px",
+      height: "65px",
+      borderRadius: "50%",
+      marginBottom: "10px",
+    },
+    "& .management-team .team-member-box .icons": {
+      padding: "10px 20px",
+      borderRadius: "25px",
+      background: "#F6F6F6",
+    },
+    "& .management-team .team-member-box .icons div": {
+      background: "#D8D8D8",
+      width: "2px",
+    },
+    "& .document-boxes": {
+      margin: "20px 0",
+    },
+    "& .document-boxes h4": {
+      marginBottom: "10px",
+    },
+    "& .document-boxes .document": {
+      boxShadow: "0px 2px 14px #f0f0f0",
+      borderRadius: "8px",
+      padding: "20px",
+      display: "flex",
+      alignItems: "center",
+      gap: "15px",
+    },
+    "& .document-boxes .document h6": {
+      fontWeight: 600,
     },
   },
 };

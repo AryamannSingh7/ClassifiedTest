@@ -975,12 +975,6 @@
   border-bottom: 0;
 }
 
-.edit-unit input[type="date"]::-webkit-inner-spin-button,
-.edit-unit input[type="date"]::-webkit-calendar-picker-indicator {
-  display: none;
-  -webkit-appearance: none;
-}
-
 .floor-plan-box {
   display: flex;
   align-items: center;
@@ -1036,7 +1030,7 @@
   background-color: #efefef;
 }
 
-.edit-family-modal .MuiSelect-root{
+.edit-family-modal .MuiSelect-root {
   background-color: #efefef !important;
 }
 
@@ -1053,4 +1047,17 @@
 .edit-family-modal input::-ms-input-placeholder {
   /* Microsoft Edge */
   color: black;
+}
+
+.ril__navButtons {
+  width: 135px !important;
+  height: 135px !important;
+}
+.ril-prev-button {
+  background: url("../assets/prev-image-icon.png") !important;
+  left: 10% !important;
+}
+.ril-next-button {
+  background: url("../assets/next-image-icon.png") !important;
+  right: 10% !important;
 }

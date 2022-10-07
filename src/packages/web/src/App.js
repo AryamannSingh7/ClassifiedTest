@@ -135,7 +135,6 @@ import SearchComplex from '../../blocks/email-account-registration/src/SearchCom
 
 import Address from '../../blocks/email-account-registration/src/Address.web';
 
-
 import ViewVeichle from '../../blocks/customform/src/ViewVehicle.web';
 import FamilyList from '../../blocks/customform/src/FamilyList.web';
 
@@ -244,6 +243,8 @@ import Buildings from '../../blocks/LeadManagement/src/Buildings.web';
 import Complex from '../../blocks/LeadManagement/src/Complex.web';
 import UnitDetails from '../../blocks/LeadManagement/src/UnitDetails.web';
 import SharedArea from '../../blocks/LeadManagement/src/SharedArea.web';
+import OwnerComplex from '../../blocks/LeadManagement/src/OwnerComplex.web';
+import OwnerBuildings from '../../blocks/LeadManagement/src/OwnerBuildings.web';
 
 // Visitor Imports
 import Visitors from '../../blocks/invitefriends/src/Visitors.web';
@@ -262,16 +263,17 @@ import TenantDetails from '../../blocks/RequestManagement/src/TenantDetails.web'
 import RegisterTenant from '../../blocks/RequestManagement/src/RegisterTenant.web';
 
 // My Team Imports
-import MyTeam from "../../blocks/FriendList/src/MyTeam.web"
-import MyTeamCore from "../../blocks/FriendList/src/MyTeamCore.web"
-import MyTeamUserDetails from "../../blocks/FriendList/src/MyTeamUserDetails.web"
-import ChairmanNominationMain from "../../blocks/FriendList/src/ChairmanNominationMain.web"
-import NominationDetails from "../../blocks/FriendList/src/NominationDetails.web"
-import NominationSuccess from "../../blocks/FriendList/src/NominationAdded"
-import ChairmanNominations from "../../blocks/FriendList/src/ChairmanNomination"
-import ChairmanNominationDetails from "../../blocks/FriendList/src/ChairmanNominationDetails.web"
-import NominateMySelf from "../../blocks/FriendList/src/NominateMySelf.web"
-import MyNomination from "../../blocks/FriendList/src/MyNomination.web"
+import MyTeam from '../../blocks/FriendList/src/MyTeam.web';
+import MyTeamCore from '../../blocks/FriendList/src/MyTeamCore.web';
+import MyTeamUserDetails from '../../blocks/FriendList/src/MyTeamUserDetails.web';
+import ChairmanNominationMain from '../../blocks/FriendList/src/ChairmanNominationMain.web';
+import NominationDetails from '../../blocks/FriendList/src/NominationDetails.web';
+import NominationSuccess from '../../blocks/FriendList/src/NominationAdded';
+import ChairmanNominations from '../../blocks/FriendList/src/ChairmanNomination';
+import ChairmanNominationDetails from '../../blocks/FriendList/src/ChairmanNominationDetails.web';
+import NominateMySelf from '../../blocks/FriendList/src/NominateMySelf.web';
+import MyNomination from '../../blocks/FriendList/src/MyNomination.web';
+
 const routeMap = {
   //done
   LandingPage: {
@@ -1478,6 +1480,12 @@ ClassifiedReportedSuccessfully: {
     exact: true
   },
 
+  VisitorDetailsPast: {
+    component: VisitorDetails,
+    path: '/VisitorDetails/:type',
+    exact: true
+  },
+
   VisitorsDetails: {
     component: VisitorsDetails,
     path: '/VisitorsDetails',
@@ -1527,43 +1535,43 @@ ClassifiedReportedSuccessfully: {
     exact: true
   },
 
-  ChairmanNominationMain:{
+  ChairmanNominationMain: {
     component: ChairmanNominationMain,
     path: '/Nominations',
     exact: true
   },
 
-  NominationDetails :{
+  NominationDetails: {
     component: NominationDetails,
     path: '/NominationDetails',
     exact: true
   },
 
-  ChairmanNominations:{
+  ChairmanNominations: {
     component: ChairmanNominations,
     path: '/ChairmanNominations',
     exact: true
   },
 
-  ChairmanNominationDetails:{
+  ChairmanNominationDetails: {
     component: ChairmanNominationDetails,
     path: '/ChairmanNominationDetails',
     exact: true
   },
 
-  NominateMySelf:{
+  NominateMySelf: {
     component: NominateMySelf,
     path: '/NominateMySelf',
     exact: true
   },
 
-  MyNomination:{
+  MyNomination: {
     component: MyNomination,
     path: '/MyNomination',
     exact: true
   },
 
-  NominationSuccess:{
+  NominationSuccess: {
     component: NominationSuccess,
     path: '/NominationSuccess',
     exact: true
@@ -1609,6 +1617,16 @@ ClassifiedReportedSuccessfully: {
     component: SharedArea,
     path: '/SharedArea/:id',
     roles: [ROLE.CHAIRMAN, ROLE.MANAGER]
+  },
+  OwnerComplex: {
+    component: OwnerComplex,
+    path: '/ComplexDetails',
+    roles: [ROLE.OWNER, ROLE.OWNER_RESIDENT, ROLE.TENANT]
+  },
+  OwnerBuildings: {
+    component: OwnerBuildings,
+    path: '/BuildingDetails',
+    roles: [ROLE.OWNER, ROLE.OWNER_RESIDENT, ROLE.TENANT]
   },
   TenantList: {
     component: TenantList,

@@ -203,6 +203,7 @@ class Buildings extends BuildingsController {
 
                 {this.state.imageBox && this.state.buildingData.photos.length > 0 && (
                   <Lightbox
+                    imagePadding={120}
                     mainSrc={this.state.buildingData.photos[this.state.photoIndex].url}
                     nextSrc={
                       this.state.buildingData.photos[
@@ -365,12 +366,14 @@ class Buildings extends BuildingsController {
                               className="unit-select"
                               onChange={(e: any) => this.setState({ status: e.target.value, page: 1 })}
                             >
-                              <option disabled value="">
+                              <option disabled value="-">
                                 {t("Status")}
                               </option>
+                              <option value="">{t("All")}</option>
                               <option value="Empty">{t("Empty")}</option>
                               <option value="Rented">{t("Rented")}</option>
                               <option value="Occupied">{t("Occupied")}</option>
+                              <option value="No-Own">{t("Not Owned")}</option>
                             </select>
                             <TextField
                               className="search-unit"
@@ -403,8 +406,6 @@ class Buildings extends BuildingsController {
                             </TableHead>
                             <TableBody>
                               {searchData.map((unit: any, index: number) => {
-                                console.log(unit);
-
                                 return (
                                   <TableRow key={unit.id}>
                                     <TableCell>{index + 1}</TableCell>
@@ -417,7 +418,11 @@ class Buildings extends BuildingsController {
                                       {unit.attributes.owner ? unit.attributes.owner.owner_name : "-"}
                                     </TableCell>
                                     <TableCell>
-                                      <span className={unit.attributes.status}>{unit.attributes.status}</span>
+                                      <span className={unit.attributes.status}>
+                                        {unit.attributes.status === "No-Own"
+                                          ? `${t("Not Owned")}`
+                                          : unit.attributes.status}
+                                      </span>
                                     </TableCell>
                                     <TableCell>
                                       <Menu menuButton={<MoreVertIcon />}>
@@ -434,8 +439,9 @@ class Buildings extends BuildingsController {
                         </TableContainer>
                         <Box className="unit-pagination">
                           <p>
-                            {t("Showing")} <span>{this.state.dataSearch.length || 0}</span> {t("of")}{" "}
-                            <span>{this.state.pagination ? this.state.pagination.total_count : 0}</span> {t("results")}
+                            {t("Showing")} <span>{this.state.pagination ? this.state.pagination.total_pages : 0}</span>{" "}
+                            {t("of")} <span>{this.state.pagination ? this.state.pagination.total_count : 0}</span>{" "}
+                            {t("results")}
                           </p>
                           {this.state.pagination && (
                             <Pagination
