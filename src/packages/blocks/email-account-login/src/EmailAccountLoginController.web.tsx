@@ -197,6 +197,7 @@ export default class EmailAccountLoginController extends BlockComponent<
             localStorage.setItem("userId", responseJson?.meta?.id)
             localStorage.setItem("userType", responseJson?.meta?.role.name)
             localStorage.setItem("society_id", responseJson.meta?.society_id)
+            localStorage.setItem("complexName", responseJson.meta?.complex_name)
             localStorage.setItem("language", "en");
             i18next.changeLanguage("en");
             console.log('ehhlo sir')

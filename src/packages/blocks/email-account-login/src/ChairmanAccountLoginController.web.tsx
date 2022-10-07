@@ -186,6 +186,8 @@ export default class ChairmanAccountLoginController extends BlockComponent<
             localStorage.setItem("userId", responseJson?.meta?.id)
             localStorage.setItem("userType", responseJson?.meta?.role.name)
             localStorage.setItem("society_id", responseJson.meta?.society_id)
+            localStorage.setItem("username", responseJson.meta?.user_name)
+            localStorage.setItem("complexName", responseJson.meta?.complex_name)
             localStorage.setItem("language", "en");
             i18next.changeLanguage("en");
             this.getRegistrationRequest();
