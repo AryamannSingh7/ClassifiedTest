@@ -106,18 +106,18 @@ class ClassifiedListing extends ClassifiedController {
                     </div>
                     {
                       this.state?.classifiedListing?.map((val: any, index: any) => (
-                          <Card className="classified-card card" key={val?.attributes?.id} >
+                          <Card className="classified-card card" key={val?.attributes?.id} onClick={(e:any) => {this.getClassifiedDetails(e,val.id)}}>
                             <CardContent className="costom-card-content">
                               <Box className="classified-card-header">
                                 <Typography component="h4">
-                                  {val?.attributes?.title}
+                                  {val?.attributes?.title} {val?.attributes?.id}
                                 </Typography>
                                 {
                                   this.state?.myOrAllClassified ? 
                                   null
                                   :
                                   <>
-                                   <Button  aria-controls="simple-menu" aria-haspopup="true" onClick={(e: any) => this.handleClick(e ,val?.attributes?.id)}>
+                                   <Button  aria-controls="simple-menu" aria-haspopup="true" onClick={(e: any) =>{ this.handleClick(e ,val?.attributes?.id)}}>
                                   <img src={Setting_Icon} className="grid-icon icons" alt="" />
                                 </Button>
                                 <Menu
@@ -128,7 +128,7 @@ class ClassifiedListing extends ClassifiedController {
                                   onClose={() => this.handleClose("","")}
                                 >
                                   <MenuItem onClick={(e) => this.handleClose(e,"edit")}>Edit</MenuItem>
-                                  <MenuItem onClick={(e) => this.handleClose(e,"delete")}>Delete</MenuItem>
+                                  <MenuItem onClick={(e) => this.handleClose(e,"delete")}>Delete  {val?.attributes?.id}</MenuItem>
                                  </Menu>
                                   </>
                                 }

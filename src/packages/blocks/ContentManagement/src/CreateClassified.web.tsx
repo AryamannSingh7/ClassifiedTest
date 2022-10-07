@@ -54,24 +54,30 @@ class CreateClassified extends ClassifiedController {
   }
 
   componentDidMount(): any {
-    // this.getCurrencyList();
+     this.getCurrencyList();
     //@ts-ignore
-    const id = this.props?.history?.location?.id;
-    console.log("this.props?.history?.location?.id;==============>",id)
+    const id = this.props?.history?.location?.state?.id;
+    console.log("this.props?.history?.location?.id;==============>",this.props?.history?.location)
     if (id)
       this.getClassifiedDetailsById(id)
   }
   render() {
     const { navigation } = this.props;
+    //@ts-ignore
+    const checkEditmode = this.props?.history?.location?.state?.id;
     // console.log("this.state?.getClassifiedDetails?==============>",this.state?.getClassifiedDetails?.attributes)
     const id = this.state?.getClassifiedDetails?.id;
     const attributes = this.state?.getClassifiedDetails?.attributes;
     const classifiedUserType = localStorage.getItem("classifiedUserType")
-    // if (!classifiedUserType) {
-    //   //@ts-ignore
-    //   this.props.history.replace("/ClassifiedType");
-    //   return null;
-    // }
+    if (!checkEditmode) {
+      //@ts-ignore
+      this.props.history.replace("/ClassifiedListing");
+      return null;
+    }
+    else if(!classifiedUserType){
+      this.props.history.replace("/ClassifiedType");
+      return null;
+    }
 
     return (
       <>
@@ -115,7 +121,7 @@ class CreateClassified extends ClassifiedController {
                     onSubmit={(values) =>{
                       !this.state?.sizeError && !this.state?.notImageOrVideoError ?
                       ( //@ts-ignore
-                        this.props?.history?.location?.id ?
+                        !checkEditmode ?
                         this.onSubmit(values)
                         : this.updateClassified(values)
                       )
