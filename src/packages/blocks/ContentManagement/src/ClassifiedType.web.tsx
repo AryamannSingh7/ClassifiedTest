@@ -50,6 +50,8 @@ class ClassifiedType extends ClassifiedController {
                       <Box className="middle-section">
                         <img src={SellerIcon} className="icons" />
                         {/* <img src={SellerIconSelected} className="icons" /> */}
+                        <input type="radio" id="radCreateMode1" name="classifiedRadio" classname="radioInput" value='seller' onChange={(e) => this.changeType(e.target.value)} />
+                        <label for="radCreateMode1" className="radioCheckmark"></label>
                         <label for="radCreateMode1" className={"radioTitle" + (this.state.userType == 'seller' ? ' active-type' : '')}>
                           I want to sell something
                         </label>
@@ -58,12 +60,13 @@ class ClassifiedType extends ClassifiedController {
                       {/* <Checkbox className="radio-toolbar" id="radCreateMode1" name="type" value='seller' onChange={(e) => this.changeType(e.target.value)} icon={<CircleUnchecked />}
                     checkedIcon={<CircleCheckedFilled />}
                   /> */}
-                      <input type="radio" id="radCreateMode1" name="type" value='seller' onChange={(e) => this.changeType(e.target.value)} />
                     </Card>
                     <Card className="card classified-type-card">
                       <Box className="middle-section">
                         <img src={BuyIcon} className="icons" />
                         {/* <img src={BuyIconSelected} className="icons" /> */}
+                        <input type="radio" id="radCreateMode2" name="classifiedRadio" value='buyer' onChange={(e) => this.changeType(e.target.value)} />
+                        <label for="radCreateMode2" className="radioCheckmark"></label>
                         <label for="radCreateMode2" className={"radioTitle" + (this.state.userType == 'buyer' ? ' active-type' : '')}>
                           I want to buy something
                         </label>
@@ -72,12 +75,13 @@ class ClassifiedType extends ClassifiedController {
                     checkedIcon={<CircleCheckedFilled />}
                   /> */}
                       {/* <CustomRadioButton name="1" value="1" /> */}
-                      <input type="radio" id="radCreateMode2" name="type" value='buyer' onChange={(e) => this.changeType(e.target.value)} />
                     </Card>
                     <Card className="card classified-type-card">
                       <Box className="middle-section">
                         <img src={GenericIcon} className="icons" />
                         {/* <img src={GenericIconSelected} className="icons" /> */}
+                        <input type="radio" id="radCreateMode3" name="classifiedRadio" value='generic' onChange={(e) => this.changeType(e.target.value)} />
+                        <label for="radCreateMode3" className="radioCheckmark"></label>
                         <label for="radCreateMode3" className={"radioTitle" + (this.state.userType == 'generic' ? ' active-type' : '')}>
                           I have a generic request
                         </label>
@@ -86,7 +90,6 @@ class ClassifiedType extends ClassifiedController {
                     checkedIcon={<CircleCheckedFilled />}
                   /> */}
                       {/* <CustomizedRadios /> */}
-                      <input type="radio" id="radCreateMode3" name="type" value='generic' onChange={(e) => this.changeType(e.target.value)} />
                     </Card>
                   </Box>
                   <Box className="footer-main-block bottomBlock">

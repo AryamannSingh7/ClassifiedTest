@@ -279,6 +279,41 @@
       display: flex;
       align-items: center;
       color: #d3d3d3;
+      position: relative;
+      & .radioCheckmark {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 20px;
+        width: 20px;
+        background-color: $WHITE;
+        border: 3px solid $LIGHT_GRAY_SHADE7;
+        border-radius: 50%;
+        cursor: pointer;
+        &::after {
+          content: "";
+          position: absolute;
+          top: 4px;
+          left: 4px;
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+          background: $WHITE;
+        }
+      }
+      & input {
+        display: none;
+        &:checked {
+          & ~ .radioCheckmark {
+            border-color: $ORANGE;
+          }
+          & ~ .radioCheckmark:after {
+            display: block;
+            background: $ORANGE;
+          }
+        }
+      }
+
       & .radioTitle {
         font-weight: bold;
         padding-left: 15px;
