@@ -47,7 +47,7 @@
                 color: $WARNING;
             }
             &:hover {
-                background-color: $WARNING;
+                background-color: $WARNING_SHADE1 !important;
                 & span {
                     color: $DANGER_SHADE1;
                 }
@@ -85,6 +85,7 @@
             font-size: 14px;
         }
     }
+   
 }
 
 .desktop-ui {

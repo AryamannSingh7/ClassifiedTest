@@ -15,6 +15,18 @@
     font-weight: 600;
     margin-bottom: 20px;
   }
+
+  &.CreateClassifiedFrm {
+    & .classifiedFormGroup {
+      width: auto;
+      margin-right: 5px;
+    }
+    & .MuiInputAdornment-positionStart {
+      // width: auto;
+      // margin-right: 5px;
+    }
+  }
+
   & .formGroup {
     width: 100%;
     position: relative;
@@ -38,6 +50,7 @@
         color: #b9b9b9;
       }
     }
+
     & .otpInputGrp {
       display: flex;
       justify-content: center;
@@ -95,8 +108,7 @@
           width: 35px;
           object-fit: contain;
         }
-        & .text-success
-        {
+        & .text-success {
           margin-left: 10px;
           text-transform: capitalize;
         }
