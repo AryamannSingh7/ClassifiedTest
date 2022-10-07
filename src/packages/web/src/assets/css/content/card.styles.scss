@@ -146,6 +146,7 @@
   }
 
   margin-bottom: 25px;
+
   &.management-card {
     margin: 0;
 
@@ -180,12 +181,14 @@
       }
     }
   }
+
   &.classified-card {
     & h4 {
       &.MuiTypography-body1 {
         text-transform: capitalize;
       }
     }
+
     & p {
       &.MuiTypography-body1 {
         text-transform: capitalize;
@@ -196,54 +199,67 @@
         font-weight: 500;
         letter-spacing: 0.7px;
         line-height: 19px;
+
         @include mq(tablet-portrait-large-up) {
           font-size: 15px;
         }
       }
     }
+
     & span {
       &.MuiTypography-root {
         font-size: 16px;
+
         @include mq(tablet-portrait-large-up) {
           font-size: 14px;
         }
       }
     }
+
     & .content-row {
       display: flex;
       flex-direction: column;
+
       & p {
         &.MuiTypography-body1 {
           margin: 0;
         }
       }
+
       & .content-sub-row {
         display: flex;
+
         & .blocks {
           width: 50%;
         }
       }
+
       & .content-blocks-row {
         margin: 10px 0;
       }
     }
+
     & .classified-card-header {
       display: flex;
       justify-content: space-between;
+
       & .MuiButtonBase-root {
         &:hover {
           background-color: transparent;
         }
       }
     }
+
     & .card-footer {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding-top: 10px;
+
       & .left-block {
         display: flex;
         align-items: center;
+
         & h4 {
           &.MuiTypography-body1 {
             text-transform: uppercase;
@@ -253,16 +269,19 @@
           }
         }
       }
+
       & .dollar-icon {
         height: 30px;
         width: 30px;
         object-fit: contain;
       }
     }
+
     & .classified-footer {
       & .customButton {
         padding: 0;
       }
+
       & h4 {
         &.MuiTypography-body1 {
           padding-left: 0 !important;
@@ -270,27 +289,72 @@
       }
     }
   }
+
   &.classified-type-card {
     display: flex;
     padding: 15px;
     justify-content: space-between;
+
     & .middle-section {
       width: 100%;
       display: flex;
       align-items: center;
       color: #d3d3d3;
+      position: relative;
+
+      & .radioCheckmark {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 20px;
+        width: 20px;
+        background-color: $WHITE;
+        border: 3px solid $LIGHT_GRAY_SHADE7;
+        border-radius: 50%;
+        cursor: pointer;
+
+        &::after {
+          content: "";
+          position: absolute;
+          top: 4px;
+          left: 4px;
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+          background: $WHITE;
+        }
+      }
+
+      & input {
+        display: none;
+
+        &:checked {
+          &~.radioCheckmark {
+            border-color: $ORANGE;
+          }
+
+          &~.radioCheckmark:after {
+            display: block;
+            background: $ORANGE;
+          }
+        }
+      }
+
       & .radioTitle {
         font-weight: bold;
         padding-left: 15px;
         color: #939292;
       }
+
       & .para {
         color: $LIGHT_GRAY;
       }
     }
+
     & .MuiCheckbox-root {
       padding: 0;
     }
+
     input[type="radio"]:checked:after {
       width: 15px;
       height: 15px;
@@ -304,6 +368,7 @@
       visibility: visible;
       border: 2px solid white;
     }
+
     & .MuiIconButton-label {
       // &::before {
       //   content: "";
@@ -316,6 +381,7 @@
       // }
     }
   }
+
   &.incident-detail-card {
     & .MuiCardContent-root {
       padding: 0;
@@ -366,6 +432,7 @@
         & .MuiOutlinedInput-root {
           background-color: $GREEN_SHADE1;
         }
+
         & .MuiInputBase-input {
           color: $GREEN;
           font-weight: bold;
@@ -422,6 +489,7 @@
       display: flex;
     }
   }
+
   &.reporting-card {
     margin-bottom: 20px;
 
@@ -450,6 +518,7 @@
       }
     }
   }
+
   &.confirmation-card {
     & .confirmation-card-content {
       display: flex;
@@ -533,11 +602,13 @@
       }
     }
   }
+
   &.neighbour-card {
     box-shadow: none;
     border: 0;
     margin-bottom: 10px;
     cursor: pointer;
+
     &.neighbour-list-card {
       &:hover {
         box-shadow: 1px 1px 9px 0px #cccc;
@@ -550,58 +621,72 @@
       align-items: center;
       text-align: center;
     }
+
     & h4 {
       &.MuiTypography-body1 {
         margin: 10px 0;
         font-size: 17px;
+
         @include mq(tablet-portrait-large-up) {
           font-size: 14px;
         }
       }
     }
+
     & h5 {
       &.MuiTypography-body1 {
         font-weight: 500;
       }
     }
+
     & .social-raw {
       display: flex;
       background-color: #f6f6f6;
       padding: 12px;
       border-radius: 20px;
       margin-top: 10px;
+
       @include mq(tablet-portrait-large-up) {
         padding: 8px 2px;
       }
+
       & .blocks {
         border-right: 2px solid #d7dbe4;
+
         &:last-child {
           border-right: 0;
         }
+
         & .icons {
           height: 18px;
           width: 18px;
           object-fit: contain;
           border-radius: 0;
+
           @include mq(tablet-portrait-large-up) {
             height: 15px;
             width: 15px;
           }
         }
+
         padding: 0 10px;
       }
     }
+
     & .info-icon {
       height: 50px;
       width: 50px;
       object-fit: contain;
     }
   }
+
   &.neighbour-detail-card {
     width: 450px;
     margin: 0 auto;
+
     & .card-content {
       align-items: flex-start;
+
       & .card-top-block {
         display: flex;
         flex-direction: column;
@@ -609,14 +694,18 @@
         width: 100%;
       }
     }
+
     & .MuiCardContent-root {
       text-align: left;
     }
+
     @include mq(tablet-portrait-large-up) {
       width: 100%;
     }
+
     & .social-raw {
       position: relative;
+
       &::before {
         content: " ";
         position: absolute;
@@ -625,6 +714,7 @@
         border-bottom: 1px solid #f6f6f6;
         width: 100%;
       }
+
       &::after {
         content: " ";
         position: absolute;
@@ -641,12 +731,14 @@
       & .bio-content-row {
         // width: 100%;
         padding: 0 16px 16px 16px;
+
         & .bio-row {
           & h4 {
             &.MuiTypography-body1 {
               margin-top: 0;
             }
           }
+
           & .customButton {
             display: flex;
             padding-top: 0;
@@ -661,6 +753,7 @@
             }
           }
         }
+
         & .social-data-row {
           & .icons-row {
             & .MuiButtonBase-root {
