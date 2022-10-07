@@ -100,7 +100,7 @@ export const ProfileStyleWeb: any = {
       fontWeight: "600",
     },
     "& .MuiTypography-body1":{
-      font-weight:600
+      fontWeight:600
     }
   },
   

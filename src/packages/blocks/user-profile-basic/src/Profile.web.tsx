@@ -123,7 +123,7 @@ this.getProfile()
                   <Box className="social-raw">
 
                         <Box className="blocks">
-                          <img src={Chat_Icon} className="icons" alt="info-icon" />
+                          <img src={Chat_Icon} onClick={()=>this.props.history.push('/inbox')} className="icons" alt="info-icon" />
                         </Box>
 
 
