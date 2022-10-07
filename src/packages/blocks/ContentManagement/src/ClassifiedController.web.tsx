@@ -936,6 +936,7 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
     }
     else if (v === "edit"){
       localStorage.removeItem("classifiedUserType");
+      console.log("classifiedId=============>",this.state?.classifiedId)
       this.props.history.push({
         pathname: "/CreateClassified",
          //@ts-ignore

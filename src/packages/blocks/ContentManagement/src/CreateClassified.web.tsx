@@ -57,6 +57,7 @@ class CreateClassified extends ClassifiedController {
     // this.getCurrencyList();
     //@ts-ignore
     const id = this.props?.history?.location?.id;
+    console.log("this.props?.history?.location?.id;==============>",id)
     if (id)
       this.getClassifiedDetailsById(id)
   }

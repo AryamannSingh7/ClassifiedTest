@@ -55,8 +55,6 @@ class ClassifiedListing extends ClassifiedController {
                   </Box>
                   {
                     this.state?.myOrAllClassified ? 
-                    null
-                    :
                     <Box className="incident-right-block blocks">
                     {/* <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
                       <Button aria-controls="simple-menu" aria-haspopup="true" onClick={(e: any) => this.handleClick(e)}>
@@ -91,6 +89,8 @@ class ClassifiedListing extends ClassifiedController {
                     </Menu>
 
                   </Box>
+                    :
+                    null
                   }
                   
                 </Box>
