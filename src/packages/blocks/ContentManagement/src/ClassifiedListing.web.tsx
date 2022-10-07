@@ -51,12 +51,12 @@ class ClassifiedListing extends ClassifiedController {
                 <Box className="content-header">
                   <Box className="left-block blocks">
                     <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
-                    <h4>Classified</h4>
+                    <h4>Classified asdsd</h4>
                   </Box>
                   {
-                    this.state?.myOrAllClassified ? 
-                    <Box className="incident-right-block blocks">
-                    {/* <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+                    this.state?.myOrAllClassified ?
+                      <Box className="incident-right-block blocks">
+                        {/* <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
                       <Button aria-controls="simple-menu" aria-haspopup="true" onClick={(e: any) => this.handleClick(e)}>
                         <img src={Grid_Icon} className="grid-icon icons" alt="" />
                       </Button>
@@ -72,38 +72,46 @@ class ClassifiedListing extends ClassifiedController {
                       </Menu>
                     </Box> */}
 
-                    <Button aria-controls="fade-menu" aria-haspopup="true" onClick={(e: any) => this.handleClick_1(e)}>
-                      <img src={Filter_Icon} className="filter-icon icons" alt="" />
-                    </Button>
-                    <Menu
-                      id="fade-menu"
-                      anchorEl={this.state.anchorEl_1}
-                      keepMounted
-                      open={Boolean(this.state.anchorEl_1)}
-                      onClose={() => this.handleClose_1("", "")}
-                    >
-                      <MenuItem onClick={(e) => this.handleClose_1(e, "seller")}>Sell</MenuItem>
-                      <MenuItem onClick={(e) => this.handleClose_1(e, "buyer")}>Buy</MenuItem>
-                      <MenuItem onClick={(e) => this.handleClose_1(e, "generic")}>Generic</MenuItem>
-                      <MenuItem onClick={(e) => this.handleClose_1(e, "All")}>All</MenuItem>
-                    </Menu>
+                        <Button aria-controls="fade-menu" aria-haspopup="true" onClick={(e: any) => this.handleClick_1(e)}>
+                          <img src={Filter_Icon} className="filter-icon icons" alt="" />
+                        </Button>
+                        <Menu
+                          id="fade-menu"
+                          anchorEl={this.state.anchorEl_1}
+                          keepMounted
+                          open={Boolean(this.state.anchorEl_1)}
+                          onClose={() => this.handleClose_1("", "")}
+                        >
+                          <MenuItem onClick={(e) => this.handleClose_1(e, "seller")}>Sell</MenuItem>
+                          <MenuItem onClick={(e) => this.handleClose_1(e, "buyer")}>Buy</MenuItem>
+                          <MenuItem onClick={(e) => this.handleClose_1(e, "generic")}>Generic</MenuItem>
+                          <MenuItem onClick={(e) => this.handleClose_1(e, "All")}>All</MenuItem>
+                        </Menu>
 
-                  </Box>
-                    :
-                    null
+                      </Box>
+                      :
+                      null
                   }
-                  
+
                 </Box>
                 <Box className="content-block-wrapper common-incident-block">
                   <Box className="incident-content-wrapper">
                     <div className="classified-header">
-                      <Box className={this.state?.myOrAllClassified ? "customButton":"customButton btn-gray"}>
-                        <Button variant="contained" onClick={()=>this.getClassifiedListing(this.state.status)}>All Classified</Button>
+                      <Box className={this.state?.myOrAllClassified ? "customButton" : "customButton btn-gray"}>
+                        <Button variant="contained" onClick={() => this.getClassifiedListing(this.state.status)}>All Classified</Button>
                       </Box>
-                      <Box className={this.state?.myOrAllClassified ? "customButton btn-gray":"customButton"}>
-                        <Button variant="contained"onClick={()=>this.getMyClassifiedList()}>My Classified</Button>
+                      <Box className={this.state?.myOrAllClassified ? "customButton btn-gray" : "customButton"}>
+                        <Button variant="contained" onClick={() => this.getMyClassifiedList()}>My Classified</Button>
                       </Box>
                     </div>
+
+                    <Box className="common-incident-block" style={{
+                      height: "100vh", textAlign: "center", display: "flex",
+                      justifyContent: "center", margin: "150px 5px", overflow: "hidden"
+                    }}>
+                      <p>Looks like you havn’t added any classifieds!
+                        You can create a new request by tapping the below button.</p>
+                    </Box>
                     {
                       this.state?.classifiedListing?.map((val: any, index: any) => (
                           <Card className="classified-card card" key={val?.attributes?.id} onClick={(e:any) => {this.getClassifiedDetails(e,val.id)}}>
@@ -171,6 +179,7 @@ class ClassifiedListing extends ClassifiedController {
                           </Card>
                       ))
                     }
+
                   </Box>
                   <Box className="customButton add-incident">
                     <Button variant="contained" onClick={() => {
@@ -193,38 +202,38 @@ class ClassifiedListing extends ClassifiedController {
             </Grid>
 
             <Dialog
-                open={this.state?.deleteShowDialog}
-                onClose={() => this.setState({ deleteShowDialog: false })}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-                className="diloag-wrapper"
-                PaperProps={{
-                  style: {
-                    borderRadius: '15px',
-                    width: "500px"
-                  },
-                }}
-              >
-                <Box className="diloag-body classified-dialouge-body desktop-ui ">
-                  <Box className="diloag-header classified-header">
-                    <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
-                      {""}
-                    </DialogTitle>
-                    {/* <Button onClick={() => this.setState({ statusShowDialog: false })}>
+              open={this.state?.deleteShowDialog}
+              onClose={() => this.setState({ deleteShowDialog: false })}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+              className="diloag-wrapper"
+              PaperProps={{
+                style: {
+                  borderRadius: '15px',
+                  width: "500px"
+                },
+              }}
+            >
+              <Box className="diloag-body classified-dialouge-body desktop-ui ">
+                <Box className="diloag-header classified-header">
+                  <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
+                    {""}
+                  </DialogTitle>
+                  {/* <Button onClick={() => this.setState({ statusShowDialog: false })}>
                       <img src={Close_Icon} className="close-icon" />
                     </Button> */}
-                  </Box>
-                  <Box className="diloag-content classified-content diloag-management-content">
-                    <img src={"#"} className="lock-logo" alt="Lock_Icon" />
-                    <h3>Delete classified request?</h3>
-                    <p className="lead">Are you sure want to delete published classified buyers request? Once deleted no one will be able to view your request.</p>
-                    <Box className="diloag-btn customButton">
-                      <Button variant="outlined" onClick={() => this.deleteClassified()}>Yes</Button>
-                      <Button variant="contained" onClick={() =>{ this.setState({ deleteShowDialog: false }) }}>No, don’t delete</Button>
-                    </Box>
+                </Box>
+                <Box className="diloag-content classified-content diloag-management-content">
+                  <img src={"#"} className="lock-logo" alt="Lock_Icon" />
+                  <h3>Delete classified request?</h3>
+                  <p className="lead">Are you sure want to delete published classified buyers request? Once deleted no one will be able to view your request.</p>
+                  <Box className="diloag-btn customButton">
+                    <Button variant="outlined" onClick={() => this.deleteClassified()}>Yes</Button>
+                    <Button variant="contained" onClick={() => { this.setState({ deleteShowDialog: false }) }}>No, don’t delete</Button>
                   </Box>
                 </Box>
-              </Dialog>
+              </Box>
+            </Dialog>
           </Grid>
         </Box>
         <Loader loading={this.state.loading} />

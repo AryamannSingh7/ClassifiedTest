@@ -15,22 +15,11 @@
     font-weight: 600;
     margin-bottom: 20px;
   }
-
-  &.CreateClassifiedFrm {
-    & .classifiedFormGroup {
-      width: auto;
-      margin-right: 5px;
-    }
-    & .MuiInputAdornment-positionStart {
-      // width: auto;
-      // margin-right: 5px;
-    }
-  }
-
   & .formGroup {
     width: 100%;
     position: relative;
     margin-bottom: 15px;
+
     & .formInputGrp {
       position: relative;
       margin-top: 15px;
@@ -48,6 +37,7 @@
 
       &::placeholder {
         color: #b9b9b9;
+        font-weight: 500;
       }
     }
 
@@ -170,8 +160,111 @@
       }
     }
   }
+  &.CreateClassifiedFrm {
+    & .classifiedFormGroup {
+      width: auto;
+      margin-right: 5px;
+    }
+    & .formGroup {
+      width: auto;
+    }
+    & .MuiInputAdornment-positionStart {
+      display: none;
+    }
+    & .fileuploadBlock {
+      display: flex;
+      // @include scrollbars();
+      width: 100%;
+      & .buyersFileupload {
+        & .MuiButtonBase-root {
+          width: 90px;
+          min-height: 90px;
+          border-radius: 10px;
+        }
+        margin-right: 10px;
+      }
+      & .imgLayer {
+        position: relative;
+        margin-right: 10px;
+        & .buyerphoto {
+          width: 90px;
+          height: 90px;
+          object-fit: contain;
+          border-radius: 10px;
+        }
+        & .close_icon {
+          position: absolute;
+          top: 3px;
+          right: -5px;
+          z-index: 2;
+          width: 30px;
+          height: 30px;
+          object-fit: contain;
+        }
+      }
+    }
+    & .sellerPriceBox,
+    & .classifiedPriceBlock {
+      position: relative;
+      & .priceSelect {
+        position: absolute;
+        top: 20px;
+        right: 0;
+        width: 40%;
+        & .MuiInputBase-root,
+        & .MuiSelect-outlined {
+          padding: 0 !important;
+          margin: 0 !important;
+          background-color: transparent;
+          border: 0;
+          position: relative;
+        }
+        & .MuiSelect-root {
+          color: $ORANGE;
+          font-size: 13px;
+          font-weight: bold;
+          text-transform: uppercase;
+          position: relative;
+          &::before {
+            content: "";
+            top: 1px;
+            right: 20px;
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border: 4px solid #fc8434;
+            border-radius: 2px;
+            border-left: 0;
+            border-top: 0;
+            -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+          }
+        }
+        & .MuiSelect-icon {
+          display: none;
+          position: relative;
+        }
+      }
+    }
+    & .classifiedPriceBlock {
+      display: flex;
+      /* align-items: center; */
+      justify-content: space-between;
+      margin: 10px;
+      
+      & .priceSelect {
+        position: unset;
+        & .MuiSelect-root {
+          &::before {
+            content: "";
+            top: 0px;
+            right: 5px;
+          }
+        }
+      }
+    }
+  }
 }
-
 .desktop-ui {
   & .commonForm {
     @include mq(tablet-portrait-medium-up) {
