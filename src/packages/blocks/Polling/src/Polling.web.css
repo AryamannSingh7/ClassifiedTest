@@ -1,138 +1,137 @@
 .SideBar {
-    background: #f9f6f6;
-    position:relative;
-    padding-bottom: 150px;
+  background: #fcfcfc;
+  position: relative;
+  padding-bottom: 150px;
 }
-.textwrap{
-    display: flex;
-    -webkit-line-clamp: 1;
-    text-overflow: ellipsis !important;
-    overflow: hidden !important;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    word-wrap: break-word;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.textwrapStatus{
-    display: flex;
-    -webkit-line-clamp: 4;
-    text-overflow: ellipsis !important;
-    overflow: hidden !important;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    word-wrap: break-word;
-    margin-top: 10px;
-    margin-bottom: 10px;
+.textwrap {
+  display: flex;
+  -webkit-line-clamp: 1;
+  text-overflow: ellipsis !important;
+  overflow: hidden !important;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
-
-.CreatePS{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 1.6rem;
-    padding-bottom: 3rem;
-    background: #fff;
-    border-radius: 10px;
-    cursor: pointer;
+.textwrapStatus {
+  display: flex;
+  -webkit-line-clamp: 4;
+  text-overflow: ellipsis !important;
+  overflow: hidden !important;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
-.CreatePSIcons{
-    border: 1px solid #d9d4d3;
-    border-radius: 50%;
-    width: 25px;
-    height: 25px;
-    padding: 10px;
-    color:#fff;
-    background:#2430eec4;
+.CreatePS {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 1.6rem;
+  padding-bottom: 3rem;
+  background: #fff;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
-.CreatePS .CreatePSHeading{
-    font-weight:600;
-    text-align: center;
-    font-size: 20px;
-}
-.CreatePSsingle{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 3rem;
-    padding-bottom: 4rem;
-    background: #fff;
-    border-radius: 10px;
-    min-height: 105px;
-}
-.CreatePSsingle .CreatePSHeading{
-    font-weight:600;
-    text-align: center;
-    font-size: 20px;
-}
-.navigation{
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
+.CreatePSIcons {
+  border: 1px solid #d9d4d3;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  padding: 10px;
+  color: #fff;
+  background: #2430eec4;
 }
 
-.navigation .subHeading{
-    font-weight:600;
-    margin-top:15px;
-    color: black;
+.CreatePS .CreatePSHeading {
+  font-weight: 600;
+  text-align: center;
+  font-size: 20px;
 }
-.Cards .subHeading{
-    font-weight:600;
-    margin-top:15px;
+.CreatePSsingle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 3rem;
+  padding-bottom: 4rem;
+  background: #fff;
+  border-radius: 10px;
+  min-height: 105px;
+}
+.CreatePSsingle .CreatePSHeading {
+  font-weight: 600;
+  text-align: center;
+  font-size: 20px;
+}
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
 }
 
-.cardBottom{
-    display: flex;
-    gap: 20px;
-    margin-top: 10px;
+.navigation .subHeading {
+  font-weight: 600;
+  margin-top: 15px;
+  color: black;
+}
+.Cards .subHeading {
+  font-weight: 600;
+  margin-top: 15px;
 }
 
-.bottomColor{
-    color: red;
+.cardBottom {
+  display: flex;
+  gap: 20px;
+  margin-top: 10px;
 }
-.infoIcon{
-    display: flex;
-    align-items: center;
-    gap: 5px;
+
+.bottomColor {
+  color: red;
+}
+.infoIcon {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .createPS .MuiFormControl-root {
-    min-width: 28.5em;
-    background:#f0f0f0;
+  min-width: 28.5em;
+  background: #f0f0f0;
 }
-.createPSCards{
-    padding-top: 25px;
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-bottom: 25px;
-    background: #fff;
-    border-radius: 10px;
-    margin-top: 10px ;
+.createPSCards {
+  padding-top: 25px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 25px;
+  background: #fff;
+  border-radius: 10px;
+  margin-top: 10px;
 }
-.createPSCards .PollNameText{
-    font-weight: 600;
-    color: black;
-    font-size: 16px;
-    overflow-wrap: break-word;
+.createPSCards .PollNameText {
+  font-weight: 600;
+  color: black;
+  font-size: 16px;
+  overflow-wrap: break-word;
 }
 .createPSCards .MuiOutlinedInput-input {
-    padding: 18.5px 14px;
-    color: black;
-    font-weight: 600;
-    font-size: 14px;
-    background: #f2f2f2;
+  padding: 18.5px 14px;
+  color: black;
+  font-weight: 600;
+  font-size: 14px;
+  background: #f2f2f2;
 }
-.DateSection{
-    margin-top: 30px;
-    margin-bottom: 10px;
-    gap: 20px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+.DateSection {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  gap: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 .DateSection .MuiFormControl-fullWidth {
     width: 48%;
@@ -141,641 +140,637 @@
     border-radius: 5px;
     background: #f9f9f9;
 }
-.DateSectionPreviewpoll{
-    display: flex;
-    gap: 30px;
-    margin-top: 20px;
-    margin-bottom: 10px;
+.DateSectionPreviewpoll {
+  display: flex;
+  gap: 30px;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
-.DateBox .MuiInputBase-root{
-    align-items: baseline !important;
-    flex-direction: row-reverse;
+.DateBox .MuiInputBase-root {
+  align-items: baseline !important;
+  flex-direction: row-reverse;
 }
 .DateBox .MuiInputLabel-formControl {
-    left: 13%;
+  left: 13%;
 }
 .DateBox .MuiInput-underline::before {
-    border-bottom: none !important;
+  border-bottom: none !important;
 }
-.targetaudience{
-    margin-top: 20px;
-    margin-bottom: 10px;
+.targetaudience {
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
-.targetOne{
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-top: 20px;
-    margin-bottom: 10px;
+.targetOne {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
-.anonymousSwitch{
-    display: flex; 
-    margin-top: 20px;
-    margin-bottom: 10px;
-    justify-content: space-between;
+.anonymousSwitch {
+  display: flex;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  justify-content: space-between;
 }
-.Cards{
-    padding-top: 30px;
-    padding-left: 15px;
-    padding-bottom: 25px;
-    background: #fff;
-    border-radius: 10px;
-    cursor: pointer;
-}
-
-.CardsIcons{
-    border: 1px solid #d9d4d3;
-    border-radius: 50%;
-    width: 25px;
-    height: 25px;
-    padding: 10px;
-    color:#054c94;
-}
-.DialogMainBox .MuiDialogActions-root{
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-}
-.dialogOption{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 1rem 3rem;
-}
-.dialogOption:hover{
-    color: #005ff2;
-}
-.dialogOption:hover p{
-    color: #005ff2;
-}
-.DialogIcons{
-    border: 1px solid #d9d4d3;
-    border-radius: 50%;
-    width: 25px;
-    height: 25px;
-    padding: 30px;
-    margin-bottom: 1rem;
-    cursor: pointer;
+.Cards {
+  padding-top: 30px;
+  padding-left: 15px;
+  padding-bottom: 25px;
+  background: #fff;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
-.EventsHeading{
-    font-weight:600;
-    margin-top:50px;
+.CardsIcons {
+  border: 1px solid #d9d4d3;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  padding: 10px;
+  color: #054c94;
+}
+.DialogMainBox .MuiDialogActions-root {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+.dialogOption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem 3rem;
+}
+.dialogOption:hover {
+  color: #005ff2;
+}
+.dialogOption:hover p {
+  color: #005ff2;
+}
+.DialogIcons {
+  border: 1px solid #d9d4d3;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  padding: 30px;
+  margin-bottom: 1rem;
+  cursor: pointer;
 }
 
-.EventsCards{
-    padding-top: 15px;
-    padding-left: 15px;
-    padding-bottom: 15px;
-    background: #fff;
-    border-radius: 10px;
-    cursor: pointer;
+.EventsHeading {
+  font-weight: 600;
+  margin-top: 50px;
 }
 
-.EventsIconsText .EventsTitle{
-    font-weight:600;
-    font-size:14px;
-    margin-top:10px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
+.EventsCards {
+  padding-top: 15px;
+  padding-left: 15px;
+  padding-bottom: 15px;
+  background: #fff;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
-.EventsIconsText{
-    display: flex;
-    align-items: center;
-    gap:5px;
-    font-size:14px;
+.EventsIconsText .EventsTitle {
+  font-weight: 600;
+  font-size: 14px;
+  margin-top: 10px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
-.Dividers{
-    margin-top:10px;
-    margin-right:10px;
+.EventsIconsText {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
 }
 
-.EventsIconsData{
-    display: flex;
-    align-items: center;
-    gap:25px;
-    margin-top:15px;
+.Dividers {
+  margin-top: 10px;
+  margin-right: 10px;
 }
 
-.EventsIconsDataBox{
-    display: flex;
-    align-items: center;
-    gap:5px;
+.EventsIconsData {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  margin-top: 15px;
 }
 
-.YearMain{
-    background: #fff;
-    border: none;
-    border-radius: 5px;
-    padding-left:5px;
-    padding-right: 5px;
+.EventsIconsDataBox {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.YearMain {
+  background: #fff;
+  border: none;
+  border-radius: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .yearMain select {
-    height: 20px;
-    width: 80px;
-    padding-left: 15px;
-    border: 1px solid #c7c3c3;
-    border-radius: 5px;
-    padding-right: 10px !important;
-    padding-bottom: 4px;
+  height: 20px;
+  width: 80px;
+  padding-left: 15px;
+  border: 1px solid #c7c3c3;
+  border-radius: 5px;
+  padding-right: 10px !important;
+  padding-bottom: 4px;
 }
 
 .yearMain option {
-    height: 20px;
-    width: 80px;
-    padding-left: 15px;
-    border: 1px solid #c7c3c3;
-    border-radius: 5px;
-    padding-right: 10px !important;
-    padding-bottom: 4px;
+  height: 20px;
+  width: 80px;
+  padding-left: 15px;
+  border: 1px solid #c7c3c3;
+  border-radius: 5px;
+  padding-right: 10px !important;
+  padding-bottom: 4px;
 }
-.YearMain .yearSelection{
-    font-size: 12px;
-    font-weight: 600;
+.YearMain .yearSelection {
+  font-size: 12px;
+  font-weight: 600;
 }
-.YearMain .MuiInput-underline::before{
-    border-bottom: none !important;
+.YearMain .MuiInput-underline::before {
+  border-bottom: none !important;
 }
-.facility{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.statusOngoing{
-    background: #ffdede;
-    padding: 10px 20px;
-    border-radius: 30px;
-    color: #f27200;
-    display: initial;
-    min-height: 20px;
-    min-width: 50px;
-    text-transform: capitalize;
+.facility {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.statusOngoingBlue{
-    background: #2b6fed40;
-    padding: 10px 20px;
-    border-radius: 30px;
-    color: #2b6fed;
-    display: initial;
-    min-height: 20px;
-    text-transform: capitalize;
-    min-width: 50px;
-    font-weight: 800 !important;
+.statusOngoing {
+  background: #ffdede;
+  padding: 10px 20px;
+  border-radius: 30px;
+  color: #f27200;
+  display: initial;
+  min-height: 20px;
+  min-width: 50px;
+  text-transform: capitalize;
 }
 
-.statusOngoingGreen{
-    background: #c1ffc1;
-    padding: 10px 20px;
-    border-radius: 30px;
-    color: #1BCD47;
-    display: initial;
-    min-height: 20px;
-    text-transform: capitalize;
-    min-width: 50px;
-    font-weight: 800 !important;
+.statusOngoingBlue {
+  background: #2b6fed40;
+  padding: 5px 10px;
+  border-radius: 30px;
+  color: #2b6fed;
+  display: initial;
+  min-height: 20px;
+  text-transform: capitalize;
+  min-width: 50px;
+  font-weight: 800 !important;
 }
 
-.statusOngoingRed{
-    background: #ffdede;
-    padding: 10px 20px;
-    border-radius: 30px;
-    color: #f27200;
-    display: initial;
-    min-height: 20px;
-    min-width: 20px;
-    text-transform: capitalize;
-    font-weight: 800 !important;
+.statusOngoingGreen {
+  background: #c1ffc1;
+  padding: 10px 20px;
+  border-radius: 30px;
+  color: #1bcd47;
+  display: initial;
+  min-height: 20px;
+  text-transform: capitalize;
+  min-width: 50px;
+  font-weight: 800 !important;
 }
 
-
-.statusCompleted{
-    background: #cbe1dc;
-    padding: 10px 20px;
-    border-radius: 30px;
-    color: green;
-    display: initial;
-}
-.statusSkipped{
-    background: #dcf5f0;
-    padding: 10px 20px;
-    border-radius: 30px;
-    color: blue;
-    min-width: 70px;
-    min-height: 20px;
-    display: initial;
-}
-.PreviewName{
-    display: flex;
-    justify-content: space-between;
-}
-.AnonymousPreviewPoll{
-    padding: 8px 15px;
-    border: 1px solid #005ff2;
-    border-radius: 30px;
-    color: #005ff2;
-    display: initial;
-}
-.RecentItems{
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
-    
-}
-.RecentItems .Recenttitle{
-    font-weight:600;
-    text-align: center;
-    font-size: 20px;
-}
-.RecentItems .ViewAll{
-    text-align: center;
-    font-size: 16px;
-    /* font-weight: bold; */
-    color: #f27200;
+.statusOngoingRed {
+  background: #ffdede;
+  padding: 10px 20px;
+  border-radius: 30px;
+  color: #f27200;
+  display: initial;
+  min-height: 20px;
+  min-width: 20px;
+  text-transform: capitalize;
+  font-weight: 800 !important;
 }
 
-.BottomButton{
-    display: flex;
-    gap: 20px;
-    margin-top: 10rem;
-    margin-bottom: 3em;
-    float: right;
+.statusCompleted {
+  background: #cbe1dc;
+  padding: 10px 20px;
+  border-radius: 30px;
+  color: green;
+  display: initial;
+}
+.statusSkipped {
+  background: #dcf5f0;
+  padding: 10px 20px;
+  border-radius: 30px;
+  color: blue;
+  min-width: 70px;
+  min-height: 20px;
+  display: initial;
+}
+.PreviewName {
+  display: flex;
+  justify-content: space-between;
+}
+.AnonymousPreviewPoll {
+  padding: 8px 15px;
+  border: 1px solid #005ff2;
+  border-radius: 30px;
+  color: #005ff2;
+  display: initial;
+}
+.RecentItems {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+.RecentItems .Recenttitle {
+  font-weight: 600;
+  text-align: center;
+  font-size: 20px;
+}
+.RecentItems .ViewAll {
+  text-align: center;
+  font-size: 16px;
+  /* font-weight: bold; */
+  color: #f27200;
 }
 
-.BottomButtonSurvey{
-    display: flex;
-    gap: 20px;
-    margin-top:50px;
-    float: right;
-}
-.questionSection{
-    padding-top: 30px;
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-bottom: 25px;
-    background: #fff;
-    border-radius: 10px;
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-}
-.PollName{
-    display: flex;
-    gap: 5px; 
-}
-.PollName .PollNameText{
-    font-weight: 600;
-    color: black;
-}
-.datebox{
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-right: 50px;
-    margin-top: 15px;
-}
-.datebox .PollNameText{
-    font-weight: 600;
-    color: black;
-    font-size: 12px;
-}
-.datebox .PollNamedate{
-    /* font-weight: 600; */
-    color: grey;
-    font-size: 12px;
+.BottomButton {
+  display: flex;
+  gap: 20px;
+  margin-top: 10rem;
+  margin-bottom: 3em;
+  float: right;
 }
 
-.createPSCards .addOptions{
-    margin-top: 20px;
+.BottomButtonSurvey {
+  display: flex;
+  gap: 20px;
+  margin-top: 50px;
+  float: right;
 }
-.addOptions .MuiButton-label{
-    color: #0582D7;
-    font-weight: bold;
+.questionSection {
+  padding-top: 30px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 25px;
+  background: #fff;
+  border-radius: 10px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
 }
-.Previewbtn .MuiButton-label{
-    color: white;
-    font-weight: bold;
+.PollName {
+  display: flex;
+  gap: 5px;
 }
-.Publishbtn .MuiButton-label{
-    color: #0582D7;
-    font-weight: bold;
+.PollName .PollNameText {
+  font-weight: 600;
+  color: black;
+}
+.datebox {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-right: 50px;
+  margin-top: 15px;
+}
+.datebox .PollNameText {
+  font-weight: 600;
+  color: black;
+  font-size: 12px;
+}
+.datebox .PollNamedate {
+  /* font-weight: 600; */
+  color: grey;
+  font-size: 12px;
+}
+
+.createPSCards .addOptions {
+  margin-top: 20px;
+}
+.addOptions .MuiButton-label {
+  color: #0582d7;
+  font-weight: bold;
+}
+.Previewbtn .MuiButton-label {
+  color: white;
+  font-weight: bold;
+}
+.Publishbtn .MuiButton-label {
+  color: #0582d7;
+  font-weight: bold;
 }
 .link-decoration .MuiLink-underlineHover {
-    text-decoration: none !important;
+  text-decoration: none !important;
 }
-.YearMain .MuiInput-underline::before{
-    border-bottom: none !important;
-}
-
-.yearSelection .MuiInput-underline:hover:not(.Mui-disabled):before {
-    border-bottom: none !important;
+.YearMain .MuiInput-underline::before {
+  border-bottom: none !important;
 }
 
 .yearSelection .MuiInput-underline:hover:not(.Mui-disabled):before {
-    border-bottom: none !important;
+  border-bottom: none !important;
 }
 
-.TabsList .MuiTabs-flexContainer{
-    display: flex;
-    justify-content: space-evenly;
-}
-.AppBarbox .MuiPaper-elevation4{
-    box-shadow: none !important;
-}
-.TabsList .MuiTabs-scroller .PrivateTabIndicator-colorSecondary-4{
-    background-color: #E5ECFF !important;
+.yearSelection .MuiInput-underline:hover:not(.Mui-disabled):before {
+  border-bottom: none !important;
 }
 
-.descriptionEditor .notranslate > div  {
-    max-height: 10px;
+.TabsList .MuiTabs-flexContainer {
+  display: flex;
+  justify-content: space-evenly;
+}
+.AppBarbox .MuiPaper-elevation4 {
+  box-shadow: none !important;
+}
+.TabsList .MuiTabs-scroller .PrivateTabIndicator-colorSecondary-4 {
+  background-color: #e5ecff !important;
 }
 
-.descriptionEditor .RichTextEditor__root___2QXK-{
-    border-radius: 5px;
-    max-height: 180px;
-    overflow: hidden;
+.descriptionEditor .notranslate > div {
+  max-height: 10px;
 }
 
-.descriptionEditor .EditorToolbar__root___3_Aqz{
-    border-bottom: none;
-    padding: 15px 0;
+.descriptionEditor .RichTextEditor__root___2QXK- {
+  border-radius: 5px;
+  max-height: 180px;
+  overflow: hidden;
 }
-.descriptionEditor .RichTextEditor__editor___1QqIU{
-   background: #f2f2f2;
+
+.descriptionEditor .EditorToolbar__root___3_Aqz {
+  border-bottom: none;
+  padding: 15px 0;
 }
-.descriptionEditor .public-DraftEditor-content{
-    height: 20%;
+.descriptionEditor .RichTextEditor__editor___1QqIU {
+  background: #f2f2f2;
+}
+.descriptionEditor .public-DraftEditor-content {
+  height: 20%;
 }
 
 /* Progress bar for [ "YES" ] */
 
 .progressbarYES {
-    display: block;
-    position: relative;
+  display: block;
+  position: relative;
 }
-.progressbarYES span{
-    position: absolute;
-    display: inline-block;
-    color: #fff;
-    text-align: right;
-    top: 1rem;
-    left: 2rem;
-    font-size: 1rem;
-    font-weight: 600;
+.progressbarYES span {
+  position: absolute;
+  display: inline-block;
+  color: #fff;
+  text-align: right;
+  top: 1rem;
+  left: 2rem;
+  font-size: 1rem;
+  font-weight: 600;
 }
 
 .progress {
-    width:100%;
-    height: 3rem;
-    border-radius: 5rem;   
-    border: 1px solid #c5c1c1;
+  width: 100%;
+  height: 3rem;
+  border-radius: 5rem;
+  border: 1px solid #c5c1c1;
 }
 .progressbarYES progress[value]::-webkit-progress-bar {
-    background-color: rgb(172, 169, 169);
-    border-radius: 5rem;  
+  background-color: rgb(172, 169, 169);
+  border-radius: 5rem;
 }
 .progressbarYES progress[value]::-webkit-progress-value {
-    border-radius: 5rem;  
-    background-color:rgb(11, 22, 121);
+  border-radius: 5rem;
+  background-color: rgb(11, 22, 121);
 }
 .progressbarYES progress:before {
-    content: attr(data-label);
-    position:absolute;
-    top: 1rem;
-    right: 2rem;
-    font-size: 1rem;
-    font-weight: 600;
+  content: attr(data-label);
+  position: absolute;
+  top: 1rem;
+  right: 2rem;
+  font-size: 1rem;
+  font-weight: 600;
 }
 
 /* Progress bar for [ "NO" ] */
 
-.AnswersCount{
-    display: flex;
-    /* margin-top: 1.5rem; */
+.AnswersCount {
+  display: flex;
+  /* margin-top: 1.5rem; */
 }
 
 .progressbarNO {
-    display: block;
-    position: relative;
-    margin-bottom: 1.5rem;
+  display: block;
+  position: relative;
+  margin-bottom: 1.5rem;
 }
-.progressbarNO span{
-    position: absolute;
-    display: inline-block;
-    color: rgb(255, 255, 255);
-    text-align: right;
-    top: 1rem;
-    left: 2rem;
-    font-size: 1rem;
-    font-weight: 600;
+.progressbarNO span {
+  position: absolute;
+  display: inline-block;
+  color: rgb(255, 255, 255);
+  text-align: right;
+  top: 1rem;
+  left: 2rem;
+  font-size: 1rem;
+  font-weight: 600;
 }
 .progress {
-    width:100%;
-    height: 3rem;
-    border-radius: 5px;
-    border: none;
+  width: 100%;
+  height: 3rem;
+  border-radius: 5px;
+  border: none;
 }
 .progressbarNO progress[value]::-webkit-progress-bar {
-    background-color: rgb(172, 169, 169);
-    border-radius: 5px;  
+  background-color: rgb(172, 169, 169);
+  border-radius: 5px;
 }
 .progressbarNO progress[value]::-webkit-progress-value {
-    background-color:#0a33a5;
-    border-radius: 5px;  
+  background-color: #0a33a5;
+  border-radius: 5px;
 }
 .progressbarNO progress:before {
-    content: attr(data-label);
-    position:absolute;
-    top: 1rem;
-    right: 2rem;
-    font-size: 1rem;
-    font-weight: 600;
+  content: attr(data-label);
+  position: absolute;
+  top: 1rem;
+  right: 2rem;
+  font-size: 1rem;
+  font-weight: 600;
 }
 
-.GenerateReport{
-    display: flex;
-    justify-content: space-between;
+.GenerateReport {
+  display: flex;
+  justify-content: space-between;
 }
-.VoteCount{
-    border: 1px solid blue;
-    color: blue;
-    border-radius: 5px;
-    margin-left: 1rem;
-    text-align: center;
-    cursor: pointer;
+.VoteCount {
+  border: 1px solid blue;
+  color: blue;
+  border-radius: 5px;
+  margin-left: 1rem;
+  text-align: center;
+  cursor: pointer;
 }
-.VoteCount p{
-    color: blue;
-    padding: .7rem;
-    font-size: 14px;
-    font-weight: 700;
-}
-
-.VoteCountBottom{
-    display: flex;
-    align-items: center;
+.VoteCount p {
+  color: blue;
+  padding: 0.7rem;
+  font-size: 14px;
+  font-weight: 700;
 }
 
-.VoteCountBottomBox{
-    display: flex;
-    align-items: center;
-    gap:5px;
+.VoteCountBottom {
+  display: flex;
+  align-items: center;
 }
-.VoteCountBottomBox p{
-    font-weight: 700;
-    margin-left: 0.5rem;
+
+.VoteCountBottomBox {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
-.DialogTable{
-    overflow-y: scroll;
+.VoteCountBottomBox p {
+  font-weight: 700;
+  margin-left: 0.5rem;
+}
+.DialogTable {
+  overflow-y: scroll;
 }
 .DialogTable .MuiDialog-scrollPaper {
-    display: flex;
-    align-items: center;
-    justify-content: right;
+  display: flex;
+  align-items: center;
+  justify-content: right;
 }
-.DialogTable .MuiDialog-paper{
-    margin: 0px;
+.DialogTable .MuiDialog-paper {
+  margin: 0px;
 }
-.DialogTable .MuiDialog-container{
-    height: auto;
+.DialogTable .MuiDialog-container {
+  height: auto;
 }
-.DialogTable .MuiPaper-elevation24{
-    box-shadow: none;
+.DialogTable .MuiPaper-elevation24 {
+  box-shadow: none;
 }
-.DialogTable .MuiPaper-rounded{
-    border-radius: 0;
-}
-
-.tableHeading .MuiTypography-root{
-    display: flex;
-    justify-content: space-between;
-}
-.tableTopSearch{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 1rem;
-}
-.tableBorder{
-    margin-left: 1rem;
-    margin-right: 1rem;
-    border: 1px solid rgb(190, 190, 190);
-    border-radius: 5px;
-    margin-top: 2rem;
-    margin-bottom: 3rem;
-}
-.searchBox{
-    position: relative;
-    border-radius: 5px;
-    border: 1px solid lightgray;
-    width: 40%;
-}
-.searchIcon{
-    height: 100%;
-    position: absolute;
-    pointer-events: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 10px;
-    color: grey;
+.DialogTable .MuiPaper-rounded {
+  border-radius: 0;
 }
 
-.PollResponseMain{
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    background: #fff;
-    border-radius: 10px;
+.tableHeading .MuiTypography-root {
+  display: flex;
+  justify-content: space-between;
+}
+.tableTopSearch {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem;
+}
+.tableBorder {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  border: 1px solid rgb(190, 190, 190);
+  border-radius: 5px;
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+}
+.searchBox {
+  position: relative;
+  border-radius: 5px;
+  border: 1px solid lightgray;
+  width: 40%;
+}
+.searchIcon {
+  height: 100%;
+  position: absolute;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
+  color: grey;
 }
 
-.TableHeader{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 1rem;
-    padding: 1rem;
+.PollResponseMain {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background: #fff;
+  border-radius: 10px;
+}
+
+.TableHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  padding: 1rem;
 }
 .downloadReport .MuiButtonBase-root,
 .downloadReport .MuiButton-root {
-    color: white;
-    background: #3f51b5;
-    padding: 0.8rem;
-    border-radius: 5px;
-    font-weight: 600;
+  color: white;
+  background: #3f51b5;
+  padding: 0.8rem;
+  border-radius: 5px;
+  font-weight: 600;
 }
-.reportbtn{
-    color: white;
-    background: #3f51b5;
-    padding: 0.8rem;
-    border-radius: 5px;
-    font-weight: 700;
-    cursor: pointer;
-}
-
-.surveySelectBox{
-    border-radius: 5px !important;
+.reportbtn {
+  color: white;
+  background: #3f51b5;
+  padding: 0.8rem;
+  border-radius: 5px;
+  font-weight: 700;
+  cursor: pointer;
 }
 
-.customRadioButton{
+.surveySelectBox {
+  border-radius: 5px !important;
+}
 
+.customRadioButton {
 }
 /* COMMON RADIO AND CHECKBOX STYLES  */
 
 .customRadioButton input[type="radio"] {
-    width: 20px;
-    height: 20px;
-    border: 2px solid blue !important;
-    transform: translateY(-0.075em);
-    display: grid;
-    place-content: center;
+  width: 20px;
+  height: 20px;
+  border: 2px solid blue !important;
+  transform: translateY(-0.075em);
+  display: grid;
+  place-content: center;
 }
 
-#question-type-select{
-    font-weight: 400;
+#question-type-select {
+  font-weight: 400;
 }
 
 #SurveyQuestion {
-    font-weight: 400;
-    border-radius: 10px;
+  font-weight: 400;
+  border-radius: 10px;
 }
 
-#SurveyQuestionOptions{
-    font-weight: 400;
-    border-radius: 10px;
+#SurveyQuestionOptions {
+  font-weight: 400;
+  border-radius: 10px;
 }
 
-#question-type-select{
-    border-radius: 10px !important;
-    background-color: rgb(249, 249, 249) !important;
+#question-type-select {
+  border-radius: 10px !important;
+  background-color: rgb(249, 249, 249) !important;
 }
 
-.outlined-multiline-static{
-    padding:12px 12px 10px !important;
+.outlined-multiline-static {
+  padding: 12px 12px 10px !important;
 }
 
 .optionBoxSelected {
-    background-color: #2B6FEC;
-    border-radius: 5rem;
-    margin-bottom: 14px;
-    box-shadow: none;
-    color: #F7F7FC;
-    font-weight: 600;
-    font-size: 1rem;
-    padding: 1rem;
+  background-color: #2b6fec;
+  border-radius: 5rem;
+  margin-bottom: 14px;
+  box-shadow: none;
+  color: #f7f7fc;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 1rem;
 }
 
 .optionBox {
-    background-color: #f9f9f9;
-    border-radius: 5rem;
-    margin-bottom: 14px;
-    box-shadow: none;
-    color: #212121;
-    font-weight: 600;
-    font-size: 1rem;
-    padding: 1rem;
+  background-color: #f9f9f9;
+  border-radius: 5rem;
+  margin-bottom: 14px;
+  box-shadow: none;
+  color: #212121;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 1rem;
 }
-

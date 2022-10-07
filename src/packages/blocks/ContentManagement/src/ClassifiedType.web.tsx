@@ -81,6 +81,7 @@ class ClassifiedType extends ClassifiedController {
                         <img src={GenericIcon} className="icons" />
                         {/* <img src={GenericIconSelected} className="icons" /> */}
                         <input type="radio" id="radCreateMode3" name="classifiedRadio" value='generic' onChange={(e) => this.changeType(e.target.value)} />
+                        <span class="radioCheckmark"></span>
                         <label for="radCreateMode3" className="radioCheckmark"></label>
                         <label for="radCreateMode3" className={"radioTitle" + (this.state.userType == 'generic' ? ' active-type' : '')}>
                           I have a generic request

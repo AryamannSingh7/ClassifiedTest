@@ -39,6 +39,8 @@ interface ComplexData {
   totalBuilding: number;
   buildingList: any[];
   sharedAreaList: any[];
+  lat: string;
+  long: string;
 }
 
 interface EditForm {
@@ -61,6 +63,7 @@ interface S {
   currentTab: number;
 
   isEditBuildingModalOpen: boolean;
+  isOpenMapModalOpen: boolean;
 
   dataSearch: any;
   documentCount: DocumentCount;
@@ -101,6 +104,7 @@ export default class ComplexController extends BlockComponent<Props, S, SS> {
       currentTab: 0,
 
       isEditBuildingModalOpen: false,
+      isOpenMapModalOpen: false,
 
       dataSearch: "",
 
@@ -124,6 +128,8 @@ export default class ComplexController extends BlockComponent<Props, S, SS> {
         totalBuilding: 0,
         buildingList: [],
         sharedAreaList: [],
+        lat: "",
+        long: "",
       },
 
       editForm: {
@@ -202,6 +208,8 @@ export default class ComplexController extends BlockComponent<Props, S, SS> {
             totalBuilding: responseJson.data.attributes.total_buildings,
             buildingList: responseJson.data.attributes.building_list,
             sharedAreaList: responseJson.data.attributes.shared_area,
+            lat: responseJson.data.attributes.lat,
+            long: responseJson.data.attributes.long,
           },
         });
       }
@@ -356,6 +364,10 @@ export default class ComplexController extends BlockComponent<Props, S, SS> {
 
   handleEditComplexModal = () => {
     this.setState({ isEditBuildingModalOpen: !this.state.isEditBuildingModalOpen });
+  };
+
+  handleMapModal = () => {
+    this.setState({ isOpenMapModalOpen: !this.state.isOpenMapModalOpen });
   };
 
   toDataURL = (url: any) =>

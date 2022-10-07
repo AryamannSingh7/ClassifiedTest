@@ -793,7 +793,6 @@ export const MeetingsStyleWeb: any = {
     },
     "& .meeting-pdf .pdf-detail .heading h6": {
       fontWeight: "600",
-      width: "85%",
       lineHeight: "20px"
     },
     "& .meeting-pdf .download-pdf img": {

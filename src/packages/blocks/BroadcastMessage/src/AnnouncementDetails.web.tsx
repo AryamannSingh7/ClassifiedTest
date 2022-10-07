@@ -24,6 +24,7 @@ class Announcement extends AnnouncementDetailsController{
   }
 
   render() {
+      const complexName = localStorage.getItem("buildingName")
     return (
         <>
             <Grid item xs={12} md={12} className="auth-cols">
@@ -32,7 +33,7 @@ class Announcement extends AnnouncementDetailsController{
                       <Box style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
                           <ArrowBackIcon onClick={() => window.history.back()} />
                           <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
-                              Complex Name
+                              {complexName || ""}
                           </p>
                       </Box>
                   </Grid>
@@ -83,7 +84,7 @@ class Announcement extends AnnouncementDetailsController{
                         </Grid>
                     </Grid>
                     <Box style={{width:"90%",marginBottom:"50px",marginTop:"10px"}}>
-                        <CloseButton variant="contained" fullWidth size="large">
+                        <CloseButton onClick={()=> window.history.back()} variant="contained" fullWidth size="large">
                             Close
                         </CloseButton>
                     </Box>

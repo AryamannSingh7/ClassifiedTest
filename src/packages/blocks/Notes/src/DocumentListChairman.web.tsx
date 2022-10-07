@@ -140,11 +140,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                                         }
                                       >
                                         <MenuItem>
-                                          <Link
-                                            // href={resolution.attributes.meeting_mins_pdf.url}
-                                            onClick={() => alert("Coming soon!!")}
-                                            target="_blank"
-                                          >
+                                          <Link href={resolution.attributes.meeting_mins_pdf.url} target="_blank">
                                             {t("Download")}
                                           </Link>
                                         </MenuItem>
@@ -214,11 +210,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                                           );
                                         }}
                                       />
-                                      <Link
-                                        // href={resolution.attributes.meeting_mins_pdf.url}
-                                        onClick={() => alert("Coming soon!!")}
-                                        target="_blank"
-                                      >
+                                      <Link href={resolution.attributes.meeting_mins_pdf.url} target="_blank">
                                         <img src={DownloadImage} />
                                       </Link>
                                     </div>
@@ -250,10 +242,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                                       }
                                     >
                                       <MenuItem>
-                                        <Link
-                                          href={document.attributes.images[0].download_url}
-                                          target="_blank"
-                                        >
+                                        <Link href={document.attributes.images[0].download_url} target="_blank">
                                           {t("Download")}
                                         </Link>
                                       </MenuItem>

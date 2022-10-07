@@ -61,6 +61,7 @@ class CreateClassified extends ClassifiedController {
     // this.getCurrencyList();
     //@ts-ignore
     const id = this.props?.history?.location?.id;
+    console.log("this.props?.history?.location?.id;==============>", id)
     if (id)
       this.getClassifiedDetailsById(id)
   }
@@ -69,8 +70,6 @@ class CreateClassified extends ClassifiedController {
     // console.log("this.state?.getClassifiedDetails?==============>",this.state?.getClassifiedDetails?.attributes)
     const id = this.state?.getClassifiedDetails?.id;
     const attributes = this.state?.getClassifiedDetails?.attributes;
-    // console.log("this.state?.getClassifiedDetails?==============>",full_phone_number)
-
     const classifiedUserType = localStorage.getItem("classifiedUserType")
     // if (!classifiedUserType) {
     //   //@ts-ignore
@@ -97,35 +96,36 @@ class CreateClassified extends ClassifiedController {
                 <Box className="content-block-wrapper common-incident-block desktop-ui">
                   <Formik
                     initialValues={{
-                      phone: "",
-                      email: "",
-                      classifiedTitle: "",
-                      description: "",
+                      phone: attributes?.full_phone_number || "",
+                      email: attributes?.email || "",
+                      classifiedTitle: attributes?.title || "",
+                      description: attributes?.description || "",
                       media: [],
                       price: "",
-                      currency: ' ',
-                      endDate: "",
-                      startDate: "",
+                      currency: attributes?.currency?.currency || ' ',
+                      endDate: attributes?.duration_to || "",
+                      startDate: attributes?.duration_from || "",
                       selectCode: '+966',
-                      priceFrom: "",
-                      priceTo: "",
-                      timeFrom: "",
-                      timeTo: "",
-                      paymentDetail: ""
+                      priceFrom: attributes?.price_from || "",
+                      priceTo: attributes?.price_to || "",
+                      timeFrom: attributes?.time_from || "",
+                      timeTo: attributes?.time_to || "",
+                      paymentDetail: attributes?.payment_detail || "",
+                      id: id || ""
                     }}
                     enableReinitialize
                     validationSchema={classifiedUserType === "generic" ? this.createClassifiedSchemaGerenic() : classifiedUserType === "buyer" ? this.createClassifiedSchemaBuy() : this.createClassifiedSchemaSell()}
                     validateOnMount={true}
-                    onSubmit={(values) =>
+                    onSubmit={(values) => {
                       !this.state?.sizeError && !this.state?.notImageOrVideoError ?
-                        (
-                          this.onSubmit(values)
+                        ( //@ts-ignore
+                          this.props?.history?.location?.id ?
+                            this.onSubmit(values)
+                            : this.updateClassified(values)
                         )
                         :
-                        (
-                          console.log("valus=========>", values)
-                        )
-
+                        null
+                    }
                     }
                   >
                     {({ values, touched, errors, isValid, setFieldError, setFieldValue, handleChange }) => (
@@ -528,22 +528,24 @@ class CreateClassified extends ClassifiedController {
                               </Box>
                             </Grid>
                           </Grid>
+                        </Box >
+                        <Box className="customButton">
+                          <Button variant="contained" type="submit" >SAVE CHANGES</Button>
                         </Box>
+                        :
                         <Box className="customButton">
                           <Button variant="contained" type="submit">preview</Button>
-                          {/* {JSON.stringify(errors, null, 2)} 
- {JSON.stringify(values, null, 2)} */}
                         </Box>
                       </Form>
                     )}
-                  </Formik>
-                </Box>
+                  </Formik >
+                </Box >
                 {/* desktop footer block */}
                 {/* <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>
                   <h6 className="bottom-text">POWERED BY</h6>
                   <img src={Tenant_Logo.default} className="tenant-logo" alt="" />
                 </Box> */}
-              </Box>
+              </Box >
             </Grid >
             <Grid item xs={12} md={5} className="auth-cols">
               <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>

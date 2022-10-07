@@ -332,6 +332,27 @@ export const BuildingApartmentStyle: any = {
       boxShadow: "none",
       borderRadius: "8px",
     },
+    "& .Empty": {
+      padding: "5px 12px",
+      borderRadius: "25px",
+      fontWeight: 600,
+      color: "#2B6FED",
+      background: "#e7efff",
+    },
+    "& .Rented": {
+      padding: "5px 12px",
+      borderRadius: "25px",
+      fontWeight: 600,
+      background: "#ffeee2",
+      color: "#FC8434",
+    },
+    "& .Occupied": {
+      padding: "5px 12px",
+      borderRadius: "25px",
+      fontWeight: 600,
+      background: "#e4edff",
+      color: "#2B6FED",
+    },
   },
   unitDetails: {
     "& .navigation": {
@@ -349,6 +370,7 @@ export const BuildingApartmentStyle: any = {
     "& h4": {
       fontWeight: 600,
       fontSize: "22px",
+      textTransform: "capitalize",
     },
     "& .location-details .heading": {
       display: "flex",
@@ -595,6 +617,18 @@ export const BuildingApartmentStyle: any = {
       position: "absolute",
       top: "30px",
       left: "0px",
+    },
+    "& .Pending": {
+      background: "#e4edff",
+      color: "#2B6FED",
+    },
+    "& .Resolved": {
+      color: "#1EC65B",
+      background: "#D4FFE3",
+    },
+    "& .Unresolved": {
+      background: "#FFEAEA",
+      color: "#F21717",
     },
   },
 };

@@ -28,6 +28,7 @@ interface S {
   status:any;
   pollListing:any;
   selectCode:any;
+  visitorId:"";
 }
 
 interface SS {
@@ -44,6 +45,8 @@ export default class CoverImageController extends BlockComponent<
   emailReg: RegExp;
   labelTitle: string = "";
   upload: any;
+  createVisitorId:string = "";
+  visitorDetailsId:string = "";
   constructor(props: Props) {
 
     super(props);
@@ -61,7 +64,7 @@ export default class CoverImageController extends BlockComponent<
       status:"",
       pollListing:[],
       selectCode:"+966",
-
+      visitorId:""
     };
 
     this.emailReg = new RegExp("");
@@ -72,7 +75,7 @@ export default class CoverImageController extends BlockComponent<
   }
 
   async componentDidMount() {
-
+    this.getVisitorDetails()
   }
 
   handleChange = (e: any) => {
@@ -81,13 +84,27 @@ export default class CoverImageController extends BlockComponent<
     }
   }
 
+  getVisitorDetails = async () => {
+    const societyID = localStorage.getItem("society_id")
+    const visitorId = this.props.match.params.id
+    this.setState({visitorId:visitorId})
+    this.visitorDetailsId = await this.apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `/society_managements/${societyID}/bx_block_visitor/visitors/${visitorId}`,
+    });
+  }
+
   async receive(from: string, message: Message) {
     if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
       var errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if(this.apiEmailLoginCallId === apiRequestCallId ){
-        console.log(responseJson,errorReponse)
+      if(this.createVisitorId === apiRequestCallId ){
+        console.log("API RESPONSE WHEN CREATE",responseJson,errorReponse)
+        if(responseJson.message === "Successfully created"){
+          this.props.history.push("/VisitorAddSuccess")
+        }
       }
     }
   }
@@ -102,7 +119,7 @@ export default class CoverImageController extends BlockComponent<
           .integer("Number can't contain a decimal.")
           .min(10000000, "Minimum 5 digits are required.")
           .max(99999999999, "Maximum 11 digits are allowed."),
-      photo: Yup.mixed().required("Required"),
+      photo: Yup.mixed(),
       date: Yup.string()
           .required("Required")
           .matches(/\S/, "Required"),
@@ -122,49 +139,74 @@ export default class CoverImageController extends BlockComponent<
               message: "You have entered past time",
             });
           }),
+      withCar:Yup.boolean().required("Please select Visitor will come with Vehicle or not"),
+      carPlateNo:Yup.string().when("withCar",{
+        is: true,
+        then:Yup.string().required("Please enter Car plate Number")
+      })
     });
     return validations
   }
 
   createVisitorRequest(values:any){
     console.log("Values",values)
+    let formData = new FormData()
+    formData.append('visitor[name]',values.visitorName)
+    formData.append('visitor[mobile_number]', this.state.selectCode+values.phone)
+    formData.append('visitor[schedule_date]', values.date)
+    formData.append('visitor[schedule_time]',values.time)
+    if(values.photo !== ""){
+      formData.append('visitor[image]',values.photo,values.photo.name)
+    }
+    formData.append('visitor[comming_with_vehicle]', values.withCar)
+    formData.append('visitor[vehicle_detail][car_number]', values.carPlateNo)
+    this.createVisitor(formData)
   }
 
-  doEmailLogIn(data:any): boolean {
+  createVisitor = async (data:any) => {
+    const societyID = localStorage.getItem("society_id")
+    this.createVisitorId = await this.apiCall({
+      contentType: "multipart/form-data",
+      method: "POST",
+      endPoint: `/society_managements/${societyID}/bx_block_visitor/visitors`,
+      body:data
+    });
+  }
+
+  apiCall = async (data: any) => {
+    const { contentType, method, endPoint, body } = data;
+    // console.log("Called 1",data);
+
+    const token = localStorage.getItem('userToken') ;
+
     const header = {
-      "Content-Type": configJSON.loginApiContentType
+      token
     };
-
     const requestMessage = new Message(
-      getName(MessageEnum.RestAPIRequestMessage)
+        getName(MessageEnum.RestAPIRequestMessage)
     );
-
-    this.apiEmailLoginCallId = requestMessage.messageId;
-
     requestMessage.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      configJSON.loginAPiEndPoint
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        header
     );
-
     requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        endPoint
     );
-
     requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestBodyMessage),
-      JSON.stringify(data)
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        method
     );
-
     requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.loginAPiMethod
+        getName(MessageEnum.RestAPIRequestBodyMessage),
+        body
     );
-
+    console.log("REQUEST INIT",requestMessage)
     runEngine.sendMessage(requestMessage.id, requestMessage);
+    // console.log("Called",requestMessage);
+    return requestMessage.messageId;
+  };
 
-    return true;
-  }
   handleClick = (event:any) => {
     this.setState({anchorEl:event.currentTarget })
   };

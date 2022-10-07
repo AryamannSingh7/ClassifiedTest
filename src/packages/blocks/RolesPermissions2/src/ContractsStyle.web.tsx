@@ -11,15 +11,13 @@ export const ContractsStyleWeb: any = {
       justifyContent: "space-between",
       position: "sticky",
       top: "0",
+      zIndex: "999999",
     },
     "& .top-bar .left-icon": {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
     },
-    // "& .top-bar .right-icon img": {
-    //   marginLeft: "15px",
-    // },
     "& .top-bar .right-icon": {
       display: "flex",
       alignItems: "center",
@@ -32,6 +30,7 @@ export const ContractsStyleWeb: any = {
       padding: "25px 60px",
     },
     "& a": {
+      color: "black",
       textDecoration: "none !important",
     },
     "& .select": {
@@ -115,6 +114,10 @@ export const ContractsStyleWeb: any = {
     },
     "& .contracts-list .contract .info p": {
       color: "black",
+    },
+    "& .contracts-list .state": {
+      color: "#FC8434 !important",
+      fontWeight: 600,
     },
     "& .templates-list .template": {
       position: "relative",

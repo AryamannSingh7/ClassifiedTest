@@ -52,10 +52,11 @@ export interface S {
   file : any,
   commonAreaData:any,
   incidentRelatedData:any,
-  classifiedtListing:any,
+  classifiedListing:any,
   showDialog:any;
   deleteShowDialog:any;
   classifiedId:any;
+  myOrAllClassified:boolean;
   // Customizable Area End
 }
   
@@ -76,7 +77,7 @@ export default class ClassifiedController extends BlockComponent<
   emailReg: RegExp;
   createAccountApiCallId: any;
   deleteClassifiedApiCallId:any;
-  apicreateIncidentCallId: any;
+  createClassifiedApiCallId: any;
   validationApiCallId: any;
   getClassifiedListingApiCallId: any;
   getClassifiedDetailsByIdApiCallId : any ;
@@ -132,7 +133,7 @@ export default class ClassifiedController extends BlockComponent<
       loading: false,
       commonAreaData:null,
       incidentRelatedData:null,
-      classifiedtListing: null,
+      classifiedListing: null,
       anchorEl:null,
       anchorEl_1:null,
       getClassifiedDetails:null,
@@ -146,6 +147,7 @@ export default class ClassifiedController extends BlockComponent<
       showDialog:false,
       deleteShowDialog:false,
       classifiedId:null,
+      myOrAllClassified:true,
       // Customizable Area End
     };
 
@@ -217,9 +219,9 @@ export default class ClassifiedController extends BlockComponent<
             }
           }
         } 
-      else if (apiRequestCallId === this.apicreateIncidentCallId) {
+      else if (apiRequestCallId === this.createClassifiedApiCallId) {
           if (responseJson && responseJson.data) {
-            console.log("apicreateIncidentCallId===========>",responseJson)
+            console.log("createClassifiedApiCallId===========>",responseJson)
             //@ts-ignore
             this.props.history.push("/ClassifiedReportedSuccessfully")
             this.setState({loading: false})      
@@ -234,13 +236,13 @@ export default class ClassifiedController extends BlockComponent<
           this.setState({loading: false , error:null})
         }
         else if (apiRequestCallId === this.deleteClassifiedApiCallId) {
-          if (responseJson) {
+          if (responseJson?.message === 'Successfully deleted' && responseJson?.code === 200) {
             console.log("deleteClassifiedApiCallId===========>",responseJson)
+            this.setState({loading: false, deleteShowDialog: false,classifiedId:null}) 
                //@ts-ignore
-              this.props.history.push("/ClassifiedtListing")
-            this.setState({loading: false, deleteShowDialog: false})      
+              this.props.history.push("/ClassifiedListing")     
           } else if (responseJson?.errors) {
-            let error = Object.values(responseJson.errors[0])[0] as string;
+            let error =responseJson.errors[0] as string;
             this.setState({ error });
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
@@ -252,7 +254,7 @@ export default class ClassifiedController extends BlockComponent<
         else if (apiRequestCallId === this.getClassifiedListingApiCallId) {
           if (responseJson && responseJson?.data ) {
           console.log("getClassifiedListingApiCallId ========================>",responseJson)
-          this.setState({classifiedtListing :responseJson?.data,loading: false})
+          this.setState({classifiedListing :responseJson?.data,loading: false})
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
             this.setState({ error });
@@ -272,7 +274,7 @@ export default class ClassifiedController extends BlockComponent<
             let error = responseJson.errors[0] as string;
                      //@ts-ignore
                     //@ts-nocheck
-              this.props.history.push("/ClassifiedtListing")
+              this.props.history.push("/ClassifiedListing")
             this.setState({ error });
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
@@ -283,11 +285,9 @@ export default class ClassifiedController extends BlockComponent<
         else if (apiRequestCallId === this.getMyClassifiedListApiCallId) {
           if (responseJson && responseJson?.data ) {
           console.log("getMyClassifiedListApiCallId  ========================>",responseJson)
-          this.setState({classifiedtListing :responseJson?.data})
-        
-          this.setState({loading: false})
+          this.setState({classifiedListing :responseJson?.data,loading: false})
           } else if (responseJson?.errors) {
-            let error = Object.values(responseJson.errors[0])[0] as string;
+            let error = responseJson.errors[0] as string;
             this.setState({ error });
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
@@ -593,6 +593,7 @@ deleteClassified =()=>{
     token :localStorage.getItem("userToken")
   };
   const id =this.state?.classifiedId
+  console.log("id deleteClassified==============>",id)
   this.setState({loading: true}) 
   const requestMessage = new Message(
     getName(MessageEnum.RestAPIRequestMessage)
@@ -668,7 +669,7 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
       getName(MessageEnum.RestAPIRequestMessage)
     );
 
-    this.apicreateIncidentCallId = requestMessage.messageId;
+    this.createClassifiedApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
       `bx_block_posts/classifieds`
@@ -712,9 +713,9 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
         getName(MessageEnum.RestAPIRequestMessage)
       );
       this.getClassifiedListingApiCallId = requestMessage.messageId;
-      this.setState({ loading: true });
+      this.setState({ loading: true , myOrAllClassified:true});
      
-     const  getSortByOrStatus = `/bx_block_posts/classifieds?filter_by=${status}`
+     const  getSortByOrStatus =`bx_block_posts/classifieds?filter_by=${status}`
        
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
@@ -786,7 +787,7 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
         getName(MessageEnum.RestAPIRequestMessage)
       );
       this.getMyClassifiedListApiCallId = requestMessage.messageId;
-      this.setState({ loading: true });
+      this.setState({ loading: true ,myOrAllClassified:false });
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
@@ -810,13 +811,50 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
     }
   };
 
-  updateClassified = (id:any) => {
+  updateClassified =async (classifiedFromData:any,) => {
     try {
       const header = {
         "Content-Type": configJSON.validationApiContentType,
         token :localStorage.getItem("userToken")
       };
-      //const id = localStorage.getItem("userId");
+      const formData = new FormData();
+      const classifiedUserType = this.state?.getClassifiedDetails?.attributes?.classified_type
+      //formData.append('classified[classified_type]', classifiedUserType);
+      formData.append('classified[full_phone_number]', classifiedFromData?.phone);
+      formData.append('classified[email]', classifiedFromData.email);
+      formData.append('classified[title]', classifiedFromData.classifiedTitle);
+      formData.append('classified[description]', classifiedFromData.description);
+      formData.append('classified[currency_id]', classifiedFromData.currency);
+      formData.append('classified[duration_from]', classifiedFromData.startDate);
+      formData.append('classified[duration_to]', classifiedFromData.endDate);
+   
+      for (let j = 0; j < classifiedFromData.media.length; j += 1) {
+       let blob = await fetch(classifiedFromData.media[j].url).then(r => r.blob());
+         //@ts-ignore
+       // blob.name = classifiedFromData.media[j].file.name
+       console.log("bolb ==================>",blob);
+   
+       formData.append(
+         "classified[attachments][]",
+         blob
+       );
+       //console.log("classified[attachments][] ==================>",classifiedFromData.media[j].file);
+     }
+     if(classifiedUserType ==='generic'){
+       formData.append('classified[payment_detail]', classifiedFromData.paymentDetail);
+       formData.append('classified[time_from]', classifiedFromData.timeFrom);
+       formData.append('classified[time_to]', classifiedFromData.timeTo);
+     }
+     else if(classifiedUserType==='buyer'){
+       formData.append('classified[price_from]', classifiedFromData.priceFrom);
+       formData.append('classified[price_to]', classifiedFromData.priceTo);
+     }
+     else {
+       formData.append('classified[price]', classifiedFromData.price);
+     }
+     
+      const httpBody = formData;
+      
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
@@ -825,12 +863,17 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `bx_block_posts/classifieds/${id}`
+        `bx_block_posts/classifieds/${classifiedFromData?.id}`
       );
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIRequestHeaderMessage),
         JSON.stringify(header)
+      );
+     
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestBodyMessage),
+        httpBody
       );
 
       requestMessage.addData(
@@ -881,27 +924,29 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
   };
   
   
-  handleClick = (event:any) => {
-    this.setState({anchorEl:event.currentTarget })
+  handleClick = (event:any,id:any) => {
+    console.log("id=========>",id)
+    this.setState({anchorEl:event.currentTarget ,classifiedId:id })
   };
-  handleClose = (e:any, v:any,id :any) => {
+  handleClose = (e:any, v:any) => {
     console.log("v=========>",v)
     let anchorEl :any ;
     if(v === undefined || v === null){
-      console.log("v=========>",v)
       anchorEl=null
     }
     else if (v === "edit"){
       localStorage.removeItem("classifiedUserType");
+      console.log("classifiedId=============>",this.state?.classifiedId)
       this.props.history.push({
         pathname: "/CreateClassified",
          //@ts-ignore
-        id,
+        id:this.state?.classifiedId
     });
     }
    else if (v === "delete"){
      {
-      this.setState({deleteShowDialog: true , classifiedId:id }) }
+      console.log("classifiedId=============>",this.state?.classifiedId)
+      this.setState({deleteShowDialog: true}) }
      }
 
      this.setState({anchorEl}) 
