@@ -101,7 +101,7 @@ class ChairmanProfile extends ProfileController {
                   </Box>
                   <Card className="profile-details-box">
                     <Grid container>
-                      <Grid item xs={3} className="left-side">
+                      <Grid item xs={3} className="left-side" style={{padding:20}}>
                         <img
                           src={profileData?.attributes?.profile_pic||AvatarIcon.default}
                           alt="avatar"
@@ -118,7 +118,7 @@ class ChairmanProfile extends ProfileController {
                         </Box>
                       </Grid>
                       <Grid item xs={1} className="border" />
-                      <Grid item xs={8} className="right-side">
+                      <Grid item xs={8} className="right-side" style={{padding:20}}>
                         <Grid container className="about">
                           <Grid item xs={12}>
                             <span>About</span>
@@ -190,7 +190,7 @@ class ChairmanProfile extends ProfileController {
                 </Box>
                 <Box className="edit-button">
                   <Button onClick={() => this.setState({showDialog:true})}>
-                    Edit Detail
+                    Edit Details
                   </Button>
                 </Box>
               </Container>
@@ -206,12 +206,25 @@ class ChairmanProfile extends ProfileController {
           PaperProps={{
             style: {
               borderRadius: '15px',
-              padding: '2rem'
+              maxWidth:650
+              
             },
           }}
         >
+          <Grid container>
+            <Grid xs={12} style={{borderBottom:'1px solid #e9dede',padding: '1rem'}}>
+              <Box display='flex' justifyContent='space-between'>
+                <p style={{fontWeight:600}}>
+                  Edit My Profile
+                </p>
+                <p onClick={()=>this.setState({ showDialog: false })} style={{cursor:'pointer'}}>
+                  X
+                </p>
+              </Box>
+            </Grid>
+          </Grid>
           
-          <Grid container className="main-content-block" style={{marginTop:'1.5rem'}}>
+          <Grid container className="main-content-block" style={{marginTop:'1.5rem',padding: '1rem'}}>
                 <Grid xs={12}>
                   <Formik initialValues={{
                     bannerUrl:'',
@@ -368,7 +381,7 @@ class ChairmanProfile extends ProfileController {
                                   onChange={this.handleChange}
                                   label="Unit"
                                   disabled
-                                  value={this.state.selectCode}
+                                  value={this.state.selectCode3}
                                 >
                                   <MenuItem value="">
                                     <em>None</em>
@@ -420,7 +433,7 @@ class ChairmanProfile extends ProfileController {
                             </Typography>
                           ) : null}
                           <p style={{ color:'#FC8434',textAlign:'right',fontWeight:'bold',cursor:'pointer'}} onClick={()=>this.setState({showDialog1:true})}>
-                            Verify number to update
+                            Update phone number
                           </p>
 </Box>
                           </Box>
@@ -970,3 +983,4 @@ class ChairmanProfile extends ProfileController {
 
 export default withStyles(ProfileStyleWeb)(ChairmanProfile);
 // Customizable Area End
+ 
