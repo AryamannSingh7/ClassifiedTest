@@ -1622,7 +1622,7 @@ const routeMap = {
   },
   OwnerBuildings: {
     component: OwnerBuildings,
-    path: '/BuildingDetails',
+    path: '/BuildingDetails/:id',
     roles: [ROLE.OWNER, ROLE.OWNER_RESIDENT, ROLE.TENANT]
   },
   TenantList: {
