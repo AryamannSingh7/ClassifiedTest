@@ -577,7 +577,8 @@ onSubmit =(values:any)=>{
     //@ts-ignore
     this.props.history.push("/ClassifiedPreview")
 }
-getIncidentDetails= (id :any) => {
+getClassifiedDetails= (e:any,id :any) => {
+  e.stopPropagation();
    //@ts-ignore
   this.props.history.push({
     pathname: "/ClassifiedDetails",
@@ -638,8 +639,8 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
    formData.append('classified[duration_from]', classifiedFromData.startDate);
    formData.append('classified[duration_to]', classifiedFromData.endDate);
 
-   for (let j = 0; j < classifiedFromData.media.length; j += 1) {
-    let blob = await fetch(classifiedFromData.media[j].url).then(r => r.blob());
+   for (let j = 0; j < classifiedFromData?.media?.length; j += 1) {
+    let blob = await fetch(classifiedFromData?.media[j]?.url).then(r => r.blob());
       //@ts-ignore
     // blob.name = classifiedFromData.media[j].file.name
     console.log("bolb ==================>",blob);
@@ -925,22 +926,28 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
   
   
   handleClick = (event:any,id:any) => {
-    console.log("id=========>",id)
+    event.stopPropagation();
+    console.log("id handleClick=========>",id)
     this.setState({anchorEl:event.currentTarget ,classifiedId:id })
   };
   handleClose = (e:any, v:any) => {
-    console.log("v=========>",v)
     let anchorEl :any ;
+    e.stopPropagation();
+    console.log("v=========>",v)
     if(v === undefined || v === null){
       anchorEl=null
     }
     else if (v === "edit"){
       localStorage.removeItem("classifiedUserType");
       console.log("classifiedId=============>",this.state?.classifiedId)
+      const id = this.state?.classifiedId
       this.props.history.push({
         pathname: "/CreateClassified",
-         //@ts-ignore
-        id:this.state?.classifiedId
+        state: {
+          //@ts-ignore
+          //@ts-nocheck
+          id: id,
+        },
     });
     }
    else if (v === "delete"){

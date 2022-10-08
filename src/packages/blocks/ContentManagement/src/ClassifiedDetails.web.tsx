@@ -58,6 +58,7 @@ class ClassifiedDetails extends ClassifiedController {
     const { navigation } = this.props;
     const id = this.state?.getClassifiedDetails?.id;
     const attributes = this.state?.getClassifiedDetails?.attributes;
+    const classified_type = this.state?.getClassifiedDetails?.attributes?.classified_type
     return (
       <>
         <Box className="login-wrapper incident-wrapper">
@@ -88,19 +89,64 @@ class ClassifiedDetails extends ClassifiedController {
                         Description:
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                          {attributes?.Description}
+                          {attributes?.description}
                         </Typography>
-                        <Typography className="title-span" component="span">
-                         Price:
+                        {
+                        attributes?.price  ?
+                          <>
+                       <Typography className="title-span" component="span">
+                            Price:
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                        {attributes?.price_to}
+                        {attributes?.price} {attributes?.currency?.currency}
                         </Typography>
+                          </> 
+                          :null
+                        }
+                        {
+                        attributes?.payment_detail  ?
+                          <>
+                       <Typography className="title-span" component="span">
+                       Payment Detail:
+                        </Typography>
+                        <Typography className="sub-title" component="h5">
+                       {attributes?.payment_detail} {attributes?.currency?.currency}
+                        </Typography>
+                          </> 
+                          :null
+                        }
+                       
+                       {
+                        attributes?.price_from && attributes?.price_to  ?
+                          <>
+                       <Typography className="title-span" component="span">
+                            Price:
+                        </Typography>
+                        <Typography className="sub-title" component="h5">
+                        {attributes?.price_from} {attributes?.currency?.currency} - {attributes?.price_to} {attributes?.currency?.currency}
+                        </Typography>
+                          </> 
+                          :null
+                        }
+                       
+                       {
+                          attributes?.time_from && attributes?.time_to ?
+                            <Box className="card-rows">
+                              <Typography className="title-span" component="span">
+                                 Time:
+                              </Typography>
+                              <Typography className="sub-title" component="h5">
+                             From {attributes?.time_from} to {attributes?.time_to}
+                              </Typography>
+                            </Box>
+                            :
+                            null
+                        }
                         <Typography component="span">
                         Duration:
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                          {attributes?.duration_from} to {attributes?.duration_to}
+                         From {attributes?.duration_from} to {attributes?.duration_to}
                         </Typography>
                         {
                           attributes?.attachments.length !== 0 ?
@@ -159,7 +205,10 @@ class ClassifiedDetails extends ClassifiedController {
                       </Box>
                     </Box> */}
                     <Box className="incident-rows mt-20">
-                      <h4>Seller Details</h4>
+                    {classified_type === "buyer" ? <h4>Buyers Details </h4>
+                      : classified_type === "seller" ? <h4>Sellers Details</h4>
+                        :  <h4>Generic Details</h4>
+                    }
                     </Box>
                     <Card className="incident-card reporting-card card">
                       <CardContent>
@@ -181,7 +230,7 @@ class ClassifiedDetails extends ClassifiedController {
                           <img src={Calender_Icon.default} className="icons" alt="" />
                           <Box className="reporting-right-block">
                             <h5>Published On:</h5>
-                            <h4 className="title">{attributes?.published_by?.email}</h4>
+                            <h4 className="title">{attributes?.published_by?.published_on || "NA"}</h4>
                           </Box>
                         </Box>
                         <Box className="reporting-row">
