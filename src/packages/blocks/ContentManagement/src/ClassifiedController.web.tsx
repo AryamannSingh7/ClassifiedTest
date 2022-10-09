@@ -628,9 +628,11 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
       token :localStorage.getItem("userToken")
     };
    // console.log("values create==================>",classifiedFromData.media[0].file );
+   const full_phone_number =`${classifiedFromData?.selectCode}${classifiedFromData?.phone}`
+   console.log("sekect ocde ",full_phone_number)
     const formData = new FormData();
    formData.append('classified[classified_type]', classifiedUserType);
-   formData.append('classified[full_phone_number]', classifiedFromData?.phone);
+   formData.append('classified[full_phone_number]',full_phone_number);
    formData.append('classified[email]', classifiedFromData.email);
    formData.append('classified[title]', classifiedFromData.classifiedTitle);
    formData.append('classified[description]', classifiedFromData.description);
@@ -817,6 +819,7 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
         "Content-Type": configJSON.validationApiContentType,
         token :localStorage.getItem("userToken")
       };
+      console.log("updateClassified=====>",classifiedFromData)
       const formData = new FormData();
       const classifiedUserType = this.state?.getClassifiedDetails?.attributes?.classified_type
       //formData.append('classified[classified_type]', classifiedUserType);
@@ -828,8 +831,8 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
       formData.append('classified[duration_from]', classifiedFromData.startDate);
       formData.append('classified[duration_to]', classifiedFromData.endDate);
    
-      for (let j = 0; j < classifiedFromData.media.length; j += 1) {
-       let blob = await fetch(classifiedFromData.media[j].url).then(r => r.blob());
+      for (let j = 0; j < classifiedFromData.media?.length; j += 1) {
+       let blob = await fetch(classifiedFromData?.media[j]?.url).then(r => r.blob());
          //@ts-ignore
        // blob.name = classifiedFromData.media[j].file.name
        console.log("bolb ==================>",blob);

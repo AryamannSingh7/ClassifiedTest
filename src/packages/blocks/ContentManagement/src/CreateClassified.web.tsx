@@ -69,19 +69,20 @@ class CreateClassified extends ClassifiedController {
     const { navigation } = this.props;
     //@ts-ignore
     const checkEditmode = this.props?.history?.location?.state?.id;
-    // console.log("this.state?.getClassifiedDetails?==============>",this.state?.getClassifiedDetails?.attributes)
+    const classifiedUserType = localStorage.getItem("classifiedUserType")
+    const classified_type = this.state?.getClassifiedDetails?.attributes?.classified_type;
+    console.log("classifiedUserType==============>",classifiedUserType)
     const id = this.state?.getClassifiedDetails?.id;
     const attributes = this.state?.getClassifiedDetails?.attributes;
-    const classifiedUserType = localStorage.getItem("classifiedUserType")
     // if (!checkEditmode) {
     //   //@ts-ignore
     //  // this.props.history.replace("/ClassifiedListing");
     //   return null;
     // }
-   if(!classifiedUserType){
-      this.props.history.replace("/ClassifiedType");
-      return null;
-    }
+  //  if(!classifiedUserType){
+  //     this.props.history.replace("/ClassifiedType");
+  //     return null;
+  //   }
 
     return (
       <>
@@ -102,16 +103,16 @@ class CreateClassified extends ClassifiedController {
                 <Box className="content-block-wrapper common-incident-block desktop-ui">
                   <Formik
                     initialValues={{
-                      phone: attributes?.full_phone_number || "",
+                      phone: attributes?.phone_number.phone_number || "",
                       email: attributes?.email || "",
                       classifiedTitle: attributes?.title || "",
                       description: attributes?.description || "",
-                      media: [],
-                      price: "",
-                      currency: attributes?.currency?.currency || ' ',
+                      media: attributes?.attachments || [],
+                      price: attributes?.price||"",
+                      currency: attributes?.currency?.id || ' ',
                       endDate: attributes?.duration_to || "",
                       startDate: attributes?.duration_from || "",
-                      selectCode: '+966',
+                      selectCode: `+${attributes?.phone_number?.country_code}`||'+966',
                       priceFrom: attributes?.price_from || "",
                       priceTo: attributes?.price_to || "",
                       timeFrom: attributes?.time_from || "",
@@ -235,73 +236,77 @@ class CreateClassified extends ClassifiedController {
 
                         {/* ADD THIS CLASSES ONLY WHEN YOU WANT SMALL FILE-UPLOAD OPTION 
                         "fileuploadBlock ,buyersFileupload"*/}
-                        <Box className="fileuploadBlock">
-                          <Box className="formGroup customFileupload buyersFileupload">
-                            <Button
-                              variant="contained"
-                              component="label"
-                            >
-                              <img src={Upload_Icon} className="upload-icon" alt="upload-icon" />
-                              Photos
-                              <input
-                                name='media'
-                                type="file"
-                                hidden
-                                multiple
-                                accept="image/jpg ,image/jpeg,image/gif,image/png,video/mp4,video/x-m4v"
-                                onChange={(e: any) =>
-                                  this.handleSelectMedia(
-                                    e,
-                                    values.media,
-                                    setFieldValue,
-                                    setFieldError
-                                  )
-                                }
-                              />
-                            </Button>
-                            {this.state?.upload ?
-                              <>
-                                <Box className="result-disp-row">
-                                  <img src={Checkmark_Icon.default} className="successful-icon" alt="card-img" />
-                                  <span className="text-success">
-                                    uploaded successfully
-                                  </span>
-                                </Box>
-                              </>
-                              : this.state.notImageOrVideoError ?
-                                <Box className="result-disp-row">
-                                  <img src={Error_Icon.default} className="error-icon" alt="card-img" />
-                                  <span className="text-error">
-                                    Only image and video are supported.
-                                  </span>
-                                </Box>
-                                :
-                                this.state.sizeError ?
-                                  <Box className="result-disp-row">
-                                    <img src={Error_Icon.default} className="error-icon" alt="card-img" />
-                                    <span className="text-error">
-                                      size is less than 10 mb.
-                                    </span>
-                                  </Box>
-                                  : null
-                            }
-                            {/* <ErrorMessage className="text-error" component="Typography" name="media" /> */}
-                          </Box>
-                          {/* <Box className="imgLayer">
-                            <img src={Landing_Banner.default} className="buyerphoto" alt="Building1" />
-                            <img src={CloseIcon} className="close_icon" alt="Building1" />
-                          </Box>
-                          <Box className="imgLayer">
-                            <img src={Landing_Banner.default} className="buyerphoto" alt="Building1" />
-                            <img src={CloseIcon} className="close_icon" alt="Building1" />
-                          </Box>
-                          <Box className="imgLayer">
-                            <img src={Landing_Banner.default} className="buyerphoto" alt="Building1" />
-                            <img src={CloseIcon} className="close_icon" alt="Building1" />
-                          </Box> */}
-                        </Box>
+                        { classifiedUserType !== "generic" && classified_type !== "generic" ?
+                           <Box className="fileuploadBlock">
+                           <Box className="formGroup customFileupload buyersFileupload">
+                             <Button
+                               variant="contained"
+                               component="label"
+                             >
+                               <img src={Upload_Icon} className="upload-icon" alt="upload-icon" />
+                               Photos
+                               <input
+                                 name='media'
+                                 type="file"
+                                 hidden
+                                 multiple
+                                 accept="image/jpg ,image/jpeg,image/gif,image/png"
+                                 onChange={(e: any) =>
+                                   this.handleSelectMedia(
+                                     e,
+                                     values.media,
+                                     setFieldValue,
+                                     setFieldError
+                                   )
+                                 }
+                               />
+                             </Button>
+                             {this.state?.upload ?
+                               <>
+                                 <Box className="result-disp-row">
+                                   <img src={Checkmark_Icon.default} className="successful-icon" alt="card-img" />
+                                   <span className="text-success">
+                                     uploaded successfully
+                                   </span>
+                                 </Box>
+                               </>
+                               : this.state.notImageOrVideoError ?
+                                 <Box className="result-disp-row">
+                                   <img src={Error_Icon.default} className="error-icon" alt="card-img" />
+                                   <span className="text-error">
+                                     Only image and video are supported.
+                                   </span>
+                                 </Box>
+                                 :
+                                 this.state.sizeError ?
+                                   <Box className="result-disp-row">
+                                     <img src={Error_Icon.default} className="error-icon" alt="card-img" />
+                                     <span className="text-error">
+                                       size is less than 10 mb.
+                                     </span>
+                                   </Box>
+                                   : null
+                             }
+                             {/* <ErrorMessage className="text-error" component="Typography" name="media" /> */}
+                           </Box>
+                           {/* <Box className="imgLayer">
+                             <img src={Landing_Banner.default} className="buyerphoto" alt="Building1" />
+                             <img src={CloseIcon} className="close_icon" alt="Building1" />
+                           </Box>
+                           <Box className="imgLayer">
+                             <img src={Landing_Banner.default} className="buyerphoto" alt="Building1" />
+                             <img src={CloseIcon} className="close_icon" alt="Building1" />
+                           </Box>
+                           <Box className="imgLayer">
+                             <img src={Landing_Banner.default} className="buyerphoto" alt="Building1" />
+                             <img src={CloseIcon} className="close_icon" alt="Building1" />
+                           </Box> */}
+                         </Box>
+                         :null
+                        }
+                        
                         {
-                          classifiedUserType === "generic" ?
+                          classifiedUserType === "generic" || classified_type === "generic"?
                             <>
                               <Box className="formGroup customSelect" style={{ marginTop: 20 }}>
                                 <FormControl variant="outlined" >
@@ -349,7 +354,7 @@ class CreateClassified extends ClassifiedController {
                               <Grid container>
                                 <Grid xs={6}>
                                   <Box className="formGroup classifiedFormGroup">
-                                    <Field name="timeFrom" type="time" placeholder="From" className="formInput" />
+                                    <Field name="timeFrom" type="time" placeholder="From" className="formInput"  format="hh:mm"/>
                                     <span className="frmLeftIcons">
                                       <img src={TimeIcon} className="frm-icons" alt="Warning Icon" />
                                     </span>
@@ -358,7 +363,7 @@ class CreateClassified extends ClassifiedController {
                                 </Grid>
                                 <Grid xs={6}>
                                   <Box className="formGroup">
-                                    <Field name="timeTo" type="time" placeholder="To" className="formInput formInputBox" />
+                                    <Field name="timeTo" type="time" placeholder="To" className="formInput formInputBox" format="hh:mm" />
                                     <span className="frmLeftIcons">
                                       <img src={TimeIcon} className="frm-icons" alt="Warning Icon" />
                                     </span>
@@ -373,7 +378,7 @@ class CreateClassified extends ClassifiedController {
                         }
 
                         {
-                          classifiedUserType === "buyer" ?
+                          classifiedUserType === "buyer" || classified_type === "buyer"?
                             <>
                               <Grid container>
                                 <Grid xs={12} className="classifiedPriceBlock">
@@ -437,7 +442,7 @@ class CreateClassified extends ClassifiedController {
                             </>
                             : null
                         }
-                        {classifiedUserType === "seller" ?
+                        {classifiedUserType === "seller" || classified_type === "seller"?
                           <>
                             <Box className="sellerPriceBox" style={{ marginTop: 20 }}>
                               <Box className="formGroup">
@@ -491,6 +496,7 @@ class CreateClassified extends ClassifiedController {
                                   type="date" name="startDate" fullWidth
                                   id="SurveyQuestion"
                                   format='DD/MM/YYYY'
+                                  value={values?.startDate}
                                   onChange={handleChange}
                                   InputProps={{
                                     // min: "2019-01-24",
@@ -518,6 +524,8 @@ class CreateClassified extends ClassifiedController {
                                   type="date" name="endDate" fullWidth
                                   style={{ width: "100%", borderRadius: "25px", border: "1px solid #e9dede" }}
                                   id="SurveyQuestion"
+                                  format='DD/MM/YYYY'
+                                  value={values?.endDate}
                                   onChange={handleChange}
                                   InputProps={{
                                     // min: "2019-01-24",
