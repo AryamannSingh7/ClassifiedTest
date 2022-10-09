@@ -240,7 +240,7 @@ export default class ClassifiedController extends BlockComponent<
             console.log("deleteClassifiedApiCallId===========>",responseJson)
             this.setState({loading: false, deleteShowDialog: false,classifiedId:null}) 
                //@ts-ignore
-               this.getClassifiedListing(this.state.status)   
+               this.getMyClassifiedList()   
           } else if (responseJson?.errors) {
             let error =responseJson.errors[0] as string;
             this.setState({ error });
@@ -298,9 +298,10 @@ export default class ClassifiedController extends BlockComponent<
         else if (apiRequestCallId === this.updateClassifiedApiCallId) {
           if (responseJson && responseJson?.data ) {
           console.log("updateClassifiedApiCallId========================>",responseJson)
-          this.setState({incidentRelatedData :responseJson?.data,loading: false})
+          this.setState({loading: false})
+          this.props.history.push("/ClassifiedEditSuccessfully")
           } else if (responseJson?.errors) {
-            let error = Object.values(responseJson.errors[0])[0] as string;
+            let error = responseJson.errors[0] as string;
             this.setState({ error });
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
@@ -816,7 +817,6 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
   updateClassified =async (classifiedFromData:any,) => {
     try {
       const header = {
-        "Content-Type": configJSON.validationApiContentType,
         token :localStorage.getItem("userToken")
       };
       console.log("updateClassified=====>",classifiedFromData)
@@ -831,18 +831,21 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
       formData.append('classified[duration_from]', classifiedFromData.startDate);
       formData.append('classified[duration_to]', classifiedFromData.endDate);
    
+    if(classifiedUserType !=='generic'){
       for (let j = 0; j < classifiedFromData.media?.length; j += 1) {
-       let blob = await fetch(classifiedFromData?.media[j]?.url).then(r => r.blob());
-         //@ts-ignore
-       // blob.name = classifiedFromData.media[j].file.name
-       console.log("bolb ==================>",blob);
-   
-       formData.append(
-         "classified[attachments][]",
-         blob
-       );
-       //console.log("classified[attachments][] ==================>",classifiedFromData.media[j].file);
-     }
+        let blob = await fetch(classifiedFromData?.media[j]?.url).then(r => r.blob());
+          //@ts-ignore
+        // blob.name = classifiedFromData.media[j].file.name
+        console.log("bolb ==================>",blob);
+    
+        formData.append(
+          "classified[attachments][]",
+          blob
+        );
+        //console.log("classified[attachments][] ==================>",classifiedFromData.media[j].file);
+      }
+    }
+  
      if(classifiedUserType ==='generic'){
        formData.append('classified[payment_detail]', classifiedFromData.paymentDetail);
        formData.append('classified[time_from]', classifiedFromData.timeFrom);

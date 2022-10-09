@@ -104,6 +104,7 @@ class CreateClassified extends ClassifiedController {
                   <Formik
                     initialValues={{
                       phone: attributes?.phone_number.phone_number || "",
+                      selectCode: attributes?.phone_number?.country_code||'+966',
                       email: attributes?.email || "",
                       classifiedTitle: attributes?.title || "",
                       description: attributes?.description || "",
@@ -112,7 +113,6 @@ class CreateClassified extends ClassifiedController {
                       currency: attributes?.currency?.id || ' ',
                       endDate: attributes?.duration_to || "",
                       startDate: attributes?.duration_from || "",
-                      selectCode: `+${attributes?.phone_number?.country_code}`||'+966',
                       priceFrom: attributes?.price_from || "",
                       priceTo: attributes?.price_to || "",
                       timeFrom: attributes?.time_from || "",
@@ -167,10 +167,8 @@ class CreateClassified extends ClassifiedController {
                                 {dailCode.map((item) =>
                                   <MenuItem key={item.dial_code} value={item.dial_code}> <img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/${item.code}.svg`} width='15' height='15' style={{ marginRight: '5px' }} />
                                     {item.dial_code}</MenuItem>
-
                                 )
                                 }
-
                               </Select>
                             </FormControl>
 
@@ -237,8 +235,8 @@ class CreateClassified extends ClassifiedController {
                         {/* ADD THIS CLASSES ONLY WHEN YOU WANT SMALL FILE-UPLOAD OPTION 
                         "fileuploadBlock ,buyersFileupload"*/}
                         { classifiedUserType !== "generic" && classified_type !== "generic" ?
-                           <Box className="fileuploadBlock">
-                           <Box className="formGroup customFileupload buyersFileupload">
+                           <Box className={checkEditmode ?"fileuploadBlock":""}>
+                           <Box className={checkEditmode ?"formGroup customFileupload buyersFileupload":"formGroup customFileupload"}>
                              <Button
                                variant="contained"
                                component="label"
