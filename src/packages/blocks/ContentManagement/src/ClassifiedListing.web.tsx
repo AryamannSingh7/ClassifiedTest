@@ -14,7 +14,8 @@ import {
   Dialog,
   DialogTitle,
   Menu,
-  MenuItem
+  MenuItem,
+  CardActionArea
 } from "@material-ui/core";
 
 //resources
@@ -117,7 +118,8 @@ class ClassifiedListing extends ClassifiedController {
                       </Box>
                       : 
                         this.state?.classifiedListing?.map((val: any, index: any) => (
-                        <Card className="classified-card card" key={val?.attributes?.id} onClick={(e:any) => {this.getClassifiedDetails(e,val.id)}}>
+                        <Card className="classified-card card" key={val?.attributes?.id} >
+                          <CardActionArea onClick={(e:any) => {this.getClassifiedDetails(e,val.id)}}>
                           <CardContent className="costom-card-content">
                             <Box className="classified-card-header">
                               <Typography component="h4">
@@ -128,7 +130,7 @@ class ClassifiedListing extends ClassifiedController {
                                 null
                                 :
                                 <>
-                                 <Button  aria-controls="simple-menu" aria-haspopup="true" onClick={(e: any) =>{ this.handleClick(e ,val?.attributes?.id)}}>
+                                 <Button  aria-controls="simple-menu" aria-haspopup="true" onMouseDown={event => event.stopPropagation()} onClick={(e: any) =>{ this.handleClick(e ,val?.attributes?.id)}}>
                                 <img src={Setting_Icon} className="grid-icon icons" alt="" />
                               </Button>
                               <Menu
@@ -179,6 +181,7 @@ class ClassifiedListing extends ClassifiedController {
                               }
                             </Box>
                           </CardContent>
+                          </CardActionArea>
                         </Card>
                     ))
                   }

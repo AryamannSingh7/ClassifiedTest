@@ -240,7 +240,7 @@ export default class ClassifiedController extends BlockComponent<
             console.log("deleteClassifiedApiCallId===========>",responseJson)
             this.setState({loading: false, deleteShowDialog: false,classifiedId:null}) 
                //@ts-ignore
-              this.props.history.push("/ClassifiedListing")     
+               this.getClassifiedListing(this.state.status)   
           } else if (responseJson?.errors) {
             let error =responseJson.errors[0] as string;
             this.setState({ error });
@@ -578,7 +578,6 @@ onSubmit =(values:any)=>{
     this.props.history.push("/ClassifiedPreview")
 }
 getClassifiedDetails= (e:any,id :any) => {
-  e.stopPropagation();
    //@ts-ignore
   this.props.history.push({
     pathname: "/ClassifiedDetails",
@@ -932,12 +931,12 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
   };
   handleClose = (e:any, v:any) => {
     let anchorEl :any ;
-    e.stopPropagation();
     console.log("v=========>",v)
     if(v === undefined || v === null){
       anchorEl=null
     }
     else if (v === "edit"){
+         e.stopPropagation();
       localStorage.removeItem("classifiedUserType");
       console.log("classifiedId=============>",this.state?.classifiedId)
       const id = this.state?.classifiedId
@@ -952,6 +951,7 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
     }
    else if (v === "delete"){
      {
+      e.stopPropagation();
       console.log("classifiedId=============>",this.state?.classifiedId)
       this.setState({deleteShowDialog: true}) }
      }
