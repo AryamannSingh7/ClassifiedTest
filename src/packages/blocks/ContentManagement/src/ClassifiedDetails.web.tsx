@@ -82,13 +82,13 @@ class ClassifiedDetails extends ClassifiedController {
                         <Typography className="title-span" component="span">
                          Title:
                         </Typography>
-                        <Typography className="sub-title" component="h5">
+                        <Typography className="sub-title" component="h3">
                           {attributes?.title}
                         </Typography>
                         <Typography className="title-span" component="span">
                         Description:
                         </Typography>
-                        <Typography className="sub-title" component="h5">
+                        <Typography className="sub-title" component="h3">
                           {attributes?.description}
                         </Typography>
                         {
@@ -97,7 +97,7 @@ class ClassifiedDetails extends ClassifiedController {
                        <Typography className="title-span" component="span">
                             Price:
                         </Typography>
-                        <Typography className="sub-title" component="h5">
+                        <Typography className="sub-title" component="h3">
                         {attributes?.price} {attributes?.currency?.currency}
                         </Typography>
                           </> 
@@ -109,7 +109,7 @@ class ClassifiedDetails extends ClassifiedController {
                        <Typography className="title-span" component="span">
                        Payment Detail:
                         </Typography>
-                        <Typography className="sub-title" component="h5">
+                        <Typography className="sub-title" component="h3">
                        {attributes?.payment_detail} {attributes?.currency?.currency}
                         </Typography>
                           </> 
@@ -122,7 +122,7 @@ class ClassifiedDetails extends ClassifiedController {
                        <Typography className="title-span" component="span">
                             Price:
                         </Typography>
-                        <Typography className="sub-title" component="h5">
+                        <Typography className="sub-title" component="h3">
                         {attributes?.price_from} {attributes?.currency?.currency} - {attributes?.price_to} {attributes?.currency?.currency}
                         </Typography>
                           </> 
@@ -135,7 +135,7 @@ class ClassifiedDetails extends ClassifiedController {
                               <Typography className="title-span" component="span">
                                  Time:
                               </Typography>
-                              <Typography className="sub-title" component="h5">
+                              <Typography className="sub-title" component="h3">
                              From {attributes?.time_from} to {attributes?.time_to}
                               </Typography>
                             </Box>
@@ -145,7 +145,7 @@ class ClassifiedDetails extends ClassifiedController {
                         <Typography component="span">
                         Duration:
                         </Typography>
-                        <Typography className="sub-title" component="h5">
+                        <Typography className="sub-title" component="h3">
                          From {attributes?.duration_from} to {attributes?.duration_to}
                         </Typography>
                         {

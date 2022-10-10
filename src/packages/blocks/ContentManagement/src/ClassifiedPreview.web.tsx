@@ -66,39 +66,46 @@ class ClassifiedPreview extends ClassifiedController {
                 <Box className="content-header">
                   <Box className="left-block blocks">
                     <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
-                    <h4>Seller Request</h4>
+                    {classifiedUserType === "buyer" ? <h4>Buyers Request </h4>
+                      : classifiedUserType === "seller" ? <h4>Sellers Request</h4>
+                        : <h4>Generic Request</h4> 
+                    }
+                   
                   </Box>
                 </Box>
                 <Box className="content-block-wrapper common-incident-block">
                   <Box className="incident-content-wrapper">
                     <Box className="incident-rows">
-                      <h4>Request  Preview</h4>
+                    {classifiedUserType === "buyer" ? <h4>Buyers Request Preview</h4>
+                      : classifiedUserType === "seller" ? <h4>Sellers Request Preview</h4>
+                        : <h4>Generic Request Preview</h4> 
+                    }
                     </Box>
                     <Card className="incident-card card">
                       <CardContent>
                         <Typography component="span">
                           Moblie Number:
                         </Typography>
-                        <Typography className="sub-title" component="h5">
+                        <Typography className="sub-title" component="h3">
                           {classifiedFromData?.phone}
                         </Typography>
                         <Typography component="span">
                           Email Id:
                         </Typography>
-                        <Typography className="sub-title" component="h5">
+                        <Typography className="sub-title" component="h3">
                           {classifiedFromData?.email}
                         </Typography>
                         <Typography component="span">
                           Title:
                         </Typography>
-                        <Typography className="sub-title" component="h5">
+                        <Typography className="sub-title" component="h3">
                           {classifiedFromData?.classifiedTitle}
                         </Typography>
 
                         <Typography component="span">
                         Description:
                         </Typography>
-                        <Typography className="sub-title" component="h5">
+                        <Typography className="sub-title" component="h3">
                           {classifiedFromData?.description}
                         </Typography>
 
@@ -108,7 +115,7 @@ class ClassifiedPreview extends ClassifiedController {
                        <Typography className="title-span" component="span">
                             Price:
                         </Typography>
-                        <Typography className="sub-title" component="h5">
+                        <Typography className="sub-title" component="h3">
                         {classifiedFromData?.price} {currency[0]?.attributes?.currency}
                         </Typography>
                           </> 
@@ -121,7 +128,7 @@ class ClassifiedPreview extends ClassifiedController {
                        <Typography className="title-span" component="span">
                        Payment Detail:
                         </Typography>
-                        <Typography className="sub-title" component="h5">
+                        <Typography className="sub-title" component="h3">
                        {classifiedFromData?.paymentDetail} {currency[0]?.attributes?.currency}
                         </Typography>
                           </> 
@@ -134,7 +141,7 @@ class ClassifiedPreview extends ClassifiedController {
                        <Typography className="title-span" component="span">
                             Price:
                         </Typography>
-                        <Typography className="sub-title" component="h5">
+                        <Typography className="sub-title" component="h3">
                         {classifiedFromData?.priceFrom} {currency[0]?.attributes?.currency} - {classifiedFromData?.priceTo} {currency[0]?.attributes?.currency}
                         </Typography>
                           </> 
@@ -147,7 +154,7 @@ class ClassifiedPreview extends ClassifiedController {
                               <Typography className="title-span" component="span">
                                From Time:
                               </Typography>
-                              <Typography className="sub-title" component="h5">
+                              <Typography className="sub-title" component="h3">
                                 {classifiedFromData?.timeFrom}
                               </Typography>
                             </Box>
@@ -161,7 +168,7 @@ class ClassifiedPreview extends ClassifiedController {
                               <Typography className="title-span" component="span">
                                  To Time:
                               </Typography>
-                              <Typography className="sub-title" component="h5">
+                              <Typography className="sub-title" component="h3">
                                 {classifiedFromData?.timeTo}
                               </Typography>
                             </Box>
@@ -175,7 +182,7 @@ class ClassifiedPreview extends ClassifiedController {
                           <Typography component="span">
                             From Date:
                         </Typography>
-                        <Typography className="sub-title" component="h5">
+                        <Typography className="sub-title" component="h3">
                           {classifiedFromData.startDate} 
                         </Typography>
                         </Box>
@@ -187,7 +194,7 @@ class ClassifiedPreview extends ClassifiedController {
                           <Typography component="span">
                             To Date:
                         </Typography>
-                        <Typography className="sub-title" component="h5">
+                        <Typography className="sub-title" component="h3">
                           {classifiedFromData.endDate}
                         </Typography>
                         </Box>

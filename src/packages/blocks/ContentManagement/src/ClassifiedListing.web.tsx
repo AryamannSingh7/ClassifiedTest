@@ -51,8 +51,8 @@ class ClassifiedListing extends ClassifiedController {
               <Box className="content-block">
                 <Box className="content-header">
                   <Box className="left-block blocks">
-                    <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
-                    <h4>Classified asdsd</h4>
+                    <Box className="backIcons" onClick={this.redirectToDashboard}><KeyboardBackspaceIcon /></Box>
+                    <h4>Classified</h4>
                   </Box>
                   {
                     this.state?.myOrAllClassified ?
@@ -219,6 +219,10 @@ class ClassifiedListing extends ClassifiedController {
                     ))
                   }
                   </Box>
+                  {
+                    this.state?.myOrAllClassified ?
+                    null
+                  :
                   <Box className="customButton add-incident">
                     <Button variant="contained" onClick={() => {
                       this.setState({ loading: true });//@ts-ignore
@@ -227,6 +231,8 @@ class ClassifiedListing extends ClassifiedController {
                       :
                     'ADD Classified'}</Button>
                   </Box>
+                  }
+                 
                 </Box>
                 {/* <Box className="footer-main-block bottomBlock">
                    <h6 className="bottom-text">POWERED BY</h6>

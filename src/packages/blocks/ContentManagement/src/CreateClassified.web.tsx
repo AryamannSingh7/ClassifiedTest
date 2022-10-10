@@ -74,15 +74,16 @@ class CreateClassified extends ClassifiedController {
     console.log("classifiedUserType==============>",classifiedUserType)
     const id = this.state?.getClassifiedDetails?.id;
     const attributes = this.state?.getClassifiedDetails?.attributes;
-    // if (!checkEditmode) {
-    //   //@ts-ignore
-    //  // this.props.history.replace("/ClassifiedListing");
-    //   return null;
-    // }
-  //  if(!classifiedUserType){
-  //     this.props.history.replace("/ClassifiedType");
-  //     return null;
-  //   }
+    if (!checkEditmode) {
+      //@ts-ignore
+        if(!classifiedUserType){
+       this.props.history.replace("/ClassifiedType");
+       return null;
+    }
+    this.props.history.replace("/ClassifiedListing");
+      return null;
+    }
+  
 
     return (
       <>
@@ -235,8 +236,8 @@ class CreateClassified extends ClassifiedController {
                         {/* ADD THIS CLASSES ONLY WHEN YOU WANT SMALL FILE-UPLOAD OPTION 
                         "fileuploadBlock ,buyersFileupload"*/}
                         { classifiedUserType !== "generic" && classified_type !== "generic" ?
-                           <Box className={checkEditmode ?"fileuploadBlock":""}>
-                           <Box className={checkEditmode ?"formGroup customFileupload buyersFileupload":"formGroup customFileupload"}>
+                           <Box >
+                           <Box className="formGroup customFileupload">
                              <Button
                                variant="contained"
                                component="label"
@@ -247,7 +248,6 @@ class CreateClassified extends ClassifiedController {
                                  name='media'
                                  type="file"
                                  hidden
-                                 multiple
                                  accept="image/jpg ,image/jpeg,image/gif,image/png"
                                  onChange={(e: any) =>
                                    this.handleSelectMedia(
@@ -272,7 +272,7 @@ class CreateClassified extends ClassifiedController {
                                  <Box className="result-disp-row">
                                    <img src={Error_Icon.default} className="error-icon" alt="card-img" />
                                    <span className="text-error">
-                                     Only image and video are supported.
+                                     Only image are supported.
                                    </span>
                                  </Box>
                                  :

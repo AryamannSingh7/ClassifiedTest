@@ -47,7 +47,7 @@ class ClassifiedEditSuccessfully extends ClassifiedController {
                 <Box className="main-content-block change-password-mainblock">
                   <Box className="header-block header-block-changepassword">
                     <img src={Tick_Circle_Icon} className="lock-logo" alt="Lock_Icon" />
-                    <h1>Edit  Request Sent<br></br>Successfully</h1>
+                    <h1>Edit Request Sent<br></br>Successfully</h1>
                     <p>Your edit classified request has been sent to the building/complex manager successfully. You will get a notification once it is processed.</p> </Box>
                 </Box>
                 <Box className="footer-block desktop-ui">
