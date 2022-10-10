@@ -793,37 +793,37 @@ ClassifiedReportedSuccessfully: {
   },
   SelectedTemplate: {
     component: SelectedTemplate,
-    path: '/IssueLease/:id',
+    path: '/IssueLease/:templateId',
     exact: true
   },
   SelectedTemplateTwo: {
     component: SelectedTemplate,
-    path: '/IssueContract/:id',
+    path: '/IssueContract/:templateId',
     exact: true
   },
   LeaseFormIssueLease: {
     component: LeaseForm,
-    path: '/IssueLease/:id/LeaseForm',
+    path: '/IssueLease/:templateId/LeaseForm',
     exact: true
   },
   LeaseFormIssueContract: {
     component: LeaseForm,
-    path: '/IssueContract/:id/LeaseForm',
+    path: '/IssueContract/:templateId/LeaseForm',
     exact: true
   },
   ChangedSelectedTemplate: {
     component: ChangedSelectedTemplate,
-    path: '/IssueContract/:id/LeaseForm/Template',
+    path: '/IssueContract/:templateId/LeaseForm/Template',
     exact: true
   },
   AddCondition: {
     component: AddCondition,
-    path: '/IssueContract/:id/LeaseForm/Template/AddCondition',
+    path: '/IssueContract/:templateId/LeaseForm/Template/AddCondition',
     exact: true
   },
   ReviewTemplate: {
     component: ReviewTemplate,
-    path: '/IssueContract/:id/LeaseForm/Template/Review',
+    path: '/IssueContract/:templateId/LeaseForm/Template/Review',
     exact: true
   },
   // LeaseForm: {

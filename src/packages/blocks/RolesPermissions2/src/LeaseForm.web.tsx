@@ -1,6 +1,4 @@
 // Customizable Area Start
-//@ts-nocheck
-//@ts-ignore
 import React, { useRef } from "react";
 import {
   Button,
@@ -20,20 +18,26 @@ import {
 import { Link } from "react-router-dom";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import { ContractsStyleWeb } from "./ContractsStyle.web";
-import BuildingLogo from "../assets/building.png";
-import EarthIcon from "../assets/earth.png";
-import CubeIcon from "../assets/cube.png";
+import { BuildingLogo, EarthIcon, CubeIcon } from "./assets";
 import LeaseFormController, { Props } from "./LeaseFormController.web";
 import moment from "moment";
 import { Formik, Form } from "formik";
+import { withTranslation } from "react-i18next";
+import "../../../web/src/i18n.js";
 
 class LeaseForm extends LeaseFormController {
   constructor(props: Props) {
     super(props);
   }
 
+  async componentDidMount(): Promise<void> {
+    const template_id = this.props.navigation.getParam("templateId");
+    this.setState({ ...this.state, templateId: template_id }, () => {});
+  }
+
   render() {
     const { classes } = this.props;
+    const { t }: any = this.props;
 
     console.log("state", this.state);
 
@@ -77,21 +81,13 @@ class LeaseForm extends LeaseFormController {
                         });
                       }}
                     >
-                      {({
-                        values,
-                        errors,
-                        touched,
-                        handleChange,
-                        handleBlur,
-                        handleSubmit,
-                        setFieldValue,
-                      }) => {
+                      {({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue }) => {
                         console.log("values", values);
                         console.log("errors", errors);
                         console.log("touched", touched);
 
                         return (
-                          <Form onSubmit={handleSubmit}>
+                          <Form onSubmit={handleSubmit} translate>
                             <Box className="select-input-box">
                               <FormControl fullWidth>
                                 <Input
@@ -99,7 +95,7 @@ class LeaseForm extends LeaseFormController {
                                   onChange={handleChange}
                                   onBlur={handleBlur}
                                   name="tenantName"
-                                  variant="filled"
+                                  // variant="filled"
                                   className="select-input input"
                                   placeholder="Tenant Name"
                                   startAdornment={
@@ -118,7 +114,7 @@ class LeaseForm extends LeaseFormController {
                                   onChange={handleChange}
                                   onBlur={handleBlur}
                                   name="landlordName"
-                                  variant="filled"
+                                  // variant="filled"
                                   className="select-input input"
                                   placeholder="Landlord Name"
                                   startAdornment={
@@ -185,7 +181,7 @@ class LeaseForm extends LeaseFormController {
                         <MenuItem value={20}>Twenty</MenuItem>
                         <MenuItem value={30}>Thirty</MenuItem>
                       </Select> */}
-                              <FormControl fullWidth>
+                              {/* <FormControl fullWidth>
                                 <Select
                                   displayEmpty
                                   value={values.complexName}
@@ -209,28 +205,28 @@ class LeaseForm extends LeaseFormController {
                                 {errors.complexName && touched.complexName && (
                                   <p className="error">{errors.complexName}</p>
                                 )}
-                              </FormControl>
+                              </FormControl> */}
                               <FormControl fullWidth>
-                                <Select
-                                  displayEmpty
-                                  value={values.buildingName}
-                                  onChange={handleChange}
-                                  onBlur={handleBlur}
-                                  name="buildingName"
-                                  variant="filled"
-                                  className="select-input"
-                                  input={<OutlinedInput />}
-                                >
-                                  <MenuItem value="" disabled>
-                                    <ListItemIcon>
-                                      <img src={CubeIcon} alt="" />
-                                    </ListItemIcon>
-                                    Building Name
-                                  </MenuItem>
-                                  <MenuItem value={10}>Ten</MenuItem>
-                                  <MenuItem value={20}>Twenty</MenuItem>
-                                  <MenuItem value={30}>Thirty</MenuItem>
-                                </Select>
+                                <Box className="select-box">
+                                  <Select
+                                    displayEmpty
+                                    value={values.buildingName}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    name="buildingName"
+                                    variant="filled"
+                                    className="select-input"
+                                    input={<OutlinedInput />}
+                                  >
+                                    <MenuItem value="" disabled>
+                                      Building Name
+                                    </MenuItem>
+                                    <MenuItem value={10}>Ten</MenuItem>
+                                    <MenuItem value={20}>Twenty</MenuItem>
+                                    <MenuItem value={30}>Thirty</MenuItem>
+                                  </Select>
+                                  <img src={CubeIcon} alt="" />
+                                </Box>
                                 {errors.buildingName && touched.buildingName && (
                                   <p className="error">{errors.buildingName}</p>
                                 )}
@@ -256,9 +252,7 @@ class LeaseForm extends LeaseFormController {
                                   <MenuItem value={20}>Twenty</MenuItem>
                                   <MenuItem value={30}>Thirty</MenuItem>
                                 </Select>
-                                {errors.unitName && touched.unitName && (
-                                  <p className="error">{errors.unitName}</p>
-                                )}
+                                {errors.unitName && touched.unitName && <p className="error">{errors.unitName}</p>}
                               </FormControl>
                               <FormControl fullWidth>
                                 <Input
@@ -266,7 +260,7 @@ class LeaseForm extends LeaseFormController {
                                   onChange={handleChange}
                                   onBlur={handleBlur}
                                   name="duration"
-                                  variant="filled"
+                                  // variant="filled"
                                   className="select-input input"
                                   placeholder="Enter Agreement Duration"
                                   startAdornment={
@@ -275,9 +269,7 @@ class LeaseForm extends LeaseFormController {
                                     </InputAdornment>
                                   }
                                 />
-                                {errors.duration && touched.duration && (
-                                  <p className="error">{errors.duration}</p>
-                                )}
+                                {errors.duration && touched.duration && <p className="error">{errors.duration}</p>}
                               </FormControl>
                               <FormControl fullWidth>
                                 <Input
@@ -285,20 +277,18 @@ class LeaseForm extends LeaseFormController {
                                   onChange={handleChange}
                                   onBlur={handleBlur}
                                   name="startDate"
-                                  variant="filled"
+                                  // variant="filled"
                                   className="select-input input"
                                   placeholder="Start Contract Date"
                                   type="text"
-                                  onFocus={(e) => (e.target.type = "date")}
+                                  // onFocus={(e) => (e.target.type = "date")}
                                   startAdornment={
                                     <InputAdornment position="start">
                                       <img src={CubeIcon} alt="" />
                                     </InputAdornment>
                                   }
                                 />
-                                {errors.startDate && touched.startDate && (
-                                  <p className="error">{errors.startDate}</p>
-                                )}
+                                {errors.startDate && touched.startDate && <p className="error">{errors.startDate}</p>}
                               </FormControl>
                               <FormControl fullWidth>
                                 <Input
@@ -306,20 +296,18 @@ class LeaseForm extends LeaseFormController {
                                   onChange={handleChange}
                                   onBlur={handleBlur}
                                   name="endDate"
-                                  variant="filled"
+                                  // variant="filled"
                                   className="select-input input"
                                   placeholder="End Contract Date"
                                   type="text"
-                                  onFocus={(e) => (e.target.type = "date")}
+                                  // onFocus={(e) => (e.target.type = "date")}
                                   startAdornment={
                                     <InputAdornment position="start">
                                       <img src={CubeIcon} alt="" />
                                     </InputAdornment>
                                   }
                                 />
-                                {errors.endDate && touched.endDate && (
-                                  <p className="error">{errors.endDate}</p>
-                                )}
+                                {errors.endDate && touched.endDate && <p className="error">{errors.endDate}</p>}
                               </FormControl>
                               <FormControl fullWidth>
                                 <Input
@@ -327,7 +315,7 @@ class LeaseForm extends LeaseFormController {
                                   onChange={handleChange}
                                   onBlur={handleBlur}
                                   name="tenantName"
-                                  variant="monthlyRent"
+                                  // variant="monthlyRent"
                                   className="select-input input"
                                   placeholder="Enter Monthly Rent Amount"
                                   startAdornment={
@@ -361,9 +349,7 @@ class LeaseForm extends LeaseFormController {
                                   <MenuItem value={20}>Twenty</MenuItem>
                                   <MenuItem value={30}>Thirty</MenuItem>
                                 </Select>
-                                {errors.currency && touched.currency && (
-                                  <p className="error">{errors.currency}</p>
-                                )}
+                                {errors.currency && touched.currency && <p className="error">{errors.currency}</p>}
                               </FormControl>
 
                               <div className="next-button">
@@ -383,7 +369,7 @@ class LeaseForm extends LeaseFormController {
             </Grid>
             <Grid item xs={12} md={5}>
               <Box className="right-block right-image" display={{ xs: "none", md: "flex" }}>
-                <img src={BuildingLogo} className="building-logo" alt="" />
+                <img src={BuildingLogo.default} className="building-logo" alt="" />
               </Box>
             </Grid>
           </Grid>
@@ -393,5 +379,5 @@ class LeaseForm extends LeaseFormController {
   }
 }
 
-export default withStyles(ContractsStyleWeb)(LeaseForm);
+export default withTranslation()(withStyles(ContractsStyleWeb)(LeaseForm));
 // Customizable Area End

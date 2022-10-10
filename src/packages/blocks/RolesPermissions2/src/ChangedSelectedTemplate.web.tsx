@@ -1,6 +1,4 @@
 // Customizable Area Start
-//@ts-nocheck
-//@ts-ignore
 import React from "react";
 import {
   Button,
@@ -28,9 +26,9 @@ import CircleCheckedFilled from "@material-ui/icons/CheckCircle";
 import ChangedSelectedTemplateController, { Props } from "./ChangedSelectedTemplateController.web";
 import { Link } from "react-router-dom";
 import { ContractsStyleWeb } from "./ContractsStyle.web";
-import BuildingLogo from "../assets/building.png";
-import CubeIcon from "../assets/cube.png";
-import EditIcon from "../assets/edit.png";
+import { BuildingLogo, CubeIcon, EditIcon } from "./assets";
+import { withTranslation } from "react-i18next";
+import "../../../web/src/i18n.js";
 
 class ChangedSelectedTemplate extends ChangedSelectedTemplateController {
   constructor(props: Props) {
@@ -39,6 +37,7 @@ class ChangedSelectedTemplate extends ChangedSelectedTemplateController {
 
   render() {
     const { classes } = this.props;
+    const { t }: any = this.props;
 
     console.log();
 
@@ -61,11 +60,7 @@ class ChangedSelectedTemplate extends ChangedSelectedTemplateController {
                     <div className="template-view">Changed Template</div>
                     <div className="upload-button">
                       <Box className="condition-select">
-                        <Checkbox
-                          value={true}
-                          icon={<CircleUnchecked />}
-                          checkedIcon={<CircleCheckedFilled />}
-                        />
+                        <Checkbox value={true} icon={<CircleUnchecked />} checkedIcon={<CircleCheckedFilled />} />
                         <span>Include late payment penalty condition</span>
                       </Box>
                       {/* <Box className="condition-select">
@@ -114,10 +109,7 @@ class ChangedSelectedTemplate extends ChangedSelectedTemplateController {
                         </div>
                       </Box>
                       <Box className="button-group">
-                        <Button
-                          className="condition-button"
-                          onClick={() => this.handleConditionModal()}
-                        >
+                        <Button className="condition-button" onClick={() => this.handleConditionModal()}>
                           Add More Condition
                         </Button>
                         <Link to="/IssueContract/1/LeaseForm/Template/Review">
@@ -131,7 +123,7 @@ class ChangedSelectedTemplate extends ChangedSelectedTemplateController {
             </Grid>
             <Grid item xs={12} md={5}>
               <Box className="right-block right-image" display={{ xs: "none", md: "flex" }}>
-                <img src={BuildingLogo} className="building-logo" alt="" />
+                <img src={BuildingLogo.default} className="building-logo" alt="" />
               </Box>
             </Grid>
           </Grid>
@@ -310,7 +302,7 @@ class ChangedSelectedTemplate extends ChangedSelectedTemplateController {
                 <MenuItem value={30}>Thirty</MenuItem>
               </Select>
               <Input
-                variant="filled"
+                // variant="filled"
                 fullWidth
                 className="select-input"
                 placeholder="Enter Fixed Percentage of Rent"
@@ -363,7 +355,7 @@ class ChangedSelectedTemplate extends ChangedSelectedTemplateController {
                 <MenuItem value={30}>Thirty</MenuItem>
               </Select>
               <Input
-                variant="filled"
+                // variant="filled"
                 fullWidth
                 className="select-input"
                 placeholder="Enter Fixed Amount"
@@ -391,5 +383,5 @@ class ChangedSelectedTemplate extends ChangedSelectedTemplateController {
   }
 }
 
-export default withStyles(ContractsStyleWeb)(ChangedSelectedTemplate);
+export default withTranslation()(withStyles(ContractsStyleWeb)(ChangedSelectedTemplate));
 // Customizable Area End

@@ -1,38 +1,25 @@
 // Customizable Area Start
-//@ts-nocheck
-//@ts-ignore
 import React from "react";
-import {
-  Container,
-  IconButton,
-  Link,
-  withStyles,
-  Box,
-  Grid,
-  MenuItem,
-  Card,
-  Select,
-  ListItemIcon,
-  OutlinedInput,
-} from "@material-ui/core";
+import { Container, IconButton, Link, withStyles, Box, Grid, Card } from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import IssueContractController, { Props } from "./IssueContractController.web";
 import { ContractsStyleWeb } from "./ContractsStyle.web";
-import BuildingLogo from "../assets/building.png";
-import TemplateIcon from "../assets/template.png";
-import EarthIcon from "../assets/earth.png";
+import { BuildingLogo, TemplateIcon, EarthIcon } from "./assets";
+import { withTranslation } from "react-i18next";
+import "../../../web/src/i18n.js";
 
 class IssueContract extends IssueContractController {
   constructor(props: Props) {
     super(props);
   }
 
-  componentDidMount(): Promise<void> {
+  async componentDidMount(): Promise<void> {
     this.getTemplateListFromAdmin();
   }
 
   render() {
     const { classes } = this.props;
+    const { t }: any = this.props;
 
     console.log(this.state);
 
@@ -113,7 +100,7 @@ class IssueContract extends IssueContractController {
             </Grid>
             <Grid item xs={12} md={5}>
               <Box className="right-block right-image" display={{ xs: "none", md: "flex" }}>
-                <img src={BuildingLogo} className="building-logo" alt="" />
+                <img src={BuildingLogo.default} className="building-logo" alt="" />
               </Box>
             </Grid>
           </Grid>
@@ -123,5 +110,5 @@ class IssueContract extends IssueContractController {
   }
 }
 
-export default withStyles(ContractsStyleWeb)(IssueContract);
+export default withTranslation()(withStyles(ContractsStyleWeb)(IssueContract));
 // Customizable Area End
