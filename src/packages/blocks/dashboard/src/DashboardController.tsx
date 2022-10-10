@@ -29,6 +29,7 @@ interface S {
 
   isMenuOpen: boolean;
   isLogoutModalOpen: boolean;
+  profileData:any
   // Customizable Area End
 }
 interface SS {
@@ -36,9 +37,12 @@ interface SS {
 }
 
 export default class DashboardController extends BlockComponent<Props, S, SS> {
+  // Customizable Area Start
   apiDashboardItemCallId: string = "";
   dashboardApiCallId: string = "";
   apiGetQueryStrinurl: string = "";
+  getProfileDataAPiCallId:any="";
+  // Customizable Area End
 
   constructor(props: Props) {
     super(props);
@@ -63,6 +67,7 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
 
       isLogoutModalOpen: false,
       isMenuOpen: false,
+      profileData:null,
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -76,6 +81,7 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
         this.getToken();
       });
     }
+    this.getProfile()
   }
   
   getToken=()=>{
@@ -122,9 +128,24 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
     }
 
     if (getName(MessageEnum.RestAPIResponceMessage) === message.id) {
+      const apiRequestCallId = message.getData(
+        getName(MessageEnum.RestAPIResponceDataMessage)
+      );
       var responseJson = message.getData(
         getName(MessageEnum.RestAPIResponceSuccessMessage)
       );
+      if (apiRequestCallId === this.getProfileDataAPiCallId) {
+        console.log(responseJson)
+        if (!responseJson.errors) {
+          console.log(responseJson)
+          this.setState({ profileData: responseJson.data,loading:false }, () => console.log(this.state.profileData))
+        } else {
+          //Check Error Response
+          // this.parseApiErrorResponse(responseJson);
+        }
+
+        this.parseApiCatchErrorResponse(errorReponse);
+      }
       if (responseJson && !responseJson.errors && responseJson.data) {
         if (responseJson.data.length === 0) {
           this.setState({
@@ -166,6 +187,37 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
   handleAccordinoChange = (panel:string) => (event:any, isExpanded:boolean) => {
     this.setState({ expanded: isExpanded ? panel : '' });
   };
+  getProfile() {
+    this.setState({loading:true})
+        const header = {
+          "token": localStorage.getItem('userToken')
+        };
+        const requestMessage = new Message(
+          getName(MessageEnum.RestAPIRequestMessage)
+        );
+    
+    
+        this.getProfileDataAPiCallId = requestMessage.messageId;
+        requestMessage.addData(
+          getName(MessageEnum.RestAPIResponceEndPointMessage),
+          `bx_block_profile/my_profile`
+        );
+    
+        requestMessage.addData(
+          getName(MessageEnum.RestAPIRequestHeaderMessage),
+          JSON.stringify(header)
+        );
+    
+    
+    
+        requestMessage.addData(
+          getName(MessageEnum.RestAPIRequestMethodMessage),
+          'GET'
+        );
+    
+        runEngine.sendMessage(requestMessage.id, requestMessage);
+        return true;
+      }
   // Customizable Area End
 
 }

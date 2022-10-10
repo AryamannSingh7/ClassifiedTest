@@ -85,7 +85,7 @@ class DashboardHeader extends DashboardController {
                   </MenuItem>
                 </Menu>
               </Box>
-              <img src={chatIcon} alt="GlobalIcon" style={{ marginLeft: "10px" }} />
+              {/* <img src={chatIcon} alt="GlobalIcon" style={{ marginLeft: "10px" }} /> */}
               <img src={notification} alt="GlobalIcon" style={{ marginLeft: "10px" }} />
             </div>
 
