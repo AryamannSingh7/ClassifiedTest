@@ -6,4 +6,6 @@ export const telephone = require("../assets/telephone.png");
 export const email = require("../assets/email.png");
 export const edit = require("../assets/chairmanEdit.png");
 export const info = require("../assets/info.png");
-
+export const calanderIcon = require("../assets/calanderIcon.png")
+export const userIcon = require("../assets/userIcon.png")
+export const buildings = require("../assets/buildings.png")
