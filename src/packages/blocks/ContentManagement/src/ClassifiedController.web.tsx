@@ -254,6 +254,7 @@ export default class ClassifiedController extends BlockComponent<
         else if (apiRequestCallId === this.getClassifiedListingApiCallId) {
           if (responseJson && responseJson?.data ) {
           console.log("getClassifiedListingApiCallId ========================>",responseJson)
+          localStorage?.removeItem("classifiedUserType");
           this.setState({classifiedListing :responseJson?.data,loading: false})
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
@@ -1090,9 +1091,11 @@ createClassifiedSchemaGerenic() {
     priceFrom:Yup.number()
              .typeError("Only numbers are allowed.")
              .positive("Negative numbers are not allowed.")
-             .integer("Number can't contain a decimal."),
+             .integer("Number can't contain a decimal.")
+             .required("Price From is required"),
     priceTo:Yup.number()
            .typeError("Only numbers are allowed.")
+           .required("Price To is required")
            .positive("Negative numbers are not allowed.")
            .integer("Number can't contain a decimal.")
            .test("priceFrom ", "Value sholud be greater than From price", function(value : number) {
