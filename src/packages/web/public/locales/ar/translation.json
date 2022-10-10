@@ -588,5 +588,11 @@
   "Duration": "مدة",
   "Reservation Fees (Per hour)": "رسوم الحجز (بالساعة)",
   "Floor Plan": "مخطط الطابق",
-  "Not Owned": "لا يملكه"
+  "Not Owned": "لا يملكه",
+  "See complex on map": "انظر المجمع على الخريطة",
+  "No building available": "لا يوجد مبنى متاح",
+  "Photos": "الصور",
+  "No photos available": "لا توجد صور متاحة",
+  "Management Team": "فريق الإدارة",
+  "Total Floor": "إجمالي الطابق"
 }
