@@ -188,7 +188,7 @@ export default class VisitorDetailsController extends BlockComponent<
     this.getUnitId = await this.apiCall({
       contentType:"application/json",
       method: "GET",
-      endPoint: `/society_managements/${societyID}/bx_block_contract/contracts/find_unit?building_management_id=${id}`,
+      endPoint: `/society_managements/${societyID}/bx_block_visitor/visitors/find_unit?building_management_id=${id}`,
     });
   }
 

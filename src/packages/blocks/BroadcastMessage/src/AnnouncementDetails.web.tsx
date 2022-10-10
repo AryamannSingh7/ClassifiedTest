@@ -12,6 +12,7 @@ import AnnouncementDetailsController, {
   Props
 } from "./AnnouncementDetailsController";
 import './style.css';
+import moment from "moment";
 
 const data = {
     title:"Swimming Pool will be closed till 28/03/22",
@@ -47,9 +48,9 @@ class Announcement extends AnnouncementDetailsController{
                                 </Typography>
                             </Box>
                             {
-                                this.state?.AnnouncementDetails?.img?.url &&
+                                this.state?.AnnouncementDetails?.image?.url &&
                                 <Box style={{display:'flex',justifyContent:"center",marginTop:"15px"}}>
-                                    <img src={this.state?.AnnouncementDetails?.img?.url} width="100%" style={{borderRadius:"15px"}}/>
+                                    <img src={this.state?.AnnouncementDetails?.image?.url} width="100%" style={{borderRadius:"15px"}}/>
                                 </Box>
                             }
                             <Box style={{marginTop:"1.5rem"}}>
@@ -75,7 +76,9 @@ class Announcement extends AnnouncementDetailsController{
                                             </Box>
                                             <Box>
                                                 <Typography variant="subtitle2" color="textSecondary" >Announced On</Typography>
-                                                <Typography variant="subtitle2" >{this.state.AnnouncementDetails.announcement_on}</Typography>
+                                                <Typography variant="subtitle2" >
+                                                    {moment(this.state.AnnouncementDetails.announcement_on,'DD/MM/YYYY').format("MMMM DD,YYYY")}
+                                                </Typography>
                                             </Box>
                                         </Grid>
                                     </Grid>
