@@ -188,6 +188,12 @@
         text-transform: capitalize;
       }
     }
+    & .menu-btn {
+      &.MuiButton-text {
+        padding: 0;
+        min-width: 0;
+      }
+    }
 
     & p {
       &.MuiTypography-body1 {
@@ -301,10 +307,15 @@
       align-items: center;
       color: #d3d3d3;
       position: relative;
+      & .icons {
+        grid-gap: 0;
+        gap: 0;
+        margin-top: 0;
+      }
 
       & .radioCheckmark {
         position: absolute;
-        top: 0;
+        top: 3px;
         right: 0;
         height: 20px;
         width: 20px;
@@ -329,11 +340,11 @@
         display: none;
 
         &:checked {
-          &~.radioCheckmark {
+          & ~ .radioCheckmark {
             border-color: $ORANGE;
           }
 
-          &~.radioCheckmark:after {
+          & ~ .radioCheckmark:after {
             display: block;
             background: $ORANGE;
           }

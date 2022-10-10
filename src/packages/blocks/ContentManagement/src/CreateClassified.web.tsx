@@ -58,10 +58,10 @@ class CreateClassified extends ClassifiedController {
   }
 
   componentDidMount(): any {
-     this.getCurrencyList();
+    this.getCurrencyList();
     //@ts-ignore
     const id = this.props?.history?.location?.state?.id;
-    console.log("this.props?.history?.location?.id;==============>",this.props?.history?.location)
+    console.log("this.props?.history?.location?.id;==============>", this.props?.history?.location)
     if (id)
       this.getClassifiedDetailsById(id)
   }
@@ -71,7 +71,7 @@ class CreateClassified extends ClassifiedController {
     const checkEditmode = this.props?.history?.location?.state?.id;
     const classifiedUserType = localStorage.getItem("classifiedUserType")
     const classified_type = this.state?.getClassifiedDetails?.attributes?.classified_type;
-    console.log("classifiedUserType==============>",classifiedUserType)
+    console.log("classifiedUserType==============>", classifiedUserType)
     const id = this.state?.getClassifiedDetails?.id;
     const attributes = this.state?.getClassifiedDetails?.attributes;
     // if (!checkEditmode) {
@@ -83,7 +83,7 @@ class CreateClassified extends ClassifiedController {
     // this.props.history.replace("/ClassifiedListing");
     //   return null;
     // }
-  
+
 
     return (
       <>
@@ -105,12 +105,12 @@ class CreateClassified extends ClassifiedController {
                   <Formik
                     initialValues={{
                       phone: attributes?.phone_number.phone_number || "",
-                      selectCode: attributes?.phone_number?.country_code||'+966',
+                      selectCode: attributes?.phone_number?.country_code || '+966',
                       email: attributes?.email || "",
                       classifiedTitle: attributes?.title || "",
                       description: attributes?.description || "",
                       media: attributes?.attachments || [],
-                      price: attributes?.price||"",
+                      price: attributes?.price || "",
                       currency: attributes?.currency?.id || ' ',
                       endDate: attributes?.duration_to || "",
                       startDate: attributes?.duration_from || "",
@@ -126,11 +126,11 @@ class CreateClassified extends ClassifiedController {
                     validateOnMount={true}
                     onSubmit={(values) => {
                       !this.state?.sizeError && !this.state?.notImageOrVideoError ?
-                      ( //@ts-ignore
-                        classifiedUserType ?
-                        this.onSubmit(values)
-                        : this.updateClassified(values)
-                      )
+                        ( //@ts-ignore
+                          classifiedUserType ?
+                            this.onSubmit(values)
+                            : this.updateClassified(values)
+                        )
                         :
                         null
                     }
@@ -225,7 +225,7 @@ class CreateClassified extends ClassifiedController {
                         <Box className="formGroup">
                           <Field name="description" type="text" placeholder="Description" className="formInput" />
                           <span className="frmLeftIcons">
-                            <img src={EmailIcon} className="frm-icons" alt="Warning Icon" />
+                            <img src={DescIcon} className="frm-icons" alt="Warning Icon" />
                           </span>
                           <ErrorMessage className="text-error" component="Typography" name="description" />
                         </Box>
@@ -235,59 +235,66 @@ class CreateClassified extends ClassifiedController {
 
                         {/* ADD THIS CLASSES ONLY WHEN YOU WANT SMALL FILE-UPLOAD OPTION 
                         "fileuploadBlock ,buyersFileupload"*/}
-                        { classifiedUserType !== "generic" && classified_type !== "generic" ?
-                           <Box >
-                           <Box className="formGroup customFileupload">
-                             <Button
-                               variant="contained"
-                               component="label"
-                             >
-                               <img src={Upload_Icon} className="upload-icon" alt="upload-icon" />
-                               Photos
-                               <input
-                                 name='media'
-                                 type="file"
-                                 hidden
-                                 accept="image/jpg ,image/jpeg,image/gif,image/png"
-                                 onChange={(e: any) =>
-                                   this.handleSelectMedia(
-                                     e,
-                                     values.media,
-                                     setFieldValue,
-                                     setFieldError
-                                   )
-                                 }
-                               />
-                             </Button>
-                             {this.state?.upload ?
-                               <>
-                                 <Box className="result-disp-row">
-                                   <img src={Checkmark_Icon.default} className="successful-icon" alt="card-img" />
-                                   <span className="text-success">
-                                     uploaded successfully
-                                   </span>
-                                 </Box>
-                               </>
-                               : this.state.notImageOrVideoError ?
-                                 <Box className="result-disp-row">
-                                   <img src={Error_Icon.default} className="error-icon" alt="card-img" />
-                                   <span className="text-error">
-                                     Only image are supported.
-                                   </span>
-                                 </Box>
-                                 :
-                                 this.state.sizeError ?
-                                   <Box className="result-disp-row">
-                                     <img src={Error_Icon.default} className="error-icon" alt="card-img" />
-                                     <span className="text-error">
-                                       size is less than 10 mb.
-                                     </span>
-                                   </Box>
-                                   : null
-                             }
-                             {/* <ErrorMessage className="text-error" component="Typography" name="media" /> */}
-                           </Box>
-                           {/* <Box className="imgLayer">
+                        {classifiedUserType !== "generic" && classified_type !== "generic" ?
+                          <Box >
+                            <Box className="formGroup customFileupload">
+                              <Button
+                                variant="contained"
+                                component="label"
+                              >
+                                <div className="imgLayer">
+                                  <img src={Building1.default} className="bg-img" alt="Building-icon" />
+                                </div>
+                                <div className="uploadLayer">
+                                  <div className="content-text">
+                                    <img src={Upload_Icon} className="upload-icon" alt="upload-icon" />
+                                    Photos
+                                  </div>
+                                </div>
+                                <input
+                                  name='media'
+                                  type="file"
+                                  hidden
+                                  accept="image/jpg ,image/jpeg,image/gif,image/png"
+                                  onChange={(e: any) =>
+                                    this.handleSelectMedia(
+                                      e,
+                                      values.media,
+                                      setFieldValue,
+                                      setFieldError
+                                    )
+                                  }
+                                />
+                              </Button>
+                              {this.state?.upload ?
+                                <>
+                                  <Box className="result-disp-row">
+                                    <img src={Checkmark_Icon.default} className="successful-icon" alt="card-img" />
+                                    <span className="text-success">
+                                      uploaded successfully
+                                    </span>
+                                  </Box>
+                                </>
+                                : this.state.notImageOrVideoError ?
+                                  <Box className="result-disp-row">
+                                    <img src={Error_Icon.default} className="error-icon" alt="card-img" />
+                                    <span className="text-error">
+                                      Only image are supported.
+                                    </span>
+                                  </Box>
+                                  :
+                                  this.state.sizeError ?
+                                    <Box className="result-disp-row">
+                                      <img src={Error_Icon.default} className="error-icon" alt="card-img" />
+                                      <span className="text-error">
+                                        size is less than 10 mb.
+                                      </span>
+                                    </Box>
+                                    : null
+                              }
+                              {/* <ErrorMessage className="text-error" component="Typography" name="media" /> */}
+                            </Box>
+                            {/* <Box className="imgLayer">
                              <img src={Landing_Banner.default} className="buyerphoto" alt="Building1" />
                              <img src={CloseIcon} className="close_icon" alt="Building1" />
                            </Box>
@@ -299,12 +306,12 @@ class CreateClassified extends ClassifiedController {
                              <img src={Landing_Banner.default} className="buyerphoto" alt="Building1" />
                              <img src={CloseIcon} className="close_icon" alt="Building1" />
                            </Box> */}
-                         </Box>
-                         :null
+                          </Box>
+                          : null
                         }
-                        
+
                         {
-                          classifiedUserType === "generic" || classified_type === "generic"?
+                          classifiedUserType === "generic" || classified_type === "generic" ?
                             <>
                               <Box className="formGroup customSelect" style={{ marginTop: 20 }}>
                                 <FormControl variant="outlined" >
@@ -352,7 +359,7 @@ class CreateClassified extends ClassifiedController {
                               <Grid container>
                                 <Grid xs={6}>
                                   <Box className="formGroup classifiedFormGroup">
-                                    <Field name="timeFrom" type="time" placeholder="From" className="formInput"  format="hh:mm"/>
+                                    <Field name="timeFrom" type="time" placeholder="From" className="formInput" format="hh:mm" />
                                     <span className="frmLeftIcons">
                                       <img src={TimeIcon} className="frm-icons" alt="Warning Icon" />
                                     </span>
@@ -376,7 +383,7 @@ class CreateClassified extends ClassifiedController {
                         }
 
                         {
-                          classifiedUserType === "buyer" || classified_type === "buyer"?
+                          classifiedUserType === "buyer" || classified_type === "buyer" ?
                             <>
                               <Grid container>
                                 <Grid xs={12} className="classifiedPriceBlock">
@@ -440,7 +447,7 @@ class CreateClassified extends ClassifiedController {
                             </>
                             : null
                         }
-                        {classifiedUserType === "seller" || classified_type === "seller"?
+                        {classifiedUserType === "seller" || classified_type === "seller" ?
                           <>
                             <Box className="sellerPriceBox" style={{ marginTop: 20 }}>
                               <Box className="formGroup">
@@ -542,15 +549,15 @@ class CreateClassified extends ClassifiedController {
                           </Grid>
                         </Box >
                         {
-                            !classifiedUserType   ?<Box className="customButton">
-                               <Button variant="contained" type="submit" >SAVE CHANGES</Button>
-                             </Box>
-                             :
-                             <Box className="customButton">
-                               <Button variant="contained" type="submit">preview</Button>
-                             </Box>
+                          !classifiedUserType ? <Box className="customButton">
+                            <Button variant="contained" type="submit" >SAVE CHANGES</Button>
+                          </Box>
+                            :
+                            <Box className="customButton">
+                              <Button variant="contained" type="submit">preview</Button>
+                            </Box>
                         }
-                        
+
                       </Form>
                     )}
                   </Formik >
