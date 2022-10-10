@@ -125,7 +125,7 @@ class ClassifiedListing extends ClassifiedController {
                               <CardContent className="costom-card-content">
                                 <Box className="classified-card-header">
                                   <Typography component="h4">
-                                    {val?.attributes?.title} {val?.attributes?.id}
+                                    {val?.attributes?.title}
                                   </Typography>
                                   {
                                     this.state?.myOrAllClassified ?
@@ -143,7 +143,7 @@ class ClassifiedListing extends ClassifiedController {
                                           onClose={() => this.handleClose("", "")}
                                         >
                                           <MenuItem onClick={(e) => this.handleClose(e, "edit")}>Edit</MenuItem>
-                                          <MenuItem onClick={(e) => this.handleClose(e, "delete")}>Delete  {val?.attributes?.id}</MenuItem>
+                                          <MenuItem onClick={(e) => this.handleClose(e, "delete")}>Delete </MenuItem>
                                         </Menu>
                                       </>
                                   }
