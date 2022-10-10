@@ -272,6 +272,7 @@ import ChairmanNominations from "../../blocks/FriendList/src/ChairmanNomination"
 import ChairmanNominationDetails from "../../blocks/FriendList/src/ChairmanNominationDetails.web"
 import NominateMySelf from "../../blocks/FriendList/src/NominateMySelf.web"
 import MyNomination from "../../blocks/FriendList/src/MyNomination.web"
+import TaskManagement from "../../blocks/FriendList/src/TaskManagement.web"
 const routeMap = {
   //done
   LandingPage: {
@@ -1572,6 +1573,12 @@ ClassifiedReportedSuccessfully: {
   NominationSuccess:{
     component: NominationSuccess,
     path: '/NominationSuccess',
+    exact: true
+  },
+
+  TaskManagement:{
+    component: TaskManagement,
+    path: '/TaskManagement',
     exact: true
   },
 
