@@ -67,7 +67,7 @@ class OwnerComplex extends OwnerComplexController {
                     <IconButton onClick={() => this.handleGotoDashboard()}>
                       <KeyboardBackspaceIcon />
                     </IconButton>
-                    <span>Building Info & Rules</span>
+                    <span>{t("Building Info & Rules")}</span>
                   </div>
                 </Box>
                 <Container className="page-container">
@@ -79,32 +79,36 @@ class OwnerComplex extends OwnerComplexController {
                       </Box>
                       <Box className="heading-bottom">
                         <Box className="heading">
-                          <h4>About</h4>
+                          <h4>{t("About")}</h4>
                           <Link
                             href={`https://maps.google.com/?q=${this.state.complexData.lat},${
                               this.state.complexData.long
                             }`}
                             target="_blank"
                           >
-                            <span>See complex on map</span>
+                            <span>{t("See complex on map")}</span>
                           </Link>
                         </Box>
                         <p>{this.state.complexData.aboutUs || "-"}</p>
                         <Grid container>
                           <Grid item xs={6} className="info-item">
-                            <span>Complex Area</span>
+                            <span>{t("Complex Area")}</span>
                             <p>{this.state.complexData.complexArea || "-"}</p>
                           </Grid>
                           <Grid item xs={6} className="info-item">
-                            <span>Total Buildings</span>
-                            <p>{this.state.complexData.totalBuilding || 0} Buildings</p>
+                            <span>{t("Total Buildings")}</span>
+                            <p>
+                              {this.state.complexData.totalBuilding || 0} {t("Buildings")}
+                            </p>
                           </Grid>
                           <Grid item xs={6} className="info-item">
-                            <span>Total Units</span>
-                            <p>{this.state.complexData.totalUnits || 0} Units</p>
+                            <span>{t("Total Units")}</span>
+                            <p>
+                              {this.state.complexData.totalUnits || 0} {t("Units")}
+                            </p>
                           </Grid>
                           <Grid item xs={6} className="info-item">
-                            <span>City</span>
+                            <span>{t("City")}</span>
                             <p>{this.state.complexData.city || "-"}</p>
                           </Grid>
                         </Grid>
@@ -112,11 +116,11 @@ class OwnerComplex extends OwnerComplexController {
                     </Box>
 
                     <Box className="building-box">
-                      <h4>Buildings</h4>
+                      <h4>{t("Buildings")}</h4>
                       <Grid container spacing={2}>
                         {this.state.complexData.buildingList.length === 0 && (
                           <Grid item xs={12}>
-                            <Card className="building-card">No building available</Card>
+                            <Card className="building-card">{t("No building available")}</Card>
                           </Grid>
                         )}
                         {this.state.complexData.buildingList.map((building: any) => {
@@ -132,9 +136,9 @@ class OwnerComplex extends OwnerComplexController {
                     </Box>
 
                     <Box className="images-box">
-                      <h4>Photos</h4>
+                      <h4>{t("Photos")}</h4>
                       <Slider ref={(c: any) => (this.slider = c)} {...settings}>
-                        {this.state.complexData.photos.length === 0 && <div>No photos available</div>}
+                        {this.state.complexData.photos.length === 0 && <div>{t("No photos available")}</div>}
                         {this.state.complexData.photos.map((photo: any, index: number) => {
                           return (
                             <div key={index}>
@@ -146,7 +150,7 @@ class OwnerComplex extends OwnerComplexController {
                     </Box>
 
                     <Box className="management-team">
-                      <h4>Management Team</h4>
+                      <h4>{t("Management Team")}</h4>
                       <Grid container spacing={2}>
                         <Grid item xs={12}>
                           <Card className="team-member-box">Coming soon</Card>
@@ -169,13 +173,13 @@ class OwnerComplex extends OwnerComplexController {
                     </Box>
 
                     <Box className="document-boxes">
-                      <h4>Documents</h4>
+                      <h4>{t("Documents")}</h4>
                       <Grid container spacing={2}>
                         <Grid item xs={12}>
                           <Link href="/BuildingDocuments/Policy">
                             <Card className="document">
                               <img src={Document} alt="" />
-                              <h6>Policy</h6>
+                              <h6>{t("Policy")}</h6>
                             </Card>
                           </Link>
                         </Grid>
@@ -183,7 +187,7 @@ class OwnerComplex extends OwnerComplexController {
                           <Link href="/BuildingDocuments/Resolutions">
                             <Card className="document">
                               <img src={Document} alt="" />
-                              <h6>Resolution</h6>
+                              <h6>{t("Resolution")}</h6>
                             </Card>
                           </Link>
                         </Grid>
