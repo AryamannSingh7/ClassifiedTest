@@ -105,20 +105,120 @@ class ClassifiedListing extends ClassifiedController {
                         <Button variant="contained" onClick={() => this.getMyClassifiedList()}>My Classified</Button>
                       </Box>
                     </div>
-                    {/* { */}
-                    {/* this.state?.classifiedListing?.length === 0 ? */}
-                    <>
-                      <Box className="content-block">
-                        <Box className="main-content-block no-classification-wrapper">
-                          <div className='no-classification'>
-                            <img src={NoClassifiedIcon} className="lock-logo" alt="Lock_Icon" />
-                            <h1>No classifieds were <br></br>found</h1>
-                            <p>Looks like you havn’t added any classifieds! You can create a new request by tapping the below button.</p>
-                          </div>
-                        </Box>
-                      </Box>
-                    </>
+                    {
+                      this.state?.classifiedListing?.length === 0 ?
+                        <>
+                          <Box className="content-block">
+                            <Box className="main-content-block">
+                              <div className='no-classification'>
+                                <img src={NoClassifiedIcon} className="lock-logo" alt="Lock_Icon" />
+                                <h1>No classifieds were <br></br>found</h1>
+                                <p>Looks like you havn’t added any classifieds! You can create a new request by tapping the below button.</p>
+                              </div>
+                            </Box>
+                          </Box>
+                        </>
+                        :
+                        this.state?.classifiedListing?.map((val: any, index: any) => (
+                          <Card className="classified-card card" key={val?.attributes?.id} >
+                            <CardActionArea onClick={(e: any) => { this.getClassifiedDetails(e, val.id) }}>
+                              <CardContent className="costom-card-content">
+                                <Box className="classified-card-header">
+                                  <Typography component="h4">
+                                    {val?.attributes?.title} {val?.attributes?.id}
+                                  </Typography>
+                                  {
+                                    this.state?.myOrAllClassified ?
+                                      null
+                                      :
+                                      <>
+                                        <Button className="menu-btn" aria-controls="simple-menu" aria-haspopup="true" onMouseDown={event => event.stopPropagation()} onClick={(e: any) => { this.handleClick(e, val?.attributes?.id) }}>
+                                          <img src={Setting_Icon} className="grid-icon icons" alt="" />
+                                        </Button>
+                                        <Menu
+                                          id="simple-menu"
+                                          anchorEl={this.state.anchorEl}
+                                          keepMounted
+                                          open={Boolean(this.state.anchorEl)}
+                                          onClose={() => this.handleClose("", "")}
+                                        >
+                                          <MenuItem onClick={(e) => this.handleClose(e, "edit")}>Edit</MenuItem>
+                                          <MenuItem onClick={(e) => this.handleClose(e, "delete")}>Delete  {val?.attributes?.id}</MenuItem>
+                                        </Menu>
+                                      </>
+                                  }
 
+                                </Box>
+                                <Typography className="sub-title h5-title" component="h5">
+                                  {val?.attributes?.description}
+                                </Typography>
+                                <Typography component="span">
+                                  Available to buy:
+                                </Typography>
+                                <Typography className="sub-title h5-title" component="h5">
+                                  {val?.attributes?.duration_from} to {val?.attributes?.duration_to}
+                                </Typography>
+                                <hr />
+                                <Box className="card-footer classified-footer">
+                                  {
+                                    val?.attributes?.classified_type === "buyer" ?
+                                      <div className="left-block">
+                                        {/* <img src={Dollar_Icon} className="dollar-icon" alt="Dollar Icon" /> */}
+                                        <Typography component="h4">
+                                          {val?.attributes?.price_from} {val?.attributes?.currency?.currency} - {val?.attributes?.price_to} {val?.attributes?.currency?.currency}
+                                        </Typography>
+                                      </div>
+                                      :
+                                      null
+                                  }
+
+                                  {
+                                    val?.attributes?.classified_type === "generic" ?
+                                      <div className="left-block">
+                                        {/* <img src={Dollar_Icon} className="dollar-icon" alt="Dollar Icon" /> */}
+                                        <Typography component="h4">
+                                          {val?.attributes?.payment_detail} {val?.attributes?.currency?.currency}
+                                        </Typography>
+                                      </div>
+                                      :
+                                      null
+                                  }
+
+                                  {
+                                    val?.attributes?.classified_type === "seller" ?
+                                      <div className="left-block">
+                                        {/* <img src={Dollar_Icon} className="dollar-icon" alt="Dollar Icon" /> */}
+                                        <Typography component="h4">
+                                          {val?.attributes?.price} {val?.attributes?.currency?.currency}
+                                        </Typography>
+                                      </div>
+                                      :
+                                      null
+                                  }
+
+
+
+                                  {
+                                    val?.attributes?.classified_type === "buyer" ?
+                                      <Box className="customButton">
+                                        <Button variant="contained" className="contain success" type="submit" >Buy</Button>
+                                      </Box>
+                                      :
+                                      (val?.attributes?.classified_type === "generic") ?
+                                        <Box className="customButton">
+                                          <Button variant="contained" className="contain blue" type="submit" >Generic</Button>
+                                        </Box>
+                                        :
+                                        <Box className="customButton">
+                                          <Button variant="contained" className="contain danger" type="submit" >Sell</Button>
+                                        </Box>
+                                  }
+                                </Box>
+                              </CardContent>
+                            </CardActionArea>
+                          </Card>
+                        ))
+                    }
                   </Box>
                   {
                     this.state?.myOrAllClassified ?
