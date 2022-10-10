@@ -137,7 +137,7 @@ class Announcements extends AnnouncementsController {
                                   <TableRow key={key} onClick={()=> this.props.history.push(`AnnouncementDetails?id=${item.id}`)} style={{cursor:"pointer"}}>
                                     <TableCell>{key+1}</TableCell>
                                     <TableCell className="ellipse">{item.attributes.title}</TableCell>
-                                    <TableCell>{moment(item.attributes.announcement_on,'DD/MM/YYYY').format("DD MMM,YYYY")}</TableCell>
+                                    <TableCell>{moment(item.attributes.announcement_on,'DD/MM/YYYY').format("MMMM DD,YYYY")}</TableCell>
                                     <TableCell>{item.attributes.announcement_category}</TableCell>
                                     <TableCell>{item.attributes.announcement_by}</TableCell>
                                   </TableRow>

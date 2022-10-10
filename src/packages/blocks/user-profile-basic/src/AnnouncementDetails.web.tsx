@@ -83,7 +83,7 @@ class AnnouncementDetails extends AnnouncementDetailsController {
                           <img src={calenderIcon} />
                           <Box>
                             <p className="heading">Announced On:</p>
-                            <p>{moment(this.state.AnnouncementDetails?.announcement_on,'DD/MM/YYYY').format("DD MMM,YYYY")}</p>
+                            <p>{moment(this.state.AnnouncementDetails?.announcement_on,'DD/MM/YYYY').format("MMMM DD,YYYY")}</p>
                           </Box>
                         </Box>
                       </Box>

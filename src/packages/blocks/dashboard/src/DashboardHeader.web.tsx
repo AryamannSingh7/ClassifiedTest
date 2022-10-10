@@ -63,7 +63,7 @@ class DashboardHeader extends DashboardController {
             </Link>
           </Grid>
           <Grid item xs={6} md={6} sm={6} style={dashBoard.HeaderSecRft}>
-            <div className="right-icon" style={{ display: "flex" }}>
+            <div className="right-icon" style={{ display: "flex", gap: "15px" }}>
               <Box>
                 <Menu
                   className="chairman-lang-menu"
@@ -85,7 +85,7 @@ class DashboardHeader extends DashboardController {
                   </MenuItem>
                 </Menu>
               </Box>
-              <img src={chatIcon} alt="GlobalIcon" style={{ marginLeft: "10px" }} />
+              {/* <img src={chatIcon} alt="GlobalIcon" style={{ marginLeft: "10px" }} /> */}
               <img src={notification} alt="GlobalIcon" style={{ marginLeft: "10px" }} />
             </div>
 
