@@ -27,7 +27,7 @@ import "../../../web/src/i18n.js";
 import i18next from "i18next";
 import CloseIcon from "@material-ui/icons/Close";
 import ArrowForwardIosOutlinedIcon from "@material-ui/icons/ArrowForwardIosOutlined";
-import DashboardController, { Props } from "./DashboardController";
+import DashboardController, { Props } from "./DashboardController.web";
 import { Menu } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/core.css";
 
