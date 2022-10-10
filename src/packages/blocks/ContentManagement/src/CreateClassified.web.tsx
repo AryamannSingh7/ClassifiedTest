@@ -74,15 +74,15 @@ class CreateClassified extends ClassifiedController {
     console.log("classifiedUserType==============>",classifiedUserType)
     const id = this.state?.getClassifiedDetails?.id;
     const attributes = this.state?.getClassifiedDetails?.attributes;
-    if (!checkEditmode) {
-      //@ts-ignore
-        if(!classifiedUserType){
-       this.props.history.replace("/ClassifiedType");
-       return null;
-    }
-    this.props.history.replace("/ClassifiedListing");
-      return null;
-    }
+    // if (!checkEditmode) {
+    //   //@ts-ignore
+    //     if(!classifiedUserType){
+    //    this.props.history.replace("/ClassifiedType");
+    //    return null;
+    // }
+    // this.props.history.replace("/ClassifiedListing");
+    //   return null;
+    // }
   
 
     return (
