@@ -66,7 +66,7 @@ class OwnerBuildings extends OwnerBuildingsController {
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    <span>Building Info & Rules</span>
+                    <span>{t("Building Info & Rules")}</span>
                   </div>
                 </Box>
                 <Container className="page-container">
@@ -78,32 +78,32 @@ class OwnerBuildings extends OwnerBuildingsController {
                       </Box>
                       <Box className="heading-bottom">
                         <Box className="heading">
-                          <h4>About</h4>
+                          <h4>{t("About")}</h4>
                           <Link
                             href={`https://maps.google.com/?q=${this.state.buildingData.lat},${
                               this.state.buildingData.long
                             }`}
                             target="_blank"
                           >
-                            <span>See complex on map</span>
+                            <span>{t("See building on map")}</span>
                           </Link>
                         </Box>
                         <p>{this.state.buildingData.aboutBuilding || "-"}</p>
                         <Grid container>
                           <Grid item xs={6} className="info-item">
-                            <span>Building Area</span>
+                            <span>{t("Building Area")}</span>
                             <p>{this.state.buildingData.buildingArea || "-"}</p>
                           </Grid>
                           <Grid item xs={6} className="info-item">
-                            <span>Total Floor</span>
+                            <span>{t("Total Floor")}</span>
                             <p>{this.state.buildingData.totalFloor || 0}</p>
                           </Grid>
                           <Grid item xs={6} className="info-item">
-                            <span>Total Units</span>
-                            <p>{this.state.buildingData.totalUnit || 0} Units</p>
+                            <span>{t("Total Units")}</span>
+                            <p>{this.state.buildingData.totalUnit || 0} {t("Units")}</p>
                           </Grid>
                           <Grid item xs={6} className="info-item">
-                            <span>City</span>
+                            <span>{t("City")}</span>
                             <p>{this.state.buildingData.city || "-"}</p>
                           </Grid>
                         </Grid>
@@ -111,9 +111,9 @@ class OwnerBuildings extends OwnerBuildingsController {
                     </Box>
 
                     <Box className="images-box">
-                      <h4>Photos</h4>
+                      <h4>{t("Photos")}</h4>
                       <Slider ref={(c: any) => (this.slider = c)} {...settings}>
-                        {this.state.buildingData.photos.length === 0 && <div>No photos available</div>}
+                        {this.state.buildingData.photos.length === 0 && <div>{t("No photos available")}</div>}
                         {this.state.buildingData.photos.map((photo: any, index: number) => {
                           return (
                             <div key={index}>
@@ -125,7 +125,7 @@ class OwnerBuildings extends OwnerBuildingsController {
                     </Box>
 
                     <Box className="management-team">
-                      <h4>Management Team</h4>
+                      <h4>{t("Management Team")}</h4>
                       <Grid container spacing={2}>
                         <Grid item xs={12}>
                           <Card className="team-member-box">Coming soon</Card>
@@ -148,13 +148,13 @@ class OwnerBuildings extends OwnerBuildingsController {
                     </Box>
 
                     <Box className="document-boxes">
-                      <h4>Documents</h4>
+                      <h4>{t("Documents")}</h4>
                       <Grid container spacing={2}>
                         <Grid item xs={12}>
                           <Link href="/BuildingDocuments/Policy">
                             <Card className="document">
                               <img src={Document} alt="" />
-                              <h6>Policy</h6>
+                              <h6>{t("Policy")}</h6>
                             </Card>
                           </Link>
                         </Grid>
@@ -162,7 +162,7 @@ class OwnerBuildings extends OwnerBuildingsController {
                           <Link href="/BuildingDocuments/Resolutions">
                             <Card className="document">
                               <img src={Document} alt="" />
-                              <h6>Resolution</h6>
+                              <h6>{t("Resolution")}</h6>
                             </Card>
                           </Link>
                         </Grid>

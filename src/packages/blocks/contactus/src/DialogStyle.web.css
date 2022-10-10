@@ -1061,3 +1061,21 @@
   background: url("../assets/next-image-icon.png") !important;
   right: 10% !important;
 }
+
+.edit-unit .past-date {
+  position: relative;
+}
+
+.edit-unit .past-date .input-with-icon {
+  width: 100%;
+  outline: none;
+  padding-left: 36px;
+  height: 54px;
+  font-size: 16px;
+}
+
+.edit-unit .past-date img {
+  position: absolute;
+  top: 15px;
+  left: 10px;
+}

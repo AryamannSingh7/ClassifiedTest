@@ -60,8 +60,9 @@
 
 .SideBar {
   background: #fcfcfc;
-  position: relative;
-  padding-bottom: 150px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
 }
 
 .SideBarBottom {
@@ -69,7 +70,6 @@
   justify-content: space-between;
   align-items: last baseline;
   gap: 60px;
-  position: absolute;
   bottom: 0;
   padding-bottom: 20px;
   margin-left: 20px;
