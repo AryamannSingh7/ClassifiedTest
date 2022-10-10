@@ -1019,6 +1019,7 @@ if(files.length !== 0){
       url: URL.createObjectURL(files[i])
     });
   }
+ // setFieldValue("bannerUrl", file[] ? URL.createObjectURL(file) : "");
   e.target.value = "";
   this.setState({upload: true ,sizeError : false,notImageOrVideoError:false});
   console.log("media======>",media)

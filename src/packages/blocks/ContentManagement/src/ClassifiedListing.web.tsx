@@ -106,7 +106,7 @@ class ClassifiedListing extends ClassifiedController {
                       </Box>
                     </div>
                     {
-                      this.state?.classifiedListing?.length === 0 ?
+                      this.state?.classifiedListing?.length !== 0 ?
                         <>
                           <Box className="content-block">
                             <Box className="main-content-block">

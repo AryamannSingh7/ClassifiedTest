@@ -114,7 +114,8 @@ class CreateClassified extends ClassifiedController {
                       timeFrom: attributes?.time_from || "",
                       timeTo: attributes?.time_to || "",
                       paymentDetail: attributes?.payment_detail || "",
-                      id: id || ""
+                      id: id || "",
+                      bannerUrl:attributes?.attachments[0].url|| ""
                     }}
                     enableReinitialize
                     validationSchema={classifiedUserType === "generic" || classified_type ==="generic"  ? this.createClassifiedSchemaGerenic() : classifiedUserType === "buyer" || classified_type ==="buyer"? this.createClassifiedSchemaBuy() : this.createClassifiedSchemaSell()}
@@ -237,9 +238,11 @@ class CreateClassified extends ClassifiedController {
                                 variant="contained"
                                 component="label"
                               >
-                                <div className="imgLayer">
-                                  <img src={Building1.default} className="bg-img" alt="Building-icon" />
-                                </div>
+                               
+                                   <div className="imgLayer">
+                                   <img src={values?.media[0]?.url} className="bg-img" alt="" />
+                                 </div>
+                               
                                 <div className="uploadLayer">
                                   <div className="content-text">
                                     <img src={Upload_Icon} className="upload-icon" alt="upload-icon" />
