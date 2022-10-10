@@ -164,6 +164,42 @@ class DashboardGeneral extends DashboardController {
                       </Box>
                     </Box>
                   </Grid>
+                  <Grid item sm={4} onClick={() => {
+                //@ts-ignore
+                this.props.history.push("/ClassifiedManagerListing");
+              }}>
+                    <Box style={dashBoard.Cards}>
+                      <Box sx={{ ml: 1, mb: 2 }} style={dashBoard.CardsIcons}>
+                        <img src={activemembers} alt="/ClassifiedManagerListing" />
+                      </Box>
+                      <Typography style={dashBoard.subHeading}>
+                        {t("Classifieds")}
+                      </Typography>
+                      <Box style={dashBoard.bottomTwoSpan}>
+                        <Box component="span" style={dashBoard.bottomColor}>
+                          195
+                        </Box>
+                      </Box>
+                    </Box>
+                  </Grid>
+                  <Grid item sm={4}onClick={() => {
+                //@ts-ignore
+                this.props.history.push("/IncidentManagement");
+              }}>
+                    <Box style={dashBoard.Cards}>
+                      <Box sx={{ ml: 1, mb: 2 }} style={dashBoard.CardsIcons}>
+                        <img src={activemembers} alt="/IncidentManagement" />
+                      </Box>
+                      <Typography style={dashBoard.subHeading}>
+                        {t("Incident")}
+                      </Typography>
+                      <Box style={dashBoard.bottomTwoSpan}>
+                        <Box component="span" style={dashBoard.bottomColor}>
+                          195
+                        </Box>
+                      </Box>
+                    </Box>
+                  </Grid>
                   <Grid item sm={4}>
                     <Box style={dashBoard.Cards}>
                       <Box sx={{ ml: 1, mb: 2 }} style={dashBoard.CardsIcons}>

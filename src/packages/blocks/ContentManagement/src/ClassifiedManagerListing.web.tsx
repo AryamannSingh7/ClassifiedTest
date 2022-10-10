@@ -74,9 +74,9 @@ class ClassifiedManagerListing extends ClassifiedManagerController {
                 <Box className={classes.navigation}>
                   <Box>
                     <Typography variant="body1" >
-                      {t("My Dashboard")} / {t("General Dashboard")} /<Box component="span" style={{ color: "blue" }}> {t("Classified")}</Box>
+                      {t("My Dashboard")} / {t("General Dashboard")} /<Box component="span" style={{ color: "blue" }}> {t("Classifieds")}</Box>
                     </Typography>
-                    <Typography variant="h5" className={classes.subHeading}>{t("Classified")}</Typography>
+                    <Typography variant="h5" className={classes.subHeading}>{t("Classifieds")}</Typography>
                   </Box>
                 </Box>
                 <Box className="sorting-header classified-sorting-header">
@@ -163,7 +163,7 @@ class ClassifiedManagerListing extends ClassifiedManagerController {
                       </Button>
                     </Box>
                   </div>
-                  <Box className="formGroup classified-search-iput">
+                  {/* <Box className="formGroup classified-search-iput">
                     <TextField
                       variant="outlined"
                       style={{ border: "1px solid #ECECEC", borderRadius: "10px", backgroundColor: "#f9f9f9", marginRight: "10px" }}
@@ -178,7 +178,7 @@ class ClassifiedManagerListing extends ClassifiedManagerController {
                       }}
 
                     />
-                  </Box>
+                  </Box> */}
                 </Box>
                 <Grid container spacing={2} style={{ marginTop: 15, marginBottom: 15 }}>
                   {
@@ -220,7 +220,7 @@ class ClassifiedManagerListing extends ClassifiedManagerController {
                                   </Box>
                                   <Box className="blocks">
                                     <Typography component="p">
-                                    {val?.attributes?.classified_type}
+                                    {val?.attributes?.classified_type === "buyer" ? "Buy":val?.attributes?.classified_type === "seller"?"Sell":'Generic'}
                                     </Typography>
                                   </Box>
                                 </Box>
@@ -228,12 +228,33 @@ class ClassifiedManagerListing extends ClassifiedManagerController {
                             </Box>
                             <hr className="hr"></hr>
                             <Box className="card-footer">
-                              <div className="left-block">
+                              {
+                                val?.attributes?.classified_type === "buyer" ?
+                                <div className="left-block">
                                 {/* <img src={Dollar_Icon} className="dollar-icon" alt="Dollar Icon" /> */}
                                 <Typography component="h4">
                                   {val?.attributes?.price_from} {val?.attributes?.currency?.currency} - {val?.attributes?.currency?.currency} {val?.attributes?.price_to}
                                 </Typography>
-                              </div>
+                              </div>:null
+                              }
+                               {
+                                val?.attributes?.classified_type === "generic" ?
+                                <div className="left-block">
+                                {/* <img src={Dollar_Icon} className="dollar-icon" alt="Dollar Icon" /> */}
+                                <Typography component="h4">
+                                  {val?.attributes?.payment_detail} {val?.attributes?.currency?.currency}
+                                </Typography>
+                              </div>:null
+                              }
+                              {
+                                val?.attributes?.classified_type === "seller" ?
+                                <div className="left-block">
+                                {/* <img src={Dollar_Icon} className="dollar-icon" alt="Dollar Icon" /> */}
+                                <Typography component="h4">
+                                  {val?.attributes?.price} {val?.attributes?.currency?.currency}
+                                </Typography>
+                              </div>:null
+                              }
                               <Box className="customButton">
                                 <Button variant="contained" className={val?.attributes?.classified_status === 'Pending Approved' ? "contain warning" : val?.attributes?.classified_status === 'Published' ? 'contain success' : 'contain danger'} type="submit">
                                   {val?.attributes?.classified_status}</Button>

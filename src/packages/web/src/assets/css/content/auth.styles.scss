@@ -48,6 +48,9 @@
   & .main-content-block {
     width: 450px;
     margin: 0 auto;
+    &.no-classification-wrapper {
+      height: 100vh;
+    }
     @include mq(tablet-landscape-up) {
       width: 95%;
       margin: 0 auto;
@@ -62,8 +65,7 @@
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
-    &.common_content_block
-    {
+    &.common_content_block {
       // height: 100%;
       justify-content: flex-start;
     }
@@ -91,8 +93,7 @@
     }
     & .change-password-mainblock {
       justify-content: center;
-      h1
-      {
+      h1 {
         font-weight: bold;
       }
     }

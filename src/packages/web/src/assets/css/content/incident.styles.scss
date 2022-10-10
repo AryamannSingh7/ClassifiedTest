@@ -106,10 +106,27 @@
 
     & .incident-content-wrapper {
       margin-top: 10px;
+      & .no-classification
+      {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 100px 0;
+        text-align: center;
+        & h1
+        {
+          font-weight: bold;
+        }
+      }
       & .classified-header {
         display: flex;
         & .customButton {
           margin-right: 15px;
+          padding-top: 0;
+          & .MuiButton-label
+          {
+            text-transform: capitalize;
+          }
         }
         & .MuiButton-root {
           padding: 10px 15px;
