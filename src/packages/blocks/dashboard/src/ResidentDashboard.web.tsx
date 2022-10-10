@@ -218,7 +218,7 @@ class ResidentDashboard extends DashboardController {
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
-                    <Link href="">
+                    <Link href="/ComplexDetails">
                       <DashboardCard
                         image={keyhand}
                         heading={t("Building Info & Rules")}
