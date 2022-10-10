@@ -162,7 +162,7 @@ console.log(moment( myDate ).calendar())
 
 
 
-                      <Box>
+                      <Box style={{background:'#f6f6f6',borderRadius:'6px',padding:'0.5rem',borderTopRightRadius:0}}>
 
 
                         <Typography
