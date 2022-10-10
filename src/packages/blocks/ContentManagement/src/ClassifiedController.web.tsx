@@ -254,6 +254,7 @@ export default class ClassifiedController extends BlockComponent<
         else if (apiRequestCallId === this.getClassifiedListingApiCallId) {
           if (responseJson && responseJson?.data ) {
           console.log("getClassifiedListingApiCallId ========================>",responseJson)
+          localStorage?.removeItem("classifiedUserType");
           this.setState({classifiedListing :responseJson?.data,loading: false})
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;

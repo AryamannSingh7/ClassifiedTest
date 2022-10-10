@@ -74,15 +74,10 @@ class CreateClassified extends ClassifiedController {
     console.log("classifiedUserType==============>",classifiedUserType)
     const id = this.state?.getClassifiedDetails?.id;
     const attributes = this.state?.getClassifiedDetails?.attributes;
-    // if (!checkEditmode) {
-    //   //@ts-ignore
-    //     if(!classifiedUserType){
-    //    this.props.history.replace("/ClassifiedType");
-    //    return null;
-    // }
-    // this.props.history.replace("/ClassifiedListing");
-    //   return null;
-    // }
+    if (!checkEditmode && !classifiedUserType) {
+      //@ts-ignore
+       this.props.history.replace("/ClassifiedListing");
+    }
   
 
     return (
@@ -122,7 +117,7 @@ class CreateClassified extends ClassifiedController {
                       id: id || ""
                     }}
                     enableReinitialize
-                    validationSchema={classifiedUserType === "generic" ? this.createClassifiedSchemaGerenic() : classifiedUserType === "buyer" ? this.createClassifiedSchemaBuy() : this.createClassifiedSchemaSell()}
+                    validationSchema={classifiedUserType === "generic" || classified_type ==="generic"  ? this.createClassifiedSchemaGerenic() : classifiedUserType === "buyer" || classified_type ==="buyer"? this.createClassifiedSchemaBuy() : this.createClassifiedSchemaSell()}
                     validateOnMount={true}
                     onSubmit={(values) => {
                       !this.state?.sizeError && !this.state?.notImageOrVideoError ?
