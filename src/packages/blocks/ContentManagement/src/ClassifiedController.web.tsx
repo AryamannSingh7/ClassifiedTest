@@ -1090,9 +1090,11 @@ createClassifiedSchemaGerenic() {
     priceFrom:Yup.number()
              .typeError("Only numbers are allowed.")
              .positive("Negative numbers are not allowed.")
-             .integer("Number can't contain a decimal."),
+             .integer("Number can't contain a decimal.")
+             .required("Price From is required"),
     priceTo:Yup.number()
            .typeError("Only numbers are allowed.")
+           .required("Price To is required")
            .positive("Negative numbers are not allowed.")
            .integer("Number can't contain a decimal.")
            .test("priceFrom ", "Value sholud be greater than From price", function(value : number) {
