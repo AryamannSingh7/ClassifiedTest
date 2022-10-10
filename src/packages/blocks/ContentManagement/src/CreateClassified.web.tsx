@@ -58,10 +58,10 @@ class CreateClassified extends ClassifiedController {
   }
 
   componentDidMount(): any {
-     this.getCurrencyList();
+    this.getCurrencyList();
     //@ts-ignore
     const id = this.props?.history?.location?.state?.id;
-    console.log("this.props?.history?.location?.id;==============>",this.props?.history?.location)
+    console.log("this.props?.history?.location?.id;==============>", this.props?.history?.location)
     if (id)
       this.getClassifiedDetailsById(id)
   }
@@ -69,19 +69,16 @@ class CreateClassified extends ClassifiedController {
     const { navigation } = this.props;
     //@ts-ignore
     const checkEditmode = this.props?.history?.location?.state?.id;
-    // console.log("this.state?.getClassifiedDetails?==============>",this.state?.getClassifiedDetails?.attributes)
+    const classifiedUserType = localStorage.getItem("classifiedUserType")
+    const classified_type = this.state?.getClassifiedDetails?.attributes?.classified_type;
+    console.log("classifiedUserType==============>", classifiedUserType)
     const id = this.state?.getClassifiedDetails?.id;
     const attributes = this.state?.getClassifiedDetails?.attributes;
-    const classifiedUserType = localStorage.getItem("classifiedUserType")
-    // if (!checkEditmode) {
-    //   //@ts-ignore
-    //  // this.props.history.replace("/ClassifiedListing");
-    //   return null;
-    // }
-   if(!classifiedUserType){
-      this.props.history.replace("/ClassifiedType");
-      return null;
+    if (!checkEditmode && !classifiedUserType) {
+      //@ts-ignore
+       this.props.history.replace("/ClassifiedListing");
     }
+  
 
     return (
       <>
@@ -102,33 +99,34 @@ class CreateClassified extends ClassifiedController {
                 <Box className="content-block-wrapper common-incident-block desktop-ui">
                   <Formik
                     initialValues={{
-                      phone: attributes?.full_phone_number || "",
+                      phone: attributes?.phone_number.phone_number || "",
+                      selectCode: attributes?.phone_number?.country_code || '+966',
                       email: attributes?.email || "",
                       classifiedTitle: attributes?.title || "",
                       description: attributes?.description || "",
-                      media: [],
-                      price: "",
-                      currency: attributes?.currency?.currency || ' ',
+                      media: attributes?.attachments || [],
+                      price: attributes?.price || "",
+                      currency: attributes?.currency?.id || ' ',
                       endDate: attributes?.duration_to || "",
                       startDate: attributes?.duration_from || "",
-                      selectCode: '+966',
                       priceFrom: attributes?.price_from || "",
                       priceTo: attributes?.price_to || "",
                       timeFrom: attributes?.time_from || "",
                       timeTo: attributes?.time_to || "",
                       paymentDetail: attributes?.payment_detail || "",
-                      id: id || ""
+                      id: id || "",
+                      bannerUrl:attributes?.attachments[0].url|| ""
                     }}
                     enableReinitialize
-                    validationSchema={classifiedUserType === "generic" ? this.createClassifiedSchemaGerenic() : classifiedUserType === "buyer" ? this.createClassifiedSchemaBuy() : this.createClassifiedSchemaSell()}
+                    validationSchema={classifiedUserType === "generic" || classified_type ==="generic"  ? this.createClassifiedSchemaGerenic() : classifiedUserType === "buyer" || classified_type ==="buyer"? this.createClassifiedSchemaBuy() : this.createClassifiedSchemaSell()}
                     validateOnMount={true}
                     onSubmit={(values) => {
                       !this.state?.sizeError && !this.state?.notImageOrVideoError ?
-                      ( //@ts-ignore
-                        classifiedUserType ?
-                        this.onSubmit(values)
-                        : this.updateClassified(values)
-                      )
+                        ( //@ts-ignore
+                          classifiedUserType ?
+                            this.onSubmit(values)
+                            : this.updateClassified(values)
+                        )
                         :
                         null
                     }
@@ -166,10 +164,8 @@ class CreateClassified extends ClassifiedController {
                                 {dailCode.map((item) =>
                                   <MenuItem key={item.dial_code} value={item.dial_code}> <img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/${item.code}.svg`} width='15' height='15' style={{ marginRight: '5px' }} />
                                     {item.dial_code}</MenuItem>
-
                                 )
                                 }
-
                               </Select>
                             </FormControl>
 
@@ -225,7 +221,7 @@ class CreateClassified extends ClassifiedController {
                         <Box className="formGroup">
                           <Field name="description" type="text" placeholder="Description" className="formInput" />
                           <span className="frmLeftIcons">
-                            <img src={EmailIcon} className="frm-icons" alt="Warning Icon" />
+                            <img src={DescIcon} className="frm-icons" alt="Warning Icon" />
                           </span>
                           <ErrorMessage className="text-error" component="Typography" name="description" />
                         </Box>
@@ -235,73 +231,85 @@ class CreateClassified extends ClassifiedController {
 
                         {/* ADD THIS CLASSES ONLY WHEN YOU WANT SMALL FILE-UPLOAD OPTION 
                         "fileuploadBlock ,buyersFileupload"*/}
-                        <Box className="fileuploadBlock">
-                          <Box className="formGroup customFileupload buyersFileupload">
-                            <Button
-                              variant="contained"
-                              component="label"
-                            >
-                              <img src={Upload_Icon} className="upload-icon" alt="upload-icon" />
-                              Photos
-                              <input
-                                name='media'
-                                type="file"
-                                hidden
-                                multiple
-                                accept="image/jpg ,image/jpeg,image/gif,image/png,video/mp4,video/x-m4v"
-                                onChange={(e: any) =>
-                                  this.handleSelectMedia(
-                                    e,
-                                    values.media,
-                                    setFieldValue,
-                                    setFieldError
-                                  )
-                                }
-                              />
-                            </Button>
-                            {this.state?.upload ?
-                              <>
-                                <Box className="result-disp-row">
-                                  <img src={Checkmark_Icon.default} className="successful-icon" alt="card-img" />
-                                  <span className="text-success">
-                                    uploaded successfully
-                                  </span>
-                                </Box>
-                              </>
-                              : this.state.notImageOrVideoError ?
-                                <Box className="result-disp-row">
-                                  <img src={Error_Icon.default} className="error-icon" alt="card-img" />
-                                  <span className="text-error">
-                                    Only image and video are supported.
-                                  </span>
-                                </Box>
-                                :
-                                this.state.sizeError ?
+                        {classifiedUserType !== "generic" && classified_type !== "generic" ?
+                          <Box >
+                            <Box className="formGroup customFileupload">
+                              <Button
+                                variant="contained"
+                                component="label"
+                              >
+                               
+                                   <div className="imgLayer">
+                                   <img src={values?.media[0]?.url} className="bg-img" alt="" />
+                                 </div>
+                               
+                                <div className="uploadLayer">
+                                  <div className="content-text">
+                                    <img src={Upload_Icon} className="upload-icon" alt="upload-icon" />
+                                    Photos
+                                  </div>
+                                </div>
+                                <input
+                                  name='media'
+                                  type="file"
+                                  hidden
+                                  accept="image/jpg ,image/jpeg,image/gif,image/png"
+                                  onChange={(e: any) =>
+                                    this.handleSelectMedia(
+                                      e,
+                                      values.media,
+                                      setFieldValue,
+                                      setFieldError
+                                    )
+                                  }
+                                />
+                              </Button>
+                              {this.state?.upload ?
+                                <>
+                                  <Box className="result-disp-row">
+                                    <img src={Checkmark_Icon.default} className="successful-icon" alt="card-img" />
+                                    <span className="text-success">
+                                      uploaded successfully
+                                    </span>
+                                  </Box>
+                                </>
+                                : this.state.notImageOrVideoError ?
                                   <Box className="result-disp-row">
                                     <img src={Error_Icon.default} className="error-icon" alt="card-img" />
                                     <span className="text-error">
-                                      size is less than 10 mb.
+                                      Only image are supported.
                                     </span>
                                   </Box>
-                                  : null
-                            }
-                            {/* <ErrorMessage className="text-error" component="Typography" name="media" /> */}
+                                  :
+                                  this.state.sizeError ?
+                                    <Box className="result-disp-row">
+                                      <img src={Error_Icon.default} className="error-icon" alt="card-img" />
+                                      <span className="text-error">
+                                        size is less than 10 mb.
+                                      </span>
+                                    </Box>
+                                    : null
+                              }
+                              {/* <ErrorMessage className="text-error" component="Typography" name="media" /> */}
+                            </Box>
+                            {/* <Box className="imgLayer">
+                             <img src={Landing_Banner.default} className="buyerphoto" alt="Building1" />
+                             <img src={CloseIcon} className="close_icon" alt="Building1" />
+                           </Box>
+                           <Box className="imgLayer">
+                             <img src={Landing_Banner.default} className="buyerphoto" alt="Building1" />
+                             <img src={CloseIcon} className="close_icon" alt="Building1" />
+                           </Box>
+                           <Box className="imgLayer">
+                             <img src={Landing_Banner.default} className="buyerphoto" alt="Building1" />
+                             <img src={CloseIcon} className="close_icon" alt="Building1" />
+                           </Box> */}
                           </Box>
-                          {/* <Box className="imgLayer">
-                            <img src={Landing_Banner.default} className="buyerphoto" alt="Building1" />
-                            <img src={CloseIcon} className="close_icon" alt="Building1" />
-                          </Box>
-                          <Box className="imgLayer">
-                            <img src={Landing_Banner.default} className="buyerphoto" alt="Building1" />
-                            <img src={CloseIcon} className="close_icon" alt="Building1" />
-                          </Box>
-                          <Box className="imgLayer">
-                            <img src={Landing_Banner.default} className="buyerphoto" alt="Building1" />
-                            <img src={CloseIcon} className="close_icon" alt="Building1" />
-                          </Box> */}
-                        </Box>
+                          : null
+                        }
+
                         {
-                          classifiedUserType === "generic" ?
+                          classifiedUserType === "generic" || classified_type === "generic" ?
                             <>
                               <Box className="formGroup customSelect" style={{ marginTop: 20 }}>
                                 <FormControl variant="outlined" >
@@ -349,7 +357,7 @@ class CreateClassified extends ClassifiedController {
                               <Grid container>
                                 <Grid xs={6}>
                                   <Box className="formGroup classifiedFormGroup">
-                                    <Field name="timeFrom" type="time" placeholder="From" className="formInput" />
+                                    <Field name="timeFrom" type="time" placeholder="From" className="formInput" format="hh:mm" />
                                     <span className="frmLeftIcons">
                                       <img src={TimeIcon} className="frm-icons" alt="Warning Icon" />
                                     </span>
@@ -358,7 +366,7 @@ class CreateClassified extends ClassifiedController {
                                 </Grid>
                                 <Grid xs={6}>
                                   <Box className="formGroup">
-                                    <Field name="timeTo" type="time" placeholder="To" className="formInput formInputBox" />
+                                    <Field name="timeTo" type="time" placeholder="To" className="formInput formInputBox" format="hh:mm" />
                                     <span className="frmLeftIcons">
                                       <img src={TimeIcon} className="frm-icons" alt="Warning Icon" />
                                     </span>
@@ -373,7 +381,7 @@ class CreateClassified extends ClassifiedController {
                         }
 
                         {
-                          classifiedUserType === "buyer" ?
+                          classifiedUserType === "buyer" || classified_type === "buyer" ?
                             <>
                               <Grid container>
                                 <Grid xs={12} className="classifiedPriceBlock">
@@ -437,7 +445,7 @@ class CreateClassified extends ClassifiedController {
                             </>
                             : null
                         }
-                        {classifiedUserType === "seller" ?
+                        {classifiedUserType === "seller" || classified_type === "seller" ?
                           <>
                             <Box className="sellerPriceBox" style={{ marginTop: 20 }}>
                               <Box className="formGroup">
@@ -491,6 +499,7 @@ class CreateClassified extends ClassifiedController {
                                   type="date" name="startDate" fullWidth
                                   id="SurveyQuestion"
                                   format='DD/MM/YYYY'
+                                  value={values?.startDate}
                                   onChange={handleChange}
                                   InputProps={{
                                     // min: "2019-01-24",
@@ -518,6 +527,8 @@ class CreateClassified extends ClassifiedController {
                                   type="date" name="endDate" fullWidth
                                   style={{ width: "100%", borderRadius: "25px", border: "1px solid #e9dede" }}
                                   id="SurveyQuestion"
+                                  format='DD/MM/YYYY'
+                                  value={values?.endDate}
                                   onChange={handleChange}
                                   InputProps={{
                                     // min: "2019-01-24",
@@ -536,15 +547,15 @@ class CreateClassified extends ClassifiedController {
                           </Grid>
                         </Box >
                         {
-                            !classifiedUserType   ?<Box className="customButton">
-                               <Button variant="contained" type="submit" >SAVE CHANGES</Button>
-                             </Box>
-                             :
-                             <Box className="customButton">
-                               <Button variant="contained" type="submit">preview</Button>
-                             </Box>
+                          !classifiedUserType ? <Box className="customButton">
+                            <Button variant="contained" type="submit" >SAVE CHANGES</Button>
+                          </Box>
+                            :
+                            <Box className="customButton">
+                              <Button variant="contained" type="submit">preview</Button>
+                            </Box>
                         }
-                        
+
                       </Form>
                     )}
                   </Formik >
