@@ -24,6 +24,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import InboxController from "./inboxController.web";
+import moment from "moment";
 class Inbox extends InboxController {
 
   async componentDidMount() {
@@ -32,23 +33,56 @@ class Inbox extends InboxController {
     this.getProfile()
 
   }
-  displaytime(time:any) {
-
-    let date = new Date(time.attributes.created_at)
-
-    let d = date.getHours();
-    let m = date.getMinutes();
+  displaytime(obj:any) {
+    let value = obj[Object.keys(obj)[Object.keys(obj).length - 1]]
+   
     //@ts-ignore
-//@ts-nocheck
-    return `${d}:${m < 9 ? `0` + m : m} (${moment(time.attributes.created_at).format("DD MMM YYYY")})`
+    //@ts-nocheck
+    if(value){
+  let date = new Date(value[value.length-1].message.created_at)
+
+  let d = date.getHours();
+  let m = date.getMinutes();
+
+  return this.dateToFromNowDaily(value[value.length-1].message.created_at)
+  // return `${d}:${m < 9 ? `0` + m : m} (${moment(value[value.length-1].message.created_at).format("DD MMM YYYY")})`
+}else{
+  return ''
+}
 
   }
+
+  dateToFromNowDaily( myDate:any ) {
+
+    // get from-now for this date
+    var fromNow = moment.utc( myDate ).fromNow();
+console.log(moment( myDate ).calendar())
+    // ensure the date is displayed with today and yesterday
+    return moment( myDate ).calendar( null, {
+        // when the date is closer, specify custom values
+        lastWeek: '[Last] dddd',
+        lastDay:  '[Yesterday]',
+        sameDay:  '[Today]',
+        nextDay:  '[Tomorrow]',
+        nextWeek: 'dddd',
+        // when the date is further away, use from-now functionality             
+        sameElse: function () {
+            return "[" + fromNow + "]";
+        }
+    });
+}
+
 
 
   getLastMessage=(obj:any)=>{
     let value = obj[Object.keys(obj)[Object.keys(obj).length - 1]]
+    if(value){
+
+      return value[value.length-1].message.message || 'he'
+    }else{
+      return ''
+    }
    
-    return value[0].message.message || 'he'
   }
 
   render() {
@@ -56,7 +90,7 @@ class Inbox extends InboxController {
     return (
       <>
         <Box className="login-wrapper reg-wrapper" style={{margin:0}}>
-          <Grid container style={{padding:'0 1rem' }}>
+          <Grid container style={{padding:'0 1rem' ,borderBottom:'1px solid #f2f2f2'}}>
             <Grid item xs={12} style={{display:'flex',justifyContent:'space-between'}}>
           <Box  display='flex' alignItems='center' width={this.state.isSearch ? '7%':'100%'} onClick={() => window.history.back()}>
             <KeyboardBackspaceIcon />
@@ -66,7 +100,7 @@ class Inbox extends InboxController {
              }
               </span>
           </Box>
-              <Box display='flex' alignItems='center' width="100%">
+              <Box display='flex' alignItems='center' width="100%" >
 
                 <Box width="100%" display='flex' style={{gap:'0.5rem'}} justifyContent='end' alignItems='center'>
                 {
@@ -117,15 +151,22 @@ class Inbox extends InboxController {
               <>
 
 
-                  <Box key={item} display='flex' style={{ gap: '1rem',maxHeight:'5rem',marginTop:'1rem',cursor:'pointer' }} onClick={() => this.openChat(item)}>
+                  <Box key={item} display='flex' style={{ gap: '1rem',maxHeight:'5rem',marginTop:'1rem',cursor:'pointer',borderBottom:'1px solid #f2f2f2' }} onClick={() => this.openChat(item)}>
                     <img src={item?.attributes?.chat_with_account?.attributes?.profile_pic?.url ||'https://images.freeimages.com/images/large-previews/e04/yellow-frontal-with-ivy-1228121.jpg'} width='50' height='50' style={{ borderRadius: 25 }} />
-                    <Box padding='0.25rem'>
+                    
+                    <Box padding='0.25rem' width='100%' >
+                      <Box width='100%' display='flex' justifyContent='space-between' alignItems='center'>
+
                       <h5>
                         {
                           item.attributes.chat_with_account.attributes.full_name || 'N/A'
                         }
 
                       </h5>
+                      <p>
+                       { this.displaytime(item.attributes.messages)}
+                      </p>
+                      </Box>
                       <p>
 
                         {
@@ -176,7 +217,7 @@ class Inbox extends InboxController {
 
               <p style={{ fontWeight: 600, fontSize: '1.25rem', textAlign: 'center' }}>
                {
-                this.state.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ? 'Enabled Chat' :'Disabled Chat'
+                this.state.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ? 'Enable Chat' :'Disable Chat'
                }  Functionality?
 
               </p>
@@ -186,8 +227,8 @@ class Inbox extends InboxController {
             <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
               <p style={{ fontWeight: 400, fontSize: '0.8rem', textAlign: 'center' }}>
                 Are you sure want to {
-                this.state.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ? 'Enabled Chat' :'Disabled Chat'
-               } chat functionality? No one will be able to send you any messages while it is disabled.
+                this.state.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ? 'Enable Chat' :'Disable Chat'
+               } functionality? No one will be able to send you any messages while it is disabled.
               </p>
             </Grid>
           </Grid>
