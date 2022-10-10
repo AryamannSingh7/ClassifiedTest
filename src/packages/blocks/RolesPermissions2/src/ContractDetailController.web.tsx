@@ -37,6 +37,7 @@ interface SS {
 
 interface ContractData {
   templateUrl: string;
+  templateText: string;
 }
 
 export default class ContractDetailController extends BlockComponent<Props, S, SS> {
@@ -59,6 +60,7 @@ export default class ContractDetailController extends BlockComponent<Props, S, S
 
       contractData: {
         templateUrl: "",
+        templateText: "",
       },
     };
     // Customizable Area End
@@ -67,7 +69,7 @@ export default class ContractDetailController extends BlockComponent<Props, S, S
 
   async receive(from: string, message: Message) {
     // Customizable Area Start
-    // Get All Template List - API
+    // Get Contract Detail - API
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.GetContractsDetailsCallId !== null &&
@@ -78,7 +80,12 @@ export default class ContractDetailController extends BlockComponent<Props, S, S
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson.code === 200) {
-        this.setState({ contractData: { templateUrl: responseJson.contract.data.attributes.template_pdf.url } });
+        this.setState({
+          contractData: {
+            templateText: responseJson.contract.data.attributes.template_text,
+            templateUrl: responseJson.contract.data.attributes.template_pdf.url,
+          },
+        });
       }
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
@@ -100,7 +107,7 @@ export default class ContractDetailController extends BlockComponent<Props, S, S
     });
   }
 
-  // Get All Contract Details - API
+  // Get Contract Details - API
   getContractDetails = () => {
     const header = {
       "Content-Type": configJSON.ApiContentType,

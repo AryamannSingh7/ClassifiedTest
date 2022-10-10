@@ -99,5 +99,9 @@ export const ProfileStyleWeb: any = {
       padding: "8px 20px",
       fontWeight: "600",
     },
+    "& .MuiTypography-body1":{
+      fontWeight:600
+    }
   },
+  
 };

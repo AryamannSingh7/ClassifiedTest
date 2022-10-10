@@ -8,6 +8,7 @@ import { runEngine } from "../../../framework/src/RunEngine";
 import * as Yup from "yup";
 import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
 import toast from "react-hot-toast";
+import { ROLE } from "../../../framework/src/Enum";
 // Customizable Area End
 
 export const configJSON = require("./config");
@@ -20,14 +21,6 @@ export interface Props {
   // Customizable Area End
 }
 
-interface Pagination {
-  current_page: any | number;
-  next_page: any | number;
-  prev_page: any | number;
-  total_count: any | number;
-  total_pages: any | number;
-}
-
 interface DocumentCount {
   policy: number;
   guidelines: number;
@@ -36,31 +29,29 @@ interface DocumentCount {
   buildingPlans: number;
 }
 
-interface BuildingData {
-  buildingName: string;
+interface ComplexData {
+  logo: any;
+  complexName: string;
   city: string;
-  country: string;
-  logo: string;
+  aboutUs: string;
   photos: any[];
-  aboutBuilding: string;
-  buildingArea: string;
-  totalFloor: string;
-  totalUnit: string;
+  complexArea: string;
+  totalUnits: string;
+  totalBuilding: number;
+  buildingList: any[];
   sharedAreaList: any[];
   lat: string;
   long: string;
 }
 
 interface EditForm {
-  logo: string;
-  displayLogo: string;
+  logo: any;
+  displayLogo: any;
   photos: any[];
-  buildingArea: string;
-  aboutBuilding: string;
-  buildingName: string;
+  aboutUs: string;
+  complexArea: string;
   totalUnits: string;
-  totalFloor: string;
-  country: string;
+  totalBuilding: number;
 }
 
 interface S {
@@ -76,16 +67,10 @@ interface S {
   isOpenMapModalOpen: boolean;
 
   dataSearch: any;
-
   documentCount: DocumentCount;
 
-  buildingId: string;
-  buildingData: BuildingData;
-
-  unitList: any[];
-  pagination: any | Pagination;
-  page: number;
-  status: string;
+  complexDetails: any;
+  complexData: ComplexData;
 
   editForm: EditForm;
   // Customizable Area End
@@ -97,11 +82,11 @@ interface SS {
   // Customizable Area End
 }
 
-export default class BuildingsController extends BlockComponent<Props, S, SS> {
+export default class OwnerComplexController extends BlockComponent<Props, S, SS> {
   GetDocumentCountCallId: any;
-  GetBuildingDetailsCallId: any;
-  GetUnitListCallId: any;
-  EditBuildingDetailCallId: any;
+  GetComplexDetailsCallId: any;
+  GetBuildingListCallId: any;
+  EditComplexDetailCallId: any;
 
   constructor(props: Props) {
     super(props);
@@ -111,6 +96,7 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
     this.subScribedMessages = [getName(MessageEnum.RestAPIResponceMessage), getName(MessageEnum.RestAPIRequestMessage)];
 
     this.state = {
+      // Customizable Area Start
       loading: false,
 
       imageBox: false,
@@ -131,107 +117,42 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
         buildingPlans: 0,
       },
 
-      buildingId: "",
-
-      buildingData: {
-        buildingName: "",
+      complexDetails: null,
+      complexData: {
+        logo: null,
+        complexName: "",
         city: "",
-        country: "",
-        logo: "",
+        aboutUs: "",
         photos: [],
-        aboutBuilding: "",
-        buildingArea: "",
-        totalFloor: "",
-        totalUnit: "",
+        complexArea: "",
+        totalUnits: "",
+        totalBuilding: 0,
+        buildingList: [],
         sharedAreaList: [],
         lat: "",
         long: "",
       },
 
-      unitList: [],
-      pagination: null,
-      page: 1,
-      status: "-",
-
       editForm: {
-        logo: "",
-        displayLogo: "",
+        logo: null,
+        displayLogo: null,
         photos: [],
-        buildingArea: "",
-        aboutBuilding: "",
-        buildingName: "",
+        complexArea: "",
+        aboutUs: "",
         totalUnits: "",
-        totalFloor: "",
-        country: "",
+        totalBuilding: 0,
       },
+      // Customizable Area End
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
+
+    // Customizable Area Start
+    // Customizable Area End
   }
 
   async receive(from: string, message: Message) {
     runEngine.debugLog("Message Recived", message);
     // Customizable Area Start
-    // Get Unit List API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetUnitListCallId !== null &&
-      this.GetUnitListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.GetUnitListCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      if (responseJson.apartment_managements) {
-        this.setState({ unitList: responseJson.apartment_managements.data, pagination: responseJson.meta.pagination });
-      }
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
-
-    // Get Building Details API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetBuildingDetailsCallId !== null &&
-      this.GetBuildingDetailsCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.GetBuildingDetailsCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      if (responseJson.data) {
-        this.setState({
-          buildingData: {
-            buildingName: responseJson.data.attributes.name,
-            city: responseJson.data.attributes.city,
-            country: responseJson.data.attributes.country,
-            logo: responseJson.data.attributes.logo && responseJson.data.attributes.logo.url,
-            photos: responseJson.data.attributes.photos,
-            aboutBuilding: responseJson.data.attributes.description,
-            buildingArea: responseJson.data.attributes.building_area,
-            totalFloor: responseJson.data.attributes.total_floors,
-            totalUnit: responseJson.data.attributes.total_units,
-            sharedAreaList: responseJson.data.attributes.shared_area,
-            lat: responseJson.data.attributes.lat,
-            long: responseJson.data.attributes.long,
-          },
-        });
-      }
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
-
     // Get Document Count API Response
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
@@ -263,20 +184,60 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
       ApiCatchErrorResponse(errorResponse);
     }
 
+    // Get Complex Details API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.GetComplexDetailsCallId !== null &&
+      this.GetComplexDetailsCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.GetComplexDetailsCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      if (responseJson.data) {
+        this.setState({
+          complexDetails: responseJson.data,
+          complexData: {
+            ...this.state.complexData,
+            logo: responseJson.data.attributes.logo && responseJson.data.attributes.logo.url,
+            complexName: responseJson.data.attributes.name,
+            city: responseJson.data.attributes.city,
+            aboutUs: responseJson.data.attributes.description,
+            photos: responseJson.data.attributes.photos,
+            complexArea: responseJson.data.attributes.complex_area,
+            totalUnits: responseJson.data.attributes.total_units && responseJson.data.attributes.total_units[0],
+            totalBuilding: responseJson.data.attributes.total_buildings,
+            buildingList: responseJson.data.attributes.building_list,
+            sharedAreaList: responseJson.data.attributes.shared_area,
+            lat: responseJson.data.attributes.lat,
+            long: responseJson.data.attributes.long,
+          },
+        });
+      }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
     // Edit Complex Details API Response
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.EditBuildingDetailCallId !== null &&
-      this.EditBuildingDetailCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+      this.EditComplexDetailCallId !== null &&
+      this.EditComplexDetailCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
-      this.EditBuildingDetailCallId = null;
+      this.EditComplexDetailCallId = null;
 
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson.data) {
         this.setState({ loading: false }, () => {
           toast.success("Details updated successfully");
-          this.getBuildingDetail();
+          this.getComplexDetails();
         });
       }
 
@@ -291,50 +252,25 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
     // Customizable Area End
   }
 
-  async componentDidMount(): Promise<void> {
-    const building_id = this.props.navigation.getParam("id");
-    this.setState({ buildingId: building_id }, () => {
-      this.getBuildingDetail();
-      this.getDocumentCount();
-      this.getUnitList();
-    });
-  }
+  // Customizable Area Start
+  uploadLogo: any;
+  uploadImages: any;
+  slider: any;
 
-  async componentDidUpdate(prevProps: any, prevState: any): Promise<void> {
-    if (prevState.page !== this.state.page || prevState.status !== this.state.status) {
-      await this.getUnitList();
-    }
-  }
-
-  // Get Unit List API
-  getUnitList = () => {
-    const { page, status } = this.state;
-    const header = {
-      "Content-Type": configJSON.ApiContentType,
-      token: localStorage.getItem("userToken"),
-    };
-
-    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
-
-    this.GetUnitListCallId = apiRequest.messageId;
-
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_settings/apartment_managements/apartment_list?building_management_id=${
-        this.state.buildingId
-      }&per_page=5&page=${page}&status=${status === "-" ? "" : status}`
-    );
-
-    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
-
-    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
-
-    runEngine.sendMessage(apiRequest.id, apiRequest);
-    return true;
+  nextImage = () => {
+    this.slider.slickNext();
+  };
+  previousImage = () => {
+    this.slider.slickPrev();
   };
 
-  // Get Building Details API
-  getBuildingDetail = () => {
+  async componentDidMount(): Promise<void> {
+    this.getDocumentCount();
+    this.getComplexDetails();
+  }
+
+  // Get Complex Details API
+  getComplexDetails = () => {
     const header = {
       "Content-Type": configJSON.ApiContentType,
       token: localStorage.getItem("userToken"),
@@ -342,11 +278,12 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
 
     const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
 
-    this.GetBuildingDetailsCallId = apiRequest.messageId;
+    this.GetComplexDetailsCallId = apiRequest.messageId;
 
+    const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_settings/building_managements/${this.state.buildingId}`
+      `bx_block_society_management/society_managements/${society_id}`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
@@ -382,20 +319,19 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
     return true;
   };
 
-  handleSaveBuildingDetails = (values: EditForm) => {
+  // Edit Complex Detail API
+  handleSaveComplexDetails = async (values: EditForm) => {
     this.setState({ loading: true });
-
     var data = new FormData();
-    data.append("building_management[name]", values.buildingName);
-    data.append("building_management[building_area]", values.buildingArea);
-    data.append("building_management[description]", values.aboutBuilding);
+    data.append("society_management[description]", values.aboutUs);
+    data.append("society_management[complex_area]", values.complexArea);
 
     if (typeof values.logo === "object" && values.logo !== null) {
-      data.append("building_management[logo]", values.logo);
+      data.append("society_management[logo]", values.logo);
     }
 
     values.photos.map((image: any) => {
-      data.append("building_management[photos][]", this.dataURLtoFile(image));
+      data.append("society_management[photos][]", this.dataURLtoFile(image));
     });
 
     const header = {
@@ -404,11 +340,12 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
 
     const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
 
-    this.EditBuildingDetailCallId = apiRequest.messageId;
+    this.EditComplexDetailCallId = apiRequest.messageId;
 
+    const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_settings/building_managements/${this.state.buildingId}`
+      `bx_block_society_management/society_managements/${society_id}`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
@@ -422,22 +359,11 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
   };
 
   // Handle State
-  slider: any;
-  uploadLogo: any;
-  uploadImages: any;
-
-  nextImage = () => {
-    this.slider.slickNext();
-  };
-  previousImage = () => {
-    this.slider.slickPrev();
-  };
-
   handleTabChange = (event: any, newValue: number) => {
     this.setState({ currentTab: newValue });
   };
 
-  handleEditBuildingModal = () => {
+  handleEditComplexModal = () => {
     this.setState({ isEditBuildingModalOpen: !this.state.isEditBuildingModalOpen });
   };
 
@@ -470,15 +396,12 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
     return new File([u8arr], "imageName.jpg", { type: mime });
   };
 
-  editBuildingDetailValidation = Yup.object().shape({
+  editComplexDetailValidation = Yup.object().shape({
     logo: Yup.mixed().required("Required"),
-    aboutBuilding: Yup.string()
+    aboutUs: Yup.string()
       .required("Required")
       .matches(/\S/, "Required"),
-    buildingName: Yup.string()
-      .required("Required")
-      .matches(/\S/, "Required"),
-    buildingArea: Yup.string()
+    complexArea: Yup.string()
       .required("Required")
       .matches(/\S/, "Required"),
     photos: Yup.array().min(1, "Required"),
@@ -487,7 +410,7 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
   openEditBuildingModal = async () => {
     this.setState({ loading: true });
 
-    const imageUrlPromise: any[] = this.state.buildingData.photos.map(async (image: any) => {
+    const imageUrlPromise: any[] = this.state.complexData.photos.map(async (image: any) => {
       return new Promise(async (resolve, reject) => {
         let blobString = await this.toDataURL(image.url);
         resolve(blobString);
@@ -499,21 +422,28 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
       {
         loading: false,
         editForm: {
-          logo: this.state.buildingData.logo,
-          displayLogo: this.state.buildingData.logo,
+          logo: this.state.complexData.logo,
+          displayLogo: this.state.complexData.logo,
           photos: photos.map((image: any) => image.value),
-          buildingArea: this.state.buildingData.buildingArea,
-          aboutBuilding: this.state.buildingData.aboutBuilding,
-          buildingName: this.state.buildingData.buildingName,
-          totalUnits: this.state.buildingData.totalUnit,
-          totalFloor: this.state.buildingData.totalFloor,
-          country: this.state.buildingData.country,
+          complexArea: this.state.complexData.complexArea,
+          aboutUs: this.state.complexData.aboutUs,
+          totalUnits: this.state.complexData.totalUnits,
+          totalBuilding: this.state.complexData.totalBuilding,
         },
       },
       () => {
-        this.handleEditBuildingModal();
+        this.handleEditComplexModal();
       }
     );
+  };
+
+  handleGotoDashboard = () => {
+    const role = localStorage.getItem("userType");
+    if (role === ROLE.OWNER || role === ROLE.PROPERTY_MANAGER) {
+      this.props.navigation.navigate("OwnerDashboard");
+    } else {
+      this.props.navigation.navigate("ResidentDashboard");
+    }
   };
   // Customizable Area End
 }

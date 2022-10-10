@@ -461,7 +461,11 @@ class UnitDetails extends UnitDetailsController {
                           <img src={flag} style={dashBoard.locationIcon} />
                           <Box className="location-info">
                             <p>{t("Unit Status")}</p>
-                            <h4>{this.state.unitData.rentStatus || "-"}</h4>
+                            <h4>
+                              {this.state.unitData.rentStatus === "No-Own"
+                                ? "Not Owned"
+                                : this.state.unitData.rentStatus}
+                            </h4>
                           </Box>
                         </Card>
                       </Grid>
