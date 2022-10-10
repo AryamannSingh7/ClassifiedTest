@@ -264,16 +264,17 @@ import TenantDetails from '../../blocks/RequestManagement/src/TenantDetails.web'
 import RegisterTenant from '../../blocks/RequestManagement/src/RegisterTenant.web';
 
 // My Team Imports
-import MyTeam from '../../blocks/FriendList/src/MyTeam.web';
-import MyTeamCore from '../../blocks/FriendList/src/MyTeamCore.web';
-import MyTeamUserDetails from '../../blocks/FriendList/src/MyTeamUserDetails.web';
-import ChairmanNominationMain from '../../blocks/FriendList/src/ChairmanNominationMain.web';
-import NominationDetails from '../../blocks/FriendList/src/NominationDetails.web';
-import NominationSuccess from '../../blocks/FriendList/src/NominationAdded';
-import ChairmanNominations from '../../blocks/FriendList/src/ChairmanNomination';
-import ChairmanNominationDetails from '../../blocks/FriendList/src/ChairmanNominationDetails.web';
-import NominateMySelf from '../../blocks/FriendList/src/NominateMySelf.web';
-import MyNomination from '../../blocks/FriendList/src/MyNomination.web';
+import MyTeam from "../../blocks/FriendList/src/MyTeam.web"
+import MyTeamCore from "../../blocks/FriendList/src/MyTeamCore.web"
+import MyTeamUserDetails from "../../blocks/FriendList/src/MyTeamUserDetails.web"
+import ChairmanNominationMain from "../../blocks/FriendList/src/ChairmanNominationMain.web"
+import NominationDetails from "../../blocks/FriendList/src/NominationDetails.web"
+import NominationSuccess from "../../blocks/FriendList/src/NominationAdded"
+import ChairmanNominations from "../../blocks/FriendList/src/ChairmanNomination"
+import ChairmanNominationDetails from "../../blocks/FriendList/src/ChairmanNominationDetails.web"
+import NominateMySelf from "../../blocks/FriendList/src/NominateMySelf.web"
+import MyNomination from "../../blocks/FriendList/src/MyNomination.web"
+import TaskManagement from "../../blocks/FriendList/src/TaskManagement.web"
 
 const routeMap = {
   //done
@@ -1583,6 +1584,12 @@ ClassifiedEditSuccessfully: {
     exact: true
   },
 
+  TaskManagement:{
+    component: TaskManagement,
+    path: '/TaskManagement',
+    exact: true
+  },
+
   CommunityRequestManagement: {
     component: CommunityRequestManagement,
     path: '/CommunityRequestManagement'
@@ -1631,7 +1638,7 @@ ClassifiedEditSuccessfully: {
   },
   OwnerBuildings: {
     component: OwnerBuildings,
-    path: '/BuildingDetails',
+    path: '/BuildingDetails/:id',
     roles: [ROLE.OWNER, ROLE.OWNER_RESIDENT, ROLE.TENANT]
   },
   TenantList: {
