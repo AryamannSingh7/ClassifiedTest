@@ -461,7 +461,11 @@ class UnitDetails extends UnitDetailsController {
                           <img src={flag} style={dashBoard.locationIcon} />
                           <Box className="location-info">
                             <p>{t("Unit Status")}</p>
-                            <h4>{this.state.unitData.rentStatus || "-"}</h4>
+                            <h4>
+                              {this.state.unitData.rentStatus === "No-Own"
+                                ? "Not Owned"
+                                : this.state.unitData.rentStatus}
+                            </h4>
                           </Box>
                         </Card>
                       </Grid>
@@ -734,21 +738,21 @@ class UnitDetails extends UnitDetailsController {
                       </Grid>
                       <Grid item md={6}>
                         <InputLabel>{t("Purchase Date")}</InputLabel>
-                        <Input
-                          className="input-with-icon"
-                          fullWidth
-                          placeholder={t("Purchase Date")}
-                          startAdornment={
-                            <InputAdornment position="start">
-                              <img src={purchase_datebw} alt="icon" />
-                            </InputAdornment>
-                          }
-                          type="date"
-                          value={values.purchaseDate}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          name="purchaseDate"
-                        />
+                        <Box className="past-date">
+                          <input
+                            className="input-with-icon"
+                            placeholder={t("Purchase Date")}
+                            type="date"
+                            value={values.purchaseDate}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            name="purchaseDate"
+                            max={moment()
+                              .format("YYYY-MM-DD")
+                              .toString()}
+                          />
+                          <img src={purchase_datebw} alt="" />
+                        </Box>
                         {errors.purchaseDate && touched.purchaseDate && (
                           <small className="error">{t(errors.purchaseDate)}</small>
                         )}

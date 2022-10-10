@@ -151,7 +151,7 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
       unitList: [],
       pagination: null,
       page: 1,
-      status: "",
+      status: "-",
 
       editForm: {
         logo: "",
@@ -322,7 +322,7 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
       getName(MessageEnum.RestAPIResponceEndPointMessage),
       `bx_block_settings/apartment_managements/apartment_list?building_management_id=${
         this.state.buildingId
-      }&per_page=5&page=${page}&status=${status}`
+      }&per_page=5&page=${page}&status=${status === "-" ? "" : status}`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));

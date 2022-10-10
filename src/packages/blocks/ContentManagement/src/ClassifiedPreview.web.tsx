@@ -96,23 +96,64 @@ class ClassifiedPreview extends ClassifiedController {
                           {classifiedFromData?.description}
                         </Typography>
 
-                        <Typography component="span">
-                          Price:
+                        {
+                        classifiedFromData?.price  ?
+                          <>
+                       <Typography className="title-span" component="span">
+                            Price:
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                          {classifiedFromData?.price}
+                        {classifiedFromData?.price} 
                         </Typography>
-                        <Typography component="span">
-                          From:
+                          </> 
+                          :null
+                        }
+
+                        {
+                        classifiedFromData?.paymentDetail  ?
+                          <>
+                       <Typography className="title-span" component="span">
+                       Payment Detail:
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                          {classifiedFromData.startDate}
+                       {classifiedFromData?.paymentDetail} 
                         </Typography>
-                        <Typography component="span">
-                          To:
+                          </> 
+                          :null
+                        }
+
+                        {
+                        classifiedFromData?.price_from && classifiedFromData?.price_to  ?
+                          <>
+                       <Typography className="title-span" component="span">
+                            Price:
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                          {classifiedFromData.description}
+                        {classifiedFromData?.priceFrom} - {classifiedFromData?.priceTo}
+                        </Typography>
+                          </> 
+                          :null
+                        }
+
+                        {
+                          classifiedFromData?.timeFrom && classifiedFromData?.timeTo ?
+                            <Box className="card-rows">
+                              <Typography className="title-span" component="span">
+                                 Time:
+                              </Typography>
+                              <Typography className="sub-title" component="h5">
+                             From {classifiedFromData?.timeTo} to {classifiedFromData?.timeTo}
+                              </Typography>
+                            </Box>
+                            :
+                            null
+                        }
+
+                        <Typography component="span">
+                          Duration:
+                        </Typography>
+                        <Typography className="sub-title" component="h5">
+                         From {classifiedFromData.startDate} to {classifiedFromData.endDate}
                         </Typography>
                         {
                           classifiedFromData?.media.length !== 0 ?

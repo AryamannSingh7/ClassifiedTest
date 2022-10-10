@@ -58,12 +58,12 @@ class DashboardHeader extends DashboardController {
             <img src={buildingLogo.default} alt="BuildingLogo" width={70} />
             <Link href="#" style={{ textDecoration: "none" }}>
               <Typography variant="h6" style={dashBoard.buildingName}>
-                Building Name
+                {localStorage.getItem("complexName")}
               </Typography>
             </Link>
           </Grid>
           <Grid item xs={6} md={6} sm={6} style={dashBoard.HeaderSecRft}>
-            <div className="right-icon" style={{ display: "flex" }}>
+            <div className="right-icon" style={{ display: "flex", gap: "15px" }}>
               <Box>
                 <Menu
                   className="chairman-lang-menu"
@@ -92,7 +92,7 @@ class DashboardHeader extends DashboardController {
             <Box style={dashBoard.HeaderSecRtBox}>
               <img src={chairmanUser.default} alt="ChairmanUser" width={50} style={{ borderRadius: "50%" }} />
               <Box>
-                <Typography variant="subtitle1">User Name</Typography>
+                <p style={{ textTransform: "capitalize" }}>{localStorage.getItem("username")}</p>
                 <Typography variant="body2">{localStorage.getItem("userType")}</Typography>
               </Box>
             </Box>
@@ -172,7 +172,6 @@ const dashBoard = {
     borderRadius: "5px",
     marginRight: 8,
   },
-
   SideBar: {
     background: "#f9f6f6",
     position: "relative",

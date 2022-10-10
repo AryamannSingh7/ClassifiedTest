@@ -147,7 +147,7 @@ class OwnerDashboard extends DashboardController {
                   <IconButton onClick={() => this.toggleDrawer()}>
                     <img src={hamburgerIcon} alt="" />
                   </IconButton>
-                  <span className="complex-name">Complex Name</span>
+                  <span className="complex-name">{localStorage.getItem("complexName")}</span>
                 </div>
                 <div className="right-icon" style={{ display: "flex" }}>
                   <Box>
@@ -352,7 +352,7 @@ class OwnerDashboard extends DashboardController {
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
-                    <Link href="">
+                    <Link href="/ComplexDetails">
                       <DashboardCard
                         image={keyhand}
                         heading={t("Building Info & Rules")}
