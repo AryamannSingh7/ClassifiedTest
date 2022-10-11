@@ -63,7 +63,6 @@ class ContractsList extends ContractsListController {
     const sharePopupHeight = 700;
     const shareTitle = "TI 1 Final Leap";
 
-
     console.log(this.state);
 
     return (
@@ -79,7 +78,7 @@ class ContractsList extends ContractsListController {
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    Contracts
+                    {t("Contracts")}
                   </div>
                   <div className="right-icon">
                     <Menu
@@ -89,8 +88,8 @@ class ContractsList extends ContractsListController {
                         </IconButton>
                       }
                     >
-                      <MenuItem>Ascending</MenuItem>
-                      <MenuItem>Descending</MenuItem>
+                      <MenuItem>{t("Ascending")}</MenuItem>
+                      <MenuItem>{t("Descending")}</MenuItem>
                     </Menu>
                     <Menu
                       menuButton={
@@ -99,10 +98,10 @@ class ContractsList extends ContractsListController {
                         </IconButton>
                       }
                     >
-                      <MenuItem>Active</MenuItem>
-                      <MenuItem>Terminated</MenuItem>
-                      <MenuItem>Pending</MenuItem>
-                      <MenuItem>Closed</MenuItem>
+                      <MenuItem>{t("Active")}</MenuItem>
+                      <MenuItem>{t("Terminated")}</MenuItem>
+                      <MenuItem>{t("Pending")}</MenuItem>
+                      <MenuItem>{t("Closed")}</MenuItem>
                     </Menu>
                   </div>
                 </Box>
@@ -118,7 +117,7 @@ class ContractsList extends ContractsListController {
                           () => {}
                         );
                       }}
-                      label="My Contracts"
+                      label={t("My Contracts")}
                       className={this.state.isContractOpen ? "active" : ""}
                     />
                     <Tab
@@ -131,7 +130,7 @@ class ContractsList extends ContractsListController {
                           () => {}
                         );
                       }}
-                      label="Saved Templates"
+                      label={t("Saved Templates")}
                       className={!this.state.isContractOpen ? "active" : ""}
                     />
                   </Box>
@@ -142,7 +141,7 @@ class ContractsList extends ContractsListController {
                           <Grid container spacing={2}>
                             {this.state.contractsList.length === 0 && (
                               <Grid item xs={12}>
-                                <Card className="contract">No Contract Available!!</Card>
+                                <Card className="contract">{t("No Contract Available!")}</Card>
                               </Grid>
                             )}
                             {this.state.contractsList.map((contract: any) => {
@@ -165,7 +164,7 @@ class ContractsList extends ContractsListController {
                                             >
                                               <MenuItem>
                                                 <Link href={contract.attributes.template_pdf.url} target="_blank">
-                                                  Download
+                                                  {t("Download")}
                                                 </Link>
                                               </MenuItem>
                                               <MenuItem
@@ -178,7 +177,7 @@ class ContractsList extends ContractsListController {
                                                   );
                                                 }}
                                               >
-                                                Share
+                                                {t("Share")}
                                               </MenuItem>
                                             </Menu>
                                           </div>
@@ -187,29 +186,29 @@ class ContractsList extends ContractsListController {
                                     </Grid>
                                     <Grid container spacing={2} className="info">
                                       <Grid item xs={6}>
-                                        <span>Expires on</span>
+                                        <span>{t("Expires on")}</span>
                                         <p>
                                           {moment(contract.attributes.expires_on, "YYYY-MM-DD").format("MMMM DD, YYYY")}
                                         </p>
                                       </Grid>
                                       <Grid item xs={6}>
-                                        <span>Building</span>
+                                        <span>{t("Building")}</span>
                                         <p>{contract.attributes.building_name}</p>
                                       </Grid>
                                       <Grid item xs={6}>
-                                        <span>Unit</span>
+                                        <span>{t("Unit")}</span>
                                         <p>{contract.attributes.unit_name}</p>
                                       </Grid>
                                       <Grid item xs={6}>
-                                        <span>Tenant Name</span>
+                                        <span>{t("Tenant Name")}</span>
                                         <p>{contract.attributes.tenant_name}</p>
                                       </Grid>
                                       <Grid item xs={6}>
-                                        <span>Contract Type</span>
+                                        <span>{t("Contract Type")}</span>
                                         <p>{contract.attributes.contract_type}</p>
                                       </Grid>
                                       <Grid item xs={6}>
-                                        <span>Contract State</span>
+                                        <span>{t("Contract State")}</span>
                                         <p className="state">{contract.attributes.status}</p>
                                       </Grid>
                                     </Grid>
@@ -223,7 +222,7 @@ class ContractsList extends ContractsListController {
                           <Grid container>
                             <Grid item xs={12} md={12}>
                               <Link href="/IssueContract">
-                                <Button>Issue A New Contract</Button>
+                                <Button>{t("Issue A New Contract")}</Button>
                               </Link>
                             </Grid>
                           </Grid>
@@ -238,7 +237,7 @@ class ContractsList extends ContractsListController {
                           <Grid container spacing={2}>
                             {this.state.templatesList.length === 0 && (
                               <Grid item xs={12}>
-                                <Card className="template">No Template Available!!</Card>
+                                <Card className="template">{t("No Template Available!")}</Card>
                               </Grid>
                             )}
                             {this.state.templatesList.map((template: any) => {
@@ -263,10 +262,10 @@ class ContractsList extends ContractsListController {
                                       >
                                         <MenuItem>
                                           <Link href={template.attributes.template_pdf.url} target="_blank">
-                                            Download
+                                            {t("Download")}
                                           </Link>
                                         </MenuItem>
-                                        <MenuItem>Edit</MenuItem>
+                                        <MenuItem>{t("Edit")}</MenuItem>
                                         <MenuItem
                                           onClick={() => {
                                             this.setState({ shareUrl: template.attributes.template_pdf.url }, () => {
@@ -274,7 +273,7 @@ class ContractsList extends ContractsListController {
                                             });
                                           }}
                                         >
-                                          Share
+                                          {t("Share")}
                                         </MenuItem>
                                       </Menu>
                                     </div>
@@ -288,7 +287,7 @@ class ContractsList extends ContractsListController {
                           <Grid container>
                             <Grid item xs={12} md={12}>
                               <Link href="/IssueLease">
-                                <Button>Create Another Template</Button>
+                                <Button>{t("Create Another Template")}</Button>
                               </Link>
                             </Grid>
                           </Grid>
@@ -314,7 +313,7 @@ class ContractsList extends ContractsListController {
           className="select-meeting"
         >
           <MuiDialogTitle disableTypography className="dialog-heading">
-            <Typography variant="h6">Share</Typography>
+            <Typography variant="h6">{t("Share")}</Typography>
             <IconButton onClick={() => this.handleShareModal()}>
               <CloseIcon />
             </IconButton>

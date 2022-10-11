@@ -10,3 +10,4 @@ export const ExclamationIcon = require("../assets/exclamation.png");
 export const EarthIcon = require("../assets/earth.png");
 export const BuildingIcon = require("../assets/select-building.png");
 export const CubeIcon = require("../assets/cube.png");
+export const EditIcon = require("../assets/edit.png");

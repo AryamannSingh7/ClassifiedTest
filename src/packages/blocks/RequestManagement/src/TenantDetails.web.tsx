@@ -55,14 +55,14 @@ class TenantDetails extends TenantListController {
                 <Box className="tenant-detail-box">
                   <Container>
                     <Box className="detail">
-                      <h4>Tenant Details</h4>
+                      <h4>{t("Tenant Details")}</h4>
                       <Card className="detail-box">
                         <Grid container spacing={2} className="info">
                           <Grid item xs={6}>
                             <Box className="info-item">
                               <img src={TenantName} alt="" />
                               <Box className="item-data">
-                                <span>Tenant Name</span>
+                                <span>{t("Tenant Name")}</span>
                                 <p>Ali Khab</p>
                               </Box>
                             </Box>
@@ -71,7 +71,7 @@ class TenantDetails extends TenantListController {
                             <Box className="info-item">
                               <img src={TenantType} alt="" />
                               <Box className="item-data">
-                                <span>Tenant Type</span>
+                                <span>{t("Tenant Type")}</span>
                                 <p>Ali Khab</p>
                               </Box>
                             </Box>
@@ -80,7 +80,7 @@ class TenantDetails extends TenantListController {
                             <Box className="info-item">
                               <img src={BuildingName} alt="" />
                               <Box className="item-data">
-                                <span>Building Name</span>
+                                <span>{t("Building Name")}</span>
                                 <p>Ali Khab</p>
                               </Box>
                             </Box>
@@ -89,7 +89,7 @@ class TenantDetails extends TenantListController {
                             <Box className="info-item">
                               <img src={UnitNumber} alt="" />
                               <Box className="item-data">
-                                <span>Unit Number</span>
+                                <span>{t("Unit Number")}</span>
                                 <p>Ali Khab</p>
                               </Box>
                             </Box>
@@ -98,7 +98,7 @@ class TenantDetails extends TenantListController {
                             <Box className="info-item">
                               <img src={CityIcon} alt="" />
                               <Box className="item-data">
-                                <span>City</span>
+                                <span>{t("City")}</span>
                                 <p>Ali Khab</p>
                               </Box>
                             </Box>
@@ -107,7 +107,7 @@ class TenantDetails extends TenantListController {
                             <Box className="info-item">
                               <img src={PhoneNumber} alt="" />
                               <Box className="item-data">
-                                <span>Phone Number</span>
+                                <span>{t("Phone Number")}</span>
                                 <p>Ali Khab</p>
                               </Box>
                             </Box>
@@ -116,7 +116,7 @@ class TenantDetails extends TenantListController {
                             <Box className="info-item">
                               <img src={EmailIcon} alt="" />
                               <Box className="item-data">
-                                <span>Email Address</span>
+                                <span>{t("Email Address")}</span>
                                 <p>Ali Khab</p>
                               </Box>
                             </Box>
@@ -125,7 +125,7 @@ class TenantDetails extends TenantListController {
                             <Box className="info-item">
                               <img src={LeaseIcon} alt="" />
                               <Box className="item-data">
-                                <span>Lease Issued</span>
+                                <span>{t("Lease Issued")}</span>
                                 <p>Ali Khab</p>
                               </Box>
                             </Box>
@@ -135,14 +135,14 @@ class TenantDetails extends TenantListController {
                     </Box>
 
                     <Box className="detail">
-                      <h4>Identity Proof</h4>
+                      <h4>{t("Identity Proof")}</h4>
                       <Card className="detail-box">
                         <Grid container spacing={2} className="info">
                           <Grid item xs={6}>
                             <Box className="info-item">
                               <img src={IdType} alt="" />
                               <Box className="item-data">
-                                <span>ID Type</span>
+                                <span>{t("ID Type")}</span>
                                 <p>Ali Khab</p>
                               </Box>
                             </Box>
@@ -151,7 +151,7 @@ class TenantDetails extends TenantListController {
                             <Box className="info-item">
                               <img src={IdNumber} alt="" />
                               <Box className="item-data">
-                                <span>ID Number</span>
+                                <span>{t("ID Number")}</span>
                                 <p>Ali Khab</p>
                               </Box>
                             </Box>
@@ -160,7 +160,7 @@ class TenantDetails extends TenantListController {
                             <Box className="info-item">
                               <img src={CalenderIcon} alt="" />
                               <Box className="item-data">
-                                <span>ID Expiration Date</span>
+                                <span>{t("ID Expiration Date")}</span>
                                 <p>Ali Khab</p>
                               </Box>
                             </Box>

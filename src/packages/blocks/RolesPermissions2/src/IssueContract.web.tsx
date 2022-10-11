@@ -46,7 +46,7 @@ class IssueLease extends IssueContractController {
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    Issue a Lease
+                    <span>{t("Issue a Lease")}</span>
                   </div>
                 </Box>
                 <Container className="page-container">
@@ -69,7 +69,7 @@ class IssueLease extends IssueContractController {
                           <ListItemIcon>
                             <img src={BuildingIcon} alt="" />
                           </ListItemIcon>
-                          Building Name
+                          {t("Building Name")}
                         </MenuItem>
                         {this.state.buildingList.map((building: any) => {
                           return (
@@ -96,7 +96,7 @@ class IssueLease extends IssueContractController {
                           <ListItemIcon>
                             <img src={CubeIcon} alt="" />
                           </ListItemIcon>
-                          Unit Number
+                          {t("Unit Number")}
                         </MenuItem>
                         {this.state.unitList.map((unit: any) => {
                           return (
@@ -109,19 +109,19 @@ class IssueLease extends IssueContractController {
                     </Box>
                     <Box className="tenant-info">
                       <Box>
-                        <span>Tenant Name:</span>
+                        <span>{t("Tenant Name")}:</span>
                         <p>Mr. Ali Khan</p>
                       </Box>
                       <Box>
-                        <Link href="/IssueContract">Register a New Tenant</Link>
+                        <Link href="/IssueContract">{t("Register a New Tenant")}</Link>
                       </Box>
                     </Box>
                     <Box className="templates-list">
-                      <h3>Select Lease Template</h3>
+                      <h3>{t("Select Lease Template")}</h3>
                       <Grid container spacing={2}>
                         {this.state.templatesList.length === 0 && (
                           <Grid item xs={12}>
-                            <Card className="template">No Template Available</Card>
+                            <Card className="template">{t("No Template Available")}</Card>
                           </Grid>
                         )}
                         {this.state.templatesList.map((template: any, index: number) => {
@@ -136,7 +136,7 @@ class IssueLease extends IssueContractController {
                                 </div>
                                 {index === 0 && (
                                   <div className="right-menu">
-                                    <span>Default</span>
+                                    <span>{t("Default")}</span>
                                   </div>
                                 )}
                               </Card>
@@ -161,8 +161,8 @@ class IssueLease extends IssueContractController {
                                     </IconButton>
                                   }
                                 >
-                                  <MenuItem>Download</MenuItem>
-                                  <MenuItem>Share</MenuItem>
+                                  <MenuItem>{t("Download")}</MenuItem>
+                                  <MenuItem>{t("Share")}</MenuItem>
                                 </Menu>
                               </div>
                             </div>
@@ -170,34 +170,35 @@ class IssueLease extends IssueContractController {
                         </Grid>
                         <Grid container spacing={2} className="info">
                           <Grid item xs={6}>
-                            <span>Expires on</span>
+                            <span>{t("Expires on")}</span>
                             <p>30-04-2022</p>
                           </Grid>
                           <Grid item xs={6}>
-                            <span>Building</span>
+                            <span>{t("Building")}</span>
                             <p>Building</p>
                           </Grid>
                           <Grid item xs={6}>
-                            <span>Unit</span>
+                            <span>{t("Unit")}</span>
                             <p>Unit</p>
                           </Grid>
                           <Grid item xs={6}>
-                            <span>Tenant Name</span>
+                            <span>{t("Tenant Name")}</span>
                             <p>Tenant Name</p>
                           </Grid>
                           <Grid item xs={6}>
-                            <span>Contract Type</span>
+                            <span>{t("Contract Type")}</span>
                             <p>Contract Type</p>
                           </Grid>
                           <Grid item xs={6}>
-                            <span>Contract State</span>
+                            <span>{t("Contract State")}</span>
                             <p>Contract State</p>
                           </Grid>
                         </Grid>
                       </Card>
                       <p>
-                        Contract is already assigned to <span>Mr Ali Khan</span> for <span>Building 1 Unit 102</span>.
-                        You will have to end or terminate contract in order to issue a new contract.
+                        {t("Contract is already assigned to")} <span>Mr Ali Khan</span> {t("for")}{" "}
+                        <span>Building 1 Unit 102</span>.{" "}
+                        {t("You will have to end or terminate contract in order to issue a new contract.")}
                       </p>
                     </Box>
                   </Box>
