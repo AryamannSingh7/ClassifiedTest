@@ -75,7 +75,7 @@ export default class CoverImageController extends BlockComponent<
       announcementList:[],
       categoryList:[],
       filterCategory:[],
-      shortBy:true,
+      shortBy:false,
     };
 
     this.emailReg = new RegExp("");
