@@ -289,6 +289,22 @@ export const ContractsStyleWeb: any = {
       borderRadius: "30px",
       marginTop: "18px",
     },
+    "& .issue-lease-content .MuiSelect-root": {
+      background: "#F9F9F9",
+      borderRadius: "30px",
+    },
+    "& .issue-lease-content .select-box": {
+      position: "relative",
+    },
+    "& .issue-lease-content .select-box img": {
+      position: "absolute",
+      top: "38px",
+      left: "15px",
+    },
+    "& .issue-lease-content .select-box .select-input": {
+      width: "100%",
+      paddingLeft: "50px",
+    },
     "& .issue-lease-content .select-input-box .select-input .MuiListItemIcon-root": {
       minWidth: "40px",
     },

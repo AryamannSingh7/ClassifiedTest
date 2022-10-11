@@ -1,6 +1,4 @@
 // Customizable Area Start
-//@ts-nocheck
-//@ts-ignore
 import React from "react";
 import {
   Button,
@@ -36,16 +34,11 @@ import {
   TwitterIcon,
   WhatsappIcon,
 } from "react-share";
-
-import ReviewTemplateController, {
-  Props,
-} from "./ReviewTemplateController.web";
+import ReviewTemplateController, { Props } from "./ReviewTemplateController.web";
 import { ContractsStyleWeb } from "./ContractsStyle.web";
-
-import BuildingLogo from "../assets/building.png";
-import DownloadIcon from "../assets/download.png";
-import ShareIcon from "../assets/share.png";
-import ExclamationIcon from "../assets/exclamation.png";
+import { BuildingLogo, DownloadIcon, ShareIcon, ExclamationIcon } from "./assets";
+import { withTranslation } from "react-i18next";
+import "../../../web/src/i18n.js";
 
 class ReviewTemplate extends ReviewTemplateController {
   constructor(props: Props) {
@@ -54,6 +47,7 @@ class ReviewTemplate extends ReviewTemplateController {
 
   render() {
     const { classes } = this.props;
+    const { t }: any = this.props;
 
     const sharePopupWidth = 500;
     const sharePopupHeight = 700;
@@ -63,10 +57,7 @@ class ReviewTemplate extends ReviewTemplateController {
 
     return (
       <>
-        <Box
-          style={{ background: "#F4F7FF", height: "100vh" }}
-          className={classes.detailPage}
-        >
+        <Box style={{ background: "#F4F7FF", height: "100vh" }} className={classes.detailPage}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box className="faq-step">
@@ -77,7 +68,7 @@ class ReviewTemplate extends ReviewTemplateController {
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    Review Lease Document
+                    <span>{t("Review Lease Document")}</span>
                   </div>
                   <div className="right-icon">
                     <img src={DownloadIcon} alt="SortIcon" />
@@ -94,13 +85,13 @@ class ReviewTemplate extends ReviewTemplateController {
                     <Box className="upload-button">
                       <Box className="upload-button-group review">
                         <Box className="top">
-                          <Button>Edit Document</Button>
+                          <Button>{t("Edit Document")}</Button>
                           <Button
                             onClick={() => {
                               this.handleSaveLeaseModal();
                             }}
                           >
-                            Save Template
+                            {t("Save Template")}
                           </Button>
                         </Box>
                         <Box className="bottom">
@@ -109,7 +100,7 @@ class ReviewTemplate extends ReviewTemplateController {
                               this.handleGenerateLeaseModal();
                             }}
                           >
-                            Generate Lease
+                            {t("Generate Lease")}
                           </Button>
                           <Box
                             className="image"
@@ -127,11 +118,8 @@ class ReviewTemplate extends ReviewTemplateController {
               </Box>
             </Grid>
             <Grid item xs={12} md={5}>
-              <Box
-                className="right-block right-image"
-                display={{ xs: "none", md: "flex" }}
-              >
-                <img src={BuildingLogo} className="building-logo" alt="" />
+              <Box className="right-block right-image" display={{ xs: "none", md: "flex" }}>
+                <img src={BuildingLogo.default} className="building-logo" alt="" />
               </Box>
             </Grid>
           </Grid>
@@ -146,10 +134,11 @@ class ReviewTemplate extends ReviewTemplateController {
           <DialogContent>
             <Box textAlign="center">
               <img src={ExclamationIcon} alt="ExclamationIcon" />
-              <Typography variant="h6">Save Lease Template</Typography>
+              <Typography variant="h6">{t("Save Lease Template")}</Typography>
               <Typography variant="body1">
-                Your lease document will be saved as template. You can access
-                this document from contracts section of the app.
+                {t(
+                  "Your lease document will be saved as template. You can access this document from contracts section of the app."
+                )}
               </Typography>
               <DialogActions className="dialog-button-group">
                 <Button
@@ -158,7 +147,7 @@ class ReviewTemplate extends ReviewTemplateController {
                     this.handleSaveLeaseModal();
                   }}
                 >
-                  Save
+                  {t("Save")}
                 </Button>
               </DialogActions>
             </Box>
@@ -174,10 +163,11 @@ class ReviewTemplate extends ReviewTemplateController {
           <DialogContent>
             <Box textAlign="center">
               <img src={ExclamationIcon} alt="ExclamationIcon" />
-              <Typography variant="h6">Lease Document Generated</Typography>
+              <Typography variant="h6">{t("Lease Document Generated")}</Typography>
               <Typography variant="body1">
-                Your lease document has been generated. You can access this
-                document from contracts section of the app.
+                {t(
+                  "Your lease document has been generated. You can access this document from contracts section of the app."
+                )}
               </Typography>
               <DialogActions className="dialog-button-group">
                 <Button
@@ -186,7 +176,7 @@ class ReviewTemplate extends ReviewTemplateController {
                     this.handleGenerateLeaseModal();
                   }}
                 >
-                  Okay
+                  {t("Okay")}
                 </Button>
               </DialogActions>
             </Box>
@@ -200,7 +190,7 @@ class ReviewTemplate extends ReviewTemplateController {
           className="select-meeting"
         >
           <MuiDialogTitle disableTypography className="dialog-heading">
-            <Typography variant="h6">Share</Typography>
+            <Typography variant="h6">{t("Share")}</Typography>
             <IconButton onClick={() => this.handleShareModal()}>
               <CloseIcon />
             </IconButton>
@@ -208,78 +198,78 @@ class ReviewTemplate extends ReviewTemplateController {
           <DialogContent>
             <div className="share-box">
               <FacebookShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <FacebookIcon />
-              </FacebookShareButton>
+                // @ts-ignore
+                children={<FacebookIcon />}
+                translate
+              />
               <TwitterShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <TwitterIcon />
-              </TwitterShareButton>
+                // @ts-ignore
+                children={<TwitterIcon />}
+                translate
+              />
               <WhatsappShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
                 separator=":: "
-              >
-                <WhatsappIcon />
-              </WhatsappShareButton>
+                // @ts-ignore
+                children={<WhatsappIcon />}
+                translate
+              />
               <LinkedinShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <LinkedinIcon />
-              </LinkedinShareButton>
+                // @ts-ignore
+                children={<LinkedinIcon />}
+                translate
+              />
               <EmailShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <EmailIcon />
-              </EmailShareButton>
+                // @ts-ignore
+                children={<EmailIcon />}
+                translate
+              />
               <RedditShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <RedditIcon />
-              </RedditShareButton>
+                // @ts-ignore
+                children={<RedditIcon />}
+                translate
+              />
               <TelegramShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <TelegramIcon />
-              </TelegramShareButton>
+                // @ts-ignore
+                children={<TelegramIcon />}
+                translate
+              />
               <TumblrShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <TumblrIcon />
-              </TumblrShareButton>
+                // @ts-ignore
+                children={<TumblrIcon />}
+                translate
+              />
             </div>
           </DialogContent>
         </Dialog>
@@ -288,5 +278,5 @@ class ReviewTemplate extends ReviewTemplateController {
   }
 }
 
-export default withStyles(ContractsStyleWeb)(ReviewTemplate);
+export default withTranslation()(withStyles(ContractsStyleWeb)(ReviewTemplate));
 // Customizable Area End

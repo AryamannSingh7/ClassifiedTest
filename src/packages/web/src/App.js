@@ -150,18 +150,15 @@ import IncidentPreview from '../../blocks/ContentManagement/src/IncidentPreview.
 import IncidentManagement from '../../blocks/ContentManagement/src/IncidentManagement.web';
 import IncidentManagementDetail from '../../blocks/ContentManagement/src/IncidentManagementDetail.web';
 
-
-
-import ClassifiedManagerListing from "../../blocks/ContentManagement/src/ClassifiedManagerListing.web";
-import ClassifiedManagerDetail from "../../blocks/ContentManagement/src/ClassifiedManagerDetail.web";
-import CreateClassified from "../../blocks/ContentManagement/src/CreateClassified.web";
-import ClassifiedType from "../../blocks/ContentManagement/src/ClassifiedType.web";
-import ClassifiedListing from "../../blocks/ContentManagement/src/ClassifiedListing.web";
-import ClassifiedReportedSuccessfully from "../../blocks/ContentManagement/src/ClassifiedReportedSuccessfully.web";
-import ClassifiedPreview from "../../blocks/ContentManagement/src/ClassifiedPreview.web";
-import ClassifiedDetails from "../../blocks/ContentManagement/src/ClassifiedDetails.web";
-import ClassifiedEditSuccessfully from "../../blocks/ContentManagement/src/ClassifiedEditSuccessfully.web";
-
+import ClassifiedManagerListing from '../../blocks/ContentManagement/src/ClassifiedManagerListing.web';
+import ClassifiedManagerDetail from '../../blocks/ContentManagement/src/ClassifiedManagerDetail.web';
+import CreateClassified from '../../blocks/ContentManagement/src/CreateClassified.web';
+import ClassifiedType from '../../blocks/ContentManagement/src/ClassifiedType.web';
+import ClassifiedListing from '../../blocks/ContentManagement/src/ClassifiedListing.web';
+import ClassifiedReportedSuccessfully from '../../blocks/ContentManagement/src/ClassifiedReportedSuccessfully.web';
+import ClassifiedPreview from '../../blocks/ContentManagement/src/ClassifiedPreview.web';
+import ClassifiedDetails from '../../blocks/ContentManagement/src/ClassifiedDetails.web';
+import ClassifiedEditSuccessfully from '../../blocks/ContentManagement/src/ClassifiedEditSuccessfully.web';
 
 import NeighboursDetails from '../../blocks/search/src/NeighboursDetails.web';
 import NeighboursListing from '../../blocks/search/src/NeighboursListing.web';
@@ -262,19 +259,20 @@ import VisitorsDetails from '../../blocks/invitefriends/src/VisitorDetailsManage
 import TenantList from '../../blocks/RequestManagement/src/TenantList.web';
 import TenantDetails from '../../blocks/RequestManagement/src/TenantDetails.web';
 import RegisterTenant from '../../blocks/RequestManagement/src/RegisterTenant.web';
+import RegisterTenantContract from '../../blocks/RequestManagement/src/RegisterTenantContract.web';
 
 // My Team Imports
-import MyTeam from "../../blocks/FriendList/src/MyTeam.web"
-import MyTeamCore from "../../blocks/FriendList/src/MyTeamCore.web"
-import MyTeamUserDetails from "../../blocks/FriendList/src/MyTeamUserDetails.web"
-import ChairmanNominationMain from "../../blocks/FriendList/src/ChairmanNominationMain.web"
-import NominationDetails from "../../blocks/FriendList/src/NominationDetails.web"
-import NominationSuccess from "../../blocks/FriendList/src/NominationAdded"
-import ChairmanNominations from "../../blocks/FriendList/src/ChairmanNomination"
-import ChairmanNominationDetails from "../../blocks/FriendList/src/ChairmanNominationDetails.web"
-import NominateMySelf from "../../blocks/FriendList/src/NominateMySelf.web"
-import MyNomination from "../../blocks/FriendList/src/MyNomination.web"
-import TaskManagement from "../../blocks/FriendList/src/TaskManagement.web"
+import MyTeam from '../../blocks/FriendList/src/MyTeam.web';
+import MyTeamCore from '../../blocks/FriendList/src/MyTeamCore.web';
+import MyTeamUserDetails from '../../blocks/FriendList/src/MyTeamUserDetails.web';
+import ChairmanNominationMain from '../../blocks/FriendList/src/ChairmanNominationMain.web';
+import NominationDetails from '../../blocks/FriendList/src/NominationDetails.web';
+import NominationSuccess from '../../blocks/FriendList/src/NominationAdded';
+import ChairmanNominations from '../../blocks/FriendList/src/ChairmanNomination';
+import ChairmanNominationDetails from '../../blocks/FriendList/src/ChairmanNominationDetails.web';
+import NominateMySelf from '../../blocks/FriendList/src/NominateMySelf.web';
+import MyNomination from '../../blocks/FriendList/src/MyNomination.web';
+import TaskManagement from '../../blocks/FriendList/src/TaskManagement.web';
 
 const routeMap = {
   //done
@@ -540,27 +538,27 @@ const routeMap = {
     exact: true
   },
   ClassifiedListing: {
-  component: ClassifiedListing,
-  path: '/ClassifiedListing',
-  exact: true
-},
-ClassifiedPreview: {
-  component: ClassifiedPreview,
-  path: '/ClassifiedPreview',
-  exact: true
-},
-ClassifiedReportedSuccessfully: {
-  component: ClassifiedReportedSuccessfully,
-  path: '/ClassifiedReportedSuccessfully',
-  exact: true
-},
+    component: ClassifiedListing,
+    path: '/ClassifiedListing',
+    exact: true
+  },
+  ClassifiedPreview: {
+    component: ClassifiedPreview,
+    path: '/ClassifiedPreview',
+    exact: true
+  },
+  ClassifiedReportedSuccessfully: {
+    component: ClassifiedReportedSuccessfully,
+    path: '/ClassifiedReportedSuccessfully',
+    exact: true
+  },
 
-ClassifiedEditSuccessfully: {
-  component: ClassifiedEditSuccessfully,
-  path: '/ClassifiedEditSuccessfully',
-  exact: true
-},
-// RolesPermissions2: {
+  ClassifiedEditSuccessfully: {
+    component: ClassifiedEditSuccessfully,
+    path: '/ClassifiedEditSuccessfully',
+    exact: true
+  },
+  // RolesPermissions2: {
   //   component: RolesPermissions2,
   //   path: '/RolesPermissions2'
   // },
@@ -799,37 +797,37 @@ ClassifiedEditSuccessfully: {
   },
   SelectedTemplate: {
     component: SelectedTemplate,
-    path: '/IssueLease/:id',
+    path: '/IssueLease/:templateId',
     exact: true
   },
   SelectedTemplateTwo: {
     component: SelectedTemplate,
-    path: '/IssueContract/:id',
+    path: '/IssueContract/:templateId',
     exact: true
   },
   LeaseFormIssueLease: {
     component: LeaseForm,
-    path: '/IssueLease/:id/LeaseForm',
+    path: '/IssueLease/:templateId/LeaseForm',
     exact: true
   },
   LeaseFormIssueContract: {
     component: LeaseForm,
-    path: '/IssueContract/:id/LeaseForm',
+    path: '/IssueContract/:templateId/LeaseForm',
     exact: true
   },
   ChangedSelectedTemplate: {
     component: ChangedSelectedTemplate,
-    path: '/IssueContract/:id/LeaseForm/Template',
+    path: '/IssueContract/:templateId/LeaseForm/Template',
     exact: true
   },
   AddCondition: {
     component: AddCondition,
-    path: '/IssueContract/:id/LeaseForm/Template/AddCondition',
+    path: '/IssueContract/:templateId/LeaseForm/Template/AddCondition',
     exact: true
   },
   ReviewTemplate: {
     component: ReviewTemplate,
-    path: '/IssueContract/:id/LeaseForm/Template/Review',
+    path: '/IssueContract/:templateId/LeaseForm/Template/Review',
     exact: true
   },
   // LeaseForm: {
@@ -1584,7 +1582,7 @@ ClassifiedEditSuccessfully: {
     exact: true
   },
 
-  TaskManagement:{
+  TaskManagement: {
     component: TaskManagement,
     path: '/TaskManagement',
     exact: true
@@ -1654,7 +1652,14 @@ ClassifiedEditSuccessfully: {
   RegisterTenant: {
     component: RegisterTenant,
     path: '/RegisterTenant',
-    roles: [ROLE.OWNER]
+    roles: [ROLE.OWNER],
+    exact: true
+  },
+  RegisterTenantContract: {
+    component: RegisterTenantContract,
+    path: '/RegisterTenant/:id',
+    roles: [ROLE.OWNER],
+    exact: true
   },
 
   AlertWeb: {
