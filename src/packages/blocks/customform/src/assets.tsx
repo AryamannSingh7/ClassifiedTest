@@ -29,6 +29,8 @@ export const Hyperlink = require("../assets/Hyperlink.png");
 export const User3 = require("../assets/User 3.png");
 export const Search = require("../assets/search.png");
 export const NoChat = require("../assets/noChat.png");
+export const Send = require("../assets/send.png");
+
 
 
 

@@ -5,12 +5,12 @@
 }
 
 .first_icon {
-  border-right: 2px solid #D6DBE4;
+  border-right: 2px solid #d6dbe4;
   padding-right: 0.75rem;
 }
 
 .second_icon {
-  border-right: 2px solid #D6DBE4;
+  border-right: 2px solid #d6dbe4;
   padding-right: 0.75rem;
   padding-left: 0.75rem;
 }
@@ -36,21 +36,18 @@
 }
 
 .active {
-
   color: blue;
   font-weight: bold !important;
   border: 5px solid gray;
-  & .MuiTypography-body1{
+  & .MuiTypography-body1 {
     font-weight: 600;
   }
 }
 
-
 .unactive {
-
   color: gray;
   font-weight: bold !important;
-  & .MuiTypography-body1{
+  & .MuiTypography-body1 {
     font-weight: 600;
   }
 }
@@ -115,37 +112,36 @@ h4.MuiTypography-body1 {
     width: 100%;
   }
 }
-.white-box{
-      /* padding: 1rem; */
-      background: white;
-      border-radius: 8px;
-      display: flex;
+.white-box {
+  /* padding: 1rem; */
+  background: white;
+  border-radius: 8px;
+  display: flex;
 }
 // .left-side{
 //   border-right: 1px solid #1A181D25;
 //     max-width: 200px;
 //     padding: 1rem;
 // }
-.icons{
-  display: flex;
-    gap: 1.25rem;
-    margin-top: 1rem;
+.icons {
+  // display: flex;
+  // gap: 1.25rem;
+  // margin-top: 1rem;
 }
-.right-side{
+.right-side {
   padding: 1rem;
   width: 100%;
-  .heading{
-    color:#181d2557;
+  .heading {
+    color: #181d2557;
   }
-  .content{
-  color: #181D25;
-  padding: 10px 20px 10px 0px;
-
+  .content {
+    color: #181d25;
+    padding: 10px 20px 10px 0px;
   }
 }
-.social-icon{
-  .icon-1{
-    background: #F6ECE6;
+.social-icon {
+  .icon-1 {
+    background: #f6ece6;
     padding: 0.5rem;
     border-radius: 50%;
   }

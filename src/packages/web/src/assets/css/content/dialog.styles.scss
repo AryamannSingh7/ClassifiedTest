@@ -198,9 +198,11 @@
     .lead {
       padding: 10px 0 !important;
     }
-    &.classified-content
-    {
+    &.classified-content {
       padding: 20px 40px;
+      @media only screen and (max-width: 768px) {
+        padding: 10px;
+      }
     }
   }
 
@@ -239,8 +241,15 @@
       padding-top: 10px;
       padding-bottom: 50px;
       width: 100%;
+      @media only screen and (max-width: 600px) {
+       flex-direction: column;
+      }
       & button {
         width: 50%;
+        @media only screen and (max-width: 600px) {
+          width: auto;
+          margin-bottom: 10px;
+        }
       }
       & .MuiButton-root {
         padding: 12px 15px;

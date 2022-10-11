@@ -14,7 +14,8 @@ import {
   Dialog,
   DialogTitle,
   Menu,
-  MenuItem
+  MenuItem,
+  CardActionArea
 } from "@material-ui/core";
 
 //resources
@@ -30,7 +31,7 @@ import CountryCodeSelector from "../../country-code-selector/src/CountryCodeSele
 import ClassifiedController, { Props } from "./ClassifiedController.web";
 //Customizable Area End
 //resorces
-import { Tenant_Logo, Building1, Grid_Icon, Setting_Icon, Filter_Icon } from "../src/assets";
+import { DeleteIcon, Building1, NoClassifiedIcon, Setting_Icon, Filter_Icon } from "../src/assets";
 
 class ClassifiedListing extends ClassifiedController {
   constructor(props: Props) {
@@ -47,11 +48,11 @@ class ClassifiedListing extends ClassifiedController {
         <Box className="login-wrapper incident-wrapper">
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
-              <Box className="content-block">
+              <Box className="common_content_block content-block">
                 <Box className="content-header">
                   <Box className="left-block blocks">
-                    <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
-                    <h4>Classified asdsd</h4>
+                    <Box className="backIcons" onClick={this.redirectToDashboard}><KeyboardBackspaceIcon /></Box>
+                    <h4>Classified</h4>
                   </Box>
                   {
                     this.state?.myOrAllClassified ?
@@ -106,89 +107,133 @@ class ClassifiedListing extends ClassifiedController {
                     </div>
                     {
                       this.state?.classifiedListing?.length === 0 ?
-                      <Box className="common-incident-block" style={{
-                        height: "100vh", textAlign: "center", display: "flex",
-                        justifyContent: "center", margin: "150px 5px", overflow: "hidden"
-                      }}>
-                        <h2>No classifieds 
-                          were found</h2>
-                        <p>Looks like you havn’t added any classifieds!
-                          You can create a new request by tapping the below button.</p>
-                      </Box>
-                      : 
-                        this.state?.classifiedListing?.map((val: any, index: any) => (
-                        <Card className="classified-card card" key={val?.attributes?.id} onClick={(e:any) => {this.getClassifiedDetails(e,val.id)}}>
-                          <CardContent className="costom-card-content">
-                            <Box className="classified-card-header">
-                              <Typography component="h4">
-                                {val?.attributes?.title} {val?.attributes?.id}
-                              </Typography>
-                              {
-                                this.state?.myOrAllClassified ? 
-                                null
-                                :
-                                <>
-                                 <Button  aria-controls="simple-menu" aria-haspopup="true" onClick={(e: any) =>{ this.handleClick(e ,val?.attributes?.id)}}>
-                                <img src={Setting_Icon} className="grid-icon icons" alt="" />
-                              </Button>
-                              <Menu
-                                id="simple-menu"
-                                anchorEl={this.state.anchorEl}
-                                keepMounted
-                                open={Boolean(this.state.anchorEl)}
-                                onClose={() => this.handleClose("","")}
-                              >
-                                <MenuItem onClick={(e) => this.handleClose(e,"edit")}>Edit</MenuItem>
-                                <MenuItem onClick={(e) => this.handleClose(e,"delete")}>Delete  {val?.attributes?.id}</MenuItem>
-                               </Menu>
-                                </>
-                              }
-                             
-                            </Box>
-                            <Typography className="sub-title h5-title" component="h5">
-                            {val?.attributes?.description}
-                             </Typography>
-                            <Typography component="span">
-                              Available to buy:
-                            </Typography>
-                            <Typography className="sub-title h5-title" component="h5">
-                             {val?.attributes?.duration_from} to {val?.attributes?.duration_to}
-                            </Typography>
-                            <hr />
-                            <Box className="card-footer classified-footer">
-                              <div className="left-block">
-                                {/* <img src={Dollar_Icon} className="dollar-icon" alt="Dollar Icon" /> */}
-                                <Typography component="h4">
-                                {val?.attributes?.currency?.currency} {val?.attributes?.price_from} - {val?.attributes?.currency?.currency}  {val?.attributes?.price_to}
-                                </Typography>
+                        <>
+                          <Box className="content-block">
+                            <Box className="main-content-block">
+                              <div className='no-classification'>
+                                <img src={NoClassifiedIcon} className="lock-logo" alt="Lock_Icon" />
+                                <h1>No classifieds were <br></br>found</h1>
+                                <p>Looks like you havn’t added any classifieds! You can create a new request by tapping the below button.</p>
                               </div>
-                              {
-                                val?.attributes?.classified_type === "buyer" ?
-                                  <Box className="customButton">
-                                    <Button variant="contained" className="contain success" type="submit" >Buy</Button>
-                                  </Box>
-                                  :
-                                  (val?.attributes?.classified_type === "generic") ?
-                                    <Box className="customButton">
-                                      <Button variant="contained" className="contain warning" type="submit" >Generic</Button>
-                                    </Box>
-                                    :
-                                    <Box className="customButton">
-                                      <Button variant="contained" className="contain danger" type="submit" >Sell</Button>
-                                    </Box>
-                              }
                             </Box>
-                          </CardContent>
-                        </Card>
-                    ))
+                          </Box>
+                        </>
+                        :
+                        this.state?.classifiedListing?.map((val: any, index: any) => (
+                          <Card className="classified-card card" key={val?.attributes?.id} >
+                            <CardActionArea onClick={(e: any) => { this.getClassifiedDetails(e, val.id) }}>
+                              <CardContent className="costom-card-content">
+                                <Box className="classified-card-header">
+                                  <Typography component="h4">
+                                    {val?.attributes?.title}
+                                  </Typography>
+                                  {
+                                    this.state?.myOrAllClassified ?
+                                      null
+                                      :
+                                      <>
+                                        <Button className="menu-btn" aria-controls="simple-menu" aria-haspopup="true" onMouseDown={event => event.stopPropagation()} onClick={(e: any) => { this.handleClick(e, val?.attributes?.id) }}>
+                                          <img src={Setting_Icon} className="grid-icon icons" alt="" />
+                                        </Button>
+                                        <Menu
+                                          id="simple-menu"
+                                          anchorEl={this.state.anchorEl}
+                                          keepMounted
+                                          open={Boolean(this.state.anchorEl)}
+                                          onClose={() => this.handleClose("", "")}
+                                        >
+                                          <MenuItem onClick={(e) => this.handleClose(e, "edit")}>Edit</MenuItem>
+                                          <MenuItem onClick={(e) => this.handleClose(e, "delete")}>Delete </MenuItem>
+                                        </Menu>
+                                      </>
+                                  }
+
+                                </Box>
+                                <Typography className="sub-title h5-title" component="h5">
+                                  {val?.attributes?.description}
+                                </Typography>
+                                <Typography component="span">
+                                  Available to buy:
+                                </Typography>
+                                <Typography className="sub-title h5-title" component="h5">
+                                  {val?.attributes?.duration_from} to {val?.attributes?.duration_to}
+                                </Typography>
+                                <hr />
+                                <Box className="card-footer classified-footer">
+                                  {
+                                    val?.attributes?.classified_type === "buyer" ?
+                                      <div className="left-block">
+                                        {/* <img src={Dollar_Icon} className="dollar-icon" alt="Dollar Icon" /> */}
+                                        <Typography component="h4">
+                                          {val?.attributes?.price_from} {val?.attributes?.currency?.currency} - {val?.attributes?.price_to} {val?.attributes?.currency?.currency}
+                                        </Typography>
+                                      </div>
+                                      :
+                                      null
+                                  }
+
+                                  {
+                                    val?.attributes?.classified_type === "generic" ?
+                                      <div className="left-block">
+                                        {/* <img src={Dollar_Icon} className="dollar-icon" alt="Dollar Icon" /> */}
+                                        <Typography component="h4">
+                                          {val?.attributes?.payment_detail} {val?.attributes?.currency?.currency}
+                                        </Typography>
+                                      </div>
+                                      :
+                                      null
+                                  }
+
+                                  {
+                                    val?.attributes?.classified_type === "seller" ?
+                                      <div className="left-block">
+                                        {/* <img src={Dollar_Icon} className="dollar-icon" alt="Dollar Icon" /> */}
+                                        <Typography component="h4">
+                                          {val?.attributes?.price} {val?.attributes?.currency?.currency}
+                                        </Typography>
+                                      </div>
+                                      :
+                                      null
+                                  }
+
+
+
+                                  {
+                                    val?.attributes?.classified_type === "buyer" ?
+                                      <Box className="customButton">
+                                        <Button variant="contained" className="contain success" type="submit" >Buy</Button>
+                                      </Box>
+                                      :
+                                      (val?.attributes?.classified_type === "generic") ?
+                                        <Box className="customButton">
+                                          <Button variant="contained" className="contain blue" type="submit" >Generic</Button>
+                                        </Box>
+                                        :
+                                        <Box className="customButton">
+                                          <Button variant="contained" className="contain danger" type="submit" >Sell</Button>
+                                        </Box>
+                                  }
+                                </Box>
+                              </CardContent>
+                            </CardActionArea>
+                          </Card>
+                        ))
+                    }
+                  </Box>
+                  {
+                    this.state?.myOrAllClassified ?
+                      null
+                      :
+                      <Box className="customButton add-incident">
+                        <Button variant="contained" onClick={() => {
+                          this.setState({ loading: true });//@ts-ignore
+                          this.props.history.push("/ClassifiedType")
+                        }} >{this.state?.classifiedListing?.length === 0 ? 'Add Classified Request'
+                          :
+                          'ADD Classified'}</Button>
+                      </Box>
                   }
-                  </Box>
-                  <Box className="customButton add-incident">
-                    <Button variant="contained" onClick={() => {
-                      this.setState({ loading: true });//@ts-ignore
-                      this.props.history.push("/ClassifiedType")
-                    }} >ADD Classified</Button>
-                  </Box>
+
                 </Box>
                 {/* <Box className="footer-main-block bottomBlock">
                    <h6 className="bottom-text">POWERED BY</h6>
@@ -212,7 +257,8 @@ class ClassifiedListing extends ClassifiedController {
               PaperProps={{
                 style: {
                   borderRadius: '15px',
-                  width: "500px"
+                  width: "500px",
+                  margin: "0"
                 },
               }}
             >
@@ -226,7 +272,7 @@ class ClassifiedListing extends ClassifiedController {
                     </Button> */}
                 </Box>
                 <Box className="diloag-content classified-content diloag-management-content">
-                  <img src={"#"} className="lock-logo" alt="Lock_Icon" />
+                  <img src={DeleteIcon} className="lock-logo" alt="Lock_Icon" />
                   <h3>Delete classified request?</h3>
                   <p className="lead">Are you sure want to delete published classified buyers request? Once deleted no one will be able to view your request.</p>
                   <Box className="diloag-btn customButton">

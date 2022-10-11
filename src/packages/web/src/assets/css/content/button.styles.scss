@@ -53,6 +53,18 @@
                 }
             }
         }
+        &.blue {
+            background-color: #ebf4ff;
+            & span {
+                color: #2686f7;
+            }
+            &:hover {
+                background-color: #2686f7;
+                & span {
+                    color: $GREEN_SHADE1;
+                }
+            }
+        }
         @include mq(tablet-landscape-up) {
             font-size: 14px;
         }

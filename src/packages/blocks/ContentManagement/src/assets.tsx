@@ -45,3 +45,5 @@ export const CurrencyIcon = require("../assets/currency_icon.png");
 export const CloseIcon = require("../assets/close_icon.png");
 export const PayDetailIcon = require("../assets/payment_detail_icon.png");
 export const TimeIcon = require("../assets/time_icon.png");
+export const DeleteIcon = require("../assets/delete_icon.png");
+export const NoClassifiedIcon = require("../assets/no-classified-icon.png");
