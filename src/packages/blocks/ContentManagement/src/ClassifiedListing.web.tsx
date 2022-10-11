@@ -74,28 +74,28 @@ class ClassifiedListing extends ClassifiedController {
                       </Menu>
                     </Box> */}
 
-                        <Button aria-controls="fade-menu" aria-haspopup="true" onClick={(e: any) => this.handleClick_1(e)}>
-                          <img src={Filter_Icon} className="filter-icon icons" alt="" />
-                        </Button>
-                        <Menu
-                          id="fade-menu"
-                          anchorEl={this.state.anchorEl_1}
-                          keepMounted
-                          open={Boolean(this.state.anchorEl_1)}
-                          onClose={() => this.handleClose_1("", "")}
-                        >
-                          <MenuItem onClick={(e) => this.handleClose_1(e, "seller")}>Sell</MenuItem>
-                          <MenuItem onClick={(e) => this.handleClose_1(e, "buyer")}>Buy</MenuItem>
-                          <MenuItem onClick={(e) => this.handleClose_1(e, "generic")}>Generic</MenuItem>
-                          <MenuItem onClick={(e) => this.handleClose_1(e, "All")}>All</MenuItem>
-                        </Menu>
+                      <Button aria-controls="fade-menu" aria-haspopup="true" onClick={(e: any) => this.handleClick_1(e)}>
+                        <img src={Filter_Icon} className="filter-icon icons" alt="" />
+                      </Button>
+                      <Menu
+                        id="fade-menu"
+                        anchorEl={this.state.anchorEl_1}
+                        keepMounted
+                        open={Boolean(this.state.anchorEl_1)}
+                        onClose={() => this.handleClose_1("", "")}
+                      >
+                        <MenuItem onClick={(e) => this.handleClose_1(e, "seller")}>Sell</MenuItem>
+                        <MenuItem onClick={(e) => this.handleClose_1(e, "buyer")}>Buy</MenuItem>
+                        <MenuItem onClick={(e) => this.handleClose_1(e, "generic")}>Generic</MenuItem>
+                        <MenuItem onClick={(e) => this.handleClose_1(e, "All")}>All</MenuItem>
+                      </Menu>
 
-                      </Box>
-                      :
-                      null
-                  }
-
-                </Box>
+                    </Box>
+                    :
+                    null
+                }
+              </Box>
+              <Box className="common_content_block content-block">
                 <Box className="content-block-wrapper common-incident-block">
                   <Box className="incident-content-wrapper">
                     <div className="classified-header">
@@ -109,13 +109,11 @@ class ClassifiedListing extends ClassifiedController {
                     {
                       this.state?.classifiedListing?.length === 0 ?
                         <>
-                          <Box className="content-block">
-                            <Box className="main-content-block">
-                              <div className='no-classification'>
-                                <img src={NoClassifiedIcon} className="lock-logo" alt="Lock_Icon" />
-                                <h1>No classifieds were <br></br>found</h1>
-                                <p>Looks like you havn’t added any classifieds! You can create a new request by tapping the below button.</p>
-                              </div>
+                          <Box className='no-classification-wrapper'>
+                            <Box className='no-classification'>
+                              <img src={NoClassifiedIcon} className="lock-logo" alt="Lock_Icon" />
+                              <h1>No classifieds were <br></br>found</h1>
+                              <p>Looks like you havn’t added any classifieds! You can create a new request by tapping the below button.</p>
                             </Box>
                           </Box>
                         </>
@@ -146,89 +144,110 @@ class ClassifiedListing extends ClassifiedController {
                                       </Box>
                                   }
 
-                          <Card className="classified-card card" key={val?.attributes?.id} >
-                              <CardContent className="costom-card-content" onClick={(e: any) => { this.getClassifiedDetails(e, val.id) }}>
-                                <Box className="classified-card-header">
-                                  <Typography component="h4">
-                                    {val?.attributes?.title}
-                                  </Typography>
-                                
+                                  <Menu
+                                    id="simple-menu"
+                                    anchorEl={this.state.anchorEl}
+                                    keepMounted
+                                    open={Boolean(this.state.anchorEl)}
+                                    onClose={() => this.handleClose("", "")}
+                                  >
+                                    <MenuItem onClick={(e) => this.handleClose(e, "edit")}>Edit</MenuItem>
+                                    <MenuItem onClick={(e) => this.handleClose(e, "delete")}>Delete </MenuItem>
+                                  </Menu>
                                 </Box>
-                                <Typography className="sub-title h5-title" component="h5">
-                                  {val?.attributes?.description}
-                                </Typography>
-                                <Typography component="span">
-                                  Available to buy:
-                                </Typography>
-                                <Typography className="sub-title h5-title" component="h5">
-                                  {val?.attributes?.duration_from} to {val?.attributes?.duration_to}
-                                </Typography>
-                                <hr />
-                                <Box className="card-footer classified-footer">
-                                  {
-                                    val?.attributes?.classified_type === "buyer" ?
-                                      <div className="left-block">
-                                        {/* <img src={Dollar_Icon} className="dollar-icon" alt="Dollar Icon" /> */}
-                                        <Typography component="h4">
-                                          {val?.attributes?.price_from} {val?.attributes?.currency?.currency} - {val?.attributes?.price_to} {val?.attributes?.currency?.currency}
-                                        </Typography>
-                                      </div>
-                                      :
-                                      null
-                                  }
+                            }
+                            {/* <Box className="classifiedWrapper"> */}
+                              <Box className="classifiedCardRow">
+                                <Button className="menu-btn" aria-controls="simple-menu" onClick={(e: any) => { this.handleClick(e, val?.attributes?.id) }}>
+                                  <img src={Setting_Icon} className="grid-icon icons" alt="" />
+                                </Button>
+                                <Card className="classified-card card" key={val?.attributes?.id} >
+                                  <CardContent className="costom-card-content" onClick={(e: any) => { this.getClassifiedDetails(e, val.id) }}>
+                                    <Box className="classified-card-header">
+                                      <Typography component="h4">
+                                        {val?.attributes?.title}
+                                      </Typography>
 
-                                  {
-                                    val?.attributes?.classified_type === "generic" ?
-                                      <div className="left-block">
-                                        {/* <img src={Dollar_Icon} className="dollar-icon" alt="Dollar Icon" /> */}
-                                        <Typography component="h4">
-                                          {val?.attributes?.payment_detail} {val?.attributes?.currency?.currency}
-                                        </Typography>
-                                      </div>
-                                      :
-                                      null
-                                  }
+                                    </Box>
+                                    <Typography className="sub-title h5-title" component="h5">
+                                      {val?.attributes?.description}
+                                    </Typography>
+                                    <Typography component="span">
+                                      Available to buy:
+                                    </Typography>
+                                    <Typography className="sub-title h5-title" component="h5">
+                                      {val?.attributes?.duration_from} to {val?.attributes?.duration_to}
+                                    </Typography>
+                                    <hr />
+                                    <Box className="card-footer classified-footer">
+                                      {
+                                        val?.attributes?.classified_type === "buyer" ?
+                                          <div className="left-block">
+                                            {/* <img src={Dollar_Icon} className="dollar-icon" alt="Dollar Icon" /> */}
+                                            <Typography component="h4">
+                                              {val?.attributes?.price_from} {val?.attributes?.currency?.currency} - {val?.attributes?.price_to} {val?.attributes?.currency?.currency}
+                                            </Typography>
+                                          </div>
+                                          :
+                                          null
+                                      }
 
-                                  {
-                                    val?.attributes?.classified_type === "seller" ?
-                                      <div className="left-block">
-                                        {/* <img src={Dollar_Icon} className="dollar-icon" alt="Dollar Icon" /> */}
-                                        <Typography component="h4">
-                                          {val?.attributes?.price} {val?.attributes?.currency?.currency}
-                                        </Typography>
-                                      </div>
-                                      :
-                                      null
-                                  }
+                                      {
+                                        val?.attributes?.classified_type === "generic" ?
+                                          <div className="left-block">
+                                            {/* <img src={Dollar_Icon} className="dollar-icon" alt="Dollar Icon" /> */}
+                                            <Typography component="h4">
+                                              {val?.attributes?.payment_detail} {val?.attributes?.currency?.currency}
+                                            </Typography>
+                                          </div>
+                                          :
+                                          null
+                                      }
+
+                                      {
+                                        val?.attributes?.classified_type === "seller" ?
+                                          <div className="left-block">
+                                            {/* <img src={Dollar_Icon} className="dollar-icon" alt="Dollar Icon" /> */}
+                                            <Typography component="h4">
+                                              {val?.attributes?.price} {val?.attributes?.currency?.currency}
+                                            </Typography>
+                                          </div>
+                                          :
+                                          null
+                                      }
 
 
 
-                                  {
-                                    val?.attributes?.classified_type === "buyer" ?
-                                      <Box className="customButton">
-                                        <Button variant="contained" className="contain success" type="submit" >Buy</Button>
-                                      </Box>
-                                      :
-                                      (val?.attributes?.classified_type === "generic") ?
-                                        <Box className="customButton">
-                                          <Button variant="contained" className="contain blue" type="submit" >Generic</Button>
-                                        </Box>
-                                        :
-                                        <Box className="customButton">
-                                          <Button variant="contained" className="contain danger" type="submit" >Sell</Button>
-                                        </Box>
-                                  }
-                                </Box>
-                              </CardContent>
-                          </Card>
+                                      {
+                                        val?.attributes?.classified_type === "buyer" ?
+                                          <Box className="customButton">
+                                            <Button variant="contained" className="contain success" type="submit" >Buy</Button>
+                                          </Box>
+                                          :
+                                          (val?.attributes?.classified_type === "generic") ?
+                                            <Box className="customButton">
+                                              <Button variant="contained" className="contain blue" type="submit" >Generic</Button>
+                                            </Box>
+                                            :
+                                            <Box className="customButton">
+                                              <Button variant="contained" className="contain danger" type="submit" >Sell</Button>
+                                            </Box>
+                                      }
+                                    </Box>
+                                  </CardContent>
+                                </Card>
+                              </Box>
+                            {/* </Box> */}
                           </>
                         ))
                     }
                   </Box>
-                  {
-                    this.state?.myOrAllClassified ?
-                      null
-                      :
+                </Box>
+                {
+                  this.state?.myOrAllClassified ?
+                    null
+                    :
+                    <Box className="footer-block desktop-ui">
                       <Box className="customButton add-incident">
                         <Button variant="contained" onClick={() => {
                           this.setState({ loading: true });//@ts-ignore
@@ -237,13 +256,8 @@ class ClassifiedListing extends ClassifiedController {
                           :
                           'ADD Classified'}</Button>
                       </Box>
-                  }
-
-                </Box>
-                {/* <Box className="footer-main-block bottomBlock">
-                   <h6 className="bottom-text">POWERED BY</h6>
-                   <img src={Tenant_Logo.default} className="tenant-logo" alt="" />
-                 </Box> */}
+                    </Box>
+                }
               </Box>
             </Grid>
             {/* desktop footer block */}
@@ -252,7 +266,6 @@ class ClassifiedListing extends ClassifiedController {
                 <img src={Building1.default} className="building-logo" alt="" />
               </Box>
             </Grid>
-
             <Dialog
               open={this.state?.deleteShowDialog}
               onClose={() => this.setState({ deleteShowDialog: false })}

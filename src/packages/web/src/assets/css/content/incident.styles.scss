@@ -106,16 +106,34 @@
 
     & .incident-content-wrapper {
       margin-top: 10px;
-      & .no-classification
-      {
+      // height: 100%;
+      & .no-classification-wrapper {
+        min-height: 400px;
         display: flex;
         flex-direction: column;
-        align-items: center;
-        margin: 100px 0;
-        text-align: center;
-        & h1
-        {
-          font-weight: bold;
+        justify-content: center;
+        @include mq(tablet-portrait-medium-up) {
+          min-height: 600px;
+        }
+        & .no-classification {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          // margin: 100px 0;
+          text-align: center;
+          & h1 {
+            font-weight: bold;
+          }
+        }
+      }
+
+      & .classifiedCardRow {
+        position: relative;
+        & .menu-btn {
+          position: absolute;
+          right: 0;
+          padding: 0;
+          top: 30px;
         }
       }
       & .classified-header {
@@ -123,8 +141,7 @@
         & .customButton {
           margin-right: 15px;
           padding-top: 0;
-          & .MuiButton-label
-          {
+          & .MuiButton-label {
             text-transform: capitalize;
           }
         }
@@ -149,7 +166,6 @@
       @include mq(tablet-portrait-medium-up) {
         margin-top: 25px;
       }
-
       & .incident-rows {
         display: flex;
         justify-content: space-between;
@@ -161,7 +177,6 @@
           margin: 0;
         }
       }
-
       // & .incident-sub-row {
       //   display: flex;
       //   flex-direction: row;
