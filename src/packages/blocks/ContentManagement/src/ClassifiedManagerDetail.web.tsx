@@ -216,23 +216,26 @@ class ClassifiedManagerDetail extends ClassifiedManagerController {
                           </>
                           : null
                       } */}
-                      <Box className="incident-button-row customButton">
-                      <Button variant="contained"
+                      { 
+                         attributes?.classified_status !== 'Published' ?
+                          <Box className="incident-button-row customButton">
+                          {/* danger button */}
+                         <Box className="outline-danger">
+                           <Button variant="outlined"
                           onClick={() => this.setState({ ignoreShowDialog: true })}
-                        >IGNORE</Button>
-                        <Button variant="outlined"
-                          onClick={() => this.setState({ showDialog: true })}
-                        >REJECT</Button>
-                        {/* danger button */}
-                        {/* <Box className="outline-danger">
-                          <Button variant="outlined"
-                            onClick={() => this.setState({ showDialog: true })}
-                          >REJECT</Button>
-                        </Box> */}
-                        <Button variant="contained"
-                          onClick={() => this.setState({ statusShowDialog: true })}
-                        >PUBLISHED</Button>
-                      </Box>
+                           >IGNORE</Button>
+                         </Box>
+                         <Button variant="outlined"
+                           onClick={() => this.setState({ showDialog: true })}
+                         >REJECT</Button>
+                         <Button variant="contained"
+                           onClick={() => this.setState({ statusShowDialog: true })}
+                         >PUBLISHED</Button>
+                       </Box>
+                       :
+                       null
+                      }
+                    
                     </CardContent>
                   </Card>
                 </Box>
