@@ -400,5 +400,142 @@ export const TenantStyle: any = {
       color: "black !important",
       opacity: "1",
     },
+    "& .select-input-box .select-box": {
+      position: "relative",
+    },
+    "& .select-input-box .select-box img": {
+      position: "absolute",
+      top: "38px",
+      left: "30px",
+    },
+    "& .select-input-box .select-box .select-input": {
+      width: "100%",
+      paddingLeft: "50px",
+    },
+    "& .select-input-box .select-box .select-input .MuiSelect-root": {
+      padding: "20px 10px",
+    },
+    "& .mobile-box": {
+      display: "flex",
+      alignItems: "center",
+      background: "#F9F9F9",
+      border: "1px solid #F0F0F0",
+      borderRadius: "30px",
+      marginTop: "18px",
+    },
+    "& .mobile-box .mobile-select": {
+      width: "120px",
+      borderRadius: "30px",
+      background: "#F9F9F9",
+    },
+    "& .mobile-box .mobile-select .MuiSelect-root": {
+      borderRadius: "30px",
+      background: "#F9F9F9",
+    },
+    "& .mobile-box .divider": {
+      width: "2px",
+      height: "40px",
+      margin: "0 20px",
+      background: "#F0F0F0",
+    },
+    "& .mobile-box .mobile-input": {
+      width: "100%",
+    },
+    "& .mobile-box .mobile-input:before": {
+      border: 0,
+    },
+    "& .mobile-box .mobile-input:after": {
+      border: 0,
+    },
+    "& .mobile-box .mobile-input .MuiInputBase-input": {
+      paddingLeft: 10,
+    },
+    "& .divider-box": {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: "50px",
+      margin: "50px 0",
+    },
+    "& .divider-box .MuiDivider-root": {
+      width: "120px",
+    },
+    "& .register-button-box": {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      flexDirection: "column",
+    },
+    "& .register-button-box button.now": {
+      minWidth: "300px",
+      background: "#2b6fec",
+      color: "white",
+      padding: "12px 50px",
+      borderRadius: "25px",
+      fontWeight: 600,
+      marginBottom: "20px",
+    },
+    "& .pdf-preview .submit-button-box": {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      flexDirection: "column",
+    },
+    "& .pdf-preview button.submit": {
+      minWidth: "300px",
+      background: "#2b6fec",
+      color: "white",
+      padding: "12px 50px",
+      borderRadius: "25px",
+      fontWeight: 600,
+    },
+    "& .register-button-box button.later": {
+      fontWeight: 600,
+      color: "#B8B8B8",
+      background: "white",
+      minWidth: "300px",
+      padding: "12px 50px",
+      borderRadius: "25px",
+    },
+    "& .pdf-preview": {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      flexDirection: "column",
+      height: "100%",
+    },
+    "& .pdf-preview .pdf-box": {
+      display: "flex",
+      alignItems: "center",
+      gap: "15px",
+      background: "white",
+      width: "100%",
+      boxShadow: "none",
+      padding: "15px",
+      borderRadius: "8px",
+      margin: "20px",
+    },
+    "& .pdf-preview .pdf-box img": {
+      height: "45px",
+    },
+    "& .pdf-preview .pdf-box .pdf-info": {
+      width: "100%",
+    },
+    "& .pdf-preview .pdf-box .data span": {
+      color: "#FC8433",
+    },
+    "& .pdf-preview .pdf-box .heading": {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+    },
+    "& .pdf-preview .right-menu > .MuiButtonBase-root": {
+      padding: "5px",
+    },
+    "& .pdf-submit": {
+      overflow: "hidden",
+      height: "85vh",
+      background: "rgb(244, 247, 255)",
+    },
   },
 };

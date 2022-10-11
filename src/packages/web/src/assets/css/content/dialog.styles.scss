@@ -86,14 +86,17 @@
 
   & .diloag-content {
     padding: 15px;
+
     &.diloag-management-content {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: 20px;
+
       & .deleteModalBtns {
         display: flex;
+
         & .MuiButton-contained {
           &:hover {
             & .MuiButton-label {
@@ -101,11 +104,14 @@
             }
           }
         }
+
         & .MuiButton-outlined {
           border: 0;
+
           &:hover {
             background-color: transparent;
           }
+
           & .MuiButton-label {
             color: #959595;
             font-weight: bold;
@@ -116,6 +122,7 @@
       & button {
         margin: 0px 10px;
       }
+
       & p {
         padding: 20px 0px;
       }
@@ -134,6 +141,7 @@
   }
 
   .dialog-footer {
+
     // padding-top: 20px;
     & .MuiDialogActions-root {
       flex-direction: column;
@@ -148,6 +156,7 @@
 
 .provider-dialouge-body {
   min-width: 600px;
+
   & .dialouge-header {
     display: flex;
     justify-content: space-between;
@@ -156,17 +165,21 @@
     margin-bottom: 20px;
     border-bottom: 1px solid #ccc;
   }
+
   & .MuiDialogTitle-root {
     padding: 0;
   }
+
   & .alert-dialog-title {
     font-weight: bold;
   }
+
   & .close-icon {
     height: 30px;
     width: 30px;
     object-fit: contain;
   }
+
   & .diloag-content {
     padding: 15px;
 
@@ -174,9 +187,11 @@
       margin-bottom: 15px;
     }
   }
+
   & .MuiOutlinedInput-input {
     padding: 10px 32px 10px 14px;
   }
+
   & .customSelect {
     margin-right: 10px;
     margin-bottom: 0;
@@ -186,6 +201,7 @@
       background-color: $WHITE;
     }
   }
+
   & .customButton {
     display: flex;
     justify-content: flex-end;
@@ -202,21 +218,26 @@
   & .classified-header {
     border: 0;
   }
+
   & .dialouge-header {
     & .MuiTypography-h6 {
       font-weight: 600;
     }
   }
+
   & .diloag-content {
     & h3 {
       font-weight: 600;
       padding-top: 20px;
     }
+
     .lead {
       padding: 10px 0 !important;
     }
+
     &.classified-content {
       padding: 20px 40px;
+
       @media only screen and (max-width: 768px) {
         padding: 10px;
       }
@@ -226,17 +247,22 @@
   & textarea {
     padding: 0px 20px !important;
   }
+
   & .textarea {
     height: 150px !important;
   }
+
   & .customButton {
     padding-top: 60px;
+
     & .MuiButton-root {
       padding: 7px 40px;
     }
+
     & .MuiButton-outlined {
       border: 1px solid #2c6fed61;
     }
+
     & .MuiButton-contained {
       &:hover {
         & span {
@@ -244,30 +270,37 @@
         }
       }
     }
+
     & .MuiButton-outlined {
       & span {
         color: $BLUE;
       }
+
       &:hover {
         & span {
           color: $WHITE;
         }
       }
     }
+
     &.diloag-btn {
       padding-top: 10px;
       padding-bottom: 50px;
       width: 100%;
+
       @media only screen and (max-width: 600px) {
         flex-direction: column;
       }
+
       & button {
         width: 50%;
+
         @media only screen and (max-width: 600px) {
           width: auto;
           margin-bottom: 10px;
         }
       }
+
       & .MuiButton-root {
         padding: 12px 15px;
       }

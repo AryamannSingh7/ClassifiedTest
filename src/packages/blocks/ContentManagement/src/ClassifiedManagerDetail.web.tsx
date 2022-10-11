@@ -133,7 +133,7 @@ class ClassifiedManagerDetail extends ClassifiedManagerController {
                           attributes?.classified_type === "seller" ?
                             <Box className="card-rows">
                               <Typography className="title-span" component="span">
-                                Price:
+                               Price:
                               </Typography>
                               <h4>{attributes?.price} {attributes?.currency?.currency}</h4>
                             </Box>
@@ -349,7 +349,7 @@ class ClassifiedManagerDetail extends ClassifiedManagerController {
                   <Box className="diloag-content classified-content diloag-management-content">
                     <img src={Classified_CorrectIcon} className="lock-logo" alt="Lock_Icon" />
                     <h3>Approve Classified Request</h3>
-                    <p className="lead"> Are you sure you want to publish this classified?</p>
+                    <p className="lead"> Are you sure you want to publish this classified??</p>
                     <Box className="diloag-btn customButton">
                       <Button variant="outlined" onClick={() => { this.setState({ statusShowDialog: false }) }}>Close</Button>
                       <Button variant="contained" onClick={() => this.rejectedOrPublished("Published")}>Confirm</Button>

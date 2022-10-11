@@ -148,13 +148,14 @@ class NeighboursListing extends NeighboursController {
                              <Box className="social-raw">
                              {
                                  val?.account?.data?.attributes?.disable_chat ?
+                                 
                                  <Box className="blocks">
-                                  <img src={Chat_Icon} className="icons" alt="info-icon" />
-                                </Box>
+                                 <img src={Chat_Disable_Icon} className="icons" alt="info-icon" />
+                               </Box>
                                 :
                                 <Box className="blocks">
-                                <img src={Chat_Disable_Icon} className="icons" alt="info-icon" />
-                              </Box>
+                                  <img src={Chat_Icon} className="icons" alt="info-icon" />
+                                </Box>
                                }
                                {
                                 val?.account?.data?.attributes?.full_phone_number?.publilc_access ? 

@@ -43,6 +43,7 @@ import { uploadbw, del_image, downloadIcon, Document, nextIcon, previousIcon, De
 import { BuildingApartmentStyle } from "./BuildingApartmentStyle.web";
 import Loader from "../../../components/src/Loader.web";
 import { Formik, Form } from "formik";
+import moment from "moment";
 
 function createData(no: any, Reserved_By: any, Building: any, Unit_Number: any, Reserved_On: any, Duration: any) {
   return { no, Reserved_By, Building, Unit_Number, Reserved_On, Duration };
@@ -213,10 +214,23 @@ class SharedArea extends SharedAreaController {
                         <h2>{t("Upcoming Reservation")}</h2>
                       </Box>
                       <Box className="right-content">
-                        <select value="" className="unit-select">
+                        <select
+                          value={this.state.selectedBuilding}
+                          className="unit-select"
+                          onChange={(e: any) => {
+                            this.setState({ selectedBuilding: e.target.value });
+                          }}
+                        >
                           <option disabled value="">
                             {t("Building")}
                           </option>
+                          {this.state.buildings.map((building: any) => {
+                            return (
+                              <option value={building.name} key={building.id}>
+                                {building.name}
+                              </option>
+                            );
+                          })}
                         </select>
                       </Box>
                     </Box>
@@ -228,35 +242,32 @@ class SharedArea extends SharedAreaController {
                             <TableCell>#</TableCell>
                             <TableCell>{t("Reserved By")}</TableCell>
                             <TableCell>{t("Building")}</TableCell>
-                            <TableCell>{t("Unit Number")}</TableCell>
                             <TableCell>{t("Reserved On")}</TableCell>
                             <TableCell>{t("Duration")}</TableCell>
                           </TableRow>
                         </TableHead>
                         <TableBody>
-                          <TableRow>
-                            <TableCell colSpan={6}>Coming soon!!</TableCell>
-                          </TableRow>
-                          {/* <TableRow colSpan="6">Coming soon</TableRow> */}
-                          {/* {rows.map((row: any) => (
-                            <TableRow key={row.no}>
-                              <TableCell>{row.no}</TableCell>
-                              <TableCell align="left">{row.Reserved_By}</TableCell>
-                              <TableCell align="left">{row.Building}</TableCell>
-                              <TableCell align="left">{row.Unit_Number}</TableCell>
-                              <TableCell align="left">{row.Reserved_On}</TableCell>
-                              <TableCell align="left">{row.Duration}</TableCell>
+                          {this.state.reservationList.length === 0 && (
+                            <TableRow>
+                              <TableCell colSpan={5}>{t("No reservation available")}</TableCell>
                             </TableRow>
-                          ))} */}
+                          )}
+                          {this.state.reservationList.map((reservation: any, index: number) => {
+                            return (
+                              <TableRow key={reservation.id}>
+                                <TableCell>{index + 1}</TableCell>
+                                <TableCell>{reservation.attributes.reserved_by.name || "-"}</TableCell>
+                                <TableCell>{reservation.attributes.building.building}</TableCell>
+                                <TableCell>
+                                  {moment(reservation.attributes.reserved_on, "DD-MMM-YYYY").format("MMM DD, YYYY")}
+                                </TableCell>
+                                <TableCell>{reservation.attributes.duration.duration}</TableCell>
+                              </TableRow>
+                            );
+                          })}
                         </TableBody>
                       </Table>
                     </TableContainer>
-                    {/* <Box className="unit-pagination">
-                      <p>
-                        {t("Showing")} <span>5</span> {t("of")} <span>{rows.length}</span> {t("results")}
-                      </p>
-                      <Pagination count={10} variant="outlined" shape="rounded" />
-                    </Box> */}
                   </Card>
                 </Box>
               </Container>
