@@ -27,7 +27,7 @@ import "../../../web/src/i18n.js";
 import i18next from "i18next";
 import CloseIcon from "@material-ui/icons/Close";
 import ArrowForwardIosOutlinedIcon from "@material-ui/icons/ArrowForwardIosOutlined";
-import DashboardController, { Props } from "./DashboardController";
+import DashboardController, { Props } from "./DashboardController.web";
 import { Menu } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/core.css";
 
@@ -105,11 +105,11 @@ class OwnerDashboard extends DashboardController {
               </Box>
               <Divider />
               <div className="user-info">
-                <Avatar alt="Remy Sharp" src="">
+                <Avatar alt="Remy Sharp" src={this.state.profileData?.attributes?.profile_pic}>
                   HN
                 </Avatar>
-                <h4>Remy Sharp</h4>
-                <p>abc@gmail.com</p>
+                <h4>{this.state.profileData?.attributes?.full_name?.name|| 'N/A'}</h4>
+                <p>{this.state.profileData?.attributes?.email?.email|| 'N/A'}</p>
               </div>
               <Divider />
               <List className="menu-list">
@@ -352,7 +352,7 @@ class OwnerDashboard extends DashboardController {
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
-                    <Link href="">
+                    <Link href="/ComplexDetails">
                       <DashboardCard
                         image={keyhand}
                         heading={t("Building Info & Rules")}

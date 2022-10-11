@@ -160,6 +160,7 @@ import ClassifiedListing from "../../blocks/ContentManagement/src/ClassifiedList
 import ClassifiedReportedSuccessfully from "../../blocks/ContentManagement/src/ClassifiedReportedSuccessfully.web";
 import ClassifiedPreview from "../../blocks/ContentManagement/src/ClassifiedPreview.web";
 import ClassifiedDetails from "../../blocks/ContentManagement/src/ClassifiedDetails.web";
+import ClassifiedEditSuccessfully from "../../blocks/ContentManagement/src/ClassifiedEditSuccessfully.web";
 
 
 import NeighboursDetails from '../../blocks/search/src/NeighboursDetails.web';
@@ -554,6 +555,11 @@ ClassifiedReportedSuccessfully: {
   exact: true
 },
 
+ClassifiedEditSuccessfully: {
+  component: ClassifiedEditSuccessfully,
+  path: '/ClassifiedEditSuccessfully',
+  exact: true
+},
 // RolesPermissions2: {
   //   component: RolesPermissions2,
   //   path: '/RolesPermissions2'
@@ -1632,7 +1638,7 @@ ClassifiedReportedSuccessfully: {
   },
   OwnerBuildings: {
     component: OwnerBuildings,
-    path: '/BuildingDetails',
+    path: '/BuildingDetails/:id',
     roles: [ROLE.OWNER, ROLE.OWNER_RESIDENT, ROLE.TENANT]
   },
   TenantList: {

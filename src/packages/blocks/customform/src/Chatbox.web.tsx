@@ -32,7 +32,7 @@ import { Formik, Form, Field } from "formik";
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import InboxController,{Props} from "./inboxController.web";
 import '../assets/css/style.scss'
-import { info } from "./assets";
+import { info, Send } from "./assets";
 
 class ChatBox extends InboxController {
   constructor(props: Props) {
@@ -55,7 +55,13 @@ class ChatBox extends InboxController {
   handleFile2(file:any) {
     //@ts-ignore
 //@ts-nocheck
-    this.setState({ selectedMedia: { url: URL.createObjectURL(file), mimetype: file.type }, accept: true, file: file },)
+if (file && !['image/png', 'image/jpeg', 'image/jpg',].includes(file.type)) {
+  return alert('Only png and jpeg are supported.')
+}
+else{
+
+  this.setState({ selectedMedia: { url: URL.createObjectURL(file), mimetype: file.type }, accept: true, file: file },)
+}
 
   }
 
@@ -72,6 +78,9 @@ class ChatBox extends InboxController {
 
   async componentDidMount() {
 this.getAllChat()
+const interval = setInterval(() => {
+  this.getSingleInbox()
+}, 10000);
 
   }
 
@@ -118,7 +127,7 @@ console.log(moment( myDate ).calendar())
     return (
       <div style={{ padding: "0.3rem", backgroundColor: "#ffff",paddingLeft:'0.3rem',marginTop:'1rem'}}>
         <Grid container>
-          <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between',borderBottom:'1px solid #F2F2F2',paddingBottom:'1rem' }}>
             <Box display='flex' alignItems='center' onClick={() => window.history.back()}>
               <KeyboardBackspaceIcon />
               <span style={{ fontWeight: 'bold' }}>
@@ -162,7 +171,7 @@ console.log(moment( myDate ).calendar())
 
 
 
-                      <Box>
+                      <Box style={{background:'#f6f6f6',borderRadius:'6px',padding:'0.5rem',borderTopRightRadius:0}}>
 
 
                         <Typography
@@ -252,11 +261,11 @@ this.setState({ selectedMedia: message.message.images[0] })}} src={message.messa
 {
   item?.attributes?.chatable?.attributes?.disable_chat ? <>
 
-  <div style={{display:'flex',justifyContent:'center',alignItems:'center',gap:'0.5rem',background:'rgb(255 226 226)',borderRadius:'6px',boxShadow:'0px 4px 14px #f4f6fb',padding:'0.75rem'}}>
+  <div style={{display:'flex',justifyContent:'center',alignItems:'center',gap:'0.5rem',background:'#E7E1E1',borderRadius:'6px',boxShadow:'0px 4px 14px #f4f6fb',padding:'0.75rem'}}>
   <img src={info} width='20' height='20'/>
   <p>
 
-  Aryn Hossain has disabled his chat. You won’t be able to send him message unit he enables it.
+  {item?.attributes?.chat_with_account?.attributes?.full_name} has disabled his chat. You won’t be able to send him message unit he enables it.
   </p>
   </div>
   
@@ -274,7 +283,7 @@ this.setState({ selectedMedia: message.message.images[0] })}} src={message.messa
                     }
                   }}
 
-                  onChange={(e) => this.CreateNewMessage(e)} type="" style={{ border: '1px solid #EDEDED', color: '#726363', borderRadius: 15, padding: 10, width: '100%' }} placeholder="Start a new message" value={this.state.newMessage}/>
+                  onChange={(e) => this.CreateNewMessage(e)} type="" style={{ border: '1px solid #EDEDED', color: '#726363', borderRadius: 15, padding: 10, width: '100%' }} placeholder="Type your message" value={this.state.newMessage}/>
                 {// @ts-ignore
 // @ts-nocheck
 <AttachFileIcon onClick={this.handleClick1} for="BtnBrowseHidden" style={{ cursor: 'pointer' }} />}
@@ -299,8 +308,8 @@ this.setState({ selectedMedia: message.message.images[0] })}} src={message.messa
                   accept="image/png, image/jpeg, image/jpg,.pdf"
                 />
               </Grid>
-
-              <SendIcon style={{ cursor: 'pointer' }} onClick={()=>this.createMessages()} />
+              <img src={Send} style={{ cursor: 'pointer',borderRadius:'20px',padding:'1rem',background:'#2B6FED' }} onClick={()=>this.createMessages()}/> 
+              {/* <SendIcon style={{ cursor: 'pointer' }} onClick={()=>this.createMessages()} /> */}
 
             </Grid>
 

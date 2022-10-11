@@ -240,7 +240,7 @@ export default class ClassifiedController extends BlockComponent<
             console.log("deleteClassifiedApiCallId===========>",responseJson)
             this.setState({loading: false, deleteShowDialog: false,classifiedId:null}) 
                //@ts-ignore
-              this.props.history.push("/ClassifiedListing")     
+               this.getMyClassifiedList()   
           } else if (responseJson?.errors) {
             let error =responseJson.errors[0] as string;
             this.setState({ error });
@@ -254,6 +254,7 @@ export default class ClassifiedController extends BlockComponent<
         else if (apiRequestCallId === this.getClassifiedListingApiCallId) {
           if (responseJson && responseJson?.data ) {
           console.log("getClassifiedListingApiCallId ========================>",responseJson)
+          localStorage?.removeItem("classifiedUserType");
           this.setState({classifiedListing :responseJson?.data,loading: false})
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
@@ -298,9 +299,10 @@ export default class ClassifiedController extends BlockComponent<
         else if (apiRequestCallId === this.updateClassifiedApiCallId) {
           if (responseJson && responseJson?.data ) {
           console.log("updateClassifiedApiCallId========================>",responseJson)
-          this.setState({incidentRelatedData :responseJson?.data,loading: false})
+          this.setState({loading: false})
+          this.props.history.push("/ClassifiedEditSuccessfully")
           } else if (responseJson?.errors) {
-            let error = Object.values(responseJson.errors[0])[0] as string;
+            let error = responseJson.errors[0] as string;
             this.setState({ error });
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
@@ -578,7 +580,6 @@ onSubmit =(values:any)=>{
     this.props.history.push("/ClassifiedPreview")
 }
 getClassifiedDetails= (e:any,id :any) => {
-  e.stopPropagation();
    //@ts-ignore
   this.props.history.push({
     pathname: "/ClassifiedDetails",
@@ -629,9 +630,11 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
       token :localStorage.getItem("userToken")
     };
    // console.log("values create==================>",classifiedFromData.media[0].file );
+   const full_phone_number =`${classifiedFromData?.selectCode}${classifiedFromData?.phone}`
+   console.log("sekect ocde ",full_phone_number)
     const formData = new FormData();
    formData.append('classified[classified_type]', classifiedUserType);
-   formData.append('classified[full_phone_number]', classifiedFromData?.phone);
+   formData.append('classified[full_phone_number]',full_phone_number);
    formData.append('classified[email]', classifiedFromData.email);
    formData.append('classified[title]', classifiedFromData.classifiedTitle);
    formData.append('classified[description]', classifiedFromData.description);
@@ -815,9 +818,9 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
   updateClassified =async (classifiedFromData:any,) => {
     try {
       const header = {
-        "Content-Type": configJSON.validationApiContentType,
         token :localStorage.getItem("userToken")
       };
+      console.log("updateClassified=====>",classifiedFromData)
       const formData = new FormData();
       const classifiedUserType = this.state?.getClassifiedDetails?.attributes?.classified_type
       //formData.append('classified[classified_type]', classifiedUserType);
@@ -829,18 +832,21 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
       formData.append('classified[duration_from]', classifiedFromData.startDate);
       formData.append('classified[duration_to]', classifiedFromData.endDate);
    
-      for (let j = 0; j < classifiedFromData.media.length; j += 1) {
-       let blob = await fetch(classifiedFromData.media[j].url).then(r => r.blob());
-         //@ts-ignore
-       // blob.name = classifiedFromData.media[j].file.name
-       console.log("bolb ==================>",blob);
-   
-       formData.append(
-         "classified[attachments][]",
-         blob
-       );
-       //console.log("classified[attachments][] ==================>",classifiedFromData.media[j].file);
-     }
+    if(classifiedUserType !=='generic'){
+      for (let j = 0; j < classifiedFromData.media?.length; j += 1) {
+        let blob = await fetch(classifiedFromData?.media[j]?.url).then(r => r.blob());
+          //@ts-ignore
+        // blob.name = classifiedFromData.media[j].file.name
+        console.log("bolb ==================>",blob);
+    
+        formData.append(
+          "classified[attachments][]",
+          blob
+        );
+        //console.log("classified[attachments][] ==================>",classifiedFromData.media[j].file);
+      }
+    }
+  
      if(classifiedUserType ==='generic'){
        formData.append('classified[payment_detail]', classifiedFromData.paymentDetail);
        formData.append('classified[time_from]', classifiedFromData.timeFrom);
@@ -932,12 +938,12 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
   };
   handleClose = (e:any, v:any) => {
     let anchorEl :any ;
-    e.stopPropagation();
     console.log("v=========>",v)
     if(v === undefined || v === null){
       anchorEl=null
     }
     else if (v === "edit"){
+         e.stopPropagation();
       localStorage.removeItem("classifiedUserType");
       console.log("classifiedId=============>",this.state?.classifiedId)
       const id = this.state?.classifiedId
@@ -952,6 +958,7 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
     }
    else if (v === "delete"){
      {
+      e.stopPropagation();
       console.log("classifiedId=============>",this.state?.classifiedId)
       this.setState({deleteShowDialog: true}) }
      }
@@ -988,7 +995,7 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
     
 if(files.length !== 0){
   for (let i = 0; i < files.length; i += 1) {
-    if(files[i] && !["image/jpg", "image/jpeg", "image/gif", "image/png","video/mp4","video/x-m4v" ].includes(files[i].type))
+    if(files[i] && !["image/jpg", "image/jpeg", "image/gif", "image/png"].includes(files[i].type))
     {
       console.log("type=====>",files[i].type);
       this.setState({upload: false,sizeError : false,notImageOrVideoError:true});
@@ -1012,6 +1019,7 @@ if(files.length !== 0){
       url: URL.createObjectURL(files[i])
     });
   }
+ // setFieldValue("bannerUrl", file[] ? URL.createObjectURL(file) : "");
   e.target.value = "";
   this.setState({upload: true ,sizeError : false,notImageOrVideoError:false});
   console.log("media======>",media)
@@ -1084,9 +1092,11 @@ createClassifiedSchemaGerenic() {
     priceFrom:Yup.number()
              .typeError("Only numbers are allowed.")
              .positive("Negative numbers are not allowed.")
-             .integer("Number can't contain a decimal."),
+             .integer("Number can't contain a decimal.")
+             .required("Price From is required"),
     priceTo:Yup.number()
            .typeError("Only numbers are allowed.")
+           .required("Price To is required")
            .positive("Negative numbers are not allowed.")
            .integer("Number can't contain a decimal.")
            .test("priceFrom ", "Value sholud be greater than From price", function(value : number) {
@@ -1129,5 +1139,19 @@ createClassifiedSchemaGerenic() {
        
     return validations ;
   }
+  redirectToDashboard = () => {
+    let userType = localStorage.getItem('userType')
+    if (userType == 'Owner') {
+      //@ts-ignore
+      //@ts-nocheck
+      this.props.history.push('/OwnerDashboard')
+    } else {
+      //@ts-ignore
+      //@ts-nocheck
+      this.props.history.push('/residentDashboard')
+    }
+
+  }
+
   // Customizable Area End
 }

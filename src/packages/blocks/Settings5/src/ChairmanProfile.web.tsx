@@ -94,10 +94,10 @@ class ChairmanProfile extends ProfileController {
                     <Typography variant="h6" className="sub-heading">
                       General Details
                     </Typography>
-                    <Box className="setting">
+                    {/* <Box className="setting">
                       <img src={SettingIcon} alt="setting" />
                       <span>Other Can See</span>
-                    </Box>
+                    </Box> */}
                   </Box>
                   <Card className="profile-details-box">
                     <Grid container>
@@ -133,7 +133,7 @@ class ChairmanProfile extends ProfileController {
                             <p>{profileData?.attributes?.gender?.gender || 'N/A'}</p>
                           </Grid>
                           <Grid item xs={3}>
-                            <span>Birthday</span>
+                            <span>DOB</span>
                             <p> {profileData?.attributes?.date_of_birth?.date_of_birth || 'N/A'}</p>
                           </Grid>
                           <Grid item xs={6}>
@@ -272,7 +272,7 @@ class ChairmanProfile extends ProfileController {
 
                             <label htmlFor="file1"
                               style={{ color: '#FC8434', fontWeight: 'bold' }}>
-                              Change Profile Picture
+                              Add Profile Picture
                             </label>
                             <input
                               id="file1"

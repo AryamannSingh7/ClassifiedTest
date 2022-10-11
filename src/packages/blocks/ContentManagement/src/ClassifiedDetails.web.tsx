@@ -48,7 +48,7 @@ class ClassifiedDetails extends ClassifiedController {
   constructor(props: Props) {
     super(props);
   }
-  componentDidMount():any {
+  componentDidMount(): any {
     //@ts-ignore
     this.getClassifiedDetailsById(this.props.history.location?.id);
   }
@@ -80,73 +80,82 @@ class ClassifiedDetails extends ClassifiedController {
                     <Card className="incident-card card">
                       <CardContent>
                         <Typography className="title-span" component="span">
-                         Title:
+                          Title:
                         </Typography>
-                        <Typography className="sub-title" component="h5">
+                        <Typography className="sub-title" component="h4">
                           {attributes?.title}
                         </Typography>
                         <Typography className="title-span" component="span">
-                        Description:
+                          Description:
                         </Typography>
-                        <Typography className="sub-title" component="h5">
+                        <Typography className="sub-title" component="h4">
                           {attributes?.description}
                         </Typography>
                         {
-                        attributes?.price  ?
-                          <>
-                       <Typography className="title-span" component="span">
-                            Price:
-                        </Typography>
-                        <Typography className="sub-title" component="h5">
-                        {attributes?.price} {attributes?.currency?.currency}
-                        </Typography>
-                          </> 
-                          :null
+                          attributes?.price ?
+                            <>
+                              <Typography className="title-span" component="span">
+                                Price:
+                              </Typography>
+                              <Typography className="sub-title" component="h4">
+                                {attributes?.price} {attributes?.currency?.currency}
+                              </Typography>
+                            </>
+                            : null
                         }
                         {
-                        attributes?.payment_detail  ?
-                          <>
-                       <Typography className="title-span" component="span">
-                       Payment Detail:
-                        </Typography>
-                        <Typography className="sub-title" component="h5">
-                       {attributes?.payment_detail} {attributes?.currency?.currency}
-                        </Typography>
-                          </> 
-                          :null
+                          attributes?.payment_detail ?
+                            <>
+                              <Typography className="title-span" component="span">
+                                Payment Detail:
+                              </Typography>
+                              <Typography className="sub-title" component="h4">
+                                {attributes?.payment_detail} {attributes?.currency?.currency}
+                              </Typography>
+                            </>
+                            : null
                         }
-                       
-                       {
-                        attributes?.price_from && attributes?.price_to  ?
-                          <>
-                       <Typography className="title-span" component="span">
-                            Price:
-                        </Typography>
-                        <Typography className="sub-title" component="h5">
-                        {attributes?.price_from} {attributes?.currency?.currency} - {attributes?.price_to} {attributes?.currency?.currency}
-                        </Typography>
-                          </> 
-                          :null
+
+                        {
+                          attributes?.price_from && attributes?.price_to ?
+                            <>
+                              <Typography className="title-span" component="span">
+                                Price:
+                              </Typography>
+                              <Typography className="sub-title" component="h4">
+                                ${attributes?.price_from} {attributes?.currency?.currency} - {attributes?.price_to} {attributes?.currency?.currency}
+                              </Typography>
+                            </>
+                            : null
                         }
-                       
-                       {
+
+                        {
                           attributes?.time_from && attributes?.time_to ?
                             <Box className="card-rows">
                               <Typography className="title-span" component="span">
-                                 Time:
+                                Time:
                               </Typography>
-                              <Typography className="sub-title" component="h5">
-                             From {attributes?.time_from} to {attributes?.time_to}
+                              <Typography className="sub-title" component="h4">
+                                From {attributes?.time_from} to {attributes?.time_to}
                               </Typography>
                             </Box>
                             :
                             null
                         }
+                        {/* <Typography component="span">
+                          Duration: 
+                        </Typography> */}
                         <Typography component="span">
-                        Duration:
+                          From:
                         </Typography>
-                        <Typography className="sub-title" component="h5">
-                         From {attributes?.duration_from} to {attributes?.duration_to}
+                        <Typography className="sub-title" component="h4">
+                          {attributes?.duration_from} to
+                        </Typography>
+                        <Typography component="span">
+                          To:
+                        </Typography>
+                        <Typography className="sub-title" component="h4">
+                          {attributes?.duration_to}
                         </Typography>
                         {
                           attributes?.attachments.length !== 0 ?
@@ -156,7 +165,7 @@ class ClassifiedDetails extends ClassifiedController {
                               </Typography>
                               <CardActions className="card-img-row">
                                 {
-                                  attributes?.attachments?.map((val:any, index:any) => (
+                                  attributes?.attachments?.map((val: any, index: any) => (
                                     val?.content_type === "video/mp4" || val?.content_type === "video/x-m4v" ?
                                       <Box className="video-img" key={index} onClick={() => { this.setState({ showDialog: true, file: { url: val.url, type: val?.content_type, name: val?.file_name } }) }}>
                                         <Box className="img-layer"></Box>
@@ -205,10 +214,10 @@ class ClassifiedDetails extends ClassifiedController {
                       </Box>
                     </Box> */}
                     <Box className="incident-rows mt-20">
-                    {classified_type === "buyer" ? <h4>Buyers Details </h4>
-                      : classified_type === "seller" ? <h4>Sellers Details</h4>
-                        :  <h4>Generic Details</h4>
-                    }
+                      {classified_type === "buyer" ? <h4>Buyers Details </h4>
+                        : classified_type === "seller" ? <h4>Sellers Details</h4>
+                          : <h4>Generic Details</h4>
+                      }
                     </Box>
                     <Card className="incident-card reporting-card card">
                       <CardContent>

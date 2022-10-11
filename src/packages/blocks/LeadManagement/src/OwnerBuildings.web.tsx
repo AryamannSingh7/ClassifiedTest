@@ -66,78 +66,71 @@ class OwnerBuildings extends OwnerBuildingsController {
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    <span>Building Info & Rules</span>
+                    <span>{t("Building Info & Rules")}</span>
                   </div>
                 </Box>
                 <Container className="page-container">
                   <Box className="details-box">
                     <Box className="heading-box">
                       <Box className="heading-top">
-                        <img src={BuildingLogo.default} alt="" />
-                        <h4>Complex Name</h4>
+                        <img src={this.state.buildingData.logo} alt="" />
+                        <h4>{this.state.buildingData.buildingName || "-"}</h4>
                       </Box>
                       <Box className="heading-bottom">
                         <Box className="heading">
-                          <h4>About</h4>
-                          <span>See complex on map</span>
+                          <h4>{t("About")}</h4>
+                          <Link
+                            href={`https://maps.google.com/?q=${this.state.buildingData.lat},${
+                              this.state.buildingData.long
+                            }`}
+                            target="_blank"
+                          >
+                            <span>{t("See building on map")}</span>
+                          </Link>
                         </Box>
-                        <p>
-                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Non ratione perspiciatis enim
-                          laboriosam delectus inventore nihil doloremque id officiis eligendi. Nobis libero, eveniet
-                          corporis blanditiis quibusdam temporibus saepe similique sequi.
-                        </p>
+                        <p>{this.state.buildingData.aboutBuilding || "-"}</p>
                         <Grid container>
                           <Grid item xs={6} className="info-item">
-                            <span>Complex Area</span>
-                            <p>8000 sq. ft.</p>
+                            <span>{t("Building Area")}</span>
+                            <p>{this.state.buildingData.buildingArea || "-"}</p>
                           </Grid>
                           <Grid item xs={6} className="info-item">
-                            <span>Total Buildings</span>
-                            <p>8 Buildings</p>
+                            <span>{t("Total Floor")}</span>
+                            <p>{this.state.buildingData.totalFloor || 0}</p>
                           </Grid>
                           <Grid item xs={6} className="info-item">
-                            <span>Total Units</span>
-                            <p>80 Units</p>
+                            <span>{t("Total Units")}</span>
+                            <p>{this.state.buildingData.totalUnit || 0} {t("Units")}</p>
                           </Grid>
                           <Grid item xs={6} className="info-item">
-                            <span>City</span>
-                            <p>London</p>
+                            <span>{t("City")}</span>
+                            <p>{this.state.buildingData.city || "-"}</p>
                           </Grid>
                         </Grid>
                       </Box>
                     </Box>
 
                     <Box className="images-box">
-                      <h4>Photos</h4>
+                      <h4>{t("Photos")}</h4>
                       <Slider ref={(c: any) => (this.slider = c)} {...settings}>
-                        <div>
-                          <img src={BuildingLogo.default} alt="" />
-                        </div>
-                        <div>
-                          <img src={BuildingLogo.default} alt="" />
-                        </div>
-                        <div>
-                          <img src={BuildingLogo.default} alt="" />
-                        </div>
-                        <div>
-                          <img src={BuildingLogo.default} alt="" />
-                        </div>
-                        <div>
-                          <img src={BuildingLogo.default} alt="" />
-                        </div>
-                        <div>
-                          <img src={BuildingLogo.default} alt="" />
-                        </div>
-                        <div>
-                          <img src={BuildingLogo.default} alt="" />
-                        </div>
+                        {this.state.buildingData.photos.length === 0 && <div>{t("No photos available")}</div>}
+                        {this.state.buildingData.photos.map((photo: any, index: number) => {
+                          return (
+                            <div key={index}>
+                              <img src={photo.url} alt="" />
+                            </div>
+                          );
+                        })}
                       </Slider>
                     </Box>
 
                     <Box className="management-team">
-                      <h4>Management Team</h4>
+                      <h4>{t("Management Team")}</h4>
                       <Grid container spacing={2}>
-                        <Grid item xs={6}>
+                        <Grid item xs={12}>
+                          <Card className="team-member-box">Coming soon</Card>
+                        </Grid>
+                        {/* <Grid item xs={6}>
                           <Card className="team-member-box">
                             <img src={BuildingLogo.default} alt="" />
                             <h4>Ali Khan</h4>
@@ -150,52 +143,28 @@ class OwnerBuildings extends OwnerBuildingsController {
                               <img src={ManagementEmail} alt="" />
                             </Box>
                           </Card>
-                        </Grid>
-                        <Grid item xs={6}>
-                          <Card className="team-member-box">
-                            <img src={BuildingLogo.default} alt="" />
-                            <h4>Ali Khan</h4>
-                            <p>Manager</p>
-                            <Box className="icons">
-                              <img src={ManagementChat} alt="" />
-                              <div />
-                              <img src={ManagementPhone} alt="" />
-                              <div />
-                              <img src={ManagementEmail} alt="" />
-                            </Box>
-                          </Card>
-                        </Grid>
-                        <Grid item xs={6}>
-                          <Card className="team-member-box">
-                            <img src={BuildingLogo.default} alt="" />
-                            <h4>Ali Khan</h4>
-                            <p>Manager</p>
-                            <Box className="icons">
-                              <img src={ManagementChat} alt="" />
-                              <div />
-                              <img src={ManagementPhone} alt="" />
-                              <div />
-                              <img src={ManagementEmail} alt="" />
-                            </Box>
-                          </Card>
-                        </Grid>
+                        </Grid> */}
                       </Grid>
                     </Box>
 
                     <Box className="document-boxes">
-                      <h4>Documents</h4>
+                      <h4>{t("Documents")}</h4>
                       <Grid container spacing={2}>
                         <Grid item xs={12}>
-                          <Card className="document">
-                            <img src={Document} alt="" />
-                            <h6>Policy</h6>
-                          </Card>
+                          <Link href="/BuildingDocuments/Policy">
+                            <Card className="document">
+                              <img src={Document} alt="" />
+                              <h6>{t("Policy")}</h6>
+                            </Card>
+                          </Link>
                         </Grid>
                         <Grid item xs={12}>
-                          <Card className="document">
-                            <img src={Document} alt="" />
-                            <h6>Resolution</h6>
-                          </Card>
+                          <Link href="/BuildingDocuments/Resolutions">
+                            <Card className="document">
+                              <img src={Document} alt="" />
+                              <h6>{t("Resolution")}</h6>
+                            </Card>
+                          </Link>
                         </Grid>
                       </Grid>
                     </Box>
