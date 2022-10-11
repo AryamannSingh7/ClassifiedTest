@@ -25,6 +25,7 @@ import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import { Formik, Form, Field } from "formik";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { Input } from "react-native-elements";
 import * as Yup from "yup";
 import CountryCodeSelector from "../../country-code-selector/src/CountryCodeSelector";
@@ -120,21 +121,18 @@ class ClassifiedListing extends ClassifiedController {
                         </>
                         :
                         this.state?.classifiedListing?.map((val: any, index: any) => (
-                          <Card className="classified-card card" key={val?.attributes?.id} >
-                            <CardActionArea onClick={(e: any) => { this.getClassifiedDetails(e, val.id) }}>
-                              <CardContent className="costom-card-content">
-                                <Box className="classified-card-header">
-                                  <Typography component="h4">
-                                    {val?.attributes?.title}
-                                  </Typography>
-                                  {
+                          <>
+                            {
                                     this.state?.myOrAllClassified ?
                                       null
                                       :
-                                      <>
-                                        <Button className="menu-btn" aria-controls="simple-menu" aria-haspopup="true" onMouseDown={event => event.stopPropagation()} onClick={(e: any) => { this.handleClick(e, val?.attributes?.id) }}>
+                                      <Box style={{display:'flex',alignItems:"center"}}>
+                                       <IconButton onClick={(e: any) => { this.handleClick(e, val?.attributes?.id) }} style={{padding:"5px"}}>
+                                       <MoreVertIcon style={{color:"#000000",fontSize:"1.8rem"}}/>
+                                      </IconButton>
+                                        {/* <Button className="menu-btn" aria-controls="simple-menu" aria-haspopup="true" onMouseDown={event => event.stopPropagation()} onClick={(e: any) => { this.handleClick(e, val?.attributes?.id) }}>
                                           <img src={Setting_Icon} className="grid-icon icons" alt="" />
-                                        </Button>
+                                        </Button> */}
                                         <Menu
                                           id="simple-menu"
                                           anchorEl={this.state.anchorEl}
@@ -145,9 +143,16 @@ class ClassifiedListing extends ClassifiedController {
                                           <MenuItem onClick={(e) => this.handleClose(e, "edit")}>Edit</MenuItem>
                                           <MenuItem onClick={(e) => this.handleClose(e, "delete")}>Delete </MenuItem>
                                         </Menu>
-                                      </>
+                                      </Box>
                                   }
 
+                          <Card className="classified-card card" key={val?.attributes?.id} >
+                              <CardContent className="costom-card-content" onClick={(e: any) => { this.getClassifiedDetails(e, val.id) }}>
+                                <Box className="classified-card-header">
+                                  <Typography component="h4">
+                                    {val?.attributes?.title}
+                                  </Typography>
+                                
                                 </Box>
                                 <Typography className="sub-title h5-title" component="h5">
                                   {val?.attributes?.description}
@@ -215,8 +220,8 @@ class ClassifiedListing extends ClassifiedController {
                                   }
                                 </Box>
                               </CardContent>
-                            </CardActionArea>
                           </Card>
+                          </>
                         ))
                     }
                   </Box>
