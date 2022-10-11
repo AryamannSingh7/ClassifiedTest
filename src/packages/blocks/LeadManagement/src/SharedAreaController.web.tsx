@@ -35,6 +35,7 @@ interface S {
   editForm: SharedAreaEditForm;
 
   buildings: any[];
+  reservationList: any[];
   selectedBuilding: string;
   // Customizable Area End
 }
@@ -104,6 +105,7 @@ export default class SharedAreaController extends BlockComponent<Props, S, SS> {
       },
 
       buildings: [],
+      reservationList: [],
       selectedBuilding: "",
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -198,18 +200,15 @@ export default class SharedAreaController extends BlockComponent<Props, S, SS> {
     // Edit Shared Area API Response
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.EditSharedAreaCallId !== null &&
-      this.EditSharedAreaCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+      this.GetUpcomingReservationListCallId !== null &&
+      this.GetUpcomingReservationListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
-      this.EditSharedAreaCallId = null;
+      this.GetUpcomingReservationListCallId = null;
 
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson.data) {
-        this.setState({ loading: false }, () => {
-          toast.success("Details updated successfully");
-          this.getSharedAreaDetail();
-        });
+        this.setState({ reservationList: responseJson.data });
       }
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
@@ -229,6 +228,12 @@ export default class SharedAreaController extends BlockComponent<Props, S, SS> {
       this.getSharedAreaDetail();
       this.getBuildingsList();
     });
+  }
+
+  async componentDidUpdate(prevProps: any, prevState: any): Promise<void> {
+    if (prevState.selectedBuilding !== this.state.selectedBuilding) {
+      await this.getUpcomingReservationList();
+    }
   }
 
   // Get Shared Area Detail API
@@ -309,7 +314,7 @@ export default class SharedAreaController extends BlockComponent<Props, S, SS> {
     const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_society_management/facility_reservations?search_by_facility=${this.state.sharedAreaData.name}&search_building=`
+      `bx_block_society_management/facility_reservations?search_by_facility=${this.state.sharedAreaData.name}&search_building=${this.state.selectedBuilding}`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));

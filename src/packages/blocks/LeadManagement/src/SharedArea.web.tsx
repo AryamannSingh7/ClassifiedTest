@@ -43,6 +43,7 @@ import { uploadbw, del_image, downloadIcon, Document, nextIcon, previousIcon, De
 import { BuildingApartmentStyle } from "./BuildingApartmentStyle.web";
 import Loader from "../../../components/src/Loader.web";
 import { Formik, Form } from "formik";
+import moment from "moment";
 
 function createData(no: any, Reserved_By: any, Building: any, Unit_Number: any, Reserved_On: any, Duration: any) {
   return { no, Reserved_By, Building, Unit_Number, Reserved_On, Duration };
@@ -225,7 +226,7 @@ class SharedArea extends SharedAreaController {
                           </option>
                           {this.state.buildings.map((building: any) => {
                             return (
-                              <option  value={building.name} key={building.id}>
+                              <option value={building.name} key={building.id}>
                                 {building.name}
                               </option>
                             );
@@ -247,20 +248,27 @@ class SharedArea extends SharedAreaController {
                           </TableRow>
                         </TableHead>
                         <TableBody>
-                          <TableRow>
-                            <TableCell colSpan={6}>Coming soon!!</TableCell>
-                          </TableRow>
-                          {/* <TableRow colSpan="6">Coming soon</TableRow> */}
-                          {/* {rows.map((row: any) => (
-                            <TableRow key={row.no}>
-                              <TableCell>{row.no}</TableCell>
-                              <TableCell align="left">{row.Reserved_By}</TableCell>
-                              <TableCell align="left">{row.Building}</TableCell>
-                              <TableCell align="left">{row.Unit_Number}</TableCell>
-                              <TableCell align="left">{row.Reserved_On}</TableCell>
-                              <TableCell align="left">{row.Duration}</TableCell>
+                          {this.state.reservationList.length === 0 && (
+                            <TableRow>
+                              <TableCell colSpan={6}>{t("No reservation available")}</TableCell>
                             </TableRow>
-                          ))} */}
+                          )}
+                          {this.state.reservationList.map((reservation: any, index: number) => {
+                            return (
+                              <TableRow key={reservation.id}>
+                                <TableCell>{index + 1}</TableCell>
+                                <TableCell>{"-"}</TableCell>
+                                <TableCell>{"-"}</TableCell>
+                                <TableCell>{"-"}</TableCell>
+                                <TableCell>
+                                  {moment(reservation.attributes.date, "DD-MMM-YYYY").format("MMM DD, YYYY")}
+                                </TableCell>
+                                <TableCell>
+                                  {reservation.attributes.time_from + " - " + reservation.attributes.time_to}
+                                </TableCell>
+                              </TableRow>
+                            );
+                          })}
                         </TableBody>
                       </Table>
                     </TableContainer>

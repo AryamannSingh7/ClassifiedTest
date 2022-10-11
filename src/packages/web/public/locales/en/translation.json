@@ -589,10 +589,11 @@
   "Reservation Fees (Per hour)": "Reservation Fees (Per hour)",
   "Floor Plan": "Floor Plan",
   "Not Owned": "Not Owned",
-  "See complex on map":"See complex on map",
-  "No building available":"No building available",
-  "Photos":"Photos",
-  "No photos available":"No photos available",
-  "Management Team":"Management Team",
-  "Total Floor":"Total Floor"
+  "See complex on map": "See complex on map",
+  "No building available": "No building available",
+  "Photos": "Photos",
+  "No photos available": "No photos available",
+  "Management Team": "Management Team",
+  "Total Floor": "Total Floor",
+  "No reservation available": "No reservation available"
 }
