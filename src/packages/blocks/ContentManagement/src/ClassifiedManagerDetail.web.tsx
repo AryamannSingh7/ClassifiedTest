@@ -93,7 +93,7 @@ class ClassifiedManagerDetail extends ClassifiedManagerController {
                           <Typography className="title-span" component="span">
                             Type:
                           </Typography>
-                          <h4>{attributes?.classified_type === "buyer" ? "Buy":attributes?.classified_type === "seller"?"Sell":'Generic'}</h4>
+                          <h4>{attributes?.classified_type === "buyer" ? "Buy" : attributes?.classified_type === "seller" ? "Sell" : 'Generic'}</h4>
                         </Box>
                         <Box className="card-rows">
                           <Typography className="title-span" component="span">
@@ -120,36 +120,36 @@ class ClassifiedManagerDetail extends ClassifiedManagerController {
                           <h4>{attributes?.description}</h4>
                         </Box>
                         {
-                        attributes?.classified_type === "generic" ?
-                        <Box className="card-rows">
+                          attributes?.classified_type === "generic" ?
+                            <Box className="card-rows">
                               <Typography className="title-span" component="span">
                                 Payment Details:
                               </Typography>
-                               <h4>{attributes?.payment_detail} {attributes?.currency?.currency}</h4>
-                        </Box>
-                        :null
-                        }
-                         {
-                        attributes?.classified_type === "seller" ?
-                        <Box className="card-rows">
-                              <Typography className="title-span" component="span">
-                               Price:
-                              </Typography>
-                               <h4>{attributes?.price} {attributes?.currency?.currency}</h4>
-                        </Box>
-                        :null
+                              <h4>{attributes?.payment_detail} {attributes?.currency?.currency}</h4>
+                            </Box>
+                            : null
                         }
                         {
-                        attributes?.classified_type === "buyer" ?
-                        <Box className="card-rows">
+                          attributes?.classified_type === "seller" ?
+                            <Box className="card-rows">
                               <Typography className="title-span" component="span">
-                               Price:
+                                Price:
+                              </Typography>
+                              <h4>{attributes?.price} {attributes?.currency?.currency}</h4>
+                            </Box>
+                            : null
+                        }
+                        {
+                          attributes?.classified_type === "buyer" ?
+                            <Box className="card-rows">
+                              <Typography className="title-span" component="span">
+                                Price:
                               </Typography>
                               <h4>{attributes?.price_from} {attributes?.currency?.currency} to {attributes?.price_to} {attributes?.currency?.currency}</h4>
-                        </Box>
-                        :null
+                            </Box>
+                            : null
                         }
-                       
+
                         {
                           attributes?.classified_type === "generic" ?
                             <Box className="card-rows">
@@ -220,9 +220,15 @@ class ClassifiedManagerDetail extends ClassifiedManagerController {
                         <Button variant="outlined"
                           onClick={() => this.setState({ showDialog: true })}
                         >REJECT</Button>
+                        {/* danger button */}
+                        {/* <Box className="outline-danger">
+                          <Button variant="outlined"
+                            onClick={() => this.setState({ showDialog: true })}
+                          >REJECT</Button>
+                        </Box> */}
                         <Button variant="contained"
                           onClick={() => this.setState({ statusShowDialog: true })}
-                        >PUBLISH</Button>
+                        >PUBLISHED</Button>
                       </Box>
                     </CardContent>
                   </Card>

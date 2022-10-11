@@ -92,8 +92,25 @@
       align-items: center;
       justify-content: center;
       padding: 20px;
-      & .diloag-btn {
+      & .deleteModalBtns {
         display: flex;
+        & .MuiButton-contained {
+          &:hover {
+            & .MuiButton-label {
+              color: #fff;
+            }
+          }
+        }
+        & .MuiButton-outlined {
+          border: 0;
+          &:hover {
+            background-color: transparent;
+          }
+          & .MuiButton-label {
+            color: #959595;
+            font-weight: bold;
+          }
+        }
       }
 
       & button {
@@ -242,7 +259,7 @@
       padding-bottom: 50px;
       width: 100%;
       @media only screen and (max-width: 600px) {
-       flex-direction: column;
+        flex-direction: column;
       }
       & button {
         width: 50%;

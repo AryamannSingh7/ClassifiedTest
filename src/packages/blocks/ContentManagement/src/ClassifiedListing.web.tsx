@@ -52,7 +52,7 @@ class ClassifiedListing extends ClassifiedController {
               <Box className="content-header">
                 <Box className="left-block blocks">
                   <Box className="backIcons" onClick={this.redirectToDashboard}><KeyboardBackspaceIcon /></Box>
-                  <h4>Classified</h4>
+                  <h4>Classifieds</h4>
                 </Box>
                 {
                   this.state?.myOrAllClassified ?
@@ -123,11 +123,13 @@ class ClassifiedListing extends ClassifiedController {
                               this.state?.myOrAllClassified ?
                                 null
                                 :
-                                <Box style={{ display: 'flex', alignItems: "center" }}>
+                                <Box className="classifiedCardRow">
                                   {/* <IconButton onClick={(e: any) => { this.handleClick(e, val?.attributes?.id) }} style={{ padding: "5px" }}>
                                     <MoreVertIcon style={{ color: "#000000", fontSize: "1.8rem" }} />
                                   </IconButton> */}
-
+                                  <Button className="menu-btn" aria-controls="simple-menu" onClick={(e: any) => { this.handleClick(e, val?.attributes?.id) }}>
+                                    <img src={Setting_Icon} className="grid-icon icons" alt="" />
+                                  </Button>
                                   <Menu
                                     id="simple-menu"
                                     anchorEl={this.state.anchorEl}
@@ -140,87 +142,81 @@ class ClassifiedListing extends ClassifiedController {
                                   </Menu>
                                 </Box>
                             }
-                            {/* <Box className="classifiedWrapper"> */}
-                              <Box className="classifiedCardRow">
-                                <Button className="menu-btn" aria-controls="simple-menu" onClick={(e: any) => { this.handleClick(e, val?.attributes?.id) }}>
-                                  <img src={Setting_Icon} className="grid-icon icons" alt="" />
-                                </Button>
-                                <Card className="classified-card card" key={val?.attributes?.id} >
-                                  <CardContent className="costom-card-content" onClick={(e: any) => { this.getClassifiedDetails(e, val.id) }}>
-                                    <Box className="classified-card-header">
-                                      <Typography component="h4">
-                                        {val?.attributes?.title}
-                                      </Typography>
+                            <Card className="classified-card card" key={val?.attributes?.id} >
+                              <CardContent className="costom-card-content" onClick={(e: any) => { this.getClassifiedDetails(e, val.id) }}>
+                                <Box className="classified-card-header">
+                                  <Typography component="h4">
+                                    {val?.attributes?.title}
+                                  </Typography>
 
-                                    </Box>
-                                    <Typography className="sub-title h5-title" component="h5">
-                                      {val?.attributes?.description}
-                                    </Typography>
-                                    <Typography component="span">
-                                      Available to buy:
-                                    </Typography>
-                                    <Typography className="sub-title h5-title" component="h5">
-                                      {val?.attributes?.duration_from} to {val?.attributes?.duration_to}
-                                    </Typography>
-                                    <hr />
-                                    <Box className="card-footer classified-footer">
-                                      {
-                                        val?.attributes?.classified_type === "buyer" ?
-                                          <div className="left-block">
-                                            {/* <img src={Dollar_Icon} className="dollar-icon" alt="Dollar Icon" /> */}
-                                            <Typography component="h4">
-                                              {val?.attributes?.price_from} {val?.attributes?.currency?.currency} - {val?.attributes?.price_to} {val?.attributes?.currency?.currency}
-                                            </Typography>
-                                          </div>
-                                          :
-                                          null
-                                      }
+                                </Box>
+                                <Typography className="sub-title h5-title" component="h5">
+                                  {val?.attributes?.description}
+                                </Typography>
+                                <Typography component="span">
+                                  Available to sell:
+                                </Typography>
+                                <Typography className="sub-title h5-title" component="h5">
+                                  {val?.attributes?.duration_from} to {val?.attributes?.duration_to}
+                                </Typography>
+                                <hr />
+                                <Box className="card-footer classified-footer">
+                                  {
+                                    val?.attributes?.classified_type === "buyer" ?
+                                      <div className="left-block">
+                                        {/* <img src={Dollar_Icon} className="dollar-icon" alt="Dollar Icon" /> */}
+                                        <Typography component="h4">
+                                          {val?.attributes?.price_from} {val?.attributes?.currency?.currency} - {val?.attributes?.price_to} {val?.attributes?.currency?.currency}
+                                        </Typography>
+                                      </div>
+                                      :
+                                      null
+                                  }
 
-                                      {
-                                        val?.attributes?.classified_type === "generic" ?
-                                          <div className="left-block">
-                                            {/* <img src={Dollar_Icon} className="dollar-icon" alt="Dollar Icon" /> */}
-                                            <Typography component="h4">
-                                              {val?.attributes?.payment_detail} {val?.attributes?.currency?.currency}
-                                            </Typography>
-                                          </div>
-                                          :
-                                          null
-                                      }
+                                  {
+                                    val?.attributes?.classified_type === "generic" ?
+                                      <div className="left-block">
+                                        {/* <img src={Dollar_Icon} className="dollar-icon" alt="Dollar Icon" /> */}
+                                        <Typography component="h4">
+                                          {val?.attributes?.payment_detail} {val?.attributes?.currency?.currency}
+                                        </Typography>
+                                      </div>
+                                      :
+                                      null
+                                  }
 
-                                      {
-                                        val?.attributes?.classified_type === "seller" ?
-                                          <div className="left-block">
-                                            {/* <img src={Dollar_Icon} className="dollar-icon" alt="Dollar Icon" /> */}
-                                            <Typography component="h4">
-                                              {val?.attributes?.price} {val?.attributes?.currency?.currency}
-                                            </Typography>
-                                          </div>
-                                          :
-                                          null
-                                      }
+                                  {
+                                    val?.attributes?.classified_type === "seller" ?
+                                      <div className="left-block">
+                                        {/* <img src={Dollar_Icon} className="dollar-icon" alt="Dollar Icon" /> */}
+                                        <Typography component="h4">
+                                          {val?.attributes?.price} {val?.attributes?.currency?.currency}
+                                        </Typography>
+                                      </div>
+                                      :
+                                      null
+                                  }
 
 
 
-                                      {
-                                        val?.attributes?.classified_type === "buyer" ?
-                                          <Box className="customButton">
-                                            <Button variant="contained" className="contain success" type="submit" >Buy</Button>
-                                          </Box>
-                                          :
-                                          (val?.attributes?.classified_type === "generic") ?
-                                            <Box className="customButton">
-                                              <Button variant="contained" className="contain blue" type="submit" >Generic</Button>
-                                            </Box>
-                                            :
-                                            <Box className="customButton">
-                                              <Button variant="contained" className="contain danger" type="submit" >Sell</Button>
-                                            </Box>
-                                      }
-                                    </Box>
-                                  </CardContent>
-                                </Card>
-                              </Box>
+                                  {
+                                    val?.attributes?.classified_type === "buyer" ?
+                                      <Box className="customButton">
+                                        <Button variant="contained" className="contain success" type="submit" >Buy</Button>
+                                      </Box>
+                                      :
+                                      (val?.attributes?.classified_type === "generic") ?
+                                        <Box className="customButton">
+                                          <Button variant="contained" className="contain blue" type="submit" >Generic</Button>
+                                        </Box>
+                                        :
+                                        <Box className="customButton">
+                                          <Button variant="contained" className="contain danger" type="submit" >Sell</Button>
+                                        </Box>
+                                  }
+                                </Box>
+                              </CardContent>
+                            </Card>
                             {/* </Box> */}
                           </>
                         ))
@@ -276,10 +272,10 @@ class ClassifiedListing extends ClassifiedController {
                 <Box className="diloag-content classified-content diloag-management-content">
                   <img src={DeleteIcon} className="lock-logo" alt="Lock_Icon" />
                   <h3>Delete classified request?</h3>
-                  <p className="lead">Are you sure want to delete published classified buyers request? Once deleted no one will be able to view your request.</p>
-                  <Box className="diloag-btn customButton">
-                    <Button variant="outlined" onClick={() => this.deleteClassified()}>Yes</Button>
-                    <Button variant="contained" onClick={() => { this.setState({ deleteShowDialog: false }) }}>No, don’t delete</Button>
+                  <p className="lead">Are you sure want to delete published buyers request? for buyer request and it should be are you sure want to delete published selller request in case of seller request and it should be are you sure want to delete published generic request for generic request.</p>
+                  <Box className="diloag-btn customButton deleteModalBtns">
+                    <Button variant="contained" onClick={() => this.deleteClassified()}>Yes</Button>
+                    <Button variant="outlined" onClick={() => { this.setState({ deleteShowDialog: false }) }}>No, don’t delete</Button>
                   </Box>
                 </Box>
               </Box>

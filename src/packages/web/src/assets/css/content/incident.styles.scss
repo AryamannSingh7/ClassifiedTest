@@ -132,8 +132,14 @@
         & .menu-btn {
           position: absolute;
           right: 0;
-          padding: 0;
-          top: 30px;
+          padding: 2px;
+          top: 50px;
+          &.MuiButton-root {
+            &:hover {
+              text-decoration: none;
+              background-color: transparent;
+            }
+          }
         }
       }
       & .classified-header {
