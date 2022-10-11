@@ -98,25 +98,25 @@
     &.customFileupload {
       & .imgLayer {
         position: absolute;
-        width: 98%;
-        left: 5px;
+        width: 100%;
+        /* left: 0px; */
         margin: 0 auto;
-        top: -57px;
+        top: -66px;
         z-index: 1;
-        &::before
-        {
+        &::before {
           content: "";
           position: absolute;
           left: 0;
           top: 0;
           height: 100%;
           width: 100%;
-          background: rgba(0, 0, 0, 0.6);
+          background: rgba(0, 0, 0, 0.2);
           z-index: 2;
           border-radius: 20px;
+          // border: 1px solid #e9dede;
         }
         & .bg-img {
-          height: 135px;
+          height: 150px;
           width: 100%;
           object-fit: cover;
           border-radius: 20px;
@@ -134,16 +134,14 @@
         align-items: center;
         border-radius: 20px;
         // background: rgba(0, 0, 0, 0.6);
-        & .content-text
-        {
+        & .content-text {
           display: flex;
           flex-direction: column;
           justify-content: center;
           height: 100%;
           align-items: center;
           padding-top: 30px;
-          & .upload-icon
-          {
+          & .upload-icon {
             margin-top: 40px;
           }
         }
