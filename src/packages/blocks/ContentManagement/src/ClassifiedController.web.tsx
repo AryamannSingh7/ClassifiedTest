@@ -57,6 +57,7 @@ export interface S {
   deleteShowDialog:any;
   classifiedId:any;
   myOrAllClassified:boolean;
+  classifiedType:any;
   // Customizable Area End
 }
   
@@ -148,6 +149,7 @@ export default class ClassifiedController extends BlockComponent<
       deleteShowDialog:false,
       classifiedId:null,
       myOrAllClassified:true,
+      classifiedType:'',
       // Customizable Area End
     };
 
@@ -931,10 +933,10 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
   };
   
   
-  handleClick = (event:any,id:any) => {
+  handleClick = (event:any,id:any,classifiedType:any) => {
     event.stopPropagation();
     console.log("id handleClick=========>",id)
-    this.setState({anchorEl:event.currentTarget ,classifiedId:id })
+    this.setState({anchorEl:event.currentTarget ,classifiedId:id , classifiedType})
   };
   handleClose = (e:any, v:any) => {
     let anchorEl :any ;
@@ -1135,7 +1137,9 @@ createClassifiedSchemaGerenic() {
       .typeError("Only numbers are allowed.")
       .positive("Negative numbers are not allowed.")
       .integer("Number can't contain a decimal."),
+      
     });
+    
        
     return validations ;
   }

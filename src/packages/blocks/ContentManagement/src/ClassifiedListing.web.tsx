@@ -53,7 +53,7 @@ class ClassifiedListing extends ClassifiedController {
                 <Box className="content-header">
                   <Box className="left-block blocks">
                     <Box className="backIcons" onClick={this.redirectToDashboard}><KeyboardBackspaceIcon /></Box>
-                    <h4>Classified</h4>
+                    <h4>Classifieds</h4>
                   </Box>
                   {
                     this.state?.myOrAllClassified ?
@@ -100,10 +100,10 @@ class ClassifiedListing extends ClassifiedController {
                   <Box className="incident-content-wrapper">
                     <div className="classified-header">
                       <Box className={this.state?.myOrAllClassified ? "customButton" : "customButton btn-gray"}>
-                        <Button variant="contained" onClick={() => this.getClassifiedListing(this.state.status)}>All Classified</Button>
+                        <Button variant="contained" onClick={() => this.getClassifiedListing(this.state.status)}>All Classifieds</Button>
                       </Box>
                       <Box className={this.state?.myOrAllClassified ? "customButton btn-gray" : "customButton"}>
-                        <Button variant="contained" onClick={() => this.getMyClassifiedList()}>My Classified</Button>
+                        <Button variant="contained" onClick={() => this.getMyClassifiedList()}>My Classifieds</Button>
                       </Box>
                     </div>
                     {
@@ -127,7 +127,7 @@ class ClassifiedListing extends ClassifiedController {
                                       null
                                       :
                                       <Box style={{display:'flex',alignItems:"center"}}>
-                                       <IconButton onClick={(e: any) => { this.handleClick(e, val?.attributes?.id) }} style={{padding:"5px"}}>
+                                       <IconButton onClick={(e: any) => { this.handleClick(e, val?.attributes?.id ,val?.attributes?.classified_type) }} style={{padding:"5px"}}>
                                        <MoreVertIcon style={{color:"#000000",fontSize:"1.8rem"}}/>
                                       </IconButton>
                                         {/* <Button className="menu-btn" aria-controls="simple-menu" aria-haspopup="true" onMouseDown={event => event.stopPropagation()} onClick={(e: any) => { this.handleClick(e, val?.attributes?.id) }}>
@@ -279,7 +279,7 @@ class ClassifiedListing extends ClassifiedController {
                 <Box className="diloag-content classified-content diloag-management-content">
                   <img src={DeleteIcon} className="lock-logo" alt="Lock_Icon" />
                   <h3>Delete classified request?</h3>
-                  <p className="lead">Are you sure want to delete published classified buyers request? Once deleted no one will be able to view your request.</p>
+                  <p className="lead">Are you sure want to delete published classified {this.state?.classifiedType} request? Once deleted no one will be able to view your request.</p>
                   <Box className="diloag-btn customButton">
                     <Button variant="outlined" onClick={() => this.deleteClassified()}>Yes</Button>
                     <Button variant="contained" onClick={() => { this.setState({ deleteShowDialog: false }) }}>No, don’t delete</Button>
