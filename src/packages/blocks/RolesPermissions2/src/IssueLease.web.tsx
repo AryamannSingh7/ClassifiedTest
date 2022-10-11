@@ -36,7 +36,7 @@ class IssueContract extends IssueContractController {
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    Issue a Lease
+                    <span>{t("Issue a Lease")}</span>
                   </div>
                 </Box>
                 <Container className="page-container">
@@ -54,7 +54,7 @@ class IssueContract extends IssueContractController {
                           <ListItemIcon>
                             <img src={EarthIcon} alt="" />
                           </ListItemIcon>
-                          Country
+                          {t("Country")}
                         </MenuItem>
                         <MenuItem value={10}>Ten</MenuItem>
                         <MenuItem value={20}>Twenty</MenuItem>
@@ -62,11 +62,11 @@ class IssueContract extends IssueContractController {
                       </Select>
                     </Box> */}
                     <Box className="templates-list">
-                      <h3>Select Lease Template</h3>
+                      <h3>{t("Select Lease Template")}</h3>
                       <Grid container spacing={2}>
                         {this.state.templatesList.length === 0 && (
                           <Grid item xs={12}>
-                            <Card className="template">No Template Available!!</Card>
+                            <Card className="template">{t("No Template Available!")}</Card>
                           </Grid>
                         )}
                         {this.state.templatesList.map((template: any, index: number) => {
@@ -84,7 +84,7 @@ class IssueContract extends IssueContractController {
                                   </div>
                                   {index === 0 && (
                                     <div className="right-menu">
-                                      <span>Default</span>
+                                      <span>{t("Default")}</span>
                                     </div>
                                   )}
                                 </Card>

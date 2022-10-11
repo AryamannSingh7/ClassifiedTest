@@ -31,7 +31,7 @@ class SelectedTemplate extends SelectedTemplateController {
                     <IconButton onClick={() => this.goBackPage()}>
                       <KeyboardBackspaceIcon />
                     </IconButton>
-                    Issue a Lease
+                    <span>{t("Issue a Lease")}</span>
                   </div>
                 </Box>
                 <Container className="page-container">
@@ -45,7 +45,7 @@ class SelectedTemplate extends SelectedTemplateController {
                     </div>
                     <div className="upload-button">
                       <Link to="/IssueContract/1/LeaseForm">
-                        <Button>Use This Template</Button>
+                        <Button>{t("Use This Template")}</Button>
                       </Link>
                     </div>
                   </div>

@@ -54,12 +54,12 @@ class LeaseForm extends LeaseFormController {
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    Issue a Lease
+                    <span>{t("Issue a Lease")}</span>
                   </div>
                 </Box>
                 <Container className="page-container">
                   <Box className="issue-lease-content">
-                    <h4 style={{ marginTop: "18px" }}>Residential Rental Lease Agreement</h4>
+                    <h4 style={{ marginTop: "18px" }}>{t("Residential Rental Lease Agreement")}</h4>
                     <Formik
                       initialValues={this.state.leaseForm}
                       // validationSchema={}
@@ -97,7 +97,7 @@ class LeaseForm extends LeaseFormController {
                                   name="tenantName"
                                   // variant="filled"
                                   className="select-input input"
-                                  placeholder="Tenant Name"
+                                  placeholder={t("Tenant Name")}
                                   startAdornment={
                                     <InputAdornment position="start">
                                       <img src={CubeIcon} alt="" />
@@ -105,7 +105,7 @@ class LeaseForm extends LeaseFormController {
                                   }
                                 />
                                 {errors.tenantName && touched.tenantName && (
-                                  <p className="error">{errors.tenantName}</p>
+                                  <p className="error">{t(errors.tenantName)}</p>
                                 )}
                               </FormControl>
                               <FormControl fullWidth>
@@ -124,7 +124,7 @@ class LeaseForm extends LeaseFormController {
                                   }
                                 />
                                 {errors.landlordName && touched.landlordName && (
-                                  <p className="error">{errors.landlordName}</p>
+                                  <p className="error">{t(errors.landlordName)}</p>
                                 )}
                               </FormControl>
                               {/* <Select
@@ -219,7 +219,7 @@ class LeaseForm extends LeaseFormController {
                                     input={<OutlinedInput />}
                                   >
                                     <MenuItem value="" disabled>
-                                      Building Name
+                                      {t("Building Name")}
                                     </MenuItem>
                                     <MenuItem value={10}>Ten</MenuItem>
                                     <MenuItem value={20}>Twenty</MenuItem>
@@ -228,31 +228,31 @@ class LeaseForm extends LeaseFormController {
                                   <img src={CubeIcon} alt="" />
                                 </Box>
                                 {errors.buildingName && touched.buildingName && (
-                                  <p className="error">{errors.buildingName}</p>
+                                  <p className="error">{t(errors.buildingName)}</p>
                                 )}
                               </FormControl>
                               <FormControl fullWidth>
-                                <Select
-                                  displayEmpty
-                                  value={values.unitName}
-                                  onChange={handleChange}
-                                  onBlur={handleBlur}
-                                  name="unitName"
-                                  variant="filled"
-                                  className="select-input"
-                                  input={<OutlinedInput />}
-                                >
-                                  <MenuItem value="" disabled>
-                                    <ListItemIcon>
-                                      <img src={CubeIcon} alt="" />
-                                    </ListItemIcon>
-                                    Unit Name
-                                  </MenuItem>
-                                  <MenuItem value={10}>Ten</MenuItem>
-                                  <MenuItem value={20}>Twenty</MenuItem>
-                                  <MenuItem value={30}>Thirty</MenuItem>
-                                </Select>
-                                {errors.unitName && touched.unitName && <p className="error">{errors.unitName}</p>}
+                                <Box className="select-box">
+                                  <Select
+                                    displayEmpty
+                                    value={values.unitName}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    name="unitName"
+                                    variant="filled"
+                                    className="select-input"
+                                    input={<OutlinedInput />}
+                                  >
+                                    <MenuItem value="" disabled>
+                                      {t("Unit Name")}
+                                    </MenuItem>
+                                    <MenuItem value={10}>Ten</MenuItem>
+                                    <MenuItem value={20}>Twenty</MenuItem>
+                                    <MenuItem value={30}>Thirty</MenuItem>
+                                  </Select>
+                                  <img src={CubeIcon} alt="" />
+                                </Box>
+                                {errors.unitName && touched.unitName && <p className="error">{t(errors.unitName)}</p>}
                               </FormControl>
                               <FormControl fullWidth>
                                 <Input
@@ -262,14 +262,14 @@ class LeaseForm extends LeaseFormController {
                                   name="duration"
                                   // variant="filled"
                                   className="select-input input"
-                                  placeholder="Enter Agreement Duration"
+                                  placeholder={t("Enter Agreement Duration")}
                                   startAdornment={
                                     <InputAdornment position="start">
                                       <img src={CubeIcon} alt="" />
                                     </InputAdornment>
                                   }
                                 />
-                                {errors.duration && touched.duration && <p className="error">{errors.duration}</p>}
+                                {errors.duration && touched.duration && <p className="error">{t(errors.duration)}</p>}
                               </FormControl>
                               <FormControl fullWidth>
                                 <Input
@@ -279,7 +279,7 @@ class LeaseForm extends LeaseFormController {
                                   name="startDate"
                                   // variant="filled"
                                   className="select-input input"
-                                  placeholder="Start Contract Date"
+                                  placeholder={t("Start Contract Date")}
                                   type="text"
                                   // onFocus={(e) => (e.target.type = "date")}
                                   startAdornment={
@@ -288,7 +288,9 @@ class LeaseForm extends LeaseFormController {
                                     </InputAdornment>
                                   }
                                 />
-                                {errors.startDate && touched.startDate && <p className="error">{errors.startDate}</p>}
+                                {errors.startDate && touched.startDate && (
+                                  <p className="error">{t(errors.startDate)}</p>
+                                )}
                               </FormControl>
                               <FormControl fullWidth>
                                 <Input
@@ -298,7 +300,7 @@ class LeaseForm extends LeaseFormController {
                                   name="endDate"
                                   // variant="filled"
                                   className="select-input input"
-                                  placeholder="End Contract Date"
+                                  placeholder={t("End Contract Date")}
                                   type="text"
                                   // onFocus={(e) => (e.target.type = "date")}
                                   startAdornment={
@@ -307,7 +309,7 @@ class LeaseForm extends LeaseFormController {
                                     </InputAdornment>
                                   }
                                 />
-                                {errors.endDate && touched.endDate && <p className="error">{errors.endDate}</p>}
+                                {errors.endDate && touched.endDate && <p className="error">{t(errors.endDate)}</p>}
                               </FormControl>
                               <FormControl fullWidth>
                                 <Input
@@ -317,7 +319,7 @@ class LeaseForm extends LeaseFormController {
                                   name="tenantName"
                                   // variant="monthlyRent"
                                   className="select-input input"
-                                  placeholder="Enter Monthly Rent Amount"
+                                  placeholder={t("Enter Monthly Rent Amount")}
                                   startAdornment={
                                     <InputAdornment position="start">
                                       <img src={CubeIcon} alt="" />
@@ -325,37 +327,37 @@ class LeaseForm extends LeaseFormController {
                                   }
                                 />
                                 {errors.monthlyRent && touched.monthlyRent && (
-                                  <p className="error">{errors.monthlyRent}</p>
+                                  <p className="error">{t(errors.monthlyRent)}</p>
                                 )}
                               </FormControl>
                               <FormControl fullWidth>
-                                <Select
-                                  displayEmpty
-                                  value={values.currency}
-                                  onChange={handleChange}
-                                  onBlur={handleBlur}
-                                  name="currency"
-                                  variant="filled"
-                                  className="select-input"
-                                  input={<OutlinedInput />}
-                                >
-                                  <MenuItem value="" disabled>
-                                    <ListItemIcon>
-                                      <img src={CubeIcon} alt="" />
-                                    </ListItemIcon>
-                                    Select Currency
-                                  </MenuItem>
-                                  <MenuItem value={10}>Ten</MenuItem>
-                                  <MenuItem value={20}>Twenty</MenuItem>
-                                  <MenuItem value={30}>Thirty</MenuItem>
-                                </Select>
-                                {errors.currency && touched.currency && <p className="error">{errors.currency}</p>}
+                                <Box className="select-box">
+                                  <Select
+                                    displayEmpty
+                                    value={values.currency}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    name="currency"
+                                    variant="filled"
+                                    className="select-input"
+                                    input={<OutlinedInput />}
+                                  >
+                                    <MenuItem value="" disabled>
+                                      {t("Select Currency")}
+                                    </MenuItem>
+                                    <MenuItem value={10}>Ten</MenuItem>
+                                    <MenuItem value={20}>Twenty</MenuItem>
+                                    <MenuItem value={30}>Thirty</MenuItem>
+                                  </Select>
+                                  <img src={CubeIcon} alt="" />
+                                </Box>
+                                {errors.currency && touched.currency && <p className="error">{t(errors.currency)}</p>}
                               </FormControl>
 
                               <div className="next-button">
                                 <Link to="/IssueContract/1/LeaseForm/Template">
                                   {/* <Button type="submit">Next</Button> */}
-                                  <Button>Next</Button>
+                                  <Button>{t("Next")}</Button>
                                 </Link>
                               </div>
                             </Box>

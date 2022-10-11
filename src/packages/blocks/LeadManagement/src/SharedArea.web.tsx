@@ -242,7 +242,6 @@ class SharedArea extends SharedAreaController {
                             <TableCell>#</TableCell>
                             <TableCell>{t("Reserved By")}</TableCell>
                             <TableCell>{t("Building")}</TableCell>
-                            <TableCell>{t("Unit Number")}</TableCell>
                             <TableCell>{t("Reserved On")}</TableCell>
                             <TableCell>{t("Duration")}</TableCell>
                           </TableRow>
@@ -250,7 +249,7 @@ class SharedArea extends SharedAreaController {
                         <TableBody>
                           {this.state.reservationList.length === 0 && (
                             <TableRow>
-                              <TableCell colSpan={6}>{t("No reservation available")}</TableCell>
+                              <TableCell colSpan={5}>{t("No reservation available")}</TableCell>
                             </TableRow>
                           )}
                           {this.state.reservationList.map((reservation: any, index: number) => {
@@ -259,7 +258,6 @@ class SharedArea extends SharedAreaController {
                                 <TableCell>{index + 1}</TableCell>
                                 <TableCell>{reservation.attributes.reserved_by.name || "-"}</TableCell>
                                 <TableCell>{reservation.attributes.building.building}</TableCell>
-                                <TableCell>{"-"}</TableCell>
                                 <TableCell>
                                   {moment(reservation.attributes.reserved_on, "DD-MMM-YYYY").format("MMM DD, YYYY")}
                                 </TableCell>
