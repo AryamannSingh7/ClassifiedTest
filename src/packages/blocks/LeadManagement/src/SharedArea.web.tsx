@@ -225,7 +225,7 @@ class SharedArea extends SharedAreaController {
                           </option>
                           {this.state.buildings.map((building: any) => {
                             return (
-                              <option value={building.name} key={building.id}>
+                              <option  value={building.name} key={building.id}>
                                 {building.name}
                               </option>
                             );
