@@ -14,7 +14,7 @@ import {
 //resources
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
-
+import moment from "moment";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
@@ -107,8 +107,8 @@ class CreateClassified extends ClassifiedController {
                       media: attributes?.attachments || [],
                       price: attributes?.price || "",
                       currency: attributes?.currency?.id || ' ',
-                      endDate: attributes?.duration_to || "",
-                      startDate: attributes?.duration_from || "",
+                      startDate: moment(attributes?.duration_from,'DD-MM-YYYY' ).format('YYYY-MM-DD') || "",
+                      endDate: moment(attributes?.duration_to,'DD-MM-YYYY' ).format('YYYY-MM-DD') || "",
                       priceFrom: attributes?.price_from || "",
                       priceTo: attributes?.price_to || "",
                       timeFrom: attributes?.time_from || "",
