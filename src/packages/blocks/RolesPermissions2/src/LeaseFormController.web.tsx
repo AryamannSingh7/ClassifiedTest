@@ -17,8 +17,23 @@ export interface Props {
   // Customizable Area End
 }
 
+interface LeaseForm {
+  tenantName: string;
+  landlordName: string;
+  complexName: string;
+  buildingName: string;
+  unitName: string;
+  duration: string;
+  startDate: string;
+  endDate: string;
+  monthlyRent: string;
+  currency: string;
+}
+
 interface S {
   // Customizable Area Start
+  templateId: string;
+  leaseForm: LeaseForm;
   // Customizable Area End
 }
 
@@ -32,12 +47,10 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
     this.receive = this.receive.bind(this);
     console.disableYellowBox = true;
     // Customizable Area Start
-    this.subScribedMessages = [
-      getName(MessageEnum.RestAPIResponceMessage),
-      getName(MessageEnum.RestAPIRequestMessage),
-    ];
+    this.subScribedMessages = [getName(MessageEnum.RestAPIResponceMessage), getName(MessageEnum.RestAPIRequestMessage)];
 
     this.state = {
+      templateId: "",
       leaseForm: {
         tenantName: "",
         landlordName: "",
@@ -61,9 +74,7 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
   }
 
   // Customizable Area Start
-  async componentDidMount(): Promise<void> {
-    console.log("Loading...");
-  }
+  
 
   goBackPage = () => {
     this.props.navigation.goBack();

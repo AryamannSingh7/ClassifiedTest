@@ -9,7 +9,7 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import HomeIcon from '@material-ui/icons/Home';
-import { Building1, Chat_Icon, Contact_Icon, email, Email_Disable_Icon, Email_Msg_Icon, fb, FB_Icon, instaedit, Instagram_Icon, message, NoProfile_Img, Pencil, phone, Snapchat_Icon, snapedit, twitter, Twitter_Icon } from "./assets";
+import { Building1, Chat_Disable_Icon, Chat_Icon, Contact_Icon, email, Email_Disable_Icon, Email_Msg_Icon, fb, FB_Icon, instaedit, Instagram_Icon, message, NoProfile_Img, Pencil, phone, Snapchat_Icon, snapedit, twitter, Twitter_Icon } from "./assets";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
 import '../assets/css/style.scss';
@@ -121,10 +121,20 @@ this.getProfile()
                     {profileData?.attributes?.full_name?.name}
                   </Typography>
                   <Box className="social-raw">
-
-                        <Box className="blocks">
+                  {
+                                 profileData?.attributes?.disable_chat ?
+                                 
+                                <Box className="blocks">
+                                      <img src={Chat_Disable_Icon}  className="icons" alt="info-icon" width='15' />
+                              </Box>
+                                :
+                                <Box className="blocks">
+                                      <img src={Chat_Icon} onClick={()=>this.props.history.push('/inbox')} className="icons" alt="info-icon" />
+                                </Box>
+                               }
+                        {/* <Box className="blocks">
                           <img src={Chat_Icon} onClick={()=>this.props.history.push('/inbox')} className="icons" alt="info-icon" />
-                        </Box>
+                        </Box> */}
 
 
                       <Box className="blocks">

@@ -47,12 +47,11 @@ class ContractDetail extends ContractDetailController {
 
   render() {
     const { classes } = this.props;
+    const { t }: any = this.props;
 
     const sharePopupWidth = 500;
     const sharePopupHeight = 700;
     const shareTitle = "TI 1 Final Leap";
-
-    const { t }: any = this.props;
 
     console.log(this.state);
 
@@ -95,14 +94,14 @@ class ContractDetail extends ContractDetailController {
                                 this.handleTerminateContractModal();
                               }}
                             >
-                              Terminate
+                              {t("Terminate")}
                             </Button>
                             <Link href="/Contracts">
-                              <Button>Close</Button>
+                              <Button>{t("Close")}</Button>
                             </Link>
                           </Box>
                           <Box className="bottom">
-                            <Button>ReNew Contract</Button>
+                            <Button>{t("ReNew Contract")}</Button>
                             <Box
                               className="image"
                               onClick={() => {
@@ -138,10 +137,10 @@ class ContractDetail extends ContractDetailController {
           <DialogContent>
             <Box textAlign="center">
               <img src={ExclamationIcon} alt="ExclamationIcon" />
-              <Typography variant="h6">Terminate Contract?</Typography>
+              <Typography variant="h6">{t("Terminate Contract?")}</Typography>
               <Typography variant="body1">
-                Are you sure want to terminate lease contract with Ali Khan? Once terminated you won't be able to
-                retrieve.
+                {t("Are you sure want to terminate lease contract with")} Ali Khan
+                {t("? Once terminated you won't be able to retrieve.")}
               </Typography>
               <DialogActions className="dialog-button-group">
                 <Button
@@ -149,14 +148,14 @@ class ContractDetail extends ContractDetailController {
                     this.handleTerminateContractModal();
                   }}
                 >
-                  Yes, Terminate
+                  {t("Yes, Terminate")}
                 </Button>
                 <Button
                   onClick={() => {
                     this.handleTerminateContractModal();
                   }}
                 >
-                  No, Don't Terminate
+                  {t("No, Don't Terminate")}
                 </Button>
               </DialogActions>
             </Box>
@@ -170,7 +169,7 @@ class ContractDetail extends ContractDetailController {
           className="select-meeting"
         >
           <MuiDialogTitle disableTypography className="dialog-heading">
-            <Typography variant="h6">Share</Typography>
+            <Typography variant="h6">{t("Share")}</Typography>
             <IconButton onClick={() => this.handleShareModal()}>
               <CloseIcon />
             </IconButton>

@@ -195,6 +195,12 @@
         min-width: 0;
       }
     }
+    & .menu-btn {
+      &.MuiButton-text {
+        padding: 0;
+        min-width: 0;
+      }
+    }
 
     & p {
       &.MuiTypography-body1 {

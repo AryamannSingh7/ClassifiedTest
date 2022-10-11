@@ -1,38 +1,25 @@
 // Customizable Area Start
-//@ts-nocheck
-//@ts-ignore
 import React from "react";
-import {
-  Container,
-  IconButton,
-  Link,
-  withStyles,
-  Box,
-  Grid,
-  MenuItem,
-  Card,
-  Select,
-  ListItemIcon,
-  OutlinedInput,
-} from "@material-ui/core";
+import { Container, IconButton, Link, withStyles, Box, Grid, Card } from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import IssueContractController, { Props } from "./IssueContractController.web";
 import { ContractsStyleWeb } from "./ContractsStyle.web";
-import BuildingLogo from "../assets/building.png";
-import TemplateIcon from "../assets/template.png";
-import EarthIcon from "../assets/earth.png";
+import { BuildingLogo, TemplateIcon, EarthIcon } from "./assets";
+import { withTranslation } from "react-i18next";
+import "../../../web/src/i18n.js";
 
 class IssueContract extends IssueContractController {
   constructor(props: Props) {
     super(props);
   }
 
-  componentDidMount(): Promise<void> {
+  async componentDidMount(): Promise<void> {
     this.getTemplateListFromAdmin();
   }
 
   render() {
     const { classes } = this.props;
+    const { t }: any = this.props;
 
     console.log(this.state);
 
@@ -49,7 +36,7 @@ class IssueContract extends IssueContractController {
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    Issue a Lease
+                    <span>{t("Issue a Lease")}</span>
                   </div>
                 </Box>
                 <Container className="page-container">
@@ -67,7 +54,7 @@ class IssueContract extends IssueContractController {
                           <ListItemIcon>
                             <img src={EarthIcon} alt="" />
                           </ListItemIcon>
-                          Country
+                          {t("Country")}
                         </MenuItem>
                         <MenuItem value={10}>Ten</MenuItem>
                         <MenuItem value={20}>Twenty</MenuItem>
@@ -75,11 +62,11 @@ class IssueContract extends IssueContractController {
                       </Select>
                     </Box> */}
                     <Box className="templates-list">
-                      <h3>Select Lease Template</h3>
+                      <h3>{t("Select Lease Template")}</h3>
                       <Grid container spacing={2}>
                         {this.state.templatesList.length === 0 && (
                           <Grid item xs={12}>
-                            <Card className="template">No Template Available!!</Card>
+                            <Card className="template">{t("No Template Available!")}</Card>
                           </Grid>
                         )}
                         {this.state.templatesList.map((template: any, index: number) => {
@@ -97,7 +84,7 @@ class IssueContract extends IssueContractController {
                                   </div>
                                   {index === 0 && (
                                     <div className="right-menu">
-                                      <span>Default</span>
+                                      <span>{t("Default")}</span>
                                     </div>
                                   )}
                                 </Card>
@@ -113,7 +100,7 @@ class IssueContract extends IssueContractController {
             </Grid>
             <Grid item xs={12} md={5}>
               <Box className="right-block right-image" display={{ xs: "none", md: "flex" }}>
-                <img src={BuildingLogo} className="building-logo" alt="" />
+                <img src={BuildingLogo.default} className="building-logo" alt="" />
               </Box>
             </Grid>
           </Grid>
@@ -123,5 +110,5 @@ class IssueContract extends IssueContractController {
   }
 }
 
-export default withStyles(ContractsStyleWeb)(IssueContract);
+export default withTranslation()(withStyles(ContractsStyleWeb)(IssueContract));
 // Customizable Area End
