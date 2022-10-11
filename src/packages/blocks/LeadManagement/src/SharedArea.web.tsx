@@ -257,27 +257,19 @@ class SharedArea extends SharedAreaController {
                             return (
                               <TableRow key={reservation.id}>
                                 <TableCell>{index + 1}</TableCell>
-                                <TableCell>{"-"}</TableCell>
-                                <TableCell>{"-"}</TableCell>
+                                <TableCell>{reservation.attributes.reserved_by.name || "-"}</TableCell>
+                                <TableCell>{reservation.attributes.building.building}</TableCell>
                                 <TableCell>{"-"}</TableCell>
                                 <TableCell>
-                                  {moment(reservation.attributes.date, "DD-MMM-YYYY").format("MMM DD, YYYY")}
+                                  {moment(reservation.attributes.reserved_on, "DD-MMM-YYYY").format("MMM DD, YYYY")}
                                 </TableCell>
-                                <TableCell>
-                                  {reservation.attributes.time_from + " - " + reservation.attributes.time_to}
-                                </TableCell>
+                                <TableCell>{reservation.attributes.duration.duration}</TableCell>
                               </TableRow>
                             );
                           })}
                         </TableBody>
                       </Table>
                     </TableContainer>
-                    {/* <Box className="unit-pagination">
-                      <p>
-                        {t("Showing")} <span>5</span> {t("of")} <span>{rows.length}</span> {t("results")}
-                      </p>
-                      <Pagination count={10} variant="outlined" shape="rounded" />
-                    </Box> */}
                   </Card>
                 </Box>
               </Container>

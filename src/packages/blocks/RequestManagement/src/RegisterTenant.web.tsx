@@ -27,11 +27,13 @@ import {
   GreyIdNumber,
   GreyCalenderIcon,
   UploadIcon,
+  GreyPhoneNumber,
 } from "./assets";
 import { Formik, Form } from "formik";
 import RegisterTenantController, { Props } from "./RegisterTenantController.web";
 import { withTranslation } from "react-i18next";
 import { TenantStyle } from "./TenantStyle.web";
+import { CountryList } from "./countryList";
 
 class RegisterTenant extends RegisterTenantController {
   constructor(props: Props) {
@@ -72,25 +74,72 @@ class RegisterTenant extends RegisterTenantController {
                           <Form onSubmit={handleSubmit} translate>
                             <Box className="select-input-box">
                               <FormControl fullWidth>
-                                <Select
-                                  displayEmpty
-                                  value=""
-                                  fullWidth
-                                  className="select-input"
-                                  input={<OutlinedInput />}
-                                >
-                                  <MenuItem value="" disabled>
-                                    <ListItemIcon>
-                                      <img src={GreyTenantType} alt="" />{" "}
-                                    </ListItemIcon>
-                                    {t("Type of Tenant")}
-                                  </MenuItem>
-                                  <MenuItem value={10}>{t("Individual Person")}</MenuItem>
-                                  <MenuItem value={20}>{t("Company")}</MenuItem>
-                                </Select>
+                                <Box className="select-box">
+                                  <Select
+                                    displayEmpty
+                                    value=""
+                                    fullWidth
+                                    className="select-input"
+                                    input={<OutlinedInput />}
+                                  >
+                                    <MenuItem value="" disabled>
+                                      {/* <ListItemIcon>
+                                        <img src={GreyTenantType} alt="" />{" "}
+                                      </ListItemIcon> */}
+                                      {t("Type of Tenant")}
+                                    </MenuItem>
+                                    <MenuItem value={10}>{t("Individual Person")}</MenuItem>
+                                    <MenuItem value={20}>{t("Company")}</MenuItem>
+                                  </Select>
+                                  <img src={GreyTenantType} alt="" />
+                                </Box>
                                 {/* {errors.tenantName && touched.tenantName && (
                                     <p className="error">{errors.tenantName}</p>
                                   )} */}
+                              </FormControl>
+                              <FormControl fullWidth>
+                                <Box className="mobile-box">
+                                  <Select
+                                    displayEmpty
+                                    value="+91"
+                                    fullWidth
+                                    className="mobile-select"
+                                    input={<OutlinedInput />}
+                                  >
+                                    {CountryList.map((country: any) => {
+                                      return (
+                                        <MenuItem key={country.dial_code} value={country.dial_code}>
+                                          <img
+                                            src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/${
+                                              country.code
+                                            }.svg`}
+                                            width="15"
+                                            height="15"
+                                            style={{ marginRight: "5px" }}
+                                          />
+                                          {country.dial_code}
+                                        </MenuItem>
+                                      );
+                                    })}
+                                  </Select>
+                                  <Box className="divider" />
+                                  <Input
+                                    // value={values.tenantName}
+                                    // onChange={handleChange}
+                                    // onBlur={handleBlur}
+                                    // name="tenantName"
+                                    className="mobile-input"
+                                    placeholder={t("Tenant Mobile")}
+                                    startAdornment={
+                                      <InputAdornment position="start">
+                                        <img src={GreyPhoneNumber} alt="" />
+                                      </InputAdornment>
+                                    }
+                                  />
+                                </Box>
+                                {/* {errors.tenantName && touched.tenantName && (
+                                  <p className="error">{errors.tenantName}</p>
+                                )} */}
                               </FormControl>
                               <FormControl fullWidth>
                                 <Input
@@ -129,64 +178,73 @@ class RegisterTenant extends RegisterTenantController {
                                   )} */}
                               </FormControl>
                               <FormControl fullWidth>
-                                <Select
-                                  displayEmpty
-                                  value=""
-                                  fullWidth
-                                  className="select-input"
-                                  input={<OutlinedInput />}
-                                >
-                                  <MenuItem value="" disabled>
-                                    <ListItemIcon>
-                                      <img src={GreyBuildingName} alt="" />{" "}
-                                    </ListItemIcon>
-                                    {t("Select Building")}
-                                  </MenuItem>
-                                  <MenuItem value={10}>{t("Individual Person")}</MenuItem>
-                                  <MenuItem value={20}>{t("Company")}</MenuItem>
-                                </Select>
+                                <Box className="select-box">
+                                  <Select
+                                    displayEmpty
+                                    value=""
+                                    fullWidth
+                                    className="select-input"
+                                    input={<OutlinedInput />}
+                                  >
+                                    <MenuItem value="" disabled>
+                                      {/* <ListItemIcon>
+                                        <img src={GreyBuildingName} alt="" />{" "}
+                                      </ListItemIcon> */}
+                                      {t("Select Building")}
+                                    </MenuItem>
+                                    <MenuItem value={10}>{t("Individual Person")}</MenuItem>
+                                    <MenuItem value={20}>{t("Company")}</MenuItem>
+                                  </Select>
+                                  <img src={GreyBuildingName} alt="" />
+                                </Box>
                                 {/* {errors.tenantName && touched.tenantName && (
                                     <p className="error">{errors.tenantName}</p>
                                   )} */}
                               </FormControl>
                               <FormControl fullWidth>
-                                <Select
-                                  displayEmpty
-                                  value=""
-                                  fullWidth
-                                  className="select-input"
-                                  input={<OutlinedInput />}
-                                >
-                                  <MenuItem value="" disabled>
-                                    <ListItemIcon>
-                                      <img src={GreyUnitNumber} alt="" />{" "}
-                                    </ListItemIcon>
-                                    {t("Select Unit")}
-                                  </MenuItem>
-                                  <MenuItem value={10}>{t("Individual Person")}</MenuItem>
-                                  <MenuItem value={20}>{t("Company")}</MenuItem>
-                                </Select>
+                                <Box className="select-box">
+                                  <Select
+                                    displayEmpty
+                                    value=""
+                                    fullWidth
+                                    className="select-input"
+                                    input={<OutlinedInput />}
+                                  >
+                                    <MenuItem value="" disabled>
+                                      {/* <ListItemIcon>
+                                        <img src={GreyUnitNumber} alt="" />{" "}
+                                      </ListItemIcon> */}
+                                      {t("Select Unit")}
+                                    </MenuItem>
+                                    <MenuItem value={10}>{t("Individual Person")}</MenuItem>
+                                    <MenuItem value={20}>{t("Company")}</MenuItem>
+                                  </Select>
+                                  <img src={GreyUnitNumber} alt="" />
+                                </Box>
                                 {/* {errors.tenantName && touched.tenantName && (
                                     <p className="error">{errors.tenantName}</p>
                                   )} */}
                               </FormControl>
                               <FormControl fullWidth>
-                                <Select
-                                  displayEmpty
-                                  value=""
-                                  fullWidth
-                                  className="select-input"
-                                  input={<OutlinedInput />}
-                                >
-                                  <MenuItem value="" disabled>
-                                    <ListItemIcon>
-                                      <img src={GreyIdType} alt="" />{" "}
-                                    </ListItemIcon>
-                                    {t("ID Type")}
-                                  </MenuItem>
-                                  <MenuItem value={10}>{t("Individual Person")}</MenuItem>
-                                  <MenuItem value={20}>{t("Company")}</MenuItem>
-                                </Select>
+                                <Box className="select-box">
+                                  <Select
+                                    displayEmpty
+                                    value=""
+                                    fullWidth
+                                    className="select-input"
+                                    input={<OutlinedInput />}
+                                  >
+                                    <MenuItem value="" disabled>
+                                      {/* <ListItemIcon>
+                                        <img src={GreyIdType} alt="" />{" "}
+                                      </ListItemIcon> */}
+                                      {t("ID Type")}
+                                    </MenuItem>
+                                    <MenuItem value={10}>{t("Individual Person")}</MenuItem>
+                                    <MenuItem value={20}>{t("Company")}</MenuItem>
+                                  </Select>
+                                  <img src={GreyIdType} alt="" />
+                                </Box>
                                 {/* {errors.tenantName && touched.tenantName && (
                                     <p className="error">{errors.tenantName}</p>
                                   )} */}

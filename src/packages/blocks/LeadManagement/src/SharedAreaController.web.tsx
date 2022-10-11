@@ -134,8 +134,6 @@ export default class SharedAreaController extends BlockComponent<Props, S, SS> {
             reservationFee: responseJson.data.attributes.reservation_fee,
             floorPlan: responseJson.data.attributes.floor_plan,
           },
-        }, () => {
-          this.getUpcomingReservationList();
         });
       }
 
@@ -227,6 +225,7 @@ export default class SharedAreaController extends BlockComponent<Props, S, SS> {
     this.setState({ sharedAreaId: unit_id }, () => {
       this.getSharedAreaDetail();
       this.getBuildingsList();
+      this.getUpcomingReservationList();
     });
   }
 
@@ -314,7 +313,7 @@ export default class SharedAreaController extends BlockComponent<Props, S, SS> {
     const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_society_management/facility_reservations?search_by_facility=${this.state.sharedAreaData.name}&search_building=${this.state.selectedBuilding}`
+      `bx_block_society_management/facility_reservations/upcoming_reservation?common_area_id=${this.state.sharedAreaId}&search_building=${this.state.selectedBuilding}`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));

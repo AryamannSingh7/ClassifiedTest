@@ -63,7 +63,9 @@ class TenantList extends TenantListController {
                             <Grid container spacing={2}>
                               <Grid item xs={12}>
                                 <div className="header">
-                                  <h4>aaaaaaa</h4>
+                                  <Link href="/Tenant/1">
+                                    <h4>aaaaaaa</h4>
+                                  </Link>
                                   <div className="right-menu">
                                     <Menu
                                       menuButton={

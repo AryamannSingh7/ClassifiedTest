@@ -291,6 +291,7 @@ export const ContractsStyleWeb: any = {
     },
     "& .issue-lease-content .MuiSelect-root": {
       background: "#F9F9F9",
+      borderRadius: "30px",
     },
     "& .issue-lease-content .select-box": {
       position: "relative",
