@@ -41,7 +41,7 @@ class AddCondition extends AddConditionController {
                     <IconButton onClick={() => this.goBackPage()}>
                       <KeyboardBackspaceIcon />
                     </IconButton>
-                    Add More Condition
+                    <span>{t("Add More Condition")}</span>
                   </div>
                 </Box>
                 <Container className="page-container">
@@ -51,9 +51,9 @@ class AddCondition extends AddConditionController {
                     </div>
                     <div className="upload-button">
                       <Box className="button-group">
-                        <Button className="condition-button">Back Condition Listing</Button>
+                        <Button className="condition-button">{t("Back Condition Listing")}</Button>
                         <Link to="/IssueContract/1/LeaseForm/Template/Review">
-                          <Button>Add This Conditions to Lease</Button>
+                          <Button>{t("Add This Conditions to Lease")}</Button>
                         </Link>
                       </Box>
                     </div>

@@ -52,7 +52,7 @@ class RegisterTenant extends RegisterTenantController {
               <Box>
                 <Box display={{ xs: "flex", md: "flex" }} className="top-bar">
                   <div className="left-icon">
-                    <Link to="/IssueContract/1">
+                    <Link to="/Tenants">
                       <IconButton>
                         <KeyboardBackspaceIcon />
                       </IconButton>
@@ -83,9 +83,6 @@ class RegisterTenant extends RegisterTenantController {
                                     input={<OutlinedInput />}
                                   >
                                     <MenuItem value="" disabled>
-                                      {/* <ListItemIcon>
-                                        <img src={GreyTenantType} alt="" />{" "}
-                                      </ListItemIcon> */}
                                       {t("Type of Tenant")}
                                     </MenuItem>
                                     <MenuItem value={10}>{t("Individual Person")}</MenuItem>
@@ -320,7 +317,7 @@ class RegisterTenant extends RegisterTenantController {
 
                               <div className="next-button">
                                 <Link to="">
-                                  <Button>Next</Button>
+                                  <Button>{t("Next")}</Button>
                                 </Link>
                               </div>
                             </Box>

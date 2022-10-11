@@ -45,7 +45,7 @@ class RegisterTenantContract extends RegisterTenantController {
               <Box>
                 <Box display={{ xs: "flex", md: "flex" }} className="top-bar">
                   <div className="left-icon">
-                    <Link to="/IssueContract/1">
+                    <Link to="/RegisterTenant">
                       <IconButton>
                         <KeyboardBackspaceIcon />
                       </IconButton>
@@ -67,13 +67,13 @@ class RegisterTenantContract extends RegisterTenantController {
 
                       <Box className="divider-box">
                         <Divider />
-                        <span>OR</span>
+                        <span>{t("OR")}</span>
                         <Divider />
                       </Box>
 
                       <Box className="register-button-box">
-                        <Button className="now">Issue A Lease Now</Button>
-                        <Button className="later">Issue A Lease Later</Button>
+                        <Button className="now">{t("Issue A Lease Now")}</Button>
+                        <Button className="later">{t("Issue A Lease Later")}</Button>
                       </Box>
                     </Box>
                   </Box>

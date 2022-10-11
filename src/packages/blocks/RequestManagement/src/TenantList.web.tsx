@@ -40,7 +40,7 @@ class TenantList extends TenantListController {
                     <h3>{t("No Tenant Registered")}</h3>
                     <Box>
                       <p>{t("Looks like you haven’t registered any tenant!")}</p>
-                      <p>{t("you can fill form to register tenant by tapping on below button")}</p>
+                      <p>{t("You can fill form to register tenant by tapping on below button")}</p>
                     </Box>
                   </div>
                   <div className="upload-button">

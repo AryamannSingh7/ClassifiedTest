@@ -52,16 +52,16 @@ class ChangedSelectedTemplate extends ChangedSelectedTemplateController {
                     <IconButton>
                       <KeyboardBackspaceIcon />
                     </IconButton>
-                    Issue a Lease
+                    <span>{t("Issue a Lease")}</span>
                   </div>
                 </Box>
                 <Container className="page-container">
                   <div className="template-box">
-                    <div className="template-view">Changed Template</div>
+                    <div className="template-view">{t("Changed Template")}</div>
                     <div className="upload-button">
                       <Box className="condition-select">
                         <Checkbox value={true} icon={<CircleUnchecked />} checkedIcon={<CircleCheckedFilled />} />
-                        <span>Include late payment penalty condition</span>
+                        <span>{t("Include late payment penalty condition")}</span>
                       </Box>
                       {/* <Box className="condition-select">
                         <Checkbox
@@ -69,11 +69,11 @@ class ChangedSelectedTemplate extends ChangedSelectedTemplateController {
                           icon={<CircleUnchecked />}
                           checkedIcon={<CircleCheckedFilled />}
                         />
-                        <span>Penalty for la te Payment</span>
+                        <span>{t("Penalty for late Payment")}</span>
                       </Box> */}
                       <Box className="penalty-detail">
                         <div className="header">
-                          <h4>Penalty Details</h4>
+                          <h4>{t("Penalty Details")}</h4>
                           <img src={EditIcon} />
                         </div>
                         <div className="content">
@@ -83,8 +83,8 @@ class ChangedSelectedTemplate extends ChangedSelectedTemplateController {
                                 <img src={EditIcon} />
                               </Box>
                               <Box>
-                                <span>Penalty Type</span>
-                                <p>Fixed Amount</p>
+                                <span>{t("Penalty Type")}</span>
+                                <p>{t("Fixed Amount")}</p>
                               </Box>
                             </Grid>
                             <Grid item xs={6} className="content-item">
@@ -92,7 +92,7 @@ class ChangedSelectedTemplate extends ChangedSelectedTemplateController {
                                 <img src={EditIcon} />
                               </Box>
                               <Box>
-                                <span>Penalty Amount</span>
+                                <span>{t("Penalty Amount")}</span>
                                 <p>SR 250</p>
                               </Box>
                             </Grid>
@@ -101,7 +101,7 @@ class ChangedSelectedTemplate extends ChangedSelectedTemplateController {
                                 <img src={EditIcon} />
                               </Box>
                               <Box>
-                                <span>How Penalty will be counted?</span>
+                                <span>{t("How Penalty will be counted?")}</span>
                                 <p>Lorem ipsum..</p>
                               </Box>
                             </Grid>
@@ -110,10 +110,10 @@ class ChangedSelectedTemplate extends ChangedSelectedTemplateController {
                       </Box>
                       <Box className="button-group">
                         <Button className="condition-button" onClick={() => this.handleConditionModal()}>
-                          Add More Condition
+                          {t("Add More Condition")}
                         </Button>
                         <Link to="/IssueContract/1/LeaseForm/Template/Review">
-                          <Button>Review A Lease</Button>
+                          <Button>{t("Review A Lease")}</Button>
                         </Link>
                       </Box>
                     </div>
@@ -136,9 +136,9 @@ class ChangedSelectedTemplate extends ChangedSelectedTemplateController {
           onClose={() => this.handleConditionModal()}
         >
           <Box className="condition-box">
-            <h2>Add More Conditions</h2>
+            <h2>{t("Add More Conditions")}</h2>
             <Box className="content-box">
-              <h4>Personal Condition</h4>
+              <h4>{t("Personal Condition")}</h4>
               <Box className="condition">
                 <p>No Pet Allowed</p>
                 <Checkbox
@@ -226,8 +226,8 @@ class ChangedSelectedTemplate extends ChangedSelectedTemplateController {
             </Box>
           </Box>
           <Box className="button-group">
-            <Button className="add-more-button">Copy Checked Condition</Button>
-            <Button className="add-button">Add Checked Condition to a Lease</Button>
+            <Button className="add-more-button">{t("Copy Checked Condition")}</Button>
+            <Button className="add-button">{t("Add Checked Condition to a Lease")}</Button>
           </Box>
         </Drawer>
 
@@ -240,7 +240,7 @@ class ChangedSelectedTemplate extends ChangedSelectedTemplateController {
         >
           <DialogContent>
             <Box>
-              <Typography variant="h6">Penalty for late payments</Typography>
+              <Typography variant="h6">{t("Penalty for late payments")}</Typography>
               <Select
                 displayEmpty
                 value=""
@@ -253,7 +253,7 @@ class ChangedSelectedTemplate extends ChangedSelectedTemplateController {
                   <ListItemIcon>
                     <img src={CubeIcon} alt="" />
                   </ListItemIcon>
-                  Select Currency
+                  {t("Select Currency")}
                 </MenuItem>
                 <MenuItem value={10}>Ten</MenuItem>
                 <MenuItem value={20}>Twenty</MenuItem>
@@ -266,7 +266,7 @@ class ChangedSelectedTemplate extends ChangedSelectedTemplateController {
                     this.handlePenaltyCountModal();
                   }}
                 >
-                  Add
+                  {t("Add")}
                 </Button>
               </DialogActions>
             </Box>
@@ -295,7 +295,7 @@ class ChangedSelectedTemplate extends ChangedSelectedTemplateController {
                   <ListItemIcon>
                     <img src={CubeIcon} alt="" />
                   </ListItemIcon>
-                  Fixed Percentage of Rent
+                  {t("Fixed Percentage of Rent")}
                 </MenuItem>
                 <MenuItem value={10}>Ten</MenuItem>
                 <MenuItem value={20}>Twenty</MenuItem>
@@ -348,7 +348,7 @@ class ChangedSelectedTemplate extends ChangedSelectedTemplateController {
                   <ListItemIcon>
                     <img src={CubeIcon} alt="" />
                   </ListItemIcon>
-                  Fixed Amount
+                  {t("Fixed Amount")}
                 </MenuItem>
                 <MenuItem value={10}>Ten</MenuItem>
                 <MenuItem value={20}>Twenty</MenuItem>
