@@ -65,6 +65,17 @@
         width: auto;
         margin-left: 10px;
       }
+      & .MuiButton-outlined {
+        border: 1px solid $BLUE;
+        & .MuiButton-label {
+          color: $BLUE;
+        }
+        &:hover {
+          & .MuiButton-label {
+            color: $WHITE;
+          }
+        }
+      }
     }
     & .user-btn-box {
       display: flex;

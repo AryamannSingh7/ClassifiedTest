@@ -25,6 +25,7 @@ import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import { Formik, Form, Field } from "formik";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { Input } from "react-native-elements";
 import * as Yup from "yup";
 import CountryCodeSelector from "../../country-code-selector/src/CountryCodeSelector";
@@ -48,16 +49,15 @@ class ClassifiedListing extends ClassifiedController {
         <Box className="login-wrapper incident-wrapper">
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
-              <Box className="common_content_block content-block">
-                <Box className="content-header">
-                  <Box className="left-block blocks">
-                    <Box className="backIcons" onClick={this.redirectToDashboard}><KeyboardBackspaceIcon /></Box>
-                    <h4>Classified</h4>
-                  </Box>
-                  {
-                    this.state?.myOrAllClassified ?
-                      <Box className="incident-right-block blocks">
-                        {/* <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+              <Box className="content-header">
+                <Box className="left-block blocks">
+                  <Box className="backIcons" onClick={this.redirectToDashboard}><KeyboardBackspaceIcon /></Box>
+                  <h4>Classifieds</h4>
+                </Box>
+                {
+                  this.state?.myOrAllClassified ?
+                    <Box className="incident-right-block blocks">
+                      {/* <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
                       <Button aria-controls="simple-menu" aria-haspopup="true" onClick={(e: any) => this.handleClick(e)}>
                         <img src={Grid_Icon} className="grid-icon icons" alt="" />
                       </Button>
@@ -73,28 +73,28 @@ class ClassifiedListing extends ClassifiedController {
                       </Menu>
                     </Box> */}
 
-                        <Button aria-controls="fade-menu" aria-haspopup="true" onClick={(e: any) => this.handleClick_1(e)}>
-                          <img src={Filter_Icon} className="filter-icon icons" alt="" />
-                        </Button>
-                        <Menu
-                          id="fade-menu"
-                          anchorEl={this.state.anchorEl_1}
-                          keepMounted
-                          open={Boolean(this.state.anchorEl_1)}
-                          onClose={() => this.handleClose_1("", "")}
-                        >
-                          <MenuItem onClick={(e) => this.handleClose_1(e, "seller")}>Sell</MenuItem>
-                          <MenuItem onClick={(e) => this.handleClose_1(e, "buyer")}>Buy</MenuItem>
-                          <MenuItem onClick={(e) => this.handleClose_1(e, "generic")}>Generic</MenuItem>
-                          <MenuItem onClick={(e) => this.handleClose_1(e, "All")}>All</MenuItem>
-                        </Menu>
+                      <Button aria-controls="fade-menu" aria-haspopup="true" onClick={(e: any) => this.handleClick_1(e)}>
+                        <img src={Filter_Icon} className="filter-icon icons" alt="" />
+                      </Button>
+                      <Menu
+                        id="fade-menu"
+                        anchorEl={this.state.anchorEl_1}
+                        keepMounted
+                        open={Boolean(this.state.anchorEl_1)}
+                        onClose={() => this.handleClose_1("", "")}
+                      >
+                        <MenuItem onClick={(e) => this.handleClose_1(e, "seller")}>Sell</MenuItem>
+                        <MenuItem onClick={(e) => this.handleClose_1(e, "buyer")}>Buy</MenuItem>
+                        <MenuItem onClick={(e) => this.handleClose_1(e, "generic")}>Generic</MenuItem>
+                        <MenuItem onClick={(e) => this.handleClose_1(e, "All")}>All</MenuItem>
+                      </Menu>
 
-                      </Box>
-                      :
-                      null
-                  }
-
-                </Box>
+                    </Box>
+                    :
+                    null
+                }
+              </Box>
+              <Box className="common_content_block content-block">
                 <Box className="content-block-wrapper common-incident-block">
                   <Box className="incident-content-wrapper">
                     <div className="classified-header">
@@ -108,52 +108,53 @@ class ClassifiedListing extends ClassifiedController {
                     {
                       this.state?.classifiedListing?.length === 0 ?
                         <>
-                          <Box className="content-block">
-                            <Box className="main-content-block">
-                              <div className='no-classification'>
-                                <img src={NoClassifiedIcon} className="lock-logo" alt="Lock_Icon" />
-                                <h1>No classifieds were <br></br>found</h1>
-                                <p>Looks like you havn’t added any classifieds! You can create a new request by tapping the below button.</p>
-                              </div>
+                          <Box className='no-classification-wrapper'>
+                            <Box className='no-classification'>
+                              <img src={NoClassifiedIcon} className="lock-logo" alt="Lock_Icon" />
+                              <h1>No classifieds were <br></br>found</h1>
+                              <p>Looks like you havn’t added any classifieds! You can create a new request by tapping the below button.</p>
                             </Box>
                           </Box>
                         </>
                         :
                         this.state?.classifiedListing?.map((val: any, index: any) => (
-                          <Card className="classified-card card" key={val?.attributes?.id} >
-                            <CardActionArea onClick={(e: any) => { this.getClassifiedDetails(e, val.id) }}>
-                              <CardContent className="costom-card-content">
+                          <>
+                            {
+                              this.state?.myOrAllClassified ?
+                                null
+                                :
+                                <Box className="classifiedCardRow">
+                                  {/* <IconButton onClick={(e: any) => { this.handleClick(e, val?.attributes?.id) }} style={{ padding: "5px" }}>
+                                    <MoreVertIcon style={{ color: "#000000", fontSize: "1.8rem" }} />
+                                  </IconButton> */}
+                                  <Button className="menu-btn" aria-controls="simple-menu" onClick={(e: any) => { this.handleClick(e, val?.attributes?.id,val?.attributes?.classified_type) }}>
+                                    <img src={Setting_Icon} className="grid-icon icons" alt="" />
+                                  </Button>
+                                  <Menu
+                                    id="simple-menu"
+                                    anchorEl={this.state.anchorEl}
+                                    keepMounted
+                                    open={Boolean(this.state.anchorEl)}
+                                    onClose={() => this.handleClose("", "")}
+                                  >
+                                    <MenuItem onClick={(e) => this.handleClose(e, "edit")}>Edit</MenuItem>
+                                    <MenuItem onClick={(e) => this.handleClose(e, "delete")}>Delete </MenuItem>
+                                  </Menu>
+                                </Box>
+                            }
+                            <Card className="classified-card card" key={val?.attributes?.id} >
+                              <CardContent className="costom-card-content" onClick={(e: any) => { this.getClassifiedDetails(e, val.id) }}>
                                 <Box className="classified-card-header">
                                   <Typography component="h4">
                                     {val?.attributes?.title}
                                   </Typography>
-                                  {
-                                    this.state?.myOrAllClassified ?
-                                      null
-                                      :
-                                      <>
-                                        <Button className="menu-btn" aria-controls="simple-menu" aria-haspopup="true" onMouseDown={event => event.stopPropagation()} onClick={(e: any) => { this.handleClick(e, val?.attributes?.id) }}>
-                                          <img src={Setting_Icon} className="grid-icon icons" alt="" />
-                                        </Button>
-                                        <Menu
-                                          id="simple-menu"
-                                          anchorEl={this.state.anchorEl}
-                                          keepMounted
-                                          open={Boolean(this.state.anchorEl)}
-                                          onClose={() => this.handleClose("", "")}
-                                        >
-                                          <MenuItem onClick={(e) => this.handleClose(e, "edit")}>Edit</MenuItem>
-                                          <MenuItem onClick={(e) => this.handleClose(e, "delete")}>Delete </MenuItem>
-                                        </Menu>
-                                      </>
-                                  }
 
                                 </Box>
                                 <Typography className="sub-title h5-title" component="h5">
                                   {val?.attributes?.description}
                                 </Typography>
                                 <Typography component="span">
-                                  Available to buy:
+                                  Available to sell:
                                 </Typography>
                                 <Typography className="sub-title h5-title" component="h5">
                                   {val?.attributes?.duration_from} to {val?.attributes?.duration_to}
@@ -215,15 +216,18 @@ class ClassifiedListing extends ClassifiedController {
                                   }
                                 </Box>
                               </CardContent>
-                            </CardActionArea>
-                          </Card>
+                            </Card>
+                            {/* </Box> */}
+                          </>
                         ))
                     }
                   </Box>
-                  {
-                    this.state?.myOrAllClassified ?
-                      null
-                      :
+                </Box>
+                {
+                  this.state?.myOrAllClassified ?
+                    null
+                    :
+                    <Box className="footer-block desktop-ui">
                       <Box className="customButton add-incident">
                         <Button variant="contained" onClick={() => {
                           this.setState({ loading: true });//@ts-ignore
@@ -232,13 +236,8 @@ class ClassifiedListing extends ClassifiedController {
                           :
                           'ADD Classified'}</Button>
                       </Box>
-                  }
-
-                </Box>
-                {/* <Box className="footer-main-block bottomBlock">
-                   <h6 className="bottom-text">POWERED BY</h6>
-                   <img src={Tenant_Logo.default} className="tenant-logo" alt="" />
-                 </Box> */}
+                    </Box>
+                }
               </Box>
             </Grid>
             {/* desktop footer block */}
@@ -247,7 +246,6 @@ class ClassifiedListing extends ClassifiedController {
                 <img src={Building1.default} className="building-logo" alt="" />
               </Box>
             </Grid>
-
             <Dialog
               open={this.state?.deleteShowDialog}
               onClose={() => this.setState({ deleteShowDialog: false })}
@@ -274,10 +272,10 @@ class ClassifiedListing extends ClassifiedController {
                 <Box className="diloag-content classified-content diloag-management-content">
                   <img src={DeleteIcon} className="lock-logo" alt="Lock_Icon" />
                   <h3>Delete classified request?</h3>
-                  <p className="lead">Are you sure want to delete published classified buyers request? Once deleted no one will be able to view your request.</p>
-                  <Box className="diloag-btn customButton">
-                    <Button variant="outlined" onClick={() => this.deleteClassified()}>Yes</Button>
-                    <Button variant="contained" onClick={() => { this.setState({ deleteShowDialog: false }) }}>No, don’t delete</Button>
+                  <p className="lead">Are you sure want to delete published classified {this.state.classifiedType} request? Once deleted no one will be able to view your request.</p>
+                  <Box className="diloag-btn customButton deleteModalBtns">
+                    <Button variant="contained" onClick={() => this.deleteClassified()}>Yes</Button>
+                    <Button variant="outlined" onClick={() => { this.setState({ deleteShowDialog: false }) }}>No, don’t delete</Button>
                   </Box>
                 </Box>
               </Box>

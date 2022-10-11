@@ -68,9 +68,10 @@
         @include mq(tablet-landscape-up) {
             font-size: 14px;
         }
-        &:hover {
-            background-color: $WHITE;
-            color: $DARK;
+        &:hover,
+        &:active {
+            background-color: $BLUE;
+            color: $WHITE;
         }
     }
     & .MuiButton-outlined {
@@ -82,6 +83,20 @@
             background-color: $BLUE;
             & span {
                 color: $WHITE;
+            }
+        }
+    }
+    & .outline-danger {
+        & .MuiButton-outlined {
+            border: 1px solid $WARNING !important;
+            & span {
+                color: $WARNING !important;
+            }
+            &:hover {
+                background-color: $WARNING !important;
+                & span {
+                    color: $WHITE !important;
+                }
             }
         }
     }
@@ -97,9 +112,7 @@
             font-size: 14px;
         }
     }
-   
 }
-
 .desktop-ui {
     @include mq(tablet-portrait-medium-up) {
         & .customButton {
