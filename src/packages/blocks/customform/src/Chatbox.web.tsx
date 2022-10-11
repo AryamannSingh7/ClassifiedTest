@@ -265,7 +265,7 @@ this.setState({ selectedMedia: message.message.images[0] })}} src={message.messa
   <img src={info} width='20' height='20'/>
   <p>
 
-  {item?.attributes?.chat_with_account?.attributes?.full_name} has disabled his chat. You won’t be able to send him message unit he enables it.
+  {item?.attributes?.chatable?.attributes?.full_name} has disabled his chat. You won’t be able to send him message unit he enables it.
   </p>
   </div>
   
