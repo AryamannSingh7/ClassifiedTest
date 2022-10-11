@@ -104,7 +104,7 @@ class TenantList extends TenantListController {
                     <div className="upload-button">
                       <Grid container>
                         <Grid item xs={12} md={12}>
-                          <Link href="">
+                          <Link href="/RegisterTenant">
                             <Button>{t("Register Another Tenant")}</Button>
                           </Link>
                         </Grid>

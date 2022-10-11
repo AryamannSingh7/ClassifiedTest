@@ -213,10 +213,23 @@ class SharedArea extends SharedAreaController {
                         <h2>{t("Upcoming Reservation")}</h2>
                       </Box>
                       <Box className="right-content">
-                        <select value="" className="unit-select">
+                        <select
+                          value={this.state.selectedBuilding}
+                          className="unit-select"
+                          onChange={(e: any) => {
+                            this.setState({ selectedBuilding: e.target.value });
+                          }}
+                        >
                           <option disabled value="">
                             {t("Building")}
                           </option>
+                          {this.state.buildings.map((building: any) => {
+                            return (
+                              <option value={building.name} key={building.id}>
+                                {building.name}
+                              </option>
+                            );
+                          })}
                         </select>
                       </Box>
                     </Box>

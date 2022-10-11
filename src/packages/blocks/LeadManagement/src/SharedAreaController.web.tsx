@@ -33,6 +33,9 @@ interface S {
 
   sharedAreaData: SharedAreaData;
   editForm: SharedAreaEditForm;
+
+  buildings: any[];
+  selectedBuilding: string;
   // Customizable Area End
 }
 
@@ -63,6 +66,8 @@ interface SS {
 export default class SharedAreaController extends BlockComponent<Props, S, SS> {
   GetSharedAreaDetailsCallId: any;
   EditSharedAreaCallId: any;
+  GetUpcomingReservationListCallId: any;
+  GetBuildingCallId: any;
 
   constructor(props: Props) {
     super(props);
@@ -97,6 +102,9 @@ export default class SharedAreaController extends BlockComponent<Props, S, SS> {
         floorPlan: null,
         floorPlanName: "",
       },
+
+      buildings: [],
+      selectedBuilding: "",
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
@@ -124,7 +132,58 @@ export default class SharedAreaController extends BlockComponent<Props, S, SS> {
             reservationFee: responseJson.data.attributes.reservation_fee,
             floorPlan: responseJson.data.attributes.floor_plan,
           },
+        }, () => {
+          this.getUpcomingReservationList();
         });
+      }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // Edit Shared Area API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.EditSharedAreaCallId !== null &&
+      this.EditSharedAreaCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.EditSharedAreaCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      if (responseJson.data) {
+        this.setState({ loading: false }, () => {
+          toast.success("Details updated successfully");
+          this.getSharedAreaDetail();
+        });
+      }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // Edit Shared Area API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.GetBuildingCallId !== null &&
+      this.GetBuildingCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.GetBuildingCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      if (responseJson.data) {
+        this.setState({ buildings: responseJson.data.buildings });
       }
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
@@ -168,6 +227,7 @@ export default class SharedAreaController extends BlockComponent<Props, S, SS> {
     const unit_id = this.props.navigation.getParam("id");
     this.setState({ sharedAreaId: unit_id }, () => {
       this.getSharedAreaDetail();
+      this.getBuildingsList();
     });
   }
 
@@ -230,6 +290,56 @@ export default class SharedAreaController extends BlockComponent<Props, S, SS> {
     apiRequest.addData(getName(MessageEnum.RestAPIRequestBodyMessage), data);
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePatch);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  // Get Upcoming Reservation List API
+  getUpcomingReservationList = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.GetUpcomingReservationListCallId = apiRequest.messageId;
+
+    const society_id = localStorage.getItem("society_id");
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_society_management/facility_reservations?search_by_facility=${this.state.sharedAreaData.name}&search_building=`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  // Get Buildings List API
+  getBuildingsList = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.GetBuildingCallId = apiRequest.messageId;
+
+    const society_id = localStorage.getItem("society_id");
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_address/building_list?society_management_id=${society_id}`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
