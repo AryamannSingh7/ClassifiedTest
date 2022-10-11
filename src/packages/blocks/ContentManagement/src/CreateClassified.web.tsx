@@ -100,7 +100,7 @@ class CreateClassified extends ClassifiedController {
                   <Formik
                     initialValues={{
                       phone: attributes?.phone_number.phone_number || "",
-                      selectCode: attributes?.phone_number?.country_code || '+966',
+                      selectCode: attributes?.phone_number?.country_code === "+"? "":attributes?.phone_number?.country_code|| '+966',
                       email: attributes?.email || "",
                       classifiedTitle: attributes?.title || "",
                       description: attributes?.description || "",
@@ -115,7 +115,6 @@ class CreateClassified extends ClassifiedController {
                       timeTo: attributes?.time_to || "",
                       paymentDetail: attributes?.payment_detail || "",
                       id: id || "",
-                      bannerUrl:attributes?.attachments[0].url|| ""
                     }}
                     enableReinitialize
                     validationSchema={classifiedUserType === "generic" || classified_type ==="generic"  ? this.createClassifiedSchemaGerenic() : classifiedUserType === "buyer" || classified_type ==="buyer"? this.createClassifiedSchemaBuy() : this.createClassifiedSchemaSell()}
@@ -158,7 +157,7 @@ class CreateClassified extends ClassifiedController {
                                 onChange={handleChange}
                                 value={values.selectCode}
                               >
-                                <MenuItem value="">
+                                <MenuItem  disabled value="">
                                   <em>None</em>
                                 </MenuItem>
                                 {dailCode.map((item) =>

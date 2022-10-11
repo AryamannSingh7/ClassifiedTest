@@ -51,6 +51,7 @@ class ClassifiedPreview extends ClassifiedController {
     
     const currency = this.state?.getCurrencyList?.filter((val : any) => val.id === classifiedFromData.currency);
     console.log("currency===============>",currency[0]?.attributes?.currency);
+    console.log("classifiedFromData===============>",classifiedFromData);
     if (!classifiedFromData && !classifiedUserType) {
       //@ts-ignore
       this.props.history.replace("/CreateClassified");
@@ -136,7 +137,7 @@ class ClassifiedPreview extends ClassifiedController {
                         }
 
                         {
-                        classifiedFromData?.price_from && classifiedFromData?.price_to  ?
+                        classifiedFromData?.priceFrom  && classifiedFromData?.priceTo  ?
                           <>
                        <Typography className="title-span" component="span">
                             Price:
