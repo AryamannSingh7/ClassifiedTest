@@ -127,7 +127,7 @@ class ClassifiedListing extends ClassifiedController {
                                   {/* <IconButton onClick={(e: any) => { this.handleClick(e, val?.attributes?.id) }} style={{ padding: "5px" }}>
                                     <MoreVertIcon style={{ color: "#000000", fontSize: "1.8rem" }} />
                                   </IconButton> */}
-                                  <Button className="menu-btn" aria-controls="simple-menu" onClick={(e: any) => { this.handleClick(e, val?.attributes?.id) }}>
+                                  <Button className="menu-btn" aria-controls="simple-menu" onClick={(e: any) => { this.handleClick(e, val?.attributes?.id,val?.attributes?.classified_type) }}>
                                     <img src={Setting_Icon} className="grid-icon icons" alt="" />
                                   </Button>
                                   <Menu
@@ -272,7 +272,7 @@ class ClassifiedListing extends ClassifiedController {
                 <Box className="diloag-content classified-content diloag-management-content">
                   <img src={DeleteIcon} className="lock-logo" alt="Lock_Icon" />
                   <h3>Delete classified request?</h3>
-                  <p className="lead">Are you sure want to delete published buyers request? for buyer request and it should be are you sure want to delete published selller request in case of seller request and it should be are you sure want to delete published generic request for generic request.</p>
+                  <p className="lead">Are you sure want to delete published classified {this.state.classifiedType} request? Once deleted no one will be able to view your request.</p>
                   <Box className="diloag-btn customButton deleteModalBtns">
                     <Button variant="contained" onClick={() => this.deleteClassified()}>Yes</Button>
                     <Button variant="outlined" onClick={() => { this.setState({ deleteShowDialog: false }) }}>No, don’t delete</Button>

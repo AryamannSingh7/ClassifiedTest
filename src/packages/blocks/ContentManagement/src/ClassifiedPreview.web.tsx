@@ -88,7 +88,7 @@ class ClassifiedPreview extends ClassifiedController {
                           Moblie Number:
                         </Typography>
                         <Typography className="h5-title" component="h5">
-                        {classifiedFromData?.selectCode}{classifiedFromData?.phone}
+                        {classifiedFromData?.selectCode} {classifiedFromData?.phone}
                         </Typography>
                         <Typography component="span">
                           Email Id:
