@@ -184,7 +184,7 @@ class ClassifiedManagerListing extends ClassifiedManagerController {
                   {
                     this.state?.classifiedsListing?.map((val: any, index: any) => (
                       <Grid item sm={6} lg={4} key={index} onClick={() => this.getClassifiedDetails(val.id)}>
-                        <Card className="classified-card card" key={index}>
+                        <Card className="classified-card  classifiedManager-card card" key={index}>
                           <CardContent className="costom-card-content">
                             <Typography component="h4">
                               {val?.attributes?.title}
@@ -193,9 +193,24 @@ class ClassifiedManagerListing extends ClassifiedManagerController {
                               {val?.attributes?.description}
                             </Typography>
                             <Box className="content-row">
-                              <Typography component="span">
-                                Available to buy
+                              {
+                                val?.attributes?.classified_type === "buyer" ?
+                                <Typography component="span">
+                                  Available to buy
+                                </Typography>
+                                :  
+                                val?.attributes?.classified_type === "seller"
+                                ?
+                                <Typography component="span">
+                                  Available to sell
+                                </Typography>
+                                :
+                                <Typography component="span">
+                                Available 
                               </Typography>
+
+                              }
+                            
                               <Typography component="p">
                                 {val?.attributes?.duration_from} to {val?.attributes?.duration_to}
                               </Typography>

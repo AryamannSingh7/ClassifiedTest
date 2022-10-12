@@ -811,4 +811,26 @@
       }
     }
   }
+  &.classificationPre-card {
+    & h5 {
+      &.MuiTypography-body1 {
+        font-size: 18px;
+      }
+    }
+    & span {
+      &.MuiTypography-body1 {
+        font-weight: 300;
+        color: #c6c4cd;
+      }
+    }
+  }
+  &.classifiedManager-card {
+    & .MuiButton-contained {
+      &.contain {
+        & span {
+          white-space: normal;
+        }
+      }
+    }
+  }
 }
