@@ -83,7 +83,7 @@ class ClassifiedManagerDetail extends ClassifiedManagerController {
                         {attributes?.title}
                       </Typography>
                       <Box className="customButton">
-                        <Button variant="contained" className={attributes?.classified_status === 'Pending Approved' ? "contain warning" : attributes?.classified_status === 'Published' ? 'contain success' : 'contain danger'} type="submit">
+                        <Button variant="contained" className={attributes?.classified_status === 'Pending Approval' ? "contain warning" : attributes?.classified_status === 'Published' ? 'contain success' : 'contain danger'} type="submit">
                           {attributes?.classified_status}</Button>
                       </Box>
                     </Box>

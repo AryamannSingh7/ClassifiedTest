@@ -57,7 +57,7 @@ class ClassifiedManagerListing extends ClassifiedManagerController {
   render() {
     const { t, classes }: any = this.props;
     console.log("this.state.buildingName=================>/", this.state.classifiedsListing);
-    const statusArray = ["Pending Approved", "Published", "Rejected"]
+    const statusArray = ["Pending Approval", "Published", "Rejected"]
     const classifiedType = ["buyer", "seller", 'generic', 'All'];
     return (
       <>
@@ -256,7 +256,7 @@ class ClassifiedManagerListing extends ClassifiedManagerController {
                                   </div> : null
                               }
                               <Box className="customButton">
-                                <Button variant="contained" className={val?.attributes?.classified_status === 'Pending Approved' ? "contain warning" : val?.attributes?.classified_status === 'Published' ? 'contain success' : 'contain danger'} type="submit">
+                                <Button variant="contained" className={val?.attributes?.classified_status === 'Pending Approval' ? "contain warning" : val?.attributes?.classified_status === 'Published' ? 'contain success' : 'contain danger'} type="submit">
                                   {val?.attributes?.classified_status}</Button>
                               </Box>
                             </Box>
@@ -265,7 +265,7 @@ class ClassifiedManagerListing extends ClassifiedManagerController {
                               <h5>{ }</h5>
                             </Box>
                             <Box className="customButton">
-                              <Button variant="contained" className={val?.attributes?.classified_status === 'Pending Approved' ? "contain warning" : val?.attributes?.classified_status === 'Published' ? 'contain success' : 'contain danger'} type="submit">
+                              <Button variant="contained" className={val?.attributes?.classified_status === 'Pending Approval' ? "contain warning" : val?.attributes?.classified_status === 'Published' ? 'contain success' : 'contain danger'} type="submit">
                                 {val?.attributes?.classified_status}</Button>
                             </Box> */}
                           </CardContent>
