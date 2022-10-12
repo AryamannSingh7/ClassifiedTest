@@ -77,13 +77,20 @@ else{
 
 
   async componentDidMount() {
-this.getAllChat()
-const interval = setInterval(() => {
+this.getSingleInbox()
+this.markUnread()
+// @ts-ignore
+// @ts-nocheck
+this.interval = setInterval(() => {
   this.getSingleInbox()
-}, 10000);
+}, 3000);
 
   }
-
+async componentWillUnmount() {
+  // @ts-ignore
+// @ts-nocheck
+  clearInterval(this.interval)
+}
    dateToFromNowDaily( myDate:any ) {
 
     // get from-now for this date
@@ -139,7 +146,7 @@ console.log(moment( myDate ).calendar())
           </Grid>
 
           <Grid xs={12}>
-            <List style={{ overflowY: "auto", maxHeight: "84vh", minHeight: "84vh" }} >
+            <List style={{ overflowY: "auto", maxHeight: "79vh", minHeight: "79vh" }} >
 {/* {
   this.state.allInboxKey ? 'hey':'bye'
 } */}
