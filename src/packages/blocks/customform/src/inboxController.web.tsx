@@ -86,7 +86,7 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
   getCreateMessagesApiCallId: any = "";
   chatSettingApiCallId:any='';
   getProfileDataAPiCallId:any='';
-
+  markUnreadAPIcallId:any='';
   // Customizable Area End
   constructor(props: Props) {
     super(props);
@@ -299,7 +299,20 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
           if (!responseJson.errors) {
             console.log(responseJson.data)
             this.setState({ singleChatRoom: responseJson.data[0].attributes.messages })
+    this.setState({ singleChatRoom: responseJson.data[0].attributes.messages, selectedChatRoomId: responseJson.data[0].id, allInboxKey: Object.keys(responseJson.data[0].attributes.messages) }, () => console.log(this.state.singleChatRoom))
+
             localStorage.setItem('selectedChat', JSON.stringify(responseJson.data[0]))
+            this.forceUpdate()
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        }
+        if (apiRequestCallId === this.markUnreadAPIcallId) {
+          if (!responseJson.errors) {
+            
             this.forceUpdate()
           } else {
             //Check Error Response
@@ -708,6 +721,40 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
     return true;
   }
 
+  markUnread() {
+ 
+    const item = JSON.parse(localStorage.getItem('selectedChat') || '{}')
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      "token": localStorage.getItem('userToken')
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+
+    this.markUnreadAPIcallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `/bx_block_chat/chats/read_messages?chat_id=${item.id}`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.validationApiMethodType
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  }
+
   getInboxBySearch(value:any) {
 console.log('hi')
     const header = {
@@ -888,6 +935,8 @@ console.log('hi')
     console.timeLog(item)
     this.setState({ singleChatRoom: item.attributes.messages, selectedChatRoomId: item.id, allInboxKey: Object.keys(item.attributes.messages) }, () => console.log(this.state.singleChatRoom))
   }
+
+
   handleSelectFile = (
     file: any
   ) => {
