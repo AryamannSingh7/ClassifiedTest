@@ -13,4 +13,10 @@ exports.labelTitleText = "RequestManagement";
 exports.labelBodyText = "RequestManagement Body";
 
 exports.btnExampleTitle = "CLICK ME";
+
+exports.ApiContentType = "application/json";
+
+exports.apiMethodTypeGet = "GET";
+exports.apiMethodTypePost = "POST";
+exports.apiMethodTypeDelete = "DELETE";
 // Customizable Area End

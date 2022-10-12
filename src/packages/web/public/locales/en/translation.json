@@ -674,5 +674,7 @@
   "Save Lease Template": "Save Lease Template",
   "Your lease document has been generated. You can access this document from contracts section of the app.": "Your lease document has been generated. You can access this document from contracts section of the app.",
   "Lease Document Generated": "Lease Document Generated",
-  "Use This Template": "Use This Template"
+  "Use This Template": "Use This Template",
+  "Please enter valid email": "Please enter valid email",
+  "Please enter valid number": "Please enter valid number"
 }
