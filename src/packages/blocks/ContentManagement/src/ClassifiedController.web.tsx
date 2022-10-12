@@ -1051,14 +1051,14 @@ createClassifiedSchemaGerenic() {
       currency:Yup.string().trim().required("Currency is required"),
       startDate: Yup.date().required("Start Date is required"),
       endDate: Yup.date().required(" End Date is required")
-                         .test("is-greater", "End date should be greater than Star date", function(value) {
+                         .test("is-greater", "End date should be greater than Start date", function(value) {
                          const { startDate } = this.parent;
       return moment(value, "DD/MM/YYYY").isSameOrAfter(moment(startDate, "DD/MM/YYYY"));
       })
       ,
     timeFrom:Yup.string().required("Start time is required"),
     timeTo:Yup.string().required("End time is required")
-    .test("is-greater", "End time should be greater than Star time", function(value) {
+    .test("is-greater", "End time should be greater than Start time", function(value) {
       const { timeFrom } = this.parent;
       return moment(value, "HH:mm").isSameOrAfter(moment(timeFrom, "HH:mm"));
     })
@@ -1086,7 +1086,7 @@ createClassifiedSchemaGerenic() {
       currency:Yup.string().trim().required("Currency is required"),
       startDate: Yup.date().required("Start Date is required"),
       endDate: Yup.date().required(" End Date is required")
-                         .test("is-greater", "End date should be greater than Star date", function(value) {
+                         .test("is-greater", "End date should be greater than Start date", function(value) {
                          const { startDate } = this.parent;
       return moment(value, "DD/MM/YYYY").isSameOrAfter(moment(startDate, "DD/MM/YYYY"));
       })
@@ -1127,7 +1127,7 @@ createClassifiedSchemaGerenic() {
       currency:Yup.string().trim().required("Currency is required"),
       startDate: Yup.date().required("Start Date is required"),
       endDate: Yup.date().required(" End Date is required")
-                         .test("is-greater", "End date should be greater than Star date", function(value) {
+                         .test("is-greater", "End date should be greater than Start date", function(value) {
                          const { startDate } = this.parent;
       return moment(value, "DD/MM/YYYY").isSameOrAfter(moment(startDate, "DD/MM/YYYY"));
       })

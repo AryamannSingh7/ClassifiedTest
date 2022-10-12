@@ -99,10 +99,10 @@ class ClassifiedListing extends ClassifiedController {
                   <Box className="incident-content-wrapper">
                     <div className="classified-header">
                       <Box className={this.state?.myOrAllClassified ? "customButton" : "customButton btn-gray"}>
-                        <Button variant="contained" onClick={() => this.getClassifiedListing(this.state.status)}>All Classified</Button>
+                        <Button variant="contained" onClick={() => this.getClassifiedListing(this.state.status)}>All Classifieds</Button>
                       </Box>
                       <Box className={this.state?.myOrAllClassified ? "customButton btn-gray" : "customButton"}>
-                        <Button variant="contained" onClick={() => this.getMyClassifiedList()}>My Classified</Button>
+                        <Button variant="contained" onClick={() => this.getMyClassifiedList()}>My Classifieds</Button>
                       </Box>
                     </div>
                     {
@@ -153,9 +153,21 @@ class ClassifiedListing extends ClassifiedController {
                                 <Typography className="sub-title h5-title" component="h5">
                                   {val?.attributes?.description}
                                 </Typography>
+                                { val?.attributes?.classified_type === "seller" ?
+                                   <Typography component="span">
+                                   Available to sell:
+                                 </Typography>
+                                 :
+                                 val?.attributes?.classified_type === "buyer" 
+                                 ?
+                                 <Typography component="span">
+                                 Available to buy:
+                               </Typography>
+                                :
                                 <Typography component="span">
-                                  Available to sell:
-                                </Typography>
+                                Available :
+                              </Typography>
+                                }
                                 <Typography className="sub-title h5-title" component="h5">
                                   {val?.attributes?.duration_from} to {val?.attributes?.duration_to}
                                 </Typography>
