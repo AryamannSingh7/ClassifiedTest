@@ -184,7 +184,7 @@ class ClassifiedManagerListing extends ClassifiedManagerController {
                   {
                     this.state?.classifiedsListing?.map((val: any, index: any) => (
                       <Grid item sm={6} lg={4} key={index} onClick={() => this.getClassifiedDetails(val.id)}>
-                        <Card className="classified-card card" key={index}>
+                        <Card className="classified-card  classifiedManager-card card" key={index}>
                           <CardContent className="costom-card-content">
                             <Typography component="h4">
                               {val?.attributes?.title}
