@@ -99,10 +99,10 @@ class ClassifiedListing extends ClassifiedController {
                   <Box className="incident-content-wrapper">
                     <div className="classified-header">
                       <Box className={this.state?.myOrAllClassified ? "customButton" : "customButton btn-gray"}>
-                        <Button variant="contained" onClick={() => this.getClassifiedListing(this.state.status)}>All Classified</Button>
+                        <Button variant="contained" onClick={() => this.getClassifiedListing(this.state.status)}>All Classifieds</Button>
                       </Box>
                       <Box className={this.state?.myOrAllClassified ? "customButton btn-gray" : "customButton"}>
-                        <Button variant="contained" onClick={() => this.getMyClassifiedList()}>My Classified</Button>
+                        <Button variant="contained" onClick={() => this.getMyClassifiedList()}>My Classifieds</Button>
                       </Box>
                     </div>
                     {
