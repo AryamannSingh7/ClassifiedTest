@@ -14,7 +14,7 @@ import {
 //resources
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
-
+import moment from "moment";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
@@ -100,22 +100,21 @@ class CreateClassified extends ClassifiedController {
                   <Formik
                     initialValues={{
                       phone: attributes?.phone_number.phone_number || "",
-                      selectCode: attributes?.phone_number?.country_code || '+966',
+                      selectCode: attributes?.phone_number?.country_code === "+"? "":attributes?.phone_number?.country_code|| '+966',
                       email: attributes?.email || "",
                       classifiedTitle: attributes?.title || "",
                       description: attributes?.description || "",
                       media: attributes?.attachments || [],
                       price: attributes?.price || "",
                       currency: attributes?.currency?.id || ' ',
-                      endDate: attributes?.duration_to || "",
-                      startDate: attributes?.duration_from || "",
+                      startDate: moment(attributes?.duration_from,'DD-MM-YYYY' ).format('YYYY-MM-DD') || "",
+                      endDate: moment(attributes?.duration_to,'DD-MM-YYYY' ).format('YYYY-MM-DD') || "",
                       priceFrom: attributes?.price_from || "",
                       priceTo: attributes?.price_to || "",
                       timeFrom: attributes?.time_from || "",
                       timeTo: attributes?.time_to || "",
                       paymentDetail: attributes?.payment_detail || "",
                       id: id || "",
-                      bannerUrl:attributes?.attachments[0].url|| ""
                     }}
                     enableReinitialize
                     validationSchema={classifiedUserType === "generic" || classified_type ==="generic"  ? this.createClassifiedSchemaGerenic() : classifiedUserType === "buyer" || classified_type ==="buyer"? this.createClassifiedSchemaBuy() : this.createClassifiedSchemaSell()}
@@ -158,7 +157,7 @@ class CreateClassified extends ClassifiedController {
                                 onChange={handleChange}
                                 value={values.selectCode}
                               >
-                                <MenuItem value="">
+                                <MenuItem  disabled value="">
                                   <em>None</em>
                                 </MenuItem>
                                 {dailCode.map((item) =>
