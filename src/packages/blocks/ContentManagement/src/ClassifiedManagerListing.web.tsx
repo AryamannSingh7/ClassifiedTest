@@ -193,9 +193,24 @@ class ClassifiedManagerListing extends ClassifiedManagerController {
                               {val?.attributes?.description}
                             </Typography>
                             <Box className="content-row">
-                              <Typography component="span">
-                                Available to buy
+                              {
+                                val?.attributes?.classified_type === "buyer" ?
+                                <Typography component="span">
+                                  Available to buy
+                                </Typography>
+                                :  
+                                val?.attributes?.classified_type === "seller"
+                                ?
+                                <Typography component="span">
+                                  Available to sell
+                                </Typography>
+                                :
+                                <Typography component="span">
+                                Available 
                               </Typography>
+
+                              }
+                            
                               <Typography component="p">
                                 {val?.attributes?.duration_from} to {val?.attributes?.duration_to}
                               </Typography>

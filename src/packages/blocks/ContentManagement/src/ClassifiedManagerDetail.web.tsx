@@ -230,7 +230,7 @@ class ClassifiedManagerDetail extends ClassifiedManagerController {
                          >REJECT</Button>
                          <Button variant="contained"
                            onClick={() => this.setState({ statusShowDialog: true })}
-                         >PUBLISHED</Button>
+                         >PUBLISH</Button>
                        </Box>
                        :
                        null
