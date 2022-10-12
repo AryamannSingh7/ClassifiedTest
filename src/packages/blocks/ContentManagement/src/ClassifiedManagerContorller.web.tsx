@@ -602,8 +602,9 @@ onChange =(e :any)=>{
       this.setState({ loading: true });
      
      //const  url = `bx_block_custom_form/incidents`
-     const  getSortByOrStatus = `bx_block_posts/classifieds?search_building=${this.state?.serachBuildingName}&filter_by=${this.state.classifiedType}&classified_status=${this.state?.status}`
-      requestMessage.addData(
+     const  getSortByOrStatus = `bx_block_posts/classifieds/classified_list?search_building=${this.state?.serachBuildingName}&filter_by=${this.state.classifiedType}&classified_status=${this.state?.status}`
+    // /bx_block_posts/classifieds/classified_list?search_building=&filter_by=&classified_status= 
+     requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
         getSortByOrStatus
       );
