@@ -241,6 +241,16 @@
       @media only screen and (max-width: 768px) {
         padding: 10px;
       }
+      & .customButton {
+        display: flex;
+        justify-content: center;
+    
+        & .MuiButton-root {
+          padding: 8px 30px;
+          width: auto;
+          margin-left: 10px;
+        }
+      }
     }
   }
 
