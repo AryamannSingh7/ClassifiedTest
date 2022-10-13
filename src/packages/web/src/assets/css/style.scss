@@ -12,13 +12,21 @@ html {
   padding: 0;
   overflow-x: hidden;
   // font-family: $MONTSERRAT;
-  font-family: $Gotham_Medium !important;
+  font-family: $Gotham_Medium  !important;
   font-weight: 100;
   @include scrollbars();
 
   @include mq(tablet-portrait-large-up) {
     background-color: $WHITE;
   }
+}
+
+* {
+  font-family: $Gotham_Medium  !important;
+}
+
+input {
+  font-family: $Gotham_Medium  !important;
 }
 
 h1,
@@ -36,8 +44,9 @@ p {
 h1 {
   font-size: 28px;
   // font-weight: 600;
-  font-family: $Gotham_Medium !important;
+  font-family: $Gotham_Medium  !important;
   padding-right: 10px;
+
   @include mq(tablet-portrait-large-up) {
     font-size: 24px;
   }
@@ -45,6 +54,7 @@ h1 {
 
 h2 {
   font-size: 26px;
+
   @include mq(tablet-portrait-large-up) {
     font-size: 25px;
   }
@@ -52,22 +62,24 @@ h2 {
 
 h3 {
   font-size: 24px;
+
   @include mq(tablet-portrait-large-up) {
     font-size: 20px;
   }
 }
 
 h4 {
-  font-family: $Gotham_Medium !important;
+  font-family: $Gotham_Medium  !important;
   font-size: 19px;
   font-weight: 600;
+
   @include mq(tablet-portrait-large-up) {
     font-size: 17px;
   }
 }
 
 h5 {
-  font-family: $Gotham_Light !important;
+  font-family: $Gotham_Light  !important;
   font-weight: 600;
   // opacity: 0.85;
   font-size: 17px;
@@ -80,7 +92,7 @@ h5 {
 h6 {
   // color: $GRAY_SHADE3;
   font-size: 15px;
-  font-family: $Gotham_Light !important;
+  font-family: $Gotham_Light  !important;
   line-height: 12px;
 }
 
@@ -91,7 +103,7 @@ h6 {
 // }
 
 p {
-  font-family: $Gotham_Light !important;
+  font-family: $Gotham_Light  !important;
   font-size: 16px;
   font-weight: 500;
   line-height: 1.5;
@@ -103,7 +115,7 @@ p {
 
 a {
   text-decoration: none;
-  font-family: $Gotham_Light !important;
+  font-family: $Gotham_Light  !important;
 }
 
 button,
@@ -111,7 +123,7 @@ label {
   cursor: pointer;
   margin-bottom: 0;
   // font-family: $MONTSERRAT;
-  font-family: $Gotham_Light !important;
+  font-family: $Gotham_Light  !important;
   font-weight: 500;
 }
 
@@ -120,11 +132,11 @@ ul {
   padding: 0;
   list-style: none;
   // font-family: $MONTSERRAT;
-  font-family: $Gotham_Medium !important;
+  font-family: $Gotham_Medium  !important;
 }
 
 li {
-  font-family: $Gotham_Medium !important;
+  font-family: $Gotham_Medium  !important;
 }
 
 .mainWrapper {
@@ -185,6 +197,7 @@ li {
   justify-content: center;
   align-items: center;
   margin-right: 10px;
+
   & .img-layer {
     position: absolute;
     left: 0;
@@ -195,6 +208,7 @@ li {
     border-radius: 10px;
     z-index: 1;
   }
+
   & .play-icon {
     // background-color: $BLUE;
     position: absolute;
@@ -204,12 +218,15 @@ li {
     padding: 3px;
   }
 }
+
 .mt-20 {
   margin-top: 20px;
 }
+
 .mt-15 {
   margin-top: 15px;
 }
+
 .mb-10 {
   margin-bottom: 10px;
 }
