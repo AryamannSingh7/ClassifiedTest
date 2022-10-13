@@ -22,10 +22,19 @@ import {
   TenantType,
   UnitNumber,
 } from "./assets";
+import moment from "moment";
+import Loader from "../../../components/src/Loader.web";
 
 class TenantDetails extends TenantListController {
   constructor(props: Props) {
     super(props);
+  }
+
+  async componentDidMount(): Promise<void> {
+    const tenant_id = this.props.navigation.getParam("id");
+    this.setState({ tenantId: tenant_id }, () => {
+      this.getTenantDetails();
+    });
   }
 
   render() {
@@ -34,6 +43,8 @@ class TenantDetails extends TenantListController {
 
     return (
       <>
+        <Loader loading={this.state.loading} />
+
         <Box style={{ background: "#F4F7FF", height: "100vh", overflowY: "hidden" }} className={classes.tenantDetails}>
           <Grid container>
             <Grid item xs={12} md={7}>
@@ -48,7 +59,7 @@ class TenantDetails extends TenantListController {
                     <span>{t("Tenant")}</span>
                   </div>
                   <div className="right-icon">
-                    <img src={DeleteIcon} alt="" />
+                    <img src={DeleteIcon} alt="" onClick={() => this.handleDeleteTenant()} />
                     <img src={EditIcon} alt="" />
                   </div>
                 </Box>
@@ -63,7 +74,7 @@ class TenantDetails extends TenantListController {
                               <img src={TenantName} alt="" />
                               <Box className="item-data">
                                 <span>{t("Tenant Name")}</span>
-                                <p>Ali Khab</p>
+                                <p>{this.state.tenantData.tenantName || "-"}</p>
                               </Box>
                             </Box>
                           </Grid>
@@ -72,7 +83,7 @@ class TenantDetails extends TenantListController {
                               <img src={TenantType} alt="" />
                               <Box className="item-data">
                                 <span>{t("Tenant Type")}</span>
-                                <p>Ali Khab</p>
+                                <p>{this.state.tenantData.tenantType || "-"}</p>
                               </Box>
                             </Box>
                           </Grid>
@@ -81,7 +92,7 @@ class TenantDetails extends TenantListController {
                               <img src={BuildingName} alt="" />
                               <Box className="item-data">
                                 <span>{t("Building Name")}</span>
-                                <p>Ali Khab</p>
+                                <p>{this.state.tenantData.buildingName || "-"}</p>
                               </Box>
                             </Box>
                           </Grid>
@@ -90,7 +101,7 @@ class TenantDetails extends TenantListController {
                               <img src={UnitNumber} alt="" />
                               <Box className="item-data">
                                 <span>{t("Unit Number")}</span>
-                                <p>Ali Khab</p>
+                                <p>{this.state.tenantData.unitNumber || "-"}</p>
                               </Box>
                             </Box>
                           </Grid>
@@ -99,7 +110,7 @@ class TenantDetails extends TenantListController {
                               <img src={CityIcon} alt="" />
                               <Box className="item-data">
                                 <span>{t("City")}</span>
-                                <p>Ali Khab</p>
+                                {/* <p>{this.state.tenantData.city || "-"}</p> */}
                               </Box>
                             </Box>
                           </Grid>
@@ -108,7 +119,7 @@ class TenantDetails extends TenantListController {
                               <img src={PhoneNumber} alt="" />
                               <Box className="item-data">
                                 <span>{t("Phone Number")}</span>
-                                <p>Ali Khab</p>
+                                <p>{this.state.tenantData.phoneNumber || "-"}</p>
                               </Box>
                             </Box>
                           </Grid>
@@ -117,7 +128,7 @@ class TenantDetails extends TenantListController {
                               <img src={EmailIcon} alt="" />
                               <Box className="item-data">
                                 <span>{t("Email Address")}</span>
-                                <p>Ali Khab</p>
+                                <p>{this.state.tenantData.email || "-"}</p>
                               </Box>
                             </Box>
                           </Grid>
@@ -126,7 +137,7 @@ class TenantDetails extends TenantListController {
                               <img src={LeaseIcon} alt="" />
                               <Box className="item-data">
                                 <span>{t("Lease Issued")}</span>
-                                <p>Ali Khab</p>
+                                {/* <p>{this.state.tenantData.tenantName || "-"}</p> */}
                               </Box>
                             </Box>
                           </Grid>
@@ -143,7 +154,7 @@ class TenantDetails extends TenantListController {
                               <img src={IdType} alt="" />
                               <Box className="item-data">
                                 <span>{t("ID Type")}</span>
-                                <p>Ali Khab</p>
+                                <p>{this.state.tenantData.IdType || "-"}</p>
                               </Box>
                             </Box>
                           </Grid>
@@ -152,7 +163,7 @@ class TenantDetails extends TenantListController {
                               <img src={IdNumber} alt="" />
                               <Box className="item-data">
                                 <span>{t("ID Number")}</span>
-                                <p>Ali Khab</p>
+                                <p>{this.state.tenantData.IdNumber || "-"}</p>
                               </Box>
                             </Box>
                           </Grid>
@@ -161,7 +172,9 @@ class TenantDetails extends TenantListController {
                               <img src={CalenderIcon} alt="" />
                               <Box className="item-data">
                                 <span>{t("ID Expiration Date")}</span>
-                                <p>Ali Khab</p>
+                                <p>
+                                  {moment(this.state.tenantData.IdExpDate, "YYYY-MM-DD").format("MMMM DD, YYYY") || "-"}
+                                </p>
                               </Box>
                             </Box>
                           </Grid>

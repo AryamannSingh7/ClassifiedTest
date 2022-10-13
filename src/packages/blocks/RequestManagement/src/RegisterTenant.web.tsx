@@ -36,10 +36,16 @@ import { withTranslation } from "react-i18next";
 import { TenantStyle } from "./TenantStyle.web";
 import { CountryList } from "./countryList";
 import CloseIcon from "@material-ui/icons/Close";
+import Loader from "../../../components/src/Loader.web";
 
 class RegisterTenant extends RegisterTenantController {
   constructor(props: Props) {
     super(props);
+  }
+
+  async componentDidMount(): Promise<void> {
+    this.getBuildingList();
+    this.getIdTypeList();
   }
 
   render() {
@@ -48,6 +54,8 @@ class RegisterTenant extends RegisterTenantController {
 
     return (
       <>
+        <Loader loading={this.state.loading} />
+        
         <Box style={{ background: "white", height: "100vh" }} className={classes.selectTemplate}>
           <Grid container>
             <Grid item xs={12} md={7}>
@@ -69,14 +77,11 @@ class RegisterTenant extends RegisterTenantController {
                       initialValues={this.state.registerTenantForm}
                       validationSchema={this.validationRegisterTenantFormSchema}
                       onSubmit={(values, { resetForm }) => {
-                        console.log(values);
+                        this.handleSubmitRegisterTenant(values);
+                        // resetForm();
                       }}
                     >
                       {({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue }) => {
-                        console.log("values", values);
-                        console.log("errors", errors);
-                        console.log("touched", touched);
-
                         return (
                           <Form onSubmit={handleSubmit} translate="true">
                             <Box className="select-input-box">
@@ -206,6 +211,7 @@ class RegisterTenant extends RegisterTenantController {
                                     value={values.building}
                                     onChange={(e: any) => {
                                       setFieldValue("building", e.target.value);
+                                      this.getUnitList(e.target.value);
                                     }}
                                     onBlur={handleBlur}
                                     name="building"
@@ -248,7 +254,7 @@ class RegisterTenant extends RegisterTenantController {
                                     {this.state.unitList.map((unit: any) => {
                                       return (
                                         <MenuItem value={unit.id} key={unit.id}>
-                                          {unit.name}
+                                          {unit.apartment_name}
                                         </MenuItem>
                                       );
                                     })}
@@ -396,7 +402,7 @@ class RegisterTenant extends RegisterTenantController {
                                 )}
                               </FormControl>
 
-                              <div className="next-button">
+                              <div className="next-button submit-button">
                                 {/* <Link to=""> */}
                                 <Button type="submit">{t("Next")}</Button>
                                 {/* </Link> */}
