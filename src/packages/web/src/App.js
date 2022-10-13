@@ -1642,6 +1642,7 @@ ClassifiedEditSuccessfully: {
     path: '/BuildingDetails/:id',
     roles: [ROLE.OWNER, ROLE.OWNER_RESIDENT, ROLE.TENANT]
   },
+  // My Tenant
   TenantList: {
     component: TenantList,
     path: '/Tenants',
