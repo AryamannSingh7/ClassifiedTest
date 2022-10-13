@@ -74,7 +74,7 @@ class SelectType extends EmailAccountRegistrationController {
             >
               <img src={resident_owner}/>
               <Box className={"middle-section"}>
-                      <label for="radCreateMode" className={"title" + (this.state.userType == 'Owner Resident' ? ' active-type' :'')}>
+                      <label for="radCreateMode" className={"title" + (this.state.userType == 'Owner Resident' ? ' active-type' :'')} style={{padding:'20px 20px 0px 0px'}}>
                   Resident Owner
                 </label>
                       <br />
@@ -100,7 +100,7 @@ class SelectType extends EmailAccountRegistrationController {
               <img src={tenet} />
 
               <Box className="middle-section">
-                      <label for="radCreateMode2" className={"title" + (this.state.userType == 'Tenant' ? ' active-type' : '')}>
+                      <label for="radCreateMode2" className={"title" + (this.state.userType == 'Tenant' ? ' active-type' : '')} style={{padding:'20px 20px 0px 0px'}}>
                   Tenant
                 </label>
                       <br />
@@ -129,7 +129,7 @@ class SelectType extends EmailAccountRegistrationController {
 
 
               <Box className="middle-section">
-                      <label for="radCreateMode5" className={"title" + (this.state.userType == 'Owner' ? ' active-type' : '')}>
+                      <label for="radCreateMode5" className={"title" + (this.state.userType == 'Owner' ? ' active-type' : '')} style={{padding:'20px 20px 0px 0px'}}>
                   Owner
                       </label>
                       <br/>
@@ -155,7 +155,7 @@ class SelectType extends EmailAccountRegistrationController {
                     <img src={manager} />
 
                     <Box className="middle-section">
-                      <label for="radCreateMode3" className={"title" + (this.state.userType == 'Property Manager' ? ' active-type' : '')}>
+                      <label for="radCreateMode3" className={"title" + (this.state.userType == 'Property Manager' ? ' active-type' : '')} style={{padding:'20px 20px 0px 0px'}}>
                         Property Manager
                       </label>
                       <br />
