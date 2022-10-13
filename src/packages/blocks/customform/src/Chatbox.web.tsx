@@ -205,7 +205,6 @@ console.log(moment( myDate ).calendar())
                               <Typography
                                 style={{
                                   color: "#081F32",
-                                  fontFamily: "Poppins",
                                   fontWeight: 500,
                                   fontSize: 14,
                                   wordBreak: 'break-all'
@@ -224,7 +223,6 @@ console.log(moment( myDate ).calendar())
                               <Typography
                                 style={{
                                   color: "#081F32",
-                                  fontFamily: "Poppins",
                                   fontWeight: 500,
                                   fontSize: 14,
                                   wordBreak: 'break-all'

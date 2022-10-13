@@ -37,7 +37,9 @@
   border: none !important;
   border-color: transparent !important;
 }
-
+.active-box{
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
 .select-type {
   padding: 1rem;
 
@@ -48,13 +50,19 @@
     .title {
       font-weight: bold;
       margin-bottom: 0.58rem;
-      color: #D3D3D3;
+      color: #A5A3A4;
+      font-size: 15px;
     }
 
     .para {
       color: #D3D3D3;
     }
+    .active-para{
+      color: rgb(140, 143, 146);
+    }
   }
+  
+ 
 
   input[type='radio']:checked:after {
     width: 15px;
