@@ -674,5 +674,7 @@
   "Save Lease Template": "حفظ نموذج الإيجار",
   "Your lease document has been generated. You can access this document from contracts section of the app.": ".تم إنشاء مستند عقد الإيجار الخاص بك. يمكنك الوصول إلى هذا المستند من قسم العقود في التطبيق",
   "Lease Document Generated": "تم إنشاء مستند الإيجار",
-  "Use This Template": "استخدم هذا النموذج"
+  "Use This Template": "استخدم هذا النموذج",
+  "Please enter valid email": "الرجاء إدخال بريد إلكتروني صحيح",
+  "Please enter valid number": "الرجاء إدخال رقم صحيح"
 }

@@ -277,6 +277,26 @@ export const TenantStyle: any = {
       color: "black",
       fontWeight: "600",
     },
+    "& .issue-lease-content .pdf-box": {
+      display: "flex",
+      alignItems: "center",
+      gap: "12px",
+      border: "1px solid #F0F0F0",
+      borderRadius: "8px",
+      padding: "5px",
+      marginTop: "10px",
+      "& .pdf-info": {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        width: "100%",
+        "& h4": {
+          wordBreak: "break-all",
+          fontWeight: "500",
+          fontSize: "14px",
+        },
+      },
+    },
     "& .issue-lease-content .upload-box": {
       border: "3px dashed #F0F0F0",
       background: "#F9F9F9",
@@ -384,7 +404,7 @@ export const TenantStyle: any = {
     },
     "& .error": {
       color: "red",
-      marginTop: "10px",
+      marginTop: "2px",
       marginLeft: "20px",
       fontSize: "14px",
     },
