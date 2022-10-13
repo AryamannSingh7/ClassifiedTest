@@ -158,9 +158,7 @@ console.log(moment( myDate ).calendar())
                       <Box width='100%' display='flex' justifyContent='space-between' alignItems='center'>
 
                       <h5>
-                        {
-                          item.attributes.chat_with_account.attributes.full_name || 'N/A'
-                        }
+                      {item?.attributes?.chat_with_account?.id != localStorage.getItem('userId') ?item?.attributes?.chat_with_account?.attributes?.full_name || 'N/A':item?.attributes?.chatable?.attributes?.full_name || 'N/A' }
 
                       </h5>
                       <p>

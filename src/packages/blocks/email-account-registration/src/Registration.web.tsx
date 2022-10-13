@@ -40,16 +40,10 @@ class Registration extends EmailAccountRegistrationController  {
             </Grid>
           </Grid>
 
-          <Grid container>
-            <Grid xs={12}>
-              <p className="text-center" style={{ fontSize: '1.75rem', fontWeight: 700 }}>
-                CLIENT
-                <br />
-                LOGO
-
-              </p>
-            </Grid>
-          </Grid>
+          <div style={{display: 'flex' ,justifyContent: 'center'}}>
+              <img className="text-center" src={company_logo} alt="" />
+          </div>
+    
           <Grid container>
             <Grid xs={12}>
               <p className="text-center">

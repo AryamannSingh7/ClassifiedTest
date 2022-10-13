@@ -33,87 +33,92 @@ class TenantList extends TenantListController {
                     <span>{t("My Tenants")}</span>
                   </div>
                 </Box>
-
-                {/* <Box className="empty-list">
-                  <div className="content-box">
-                    <img src={NoTenant} />
-                    <h3>{t("No Tenant Registered")}</h3>
-                    <Box>
-                      <p>{t("Looks like you haven’t registered any tenant!")}</p>
-                      <p>{t("You can fill form to register tenant by tapping on below button")}</p>
-                    </Box>
-                  </div>
-                  <div className="upload-button">
-                    <Grid container>
-                      <Grid item xs={12} md={12}>
-                        <Link href="">
-                          <Button>{t("Register A Tenant")}</Button>
-                        </Link>
-                      </Grid>
-                    </Grid>
-                  </div>
-                </Box> */}
-
-                <Container>
-                  <div className="tenant-list-box">
-                    <div className="tenant-list">
-                      <Grid container spacing={2}>
-                        <Grid item xs={12}>
-                          <Card className="tenant">
-                            <Grid container spacing={2}>
-                              <Grid item xs={12}>
-                                <div className="header">
-                                  <Link href="/Tenant/1">
-                                    <h4>aaaaaaa</h4>
-                                  </Link>
-                                  <div className="right-menu">
-                                    <Menu
-                                      menuButton={
-                                        <IconButton>
-                                          <MoreVertIcon />
-                                        </IconButton>
-                                      }
-                                    >
-                                      <MenuItem>{t("View")}</MenuItem>
-                                      <MenuItem>{t("Delete")}</MenuItem>
-                                    </Menu>
-                                  </div>
-                                </div>
-                              </Grid>
-                            </Grid>
-                            <Grid container spacing={2} className="info">
-                              <Grid item xs={12}>
-                                <span>{t("Name")}:</span>
-                                <p>qqqq</p>
-                              </Grid>
-                              <Grid item xs={12}>
-                                <span>{t("City")}:</span>
-                                <p>qqqq</p>
-                              </Grid>
-                              <Grid item xs={12}>
-                                <span>{t("Tenant Type")}:</span>
-                                <p>qqqq</p>
-                              </Grid>
-                              <Grid item xs={12}>
-                                <span>{t("Lease Issued")}:</span>
-                                <p>qqqq</p>
-                              </Grid>
-                            </Grid>
-                          </Card>
-                        </Grid>
-                      </Grid>
+                {this.state.tenantList.length === 0 ? (
+                  <Box className="empty-list">
+                    <div className="content-box">
+                      <img src={NoTenant} />
+                      <h3>{t("No Tenant Registered")}</h3>
+                      <Box>
+                        <p>{t("Looks like you haven’t registered any tenant!")}</p>
+                        <p>{t("You can fill form to register tenant by tapping on below button")}</p>
+                      </Box>
                     </div>
                     <div className="upload-button">
                       <Grid container>
                         <Grid item xs={12} md={12}>
                           <Link href="/RegisterTenant">
-                            <Button>{t("Register Another Tenant")}</Button>
+                            <Button>{t("Register A Tenant")}</Button>
                           </Link>
                         </Grid>
                       </Grid>
                     </div>
-                  </div>
-                </Container>
+                  </Box>
+                ) : (
+                  <Container>
+                    <div className="tenant-list-box">
+                      <div className="tenant-list">
+                        <Grid container spacing={2}>
+                          {this.state.tenantList.map((tenant: any) => {
+                            return (
+                              <Grid item xs={12} key={tenant.id}>
+                                <Card className="tenant">
+                                  <Grid container spacing={2}>
+                                    <Grid item xs={12}>
+                                      <div className="header">
+                                        <Link href="/Tenant/1">
+                                          <h4>aaaaaaa</h4>
+                                        </Link>
+                                        <div className="right-menu">
+                                          <Menu
+                                            menuButton={
+                                              <IconButton>
+                                                <MoreVertIcon />
+                                              </IconButton>
+                                            }
+                                          >
+                                            <MenuItem>{t("View")}</MenuItem>
+                                            <MenuItem>{t("Delete")}</MenuItem>
+                                          </Menu>
+                                        </div>
+                                      </div>
+                                    </Grid>
+                                  </Grid>
+                                  <Grid container spacing={2} className="info">
+                                    <Grid item xs={12}>
+                                      <span>{t("Name")}:</span>
+                                      <p>qqqq</p>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                      <span>{t("City")}:</span>
+                                      <p>qqqq</p>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                      <span>{t("Tenant Type")}:</span>
+                                      <p>qqqq</p>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                      <span>{t("Lease Issued")}:</span>
+                                      <p>qqqq</p>
+                                    </Grid>
+                                  </Grid>
+                                </Card>
+                              </Grid>
+                            );
+                          })}
+                        </Grid>
+                      </div>
+                      <div className="upload-button">
+                        <Grid container>
+                          <Grid item xs={12} md={12}>
+                            <Link href="/RegisterTenant">
+                              <Button>{t("Register Another Tenant")}</Button>
+                            </Link>
+                          </Grid>
+                        </Grid>
+                      </div>
+                    </div>
+                  </Container>
+                )}
               </Box>
             </Grid>
             <Grid item xs={12} md={5}>
