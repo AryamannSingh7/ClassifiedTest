@@ -46,7 +46,7 @@ class LandingPage extends React.Component {
             <Box className="content-section">
               <img src={Tenant_Logo.default} className="tenant-logo" alt="" />
               <h1>Manage your home  on<br></br>one platform</h1>
-              <p>Your gateway to peaceful living...</p>
+              {/* <p>Your gateway to peaceful living...</p> */}
             </Box>
             <Box className="customButton row-btn">
               <Button size="large" variant="outlined"

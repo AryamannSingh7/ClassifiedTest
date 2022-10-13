@@ -194,7 +194,6 @@ class Registration extends EmailAccountRegistrationController  {
                             <Select
                               name='selectCode'
                               labelId="demo-simple-select-outlined-label"
-
                               id="demo-simple-select-outlined"
                               onChange={this.handleChange}
                               label="Unit"
@@ -269,7 +268,7 @@ class Registration extends EmailAccountRegistrationController  {
                         <Field
                           className="formInput"
                           name="password"
-                          placeholder="Password"
+                          placeholder="New Password"
                           type={values.showPassword ? "text" : "password"}
 
                         />
