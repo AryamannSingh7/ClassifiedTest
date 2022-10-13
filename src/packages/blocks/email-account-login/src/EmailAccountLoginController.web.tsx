@@ -498,11 +498,10 @@ clear= () => {
       email: Yup.string()
         .email('Invalid email format')
         .strict(true)
-        .lowercase(`Please enter all values in lowercase`)
         .trim()
-        .required(`This field is required.`),
-      password: Yup.string().required(`This field is required`),
-      userType: Yup.string().required(`This field is required`).trim(),
+        .required(`Email is required.`),
+      password: Yup.string().required(`Password is required`),
+      userType: Yup.string().required(`User type is required`).trim(),
     });
     return validations
   }
