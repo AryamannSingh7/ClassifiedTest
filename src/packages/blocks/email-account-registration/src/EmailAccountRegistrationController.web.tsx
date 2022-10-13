@@ -1513,16 +1513,16 @@ console.log(attributes)
         .required("Mobile number is required.")
         .positive("Negative numbers are not allowed.")
         .integer("Number can't contain a decimal.")
-        .min(10000000, "Minimum 8 digits are required.")
-        .max(99999999999, "Maximum 11 digits are allowed.")
+        .min(100000000, "Minimum 9 digits are required.")
+        .max(1000000000, "Maximum 9 digits are allowed.")
 ,
       owner_phone: Yup.number()
         .typeError("Only numbers are allowed.")
         .required("Mobile number is required.")
         .positive("Negative numbers are not allowed.")
         .integer("Number can't contain a decimal.")
-        .min(10000000, "Minimum 8 digits are required.")
-        .max(99999999999, "Maximum 11 digits are allowed."),
+        .min(100000000, "Minimum 9 digits are required.")
+        .max(1000000000, "Maximum 9 digits are allowed."),
       password: Yup
         .string()
         .min(8, `Minimum Password length is 8.`)
@@ -1550,8 +1550,8 @@ console.log(attributes)
         .required("Mobile number is required.")
         .positive("Negative numbers are not allowed.")
         .integer("Number can't contain a decimal.")
-        .min(10000000, "Minimum 8 digits are required.")
-        .max(99999999999, "Maximum 11 digits are allowed."),
+        .min(100000000, "Minimum 9 digits are required.")
+        .max(1000000000, "Maximum 9 digits are allowed."),
       password: Yup
         .string()
         .min(8, `Minimum Password length is 8.`)

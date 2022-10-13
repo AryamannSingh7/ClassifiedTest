@@ -42,8 +42,8 @@ class VerofyOTP extends EmailAccountRegistrationController {
     return (
 
       <>
-        <Grid container spacing={2} className="auth-container">
-          <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset' }}>
+        <Grid container spacing={2} className="auth-container" >
+          <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset',paddingLeft:'1rem',paddingRight:'1rem' }}>
 
         <Grid container className="main-content-block">
           <Grid xs={12}>
@@ -54,7 +54,7 @@ class VerofyOTP extends EmailAccountRegistrationController {
 
         <Grid container className="main-content-block">
           <Grid xs={12}>
-                <p className="text-left" style={{ fontSize: '2.5rem', fontWeight: 700}}>
+                <p className="text-left" style={{ fontSize: '1.75rem', fontWeight: 700,marginTop:'2rem'}}>
              Enter OTP Code
 
             </p>
@@ -62,7 +62,7 @@ class VerofyOTP extends EmailAccountRegistrationController {
         </Grid>
         <Grid container className="main-content-block">
           <Grid xs={12}>
-            <p className="text-left" style={{ marginBottom: '1.5rem' }}>
+            <p className="text-left" style={{ marginBottom: '1.5rem',marginBottom:'9rem' }}>
               Please enter the code sent to the email address
 
               <span className="text">

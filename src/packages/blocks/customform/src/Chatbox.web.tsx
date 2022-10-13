@@ -138,7 +138,7 @@ console.log(moment( myDate ).calendar())
             <Box display='flex' alignItems='center' onClick={() => window.history.back()}>
               <KeyboardBackspaceIcon />
               <span style={{ fontWeight: 'bold' }}>
-                {item?.attributes?.chat_with_account?.attributes?.full_name}
+                {item?.attributes?.chat_with_account?.id != localStorage.getItem('userId') ?item?.attributes?.chat_with_account?.attributes?.full_name || 'N/A':item?.attributes?.chatable?.attributes?.full_name || 'N/A' }
               </span>
             </Box>
 
