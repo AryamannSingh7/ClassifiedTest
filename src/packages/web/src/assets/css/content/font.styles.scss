@@ -5,14 +5,21 @@ $Gotham_Bold: "Gotham_Bold";
 @font-face {
   font-family: "Gotham_Light";
   src: url(../../fonts/century-gotic/Century-Gothic.ttf);
+  font-weight: 100;
 }
 
 @font-face {
   font-family: "Gotham_Medium";
   src: url(../../fonts/century-gotic/CenturyGothic.ttf);
+  font-weight: 300;
 }
 
 @font-face {
   font-family: "Gotham_Bold";
   src: url(../../fonts/Gotham-Font/Gotham-Bold.otf);
+<<<<<<< HEAD
 }
+=======
+  font-weight: 500;
+}
+>>>>>>> 101c598b891983e313b9fb5e071d7d5f01bd74d0
