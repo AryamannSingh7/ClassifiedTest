@@ -2,9 +2,9 @@
   border-bottom: 0;
 }
 
-* {
+/* * {
   font-family: "Century Gothic" !important;
-}
+} */
 
 .select-meeting.MuiDialog-root .MuiDialogContent-dividers,
 .edit-profile.MuiDialog-root .MuiDialogContent-dividers {
