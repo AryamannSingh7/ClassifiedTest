@@ -28,6 +28,7 @@ interface TenantDetails {
   IdType: string;
   IdNumber: string;
   IdExpDate: string;
+  documentList: any[];
 }
 
 interface S {
@@ -75,6 +76,7 @@ export default class TenantListController extends BlockComponent<Props, S, SS> {
         IdType: "",
         IdNumber: "",
         IdExpDate: "",
+        documentList: [],
       },
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -117,19 +119,31 @@ export default class TenantListController extends BlockComponent<Props, S, SS> {
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson.code === 200) {
+        const tenant = responseJson.tenant.data;
+        let document: any = [];
+        if (tenant.attributes.tenant_id_copy) {
+          document = [...document, tenant.attributes.tenant_id_copy];
+        }
+        if (tenant.attributes.tenant_documents && tenant.attributes.tenant_documents.length > 0) {
+          document = [...document, ...tenant.attributes.tenant_documents];
+        }
+        if (tenant.attributes.contract) {
+          document = [...document, tenant.attributes.contract];
+        }
         this.setState({
           tenantData: {
-            tenantName: responseJson.tenant.data.attributes.tenant.full_name,
-            tenantType: responseJson.tenant.data.attributes.tenant_type,
-            buildingName: responseJson.tenant.data.attributes.building_management.name,
-            unitNumber: responseJson.tenant.data.attributes.apartment_management.apartment_name,
-            city: responseJson.tenant.data.attributes,
-            phoneNumber: responseJson.tenant.data.attributes.phone_number,
-            email: responseJson.tenant.data.attributes.email,
-            isLeaseIssued: responseJson.tenant.data.attributes,
-            IdType: responseJson.tenant.data.attributes.id_proof.name,
-            IdNumber: responseJson.tenant.data.attributes.id_number,
-            IdExpDate: responseJson.tenant.data.attributes.id_expectation_date,
+            tenantName: tenant.attributes.tenant.full_name,
+            tenantType: tenant.attributes.tenant_type,
+            buildingName: tenant.attributes.building_management.name,
+            unitNumber: tenant.attributes.apartment_management.apartment_name,
+            city: tenant.attributes.city,
+            phoneNumber: tenant.attributes.phone_number,
+            email: tenant.attributes.email,
+            isLeaseIssued: tenant.attributes.lease_issued,
+            IdType: tenant.attributes.id_proof.name,
+            IdNumber: tenant.attributes.id_number,
+            IdExpDate: tenant.attributes.id_expectation_date,
+            documentList: document,
           },
         });
       }
@@ -181,7 +195,6 @@ export default class TenantListController extends BlockComponent<Props, S, SS> {
 
     this.GetTenantListCallId = apiRequest.messageId;
 
-    // const society_id = localStorage.getItem("society_id");
     apiRequest.addData(getName(MessageEnum.RestAPIResponceEndPointMessage), `bx_block_contract/tenant_resquests`);
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
@@ -228,7 +241,6 @@ export default class TenantListController extends BlockComponent<Props, S, SS> {
 
     this.DeleteTenantCallId = apiRequest.messageId;
 
-    // const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
       `bx_block_contract/tenant_resquests/${this.state.tenantId}`

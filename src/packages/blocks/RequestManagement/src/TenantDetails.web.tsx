@@ -60,7 +60,11 @@ class TenantDetails extends TenantListController {
                   </div>
                   <div className="right-icon">
                     <img src={DeleteIcon} alt="" onClick={() => this.handleDeleteTenant()} />
-                    <img src={EditIcon} alt="" />
+                    <img
+                      src={EditIcon}
+                      alt=""
+                      onClick={() => this.props.navigation.navigate("EditTenant", { id: this.state.tenantId })}
+                    />
                   </div>
                 </Box>
                 <Box className="tenant-detail-box">
@@ -110,7 +114,7 @@ class TenantDetails extends TenantListController {
                               <img src={CityIcon} alt="" />
                               <Box className="item-data">
                                 <span>{t("City")}</span>
-                                {/* <p>{this.state.tenantData.city || "-"}</p> */}
+                                <p>{this.state.tenantData.city || "-"}</p>
                               </Box>
                             </Box>
                           </Grid>
@@ -137,7 +141,7 @@ class TenantDetails extends TenantListController {
                               <img src={LeaseIcon} alt="" />
                               <Box className="item-data">
                                 <span>{t("Lease Issued")}</span>
-                                {/* <p>{this.state.tenantData.tenantName || "-"}</p> */}
+                                <p>{this.state.tenantData.isLeaseIssued ? `${t("Yes")}` : `${t("No")}`}</p>
                               </Box>
                             </Box>
                           </Grid>
@@ -184,33 +188,21 @@ class TenantDetails extends TenantListController {
 
                     <Box className="pdf-list-box">
                       <Grid container spacing={2}>
-                        <Grid item xs={12}>
-                          <Card className="pdf-card">
-                            <Box className="heading">
-                              <img src={PdfIcon} alt="" />
-                              <span>Aadhaar Card</span>
-                            </Box>
-                            <img src={DownloadIcon} alt="" />
-                          </Card>
-                        </Grid>
-                        <Grid item xs={12}>
-                          <Card className="pdf-card">
-                            <Box className="heading">
-                              <img src={PdfIcon} alt="" />
-                              <span>Aadhaar Card</span>
-                            </Box>
-                            <img src={DownloadIcon} alt="" />
-                          </Card>
-                        </Grid>
-                        <Grid item xs={12}>
-                          <Card className="pdf-card">
-                            <Box className="heading">
-                              <img src={PdfIcon} alt="" />
-                              <span>Aadhaar Card</span>
-                            </Box>
-                            <img src={DownloadIcon} alt="" />
-                          </Card>
-                        </Grid>
+                        {this.state.tenantData.documentList.map((document: any) => {
+                          return (
+                            <Grid item xs={12} key={document.file_name}>
+                              <Card className="pdf-card">
+                                <Box className="heading">
+                                  <img src={PdfIcon} alt="" />
+                                  <span>{document?.file_name?.split(".")[0] || "Contract"}</span>
+                                </Box>
+                                <Link href={document.url} target="_blank">
+                                  <img src={DownloadIcon} alt="" />
+                                </Link>
+                              </Card>
+                            </Grid>
+                          );
+                        })}
                       </Grid>
                     </Box>
                   </Container>

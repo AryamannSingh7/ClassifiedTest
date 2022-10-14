@@ -61,6 +61,8 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
   CreateTenantCallId: any;
   GetTenantDetailsCallId: any;
   CreateContractCallId: any;
+  GetTenantDetailsForEditCallId: any;
+  EditTenantCallId: any;
 
   constructor(props: Props) {
     super(props);
@@ -243,6 +245,102 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
       }
       ApiCatchErrorResponse(errorResponse);
     }
+
+    // Get Tenant Details For Edit - API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.GetTenantDetailsForEditCallId !== null &&
+      this.GetTenantDetailsForEditCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.GetTenantDetailsForEditCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      if (responseJson.code === 200) {
+        const tenant = responseJson.tenant.data;
+
+        const IdCardCopy: any[] = [tenant.attributes.tenant_id_copy];
+
+        const IdCardCopyUrlPromise: any[] = IdCardCopy.map(async (file: any) => {
+          return new Promise(async (resolve, reject) => {
+            let blobString = await this.fileUrlToDataURL(file.url);
+            resolve(blobString);
+          });
+        });
+
+        let IdCardCopyFilesPromise = await Promise.allSettled(IdCardCopyUrlPromise);
+        let IdCardCopyFiles = IdCardCopyFilesPromise.map((file: any) => file.value);
+
+        const IdCardFile = IdCardCopyFiles.map((blobString: any, index: number) => {
+          return this.dataURLtoFileObject(blobString, IdCardCopy[index].file_name);
+        });
+
+        const otherDocumentUrlPromise: any[] = tenant.attributes.tenant_documents.map(async (file: any) => {
+          return new Promise(async (resolve, reject) => {
+            let blobString = await this.fileUrlToDataURL(file.url);
+            resolve(blobString);
+          });
+        });
+
+        let otherDocumentFilesPromise = await Promise.allSettled(otherDocumentUrlPromise);
+        let otherDocumentFiles = otherDocumentFilesPromise.map((file: any) => file.value);
+
+        const otherDocumentFile = otherDocumentFiles.map((blobString: any, index: number) => {
+          return this.dataURLtoFileObject(blobString, tenant.attributes.tenant_documents[index].file_name);
+        });
+
+        this.setState({
+          loading: false,
+          registerTenantForm: {
+            tenantType: tenant.attributes.tenant_type,
+            tenantName: tenant.attributes.tenant.full_name,
+            tenantCountryCode: tenant.attributes.phone_number.split("-")[0],
+            tenantMobile: tenant.attributes.phone_number.split("-")[1],
+            tenantEmail: tenant.attributes.email,
+            building: tenant.attributes.building_management.name,
+            unit: tenant.attributes.apartment_management.apartment_name,
+            idType: tenant.attributes.id_proof.id,
+            idNumber: tenant.attributes.id_number,
+            idDate: tenant.attributes.id_expectation_date,
+            idCard: IdCardFile,
+            otherDocument: otherDocumentFile,
+          },
+        });
+      }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // Get Tenant Details - API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.EditTenantCallId !== null &&
+      this.EditTenantCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.EditTenantCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      if (responseJson.data) {
+        this.setState({ loading: false });
+        toast.success("Tenant updated successfully");
+        this.props.navigation.navigate("TenantDetails", { id: responseJson.data.id });
+      }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
   }
 
   uploadIDCard: any;
@@ -332,7 +430,9 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
     data.append("[tenant_resquest][id_expectation_date]", values.idDate);
     data.append("[tenant_resquest][tenant_type]", values.tenantType);
     data.append("[tenant_resquest][tenant_id_copy]", values.idCard[0]);
-    data.append("[tenant_resquest][tenant_documents]", otherDocument);
+    otherDocument.map((document: any) => {
+      data.append("[tenant_resquest][tenant_documents][]", document);
+    });
 
     const header = {
       token: localStorage.getItem("userToken"),
@@ -354,6 +454,45 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
     return true;
   };
 
+  handleEditTenant = (values: TenantForm) => {
+    this.setState({ loading: true });
+    const otherDocument: any = [...values.otherDocument];
+
+    var data = new FormData();
+    data.append("[tenant_resquest][name]", values.tenantName);
+    data.append("[tenant_resquest][phone_number]", values.tenantCountryCode + "-" + values.tenantMobile);
+    data.append("[tenant_resquest][id_proof_id]", values.idType);
+    data.append("[tenant_resquest][id_number]", values.idNumber);
+    data.append("[tenant_resquest][id_expectation_date]", values.idDate);
+    data.append("[tenant_resquest][tenant_type]", values.tenantType);
+    data.append("[tenant_resquest][tenant_id_copy]", values.idCard[0]);
+    otherDocument.map((document: any) => {
+      data.append("[tenant_resquest][tenant_documents][]", document);
+    });
+
+    const header = {
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.EditTenantCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_contract/tenant_resquests/${this.state.tenantId}`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestBodyMessage), data);
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePut);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
   getTenantDetails = () => {
     const header = {
       "Content-Type": configJSON.ApiContentType,
@@ -363,6 +502,30 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
     const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
 
     this.GetTenantDetailsCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_contract/tenant_resquests/${this.state.tenantId}`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  getTenantDetailsForEdit = () => {
+    this.setState({ loading: true });
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.GetTenantDetailsForEditCallId = apiRequest.messageId;
 
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
@@ -465,5 +628,30 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
     }
 
     return n.toFixed(n < 10 && l > 0 ? 1 : 0) + " " + units[l];
+  };
+
+  fileUrlToDataURL = (url: any) =>
+    fetch(url)
+      .then((response: any) => response.blob())
+      .then(
+        (blob: any) =>
+          new Promise((resolve: any, reject: any) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result);
+            reader.onerror = reject;
+            reader.readAsDataURL(blob);
+          })
+      );
+
+  dataURLtoFileObject = (dataurl: any, fileName: any) => {
+    var arr = dataurl.split(","),
+      mime = arr[0].match(/:(.*?);/)[1],
+      bstr = atob(arr[1]),
+      n = bstr.length,
+      u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], fileName, { type: mime });
   };
 }

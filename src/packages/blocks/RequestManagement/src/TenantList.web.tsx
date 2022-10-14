@@ -72,7 +72,7 @@ class TenantList extends TenantListController {
                                   <Grid container spacing={2}>
                                     <Grid item xs={12}>
                                       <div className="header">
-                                        <Link href="/Tenant/1">
+                                        <Link href={`/Tenant/${tenant.id}`}>
                                           <h4>
                                             Building {tenant.attributes.building_management.name} Unit{" "}
                                             {tenant.attributes.apartment_management.apartment_name}
@@ -114,7 +114,7 @@ class TenantList extends TenantListController {
                                     </Grid>
                                     <Grid item xs={12}>
                                       <span>{t("City")}:</span>
-                                      {/* <p>{tenant.attributes.}</p> */}
+                                      <p>{tenant.attributes.city}</p>
                                     </Grid>
                                     <Grid item xs={12}>
                                       <span>{t("Tenant Type")}:</span>
@@ -122,7 +122,7 @@ class TenantList extends TenantListController {
                                     </Grid>
                                     <Grid item xs={12}>
                                       <span>{t("Lease Issued")}:</span>
-                                      {/* <p>{tenant.attributes.}</p> */}
+                                      <p>{tenant.attributes.lease_issued ? `${t("Yes")}` : `${t("No")}`}</p>
                                     </Grid>
                                   </Grid>
                                 </Card>
