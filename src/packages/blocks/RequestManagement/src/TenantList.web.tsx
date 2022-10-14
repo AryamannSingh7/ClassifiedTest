@@ -7,10 +7,15 @@ import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { BuildingImage, NoTenant } from "./assets";
 import { Menu } from "@szhsin/react-menu";
+import Loader from "../../../components/src/Loader.web";
 
 class TenantList extends TenantListController {
   constructor(props: Props) {
     super(props);
+  }
+
+  async componentDidMount(): Promise<void> {
+    this.getTenantList();
   }
 
   render() {
@@ -19,6 +24,8 @@ class TenantList extends TenantListController {
 
     return (
       <>
+        <Loader loading={this.state.loading} />
+
         <Box style={{ background: "#F4F7FF", height: "100vh", overflowY: "hidden" }} className={classes.tenantList}>
           <Grid container>
             <Grid item xs={12} md={7}>
@@ -65,8 +72,11 @@ class TenantList extends TenantListController {
                                   <Grid container spacing={2}>
                                     <Grid item xs={12}>
                                       <div className="header">
-                                        <Link href="/Tenant/1">
-                                          <h4>aaaaaaa</h4>
+                                        <Link href={`/Tenant/${tenant.id}`}>
+                                          <h4>
+                                            Building {tenant.attributes.building_management.name} Unit{" "}
+                                            {tenant.attributes.apartment_management.apartment_name}
+                                          </h4>
                                         </Link>
                                         <div className="right-menu">
                                           <Menu
@@ -76,8 +86,22 @@ class TenantList extends TenantListController {
                                               </IconButton>
                                             }
                                           >
-                                            <MenuItem>{t("View")}</MenuItem>
-                                            <MenuItem>{t("Delete")}</MenuItem>
+                                            <MenuItem
+                                              onClick={() => {
+                                                this.props.navigation.navigate("TenantDetails", { id: tenant.id });
+                                              }}
+                                            >
+                                              {t("View")}
+                                            </MenuItem>
+                                            <MenuItem
+                                              onClick={() => {
+                                                this.setState({ tenantId: tenant.id }, () => {
+                                                  this.handleDeleteTenant();
+                                                });
+                                              }}
+                                            >
+                                              {t("Delete")}
+                                            </MenuItem>
                                           </Menu>
                                         </div>
                                       </div>
@@ -86,19 +110,19 @@ class TenantList extends TenantListController {
                                   <Grid container spacing={2} className="info">
                                     <Grid item xs={12}>
                                       <span>{t("Name")}:</span>
-                                      <p>qqqq</p>
+                                      <p>{tenant.attributes.tenant.full_name}</p>
                                     </Grid>
                                     <Grid item xs={12}>
                                       <span>{t("City")}:</span>
-                                      <p>qqqq</p>
+                                      <p>{tenant.attributes.city}</p>
                                     </Grid>
                                     <Grid item xs={12}>
                                       <span>{t("Tenant Type")}:</span>
-                                      <p>qqqq</p>
+                                      <p>{tenant.attributes.tenant_type}</p>
                                     </Grid>
                                     <Grid item xs={12}>
                                       <span>{t("Lease Issued")}:</span>
-                                      <p>qqqq</p>
+                                      <p>{tenant.attributes.lease_issued ? `${t("Yes")}` : `${t("No")}`}</p>
                                     </Grid>
                                   </Grid>
                                 </Card>

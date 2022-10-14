@@ -24,6 +24,9 @@ export const TenantStyle: any = {
       display: "flex",
       alignItems: "center",
     },
+    "& .top-bar .right-icon img": {
+      cursor: "pointer",
+    },
     "& .right-image": {
       padding: "25px 60px",
     },
@@ -394,6 +397,12 @@ export const TenantStyle: any = {
       padding: "10px 0",
       boxShadow: "none",
       marginTop: "20px",
+    },
+    "& .next-button.submit-button": {
+      position: "sticky",
+      bottom: 0,
+      left: 0,
+      right: 0,
     },
     "& .next-button button": {
       minWidth: "300px",

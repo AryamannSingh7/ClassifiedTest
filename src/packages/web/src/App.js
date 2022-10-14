@@ -150,18 +150,15 @@ import IncidentPreview from '../../blocks/ContentManagement/src/IncidentPreview.
 import IncidentManagement from '../../blocks/ContentManagement/src/IncidentManagement.web';
 import IncidentManagementDetail from '../../blocks/ContentManagement/src/IncidentManagementDetail.web';
 
-
-
-import ClassifiedManagerListing from "../../blocks/ContentManagement/src/ClassifiedManagerListing.web";
-import ClassifiedManagerDetail from "../../blocks/ContentManagement/src/ClassifiedManagerDetail.web";
-import CreateClassified from "../../blocks/ContentManagement/src/CreateClassified.web";
-import ClassifiedType from "../../blocks/ContentManagement/src/ClassifiedType.web";
-import ClassifiedListing from "../../blocks/ContentManagement/src/ClassifiedListing.web";
-import ClassifiedReportedSuccessfully from "../../blocks/ContentManagement/src/ClassifiedReportedSuccessfully.web";
-import ClassifiedPreview from "../../blocks/ContentManagement/src/ClassifiedPreview.web";
-import ClassifiedDetails from "../../blocks/ContentManagement/src/ClassifiedDetails.web";
-import ClassifiedEditSuccessfully from "../../blocks/ContentManagement/src/ClassifiedEditSuccessfully.web";
-
+import ClassifiedManagerListing from '../../blocks/ContentManagement/src/ClassifiedManagerListing.web';
+import ClassifiedManagerDetail from '../../blocks/ContentManagement/src/ClassifiedManagerDetail.web';
+import CreateClassified from '../../blocks/ContentManagement/src/CreateClassified.web';
+import ClassifiedType from '../../blocks/ContentManagement/src/ClassifiedType.web';
+import ClassifiedListing from '../../blocks/ContentManagement/src/ClassifiedListing.web';
+import ClassifiedReportedSuccessfully from '../../blocks/ContentManagement/src/ClassifiedReportedSuccessfully.web';
+import ClassifiedPreview from '../../blocks/ContentManagement/src/ClassifiedPreview.web';
+import ClassifiedDetails from '../../blocks/ContentManagement/src/ClassifiedDetails.web';
+import ClassifiedEditSuccessfully from '../../blocks/ContentManagement/src/ClassifiedEditSuccessfully.web';
 
 import NeighboursDetails from '../../blocks/search/src/NeighboursDetails.web';
 import NeighboursListing from '../../blocks/search/src/NeighboursListing.web';
@@ -263,6 +260,7 @@ import TenantList from '../../blocks/RequestManagement/src/TenantList.web';
 import TenantDetails from '../../blocks/RequestManagement/src/TenantDetails.web';
 import RegisterTenant from '../../blocks/RequestManagement/src/RegisterTenant.web';
 import RegisterTenantContract from '../../blocks/RequestManagement/src/RegisterTenantContract.web';
+import EditTenant from '../../blocks/RequestManagement/src/EditTenant.web';
 
 // My Team Imports
 import MyTeam from '../../blocks/FriendList/src/MyTeam.web';
@@ -556,12 +554,12 @@ const routeMap = {
     exact: true
   },
 
-ClassifiedEditSuccessfully: {
-  component: ClassifiedEditSuccessfully,
-  path: '/ClassifiedEditSuccessfully',
-  exact: true
-},
-// RolesPermissions2: {
+  ClassifiedEditSuccessfully: {
+    component: ClassifiedEditSuccessfully,
+    path: '/ClassifiedEditSuccessfully',
+    exact: true
+  },
+  // RolesPermissions2: {
   //   component: RolesPermissions2,
   //   path: '/RolesPermissions2'
   // },
@@ -1662,6 +1660,12 @@ ClassifiedEditSuccessfully: {
   RegisterTenantContract: {
     component: RegisterTenantContract,
     path: '/RegisterTenant/:id',
+    roles: [ROLE.OWNER],
+    exact: true
+  },
+  EditTenant: {
+    component: EditTenant,
+    path: '/EditTenant/:id',
     roles: [ROLE.OWNER],
     exact: true
   },
