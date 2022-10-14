@@ -57,6 +57,7 @@ export interface S {
   deleteShowDialog:any;
   classifiedId:any;
   myOrAllClassified:boolean;
+  classifiedType:any;
   // Customizable Area End
 }
   
@@ -148,6 +149,7 @@ export default class ClassifiedController extends BlockComponent<
       deleteShowDialog:false,
       classifiedId:null,
       myOrAllClassified:true,
+      classifiedType:'',
       // Customizable Area End
     };
 
@@ -931,10 +933,10 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
   };
   
   
-  handleClick = (event:any,id:any) => {
+  handleClick = (event:any,id:any,classifiedType:any) => {
     event.stopPropagation();
     console.log("id handleClick=========>",id)
-    this.setState({anchorEl:event.currentTarget ,classifiedId:id })
+    this.setState({anchorEl:event.currentTarget ,classifiedId:id , classifiedType})
   };
   handleClose = (e:any, v:any) => {
     let anchorEl :any ;
@@ -1049,14 +1051,14 @@ createClassifiedSchemaGerenic() {
       currency:Yup.string().trim().required("Currency is required"),
       startDate: Yup.date().required("Start Date is required"),
       endDate: Yup.date().required(" End Date is required")
-                         .test("is-greater", "End date should be greater than Star date", function(value) {
+                         .test("is-greater", "End date should be greater than Start date", function(value) {
                          const { startDate } = this.parent;
       return moment(value, "DD/MM/YYYY").isSameOrAfter(moment(startDate, "DD/MM/YYYY"));
       })
       ,
     timeFrom:Yup.string().required("Start time is required"),
     timeTo:Yup.string().required("End time is required")
-    .test("is-greater", "End time should be greater than Star time", function(value) {
+    .test("is-greater", "End time should be greater than Start time", function(value) {
       const { timeFrom } = this.parent;
       return moment(value, "HH:mm").isSameOrAfter(moment(timeFrom, "HH:mm"));
     })
@@ -1084,7 +1086,7 @@ createClassifiedSchemaGerenic() {
       currency:Yup.string().trim().required("Currency is required"),
       startDate: Yup.date().required("Start Date is required"),
       endDate: Yup.date().required(" End Date is required")
-                         .test("is-greater", "End date should be greater than Star date", function(value) {
+                         .test("is-greater", "End date should be greater than Start date", function(value) {
                          const { startDate } = this.parent;
       return moment(value, "DD/MM/YYYY").isSameOrAfter(moment(startDate, "DD/MM/YYYY"));
       })
@@ -1125,7 +1127,7 @@ createClassifiedSchemaGerenic() {
       currency:Yup.string().trim().required("Currency is required"),
       startDate: Yup.date().required("Start Date is required"),
       endDate: Yup.date().required(" End Date is required")
-                         .test("is-greater", "End date should be greater than Star date", function(value) {
+                         .test("is-greater", "End date should be greater than Start date", function(value) {
                          const { startDate } = this.parent;
       return moment(value, "DD/MM/YYYY").isSameOrAfter(moment(startDate, "DD/MM/YYYY"));
       })
@@ -1135,7 +1137,9 @@ createClassifiedSchemaGerenic() {
       .typeError("Only numbers are allowed.")
       .positive("Negative numbers are not allowed.")
       .integer("Number can't contain a decimal."),
+      
     });
+    
        
     return validations ;
   }

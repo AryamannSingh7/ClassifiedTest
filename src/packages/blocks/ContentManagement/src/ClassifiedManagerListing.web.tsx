@@ -57,7 +57,7 @@ class ClassifiedManagerListing extends ClassifiedManagerController {
   render() {
     const { t, classes }: any = this.props;
     console.log("this.state.buildingName=================>/", this.state.classifiedsListing);
-    const statusArray = ["Pending Approved", "Published", "Rejected"]
+    const statusArray = ["Pending Approval", "Published", "Rejected"]
     const classifiedType = ["buyer", "seller", 'generic', 'All'];
     return (
       <>
@@ -183,19 +183,34 @@ class ClassifiedManagerListing extends ClassifiedManagerController {
                 <Grid container spacing={2} style={{ marginTop: 15, marginBottom: 15 }}>
                   {
                     this.state?.classifiedsListing?.map((val: any, index: any) => (
-                      <Grid item sm={4} key={index} onClick={() => this.getClassifiedDetails(val.id)}>
-                        <Card className="classified-card card" key={index}>
+                      <Grid item sm={6} lg={4} key={index} onClick={() => this.getClassifiedDetails(val.id)}>
+                        <Card className="classified-card  classifiedManager-card card" key={index}>
                           <CardContent className="costom-card-content">
                             <Typography component="h4">
-                            {val?.attributes?.title}
+                              {val?.attributes?.title}
                             </Typography>
                             <Typography component="p">
                               {val?.attributes?.description}
-                             </Typography>
+                            </Typography>
                             <Box className="content-row">
-                              <Typography component="span">
-                                Available to buy
+                              {
+                                val?.attributes?.classified_type === "buyer" ?
+                                <Typography component="span">
+                                  Available to buy
+                                </Typography>
+                                :  
+                                val?.attributes?.classified_type === "seller"
+                                ?
+                                <Typography component="span">
+                                  Available to sell
+                                </Typography>
+                                :
+                                <Typography component="span">
+                                Available 
                               </Typography>
+
+                              }
+                            
                               <Typography component="p">
                                 {val?.attributes?.duration_from} to {val?.attributes?.duration_to}
                               </Typography>
@@ -215,12 +230,12 @@ class ClassifiedManagerListing extends ClassifiedManagerController {
                                 <Box className="content-sub-row">
                                   <Box className="blocks">
                                     <Typography component="p">
-                                     {val?.attributes?.building_management?.name}
+                                      {val?.attributes?.building_management?.name}
                                     </Typography>
                                   </Box>
                                   <Box className="blocks">
                                     <Typography component="p">
-                                    {val?.attributes?.classified_type === "buyer" ? "Buy":val?.attributes?.classified_type === "seller"?"Sell":'Generic'}
+                                      {val?.attributes?.classified_type === "buyer" ? "Buy" : val?.attributes?.classified_type === "seller" ? "Sell" : 'Generic'}
                                     </Typography>
                                   </Box>
                                 </Box>
@@ -230,33 +245,33 @@ class ClassifiedManagerListing extends ClassifiedManagerController {
                             <Box className="card-footer">
                               {
                                 val?.attributes?.classified_type === "buyer" ?
-                                <div className="left-block">
-                                {/* <img src={Dollar_Icon} className="dollar-icon" alt="Dollar Icon" /> */}
-                                <Typography component="h4">
-                                  {val?.attributes?.price_from} {val?.attributes?.currency?.currency} - {val?.attributes?.currency?.currency} {val?.attributes?.price_to}
-                                </Typography>
-                              </div>:null
+                                  <div className="left-block">
+                                    {/* <img src={Dollar_Icon} className="dollar-icon" alt="Dollar Icon" /> */}
+                                    <Typography component="h4" className="managerTitle">
+                                      {val?.attributes?.price_from} {val?.attributes?.currency?.currency} - {val?.attributes?.currency?.currency} {val?.attributes?.price_to}
+                                    </Typography>
+                                  </div> : null
                               }
-                               {
+                              {
                                 val?.attributes?.classified_type === "generic" ?
-                                <div className="left-block">
-                                {/* <img src={Dollar_Icon} className="dollar-icon" alt="Dollar Icon" /> */}
-                                <Typography component="h4">
-                                  {val?.attributes?.payment_detail} {val?.attributes?.currency?.currency}
-                                </Typography>
-                              </div>:null
+                                  <div className="left-block">
+                                    {/* <img src={Dollar_Icon} className="dollar-icon" alt="Dollar Icon" /> */}
+                                    <Typography component="h4" className="managerTitle">
+                                      {val?.attributes?.payment_detail} {val?.attributes?.currency?.currency}
+                                    </Typography>
+                                  </div> : null
                               }
                               {
                                 val?.attributes?.classified_type === "seller" ?
-                                <div className="left-block">
-                                {/* <img src={Dollar_Icon} className="dollar-icon" alt="Dollar Icon" /> */}
-                                <Typography component="h4">
-                                  {val?.attributes?.price} {val?.attributes?.currency?.currency}
-                                </Typography>
-                              </div>:null
+                                  <div className="left-block">
+                                    {/* <img src={Dollar_Icon} className="dollar-icon" alt="Dollar Icon" /> */}
+                                    <Typography component="h4" className="managerTitle">
+                                      {val?.attributes?.price} {val?.attributes?.currency?.currency}
+                                    </Typography>
+                                  </div> : null
                               }
                               <Box className="customButton">
-                                <Button variant="contained" className={val?.attributes?.classified_status === 'Pending Approved' ? "contain warning" : val?.attributes?.classified_status === 'Published' ? 'contain success' : 'contain danger'} type="submit">
+                                <Button variant="contained" className={val?.attributes?.classified_status === 'Pending Approval' ? "contain warning" : val?.attributes?.classified_status === 'Published' ? 'contain success' : 'contain danger'} type="submit">
                                   {val?.attributes?.classified_status}</Button>
                               </Box>
                             </Box>
@@ -265,7 +280,7 @@ class ClassifiedManagerListing extends ClassifiedManagerController {
                               <h5>{ }</h5>
                             </Box>
                             <Box className="customButton">
-                              <Button variant="contained" className={val?.attributes?.classified_status === 'Pending Approved' ? "contain warning" : val?.attributes?.classified_status === 'Published' ? 'contain success' : 'contain danger'} type="submit">
+                              <Button variant="contained" className={val?.attributes?.classified_status === 'Pending Approval' ? "contain warning" : val?.attributes?.classified_status === 'Published' ? 'contain success' : 'contain danger'} type="submit">
                                 {val?.attributes?.classified_status}</Button>
                             </Box> */}
                           </CardContent>

@@ -64,7 +64,7 @@ class SelectType extends EmailAccountRegistrationController {
             <Box
               display="flex"
               justifyContent='space-between'
-              className='select-type'
+              className={'select-type ' + (this.state.userType == 'Owner Resident' ? ' active-box' :'')}
 
               alignItems="center"
               border="0.1px solid rgb(209 209 209 / 44%)"
@@ -73,12 +73,12 @@ class SelectType extends EmailAccountRegistrationController {
               marginTop='1rem'
             >
               <img src={resident_owner}/>
-              <Box className={"middle-section"}>
-                      <label for="radCreateMode" className={"title" + (this.state.userType == 'Owner Resident' ? ' active-type' :'')}>
+              <Box className={"middle-section" } >
+                      <label for="radCreateMode"  className={"title" + (this.state.userType == 'Owner Resident' ? ' active-type' :'')} style={{padding:'20px 20px 0px 0px'}}>
                   Resident Owner
                 </label>
                       <br />
-                      <label className="para" for="radCreateMode">
+                      <label className={"para" + (this.state.userType == 'Owner Resident' ? ' active-para' :'')} for="radCreateMode">
                   I am the owner of the unit and i am living in it
                       </label>
               </Box>
@@ -89,8 +89,7 @@ class SelectType extends EmailAccountRegistrationController {
             <Box
               display="flex"
               justifyContent='space-between'
-              className='select-type'
-
+              className={'select-type ' + (this.state.userType == 'Tenant' ? ' active-box' :'')}
               alignItems="center"
               border="0.1px solid rgb(209 209 209 / 44%)"
               borderRadius="16px"
@@ -100,11 +99,11 @@ class SelectType extends EmailAccountRegistrationController {
               <img src={tenet} />
 
               <Box className="middle-section">
-                      <label for="radCreateMode2" className={"title" + (this.state.userType == 'Tenant' ? ' active-type' : '')}>
+                      <label for="radCreateMode2" className={"title" + (this.state.userType == 'Tenant' ? ' active-type' : '')} style={{padding:'20px 20px 0px 0px'}}>
                   Tenant
                 </label>
                       <br />
-                      <label className="para" for="radCreateMode2">
+                      <label className={"para" + (this.state.userType == 'Tenant' ? ' active-para' : '')} for="radCreateMode2">
                   I am registering as somone who rented a unit
                       </label>
               </Box>
@@ -115,7 +114,7 @@ class SelectType extends EmailAccountRegistrationController {
             <Box
               display="flex"
               justifyContent='space-between'
-              className='select-type'
+              className={'select-type' + (this.state.userType == 'Owner' ? ' active-box' : '')}
 
               alignItems="center"
               border="0.1px solid rgb(209 209 209 / 44%)"
@@ -129,11 +128,11 @@ class SelectType extends EmailAccountRegistrationController {
 
 
               <Box className="middle-section">
-                      <label for="radCreateMode5" className={"title" + (this.state.userType == 'Owner' ? ' active-type' : '')}>
+                      <label for="radCreateMode5" className={"title" + (this.state.userType == 'Owner' ? ' active-type' : '')} style={{padding:'20px 20px 0px 0px'}}>
                   Owner
                       </label>
                       <br/>
-                      <label className="para" for="radCreateMode5">
+                      <label className={"para" +  (this.state.userType == 'Owner' ? ' active-para' : '')} for="radCreateMode5">
                   I am the owner of the unit, but I am not living inside it
                       </label>
               </Box>
@@ -144,7 +143,7 @@ class SelectType extends EmailAccountRegistrationController {
                   <Box
                     display="flex"
                     justifyContent='space-between'
-                    className='select-type'
+                    className={'select-type' + (this.state.userType == 'Property Manager' ? ' active-box' : '')}
 
                     alignItems="center"
                     border="0.1px solid rgb(209 209 209 / 44%)"
@@ -155,11 +154,11 @@ class SelectType extends EmailAccountRegistrationController {
                     <img src={manager} />
 
                     <Box className="middle-section">
-                      <label for="radCreateMode3" className={"title" + (this.state.userType == 'Property Manager' ? ' active-type' : '')}>
+                      <label for="radCreateMode3" className={"title" + (this.state.userType == 'Property Manager' ? ' active-type' : '')} style={{padding:'20px 20px 0px 0px'}}>
                         Property Manager
                       </label>
                       <br />
-                      <label for="radCreateMode3" className="para">
+                      <label for="radCreateMode3" className={"para" + (this.state.userType == 'Property Manager' ? ' active-para' : '')}>
                         I am managing a property on behalf of an owner
                       </label>
                     </Box>

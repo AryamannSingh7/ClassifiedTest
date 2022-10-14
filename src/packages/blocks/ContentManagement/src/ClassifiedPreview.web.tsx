@@ -42,15 +42,16 @@ class ClassifiedPreview extends ClassifiedController {
   }
   componentDidMount(): any {
     this.getCurrencyList();
- }
+  }
 
   render() {
     const { navigation } = this.props;
     const classifiedFromData = JSON.parse(localStorage.getItem("classifiedPreview") || '{}')
     const classifiedUserType = localStorage.getItem("classifiedUserType")
-    
-    const currency = this.state?.getCurrencyList?.filter((val : any) => val.id === classifiedFromData.currency);
-    console.log("currency===============>",currency[0]?.attributes?.currency);
+
+    const currency = this.state?.getCurrencyList?.filter((val: any) => val.id === classifiedFromData.currency);
+    console.log("currency===============>", currency[0]?.attributes?.currency);
+    console.log("classifiedFromData===============>", classifiedFromData);
     if (!classifiedFromData && !classifiedUserType) {
       //@ts-ignore
       this.props.history.replace("/CreateClassified");
@@ -68,93 +69,93 @@ class ClassifiedPreview extends ClassifiedController {
                     <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
                     {classifiedUserType === "buyer" ? <h4>Buyers Request </h4>
                       : classifiedUserType === "seller" ? <h4>Sellers Request</h4>
-                        : <h4>Generic Request</h4> 
+                        : <h4>Generic Request</h4>
                     }
-                   
+
                   </Box>
                 </Box>
                 <Box className="content-block-wrapper common-incident-block">
                   <Box className="incident-content-wrapper">
                     <Box className="incident-rows">
-                    {classifiedUserType === "buyer" ? <h4>Buyers Request Preview</h4>
-                      : classifiedUserType === "seller" ? <h4>Sellers Request Preview</h4>
-                        : <h4>Generic Request Preview</h4> 
-                    }
+                      {classifiedUserType === "buyer" ? <h4>Buyers Request Preview</h4>
+                        : classifiedUserType === "seller" ? <h4>Sellers Request Preview</h4>
+                          : <h4>Generic Request Preview</h4>
+                      }
                     </Box>
-                    <Card className="incident-card card">
+                    <Card className="incident-card classificationPre-card card">
                       <CardContent>
                         <Typography component="span">
                           Moblie Number:
                         </Typography>
-                        <Typography className="sub-title" component="h4">
-                          {classifiedFromData?.phone}
+                        <Typography className="h5-title" component="h5">
+                          {classifiedFromData?.selectCode} {classifiedFromData?.phone}
                         </Typography>
                         <Typography component="span">
                           Email Id:
                         </Typography>
-                        <Typography className="sub-title" component="h4">
+                        <Typography className="h5-title" component="h5">
                           {classifiedFromData?.email}
                         </Typography>
                         <Typography component="span">
                           Title:
                         </Typography>
-                        <Typography className="sub-title" component="h4">
+                        <Typography className="h5-title" component="h5">
                           {classifiedFromData?.classifiedTitle}
                         </Typography>
 
                         <Typography component="span">
-                        Description:
+                          Description:
                         </Typography>
-                        <Typography className="sub-title" component="h4">
+                        <Typography className="h5-title" component="h5">
                           {classifiedFromData?.description}
                         </Typography>
 
                         {
-                        classifiedFromData?.price  ?
-                          <>
-                       <Typography className="title-span" component="span">
-                            Price:
-                        </Typography>
-                        <Typography className="sub-title" component="h4">
-                        {classifiedFromData?.price} {currency[0]?.attributes?.currency}
-                        </Typography>
-                          </> 
-                          :null
+                          classifiedFromData?.price ?
+                            <>
+                              <Typography className="title-span" component="span">
+                                Price:
+                              </Typography>
+                              <Typography className="h5-title" component="h5">
+                                {classifiedFromData?.price} {currency[0]?.attributes?.currency}
+                              </Typography>
+                            </>
+                            : null
                         }
 
                         {
-                        classifiedFromData?.paymentDetail  ?
-                          <>
-                       <Typography className="title-span" component="span">
-                       Payment Detail:
-                        </Typography>
-                        <Typography className="sub-title" component="h4">
-                       {classifiedFromData?.paymentDetail} {currency[0]?.attributes?.currency}
-                        </Typography>
-                          </> 
-                          :null
+                          classifiedFromData?.paymentDetail ?
+                            <>
+                              <Typography className="title-span" component="span">
+                                Payment Detail:
+                              </Typography>
+                              <Typography className="h5-title" component="h5">
+                                {classifiedFromData?.paymentDetail} {currency[0]?.attributes?.currency}
+                              </Typography>
+                            </>
+                            : null
                         }
 
                         {
-                        classifiedFromData?.price_from && classifiedFromData?.price_to  ?
-                          <>
-                       <Typography className="title-span" component="span">
-                            Price:
-                        </Typography>
-                        <Typography className="sub-title" component="h4">
-                        {classifiedFromData?.priceFrom} {currency[0]?.attributes?.currency} - {classifiedFromData?.priceTo} {currency[0]?.attributes?.currency}
-                        </Typography>
-                          </> 
-                          :null
+                          classifiedFromData?.priceFrom && classifiedFromData?.priceTo ?
+                            <>
+                              <Typography className="title-span" component="span">
+                                Price:
+                              </Typography>
+                              <Typography className="h5-title" component="h5">
+                                {classifiedFromData?.priceFrom} {currency[0]?.attributes?.currency} - {classifiedFromData?.priceTo} {currency[0]?.attributes?.currency}
+                              </Typography>
+                            </>
+                            : null
                         }
 
                         {
                           classifiedFromData?.timeFrom ?
                             <Box className="card-rows">
                               <Typography className="title-span" component="span">
-                               From Time:
+                                From Time:
                               </Typography>
-                              <Typography className="sub-title" component="h4">
+                              <Typography className="h5-title" component="h5">
                                 {classifiedFromData?.timeFrom}
                               </Typography>
                             </Box>
@@ -162,45 +163,45 @@ class ClassifiedPreview extends ClassifiedController {
                             null
                         }
 
-                      { 
+                        {
                           classifiedFromData?.timeTo ?
                             <Box className="card-rows">
                               <Typography className="title-span" component="span">
-                                 To Time:
+                                To Time:
                               </Typography>
-                              <Typography className="sub-title" component="h4">
+                              <Typography className="h5-title" component="h5">
                                 {classifiedFromData?.timeTo}
                               </Typography>
                             </Box>
                             :
                             null
                         }
-                        
+
                         {
                           classifiedFromData?.startDate ?
-                          <Box className="card-rows">
-                          <Typography component="span">
-                            From Date:
-                        </Typography>
-                        <Typography className="sub-title" component="h4">
-                          {classifiedFromData.startDate} 
-                        </Typography>
-                        </Box>
-                        :null
+                            <Box className="card-rows">
+                              <Typography component="span">
+                                From Date:
+                              </Typography>
+                              <Typography className="h5-title" component="h5">
+                                {classifiedFromData.startDate}
+                              </Typography>
+                            </Box>
+                            : null
                         }
-                          {
+                        {
                           classifiedFromData?.endDate ?
-                          <Box className="card-rows">
-                          <Typography component="span">
-                            To Date:
-                        </Typography>
-                        <Typography className="sub-title" component="h4">
-                          {classifiedFromData.endDate}
-                        </Typography>
-                        </Box>
-                        :null
+                            <Box className="card-rows">
+                              <Typography component="span">
+                                To Date:
+                              </Typography>
+                              <Typography className="h5-title" component="h5">
+                                {classifiedFromData.endDate}
+                              </Typography>
+                            </Box>
+                            : null
                         }
-               {
+                        {
                           classifiedFromData?.media.length !== 0 ?
                             <>
                               <Typography component="span">
@@ -208,7 +209,7 @@ class ClassifiedPreview extends ClassifiedController {
                               </Typography>
                               <CardActions className="card-img-row">
                                 {
-                                  classifiedFromData?.media?.map((val:any, index:any) => (
+                                  classifiedFromData?.media?.map((val: any, index: any) => (
                                     val?.file.type === "video/mp4" || val?.file.type === "video/x-m4v" ?
                                       <Box className="video-img" key={index} onClick={() => { this.setState({ showDialog: true, file: { url: val.url, type: val?.file.type, name: val?.file?.name } }) }}>
                                         <Box className="img-layer"></Box>
@@ -230,7 +231,7 @@ class ClassifiedPreview extends ClassifiedController {
                             : null
                         }
                         {/* <hr /> */}
-                       
+
                       </CardContent>
                     </Card>
                   </Box>
@@ -275,7 +276,7 @@ class ClassifiedPreview extends ClassifiedController {
               <Box className="diloag-content-body">
                 {
                   this.state?.file?.type === "video/mp4" || this.state?.file?.type === "video/x-m4v" ?
-                    <video className="incident-dialog-video"  controls >
+                    <video className="incident-dialog-video" controls >
                       <source src={this.state?.file?.url} type={this.state?.file?.type} />
                     </video>
                     :

@@ -83,7 +83,7 @@ class ClassifiedManagerDetail extends ClassifiedManagerController {
                         {attributes?.title}
                       </Typography>
                       <Box className="customButton">
-                        <Button variant="contained" className={attributes?.classified_status === 'Pending Approved' ? "contain warning" : attributes?.classified_status === 'Published' ? 'contain success' : 'contain danger'} type="submit">
+                        <Button variant="contained" className={attributes?.classified_status === 'Pending Approval' ? "contain warning" : attributes?.classified_status === 'Published' ? 'contain success' : 'contain danger'} type="submit">
                           {attributes?.classified_status}</Button>
                       </Box>
                     </Box>
@@ -93,7 +93,7 @@ class ClassifiedManagerDetail extends ClassifiedManagerController {
                           <Typography className="title-span" component="span">
                             Type:
                           </Typography>
-                          <h4>{attributes?.classified_type === "buyer" ? "Buy":attributes?.classified_type === "seller"?"Sell":'Generic'}</h4>
+                          <h4>{attributes?.classified_type === "buyer" ? "Buy" : attributes?.classified_type === "seller" ? "Sell" : 'Generic'}</h4>
                         </Box>
                         <Box className="card-rows">
                           <Typography className="title-span" component="span">
@@ -120,36 +120,36 @@ class ClassifiedManagerDetail extends ClassifiedManagerController {
                           <h4>{attributes?.description}</h4>
                         </Box>
                         {
-                        attributes?.classified_type === "generic" ?
-                        <Box className="card-rows">
+                          attributes?.classified_type === "generic" ?
+                            <Box className="card-rows">
                               <Typography className="title-span" component="span">
                                 Payment Details:
                               </Typography>
-                               <h4>{attributes?.payment_detail} {attributes?.currency?.currency}</h4>
-                        </Box>
-                        :null
-                        }
-                         {
-                        attributes?.classified_type === "seller" ?
-                        <Box className="card-rows">
-                              <Typography className="title-span" component="span">
-                               Price:
-                              </Typography>
-                               <h4>{attributes?.price} {attributes?.currency?.currency}</h4>
-                        </Box>
-                        :null
+                              <h4>{attributes?.payment_detail} {attributes?.currency?.currency}</h4>
+                            </Box>
+                            : null
                         }
                         {
-                        attributes?.classified_type === "buyer" ?
-                        <Box className="card-rows">
+                          attributes?.classified_type === "seller" ?
+                            <Box className="card-rows">
                               <Typography className="title-span" component="span">
                                Price:
                               </Typography>
-                              <h4>{attributes?.price_from} {attributes?.currency?.currency} to {attributes?.price_to} {attributes?.currency?.currency}</h4>
-                        </Box>
-                        :null
+                              <h4>{attributes?.price} {attributes?.currency?.currency}</h4>
+                            </Box>
+                            : null
                         }
-                       
+                        {
+                          attributes?.classified_type === "buyer" ?
+                            <Box className="card-rows">
+                              <Typography className="title-span" component="span">
+                                Price:
+                              </Typography>
+                              <h4>{attributes?.price_from} {attributes?.currency?.currency} to {attributes?.price_to} {attributes?.currency?.currency}</h4>
+                            </Box>
+                            : null
+                        }
+
                         {
                           attributes?.classified_type === "generic" ?
                             <Box className="card-rows">
@@ -216,14 +216,26 @@ class ClassifiedManagerDetail extends ClassifiedManagerController {
                           </>
                           : null
                       } */}
-                      <Box className="incident-button-row customButton">
-                        <Button variant="outlined"
-                          onClick={() => this.setState({ showDialog: true })}
-                        >REJECT</Button>
-                        <Button variant="contained"
-                          onClick={() => this.setState({ statusShowDialog: true })}
-                        >PUBLISH</Button>
-                      </Box>
+                      { 
+                         attributes?.classified_status !== 'Published' ?
+                          <Box className="incident-button-row customButton">
+                          {/* danger button */}
+                         <Box className="outline-danger">
+                           <Button variant="outlined"
+                          onClick={() => this.setState({ ignoreShowDialog: true })}
+                           >IGNORE</Button>
+                         </Box>
+                         <Button variant="outlined"
+                           onClick={() => this.setState({ showDialog: true })}
+                         >REJECT</Button>
+                         <Button variant="contained"
+                           onClick={() => this.setState({ statusShowDialog: true })}
+                         >PUBLISH</Button>
+                       </Box>
+                       :
+                       null
+                      }
+                    
                     </CardContent>
                   </Card>
                 </Box>
@@ -337,10 +349,45 @@ class ClassifiedManagerDetail extends ClassifiedManagerController {
                   <Box className="diloag-content classified-content diloag-management-content">
                     <img src={Classified_CorrectIcon} className="lock-logo" alt="Lock_Icon" />
                     <h3>Approve Classified Request</h3>
-                    <p className="lead"> Are you sure you want to publish this classified?</p>
+                    <p className="lead"> Are you sure you want to publish this classified??</p>
                     <Box className="diloag-btn customButton">
                       <Button variant="outlined" onClick={() => { this.setState({ statusShowDialog: false }) }}>Close</Button>
                       <Button variant="contained" onClick={() => this.rejectedOrPublished("Published")}>Confirm</Button>
+                    </Box>
+                  </Box>
+                </Box>
+              </Dialog>
+
+              {/* view ignore status dialog */}
+              <Dialog
+                open={this.state?.ignoreShowDialog}
+                onClose={() => this.setState({ ignoreShowDialog: false })}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                className="diloag-wrapper"
+                PaperProps={{
+                  style: {
+                    borderRadius: '15px',
+                    width: "500px"
+                  },
+                }}
+              >
+                <Box className="diloag-body classified-dialouge-body desktop-ui ">
+                  <Box className="diloag-header classified-header">
+                    <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
+                      {""}
+                    </DialogTitle>
+                    {/* <Button onClick={() => this.setState({ statusShowDialog: false })}>
+                      <img src={Close_Icon} className="close-icon" />
+                    </Button> */}
+                  </Box>
+                  <Box className="diloag-content classified-content diloag-management-content">
+                    <img src={Classified_CorrectIcon} className="lock-logo" alt="Lock_Icon" />
+                    <h3>Ignore Classified Request</h3>
+                    <p className="lead"> Are you sure you want to ignore this classified?</p>
+                    <Box className="diloag-btn customButton">
+                      <Button variant="outlined" onClick={() => { this.setState({ ignoreShowDialog: false }) }}>Close</Button>
+                      <Button variant="contained" onClick={() => this.rejectedOrPublished("Ignore")}>Confirm</Button>
                     </Box>
                   </Box>
                 </Box>

@@ -186,6 +186,13 @@
     & h4 {
       &.MuiTypography-body1 {
         text-transform: capitalize;
+        margin-top: 0;
+      }
+    }
+    & .menu-btn {
+      &.MuiButton-text {
+        padding: 0;
+        min-width: 0;
       }
     }
     & .menu-btn {
@@ -265,13 +272,29 @@
       & .left-block {
         display: flex;
         align-items: center;
-
+        position: relative;
         & h4 {
           &.MuiTypography-body1 {
             text-transform: uppercase;
             padding-left: 10px;
             color: $ORANGE_SHADE2;
             margin: 0;
+          }
+          &.managerTitle {
+            &.MuiTypography-body1 {
+              font-size: 18px;
+              width: 150px;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+              &:hover {
+                // padding: 5px;
+                // border-radius: 5px;
+                // background-color: #ccc;
+                white-space: normal;
+                font-size: 16px;
+              }
+            }
           }
         }
       }
@@ -784,6 +807,28 @@
               object-fit: contain;
             }
           }
+        }
+      }
+    }
+  }
+  &.classificationPre-card {
+    & h5 {
+      &.MuiTypography-body1 {
+        font-size: 18px;
+      }
+    }
+    & span {
+      &.MuiTypography-body1 {
+        font-weight: 300;
+        color: #c6c4cd;
+      }
+    }
+  }
+  &.classifiedManager-card {
+    & .MuiButton-contained {
+      &.contain {
+        & span {
+          white-space: normal;
         }
       }
     }

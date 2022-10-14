@@ -3,14 +3,17 @@
 
 .commonForm {
   width: 100%;
+
   @include mq(tablet-portrait-large-up) {
     width: auto;
   }
+
   & .frm-icons {
     // height: 24px;
     // width: 24px;
     object-fit: contain;
   }
+
   & .frm-title {
     font-weight: 600;
     margin-bottom: 20px;
@@ -21,6 +24,7 @@
       width: auto;
       margin-right: 5px;
     }
+
     & .MuiInputAdornment-positionStart {
       // width: auto;
       // margin-right: 5px;
@@ -37,6 +41,7 @@
       margin-top: 15px;
       margin-bottom: 5px;
     }
+
     & .formInput {
       width: 100%;
       padding: 18px 18px 18px 50px;
@@ -57,8 +62,9 @@
       display: flex;
       justify-content: center;
     }
+
     &.otpBlock {
-      & > div {
+      &>div {
         justify-content: space-between;
         width: 100%;
       }
@@ -78,12 +84,14 @@
         }
       }
     }
+
     & .frmLeftIcons {
       position: absolute;
       left: 20px;
       top: 36%;
       color: #b9b9b9;
     }
+
     & .frmrightIcons {
       position: absolute;
       right: 20px;
@@ -91,37 +99,42 @@
       color: #b9b9b9;
       cursor: pointer;
     }
+
     & .textfieldLabel {
       font-size: 14px;
       margin-bottom: 10px;
     }
+
     &.customFileupload {
       & .imgLayer {
         position: absolute;
-        width: 98%;
-        left: 5px;
+        width: 100%;
+        /* left: 0px; */
         margin: 0 auto;
-        top: -57px;
+        top: -66px;
         z-index: 1;
-        &::before
-        {
+
+        &::before {
           content: "";
           position: absolute;
           left: 0;
           top: 0;
           height: 100%;
           width: 100%;
-          background: rgba(0, 0, 0, 0.6);
+          background: rgba(0, 0, 0, 0.2);
           z-index: 2;
           border-radius: 20px;
+          // border: 1px solid #e9dede;
         }
+
         & .bg-img {
-          height: 135px;
+          height: 150px;
           width: 100%;
           object-fit: cover;
           border-radius: 20px;
         }
       }
+
       & .uploadLayer {
         position: absolute;
         left: 5px;
@@ -133,40 +146,45 @@
         flex-direction: column;
         align-items: center;
         border-radius: 20px;
+
         // background: rgba(0, 0, 0, 0.6);
-        & .content-text
-        {
+        & .content-text {
           display: flex;
           flex-direction: column;
           justify-content: center;
           height: 100%;
           align-items: center;
           padding-top: 30px;
-          & .upload-icon
-          {
+
+          & .upload-icon {
             margin-top: 40px;
           }
         }
       }
+
       & .result-disp-row {
         display: flex;
         align-items: center;
         margin-top: 10px;
+
         & .successful-icon {
           height: 25px;
           width: 25px;
           object-fit: contain;
         }
+
         & .error-icon {
           height: 35px;
           width: 35px;
           object-fit: contain;
         }
+
         & .text-success {
           margin-left: 10px;
           text-transform: capitalize;
         }
       }
+
       & .MuiButtonBase-root {
         width: 100%;
         // padding: 20px;
@@ -176,6 +194,7 @@
         border: 2px dashed #e9dede;
         box-shadow: none;
         padding: 0;
+
         & .MuiButton-label {
           text-transform: capitalize;
           font-size: 20px;
@@ -183,6 +202,7 @@
           position: relative;
           padding-top: 20px;
         }
+
         & .upload-icon {
           position: absolute;
           top: 0;
@@ -190,6 +210,7 @@
         }
       }
     }
+
     &.textarea {
       // margin-bottom: 0;
       height: 70px;
@@ -199,6 +220,7 @@
       border-radius: 25px;
       padding: 20px 0;
       position: relative;
+
       & .clipboard-icon {
         position: absolute;
         top: 18px;
@@ -206,6 +228,7 @@
         z-index: 2;
       }
     }
+
     & textarea {
       width: 100% !important;
       height: 70px !important;
@@ -218,6 +241,7 @@
       font-weight: 600;
       font-family: $Gotham_Light;
       line-height: 17px;
+
       &::placeholder {
         color: $LIGHT_GRAY_SHADE3;
         font-weight: 500;
@@ -225,38 +249,47 @@
       }
     }
   }
+
   &.CreateClassifiedFrm {
     & .classifiedFormGroup {
       width: auto;
       margin-right: 5px;
     }
+
     & .formGroup {
       width: auto;
     }
+
     & .MuiInputAdornment-positionStart {
       display: none;
     }
+
     & .fileuploadBlock {
       display: flex;
       // @include scrollbars();
       width: 100%;
+
       & .buyersFileupload {
         & .MuiButtonBase-root {
           width: 90px;
           min-height: 90px;
           border-radius: 10px;
         }
+
         margin-right: 10px;
       }
+
       & .imgLayer {
         position: relative;
         margin-right: 10px;
+
         & .buyerphoto {
           width: 90px;
           height: 90px;
           object-fit: contain;
           border-radius: 10px;
         }
+
         & .close_icon {
           position: absolute;
           top: 3px;
@@ -268,14 +301,17 @@
         }
       }
     }
+
     & .sellerPriceBox,
     & .classifiedPriceBlock {
       position: relative;
+
       & .priceSelect {
         position: absolute;
         top: 20px;
         right: 0;
         width: 40%;
+
         & .MuiInputBase-root,
         & .MuiSelect-outlined {
           padding: 0 !important;
@@ -284,12 +320,14 @@
           border: 0;
           position: relative;
         }
+
         & .MuiSelect-root {
           color: $ORANGE;
           font-size: 13px;
           font-weight: bold;
           text-transform: uppercase;
           position: relative;
+
           &::before {
             content: "";
             top: 1px;
@@ -305,12 +343,14 @@
             transform: rotate(45deg);
           }
         }
+
         & .MuiSelect-icon {
           display: none;
           position: relative;
         }
       }
     }
+
     & .classifiedPriceBlock {
       display: flex;
       /* align-items: center; */
@@ -319,6 +359,7 @@
 
       & .priceSelect {
         position: unset;
+
         & .MuiSelect-root {
           &::before {
             content: "";
@@ -330,14 +371,17 @@
     }
   }
 }
+
 .desktop-ui {
   & .commonForm {
     @include mq(tablet-portrait-medium-up) {
       & .formGroup {
         border-radius: 15px;
+
         & .formInput {
           border-radius: $FORM_BORDER_RADIUS;
         }
+
         &.textarea {
           border-radius: 10px;
         }

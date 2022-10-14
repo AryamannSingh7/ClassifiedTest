@@ -1480,11 +1480,11 @@ console.log(attributes)
   addressSchema() {
     const validations = Yup.object().shape({
 
-      selectCountry: Yup.string().required(`This field is required`).trim(),
-      selectCity: Yup.string().required(`This field is required`).trim(),
-      selectBuilding: Yup.string().required(`This field is required`).trim(),
-      selectComplex: Yup.string().required(`This field is required`).trim(),
-      selectUnit: Yup.string().required(`This field is required`).trim(),
+      selectCountry: Yup.string().required(`Country is required`).trim(),
+      selectCity: Yup.string().required(`City is required`).trim(),
+      selectBuilding: Yup.string().required(`Building is required`).trim(),
+      selectComplex: Yup.string().required(`Complex is required`).trim(),
+      selectUnit: Yup.string().required(`Unit is required`).trim(),
 
     });
     return validations
@@ -1493,9 +1493,9 @@ console.log(attributes)
     const validations = Yup.object().shape({
 
 
-      selectBuilding: Yup.string().required(`This field is required`).trim(),
-      selectComplex: Yup.string().required(`This field is required`).trim(),
-      selectUnit: Yup.string().required(`This field is required`).trim(),
+      selectBuilding: Yup.string().required(`Building is required`).trim(),
+      selectComplex: Yup.string().required(`Complex is required`).trim(),
+      selectUnit: Yup.string().required(`Unit is required`).trim(),
 
     });
     return validations
@@ -1503,26 +1503,26 @@ console.log(attributes)
   signupSchemaManager() {
     const validations = Yup.object().shape({
 
-      company_name: Yup.string().required(`This field is required`).trim(),
-      managerName: Yup.string().required(`This field is required`).trim(),
-      ownerName: Yup.string().required(`This field is required`).trim(),
-      email: Yup.string().required(`This field is required`).trim(),
-      owner_email: Yup.string().required(`This field is required`).trim(),
+      company_name: Yup.string().required(`Company name is required`).trim(),
+      managerName: Yup.string().required(`Manager name is required`).trim(),
+      ownerName: Yup.string().required(`Owner name is required`).trim(),
+      email: Yup.string().required(`Email is required`).trim(),
+      owner_email: Yup.string().required(`Owner email is required`).trim(),
       phone: Yup.number()
         .typeError("Only numbers are allowed.")
         .required("Mobile number is required.")
         .positive("Negative numbers are not allowed.")
         .integer("Number can't contain a decimal.")
-        .min(10000000, "Minimum 5 digits are required.")
-        .max(99999999999, "Maximum 11 digits are allowed.")
+        .min(100000000, "Minimum 9 digits are required.")
+        .max(1000000000, "Maximum 9 digits are allowed.")
 ,
       owner_phone: Yup.number()
         .typeError("Only numbers are allowed.")
         .required("Mobile number is required.")
         .positive("Negative numbers are not allowed.")
         .integer("Number can't contain a decimal.")
-        .min(10000000, "Minimum 5 digits are required.")
-        .max(99999999999, "Maximum 11 digits are allowed."),
+        .min(100000000, "Minimum 9 digits are required.")
+        .max(1000000000, "Maximum 9 digits are allowed."),
       password: Yup
         .string()
         .min(8, `Minimum Password length is 8.`)
@@ -1543,15 +1543,15 @@ console.log(attributes)
   signupSchema() {
     const validations = Yup.object().shape({
 
-      full_name: Yup.string().required(`This field is required`).trim(),
-      email: Yup.string().required(`This field is required`).trim(),
+      full_name: Yup.string().required(`Name is required`).trim(),
+      email: Yup.string().required(`Email is required`).trim(),
       phone: Yup.number()
         .typeError("Only numbers are allowed.")
         .required("Mobile number is required.")
         .positive("Negative numbers are not allowed.")
         .integer("Number can't contain a decimal.")
-        .min(10000000, "Minimum 5 digits are required.")
-        .max(99999999999, "Maximum 11 digits are allowed."),
+        .min(100000000, "Minimum 9 digits are required.")
+        .max(1000000000, "Maximum 9 digits are allowed."),
       password: Yup
         .string()
         .min(8, `Minimum Password length is 8.`)
@@ -1573,7 +1573,7 @@ console.log(attributes)
     const validations = Yup.object().shape({
       email: Yup.string()
         .trim()
-        .required("This field is required.")
+        .required("Email is required.")
     });
     return validations
   }

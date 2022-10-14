@@ -77,13 +77,20 @@ else{
 
 
   async componentDidMount() {
-this.getAllChat()
-const interval = setInterval(() => {
+this.getSingleInbox()
+this.markUnread()
+// @ts-ignore
+// @ts-nocheck
+this.interval = setInterval(() => {
   this.getSingleInbox()
-}, 10000);
+}, 3000);
 
   }
-
+async componentWillUnmount() {
+  // @ts-ignore
+// @ts-nocheck
+  clearInterval(this.interval)
+}
    dateToFromNowDaily( myDate:any ) {
 
     // get from-now for this date
@@ -131,7 +138,7 @@ console.log(moment( myDate ).calendar())
             <Box display='flex' alignItems='center' onClick={() => window.history.back()}>
               <KeyboardBackspaceIcon />
               <span style={{ fontWeight: 'bold' }}>
-                {item?.attributes?.chat_with_account?.attributes?.full_name}
+                {item?.attributes?.chat_with_account?.id != localStorage.getItem('userId') ?item?.attributes?.chat_with_account?.attributes?.full_name || 'N/A':item?.attributes?.chatable?.attributes?.full_name || 'N/A' }
               </span>
             </Box>
 
@@ -139,7 +146,7 @@ console.log(moment( myDate ).calendar())
           </Grid>
 
           <Grid xs={12}>
-            <List style={{ overflowY: "auto", maxHeight: "84vh", minHeight: "84vh" }} >
+            <List style={{ overflowY: "auto", maxHeight: "79vh", minHeight: "79vh" }} >
 {/* {
   this.state.allInboxKey ? 'hey':'bye'
 } */}
@@ -198,7 +205,6 @@ console.log(moment( myDate ).calendar())
                               <Typography
                                 style={{
                                   color: "#081F32",
-                                  fontFamily: "Poppins",
                                   fontWeight: 500,
                                   fontSize: 14,
                                   wordBreak: 'break-all'
@@ -217,7 +223,6 @@ console.log(moment( myDate ).calendar())
                               <Typography
                                 style={{
                                   color: "#081F32",
-                                  fontFamily: "Poppins",
                                   fontWeight: 500,
                                   fontSize: 14,
                                   wordBreak: 'break-all'
@@ -265,7 +270,7 @@ this.setState({ selectedMedia: message.message.images[0] })}} src={message.messa
   <img src={info} width='20' height='20'/>
   <p>
 
-  {item?.attributes?.chat_with_account?.attributes?.full_name} has disabled his chat. You won’t be able to send him message unit he enables it.
+  {item?.attributes?.chatable?.attributes?.full_name} has disabled his chat. You won’t be able to send him message unit he enables it.
   </p>
   </div>
   

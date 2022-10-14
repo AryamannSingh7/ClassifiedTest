@@ -27,11 +27,15 @@ import {
   GreyIdNumber,
   GreyCalenderIcon,
   UploadIcon,
+  GreyPhoneNumber,
+  PdfIcon,
 } from "./assets";
 import { Formik, Form } from "formik";
 import RegisterTenantController, { Props } from "./RegisterTenantController.web";
 import { withTranslation } from "react-i18next";
 import { TenantStyle } from "./TenantStyle.web";
+import { CountryList } from "./countryList";
+import CloseIcon from "@material-ui/icons/Close";
 
 class RegisterTenant extends RegisterTenantController {
   constructor(props: Props) {
@@ -50,7 +54,7 @@ class RegisterTenant extends RegisterTenantController {
               <Box>
                 <Box display={{ xs: "flex", md: "flex" }} className="top-bar">
                   <div className="left-icon">
-                    <Link to="/IssueContract/1">
+                    <Link to="/Tenants">
                       <IconButton>
                         <KeyboardBackspaceIcon />
                       </IconButton>
@@ -61,43 +65,57 @@ class RegisterTenant extends RegisterTenantController {
                 <Container className="page-container">
                   <Box className="issue-lease-content">
                     <Formik
-                      initialValues={{}}
-                      // validationSchema={}
+                      enableReinitialize
+                      initialValues={this.state.registerTenantForm}
+                      validationSchema={this.validationRegisterTenantFormSchema}
                       onSubmit={(values, { resetForm }) => {
                         console.log(values);
                       }}
                     >
                       {({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue }) => {
+                        console.log("values", values);
+                        console.log("errors", errors);
+                        console.log("touched", touched);
+
                         return (
-                          <Form onSubmit={handleSubmit} translate>
+                          <Form onSubmit={handleSubmit} translate="true">
                             <Box className="select-input-box">
                               <FormControl fullWidth>
-                                <Select
-                                  displayEmpty
-                                  value=""
-                                  fullWidth
-                                  className="select-input"
-                                  input={<OutlinedInput />}
-                                >
-                                  <MenuItem value="" disabled>
-                                    <ListItemIcon>
-                                      <img src={GreyTenantType} alt="" />{" "}
-                                    </ListItemIcon>
-                                    {t("Type of Tenant")}
-                                  </MenuItem>
-                                  <MenuItem value={10}>{t("Individual Person")}</MenuItem>
-                                  <MenuItem value={20}>{t("Company")}</MenuItem>
-                                </Select>
-                                {/* {errors.tenantName && touched.tenantName && (
-                                    <p className="error">{errors.tenantName}</p>
-                                  )} */}
+                                <Box className="select-box">
+                                  <Select
+                                    displayEmpty
+                                    value={values.tenantType}
+                                    onChange={(e: any) => {
+                                      setFieldValue("tenantType", e.target.value);
+                                    }}
+                                    onBlur={handleBlur}
+                                    name="tenantType"
+                                    fullWidth
+                                    className="select-input"
+                                    input={<OutlinedInput />}
+                                  >
+                                    <MenuItem value="" disabled>
+                                      {t("Type of Tenant")}
+                                    </MenuItem>
+                                    <MenuItem value="Individual">{t("Individual Person")}</MenuItem>
+                                    <MenuItem value="Company" disabled>
+                                      {t("Company")}
+                                    </MenuItem>
+                                  </Select>
+                                  <img src={GreyTenantType} alt="" />
+                                </Box>
+                                {errors.tenantType && touched.tenantType && (
+                                  <p className="error">{t(errors.tenantType)}</p>
+                                )}
                               </FormControl>
                               <FormControl fullWidth>
                                 <Input
-                                  // value={values.tenantName}
-                                  // onChange={handleChange}
-                                  // onBlur={handleBlur}
-                                  // name="tenantName"
+                                  value={values.tenantName}
+                                  onChange={(e: any) => {
+                                    setFieldValue("tenantName", e.target.value);
+                                  }}
+                                  onBlur={handleBlur}
+                                  name="tenantName"
                                   className="select-input input"
                                   placeholder={t("Tenant Name")}
                                   startAdornment={
@@ -106,16 +124,69 @@ class RegisterTenant extends RegisterTenantController {
                                     </InputAdornment>
                                   }
                                 />
-                                {/* {errors.tenantName && touched.tenantName && (
-                                    <p className="error">{errors.tenantName}</p>
-                                  )} */}
+                                {errors.tenantName && touched.tenantName && (
+                                  <p className="error">{t(errors.tenantName)}</p>
+                                )}
+                              </FormControl>
+                              <FormControl fullWidth>
+                                <Box className="mobile-box">
+                                  <Select
+                                    displayEmpty
+                                    value={values.tenantCountryCode}
+                                    onChange={(e: any) => {
+                                      setFieldValue("tenantCountryCode", e.target.value);
+                                    }}
+                                    onBlur={handleBlur}
+                                    name="tenantCountryCode"
+                                    fullWidth
+                                    className="mobile-select"
+                                    input={<OutlinedInput />}
+                                  >
+                                    {CountryList.map((country: any) => {
+                                      return (
+                                        <MenuItem key={country.dial_code} value={country.dial_code}>
+                                          <img
+                                            src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/${
+                                              country.code
+                                            }.svg`}
+                                            width="15"
+                                            height="15"
+                                            style={{ marginRight: "5px" }}
+                                          />
+                                          {country.dial_code}
+                                        </MenuItem>
+                                      );
+                                    })}
+                                  </Select>
+                                  <Box className="divider" />
+                                  <Input
+                                    value={values.tenantMobile}
+                                    onChange={(e: any) => {
+                                      setFieldValue("tenantMobile", e.target.value);
+                                    }}
+                                    onBlur={handleBlur}
+                                    name="tenantMobile"
+                                    className="mobile-input"
+                                    placeholder={t("Tenant Mobile")}
+                                    startAdornment={
+                                      <InputAdornment position="start">
+                                        <img src={GreyPhoneNumber} alt="" />
+                                      </InputAdornment>
+                                    }
+                                  />
+                                </Box>
+                                {errors.tenantMobile && touched.tenantMobile && (
+                                  <p className="error">{t(errors.tenantMobile)}</p>
+                                )}
                               </FormControl>
                               <FormControl fullWidth>
                                 <Input
-                                  // value={values.tenantName}
-                                  // onChange={handleChange}
-                                  // onBlur={handleBlur}
-                                  // name="tenantName"
+                                  value={values.tenantEmail}
+                                  onChange={(e: any) => {
+                                    setFieldValue("tenantEmail", e.target.value);
+                                  }}
+                                  onBlur={handleBlur}
+                                  name="tenantEmail"
                                   className="select-input input"
                                   placeholder={t("Tenant Email ID")}
                                   startAdornment={
@@ -124,79 +195,105 @@ class RegisterTenant extends RegisterTenantController {
                                     </InputAdornment>
                                   }
                                 />
-                                {/* {errors.tenantName && touched.tenantName && (
-                                    <p className="error">{errors.tenantName}</p>
-                                  )} */}
+                                {errors.tenantEmail && touched.tenantEmail && (
+                                  <p className="error">{t(errors.tenantEmail)}</p>
+                                )}
                               </FormControl>
                               <FormControl fullWidth>
-                                <Select
-                                  displayEmpty
-                                  value=""
-                                  fullWidth
-                                  className="select-input"
-                                  input={<OutlinedInput />}
-                                >
-                                  <MenuItem value="" disabled>
-                                    <ListItemIcon>
-                                      <img src={GreyBuildingName} alt="" />{" "}
-                                    </ListItemIcon>
-                                    {t("Select Building")}
-                                  </MenuItem>
-                                  <MenuItem value={10}>{t("Individual Person")}</MenuItem>
-                                  <MenuItem value={20}>{t("Company")}</MenuItem>
-                                </Select>
-                                {/* {errors.tenantName && touched.tenantName && (
-                                    <p className="error">{errors.tenantName}</p>
-                                  )} */}
+                                <Box className="select-box">
+                                  <Select
+                                    displayEmpty
+                                    value={values.building}
+                                    onChange={(e: any) => {
+                                      setFieldValue("building", e.target.value);
+                                    }}
+                                    onBlur={handleBlur}
+                                    name="building"
+                                    fullWidth
+                                    className="select-input"
+                                    input={<OutlinedInput />}
+                                  >
+                                    <MenuItem value="" disabled>
+                                      {t("Select Building")}
+                                    </MenuItem>
+                                    {this.state.buildingList.map((building: any) => {
+                                      return (
+                                        <MenuItem value={building.id} key={building.id}>
+                                          {building.name}
+                                        </MenuItem>
+                                      );
+                                    })}
+                                  </Select>
+                                  <img src={GreyBuildingName} alt="" />
+                                </Box>
+                                {errors.building && touched.building && <p className="error">{t(errors.building)}</p>}
                               </FormControl>
                               <FormControl fullWidth>
-                                <Select
-                                  displayEmpty
-                                  value=""
-                                  fullWidth
-                                  className="select-input"
-                                  input={<OutlinedInput />}
-                                >
-                                  <MenuItem value="" disabled>
-                                    <ListItemIcon>
-                                      <img src={GreyUnitNumber} alt="" />{" "}
-                                    </ListItemIcon>
-                                    {t("Select Unit")}
-                                  </MenuItem>
-                                  <MenuItem value={10}>{t("Individual Person")}</MenuItem>
-                                  <MenuItem value={20}>{t("Company")}</MenuItem>
-                                </Select>
-                                {/* {errors.tenantName && touched.tenantName && (
-                                    <p className="error">{errors.tenantName}</p>
-                                  )} */}
+                                <Box className="select-box">
+                                  <Select
+                                    displayEmpty
+                                    value={values.unit}
+                                    onChange={(e: any) => {
+                                      setFieldValue("unit", e.target.value);
+                                    }}
+                                    onBlur={handleBlur}
+                                    name="unit"
+                                    fullWidth
+                                    className="select-input"
+                                    input={<OutlinedInput />}
+                                  >
+                                    <MenuItem value="" disabled>
+                                      {t("Select Unit")}
+                                    </MenuItem>
+                                    {this.state.unitList.map((unit: any) => {
+                                      return (
+                                        <MenuItem value={unit.id} key={unit.id}>
+                                          {unit.name}
+                                        </MenuItem>
+                                      );
+                                    })}
+                                  </Select>
+                                  <img src={GreyUnitNumber} alt="" />
+                                </Box>
+                                {errors.unit && touched.unit && <p className="error">{t(errors.unit)}</p>}
                               </FormControl>
                               <FormControl fullWidth>
-                                <Select
-                                  displayEmpty
-                                  value=""
-                                  fullWidth
-                                  className="select-input"
-                                  input={<OutlinedInput />}
-                                >
-                                  <MenuItem value="" disabled>
-                                    <ListItemIcon>
-                                      <img src={GreyIdType} alt="" />{" "}
-                                    </ListItemIcon>
-                                    {t("ID Type")}
-                                  </MenuItem>
-                                  <MenuItem value={10}>{t("Individual Person")}</MenuItem>
-                                  <MenuItem value={20}>{t("Company")}</MenuItem>
-                                </Select>
-                                {/* {errors.tenantName && touched.tenantName && (
-                                    <p className="error">{errors.tenantName}</p>
-                                  )} */}
+                                <Box className="select-box">
+                                  <Select
+                                    displayEmpty
+                                    value={values.idType}
+                                    onChange={(e: any) => {
+                                      setFieldValue("idType", e.target.value);
+                                    }}
+                                    onBlur={handleBlur}
+                                    name="idType"
+                                    fullWidth
+                                    className="select-input"
+                                    input={<OutlinedInput />}
+                                  >
+                                    <MenuItem value="" disabled>
+                                      {t("ID Type")}
+                                    </MenuItem>
+                                    {this.state.idTypeList.map((idType: any) => {
+                                      return (
+                                        <MenuItem value={idType.id} key={idType.id}>
+                                          {idType.name}
+                                        </MenuItem>
+                                      );
+                                    })}
+                                  </Select>
+                                  <img src={GreyIdType} alt="" />
+                                </Box>
+                                {errors.idType && touched.idType && <p className="error">{t(errors.idType)}</p>}
                               </FormControl>
                               <FormControl fullWidth>
                                 <Input
-                                  // value={values.tenantName}
-                                  // onChange={handleChange}
-                                  // onBlur={handleBlur}
-                                  // name="tenantName"
+                                  value={values.idNumber}
+                                  onChange={(e: any) => {
+                                    setFieldValue("idNumber", e.target.value);
+                                  }}
+                                  onBlur={handleBlur}
+                                  name="idNumber"
                                   className="select-input input"
                                   placeholder={t("ID Number")}
                                   startAdornment={
@@ -205,16 +302,17 @@ class RegisterTenant extends RegisterTenantController {
                                     </InputAdornment>
                                   }
                                 />
-                                {/* {errors.tenantName && touched.tenantName && (
-                                    <p className="error">{errors.tenantName}</p>
-                                  )} */}
+                                {errors.idNumber && touched.idNumber && <p className="error">{t(errors.idNumber)}</p>}
                               </FormControl>
                               <FormControl fullWidth>
                                 <Input
-                                  // value={values.tenantName}
-                                  // onChange={handleChange}
-                                  // onBlur={handleBlur}
-                                  // name="tenantName"
+                                  value={values.idDate}
+                                  onChange={(e: any) => {
+                                    setFieldValue("idDate", e.target.value);
+                                  }}
+                                  onBlur={handleBlur}
+                                  name="idDate"
+                                  onFocus={(e: any) => (e.target.type = "date")}
                                   className="select-input input"
                                   placeholder={t("ID Expectation Date")}
                                   startAdornment={
@@ -223,47 +321,85 @@ class RegisterTenant extends RegisterTenantController {
                                     </InputAdornment>
                                   }
                                 />
-                                {/* {errors.tenantName && touched.tenantName && (
-                                    <p className="error">{errors.tenantName}</p>
-                                  )} */}
+                                {errors.idDate && touched.idDate && <p className="error">{t(errors.idDate)}</p>}
                               </FormControl>
                               <FormControl fullWidth>
-                                <Box className="upload-box">
+                                <Box className="upload-box" onClick={() => this.uploadIDCard.click()}>
                                   <img src={UploadIcon} alt="" />
                                   <p>{t("Upload Tenant ID Card Copy")}</p>
                                 </Box>
-                                <Input
-                                  // value={values.tenantName}
-                                  // onChange={handleChange}
-                                  // onBlur={handleBlur}
-                                  // name="tenantName"
+                                <input
+                                  onChange={(e: any) => {
+                                    setFieldValue("idCard", e.target.files);
+                                  }}
+                                  onBlur={handleBlur}
+                                  name="idCard"
                                   style={{ display: "none" }}
+                                  ref={(ref: any) => (this.uploadIDCard = ref)}
+                                  accept=".pdf"
+                                  type="file"
                                 />
-                                {/* {errors.tenantName && touched.tenantName && (
-                                    <p className="error">{errors.tenantName}</p>
-                                  )} */}
+                                {[...values.idCard].map((file: any) => {
+                                  return (
+                                    <Box className="pdf-box">
+                                      <img src={PdfIcon} alt="" />
+                                      <Box className="pdf-info">
+                                        <h4>{file.name}</h4>
+                                        <CloseIcon
+                                          onClick={() => {
+                                            setFieldValue("idCard", []);
+                                          }}
+                                        />
+                                      </Box>
+                                    </Box>
+                                  );
+                                })}
+                                {errors.idCard && touched.idCard && <p className="error">{t(errors.idCard)}</p>}
                               </FormControl>
                               <FormControl fullWidth>
-                                <Box className="upload-box">
+                                <Box className="upload-box" onClick={() => this.uploadOtherDocument.click()}>
                                   <img src={UploadIcon} alt="" />
                                   <p>{t("Upload Other Tenant Documents")}</p>
                                 </Box>
-                                <Input
-                                  // value={values.tenantName}
-                                  // onChange={handleChange}
-                                  // onBlur={handleBlur}
-                                  // name="tenantName"
+                                <input
+                                  onChange={(e: any) => {
+                                    setFieldValue("otherDocument", e.target.files);
+                                  }}
+                                  onBlur={handleBlur}
+                                  name="otherDocument"
+                                  ref={(ref: any) => (this.uploadOtherDocument = ref)}
+                                  accept=".pdf"
+                                  type="file"
                                   style={{ display: "none" }}
+                                  multiple
                                 />
-                                {/* {errors.tenantName && touched.tenantName && (
-                                    <p className="error">{errors.tenantName}</p>
-                                  )} */}
+                                {[...values.otherDocument].map((file: any, index: number) => {
+                                  return (
+                                    <Box className="pdf-box">
+                                      <img src={PdfIcon} alt="" />
+                                      <Box className="pdf-info">
+                                        <h4>{file.name}</h4>
+                                        <CloseIcon
+                                          onClick={() => {
+                                            const remainFile = [...values.otherDocument].filter(
+                                              (file: any, idx: number) => idx !== index
+                                            );
+                                            setFieldValue("otherDocument", remainFile);
+                                          }}
+                                        />
+                                      </Box>
+                                    </Box>
+                                  );
+                                })}
+                                {errors.otherDocument && touched.otherDocument && (
+                                  <p className="error">{t(errors.otherDocument)}</p>
+                                )}
                               </FormControl>
 
                               <div className="next-button">
-                                <Link to="">
-                                  <Button>Next</Button>
-                                </Link>
+                                {/* <Link to=""> */}
+                                <Button type="submit">{t("Next")}</Button>
+                                {/* </Link> */}
                               </div>
                             </Box>
                           </Form>

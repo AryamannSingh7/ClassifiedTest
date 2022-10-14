@@ -1,6 +1,4 @@
 // Customizable Area Start
-//@ts-nocheck
-//@ts-ignore
 import React from "react";
 import {
   Button,
@@ -36,16 +34,11 @@ import {
   TwitterIcon,
   WhatsappIcon,
 } from "react-share";
-
 import { ContractsStyleWeb } from "./ContractsStyle.web";
-import TemplateDetailController, {
-  Props,
-} from "./TemplateDetailController.web";
-
-import BuildingLogo from "../assets/building.png";
-import DownloadIcon from "../assets/download.png";
-import ShareIcon from "../assets/share.png";
-import ExclamationIcon from "../assets/exclamation.png";
+import TemplateDetailController, { Props } from "./TemplateDetailController.web";
+import { BuildingLogo, DownloadIcon, ShareIcon, ExclamationIcon } from "./assets";
+import { withTranslation } from "react-i18next";
+import "../../../web/src/i18n.js";
 
 class TemplateDetail extends TemplateDetailController {
   constructor(props: Props) {
@@ -54,6 +47,7 @@ class TemplateDetail extends TemplateDetailController {
 
   render() {
     const { classes } = this.props;
+    const { t }: any = this.props;
 
     const sharePopupWidth = 500;
     const sharePopupHeight = 700;
@@ -63,10 +57,7 @@ class TemplateDetail extends TemplateDetailController {
 
     return (
       <>
-        <Box
-          style={{ background: "#F4F7FF", height: "100vh" }}
-          className={classes.detailPage}
-        >
+        <Box style={{ background: "#F4F7FF", height: "100vh" }} className={classes.detailPage}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box className="faq-step">
@@ -99,14 +90,14 @@ class TemplateDetail extends TemplateDetailController {
                               this.handleTerminateContractModal();
                             }}
                           >
-                            Terminate
+                            {t("Terminate")}
                           </Button>
                           <Link href="/Contracts">
-                            <Button>Close</Button>
+                            <Button>{t("Close")}</Button>
                           </Link>
                         </Box>
                         <Box className="bottom">
-                          <Button>ReNew Contract</Button>
+                          <Button>{t("ReNew Contract")}</Button>
                           <Box
                             className="image"
                             onClick={() => {
@@ -123,10 +114,7 @@ class TemplateDetail extends TemplateDetailController {
               </Box>
             </Grid>
             <Grid item xs={12} md={5}>
-              <Box
-                className="right-block right-image"
-                display={{ xs: "none", md: "flex" }}
-              >
+              <Box className="right-block right-image" display={{ xs: "none", md: "flex" }}>
                 <img src={BuildingLogo} className="building-logo" alt="" />
               </Box>
             </Grid>
@@ -142,10 +130,10 @@ class TemplateDetail extends TemplateDetailController {
           <DialogContent>
             <Box textAlign="center">
               <img src={ExclamationIcon} alt="ExclamationIcon" />
-              <Typography variant="h6">Terminate Contract?</Typography>
+              <Typography variant="h6">{t("Terminate Contract?")}</Typography>
               <Typography variant="body1">
-                Are you sure want to terminate lease contract with Ali Khan?
-                Once terminated you won't be able to retrieve.
+                {t("Are you sure want to terminate lease contract with")} Ali Khan
+                {t("? Once terminated you won't be able to retrieve.")}
               </Typography>
               <DialogActions className="dialog-button-group">
                 <Button
@@ -153,14 +141,14 @@ class TemplateDetail extends TemplateDetailController {
                     this.handleTerminateContractModal();
                   }}
                 >
-                  Yes, Terminate
+                  {t("Yes, Terminate")}
                 </Button>
                 <Button
                   onClick={() => {
                     this.handleTerminateContractModal();
                   }}
                 >
-                  No, Don't Terminate
+                  {t("No, Don't Terminate")}
                 </Button>
               </DialogActions>
             </Box>
@@ -174,7 +162,7 @@ class TemplateDetail extends TemplateDetailController {
           className="select-meeting"
         >
           <MuiDialogTitle disableTypography className="dialog-heading">
-            <Typography variant="h6">Share</Typography>
+            <Typography variant="h6">{t("Share")}</Typography>
             <IconButton onClick={() => this.handleShareModal()}>
               <CloseIcon />
             </IconButton>
@@ -182,78 +170,78 @@ class TemplateDetail extends TemplateDetailController {
           <DialogContent>
             <div className="share-box">
               <FacebookShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <FacebookIcon />
-              </FacebookShareButton>
+                // @ts-ignore
+                children={<FacebookIcon />}
+                translate
+              />
               <TwitterShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <TwitterIcon />
-              </TwitterShareButton>
+                // @ts-ignore
+                children={<TwitterIcon />}
+                translate
+              />
               <WhatsappShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
                 separator=":: "
-              >
-                <WhatsappIcon />
-              </WhatsappShareButton>
+                // @ts-ignore
+                children={<WhatsappIcon />}
+                translate
+              />
               <LinkedinShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <LinkedinIcon />
-              </LinkedinShareButton>
+                // @ts-ignore
+                children={<LinkedinIcon />}
+                translate
+              />
               <EmailShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <EmailIcon />
-              </EmailShareButton>
+                // @ts-ignore
+                children={<EmailIcon />}
+                translate
+              />
               <RedditShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <RedditIcon />
-              </RedditShareButton>
+                // @ts-ignore
+                children={<RedditIcon />}
+                translate
+              />
               <TelegramShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <TelegramIcon />
-              </TelegramShareButton>
+                // @ts-ignore
+                children={<TelegramIcon />}
+                translate
+              />
               <TumblrShareButton
-                quote={this.state.shareQuote}
                 url={this.state.shareUrl}
                 title={shareTitle}
                 windowWidth={sharePopupWidth}
                 windowHeight={sharePopupHeight}
-              >
-                <TumblrIcon />
-              </TumblrShareButton>
+                // @ts-ignore
+                children={<TumblrIcon />}
+                translate
+              />
             </div>
           </DialogContent>
         </Dialog>
@@ -262,5 +250,5 @@ class TemplateDetail extends TemplateDetailController {
   }
 }
 
-export default withStyles(ContractsStyleWeb)(TemplateDetail);
+export default withTranslation()(withStyles(ContractsStyleWeb)(TemplateDetail));
 // Customizable Area End

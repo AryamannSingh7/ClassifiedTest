@@ -158,21 +158,28 @@ console.log(moment( myDate ).calendar())
                       <Box width='100%' display='flex' justifyContent='space-between' alignItems='center'>
 
                       <h5>
-                        {
-                          item.attributes.chat_with_account.attributes.full_name || 'N/A'
-                        }
+                      {item?.attributes?.chat_with_account?.id != localStorage.getItem('userId') ?item?.attributes?.chat_with_account?.attributes?.full_name || 'N/A':item?.attributes?.chatable?.attributes?.full_name || 'N/A' }
 
                       </h5>
                       <p>
                        { this.displaytime(item.attributes.messages)}
                       </p>
                       </Box>
+                      <Box style={{display:'flex',justifyContent:'space-between'}}>
+
                       <p>
 
                         {
                           Object.keys(item.attributes.messages).length !=0 && this.getLastMessage(item.attributes.messages)
                         }
                       </p>
+                      {
+                         item?.attributes?.is_mark_unread===0 ?null :
+                      <p style={{background:'#FC8434',color:'white',borderRadius:'50%',width:'12px',height:'12px',fontSize:'12px',padding:'4px 6px 8px 6px',textAlign:'center'}}>
+                       {item?.attributes?.is_mark_unread}
+                      </p>
+                      }
+                      </Box>
                     </Box>
                   </Box>
 
