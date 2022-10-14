@@ -42,7 +42,7 @@ class VisitorDetails extends VisitorDetailsController{
                           <ArrowBackIcon onClick={() => window.history.back()} />
                           <p style={{ fontSize: '1rem', fontWeight: 600 }}>
                               {
-                                  this.props.match.params.type !== "past" ? "Past Visitor Details" : "Visitor Details"
+                                  this.props.match.params.type === "past" ? "Past Visitor Details" : "Visitor Details"
                               }
                           </p>
                       </Box>

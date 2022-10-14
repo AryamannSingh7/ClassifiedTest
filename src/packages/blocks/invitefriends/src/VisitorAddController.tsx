@@ -30,6 +30,8 @@ interface S {
   selectCode:any;
   visitorId:any;
   visitorDetails:any;
+  inputType1:any;
+  inputType2:any;
 }
 
 interface SS {
@@ -67,7 +69,9 @@ export default class CoverImageController extends BlockComponent<
       pollListing:[],
       selectCode:"+966",
       visitorId:"",
-      visitorDetails:{}
+      visitorDetails:{},
+      inputType1:"text",
+      inputType2:"text",
     };
 
     this.emailReg = new RegExp("");
