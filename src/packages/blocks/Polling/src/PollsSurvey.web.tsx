@@ -1,7 +1,5 @@
-//@ts-ignore
-//@ts-nocheck
-
 import * as React from "react";
+// @ts-ignore
 import DOMPurify from 'dompurify'
 // custom components
 import {
@@ -26,6 +24,7 @@ import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import './style.css'
+import {withTranslation} from "react-i18next";
 
 
 class PollsSurvey extends PollsSurveyController {
@@ -34,6 +33,8 @@ class PollsSurvey extends PollsSurveyController {
   }
 
   render() {
+   //@ts-ignore
+   const {t} = this.props
     return (
         <>
 
@@ -45,7 +46,7 @@ class PollsSurvey extends PollsSurveyController {
               <Box style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
                   <ArrowBackIcon onClick={() => window.history.back()} />
                   <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
-                      Poll / Survey
+                      {t("Poll / Survey")}
                   </p>
               </Box>
               <Box style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
@@ -66,7 +67,7 @@ class PollsSurvey extends PollsSurveyController {
                         onChange={this.handleTabChange}
                         className="TabsList"
                         >
-                              <Tab label="Live Survey/Polls"
+                              <Tab label={t("Live Survey/Polls")}
                                   style={{
                                   backgroundColor: "#2B6FEC",
                                   borderRadius: '5rem',
@@ -79,7 +80,7 @@ class PollsSurvey extends PollsSurveyController {
                                   textTransform:"initial"
                                   }}
                               />
-                              <Tab label="Old Survey/Polls"
+                              <Tab label={t("Old Survey/Polls")}
                                   style={{
                                     backgroundColor: "#2B6FEC",
                                     borderRadius: '5rem',
@@ -99,6 +100,7 @@ class PollsSurvey extends PollsSurveyController {
             </Grid>
             <Grid container style={{ marginLeft: '1rem', marginRight: '1rem', marginBottom:'1rem',width: '90%' }}>
               <Grid xs={12}>
+                  {/*@ts-ignore*/}
                 <TabPanel value={this.state.TabValue} index={0}>
                   {/*<Box*/}
                   {/*  display="flex"*/}
@@ -128,7 +130,7 @@ class PollsSurvey extends PollsSurveyController {
                   {/*  </Box>*/}
                   {/*</Box>*/}
 
-                {this.state.livePollsData?.length ? this.state.livePollsData?.map((item) => {
+                {this.state.livePollsData?.length ? this.state.livePollsData?.map((item:any) => {
                   if(item.attributes.status !== "upcoming"){
                       return(
                           <Box
@@ -187,6 +189,7 @@ class PollsSurvey extends PollsSurveyController {
                 </TabPanel>
               </Grid>
               <Grid xs={12}>
+                  {/*@ts-ignore*/}
                 <TabPanel value={this.state.TabValue} index={1}>
                     {/*<Box*/}
                     {/*  display="flex"*/}
@@ -216,7 +219,7 @@ class PollsSurvey extends PollsSurveyController {
                     {/*  </Box>*/}
                     {/*</Box>*/}
 
-                    {this.state.oldPollsData?.length ? this.state.oldPollsData?.map((items) => {
+                    {this.state.oldPollsData?.length ? this.state.oldPollsData?.map((items:any) => {
                       return(
                         <Box
                           display="flex"
@@ -296,10 +299,10 @@ class PollsSurvey extends PollsSurveyController {
                             <Box style={{margin:"15px"}}>
                                 <Box style={{display:'flex',justifyContent:"space-between",alignItems:"center"}}>
                                     <Typography variant="h6" style={{fontWeight:"bold"}}>Filter</Typography>
-                                    <Button style={{color:"darkgray"}} onClick={() => this.setState({selectedFilter:""})}>Clear All</Button>
+                                    <Button style={{color:"darkgray"}} onClick={() => this.setState({selectedFilter:""})}>{t("Clear All")}</Button>
                                 </Box>
                                 <Box style={{marginTop:"15px"}}>
-                                    <Typography variant="body1" style={{fontWeight:"bold"}}>Type</Typography>
+                                    <Typography variant="body1" style={{fontWeight:"bold"}}>{t("Type")}</Typography>
                                     <FormControl component="fieldset" style={{width:"100%"}}>
                                         <RadioGroup row aria-label="position" name="filter" style={{display:'flex',flexDirection:"column",textAlign:"left"}}>
                                             <FormControlLabel
@@ -307,6 +310,7 @@ class PollsSurvey extends PollsSurveyController {
                                                 control={<Radio color="primary" />}
                                                 checked={this.state.selectedFilter === "poll"}
                                                 label="Poll"
+                                                // @ts-ignore
                                                 onChange={(e)=> this.setState({selectedFilter:e.target.value})}
                                                 labelPlacement="start"
                                                 style={{width:"100%",display:"flex",justifyContent:'space-between',margin:"5px"}}
@@ -316,6 +320,7 @@ class PollsSurvey extends PollsSurveyController {
                                                 control={<Radio color="primary" />}
                                                 label="Survey"
                                                 checked={this.state.selectedFilter === "survey"}
+                                                // @ts-ignore
                                                 onChange={(e)=> this.setState({selectedFilter:e.target.value})}
                                                 labelPlacement="start"
                                                 style={{width:"100%",display:"flex",justifyContent:'space-between',margin:"5px"}}
@@ -325,10 +330,9 @@ class PollsSurvey extends PollsSurveyController {
                                 </Box>
                             </Box>
                             <Box style={{margin:"15px",marginTop:"50px"}}>
-                                <Button onClick={this.applyFilter} variant="contained" color="primary" fullWidth style={{borderRadius:"50px"}}>Apply</Button>
+                                <Button onClick={this.applyFilter} variant="contained" color="primary" fullWidth style={{borderRadius:"50px"}}>{t("Apply")}</Button>
                             </Box>
                         </Box>
-
                       </Box>
                   </div>
               </Fade>
@@ -346,7 +350,9 @@ class PollsSurvey extends PollsSurveyController {
     );
   }
 }
-export default withRouter(PollsSurvey)
+
+// @ts-ignore
+export default withTranslation()(withRouter(PollsSurvey))
 
 const StyledTabs = withStyles({
     indicator: {

@@ -42,7 +42,7 @@ class VisitorDetails extends VisitorDetailsController{
                           <ArrowBackIcon onClick={() => window.history.back()} />
                           <p style={{ fontSize: '1rem', fontWeight: 600 }}>
                               {
-                                  this.props.match.params.type !== "past" ? "Past Visitor Details" : "Visitor Details"
+                                  this.props.match.params.type === "past" ? "Past Visitor Details" : "Visitor Details"
                               }
                           </p>
                       </Box>
@@ -91,7 +91,7 @@ class VisitorDetails extends VisitorDetailsController{
                                             <Typography variant={"body2"} >
                                                 Scheduled Date:
                                             </Typography>
-                                            <Typography variant="subtitle1" style={{fontWeight:"bold"}}>
+                                            <Typography variant="subtitle2" style={{fontWeight:"bold"}}>
                                                 {moment(this.state?.visitorDetails?.schedule_date).format("DD MMMM YYYY")}
                                             </Typography>
                                         </Box>
@@ -104,7 +104,7 @@ class VisitorDetails extends VisitorDetailsController{
                                             <Typography variant={"body2"} >
                                                 Building Name:
                                             </Typography>
-                                            <Typography variant="subtitle1" style={{fontWeight:"bold"}}>
+                                            <Typography variant="subtitle2" style={{fontWeight:"bold"}}>
                                                 {this.state.visitorDetails?.building_management?.name}
                                             </Typography>
                                         </Box>
@@ -117,7 +117,7 @@ class VisitorDetails extends VisitorDetailsController{
                                             <Typography variant={"body2"} >
                                                 Phone Number:
                                             </Typography>
-                                            <Typography variant="subtitle1" style={{fontWeight:"bold"}}>
+                                            <Typography variant="subtitle2" style={{fontWeight:"bold"}}>
                                                 {this.state?.visitorDetails?.mobile_number?.full_mobile_number}
                                             </Typography>
                                         </Box>
@@ -130,7 +130,7 @@ class VisitorDetails extends VisitorDetailsController{
                                             <Typography variant={"body2"} >
                                                 Scheduled Time:
                                             </Typography>
-                                            <Typography variant="subtitle1" style={{fontWeight:"bold"}}>
+                                            <Typography variant="subtitle2" style={{fontWeight:"bold"}}>
                                                 {moment(this.state.visitorDetails.schedule_time).format("hh:mm")}
                                             </Typography>
                                         </Box>

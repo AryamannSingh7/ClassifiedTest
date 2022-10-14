@@ -41,6 +41,7 @@ import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
 import SearchIcon from '@material-ui/icons/Search';
+import {withTranslation} from "react-i18next";
 
 function createData(name:any, unit:any) {
     return { name, unit };
@@ -53,7 +54,8 @@ class PollDetails extends PollingController {
   }
 
   render() {
-    console.log("poll pollPreviewAnswer #######", this.state.pollPreviewAnswer?.poll?.data)
+
+    const {t} = this.props
     return ( 
       <>
     <Box style={{background: "#E5ECFF"}}>
@@ -70,9 +72,9 @@ class PollDetails extends PollingController {
                     <Box className="navigation">
                         <Box>
                             <Typography variant="body1" >
-                            Poll and survey / Create a Poll / <Box component="span" style={{color: "blue"}}>Poll Details</Box>
+                                {t("Poll and survey")} / {t("Create a Poll")} / <Box component="span" style={{color: "blue"}}>{t("Poll Details")}</Box>
                             </Typography>
-                            <Typography variant="h5" className="subHeading">Poll Details</Typography>
+                            <Typography variant="h5" className="subHeading">{t("Poll Details")}</Typography>
                         </Box>
                     </Box>
 
@@ -279,7 +281,7 @@ class PollDetails extends PollingController {
   }
 }
 
-export default withRouter(PollDetails)
+export default  withTranslation()(withRouter(PollDetails))
 
 const dashBoard = {
     SideBar: {

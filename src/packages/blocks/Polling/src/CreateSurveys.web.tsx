@@ -175,7 +175,7 @@ class CreateSurveys extends CreateSurveyController {
                                         </Box>
                                     </Box>
                                     <Box className="infoIcon">
-                                        <Typography variant="subtitle1">Description</Typography>
+                                        <Typography variant="subtitle1">{t("Description")}</Typography>
                                         <InfoIcon style={{color:"grey", fontSize:18}}/>
                                     </Box>
                                     <Box className="descriptionEditor" style={{maxHeight:"200px",overflow:"hidden"}}>
@@ -249,7 +249,7 @@ class CreateSurveys extends CreateSurveyController {
                                         <Grid item sm={12} md={12} xs={12} >
                                             <Box className="createPSCards">
                                                 <FormControl variant="outlined" fullWidth>
-                                                    <InputLabel id="question-type">Select Type of Question</InputLabel>
+                                                    <InputLabel id="question-type">{t("Select Type of Question")}</InputLabel>
                                                     <Select
                                                         labelId="question-type"
                                                         id="question-type-select"
@@ -259,9 +259,9 @@ class CreateSurveys extends CreateSurveyController {
                                                         style={{width:"100%",border:"1px solid #ECECEC",borderRadius:"10px",backgroundColor:"#f9f9f9",marginRight:"10px"}}
                                                         onChange={(e)=> this.handleQuestionType(key,e)}
                                                     >
-                                                        <MenuItem value="short_answers">Short Answer</MenuItem>
-                                                        <MenuItem value="checkbox">Multiple Choice Questions</MenuItem>
-                                                        <MenuItem value="options">Options</MenuItem>
+                                                        <MenuItem value="short_answers">{t("Short Answer")}</MenuItem>
+                                                        <MenuItem value="checkbox">{t("Multiple Choice Questions")}</MenuItem>
+                                                        <MenuItem value="options">{t("Options")}</MenuItem>
                                                     </Select>
                                                     <p style={{color:"red"}}>{item.questionTypeError}</p>
                                                 </FormControl>
@@ -303,7 +303,7 @@ class CreateSurveys extends CreateSurveyController {
                                                             onClick={() => this.addOptionsFields(key)}
                                                             className="addOptions"
                                                     >
-                                                        ADD OPTION
+                                                        {t("ADD OPTION")}
                                                     </Button>
                                                 }
                                             </Box>
@@ -371,15 +371,15 @@ class CreateSurveys extends CreateSurveyController {
                             {/*    </Box>*/}
                             {/*</Grid>*/}
                             <Grid  item sm={12} md={12} xs={12}>
-                                <Button onClick={this.addQuestionFields} fullWidth size="large" colo="primary" variant="outlined" style={{borderRadius:"8px",border:" 1px dashed #2b6fed",color:"#2b6fed",fontWeight:"bold"}}>+ Add Another Question</Button>
+                                <Button onClick={this.addQuestionFields} fullWidth size="large" colo="primary" variant="outlined" style={{borderRadius:"8px",border:" 1px dashed #2b6fed",color:"#2b6fed",fontWeight:"bold"}}>+ {t("Add Another Question")}</Button>
                             </Grid>
                             <Grid  item sm={12} md={12} xs={12}>
                                 <Box className="BottomButtonSurvey">
                                     <Box className="Previewbtn">
-                                        <AudienceButton onClick={this.handlePriviewData} variant="contained" color="primary">PREVIEW</AudienceButton>
+                                        <AudienceButton onClick={this.handlePriviewData} variant="contained" color="primary">{t("PREVIEW")}</AudienceButton>
                                     </Box>
                                     <Box className="Publishbtn">
-                                        <PublishButton onClick={this.handleSurveyDataSubmit} disabled={this.state.loading} type="submit" variant="outlined" color="primary">{this.state.loading && <CircularProgress color="inherit" size={20}/> } {" "}PUBLISH</PublishButton>
+                                        <PublishButton onClick={this.handleSurveyDataSubmit} disabled={this.state.loading} type="submit" variant="outlined" color="primary">{this.state.loading && <CircularProgress color="inherit" size={20}/> } {" "}{t("PUBLISH")}</PublishButton>
                                     </Box>
                                 </Box>
                             </Grid>
@@ -426,8 +426,8 @@ class CreateSurveys extends CreateSurveyController {
                             </Typography>
                             <Box style={{display:'flex',justifyContent:'flex-end',marginTop:"15px"}}>
                                 {/*@ts-ignore*/}
-                                <AudienceButton variant="outlined" style={{marginRight:"10px"}} onClick={this.closeDeleteModal}>Cancel</AudienceButton>
-                                <PublishButton variant="contained" onClick={this.deleteAudience} >Ok</PublishButton>
+                                <AudienceButton variant="outlined" style={{marginRight:"10px"}} onClick={this.closeDeleteModal}>{t("Cancel")}</AudienceButton>
+                                <PublishButton variant="contained" onClick={this.deleteAudience} >{t("Ok")}</PublishButton>
                             </Box>
                         </Box>
                     </Fade>
@@ -513,9 +513,9 @@ const AudienceSelectBox = (props:any) => {
                         open={Boolean(anchorEl)}
                         onClose={handleClose}
                     >
-                        <MenuItem onClick={handleEdit}>Edit</MenuItem>
+                        <MenuItem onClick={handleEdit}>{t("Edit")}</MenuItem>
                         <Divider/>
-                        <MenuItem onClick={handleDelete}>Delete</MenuItem>
+                        <MenuItem onClick={handleDelete}>{t("Delete")}</MenuItem>
                     </Menu>
                 </Box>
             </Box>

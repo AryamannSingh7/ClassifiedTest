@@ -29,13 +29,14 @@ class Visitors extends VisitorAddController{
 
   render() {
     // @ts-ignore
+      // @ts-ignore
       return (
         <>
             <Grid item xs={12} md={12} className="auth-cols">
                 <Grid container style={{ margin: '1rem', width: '90%' }} >
                   <Grid item xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem",justifyContent:"space-between"}} >
                       <Box style={{ display:"flex", alignItems:"center", gap:"1rem",marginBottom:"05px"}}>
-                          <ArrowBackIcon onClick={() => this.props.history.push("/")} />
+                          <ArrowBackIcon onClick={() => window.history.back()} />
                           <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
                               {this.state.visitorId ? "Edit Visitor Request":"Add Visitor Request"}
                           </p>
@@ -52,7 +53,7 @@ class Visitors extends VisitorAddController{
                             date:this.state?.visitorDetails?.schedule_date,
                             time:this.state?.visitorDetails?.schedule_time ? moment(this.state?.visitorDetails?.schedule_time).format("hh:mm") : "",
                             withCar:this.state?.visitorDetails?.comming_with_vehicle ? "true" : "false",
-                            carPlateNo: this.state?.visitorDetails?.vehicle_detail?.car_number,
+                            carPlateNo: this.state?.visitorDetails?.vehicle_detail?.car_number || "",
                         }}
                                 validationSchema={this.visitorAddSchema()}
                                 validateOnMount={true}
@@ -101,6 +102,7 @@ class Visitors extends VisitorAddController{
                                                             onChange={this.handleChange}
                                                             label="Unit"
                                                             value={this.state.selectCode}
+                                                            style={{color:'gray'}}
                                                         >
                                                             <MenuItem value="">
                                                                 <em>None</em>
@@ -172,8 +174,9 @@ class Visitors extends VisitorAddController{
                                         <Grid className="add-visitor" item xs={6}>
                                             <FormControl fullWidth>
                                                 <div className="date-time">
-                                                    <input
+                                                    <Input
                                                         value={values.date}
+                                                        style={{color:"gray"}}
                                                         onChange={(e: any) => {
                                                             setFieldValue("date", e.target.value);
                                                         }}
@@ -181,8 +184,12 @@ class Visitors extends VisitorAddController{
                                                         name="date"
                                                         placeholder="Select Date"
                                                         className="date"
-                                                        min={moment().format("YYYY-MM-DD")}
-                                                        type="date"
+                                                        // @ts-ignore
+                                                        inputProps={{
+                                                            min:moment().format("YYYY-MM-DD")
+                                                        }}
+                                                        type={this.state.inputType1}
+                                                        onFocus={()=> this.setState({inputType1:"date"})}
                                                     />
                                                 </div>
                                                 {errors.date && touched.date && <small className="error">{errors.date}</small>}
@@ -193,6 +200,7 @@ class Visitors extends VisitorAddController{
                                                 <div className="date-time">
                                                     <Input
                                                         value={values.time}
+                                                        style={{color:"gray"}}
                                                         onChange={(e: any) => {
                                                             setFieldValue("time", e.target.value);
                                                         }}
@@ -200,7 +208,9 @@ class Visitors extends VisitorAddController{
                                                         placeholder="Select Time"
                                                         name="time"
                                                         fullWidth
-                                                        type="time"
+                                                        type={this.state.inputType2}
+                                                        onFocus={()=> this.setState({inputType2:"time"})}
+
                                                     />
                                                 </div>
                                                 {errors.time && touched.time && <small className="error">{errors.time}</small>}
