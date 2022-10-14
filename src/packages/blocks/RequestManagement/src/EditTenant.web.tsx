@@ -38,19 +38,24 @@ import { CountryList } from "./countryList";
 import CloseIcon from "@material-ui/icons/Close";
 import Loader from "../../../components/src/Loader.web";
 
-class RegisterTenant extends RegisterTenantController {
+class EditTenant extends RegisterTenantController {
   constructor(props: Props) {
     super(props);
   }
 
   async componentDidMount(): Promise<void> {
-    this.getBuildingList();
-    this.getIdTypeList();
+    const tenant_id = this.props.navigation.getParam("id");
+    this.setState({ tenantId: tenant_id }, () => {
+      this.getTenantDetailsForEdit();
+      this.getIdTypeList();
+    });
   }
 
   render() {
     const { classes } = this.props;
     const { t }: any = this.props;
+
+    console.log(this.state);
 
     return (
       <>
@@ -62,12 +67,12 @@ class RegisterTenant extends RegisterTenantController {
               <Box>
                 <Box display={{ xs: "flex", md: "flex" }} className="top-bar">
                   <div className="left-icon">
-                    <Link to="/Tenants">
+                    <Link to={`/Tenant/${this.state.tenantId}`}>
                       <IconButton>
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    <span>{t("Register A Tenant")}</span>
+                    <span>{t("Edit A Tenant")}</span>
                   </div>
                 </Box>
                 <Container className="page-container">
@@ -77,8 +82,7 @@ class RegisterTenant extends RegisterTenantController {
                       initialValues={this.state.registerTenantForm}
                       validationSchema={this.validationRegisterTenantFormSchema}
                       onSubmit={(values, { resetForm }) => {
-                        this.handleSubmitRegisterTenant(values);
-                        resetForm();
+                        this.handleEditTenant(values);
                       }}
                     >
                       {({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue }) => {
@@ -187,10 +191,6 @@ class RegisterTenant extends RegisterTenantController {
                               <FormControl fullWidth>
                                 <Input
                                   value={values.tenantEmail}
-                                  onChange={(e: any) => {
-                                    setFieldValue("tenantEmail", e.target.value);
-                                  }}
-                                  onBlur={handleBlur}
                                   name="tenantEmail"
                                   className="select-input input"
                                   placeholder={t("Tenant Email ID")}
@@ -199,69 +199,37 @@ class RegisterTenant extends RegisterTenantController {
                                       <img src={GreyEmailIcon} alt="" />
                                     </InputAdornment>
                                   }
+                                  readOnly
                                 />
                                 {errors.tenantEmail && touched.tenantEmail && (
                                   <p className="error">{t(errors.tenantEmail)}</p>
                                 )}
                               </FormControl>
                               <FormControl fullWidth>
-                                <Box className="select-box">
-                                  <Select
-                                    displayEmpty
-                                    value={values.building}
-                                    onChange={(e: any) => {
-                                      setFieldValue("building", e.target.value);
-                                      this.getUnitList(e.target.value);
-                                    }}
-                                    onBlur={handleBlur}
-                                    name="building"
-                                    fullWidth
-                                    className="select-input"
-                                    input={<OutlinedInput />}
-                                  >
-                                    <MenuItem value="" disabled>
-                                      {t("Select Building")}
-                                    </MenuItem>
-                                    {this.state.buildingList.map((building: any) => {
-                                      return (
-                                        <MenuItem value={building.id} key={building.id}>
-                                          {building.name}
-                                        </MenuItem>
-                                      );
-                                    })}
-                                  </Select>
-                                  <img src={GreyBuildingName} alt="" />
-                                </Box>
-                                {errors.building && touched.building && <p className="error">{t(errors.building)}</p>}
+                                <Input
+                                  value={values.building}
+                                  name="building"
+                                  className="select-input input"
+                                  startAdornment={
+                                    <InputAdornment position="start">
+                                      <img src={GreyBuildingName} alt="" />
+                                    </InputAdornment>
+                                  }
+                                  readOnly
+                                />
                               </FormControl>
                               <FormControl fullWidth>
-                                <Box className="select-box">
-                                  <Select
-                                    displayEmpty
-                                    value={values.unit}
-                                    onChange={(e: any) => {
-                                      setFieldValue("unit", e.target.value);
-                                    }}
-                                    onBlur={handleBlur}
-                                    name="unit"
-                                    fullWidth
-                                    className="select-input"
-                                    input={<OutlinedInput />}
-                                  >
-                                    <MenuItem value="" disabled>
-                                      {t("Select Unit")}
-                                    </MenuItem>
-                                    {this.state.unitList.map((unit: any) => {
-                                      return (
-                                        <MenuItem value={unit.id} key={unit.id}>
-                                          {unit.apartment_name}
-                                        </MenuItem>
-                                      );
-                                    })}
-                                  </Select>
-                                  <img src={GreyUnitNumber} alt="" />
-                                </Box>
-                                {errors.unit && touched.unit && <p className="error">{t(errors.unit)}</p>}
+                                <Input
+                                  value={values.unit}
+                                  name="unit"
+                                  className="select-input input"
+                                  startAdornment={
+                                    <InputAdornment position="start">
+                                      <img src={GreyUnitNumber} alt="" />
+                                    </InputAdornment>
+                                  }
+                                  readOnly
+                                />
                               </FormControl>
                               <FormControl fullWidth>
                                 <Box className="select-box">
@@ -405,7 +373,7 @@ class RegisterTenant extends RegisterTenantController {
 
                               <div className="next-button submit-button">
                                 {/* <Link to=""> */}
-                                <Button type="submit">{t("Next")}</Button>
+                                <Button type="submit">{t("Edit")}</Button>
                                 {/* </Link> */}
                               </div>
                             </Box>
@@ -429,4 +397,4 @@ class RegisterTenant extends RegisterTenantController {
   }
 }
 
-export default withTranslation()(withStyles(TenantStyle)(RegisterTenant));
+export default withTranslation()(withStyles(TenantStyle)(EditTenant));
