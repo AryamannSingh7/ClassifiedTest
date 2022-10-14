@@ -43,13 +43,7 @@ class PollPreview extends PollingController {
 
   componentDidMount() {
     const PreviewPollData = JSON.parse(localStorage.getItem('Polls_Data'));
-    this.setState({PreViewPollData:PreviewPollData},
-        () => console.log("PreViewPollData ====>>>>>",  this.state.PreViewPollData)
-    )
-    
-    // var htmlString = this.state.PreViewPollData?.PollFormData?.description
-    // var plainString = htmlString.replace(/<[^>]+>/g, '')
-    //     console.log("plainString*******", plainString)
+    this.setState({PreViewPollData:PreviewPollData})
   }
 
   render() {

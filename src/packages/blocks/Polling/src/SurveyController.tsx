@@ -8,8 +8,6 @@ import { runEngine } from "../../../framework/src/RunEngine";
 
 // Customizable Area Start
 import {Editor, EditorState} from 'draft-js';
-import { addDays } from 'date-fns'
-import Parser from 'html-react-parser';
 // Customizable Area End
 const {baseURL} = require("../../../framework/src/config")
 export const configJSON = require("./config");

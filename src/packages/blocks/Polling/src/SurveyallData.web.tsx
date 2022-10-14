@@ -1,9 +1,8 @@
 // Customizable Area Start
-//@ts-nocheck
-//@ts-ignore
 
 import React from "react";
 import "./Polling.web.css"
+// @ts-ignore
 import DOMPurify from 'dompurify'
 import {pollandsurvey, xmark, CheckMark, awated, Cardcalendar, allUsers} from "./assets"
 import {
@@ -30,6 +29,7 @@ import { Style } from "@material-ui/icons";
 import { withRouter } from 'react-router';
 import AccessTimeOutlinedIcon from "@material-ui/icons/AccessTimeOutlined";
 import HighlightOffOutlinedIcon from "@material-ui/icons/HighlightOffOutlined";
+import {withTranslation} from "react-i18next";
 
 class PollsallData extends SurveyAllDataController {
   constructor(props: Props) {
@@ -37,6 +37,8 @@ class PollsallData extends SurveyAllDataController {
   }
 
   render() {
+    //@ts-ignore
+    const {t} = this.props
     return ( 
       <>
         <Box style={{background: "#E5ECFF"}}>
@@ -54,16 +56,16 @@ class PollsallData extends SurveyAllDataController {
                     <Box className="navigation">
                         <Box>
                             <Typography variant="body1" >
-                            My Dashboard / Poll and surveys / <Box component="span" style={{color: "blue"}}>Surveys</Box>
+                                {t("My Dashboard")} / {t("Poll and surveys")} / <Box component="span" style={{color: "blue"}}>{t("Surveys")}</Box>
                             </Typography>
-                            <Typography variant="h5" className="subHeading">Poll / Surveys</Typography>
+                            <Typography variant="h5" className="subHeading">{t("Poll / Surveys")}</Typography>
                         </Box>
                         <Box>
                             <FormControl className='YearMain'>
                                 <NativeSelect className='yearSelection' disableUnderline value={this.state.Year} onChange={this.handleChange} >
-                                    <option value="This Week">This Week</option>
-                                    <option value="This Month">This Month</option>
-                                    <option value="This Year">This Year</option>
+                                    <option value="This Week">{t("This Week")}</option>
+                                    <option value="This Month">{t("This Month")}</option>
+                                    <option value="This Year">{t("This Year")}</option>
                                 </NativeSelect>
                             </FormControl>
                         </Box>
@@ -75,7 +77,7 @@ class PollsallData extends SurveyAllDataController {
                                     <Box sx={{ml:1, mb:2}}>
                                     <img src={pollandsurvey} alt="pollandsurvey" />
                                     </Box>
-                                    <Typography  className="CreatePSHeading">Create a New Survey</Typography>
+                                    <Typography  className="CreatePSHeading">{t("Create a New Survey")}</Typography>
                                 </Box>
                             </Link>
                         </Grid>
@@ -162,39 +164,6 @@ class PollsallData extends SurveyAllDataController {
                             : 
                             null
                         }
-
-                        {/*<Grid item sm={4} md={4} xs={4}>*/}
-                        {/*    <Box className="EventsCards">*/}
-                        {/*        <Box className="EventsIconsText">*/}
-                        {/*            <Typography variant="body2" className="statusOngoing">Ongoing</Typography>*/}
-                        {/*        </Box>*/}
-                        {/*        <Box className="EventsIconsText">*/}
-                        {/*            <Typography className="EventsTitle">Block W Parking</Typography>*/}
-                        {/*        </Box>*/}
-                        {/*        <Box className="EventsIconsText">*/}
-                        {/*            <Typography variant="body2">To discuss new vehicle guidlines</Typography>*/}
-                        {/*        </Box>*/}
-                        {/*        <Box className="EventsIconsText">*/}
-                        {/*            <img src={Cardcalendar} alt="Cardcalendar" />*/}
-                        {/*            <Typography variant="body2">05-08-2022 - 08-08-2022 </Typography>*/}
-                        {/*        </Box>*/}
-                        {/*        <Divider style={{marginTop:10, marginRight:10}}/>*/}
-                        {/*        <Box className="EventsIconsData">*/}
-                        {/*            <Box className="EventsIconsDataBox">*/}
-                        {/*                <img src={awated} alt="awated" />*/}
-                        {/*                <Typography variant="body2">84</Typography>*/}
-                        {/*            </Box>*/}
-                        {/*            <Box className="EventsIconsDataBox">*/}
-                        {/*                <img src={CheckMark} alt="CheckMark" />*/}
-                        {/*                <Typography variant="body2">29</Typography>*/}
-                        {/*            </Box>*/}
-                        {/*            <Box className="EventsIconsDataBox">*/}
-                        {/*                <img src={xmark} alt="xmark" />*/}
-                        {/*                <Typography variant="body2">13</Typography>*/}
-                        {/*            </Box>*/}
-                        {/*        </Box>*/}
-                        {/*    </Box>*/}
-                        {/*</Grid>*/}
                         </Grid>
                 </Container>
                 </Grid>
@@ -205,6 +174,6 @@ class PollsallData extends SurveyAllDataController {
   }
 }
 
-export default withRouter(PollsallData)
+export default withTranslation()(withRouter(PollsallData))
 
 // Customizable Area End

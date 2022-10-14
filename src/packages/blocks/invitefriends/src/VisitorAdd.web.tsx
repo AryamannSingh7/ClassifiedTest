@@ -36,7 +36,7 @@ class Visitors extends VisitorAddController{
                 <Grid container style={{ margin: '1rem', width: '90%' }} >
                   <Grid item xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem",justifyContent:"space-between"}} >
                       <Box style={{ display:"flex", alignItems:"center", gap:"1rem",marginBottom:"05px"}}>
-                          <ArrowBackIcon onClick={() => this.props.history.push("/")} />
+                          <ArrowBackIcon onClick={() => window.history.back()} />
                           <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
                               {this.state.visitorId ? "Edit Visitor Request":"Add Visitor Request"}
                           </p>

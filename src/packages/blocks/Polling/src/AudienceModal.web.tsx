@@ -54,7 +54,7 @@ class AudienceModal extends AudienceModalController {
                                 onChange={(e)=>this.setState({selectBuilding:e.target.value})}
                                 style={{width:"180px",border:"1px solid #ECECEC",borderRadius:"10px",backgroundColor:"#f9f9f9",marginRight:"10px"}}
                             >
-                                <MenuItem value="">None</MenuItem>
+                                <MenuItem value="">{t("None")}</MenuItem>
                                 {
                                     this.state.listOfBuilding.map((item:any,key:any)=> {
                                         console.log("ITEM",item)
@@ -82,12 +82,12 @@ class AudienceModal extends AudienceModalController {
                             style={{border:"1px solid #ECECEC",borderRadius:"10px",backgroundColor:"#f9f9f9",marginRight:"10px"}}
                             value={this.state.searchText}
                             onChange={(e)=>this.setState({searchText:e.target.value})}
-                            placeholder="Enter Unit Number. / Name"
+                            placeholder={t("Enter Unit Number. / Name")}
                         />
                     </Grid>
                     <Grid item>
                         <FormControl variant="outlined">
-                            <InputLabel id="question-type">User Type</InputLabel>
+                            <InputLabel id="question-type">{t("User Type")}</InputLabel>
                             <Select
                                 labelId="question-type"
                                 id="question-type-select"
@@ -96,15 +96,15 @@ class AudienceModal extends AudienceModalController {
                                 onChange={(e)=>this.setState({userType:e.target.value})}
                                 style={{width:"180px",border:"1px solid #ECECEC",borderRadius:"10px",backgroundColor:"#f9f9f9",marginRight:"10px"}}
                             >
-                                <MenuItem value="Owner">Owner</MenuItem>
-                                <MenuItem value="Tenant">Tenant</MenuItem>
-                                <MenuItem value="Owner Resident">Owner Resident</MenuItem>
+                                <MenuItem value="Owner">{t("Owner")}</MenuItem>
+                                <MenuItem value="Tenant">{t("Tenant")}</MenuItem>
+                                <MenuItem value="Owner Resident">{t("Owner Resident")}</MenuItem>
                             </Select>
                         </FormControl>
                     </Grid>
                     <Grid item>
                         <AudienceButton onClick={this.getAudienceData} variant="contained" color="primary" startIcon={<SearchIcon />} style={{fontWeight:"bold",width:"150px",borderRadius:"10px",height:"55px",fontSize:"16px"}}>
-                            Search
+                            {t("Search")}
                         </AudienceButton>
                     </Grid>
                 </Grid>
@@ -129,10 +129,10 @@ class AudienceModal extends AudienceModalController {
                                             inputProps={{ 'aria-label': 'decorative checkbox' }}
                                             onChange={(e)=>this.handleSelectAll(e)}
                                         /></TableCell>
-                                        <TableCell style={{borderBottom:"none",fontWeight:"bold"}} align="left" >Name</TableCell>
-                                        <TableCell style={{borderBottom:"none",fontWeight:"bold"}} align="left">Unit No.</TableCell>
-                                        <TableCell style={{borderBottom:"none",fontWeight:"bold"}} align="left">Floor Number</TableCell>
-                                        <TableCell style={{borderBottom:"none",fontWeight:"bold"}} align="left">UserType</TableCell>
+                                        <TableCell style={{borderBottom:"none",fontWeight:"bold"}} align="left" >{t("Name")}</TableCell>
+                                        <TableCell style={{borderBottom:"none",fontWeight:"bold"}} align="left">{t("Unit No.")}</TableCell>
+                                        <TableCell style={{borderBottom:"none",fontWeight:"bold"}} align="left">{t("Floor Number")}</TableCell>
+                                        <TableCell style={{borderBottom:"none",fontWeight:"bold"}} align="left">{t("User Type")}</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -159,7 +159,7 @@ class AudienceModal extends AudienceModalController {
                                         </TableRow>
                                     )):
                                         <Box style={{width:"100%",display:'flex',alignItems:'center'}}>
-                                            <Typography>No data found..!!</Typography>
+                                            <Typography>{t("No data found..!!")}</Typography>
                                         </Box>
                                     }
                                 </TableBody>
@@ -177,7 +177,7 @@ class AudienceModal extends AudienceModalController {
             <Box style={{display:'flex',justifyContent:'space-between',alignItems:"center",margin:"20px 0px"}}>
                 <Box  style={{display:'flex'}}>
                     <Typography variant="h6" style={{color:"#fc8434",fontWeight:"bold"}}>{this.state.selectedAudience.length}</Typography>
-                    <Typography variant="h6" style={{paddingLeft:"5px",fontWeight:"bold"}}> Users Selected </Typography>
+                    <Typography variant="h6" style={{paddingLeft:"5px",fontWeight:"bold"}}> {t("Users Selected")} </Typography>
                 </Box>
                 <Box style={{display:'flex'}}>
                     <TextField
@@ -188,7 +188,7 @@ class AudienceModal extends AudienceModalController {
                         onChange={(e) => this.setState({audienceName:e.target.value})}
                     />
                     <AudienceButton onClick={this.handleCreate} disabled={this.state.isSubmitLoading} variant="contained" color="primary" style={{fontWeight:"bold",width:"200px",borderRadius:"10px",height:"55px",fontSize:"16px"}}>
-                        {this.state.isSubmitLoading ? <CircularProgress size={20} /> : this.props.isEdit ? "Update Audience" : "Create Audience"}
+                        {this.state.isSubmitLoading ? <CircularProgress size={20} /> : this.props.isEdit ? t("Update Audience") : t("Create Audience")}
                     </AudienceButton>
                 </Box>
             </Box>
