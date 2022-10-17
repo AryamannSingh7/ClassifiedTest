@@ -291,9 +291,11 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
           if (!responseJson.errors) {
             console.log(responseJson)
             this.setState({ showDialogDelete: true, showDialog: false, loading: false })
-          } else if (responseJson?.errors) {
+          } 
+          else if (responseJson?.errors) {
+
             let error = responseJson.errors;
-            this.setState({ error });
+            this.setState({ error },()=>console.log(this.state.error));
             ApiCatchErrorResponse(error)
             // this.parseApiCatchErrorResponse(this.state.error);
             // this.parseApiCatchErrorResponse(errorReponse);
@@ -1601,11 +1603,17 @@ this.setState({loading:true})
 
 
       // formData.append("vehicle[color]", values.carColor)
-      let blob = await fetch(values.bannerUrl).then(r => r.blob());
-      formData.append(
-        "[data][attributes][image]",
-        blob
-      );
+      if(values.bannerUrl.includes('blob')){
+        
+        
+      }else{
+
+        let blob = await fetch(values.bannerUrl).then(r => r.blob());
+        formData.append(
+          "[data][attributes][image]",
+          blob
+        );
+      }
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
@@ -1838,7 +1846,7 @@ this.setState({loading:true})
   }
   updatePhone=(values:any)=>{
 
-this.setState({loading:true})
+this.setState({loading:true,error:null})
     const header = {
       "token": localStorage.getItem('userToken'),
 

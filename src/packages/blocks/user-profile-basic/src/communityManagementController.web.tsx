@@ -1,11 +1,8 @@
-//@ts-ignore
-//@ts-nocheck
-
-
 import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
 import { runEngine } from "../../../framework/src/RunEngine";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import MessageEnum, {
   getName
 } from "../../../framework/src/Messages/MessageEnum";
@@ -13,12 +10,13 @@ import MessageEnum, {
 // Customizable Area Start
 import * as Yup from 'yup';
 import { imgPasswordInVisible, imgPasswordVisible } from "./assets";
-import i18next from "i18next";
+import { ContactSupportOutlined } from "@material-ui/icons";
+import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
 // Customizable Area End
 
 export const configJSON = require("./config");
 
-export interface Props {
+export interface Props extends RouteComponentProps {
   navigation: any;
   id: string;
 }
@@ -37,11 +35,33 @@ export interface S {
   enableReTypePasswordField: boolean;
   countryCodeSelected: string;
   phone: string;
-  userType: string | null;
   error: string | null;
+  userType: string | null;
+  allContries: [];
+  selectCountry: string;
+  allCity: [];
+  selectCity: string;
+  allBuilding: [];
+  selectBuilding: string;
+  allUnit: [];
+  selectUnit: string;
+  selectEmail: string;
+  unitRegisterType: string;
+  allComplex: [];
+  selectComplex: any;
   loading: boolean;
-  userTypeData:any;
-
+  otp: any;
+  selectCode: string;
+  selectCode2: string;
+  selectCode3:string;
+  anchorEl: any;
+  showDialog:boolean;
+  showDialog1:boolean;
+  showDialog2: boolean;
+  profiledata:any;
+  values:any,
+  showDialogDelete:boolean,
+  allUserType:any
   // Customizable Area End
 }
 
@@ -60,13 +80,24 @@ export default class CommunityUserProfileController extends BlockComponent<
   arrayholder: any[];
   passwordReg: RegExp;
   emailReg: RegExp;
-  createAccountApiCallId: any;
-
-  apiEmailLoginCallId: any;
-  validationApiCallId: any;
-  getUserTypeApiCallId: any;
-  apiRegistrationRequestCallId:any ;
-  deleteRequestCallId:any;
+  getUserTypeAPICall: any;
+  createManagerAccountApiCallId: any;
+  createAccountOwnerApiCallId: any;
+  createRequestManaulApiCallId: any;
+  createRequestApiCallId: any;
+  changeUserTypeApiCallId: any;
+  updatePhoneApicallId:any;
+  getCountryApiCallId: any;
+  getComplexApiCallId: any;
+  getCityApiCallId: any;
+  verifyOtpApiCallId: any;
+  getBuildingApiCallId: any;
+  getUnitApiCallId: any;
+  createVehicleApiCallId:any;
+  deleteVehicleAPICallId:any;
+  getProfileDataAPiCallId:any;
+  updateChairmenProfileAPiId:any;
+  chatSettingApiCallId:any;
   validationApiCallId: string = "";
 
   imgPasswordVisible: any;
@@ -98,6 +129,8 @@ export default class CommunityUserProfileController extends BlockComponent<
 
     runEngine.attachBuildingBlock(this, this.subScribedMessages);
 
+
+const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
     this.state = {
       // Customizable Area Start
       firstName: "",
@@ -113,9 +146,34 @@ export default class CommunityUserProfileController extends BlockComponent<
       enableReTypePasswordField: true,
       countryCodeSelected: "",
       phone: "",
-      userType:'',
+      userType: '',
+      allContries: [],
+      selectCountry: '',
+      allCity: [],
+      selectCity: '',
+      allBuilding: [],
+      selectBuilding: '',
+      allUnit: [],
+      selectUnit: '',
+      selectCode: `+${profileData?.attributes?.full_phone_number?.country_code}` || '+966' ,
+      selectCode2: `+${profileData?.attributes?.full_phone_number?.country_code}` || '+966',
+      selectCode3:'+966',
+      selectEmail: '',
+      unitRegisterType: '',
+      allComplex: [],
+      selectComplex: null,
+      //@ts-ignore
+      //@ts-nocheck
       loading: false,
-      userTypeData:null
+      otp: '',
+      anchorEl:null,
+      showDialog:false,
+      showDialog2: false,
+      profiledata:null,
+      values:null,
+      showDialogDelete:false,
+  showDialog1:false,
+  allUserType:[]
 
       // Customizable Area End
     };
@@ -151,8 +209,6 @@ export default class CommunityUserProfileController extends BlockComponent<
       var responseJson = message.getData(
         getName(MessageEnum.RestAPIResponceSuccessMessage)
       );
-      console.log("responseJson?.data========================>",responseJson)
-
 
       var errorReponse = message.getData(
         getName(MessageEnum.RestAPIResponceErrorMessage)
@@ -181,99 +237,252 @@ export default class CommunityUserProfileController extends BlockComponent<
               this.emailReg = new RegExp(regexData.email_validation_regexp);
             }
           }
-        }
-      else if (apiRequestCallId === this.apiEmailLoginCallId) {
-          if (responseJson && responseJson.meta && responseJson.meta.token) {
-            localStorage.setItem("userToken", responseJson?.meta?.token)
-            localStorage.setItem("userId", responseJson?.meta?.id)
-            localStorage.setItem("userType", responseJson?.meta?.role.name)
-            localStorage.setItem("society_id", responseJson.meta?.society_id)
-            localStorage.setItem("username", responseJson.meta?.user_name)
-            localStorage.setItem("complexName", responseJson.meta?.complex_name)
-            localStorage.setItem("language", "en");
-            i18next.changeLanguage("en");
-            this.getRegistrationRequest();
-             this.setState({loading: false})
-            // if(localStorage.getItem("userType") === "Owner"){
-            //   this.props.history.push("/OwnerDashboard")
-            //   this.setState({loading: false})
-            // }else{
-            //   this.props.history.push("/DashboardGeneral")
-            // //window.location.replace("/RegistrationRequest");
-            // this.setState({loading: false})
-            // }
+        } else if (apiRequestCallId === this.verifyOtpApiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+               //@ts-ignore
+            //@ts-nocheck
+            let profileData:any = JSON.parse(localStorage.getItem('profileData'))
+            if(profileData){
+
+              profileData.attributes.full_phone_number.phone_number = responseJson.phone_number
+              profileData.attributes.full_phone_number.country_code = responseJson.country_code
+              localStorage.setItem('profileData',JSON.stringify(profileData))
+            }
+            this.setState({ selectCode: responseJson.country_code })
+            this.setState({ selectCode3: responseJson.country_code })
+
+            location.reload();
 
           } else if (responseJson?.errors) {
-            let error = Object.values(responseJson.errors[0])[0] as string;
+            let error = responseJson.errors[0];
             this.setState({ error });
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
+            this.parseApiCatchErrorResponse(this.state.error);
           }
+          this.setState({ loading: false })
 
-          this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({loading: false , error:null})
-        }
-        else if (apiRequestCallId === this.apiRegistrationRequestCallId) {
-          if (responseJson && responseJson?.data ) {
-            const  registrationRequest = responseJson?.data[0]
-            const status :any = registrationRequest?.attributes?.status;
-        if( status === "Requested"){
-            this.props.history.push("/ChairmanRegistrationRequest");
-            this.setState({registrationRequest, requestdeleteId :registrationRequest.id,loading: false})
-          }
-           else if(localStorage.getItem("userType") === "Owner" || localStorage.getItem("userType") === "Property Manager"){
-            this.props.history.push("/OwnerDashboard")
-            this.setState({loading: false})
-           }else if (localStorage.getItem("userType") === "Resident"){
-            this.props.history.push("/ResidentDashboard")
-            this.setState({loading: false})
-           }
-           else if(localStorage.getItem("userType") === "Chairman" || localStorage.getItem("userType") === "Manager"){
-            this.props.history.push("/DashboardGeneral")
-            this.setState({loading: false})
-           }
+        } else if (apiRequestCallId === this.updatePhoneApicallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            this.setState({ showDialogDelete: true, showDialog: false, loading: false })
+          } 
+          else if (responseJson?.errors) {
 
-          } else if (responseJson?.errors) {
-            let error = Object.values(responseJson.errors[0])[0] as string;
-            this.setState({ error });
+            let error = responseJson.errors;
+            this.setState({ error },()=>console.log(this.state.error));
+            ApiCatchErrorResponse(error)
             // this.parseApiCatchErrorResponse(this.state.error);
+            // this.parseApiCatchErrorResponse(errorReponse);
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
+            this.parseApiCatchErrorResponse(this.state.error);
+            this.parseApiCatchErrorResponse(errorReponse);
+          }
+          this.setState({ loading: false })
 
-          }
-          this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({loading: false ,error:null})
-        }
-        else if (apiRequestCallId === this.deleteRequestCallId) {
-          if (responseJson.message && responseJson ) {
-          this.setState({loading: false,showDialog:false})
-          this.props.history.push("/ChairmanLogin")
+        } else if (apiRequestCallId === this.chatSettingApiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            this.handleClose('')
+            this.getProfile()
           } else if (responseJson?.errors) {
-            let error = Object.values(responseJson.errors[0])[0] as string;
+            let error = responseJson.errors[0];
             this.setState({ error });
+            this.parseApiCatchErrorResponse(this.state.error);
+            this.parseApiCatchErrorResponse(errorReponse);
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
+            this.parseApiCatchErrorResponse(this.state.error);
+            this.parseApiCatchErrorResponse(errorReponse);
           }
-          this.setState({loading: false,showDialog:false})
-          this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({error:null})
-        }
-        else if (apiRequestCallId === this.getUserTypeApiCallId) {
-          if (responseJson && responseJson?.data ) {
-          console.log("responseJson?.data========================>",responseJson?.data.roles)
-          this.setState({userTypeData :responseJson?.data.roles})
-        //   console.log("userTypeData========================>",this.state.userTypeData[0].name)
-          this.setState({loading: false})
-          } else if (responseJson?.errors) {
-            let error = Object.values(responseJson.errors[0])[0] as string;
-            this.setState({ error });
-          } else {
-            this.setState({ error: responseJson?.error || "Something went wrong!" });
-          }
-          this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({loading: false , error:null})
-        }
+          this.setState({ loading: false })
 
+        } else if (apiRequestCallId === this.createVehicleApiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+this.setState({loading:false})
+            //@ts-ignore
+            //@ts-nocheck
+
+            this.props.history.push({
+              pathname: '/profile'
+            })
+
+
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        }else if (apiRequestCallId === this.updateChairmenProfileAPiId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            this.getProfile()
+this.setState({loading:false,showDialog:false})
+          
+
+
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        } else if (apiRequestCallId === this.createRequestApiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            // localStorage.setItem('res_token', responseJson.meta.token)
+            // localStorage.setItem('res_user', responseJson.data.attributes)
+            // localStorage.setItem('res_user_id', responseJson.data.id)
+            // this.props.history.push('/selecttype')
+            //@ts-ignore
+            //@ts-nocheck
+
+            this.props.history.push('/RegistrationRequestsignup')
+            //@ts-ignore
+            //@ts-nocheck
+            this.setState({ showDialog: false })
+
+
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        } if (apiRequestCallId === this.deleteVehicleAPICallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            //@ts-ignore
+            //@ts-nocheck
+            localStorage.removeItem('selectFamily')
+            this.setState({ showDialogDelete: false, showDialog: false,loading:false })
+
+            this.getProfile()
+
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        } else if (apiRequestCallId === this.createRequestManaulApiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            // localStorage.setItem('res_token', responseJson.meta.token)
+            // localStorage.setItem('res_user', responseJson.data.attributes)
+            // localStorage.setItem('res_user_id', responseJson.data.id)
+            // this.props.history.push('/selecttype')
+            //@ts-ignore
+            //@ts-nocheck
+
+            this.props.history.push('/RegistrationRequestsignup')
+
+
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        } else if (apiRequestCallId === this.changeUserTypeApiCallId) {
+          if (!responseJson.errors) {
+            //@ts-ignore
+            //@ts-nocheck
+            this.setState({ loading: false })
+            // localStorage.setItem('res_token', responseJson.meta.token)
+            // localStorage.setItem('res_user', responseJson.data.attributes)
+            // localStorage.setItem('res_user_id', responseJson.data.id)
+            //@ts-ignore
+            //@ts-nocheck
+            this.props.history.push('/addressfill')
+
+
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        } else if (apiRequestCallId === this.getProfileDataAPiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson.data)
+            this.setState({ profiledata: responseJson.data,selectCode3:`+${responseJson.data.attributes?.full_phone_number?.country_code}` }, () => console.log(this.state.profiledata))
+            this.setState({ loading: false })
+
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        } else if (apiRequestCallId === this.getUserTypeAPICall) {
+          if (!responseJson.errors) {
+            console.log("user data===============>",responseJson.data.roles)
+            this.setState({ allUserType: responseJson.data.roles}, () => console.log(this.state.allUserType))
+            this.setState({ loading: false })
+
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        } else if (apiRequestCallId === this.getComplexApiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            //@ts-ignore
+            //@ts-nocheck
+            let temp = []
+            responseJson.data.housing_complexes.map((item: any) =>
+              temp.push({ value: item.id, label: item.name })
+            )
+            // @ts-ignore
+            this.setState({ allComplex: temp }, () => console.log(this.state.allComplex))
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        } else if (apiRequestCallId === this.getCityApiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            this.setState({ allCity: responseJson.data.cities })
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        } else if (apiRequestCallId === this.getBuildingApiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            this.setState({ allBuilding: responseJson.data.buildings })
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        } else if (apiRequestCallId === this.getUnitApiCallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            let temp = [responseJson.data.unit_apartments]
+            //@ts-ignore
+            //@ts-nocheck
+
+            this.setState({ allUnit: responseJson.data.unit_apartments }, () => console.log(this.state.allUnit[0]))
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        }
       }
     }
 
@@ -330,6 +539,98 @@ export default class CommunityUserProfileController extends BlockComponent<
     return this.emailReg.test(email);
   }
 
+  createAccount(): boolean {
+    if (
+      this.isStringNullOrBlank(this.state.firstName) ||
+      this.isStringNullOrBlank(this.state.lastName) ||
+      this.isStringNullOrBlank(this.state.email) ||
+      this.isStringNullOrBlank(this.state.password) ||
+      this.isStringNullOrBlank(this.state.reTypePassword)
+    ) {
+      this.showAlert(
+        configJSON.errorTitle,
+        configJSON.errorAllFieldsAreMandatory
+      );
+      return false;
+    }
+
+    var phoneNumberError = this.validateCountryCodeAndPhoneNumber(
+      this.state.countryCodeSelected,
+      this.state.phone
+    );
+
+    if (phoneNumberError) {
+      this.showAlert(configJSON.errorTitle, phoneNumberError);
+      return false;
+    }
+
+    if (!this.isValidEmail(this.state.email)) {
+      this.showAlert(configJSON.errorTitle, configJSON.errorEmailNotValid);
+      return false;
+    }
+
+    if (!this.passwordReg.test(this.state.password)) {
+      this.showAlert(configJSON.errorTitle, configJSON.errorPasswordNotValid);
+      return false;
+    }
+
+    if (this.state.password !== this.state.reTypePassword) {
+      this.showAlert(
+        configJSON.errorTitle,
+        configJSON.errorBothPasswordsNotSame
+      );
+      return false;
+    }
+
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail
+    };
+
+    const attrs = {
+      first_name: this.state.firstName,
+      last_name: this.state.lastName,
+      email: this.state.email,
+      password: this.state.password,
+      full_phone_number: "+" + this.state.countryCodeSelected + this.state.phone
+    };
+
+    const data = {
+      type: "email_account",
+      attributes: attrs
+    };
+
+    const httpBody = {
+      data: data,
+      token: this.state.otpAuthToken
+    };
+
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+    // this.createAccountApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      'account_block/accounts'
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestBodyMessage),
+      JSON.stringify(httpBody)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.apiMethodTypeAddDetail
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  }
 
   getValidations() {
     const headers = {
@@ -502,55 +803,43 @@ export default class CommunityUserProfileController extends BlockComponent<
     secureTextEntry: true
   };
 
+  createAccoun(attributes: any): boolean {
 
-clear= () => {
-  localStorage.clear()
-  this.props.history.push("/ChairmanLogin");
-}
-
-  LoginSchema() {
-    const validations = Yup.object().shape({
-      email: Yup.string()
-        .email('Invalid email format')
-        .strict(true)
-        .trim()
-        .required(`Email is required.`),
-      password: Yup.string().required(`Password is required`),
-      userType: Yup.string().required(`User Type is required`).trim(),
-    });
-    return validations
-  }
-
-  doLogIn = (values: any): boolean => {
     const header = {
-      "Content-Type": configJSON.loginApiContentType
+      "Content-Type": configJSON.contentTypeApiAddDetail
     };
+    //@ts-ignore
+    //@ts-nocheck
+    this.setState({ selectEmail: attributes.email, loading: true })
 
     const attrs = {
-      email: values.email,
-      password: values.password
+      full_name: attributes.full_name,
+      last_name: attributes.lastName,
+      email: attributes.email,
+      password: attributes.password,
+      full_phone_number: this.state.selectCode + attributes.phone,
+      password_confirmation: attributes.confirm_password
     };
 
     const data = {
       type: "email_account",
-      attributes: attrs,
-      user_type:values.userType,
-      stay_login: values.stayIn
+      // @ts-ignore
+      // @ts-nocheck
+      "user_type": this.props.history.location.state?.data,
+      attributes: attrs
     };
 
     const httpBody = {
       data: data
     };
-    localStorage.setItem("selectUserType",values.userType)
-    this.setState({loading: true})
+
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
     );
-
-    this.apiEmailLoginCallId = requestMessage.messageId;
+    // this.createAccountApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      configJSON.signinAPiEndPoint
+      'account_block/accounts'
     );
 
     requestMessage.addData(
@@ -565,16 +854,1089 @@ clear= () => {
 
     requestMessage.addData(
       getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.loginAPiMethod
+      configJSON.apiMethodTypeAddDetail
     );
 
     runEngine.sendMessage(requestMessage.id, requestMessage);
-
     return true;
+
+
+
+  }
+  createAccountOwner(attributes: any): boolean {
+
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail
+    };
+    this.setState({ selectEmail: attributes.email })
+
+    const attrs = {
+
+      full_name: attributes.full_name,
+      last_name: attributes.lastName,
+      email: attributes.email,
+      password: attributes.password,
+      full_phone_number: this.state.selectCode + attributes.phone,
+      password_confirmation: attributes.confirm_password
+    };
+
+    const data = {
+      type: "email_account",
+      // @ts-ignore
+      // @ts-nocheck
+      "user_type": this.props.history.location.state?.data,
+      attributes: attrs
+    };
+
+    const httpBody = {
+      data: data
+    };
+
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+    this.createAccountOwnerApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      'account_block/accounts'
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestBodyMessage),
+      JSON.stringify(httpBody)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.apiMethodTypeAddDetail
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+
+
+
+  }
+
+  createAccountManager = (attributes: any) => {
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail
+    };
+    this.setState({ selectEmail: attributes.email, loading: true })
+
+    console.log(attributes)
+    const attrs = {
+
+      email: attributes.email,
+      company_name: attributes.company_name,
+      manager_full_name: attributes.managerName,
+      owner_full_name: attributes.ownerName,
+      owner_phone_number: this.state.selectCode + attributes.owner_phone,
+      owner_email: attributes.owner_email,
+      password: attributes.password,
+      full_phone_number: this.state.selectCode + attributes.phone,
+      password_confirmation: attributes.confirm_password
+    };
+
+    const data = {
+      type: "email_account",
+      // @ts-ignore
+      // @ts-nocheck
+      "user_type": this.props.history.location.state?.data,
+      attributes: attrs
+    };
+
+    const httpBody = {
+      data: data
+    };
+
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+    this.createManagerAccountApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      'account_block/accounts'
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestBodyMessage),
+      JSON.stringify(httpBody)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.apiMethodTypeAddDetail
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+
+
+  }
+
+  createRequest = (attributes: any): boolean => {
+
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      "token": localStorage.getItem('res_token')
+    };
+
+    const attrs = {
+      country: this.state.selectCountry,
+      city: this.state.selectCity,
+      //@ts-ignore
+      //@ts-nocheck
+      building_management_id: this.state.selectBuilding.id,
+      //@ts-ignore
+      //@ts-nocheck
+      apartment_management_id: this.state.selectUnit.id,
+      society_management_id: this.state.selectComplex
+    };
+
+    const data = {
+      attributes: attrs
+    };
+
+    const httpBody = {
+      data: attrs
+    };
+
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+    this.createRequestApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      'bx_block_request_management/requests'
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestBodyMessage),
+      JSON.stringify(httpBody)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.apiMethodTypeAddDetail
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+
+
+
+  }
+  updateTypeOwner = () => {
+    console.log(this.state.userType)
+    if (this.state.userType) {
+
+      if (this.state.userType === 'Owner') {
+        this.props.history.push({
+          pathname: '/registerowner',
+          state: {
+            data: this.state.userType,
+          },
+        })
+
+      }
+      if (this.state.userType === 'Property Manager') {
+        //@ts-ignore
+        //@ts-nocheck
+
+        this.props.history.push({
+          pathname: '/registermanager',
+          state: {
+            data: this.state.userType,
+          },
+        })
+
+      }
+      if (this.state.userType === 'Tenant') {
+        //@ts-ignore
+        //@ts-nocheck
+        this.props.history.push({
+          pathname: '/register',
+          state: {
+            data: this.state.userType,
+          },
+        })
+
+      }
+      if (this.state.userType === 'Owner Resident') {
+        //@ts-ignore
+        //@ts-nocheck
+        this.props.history.push({
+          pathname: '/register',
+          state: {
+            data: this.state.userType,
+          },
+        })
+
+      }
+    }
+  }
+  updateType = (): boolean => {
+
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+    console.log(this.changeUserTypeApiCallId)
+    console.log(requestMessage.messageId)
+    //@ts-ignore
+    //@ts-nocheck
+    this.setState({ loading: true })
+    this.changeUserTypeApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      // @ts-ignore
+      // @ts-nocheck
+      `account_block/user_type?user_type=${this.props.history.location.state?.data}&id=${localStorage.getItem('res_user_id')}`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      'PATCH'
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+
+
+
+  }
+
+  changeType(value: any) {
+    this.setState({ userType: value })
+
+  }
+
+  changeUnitType(value: any) {
+    this.setState({ unitRegisterType: value })
+
+  }
+  handleChange2 = (e: any) => {
+
+    if (e.target.value) {
+      // @ts-ignore
+      // @ts-nocheck
+      this.setState({ ...this.state, [e.target.name]: e.target.value })
+    }
+
+  }
+  handleChange = (e: any) => {
+
+    if (e.target.value) {
+      // @ts-ignore
+      // @ts-nocheck
+      this.setState({ ...this.state, [e.target.name]: e.target.value }, () => this.getData(e))
+    }
+
+  }
+  //@ts-ignore
+  //@ts-nocheck
+
+  getData(e) {
+
+
+    if (e.target.name == 'selectCountry') {
+      this.getCity()
+
+    } else if (e.target.name == 'selectCity') {
+      this.getComplexbyCity()
+
+    } else if (e.target.name == 'selectComplex') {
+      this.getBuilding()
+
+    } else if (e.target.name == 'selectBuilding') {
+      this.getUnit()
+
+    }
+
+  }
+
+  getProfile() {
+this.setState({loading:true})
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      "token": localStorage.getItem('userToken')
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+
+    this.getProfileDataAPiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_profile/my_profile`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.validationApiMethodType
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  }
+
+  getCity() {
+
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      "token": localStorage.getItem('res_token')
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+
+    this.getCityApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_address/city_list?country=${this.state.selectCountry}`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.validationApiMethodType
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  }
+
+  getBuilding() {
+
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      "token": localStorage.getItem('res_token')
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+
+    this.getBuildingApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_address/building_list?society_management_id=${this.state.selectComplex}`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.validationApiMethodType
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  }
+
+  getUnit() {
+
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      "token": localStorage.getItem('res_token')
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+
+    this.getUnitApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      //@ts-ignore
+      //@ts-nocheck
+      `bx_block_address/apartment_list?id=${this.state.selectBuilding.id}`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.validationApiMethodType
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  }
+  registerUnit = () => {
+    if (this.state.unitRegisterType) {
+      if (this.state.unitRegisterType == 'Manual') {
+        //@ts-ignore
+        //@ts-nocheck
+
+        this.props.history.push('/registerunitmanually')
+      } else {
+        //@ts-ignore
+        //@ts-nocheck
+
+        this.props.history.push('/RegisterUnitLink')
+
+
+      }
+    }
+  }
+  getComplex() {
+
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      "token": localStorage.getItem('res_token')
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+
+    this.getComplexApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_society_management/society_managements`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.validationApiMethodType
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  }
+  getComplexbyCity() {
+
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      "token": localStorage.getItem('res_token')
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+
+    this.getComplexApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_address/housing_complex_list?city=${this.state.selectCity}`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.validationApiMethodType
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  }
+  handleInputChange = (newValue: string) => {
+    // localStorage.setItem('selectComplex', JSON.stringify(newValue))
+    this.setState({ selectComplex: newValue })
+
+
+
   };
+  handleInputChangeCOm = (newValue: any) => {
+    console.log(newValue)
+
+    this.setState({ selectComplex: newValue.value }, () => this.getData({ target: { name: 'selectComplex' } }))
 
 
+
+  };
+  createRequestManual = (attributes: any) => {
+
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      "token": localStorage.getItem('res_token')
+    };
+    console.log(this.state)
+    const attrs = {//@ts-ignore
+      //@ts-nocheck
+      building_management_id: this.state.selectBuilding.id,
+      country: this.state.selectCountry,
+      city: this.state.selectCity,
+      //@ts-ignore
+      //@ts-nocheck
+      unit_name: this.state.selectUnit,
+      society_management_id: this.state.selectComplex
+    };
+
+    const data = {
+
+      attributes: attrs
+    };
+
+    const httpBody = {
+      data: attrs
+    };
+
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+    this.createRequestManaulApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      'bx_block_request_management/requests'
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestBodyMessage),
+      JSON.stringify(httpBody)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.apiMethodTypeAddDetail
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+
+  }
+  handleChangeOTP = (otp: any) => this.setState({ otp });
+
+  verifyOtp = (): boolean => {
+
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      token: localStorage.getItem("userToken")
+    };
+
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+    //@ts-ignore
+    //@ts-nocheck
+    this.setState({ loading: true })
+    this.verifyOtpApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_profile/profiles/verify_otp?otp=111111`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    )
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      'GET'
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+
+
+
+  }
+  updateProfile = async(values: any) => {
+    this.setState({ loading: true })
+    try {
+      const header = {
+
+        token: localStorage.getItem("userToken")
+      };
+      const formData = new FormData();
+      formData.append("[data][attributes][full_name]", values.full_name)
+      formData.append("[data][attributes][full_phone_number]", `${this.state.selectCode}${values.phone}`)
+      formData.append("[data][attributes][gender]", values.male ? '0' : '1')
+      formData.append("[data][attributes][date_of_birth]", values.DOB)
+      formData.append("[data][attributes][profile_bio]", values.bio)
+      formData.append("[data][attributes][twitter_link]", values.twitter)
+      formData.append("[data][attributes][fb_link]", values.fb)
+      formData.append("[data][attributes][instagram_link]", values.insta)
+      formData.append("[data][attributes][snapchat_link]", values.snap)
+      console.log(values.hobbies)
+      values.hobbies.map((item:any)=>{
+        formData.append('[data][attributes][hobbies][]',item)
+      })
+
+
+      // formData.append("vehicle[color]", values.carColor)
+      let blob = await fetch(values.bannerUrl).then(r => r.blob());
+      formData.append(
+        "[data][attributes][image]",
+        blob
+      );
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+
+      this.createVehicleApiCallId = requestMessage.messageId;
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        'bx_block_profile/profiles_update'
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestBodyMessage),
+        formData
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        'PUT'
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+      return true;
+
+    } catch (error) {
+      // this.setState({ loading: false })
+      console.log(error);
+    }
+
+  }
+  updateChairmenProfile = async(values: any) => {
+    this.setState({ loading: true })
+    try {
+      const header = {
+
+        token: localStorage.getItem("userToken")
+      };
+      const formData = new FormData();
+      formData.append("[data][attributes][full_name]", values.full_name)
+      formData.append("[data][attributes][full_phone_number]", `${this.state.selectCode}${values.phone}`)
+      formData.append("[data][attributes][gender]", values.male ? '0' : '1')
+      formData.append("[data][attributes][date_of_birth]", values.DOB)
+      formData.append("[data][attributes][profile_bio]", values.bio)
+      formData.append("[data][attributes][twitter_link]", values.twitter)
+      formData.append("[data][attributes][fb_link]", values.fb)
+      formData.append("[data][attributes][instagram_link]", values.insta)
+      formData.append("[data][attributes][snapchat_link]", values.snap)
+      console.log(values.hobbies)
+      values.hobbies.map((item:any)=>{
+        formData.append('[data][attributes][hobbies][]',item)
+      })
+
+
+      // formData.append("vehicle[color]", values.carColor)
+      if(values.bannerUrl.includes('blob')){
+        
+        
+      }else{
+
+        let blob = await fetch(values.bannerUrl).then(r => r.blob());
+        formData.append(
+          "[data][attributes][image]",
+          blob
+        );
+      }
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+
+      this.updateChairmenProfileAPiId = requestMessage.messageId;
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        'bx_block_profile/profiles_update'
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestBodyMessage),
+        formData
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        'PUT'
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+      return true;
+
+    } catch (error) {
+      // this.setState({ loading: false })
+      console.log(error);
+    }
+
+  }
+  profileSchema=()=>{
+    const validations = Yup.object().shape({
+
+      full_name: Yup.string().required(`This field is required`).trim(),
+      phone: Yup.number()
+        .typeError("Only numbers are allowed.")
+        .required("Mobile number is required.")
+        .positive("Negative numbers are not allowed.")
+        .integer("Number can't contain a decimal.")
+        .min(10000000, "Minimum 8 digits are required.")
+        .max(99999999999, "Maximum 11 digits are allowed."),
+      email: Yup.string().required(`This field is required`).trim(),
+      DOB: Yup.date().required(`This field is required`),
+      hobbies: Yup.string().required(`This field is required`).nullable(),
+      fb: Yup.string().matches(/(?:(?:http|https):\/\/)?(?:www.)?facebook.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\w\-]*)?/, `Invalid facebook URL`).nullable(),
+      insta: Yup.string().matches(/(?:(?:http|https):\/\/)?(?:www\.)?(?:instagram\.com|instagr\.am)\/([A-Za-z0-9-_\.]+)/im, `Invalid instagram URL`).nullable(),
+      twitter: Yup.string().matches(/http(?:s)?:\/\/(?:www\.)?twitter\.com\/([a-zA-Z0-9_]+)/, `Invalid twitter URL`).nullable(),
+      snap: Yup.string().matches(/http(?:s)?:\/\/(?:www\.)?snapchat\.com\/([a-zA-Z0-9_]+)/, `Invalid snapchat URL`).nullable(),
+
+
+    });
+    return validations
+  }
+  handleClick = (event: any) => {
+    this.setState({ anchorEl: event.currentTarget, showDialog: true })
+  };
+  handleClick2 = (event: any) => {
+    this.setState({ anchorEl: event.currentTarget, showDialog2: true })
+  };
+  handleClose = (item: any) => {
+    if (item.id) {
+      localStorage.setItem('selectFamily', JSON.stringify(item))
+      // @ts-ignore
+      // @ts-nocheck
+      this.props.history.push("/editfamily")
+
+    } else {
+      this.setState({ anchorEl: item.currentTarget, showDialog: false })
+    }
+    // this.setState({ anchorEl:null,showDialog:false })
+  };
+  handleClose2 = (item: any) => {
+
+      this.setState({ anchorEl: item.currentTarget, showDialog2: false })
+
+    // this.setState({ anchorEl:null,showDialog:false })
+  };
+  deleteRequest() {
+    this.setState({loading: true })
+    // @ts-nocheck
+    // @ts-ignore
+    let item = JSON.parse(localStorage.getItem('selectFamily'))
+    const header = {
+
+      "token": localStorage.getItem('userToken')
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+    this.deleteVehicleAPICallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_family/families/${item.id}`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      'DELETE'
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  }
+  handleSelectBanner = (
+    e: any,
+    setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
+    setFieldError: (field: string, message: string) => void,
+  ) => {
+
+    let file = e?.target?.files[0];
+
+    if (file && !['image/png', 'image/jpeg', 'image/jpg'].includes(file.type)) {
+      return setFieldError('banner', 'Only png and jpeg are supported.')
+    }
+
+    setFieldValue("banner", file ? {
+      lastModified: file.lastModified,
+      lastModifiedDate: file.lastModifiedDate,
+      name: file.name,
+      size: file.size,
+      type: file.type
+    } : '');
+    console.log('file', URL.createObjectURL(file))
+    setFieldValue("bannerUrl", file ? URL.createObjectURL(file) : "");
+    if (file) {
+      e.target.value = "";
+
+    }
+
+  };
+  updatePublicProfile=(values:any)=>{
+    console.log(values)
+    if(!values.full_name){
+      this.setState({showDialog:true,values:values})
+    }else{
+      this.setState({ values: values })
+
+      this.publicViewAPI()
+    }
+  }
+
+  publicViewAPI=()=>{
+    this.setState({ loading: true })
+    try {
+      const header = {
+
+        token: localStorage.getItem("userToken"),
+        'content-type': 'application/json'
+      };
+      const data = {
+        "data": {
+          "attributes": {
+            name_public: this.state.values.full_name,
+            email_public: this.state.values.email,
+            apartment_no_public: this.state.values.unit,
+            phone_no_public: this.state.values.phone,
+            gender_public: this.state.values.gender,
+            date_of_birth_public: this.state.values.DOB,
+            hobbies_public: this.state.values.hobbies,
+            twitter_public: this.state.values.twitter,
+            facebook_public: this.state.values.full_fbname,
+            instagram_public: this.state.values.insta,
+            snapchat_public: this.state.values.snap,
+            family_details_public: this.state.values.family
+
+          }
+        }
+
+      }
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+
+      this.createVehicleApiCallId = requestMessage.messageId;
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        'bx_block_profile/profiles/public_profile'
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestBodyMessage),
+        JSON.stringify(data)
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        'PUT'
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+      return true;
+
+    } catch (error) {
+      // this.setState({ loading: false })
+      console.log(error);
+    }
+
+  }
+  addPhoneSchema=()=>{
+    const validations = Yup.object().shape({
+      phone: Yup.number()
+        .typeError("Only numbers are allowed.")
+        .required("Mobile number is required.")
+        .positive("Negative numbers are not allowed.")
+        .integer("Number can't contain a decimal.")
+        .min(10000000, "Minimum 8 digits are required.")
+        .max(99999999999, "Maximum 11 digits are allowed.")
+
+
+    });
+    return validations
+  }
+  updatePhone=(values:any)=>{
+
+this.setState({loading:true,error:null})
+    const header = {
+      "token": localStorage.getItem('userToken'),
+
+    };
+    const formData = new FormData();
+    formData.append("new_phone_number", `${values.phone}`)
+    formData.append("country_code", `${this.state.selectCode}`)
+
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+    this.updatePhoneApicallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      'bx_block_profile/profiles/verify_number'
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestBodyMessage),
+      formData
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      'POST'
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+
+  }
+  handleAddChip=(fn:any,data:any,values:any)=>{
+    console.log('hi')
+values.push(data)
+fn('hobbies',values)
+    console.log(values)
+
+  }
+  handleDeleteChip = (fn: any, data: any, values: any,index:any)=>{
+    console.log('bye')
+    values.splice(index, 1)
+    fn('hobbies', values)
+console.log(data,index)
+  }
+  disablechat=()=>{
+
+    this.setState({ loading: true })
+    const header = {
+      "token": localStorage.getItem('userToken'),
+
+    };
+
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+    this.chatSettingApiCallId = requestMessage.messageId;
+    let value = this.state.profiledata.attributes.disable_chat
+    console.log(!value)
+    console.log(this.state.profiledata.attributes.disable_chat)
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_chat/chats/disable_enable_chat?disable_chat=${!value}`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      'PATCH'
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+
+  }
+
+  redirectToDashboard=()=>{
+let userType=localStorage.getItem('userType')
+    if (userType == 'Owner'){
+      //@ts-ignore
+      //@ts-nocheck
+      this.props.history.push('/OwnerDashboard')
+    }else{
+      //@ts-ignore
+      //@ts-nocheck
+      this.props.history.push('/residentDashboard')
+    }
+
+  }
   getUserType = () => {
+    console.log('i\'m new user')
     try {
       const header = {
 
@@ -584,7 +1946,7 @@ clear= () => {
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
-      this.getUserTypeApiCallId = requestMessage.messageId;
+      this.getUserTypeAPICall = requestMessage.messageId;
       this.setState({ loading: true });
 
       requestMessage.addData(
@@ -600,79 +1962,6 @@ clear= () => {
       requestMessage.addData(
         getName(MessageEnum.RestAPIRequestMethodMessage),
         configJSON.validationApiMethodType
-      );
-
-      runEngine.sendMessage(requestMessage.id, requestMessage);
-      return true;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  getRegistrationRequest = () => {
-    try {
-      const header = {
-        token :localStorage.getItem("userToken")
-      };
-
-      //const id = localStorage.getItem("userId");
-      const requestMessage = new Message(
-        getName(MessageEnum.RestAPIRequestMessage)
-      );
-
-      this.apiRegistrationRequestCallId = requestMessage.messageId;
-      this.setState({ loading: true });
-
-      requestMessage.addData(
-        getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `bx_block_request_management/requests`
-      );
-
-      requestMessage.addData(
-        getName(MessageEnum.RestAPIRequestHeaderMessage),
-        JSON.stringify(header)
-      );
-
-      requestMessage.addData(
-        getName(MessageEnum.RestAPIRequestMethodMessage),
-        configJSON.validationApiMethodType
-      );
-
-      runEngine.sendMessage(requestMessage.id, requestMessage);
-      return true;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  deleteRequestById = () => {
-    //console.log("this.state?.requestdeleteId deleleleleel}==========>",this.state?.requestdeleteId);
-    const id : any = this.state?.requestdeleteId;
-    try {
-      const header = {
-        token :localStorage.getItem("userToken")
-      };
-
-      //const id = localStorage.getItem("userId");
-      const requestMessage = new Message(
-        getName(MessageEnum.RestAPIRequestMessage)
-      );
-      this.deleteRequestCallId = requestMessage.messageId;
-      this.setState({ loading: true });
-
-      requestMessage.addData(
-        getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `bx_block_request_management/requests/${id}`
-      );
-
-      requestMessage.addData(
-        getName(MessageEnum.RestAPIRequestHeaderMessage),
-        JSON.stringify(header)
-      );
-
-      requestMessage.addData(
-        getName(MessageEnum.RestAPIRequestMethodMessage),
-        configJSON.httpDelete
       );
 
       runEngine.sendMessage(requestMessage.id, requestMessage);
