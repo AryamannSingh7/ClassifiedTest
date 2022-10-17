@@ -143,7 +143,7 @@ class ContractDetail extends ContractDetailController {
               <img src={ExclamationIcon} alt="ExclamationIcon" />
               <Typography variant="h6">{t("Terminate Contract?")}</Typography>
               <Typography variant="body1">
-                {t("Are you sure want to terminate lease contract with")} Ali Khan
+                {t("Are you sure want to terminate lease contract with")} {this.state.contractData.tenantName}
                 {t("? Once terminated you won't be able to retrieve.")}
               </Typography>
               <DialogActions className="dialog-button-group">

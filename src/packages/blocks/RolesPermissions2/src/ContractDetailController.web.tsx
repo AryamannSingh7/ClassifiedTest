@@ -39,6 +39,7 @@ interface ContractData {
   templateUrl: string;
   templateText: string;
   isCustomContract: boolean;
+  tenantName: string;
 }
 
 export default class ContractDetailController extends BlockComponent<Props, S, SS> {
@@ -63,6 +64,7 @@ export default class ContractDetailController extends BlockComponent<Props, S, S
         templateUrl: "",
         templateText: "",
         isCustomContract: false,
+        tenantName: "",
       },
     };
     // Customizable Area End
@@ -92,6 +94,7 @@ export default class ContractDetailController extends BlockComponent<Props, S, S
               ? contract.attributes.custom_contract_image.url
               : contract.attributes.template_pdf.url,
             isCustomContract: contract.attributes.custom_contract,
+            tenantName: contract.attributes.tenant.full_name,
           },
         });
       }
