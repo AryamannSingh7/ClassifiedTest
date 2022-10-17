@@ -299,7 +299,7 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
           if (!responseJson.errors) {
             console.log(responseJson.data)
             this.setState({ singleChatRoom: responseJson.data[0].attributes.messages })
-    this.setState({ singleChatRoom: responseJson.data[0].attributes.messages, selectedChatRoomId: responseJson.data[0].id, allInboxKey: Object.keys(responseJson.data[0].attributes.messages) }, () => console.log(this.state.singleChatRoom))
+    this.setState({ singleChatRoom: responseJson.data[0].attributes.messages, selectedChatRoomId: responseJson.data[0].id, allInboxKey: Object.keys(responseJson.data[0].attributes.messages).reverse() }, () => console.log("djhjskjhdksj",this.state.allInboxKey))
 
             localStorage.setItem('selectedChat', JSON.stringify(responseJson.data[0]))
             this.forceUpdate()

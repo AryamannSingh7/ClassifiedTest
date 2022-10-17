@@ -60,7 +60,8 @@ export interface S {
   showDialog2: boolean;
   profiledata:any;
   values:any,
-  showDialogDelete:boolean
+  showDialogDelete:boolean,
+  allUserType:any
   // Customizable Area End
 }
 
@@ -70,7 +71,7 @@ export interface SS {
   // Customizable Area End
 }
 
-export default class ProfileController extends BlockComponent<
+export default class CommunityUserProfileController extends BlockComponent<
   Props,
   S,
   SS
@@ -79,7 +80,7 @@ export default class ProfileController extends BlockComponent<
   arrayholder: any[];
   passwordReg: RegExp;
   emailReg: RegExp;
-  createAccountApiCallId: any;
+  getUserTypeAPICall: any;
   createManagerAccountApiCallId: any;
   createAccountOwnerApiCallId: any;
   createRequestManaulApiCallId: any;
@@ -171,7 +172,8 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
       profiledata:null,
       values:null,
       showDialogDelete:false,
-  showDialog1:false
+  showDialog1:false,
+  allUserType:[]
 
       // Customizable Area End
     };
@@ -235,32 +237,6 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
               this.emailReg = new RegExp(regexData.email_validation_regexp);
             }
           }
-        } else if (apiRequestCallId === this.createAccountApiCallId) {
-          if (!responseJson.errors) {
-            console.log(responseJson)
-            localStorage.setItem('res_token', responseJson.meta.token)
-            localStorage.setItem('res_user', JSON.stringify(responseJson.data.attributes))
-            localStorage.setItem('res_user_id', responseJson.data.id)
-            localStorage.setItem('user_email', responseJson.data.attributes.email)
-            //@ts-ignore
-            //@ts-nocheck
-            this.updateType()
-            this.setState({ loading: false, error: null })
-
-            //@ts-ignore
-            //@ts-nocheck
-            this.props.history.push('/otp')
-
-
-          } else if (responseJson?.errors) {
-            let error = responseJson.errors[0];
-            this.setState({ error });
-          } else {
-            this.setState({ error: responseJson?.error || "Something went wrong!" });
-          }
-          this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({ loading: false })
-
         } else if (apiRequestCallId === this.verifyOtpApiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
@@ -435,6 +411,18 @@ this.setState({loading:false,showDialog:false})
           if (!responseJson.errors) {
             console.log(responseJson.data)
             this.setState({ profiledata: responseJson.data,selectCode3:`+${responseJson.data.attributes?.full_phone_number?.country_code}` }, () => console.log(this.state.profiledata))
+            this.setState({ loading: false })
+
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        } else if (apiRequestCallId === this.getUserTypeAPICall) {
+          if (!responseJson.errors) {
+            console.log("user data===============>",responseJson.data.roles)
+            this.setState({ allUserType: responseJson.data.roles}, () => console.log(this.state.allUserType))
             this.setState({ loading: false })
 
           } else {
@@ -619,7 +607,7 @@ this.setState({loading:false,showDialog:false})
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
     );
-    this.createAccountApiCallId = requestMessage.messageId;
+    // this.createAccountApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
       'account_block/accounts'
@@ -848,7 +836,7 @@ this.setState({loading:false,showDialog:false})
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
     );
-    this.createAccountApiCallId = requestMessage.messageId;
+    // this.createAccountApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
       'account_block/accounts'
@@ -1947,6 +1935,56 @@ let userType=localStorage.getItem('userType')
     }
 
   }
+  getUserType = () => {
+    console.log('i\'m new user')
+    try {
+      const header = {
 
+      };
+
+      //const id = localStorage.getItem("userId");
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+      this.getUserTypeAPICall = requestMessage.messageId;
+      this.setState({ loading: true });
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        `bx_block_roles_permissions/roles`
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        configJSON.validationApiMethodType
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+      return true;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  InvitationSchema() {
+    const validations = Yup.object().shape({
+      email: Yup.string()
+        .email('Invalid email format')
+        .strict(true)
+        .lowercase(`Please enter all values in lowercase`)
+        .trim()
+        .required(`This field is required.`),
+      usertype: Yup.string().required(`This field is required`),
+      fullname: Yup.string().required(`This field is required`),
+      phoneno: Yup.string().required(`This field is required`),
+      building: Yup.string().required(`This field is required`),
+      unit: Yup.string().required(`This field is required`),
+    });
+    return validations
+  }
   // Customizable Area End
 }
