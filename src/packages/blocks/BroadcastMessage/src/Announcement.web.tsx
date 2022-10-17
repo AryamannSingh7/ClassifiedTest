@@ -12,6 +12,7 @@ import AnnouncementController, {
   Props
 } from "./AnnouncementController";
 import './style.css'
+import {withTranslation} from "react-i18next";
 
 const data = [
     {
@@ -43,6 +44,8 @@ class Announcement extends AnnouncementController{
   }
 
   render() {
+    //@ts-ignore
+    const {t} = this.props
     return (
         <>
             <Grid item xs={12} md={12} className="auth-cols">
@@ -51,7 +54,7 @@ class Announcement extends AnnouncementController{
                       <Box style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
                           <ArrowBackIcon onClick={() => this.props.history.push("/")} />
                           <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
-                              Announcements
+                              {t("Announcements")}
                           </p>
                       </Box>
                   </Grid>
@@ -88,7 +91,7 @@ class Announcement extends AnnouncementController{
                                                             <img src={building} height="16px" style={{marginRight:"10px"}} />
                                                         </Box>
                                                         <Box>
-                                                            <Typography variant="subtitle2" >Building Name</Typography>
+                                                            <Typography variant="subtitle2" >{t("Building Name")}</Typography>
                                                             <Typography variant="subtitle2" style={{fontWeight:"bold"}}>{item.attributes.building_name}</Typography>
                                                         </Box>
                                                     </Grid>
@@ -97,7 +100,7 @@ class Announcement extends AnnouncementController{
                                                             <img src={unit} height="16px" style={{marginRight:"10px"}} />
                                                         </Box>
                                                         <Box>
-                                                            <Typography variant="subtitle2" >Unit Number</Typography>
+                                                            <Typography variant="subtitle2" >{t("Unit Number")}</Typography>
                                                             <Typography variant="subtitle2" style={{fontWeight:"bold"}}>{item.attributes?.unit_number?.join(",") || 0}</Typography>
                                                         </Box>
                                                     </Grid>
@@ -115,7 +118,7 @@ class Announcement extends AnnouncementController{
     );
   }
 }
-export default withRouter(Announcement)
+export default withTranslation()(withRouter(Announcement))
 
 const StyledTabs = withStyles({
     indicator: {

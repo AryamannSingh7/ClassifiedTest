@@ -32,6 +32,7 @@ import { SearchIconImage, UploadImage } from "./assets";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
 import moment from "moment"
+import {withTranslation} from "react-i18next";
 class Announcements extends AnnouncementsController {
   constructor(props: Props) {
     super(props);
@@ -39,6 +40,8 @@ class Announcements extends AnnouncementsController {
 
   render() {
     const { classes } = this.props;
+    //@ts-ignore
+    const {t} = this.props
     return (
       <>
         <Box style={{ background: "#F4F7FF" }} className={classes.announcements}>
@@ -55,13 +58,13 @@ class Announcements extends AnnouncementsController {
                 <Box className="navigation">
                   <Box>
                     <Typography variant="body1">
-                      Community Management /{" "}
+                      {t("Community Management")} /{" "}
                       <Box component="span" style={{ color: "blue" }}>
-                        Announcements
+                        {t("Announcements")}
                       </Box>
                     </Typography>
                     <Typography variant="h5" className="sub-heading">
-                      Announcements
+                      {t("Announcements")}
                     </Typography>
                   </Box>
                 </Box>
@@ -69,7 +72,7 @@ class Announcements extends AnnouncementsController {
                   <Box className="filter">
                     <Select displayEmpty value={this.state.filterCategory} className="select-input"  onChange={(e) => this.setState({filterCategory:e.target.value})}>
                       <MenuItem value="" disabled>
-                        Category
+                        {t("Category")}
                       </MenuItem>
                       {
                         this.state.categoryList.length > 0 &&
@@ -82,7 +85,7 @@ class Announcements extends AnnouncementsController {
                     </Select>
                     <Select displayEmpty value={this.state.filerYear} className="select-input" onChange={(e)=> this.setState({filerYear:e.target.value})}>
                       <MenuItem value="" disabled>
-                        Year
+                        {t("Year")}
                       </MenuItem>
                       {
                         this.state.yearArray.map((item:any,key:any)=>{
@@ -93,28 +96,28 @@ class Announcements extends AnnouncementsController {
                         })
                       }
                     </Select>
-                    <Button onClick={this.handleFilterBy} startIcon={<img src={SearchIconImage} />}>Search</Button>
+                    <Button onClick={this.handleFilterBy} startIcon={<img src={SearchIconImage} />}>{t("Search")}</Button>
                   </Box>
                   <Box className="create-meeting">
-                    <Button onClick={() => this.handleCreateAnnouncementModal()}>Create New Announcement</Button>
+                    <Button onClick={() => this.handleCreateAnnouncementModal()}>{t("Create New Announcement")}</Button>
                   </Box>
                 </Box>
                 <Box className="meeting-table">
                   <Grid item sm={12} md={12} xs={12}>
                     <Box className="table-top">
-                      <h3>Announcements</h3>
+                      <h3>{t("Announcements")}</h3>
                       <Box className="filter">
                         <Box className="search-box">
                           <SearchIcon />
-                          <InputBase placeholder="Search" className="search" onChange={this.handleSearch}/>
+                          <InputBase placeholder={t("Search")} className="search" onChange={this.handleSearch}/>
                         </Box>
                         <Select displayEmpty value={this.state.shortBy} className="select-input" onChange={(e)=>this.shortByAction(e)} >
                           <MenuItem value="" disabled>
-                            Sort By
+                            {t("Sort By")}
                           </MenuItem>
-                          <MenuItem value="announcement_by">Announcement By</MenuItem>
-                          <MenuItem value="announcement_on">Announcement Date</MenuItem>
-                          <MenuItem value="title">Title</MenuItem>
+                          <MenuItem value="announcement_by">{t("Announcement By")}</MenuItem>
+                          <MenuItem value="announcement_on">{t("Announcement Date")}</MenuItem>
+                          <MenuItem value="title">{t("Title")}</MenuItem>
                         </Select>
                       </Box>
                     </Box>
@@ -123,10 +126,10 @@ class Announcements extends AnnouncementsController {
                       <TableHead>
                         <TableRow>
                           <TableCell>#</TableCell>
-                          <TableCell>Title</TableCell>
-                          <TableCell>Announced On</TableCell>
-                          <TableCell>Category</TableCell>
-                          <TableCell>Announcement By</TableCell>
+                          <TableCell>{t("Title")}</TableCell>
+                          <TableCell>{t("Announced On")}</TableCell>
+                          <TableCell>{t("Category")}</TableCell>
+                          <TableCell>{t("Announcement By")}</TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
@@ -163,7 +166,7 @@ class Announcements extends AnnouncementsController {
           className="add-document resolutions"
         >
           <MuiDialogTitle disableTypography className="dialog-heading">
-            <Typography variant="h6">Create Announcement</Typography>
+            <Typography variant="h6">{t("Create Announcement")}</Typography>
             <IconButton onClick={() => this.handleCreateAnnouncementModal()}>
               <CloseIcon />
             </IconButton>
@@ -172,7 +175,7 @@ class Announcements extends AnnouncementsController {
             <FormControl fullWidth style={{marginBottom:"15px"}}>
               <select className="dialog-select-input" value={this.state.selectedBuilding} onChange={(e)=> this.setState({selectedBuilding:e.target.value})}>
                 <option value="" disabled>
-                  Select Building
+                  {t("Select Building")}
                 </option>
                 {
                   this.state.buildingList.length > 0 &&
@@ -186,7 +189,7 @@ class Announcements extends AnnouncementsController {
             </FormControl>
             <FormControl fullWidth>
               <input
-                placeholder="Title"
+                placeholder={t("Title")}
                 value={this.state.selectedTitle}
                 onChange={(e)=> this.setState({selectedTitle:e.target.value})}
                 className="dialog-input"
@@ -198,7 +201,7 @@ class Announcements extends AnnouncementsController {
             <FormControl fullWidth>
               <select className="dialog-select-input" value={this.state.selectedCategory} onChange={(e)=> this.setState({selectedCategory:e.target.value})}>
                 <option value="" disabled>
-                  Select Category
+                  {t("Select Category")}
                 </option>
                 {
                     this.state.categoryList.length > 0 &&
@@ -211,7 +214,7 @@ class Announcements extends AnnouncementsController {
               </select>
             </FormControl>
             <FormControl fullWidth>
-              <textarea className="dialog-textarea-input" placeholder="Description" value={this.state.selectedDescription} onChange={(e) => this.setState({selectedDescription:e.target.value})} />
+              <textarea className="dialog-textarea-input" placeholder={t("Description")} value={this.state.selectedDescription} onChange={(e) => this.setState({selectedDescription:e.target.value})} />
             </FormControl>
             <FormControl fullWidth>
               <div
@@ -221,7 +224,7 @@ class Announcements extends AnnouncementsController {
                 }}
               >
                 <img src={UploadImage} />
-                <Typography variant="body1">Upload Image (Optional)</Typography>
+                <Typography variant="body1">{t("Upload Image (Optional)")}</Typography>
               </div>
               <input
                 id="myInput"
@@ -235,10 +238,10 @@ class Announcements extends AnnouncementsController {
           </DialogContent>
           <DialogActions className="dialog-button-group">
             <Button className="cancel-button" onClick={() => this.handleCreateAnnouncementModal()}>
-              Cancel
+              {t("Cancel")}
             </Button>
             <Button className="add-button" onClick={this.handleSubmit}>
-              Create
+              {t("Create")}
             </Button>
           </DialogActions>
         </Dialog>
@@ -248,5 +251,5 @@ class Announcements extends AnnouncementsController {
 }
 
 // @ts-ignore
-export default withStyles(SuggestionStyleWeb)(withRouter(Announcements));
+export default withTranslation()(withStyles(SuggestionStyleWeb)(withRouter(Announcements)));
 // Customizable Area End

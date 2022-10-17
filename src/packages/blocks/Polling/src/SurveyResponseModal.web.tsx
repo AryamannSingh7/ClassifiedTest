@@ -57,7 +57,6 @@ class SurveyResponseModal extends Component<any, any> {
                                 <>
                                     <Typography style={{marginTop:"5px"}}>Response : {" "}
                                         {item.survey_options.map((itemA: any, key: any) => {
-                                            console.log("RESPONSE", itemA)
                                             return (
                                                 <>
                                                     {itemA.response}

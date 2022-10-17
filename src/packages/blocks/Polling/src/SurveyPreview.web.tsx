@@ -1,9 +1,7 @@
 // Customizable Area Start
-//@ts-nocheck
-//@ts-ignore
-
 import React from "react";
 import "./Polling.web.css"
+// @ts-ignore
 import DOMPurify from 'dompurify'
 import {Editor, EditorState} from 'draft-js';
 import 'draft-js/dist/Draft.css';
@@ -46,6 +44,7 @@ class SurveyPreview extends SurveyPreviewController {
   }
 
   render() {
+    // @ts-ignore
     const {t} = this.props
     return ( 
       <>
@@ -63,9 +62,9 @@ class SurveyPreview extends SurveyPreviewController {
                           <Box className="navigation">
                               <Box>
                                   <Typography variant="body1" >
-                                      Poll and survey / Created Surveys / <Box component="span" style={{color: "blue"}}>Survey Preview</Box>
+                                      {t("Poll and survey")} / {t("Created Surveys")} / <Box component="span" style={{color: "blue"}}>{t("Survey Preview")}</Box>
                                   </Typography>
-                                  <Typography variant="h5" className="subHeading">Survey Preview</Typography>
+                                  <Typography variant="h5" className="subHeading">{t("Survey Preview")}</Typography>
                               </Box>
                           </Box>
 
@@ -75,7 +74,7 @@ class SurveyPreview extends SurveyPreviewController {
                                   <Box className="createPSCards">
                                       <Box className="PreviewName">
                                           <Box className="PollName">
-                                              <Typography className="subHeading">Survey Name: </Typography>
+                                              <Typography className="subHeading">{t("Survey Name")}: </Typography>
                                               <Typography className="PollNameText textwrap">
                                                   {this.state.SurveyData.title}
                                               </Typography>
@@ -86,7 +85,7 @@ class SurveyPreview extends SurveyPreviewController {
                                           <Box className="datebox">
                                               <CalendarTodayOutlinedIcon style={{color:"grey", fontSize:22}}/>
                                               <Box>
-                                                  <Typography className="PollNamedate">Start Date</Typography>
+                                                  <Typography className="PollNamedate">{t("Start Date")}</Typography>
                                                   <Typography className="PollNameText">
                                                       {/* June 7, 2022 */}
                                                       {moment(this.state.SurveyData?.startDate).format("MMMM DD, YYYY")}</Typography>
@@ -95,7 +94,7 @@ class SurveyPreview extends SurveyPreviewController {
                                           <Box className="datebox">
                                               <CalendarTodayOutlinedIcon style={{color:"grey", fontSize:22}}/>
                                               <Box>
-                                                  <Typography className="PollNamedate">End Date</Typography>
+                                                  <Typography className="PollNamedate">{t("End Date")}</Typography>
                                                   <Typography className="PollNameText">
                                                       {/* June 7, 2022 */}
                                                       {moment(this.state.SurveyData?.endDate).format("MMMM DD, YYYY")}</Typography>
@@ -104,7 +103,7 @@ class SurveyPreview extends SurveyPreviewController {
                                       </Box>
                                       <Box style={{marginTop:15}}>
                                           <Box className="infoIcon">
-                                              <Typography variant="subtitle1">Description</Typography>
+                                              <Typography variant="subtitle1">{t("Description")}</Typography>
                                               <InfoIcon style={{color:"grey", fontSize:18}}/>
                                           </Box>
                                           <Box style={{marginTop:5, overflowWrap:"break-word"}}>
@@ -116,7 +115,7 @@ class SurveyPreview extends SurveyPreviewController {
                                           </Box>
                                       </Box>
                                       <Box className="PollName" style={{marginTop:15}}>
-                                          <Typography className="subHeading">Target Audience: </Typography>
+                                          <Typography className="subHeading">{t("Target Audience")}: </Typography>
                                           <Typography className="PollNameText" style={{color:"#2B6FED"}}>
                                               {this.state.selectedAudienceName}
                                           </Typography>
@@ -126,25 +125,24 @@ class SurveyPreview extends SurveyPreviewController {
                           </Grid>
                           <Grid style={{marginBottom:"5rem"}} className="createPSCards">
                               <Grid item xs={12}>
-                                  <Typography variant="subtitle2">{this.state.surveyQuestions.length} Questions</Typography>
+                                  <Typography variant="subtitle2">{this.state.surveyQuestions.length} {t("Questions")}</Typography>
                               </Grid>
                               <Grid>
                                   {
                                       this.state.surveyQuestions.length > 0 &&
-                                      this.state.surveyQuestions.map((item,key)=>{
-                                          console.log("THIS IS QUESTIONS",item)
+                                      this.state.surveyQuestions.map((item:any,key:any)=>{
                                           return(
                                               <>
                                                   <Box style={{margin:"10px 0px"}}>
                                                       <Typography variant={"h6"} style={{fontWeight:"bold"}}>Q{key+1}. {item.title}</Typography>
                                                       {
                                                           item.question_type === "short_answers" ?
-                                                              <Typography style={{marginTop:"5px"}}>Short Answer</Typography> :
+                                                              <Typography style={{marginTop:"5px"}}>{t("Short Answer")}</Typography> :
                                                               <Box style={{display:'flex'}}>
-                                                                  <Typography style={{marginTop:"5px",marginRight:"5px"}}>{item.question_type === "checkbox" ? "Multiple Choice Question":"Options"}</Typography>
+                                                                  <Typography style={{marginTop:"5px",marginRight:"5px"}}>{item.question_type === "checkbox" ? t("Multiple Choice Question"):t("Options")}</Typography>
                                                                   <Typography style={{marginTop:"5px",marginRight:"5px"}}>|</Typography>
                                                                   {
-                                                                      item.survey_options_attributes.map((ans,key1)=>{
+                                                                      item.survey_options_attributes.map((ans:any,key1:any)=>{
                                                                           return(
                                                                               <Typography key={key1} style={{marginTop:"5px",marginRight:"10px"}}>{alphabet[key1]}. {ans.text}</Typography>
                                                                           )
@@ -166,10 +164,10 @@ class SurveyPreview extends SurveyPreviewController {
                               <Grid  item sm={12} md={12} xs={12}>
                                   <Box className="BottomButtonSurvey">
                                       <Box className="Previewbtn">
-                                          <AudienceButton onClick={this.handlePriviewData} variant="contained" color="primary">Edit</AudienceButton>
+                                          <AudienceButton onClick={this.handlePriviewData} variant="contained" color="primary">{t("Edit")}</AudienceButton>
                                       </Box>
                                       <Box className="Publishbtn">
-                                          <PublishButton onClick={this.handleSurveyDataSubmit} type="submit" variant="outlined" color="primary">PUBLISH</PublishButton>
+                                          <PublishButton onClick={this.handleSurveyDataSubmit} type="submit" variant="outlined" color="primary">{t("PUBLISH")}</PublishButton>
                                       </Box>
                                   </Box>
                               </Grid>
