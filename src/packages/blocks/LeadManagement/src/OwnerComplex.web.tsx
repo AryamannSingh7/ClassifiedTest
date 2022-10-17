@@ -153,7 +153,7 @@ class OwnerComplex extends OwnerComplexController {
                       <h4>{t("Management Team")}</h4>
                       <Grid container spacing={2}>
                         <Grid item xs={12}>
-                          <Card className="team-member-box">Coming soon</Card>
+                          <Card className="team-member-box">{t("Coming soon")}</Card>
                         </Grid>
                         {/* <Grid item xs={6}>
                           <Card className="team-member-box">

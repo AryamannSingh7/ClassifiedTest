@@ -73,7 +73,11 @@ class IssueLease extends IssueContractController {
                         </MenuItem>
                         {this.state.buildingList.map((building: any) => {
                           return (
-                            <MenuItem key={building.id} value={building.id}>
+                            <MenuItem
+                              key={building.id}
+                              value={building.id}
+                              onClick={() => this.setState({ buildingName: building.name })}
+                            >
                               {building.name}
                             </MenuItem>
                           );
@@ -100,7 +104,11 @@ class IssueLease extends IssueContractController {
                         </MenuItem>
                         {this.state.unitList.map((unit: any) => {
                           return (
-                            <MenuItem key={unit.id} value={unit.id}>
+                            <MenuItem
+                              key={unit.id}
+                              value={unit.id}
+                              onClick={() => this.setState({ unitName: unit.apartment_name })}
+                            >
                               {unit.apartment_name}
                             </MenuItem>
                           );
@@ -109,98 +117,108 @@ class IssueLease extends IssueContractController {
                     </Box>
                     <Box className="tenant-info">
                       <Box>
-                        <span>{t("Tenant Name")}:</span>
-                        <p>Mr. Ali Khan</p>
+                        {this.state.tenant && (
+                          <>
+                            <span>{t("Tenant Name")}:</span>
+                            <p>{this.state.tenant && this.state.tenant.full_name}</p>
+                          </>
+                        )}
                       </Box>
                       <Box>
-                        <Link href="/IssueContract">{t("Register a New Tenant")}</Link>
+                        <Link href="/RegisterTenant">{t("Register a New Tenant")}</Link>
                       </Box>
                     </Box>
-                    <Box className="templates-list">
-                      <h3>{t("Select Lease Template")}</h3>
-                      <Grid container spacing={2}>
-                        {this.state.templatesList.length === 0 && (
-                          <Grid item xs={12}>
-                            <Card className="template">{t("No Template Available")}</Card>
-                          </Grid>
-                        )}
-                        {this.state.templatesList.map((template: any, index: number) => {
-                          return (
-                            <Grid item xs={6} key={template.id}>
-                              <Card className="template" onClick={() => this.handleGotoTemplate(template.id)}>
-                                <div className="content">
-                                  <div className="image">
-                                    <img src={TemplateIcon} alt="" />
-                                  </div>
-                                  <h4>{template.attributes.title}</h4>
+
+                    {this.state.contract && this.state.tenant ? (
+                      <Box className="contract-info">
+                        <Card className="contract">
+                          <Grid container spacing={2}>
+                            <Grid item xs={12}>
+                              <div className="header">
+                                <Link href={``}>
+                                  <h4>Contract 1</h4>
+                                </Link>
+                                <div className="right-menu">
+                                  <Menu
+                                    menuButton={
+                                      <IconButton>
+                                        <MoreVertIcon />
+                                      </IconButton>
+                                    }
+                                  >
+                                    <MenuItem>{t("Download")}</MenuItem>
+                                    <MenuItem>{t("Share")}</MenuItem>
+                                  </Menu>
                                 </div>
-                                {index === 0 && (
-                                  <div className="right-menu">
-                                    <span>{t("Default")}</span>
-                                  </div>
-                                )}
-                              </Card>
-                            </Grid>
-                          );
-                        })}
-                      </Grid>
-                    </Box>
-                    <Box className="contract-info">
-                      <Card className="contract">
-                        <Grid container spacing={2}>
-                          <Grid item xs={12}>
-                            <div className="header">
-                              <Link href={``}>
-                                <h4>Contract 1</h4>
-                              </Link>
-                              <div className="right-menu">
-                                <Menu
-                                  menuButton={
-                                    <IconButton>
-                                      <MoreVertIcon />
-                                    </IconButton>
-                                  }
-                                >
-                                  <MenuItem>{t("Download")}</MenuItem>
-                                  <MenuItem>{t("Share")}</MenuItem>
-                                </Menu>
                               </div>
-                            </div>
+                            </Grid>
                           </Grid>
+                          <Grid container spacing={2} className="info">
+                            <Grid item xs={6}>
+                              <span>{t("Expires on")}</span>
+                              <p>30-04-2022</p>
+                            </Grid>
+                            <Grid item xs={6}>
+                              <span>{t("Building")}</span>
+                              <p>Building</p>
+                            </Grid>
+                            <Grid item xs={6}>
+                              <span>{t("Unit")}</span>
+                              <p>Unit</p>
+                            </Grid>
+                            <Grid item xs={6}>
+                              <span>{t("Tenant Name")}</span>
+                              <p>Tenant Name</p>
+                            </Grid>
+                            <Grid item xs={6}>
+                              <span>{t("Contract Type")}</span>
+                              <p>Contract Type</p>
+                            </Grid>
+                            <Grid item xs={6}>
+                              <span>{t("Contract State")}</span>
+                              <p>Contract State</p>
+                            </Grid>
+                          </Grid>
+                        </Card>
+                        <p>
+                          {t("Contract is already assigned to")} <span>{this.state.tenant.full_name}</span> {t("for")}{" "}
+                          <span>
+                            Building {this.state.buildingName} Unit {this.state.unitName}
+                          </span>
+                          . {t("You will have to end or terminate contract in order to issue a new contract.")}
+                        </p>
+                      </Box>
+                    ) : (
+                      <Box className="templates-list">
+                        <h3>{t("Select Lease Template")}</h3>
+                        <Grid container spacing={2}>
+                          {this.state.templatesList.length === 0 && (
+                            <Grid item xs={12}>
+                              <Card className="template">{t("No Template Available")}</Card>
+                            </Grid>
+                          )}
+                          {this.state.templatesList.map((template: any, index: number) => {
+                            return (
+                              <Grid item xs={6} key={template.id}>
+                                <Card className="template" onClick={() => this.handleGotoTemplate(template.id)}>
+                                  <div className="content">
+                                    <div className="image">
+                                      <img src={TemplateIcon} alt="" />
+                                    </div>
+                                    <h4>{template.attributes.title}</h4>
+                                  </div>
+                                  {index === 0 && (
+                                    <div className="right-menu">
+                                      <span>{t("Default")}</span>
+                                    </div>
+                                  )}
+                                </Card>
+                              </Grid>
+                            );
+                          })}
                         </Grid>
-                        <Grid container spacing={2} className="info">
-                          <Grid item xs={6}>
-                            <span>{t("Expires on")}</span>
-                            <p>30-04-2022</p>
-                          </Grid>
-                          <Grid item xs={6}>
-                            <span>{t("Building")}</span>
-                            <p>Building</p>
-                          </Grid>
-                          <Grid item xs={6}>
-                            <span>{t("Unit")}</span>
-                            <p>Unit</p>
-                          </Grid>
-                          <Grid item xs={6}>
-                            <span>{t("Tenant Name")}</span>
-                            <p>Tenant Name</p>
-                          </Grid>
-                          <Grid item xs={6}>
-                            <span>{t("Contract Type")}</span>
-                            <p>Contract Type</p>
-                          </Grid>
-                          <Grid item xs={6}>
-                            <span>{t("Contract State")}</span>
-                            <p>Contract State</p>
-                          </Grid>
-                        </Grid>
-                      </Card>
-                      <p>
-                        {t("Contract is already assigned to")} <span>Mr Ali Khan</span> {t("for")}{" "}
-                        <span>Building 1 Unit 102</span>.{" "}
-                        {t("You will have to end or terminate contract in order to issue a new contract.")}
-                      </p>
-                    </Box>
+                      </Box>
+                    )}
                   </Box>
                 </Container>
               </Box>
