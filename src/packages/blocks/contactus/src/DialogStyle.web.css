@@ -308,6 +308,7 @@
   color: white;
   padding: 12px 30px;
   border-radius: 25px;
+  font-weight: 600;
 }
 
 .personal .dialog-button-group button:last-child {
@@ -315,6 +316,7 @@
   background-color: white;
   color: darkgray;
   border: 0;
+  font-weight: 600;
 }
 
 .select-meeting .MuiListItemText-root {

@@ -163,14 +163,25 @@ class ContractsList extends ContractsListController {
                                               }
                                             >
                                               <MenuItem>
-                                                <Link href={contract.attributes.template_pdf.url} target="_blank">
+                                                <Link
+                                                  href={
+                                                    contract.attributes.custom_contract
+                                                      ? contract.attributes.custom_contract_image.url
+                                                      : contract.attributes.template_pdf.url
+                                                  }
+                                                  target="_blank"
+                                                >
                                                   {t("Download")}
                                                 </Link>
                                               </MenuItem>
                                               <MenuItem
                                                 onClick={() => {
                                                   this.setState(
-                                                    { shareUrl: contract.attributes.template_pdf.url },
+                                                    {
+                                                      shareUrl: contract.attributes.custom_contract
+                                                        ? contract.attributes.custom_contract_image.url
+                                                        : contract.attributes.template_pdf.url,
+                                                    },
                                                     () => {
                                                       this.handleShareModal();
                                                     }
@@ -188,7 +199,11 @@ class ContractsList extends ContractsListController {
                                       <Grid item xs={6}>
                                         <span>{t("Expires on")}</span>
                                         <p>
-                                          {moment(contract.attributes.expires_on, "YYYY-MM-DD").format("MMMM DD, YYYY")}
+                                          {contract.attributes.expires_on
+                                            ? moment(contract.attributes.expires_on, "YYYY-MM-DD").format(
+                                                "MMMM DD, YYYY"
+                                              )
+                                            : "-"}
                                         </p>
                                       </Grid>
                                       <Grid item xs={6}>
@@ -205,7 +220,7 @@ class ContractsList extends ContractsListController {
                                       </Grid>
                                       <Grid item xs={6}>
                                         <span>{t("Contract Type")}</span>
-                                        <p>{contract.attributes.contract_type}</p>
+                                        <p>{contract.attributes.contract_type || "-"}</p>
                                       </Grid>
                                       <Grid item xs={6}>
                                         <span>{t("Contract State")}</span>

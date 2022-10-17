@@ -41,7 +41,7 @@ import Loader from "../../../components/src/Loader.web";
 import { Input } from "react-native-elements";
 import * as Yup from "yup";
 import CountryCodeSelector from "../../country-code-selector/src/CountryCodeSelector";
-import CommunityUserProfileController, { Props } from "./CommunityUserProfileController";
+import CommunityUserProfileController, { Props } from "./communityManagementController.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import { withTranslation } from 'react-i18next';
@@ -57,7 +57,9 @@ class CommunityRequestManagement extends CommunityUserProfileController {
   constructor(props: Props) {
     super(props);
   }
-
+  async componentDidMount() {
+   this.getUserType()
+      }
   render() {
     const {t}: any = this.props
     return (
@@ -426,6 +428,9 @@ class CommunityRequestManagement extends CommunityUserProfileController {
                                     </Select>
                                   </FormControl>
                               </Box>
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+
                             </Grid>
                           </Grid>
                         </Form>

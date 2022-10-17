@@ -175,7 +175,7 @@ console.log(moment( myDate ).calendar())
                           style={message.message.account_id == currentAccountId ? { 'display': 'flex', 'justifyContent': 'end', alignItems: 'center' } : { 'display': 'flex', 'justifyContent': 'start', alignItems: 'center' }}
                       >
 
-
+{/* <img src=""/> */}
 
 
                       <Box style={{background:'#f6f6f6',borderRadius:'6px',padding:'0.5rem',borderTopRightRadius:0}}>
