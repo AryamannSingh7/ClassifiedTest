@@ -28,10 +28,10 @@ class SurveyParticipate extends React.Component<any, any> {
                 <Box style={{display:'flex',flexDirection:"column",alignItems:"center",justifyContent:"center",height:"100%"}}>
                     <img src={visitorSuccess} style={{marginBottom:"15px"}} />
                     <Typography variant="h5" style={{textAlign:'center',fontFamily: "Century Gothic",fontWeight:"bold"}}>
-                        Visitor Request Updated
+                        {t("Visitor Request Updated")}
                     </Typography>
                     <Typography variant="body1" style={{textAlign:'center',fontFamily: "Century Gothic",marginTop:"30px",width:"90%"}}>
-                        Your visitor request updated successfully. Updated request has been sent to security dashboard. Visitor will be able to enter hassle free.</Typography>
+                        {t("Visitor_Request_Updated_Success")}</Typography>
                 </Box>
                 <Box style={{width:"90%",marginBottom:"25px"}}>
                     <OkButton fullWidth size="large" onClick={() => this.props.history.push("/Visitors")}>{t("Okay")}</OkButton>

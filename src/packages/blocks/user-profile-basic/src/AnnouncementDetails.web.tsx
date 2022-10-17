@@ -7,7 +7,6 @@ import {
   Box,
   Grid,
   Card,
-  TextareaAutosize,
   Button,
   Dialog,
   DialogContent,
@@ -20,6 +19,7 @@ import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { SuggestionStyleWeb } from "./SuggestionStyle.web";
 import { avatarIcon, calenderIcon, CheckIcon, phone, poolImage } from "./assets";
 import moment from "moment";
+import {withTranslation} from "react-i18next";
 
 class AnnouncementDetails extends AnnouncementDetailsController {
   constructor(props: Props) {
@@ -27,6 +27,8 @@ class AnnouncementDetails extends AnnouncementDetailsController {
   }
   render() {
     const { classes } = this.props;
+    //@ts-ignore
+    const {t} = this.props
     return (
       <>
         <Box style={{ background: "#F4F7FF" }} className={classes.suggestionDetails}>
@@ -43,15 +45,15 @@ class AnnouncementDetails extends AnnouncementDetailsController {
                 <Box className="navigation">
                   <Box>
                     <Typography variant="body1">
-                      Community Management / Announcements /{" "}
+                      {t("Community Management")} / {t("Announcements")} /{" "}
                       <Box component="span" style={{ color: "blue" }}>
-                        Announcement Details
+                        {t("Announcement Details")}
                       </Box>
                     </Typography>
                   </Box>
                   <Box className="sub-heading">
-                    <h3>Announcement Details</h3>
-                    <Button onClick={() => this.handleWithdrawModal()}>withdraw Announcement</Button>
+                    <h3>{t("Announcement Details")}</h3>
+                    <Button onClick={() => this.handleWithdrawModal()}>{t("withdraw Announcement")}</Button>
                   </Box>
                 </Box>
                 <Box className="content-box">
@@ -67,7 +69,7 @@ class AnnouncementDetails extends AnnouncementDetailsController {
                         </p>
                         <span className="blue-span">{this.state.AnnouncementDetails?.announcement_category}</span>
                       </Box>
-                      <p>Description :</p>
+                      <p>{t("Description")} :</p>
                       <p>
                         {this.state.AnnouncementDetails?.description}
                       </p>
@@ -75,14 +77,14 @@ class AnnouncementDetails extends AnnouncementDetailsController {
                         <Box className="info">
                           <img src={avatarIcon} />
                           <Box>
-                            <p className="heading">Announced By:</p>
+                            <p className="heading">{t("Announced By")}:</p>
                             <p>{this.state.AnnouncementDetails?.announcement_by}</p>
                           </Box>
                         </Box>
                         <Box className="info">
                           <img src={calenderIcon} />
                           <Box>
-                            <p className="heading">Announced On:</p>
+                            <p className="heading">{t("Announced On")}:</p>
                             <p>{moment(this.state.AnnouncementDetails?.announcement_on,'DD/MM/YYYY').format("MMMM DD,YYYY")}</p>
                           </Box>
                         </Box>
@@ -104,17 +106,16 @@ class AnnouncementDetails extends AnnouncementDetailsController {
           <DialogContent style={{ margin: "15px 0" }}>
             <Box textAlign="center">
               <img className="comment-image" src={CheckIcon} alt="check" />
-              <Typography variant="h6">Withdraw Announcement</Typography>
+              <Typography variant="h6">{t("Withdraw Announcement")}</Typography>
               <Typography variant="body1" style={{ marginBottom: "0px" }}>
-                Are you sure you want to withdrawn the announcement? <br />
-                If you withdraw the announcement it will be deleted from the system.
+                {t("Announcement_Withdraw_Caution")}
               </Typography>
               <DialogActions className="dialog-button-group">
                 <Button className="cancel-button" style={{ width: "200px" }} onClick={() => this.handleWithdrawModal()}>
-                  Close
+                  {t("Close")}
                 </Button>
                 <Button style={{ width: "200px" }} className="add-button" onClick={this.handleWithdraw}>
-                  Confirm
+                  {t("Confirm")}
                 </Button>
               </DialogActions>
             </Box>
@@ -125,5 +126,5 @@ class AnnouncementDetails extends AnnouncementDetailsController {
   }
 }
 
-export default withStyles(SuggestionStyleWeb)(withRouter(AnnouncementDetails));
+export default withTranslation()(withStyles(SuggestionStyleWeb)(withRouter(AnnouncementDetails)));
 // Customizable Area End

@@ -74,6 +74,7 @@ class SubmitPoll extends PollingController {
                           { __html: DOMPurify.sanitize(this.state.pollPreviewAnswer.poll?.data?.attributes.description) }
                         }
                         >
+
                         </p>
                     </Box>
                     <Box marginTop='1rem'>

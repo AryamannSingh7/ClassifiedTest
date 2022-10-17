@@ -22,14 +22,15 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
 import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
+import {withTranslation} from "react-i18next";
 class Visitors extends VisitorAddController{
   constructor(props: Props) {
     super(props);
   }
 
   render() {
-    // @ts-ignore
       // @ts-ignore
+      const {t} = this.props
       return (
         <>
             <Grid item xs={12} md={12} className="auth-cols">
@@ -38,7 +39,7 @@ class Visitors extends VisitorAddController{
                       <Box style={{ display:"flex", alignItems:"center", gap:"1rem",marginBottom:"05px"}}>
                           <ArrowBackIcon onClick={() => window.history.back()} />
                           <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
-                              {this.state.visitorId ? "Edit Visitor Request":"Add Visitor Request"}
+                              {this.state.visitorId ? t("Edit Visitor Request"):t("Add Visitor Request")}
                           </p>
                       </Box>
                   </Grid>
@@ -73,7 +74,7 @@ class Visitors extends VisitorAddController{
                                                 <Field
                                                     className="formInput"
                                                     name="visitorName"
-                                                    placeholder={"Visitor Name"}
+                                                    placeholder={t("Visitor Name")}
                                                 />
                                                 <span className="frmLeftIcons">
                                                     <img src={user} />
@@ -117,7 +118,7 @@ class Visitors extends VisitorAddController{
                                                 </Box>
                                                 <Field
                                                     name="phone"
-                                                    placeholder={"Visitor Phone"}
+                                                    placeholder={t("Visitor Phone")}
                                                     id="mobile"
                                                     style={{
                                                         border: "none",
@@ -149,8 +150,8 @@ class Visitors extends VisitorAddController{
                                                             }}
                                                         >
                                                             <AddIcon style={{fontSize:"45px",color:"#9c9c9c"}}/>
-                                                            <Typography variant="body1" color="textSecondary">Add Visitor ID copy</Typography>
-                                                            <Typography variant="body1">(optional)</Typography>
+                                                            <Typography variant="body1" color="textSecondary">{t("Add Visitor ID copy")}</Typography>
+                                                            <Typography variant="body1">({t("optional")})</Typography>
                                                         </div>
                                                 }
                                                 <input
@@ -182,7 +183,7 @@ class Visitors extends VisitorAddController{
                                                         }}
                                                         onBlur={handleBlur}
                                                         name="date"
-                                                        placeholder="Select Date"
+                                                        placeholder={t("Select Date")}
                                                         className="date"
                                                         // @ts-ignore
                                                         inputProps={{
@@ -205,7 +206,7 @@ class Visitors extends VisitorAddController{
                                                             setFieldValue("time", e.target.value);
                                                         }}
                                                         onBlur={handleBlur}
-                                                        placeholder="Select Time"
+                                                        placeholder={t("Select Time")}
                                                         name="time"
                                                         fullWidth
                                                         type={this.state.inputType2}
@@ -218,14 +219,14 @@ class Visitors extends VisitorAddController{
                                         </Grid>
                                         <Grid item xs={12} style={{marginTop:"10px"}}>
                                             <Typography>
-                                                Is visitor coming with car?
+                                                {t("Is visitor coming with car?")}
                                             </Typography>
                                             <FormControl component="fieldset" >
                                                 <RadioGroup aria-label="gender" style={{flexDirection:"row"}} name="gender1" value={values.withCar} onChange={(e)=> setFieldValue("withCar", e.target.value)}>
                                                     <FormControlLabel value="true" control={<Radio icon={<RadioButtonUncheckedIcon style={{color:"#525252"}} />}
-                                                                                                   checkedIcon={<RadioButtonCheckedIcon style={{color:"#FC8434"}} />} />} label="Yes" />
+                                                                                                   checkedIcon={<RadioButtonCheckedIcon style={{color:"#FC8434"}} />} />} label={t("Yes")} />
                                                     <FormControlLabel value="false" control={<Radio icon={<RadioButtonUncheckedIcon style={{color:"#525252"}} />}
-                                                                                                    checkedIcon={<RadioButtonCheckedIcon style={{color:"#FC8434"}} />} />} label="No" />
+                                                                                                    checkedIcon={<RadioButtonCheckedIcon style={{color:"#FC8434"}} />} />} label={t("No")} />
                                                 </RadioGroup>
                                             </FormControl>
                                         </Grid>
@@ -234,7 +235,7 @@ class Visitors extends VisitorAddController{
                                                 <Field
                                                     className="formInput"
                                                     name="carPlateNo"
-                                                    placeholder={"Car Plate Number"}
+                                                    placeholder={t("Car Plate Number")}
                                                 />
                                                 <span className="frmLeftIcons">
                                                     <img src={list} />
@@ -244,7 +245,7 @@ class Visitors extends VisitorAddController{
                                         </Grid>
                                         <Grid item xs={12}>
                                             <CloseButton type="submit" variant="contained" fullWidth size="large">
-                                                Submit
+                                                {t("Submit")}
                                             </CloseButton>
                                         </Grid>
                                 </Grid>
@@ -259,7 +260,7 @@ class Visitors extends VisitorAddController{
     );
   }
 }
-export default withRouter(Visitors)
+export default withTranslation()(withRouter(Visitors))
 
 const CloseButton = withStyles((theme) => ({
     root: {

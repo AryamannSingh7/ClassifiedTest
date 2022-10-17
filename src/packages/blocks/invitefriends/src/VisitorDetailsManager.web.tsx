@@ -34,6 +34,7 @@ import { SearchIconImage, UploadImage } from "../../user-profile-basic/src/asset
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
 import moment from "moment";
+import {withTranslation} from "react-i18next";
 
 class VisitorDetails extends VisitorDetailsController {
     constructor(props: Props) {
@@ -43,7 +44,8 @@ class VisitorDetails extends VisitorDetailsController {
     render() {
         // @ts-ignore
         const { classes } = this.props;
-
+        //@ts-ignore
+        const {t} = this.props
         return (
             <>
                 <Box style={{ background: "#F4F7FF" }} className={classes.announcements}>
@@ -60,54 +62,51 @@ class VisitorDetails extends VisitorDetailsController {
                                 <Box className="navigation">
                                     <Box>
                                         <Typography variant="body1">
-                                            My Dashboards /{" "} General Dashboards /{" "} Visitors /{" "}
+                                            {t("My Dashboards")} /{" "} {t("General Dashboards")} /{" "} {t("Visitors")} /{" "}
                                             <Box component="span" style={{ color: "blue" }}>
-                                                Visitors Details
+                                                {t("Visitors Details")}
                                             </Box>
                                         </Typography>
                                         <Typography variant="h5" className="sub-heading">
-                                            Visitors Details
+                                            {t("Visitors Details")}
                                         </Typography>
                                     </Box>
                                 </Box>
                                 <Box className="meeting-table">
                                     <Grid item sm={12} md={12} xs={12}>
                                         <Box className="table-top">
-                                            <h5>Visitors Details</h5>
+                                            <h5>{t("Visitors Details")}</h5>
                                         </Box>
                                         <Divider />
                                         <Box width="100%" style={{display:'flex',flexDirection:"column",alignItems:"center"}}>
                                             <Box style={{width:"95%"}}>
                                                 <Box style={{display:"flex",margin:"10px 0px"}}>
-                                                    <Typography style={{marginRight:"5px"}}>Visitor Name : </Typography>
-                                                    {
-                                                        console.log("THIS IS VISITORS",this.state.visitorDetails)
-                                                    }
+                                                    <Typography style={{marginRight:"5px"}}>{t("Visitor Name")} : </Typography>
                                                     <Typography style={{fontWeight:"bold"}}>{this.state.visitorDetails.name}</Typography>
                                                 </Box>
                                                 <Divider/>
                                                 <Box style={{display:"flex",margin:"10px 0px"}}>
-                                                    <Typography style={{marginRight:"5px"}}>Resident Name : </Typography>
+                                                    <Typography style={{marginRight:"5px"}}>{t("Resident Name")} : </Typography>
                                                     <Typography style={{fontWeight:"bold"}}>{this.state.visitorDetails.resident_name}</Typography>
                                                 </Box>
                                                 <Divider/>
                                                 <Box style={{display:"flex",margin:"10px 0px"}}>
-                                                    <Typography style={{marginRight:"5px"}}>Building Name : </Typography>
+                                                    <Typography style={{marginRight:"5px"}}>{t("Building Name")} : </Typography>
                                                     <Typography style={{fontWeight:"bold"}}>{this.state.visitorDetails?.building_management?.name}</Typography>
                                                 </Box>
                                                 <Divider/>
                                                 <Box style={{display:"flex",margin:"10px 0px"}}>
-                                                    <Typography style={{marginRight:"5px"}}>Unit Number : </Typography>
+                                                    <Typography style={{marginRight:"5px"}}>{t("Unit Number")} : </Typography>
                                                     <Typography style={{fontWeight:"bold"}}>{this.state.visitorDetails.unit_number}</Typography>
                                                 </Box>
                                                 <Divider/>
                                                 <Box style={{display:"flex",margin:"10px 0px"}}>
-                                                    <Typography style={{marginRight:"5px"}}>Date : </Typography>
+                                                    <Typography style={{marginRight:"5px"}}>{t("Date")} : </Typography>
                                                     <Typography style={{fontWeight:"bold"}}>{moment(this.state?.visitorDetails?.schedule_date).format("DD MMMM YYYY")}</Typography>
                                                 </Box>
                                                 <Divider/>
                                                 <Box style={{display:"flex",margin:"10px 0px"}}>
-                                                    <Typography style={{marginRight:"5px"}}>Phone Number : </Typography>
+                                                    <Typography style={{marginRight:"5px"}}>{t("Phone Number")} : </Typography>
                                                     <Typography style={{fontWeight:"bold"}}>{this.state?.visitorDetails?.mobile_number?.full_mobile_number}</Typography>
                                                 </Box>
                                             </Box>
@@ -123,5 +122,5 @@ class VisitorDetails extends VisitorDetailsController {
     }
 }
 
-export default withStyles(SuggestionStyleWeb)(withRouter(VisitorDetails));
+export default withTranslation()(withStyles(SuggestionStyleWeb)(withRouter(VisitorDetails)));
 // Customizable Area End

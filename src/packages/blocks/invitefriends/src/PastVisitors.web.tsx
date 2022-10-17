@@ -25,6 +25,7 @@ import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import {boolean} from "yup";
 import moment from "moment";
+import {withTranslation} from "react-i18next";
 
 class Announcement extends PastVisitorController{
   constructor(props: Props) {
@@ -32,7 +33,8 @@ class Announcement extends PastVisitorController{
   }
 
   render() {
-    // @ts-ignore
+      // @ts-ignore
+      const {t} = this.props
       return (
         <>
             <Grid item xs={12} md={12} className="auth-cols">
@@ -41,7 +43,7 @@ class Announcement extends PastVisitorController{
                       <Box style={{ display:"flex", alignItems:"center", gap:"5px"}}>
                           <ArrowBackIcon onClick={() => window.history.back()} />
                           <p style={{ fontSize: '1rem', fontWeight: 600 }}>
-                              Past Visitors
+                              {t("Past Visitors")}
                           </p>
                       </Box>
                           <Box>
@@ -59,10 +61,10 @@ class Announcement extends PastVisitorController{
                                   'aria-labelledby': 'basic-button',
                               }}
                           >
-                              <MenuItem onClick={this.handle1Month}>Last 1 Month</MenuItem>
-                              <MenuItem onClick={this.handle3Month}>Last 3 Month</MenuItem>
-                              <MenuItem onClick={this.handle6Month}>Last 6 Month</MenuItem>
-                              <MenuItem onClick={this.handle12Month}>Last 12 Month</MenuItem>
+                              <MenuItem onClick={this.handle1Month}>{t("Last")} 1 {t("Month")}</MenuItem>
+                              <MenuItem onClick={this.handle3Month}>{t("Last")} 3 {t("Month")}</MenuItem>
+                              <MenuItem onClick={this.handle6Month}>{t("Last")} 6 {t("Month")}</MenuItem>
+                              <MenuItem onClick={this.handle12Month}>{t("Last")} 12 {t("Month")}</MenuItem>
                           </Menu>
                   </Grid>
                 </Grid>
@@ -110,7 +112,7 @@ class Announcement extends PastVisitorController{
     );
   }
 }
-export default withRouter(Announcement)
+export default withTranslation()(withRouter(Announcement))
 
 const CloseButton = withStyles((theme) => ({
     root: {
