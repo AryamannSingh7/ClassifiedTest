@@ -184,6 +184,10 @@ export const ContractsStyleWeb: any = {
       height: "86vh",
       paddingTop: "20px",
     },
+    "& .contract-detail iframe": {
+      height: "calc(100% - 11px)",
+      width: "100%",
+    },
     "& .contract-detail .content-box .contracts-list": {
       height: "calc(100% - 70px)",
     },

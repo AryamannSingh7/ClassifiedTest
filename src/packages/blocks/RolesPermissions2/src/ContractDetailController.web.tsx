@@ -38,6 +38,7 @@ interface SS {
 interface ContractData {
   templateUrl: string;
   templateText: string;
+  isCustomContract: boolean;
 }
 
 export default class ContractDetailController extends BlockComponent<Props, S, SS> {
@@ -61,6 +62,7 @@ export default class ContractDetailController extends BlockComponent<Props, S, S
       contractData: {
         templateUrl: "",
         templateText: "",
+        isCustomContract: false,
       },
     };
     // Customizable Area End
@@ -80,10 +82,16 @@ export default class ContractDetailController extends BlockComponent<Props, S, S
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson.code === 200) {
+        const contract = responseJson.contract.data;
         this.setState({
           contractData: {
-            templateText: responseJson.contract.data.attributes.template_text,
-            templateUrl: responseJson.contract.data.attributes.template_pdf.url,
+            templateText: contract.attributes.custom_contract
+              ? contract.attributes.custom_contract_image.url
+              : contract.attributes.template_text,
+            templateUrl: contract.attributes.custom_contract
+              ? contract.attributes.custom_contract_image.url
+              : contract.attributes.template_pdf.url,
+            isCustomContract: contract.attributes.custom_contract,
           },
         });
       }
