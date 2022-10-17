@@ -54,13 +54,29 @@ class ChairmanProfile extends ProfileController {
         // this.getVehicle()
     
       }
+      checkNosocialMedia(profileData:any){
+     
+      
 
+        if(!profileData?.attributes?.website[0].twitter_link){
+          if(!profileData?.attributes?.website[1].instagram_link){
+            if(!profileData?.attributes?.website[2].fb_link){
+              if(!profileData?.attributes?.website[3].snapchat_link){
+  return 'No social media handle'
+              }
+            }
+  
+          }
+        }
+  
+      }
   render() {
      //@ts-ignore
             //@ts-nocheck
     const { classes } = this.props;
     let profileData =this.state.profiledata
 
+ 
     return (
       <>
         <Box
@@ -161,7 +177,8 @@ class ChairmanProfile extends ProfileController {
                             <span>Social Media</span>
                             <Box className="icons">
                             {
-                    profileData?.attributes?.website[0].twitter_link && <Button href={profileData?.attributes?.website[0].twitter_link} target="_blank">
+                    profileData?.attributes?.website[0].twitter_link &&
+                     <Button href={profileData?.attributes?.website[0].twitter_link} target="_blank">
                       <img src={TwitterIcon} alt="phone" />
                     </Button>
                   }
@@ -180,6 +197,12 @@ class ChairmanProfile extends ProfileController {
                       <img src={SnapchatIcon} alt="email" />
                     </Button>
                   }
+                  {
+                    this.checkNosocialMedia(profileData)
+  
+                    
+                  }
+                 
                              
                             </Box>
                           </Grid>
@@ -227,7 +250,7 @@ class ChairmanProfile extends ProfileController {
           <Grid container className="main-content-block" style={{marginTop:'1.5rem',padding: '1rem'}}>
                 <Grid xs={12}>
                   <Formik initialValues={{
-                    bannerUrl:'',
+                    bannerUrl: profileData?.attributes?.profile_pic,
                     full_name: profileData?.attributes?.full_name?.name,
                     banner:'',
                     phone: profileData?.attributes?.full_phone_number?.phone_number,
@@ -321,11 +344,12 @@ class ChairmanProfile extends ProfileController {
                             </Typography>
                           ) : null}
 
-                          <Box style={{display:'flex',justifyContent:'space-between'}}>
+                          <Box style={{display:'flex',justifyContent:'space-between',width:'100%'}}>
                             {/* name */}
 
                           <Box
                             className="formInputGrp"
+                            style={{width:'50%'}}
                           >
 
 
@@ -336,7 +360,7 @@ class ChairmanProfile extends ProfileController {
                               placeholder={"Enter your name"}
 
                             />
-                            <span className="frmLeftIcons">
+                            <span className="frmLeftIcons" style={{top:'22%'}}>
                               <img src={user} />
                             </span>
                           </Box>
@@ -367,7 +391,8 @@ class ChairmanProfile extends ProfileController {
                             height="56px"
                             border="0.1px solid rgb(209 209 209 / 44%)"
                             borderRadius="25px"
-                            bgcolor="#f9f9f9"
+                            bgcolor="#f9f9f9" 
+                            style={{width:'100%'}}
                           >
                             <Box>
                               <FormControl variant="outlined" >
@@ -515,9 +540,9 @@ class ChairmanProfile extends ProfileController {
                                   style={{ display: 'flex',flexDirection:'row',marginTop:'0.25rem',width:'100%' }}
                                 >
                                   {/* <FormControlLabel name={values.gender} value="Female" control={<Radio />} label="Female" /> */}
-                                  <FormControlLabel className={values.gender == 'Female' ? 'active':'unactive'} name='gender' onChange={handleChange} value="Female" control={<Radio/>} label="Female" style={{ paddingRight: 30, borderRadius: 25, border: '1px solid #e9dede',width:'40%' }}  />
+                                  <FormControlLabel className={values.gender == 'Female' ? 'active':'unactive'} name='gender' onChange={handleChange} value="Female" control={<Radio/>} label="Female" style={{ padding:'7px 42px 7px 10px', borderRadius: 25, border: '1px solid #e9dede',width:'40%',background:'#F9F9F9' }}  />
                                   <FormControlLabel
-                                    className={values.gender == 'Male' ? 'active' : 'unactive'} name='gender' onChange={handleChange} value="Male" control={<Radio />} label="Male" style={{ paddingRight: 30, borderRadius: 25, border: '1px solid #e9dede',width:'40%' }} />
+                                    className={values.gender == 'Male' ? 'active' : 'unactive'} name='gender' onChange={handleChange} value="Male" control={<Radio />} label="Male" style={{ padding:'7px 42px 7px 10px', borderRadius: 25, border: '1px solid #e9dede',width:'40%',background:'#F9F9F9' }} />
 
                                 </RadioGroup>
                               {/* <Checkbox name="male" onChange={handleChange} checked={values.male} icon={<CircleUnchecked />}
@@ -542,7 +567,7 @@ class ChairmanProfile extends ProfileController {
                               placeholder={"Date of Birth"}
 
                             />
-                            <span className="frmLeftIcons">
+                            <span className="frmLeftIcons" style={{top:'12%'}}>
                               <img src={calendar} />
                             </span>
                           </Box>
@@ -607,8 +632,9 @@ class ChairmanProfile extends ProfileController {
                             </Typography>
                           ) : null}
 </Box>
-<Box style={{display:'flex',justifyContent:'space-between'}}>
-
+<Box style={{display:'flex',justifyContent:'space-between',width:'100%',gap:'1rem'}}>
+<div style={{display:'flex',flexDirection:'column',width:'50%'}}>
+  
                           {/* Twitter */}
                           <Box
                             className="formInputGrp"
@@ -641,6 +667,9 @@ class ChairmanProfile extends ProfileController {
                               <ErrorMessage className="text-error" component="Typography" name="twitter" />
                             </Typography>
                           ) : null}
+</div>
+
+<div style={{display:'flex',flexDirection:'column',width:'50%'}}>
 
                           {/* fb */}
                           <Box
@@ -674,8 +703,11 @@ class ChairmanProfile extends ProfileController {
                               <ErrorMessage className="text-error" component="Typography" name="fb" />
                             </Typography>
                           ) : null}
+</div>
+
 </Box>
-<Box style={{display:'flex',justifyContent:'space-between'}}>
+<Box style={{display:'flex',justifyContent:'space-between',width:'100%',gap:'1rem'}}>
+<div style={{display:'flex',flexDirection:'column',width:'50%'}}>
 
                           {/* Insta */}
                           <Box
@@ -709,6 +741,9 @@ class ChairmanProfile extends ProfileController {
                               <ErrorMessage className="text-error" component="Typography" name="insta" />
                             </Typography>
                           ) : null}
+</div>
+<div style={{display:'flex',flexDirection:'column',width:'50%'}}>
+
                           {/* snap */}
                           <Box
                             className="formInputGrp"
@@ -741,12 +776,13 @@ class ChairmanProfile extends ProfileController {
                               <ErrorMessage className="text-error" component="Typography" name="snap" />
                             </Typography>
                           ) : null}
+</div>
 </Box>
 
                            </Box>
                            <Box style={{padding:'1rem',borderTop:'1px solid #1A181D25',display:'flex',justifyContent:'end'}}>
 
-                           <Button variant='text' onClick={() =>{localStorage.setItem('profileData',JSON.stringify(profileData)); this.setState({ showDialog: false })}}  >
+                           <Button variant='text' onClick={() =>{localStorage.setItem('profileData',JSON.stringify(profileData)); this.setState({ showDialog: false })}} style={{marginRight:'2rem'}}  >
                 CANCEL
               </Button>
                         <Box className="customButton" style={{width:'10rem'}}>
@@ -888,22 +924,30 @@ class ChairmanProfile extends ProfileController {
                           outline: "none",
                           backgroundColor: '#f9f9f9'
                         }}
+                        
                       />
                     </Box>
+                  
+                           {
+                            this.state.error == 'Invalid or Unrecognized Phone Number' ? <p className="text-error">{this.state.error}</p>
+                            :null
 
-                    {errors.phone && touched.phone ? (
-                      <Typography
-                        style={{
-                          color: "#F14E24",
-                          fontWeight: 300,
-                          fontSize: 14,
-                          marginTop: 5,
-                          marginLeft: 10
-                        }}
-                      >
-                        <ErrorMessage className="text-error" component="Typography" name="phone" />
-                      </Typography>
-                    ) : null}
+                          }
+                            {errors.phone && touched.phone ? (
+                              <Typography
+                                style={{
+                                  color: "#F14E24",
+                                  fontWeight: 300,
+                                  fontSize: 14,
+                                  marginTop: 5,
+                                  marginLeft: 10
+                                }}
+                              >
+                                <ErrorMessage className="text-error" component="Typography" name="phone" />
+                             
+                              </Typography>
+                            ) : null}
+                        
                     <Box className="dialog-footer desktop-ui">
                       <DialogActions className="customButton">
                         <Button
@@ -929,7 +973,9 @@ class ChairmanProfile extends ProfileController {
             style: {
               borderRadius: '15px',
               padding: '1rem',
-              margin: 0
+              margin: 0,
+              minWidth:'400px',
+              minHeight:'344px'
             },
           }}
         >
@@ -937,7 +983,7 @@ class ChairmanProfile extends ProfileController {
             x
           </Box>
           <Grid container>
-            <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
+            <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10,marginTop:'2rem' }}>
 
               <img src={mobile} />
             </Grid>
@@ -968,7 +1014,7 @@ class ChairmanProfile extends ProfileController {
                 // separator={<span>-</span>}
                 />
               </Box>
-              <Box className="customButton row-btn">
+              <Box className="customButton row-btn" style={{marginTop:'2.25rem'}}>
                 <Button variant="contained" onClick={() => { this.verifyOtp() }}>SEND</Button>
               </Box>
             </Grid>
