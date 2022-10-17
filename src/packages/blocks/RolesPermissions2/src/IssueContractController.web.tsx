@@ -23,7 +23,12 @@ interface S {
   unitList: any[];
 
   buildingId: string;
+  buildingName: string;
   unitId: string;
+  unitName: string;
+
+  tenant: any;
+  contract: any;
   // Customizable Area End
 }
 
@@ -35,6 +40,7 @@ export default class IssueContractController extends BlockComponent<Props, S, SS
   GetTemplatesListCallId: any;
   GetBuildingListCallId: any;
   GetUnitListCallId: any;
+  IsContractExistCallId: any;
 
   constructor(props: Props) {
     super(props);
@@ -49,7 +55,12 @@ export default class IssueContractController extends BlockComponent<Props, S, SS
       unitList: [],
 
       buildingId: "",
+      buildingName: "",
       unitId: "",
+      unitName: "",
+
+      tenant: null,
+      contract: null,
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -116,6 +127,27 @@ export default class IssueContractController extends BlockComponent<Props, S, SS
       if (responseJson.apartments) {
         this.setState({ unitList: responseJson.apartments });
       }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // Find Unit Contract Exist - API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.IsContractExistCallId !== null &&
+      this.IsContractExistCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.IsContractExistCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      this.setState({ tenant: responseJson.account, contract: responseJson.contract.data });
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
@@ -208,6 +240,7 @@ export default class IssueContractController extends BlockComponent<Props, S, SS
     return true;
   };
 
+  // Find Unit Contract Exist - API
   handleCheckContractExist = () => {
     const header = {
       "Content-Type": configJSON.ApiContentType,
@@ -216,13 +249,13 @@ export default class IssueContractController extends BlockComponent<Props, S, SS
 
     const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
 
-    this.GetUnitListCallId = apiRequest.messageId;
+    this.IsContractExistCallId = apiRequest.messageId;
 
     const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_contract/contracts/find_unit?building_management_id=${
-        this.state.buildingId
+      `society_managements/${society_id}/bx_block_contract/contracts/find_tenant?apartment_management_id=${
+        this.state.unitId
       }`
     );
 
@@ -240,10 +273,9 @@ export default class IssueContractController extends BlockComponent<Props, S, SS
       toast.error("Please select building");
     } else if (!this.state.unitId) {
       toast.error("Please select unit");
+    } else if (!this.state.tenant) {
+      toast.error("Please register tenant");
     }
-    // else if (!this.state.unitId) {
-    //   toast.error("Please register tenant");
-    // }
     if (this.state.buildingId && this.state.unitId) {
       this.props.navigation.navigate("SelectedTemplateTwo", { id: templateId });
     }

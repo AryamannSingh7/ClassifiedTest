@@ -76,7 +76,7 @@ export const SuggestionStyleWeb: any = {
       fontFamily: "Century Gothic !important",
     },
     "& .meeting-table .table-box .MuiTableHead-root th": {
-      fontFamily: "Century Gothic !important",
+      // fontFamily: "Century Gothic !important",
     },
     "& .meeting-table .table-box .MuiTableRow-root": {
       borderBottom: "1px solid #f0f0f0",
@@ -392,7 +392,7 @@ export const SuggestionStyleWeb: any = {
       fontFamily: "Century Gothic !important",
     },
     "& .meeting-table .table-box .MuiTableHead-root th": {
-      fontFamily: "Century Gothic !important",
+      // fontFamily: "Century Gothic !important",
     },
     "& .meeting-table .table-box .MuiTableRow-root": {
       borderBottom: "1px solid #f0f0f0",

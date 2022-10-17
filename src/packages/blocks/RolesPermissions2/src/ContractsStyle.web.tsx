@@ -87,6 +87,7 @@ export const ContractsStyleWeb: any = {
       color: "white",
       padding: "12px 50px",
       borderRadius: "25px",
+      fontWeight: 600,
     },
     "& .upload-button .MuiGrid-container": {
       width: "fit-content",
@@ -184,6 +185,10 @@ export const ContractsStyleWeb: any = {
       height: "86vh",
       paddingTop: "20px",
     },
+    "& .contract-detail iframe": {
+      height: "calc(100% - 11px)",
+      width: "100%",
+    },
     "& .contract-detail .content-box .contracts-list": {
       height: "calc(100% - 70px)",
     },
@@ -247,6 +252,7 @@ export const ContractsStyleWeb: any = {
       color: "white",
       padding: "12px 50px",
       borderRadius: "25px",
+      fontWeight: 600,
     },
     "& .upload-button .MuiGrid-container": {
       width: "fit-content",
@@ -489,6 +495,7 @@ export const ContractsStyleWeb: any = {
       color: "white",
       padding: "12px 50px",
       borderRadius: "25px",
+      fontWeight: 600,
     },
   },
   changedTemplate: {
@@ -568,6 +575,7 @@ export const ContractsStyleWeb: any = {
       borderRadius: "25px",
       minWidth: "300px",
       marginTop: "10px",
+      fontWeight: 600,
     },
     "& .upload-button button.condition-button": {
       background: "white",
