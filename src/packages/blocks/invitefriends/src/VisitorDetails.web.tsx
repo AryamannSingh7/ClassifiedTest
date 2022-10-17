@@ -25,6 +25,7 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import Modal from "@material-ui/core/Modal";
 import moment from "moment";
+import {withTranslation} from "react-i18next";
 
 class VisitorDetails extends VisitorDetailsController{
   constructor(props: Props) {
@@ -33,6 +34,7 @@ class VisitorDetails extends VisitorDetailsController{
 
   render() {
     // @ts-ignore
+      const {t} = this.props
       return (
         <>
             <Grid item xs={12} md={12} className="auth-cols">
@@ -42,7 +44,7 @@ class VisitorDetails extends VisitorDetailsController{
                           <ArrowBackIcon onClick={() => window.history.back()} />
                           <p style={{ fontSize: '1rem', fontWeight: 600 }}>
                               {
-                                  this.props.match.params.type === "past" ? "Past Visitor Details" : "Visitor Details"
+                                  this.props.match.params.type === "past" ? t("Past Visitor Details") : t("Visitor Details")
                               }
                           </p>
                       </Box>
@@ -89,7 +91,7 @@ class VisitorDetails extends VisitorDetailsController{
                                         </Box>
                                         <Box style={{display:'flex',flexDirection:"column",justifyContent:"center"}}>
                                             <Typography variant={"body2"} >
-                                                Scheduled Date:
+                                                {t("Scheduled Date")}:
                                             </Typography>
                                             <Typography variant="subtitle2" style={{fontWeight:"bold"}}>
                                                 {moment(this.state?.visitorDetails?.schedule_date).format("DD MMMM YYYY")}
@@ -102,7 +104,7 @@ class VisitorDetails extends VisitorDetailsController{
                                         </Box>
                                         <Box style={{display:'flex',flexDirection:"column",justifyContent:"center"}}>
                                             <Typography variant={"body2"} >
-                                                Building Name:
+                                                {t("Building Name")}:
                                             </Typography>
                                             <Typography variant="subtitle2" style={{fontWeight:"bold"}}>
                                                 {this.state.visitorDetails?.building_management?.name}
@@ -115,7 +117,7 @@ class VisitorDetails extends VisitorDetailsController{
                                         </Box>
                                         <Box style={{display:'flex',flexDirection:"column",justifyContent:"center"}}>
                                             <Typography variant={"body2"} >
-                                                Phone Number:
+                                                {t("Phone Number")}:
                                             </Typography>
                                             <Typography variant="subtitle2" style={{fontWeight:"bold"}}>
                                                 {this.state?.visitorDetails?.mobile_number?.full_mobile_number}
@@ -128,7 +130,7 @@ class VisitorDetails extends VisitorDetailsController{
                                         </Box>
                                         <Box style={{display:'flex',flexDirection:"column",justifyContent:"center"}}>
                                             <Typography variant={"body2"} >
-                                                Scheduled Time:
+                                                {t("Scheduled Time")}:
                                             </Typography>
                                             <Typography variant="subtitle2" style={{fontWeight:"bold"}}>
                                                 {moment(this.state.visitorDetails.schedule_time).format("hh:mm")}
@@ -140,7 +142,7 @@ class VisitorDetails extends VisitorDetailsController{
                             {
                                 this.state.visitorDetails?.image?.url &&
                                 <>
-                                    <Typography variant="h6" style={{marginTop:"15px",fontWeight:"bold"}}> ID </Typography>
+                                    <Typography variant="h6" style={{marginTop:"15px",fontWeight:"bold"}}> {t("ID")} </Typography>
                                     <Box
                                         display="flex"
                                         justifyContent='space-between'
@@ -178,15 +180,15 @@ class VisitorDetails extends VisitorDetailsController{
                                     <img src={userIcon} />
                                 </Box>
                                 <Typography variant="h6" style={{color:"black",fontWeight:"bold",marginTop:"15px",marginBottom:"10px",textAlign:"center"}}>
-                                    Scheduled Visitors
+                                    {t("Scheduled Visitors")}
                                 </Typography>
                                 <Typography variant="body2" style={{textAlign:"center"}}>
-                                    Are you sure that you want to cancel this scheduled visit?
+                                    {t("Are you sure that you want to cancel this scheduled visit?")}
                                 </Typography>
                                 <Box style={{marginTop:"15px",width:"90%",display:"flex",flexDirection:"column",alignItems:"center"}}>
                                     {/*@ts-ignore*/}
-                                    <CloseButton variant="outlined" fullWidth style={{marginRight:"10px",marginBottom:"15px"}} onClick={this.closeDeleteModal}>Yes, Cancel</CloseButton>
-                                    <PublishButton fullWidth onClick={this.handleCloseDeleteModal} >No, Don't Cancel</PublishButton>
+                                    <CloseButton variant="outlined" fullWidth style={{marginRight:"10px",marginBottom:"15px"}} onClick={this.closeDeleteModal}>{t("Yes, Cancel")}</CloseButton>
+                                    <PublishButton fullWidth onClick={this.handleCloseDeleteModal} >{t("No, Don't Cancel")}</PublishButton>
                                 </Box>
                             </Box>
                         </Box>
@@ -197,7 +199,7 @@ class VisitorDetails extends VisitorDetailsController{
     );
   }
 }
-export default withRouter(VisitorDetails)
+export default withTranslation()(withRouter(VisitorDetails))
 
 const CloseButton = withStyles((theme) => ({
     root: {

@@ -12,6 +12,7 @@ import VisitorController, {
   Props
 } from "./VisitorController";
 import './style.css'
+import {withTranslation} from "react-i18next";
 
 class Visitors extends VisitorController{
   constructor(props: Props) {
@@ -19,6 +20,8 @@ class Visitors extends VisitorController{
   }
 
   render() {
+    // @ts-ignore
+    const {t} = this.props
     return (
         <>
             <Grid item xs={12} md={12} className="auth-cols">
@@ -27,7 +30,7 @@ class Visitors extends VisitorController{
                       <Box style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
                           <ArrowBackIcon onClick={() => this.props.history.push("/")} />
                           <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
-                              My Visitors
+                              {t("My Visitors")}
                           </p>
                       </Box>
                   </Grid>
@@ -50,7 +53,7 @@ class Visitors extends VisitorController{
                                     <Box style={{display:"flex",alignItems:"center"}}>
                                         <img src={sceduledVisitor} style={{marginRight:"20px"}}/>
                                         <Typography variant={"body1"} style={{fontWeight:"bold"}}>
-                                            Scheduled Visitors
+                                            {t("Scheduled Visitors")}
                                         </Typography>
                                     </Box>
                                 </Box>
@@ -72,7 +75,7 @@ class Visitors extends VisitorController{
                                     <Box style={{display:"flex",alignItems:"center"}}>
                                         <img src={pastVisitor} style={{marginRight:"20px"}}/>
                                         <Typography variant={"body1"} style={{fontWeight:"bold"}}>
-                                            Past Visitors
+                                            {t("Past Visitors")}
                                         </Typography>
                                     </Box>
                                 </Box>
@@ -81,7 +84,7 @@ class Visitors extends VisitorController{
                     </Grid>
                     <Box style={{width:"90%",marginBottom:"50px",marginTop:"10px"}}>
                         <CloseButton variant="contained" fullWidth size="large" onClick={()=> this.props.history.push("/AddVisitor")}>
-                            add visitor request
+                            {t("Add Visitor Request")}
                         </CloseButton>
                     </Box>
                 </Box>
@@ -90,7 +93,7 @@ class Visitors extends VisitorController{
     );
   }
 }
-export default withRouter(Visitors)
+export default withTranslation()(withRouter(Visitors))
 
 const CloseButton = withStyles((theme) => ({
     root: {

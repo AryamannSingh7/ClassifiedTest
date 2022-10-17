@@ -22,6 +22,7 @@ import "./Polling.web.css"
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import {withTranslation} from "react-i18next";
 
 const exampleQuestion = [
     {
@@ -82,6 +83,8 @@ class SurveyParticipate extends SurveyParticipateController {
         super(props);
     }
     render() {
+    //@ts-ignore
+    const {t} = this.props
     return (
         <>
           <Grid container>
@@ -306,7 +309,7 @@ class SurveyParticipate extends SurveyParticipateController {
     );
     }
 }
-export default withRouter(SurveyParticipate)
+export default withTranslation()(withRouter(SurveyParticipate))
 
 const BorderLinearProgress = withStyles((theme) => ({
     root: {
