@@ -743,5 +743,21 @@
   "Visitors Details": "تفاصيل الزوار",
   "Visitor Name": "اسم الزائر",
   "Visitor_Request_Updated_Success":"تم تحديث طلب الزائر الخاص بك بنجاح. تم إرسال الطلب المحدث إلى لوحة معلومات الأمان. سيتمكن الزائر من الدخول بدون متاعب.",
-  "Visitor Request Updated": "تم تحديث طلب الزائر"
+  "Visitor Request Updated": "تم تحديث طلب الزائر",
+  "Poll Title Name": "اسم عنوان الاستطلاع",
+  "Title not match the minimum requirements.": "العنوان لا يتطابق مع الحد الأدنى من المتطلبات.",
+  "Title can't be empty.": "لا يجوز أن يكون العنوان فارغًا.",
+  "You can not use previous date.": "لا يمكنك استخدام التواريخ السابقة.",
+  "Invalid start date": "تاريخ البدء غير صالح",
+  "Start Date can't be empty.": "لا يجوز أن يكون تاريخ البدء فارغًا.",
+  "You can not use previous date then start date": "لا يمكنك استخدام التاريخ السابق ثم تاريخ البدء",
+  "Invalid end date": "تاريخ الانتهاء غير صالح",
+  "End Date can't be empty.": "لا يجوز أن يكون تاريخ الانتهاء فارغًا",
+  "Description not match the minimum requirements.": "الوصف لا يتطابق مع الحد الأدنى من المتطلبات.",
+  "Description can't be empty": "لا يجوز أن يكون الوصف فارغًا",
+  "Option can't be blank": "لا يمكن أن يكون الخيار فارغًا",
+  "Question Can't be empty": "لا يمكن ترك السؤال فارغًا",
+  "Please select Question Type": "الرجاء تحديد نوع السؤال",
+  "Please select audience": "الرجاء تحديد الجمهور",
+  "Option": "خيار"
 }

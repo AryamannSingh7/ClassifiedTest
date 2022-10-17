@@ -93,7 +93,7 @@ class CreatePolls extends PollingController {
                                      fullWidth
                                     inputProps={{ maxLength: 50 }}
                                 />
-                                <p style={{color:"red"}}>{this.state.pollTitleError}</p>
+                                <p style={{color:"red"}}>{t(this.state.pollTitleError)}</p>
                                 <Box className="DateSection">
                                     <Box style={{width:"100%"}}>
                                         <TextField
@@ -114,7 +114,7 @@ class CreatePolls extends PollingController {
                                                 ),
                                             }}
                                         />
-                                        <p style={{color:"red"}}>{this.state.pollDateError}</p>
+                                        <p style={{color:"red"}}>{t(this.state.pollDateError)}</p>
                                     </Box>
                                     <Box style={{width:"100%"}}>
                                         <TextField label="End Date" variant="outlined"
@@ -133,7 +133,7 @@ class CreatePolls extends PollingController {
                                                        )
                                                    }}
                                         />
-                                        <p style={{color:"red"}}>{this.state.pollEndDateError}</p>
+                                        <p style={{color:"red"}}>{t(this.state.pollEndDateError)}</p>
                                     </Box>
                                 </Box>
                                 {/*<p style={{color:"red"}}>{this.state.pollDateError}</p>*/}
@@ -146,10 +146,7 @@ class CreatePolls extends PollingController {
                                     <Switch
                                         checked={this.state.checked}
                                          onClick={(event: any) =>
-                                            this.setState(
-                                                {checked: event.target.checked},
-                                               () => console.log("isCheck--", this.state.checked )
-                                            )
+                                            this.setState({checked: event.target.checked})
                                         }
                                         value="checked"
                                         color="primary"
@@ -173,7 +170,7 @@ class CreatePolls extends PollingController {
                                     markup={this.state.textEditorVal}
                                     onChange={this.onChangeTextEditor} />
                                 </Box>
-                                <p style={{color:"red"}}>{this.state.pollDescriptionError}</p>
+                                <p style={{color:"red"}}>{t(this.state.pollDescriptionError)}</p>
                                 <TextField  label={t("enter question")} variant="outlined"
                                 name="question"
                                 value={this.state.PollData.question}
@@ -181,25 +178,23 @@ class CreatePolls extends PollingController {
                                  fullWidth style={{marginTop:20}}
                                 inputProps={{ maxLength: 100 }}
                                 />
-                                <p style={{color:"red"}}>{this.state.pollQuestionError}</p>
-
+                                <p style={{color:"red"}}>{t(this.state.pollQuestionError)}</p>
                                     {this.state.options.map((inputfield:any , index:any) => {
-                                        console.log("inputfield",inputfield)
                                         return(
                                             <>
                                                 <TextField key={index}
-                                                    label={"Option - " + (index + 1)} variant="outlined"
+                                                    label={t("Option") + " - " + (index + 1)} variant="outlined"
                                                     name="text"
                                                     value={inputfield.text}
                                                     onChange={(event) => this.handleOptionsChange(index, event)}
                                                      fullWidth style={{marginTop:20}}
                                                 />
-                                                <p style={{color:"red"}}>{inputfield.error}</p>
+                                                <p style={{color:"red"}}>{t(inputfield.error)}</p>
                                             </>
                                         )
                                     })
                                     }
-                                    <p style={{color:"red"}}>{this.state.pollOptionasError}</p>
+                                    <p style={{color:"red"}}>{t(this.state.pollOptionasError)}</p>
 
                                 <Button variant="outlined" color="primary"
                                 onClick={() => this.addOptionsFields()}

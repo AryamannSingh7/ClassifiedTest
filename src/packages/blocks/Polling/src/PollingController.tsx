@@ -517,14 +517,14 @@ export default class PollingController extends BlockComponent<
         isValidate =  true
       }
       if(description == "" || description.length >= 200){
-        this.setState({pollDescriptionError: "description can't be empty"})
+        this.setState({pollDescriptionError: "Description can't be empty"})
         isValidate =  false
       }else{
         this.setState({pollTitleError: ""})
         isValidate =  true
       }
       if(question == "" || question.length >= 50){
-        this.setState({pollQuestionError: "question can't be empty"})
+        this.setState({pollQuestionError: "Question Can't be empty"})
         isValidate =  false
       }else{
         this.setState({pollTitleError: ""})
@@ -654,7 +654,7 @@ export default class PollingController extends BlockComponent<
           })
         }
       }else{
-        this.setState({pollDescriptionError: "description can't be empty"})
+        this.setState({pollDescriptionError: "Description can't be empty"})
       }
 
       if(this.state.PollData?.question){
@@ -669,7 +669,7 @@ export default class PollingController extends BlockComponent<
           })
         }
       }else{
-        this.setState({pollQuestionError: "question can't be empty"})
+        this.setState({pollQuestionError: "Question Can't be empty"})
       }
 
       let updatedArry = this.state.options.map((item:any) => {
