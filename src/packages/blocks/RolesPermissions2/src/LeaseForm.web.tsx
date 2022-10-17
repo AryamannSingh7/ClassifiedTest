@@ -18,7 +18,17 @@ import {
 import { Link } from "react-router-dom";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import { ContractsStyleWeb } from "./ContractsStyle.web";
-import { BuildingLogo, EarthIcon, CubeIcon } from "./assets";
+import {
+  BuildingLogo,
+  EarthIcon,
+  CubeIcon,
+  TenantName,
+  BuildingName,
+  DurationIcon,
+  CalenderIcon,
+  RentAmountIcon,
+  CurrencyIcon,
+} from "./assets";
 import LeaseFormController, { Props } from "./LeaseFormController.web";
 import moment from "moment";
 import { Formik, Form } from "formik";
@@ -31,8 +41,11 @@ class LeaseForm extends LeaseFormController {
   }
 
   async componentDidMount(): Promise<void> {
-    const template_id = this.props.navigation.getParam("templateId");
-    this.setState({ ...this.state, templateId: template_id }, () => {});
+    const template_id: any = this.props.navigation.getParam("templateId");
+    this.setState({ ...this.state, templateId: template_id }, () => {
+      this.getCurrencyList();
+      this.getBuilding();
+    });
   }
 
   render() {
@@ -49,45 +62,28 @@ class LeaseForm extends LeaseFormController {
               <Box>
                 <Box display={{ xs: "flex", md: "flex" }} className="top-bar">
                   <div className="left-icon">
-                    <Link to="/IssueContract/1">
-                      <IconButton>
-                        <KeyboardBackspaceIcon />
-                      </IconButton>
-                    </Link>
+                    <IconButton onClick={() => this.goBackPage()}>
+                      <KeyboardBackspaceIcon />
+                    </IconButton>
                     <span>{t("Issue a Lease")}</span>
                   </div>
                 </Box>
                 <Container className="page-container">
-                  <Box className="issue-lease-content">
+                  <Box className="issue-lease-content form">
                     <h4 style={{ marginTop: "18px" }}>{t("Residential Rental Lease Agreement")}</h4>
                     <Formik
                       initialValues={this.state.leaseForm}
-                      // validationSchema={}
-                      onSubmit={(values, { resetForm }) => {
-                        this.setState({
-                          ...this.state,
-                          leaseForm: {
-                            tenantName: values.tenantName,
-                            landlordName: values.landlordName,
-                            complexName: values.complexName,
-                            buildingName: values.buildingName,
-                            unitName: values.unitName,
-                            duration: values.duration,
-                            startDate: values.startDate,
-                            endDate: values.endDate,
-                            monthlyRent: values.monthlyRent,
-                            currency: values.currency,
-                          },
+                      validationSchema={this.ContractFormValidation}
+                      onSubmit={(values: any, { resetForm }) => {
+                        window.sessionStorage.setItem("contractForm", JSON.stringify(values));
+                        this.props.navigation.navigate("ChangedSelectedTemplate", {
+                          templateId: this.state.templateId,
                         });
                       }}
                     >
                       {({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue }) => {
-                        console.log("values", values);
-                        console.log("errors", errors);
-                        console.log("touched", touched);
-
                         return (
-                          <Form onSubmit={handleSubmit} translate>
+                          <Form onSubmit={handleSubmit} translate="true">
                             <Box className="select-input-box">
                               <FormControl fullWidth>
                                 <Input
@@ -95,12 +91,11 @@ class LeaseForm extends LeaseFormController {
                                   onChange={handleChange}
                                   onBlur={handleBlur}
                                   name="tenantName"
-                                  // variant="filled"
                                   className="select-input input"
                                   placeholder={t("Tenant Name")}
                                   startAdornment={
                                     <InputAdornment position="start">
-                                      <img src={CubeIcon} alt="" />
+                                      <img src={TenantName} alt="" />
                                     </InputAdornment>
                                   }
                                 />
@@ -114,12 +109,11 @@ class LeaseForm extends LeaseFormController {
                                   onChange={handleChange}
                                   onBlur={handleBlur}
                                   name="landlordName"
-                                  // variant="filled"
                                   className="select-input input"
                                   placeholder="Landlord Name"
                                   startAdornment={
                                     <InputAdornment position="start">
-                                      <img src={CubeIcon} alt="" />
+                                      <img src={TenantName} alt="" />
                                     </InputAdornment>
                                   }
                                 />
@@ -210,10 +204,14 @@ class LeaseForm extends LeaseFormController {
                                 <Box className="select-box">
                                   <Select
                                     displayEmpty
-                                    value={values.buildingName}
-                                    onChange={handleChange}
+                                    value={values.buildingId}
+                                    onChange={(e: any) => {
+                                      const value = e.target.value;
+                                      setFieldValue("buildingId", value);
+                                      this.getUnits(value);
+                                    }}
                                     onBlur={handleBlur}
-                                    name="buildingName"
+                                    name="buildingId"
                                     variant="filled"
                                     className="select-input"
                                     input={<OutlinedInput />}
@@ -221,24 +219,36 @@ class LeaseForm extends LeaseFormController {
                                     <MenuItem value="" disabled>
                                       {t("Building Name")}
                                     </MenuItem>
-                                    <MenuItem value={10}>Ten</MenuItem>
-                                    <MenuItem value={20}>Twenty</MenuItem>
-                                    <MenuItem value={30}>Thirty</MenuItem>
+                                    {this.state.buildingList.map((building: any) => {
+                                      return (
+                                        <MenuItem
+                                          value={building.id}
+                                          key={building.id}
+                                          onClick={() => setFieldValue("buildingName", building.name)}
+                                        >
+                                          {building.name}
+                                        </MenuItem>
+                                      );
+                                    })}
                                   </Select>
-                                  <img src={CubeIcon} alt="" />
+                                  <img src={BuildingName} alt="" />
                                 </Box>
-                                {errors.buildingName && touched.buildingName && (
-                                  <p className="error">{t(errors.buildingName)}</p>
+                                {errors.buildingId && touched.buildingId && (
+                                  <p className="error">{t(errors.buildingId)}</p>
                                 )}
                               </FormControl>
                               <FormControl fullWidth>
                                 <Box className="select-box">
                                   <Select
                                     displayEmpty
-                                    value={values.unitName}
-                                    onChange={handleChange}
+                                    value={values.unitId}
+                                    onChange={(e: any) => {
+                                      const value = e.target.value;
+                                      setFieldValue("unitId", value);
+                                      this.handleCheckContractExist(value);
+                                    }}
                                     onBlur={handleBlur}
-                                    name="unitName"
+                                    name="unitId"
                                     variant="filled"
                                     className="select-input"
                                     input={<OutlinedInput />}
@@ -246,13 +256,21 @@ class LeaseForm extends LeaseFormController {
                                     <MenuItem value="" disabled>
                                       {t("Unit Name")}
                                     </MenuItem>
-                                    <MenuItem value={10}>Ten</MenuItem>
-                                    <MenuItem value={20}>Twenty</MenuItem>
-                                    <MenuItem value={30}>Thirty</MenuItem>
+                                    {this.state.unitList.map((unit: any) => {
+                                      return (
+                                        <MenuItem
+                                          value={unit.id}
+                                          key={unit.id}
+                                          onClick={() => setFieldValue("unitName", unit.apartment_name)}
+                                        >
+                                          {unit.apartment_name}
+                                        </MenuItem>
+                                      );
+                                    })}
                                   </Select>
                                   <img src={CubeIcon} alt="" />
                                 </Box>
-                                {errors.unitName && touched.unitName && <p className="error">{t(errors.unitName)}</p>}
+                                {errors.unitId && touched.unitId && <p className="error">{t(errors.unitId)}</p>}
                               </FormControl>
                               <FormControl fullWidth>
                                 <Input
@@ -260,12 +278,11 @@ class LeaseForm extends LeaseFormController {
                                   onChange={handleChange}
                                   onBlur={handleBlur}
                                   name="duration"
-                                  // variant="filled"
                                   className="select-input input"
                                   placeholder={t("Enter Agreement Duration")}
                                   startAdornment={
                                     <InputAdornment position="start">
-                                      <img src={CubeIcon} alt="" />
+                                      <img src={DurationIcon} alt="" />
                                     </InputAdornment>
                                   }
                                 />
@@ -277,14 +294,13 @@ class LeaseForm extends LeaseFormController {
                                   onChange={handleChange}
                                   onBlur={handleBlur}
                                   name="startDate"
-                                  // variant="filled"
                                   className="select-input input"
                                   placeholder={t("Start Contract Date")}
                                   type="text"
-                                  // onFocus={(e) => (e.target.type = "date")}
+                                  onFocus={(e: any) => (e.target.type = "date")}
                                   startAdornment={
                                     <InputAdornment position="start">
-                                      <img src={CubeIcon} alt="" />
+                                      <img src={CalenderIcon} alt="" />
                                     </InputAdornment>
                                   }
                                 />
@@ -293,22 +309,20 @@ class LeaseForm extends LeaseFormController {
                                 )}
                               </FormControl>
                               <FormControl fullWidth>
-                                <Input
-                                  value={values.endDate}
-                                  onChange={handleChange}
-                                  onBlur={handleBlur}
-                                  name="endDate"
-                                  // variant="filled"
-                                  className="select-input input"
-                                  placeholder={t("End Contract Date")}
-                                  type="text"
-                                  // onFocus={(e) => (e.target.type = "date")}
-                                  startAdornment={
-                                    <InputAdornment position="start">
-                                      <img src={CubeIcon} alt="" />
-                                    </InputAdornment>
-                                  }
-                                />
+                                <Box className="select-box">
+                                  <input
+                                    value={values.endDate}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    name="endDate"
+                                    className="select-input input"
+                                    placeholder={t("End Contract Date")}
+                                    type="text"
+                                    onFocus={(e: any) => (e.target.type = "date")}
+                                    min={values.startDate}
+                                  />
+                                  <img src={CalenderIcon} alt="" />
+                                </Box>
                                 {errors.endDate && touched.endDate && <p className="error">{t(errors.endDate)}</p>}
                               </FormControl>
                               <FormControl fullWidth>
@@ -316,16 +330,16 @@ class LeaseForm extends LeaseFormController {
                                   value={values.monthlyRent}
                                   onChange={handleChange}
                                   onBlur={handleBlur}
-                                  name="tenantName"
-                                  // variant="monthlyRent"
+                                  name="monthlyRent"
                                   className="select-input input"
                                   placeholder={t("Enter Monthly Rent Amount")}
                                   startAdornment={
                                     <InputAdornment position="start">
-                                      <img src={CubeIcon} alt="" />
+                                      <img src={RentAmountIcon} alt="" />
                                     </InputAdornment>
                                   }
                                 />
+
                                 {errors.monthlyRent && touched.monthlyRent && (
                                   <p className="error">{t(errors.monthlyRent)}</p>
                                 )}
@@ -345,20 +359,21 @@ class LeaseForm extends LeaseFormController {
                                     <MenuItem value="" disabled>
                                       {t("Select Currency")}
                                     </MenuItem>
-                                    <MenuItem value={10}>Ten</MenuItem>
-                                    <MenuItem value={20}>Twenty</MenuItem>
-                                    <MenuItem value={30}>Thirty</MenuItem>
+                                    {this.state.currencyList.map((currency: any) => {
+                                      return (
+                                        <MenuItem value={currency.attributes.currency} key={currency.id}>
+                                          {currency.attributes.currency}
+                                        </MenuItem>
+                                      );
+                                    })}
                                   </Select>
-                                  <img src={CubeIcon} alt="" />
+                                  <img src={CurrencyIcon} alt="" />
                                 </Box>
                                 {errors.currency && touched.currency && <p className="error">{t(errors.currency)}</p>}
                               </FormControl>
 
                               <div className="next-button">
-                                <Link to="/IssueContract/1/LeaseForm/Template">
-                                  {/* <Button type="submit">Next</Button> */}
-                                  <Button>{t("Next")}</Button>
-                                </Link>
+                                <Button type="submit">{t("Next")}</Button>
                               </div>
                             </Box>
                           </Form>

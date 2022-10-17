@@ -744,5 +744,9 @@
   "Visitor Name": "Visitor Name",
   "Visitor_Request_Updated_Success": "Your visitor request updated successfully. Updated request has been sent to security dashboard. Visitor will be able to enter hassle free.",
   "Visitor Request Updated": "Visitor Request Updated",
-  "Coming soon": "Coming soon"
+  "Coming soon": "Coming soon",
+  "Enter only number": "Enter only number",
+  "Include Penalty for late Payment": "Include Penalty for late Payment",
+  "Already contract available for this unit": "Already contract available for this unit",
+  "Maximum length should be 100 character": "Maximum length should be 100 character"
 }

@@ -23,23 +23,28 @@ import {
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import CircleUnchecked from "@material-ui/icons/RadioButtonUnchecked";
 import CircleCheckedFilled from "@material-ui/icons/CheckCircle";
-import ChangedSelectedTemplateController, { Props } from "./ChangedSelectedTemplateController.web";
+import LeaseFormController, { Props } from "./LeaseFormController.web";
 import { Link } from "react-router-dom";
 import { ContractsStyleWeb } from "./ContractsStyle.web";
-import { BuildingLogo, CubeIcon, EditIcon } from "./assets";
+import { BuildingLogo, CardIcon, CubeIcon, EditIcon, PenaltyAmountIcon } from "./assets";
 import { withTranslation } from "react-i18next";
 import "../../../web/src/i18n.js";
 
-class ChangedSelectedTemplate extends ChangedSelectedTemplateController {
+class ChangedSelectedTemplate extends LeaseFormController {
   constructor(props: Props) {
     super(props);
+  }
+
+  async componentDidMount(): Promise<void> {
+    const template_id: any = this.props.navigation.getParam("templateId");
+    this.setState({ ...this.state, templateId: template_id }, () => {
+      this.getTemplateText();
+    });
   }
 
   render() {
     const { classes } = this.props;
     const { t }: any = this.props;
-
-    console.log();
 
     return (
       <>
@@ -61,16 +66,8 @@ class ChangedSelectedTemplate extends ChangedSelectedTemplateController {
                     <div className="upload-button">
                       <Box className="condition-select">
                         <Checkbox value={true} icon={<CircleUnchecked />} checkedIcon={<CircleCheckedFilled />} />
-                        <span>{t("Include late payment penalty condition")}</span>
+                        <span>{t("Include Penalty for late Payment")}</span>
                       </Box>
-                      {/* <Box className="condition-select">
-                        <Checkbox
-                          value={true}
-                          icon={<CircleUnchecked />}
-                          checkedIcon={<CircleCheckedFilled />}
-                        />
-                        <span>{t("Penalty for late Payment")}</span>
-                      </Box> */}
                       <Box className="penalty-detail">
                         <div className="header">
                           <h4>{t("Penalty Details")}</h4>
@@ -78,31 +75,22 @@ class ChangedSelectedTemplate extends ChangedSelectedTemplateController {
                         </div>
                         <div className="content">
                           <Grid container spacing={2}>
-                            <Grid item xs={6} className="content-item">
+                            <Grid item xs={12} className="content-item">
                               <Box>
-                                <img src={EditIcon} />
+                                <img src={CardIcon} />
                               </Box>
                               <Box>
-                                <span>{t("Penalty Type")}</span>
+                                <span>{t("How Penalty will be counted?")}</span>
                                 <p>{t("Fixed Amount")}</p>
                               </Box>
                             </Grid>
                             <Grid item xs={6} className="content-item">
                               <Box>
-                                <img src={EditIcon} />
+                                <img src={PenaltyAmountIcon} />
                               </Box>
                               <Box>
                                 <span>{t("Penalty Amount")}</span>
                                 <p>SR 250</p>
-                              </Box>
-                            </Grid>
-                            <Grid item xs={12} className="content-item">
-                              <Box>
-                                <img src={EditIcon} />
-                              </Box>
-                              <Box>
-                                <span>{t("How Penalty will be counted?")}</span>
-                                <p>Lorem ipsum..</p>
                               </Box>
                             </Grid>
                           </Grid>
