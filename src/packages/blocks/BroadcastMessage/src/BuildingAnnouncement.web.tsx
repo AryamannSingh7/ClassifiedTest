@@ -21,6 +21,7 @@ import Radio from "@material-ui/core/Radio";
 import Modal from "@material-ui/core/Modal";
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import {withTranslation} from "react-i18next";
 
 
 
@@ -60,6 +61,8 @@ class Announcement extends BuildingAnnouncementController{
 
   render() {
     const complexName = localStorage.getItem("buildingName")
+    //@ts-ignore
+    const {t} = this.props
     return (
         <>
             <Grid item xs={12} md={12} className="auth-cols">
@@ -190,7 +193,7 @@ class Announcement extends BuildingAnnouncementController{
                                     </Box>
                                     <Divider/>
                                     <Box style={{margin:"15px",marginTop:"50px"}}>
-                                        <CloseButton onClick={this.handleApplyFilter} variant="contained" color="primary" fullWidth style={{borderRadius:"50px"}}>Apply</CloseButton>
+                                        <CloseButton onClick={this.handleApplyFilter} variant="contained" color="primary" fullWidth style={{borderRadius:"50px"}}>{t("Apply")}</CloseButton>
                                     </Box>
                                 </Box>
                             </Box>
@@ -218,27 +221,26 @@ class Announcement extends BuildingAnnouncementController{
                                     <img src={modalDeleteIcon} />
                                 </Box>
                                 <Typography variant="h6" style={{color:"black",fontWeight:"bold",marginTop:"15px",marginBottom:"10px",textAlign:"center"}}>
-                                    Delete {this.state.selectedAnnoucment?.length} selected announcements?
+                                    {t("Delete")} {this.state.selectedAnnoucment?.length} {t("selected announcements")}?
                                 </Typography>
                                 <Typography variant="body2" style={{textAlign:"center"}}>
-                                    Are you sure want to delete 2 selected announcements? Once deleted you won’t be able to view deleted announcements again.
+                                    {("Announcement_Delete_Caution")}
                                 </Typography>
                                 <Box style={{marginTop:"15px",width:"90%",display:"flex",flexDirection:"column",alignItems:"center"}}>
                                     {/*@ts-ignore*/}
-                                    <CloseButton variant="outlined" fullWidth style={{marginRight:"10px",marginBottom:"15px"}} onClick={this.handleDelete}  >Yes, Delete</CloseButton>
-                                    <PublishButton fullWidth onClick={this.handleCloseDeleteModal}>No, Don't Delete</PublishButton>
+                                    <CloseButton variant="outlined" fullWidth style={{marginRight:"10px",marginBottom:"15px"}} onClick={this.handleDelete}  >{t("Yes")}, {t("Delete")}</CloseButton>
+                                    <PublishButton fullWidth onClick={this.handleCloseDeleteModal}>{t("No, Don't Delete")}</PublishButton>
                                 </Box>
                             </Box>
                         </Box>
                     </Fade>
                 </Modal>
-
             </Grid>
         </>
     );
   }
 }
-export default withRouter(Announcement)
+export default withTranslation()(withRouter(Announcement))
 
 const CloseButton = withStyles((theme) => ({
     root: {

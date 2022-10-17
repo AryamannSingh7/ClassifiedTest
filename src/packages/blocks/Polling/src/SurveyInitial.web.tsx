@@ -16,6 +16,7 @@ import SurveyInitialController, {
 } from "./SurveyInitialController.tsx";
 import Loader from "../../../components/src/Loader.web";
 import "./Polling.web.css"
+import {withTranslation} from "react-i18next";
 
 
 class SurveyInitial extends SurveyInitialController {
@@ -23,6 +24,8 @@ class SurveyInitial extends SurveyInitialController {
     super(props);
   }
   render() {
+    //@ts-ignore
+    const {t} = this.props
     return (
         <>
         <Grid container style={{ margin: '1rem', width: '90%' }}>
@@ -68,7 +71,7 @@ class SurveyInitial extends SurveyInitialController {
                         padding='1rem'
                     >
                         <Box marginTop='1rem'>
-                            <Typography variant="subtitle2" color="textSecondary">Purpose:</Typography>
+                            <Typography variant="subtitle2" color="textSecondary">{t("Purpose")}:</Typography>
                             <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}
                                dangerouslySetInnerHTML={
                                    { __html: DOMPurify.sanitize(this.state.SurveyPreviewAnswer.description) }
@@ -77,13 +80,13 @@ class SurveyInitial extends SurveyInitialController {
                             </p>
                         </Box>
                         <Box marginTop='1rem'>
-                            <Typography variant="subtitle2" color="textSecondary">End Date:</Typography>
+                            <Typography variant="subtitle2" color="textSecondary">{t("End Date")}:</Typography>
                             <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}>
                                 {this.state.SurveyPreviewAnswer.end_date}
                             </p>
                         </Box>
                         <Box marginTop='1rem'>
-                            <Typography variant="subtitle2" color="textSecondary">Building:</Typography>
+                            <Typography variant="subtitle2" color="textSecondary">{t("Building")}:</Typography>
                             <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}>
                                 {this.state.SurveyPreviewAnswer.building_name}
                             </p>
@@ -93,7 +96,7 @@ class SurveyInitial extends SurveyInitialController {
                 <Grid xs={12}>
                     <Box marginTop='1.5rem'>
                         <p style={{ fontSize: '1rem', fontWeight: 600 }}>
-                            Publishing Details
+                            {t("Publishing Details")}
                         </p>
                     </Box>
                 </Grid>
@@ -148,6 +151,6 @@ class SurveyInitial extends SurveyInitialController {
     );
   }
 }
-export default withRouter(SurveyInitial)
+export default withTranslation()(withRouter(SurveyInitial))
 
 // Customizable Area End

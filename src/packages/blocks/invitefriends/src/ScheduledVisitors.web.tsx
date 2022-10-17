@@ -26,6 +26,7 @@ import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import {boolean} from "yup";
 import moment from "moment";
+import {withTranslation} from "react-i18next";
 
 
 class ScheduledVisitors  extends ScheduledVisitorController{
@@ -34,7 +35,8 @@ class ScheduledVisitors  extends ScheduledVisitorController{
   }
 
   render() {
-    // @ts-ignore
+      // @ts-ignore
+      const {t} = this.props
       return (
         <>
             <Grid item xs={12} md={12} className="auth-cols">
@@ -43,7 +45,7 @@ class ScheduledVisitors  extends ScheduledVisitorController{
                       <Box style={{ display:"flex", alignItems:"center", gap:"5px"}}>
                           <ArrowBackIcon onClick={() => window.history.back()} />
                           <p style={{ fontSize: '1rem', fontWeight: 600 }}>
-                              Scheduled Visitors
+                              {t("Scheduled Visitors")}
                           </p>
                       </Box>
                   </Grid>
@@ -54,7 +56,7 @@ class ScheduledVisitors  extends ScheduledVisitorController{
                             this.state.visitorListing.map((item:any,key:any)=> {
                                 return(
                                     <Grid item xs={12} key={key}>
-                                        <VisitorBox item={item} handleDelete={(id:any) => this.handleOpenDeleteModal(id)} history={this.props.history}/>
+                                        <VisitorBox item={item} handleDelete={(id:any) => this.handleOpenDeleteModal(id)} history={this.props.history} t={t}/>
                                     </Grid>
                                 )
                             })
@@ -82,15 +84,15 @@ class ScheduledVisitors  extends ScheduledVisitorController{
                                     <img src={userIcon} />
                                 </Box>
                                 <Typography variant="h6" style={{color:"black",fontWeight:"bold",marginTop:"15px",marginBottom:"10px",textAlign:"center"}}>
-                                    Scheduled Visitors
+                                    {t("Scheduled Visitors")}
                                 </Typography>
                                 <Typography variant="body2" style={{textAlign:"center"}}>
-                                    Are you sure that you want to cancel this scheduled visit?
+                                    {("Scheduled_Visit_Cancel_Caution")}
                                 </Typography>
                                 <Box style={{marginTop:"15px",width:"90%",display:"flex",flexDirection:"column",alignItems:"center"}}>
                                     {/*@ts-ignore*/}
-                                    <CloseButton variant="outlined" fullWidth style={{marginRight:"10px",marginBottom:"15px"}} onClick={this.manageDeleteVisitor}>Yes, Cancel</CloseButton>
-                                    <PublishButton fullWidth onClick={this.handleCloseDeleteModal} >No, Don't Cancel</PublishButton>
+                                    <CloseButton variant="outlined" fullWidth style={{marginRight:"10px",marginBottom:"15px"}} onClick={this.manageDeleteVisitor}>{t("Yes, Cancel")}</CloseButton>
+                                    <PublishButton fullWidth onClick={this.handleCloseDeleteModal} >{t("No, Don't Cancel")}</PublishButton>
                                 </Box>
                             </Box>
                         </Box>
@@ -101,11 +103,12 @@ class ScheduledVisitors  extends ScheduledVisitorController{
     );
   }
 }
-export default withRouter(ScheduledVisitors)
+export default withTranslation()(withRouter(ScheduledVisitors))
 
 
 const VisitorBox = (props:any) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const {t} = props
     const handleClick = (event:any) => {
         setAnchorEl(event.currentTarget);
     };
@@ -159,8 +162,8 @@ const VisitorBox = (props:any) => {
                         open={Boolean(anchorEl)}
                         onClose={handleClose}
                     >
-                        <MenuItem onClick={handleEdit}>Edit</MenuItem>
-                        <MenuItem onClick={handleDelete}>Delete</MenuItem>
+                        <MenuItem onClick={handleEdit}>{t("Edit")}</MenuItem>
+                        <MenuItem onClick={handleDelete}>{t("Delete")}</MenuItem>
                     </Menu>
                 </Box>
             </Box>

@@ -9,6 +9,7 @@ import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import Loader from "../../../components/src/Loader.web";
 import { Tenant_Logo, Building1, Filter_Icon } from "../src/assets";
 import {withRouter} from 'react-router-dom'
+import {withTranslation} from "react-i18next";
 
 class PollsResident extends PollsResidentController {
   constructor(props: Props) {
@@ -17,6 +18,8 @@ class PollsResident extends PollsResidentController {
   }
 
   render() {
+    //@ts-ignore
+    const {t} = this.props
     return (
         <>
             <Box className="login-wrapper incident-wrapper">
@@ -26,7 +29,7 @@ class PollsResident extends PollsResidentController {
                             <Box className="content-header">
                                 <Box className="left-block blocks">
                                     <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
-                                    <h4>Poll / Survey</h4>
+                                    <h4>{t("Poll / Survey")}</h4>
                                 </Box>
                                 <Box className="incident-right-block blocks">
                                     <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
@@ -37,8 +40,8 @@ class PollsResident extends PollsResidentController {
                                             open={Boolean(this.state.anchorEl)}
                                             onClose={() => this.handleClose()}
                                         >
-                                            <MenuItem onClick={(e) => this.handleClose(e, "asc")}>Ascending</MenuItem>
-                                            <MenuItem onClick={(e) => this.handleClose(e, "desc")}>Descending</MenuItem>
+                                            <MenuItem onClick={(e) => this.handleClose(e, "asc")}>{t("Ascending")}</MenuItem>
+                                            <MenuItem onClick={(e) => this.handleClose(e, "desc")}>{t("Descending")}</MenuItem>
                                         </Menu>
                                     </Box>
 
@@ -52,9 +55,9 @@ class PollsResident extends PollsResidentController {
                                         open={Boolean(this.state.anchorEl_1)}
                                         onClose={() => this.handleClose_1()}
                                     >
-                                        <MenuItem onClick={(e) => this.handleClose_1(e, "Unresolved")}>Unresolved</MenuItem>
-                                        <MenuItem onClick={(e) => this.handleClose_1(e, "Resolved")}>Resolved</MenuItem>
-                                        <MenuItem onClick={(e) => this.handleClose_1(e, "Pending Confirmation")}>Pending Confirmation</MenuItem>
+                                        <MenuItem onClick={(e) => this.handleClose_1(e, "Unresolved")}>{t("Unresolved")}</MenuItem>
+                                        <MenuItem onClick={(e) => this.handleClose_1(e, "Resolved")}>{t("Resolved")}</MenuItem>
+                                        <MenuItem onClick={(e) => this.handleClose_1(e, "Pending Confirmation")}>{t("Pending Confirmation")}</MenuItem>
                                     </Menu>
 
                                 </Box>
@@ -144,5 +147,5 @@ class PollsResident extends PollsResidentController {
 }
 
 // @ts-ignore
-export default withRouter(PollsResident)
+export default withTranslation()(withRouter(PollsResident))
 // Customizable Area End

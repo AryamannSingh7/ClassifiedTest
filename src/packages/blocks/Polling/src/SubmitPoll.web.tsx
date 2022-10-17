@@ -1,7 +1,5 @@
-//@ts-ignore
-//@ts-nocheck
-
 import * as React from "react";
+// @ts-ignore
 import DOMPurify from 'dompurify'
 // custom components
 import {
@@ -13,9 +11,9 @@ import DateRangeOutlinedIcon from '@material-ui/icons/DateRangeOutlined';
 import { withRouter } from 'react-router';
 import PollingController, {
   Props
-} from "./PollingController.tsx";
-import Loader from "../../../components/src/Loader.web";
+} from "./PollingController";
 import "./Polling.web.css"
+import {withTranslation} from "react-i18next";
 
 
 class SubmitPoll extends PollingController {
@@ -23,8 +21,8 @@ class SubmitPoll extends PollingController {
     super(props);
   }
   render() {
-    console.log("000000000000000000000", this.state.pollPreviewAnswer.poll?.data)
-    console.log("111111111111111111111111111110", this.state.pollOptionAnswer)
+      //@ts-ignore
+      const {t} = this.props
     return (
         <>
     
@@ -70,22 +68,23 @@ class SubmitPoll extends PollingController {
                 >
 
                     <Box marginTop='1rem'>
-                        <Typography variant="subtitle2" color="textSecondary">Purpose:</Typography>
+                        <Typography variant="subtitle2" color="textSecondary">{t("Purpose")}:</Typography>
                         <p style={{color:"black", fontSize:'1.2rem', marginTop:10}}
                         dangerouslySetInnerHTML={
                           { __html: DOMPurify.sanitize(this.state.pollPreviewAnswer.poll?.data?.attributes.description) }
                         }
                         >
+
                         </p>
                     </Box>
                     <Box marginTop='1rem'>
-                        <Typography variant="subtitle2" color="textSecondary">End Date:</Typography>
+                        <Typography variant="subtitle2" color="textSecondary">{t("End Date")}:</Typography>
                         <p style={{color:"black", fontSize:'1.2rem', marginTop:10}}>
                           {this.state.pollPreviewAnswer.poll?.data?.attributes.end_date}
                         </p>
                     </Box>
                     <Box marginTop='1rem'>
-                        <Typography variant="subtitle2" color="textSecondary">Building:</Typography>
+                        <Typography variant="subtitle2" color="textSecondary">{t("Building")}:</Typography>
                         <p style={{color:"black", fontSize:'1.2rem', marginTop:10}}>
                           {this.state.pollPreviewAnswer.poll?.data?.attributes.building_name}
                         </p>
@@ -93,7 +92,7 @@ class SubmitPoll extends PollingController {
                 </Box>
                 <Box marginTop='1.5rem'>
                     <p style={{ fontSize: '1rem', fontWeight: 600 }}>
-                    Publishing Details
+                        {t("Publishing Details")}
                     </p>
                 </Box>
                 <Box
@@ -105,7 +104,7 @@ class SubmitPoll extends PollingController {
                     <Box display='flex' marginTop='1rem'>
                         <AccountCircleOutlinedIcon style={{color:'#054c94'}}/>
                         <Box marginLeft='0.5rem'>
-                            <p>Published By:</p>
+                            <p>{t("Published By")}:</p>
                             <p style={{color:"black", fontSize:'1.2rem', marginTop:10}}>
                               {this.state.pollPreviewAnswer.poll?.data?.attributes.publish_by}
                             </p>
@@ -115,7 +114,7 @@ class SubmitPoll extends PollingController {
                     <Box display='flex' marginTop='1.5rem'>
                         <DateRangeOutlinedIcon style={{color:'#054c94'}}/>
                         <Box marginLeft='0.5rem'>
-                            <p>Published Date:</p>
+                            <p>{t("Published Date")}:</p>
                             <p style={{color:"black", fontSize:'1.2rem', marginTop:10}}>
                               {this.state.pollPreviewAnswer.poll?.data?.attributes.publish_date}
                             </p>
@@ -132,7 +131,7 @@ class SubmitPoll extends PollingController {
         </Grid>
 
         {
-          this.state.pollPreviewAnswer.poll?.data?.attributes.polling_options.map((data, i) => {
+          this.state.pollPreviewAnswer.poll?.data?.attributes.polling_options.map((data:any, i:any) => {
             return (
               <Grid container spacing={2}  key={data.id}
               style={{ marginLeft: '0',marginTop:'1.5rem', width: '90%', alignItems:'baseline'}}>
@@ -145,8 +144,8 @@ class SubmitPoll extends PollingController {
                 </Grid>
                 <Grid xs={11}>
                     <label 
-                      className="para" 
-                      for={data.id}
+                      className="para"
+                      htmlFor={data.id}
                     >
                     <Box
                         style={{
@@ -170,29 +169,6 @@ class SubmitPoll extends PollingController {
           })
         }
 
-        {/* <Grid container spacing={2} style={{ marginLeft: '1rem',marginTop:'1.5rem', width: '90%', alignItems:'baseline'}}>
-            <Grid xs={1}>
-                <input type="radio" name="type" value='No'/>
-            </Grid>
-            <Grid xs={11}>
-                <Box
-                    style={{
-                        backgroundColor: "#2B6FEC",
-                        borderRadius: '5rem',
-                        marginBottom: 14,
-                        boxShadow: "none",
-                        color: "#F7F7FC",
-                        fontWeight: 600,
-                        fontSize: '1rem',
-                        padding: '1rem'
-                    }}
-                    >
-                    No
-                </Box>
-
-            </Grid>
-        </Grid> */}
-
         <Grid container style={{ margin: '1rem', width: '90%' }}>
           <Grid xs={12}>
             <Button
@@ -213,11 +189,8 @@ class SubmitPoll extends PollingController {
               }}
               onClick={this.handlePollAnswerSubmited}
             >
-              VOTE NOW
+                {t("VOTE NOW")}
             </Button>
-
-
-
           </Grid>
         </Grid>
     </Box>
@@ -226,6 +199,8 @@ class SubmitPoll extends PollingController {
     );
   }
 }
-export default withRouter(SubmitPoll)
+
+// @ts-ignore
+export default withTranslation()(withRouter(SubmitPoll))
 
 // Customizable Area End

@@ -11,8 +11,8 @@ import {
   Divider,
   MenuItem,
   Card,
+  Link,
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import { BuildingImage, UploadIcon, PdfIcon } from "./assets";
 import RegisterTenantController, { Props } from "./RegisterTenantController.web";
@@ -20,10 +20,19 @@ import { withTranslation } from "react-i18next";
 import { TenantStyle } from "./TenantStyle.web";
 import { Menu } from "@szhsin/react-menu";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import moment from "moment";
+import Loader from "../../../components/src/Loader.web";
 
 class RegisterTenantContract extends RegisterTenantController {
   constructor(props: Props) {
     super(props);
+  }
+
+  async componentDidMount(): Promise<void> {
+    const tenant_id = this.props.navigation.getParam("id");
+    this.setState({ tenantId: tenant_id }, () => {
+      this.getTenantDetails();
+    });
   }
 
   render() {
@@ -32,10 +41,11 @@ class RegisterTenantContract extends RegisterTenantController {
 
     return (
       <>
+        <Loader loading={this.state.loading} />
+
         <Box
           style={{
-            background: "#F4F7FF",
-            //  background: "white",
+            background: this.state.contract ? "#F4F7FF" : "white",
             height: "100vh",
           }}
           className={classes.selectTemplate}
@@ -45,7 +55,7 @@ class RegisterTenantContract extends RegisterTenantController {
               <Box>
                 <Box display={{ xs: "flex", md: "flex" }} className="top-bar">
                   <div className="left-icon">
-                    <Link to="/RegisterTenant">
+                    <Link href="/RegisterTenant">
                       <IconButton>
                         <KeyboardBackspaceIcon />
                       </IconButton>
@@ -54,63 +64,89 @@ class RegisterTenantContract extends RegisterTenantController {
                   </div>
                 </Box>
 
-                {/* <Container className="page-container">
-                  <Box className="issue-lease-content">
-                    <Box className="select-input-box">
-                      <FormControl fullWidth>
-                        <Box className="upload-box">
-                          <img src={UploadIcon} alt="" />
-                          <p>{t("Upload Rent Contract")}</p>
+                {this.state.contract ? (
+                  <Box className="pdf-submit">
+                    <Container>
+                      <Box className="pdf-preview">
+                        <Box className="pdf-box">
+                          <img src={PdfIcon} alt="" />
+                          <Box className="pdf-info">
+                            <Box className="heading">
+                              <h4>{this.state.contract.name}</h4>
+                              <div className="right-menu">
+                                <Menu
+                                  menuButton={
+                                    <IconButton>
+                                      <MoreVertIcon />
+                                    </IconButton>
+                                  }
+                                >
+                                  {/* <MenuItem>{t("Download")}</MenuItem> */}
+                                  <MenuItem onClick={() => this.setState({ contract: null })}>{t("Delete")}</MenuItem>
+                                </Menu>
+                              </div>
+                            </Box>
+                            <Box className="data">
+                              <span>{this.state.contractPageCount}</span> pages{" "}
+                              <span>{this.niceBytes(this.state.contract.size)}</span>{" "}
+                              {moment(this.state.contract.astModifiedDate).format("MMMM DD, YYYY")}
+                            </Box>
+                          </Box>
                         </Box>
-                        <Input type="file" style={{ display: "none" }} />
-                      </FormControl>
-
-                      <Box className="divider-box">
-                        <Divider />
-                        <span>{t("OR")}</span>
-                        <Divider />
+                        <Box className="submit-button-box">
+                          <Button className="submit" onClick={() => this.handleSubmitTenantContract()}>
+                            {t("Submit")}
+                          </Button>
+                        </Box>
                       </Box>
-
-                      <Box className="register-button-box">
-                        <Button className="now">{t("Issue A Lease Now")}</Button>
-                        <Button className="later">{t("Issue A Lease Later")}</Button>
-                      </Box>
-                    </Box>
+                    </Container>
                   </Box>
-                </Container> */}
+                ) : (
+                  <Container className="page-container">
+                    <Box className="issue-lease-content">
+                      <Box className="select-input-box">
+                        <FormControl fullWidth>
+                          <Box className="upload-box" onClick={() => this.uploadContract.click()}>
+                            <img src={UploadIcon} alt="" />
+                            <p>{t("Upload Rent Contract")}</p>
+                          </Box>
+                          <input
+                            onChange={(e: any) => {
+                              const file = e.target.files[0];
 
-                <Box className="pdf-submit">
-                  <Container>
-                    <Box className="pdf-preview">
-                      <Box className="pdf-box">
-                        <img src={PdfIcon} alt="" />
-                        <Box className="pdf-info">
-                          <Box className="heading">
-                            <h4>Pdf</h4>
-                            <div className="right-menu">
-                              <Menu
-                                menuButton={
-                                  <IconButton>
-                                    <MoreVertIcon />
-                                  </IconButton>
-                                }
-                              >
-                                <MenuItem>{t("Download")}</MenuItem>
-                                <MenuItem>{t("Delete")}</MenuItem>
-                              </Menu>
-                            </div>
-                          </Box>
-                          <Box className="data">
-                            <span>55</span> pages <span>5</span> MB 08/10/2022
-                          </Box>
+                              let reader: any = new FileReader();
+                              reader.onloadend = () => {
+                                const count = reader.result.match(/\/Type[\s]*\/Page[^s]/g).length;
+                                this.setState({ contract: file, contractPageCount: count });
+                              };
+                              reader.readAsBinaryString(file);
+                            }}
+                            ref={(ref: any) => (this.uploadContract = ref)}
+                            accept=".pdf"
+                            type="file"
+                            style={{ display: "none" }}
+                            multiple
+                          />
+                        </FormControl>
+
+                        <Box className="divider-box">
+                          <Divider />
+                          <span>{t("OR")}</span>
+                          <Divider />
                         </Box>
-                      </Box>
-                      <Box className="submit-button-box">
-                        <Button className="submit">{t("Submit")}</Button>
+
+                        <Box className="register-button-box">
+                          <Link href="/IssueLease">
+                            <Button className="now">{t("Issue A Lease Now")}</Button>
+                          </Link>
+                          <Link href="/Tenants">
+                            <Button className="later">{t("Issue A Lease Later")}</Button>
+                          </Link>
+                        </Box>
                       </Box>
                     </Box>
                   </Container>
-                </Box>
+                )}
               </Box>
             </Grid>
             <Grid item xs={12} md={5}>

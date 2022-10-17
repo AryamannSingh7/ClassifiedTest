@@ -13,6 +13,7 @@ import AnnouncementDetailsController, {
 } from "./AnnouncementDetailsController";
 import './style.css';
 import moment from "moment";
+import {withTranslation} from "react-i18next";
 
 const data = {
     title:"Swimming Pool will be closed till 28/03/22",
@@ -25,7 +26,9 @@ class Announcement extends AnnouncementDetailsController{
   }
 
   render() {
-      const complexName = localStorage.getItem("buildingName")
+    const complexName = localStorage.getItem("buildingName")
+    //@ts-ignore
+    const {t} = this.props
     return (
         <>
             <Grid item xs={12} md={12} className="auth-cols">
@@ -66,7 +69,7 @@ class Announcement extends AnnouncementDetailsController{
                                                 <img src={user} height="20px" style={{marginRight:"10px"}} />
                                             </Box>
                                             <Box>
-                                                <Typography variant="subtitle2" color="textSecondary" >Announce By</Typography>
+                                                <Typography variant="subtitle2" color="textSecondary" >{t("Announce By")}</Typography>
                                                 <Typography variant="subtitle2">{this.state.AnnouncementDetails.announcement_by}</Typography>
                                             </Box>
                                         </Grid>
@@ -75,7 +78,7 @@ class Announcement extends AnnouncementDetailsController{
                                                 <img src={calendar} height="20px" style={{marginRight:"10px"}} />
                                             </Box>
                                             <Box>
-                                                <Typography variant="subtitle2" color="textSecondary" >Announced On</Typography>
+                                                <Typography variant="subtitle2" color="textSecondary" >{t("Announced On")}</Typography>
                                                 <Typography variant="subtitle2" >
                                                     {moment(this.state.AnnouncementDetails.announcement_on,'DD/MM/YYYY').format("MMMM DD,YYYY")}
                                                 </Typography>
@@ -88,7 +91,7 @@ class Announcement extends AnnouncementDetailsController{
                     </Grid>
                     <Box style={{width:"90%",marginBottom:"50px",marginTop:"10px"}}>
                         <CloseButton onClick={()=> window.history.back()} variant="contained" fullWidth size="large">
-                            Close
+                            {t("Close")}
                         </CloseButton>
                     </Box>
                 </Box>
@@ -97,7 +100,7 @@ class Announcement extends AnnouncementDetailsController{
     );
   }
 }
-export default withRouter(Announcement)
+export default withTranslation()(withRouter(Announcement))
 
 const StyledTabs = withStyles({
     indicator: {

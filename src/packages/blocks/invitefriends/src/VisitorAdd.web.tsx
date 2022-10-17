@@ -22,22 +22,24 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
 import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
+import {withTranslation} from "react-i18next";
 class Visitors extends VisitorAddController{
   constructor(props: Props) {
     super(props);
   }
 
   render() {
-    // @ts-ignore
+      // @ts-ignore
+      const {t} = this.props
       return (
         <>
             <Grid item xs={12} md={12} className="auth-cols">
                 <Grid container style={{ margin: '1rem', width: '90%' }} >
                   <Grid item xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem",justifyContent:"space-between"}} >
                       <Box style={{ display:"flex", alignItems:"center", gap:"1rem",marginBottom:"05px"}}>
-                          <ArrowBackIcon onClick={() => this.props.history.push("/")} />
+                          <ArrowBackIcon onClick={() => window.history.back()} />
                           <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
-                              {this.state.visitorId ? "Edit Visitor Request":"Add Visitor Request"}
+                              {this.state.visitorId ? t("Edit Visitor Request"):t("Add Visitor Request")}
                           </p>
                       </Box>
                   </Grid>
@@ -52,7 +54,7 @@ class Visitors extends VisitorAddController{
                             date:this.state?.visitorDetails?.schedule_date,
                             time:this.state?.visitorDetails?.schedule_time ? moment(this.state?.visitorDetails?.schedule_time).format("hh:mm") : "",
                             withCar:this.state?.visitorDetails?.comming_with_vehicle ? "true" : "false",
-                            carPlateNo: this.state?.visitorDetails?.vehicle_detail?.car_number,
+                            carPlateNo: this.state?.visitorDetails?.vehicle_detail?.car_number || "",
                         }}
                                 validationSchema={this.visitorAddSchema()}
                                 validateOnMount={true}
@@ -72,7 +74,7 @@ class Visitors extends VisitorAddController{
                                                 <Field
                                                     className="formInput"
                                                     name="visitorName"
-                                                    placeholder={"Visitor Name"}
+                                                    placeholder={t("Visitor Name")}
                                                 />
                                                 <span className="frmLeftIcons">
                                                     <img src={user} />
@@ -101,6 +103,7 @@ class Visitors extends VisitorAddController{
                                                             onChange={this.handleChange}
                                                             label="Unit"
                                                             value={this.state.selectCode}
+                                                            style={{color:'gray'}}
                                                         >
                                                             <MenuItem value="">
                                                                 <em>None</em>
@@ -115,7 +118,7 @@ class Visitors extends VisitorAddController{
                                                 </Box>
                                                 <Field
                                                     name="phone"
-                                                    placeholder={"Visitor Phone"}
+                                                    placeholder={t("Visitor Phone")}
                                                     id="mobile"
                                                     style={{
                                                         border: "none",
@@ -147,8 +150,8 @@ class Visitors extends VisitorAddController{
                                                             }}
                                                         >
                                                             <AddIcon style={{fontSize:"45px",color:"#9c9c9c"}}/>
-                                                            <Typography variant="body1" color="textSecondary">Add Visitor ID copy</Typography>
-                                                            <Typography variant="body1">(optional)</Typography>
+                                                            <Typography variant="body1" color="textSecondary">{t("Add Visitor ID copy")}</Typography>
+                                                            <Typography variant="body1">({t("optional")})</Typography>
                                                         </div>
                                                 }
                                                 <input
@@ -172,17 +175,22 @@ class Visitors extends VisitorAddController{
                                         <Grid className="add-visitor" item xs={6}>
                                             <FormControl fullWidth>
                                                 <div className="date-time">
-                                                    <input
+                                                    <Input
                                                         value={values.date}
+                                                        style={{color:"gray"}}
                                                         onChange={(e: any) => {
                                                             setFieldValue("date", e.target.value);
                                                         }}
                                                         onBlur={handleBlur}
                                                         name="date"
-                                                        placeholder="Select Date"
+                                                        placeholder={t("Select Date")}
                                                         className="date"
-                                                        min={moment().format("YYYY-MM-DD")}
-                                                        type="date"
+                                                        // @ts-ignore
+                                                        inputProps={{
+                                                            min:moment().format("YYYY-MM-DD")
+                                                        }}
+                                                        type={this.state.inputType1}
+                                                        onFocus={()=> this.setState({inputType1:"date"})}
                                                     />
                                                 </div>
                                                 {errors.date && touched.date && <small className="error">{errors.date}</small>}
@@ -193,14 +201,17 @@ class Visitors extends VisitorAddController{
                                                 <div className="date-time">
                                                     <Input
                                                         value={values.time}
+                                                        style={{color:"gray"}}
                                                         onChange={(e: any) => {
                                                             setFieldValue("time", e.target.value);
                                                         }}
                                                         onBlur={handleBlur}
-                                                        placeholder="Select Time"
+                                                        placeholder={t("Select Time")}
                                                         name="time"
                                                         fullWidth
-                                                        type="time"
+                                                        type={this.state.inputType2}
+                                                        onFocus={()=> this.setState({inputType2:"time"})}
+
                                                     />
                                                 </div>
                                                 {errors.time && touched.time && <small className="error">{errors.time}</small>}
@@ -208,14 +219,14 @@ class Visitors extends VisitorAddController{
                                         </Grid>
                                         <Grid item xs={12} style={{marginTop:"10px"}}>
                                             <Typography>
-                                                Is visitor coming with car?
+                                                {t("Is visitor coming with car?")}
                                             </Typography>
                                             <FormControl component="fieldset" >
                                                 <RadioGroup aria-label="gender" style={{flexDirection:"row"}} name="gender1" value={values.withCar} onChange={(e)=> setFieldValue("withCar", e.target.value)}>
                                                     <FormControlLabel value="true" control={<Radio icon={<RadioButtonUncheckedIcon style={{color:"#525252"}} />}
-                                                                                                   checkedIcon={<RadioButtonCheckedIcon style={{color:"#FC8434"}} />} />} label="Yes" />
+                                                                                                   checkedIcon={<RadioButtonCheckedIcon style={{color:"#FC8434"}} />} />} label={t("Yes")} />
                                                     <FormControlLabel value="false" control={<Radio icon={<RadioButtonUncheckedIcon style={{color:"#525252"}} />}
-                                                                                                    checkedIcon={<RadioButtonCheckedIcon style={{color:"#FC8434"}} />} />} label="No" />
+                                                                                                    checkedIcon={<RadioButtonCheckedIcon style={{color:"#FC8434"}} />} />} label={t("No")} />
                                                 </RadioGroup>
                                             </FormControl>
                                         </Grid>
@@ -224,7 +235,7 @@ class Visitors extends VisitorAddController{
                                                 <Field
                                                     className="formInput"
                                                     name="carPlateNo"
-                                                    placeholder={"Car Plate Number"}
+                                                    placeholder={t("Car Plate Number")}
                                                 />
                                                 <span className="frmLeftIcons">
                                                     <img src={list} />
@@ -234,7 +245,7 @@ class Visitors extends VisitorAddController{
                                         </Grid>
                                         <Grid item xs={12}>
                                             <CloseButton type="submit" variant="contained" fullWidth size="large">
-                                                Submit
+                                                {t("Submit")}
                                             </CloseButton>
                                         </Grid>
                                 </Grid>
@@ -249,7 +260,7 @@ class Visitors extends VisitorAddController{
     );
   }
 }
-export default withRouter(Visitors)
+export default withTranslation()(withRouter(Visitors))
 
 const CloseButton = withStyles((theme) => ({
     root: {

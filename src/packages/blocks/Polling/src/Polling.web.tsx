@@ -18,13 +18,11 @@ import {
 } from "@material-ui/core";
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import Select from "@material-ui/core/Select";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import Divider from '@material-ui/core/Divider';
 // Icons
 
 import {pollandsurvey, pollcreate, surveycreate,allUsers} from "./assets"
-import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import DateRangeOutlinedIcon from '@material-ui/icons/DateRangeOutlined';
 import HighlightOffOutlinedIcon from '@material-ui/icons/HighlightOffOutlined';
 import CheckCircleOutlineOutlinedIcon from '@material-ui/icons/CheckCircleOutlineOutlined';
@@ -42,6 +40,7 @@ import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
 import { withTranslation } from 'react-i18next';
 import '../../../web/src/i18n.js';
+
 class Polling extends PollingController {
   constructor(props: Props) {
     super(props);
@@ -277,12 +276,11 @@ class Polling extends PollingController {
                 </Grid>
 
                 <Box className="RecentItems">
-                    <Typography className="Recenttitle">Recent Surveys</Typography>
+                    <Typography className="Recenttitle">{t("Recent Surveys")}</Typography>
                     <Link href="/SurveyAllData" >
-                        <Typography className="ViewAll">View All</Typography>
+                        <Typography className="ViewAll">{t("View All")}</Typography>
                     </Link>
                 </Box>
-
                 <Grid container spacing={4} style={{marginTop: 15, marginBottom:30}}>
 
                     {

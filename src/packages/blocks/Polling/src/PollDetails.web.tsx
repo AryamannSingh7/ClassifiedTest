@@ -48,21 +48,6 @@ import '../../../web/src/i18n.js';
 function createData(name:any, unit:any) {
     return { name, unit };
 }
-const rows = [
-    createData('Frozen yoghurt', 159),
-    createData('Ice cream', 237),
-    createData('Eclair', 262),
-    createData('Cupcake', 305),
-    createData('Gingerbread', 35),
-    createData('Ginger', 56),
-    createData('bread', 56),
-    createData('Gingerbread', 56),
-    createData('Gingerbread', 35),
-    createData('Ginger', 56),
-    createData('bread', 56),
-    createData('Gingerbread', 56),
-];
-
 
 class PollDetails extends PollingController {
   constructor(props: Props) {
@@ -257,9 +242,9 @@ class PollDetails extends PollingController {
                                     <TableHead>
                                         <TableRow>
                                             <TableCell style={{fontWeight:"600"}}>#</TableCell>
-                                            <TableCell style={{fontWeight:"600"}} align="start">Name</TableCell>
-                                            <TableCell style={{fontWeight:"600"}} align="start">Unit Number</TableCell>
-                                            <TableCell style={{fontWeight:"600"}} align="start">Response</TableCell>
+                                            <TableCell style={{fontWeight:"600"}} align="start">{t("Name")}</TableCell>
+                                            <TableCell style={{fontWeight:"600"}} align="start">{t("Unit Number")}</TableCell>
+                                            <TableCell style={{fontWeight:"600"}} align="start">{t("Response")}</TableCell>
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
@@ -295,11 +280,11 @@ class PollDetails extends PollingController {
                                 this.state.pollPreviewAnswer?.poll?.data?.attributes?.status == "completed" ?
                                 <>
                                     <HighlightOffOutlinedIcon style={{color: "red"}}/>
-                                    <p>{this.state.pollPreviewAnswer?.poll?.data?.attributes?.awaited} Response Not Received</p>
+                                    <p>{this.state.pollPreviewAnswer?.poll?.data?.attributes?.awaited} {t("Response Not Received")}</p>
                                 </> :
                                 <>
                                     <img src={awated} alt="awated" />
-                                    <p>{this.state.pollPreviewAnswer?.poll?.data?.attributes?.awaited} Awaited</p>
+                                    <p>{this.state.pollPreviewAnswer?.poll?.data?.attributes?.awaited} {t("Awaited")}</p>
                                 </>
                             }
                         </Box>

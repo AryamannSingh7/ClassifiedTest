@@ -33,6 +33,7 @@ import { Link,withRouter } from "react-router-dom";
 import { SearchIconImage, UploadImage } from "../../user-profile-basic/src/assets";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
+import {withTranslation} from "react-i18next";
 
 class VisitorsList extends VisitorsListController {
     constructor(props: Props) {
@@ -41,7 +42,8 @@ class VisitorsList extends VisitorsListController {
     render() {
         // @ts-ignore
         const { classes } = this.props;
-
+        // @ts-ignore
+        const {t} = this.props
         return (
             <>
                 <Box style={{ background: "#F4F7FF" }} className={classes.announcements}>
@@ -58,13 +60,13 @@ class VisitorsList extends VisitorsListController {
                                 <Box className="navigation">
                                     <Box>
                                         <Typography variant="body1">
-                                            My Dashboards /{" "} General Dashboards /{" "}
+                                            {t("My Dashboards")} /{" "} {t("General Dashboards")} /{" "}
                                             <Box component="span" style={{ color: "blue" }}>
-                                                Visitors
+                                                {t("Visitors")}
                                             </Box>
                                         </Typography>
                                         <Typography variant="h5" className="sub-heading">
-                                            Visitors
+                                            {t("Visitors")}
                                         </Typography>
                                     </Box>
                                 </Box>
@@ -72,7 +74,7 @@ class VisitorsList extends VisitorsListController {
                                     <Box className="filter">
                                         <Select displayEmpty value={this.state.buildingID} className="select-input" placeholder="Select Building" onChange={(e)=> this.setState({buildingID:e.target.value},()=>this.getUnitList(e.target.value))}>
                                             <MenuItem value="" disabled>
-                                                Select Building
+                                                {t("Select Building")}
                                             </MenuItem>
                                             {
                                                 this.state?.buildingList?.length > 0 &&
@@ -85,13 +87,13 @@ class VisitorsList extends VisitorsListController {
                                         </Select>
                                         <Select displayEmpty value={this.state.unitId} className="select-input" placeholder="Select Unit" onChange={(e)=> this.setState({unitId:e.target.value})}>
                                             <MenuItem value="" disabled>
-                                                Select Unit
+                                                {t("Select Unit")}
                                             </MenuItem>
                                             {
                                                 this.state.unitList.length > 0 &&
                                                     this.state.unitList.map((item:any,key:any) => {
                                                         return(
-                                                            <MenuItem value={item.id}>{item.apartment_name}</MenuItem>
+                                                            <MenuItem key={key} value={item.id}>{item.apartment_name}</MenuItem>
                                                         )
                                             })
                                             }
@@ -106,7 +108,7 @@ class VisitorsList extends VisitorsListController {
                                             <Box className="filter">
                                                 <Box className="search-box">
                                                     <SearchIcon />
-                                                    <InputBase placeholder="Search" className="search" onChange={this.manageSearch} />
+                                                    <InputBase placeholder={t("Search")} className="search" onChange={this.manageSearch} />
                                                 </Box>
                                             </Box>
                                         </Box>
@@ -115,12 +117,12 @@ class VisitorsList extends VisitorsListController {
                                             <TableHead>
                                                 <TableRow>
                                                     <TableCell>#</TableCell>
-                                                    <TableCell>Visitor Name</TableCell>
-                                                    <TableCell>Resident Name</TableCell>
-                                                    <TableCell>Building</TableCell>
-                                                    <TableCell>Unit Number</TableCell>
-                                                    <TableCell>Date</TableCell>
-                                                    <TableCell>Phone Number</TableCell>
+                                                    <TableCell>{t("Visitor Name")}</TableCell>
+                                                    <TableCell>{t("Resident Name")}</TableCell>
+                                                    <TableCell>{t("Building")}</TableCell>
+                                                    <TableCell>{t("Unit Number")}</TableCell>
+                                                    <TableCell>{t("Date")}</TableCell>
+                                                    <TableCell>{t("Phone Number")}</TableCell>
                                                 </TableRow>
                                             </TableHead>
                                             <TableBody>
@@ -141,7 +143,7 @@ class VisitorsList extends VisitorsListController {
                                                         })
                                                        :
                                                         <TableRow onClick={() => this.props.history.push("/VisitorsDetails?id=1")} style={{cursor:"pointer"}}>
-                                                            <TableCell>No Data found.</TableCell>
+                                                            <TableCell>{t("No data found..!!")}</TableCell>
                                                         </TableRow>
                                                 }
                                             </TableBody>
@@ -149,9 +151,9 @@ class VisitorsList extends VisitorsListController {
                                         <Divider />
                                         <Box style={{width:"100%",height:"70px",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
                                             <Box style={{display:"flex",marginLeft:"15px"}}>
-                                                <Typography style={{marginRight:"5px"}}>Showing </Typography>
+                                                <Typography style={{marginRight:"5px"}}>{t("Showing")} </Typography>
                                                 <Typography style={{marginRight:"5px",fontWeight:"bold",color:"#FC8434"}}>{this.state.pagination.total_count < this.state.count ? this.state.pagination.total_count : (this.state.count * this.state.page)} </Typography>
-                                                <Typography style={{marginRight:"5px"}}> of </Typography>
+                                                <Typography style={{marginRight:"5px"}}> {t("of")} </Typography>
                                                 <Typography style={{fontWeight:"bold"}}>{this.state.pagination.total_count} </Typography>
                                             </Box>
                                             <Box style={{marginRight:"10px"}}>
@@ -169,5 +171,5 @@ class VisitorsList extends VisitorsListController {
     }
 }
 
-export default withStyles(SuggestionStyleWeb)(withRouter(VisitorsList));
+export default withStyles(SuggestionStyleWeb)(withTranslation()(withRouter(VisitorsList)));
 // Customizable Area End
