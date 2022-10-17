@@ -63,7 +63,7 @@ class ContractDetail extends ContractDetailController {
               <Box className="faq-step top-bar-contract-details">
                 <Box display={{ xs: "flex", md: "flex" }} className="top-bar">
                   <div className="left-icon">
-                    <Link href="/OwnerDashboard">
+                    <Link href="/Contracts">
                       <IconButton>
                         <KeyboardBackspaceIcon />
                       </IconButton>
@@ -80,11 +80,15 @@ class ContractDetail extends ContractDetailController {
                   <Container>
                     <Box className="content-box">
                       <div className="contracts-list">
-                        <div
-                          dangerouslySetInnerHTML={{
-                            __html: this.state.contractData.templateText,
-                          }}
-                        />
+                        {this.state.contractData.isCustomContract ? (
+                          <iframe src={this.state.contractData.templateText} />
+                        ) : (
+                          <div
+                            dangerouslySetInnerHTML={{
+                              __html: this.state.contractData.templateText,
+                            }}
+                          />
+                        )}
                       </div>
                       <Box className="upload-button">
                         <Box className="upload-button-group">
@@ -139,7 +143,7 @@ class ContractDetail extends ContractDetailController {
               <img src={ExclamationIcon} alt="ExclamationIcon" />
               <Typography variant="h6">{t("Terminate Contract?")}</Typography>
               <Typography variant="body1">
-                {t("Are you sure want to terminate lease contract with")} Ali Khan
+                {t("Are you sure want to terminate lease contract with")} {this.state.contractData.tenantName}
                 {t("? Once terminated you won't be able to retrieve.")}
               </Typography>
               <DialogActions className="dialog-button-group">

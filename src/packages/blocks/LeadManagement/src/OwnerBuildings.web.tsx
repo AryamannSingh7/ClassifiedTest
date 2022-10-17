@@ -100,7 +100,9 @@ class OwnerBuildings extends OwnerBuildingsController {
                           </Grid>
                           <Grid item xs={6} className="info-item">
                             <span>{t("Total Units")}</span>
-                            <p>{this.state.buildingData.totalUnit || 0} {t("Units")}</p>
+                            <p>
+                              {this.state.buildingData.totalUnit || 0} {t("Units")}
+                            </p>
                           </Grid>
                           <Grid item xs={6} className="info-item">
                             <span>{t("City")}</span>
@@ -128,7 +130,7 @@ class OwnerBuildings extends OwnerBuildingsController {
                       <h4>{t("Management Team")}</h4>
                       <Grid container spacing={2}>
                         <Grid item xs={12}>
-                          <Card className="team-member-box">Coming soon</Card>
+                          <Card className="team-member-box">{t("Coming soon")}</Card>
                         </Grid>
                         {/* <Grid item xs={6}>
                           <Card className="team-member-box">
