@@ -217,23 +217,42 @@ class ClassifiedManagerDetail extends ClassifiedManagerController {
                           : null
                       } */}
                       { 
-                         attributes?.classified_status !== 'Published' ?
-                          <Box className="incident-button-row customButton">
-                          {/* danger button */}
-                         <Box className="outline-danger">
-                           <Button variant="outlined"
-                          onClick={() => this.setState({ ignoreShowDialog: true })}
-                           >IGNORE</Button>
-                         </Box>
-                         <Button variant="outlined"
-                           onClick={() => this.setState({ showDialog: true })}
-                         >REJECT</Button>
-                         <Button variant="contained"
-                           onClick={() => this.setState({ statusShowDialog: true })}
-                         >PUBLISH</Button>
-                       </Box>
+                         attributes?.classified_status === 'Published' ?
+                         <Box className="incident-button-row customButton">
+                       <Box className="outline-danger">
+                       <Button variant="outlined"
+                      onClick={() => this.setState({ UnpublishedShowDialog: true })}
+                       >UNPUBLISH</Button>
+                     </Box>
+                     </Box>
+                     :
+                      attributes?.classified_status === 'Rejected' ? 
+                      <Box className="incident-button-row customButton">
+                      {/* danger button */}
+                     <Box className="outline-danger">
+                       <Button variant="outlined"
+                      onClick={() => this.setState({ ignoreShowDialog: true })}
+                       >IGNORE</Button>
+                     </Box>
+                     <Button variant="contained"
+                       onClick={() => this.setState({ statusShowDialog: true })}
+                     >PUBLISH</Button>
+                   </Box>
                        :
-                       null
+                       <Box className="incident-button-row customButton">
+                       {/* danger button */}
+                      <Box className="outline-danger">
+                        <Button variant="outlined"
+                       onClick={() => this.setState({ ignoreShowDialog: true })}
+                        >IGNORE</Button>
+                      </Box>
+                      <Button variant="outlined"
+                        onClick={() => this.setState({ showDialog: true })}
+                      >REJECT</Button>
+                      <Button variant="contained"
+                        onClick={() => this.setState({ statusShowDialog: true })}
+                      >PUBLISH</Button>
+                    </Box>
                       }
                     
                     </CardContent>
@@ -388,6 +407,41 @@ class ClassifiedManagerDetail extends ClassifiedManagerController {
                     <Box className="diloag-btn customButton">
                       <Button variant="outlined" onClick={() => { this.setState({ ignoreShowDialog: false }) }}>Close</Button>
                       <Button variant="contained" onClick={() => this.rejectedOrPublished("Ignore")}>Confirm</Button>
+                    </Box>
+                  </Box>
+                </Box>
+              </Dialog>
+
+               {/* view UnpublishedShowDialog status dialog */}
+               <Dialog
+                open={this.state?.UnpublishedShowDialog}
+                onClose={() => this.setState({ UnpublishedShowDialog: false })}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                className="diloag-wrapper"
+                PaperProps={{
+                  style: {
+                    borderRadius: '15px',
+                    width: "500px"
+                  },
+                }}
+              >
+                <Box className="diloag-body classified-dialouge-body desktop-ui ">
+                  <Box className="diloag-header classified-header">
+                    <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
+                      {""}
+                    </DialogTitle>
+                    {/* <Button onClick={() => this.setState({ statusShowDialog: false })}>
+                      <img src={Close_Icon} className="close-icon" />
+                    </Button> */}
+                  </Box>
+                  <Box className="diloag-content classified-content diloag-management-content">
+                    <img src={Classified_CorrectIcon} className="lock-logo" alt="Lock_Icon" />
+                    <h3>Unpublished Classified Request</h3>
+                    <p className="lead"> Are you sure you want to Unpublished this classified?</p>
+                    <Box className="diloag-btn customButton">
+                      <Button variant="outlined" onClick={() => { this.setState({ UnpublishedShowDialog: false }) }}>Close</Button>
+                      <Button variant="contained" onClick={() => this.rejectedOrPublished("Unpublished")}>Confirm</Button>
                     </Box>
                   </Box>
                 </Box>

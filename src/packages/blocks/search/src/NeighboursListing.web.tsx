@@ -132,7 +132,7 @@ class NeighboursListing extends NeighboursController {
                          <Card className="neighbour-card neighbour-list-card card" >
                            <CardContent>
                             <Box onClick={()=>this.getNeighboursDetails(val?.account?.data?.id)}>
-                             <img src={val?.account?.data?.attributes?.profile_pic||NoProfile_Img} className="info-icon" alt="No profile" />
+                             <img src={val?.account?.data?.attributes?.profile_pic?.url||NoProfile_Img} className="info-icon" alt="No profile" />
                              <Typography component="h4">
                               {val?.account?.data?.attributes?.full_name?.name}
                              </Typography>
@@ -154,7 +154,7 @@ class NeighboursListing extends NeighboursController {
                                </Box>
                                 :
                                 <Box className="blocks">
-                                  <img src={Chat_Icon} className="icons" alt="info-icon" />
+                                  <img src={Chat_Icon} onClick={() => this.createChatRoom( val?.account?.data?.attributes?.id)} className="icons" alt="info-icon" />
                                 </Box>
                                }
                                {

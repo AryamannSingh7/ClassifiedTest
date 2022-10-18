@@ -66,6 +66,7 @@ export interface S {
   addNote:any;
   getClassifiedDetails:any;
   ignoreShowDialog:any;
+  UnpublishedShowDialog:any;
   // Customizable Area End
 }
 
@@ -167,6 +168,7 @@ export default class ClassifiedManagerContorller extends BlockComponent<
       addNote:"",
       getClassifiedDetails:null,
       ignoreShowDialog:false,
+      UnpublishedShowDialog:false,
       // Customizable Area End
     };
 
@@ -776,6 +778,8 @@ onChange =(e :any)=>{
     this.updateStatus("Published")
     else if(val ==="Ignore")
     this.updateStatus("Ignore")
+    else if(val ==="Unpublished")
+    this.updateStatus("Unpublished")
     else
     this.updateStatus("Rejected")
   }
@@ -792,7 +796,11 @@ onChange =(e :any)=>{
   }
   else if(val ==="Ignore"){
     formData.append('classified[classified_status]',val)
-    this.setState({ignoreShowDialog :false})
+    this.setState({ignoreShowDialog :false })
+  }
+  else if(val ==="Unpublished"){
+    formData.append('classified[classified_status]',val)
+    this.setState({UnpublishedShowDialog :false })
   }
     else
     {
