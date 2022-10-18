@@ -127,7 +127,7 @@ class ChairmanProfile extends ProfileController {
                         {profileData?.attributes?.full_name.name || 'N/A'}
                         </Typography>
 
-                        <p> {'Unit - '}{profileData?.attributes?.apartment_number?.apartment_number || 'N/A'}</p>
+                        <p> {profileData?.attributes?.apartment_number?.apartment_number && 'Unit - '}{profileData?.attributes?.apartment_number?.apartment_number || 'N/A'}</p>
                         <Box className="icons">
                           <img src={ChatIcon} alt="chat" />
                           <img src={CallIcon} alt="phone" onClick={() => document.location.href = `tel:${profileData?.attributes?.full_phone_number?.full_phone_number}`}/>
