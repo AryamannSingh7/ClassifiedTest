@@ -34,15 +34,22 @@ import {
   TwitterIcon,
   WhatsappIcon,
 } from "react-share";
-import ReviewTemplateController, { Props } from "./ReviewTemplateController.web";
+import LeaseFormController, { Props } from "./LeaseFormController.web";
 import { ContractsStyleWeb } from "./ContractsStyle.web";
 import { BuildingLogo, DownloadIcon, ShareIcon, ExclamationIcon } from "./assets";
 import { withTranslation } from "react-i18next";
 import "../../../web/src/i18n.js";
 
-class ReviewTemplate extends ReviewTemplateController {
+class ReviewTemplate extends LeaseFormController {
   constructor(props: Props) {
     super(props);
+  }
+
+  async componentDidMount(): Promise<void> {
+    const template_id: any = this.props.navigation.getParam("templateId");
+    this.setState({ ...this.state, templateId: template_id }, () => {
+      // this.getTemplateText();
+    });
   }
 
   render() {
@@ -63,11 +70,11 @@ class ReviewTemplate extends ReviewTemplateController {
               <Box className="faq-step">
                 <Box display={{ xs: "flex", md: "flex" }} className="top-bar">
                   <div className="left-icon">
-                    <Link href="/OwnerDashboard">
-                      <IconButton>
-                        <KeyboardBackspaceIcon />
-                      </IconButton>
-                    </Link>
+                    {/* <Link href="/OwnerDashboard"> */}
+                    <IconButton onClick={() => this.goBackFromReviewPage()}>
+                      <KeyboardBackspaceIcon />
+                    </IconButton>
+                    {/* </Link> */}
                     <span>{t("Review Lease Document")}</span>
                   </div>
                   <div className="right-icon">
@@ -77,37 +84,27 @@ class ReviewTemplate extends ReviewTemplateController {
                 <Container>
                   <Box className="content-box">
                     <div className="contracts-list">
-                      <iframe
-                        src="http://www.africau.edu/images/default/sample.pdf"
-                        // style={{ width: "100%" }}
+                      <div
+                        dangerouslySetInnerHTML={{ __html: window.sessionStorage.getItem("changedTemplate") as any }}
                       />
                     </div>
                     <Box className="upload-button">
                       <Box className="upload-button-group review">
                         <Box className="top">
-                          <Button>{t("Edit Document")}</Button>
                           <Button
-                            onClick={() => {
-                              this.handleSaveLeaseModal();
-                            }}
+                            onClick={() =>
+                              this.props.navigation.navigate("LeaseFormIssueLease", {
+                                templateId: this.state.templateId,
+                              })
+                            }
                           >
-                            {t("Save Template")}
+                            {t("Edit Document")}
                           </Button>
+                          <Button onClick={() => this.handleSaveLeaseModal()}>{t("Save Template")}</Button>
                         </Box>
                         <Box className="bottom">
-                          <Button
-                            onClick={() => {
-                              this.handleGenerateLeaseModal();
-                            }}
-                          >
-                            {t("Generate Lease")}
-                          </Button>
-                          <Box
-                            className="image"
-                            onClick={() => {
-                              this.handleShareModal();
-                            }}
-                          >
+                          <Button onClick={() => this.handleGenerateLeaseModal()}>{t("Generate Lease")}</Button>
+                          <Box className="image" onClick={() => this.handleShareModal()}>
                             <img src={ShareIcon} alt="" />
                           </Box>
                         </Box>
@@ -141,12 +138,7 @@ class ReviewTemplate extends ReviewTemplateController {
                 )}
               </Typography>
               <DialogActions className="dialog-button-group">
-                <Button
-                  className="add-button"
-                  onClick={() => {
-                    this.handleSaveLeaseModal();
-                  }}
-                >
+                <Button className="add-button" onClick={() => this.handleSaveLeaseModal()}>
                   {t("Save")}
                 </Button>
               </DialogActions>
@@ -170,12 +162,7 @@ class ReviewTemplate extends ReviewTemplateController {
                 )}
               </Typography>
               <DialogActions className="dialog-button-group">
-                <Button
-                  className="add-button"
-                  onClick={() => {
-                    this.handleGenerateLeaseModal();
-                  }}
-                >
+                <Button className="add-button" onClick={() => this.handleGenerateLeaseModal()}>
                   {t("Okay")}
                 </Button>
               </DialogActions>

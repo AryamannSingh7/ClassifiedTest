@@ -108,5 +108,24 @@ export default class SelectedTemplateController extends BlockComponent<Props, S,
   goBackPage = () => {
     this.props.navigation.navigate(`${window.location.pathname.split("/")[1]}`);
   };
+
+  gotoContractFrom = () => {
+    const values = {
+      tenantName: "",
+      landlordName: "",
+      buildingName: "",
+      unitName: "",
+      buildingId: "",
+      unitId: "",
+      duration: "",
+      startDate: "",
+      endDate: "",
+      monthlyRent: "",
+      currency: "",
+    };
+    window.sessionStorage.setItem("contractForm", JSON.stringify(values));
+    window.sessionStorage.setItem("isLatePaymentPenalty", "false");
+    this.props.navigation.navigate("LeaseFormIssueLease", { templateId: this.state.templateId });
+  };
   // Customizable Area End
 }

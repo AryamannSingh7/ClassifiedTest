@@ -313,7 +313,7 @@ export const ContractsStyleWeb: any = {
     },
     "& .issue-lease-content .select-box .select-input.input": {
       fontSize: "16px",
-      padding: "20px 10px 20px 66px !important",
+      padding: "20px 10px 20px 60px !important",
       outline: "none",
     },
     "& .issue-lease-content .select-input-box .select-input .MuiListItemIcon-root": {
@@ -323,7 +323,7 @@ export const ContractsStyleWeb: any = {
       padding: "12px 15px",
     },
     "& .issue-lease-content .select-input-box .input.select-input .MuiInputAdornment-positionStart": {
-      marginRight: "36px",
+      marginRight: "25px",
     },
     "& .issue-lease-content .select-input-box .input.select-input:before": {
       border: 0,

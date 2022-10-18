@@ -5,10 +5,13 @@ import MessageEnum, { getName } from "../../../framework/src/Messages/MessageEnu
 import { runEngine } from "../../../framework/src/RunEngine";
 import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
 import * as Yup from "yup";
+import moment from "moment";
+import { RouteComponentProps } from "react-router";
+import toast from "react-hot-toast";
 
 export const configJSON = require("./config.js");
 
-export interface Props {
+export interface Props extends RouteComponentProps {
   navigation: any;
   id: string;
   // Customizable Area Start
@@ -19,7 +22,6 @@ export interface Props {
 interface LeaseForm {
   tenantName: string;
   landlordName: string;
-  complexName: any;
   buildingName: string;
   unitName: string;
   buildingId: string;
@@ -47,8 +49,19 @@ interface S {
   isPenaltyRentModalOpen: boolean;
   isPenaltyAmountModalOpen: boolean;
   isConditionModalOpen: boolean;
+  isSaveLeaseModalOpen: boolean;
+  isGenerateLeaseModalOpen: boolean;
+  isShareModalOpen: boolean;
 
   changedTemplate: string;
+
+  shareUrl: string;
+
+  isLatePaymentPenalty: boolean;
+  penalty: any;
+  penaltyId: string;
+  penaltyType: string;
+  penaltyAmount: string;
   // Customizable Area End
 }
 
@@ -62,6 +75,9 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
   GetUnitListCallId: any;
   IsContractExistCallId: any;
   GetTemplateTextCallId: any;
+  GetPenaltyDetailsCallId: any;
+  CreatePenaltyCallId: any;
+  EditPenaltyCallId: any;
 
   constructor(props: Props) {
     super(props);
@@ -83,7 +99,6 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
       leaseForm: {
         tenantName: "",
         landlordName: "",
-        complexName: localStorage.getItem("society_id"),
         buildingName: "",
         unitName: "",
         buildingId: "",
@@ -99,8 +114,19 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
       isPenaltyRentModalOpen: false,
       isPenaltyAmountModalOpen: false,
       isConditionModalOpen: false,
+      isSaveLeaseModalOpen: false,
+      isGenerateLeaseModalOpen: false,
+      isShareModalOpen: false,
 
       changedTemplate: "",
+
+      shareUrl: "",
+
+      isLatePaymentPenalty: false,
+      penalty: null,
+      penaltyId: "",
+      penaltyType: "",
+      penaltyAmount: "",
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -197,6 +223,81 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
       ApiCatchErrorResponse(errorResponse);
     }
 
+    // Get Penalty Details - API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.GetPenaltyDetailsCallId !== null &&
+      this.GetPenaltyDetailsCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.GetPenaltyDetailsCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      if (responseJson.penanlty) {
+        this.setState({ penalty: responseJson.penanlty });
+      }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // Create Penalty Details - API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.CreatePenaltyCallId !== null &&
+      this.CreatePenaltyCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.CreatePenaltyCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      if (responseJson.penanlty) {
+        this.setState({ penalty: responseJson.penanlty }, () => {
+          this.handlePenaltyCountModal();
+          toast.success("Late payment penalty created successfully");
+        });
+      }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // Edit Penalty Details - API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.EditPenaltyCallId !== null &&
+      this.EditPenaltyCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.EditPenaltyCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      if (responseJson.penanlty) {
+        this.setState({ penalty: responseJson.penanlty, penaltyId: "", penaltyAmount: "", penaltyType: "" }, () => {
+          this.handlePenaltyCountModal();
+          toast.success("Late payment penalty edited successfully");
+        });
+      }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
     // Get Template - API Response
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
@@ -208,9 +309,27 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       const contract = JSON.parse(window.sessionStorage.getItem("contractForm") as any);
-      console.log(contract);
 
-      // this.setState({ tenant: responseJson.account, contract: responseJson.contract.data });
+      if (responseJson.data) {
+        const template = responseJson.data.attributes.template;
+        let changedTemplate = template.replaceAll("{{TENANT_NAME}}", contract.tenantName);
+        changedTemplate = changedTemplate.replaceAll("{{LANDLORD_NAME}}", contract.landlordName);
+        changedTemplate = changedTemplate.replaceAll("{{BUILDING_NAME}}", contract.buildingName);
+        changedTemplate = changedTemplate.replaceAll("{{UNIT_NAME}}", contract.unitName);
+        changedTemplate = changedTemplate.replaceAll("{{DURATION}}", contract.duration);
+        changedTemplate = changedTemplate.replaceAll(
+          "{{START_DATE}}",
+          moment(contract.startDate, "YYYY-MM-DD").format("MMMM DD, YYYY")
+        );
+        changedTemplate = changedTemplate.replaceAll(
+          "{{END_DATE}}",
+          moment(contract.endDate, "YYYY-MM-DD").format("MMMM DD, YYYY")
+        );
+        changedTemplate = changedTemplate.replaceAll("{{AMOUNT}}", contract.currency + " " + contract.monthlyRent);
+
+        window.sessionStorage.setItem("changedTemplate", changedTemplate);
+        this.setState({ changedTemplate: changedTemplate });
+      }
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
@@ -320,6 +439,99 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
     return true;
   };
 
+  // Get Penalty - API
+  getPenaltyDetails = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.GetPenaltyDetailsCallId = apiRequest.messageId;
+
+    const society_id = localStorage.getItem("society_id");
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `society_managements/${society_id}/bx_block_contract/penanlty_late_payments`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  // Create Penalty - API
+  createPenalty = (values: any) => {
+    const body = {
+      penanlty: {
+        penanlty_counted: values.penaltyType,
+        amount: values.penaltyAmount,
+      },
+    };
+
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.CreatePenaltyCallId = apiRequest.messageId;
+
+    const society_id = localStorage.getItem("society_id");
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `society_managements/${society_id}/bx_block_contract/penanlty_late_payments`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestBodyMessage), JSON.stringify(body));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePost);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  // Edit Penalty - API
+  editPenalty = (values: any) => {
+    const body = {
+      penanlty: {
+        penanlty_counted: values.penaltyType,
+        amount: values.penaltyAmount,
+      },
+    };
+
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.EditPenaltyCallId = apiRequest.messageId;
+
+    const society_id = localStorage.getItem("society_id");
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `society_managements/${society_id}/bx_block_contract/penanlty_late_payments/${this.state.penaltyId}`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestBodyMessage), JSON.stringify(body));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePatch);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
   // Get Template - API
   getTemplateText = () => {
     const header = {
@@ -367,11 +579,11 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
         return schema.test({
           test: (unitId: any) => {
             if (unitId) {
-              return !this.state.contract;
+              return !this.state.contract && this.state.tenant;
             }
             return true;
           },
-          message: "Already contract available for this unit.",
+          message: "You can't create contract for this unit",
         });
       }),
     duration: Yup.string()
@@ -391,6 +603,15 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
       .required("Required")
       .matches(/\S/, "Required")
       .matches(/^\d+$/, "Enter only number"),
+  });
+
+  PenaltyFormValidation: any = Yup.object().shape({
+    penaltyType: Yup.string()
+      .required("Required")
+      .matches(/\S/, "Required"),
+    penaltyAmount: Yup.string()
+      .required("Required")
+      .matches(/\S/, "Required"),
   });
 
   handleConditionModal = () => {
@@ -418,6 +639,31 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
     this.setState({
       ...this.state,
       isPenaltyAmountModalOpen: !this.state.isPenaltyAmountModalOpen,
+    });
+  };
+
+  goBackFromReviewPage = () => {
+    this.props.navigation.navigate("ChangedSelectedTemplate", { templateId: this.state.templateId });
+  };
+
+  handleSaveLeaseModal = () => {
+    this.setState({
+      ...this.state,
+      isSaveLeaseModalOpen: !this.state.isSaveLeaseModalOpen,
+    });
+  };
+
+  handleGenerateLeaseModal = () => {
+    this.setState({
+      ...this.state,
+      isGenerateLeaseModalOpen: !this.state.isGenerateLeaseModalOpen,
+    });
+  };
+
+  handleShareModal = () => {
+    this.setState({
+      ...this.state,
+      isShareModalOpen: !this.state.isShareModalOpen,
     });
   };
   // Customizable Area End

@@ -21,6 +21,7 @@ import { ContractsStyleWeb } from "./ContractsStyle.web";
 import { BuildingLogo, TemplateIcon, EarthIcon, BuildingIcon, CubeIcon } from "./assets";
 import { withTranslation } from "react-i18next";
 import "../../../web/src/i18n.js";
+import moment from "moment";
 
 class IssueLease extends IssueContractController {
   constructor(props: Props) {
@@ -135,9 +136,7 @@ class IssueLease extends IssueContractController {
                           <Grid container spacing={2}>
                             <Grid item xs={12}>
                               <div className="header">
-                                <Link href={``}>
-                                  <h4>Contract 1</h4>
-                                </Link>
+                                <h4>Contract {this.state.contract.id}</h4>
                                 <div className="right-menu">
                                   <Menu
                                     menuButton={
@@ -146,8 +145,27 @@ class IssueLease extends IssueContractController {
                                       </IconButton>
                                     }
                                   >
-                                    <MenuItem>{t("Download")}</MenuItem>
-                                    <MenuItem>{t("Share")}</MenuItem>
+                                    <MenuItem
+                                      onClick={() =>
+                                        this.props.navigation.navigate("ContractDetail", {
+                                          id: this.state.contract.id,
+                                        })
+                                      }
+                                    >
+                                      {t("View")}
+                                    </MenuItem>
+                                    <MenuItem>
+                                      <Link
+                                        target="_blank"
+                                        href={
+                                          this.state.contract.attributes.custom_contract
+                                            ? this.state.contract.attributes.custom_contract_image.url
+                                            : this.state.contract.attributes.template_pdf.url
+                                        }
+                                      >
+                                        {t("Download")}
+                                      </Link>
+                                    </MenuItem>
                                   </Menu>
                                 </div>
                               </div>
@@ -156,27 +174,33 @@ class IssueLease extends IssueContractController {
                           <Grid container spacing={2} className="info">
                             <Grid item xs={6}>
                               <span>{t("Expires on")}</span>
-                              <p>30-04-2022</p>
+                              <p>
+                                {this.state.contract.attributes.expires_on
+                                  ? moment(this.state.contract.attributes.expires_on, "YYYY-MM-DD").format(
+                                      "MMMM DD, YYYY"
+                                    )
+                                  : "-"}
+                              </p>
                             </Grid>
                             <Grid item xs={6}>
                               <span>{t("Building")}</span>
-                              <p>Building</p>
+                              <p>{this.state.buildingName}</p>
                             </Grid>
                             <Grid item xs={6}>
                               <span>{t("Unit")}</span>
-                              <p>Unit</p>
+                              <p>{this.state.unitName}</p>
                             </Grid>
                             <Grid item xs={6}>
                               <span>{t("Tenant Name")}</span>
-                              <p>Tenant Name</p>
+                              <p>{this.state.contract.attributes.tenant_name}</p>
                             </Grid>
                             <Grid item xs={6}>
                               <span>{t("Contract Type")}</span>
-                              <p>Contract Type</p>
+                              <p>{this.state.contract.attributes.contract_type}</p>
                             </Grid>
                             <Grid item xs={6}>
                               <span>{t("Contract State")}</span>
-                              <p>Contract State</p>
+                              <p>{this.state.contract.attributes.status}</p>
                             </Grid>
                           </Grid>
                         </Card>

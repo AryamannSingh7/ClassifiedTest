@@ -395,7 +395,7 @@
   border-radius: 25px;
   padding: 12px 15px;
   background-color: #efefef;
-  margin-bottom: 15px;
+  /* margin-bottom: 15px; */
 }
 
 .penalty-dialog .select-input::before,
@@ -409,6 +409,11 @@
 
 .penalty-dialog .select-input .MuiInputAdornment-positionStart {
   margin-right: 20px;
+}
+
+.penalty-dialog h4 {
+  font-weight: 600;
+  margin-top: 20px;
 }
 
 .add-meeting .date-time .MuiInput-underline:before,
