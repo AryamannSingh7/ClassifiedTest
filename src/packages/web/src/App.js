@@ -277,6 +277,10 @@ import TaskManagement from '../../blocks/FriendList/src/TaskManagement.web';
 
 // Reports
 import ReportDashboard from '../../blocks/ExpenseTracking/src/ReportDashboard.web';
+import BudgetReport from '../../blocks/ExpenseTracking/src/BudgetReport.web';
+import ExpenseReport from '../../blocks/ExpenseTracking/src/ExpenseReport.web';
+import AuditReport from '../../blocks/ExpenseTracking/src/AuditReport.web';
+import ManagementFeeReport from '../../blocks/ExpenseTracking/src/ManagementFeeReport.web';
 
 const routeMap = {
   //done
@@ -1676,6 +1680,30 @@ const routeMap = {
   ReportDashboard: {
     component: ReportDashboard,
     path: '/Reports',
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
+    exact: true
+  },
+  BudgetReport: {
+    component: BudgetReport,
+    path: '/BudgetReports',
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
+    exact: true
+  },
+  ExpenseReport: {
+    component: ExpenseReport,
+    path: '/ExpenseReports',
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
+    exact: true
+  },
+  AuditReport: {
+    component: AuditReport,
+    path: '/AuditReports',
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
+    exact: true
+  },
+  ManagementFeeReport: {
+    component: ManagementFeeReport,
+    path: '/ManagementFeeReports',
     roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
     exact: true
   },
