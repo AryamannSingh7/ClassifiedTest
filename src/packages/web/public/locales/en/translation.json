@@ -748,5 +748,20 @@
   "Enter only number": "Enter only number",
   "Include Penalty for late Payment": "Include Penalty for late Payment",
   "Already contract available for this unit": "Already contract available for this unit",
-  "Maximum length should be 100 character": "Maximum length should be 100 character"
-}
+  "Maximum length should be 100 character": "Maximum length should be 100 character",
+  "Poll Title Name": "Poll Title Name",
+  "Title not match the minimum requirements.": "Title not match the minimum requirements.",
+  "Title can't be empty.": "Title can't be empty.",
+  "You can not use previous date.": "You can not use previous date.",
+  "Invalid start date": "Invalid start date",
+  "Start Date can't be empty.": "Start Date can't be empty.",
+  "You can not use previous date then start date": "You can not use previous date then start date",
+  "Invalid end date": "Invalid end date",
+  "End Date can't be empty.": "End Date can't be empty.",
+  "Description not match the minimum requirements.": "Description not match the minimum requirements.",
+  "Description can't be empty": "Description can't be empty",
+  "Option can't be blank": "Option can't be blank",
+  "Question Can't be empty": "Question Can't be empty",
+  "Please select Question Type": "Please select Question Type",
+  "Please select audience": "Please select audience",
+  "Option": "Option"

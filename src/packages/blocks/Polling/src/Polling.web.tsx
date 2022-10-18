@@ -296,15 +296,15 @@ class Polling extends PollingController {
                                                 <Box className="EventsIconsText">
                                                     {
                                                         data.attributes.status == "upcoming" &&
-                                                        <Typography variant="body2" className={"statusOngoingBlue"}>{data.attributes.status}</Typography>
+                                                        <Typography variant="body2" className={"statusOngoingBlue"}>{t("Upcoming")}</Typography>
                                                     }
                                                     {
                                                         data.attributes.status == "ongoing" &&
-                                                        <Typography variant="body2" className={"statusOngoingRed"}>{data.attributes.status}</Typography>
+                                                        <Typography variant="body2" className={"statusOngoingRed"}>{t("Ongoing")}</Typography>
                                                     }
                                                     {
                                                         data.attributes.status == "completed" &&
-                                                        <Typography variant="body2" className={"statusOngoingGreen"}>{data.attributes.status}</Typography>
+                                                        <Typography variant="body2" className={"statusOngoingGreen"}>{t("Completed")}</Typography>
                                                     }
                                                 </Box>
                                                 <Box className="EventsIconsText">
