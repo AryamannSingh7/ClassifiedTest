@@ -56,7 +56,6 @@ class NeighboursListing extends NeighboursController {
 
   render() {
     const { navigation } = this.props;
-    console.log("ajajajaajaja======",this.state?.neighboursListing)
     return (
       <>
         <Box className="login-wrapper incident-wrapper neighbour-listing-wrapper">
