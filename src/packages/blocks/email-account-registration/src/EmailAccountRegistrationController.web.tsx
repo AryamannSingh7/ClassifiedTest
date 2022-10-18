@@ -1124,6 +1124,11 @@ console.log(attributes)
       this.setState({ ...this.state, [e.target.name]: e.target.value }, () => this.getData(e))
     }
   }
+  handleChangeCode = (e: any) => {
+   
+      this.setState({ ...this.state, selectCode: e.dial_code },()=>console.log(this.state.selectCode))
+
+  }
   //@ts-ignore
   //@ts-nocheck
 

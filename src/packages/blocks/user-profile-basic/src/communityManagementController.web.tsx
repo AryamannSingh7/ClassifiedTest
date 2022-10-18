@@ -54,16 +54,18 @@ export interface S {
   selectCode: string;
   selectCode2: string;
   selectCode3:string;
-  anchorEl: any;
   showDialog:boolean;
   showDialog1:boolean;
   showDialog2: boolean;
   profiledata:any;
   values:any,
   showDialogDelete:boolean,
-  allUserType:any,
-  openToolTip:any;
-  setOpen:any;
+  allUserType:any
+  openToolTip: boolean;
+  anchorEl:any;
+  popUPText:string;
+  setOpen:boolean;
+  invitationData:any;
   // Customizable Area End
 }
 
@@ -176,8 +178,10 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
       showDialogDelete:false,
   showDialog1:false,
   allUserType:[],
-      openToolTip:false,
-      setOpen:false,
+  openToolTip: false,
+  popUPText:"",
+  setOpen:false,
+  invitationData:""
 
       // Customizable Area End
     };
@@ -2003,5 +2007,18 @@ let userType=localStorage.getItem('userType')
     });
     return validations
   }
+  // handleToolTip = (event: any, text: any) => {
+  //   this.setState({ openToolTip: !this.state.openToolTip });
+  //   this.setState({ anchorEl: event.currentTarget });
+  //   this.setState({ popUPText: text });
+  // };
+
+  // handleOpen = () => {
+  //   this.setState({setOpen:true});
+  // };
+
+  // handleClose = () => {
+  //   this.setState({setOpen:false});
+  // };
   // Customizable Area End
 }

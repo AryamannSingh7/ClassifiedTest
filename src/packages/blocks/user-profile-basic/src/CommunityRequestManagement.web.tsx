@@ -58,7 +58,7 @@ class CommunityRequestManagement extends CommunityUserProfileController {
     super(props);
   }
   async componentDidMount() {
-   this.getUserType()
+  //  this.getUserType()
       }
   render() {
     const {t}: any = this.props
@@ -260,7 +260,7 @@ class CommunityRequestManagement extends CommunityUserProfileController {
                      onSubmit={(values) => {
                        console.log("valus=========>", values)
                        // same shape as initial values
-                       this.invitationData(values);
+                      //  this.invitationData(values);
                     }}
                   >
                     {({ values, touched, errors, isValid, setFieldValue }) => (
@@ -270,7 +270,7 @@ class CommunityRequestManagement extends CommunityUserProfileController {
                               <Box className="formGroup customSelect">
                                   <FormLabel component="legend" style={dashBoard.labelsStyle}>{t("Select User Type")}</FormLabel>
                                   <FormControl variant="outlined" >
-                                    <span className="frmLeftIcons">
+                                    <span className="frmLeftIcons" style={{top:'28%'}}>
                                       <img src={user_icon} className="frm-icons" alt="User Icon" />
                                     </span>
                                     <InputLabel id="demo-simple-select-outlined-label" style={dashBoard.formLabels}>{t("Select User Type")}</InputLabel> 
@@ -349,7 +349,7 @@ class CommunityRequestManagement extends CommunityUserProfileController {
                               <Box className="formGroup customSelect">
                               <FormLabel component="legend" style={dashBoard.labelsStyle}>{t("Select Building")}</FormLabel>
                                 <FormControl variant="outlined" >
-                                  <span className="frmLeftIcons">
+                                  <span className="frmLeftIcons" style={{top:'28%'}}>
                                     <img src={building} className="frm-icons" alt="Building Icon" />
                                   </span>
                                   <InputLabel id="demo-simple-select-outlined-label" style={dashBoard.formLabels}>{t("Select Building")}</InputLabel> 
@@ -391,7 +391,7 @@ class CommunityRequestManagement extends CommunityUserProfileController {
                               <Box className="formGroup customSelect">
                               <FormLabel component="legend" style={dashBoard.labelsStyle}>{t("Select Unit")}</FormLabel>
                                   <FormControl variant="outlined" >
-                                    <span className="frmLeftIcons">
+                                    <span className="frmLeftIcons" style={{top:'30%'}}>
                                       <img src={unit} className="frm-icons" alt="Unit Icon" />
                                     </span>
                                     <InputLabel id="demo-simple-select-outlined-label" style={dashBoard.formLabels}>{t("Select Unit")}</InputLabel> 
@@ -429,8 +429,25 @@ class CommunityRequestManagement extends CommunityUserProfileController {
                                   </FormControl>
                               </Box>
                             </Grid>
-                            <Grid item xs={12} sm={6}>
+                            <Grid item xs={12} sm={12}>
+                            <Box style={{padding:'1rem',display:'flex',justifyContent:'end'}}>
 
+<Button variant='text' onClick={this.handleClose} style={{marginRight:'2rem',border:'1px solid #2773DF',fontWeight:'bold',color:'#2773DF',padding:'10px 40px'}}  >
+CANCEL
+</Button>
+<Box className="customButton" style={{width:'10rem'}}>
+
+<Button
+ variant="contained"
+ type="submit"
+ style={{borderRadius:10}}
+
+>
+ SEND INVITATION
+</Button>
+
+</Box>
+</Box>
                             </Grid>
                           </Grid>
                         </Form>
