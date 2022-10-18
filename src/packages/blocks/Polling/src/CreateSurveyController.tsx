@@ -293,7 +293,7 @@ export default class CoverImageController extends BlockComponent<
     let DescriptionValidation = false
     let optionValidation = false
     let targetAudienceValidation = false
-    console.log("THIS IS FROM DATA",this.state)
+
     if(this.state.SurveyData.title){
       if(this.state.SurveyData.title.length >=5){
         this.setState({
@@ -373,7 +373,7 @@ export default class CoverImageController extends BlockComponent<
         })
       }
     }else{
-      this.setState({pollDescriptionError: "description can't be empty"})
+      this.setState({pollDescriptionError: "Description can't be empty"})
     }
 
     let updatedArray = this.state.surveyQuestions.map((item:any) => {
@@ -467,7 +467,6 @@ export default class CoverImageController extends BlockComponent<
          }
        }
     })
-    console.log("THIS IS UPDATED ARRAY",updatedArray)
     this.setState({
       surveyQuestions:updatedArray
     })
@@ -486,7 +485,6 @@ export default class CoverImageController extends BlockComponent<
     }else{
       targetAudienceValidation = true
     }
-    console.log("ARRAY",optionValidation)
     if(titleValidation && startDateValidation && endDateValidation && DescriptionValidation && optionValidation && targetAudienceValidation){
       return true
     }else{

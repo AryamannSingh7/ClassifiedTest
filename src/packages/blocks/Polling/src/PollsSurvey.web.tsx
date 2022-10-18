@@ -72,6 +72,7 @@ class PollsSurvey extends PollsSurveyController {
                                   backgroundColor: "#2B6FEC",
                                   borderRadius: '5rem',
                                   marginBottom: 14,
+                                  maxWidth:"130px",
                                   boxShadow: "none",
                                   color: "#F7F7FC",
                                   fontWeight: 600,
@@ -85,6 +86,7 @@ class PollsSurvey extends PollsSurveyController {
                                     backgroundColor: "#2B6FEC",
                                     borderRadius: '5rem',
                                     marginBottom: 14,
+                                    maxWidth:"130px",
                                     boxShadow: "none",
                                     color: "#F7F7FC",
                                     fontWeight: 600,
@@ -102,34 +104,6 @@ class PollsSurvey extends PollsSurveyController {
               <Grid xs={12}>
                   {/*@ts-ignore*/}
                 <TabPanel value={this.state.TabValue} index={0}>
-                  {/*<Box*/}
-                  {/*  display="flex"*/}
-                  {/*  justifyContent='space-between'*/}
-                  {/*  alignItems="center"*/}
-                  {/*  borderRadius="15px"*/}
-                  {/*  bgcolor="white"*/}
-                  {/*  marginTop='2rem'*/}
-                  {/*  padding='1rem'*/}
-                  {/*>*/}
-                  {/*  <Box style={{minWidth:"100%"}}>*/}
-                  {/*    <Box marginTop='1rem'><p>Survey</p></Box>*/}
-                  {/*    <Box marginTop='1rem'><h4>Event Planning Survey</h4></Box>*/}
-                  {/*    <Box marginTop='0.4rem'><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta, quis! Eum exercitationem</p>*/}
-                  {/*    </Box>*/}
-                  {/*    <Box marginTop='1rem'><p style={{color:"black"}}>Building: Building-1</p></Box>*/}
-                  {/*    <Divider style={{marginTop:'0.6rem', marginRight:10}}/>*/}
-                  {/*    <Box display='flex' justifyContent='space-between' marginTop='0.6rem'>*/}
-                  {/*        <Box className="EventsIconsDataBox">*/}
-                  {/*            <DateRangeOutlinedIcon style={{color: "#054c94"}}/>*/}
-                  {/*            <p style={{color:"black"}}>14-07-2022</p>*/}
-                  {/*        </Box>*/}
-                  {/*        <Box className="EventsIconsText">*/}
-                  {/*            <p className="statusCompleted" style={{fontWeight: 600}}>Submitted</p>*/}
-                  {/*        </Box>*/}
-                  {/*    </Box>*/}
-                  {/*  </Box>*/}
-                  {/*</Box>*/}
-
                 {this.state.livePollsData?.length ? this.state.livePollsData?.map((item:any) => {
                   if(item.attributes.status !== "upcoming"){
                       return(
@@ -191,34 +165,6 @@ class PollsSurvey extends PollsSurveyController {
               <Grid xs={12}>
                   {/*@ts-ignore*/}
                 <TabPanel value={this.state.TabValue} index={1}>
-                    {/*<Box*/}
-                    {/*  display="flex"*/}
-                    {/*  justifyContent='space-between'*/}
-                    {/*  alignItems="center"*/}
-                    {/*  borderRadius="15px"*/}
-                    {/*  bgcolor="white"*/}
-                    {/*  marginTop='2rem'*/}
-                    {/*  padding='1rem'*/}
-                    {/*>*/}
-                    {/*  <Box style={{minWidth:"100%"}}>*/}
-                    {/*    <Box marginTop='1rem'><p>Survey</p></Box>*/}
-                    {/*    <Box marginTop='1rem'><h4>Event Planning Survey</h4></Box>*/}
-                    {/*    <Box marginTop='0.4rem'><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta, quis! Eum exercitationem</p>*/}
-                    {/*    </Box>*/}
-                    {/*    <Box marginTop='1rem'><p style={{color:"black"}}>Building: Building-1</p></Box>*/}
-                    {/*    <Divider style={{marginTop:'0.6rem', marginRight:10}}/>*/}
-                    {/*    <Box display='flex' justifyContent='space-between' marginTop='0.6rem'>*/}
-                    {/*        <Box className="EventsIconsDataBox">*/}
-                    {/*            <DateRangeOutlinedIcon style={{color: "#054c94"}}/>*/}
-                    {/*            <p style={{color:"black"}}>14-07-2022</p>*/}
-                    {/*        </Box>*/}
-                    {/*        <Box className="EventsIconsText">*/}
-                    {/*            <p className="statusOngoing" style={{fontWeight: 600}}>Ongoing</p>*/}
-                    {/*        </Box>*/}
-                    {/*    </Box>*/}
-                    {/*  </Box>*/}
-                    {/*</Box>*/}
-
                     {this.state.oldPollsData?.length ? this.state.oldPollsData?.map((items:any) => {
                       return(
                         <Box
@@ -298,7 +244,7 @@ class PollsSurvey extends PollsSurveyController {
                         <Box style={{display:'flex',flexDirection:'column',justifyContent:'space-between'}}>
                             <Box style={{margin:"15px"}}>
                                 <Box style={{display:'flex',justifyContent:"space-between",alignItems:"center"}}>
-                                    <Typography variant="h6" style={{fontWeight:"bold"}}>Filter</Typography>
+                                    <Typography variant="h6" style={{fontWeight:"bold"}}>{t("Filter")}</Typography>
                                     <Button style={{color:"darkgray"}} onClick={() => this.setState({selectedFilter:""})}>{t("Clear All")}</Button>
                                 </Box>
                                 <Box style={{marginTop:"15px"}}>
@@ -309,7 +255,7 @@ class PollsSurvey extends PollsSurveyController {
                                                 value="poll"
                                                 control={<Radio color="primary" />}
                                                 checked={this.state.selectedFilter === "poll"}
-                                                label="Poll"
+                                                label={t("Poll")}
                                                 // @ts-ignore
                                                 onChange={(e)=> this.setState({selectedFilter:e.target.value})}
                                                 labelPlacement="start"
@@ -318,7 +264,7 @@ class PollsSurvey extends PollsSurveyController {
                                             <FormControlLabel
                                                 value="survey"
                                                 control={<Radio color="primary" />}
-                                                label="Survey"
+                                                label={t("Survey")}
                                                 checked={this.state.selectedFilter === "survey"}
                                                 // @ts-ignore
                                                 onChange={(e)=> this.setState({selectedFilter:e.target.value})}
