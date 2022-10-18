@@ -760,7 +760,9 @@
   "Please select Question Type": "الرجاء تحديد نوع السؤال",
   "Please select audience": "الرجاء تحديد الجمهور",
   "Option": "خيار",
-  "Visitor_Request_Updated_Success": "تم تحديث طلب الزائر الخاص بك بنجاح. تم إرسال الطلب المحدث إلى لوحة معلومات الأمان. سيتمكن الزائر من الدخول بدون متاعب.",
-  "Visitor Request Updated": "تم تحديث طلب الزائر",
-  "Coming soon": "قريبا"
+  "Coming soon": "قريبا",
+  "Enter only number": "أدخل رقمًا فقط",
+  "Include Penalty for late Payment": "تضمين غرامة السداد المتأخر",
+  "Already contract available for this unit": "العقد متاح بالفعل لهذه الوحدة",
+  "Maximum length should be 100 character": "يجب أن يكون الحد الأقصى للطول 100 حرف"
 }

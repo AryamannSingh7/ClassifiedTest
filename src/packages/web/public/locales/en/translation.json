@@ -744,7 +744,11 @@
   "Visitor Name": "Visitor Name",
   "Visitor_Request_Updated_Success": "Your visitor request updated successfully. Updated request has been sent to security dashboard. Visitor will be able to enter hassle free.",
   "Visitor Request Updated": "Visitor Request Updated",
-<<<<<<< HEAD
+  "Coming soon": "Coming soon",
+  "Enter only number": "Enter only number",
+  "Include Penalty for late Payment": "Include Penalty for late Payment",
+  "Already contract available for this unit": "Already contract available for this unit",
+  "Maximum length should be 100 character": "Maximum length should be 100 character",
   "Poll Title Name": "Poll Title Name",
   "Title not match the minimum requirements.": "Title not match the minimum requirements.",
   "Title can't be empty.": "Title can't be empty.",
@@ -760,6 +764,5 @@
   "Question Can't be empty": "Question Can't be empty",
   "Please select Question Type": "Please select Question Type",
   "Please select audience": "Please select audience",
-  "Option": "Option",
-  "Coming soon": "Coming soon"
+  "Option": "Option"
 }

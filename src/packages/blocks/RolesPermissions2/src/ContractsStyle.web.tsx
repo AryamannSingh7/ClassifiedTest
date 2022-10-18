@@ -311,6 +311,11 @@ export const ContractsStyleWeb: any = {
       width: "100%",
       paddingLeft: "50px",
     },
+    "& .issue-lease-content .select-box .select-input.input": {
+      fontSize: "16px",
+      padding: "20px 10px 20px 66px !important",
+      outline: "none",
+    },
     "& .issue-lease-content .select-input-box .select-input .MuiListItemIcon-root": {
       minWidth: "40px",
     },
@@ -435,9 +440,25 @@ export const ContractsStyleWeb: any = {
     },
     "& .error": {
       color: "red",
-      marginTop: "10px",
+      // marginTop: "10px",
       marginLeft: "20px",
       fontSize: "14px",
+    },
+    "& ::placeholder": {
+      color: "black",
+      opacity: 1,
+    },
+    "& :-ms-input-placeholder": {
+      color: "black",
+      opacity: 1,
+    },
+    "& ::-ms-input-placeholder": {
+      color: "black",
+      opacity: 1,
+    },
+    "& .form.issue-lease-content .next-button": {
+      position: "sticky",
+      bottom: 0,
     },
   },
   commonPage: {
@@ -554,7 +575,7 @@ export const ContractsStyleWeb: any = {
       alignItems: "center",
       marginBottom: "10px",
     },
-    "& .upload-button .condition-select span": {
+    "& .upload-button .condition-select span.MuiCheckbox-root": {
       color: "orange",
     },
     "& .upload-button input[type='radio' i]": {
@@ -589,6 +610,9 @@ export const ContractsStyleWeb: any = {
       border: "0",
       fontWeight: "600",
     },
+    "& .upload-button .penalty-detail": {
+      minHeight: "160px",
+    },
     "& .upload-button .penalty-detail .header": {
       display: "flex",
       alignItems: "center",
@@ -616,12 +640,14 @@ export const ContractsStyleWeb: any = {
     },
     "& .upload-button .penalty-detail .content-item span": {
       color: "black",
-      fontSize: "13px",
+      fontSize: "16px",
+      lineHeight: "20px",
     },
     "& .upload-button .penalty-detail .content-item p": {
       color: "black",
       fontWeight: "600",
-      fontSize: "13px",
+      fontSize: "16px",
+      lineHeight: "20px",
     },
   },
 };
