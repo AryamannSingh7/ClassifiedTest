@@ -134,18 +134,18 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
       var responseJson = message.getData(
         getName(MessageEnum.RestAPIResponceSuccessMessage)
       );
-      if (apiRequestCallId === this.getProfileDataAPiCallId) {
-        console.log(responseJson)
-        if (!responseJson.errors) {
-          console.log(responseJson)
-          this.setState({ profileData: responseJson.data,loading:false }, () => console.log(this.state.profileData))
-        } else {
-          //Check Error Response
-          // this.parseApiErrorResponse(responseJson);
-        }
+      // if (apiRequestCallId === this.getProfileDataAPiCallId) {
+      //   console.log(responseJson)
+      //   if (!responseJson.errors) {
+      //     console.log(responseJson)
+      //     this.setState({ profileData: responseJson.data,loading:false }, () => console.log(this.state.profileData))
+      //   } else {
+      //     //Check Error Response
+      //     // this.parseApiErrorResponse(responseJson);
+      //   }
 
-        this.parseApiCatchErrorResponse(errorReponse);
-      }
+      //   this.parseApiCatchErrorResponse(errorReponse);
+      // }
       if (responseJson && !responseJson.errors && responseJson.data) {
         if (responseJson.data.length === 0) {
           this.setState({
