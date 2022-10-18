@@ -61,7 +61,9 @@ export interface S {
   profiledata:any;
   values:any,
   showDialogDelete:boolean,
-  allUserType:any
+  allUserType:any,
+  openToolTip:any;
+  setOpen:any;
   // Customizable Area End
 }
 
@@ -173,7 +175,9 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
       values:null,
       showDialogDelete:false,
   showDialog1:false,
-  allUserType:[]
+  allUserType:[],
+      openToolTip:false,
+      setOpen:false,
 
       // Customizable Area End
     };
@@ -538,6 +542,19 @@ this.setState({loading:false,showDialog:false})
   isValidEmail(email: string) {
     return this.emailReg.test(email);
   }
+
+  handleOpen = (e:any) => {
+
+  }
+
+  handleToolTip = (e:any,text:any) => {
+
+  }
+
+  invitationData = (value:any) => {
+
+  }
+
 
   createAccount(): boolean {
     if (
