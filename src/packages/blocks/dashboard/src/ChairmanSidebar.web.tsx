@@ -100,23 +100,32 @@ class ChairmanSidebar extends DashboardController {
               </Typography>
               <Typography className="ListItemText">My Team</Typography>
             </AccordionSummary>
-            <AccordionDetails onClick={() => {
-              //@ts-ignore
-              this.props.history.push("/TeamMembers")}}>
+            <AccordionDetails
+              onClick={() => {
+                //@ts-ignore
+                this.props.history.push("/TeamMembers");
+              }}
+            >
               <Typography variant="body2" className="cursor-pointer">
                 Team Members
               </Typography>
             </AccordionDetails>
-            <AccordionDetails onClick={() => {
-              //@ts-ignore
-              this.props.history.push("/Nominations")}}>
+            <AccordionDetails
+              onClick={() => {
+                //@ts-ignore
+                this.props.history.push("/Nominations");
+              }}
+            >
               <Typography variant="body2" className="cursor-pointer">
                 Chairman and Vice Chairman Nomination
               </Typography>
             </AccordionDetails>
-            <AccordionDetails onClick={() => {
-              //@ts-ignore
-              this.props.history.push("/TaskManagement")}}>
+            <AccordionDetails
+              onClick={() => {
+                //@ts-ignore
+                this.props.history.push("/TaskManagement");
+              }}
+            >
               <Typography variant="body2" className="cursor-pointer">
                 Task Management
               </Typography>
@@ -268,7 +277,7 @@ class ChairmanSidebar extends DashboardController {
                 {t("Document")}
               </Typography>
             </AccordionDetails>
-            <AccordionDetails style={dashBoard.Item}>
+            <AccordionDetails style={dashBoard.Item} onClick={() => this.props.navigation.navigate("ReportDashboard")}>
               <Typography variant="body2" className="cursor-pointer">
                 {t("Report")}
               </Typography>
