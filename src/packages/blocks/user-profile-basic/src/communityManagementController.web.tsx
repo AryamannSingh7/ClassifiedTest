@@ -54,16 +54,23 @@ export interface S {
   selectCode: string;
   selectCode2: string;
   selectCode3:string;
-  anchorEl: any;
   showDialog:boolean;
   showDialog1:boolean;
   showDialog2: boolean;
   profiledata:any;
   values:any,
   showDialogDelete:boolean,
-  allUserType:any,
-  openToolTip:any;
-  setOpen:any;
+  allUserType:any
+  openToolTip: boolean;
+  anchorEl:any;
+  popUPText:string;
+  setOpen:boolean;
+  invitationData:any;
+  allInvitation:any;
+  setAcceptOpen:any;
+  setRejectOpen:boolean;
+  selectInvitation:any
+
   // Customizable Area End
 }
 
@@ -90,6 +97,8 @@ export default class CommunityUserProfileController extends BlockComponent<
   changeUserTypeApiCallId: any;
   updatePhoneApicallId:any;
   getCountryApiCallId: any;
+  acceptInvitationAPICallId:any;
+  getInvitationAPICall:any;
   getComplexApiCallId: any;
   getCityApiCallId: any;
   verifyOtpApiCallId: any;
@@ -101,7 +110,7 @@ export default class CommunityUserProfileController extends BlockComponent<
   updateChairmenProfileAPiId:any;
   chatSettingApiCallId:any;
   validationApiCallId: string = "";
-
+  createInvitationAPICallId:any='';
   imgPasswordVisible: any;
   imgPasswordInVisible: any;
 
@@ -117,6 +126,7 @@ export default class CommunityUserProfileController extends BlockComponent<
   btnTextSignUp: string;
 
   currentCountryCode: any;
+  // createInvitationAPICallId:any;
   // Customizable Area End
 
   constructor(props: Props) {
@@ -176,8 +186,15 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
       showDialogDelete:false,
   showDialog1:false,
   allUserType:[],
-      openToolTip:false,
-      setOpen:false,
+  openToolTip: false,
+  popUPText:"",
+  setOpen:false,
+  invitationData:"",
+  allInvitation:[],
+  setAcceptOpen:"",
+  setRejectOpen:false,
+  selectInvitation:null
+
 
       // Customizable Area End
     };
@@ -286,34 +303,14 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
           }
           this.setState({ loading: false })
 
-        } else if (apiRequestCallId === this.chatSettingApiCallId) {
+        } else if (apiRequestCallId === this.createInvitationAPICallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
-            this.handleClose('')
-            this.getProfile()
-          } else if (responseJson?.errors) {
-            let error = responseJson.errors[0];
-            this.setState({ error });
-            this.parseApiCatchErrorResponse(this.state.error);
-            this.parseApiCatchErrorResponse(errorReponse);
-          } else {
-            this.setState({ error: responseJson?.error || "Something went wrong!" });
-            this.parseApiCatchErrorResponse(this.state.error);
-            this.parseApiCatchErrorResponse(errorReponse);
-          }
-          this.setState({ loading: false })
-
-        } else if (apiRequestCallId === this.createVehicleApiCallId) {
-          if (!responseJson.errors) {
-            console.log(responseJson)
-this.setState({loading:false})
+this.setState({loading:false,setOpen:false})
             //@ts-ignore
             //@ts-nocheck
 
-            this.props.history.push({
-              pathname: '/profile'
-            })
-
+            
 
           } else {
             //Check Error Response
@@ -373,17 +370,9 @@ this.setState({loading:false,showDialog:false})
           }
 
           this.parseApiCatchErrorResponse(errorReponse);
-        } else if (apiRequestCallId === this.createRequestManaulApiCallId) {
+        } else if (apiRequestCallId === this.getInvitationAPICall) {
           if (!responseJson.errors) {
-            console.log(responseJson)
-            // localStorage.setItem('res_token', responseJson.meta.token)
-            // localStorage.setItem('res_user', responseJson.data.attributes)
-            // localStorage.setItem('res_user_id', responseJson.data.id)
-            // this.props.history.push('/selecttype')
-            //@ts-ignore
-            //@ts-nocheck
-
-            this.props.history.push('/RegistrationRequestsignup')
+this.setState({allInvitation:responseJson.data,loading:false})
 
 
           } else {
@@ -411,11 +400,13 @@ this.setState({loading:false,showDialog:false})
           }
 
           this.parseApiCatchErrorResponse(errorReponse);
-        } else if (apiRequestCallId === this.getProfileDataAPiCallId) {
+        } else if (apiRequestCallId === this.acceptInvitationAPICallId) {
           if (!responseJson.errors) {
-            console.log(responseJson.data)
-            this.setState({ profiledata: responseJson.data,selectCode3:`+${responseJson.data.attributes?.full_phone_number?.country_code}` }, () => console.log(this.state.profiledata))
-            this.setState({ loading: false })
+            console.log("user data===============>",responseJson.data)
+
+            
+            this.setState({ loading: false,setAcceptOpen:'' })
+            this.getInvitation()
 
           } else {
             //Check Error Response
@@ -465,7 +456,7 @@ this.setState({loading:false,showDialog:false})
         } else if (apiRequestCallId === this.getBuildingApiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
-            this.setState({ allBuilding: responseJson.data.buildings })
+            this.setState({ allBuilding: responseJson.data.buildings },()=>console.log(this.state.allBuilding))
           } else {
             //Check Error Response
             this.parseApiErrorResponse(responseJson);
@@ -1191,7 +1182,7 @@ this.setState({loading:false,showDialog:false})
       this.getBuilding()
 
     } else if (e.target.name == 'selectBuilding') {
-      this.getUnit()
+      // this.getUnit()
 
     }
 
@@ -1267,7 +1258,7 @@ this.setState({loading:true})
 
     const header = {
       "Content-Type": configJSON.contentTypeApiAddDetail,
-      "token": localStorage.getItem('res_token')
+      "token": localStorage.getItem('userToken')
     };
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
@@ -1277,7 +1268,9 @@ this.setState({loading:true})
     this.getBuildingApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_address/building_list?society_management_id=${this.state.selectComplex}`
+      `bx_block_address/building_list?society_management_id=${localStorage.getItem('society_id')}`
+      // `bx_block_address/building_list?society_management_id=11`
+
     );
 
     requestMessage.addData(
@@ -1296,11 +1289,11 @@ this.setState({loading:true})
     return true;
   }
 
-  getUnit() {
+  getUnit(value:any) {
 
     const header = {
       "Content-Type": configJSON.contentTypeApiAddDetail,
-      "token": localStorage.getItem('res_token')
+      "token": localStorage.getItem('userToken')
     };
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
@@ -1312,7 +1305,9 @@ this.setState({loading:true})
       getName(MessageEnum.RestAPIResponceEndPointMessage),
       //@ts-ignore
       //@ts-nocheck
-      `bx_block_address/apartment_list?id=${this.state.selectBuilding.id}`
+       `bx_block_address/apartment_list?id=${value}`
+      // `bx_block_address/apartment_list?id=${this.state.selectBuilding.id}`
+
     );
 
     requestMessage.addData(
@@ -1520,7 +1515,7 @@ this.setState({loading:true})
 
 
   }
-  updateProfile = async(values: any) => {
+  acceptInvitation = async(id: any) => {
     this.setState({ loading: true })
     try {
       const header = {
@@ -1528,36 +1523,17 @@ this.setState({loading:true})
         token: localStorage.getItem("userToken")
       };
       const formData = new FormData();
-      formData.append("[data][attributes][full_name]", values.full_name)
-      formData.append("[data][attributes][full_phone_number]", `${this.state.selectCode}${values.phone}`)
-      formData.append("[data][attributes][gender]", values.male ? '0' : '1')
-      formData.append("[data][attributes][date_of_birth]", values.DOB)
-      formData.append("[data][attributes][profile_bio]", values.bio)
-      formData.append("[data][attributes][twitter_link]", values.twitter)
-      formData.append("[data][attributes][fb_link]", values.fb)
-      formData.append("[data][attributes][instagram_link]", values.insta)
-      formData.append("[data][attributes][snapchat_link]", values.snap)
-      console.log(values.hobbies)
-      values.hobbies.map((item:any)=>{
-        formData.append('[data][attributes][hobbies][]',item)
-      })
-
-
-      // formData.append("vehicle[color]", values.carColor)
-      let blob = await fetch(values.bannerUrl).then(r => r.blob());
-      formData.append(
-        "[data][attributes][image]",
-        blob
-      );
+      formData.append("member_invitation[status]", 'Accept')
+      
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
 
-      this.createVehicleApiCallId = requestMessage.messageId;
+      this.acceptInvitationAPICallId = requestMessage.messageId;
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        'bx_block_profile/profiles_update'
+        `bx_block_request_management/member_invitations/${id}`
       );
 
       requestMessage.addData(
@@ -1683,24 +1659,7 @@ this.setState({loading:true})
   handleClick2 = (event: any) => {
     this.setState({ anchorEl: event.currentTarget, showDialog2: true })
   };
-  handleClose = (item: any) => {
-    if (item.id) {
-      localStorage.setItem('selectFamily', JSON.stringify(item))
-      // @ts-ignore
-      // @ts-nocheck
-      this.props.history.push("/editfamily")
 
-    } else {
-      this.setState({ anchorEl: item.currentTarget, showDialog: false })
-    }
-    // this.setState({ anchorEl:null,showDialog:false })
-  };
-  handleClose2 = (item: any) => {
-
-      this.setState({ anchorEl: item.currentTarget, showDialog2: false })
-
-    // this.setState({ anchorEl:null,showDialog:false })
-  };
   deleteRequest() {
     this.setState({loading: true })
     // @ts-nocheck
@@ -1888,19 +1847,7 @@ this.setState({loading:true,error:null})
     return true;
 
   }
-  handleAddChip=(fn:any,data:any,values:any)=>{
-    console.log('hi')
-values.push(data)
-fn('hobbies',values)
-    console.log(values)
 
-  }
-  handleDeleteChip = (fn: any, data: any, values: any,index:any)=>{
-    console.log('bye')
-    values.splice(index, 1)
-    fn('hobbies', values)
-console.log(data,index)
-  }
   disablechat=()=>{
 
     this.setState({ loading: true })
@@ -1987,6 +1934,41 @@ let userType=localStorage.getItem('userType')
       console.log(error);
     }
   };
+  getInvitation = () => {
+
+    try {
+      const header = {
+        token: localStorage.getItem("userToken")
+      };
+
+      //const id = localStorage.getItem("userId");
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+      this.getInvitationAPICall = requestMessage.messageId;
+      this.setState({ loading: true });
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        `bx_block_request_management/member_invitations`
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        configJSON.validationApiMethodType
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+      return true;
+    } catch (error) {
+      console.log(error);
+    }
+  };
   InvitationSchema() {
     const validations = Yup.object().shape({
       email: Yup.string()
@@ -1997,11 +1979,84 @@ let userType=localStorage.getItem('userType')
         .required(`This field is required.`),
       usertype: Yup.string().required(`This field is required`),
       fullname: Yup.string().required(`This field is required`),
-      phoneno: Yup.string().required(`This field is required`),
+      phoneno: Yup.number()
+        .typeError("Only numbers are allowed.")
+        .required("Mobile number is required.")
+        .positive("Negative numbers are not allowed.")
+        .integer("Number can't contain a decimal.")
+        .min(100000000, "Minimum 9 digits are required.")
+        .max(1000000000, "Maximum 9 digits are allowed."),
       building: Yup.string().required(`This field is required`),
       unit: Yup.string().required(`This field is required`),
     });
     return validations
   }
+
+
+  handleClose = () => {
+    this.setState({setOpen:false});
+  };
+  createInvitation=(values:any)=>{
+    this.setState({ loading: true })
+    try {
+      const header = {
+
+        token: localStorage.getItem("userToken")
+      };
+      const formData = new FormData();
+      formData.append("member_invitation[full_name]]", values.fullname)
+      formData.append("member_invitation[email_address]", values.email)
+      formData.append("member_invitation[phone_number]", values.phoneno)
+      formData.append("member_invitation[role_id]", values.usertype)
+      formData.append("member_invitation[building_management_id]", values.building)
+      formData.append("member_invitation[apartment_management_id]", values.unit)
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+
+      this.createInvitationAPICallId = requestMessage.messageId;
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        'bx_block_request_management/member_invitations'
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestBodyMessage),
+        formData
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        'POST'
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+      return true;
+
+    } catch (error) {
+      // this.setState({ loading: false })
+      console.log(error);
+    }
+  }
+  handleAcceptClose = () => {
+    this.setState({setAcceptOpen:false});
+  };
+  handleRejectOpen = () => {
+    this.setState({setRejectOpen:true});
+  };
+
+  handleRejectClose = () => {
+    this.setState({setRejectOpen:false});
+  };
+
+  handleAcceptOpen = (data:any) => {
+    this.setState({setAcceptOpen:true,selectInvitation:data});
+  };
   // Customizable Area End
 }
