@@ -90,6 +90,7 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
   EditPenaltyCallId: any;
   GetPaymentTermCallId: any;
   GetPersonalConditionCallId: any;
+  CreateContractCallId: any;
 
   constructor(props: Props) {
     super(props);
@@ -233,7 +234,11 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
 
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      this.setState({ tenant: responseJson.account, contract: responseJson.contract.data });
+      this.setState({ tenant: responseJson.account, contract: responseJson.contract.data }, () => {
+        if (this.state.tenant) {
+          window.sessionStorage.setItem("tenant", this.state.tenant.id);
+        }
+      });
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
@@ -372,7 +377,14 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson.terms) {
-        this.setState({ paymentTerm: responseJson.terms });
+        this.setState({ paymentTerm: responseJson.terms }, () => {
+          if (this.state.selectedPaymentTermId.length > 0) {
+            const data = this.state.paymentTerm.filter((term: any) =>
+              this.state.selectedPaymentTermId.includes(term.id)
+            );
+            this.setState({ selectedPaymentTerm: data });
+          }
+        });
       }
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
@@ -384,7 +396,7 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
       ApiCatchErrorResponse(errorResponse);
     }
 
-    // Get Payment Term - API Response
+    // Get Personal Condition - API Response
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.GetPersonalConditionCallId !== null &&
@@ -395,8 +407,36 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson.Conditions) {
-        this.setState({ personalCondition: responseJson.Conditions });
+        this.setState({ personalCondition: responseJson.Conditions }, () => {
+          if (this.state.selectedPersonalConditionId.length > 0) {
+            const data = this.state.personalCondition.filter((condition: any) =>
+              this.state.selectedPersonalConditionId.includes(condition.id)
+            );
+            this.setState({ selectedPersonalCondition: data });
+          }
+        });
       }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // CREATE CONTRACT - API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.CreateContractCallId !== null &&
+      this.CreateContractCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.CreateContractCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      console.log(responseJson);
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
@@ -518,9 +558,10 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
     this.GetPenaltyDetailsCallId = apiRequest.messageId;
 
     const society_id = localStorage.getItem("society_id");
+    const tenant_id = window.sessionStorage.getItem("tenant");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_contract/penanlty_late_payments`
+      `society_managements/${society_id}/bx_block_contract/penanlty_late_payments/show_penanlty?tenant_id=${tenant_id}`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
@@ -533,10 +574,12 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
 
   // Create Penalty - API
   createPenalty = (values: any) => {
+    const tenant_id = window.sessionStorage.getItem("tenant");
     const body = {
       penanlty: {
         penanlty_counted: values.penaltyType,
         amount: values.penaltyAmount,
+        tenant_id: tenant_id,
       },
     };
 
@@ -567,10 +610,12 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
 
   // Edit Penalty - API
   editPenalty = (values: any) => {
+    const tenant_id = window.sessionStorage.getItem("tenant");
     const body = {
       penanlty: {
         penanlty_counted: values.penaltyType,
         amount: values.penaltyAmount,
+        tenant_id: tenant_id,
       },
     };
 
@@ -668,6 +713,61 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  // CRETE CONTRACT - API
+  handleCreateContract = () => {
+    const society_id: any = localStorage.getItem("society_id");
+    const tenant_id: any = window.sessionStorage.getItem("tenant");
+    const latePaymentPenalty: any = window.sessionStorage.getItem("isLatePaymentPenalty");
+    const contractTemplate: any = window.sessionStorage.getItem("changedTemplate");
+    const contractForm: any = JSON.parse(window.sessionStorage.getItem("contractForm") as any);
+    const condition: any = JSON.parse(window.sessionStorage.getItem("condition") as any);
+
+    var data = new FormData();
+    data.append("[contract][society_management_id]", society_id);
+    data.append("[contract][building_management_id]", contractForm.buildingId);
+    data.append("[contract][apartment_management_id]", contractForm.unitId);
+    data.append("[contract][tenant_id]", tenant_id);
+    data.append("[contract][tenant_name]", contractForm.tenantName);
+    data.append("[contract][landlord_name]", contractForm.landlordName);
+    data.append("[contract][agreement_duration]", contractForm.duration);
+    data.append("[contract][start_date]", contractForm.startDate);
+    data.append("[contract][expires_on]", contractForm.endDate);
+    data.append("[contract][rent_amount]", contractForm.monthlyRent);
+    data.append("[contract][currency]", contractForm.currency);
+    if (condition.isEditorCondition) {
+      data.append("[contract][custom_term_condition]", condition.editorCondition);
+    } else {
+      data.append("[contract][term_ids]", condition.paymentTerm.toString());
+      data.append("[contract][condition_ids]", condition.personalCondition.toString());
+    }
+    data.append("[contract][penanlty_late_payment]", latePaymentPenalty);
+    data.append("[contract][contract_template]", contractTemplate);
+    data.append("[contract][custom_contract]", "false");
+    data.append("[contract][lease_template_id]", this.state.templateId);
+
+    const header = {
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.CreateContractCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `society_managements/${society_id}/bx_block_contract/contracts`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestBodyMessage), data);
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePost);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;

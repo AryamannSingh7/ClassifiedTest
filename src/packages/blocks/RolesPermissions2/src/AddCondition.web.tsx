@@ -92,7 +92,16 @@ class AddCondition extends LeaseFormController {
                         </Button>
                         <Button
                           onClick={() => {
-                            console.log(this.state.editor._cache.html);
+                            const data = {
+                              isEditorCondition: true,
+                              paymentTerm: [],
+                              personalCondition: [],
+                              editorCondition: this.state.editor._cache.html,
+                            };
+                            window.sessionStorage.setItem("condition", JSON.stringify(data));
+                            this.props.navigation.navigate("ChangedSelectedTemplate", {
+                              templateId: this.state.templateId,
+                            });
                           }}
                         >
                           {t("Add This Conditions to Lease")}

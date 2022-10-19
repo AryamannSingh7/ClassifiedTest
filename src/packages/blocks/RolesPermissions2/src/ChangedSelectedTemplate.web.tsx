@@ -40,22 +40,31 @@ class ChangedSelectedTemplate extends LeaseFormController {
   async componentDidMount(): Promise<void> {
     const latePaymentPenalty = JSON.parse(window.sessionStorage.getItem("isLatePaymentPenalty") as any);
 
-    const condition = JSON.parse(window.sessionStorage.getItem("condition") as any);
+    const sessionCondition = JSON.parse(window.sessionStorage.getItem("condition") as any);
 
     const template_id: any = this.props.navigation.getParam("templateId");
-    this.setState({ ...this.state, templateId: template_id, isLatePaymentPenalty: latePaymentPenalty }, () => {
-      this.getTemplateText();
-      this.getPenaltyDetails();
-      this.getPaymentTerm();
-      this.getPersonalCondition();
-    });
+    this.setState(
+      {
+        ...this.state,
+        templateId: template_id,
+        isLatePaymentPenalty: latePaymentPenalty,
+        selectedPaymentTermId: sessionCondition.paymentTerm,
+        selectedPersonalConditionId: sessionCondition.personalCondition,
+      },
+      () => {
+        this.getTemplateText();
+        this.getPenaltyDetails();
+        this.getPaymentTerm();
+        this.getPersonalCondition();
+      }
+    );
   }
 
   render() {
     const { classes } = this.props;
     const { t }: any = this.props;
 
-    console.log(this.state);
+    // console.log(this.state);
 
     return (
       <>
@@ -267,6 +276,14 @@ class ChangedSelectedTemplate extends LeaseFormController {
                 this.state.selectedPaymentTermId.length === 0 && this.state.selectedPersonalConditionId.length === 0
               }
               onClick={() => {
+                const data = {
+                  isEditorCondition: false,
+                  paymentTerm: this.state.selectedPaymentTermId,
+                  personalCondition: this.state.selectedPersonalConditionId,
+                  editorCondition: "",
+                };
+                window.sessionStorage.setItem("condition", JSON.stringify(data));
+
                 this.handleConditionModal();
                 if (!this.state.penalty) {
                   this.handlePenaltyCountModal();

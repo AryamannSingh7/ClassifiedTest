@@ -4,7 +4,6 @@ import {
   Button,
   Container,
   IconButton,
-  Link,
   withStyles,
   Box,
   Grid,
@@ -14,27 +13,7 @@ import {
   DialogActions,
   Input,
 } from "@material-ui/core";
-import MuiDialogTitle from "@material-ui/core/DialogTitle";
-import CloseIcon from "@material-ui/icons/Close";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
-import {
-  EmailShareButton,
-  FacebookShareButton,
-  LinkedinShareButton,
-  RedditShareButton,
-  TelegramShareButton,
-  TumblrShareButton,
-  TwitterShareButton,
-  WhatsappShareButton,
-  EmailIcon,
-  FacebookIcon,
-  LinkedinIcon,
-  RedditIcon,
-  TelegramIcon,
-  TumblrIcon,
-  TwitterIcon,
-  WhatsappIcon,
-} from "react-share";
 import LeaseFormController, { Props } from "./LeaseFormController.web";
 import { ContractsStyleWeb } from "./ContractsStyle.web";
 import { BuildingLogo, DownloadIcon, ShareIcon, ExclamationIcon } from "./assets";
@@ -57,10 +36,6 @@ class ReviewTemplate extends LeaseFormController {
   render() {
     const { classes } = this.props;
     const { t }: any = this.props;
-
-    // const sharePopupWidth = 500;
-    // const sharePopupHeight = 700;
-    // const shareTitle = "TI 1 Final Leap";
 
     console.log(this.state);
 
@@ -139,7 +114,7 @@ class ReviewTemplate extends LeaseFormController {
                   "Your lease document will be saved as template. You can access this document from contracts section of the app."
                 )}
               </Typography>
-              <Input placeholder={t("Template Name")} />
+              <Input className="input-box" fullWidth placeholder={t("Template Name")} />
               <DialogActions className="dialog-button-group">
                 <Button className="add-button" onClick={() => this.handleSaveLeaseModal()}>
                   {t("Save")}
@@ -165,104 +140,13 @@ class ReviewTemplate extends LeaseFormController {
                 )}
               </Typography>
               <DialogActions className="dialog-button-group">
-                <Button className="add-button" onClick={() => this.handleGenerateLeaseModal()}>
+                <Button className="add-button" onClick={() => this.handleCreateContract()}>
                   {t("Okay")}
                 </Button>
               </DialogActions>
             </Box>
           </DialogContent>
         </Dialog>
-
-        {/* <Dialog
-          fullWidth
-          onClose={() => this.handleShareModal()}
-          open={this.state.isShareModalOpen}
-          className="select-meeting"
-        >
-          <MuiDialogTitle disableTypography className="dialog-heading">
-            <Typography variant="h6">{t("Share")}</Typography>
-            <IconButton onClick={() => this.handleShareModal()}>
-              <CloseIcon />
-            </IconButton>
-          </MuiDialogTitle>
-          <DialogContent>
-            <div className="share-box">
-              <FacebookShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<FacebookIcon />}
-                translate
-              />
-              <TwitterShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<TwitterIcon />}
-                translate
-              />
-              <WhatsappShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                separator=":: "
-                // @ts-ignore
-                children={<WhatsappIcon />}
-                translate
-              />
-              <LinkedinShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<LinkedinIcon />}
-                translate
-              />
-              <EmailShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<EmailIcon />}
-                translate
-              />
-              <RedditShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<RedditIcon />}
-                translate
-              />
-              <TelegramShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<TelegramIcon />}
-                translate
-              />
-              <TumblrShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<TumblrIcon />}
-                translate
-              />
-            </div>
-          </DialogContent>
-        </Dialog> */}
       </>
     );
   }
