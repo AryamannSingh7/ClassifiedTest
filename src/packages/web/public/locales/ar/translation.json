@@ -767,5 +767,8 @@
   "Maximum length should be 100 character": "يجب أن يكون الحد الأقصى للطول 100 حرف",
   "Enter Fixed Amount": "أدخل المبلغ الثابت",
   "Enter Fixed Percentage of Rent": "أدخل نسبة ثابتة من الإيجار",
-  "You can't create contract for this unit": "لا يمكنك إنشاء عقد لهذه الوحدة"
+  "You can't create contract for this unit": "لا يمكنك إنشاء عقد لهذه الوحدة",
+  "Personal Conditions": "الشروط الشخصية",
+  "Payment Terms": "شروط الدفع",
+  "Template Name": "اسم القالب"
 }

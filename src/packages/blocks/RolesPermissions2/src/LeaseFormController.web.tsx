@@ -8,6 +8,7 @@ import * as Yup from "yup";
 import moment from "moment";
 import { RouteComponentProps } from "react-router";
 import toast from "react-hot-toast";
+import RichTextEditor from "react-rte";
 
 export const configJSON = require("./config.js");
 
@@ -62,6 +63,15 @@ interface S {
   penaltyId: string;
   penaltyType: string;
   penaltyAmount: string;
+
+  paymentTerm: any[];
+  personalCondition: any[];
+  selectedPaymentTermId: any[];
+  selectedPaymentTerm: any[];
+  selectedPersonalConditionId: any[];
+  selectedPersonalCondition: any[];
+
+  editor: any;
   // Customizable Area End
 }
 
@@ -78,6 +88,8 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
   GetPenaltyDetailsCallId: any;
   CreatePenaltyCallId: any;
   EditPenaltyCallId: any;
+  GetPaymentTermCallId: any;
+  GetPersonalConditionCallId: any;
 
   constructor(props: Props) {
     super(props);
@@ -127,6 +139,15 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
       penaltyId: "",
       penaltyType: "",
       penaltyAmount: "",
+
+      paymentTerm: [],
+      personalCondition: [],
+      selectedPaymentTermId: [],
+      selectedPaymentTerm: [],
+      selectedPersonalConditionId: [],
+      selectedPersonalCondition: [],
+
+      editor: RichTextEditor.createEmptyValue(),
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -329,6 +350,52 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
 
         window.sessionStorage.setItem("changedTemplate", changedTemplate);
         this.setState({ changedTemplate: changedTemplate });
+      }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // Get Payment Term - API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.GetPaymentTermCallId !== null &&
+      this.GetPaymentTermCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.GetPaymentTermCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      if (responseJson.terms) {
+        this.setState({ paymentTerm: responseJson.terms });
+      }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // Get Payment Term - API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.GetPersonalConditionCallId !== null &&
+      this.GetPersonalConditionCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.GetPersonalConditionCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      if (responseJson.Conditions) {
+        this.setState({ personalCondition: responseJson.Conditions });
       }
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
@@ -556,8 +623,54 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
     return true;
   };
 
-  goBackPage = () => {
-    this.props.navigation.goBack();
+  // Get Payment Term - API
+  getPaymentTerm = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.GetPaymentTermCallId = apiRequest.messageId;
+
+    const society_id = localStorage.getItem("society_id");
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `society_managements/${society_id}/bx_block_contract/terms`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  // Get Personal Condition - API
+  getPersonalCondition = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.GetPersonalConditionCallId = apiRequest.messageId;
+
+    const society_id = localStorage.getItem("society_id");
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `society_managements/${society_id}/bx_block_contract/conditions`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
   };
 
   ContractFormValidation: any = Yup.object().shape({
@@ -644,6 +757,14 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
 
   goBackFromReviewPage = () => {
     this.props.navigation.navigate("ChangedSelectedTemplate", { templateId: this.state.templateId });
+  };
+
+  gotoLeaseFormPage = () => {
+    this.props.navigation.navigate("LeaseFormIssueLease", { templateId: this.state.templateId });
+  };
+
+  gotoSelectTemplatePage = () => {
+    this.props.navigation.navigate("SelectedTemplateTwo", { templateId: this.state.templateId });
   };
 
   handleSaveLeaseModal = () => {

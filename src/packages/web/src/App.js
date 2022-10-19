@@ -803,22 +803,17 @@ const routeMap = {
     path: '/IssueLease',
     exact: true
   },
-  SelectedTemplate: {
-    component: SelectedTemplate,
-    path: '/IssueLease/:templateId',
-    exact: true
-  },
+  // SelectedTemplate: {
+  //   component: SelectedTemplate,
+  //   path: '/IssueLease/:templateId',
+  //   exact: true
+  // },
   SelectedTemplateTwo: {
     component: SelectedTemplate,
     path: '/IssueContract/:templateId',
     exact: true
   },
   LeaseFormIssueLease: {
-    component: LeaseForm,
-    path: '/IssueLease/:templateId/LeaseForm',
-    exact: true
-  },
-  LeaseFormIssueContract: {
     component: LeaseForm,
     path: '/IssueContract/:templateId/LeaseForm',
     exact: true

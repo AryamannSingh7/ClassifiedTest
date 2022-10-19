@@ -767,5 +767,8 @@
   "Option": "Option",
   "Enter Fixed Amount": "Enter Fixed Amount",
   "Enter Fixed Percentage of Rent": "Enter Fixed Percentage of Rent",
-  "You can't create contract for this unit": "You can't create contract for this unit"
+  "You can't create contract for this unit": "You can't create contract for this unit",
+  "Personal Conditions": "Personal Conditions",
+  "Payment Terms": "Payment Terms",
+  "Template Name": "Template Name"
 }

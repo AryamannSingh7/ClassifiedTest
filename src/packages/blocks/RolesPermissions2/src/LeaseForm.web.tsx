@@ -65,6 +65,7 @@ class LeaseForm extends LeaseFormController {
         this.getBuilding();
         if (this.state.leaseForm.buildingId) {
           this.getUnits(this.state.leaseForm.buildingId);
+          this.handleCheckContractExist(this.state.leaseForm.unitId);
         }
       }
     );
@@ -84,7 +85,7 @@ class LeaseForm extends LeaseFormController {
               <Box>
                 <Box display={{ xs: "flex", md: "flex" }} className="top-bar">
                   <div className="left-icon">
-                    <IconButton onClick={() => this.goBackPage()}>
+                    <IconButton onClick={() => this.gotoSelectTemplatePage()}>
                       <KeyboardBackspaceIcon />
                     </IconButton>
                     <span>{t("Issue a Lease")}</span>

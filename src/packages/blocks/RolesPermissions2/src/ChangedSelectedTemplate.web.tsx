@@ -39,16 +39,23 @@ class ChangedSelectedTemplate extends LeaseFormController {
 
   async componentDidMount(): Promise<void> {
     const latePaymentPenalty = JSON.parse(window.sessionStorage.getItem("isLatePaymentPenalty") as any);
+
+    const condition = JSON.parse(window.sessionStorage.getItem("condition") as any);
+
     const template_id: any = this.props.navigation.getParam("templateId");
     this.setState({ ...this.state, templateId: template_id, isLatePaymentPenalty: latePaymentPenalty }, () => {
       this.getTemplateText();
       this.getPenaltyDetails();
+      this.getPaymentTerm();
+      this.getPersonalCondition();
     });
   }
 
   render() {
     const { classes } = this.props;
     const { t }: any = this.props;
+
+    console.log(this.state);
 
     return (
       <>
@@ -58,7 +65,7 @@ class ChangedSelectedTemplate extends LeaseFormController {
               <Box className="faq-step">
                 <Box display={{ xs: "flex", md: "flex" }} className="top-bar">
                   <div className="left-icon">
-                    <IconButton>
+                    <IconButton onClick={() => this.gotoLeaseFormPage()}>
                       <KeyboardBackspaceIcon />
                     </IconButton>
                     <span>{t("Issue a Lease")}</span>
@@ -170,96 +177,104 @@ class ChangedSelectedTemplate extends LeaseFormController {
           <Box className="condition-box">
             <h2>{t("Add More Conditions")}</h2>
             <Box className="content-box">
-              <h4>{t("Personal Condition")}</h4>
-              <Box className="condition">
-                <p>No Pet Allowed</p>
-                <Checkbox
-                  className="condition-check"
-                  value={true}
-                  icon={<CircleUnchecked />}
-                  checkedIcon={<CircleCheckedFilled />}
-                />
-              </Box>
-              <Box className="condition">
-                <p>No Pet Allowed</p>
-                <Checkbox
-                  className="condition-check"
-                  value={true}
-                  icon={<CircleUnchecked />}
-                  checkedIcon={<CircleCheckedFilled />}
-                />
-              </Box>
+              <h4>{t("Personal Conditions")}</h4>
+              {this.state.personalCondition.map((condition: any, index: number) => {
+                return (
+                  <Box className="condition" key={index}>
+                    <p>{condition.text}</p>
+                    <Checkbox
+                      className="condition-check"
+                      checked={this.state.selectedPersonalConditionId.includes(condition.id)}
+                      onChange={(e: any) => {
+                        if (e.target.checked) {
+                          const dataId = [...this.state.selectedPersonalConditionId, condition.id];
+                          const data = [...this.state.selectedPersonalCondition, condition];
+                          this.setState({ selectedPersonalConditionId: dataId, selectedPersonalCondition: data });
+                        } else {
+                          const dataId = this.state.selectedPersonalConditionId.filter(
+                            (id: any) => id !== condition.id
+                          );
+                          const data = this.state.selectedPersonalCondition.filter(
+                            (condition: any) => condition.id !== condition.id
+                          );
+                          this.setState({ selectedPersonalConditionId: dataId, selectedPersonalCondition: data });
+                        }
+                      }}
+                      icon={<CircleUnchecked />}
+                      checkedIcon={<CircleCheckedFilled />}
+                    />
+                  </Box>
+                );
+              })}
             </Box>
             <Box className="content-box">
-              <h4>Personal Condition</h4>
-              <Box className="condition">
-                <p>No Pet Allowed</p>
-                <Checkbox
-                  className="condition-check"
-                  value={true}
-                  icon={<CircleUnchecked />}
-                  checkedIcon={<CircleCheckedFilled />}
-                />
-              </Box>
-              <Box className="condition">
-                <p>No Pet Allowed</p>
-                <Checkbox
-                  className="condition-check"
-                  value={true}
-                  icon={<CircleUnchecked />}
-                  checkedIcon={<CircleCheckedFilled />}
-                />
-              </Box>
-              <Box className="condition">
-                <p>No Pet Allowed</p>
-                <Checkbox
-                  className="condition-check"
-                  value={true}
-                  icon={<CircleUnchecked />}
-                  checkedIcon={<CircleCheckedFilled />}
-                />
-              </Box>
-              <Box className="condition">
-                <p>No Pet Allowed</p>
-                <Checkbox
-                  className="condition-check"
-                  value={true}
-                  icon={<CircleUnchecked />}
-                  checkedIcon={<CircleCheckedFilled />}
-                />
-              </Box>
-              <Box className="condition">
-                <p>No Pet Allowed</p>
-                <Checkbox
-                  className="condition-check"
-                  value={true}
-                  icon={<CircleUnchecked />}
-                  checkedIcon={<CircleCheckedFilled />}
-                />
-              </Box>
-              <Box className="condition">
-                <p>No Pet Allowed</p>
-                <Checkbox
-                  className="condition-check"
-                  value={true}
-                  icon={<CircleUnchecked />}
-                  checkedIcon={<CircleCheckedFilled />}
-                />
-              </Box>
-              <Box className="condition">
-                <p>No Pet Allowed</p>
-                <Checkbox
-                  className="condition-check"
-                  value={true}
-                  icon={<CircleUnchecked />}
-                  checkedIcon={<CircleCheckedFilled />}
-                />
-              </Box>
+              <h4>{t("Payment Terms")}</h4>
+              {this.state.paymentTerm.map((term: any, index: number) => {
+                return (
+                  <Box className="condition" key={index}>
+                    <p>{term.text}</p>
+                    <Checkbox
+                      className="condition-check"
+                      checked={this.state.selectedPaymentTermId.includes(term.id)}
+                      onChange={(e: any) => {
+                        if (e.target.checked) {
+                          const dataId = [...this.state.selectedPaymentTermId, term.id];
+                          const data = [...this.state.selectedPaymentTerm, term];
+                          this.setState({ selectedPaymentTermId: dataId, selectedPaymentTerm: data });
+                        } else {
+                          const dataId = this.state.selectedPaymentTermId.filter((id: any) => id !== term.id);
+                          const data = this.state.selectedPaymentTerm.filter((term: any) => term.id !== term.id);
+                          this.setState({ selectedPaymentTermId: dataId, selectedPaymentTerm: data });
+                        }
+                      }}
+                      icon={<CircleUnchecked />}
+                      checkedIcon={<CircleCheckedFilled />}
+                    />
+                  </Box>
+                );
+              })}
             </Box>
           </Box>
           <Box className="button-group">
-            <Button className="add-more-button">{t("Copy Checked Condition")}</Button>
-            <Button className="add-button">{t("Add Checked Condition to a Lease")}</Button>
+            <Button
+              className="add-more-button"
+              disabled={
+                this.state.selectedPaymentTermId.length === 0 && this.state.selectedPersonalConditionId.length === 0
+              }
+              onClick={() => {
+                let copyText: string = "";
+                if (this.state.selectedPersonalCondition.length > 0) {
+                  const data = this.state.selectedPersonalCondition.map((condition: any) => {
+                    return condition.text;
+                  });
+                  copyText = copyText + data.toString();
+                }
+                if (this.state.selectedPaymentTerm.length > 0) {
+                  const data = this.state.selectedPaymentTerm.map((term: any) => {
+                    return term.text;
+                  });
+                  copyText = (copyText ? copyText + "," : copyText) + data.toString();
+                }
+                navigator.clipboard.writeText(copyText);
+                this.props.navigation.navigate("AddCondition", { templateId: this.state.templateId });
+              }}
+            >
+              {t("Copy Checked Condition")}
+            </Button>
+            <Button
+              className="add-button"
+              disabled={
+                this.state.selectedPaymentTermId.length === 0 && this.state.selectedPersonalConditionId.length === 0
+              }
+              onClick={() => {
+                this.handleConditionModal();
+                if (!this.state.penalty) {
+                  this.handlePenaltyCountModal();
+                }
+              }}
+            >
+              {t("Add Checked Condition to a Lease")}
+            </Button>
           </Box>
         </Drawer>
 
@@ -345,59 +360,6 @@ class ChangedSelectedTemplate extends LeaseFormController {
             }}
           </Formik>
         </Drawer>
-
-        <Dialog
-          className="penalty-dialog"
-          maxWidth="xs"
-          fullWidth
-          onClose={() => this.handlePenaltyAmountModal()}
-          open={this.state.isPenaltyAmountModalOpen}
-        >
-          <DialogContent>
-            <Box>
-              <Typography variant="h6">Penalty for late payments</Typography>
-              <Select
-                displayEmpty
-                value=""
-                variant="filled"
-                fullWidth
-                className="select-with-icon"
-                input={<OutlinedInput />}
-              >
-                <MenuItem value="" disabled>
-                  <ListItemIcon>
-                    <img src={CubeIcon} alt="" />
-                  </ListItemIcon>
-                  {t("Fixed Amount")}
-                </MenuItem>
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-              </Select>
-              <Input
-                // variant="filled"
-                fullWidth
-                className="select-input"
-                placeholder="Enter Fixed Amount"
-                startAdornment={
-                  <InputAdornment position="start">
-                    <img src={CubeIcon} alt="" />
-                  </InputAdornment>
-                }
-              />
-              <DialogActions className="dialog-button-group">
-                <Button
-                  className="add-button"
-                  onClick={() => {
-                    this.handlePenaltyAmountModal();
-                  }}
-                >
-                  Add
-                </Button>
-              </DialogActions>
-            </Box>
-          </DialogContent>
-        </Dialog>
       </>
     );
   }

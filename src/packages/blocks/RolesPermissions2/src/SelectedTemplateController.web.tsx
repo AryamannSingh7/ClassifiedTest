@@ -106,11 +106,18 @@ export default class SelectedTemplateController extends BlockComponent<Props, S,
   };
 
   goBackPage = () => {
-    this.props.navigation.navigate(`${window.location.pathname.split("/")[1]}`);
+    const sessionPage = window.sessionStorage.getItem("page");
+    window.sessionStorage.clear();
+
+    if (sessionPage === "IssueLease") {
+      this.props.navigation.navigate("IssueLease");
+    } else {
+      this.props.navigation.navigate("IssueContract");
+    }
   };
 
   gotoContractFrom = () => {
-    const values = {
+    const formData = {
       tenantName: "",
       landlordName: "",
       buildingName: "",
@@ -123,8 +130,20 @@ export default class SelectedTemplateController extends BlockComponent<Props, S,
       monthlyRent: "",
       currency: "",
     };
-    window.sessionStorage.setItem("contractForm", JSON.stringify(values));
+
+    const condition = {
+      isEditorCondition: false,
+      paymentTerm: [],
+      personalCondition: [],
+      editorCondition: "",
+    };
+
+    window.sessionStorage.setItem("contractForm", JSON.stringify(formData));
+
     window.sessionStorage.setItem("isLatePaymentPenalty", "false");
+
+    window.sessionStorage.setItem("condition", JSON.stringify(condition));
+
     this.props.navigation.navigate("LeaseFormIssueLease", { templateId: this.state.templateId });
   };
   // Customizable Area End

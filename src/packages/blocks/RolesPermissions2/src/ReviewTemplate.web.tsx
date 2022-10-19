@@ -12,6 +12,7 @@ import {
   DialogContent,
   Typography,
   DialogActions,
+  Input,
 } from "@material-ui/core";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
@@ -39,6 +40,7 @@ import { ContractsStyleWeb } from "./ContractsStyle.web";
 import { BuildingLogo, DownloadIcon, ShareIcon, ExclamationIcon } from "./assets";
 import { withTranslation } from "react-i18next";
 import "../../../web/src/i18n.js";
+import toast from "react-hot-toast";
 
 class ReviewTemplate extends LeaseFormController {
   constructor(props: Props) {
@@ -56,9 +58,9 @@ class ReviewTemplate extends LeaseFormController {
     const { classes } = this.props;
     const { t }: any = this.props;
 
-    const sharePopupWidth = 500;
-    const sharePopupHeight = 700;
-    const shareTitle = "TI 1 Final Leap";
+    // const sharePopupWidth = 500;
+    // const sharePopupHeight = 700;
+    // const shareTitle = "TI 1 Final Leap";
 
     console.log(this.state);
 
@@ -77,7 +79,7 @@ class ReviewTemplate extends LeaseFormController {
                     {/* </Link> */}
                     <span>{t("Review Lease Document")}</span>
                   </div>
-                  <div className="right-icon">
+                  <div className="right-icon" onClick={() => toast.error("You need to generate a lease first")}>
                     <img src={DownloadIcon} alt="SortIcon" />
                   </div>
                 </Box>
@@ -104,7 +106,7 @@ class ReviewTemplate extends LeaseFormController {
                         </Box>
                         <Box className="bottom">
                           <Button onClick={() => this.handleGenerateLeaseModal()}>{t("Generate Lease")}</Button>
-                          <Box className="image" onClick={() => this.handleShareModal()}>
+                          <Box className="image" onClick={() => toast.error("You need to generate a lease first")}>
                             <img src={ShareIcon} alt="" />
                           </Box>
                         </Box>
@@ -137,6 +139,7 @@ class ReviewTemplate extends LeaseFormController {
                   "Your lease document will be saved as template. You can access this document from contracts section of the app."
                 )}
               </Typography>
+              <Input placeholder={t("Template Name")} />
               <DialogActions className="dialog-button-group">
                 <Button className="add-button" onClick={() => this.handleSaveLeaseModal()}>
                   {t("Save")}
@@ -170,7 +173,7 @@ class ReviewTemplate extends LeaseFormController {
           </DialogContent>
         </Dialog>
 
-        <Dialog
+        {/* <Dialog
           fullWidth
           onClose={() => this.handleShareModal()}
           open={this.state.isShareModalOpen}
@@ -259,7 +262,7 @@ class ReviewTemplate extends LeaseFormController {
               />
             </div>
           </DialogContent>
-        </Dialog>
+        </Dialog> */}
       </>
     );
   }
