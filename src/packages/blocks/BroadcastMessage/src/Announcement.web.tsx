@@ -101,7 +101,7 @@ class Announcement extends AnnouncementController{
                                                         </Box>
                                                         <Box>
                                                             <Typography variant="subtitle2" >{t("Unit Number")}</Typography>
-                                                            <Typography variant="subtitle2" style={{fontWeight:"bold"}}>{item.attributes?.unit_number?.join(",") || 0}</Typography>
+                                                            <Typography variant="subtitle2" style={{fontWeight:"bold"}}>{Array.isArray(item.attributes?.unit_number?.isArray || 0) ? item.attributes?.unit_number?.join(",") : item.attributes?.unit_number || 0}</Typography>
                                                         </Box>
                                                     </Grid>
                                                 </Grid>
