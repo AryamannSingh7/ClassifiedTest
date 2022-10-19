@@ -126,7 +126,8 @@ class ChairmanProfile extends ProfileController {
                         <Typography variant="h6" className="sub-heading">
                         {profileData?.attributes?.full_name.name || 'N/A'}
                         </Typography>
-                        <p>{profileData?.attributes?.apartment_number?.apartment_number || 'N/A'}</p>
+
+                        <p> {profileData?.attributes?.apartment_number?.apartment_number && 'Unit - '}{profileData?.attributes?.apartment_number?.apartment_number || 'N/A'}</p>
                         <Box className="icons">
                           <img src={ChatIcon} alt="chat" />
                           <img src={CallIcon} alt="phone" onClick={() => document.location.href = `tel:${profileData?.attributes?.full_phone_number?.full_phone_number}`}/>
@@ -891,6 +892,8 @@ class ChairmanProfile extends ProfileController {
                             id="demo-simple-select-outlined"
                             onChange={this.handleChange}
                             label="Unit"
+                            style={{minWidth:'7rem'}}
+                            className="hello"
                             value={this.state.selectCode}
                           >
                             <MenuItem value="">
