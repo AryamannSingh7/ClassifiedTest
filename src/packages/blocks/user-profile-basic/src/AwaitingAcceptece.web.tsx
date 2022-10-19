@@ -37,14 +37,14 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 
 //resources
 import { withRouter } from 'react-router';
-import AwaitingAccepteController, { Props } from "./AwaitingAccepteController";
+// import AwaitingAccepteController, { Props } from "./AwaitingAccepteController";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import { withTranslation } from 'react-i18next';
 import '../../../web/src/i18n.js';
 
 import { x_mark, true_mark, delete_icon, info, cancle, user_icon, email_icon, phone_icon, building, unit } from "./assets";
-import CommunityUserProfileController from "./communityManagementController.web";
+import CommunityUserProfileController,{Props} from "./communityManagementController.web";
 
 const ProfileData = [ 
   {
