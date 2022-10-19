@@ -26,13 +26,15 @@ import Grid from '@material-ui/core/Grid';
 
 //resources
 import { withRouter } from 'react-router';
-import PendingRequestController, { Props } from "./PendingRequestController";
+// import PendingRequestController, { Props } from "./PendingRequestController";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import { withTranslation } from 'react-i18next';
 import '../../../web/src/i18n.js';
 
 import { x_mark, true_mark } from "./assets";
+import CommunityUserProfileController, { Props } from "./communityManagementController.web";
+import Loader from "../../../components/src/Loader.web";
 
 const ProfileData = [ 
   {
@@ -90,10 +92,15 @@ const ProfileData = [
     call:"+1 78293 23782"
     }
 ]
-class PendingRequest extends PendingRequestController {
+class PendingRequest extends CommunityUserProfileController {
   constructor(props: Props) {
     super(props);
   }
+  async componentDidMount() {
+  this.getInvitation()
+ 
+ 
+       }
 
   render() {
     const {t}: any = this.props
@@ -122,28 +129,28 @@ class PendingRequest extends PendingRequestController {
                   <Box style={{marginTop:"10px"}}>
                     <div style={dashBoard.gaMemberCard}>
                       <>
-                      {ProfileData.map((item, index) => {
-                        return(
-                          <div key={index}>
+                      {this.state.allInvitation.map((item:any, index:any) => {
+                       
+                       return  ( item.attributes.status=='Pending' &&  <div key={index}>
                           <Card style={dashBoard.cardStyle}>
                             <CardActionArea>
                               <CardMedia
                                 component="img"
                                 height="140"
-                                image={item.image}
+                                image={item.attributes.account.attributes.profile_pic.url || 'j'}
                                 alt="green iguana"
                                 style={dashBoard.profileImage}
                               />
                               <CardContent style={{padding:"0px 16px 16px 16px"}}>
                               <Typography variant="h6"
                               //@ts-ignore 
-                              style={dashBoard.unitno}>{item.unitno}</Typography>
-                              <Typography variant="h6" style={{textAlign:"center", marginTop:"5px"}}>{item.name}</Typography>
+                              style={dashBoard.unitno}>{item.attributes.apartment_management.apartment_name}</Typography>
+                              <Typography variant="h6" style={{textAlign:"center", marginTop:"5px"}}>{item.attributes.full_name}</Typography>
                               <div style={{textAlign:"center",marginTop:"5px"}}>
-                                <Typography variant="h6" style={dashBoard.userType}>{item.userType}</Typography>
+                                {/* <Typography variant="h6" style={dashBoard.userType}>{item.userType}</Typography> */}
                               </div>
-                              <Typography variant="subtitle1" style={{textAlign:"center", marginTop:"5px"}}>{item.call}</Typography>
-                              <Typography variant="subtitle1" style={{textAlign:"center", marginTop:"5px"}}>{item.mail}</Typography>
+                              <Typography variant="subtitle1" style={{textAlign:"center", marginTop:"5px"}}>{item.attributes.phone_number}</Typography>
+                              <Typography variant="subtitle1" style={{textAlign:"center", marginTop:"5px"}}>{item.attributes.email_address}</Typography>
                               <Grid container spacing={3} style={{marginTop:"5px"}}>
                                 <Grid item xs={12} sm={6}>
                                     <Button variant="outlined" style={{width:"100%", color:"#2B6FED", border:"1px solid #2B6FED", fontWeight:600}} onClick={this.handleRejectOpen}>
@@ -151,7 +158,7 @@ class PendingRequest extends PendingRequestController {
                                     </Button>
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
-                                    <Button variant="contained" color="primary" style={{width:"100%", backgroundColor:"#2B6FED", fontWeight:600}} onClick={this.handleAcceptOpen}>
+                                    <Button variant="contained" color="primary" style={{width:"100%", backgroundColor:"#2B6FED", fontWeight:600}} onClick={()=>this.handleAcceptOpen(item)}>
                                         ACCEPT
                                     </Button>
                                 </Grid>
@@ -162,8 +169,8 @@ class PendingRequest extends PendingRequestController {
                               </CardContent>
                             </CardActionArea>
                           </Card>
-                          </div>
-                        )
+                          </div>)
+                        
 
                         })
 
@@ -226,7 +233,7 @@ class PendingRequest extends PendingRequestController {
                             //@ts-ignore 
                             style={dashBoard.unitno}>Accept Join Request</Typography>
                             <Typography variant="subtitle1" style={{marginTop:"20px"}}>Are you sure want to accept the join request 
-                                received from  <b>Marleah Eagleston</b> for Unit <b>B-1405</b> </Typography>
+                                received from  <b>{this.state.selectInvitation?.attributes?.full_name}</b> for Unit <b>{this.state.selectInvitation?.attributes?.apartment_management?.apartment_name}</b> </Typography>
                             <Grid container spacing={3} style={{marginTop:"20px"}}>
                             <Grid item xs={12} sm={6} style={{marginBottom:"20px"}}>
                                 <Button variant="outlined" style={{width:"100%", color:"#2B6FED", border:"1px solid #2B6FED", fontWeight:600, height:"50px"}} onClick={this.handleAcceptClose}>
@@ -234,7 +241,7 @@ class PendingRequest extends PendingRequestController {
                                 </Button>
                             </Grid>
                             <Grid item xs={12} sm={6}>
-                                <Button variant="contained" color="primary" style={{width:"100%", backgroundColor:"#2B6FED", fontWeight:600, height:"50px"}}>
+                                <Button variant="contained" onClick={()=>this.acceptInvitation(this.state.selectInvitation?.id)} color="primary" style={{width:"100%", backgroundColor:"#2B6FED", fontWeight:600, height:"50px"}}>
                                     YES, ACCEPT
                                 </Button>
                             </Grid>
@@ -246,7 +253,7 @@ class PendingRequest extends PendingRequestController {
             </Grid>
           </Box>
         </Box>
-        {/* <Loader loading={this.state.loading} /> */}
+        <Loader loading={this.state.loading} />
       </>
     )
   }
