@@ -764,5 +764,12 @@
   "Enter only number": "أدخل رقمًا فقط",
   "Include Penalty for late Payment": "تضمين غرامة السداد المتأخر",
   "Already contract available for this unit": "العقد متاح بالفعل لهذه الوحدة",
-  "Maximum length should be 100 character": "يجب أن يكون الحد الأقصى للطول 100 حرف"
+  "Maximum length should be 100 character": "يجب أن يكون الحد الأقصى للطول 100 حرف",
+  "View Building Budget" :"عرض ميزانية المبنى",
+  "View my invoices":"عرض فواتيري",
+  "View my Management fee":"عرض رسوم الإدارة الخاصة بي",
+  "View my Reciepts":"عرض الإيصالات الخاصة بي",
+  "Previous payments":"المدفوعات السابقة",
+  "View Budget Spending":"عرض الإنفاق في الميزانية",
+  "Landlord":"المالك"
 }

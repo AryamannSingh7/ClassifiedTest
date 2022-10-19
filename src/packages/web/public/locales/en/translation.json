@@ -764,5 +764,12 @@
   "Question Can't be empty": "Question Can't be empty",
   "Please select Question Type": "Please select Question Type",
   "Please select audience": "Please select audience",
-  "Option": "Option"
+  "Option": "Option",
+  "View Building Budget" :"View Building Budget",
+  "View my invoices":"View my invoices",
+  "View my Management fee":"View my Management fee",
+  "View my Reciepts":"View my Reciepts",
+  "Previous payments":"Previous payments",
+  "View Budget Spending":"View Budget Spending",
+  "Landlord":"Landlord"
 }
