@@ -58,7 +58,7 @@ class DashboardHeader extends DashboardController {
             <img src={buildingLogo.default} alt="BuildingLogo" width={70} />
             <Link href="#" style={{ textDecoration: "none" }}>
               <Typography variant="h6" style={dashBoard.buildingName}>
-                {localStorage.getItem("complexName")}
+                {localStorage.getItem("complexName") || "Complex_Name"}
               </Typography>
             </Link>
           </Grid>
@@ -92,8 +92,8 @@ class DashboardHeader extends DashboardController {
             <Box style={dashBoard.HeaderSecRtBox}>
               <img src={chairmanUser.default} alt="ChairmanUser" width={50} style={{ borderRadius: "50%" }} />
               <Box>
-                <p style={{ textTransform: "capitalize" }}>{localStorage.getItem("username")}</p>
-                <Typography variant="body2">{localStorage.getItem("userType")}</Typography>
+                <p style={{ textTransform: "capitalize" }}>{localStorage.getItem("username") || "User_Name"}</p>
+                <Typography variant="body2">{localStorage.getItem("userType") || "User_Role"}</Typography>
               </Box>
             </Box>
             <Menu

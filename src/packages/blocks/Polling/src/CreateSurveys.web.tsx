@@ -1,6 +1,4 @@
 // Customizable Area Start
-//@ts-ignore
-//@ts-nocheck
 
 import React from "react";
 import "./Polling.web.css"
@@ -89,6 +87,7 @@ class CreateSurveys extends CreateSurveyController {
 
   }
   render() {
+    // @ts-ignore
     const {t} = this.props
     return ( 
       <>
@@ -128,7 +127,7 @@ class CreateSurveys extends CreateSurveyController {
                                     }}
                                     required fullWidth
                                     />
-                                    <p style={{color:"red"}}>{this.state.pollTitleError}</p>
+                                    <p style={{color:"red"}}>{t(this.state.pollTitleError)}</p>
                                     <Box className="DateSection">
                                         <Box style={{width:"100%"}}>
                                             <TextField
@@ -151,7 +150,7 @@ class CreateSurveys extends CreateSurveyController {
                                                 }
                                                 }
                                             />
-                                            <p style={{color:"red"}}>{this.state.pollDateError}</p>
+                                            <p style={{color:"red"}}>{t(this.state.pollDateError)}</p>
                                         </Box>
                                         <Box style={{width:"100%"}}>
                                             <TextField label="End Date" variant="outlined"
@@ -171,7 +170,7 @@ class CreateSurveys extends CreateSurveyController {
                                                            )
                                                        }}
                                             />
-                                            <p style={{color:"red"}}>{this.state.pollEndDateError}</p>
+                                            <p style={{color:"red"}}>{t(this.state.pollEndDateError)}</p>
                                         </Box>
                                     </Box>
                                     <Box className="infoIcon">
@@ -180,6 +179,7 @@ class CreateSurveys extends CreateSurveyController {
                                     </Box>
                                     <Box className="descriptionEditor" style={{maxHeight:"200px",overflow:"hidden"}}>
                                         <TextEditor
+                                            // @ts-ignore
                                             markup={this.state.textEditor}
                                             onChange={this.onChangeTextEditor} />
                                     </Box>
@@ -196,8 +196,9 @@ class CreateSurveys extends CreateSurveyController {
                                                         name="OWNERS"
                                                         selected={this.state.selectedAudience === "Owner"}
                                                         isMenu={false}
-                                                        selectAudience={(id,name)=> this.selectAudience(id,name)}
+                                                        selectAudience={(id:any,name:any)=> this.selectAudience(id,name)}
                                                         audienceId={"Owner"}
+                                                        t={t}
                                                     />
                                                 </Grid>
                                                 <Grid item>
@@ -205,23 +206,25 @@ class CreateSurveys extends CreateSurveyController {
                                                         name="RESIDENTS"
                                                         selected={this.state.selectedAudience === "Resident"}
                                                         isMenu={false}
-                                                        selectAudience={(id,name)=> this.selectAudience(id,name)}
+                                                        selectAudience={(id:any,name:any)=> this.selectAudience(id,name)}
                                                         audienceId={"Resident"}
+                                                        t={t}
                                                     />
                                                 </Grid>
                                                 {
                                                     this.state.audienceList.length > 0 &&
-                                                    this.state.audienceList.map((item,key)=> {
+                                                    this.state.audienceList.map((item:any,key:any)=> {
                                                         return(
                                                             <Grid item key={key}>
                                                                 <AudienceSelectBox
                                                                     name={item.attributes.audience_name}
                                                                     selected={this.state.selectedAudienceId === item.id}
                                                                     isMenu={true}
-                                                                    manageEdit={(id) => this.handleOpenAudienceModalEditMode(id)}
-                                                                    manageDelete={(id) => this.handleDeleteModal(id)}
-                                                                    selectAudience={(id,name)=> this.selectAudience(id,name)}
+                                                                    manageEdit={(id:any) => this.handleOpenAudienceModalEditMode(id)}
+                                                                    manageDelete={(id:any) => this.handleDeleteModal(id)}
+                                                                    selectAudience={(id:any,name:any)=> this.selectAudience(id,name)}
                                                                     audienceId={item.id}
+                                                                    t={t}
                                                                 />
                                                             </Grid>
                                                         )
@@ -236,7 +239,7 @@ class CreateSurveys extends CreateSurveyController {
 
                                             </Grid>
                                       </Box>
-                                        <p style={{color:"red"}}>{this.state.audienceValidationError}</p>
+                                        <p style={{color:"red"}}>{t(this.state.audienceValidationError)}</p>
                                     </Box>
                                 </Box>
                             </Grid>
@@ -244,7 +247,7 @@ class CreateSurveys extends CreateSurveyController {
 
                             </Grid>
                             {
-                                this.state.surveyQuestions.map((item,key)=>{
+                                this.state.surveyQuestions.map((item:any,key:any)=>{
                                     return(
                                         <Grid item sm={12} md={12} xs={12} >
                                             <Box className="createPSCards">
@@ -263,9 +266,9 @@ class CreateSurveys extends CreateSurveyController {
                                                         <MenuItem value="checkbox">{t("Multiple Choice Questions")}</MenuItem>
                                                         <MenuItem value="options">{t("Options")}</MenuItem>
                                                     </Select>
-                                                    <p style={{color:"red"}}>{item.questionTypeError}</p>
+                                                    <p style={{color:"red"}}>{t(item.questionTypeError)}</p>
                                                 </FormControl>
-                                                <TextField  label="Enter question" variant="outlined"
+                                                <TextField  label={t("Enter question")} variant="outlined"
                                                             name="question"
                                                             inputProps={{
                                                                 maxLength: 30
@@ -275,14 +278,14 @@ class CreateSurveys extends CreateSurveyController {
                                                             onChange={(e)=>this.handleQuestion(key,e)}
                                                             required fullWidth style={{marginTop:20,borderRadius:"10px"}}
                                                 />
-                                                <p style={{color:"red"}}>{item.questionError}</p>
+                                                <p style={{color:"red"}}>{t(item.questionError)}</p>
                                                 {
                                                     item.question_type !== "short_answers" && item.survey_options_attributes.map((inputfield:any , index:any) => {
                                                         return(
                                                             <>
                                                                 <TextField
                                                                    key={index}
-                                                                   label={"Option - " + (index + 1)} variant="outlined"
+                                                                   label={t("Option") + " - " + (index + 1)} variant="outlined"
                                                                    name="text"
                                                                    inputProps={{
                                                                        maxLength: 20
@@ -292,7 +295,7 @@ class CreateSurveys extends CreateSurveyController {
                                                                    onChange={(event) => this.handleOptionsChange(key,index, event)}
                                                                    required fullWidth style={{marginTop:20}}
                                                                 />
-                                                                <p style={{color:"red"}}>{inputfield.error}</p>
+                                                                <p style={{color:"red"}}>{t(inputfield.error)}</p>
                                                             </>
                                                         )
                                                     })
@@ -311,66 +314,8 @@ class CreateSurveys extends CreateSurveyController {
                                     )
                                 })
                             }
-
-
-                            {/*<Grid  item sm={12} md={12} xs={12}>*/}
-                            {/*    <Box className="createPSCards">*/}
-                            {/*        <FormControl variant="outlined" fullWidth>*/}
-                            {/*            <InputLabel id="question-type">Short answer</InputLabel>*/}
-                            {/*            <Select*/}
-                            {/*                labelId="question-type"*/}
-                            {/*                id="question-type-select"*/}
-                            {/*                value=""*/}
-                            {/*                label="Age"*/}
-                            {/*            >*/}
-                            {/*                <MenuItem value={10}>Yes</MenuItem>*/}
-                            {/*                <MenuItem value={20}>No</MenuItem>*/}
-                            {/*            </Select>*/}
-                            {/*        </FormControl>*/}
-                            {/*        <TextField  label="enter question" variant="outlined"*/}
-                            {/*                    name="question"*/}
-                            {/*                    value={this.state.PollData.question}*/}
-                            {/*                    onChange={this.handlePollDataChange}*/}
-                            {/*                    required fullWidth style={{marginTop:20}}*/}
-                            {/*        />*/}
-                            {/*        /!*<TextField*!/*/}
-                            {/*        /!*    id="standard-select-currency"*!/*/}
-                            {/*        /!*    select*!/*/}
-                            {/*        /!*    label="Select"*!/*/}
-                            {/*        /!*    value={this.state.selectQuestion}*!/*/}
-                            {/*        /!*    onChange={this.handleQuestionSelect}*!/*/}
-                            {/*        /!*    SelectProps={{*!/*/}
-                            {/*        /!*        native: true,*!/*/}
-                            {/*        /!*    }}*!/*/}
-                            {/*        /!*    placeholder="Select type of question"*!/*/}
-                            {/*        /!*    fullWidth*!/*/}
-                            {/*        /!*    variant="outlined"*!/*/}
-                            {/*        /!*    InputProps={{*!/*/}
-                            {/*        /!*        style:{borderRadius:"2px"}*!/*/}
-                            {/*        /!*    }}*!/*/}
-                            {/*        /!*>*!/*/}
-
-                            {/*        /!*    {currencies.map((option:any) => {*!/*/}
-                            {/*        /!*        return(*!/*/}
-                            {/*        /!*            <MenuItem key={option.value} value={option.value}>*!/*/}
-                            {/*        /!*                {option.label}*!/*/}
-                            {/*        /!*            </MenuItem>*!/*/}
-                            {/*        /!*        )*!/*/}
-                            {/*        /!*    })*!/*/}
-                            {/*        /!*    }*!/*/}
-                            {/*        /!*</TextField>*!/*/}
-                            {/*        <p style={{color:"red"}}>{this.state.pollDescriptionError}</p>*/}
-
-                            {/*        /!* <TextField  label="Option - 1" variant="outlined"*/}
-                            {/*        name="optionOne"*/}
-                            {/*        value={this.state.PollData.optionOne}*/}
-                            {/*        onChange={this.handlePollDataChange}*/}
-                            {/*        required fullWidth style={{marginTop:20}}*/}
-                            {/*        /> *!/*/}
-
-                            {/*    </Box>*/}
-                            {/*</Grid>*/}
                             <Grid  item sm={12} md={12} xs={12}>
+                                {/*@ts-ignore*/}
                                 <Button onClick={this.addQuestionFields} fullWidth size="large" colo="primary" variant="outlined" style={{borderRadius:"8px",border:" 1px dashed #2b6fed",color:"#2b6fed",fontWeight:"bold"}}>+ {t("Add Another Question")}</Button>
                             </Grid>
                             <Grid  item sm={12} md={12} xs={12}>
@@ -401,6 +346,7 @@ class CreateSurveys extends CreateSurveyController {
                     {/*@ts-ignore*/}
                     <Fade in={this.state.audienceModal}>
                         <div>
+                            {/*@ts-ignore*/}
                             <AudienceModal handleClose={this.handleCloseAudienceModal} isEdit={this.state.isAudienceEdit} />
                         </div>
                     </Fade>
@@ -452,7 +398,8 @@ const dashBoard = {
 
 const AudienceSelectBox = (props:any) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
-    const handleClick = (event) => {
+    const {t} = props
+    const handleClick = (event:any) => {
         setAnchorEl(event.currentTarget);
     };
 
@@ -471,6 +418,7 @@ const AudienceSelectBox = (props:any) => {
     }
 
     return(
+
         <>
             <Box
                 style={

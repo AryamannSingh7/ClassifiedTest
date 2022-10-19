@@ -18,7 +18,7 @@ class SelectedTemplate extends SelectedTemplateController {
     const { classes } = this.props;
     const { t }: any = this.props;
 
-    console.log();
+    console.log(window.location.pathname);
 
     return (
       <>
@@ -44,7 +44,7 @@ class SelectedTemplate extends SelectedTemplateController {
                       />
                     </div>
                     <div className="upload-button">
-                      <Link to="/IssueContract/1/LeaseForm">
+                      <Link to={`${window.location.pathname}/LeaseForm`}>
                         <Button>{t("Use This Template")}</Button>
                       </Link>
                     </div>

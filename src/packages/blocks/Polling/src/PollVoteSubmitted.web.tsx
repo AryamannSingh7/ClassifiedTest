@@ -109,7 +109,7 @@ class PollVoteSubmitted extends PollingController {
                     <Box display='flex' marginTop='1rem'>
                         <AccountCircleOutlinedIcon style={{color:'#054c94'}}/>
                         <Box marginLeft='0.5rem'>
-                            <p>(t{"Published By"}):</p>
+                            <p>{t("Published By")}:</p>
                             <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}>
                             {this.state.pollPreviewAnswer?.poll?.data.attributes.publish_by}
                             </p>

@@ -30,7 +30,7 @@ import SubscriptionDetails from '../../blocks/customisableusersubscriptions/src/
 import Interactivefaqs from '../../blocks/interactivefaqs/src/Interactivefaqs';
 import AddInteractivefaqs from '../../blocks/interactivefaqs/src/AddInteractivefaqs';
 import PhotoLibrary3 from '../../blocks/PhotoLibrary3/src/PhotoLibrary3';
-import ExpenseTracking from '../../blocks/ExpenseTracking/src/ExpenseTracking';
+// import ExpenseTracking from '../../blocks/ExpenseTracking/src/ExpenseTracking';
 import Search from '../../blocks/search/src/Search';
 import MultipleCurrencySupport from '../../blocks/multiplecurrencysupport/src/MultipleCurrencySupport';
 import NewPassword from '../../blocks/forgot-password/src/NewPassword';
@@ -274,6 +274,13 @@ import ChairmanNominationDetails from '../../blocks/FriendList/src/ChairmanNomin
 import NominateMySelf from '../../blocks/FriendList/src/NominateMySelf.web';
 import MyNomination from '../../blocks/FriendList/src/MyNomination.web';
 import TaskManagement from '../../blocks/FriendList/src/TaskManagement.web';
+
+// Reports
+import ReportDashboard from '../../blocks/ExpenseTracking/src/ReportDashboard.web';
+import BudgetReport from '../../blocks/ExpenseTracking/src/BudgetReport.web';
+import ExpenseReport from '../../blocks/ExpenseTracking/src/ExpenseReport.web';
+import AuditReport from '../../blocks/ExpenseTracking/src/AuditReport.web';
+import ManagementFeeReport from '../../blocks/ExpenseTracking/src/ManagementFeeReport.web';
 
 const routeMap = {
   //done
@@ -915,10 +922,10 @@ const routeMap = {
     component: PhotoLibrary3,
     path: '/PhotoLibrary3'
   },
-  ExpenseTracking: {
-    component: ExpenseTracking,
-    path: '/ExpenseTracking'
-  },
+  // ExpenseTracking: {
+  //   component: ExpenseTracking,
+  //   path: '/ExpenseTracking'
+  // },
   Search: {
     component: Search,
     path: '/Search'
@@ -1179,10 +1186,10 @@ const routeMap = {
     component: PhotoLibrary3,
     path: '/PhotoLibrary3'
   },
-  ExpenseTracking: {
-    component: ExpenseTracking,
-    path: '/ExpenseTracking'
-  },
+  // ExpenseTracking: {
+  //   component: ExpenseTracking,
+  //   path: '/ExpenseTracking'
+  // },
   Search: {
     component: Search,
     path: '/Search'
@@ -1667,6 +1674,37 @@ const routeMap = {
     component: EditTenant,
     path: '/EditTenant/:id',
     roles: [ROLE.OWNER],
+    exact: true
+  },
+  // Reports
+  ReportDashboard: {
+    component: ReportDashboard,
+    path: '/Reports',
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
+    exact: true
+  },
+  BudgetReport: {
+    component: BudgetReport,
+    path: '/BudgetReports',
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
+    exact: true
+  },
+  ExpenseReport: {
+    component: ExpenseReport,
+    path: '/ExpenseReports',
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
+    exact: true
+  },
+  AuditReport: {
+    component: AuditReport,
+    path: '/AuditReports',
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
+    exact: true
+  },
+  ManagementFeeReport: {
+    component: ManagementFeeReport,
+    path: '/ManagementFeeReports',
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
     exact: true
   },
 

@@ -54,7 +54,6 @@ export interface S {
   selectCode: string;
   selectCode2: string;
   selectCode3:string;
-  anchorEl: any;
   showDialog:boolean;
   showDialog1:boolean;
   showDialog2: boolean;
@@ -305,23 +304,6 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
           }
           this.setState({ loading: false })
 
-        } else if (apiRequestCallId === this.chatSettingApiCallId) {
-          if (!responseJson.errors) {
-            console.log(responseJson)
-            this.handleClose('')
-            this.getProfile()
-          } else if (responseJson?.errors) {
-            let error = responseJson.errors[0];
-            this.setState({ error });
-            this.parseApiCatchErrorResponse(this.state.error);
-            this.parseApiCatchErrorResponse(errorReponse);
-          } else {
-            this.setState({ error: responseJson?.error || "Something went wrong!" });
-            this.parseApiCatchErrorResponse(this.state.error);
-            this.parseApiCatchErrorResponse(errorReponse);
-          }
-          this.setState({ loading: false })
-
         } else if (apiRequestCallId === this.createInvitationAPICallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
@@ -552,6 +534,19 @@ this.setState({allInvitation:responseJson.data,loading:false})
   isValidEmail(email: string) {
     return this.emailReg.test(email);
   }
+
+  handleOpen = (e:any) => {
+
+  }
+
+  handleToolTip = (e:any,text:any) => {
+
+  }
+
+  invitationData = (value:any) => {
+
+  }
+
 
   createAccount(): boolean {
     if (
@@ -1997,15 +1992,7 @@ let userType=localStorage.getItem('userType')
     });
     return validations
   }
-  handleToolTip = (event: any, text: any) => {
-    this.setState({ openToolTip: !this.state.openToolTip });
-    this.setState({ anchorEl: event.currentTarget });
-    this.setState({ popUPText: text });
-  };
 
-  handleOpen = () => {
-    this.setState({setOpen:true});
-  };
 
   handleClose = () => {
     this.setState({setOpen:false});

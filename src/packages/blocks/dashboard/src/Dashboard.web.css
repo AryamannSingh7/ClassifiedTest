@@ -40,7 +40,7 @@
 }
 .SingleLink .SingleLinkSize {
   font-size: 15px;
-  /* font-weight: bold; */
+  font-weight: bold;
 }
 .SingleLink:hover {
   cursor: pointer;
@@ -48,6 +48,10 @@
 /* .SingleLink .SingleLinkSize:hover{
     color: red;
 } */
+.AccordinoList  {
+  margin-bottom: 50px;
+}
+
 .AccordinoList .ListItem {
   margin-top: 20px;
 }
@@ -55,7 +59,7 @@
 .AccordinoList .ListItemText {
   margin-left: 15px;
   font-size: 15px;
-  /* font-weight: bold; */
+  font-weight: bold;
 }
 
 .SideBar {
