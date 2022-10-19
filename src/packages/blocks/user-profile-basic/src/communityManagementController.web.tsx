@@ -187,7 +187,6 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
   showDialog1:false,
   allUserType:[],
   openToolTip: false,
-  anchorEl:null,
   popUPText:"",
   setOpen:false,
   invitationData:"",
@@ -1183,7 +1182,7 @@ this.setState({allInvitation:responseJson.data,loading:false})
       this.getBuilding()
 
     } else if (e.target.name == 'selectBuilding') {
-      this.getUnit()
+      // this.getUnit()
 
     }
 
