@@ -58,7 +58,11 @@ class CommunityRequestManagement extends CommunityUserProfileController {
     super(props);
   }
   async componentDidMount() {
-  //  this.getUserType()
+   this.getUserType()
+   this.getBuilding();
+  //  this.getUnit();
+
+
       }
   render() {
     const {t}: any = this.props
@@ -260,7 +264,7 @@ class CommunityRequestManagement extends CommunityUserProfileController {
                      onSubmit={(values) => {
                        console.log("valus=========>", values)
                        // same shape as initial values
-                      //  this.invitationData(values);
+                       this.createInvitation(values);
                     }}
                   >
                     {({ values, touched, errors, isValid, setFieldValue }) => (
@@ -288,10 +292,13 @@ class CommunityRequestManagement extends CommunityUserProfileController {
                                       <MenuItem  disabled value=" ">
                                         {t("Select User Type")}
                                       </MenuItem>
-                                      <MenuItem value={"user1"}>User1</MenuItem>
+                                      {
+                                        this.state.allUserType.map((item:any)=> <MenuItem value={item?.id}>{item.name}</MenuItem>)
+                                      }
+                                      {/* <MenuItem value={"user1"}>User1</MenuItem>
                                       <MenuItem value={"user2"}>User2</MenuItem>
                                       <MenuItem value={"user3"}>User3</MenuItem>
-                                      <MenuItem value={"user4"}>User4</MenuItem>
+                                      <MenuItem value={"user4"}>User4</MenuItem> */}
 
                                       {/* {
                                         this.state?.userTypeData?.map((val, index) => (
@@ -306,6 +313,19 @@ class CommunityRequestManagement extends CommunityUserProfileController {
 
                                     </Select>
                                   </FormControl>
+                                  {errors.usertype && touched.usertype ? (
+                        <Typography
+                          style={{
+                            color: "#F14E24",
+                            fontWeight: 300,
+                            fontSize: 14,
+                            marginTop: 5,
+                            marginLeft: 10
+                          }}
+                        >
+                          <ErrorMessage className="text-error" component="Typography" name="usertype" />
+                        </Typography>
+                      ) : null}
                               </Box>
                             </Grid>
                             <Grid item xs={12} sm={6}>
@@ -317,6 +337,19 @@ class CommunityRequestManagement extends CommunityUserProfileController {
                               style={dashBoard.formLeftIcn}>
                                 <img src={user_icon} className="frm-icons" alt="User Icon" />
                               </span>
+                              {errors.fullname && touched.fullname ? (
+                        <Typography
+                          style={{
+                            color: "#F14E24",
+                            fontWeight: 300,
+                            fontSize: 14,
+                            marginTop: 5,
+                            marginLeft: 10
+                          }}
+                        >
+                          <ErrorMessage className="text-error" component="Typography" name="fullname" />
+                        </Typography>
+                      ) : null}
                             </Box>
                             </Grid>
                           </Grid>
@@ -330,6 +363,19 @@ class CommunityRequestManagement extends CommunityUserProfileController {
                               style={dashBoard.formLeftIcn}>
                                 <img src={email_icon} className="frm-icons" alt="Email Icon" />
                               </span>
+                              {errors.email && touched.email ? (
+                        <Typography
+                          style={{
+                            color: "#F14E24",
+                            fontWeight: 300,
+                            fontSize: 14,
+                            marginTop: 5,
+                            marginLeft: 10
+                          }}
+                        >
+                          <ErrorMessage className="text-error" component="Typography" name="email" />
+                        </Typography>
+                      ) : null}
                             </Box>
                             </Grid>
                             <Grid item xs={12} sm={6}>
@@ -341,6 +387,19 @@ class CommunityRequestManagement extends CommunityUserProfileController {
                               style={dashBoard.formLeftIcn}>
                                 <img src={phone_icon} className="frm-icons" alt="Phone Icon" />
                               </span>
+                              {errors.phoneno && touched.phoneno ? (
+                        <Typography
+                          style={{
+                            color: "#F14E24",
+                            fontWeight: 300,
+                            fontSize: 14,
+                            marginTop: 5,
+                            marginLeft: 10
+                          }}
+                        >
+                          <ErrorMessage className="text-error" component="Typography" name="phoneno" />
+                        </Typography>
+                      ) : null}
                             </Box>
                             </Grid>
                           </Grid>
@@ -360,17 +419,20 @@ class CommunityRequestManagement extends CommunityUserProfileController {
                                     style={{ paddingLeft: '45px' }}
                                     // label="Select User Type"
                                     onChange={(e) => {
-                                      (e.target.value != " ") && setFieldValue("building", e.target.value)
+                                      (e.target.value != " ") && setFieldValue("building", e.target.value) ; this.getUnit(e.target.value)
                                     }}
                                     value={values.building}
                                   >
                                     <MenuItem  disabled value=" ">
                                       {t("Select Building")}
                                     </MenuItem>
-                                    <MenuItem value={"building1"}>User1</MenuItem>
+                                    {
+                                      this.state.allBuilding.map((item:any)=> <MenuItem value={item.id}>{item.name}</MenuItem>)
+                                    }
+                                    {/* <MenuItem value={"building1"}>User1</MenuItem>
                                     <MenuItem value={"building2"}>User2</MenuItem>
                                     <MenuItem value={"building3"}>User3</MenuItem>
-                                    <MenuItem value={"building4"}>User4</MenuItem>
+                                    <MenuItem value={"building4"}>User4</MenuItem> */}
 
                                     {/* {
                                       this.state?.userTypeData?.map((val, index) => (
@@ -385,6 +447,19 @@ class CommunityRequestManagement extends CommunityUserProfileController {
 
                                   </Select>
                                 </FormControl>
+                                {errors.building && touched.building ? (
+                        <Typography
+                          style={{
+                            color: "#F14E24",
+                            fontWeight: 300,
+                            fontSize: 14,
+                            marginTop: 5,
+                            marginLeft: 10
+                          }}
+                        >
+                          <ErrorMessage className="text-error" component="Typography" name="building" />
+                        </Typography>
+                      ) : null}
                               </Box>
                             </Grid>
                             <Grid item xs={12} sm={6}>
@@ -409,10 +484,13 @@ class CommunityRequestManagement extends CommunityUserProfileController {
                                       <MenuItem  disabled value=" ">
                                         {t("Select Unit")}
                                       </MenuItem>
-                                      <MenuItem value={"unit1"}>User1</MenuItem>
+                                      {
+                                        this.state.allUnit.map((item:any)=> <MenuItem value={item.id}>{item.apartment_name}</MenuItem>)
+                                      }
+                                      {/* <MenuItem value={"unit1"}>User1</MenuItem>
                                       <MenuItem value={"unit2"}>User2</MenuItem>
                                       <MenuItem value={"unit3"}>User3</MenuItem>
-                                      <MenuItem value={"unit4"}>User4</MenuItem>
+                                      <MenuItem value={"unit4"}>User4</MenuItem> */}
 
                                       {/* {
                                         this.state?.userTypeData?.map((val, index) => (
@@ -427,6 +505,19 @@ class CommunityRequestManagement extends CommunityUserProfileController {
 
                                     </Select>
                                   </FormControl>
+                                  {errors.unit && touched.unit ? (
+                        <Typography
+                          style={{
+                            color: "#F14E24",
+                            fontWeight: 300,
+                            fontSize: 14,
+                            marginTop: 5,
+                            marginLeft: 10
+                          }}
+                        >
+                          <ErrorMessage className="text-error" component="Typography" name="unit" />
+                        </Typography>
+                      ) : null}
                               </Box>
                             </Grid>
                             <Grid item xs={12} sm={12}>

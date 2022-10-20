@@ -770,5 +770,12 @@
   "You can't create contract for this unit": "لا يمكنك إنشاء عقد لهذه الوحدة",
   "Personal Conditions": "الشروط الشخصية",
   "Payment Terms": "شروط الدفع",
-  "Template Name": "اسم القالب"
+  "Template Name": "اسم القالب",
+  "View Building Budget": "عرض ميزانية المبنى",
+  "View my invoices": "عرض فواتيري",
+  "View my Management fee": "عرض رسوم الإدارة الخاصة بي",
+  "View my Reciepts": "عرض الإيصالات الخاصة بي",
+  "Previous payments": "المدفوعات السابقة",
+  "View Budget Spending": "عرض الإنفاق في الميزانية",
+  "Landlord": "المالك"
 }
