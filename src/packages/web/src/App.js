@@ -163,6 +163,11 @@ import ClassifiedEditSuccessfully from '../../blocks/ContentManagement/src/Class
 import NeighboursDetails from '../../blocks/search/src/NeighboursDetails.web';
 import NeighboursListing from '../../blocks/search/src/NeighboursListing.web';
 
+import FacilityReservationListing from '../../blocks/RequestManagement/src/FacilityReservationListing.web';
+import FacilityReservationDetails from '../../blocks/RequestManagement/src/FacilityReservationDetails.web';
+import FacilityReservation from '../../blocks/RequestManagement/src/FacilityReservation.web';
+
+
 // Help
 import FaqChairman from '../../blocks/contactus/src/FaqChairman.web';
 import FaqOwner from '../../blocks/contactus/src/FaqOwner.web';
@@ -564,6 +569,21 @@ const routeMap = {
   ClassifiedEditSuccessfully: {
     component: ClassifiedEditSuccessfully,
     path: '/ClassifiedEditSuccessfully',
+    exact: true
+  },
+  FacilityReservationListing: {
+    component: FacilityReservationListing,
+    path: '/FacilityReservationListing',
+    exact: true
+  },
+  FacilityReservationDetails: {
+    component: FacilityReservationDetails,
+    path: '/FacilityReservationDetails',
+    exact: true
+  },
+  FacilityReservation: {
+    component: FacilityReservation,
+    path: '/FacilityReservation',
     exact: true
   },
   // RolesPermissions2: {
