@@ -141,6 +141,7 @@ export default class SelectedTemplateController extends BlockComponent<Props, S,
     window.sessionStorage.setItem("contractForm", JSON.stringify(formData));
 
     window.sessionStorage.setItem("isLatePaymentPenalty", "false");
+    window.sessionStorage.setItem("isEditFlow", "false");
 
     window.sessionStorage.setItem("condition", JSON.stringify(condition));
 

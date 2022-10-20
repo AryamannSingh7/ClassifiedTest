@@ -72,6 +72,8 @@ interface S {
   selectedPersonalCondition: any[];
 
   editor: any;
+
+  templateName: string;
   // Customizable Area End
 }
 
@@ -149,6 +151,8 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
       selectedPersonalCondition: [],
 
       editor: RichTextEditor.createEmptyValue(),
+
+      templateName: "",
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -828,31 +832,19 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
   });
 
   handleConditionModal = () => {
-    this.setState({
-      ...this.state,
-      isConditionModalOpen: !this.state.isConditionModalOpen,
-    });
+    this.setState({ isConditionModalOpen: !this.state.isConditionModalOpen });
   };
 
   handlePenaltyCountModal = () => {
-    this.setState({
-      ...this.state,
-      isPenaltyCountModalOpen: !this.state.isPenaltyCountModalOpen,
-    });
+    this.setState({ isPenaltyCountModalOpen: !this.state.isPenaltyCountModalOpen });
   };
 
   handlePenaltyRentModal = () => {
-    this.setState({
-      ...this.state,
-      isPenaltyRentModalOpen: !this.state.isPenaltyRentModalOpen,
-    });
+    this.setState({ isPenaltyRentModalOpen: !this.state.isPenaltyRentModalOpen });
   };
 
   handlePenaltyAmountModal = () => {
-    this.setState({
-      ...this.state,
-      isPenaltyAmountModalOpen: !this.state.isPenaltyAmountModalOpen,
-    });
+    this.setState({ isPenaltyAmountModalOpen: !this.state.isPenaltyAmountModalOpen });
   };
 
   goBackFromReviewPage = () => {
@@ -864,28 +856,24 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
   };
 
   gotoSelectTemplatePage = () => {
-    this.props.navigation.navigate("SelectedTemplateTwo", { templateId: this.state.templateId });
+    const isEditFlow = window.sessionStorage.getItem("isEditFlow");
+    if (isEditFlow === "true") {
+      this.props.navigation.navigate("ContractsList");
+    } else {
+      this.props.navigation.navigate("SelectedTemplateTwo", { templateId: this.state.templateId });
+    }
   };
 
   handleSaveLeaseModal = () => {
-    this.setState({
-      ...this.state,
-      isSaveLeaseModalOpen: !this.state.isSaveLeaseModalOpen,
-    });
+    this.setState({ isSaveLeaseModalOpen: !this.state.isSaveLeaseModalOpen });
   };
 
   handleGenerateLeaseModal = () => {
-    this.setState({
-      ...this.state,
-      isGenerateLeaseModalOpen: !this.state.isGenerateLeaseModalOpen,
-    });
+    this.setState({ isGenerateLeaseModalOpen: !this.state.isGenerateLeaseModalOpen });
   };
 
   handleShareModal = () => {
-    this.setState({
-      ...this.state,
-      isShareModalOpen: !this.state.isShareModalOpen,
-    });
+    this.setState({ isShareModalOpen: !this.state.isShareModalOpen });
   };
   // Customizable Area End
 }
