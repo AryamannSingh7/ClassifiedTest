@@ -9,7 +9,7 @@ import MessageEnum, {
 // Customizable Area Start
 import * as Yup from 'yup';
 import moment from "moment";
-import {RouteComponentProps} from 'react-router';
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import { imgPasswordInVisible, imgPasswordVisible } from "./assets";
 import { valueContainerCSS } from "react-select/src/components/containers";
 import { truncateSync } from "fs";
@@ -42,32 +42,28 @@ export interface S {
   userTypeData:any;
   anchorEl :any ;
   anchorEl_1 :any ;
-  getClassifiedDetails : any;
+  getIncidentDetails : any;
   sortBy : any ;
   status : any;
-  getCurrencyList:any;
+  myApartmentList:any;
   upload:any;
   notImageOrVideoError:any,
   sizeError:any,
   file : any,
   commonAreaData:any,
   incidentRelatedData:any,
-  classifiedListing:any,
+  incidentListing:any,
   showDialog:any;
-  deleteShowDialog:any;
-  classifiedId:any;
-  myOrAllClassified:boolean;
-  classifiedType:any;
   // Customizable Area End
 }
-  
+
 export interface SS {
   // Customizable Area Start
   id: any;
   // Customizable Area End
 }
 
-export default class ClassifiedController extends BlockComponent<
+export default class FacilityReservationController extends BlockComponent<
   Props,
   S,
   SS
@@ -77,15 +73,15 @@ export default class ClassifiedController extends BlockComponent<
   passwordReg: RegExp;
   emailReg: RegExp;
   createAccountApiCallId: any;
-  deleteClassifiedApiCallId:any;
-  createClassifiedApiCallId: any;
+  apiupdateIncidentCallId:any;
+  apicreateIncidentCallId: any;
   validationApiCallId: any;
-  getClassifiedListingApiCallId: any;
-  getClassifiedDetailsByIdApiCallId : any ;
-  getMyClassifiedListApiCallId : any ;
-  updateClassifiedApiCallId:any;
-  getCurrencyListApiCallId:any;
-
+  getIncidentListingApiCallId: any;
+  getIncidentDetailsByIdApiCallId : any ;
+  getCommonAreaApiCallId : any ;
+  getIncidentRelatedApiCallId:any;
+  getMyApartmentListApiCallId:any;
+  createChatRoomAPIId:any;
   imgPasswordVisible: any;
   imgPasswordInVisible: any;
 
@@ -134,22 +130,18 @@ export default class ClassifiedController extends BlockComponent<
       loading: false,
       commonAreaData:null,
       incidentRelatedData:null,
-      classifiedListing: null,
+      incidentListing: null,
       anchorEl:null,
       anchorEl_1:null,
-      getClassifiedDetails:null,
+      getIncidentDetails:null,
       sortBy : "" ,
       status : "",
-      getCurrencyList:[],
+      myApartmentList:[],
       upload:false,
       notImageOrVideoError:false,
       sizeError:false,
       file :{},
-      showDialog:false,
-      deleteShowDialog:false,
-      classifiedId:null,
-      myOrAllClassified:true,
-      classifiedType:'',
+      showDialog:false
       // Customizable Area End
     };
 
@@ -176,9 +168,11 @@ export default class ClassifiedController extends BlockComponent<
 
   async componentDidUpdate(prevProps: any, prevState: any) {
     if (
-      prevState.status !== this.state.status 
+      prevState.sortBy !== this.state.sortBy ||
+      prevState.status !== this.state.status
+
     ) {
-     this.getClassifiedListing(this.state.status)
+     this.getIncidentListing(this.state.sortBy ,this.state.status)
     }
   }
 
@@ -220,44 +214,45 @@ export default class ClassifiedController extends BlockComponent<
               this.emailReg = new RegExp(regexData.email_validation_regexp);
             }
           }
-        } 
-      else if (apiRequestCallId === this.createClassifiedApiCallId) {
+        }
+      else if (apiRequestCallId === this.apicreateIncidentCallId) {
           if (responseJson && responseJson.data) {
-            console.log("createClassifiedApiCallId===========>",responseJson)
+            console.log("apicreateIncidentCallId===========>",responseJson)
+            localStorage.setItem("createIncidentId",responseJson.data.id)
             //@ts-ignore
-            this.props.history.push("/ClassifiedReportedSuccessfully")
-            this.setState({loading: false})      
+            this.props.history.push("/IncidentReportedSuccessfully")
+            this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = responseJson.errors[0]
             this.setState({ error });
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
           }
-         
+
           this.parseApiCatchErrorResponse(this.state.error);
           this.setState({loading: false , error:null})
         }
-        else if (apiRequestCallId === this.deleteClassifiedApiCallId) {
-          if (responseJson?.message === 'Successfully deleted' && responseJson?.code === 200) {
-            console.log("deleteClassifiedApiCallId===========>",responseJson)
-            this.setState({loading: false, deleteShowDialog: false,classifiedId:null}) 
+        else if (apiRequestCallId === this.apiupdateIncidentCallId) {
+          if (responseJson && responseJson.data) {
+            console.log("apiupdateIncidentCallId===========>",responseJson)
                //@ts-ignore
-               this.getMyClassifiedList()   
+              this.props.history.push("/IncidentListing")
+            this.setState({loading: false})
           } else if (responseJson?.errors) {
-            let error =responseJson.errors[0] as string;
+            let error = Object.values(responseJson.errors[0])[0] as string;
             this.setState({ error });
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
           }
-         
+
           this.parseApiCatchErrorResponse(this.state.error);
           this.setState({loading: false , error:null})
         }
-        else if (apiRequestCallId === this.getClassifiedListingApiCallId) {
+        else if (apiRequestCallId === this.getIncidentListingApiCallId) {
           if (responseJson && responseJson?.data ) {
-          console.log("getClassifiedListingApiCallId ========================>",responseJson)
-          localStorage?.removeItem("classifiedUserType");
-          this.setState({classifiedListing :responseJson?.data,loading: false})
+          console.log("getIncidentListingApiCallId ========================>",responseJson)
+          this.setState({incidentListing :responseJson?.data})
+          this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
             this.setState({ error });
@@ -267,17 +262,17 @@ export default class ClassifiedController extends BlockComponent<
           this.parseApiCatchErrorResponse(this.state.error);
           this.setState({loading: false , error:null})
         }
-        else if (apiRequestCallId === this.getClassifiedDetailsByIdApiCallId) {
+        else if (apiRequestCallId === this.getIncidentDetailsByIdApiCallId) {
           if (responseJson && responseJson?.data ) {
-          console.log("getClassifiedDetailsByIdApiCallId ========================>",responseJson)
-          this.setState({getClassifiedDetails :responseJson?.data})
-          console.log("responseJson getClassifiedDetails========================>",this.state?.getClassifiedDetails)
+          console.log("getIncidentDetailsByIdApiCallId ========================>",responseJson)
+          this.setState({getIncidentDetails :responseJson?.data})
+          console.log("responseJson getIncidentDetails========================>",this.state?.getIncidentDetails)
           this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = responseJson.errors[0] as string;
                      //@ts-ignore
                     //@ts-nocheck
-              this.props.history.push("/ClassifiedListing")
+              this.props.history.push("/IncidentListing")
             this.setState({ error });
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
@@ -285,26 +280,14 @@ export default class ClassifiedController extends BlockComponent<
           this.parseApiCatchErrorResponse(this.state.error);
           this.setState({loading: false , error:null})
         }
-        else if (apiRequestCallId === this.getMyClassifiedListApiCallId) {
+        else if (apiRequestCallId === this.getCommonAreaApiCallId) {
           if (responseJson && responseJson?.data ) {
-          console.log("getMyClassifiedListApiCallId  ========================>",responseJson)
-          this.setState({classifiedListing :responseJson?.data,loading: false})
-          } else if (responseJson?.errors) {
-            let error = responseJson.errors[0] as string;
-            this.setState({ error });
-          } else {
-            this.setState({ error: responseJson?.error || "Something went wrong!" });
-          }
-          this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({loading: false , error:null})
-        }
-        else if (apiRequestCallId === this.updateClassifiedApiCallId) {
-          if (responseJson && responseJson?.data ) {
-          console.log("updateClassifiedApiCallId========================>",responseJson)
+          console.log("getCommonAreaApiCallId  ========================>",responseJson)
+          this.setState({commonAreaData :responseJson?.data.common_areas})
+
           this.setState({loading: false})
-          this.props.history.push("/ClassifiedEditSuccessfully")
           } else if (responseJson?.errors) {
-            let error = responseJson.errors[0] as string;
+            let error = Object.values(responseJson.errors[0])[0] as string;
             this.setState({ error });
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
@@ -312,11 +295,40 @@ export default class ClassifiedController extends BlockComponent<
           this.parseApiCatchErrorResponse(this.state.error);
           this.setState({loading: false , error:null})
         }
-        else if (apiRequestCallId === this.getCurrencyListApiCallId) {
+        else if (apiRequestCallId === this.getIncidentRelatedApiCallId) {
           if (responseJson && responseJson?.data ) {
-          console.log("getCurrencyListApiCallId========================>",responseJson)
-          this.setState({getCurrencyList :responseJson?.data})
-        
+          console.log("getIncidentRelatedApiCallId========================>",responseJson)
+          this.setState({incidentRelatedData :responseJson?.data.incident_relateds})
+
+          this.setState({loading: false})
+          } else if (responseJson?.errors) {
+            let error = Object.values(responseJson.errors[0])[0] as string;
+            this.setState({ error });
+          } else {
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
+          }
+          this.parseApiCatchErrorResponse(this.state.error);
+          this.setState({loading: false , error:null})
+        } else if (apiRequestCallId === this.createChatRoomAPIId) {
+          if (responseJson && responseJson?.data) {
+            console.log("createChatRoom ========================>", responseJson)
+            localStorage.setItem('selectedChat', JSON.stringify(responseJson.data))
+            this.props.history.push('/incidentchat')
+            this.setState({ loading: false })
+          } else if (responseJson?.errors) {
+            let error = responseJson.errors[0] as string;
+            this.setState({ error });
+          } else {
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
+          }
+          this.parseApiCatchErrorResponse(this.state.error);
+          this.setState({ loading: false, error: null })
+        }
+        else if (apiRequestCallId === this.getMyApartmentListApiCallId) {
+          if (responseJson && responseJson?.data ) {
+          console.log("getMyApartmentListApiCallId========================>",responseJson)
+          this.setState({myApartmentList :responseJson?.data})
+
           this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
@@ -562,51 +574,50 @@ clear= () => {
   //@ts-ignore
   this.props.history.push("/");
 }
-changeType(value: any) {
-    this.setState({ userType: value })
 
-  }
-
-nextBtn = (val:any)=>{
-  localStorage.setItem("classifiedUserType",val)
-  console.log("nextBtn=========>", val);
-    this.setState({ loading: true })
-    //@ts-ignore
-    this.props.history.push("/CreateClassified")
-}  
 onSubmit =(values:any)=>{
-  localStorage.setItem("classifiedPreview", JSON.stringify(values))
+  localStorage.setItem("incidentPreview", JSON.stringify(values))
   console.log("onsbumit=========>", values);
     this.setState({ loading: true })
     //@ts-ignore
-    this.props.history.push("/ClassifiedPreview")
+    this.props.history.push("/IncidentPreview")
 }
-getClassifiedDetails= (e:any,id :any) => {
+getIncidentDetails= (id :any) => {
    //@ts-ignore
-  this.props.history.push({
-    pathname: "/ClassifiedDetails",
-     //@ts-ignore
-    id,
-});
-  
-  this.getClassifiedDetailsById(id)
+  this.props.history.push({pathname: "/IncidentDetails",id});
+
+  //this.getIncidentDetailsById(id)
 }
 
-deleteClassified =()=>{
+confirmOrRejectIncident =(id : any,val : any)=>{
   const header = {
     token :localStorage.getItem("userToken")
   };
-  const id =this.state?.classifiedId
-  console.log("id deleteClassified==============>",id)
-  this.setState({loading: true}) 
+  const formData = new FormData();
+  if(val === "confirm"){
+     //@ts-ignore
+    formData.append('incident[mark_resolved_by_reporter]', true);
+    formData.append('incident[incident_status]', 'Resolved');
+  }else{
+     //@ts-ignore
+    formData.append('incident[mark_resolved_by_reporter]', false);
+    formData.append('incident[incident_status]', 'Unresolved');
+  }
+
+
+ console.log("formData.getAll('apartment_management_id')==================>",formData.get('incident[incident_status]'))
+ const httpBody = formData;
+ console.log("httpBody httpBody==================>",httpBody);
+
+  this.setState({loading: true})
   const requestMessage = new Message(
     getName(MessageEnum.RestAPIRequestMessage)
   );
 
-  this.deleteClassifiedApiCallId = requestMessage.messageId;
+  this.apiupdateIncidentCallId = requestMessage.messageId;
   requestMessage.addData(
     getName(MessageEnum.RestAPIResponceEndPointMessage),
-    `bx_block_posts/classifieds/${id}`
+    `${configJSON.updateIncident}${id}`
   );
 
   requestMessage.addData(
@@ -615,8 +626,13 @@ deleteClassified =()=>{
   );
 
   requestMessage.addData(
+    getName(MessageEnum.RestAPIRequestBodyMessage),
+    httpBody
+  );
+
+  requestMessage.addData(
     getName(MessageEnum.RestAPIRequestMethodMessage),
-    `DELETE`
+    configJSON.PatchAPiMethod
   );
 
   runEngine.sendMessage(requestMessage.id, requestMessage);
@@ -624,61 +640,45 @@ deleteClassified =()=>{
   return true;
 
 }
-
-createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
-  try   
+  createIncident = async(incidentFromData: any ,incidentRelated : any) => {
+  try
    {
      const header = {
       token :localStorage.getItem("userToken")
     };
-   // console.log("values create==================>",classifiedFromData.media[0].file );
-   const full_phone_number =`${classifiedFromData?.selectCode}${classifiedFromData?.phone}`
-   console.log("sekect ocde ",full_phone_number)
+   // console.log("values create==================>",incidentFromData.media[0].file );
     const formData = new FormData();
-   formData.append('classified[classified_type]', classifiedUserType);
-   formData.append('classified[full_phone_number]',full_phone_number);
-   formData.append('classified[email]', classifiedFromData.email);
-   formData.append('classified[title]', classifiedFromData.classifiedTitle);
-   formData.append('classified[description]', classifiedFromData.description);
-   formData.append('classified[currency_id]', classifiedFromData.currency);
-   formData.append('classified[duration_from]', classifiedFromData.startDate);
-   formData.append('classified[duration_to]', classifiedFromData.endDate);
+   formData.append('incident[common_area_id]', incidentFromData?.commonArea?.id);
+   formData.append('incident[incident_related_id]', incidentRelated[0]);
+   formData.append('incident[incident_title]', incidentFromData.incidentTitle);
+   formData.append('incident[description]', incidentFromData.description);
+  //  formData.append('incident[attachments]', incidentFromData.media[0].file);
+   formData.append('incident[apartment_management_id]', incidentFromData.myApartment.id);
 
-   for (let j = 0; j < classifiedFromData?.media?.length; j += 1) {
-    let blob = await fetch(classifiedFromData?.media[j]?.url).then(r => r.blob());
+   for (let j = 0; j < incidentFromData.media.length; j += 1) {
+    let blob = await fetch(incidentFromData.media[j].url).then(r => r.blob());
       //@ts-ignore
-    // blob.name = classifiedFromData.media[j].file.name
+     blob.name = incidentFromData.media[j].file.name
     console.log("bolb ==================>",blob);
 
     formData.append(
-      "classified[attachments][]",
+      "incident[attachments][]",
       blob
     );
-    //console.log("classified[attachments][] ==================>",classifiedFromData.media[j].file);
+    console.log("incident[attachments][] ==================>",incidentFromData.media[j].file);
   }
-  if(classifiedUserType==='generic'){
-    formData.append('classified[payment_detail]', classifiedFromData.paymentDetail);
-    formData.append('classified[time_from]', classifiedFromData.timeFrom);
-    formData.append('classified[time_to]', classifiedFromData.timeTo);
-  }
-  else if(classifiedUserType==='buyer'){
-    formData.append('classified[price_from]', classifiedFromData.priceFrom);
-    formData.append('classified[price_to]', classifiedFromData.priceTo);
-  }
-  else {
-    formData.append('classified[price]', classifiedFromData.price);
-  }
-  
+
+   console.log("formData.getAll('apartment_management_id')==================>",formData.get('incident[attachments][]'))
    const httpBody = formData;
-    this.setState({loading: true}) 
+    this.setState({loading: true})
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
     );
 
-    this.createClassifiedApiCallId = requestMessage.messageId;
+    this.apicreateIncidentCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_posts/classifieds`
+      configJSON.createIncident
     );
 
     requestMessage.addData(
@@ -706,8 +706,8 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
     }
   };
 
- 
-  getClassifiedListing= (status : any)  => {
+
+  getIncidentListing= (sortBy : any ,status : any)  => {
     try {
       const header = {
         "Content-Type": configJSON.validationApiContentType,
@@ -718,11 +718,11 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
-      this.getClassifiedListingApiCallId = requestMessage.messageId;
-      this.setState({ loading: true , myOrAllClassified:true});
-     
-     const  getSortByOrStatus =`bx_block_posts/classifieds?filter_by=${status}`
-       
+      this.getIncidentListingApiCallId = requestMessage.messageId;
+      this.setState({ loading: true });
+
+     const  getSortByOrStatus = `bx_block_custom_form/incidents?sort_type=${sortBy}&filter_by=${status}`
+
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
         getSortByOrStatus
@@ -744,8 +744,8 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
       console.log(error);
     }
   };
-  
-  getCurrencyList = () => {
+
+  getMyApartmentList = () => {
     try {
       const header = {
         "Content-Type": configJSON.validationApiContentType,
@@ -756,12 +756,12 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
-      this.getCurrencyListApiCallId = requestMessage.messageId;
+      this.getMyApartmentListApiCallId = requestMessage.messageId;
       this.setState({ loading: true });
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `bx_block_posts/classifieds/currency_list`
+        `account_block/accounts/my_apartments`
       );
 
       requestMessage.addData(
@@ -781,7 +781,7 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
     }
   };
 
-  getMyClassifiedList = () => {
+  getCommonArea = () => {
     try {
       const header = {
         "Content-Type": configJSON.validationApiContentType,
@@ -792,12 +792,12 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
-      this.getMyClassifiedListApiCallId = requestMessage.messageId;
-      this.setState({ loading: true ,myOrAllClassified:false });
+      this.getCommonAreaApiCallId = requestMessage.messageId;
+      this.setState({ loading: true });
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `bx_block_posts/classifieds/my_classified_list`
+        `bx_block_custom_form/incidents/common_area_list?society_management_id=${society_id}`
       );
 
       requestMessage.addData(
@@ -817,77 +817,33 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
     }
   };
 
-  updateClassified =async (classifiedFromData:any,) => {
+  getIncidentRelated = () => {
     try {
       const header = {
+        "Content-Type": configJSON.validationApiContentType,
         token :localStorage.getItem("userToken")
       };
-      console.log("updateClassified=====>",classifiedFromData)
-      const formData = new FormData();
-      const classifiedUserType = this.state?.getClassifiedDetails?.attributes?.classified_type
-      //formData.append('classified[classified_type]', classifiedUserType);
-      formData.append('classified[full_phone_number]', classifiedFromData?.phone);
-      formData.append('classified[email]', classifiedFromData.email);
-      formData.append('classified[title]', classifiedFromData.classifiedTitle);
-      formData.append('classified[description]', classifiedFromData.description);
-      formData.append('classified[currency_id]', classifiedFromData.currency);
-      formData.append('classified[duration_from]', classifiedFromData.startDate);
-      formData.append('classified[duration_to]', classifiedFromData.endDate);
-   
-    if(classifiedUserType !=='generic'){
-      for (let j = 0; j < classifiedFromData.media?.length; j += 1) {
-        let blob = await fetch(classifiedFromData?.media[j]?.url).then(r => r.blob());
-          //@ts-ignore
-        // blob.name = classifiedFromData.media[j].file.name
-        console.log("bolb ==================>",blob);
-    
-        formData.append(
-          "classified[attachments][]",
-          blob
-        );
-        //console.log("classified[attachments][] ==================>",classifiedFromData.media[j].file);
-      }
-    }
-  
-     if(classifiedUserType ==='generic'){
-       formData.append('classified[payment_detail]', classifiedFromData.paymentDetail);
-       formData.append('classified[time_from]', classifiedFromData.timeFrom);
-       formData.append('classified[time_to]', classifiedFromData.timeTo);
-     }
-     else if(classifiedUserType==='buyer'){
-       formData.append('classified[price_from]', classifiedFromData.priceFrom);
-       formData.append('classified[price_to]', classifiedFromData.priceTo);
-     }
-     else {
-       formData.append('classified[price]', classifiedFromData.price);
-     }
-     
-      const httpBody = formData;
-      
+
+      //const id = localStorage.getItem("userId");
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
-      this.updateClassifiedApiCallId = requestMessage.messageId;
+      this.getIncidentRelatedApiCallId = requestMessage.messageId;
       this.setState({ loading: true });
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `bx_block_posts/classifieds/${classifiedFromData?.id}`
+        configJSON.incidentRelated
       );
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIRequestHeaderMessage),
         JSON.stringify(header)
       );
-     
-      requestMessage.addData(
-        getName(MessageEnum.RestAPIRequestBodyMessage),
-        httpBody
-      );
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIRequestMethodMessage),
-        configJSON.PatchAPiMethod
+        configJSON.validationApiMethodType
       );
 
       runEngine.sendMessage(requestMessage.id, requestMessage);
@@ -897,7 +853,7 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
     }
   };
 
-  getClassifiedDetailsById= (id : any) => {
+  getIncidentDetailsById= (id : any) => {
     try {
       const header = {
         "Content-Type": configJSON.validationApiContentType,
@@ -907,12 +863,12 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
-      this.getClassifiedDetailsByIdApiCallId = requestMessage.messageId;
+      this.getIncidentDetailsByIdApiCallId = requestMessage.messageId;
       this.setState({ loading: true });
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `bx_block_posts/classifieds/${id}`
+        `bx_block_custom_form/incidents/${id}`
       );
 
       requestMessage.addData(
@@ -931,51 +887,30 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
       console.log(error);
     }
   };
-  
-  
-  handleClick = (event:any,id:any,classifiedType:any) => {
-    event.stopPropagation();
-    console.log("id handleClick=========>",id)
-    this.setState({anchorEl:event.currentTarget ,classifiedId:id , classifiedType})
+
+
+  handleClick = (event:any) => {
+    this.setState({anchorEl:event.currentTarget })
   };
   handleClose = (e:any, v:any) => {
-    let anchorEl :any ;
+    let sortBy : any ;
     console.log("v=========>",v)
     if(v === undefined || v === null){
-      anchorEl=null
+      sortBy =this.state.sortBy
     }
-    else if (v === "edit"){
-         e.stopPropagation();
-      localStorage.removeItem("classifiedUserType");
-      console.log("classifiedId=============>",this.state?.classifiedId)
-      const id = this.state?.classifiedId
-      this.props.history.push({
-        pathname: "/CreateClassified",
-        state: {
-          //@ts-ignore
-          //@ts-nocheck
-          id: id,
-        },
-    });
+    else {
+      sortBy =v;
     }
-   else if (v === "delete"){
-     {
-      e.stopPropagation();
-      console.log("classifiedId=============>",this.state?.classifiedId)
-      this.setState({deleteShowDialog: true}) }
-     }
-
-     this.setState({anchorEl}) 
+    this.setState({anchorEl:null,sortBy : sortBy})
   };
-  
+
   handleClick_1 = (event :any) => {
     this.setState({anchorEl_1:event.currentTarget})
   };
-   
+
   handleClose_1 = (e:any, v:any) => {
    let status : any ;
     if(v === undefined || v === null){
-      console.log("v=========>",v)
       status =this.state.status;
     }
     else {
@@ -983,179 +918,24 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
     }
     this.setState({anchorEl_1:null ,status :status})
   };
-  
-  handleSelectMedia  =   (
-    e: any,
-    existingMedia: any[],
-    setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
-    setFieldError: (field: string, message: string) => void
-  ) => {
-    let media = [];
-    let files = e.target.files;
-    console.log("filessss=====>",files);
-  
-    
-if(files.length !== 0){
-  for (let i = 0; i < files.length; i += 1) {
-    if(files[i] && !["image/jpg", "image/jpeg", "image/gif", "image/png"].includes(files[i].type))
-    {
-      console.log("type=====>",files[i].type);
-      this.setState({upload: false,sizeError : false,notImageOrVideoError:true});
-       return ;
-    } 
-    else if(files[i] && files[i].size >= 10e6)
-    {
-       console.log("size=====>",files[i].size);
-       this.setState({upload: false , sizeError : true ,notImageOrVideoError:false});
-      return ;
-    }
-    console.log("media push =====>",files[i]);
-    media.push({
-      file: {
-        lastModified: files[i].lastModified,
-        lastModifiedDate: files[i].lastModifiedDate,
-        name: files[i].name,
-        size: files[i].size,
-        type: files[i].type
-      },
-      url: URL.createObjectURL(files[i])
-    });
-  }
- // setFieldValue("bannerUrl", file[] ? URL.createObjectURL(file) : "");
-  e.target.value = "";
-  this.setState({upload: true ,sizeError : false,notImageOrVideoError:false});
-  console.log("media======>",media)
-  setFieldValue("media", media);
-}
-else {
-  this.setState({upload: false,sizeError : false,notImageOrVideoError:false});
-}
-   
-  };
-  
-createClassifiedSchemaGerenic() {
+
+ 
+
+  CreateFacilityReservationSchema() {
     const validations = Yup.object().shape({
-      phone: Yup.number()
-      .typeError("Only numbers are allowed.")
-      .positive("Negative numbers are not allowed.")
-      .integer("Number can't contain a decimal.")
-      .min(10000000, "Minimum 8 digits are required.")
-      .max(9999999999999, "Maximum 11 digits are allowed.")
-      .required("Mobile number is required")
-     ,
-      email: Yup.string()
-      .email("Please enter a valid email address.")
-      .required("Email is required"),
-      classifiedTitle: Yup.string().max(50, "Too Long!").required("Title is required"),
-      description: Yup.string().max(200, "Too Long!").required("Description is required"),
-      currency:Yup.string().trim().required("Currency is required"),
-      startDate: Yup.date().required("Start Date is required"),
-      endDate: Yup.date().required(" End Date is required")
-                         .test("is-greater", "End date should be greater than Start date", function(value) {
-                         const { startDate } = this.parent;
-      return moment(value, "DD/MM/YYYY").isSameOrAfter(moment(startDate, "DD/MM/YYYY"));
-      })
-      ,
-    timeFrom:Yup.string().required("Start time is required"),
-    timeTo:Yup.string().required("End time is required")
+      commonArea: Yup.string().required(`This field is required`).trim(),
+      myApartment:Yup.string().required(`This field is required`).trim(),
+      date: Yup.date().required("Date is required"),
+      timeFrom:Yup.string().required("Start time is required"),
+      timeTo:Yup.string().required("End time is required")
     .test("is-greater", "End time should be greater than Start time", function(value) {
       //@ts-ignore
       const { timeFrom } = this.parent;
       return moment(value, "HH:mm").isSameOrAfter(moment(timeFrom, "HH:mm"));
     })
-    ,
-    paymentDetail:Yup.string().required("Payment Detail is required"),
-    });
-       
-    return validations ;
-  }
-  createClassifiedSchemaBuy() {
-    const validations = Yup.object().shape({
-      phone: Yup.number()
-      .typeError("Only numbers are allowed.")
-      .positive("Negative numbers are not allowed.")
-      .integer("Number can't contain a decimal.")
-      .min(10000000, "Minimum 8 digits are required.")
-      .max(9999999999999, "Maximum 11 digits are allowed.")
-      .required("Mobile number is required")
-     ,
-      email: Yup.string()
-      .email("Please enter a valid email address.")
-      .required("Email is required"),
-      classifiedTitle: Yup.string().max(50, "Too Long!").required("Title is required"),
-      description: Yup.string().max(200, "Too Long!").required("Description is required"),
-      currency:Yup.string().trim().required("Currency is required"),
-      startDate: Yup.date().required("Start Date is required"),
-      endDate: Yup.date().required(" End Date is required")
-                         .test("is-greater", "End date should be greater than Start date", function(value) {
-                         const { startDate } = this.parent;
-      return moment(value, "DD/MM/YYYY").isSameOrAfter(moment(startDate, "DD/MM/YYYY"));
-      })
-      ,
-    priceFrom:Yup.number()
-             .typeError("Only numbers are allowed.")
-             .positive("Negative numbers are not allowed.")
-             .integer("Number can't contain a decimal.")
-             .required("Price From is required"),
-    priceTo:Yup.number()
-           .typeError("Only numbers are allowed.")
-           .required("Price To is required")
-           .positive("Negative numbers are not allowed.")
-           .integer("Number can't contain a decimal.")
-           .test("priceFrom ", "Value sholud be greater than From price", function(value : number) {
-            const { priceFrom } = this.parent;
-            return value > priceFrom ;
-          }),
-    });
-       
-    return validations ;
-  }
-  createClassifiedSchemaSell() {
-    const validations = Yup.object().shape({
-      phone: Yup.number()
-      .typeError("Only numbers are allowed.")
-      .positive("Negative numbers are not allowed.")
-      .integer("Number can't contain a decimal.")
-      .min(10000000, "Minimum 8 digits are required.")
-      .max(9999999999999, "Maximum 11 digits are allowed.")
-      .required("Mobile number is required")
-     ,
-      email: Yup.string()
-      .email("Please enter a valid email address.")
-      .required("Email is required"),
-      classifiedTitle: Yup.string().max(50, "Too Long!").required("Title is required"),
-      description: Yup.string().max(200, "Too Long!").required("Description is required"),
-      currency:Yup.string().trim().required("Currency is required"),
-      startDate: Yup.date().required("Start Date is required"),
-      endDate: Yup.date().required(" End Date is required")
-                         .test("is-greater", "End date should be greater than Start date", function(value) {
-                         const { startDate } = this.parent;
-      return moment(value, "DD/MM/YYYY").isSameOrAfter(moment(startDate, "DD/MM/YYYY"));
-      })
-      ,
-      price:Yup.number()
-      .required("Price is required")
-      .typeError("Only numbers are allowed.")
-      .positive("Negative numbers are not allowed.")
-      .integer("Number can't contain a decimal."),
-      
-    });
-    
-       
-    return validations ;
-  }
-  redirectToDashboard = () => {
-    let userType = localStorage.getItem('userType')
-    if (userType == 'Owner') {
-      //@ts-ignore
-      //@ts-nocheck
-      this.props.history.push('/OwnerDashboard')
-    } else {
-      //@ts-ignore
-      //@ts-nocheck
-      this.props.history.push('/residentDashboard')
-    }
+       });
 
+    return validations ;
   }
 
   // Customizable Area End
