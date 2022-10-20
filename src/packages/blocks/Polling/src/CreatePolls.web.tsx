@@ -5,12 +5,12 @@ import {Editor, EditorState} from 'draft-js';
 import 'draft-js/dist/Draft.css';
 import RichTextEditor from "react-rte";
 import {
-  Container,
-  Typography,
-  TextField,
-  Input,
-  InputAdornment,
-  Button,
+    Container,
+    Typography,
+    TextField,
+    Input,
+    InputAdornment,
+    Button, IconButton,
 } from "@material-ui/core";
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -32,10 +32,10 @@ import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import TextEditor from "./TextEditor.web";
 import Loader from "../../../components/src/Loader.web";
-import * as Yup from "yup";
 import { withTranslation } from 'react-i18next';
-import '../../../web/src/i18n.js';
 
+import '../../../web/src/i18n.js';
+import BackspaceIcon from '@material-ui/icons/Backspace';
 class CreatePolls extends PollingController {
   constructor(props: Props) {
     super(props);
@@ -181,16 +181,23 @@ class CreatePolls extends PollingController {
                                 <p style={{color:"red"}}>{t(this.state.pollQuestionError)}</p>
                                     {this.state.options.map((inputfield:any , index:any) => {
                                         return(
-                                            <>
-                                                <TextField key={index}
-                                                    label={t("Option") + " - " + (index + 1)} variant="outlined"
-                                                    name="text"
-                                                    value={inputfield.text}
-                                                    onChange={(event) => this.handleOptionsChange(index, event)}
-                                                     fullWidth style={{marginTop:20}}
-                                                />
-                                                <p style={{color:"red"}}>{t(inputfield.error)}</p>
-                                            </>
+                                            <Box display='flex' alignItems="center">
+                                                <Box style={{width:"95%"}}>
+                                                    <TextField key={index}
+                                                               label={t("Option") + " - " + (index + 1)} variant="outlined"
+                                                               name="text"
+                                                               value={inputfield.text}
+                                                               onChange={(event) => this.handleOptionsChange(index, event)}
+                                                               fullWidth style={{marginTop:20}}
+                                                    />
+                                                    <p style={{color:"red"}}>{t(inputfield.error)}</p>
+                                                </Box>
+                                                <Box style={{display:'flex',alignItems:"center",justifyContent:'center'}}>
+                                                    <IconButton style={{marginTop:"15px",marginLeft:"5px"}} onClick={()=>this.deleteOption(index)}>
+                                                        <BackspaceIcon fontSize="large" style={{color:"red"}} />
+                                                    </IconButton>
+                                                </Box>
+                                            </Box>
                                         )
                                     })
                                     }

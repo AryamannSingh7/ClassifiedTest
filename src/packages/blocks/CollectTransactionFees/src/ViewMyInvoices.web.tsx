@@ -1,7 +1,7 @@
 import * as React from "react";
 // custom components
 import {
-    Grid, Box, Divider, AppBar, Tabs, Tab, Link, IconButton, Typography,Button,
+    Grid, Box, Divider, AppBar, Tabs, Tab, Link, IconButton, Typography,Button,Menu,MenuItem
 } from "@material-ui/core";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import {shortIcon,filterIcon} from "../../BroadcastMessage/src/assets"
@@ -28,18 +28,29 @@ class Visitors extends ViewMyInvoicesController{
                 <Grid container style={{ margin: '1rem', width: '90%' }} >
                   <Grid item xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem",justifyContent:"space-between"}} >
                       <Box style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
-                          <ArrowBackIcon onClick={() => this.props.history.push("/")} />
+                          <ArrowBackIcon onClick={() => window.history.back()} />
                           <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
                               {t("View my invoices")}
                           </p>
                       </Box>
                       <Box>
-                        <IconButton style={{padding:"8px"}} >
+                        <IconButton style={{padding:"8px"}} onClick={this.handleClick}>
                             <img src={shortIcon} />
                         </IconButton>
                         <IconButton style={{padding:"8px"}} >
                             <img src={filterIcon} />
                         </IconButton>
+                          <Menu
+                              id="simple-menu"
+                              anchorEl={this.state.anchorEl}
+                              keepMounted
+                              open={Boolean(this.state.anchorEl)}
+                              onClose={this.handleClose}
+                          >
+                              <MenuItem onClick={this.handleClose} style={{padding:"0px",minHeight:"20px"}}>Paid</MenuItem>
+                              <MenuItem onClick={this.handleClose}>Due</MenuItem>
+                              <MenuItem onClick={this.handleClose}>OverDue</MenuItem>
+                          </Menu>
                     </Box>
                   </Grid>
                 </Grid>
