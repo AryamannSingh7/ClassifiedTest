@@ -250,9 +250,9 @@ class FacilityReservationDetails extends FacilityReservationController {
                     {/* <Card className="incident-card reporting-card card">*/}
                     {/*</Card> */}
                   </Box>
-                  <Box className="customButton ticket-conversion">
+                  {/* <Box className="customButton ticket-conversion">
                     <Button variant="contained" onClick={() => this.createChatRoom(attributes?.id)}>start/ view ticket conversation</Button>
-                  </Box>
+                  </Box> */}
                 </Box>
                 {/* <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>
                   <h6 className="bottom-text">POWERED BY</h6>
