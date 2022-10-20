@@ -1,12 +1,14 @@
 // Customizable Area Start
-import {IBlock} from "../../../framework/src/IBlock";
-import {Message} from "../../../framework/src/Message";
-import {BlockComponent} from "../../../framework/src/BlockComponent";
-import MessageEnum, {getName,} from "../../../framework/src/Messages/MessageEnum";
-import {runEngine} from "../../../framework/src/RunEngine";
+import { IBlock } from "../../../framework/src/IBlock";
+import { Message } from "../../../framework/src/Message";
+import { BlockComponent } from "../../../framework/src/BlockComponent";
+import MessageEnum, {
+  getName,
+} from "../../../framework/src/Messages/MessageEnum";
+import { runEngine } from "../../../framework/src/RunEngine";
 
 
-import {imgPasswordInVisible, imgPasswordVisible} from "./assets";
+import { imgPasswordInVisible, imgPasswordVisible } from "./assets";
 import * as Yup from "yup";
 
 
@@ -31,6 +33,10 @@ interface S {
   roleList:any;
   userList:any;
   selectedUser:any;
+  userId:any;
+  roleId:any;
+  userError:any;
+  roleError:any;
 }
 
 interface SS {
@@ -67,9 +73,19 @@ export default class FriendListController extends BlockComponent<
       teamAddData:{},
       roleList:[],
       userList:[],
+      userId:"",
+      roleId:"",
       selectedUser:{
-
+        name:"",
+        email:"",
+        phone:"",
+        buildingName:"",
+        buildingId:"",
+        unitName:"",
+        unitId:""
       },
+      roleError:"",
+      userError:"",
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
@@ -87,7 +103,62 @@ export default class FriendListController extends BlockComponent<
 
   async componentDidMount(): Promise<void> {
     super.componentDidMount();
-    this.getMyTeamList()
+    this.getUserList()
+    this.getRolesList()
+  }
+
+  selectUser = (id:any) => {
+    let updatedData = this.state.userList.filter((item:any) => item.id === id)
+    console.log("CHECK",updatedData[0].attributes)
+    this.setState({
+      selectedUser:{
+        name:updatedData[0].attributes.full_name,
+        email:updatedData[0].attributes.email_address,
+        phone:updatedData[0].attributes.phone_number,
+        buildingName:updatedData[0].attributes.building_management.name,
+        buildingId:updatedData[0].attributes.building_management.id,
+        unitName:updatedData[0].attributes.apartment_management.apartment_name,
+        unitId:updatedData[0].attributes.apartment_management.id
+      },
+      userId:id,
+      userError:""
+    })
+
+  }
+
+  handleSubmit = () => {
+    if(this.state.userId !== "" && this.state.roleId !== ""){
+      let formdata = new FormData();
+
+      formdata.append("team_member[name]", this.state.selectedUser.name);
+      formdata.append("team_member[email]",  this.state.selectedUser.email);
+      formdata.append("team_member[role_id]", this.state.roleId);
+      formdata.append("team_member[phone_number]", this.state.selectedUser.phone);
+      formdata.append("team_member[building_management_id]", this.state.selectedUser.buildingId);
+      formdata.append("team_member[account_id]", this.state.userId);
+      formdata.append("team_member[apartment_management_id]", this.state.selectedUser.unitId);
+
+      this.createTeamMember(formdata)
+    }else{
+      if(this.state.userId !== ""){
+        this.setState({
+          userError:""
+        })
+      }else{
+        this.setState({
+          userError:"Please Select User"
+        })
+      }
+      if(this.state.roleId !== ""){
+        this.setState({
+          roleError:""
+        })
+      }else{
+        this.setState({
+          roleError:"Please Select Role"
+        })
+      }
+    }
   }
 
   getMyTeamList = async () => {
@@ -96,6 +167,33 @@ export default class FriendListController extends BlockComponent<
       contentType: "application/json",
       method: "GET",
       endPoint: `/bx_block_my_team/team_members?society_management_id=${societyID}`,
+    });
+  }
+
+  getUserList = async () => {
+    const societyID = localStorage.getItem("society_id")
+    this.getUserListId = await this.apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `/bx_block_my_team/team_members/member_invite_user_list`,
+    });
+  }
+
+  getRolesList = async () => {
+    const societyID = localStorage.getItem("society_id")
+    this.getRolesListId = await this.apiCall({
+      contentType: "application/json",
+      method:"GET",
+      endPoint: `/bx_block_roles_permissions/roles`,
+    });
+  }
+
+  createTeamMember = async (data:any) => {
+    const societyID = localStorage.getItem("society_id")
+    this.createTeamMemberId = await this.apiCall({
+      method:"POST",
+      endPoint: `bx_block_my_team/team_members`,
+      body:data
     });
   }
 
@@ -133,42 +231,12 @@ export default class FriendListController extends BlockComponent<
     return requestMessage.messageId;
   };
 
-  AddTeamSchema() {
-    const validations = Yup.object().shape({
-      email: Yup.string()
-          .email('Invalid email format')
-          .strict(true)
-          .lowercase(`Please enter all values in lowercase`)
-          .trim()
-          .required(`This field is required.`),
-      usertype: Yup.string().required(`This field is required`),
-      fullname: Yup.string().required(`This field is required`),
-      phoneno: Yup.string().required(`This field is required`),
-      building: Yup.string().required(`This field is required`),
-      unit: Yup.string().required(`This field is required`),
-    });
-    return validations
-  }
-
   addTeamData = (values: any) => {
     this.setState({teamAddData:values})
   }
 
   async receive(from: string, message: Message) {
     runEngine.debugLog("Message Recived", message);
-    if(getName(MessageEnum.PostDetailDataMessage)=== message.id){
-      if(message.properties.text === "CLOSE_CREATE_TEAM_MODAL"){
-        this.setState({
-          setOpen:false
-        })
-      }
-      if(message.properties.text === "TEAM_MEMBER_ADDED_SUCCESS"){
-        this.getMyTeamList()
-        this.setState({
-          setOpen:false
-        })
-      }
-    }
     if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
@@ -199,7 +267,11 @@ export default class FriendListController extends BlockComponent<
         }
       }
       if(apiRequestCallId === this.createTeamMemberId){
-        console.log("TEAM Member created",responseJson)
+        if(responseJson.hasOwnProperty("data")){
+          this.sentMessage("TEAM_MEMBER_ADDED_SUCCESS")
+        }else{
+          console.log("Error",errorReponse,responseJson)
+        }
       }
     }
     if (message.id === getName(MessageEnum.AccoutLoginSuccess)) {
@@ -221,6 +293,9 @@ export default class FriendListController extends BlockComponent<
     secureTextEntry: false,
   };
 
+  handleModalClose = () => {
+      this.sentMessage("CLOSE_CREATE_TEAM_MODAL")
+  }
   txtInputMobileProps = {
     ...this.txtInputWebProps,
     autoCompleteType: "email",
@@ -268,6 +343,12 @@ export default class FriendListController extends BlockComponent<
   setEnableField = () => {
     this.setState({ enableField: !this.state.enableField });
   };
+
+  sentMessage (data:any) {
+    const msg : Message = new Message(getName(MessageEnum.PostDetailDataMessage))
+    msg.properties['text'] = data
+    this.send(msg)
+  }
 }
 
 // Customizable Area End

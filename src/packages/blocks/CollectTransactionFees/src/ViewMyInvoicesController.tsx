@@ -87,31 +87,8 @@ export default class CoverImageController extends BlockComponent<
     this.setState({anchorEl:event.currentTarget })
   };
 
-  handleClose = (e?:any, v?:any) => {
-    let sortBy : any ;
-    console.log("v=========>",v)
-    if(v === undefined || v === null){
-      sortBy =this.state.sortBy
-    }
-    else {
-      sortBy =v;
-    }
-    this.setState({anchorEl:null,sortBy : sortBy})
-  };
-
-  handleClick_1 = (event:any) => {
-    this.setState({anchorEl_1:event.currentTarget})
-  };
-
-  handleClose_1 = (e?:any, v?:any) => {
-    let status : any ;
-    if(v === undefined || v === null){
-      status =this.state.status;
-    }
-    else {
-      status =v;
-    }
-    this.setState({anchorEl_1:null ,status :status})
+  handleClose = () => {
+    this.setState({anchorEl:null})
   };
 }
 
