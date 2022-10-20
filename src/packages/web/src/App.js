@@ -166,6 +166,8 @@ import NeighboursListing from '../../blocks/search/src/NeighboursListing.web';
 import FacilityReservationListing from '../../blocks/RequestManagement/src/FacilityReservationListing.web';
 import FacilityReservationDetails from '../../blocks/RequestManagement/src/FacilityReservationDetails.web';
 import FacilityReservation from '../../blocks/RequestManagement/src/FacilityReservation.web';
+import FacilityReservationReportedSuccessfully from '../../blocks/RequestManagement/src/FacilityReservationReportedSuccessfully.web';
+import CreateFacilityReservation from '../../blocks/RequestManagement/src/CreateFacilityReservation.web';
 
 
 // Help
@@ -584,6 +586,16 @@ const routeMap = {
   FacilityReservation: {
     component: FacilityReservation,
     path: '/FacilityReservation',
+    exact: true
+  },
+  CreateFacilityReservation: {
+    component: CreateFacilityReservation,
+    path: '/CreateFacilityReservation',
+    exact: true
+  },
+  FacilityReservationReportedSuccessfully: {
+    component: FacilityReservationReportedSuccessfully,
+    path: '/FacilityReservationReportedSuccessfully',
     exact: true
   },
   // RolesPermissions2: {

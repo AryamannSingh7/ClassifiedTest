@@ -21,7 +21,7 @@ import Loader from "../../../components/src/Loader.web";
 import { Input } from "react-native-elements";
 import * as Yup from "yup";
 import CountryCodeSelector from "../../country-code-selector/src/CountryCodeSelector";
-import IncidentController, { Props } from "./IncidentController.web";
+import FacilityReservationController, { Props } from "./FacilityReservationController.web";
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
@@ -30,19 +30,19 @@ import Select from '@material-ui/core/Select';
 //resorces
 import {
   Tenant_Logo,
-  Upload_Icon,
-  Clipboard_Icon,
-  Warning_Icon,
-  House_Icon,
-  Box_Icon,
-  Building1,
-  Checkmark_Icon,
-  Error_Icon
+  // Upload_Icon,
+  // Clipboard_Icon,
+  // Warning_Icon,
+  // House_Icon,
+  // Box_Icon,
+   Building1,
+  // Checkmark_Icon,
+  // Error_Icon
 } from "../src/assets";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 
-class CreateFacilityReservation extends IncidentController {
+class CreateFacilityReservation extends FacilityReservationController {
   constructor(props: Props) {
     super(props);
   }
@@ -70,25 +70,14 @@ class CreateFacilityReservation extends IncidentController {
                   <Formik
                     initialValues={{
                       commonArea: " ",
-                      incidentRelated: " ",
-                      incidentTitle: "",
-                      description: "",
-                      media: [],
-                      myApartment: " "
+                      myApartment: " ",
+                      date : "",
+                      timeFrom:"",
+                      timeTo:"",
                     }}
-                    validationSchema={this.createIncidentSchema()}
+                    validationSchema={this.CreateFacilityReservationSchema()}
                     validateOnMount={true}
-                    onSubmit={(values) =>
-                      !this.state?.sizeError && !this.state?.notImageOrVideoError ?
-                        (
-                          this.onSubmit(values)
-                        )
-                        :
-                        (
-                          console.log("valus=========>", values)
-                        )
-
-                    }
+                    onSubmit={(values) => this.onSubmit(values)}
                   >
                     {({ values, touched, errors, isValid, setFieldError, setFieldValue, handleChange }) => (
                       <Form translate="yes" className="commonForm">
@@ -96,7 +85,7 @@ class CreateFacilityReservation extends IncidentController {
                         <Box className="formGroup customSelect">
                           <FormControl variant="outlined" >
                             <span className="frmLeftIcons">
-                              <img src={Box_Icon} className="frm-icons" alt="House Icon" />
+                              <img src={"#"} className="frm-icons" alt="House Icon" />
                             </span>
                             <Select
                               name="myApartment"
@@ -128,7 +117,7 @@ class CreateFacilityReservation extends IncidentController {
                         <Box className="formGroup customSelect">
                           <FormControl variant="outlined" >
                             <span className="frmLeftIcons">
-                              <img src={House_Icon} className="frm-icons" alt="House Icon" />
+                              <img src={"#"} className="frm-icons" alt="House Icon" />
                             </span>
                             <Select
                               name="commonArea"
@@ -156,112 +145,6 @@ class CreateFacilityReservation extends IncidentController {
                             </Select>
                             <ErrorMessage className="text-error" component="Typography" name="commonArea" />
                           </FormControl>
-                        </Box>
-                        <Box className="formGroup customSelect">
-                          <FormControl variant="outlined" >
-                            <span className="frmLeftIcons">
-                              <img src={Warning_Icon} className="frm-icons" alt="Warning Icon" />
-                            </span>
-                            <Select
-                              name="incidentRelated"
-                              style={{ paddingLeft: 50 }}
-                              labelId="demo-simple-select-outlined-label"
-                              id="demo-simple-select-outlined"
-                              onChange={(e) => {
-                                (e.target.value != " ") && setFieldValue("incidentRelated", e.target.value)
-                              }}
-                              value={values.incidentRelated}
-                            >
-                              <MenuItem disabled value=" ">
-                                Incident is related to
-                              </MenuItem>
-                              {
-                                this.state?.incidentRelatedData?.map((val:any, index:any) => (
-                                  <MenuItem
-                                    key={index}
-                                    value={`${val?.id} ${val?.name}`}
-                                  >
-                                    {val?.name}
-                                  </MenuItem>
-                                ))
-                              }
-                            </Select>
-                            <ErrorMessage className="text-error" component="Typography" name="incidentRelated" />
-                          </FormControl>
-                        </Box>
-                        <Box className="formGroup">
-                          <Field name="incidentTitle" type="text" placeholder="Incident Title" className="formInput" />
-                          <span className="frmLeftIcons">
-                            <img src={Warning_Icon} className="frm-icons" alt="Warning Icon" />
-                          </span>
-                          <ErrorMessage className="text-error" component="Typography" name="incidentTitle" />
-                        </Box>
-                        <Box className="formGroup textarea">
-                          <img src={Clipboard_Icon} className="clipboard-icon" alt="Clipboard_Icon" />
-                          <TextareaAutosize
-                            name="description"
-                            maxRows={10}
-                            aria-label="maximum height"
-                            placeholder="Add Description"
-                            onChange={handleChange}
-                            value={values.description}
-                          />
-                        </Box>
-                        <ErrorMessage className="text-error" component="Typography" name="description" />
-                        {/* <Box className="formGroup">
-                          <Field name="description" type="text" placeholder="Add description" className="formInput" />
-                        </Box> */}
-                        <Box className="formGroup customFileupload">
-                          <Button
-                            variant="contained"
-                            component="label"
-                          >
-                            <img src={Upload_Icon} className="upload-icon" alt="upload-icon" />
-                            Add Image / Video
-                            <input
-                              name='media'
-                              type="file"
-                              hidden
-                              multiple
-                              accept="image/jpg ,image/jpeg,image/gif,image/png,video/mp4,video/x-m4v"
-                              onChange={(e: any) =>
-                                this.handleSelectMedia(
-                                  e,
-                                  values.media,
-                                  setFieldValue,
-                                  setFieldError
-                                )
-                              }
-                            />
-                          </Button>
-                          {this.state?.upload ?
-                            <>
-                              <Box className="result-disp-row">
-                                <img src={Checkmark_Icon.default} className="successful-icon" alt="card-img" />
-                                <span className="text-success">
-                                  uploaded successfully
-                                </span>
-                              </Box>
-                            </>
-                            : this.state.notImageOrVideoError ?
-                              <Box className="result-disp-row">
-                                <img src={Error_Icon.default} className="error-icon" alt="card-img" />
-                                <span className="text-error">
-                                  Only image and video are supported.
-                                </span>
-                              </Box>
-                              :
-                              this.state.sizeError ?
-                                <Box className="result-disp-row">
-                                  <img src={Error_Icon.default} className="error-icon" alt="card-img" />
-                                  <span className="text-error">
-                                    size is less than 10 mb.
-                                  </span>
-                                </Box>
-                                : null
-
-                          }
-                          {/* <ErrorMessage className="text-error" component="Typography" name="media" /> */}
                         </Box>
                         <Box className="customButton">
                           <Button variant="contained" type="submit">preview</Button>

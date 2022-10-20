@@ -8,6 +8,7 @@ import MessageEnum, {
 
 // Customizable Area Start
 import * as Yup from 'yup';
+import moment from "moment";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { imgPasswordInVisible, imgPasswordVisible } from "./assets";
 import { valueContainerCSS } from "react-select/src/components/containers";
@@ -639,9 +640,6 @@ confirmOrRejectIncident =(id : any,val : any)=>{
   return true;
 
 }
-
-
-
   createIncident = async(incidentFromData: any ,incidentRelated : any) => {
   try
    {
@@ -921,116 +919,24 @@ confirmOrRejectIncident =(id : any,val : any)=>{
     this.setState({anchorEl_1:null ,status :status})
   };
 
-  handleSelectMedia  =   (
-    e: any,
-    existingMedia: any[],
-    setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
-    setFieldError: (field: string, message: string) => void
-  ) => {
-    let media = [];
-    let files = e.target.files;
-    console.log("filessss=====>",files);
+ 
 
-
-if(files.length !== 0){
-  for (let i = 0; i < files.length; i += 1) {
-    if(files[i] && !["image/jpg", "image/jpeg", "image/gif", "image/png","video/mp4","video/x-m4v" ].includes(files[i].type))
-    {
-      console.log("type=====>",files[i].type);
-      this.setState({upload: false,sizeError : false,notImageOrVideoError:true});
-       return ;
-    }
-    else if(files[i] && files[i].size >= 10e6)
-    {
-       console.log("size=====>",files[i].size);
-       this.setState({upload: false , sizeError : true ,notImageOrVideoError:false});
-      return ;
-    }
-    console.log("media push =====>",files[i]);
-    media.push({
-      file: {
-        lastModified: files[i].lastModified,
-        lastModifiedDate: files[i].lastModifiedDate,
-        name: files[i].name,
-        size: files[i].size,
-        type: files[i].type
-      },
-      url: URL.createObjectURL(files[i])
-    });
-  }
-  e.target.value = "";
-  this.setState({upload: true ,sizeError : false,notImageOrVideoError:false});
-  console.log("media======>",media)
-  setFieldValue("media", media);
-}
-else {
-  this.setState({upload: false,sizeError : false,notImageOrVideoError:false});
-}
-
-  };
-
-createIncidentSchema() {
+  CreateFacilityReservationSchema() {
     const validations = Yup.object().shape({
       commonArea: Yup.string().required(`This field is required`).trim(),
-      incidentRelated: Yup.string().required(`This field is required`).trim(),
-      incidentTitle: Yup.string().required(`This field is required`).max(50, "Too Long!"),
-      description: Yup.string().required(`This field is required`).max(200, "Too Long!"),
       myApartment:Yup.string().required(`This field is required`).trim(),
-      //media: Yup.array()
-      // .min(1, ("Atleast one image required"))
-      // .required(`This field is required.`)
-    });
+      date: Yup.date().required("Date is required"),
+      timeFrom:Yup.string().required("Start time is required"),
+      timeTo:Yup.string().required("End time is required")
+    .test("is-greater", "End time should be greater than Start time", function(value) {
+      //@ts-ignore
+      const { timeFrom } = this.parent;
+      return moment(value, "HH:mm").isSameOrAfter(moment(timeFrom, "HH:mm"));
+    })
+       });
 
     return validations ;
   }
-  createChatRoom = async (id: any) => {
 
-    try {
-      const requestMessage = new Message(
-        getName(MessageEnum.RestAPIRequestMessage)
-      );
-      this.createChatRoomAPIId = requestMessage.messageId;
-
-      requestMessage.addData(
-        getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `bx_block_chat/chats`
-      );
-
-      const header = {
-        token: localStorage.getItem("userToken"),
-      };
-
-      requestMessage.addData(
-        getName(MessageEnum.RestAPIRequestHeaderMessage),
-        JSON.stringify(header)
-      );
-
-      const formData = new FormData();
-      formData.append("chat[chatable_type]", 'BxBlockCustomForm::Incident');
-      // @ts-ignore
-      formData.append("chat[chatable_id]", this.props.history.location?.id);
-
-
-
-      requestMessage.addData(
-        getName(MessageEnum.RestAPIRequestBodyMessage),
-        formData
-      );
-
-
-      requestMessage.addData(
-        getName(MessageEnum.RestAPIRequestMethodMessage),
-        'POST'
-      );
-
-      runEngine.sendMessage(requestMessage.id, requestMessage);
-
-      return true;
-    } catch (error) {
-      console.log(error);
-    }
-
-
-  }
   // Customizable Area End
 }

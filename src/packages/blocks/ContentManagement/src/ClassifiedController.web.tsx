@@ -1059,6 +1059,7 @@ createClassifiedSchemaGerenic() {
     timeFrom:Yup.string().required("Start time is required"),
     timeTo:Yup.string().required("End time is required")
     .test("is-greater", "End time should be greater than Start time", function(value) {
+      //@ts-ignore
       const { timeFrom } = this.parent;
       return moment(value, "HH:mm").isSameOrAfter(moment(timeFrom, "HH:mm"));
     })
