@@ -89,7 +89,7 @@ class NeighboursDetails extends NeighboursController {
                         <Card className="neighbour-card neighbour-detail-card card">
                           <CardContent className="card-content">
                             <Box className="card-top-block">
-                              <img src={attributes?.profile_pic || NoProfile_Img} className="info-icon" alt="info-icon" />
+                              <img src={attributes?.profile_pic.url || NoProfile_Img} className="info-icon" alt="info-icon" />
                               <Typography component="h4">
                                 {attributes?.full_name?.name}
                               </Typography>
