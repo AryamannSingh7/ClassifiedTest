@@ -119,7 +119,7 @@ class ChairmanProfile extends ProfileController {
                     <Grid container>
                       <Grid item xs={3} className="left-side" style={{padding:20}}>
                         <img
-                          src={profileData?.attributes?.profile_pic||AvatarIcon.default}
+                          src={profileData?.attributes?.profile_pic.url||AvatarIcon.default}
                           alt="avatar"
                           className="profile"
                         />

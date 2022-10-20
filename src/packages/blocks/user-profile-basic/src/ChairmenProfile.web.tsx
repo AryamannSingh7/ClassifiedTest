@@ -223,7 +223,7 @@ Social Media
           <Grid container className="main-content-block" style={{marginTop:'1.5rem'}}>
                 <Grid xs={12}>
                   <Formik initialValues={{
-                    bannerUrl:'',
+                    bannerUrl:profileData?.attributes.profile_pic.url,
                     full_name: profileData?.attributes?.full_name?.name,
                     banner:'',
                     phone: profileData?.attributes?.full_phone_number?.phone_number,

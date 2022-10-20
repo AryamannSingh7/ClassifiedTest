@@ -282,6 +282,10 @@ import NominateMySelf from '../../blocks/FriendList/src/NominateMySelf.web';
 import MyNomination from '../../blocks/FriendList/src/MyNomination.web';
 import TaskManagement from '../../blocks/FriendList/src/TaskManagement.web';
 
+// Fees & Payment Imports
+import FeesAndPayment from "../../blocks/CollectTransactionFees/src/FeesAndPayments.web"
+import ViewMyInvoices from "../../blocks/CollectTransactionFees/src/ViewMyInvoices.web"
+
 // Reports
 import ReportDashboard from '../../blocks/ExpenseTracking/src/ReportDashboard.web';
 import BudgetReport from '../../blocks/ExpenseTracking/src/BudgetReport.web';
@@ -1625,6 +1629,20 @@ const routeMap = {
   TaskManagement: {
     component: TaskManagement,
     path: '/TaskManagement',
+    exact: true
+  },
+
+  // Fees & Payment 
+
+  FeesAndPayment: {
+    component: FeesAndPayment,
+    path: '/FeesAndPayment',
+    exact: true
+  },
+
+  ViewMyInvoices: {
+    component: ViewMyInvoices,
+    path: '/MyInvoices',
     exact: true
   },
 

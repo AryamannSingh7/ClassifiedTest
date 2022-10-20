@@ -42,6 +42,10 @@ export default class FriendListController extends BlockComponent<
   SS
 > {
 
+  getMyTeamListId:string = "";
+  getRolesListId:string = "";
+  createTeamMemberId:string = "";
+
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
@@ -73,6 +77,68 @@ export default class FriendListController extends BlockComponent<
     this.setState({setOpen:false});
   };
 
+
+  getMyTeamList = async () => {
+    const societyID = localStorage.getItem("society_id")
+    this.getMyTeamListId = await this.apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `/bx_block_my_team/team_members`,
+    });
+  }
+
+  getRolesList = async () => {
+    const societyID = localStorage.getItem("society_id")
+    this.getRolesListId = await this.apiCall({
+      contentType: "application/json",
+      method:"GET",
+      endPoint: `/bx_block_roles_permissions/roles`,
+    });
+  }
+
+  createTeamMember = async (data:any) => {
+    const societyID = localStorage.getItem("society_id")
+    this.createTeamMemberId = await this.apiCall({
+      method:"POST",
+      endPoint: `/bx_block_roles_permissions/roles`,
+      body:data
+    });
+  }
+
+
+
+  apiCall = async (data: any) => {
+    const { contentType, method, endPoint, body } = data;
+    // console.log("Called 1",data);
+    const token = localStorage.getItem('userToken') ;
+
+    const header = {
+      token
+    };
+    const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+    );
+    requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+    );
+    requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        endPoint
+    );
+    requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        method
+    );
+    body && requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestBodyMessage),
+        body
+    );
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    // console.log("Called",requestMessage);
+    return requestMessage.messageId;
+  };
+
   AddTeamSchema() {
     const validations = Yup.object().shape({
       email: Yup.string()
@@ -93,6 +159,7 @@ export default class FriendListController extends BlockComponent<
   addTeamData = (values: any) => {
     this.setState({teamAddData:values})
   }
+
   async receive(from: string, message: Message) {
     runEngine.debugLog("Message Recived", message);
 
