@@ -70,6 +70,9 @@ export interface S {
   setAcceptOpen:any;
   setRejectOpen:boolean;
   selectInvitation:any
+  anchorEl1:any;
+  setDeleteRequest:boolean;
+  setRequestOpen:boolean;
 
   // Customizable Area End
 }
@@ -193,7 +196,10 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
   allInvitation:[],
   setAcceptOpen:"",
   setRejectOpen:false,
-  selectInvitation:null
+  selectInvitation:null,
+  anchorEl1:null,
+  setDeleteRequest:false,
+  setRequestOpen:false
 
 
       // Customizable Area End
@@ -360,7 +366,8 @@ this.setState({loading:false,showDialog:false})
             //@ts-ignore
             //@ts-nocheck
             localStorage.removeItem('selectFamily')
-            this.setState({ showDialogDelete: false, showDialog: false,loading:false })
+            this.setState({setRequestOpen:false, showDialogDelete: false, showDialog: false,loading:false })
+            this.getInvitation()
 
             this.getProfile()
 
@@ -405,7 +412,7 @@ this.setState({allInvitation:responseJson.data,loading:false})
             console.log("user data===============>",responseJson.data)
 
             
-            this.setState({ loading: false,setAcceptOpen:'' })
+            this.setState({ loading: false,setAcceptOpen:'',setRejectOpen:false })
             this.getInvitation()
 
           } else {
@@ -534,9 +541,9 @@ this.setState({allInvitation:responseJson.data,loading:false})
     return this.emailReg.test(email);
   }
 
-  handleOpen = (e:any) => {
-
-  }
+  handleOpen = () => {
+    this.setState({setOpen:true});
+  };
 
   handleToolTip = (e:any,text:any) => {
 
@@ -1560,6 +1567,51 @@ this.setState({loading:true})
     }
 
   }
+  rejectInvitation = async(id: any) => {
+    this.setState({ loading: true })
+    try {
+      const header = {
+
+        token: localStorage.getItem("userToken")
+      };
+      const formData = new FormData();
+      formData.append("member_invitation[status]", 'Decline')
+      
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+
+      this.acceptInvitationAPICallId = requestMessage.messageId;
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        `bx_block_request_management/member_invitations/${id}`
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestBodyMessage),
+        formData
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        'PUT'
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+      return true;
+
+    } catch (error) {
+      // this.setState({ loading: false })
+      console.log(error);
+    }
+
+  }
   updateChairmenProfile = async(values: any) => {
     this.setState({ loading: true })
     try {
@@ -1660,8 +1712,9 @@ this.setState({loading:true})
     this.setState({ anchorEl: event.currentTarget, showDialog2: true })
   };
 
-  deleteRequest() {
+  deleteRequest=()=> {
     this.setState({loading: true })
+    console.log(this.state.selectInvitation)
     // @ts-nocheck
     // @ts-ignore
     let item = JSON.parse(localStorage.getItem('selectFamily'))
@@ -1675,7 +1728,7 @@ this.setState({loading:true})
     this.deleteVehicleAPICallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_family/families/${item.id}`
+      `bx_block_request_management/member_invitations/${this.state.selectInvitation.id}`
     );
 
     requestMessage.addData(
@@ -2047,8 +2100,8 @@ let userType=localStorage.getItem('userType')
   handleAcceptClose = () => {
     this.setState({setAcceptOpen:false});
   };
-  handleRejectOpen = () => {
-    this.setState({setRejectOpen:true});
+  handleRejectOpen = (data:any) => {
+    this.setState({setRejectOpen:true,selectInvitation:data});
   };
 
   handleRejectClose = () => {
@@ -2058,5 +2111,26 @@ let userType=localStorage.getItem('userType')
   handleAcceptOpen = (data:any) => {
     this.setState({setAcceptOpen:true,selectInvitation:data});
   };
+  handleResendRequest = (data:any) => {
+    this.setState({setRequestOpen:true,selectInvitation:data})
+    this.setState({anchorEl1:null});
+  }
+  handleDeleteRequestOpen = (data:any) => {
+    this.setState({setDeleteRequest:true,selectInvitation:data})
+    this.setState({anchorEl1:null});
+  }
+
+  handleDeleteRequestClose = () => {
+    this.setState({setDeleteRequest:false})
+  }
+  handleMoreClose = () => {
+    this.setState({anchorEl1:null});
+  }
+  handleRequestClose = () => {
+    this.setState({setRequestOpen:false})
+  }
+  handleMoreClick = (e: any) => {
+    this.setState({anchorEl1:e.currentTarget});
+  }
   // Customizable Area End
 }

@@ -1523,9 +1523,10 @@ this.setState({loading:true})
         token: localStorage.getItem("userToken")
       };
       const formData = new FormData();
+      console.log("gender====",values.gender)
       formData.append("[data][attributes][full_name]", values.full_name)
       formData.append("[data][attributes][full_phone_number]", `${this.state.selectCode}${values.phone}`)
-      formData.append("[data][attributes][gender]", values.male ? '0' : '1')
+      formData.append("[data][attributes][gender]", values.gender=='Male' ? '0' : '1')
       formData.append("[data][attributes][date_of_birth]", values.DOB)
       formData.append("[data][attributes][profile_bio]", values.bio)
       formData.append("[data][attributes][twitter_link]", values.twitter)
@@ -1536,14 +1537,24 @@ this.setState({loading:true})
       values.hobbies.map((item:any)=>{
         formData.append('[data][attributes][hobbies][]',item)
       })
+      if(values.bannerUrl.includes('blob')){
+        
+        
+      }else{
 
+        let blob = await fetch(values.bannerUrl).then(r => r.blob());
+        formData.append(
+          "[data][attributes][image]",
+          blob
+        );
+      }
 
       // formData.append("vehicle[color]", values.carColor)
-      let blob = await fetch(values.bannerUrl).then(r => r.blob());
-      formData.append(
-        "[data][attributes][image]",
-        blob
-      );
+      // let blob = await fetch(values.bannerUrl).then(r => r.blob());
+      // formData.append(
+      //   "[data][attributes][image]",
+      //   blob
+      // );
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
