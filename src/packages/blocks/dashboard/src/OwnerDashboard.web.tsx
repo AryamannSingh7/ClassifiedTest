@@ -105,7 +105,7 @@ class OwnerDashboard extends DashboardController {
               </Box>
               <Divider />
               <div className="user-info">
-                <Avatar alt="Remy Sharp" src={this.state.profileData?.attributes?.profile_pic.url}>
+                <Avatar alt="Remy Sharp" src={this.state.profileData?.attributes?.profile_pic?.url}>
                   HN
                 </Avatar>
                 <h4>{this.state.profileData?.attributes?.full_name?.name|| 'N/A'}</h4>
