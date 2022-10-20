@@ -281,5 +281,10 @@ export default class IssueContractController extends BlockComponent<Props, S, SS
     }
   };
 
+  handleGotoTemplateLease = (templateId: any) => {
+    window.sessionStorage.setItem("page", "IssueLease");
+    this.props.navigation.navigate("SelectedTemplateTwo", { templateId: templateId });
+  };
+
   // Customizable Area End
 }
