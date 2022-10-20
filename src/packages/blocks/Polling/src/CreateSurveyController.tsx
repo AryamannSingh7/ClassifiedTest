@@ -510,8 +510,29 @@ export default class CoverImageController extends BlockComponent<
     this.setState({surveyQuestions :updatedArray})
   }
 
+  deleteOption = (mainKey:any,subKey:any) =>{
+    let updatedArray = this.state.surveyQuestions
+    if (subKey > -1) { // only splice array when item is found
+      updatedArray[mainKey].survey_options_attributes.splice(subKey, 1); // 2nd parameter means remove one item only
+    }
+    this.setState({
+      surveyQuestions:updatedArray
+    })
+  }
+
+  deleteQuestion = (mainKey:any) => {
+
+    let updatedArray = this.state.surveyQuestions
+    if (mainKey > -1) {
+      updatedArray.splice(mainKey, 1)
+    }
+    console.log("UpdatedArray",updatedArray)
+    this.setState({
+      surveyQuestions:updatedArray
+    })
+  }
+
   handleDeleteModal (value:any) {
-    console.log("DELETE",value)
     this.setState({
       deleteModal:true,
       deleteAudienceId:value
@@ -551,7 +572,6 @@ export default class CoverImageController extends BlockComponent<
         return item
       }
     })
-    console.log("updated Question",updatedArray)
     this.setState({surveyQuestions :updatedArray})
   }
 
@@ -583,7 +603,6 @@ export default class CoverImageController extends BlockComponent<
         return item
       }
     })
-    console.log("UPDATED OPTION ARRAY :",updatedArray)
     this.setState({surveyQuestions :updatedArray})
   }
 
@@ -728,7 +747,6 @@ export default class CoverImageController extends BlockComponent<
 
   handleClose = (e?:any, v?:any) => {
     let sortBy : any ;
-    console.log("v=========>",v)
     if(v === undefined || v === null){
       sortBy =this.state.sortBy
     }
