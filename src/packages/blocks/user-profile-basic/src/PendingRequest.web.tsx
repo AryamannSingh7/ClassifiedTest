@@ -137,7 +137,7 @@ class PendingRequest extends CommunityUserProfileController {
                               <CardMedia
                                 component="img"
                                 height="140"
-                                image={item.attributes.account.attributes.profile_pic.url || 'j'}
+                                image={item?.attributes?.account?.attributes?.profile_pic?.url || 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2080&q=80'}
                                 alt="green iguana"
                                 style={dashBoard.profileImage}
                               />
@@ -153,7 +153,7 @@ class PendingRequest extends CommunityUserProfileController {
                               <Typography variant="subtitle1" style={{textAlign:"center", marginTop:"5px"}}>{item.attributes.email_address}</Typography>
                               <Grid container spacing={3} style={{marginTop:"5px"}}>
                                 <Grid item xs={12} sm={6}>
-                                    <Button variant="outlined" style={{width:"100%", color:"#2B6FED", border:"1px solid #2B6FED", fontWeight:600}} onClick={this.handleRejectOpen}>
+                                    <Button variant="outlined" style={{width:"100%", color:"#2B6FED", border:"1px solid #2B6FED", fontWeight:600}} onClick={()=>this.handleRejectOpen(item)}>
                                         DECLINE
                                     </Button>
                                 </Grid>
@@ -197,7 +197,7 @@ class PendingRequest extends CommunityUserProfileController {
                             //@ts-ignore 
                             style={dashBoard.unitno}>Reject Join Request</Typography>
                             <Typography variant="subtitle1" style={{marginTop:"20px"}}>Are you sure want to reject invitation request 
-                            received from <b>Marleah Eagleston</b> for Unit <b>B-1405</b> </Typography>
+                            received from <b>{this.state?.selectInvitation?.attributes?.full_name}</b> for Unit <b>{this.state.selectInvitation?.attributes?.apartment_management?.apartment_name}</b> </Typography>
                             <Grid container spacing={3} style={{marginTop:"20px"}}>
                             <Grid item xs={12} sm={6} style={{marginBottom:"20px"}}>
                                 <Button variant="outlined" style={{width:"100%", color:"#2B6FED", border:"1px solid #2B6FED", fontWeight:600, height:"50px"}} onClick={this.handleRejectClose}>
@@ -205,7 +205,7 @@ class PendingRequest extends CommunityUserProfileController {
                                 </Button>
                             </Grid>
                             <Grid item xs={12} sm={6}>
-                                <Button variant="contained" color="primary" style={{width:"100%", backgroundColor:"#2B6FED", fontWeight:600, height:"50px"}}>
+                                <Button variant="contained" color="primary" onClick={()=>this.rejectInvitation(this.state.selectInvitation?.id)} style={{width:"100%", backgroundColor:"#2B6FED", fontWeight:600, height:"50px"}}>
                                     YES, REJECT
                                 </Button>
                             </Grid>
