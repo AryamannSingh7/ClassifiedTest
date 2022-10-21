@@ -1,6 +1,3 @@
-//@ts-ignore
-//@ts-nocheck
-
 import * as React from "react";
 // custom components
 import {
@@ -12,10 +9,10 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import HomeIcon from '@material-ui/icons/Home';
-import { Building1, Car, CarBlue, deleteI, deleteIcon, edit, List, ListCopy, NoVehicles, owner, palette, paletteBlue, Rc, resident_owner, tenet, user, userBlue } from "./assets";
+import { Building1, Car, CarBlue, deleteI, deleteIcon, edit, List, ListCopy, NoVehicles, palette, paletteBlue, Rc, user, userBlue } from "./assets";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
-import VeichleListController from "./VeichleListController.web";
+import VeichleListController,{Props} from "./VeichleListController.web";
 import '../assets/css/style.scss';
 import { InsertEmoticon } from "@material-ui/icons";
 
@@ -39,7 +36,8 @@ class ViewVeichle extends VeichleListController {
   }
 
   render() {
-    let item = JSON.parse(localStorage.getItem('selectCar'))
+        // @ts-ignore
+    let item = JSON.parse(localStorage.getItem('selectCar')||{})
     return (
 
       <>

@@ -8,6 +8,7 @@ import { runEngine } from "../../../framework/src/RunEngine";
 
 // Customizable Area Start
 import * as Yup from 'yup';
+import { withRouter, RouteComponentProps } from "react-router-dom";
 export const Colors = {
   inputLabel: "rgba(31, 31, 34, 0.6)",
   inputTextColor: "rgb(31, 31, 34)",
@@ -28,7 +29,7 @@ const options = {
 
 export const configJSON = require("./config");
 
-export interface Props {
+export interface Props extends RouteComponentProps{
   navigation: any;
   id: string;
   // Customizable Area Start
