@@ -786,5 +786,10 @@
   "Delete Template": "Delete Template",
   "Renew Contract": "Renew Contract",
   "Yes, Renew": "Yes, Renew",
-  "No, Don't Renew": "No, Don't Renew"
+  "No, Don't Renew": "No, Don't Renew",
+  "Close Contract": "Close Contract",
+  "Are you sure want to close the contract with": "Are you sure want to close the contract with",
+  "Once closed you won't be able to retrieve": "Once closed you won't be able to retrieve",
+  "Yes, Close": "Yes, Close",
+  "No, Don't Close": "No, Don't Close"
 }

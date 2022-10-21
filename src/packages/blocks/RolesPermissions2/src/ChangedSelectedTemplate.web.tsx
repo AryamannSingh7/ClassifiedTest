@@ -39,17 +39,16 @@ class ChangedSelectedTemplate extends LeaseFormController {
 
   async componentDidMount(): Promise<void> {
     const latePaymentPenalty = JSON.parse(window.sessionStorage.getItem("isLatePaymentPenalty") as any);
-
     const sessionCondition = JSON.parse(window.sessionStorage.getItem("condition") as any);
-
     const template_id: any = this.props.navigation.getParam("templateId");
+
     this.setState(
       {
         ...this.state,
         templateId: template_id,
         isLatePaymentPenalty: latePaymentPenalty,
-        selectedPaymentTermId: sessionCondition.paymentTerm,
-        selectedPersonalConditionId: sessionCondition.personalCondition,
+        selectedPaymentTermId: sessionCondition.paymentTerm.map((term: any) => Number(term)),
+        selectedPersonalConditionId: sessionCondition.personalCondition.map((condition: any) => Number(condition)),
       },
       () => {
         this.getTemplateText();
