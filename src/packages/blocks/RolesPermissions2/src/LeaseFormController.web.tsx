@@ -863,6 +863,8 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
     return true;
   };
 
+  handleEditLeaseModal = () => {};
+
   ContractFormValidation: any = Yup.object().shape({
     tenantName: Yup.string()
       .required("Required")

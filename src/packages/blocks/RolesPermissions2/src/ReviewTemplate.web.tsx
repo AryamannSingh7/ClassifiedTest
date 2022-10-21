@@ -48,8 +48,9 @@ class ReviewTemplate extends LeaseFormController {
   }
 
   async componentDidMount(): Promise<void> {
+    const template_name: any = window.sessionStorage.getItem("templateName");
     const template_id: any = this.props.navigation.getParam("templateId");
-    this.setState({ ...this.state, templateId: template_id }, () => {
+    this.setState({ ...this.state, templateId: template_id, templateName: template_name }, () => {
       // this.getTemplateText();
     });
   }
@@ -72,25 +73,15 @@ class ReviewTemplate extends LeaseFormController {
               <Box className="faq-step">
                 <Box display={{ xs: "flex", md: "flex" }} className="top-bar">
                   <div className="left-icon">
-                    {/* <Link href="/OwnerDashboard"> */}
                     <IconButton onClick={() => this.goBackFromReviewPage()}>
                       <KeyboardBackspaceIcon />
                     </IconButton>
-                    {/* </Link> */}
                     <span>{t("Review Lease Document")}</span>
                   </div>
 
-                  {window.sessionStorage.getItem("isEditFlow") === "true" ? (
-                    <div className="right-icon">
-                      <Link href="">
-                        <img src={DownloadIcon} alt="SortIcon" />
-                      </Link>
-                    </div>
-                  ) : (
-                    <div className="right-icon" onClick={() => toast.error("You need to generate a lease first")}>
-                      <img src={DownloadIcon} alt="SortIcon" />
-                    </div>
-                  )}
+                  <div className="right-icon" onClick={() => toast.error("You need to generate a lease first")}>
+                    <img src={DownloadIcon} alt="SortIcon" />
+                  </div>
                 </Box>
                 <Container>
                   <Box className="content-box">
@@ -112,23 +103,14 @@ class ReviewTemplate extends LeaseFormController {
                             {t("Edit Document")}
                           </Button>
                           {window.sessionStorage.getItem("isEditFlow") === "true" ? (
-                            <Button onClick={() => this.handleSaveLeaseModal()}>{t("Edit Template")}</Button>
+                            <Button onClick={() => this.handleEditLeaseModal()}>{t("Edit Template")}</Button>
                           ) : (
                             <Button onClick={() => this.handleSaveLeaseModal()}>{t("Save Template")}</Button>
                           )}
                         </Box>
                         <Box className="bottom">
                           <Button onClick={() => this.handleGenerateLeaseModal()}>{t("Generate Lease")}</Button>
-                          <Box
-                            className="image"
-                            onClick={() => {
-                              if (window.sessionStorage.getItem("isEditFlow") === "true") {
-                                this.handleShareModal();
-                              } else {
-                                toast.error("You need to generate a lease first");
-                              }
-                            }}
-                          >
+                          <Box className="image" onClick={() => toast.error("You need to generate a lease first")}>
                             <img src={ShareIcon} alt="" />
                           </Box>
                         </Box>

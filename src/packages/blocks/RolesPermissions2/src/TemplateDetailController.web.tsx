@@ -22,7 +22,7 @@ export interface Props {
 interface TemplateData {
   templateUrl: string;
   templateText: string;
-  tenantName: string;
+  templateName: string;
   conditionText: string;
 }
 
@@ -70,7 +70,7 @@ export default class TemplateDetailController extends BlockComponent<Props, S, S
       templateData: {
         templateUrl: "",
         templateText: "",
-        tenantName: "",
+        templateName: "",
         conditionText: "",
       },
     };
@@ -118,7 +118,7 @@ export default class TemplateDetailController extends BlockComponent<Props, S, S
           templateData: {
             templateUrl: template.attributes.custom_lease_template_pdf.url,
             templateText: template.attributes.custom_lease_template,
-            tenantName: template.attributes.template_name,
+            templateName: template.attributes.template_name,
             conditionText: conditionText,
           },
         });
@@ -263,8 +263,14 @@ export default class TemplateDetailController extends BlockComponent<Props, S, S
     if (templateDetails.attributes.custom_term_condition) {
       data.append("[contract][custom_term_condition]", templateDetails.attributes.custom_term_condition);
     } else {
-      data.append("[contract][term_ids][]", templateDetails.attributes.term_ids[0]);
-      data.append("[contract][condition_ids][]", templateDetails.attributes.condition_ids[0]);
+      data.append(
+        "[contract][term_ids][]",
+        templateDetails.attributes.term_ids && templateDetails.attributes.term_ids[0]
+      );
+      data.append(
+        "[contract][condition_ids][]",
+        templateDetails.attributes.condition_ids && templateDetails.attributes.condition_ids[0]
+      );
     }
     data.append("[contract][penanlty_late_payment]", templateDetails.attributes.penanlty_late_payment);
     data.append("[contract][contract_template]", templateDetails.attributes.custom_lease_template);
@@ -295,40 +301,52 @@ export default class TemplateDetailController extends BlockComponent<Props, S, S
   };
 
   handleEditTemplate = () => {
+    const templateDetails = this.state.template;
+
     const formData = {
-      tenantName: "",
-      landlordName: "",
+      tenantName: templateDetails.attributes.tenant_name,
+      landlordName: templateDetails.attributes.landlord_name,
       buildingName: "",
       unitName: "",
-      buildingId: "",
-      unitId: "",
-      duration: "",
-      startDate: "",
-      endDate: "",
-      monthlyRent: "",
-      currency: "",
+      buildingId: templateDetails.attributes.building_management_id,
+      unitId: templateDetails.attributes.apartment_management_id,
+      duration: templateDetails.attributes.agreement_duration,
+      startDate: templateDetails.attributes.start_date,
+      endDate: templateDetails.attributes.expires_on,
+      monthlyRent: templateDetails.attributes.rent_amount,
+      currency: templateDetails.attributes.currency,
     };
 
+    let termId: any[] = [];
+    let conditionId: any[] = [];
+    if (templateDetails.attributes.term_ids) {
+      termId = templateDetails.attributes.term_ids[0].split(",");
+    }
+    if (templateDetails.attributes.condition_ids) {
+      conditionId = templateDetails.attributes.condition_ids[0].split(",");
+    }
+
     const condition = {
-      isEditorCondition: false,
-      paymentTerm: [],
-      personalCondition: [],
-      editorCondition: "",
+      isEditorCondition: templateDetails.attributes.custom_term_condition !== null,
+      paymentTerm: termId,
+      personalCondition: conditionId,
+      editorCondition: templateDetails.attributes.custom_term_condition,
     };
 
     window.sessionStorage.setItem("contractForm", JSON.stringify(formData));
 
-    window.sessionStorage.setItem("isLatePaymentPenalty", "false");
+    window.sessionStorage.setItem("isLatePaymentPenalty", templateDetails.attributes.penanlty_late_payment);
 
     window.sessionStorage.setItem("isEditFlow", "true");
 
-    window.sessionStorage.setItem("changedTemplate", "");
-    window.sessionStorage.setItem("tenant", "");
-    window.sessionStorage.setItem("templateId", "");
+    window.sessionStorage.setItem("changedTemplate", templateDetails.attributes.custom_lease_template);
+    window.sessionStorage.setItem("tenant", templateDetails.attributes.tenant_id);
+    window.sessionStorage.setItem("templateId", this.state.templateId);
+    window.sessionStorage.setItem("templateName", this.state.templateData.templateName);
 
     window.sessionStorage.setItem("condition", JSON.stringify(condition));
 
-    this.props.navigation.navigate("LeaseFormIssueLease", { templateId: 1 });
+    this.props.navigation.navigate("LeaseFormIssueLease", { templateId: templateDetails.attributes.lease_template_id });
   };
 
   // Handle State

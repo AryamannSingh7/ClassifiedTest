@@ -71,7 +71,7 @@ class TemplateDetail extends TemplateDetailController {
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    <span>{this.state.templateData.tenantName}</span>
+                    <span>{this.state.templateData.templateName}</span>
                   </div>
                   <div className="right-icon">
                     <Link href={this.state.templateData.templateUrl} target="_blank">
