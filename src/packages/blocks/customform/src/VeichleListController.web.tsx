@@ -451,7 +451,7 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
       plateNumber: Yup.string().required(`This field is required`).trim(),
       carManufacturer: Yup.string().required(`This field is required`).trim(), carModle: Yup.string().required(`This field is required`).trim(), carColor: Yup.string().required(`This field is required`).trim(),
       banner: Yup.mixed(),
-      bannerUrl: Yup.string().nullable(true).required(`Please select banner image.`)
+      bannerUrl: Yup.string().nullable(true).required(`Please Registration card image.`)
 
     });
     return validations

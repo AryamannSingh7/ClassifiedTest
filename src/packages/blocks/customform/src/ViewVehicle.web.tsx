@@ -73,8 +73,8 @@ class ViewVeichle extends VeichleListController {
                     <div className="card-content">
 
                       <img src="https://img.freepik.com/premium-photo/generic-brandless-modern-sport-car-with-fire-smoke_110488-1759.jpg" style={{marginRight:5}} />
-                      <div className="content">
-                        <p className="title">
+                      <div className="content" style={{padding:'0px 0px 0px 5px',display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'column'}}>
+                        <p className="title" style={{padding:0,marginBottom:10}}>
                           {item.attributes.company_name}
                         </p>
                         <p className="sub-title">
@@ -87,7 +87,7 @@ class ViewVeichle extends VeichleListController {
                       <div>
 
                         <div style={{ display: 'flex', fontWeight: 500 }}>
-                          <img src={userBlue} width='25' height='25' style={{ marginRight: 10 }} />
+                          <img src={userBlue.default} width='25' height='25' style={{ marginRight: 10 }} />
                           <p>   Owner Name :</p>
                         </div>
                         <div style={{ marginLeft: 35, marginBottom: 20, fontWeight: 'bold' }}>
