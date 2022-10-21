@@ -193,7 +193,7 @@ class ContractsList extends ContractsListController {
                                                   href={
                                                     contract.attributes.custom_contract
                                                       ? contract.attributes.custom_contract_image.url
-                                                      : contract.attributes.template_pdf.url
+                                                      : contract.attributes.contract_template_pdf.url
                                                   }
                                                   target="_blank"
                                                 >
@@ -206,7 +206,7 @@ class ContractsList extends ContractsListController {
                                                     {
                                                       shareUrl: contract.attributes.custom_contract
                                                         ? contract.attributes.custom_contract_image.url
-                                                        : contract.attributes.template_pdf.url,
+                                                        : contract.attributes.contract_template_pdf.url,
                                                     },
                                                     () => {
                                                       this.handleShareModal();
@@ -302,16 +302,22 @@ class ContractsList extends ContractsListController {
                                         }
                                       >
                                         <MenuItem>
-                                          <Link href={template.attributes.template_pdf.url} target="_blank">
+                                          <Link
+                                            href={template.attributes.custom_lease_template_pdf.url}
+                                            target="_blank"
+                                          >
                                             {t("Download")}
                                           </Link>
                                         </MenuItem>
                                         <MenuItem>{t("Edit")}</MenuItem>
                                         <MenuItem
                                           onClick={() => {
-                                            this.setState({ shareUrl: template.attributes.template_pdf.url }, () => {
-                                              this.handleShareModal();
-                                            });
+                                            this.setState(
+                                              { shareUrl: template.attributes.custom_lease_template_pdf.url },
+                                              () => {
+                                                this.handleShareModal();
+                                              }
+                                            );
                                           }}
                                         >
                                           {t("Share")}

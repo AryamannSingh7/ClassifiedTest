@@ -39,6 +39,7 @@ import TemplateDetailController, { Props } from "./TemplateDetailController.web"
 import { BuildingLogo, DownloadIcon, ShareIcon, ExclamationIcon } from "./assets";
 import { withTranslation } from "react-i18next";
 import "../../../web/src/i18n.js";
+import Loader from "../../../components/src/Loader.web";
 
 class TemplateDetail extends TemplateDetailController {
   constructor(props: Props) {
@@ -57,6 +58,8 @@ class TemplateDetail extends TemplateDetailController {
 
     return (
       <>
+        <Loader loading={this.state.loading} />
+
         <Box style={{ background: "#F4F7FF", height: "100vh" }} className={classes.detailPage}>
           <Grid container>
             <Grid item xs={12} md={7}>
@@ -84,15 +87,29 @@ class TemplateDetail extends TemplateDetailController {
                           __html: this.state.templateData.templateText,
                         }}
                       />
+                      <br />
+                      <div
+                        dangerouslySetInnerHTML={{
+                          __html: this.state.templateData.conditionText,
+                        }}
+                      />
                     </div>
                     <Box className="upload-button">
                       <Box className="upload-button-group">
                         <Box className="top">
-                          <Button>{t("Edit Document")}</Button>
+                          <Button onClick={() => this.handleEditTemplate()}>{t("Edit Document")}</Button>
                           <Button onClick={() => this.handleDeleteTemplateModal()}>{t("Delete Template")}</Button>
                         </Box>
                         <Box className="bottom">
-                          <Button>{t("Generate a Lease")}</Button>
+                          <Button
+                            onClick={() => {
+                              this.setState({ loading: true }, () => {
+                                this.handleCreateContract();
+                              });
+                            }}
+                          >
+                            {t("Generate a Lease")}
+                          </Button>
                           <Box className="image" onClick={() => this.handleShareModal()}>
                             <img src={ShareIcon} alt="" />
                           </Box>

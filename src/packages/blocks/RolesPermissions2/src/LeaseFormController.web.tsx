@@ -93,6 +93,7 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
   GetPaymentTermCallId: any;
   GetPersonalConditionCallId: any;
   CreateContractCallId: any;
+  CreateTemplateCallId: any;
 
   constructor(props: Props) {
     super(props);
@@ -440,7 +441,36 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
 
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      console.log(responseJson);
+      if (responseJson.code === 200) {
+        window.sessionStorage.clear();
+        toast.success(responseJson.message);
+        this.props.navigation.navigate("ContractsList");
+      }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // CREATE TEMPLATE - API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.CreateTemplateCallId !== null &&
+      this.CreateTemplateCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.CreateTemplateCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      if (responseJson) {
+        window.sessionStorage.clear();
+        toast.success("Template created successfully");
+        this.props.navigation.navigate("ContractsList");
+      }
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
@@ -746,8 +776,8 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
     if (condition.isEditorCondition) {
       data.append("[contract][custom_term_condition]", condition.editorCondition);
     } else {
-      data.append("[contract][term_ids]", condition.paymentTerm.toString());
-      data.append("[contract][condition_ids]", condition.personalCondition.toString());
+      data.append("[contract][term_ids][]", condition.paymentTerm.toString());
+      data.append("[contract][condition_ids][]", condition.personalCondition.toString());
     }
     data.append("[contract][penanlty_late_payment]", latePaymentPenalty);
     data.append("[contract][contract_template]", contractTemplate);
@@ -765,6 +795,62 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
       `society_managements/${society_id}/bx_block_contract/contracts`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestBodyMessage), data);
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePost);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  // CRETE TEMPLATE - API
+  handleCreateTemplate = () => {
+    const society_id: any = localStorage.getItem("society_id");
+    const tenant_id: any = window.sessionStorage.getItem("tenant");
+    const latePaymentPenalty: any = window.sessionStorage.getItem("isLatePaymentPenalty");
+    const contractTemplate: any = window.sessionStorage.getItem("changedTemplate");
+    const contractForm: any = JSON.parse(window.sessionStorage.getItem("contractForm") as any);
+    const condition: any = JSON.parse(window.sessionStorage.getItem("condition") as any);
+
+    var data = new FormData();
+    data.append("[template][lease_template_id]", this.state.templateId);
+    data.append("[template][template_name]", this.state.templateName);
+    data.append("[template][apartment_management_id]", contractForm.unitId);
+    data.append("[template][building_management_id]", contractForm.buildingId);
+    data.append("[template][society_management_id", society_id);
+    data.append("[template][landlord_name", contractForm.landlordName);
+    data.append("[template][start_date]", contractForm.startDate);
+    data.append("[template][rent_amount]", contractForm.monthlyRent);
+    data.append("[template][currency]", contractForm.currency);
+    data.append("[template][expires_on]", contractForm.endDate);
+    data.append("[template][tenant_name", contractForm.tenantName);
+    data.append("[template][penanlty_late_payment]", latePaymentPenalty);
+    data.append("[template][custom_contract]", "false");
+    data.append("[template][agreement_duration]", contractForm.duration);
+    data.append("[template][custom_lease_template]", contractTemplate);
+    if (condition.isEditorCondition) {
+      data.append("[template][custom_term_condition]", condition.editorCondition);
+    } else {
+      data.append("[template][term_ids][]", condition.paymentTerm.toString());
+      data.append("[template][condition_ids][]", condition.personalCondition.toString());
+    }
+    data.append("[template][tenant_id]", tenant_id);
+
+    const header = {
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.CreateTemplateCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `society_managements/${society_id}/bx_block_contract/saved_lease_templates`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
