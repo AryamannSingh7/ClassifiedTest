@@ -1,6 +1,3 @@
-//@ts-ignore
-//@ts-nocheck
-
 import * as React from "react";
 // custom components
 import {
@@ -12,10 +9,10 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import HomeIcon from '@material-ui/icons/Home';
-import { Building1, Car, ListCopy, owner, palette, resident_owner, tenet, upload, user } from "./assets";
+import { Building1, Car, ListCopy, palette, upload, user } from "./assets";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
-import VeichleListController from "./VeichleListController.web";
+import VeichleListController,{Props} from "./VeichleListController.web";
 import '../assets/css/style.scss';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
@@ -37,7 +34,8 @@ class EditVeichleList extends VeichleListController {
   }
 
   render() {
-    let item = JSON.parse(localStorage.getItem('selectCar'))
+    // @ts-ignore
+    let item:any = JSON.parse(localStorage.getItem('selectCar')||{})
     return (
 
       <>
@@ -273,7 +271,7 @@ class EditVeichleList extends VeichleListController {
                               : ""
 }}>
                             <img src={upload} width='25' height='25'/>
-                            <label for="file1"
+                            <label htmlFor="file1"
                             style={{ color:'rgb(33 33 33 / 33%)'}}>
                               Upload car registration image
                             </label>

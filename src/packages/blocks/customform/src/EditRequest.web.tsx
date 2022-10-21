@@ -1,5 +1,3 @@
-//@ts-ignore
-//@ts-nocheck
 import React from "react";
 //components
 import {
@@ -15,13 +13,13 @@ import {
 } from "@material-ui/core";
 
 //resources
-import { Building1, Delete_Icon, info, Landing_Banner, request, Tick } from "./assets";
+import { Building1, info, Tick } from "./assets";
 import { withRouter } from 'react-router';
 import { Formik, Form, Field } from "formik";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import Loader from "../../../components/src/Loader.web";
-import VeichleListController from "./VeichleListController.web";
+import VeichleListController,{Props} from "./VeichleListController.web";
 class EditRequest extends VeichleListController {
   constructor(props: Props) {
     super(props);
@@ -29,8 +27,9 @@ class EditRequest extends VeichleListController {
 
 
   render() {
-    console.log("getRegistrationRequest===================>", this.state?.registrationRequest?.attributes);
+  //  @ts-ignore
     const building_name = this.state?.registrationRequest?.attributes?.building_name;
+    //  @ts-ignore
     const apartment_name = this.state?.registrationRequest?.attributes?.apartment_name;
     //console.log("getRegistrationRequest===================>",building_name ,apartment_name);
     return (
