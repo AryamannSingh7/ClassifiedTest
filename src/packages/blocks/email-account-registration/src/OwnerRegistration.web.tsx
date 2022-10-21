@@ -467,8 +467,8 @@ class Registration extends EmailAccountRegistrationController {
 
                       </Typography>
                     </Box>
-                    <Box display='flex' justifyContent='center'>
-                      <img src={company_logo} width='125' height='125' />
+                    <Box display='flex' justifyContent='center' style={{ cursor: 'pointer'}}>
+                      <img src={company_logo}  width='125' height='125' />
                     </Box>
 
                   </Box>

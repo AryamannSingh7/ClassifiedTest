@@ -60,10 +60,11 @@
                                </Typography>
                                <CardActions className="card-footer">
                                  {/* <Button className="success">Resolved</Button> */}
+                                 <Button variant="contained">{67}</Button>
                                </CardActions>
                              </CardContent>
                            </Card>
-                   <Button variant="contained">{67}</Button>
+                   
                    </Box>
                    <Box className="customButton add-incident">
                      <Button variant="contained" onClick={() => { this.setState({ loading: true });//@ts-ignore
