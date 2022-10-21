@@ -4,7 +4,7 @@ import { BlockComponent } from "../../../framework/src/BlockComponent";
 import MessageEnum, { getName } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
 import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
-import toast from "react-hot-toast";
+import moment from "moment";
 
 // Customizable Area Start
 // Customizable Area End
@@ -19,22 +19,15 @@ export interface Props {
   // Customizable Area End
 }
 
-interface TemplateData {
-  templateUrl: string;
-  templateText: string;
-  tenantName: string;
-}
-
 interface S {
   // Customizable Area Start
-  isTerminateContractModalOpen: boolean;
-  isShareModalOpen: boolean;
+  isRenewContractModalOpen: boolean;
 
-  shareUrl: string;
+  contractId: string;
 
-  templateId: string;
+  currencyList: any;
 
-  templateData: TemplateData;
+  contractData: ContractData;
   // Customizable Area End
 }
 
@@ -42,9 +35,16 @@ interface SS {
   id: any;
 }
 
-export default class TemplateDetailController extends BlockComponent<Props, S, SS> {
-  GetTemplateDetailsCallId: any;
-  DeleteTemplateDetailsCallId: any;
+interface ContractData {
+  tenantName: string;
+  complexName: string;
+  buildingName: string;
+  unitName: string;
+}
+
+export default class RenewContractController extends BlockComponent<Props, S, SS> {
+  GetContractsDetailsCallId: any;
+  GetCurrencyListCallId: any;
 
   constructor(props: Props) {
     super(props);
@@ -54,17 +54,17 @@ export default class TemplateDetailController extends BlockComponent<Props, S, S
     this.subScribedMessages = [getName(MessageEnum.RestAPIResponceMessage), getName(MessageEnum.RestAPIRequestMessage)];
 
     this.state = {
-      isTerminateContractModalOpen: false,
-      isShareModalOpen: false,
+      isRenewContractModalOpen: false,
 
-      shareUrl: "",
+      contractId: "",
 
-      templateId: "",
+      currencyList: [],
 
-      templateData: {
-        templateUrl: "",
-        templateText: "",
+      contractData: {
         tenantName: "",
+        complexName: "",
+        buildingName: "",
+        unitName: "",
       },
     };
     // Customizable Area End
@@ -72,24 +72,26 @@ export default class TemplateDetailController extends BlockComponent<Props, S, S
   }
 
   async receive(from: string, message: Message) {
+    // Customizable Area Start
     // Get Contract Detail - API
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetTemplateDetailsCallId !== null &&
-      this.GetTemplateDetailsCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+      this.GetContractsDetailsCallId !== null &&
+      this.GetContractsDetailsCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
-      this.GetTemplateDetailsCallId = null;
+      this.GetContractsDetailsCallId = null;
 
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      if (responseJson.data) {
-        const template = responseJson.data;
+      if (responseJson.code === 200) {
+        const contract = responseJson.contract.data;
+
         this.setState({
-          shareUrl: template.attributes.template_pdf.url,
-          templateData: {
-            templateUrl: template.attributes.template_pdf.url,
-            templateText: template.attributes.template,
-            tenantName: template.attributes.template_name,
+          contractData: {
+            tenantName: contract.attributes.tenant_name,
+            complexName: "",
+            buildingName: contract.attributes.building_name,
+            unitName: contract.attributes.unit_name,
           },
         });
       }
@@ -103,19 +105,17 @@ export default class TemplateDetailController extends BlockComponent<Props, S, S
       ApiCatchErrorResponse(errorResponse);
     }
 
-    // Delete Contract Detail - API
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.DeleteTemplateDetailsCallId !== null &&
-      this.DeleteTemplateDetailsCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+      this.GetCurrencyListCallId !== null &&
+      this.GetCurrencyListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
-      this.DeleteTemplateDetailsCallId = null;
+      this.GetCurrencyListCallId = null;
 
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      if (responseJson) {
-        toast.success("Template deleted successfully");
-        this.props.navigation.navigate("ContractsList");
+      if (responseJson.data) {
+        this.setState({ currencyList: responseJson.data });
       }
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
@@ -126,18 +126,20 @@ export default class TemplateDetailController extends BlockComponent<Props, S, S
       }
       ApiCatchErrorResponse(errorResponse);
     }
+    // Customizable Area End
   }
 
   // Customizable Area Start
   async componentDidMount(): Promise<void> {
-    const template_id = this.props.navigation.getParam("id");
-    this.setState({ templateId: template_id }, () => {
-      this.getTemplateDetails();
+    const contract_id = this.props.navigation.getParam("id");
+    this.setState({ contractId: contract_id }, () => {
+      this.getContractDetails();
+      this.getCurrencyList();
     });
   }
 
-  // Get Template Details - API
-  getTemplateDetails = () => {
+  // Get Contract Details - API
+  getContractDetails = () => {
     const header = {
       "Content-Type": configJSON.ApiContentType,
       token: localStorage.getItem("userToken"),
@@ -145,12 +147,12 @@ export default class TemplateDetailController extends BlockComponent<Props, S, S
 
     const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
 
-    this.GetTemplateDetailsCallId = apiRequest.messageId;
+    this.GetContractsDetailsCallId = apiRequest.messageId;
 
     const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_contract/saved_lease_templates/${this.state.templateId}`
+      `society_managements/${society_id}/bx_block_contract/contracts/${this.state.contractId}`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
@@ -161,8 +163,8 @@ export default class TemplateDetailController extends BlockComponent<Props, S, S
     return true;
   };
 
-  // Delete Template Details - API
-  deleteTemplateDetails = () => {
+  // Get Currency List - API
+  getCurrencyList = () => {
     const header = {
       "Content-Type": configJSON.ApiContentType,
       token: localStorage.getItem("userToken"),
@@ -170,29 +172,22 @@ export default class TemplateDetailController extends BlockComponent<Props, S, S
 
     const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
 
-    this.DeleteTemplateDetailsCallId = apiRequest.messageId;
+    this.GetCurrencyListCallId = apiRequest.messageId;
 
-    const society_id = localStorage.getItem("society_id");
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_contract/saved_lease_templates/${this.state.templateId}`
-    );
+    // const society_id = localStorage.getItem("society_id");
+    apiRequest.addData(getName(MessageEnum.RestAPIResponceEndPointMessage), `bx_block_posts/classifieds/currency_list`);
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
-    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeDelete);
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
   };
 
   // Handle State
-  handleDeleteTemplateModal = () => {
-    this.setState({ isTerminateContractModalOpen: !this.state.isTerminateContractModalOpen });
-  };
-
-  handleShareModal = () => {
-    this.setState({ isShareModalOpen: !this.state.isShareModalOpen });
+  handleRenewContractModal = () => {
+    this.setState({ isRenewContractModalOpen: !this.state.isRenewContractModalOpen });
   };
   // Customizable Area End
 }

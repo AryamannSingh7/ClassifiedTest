@@ -44,9 +44,7 @@ class SelectedTemplate extends SelectedTemplateController {
                       />
                     </div>
                     <div className="upload-button">
-                      <Link to={`${window.location.pathname}/LeaseForm`}>
-                        <Button>{t("Use This Template")}</Button>
-                      </Link>
+                      <Button onClick={() => this.gotoContractFrom()}>{t("Use This Template")}</Button>
                     </div>
                   </div>
                 </Container>

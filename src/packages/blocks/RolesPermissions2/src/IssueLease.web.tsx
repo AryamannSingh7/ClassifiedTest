@@ -74,21 +74,19 @@ class IssueContract extends IssueContractController {
 
                           return (
                             <Grid item xs={6} key={template.id}>
-                              <Link href={`/IssueLease/${template.id}`}>
-                                <Card className="template">
-                                  <div className="content">
-                                    <div className="image">
-                                      <img src={TemplateIcon} alt="" />
-                                    </div>
-                                    <h4>{template.attributes.title}</h4>
+                              <Card className="template" onClick={() => this.handleGotoTemplateLease(template.id)}>
+                                <div className="content">
+                                  <div className="image">
+                                    <img src={TemplateIcon} alt="" />
                                   </div>
-                                  {index === 0 && (
-                                    <div className="right-menu">
-                                      <span>{t("Default")}</span>
-                                    </div>
-                                  )}
-                                </Card>
-                              </Link>
+                                  <h4>{template.attributes.title}</h4>
+                                </div>
+                                {index === 0 && (
+                                  <div className="right-menu">
+                                    <span>{t("Default")}</span>
+                                  </div>
+                                )}
+                              </Card>
                             </Grid>
                           );
                         })}

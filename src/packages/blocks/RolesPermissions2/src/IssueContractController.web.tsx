@@ -275,10 +275,15 @@ export default class IssueContractController extends BlockComponent<Props, S, SS
       toast.error("Please select unit");
     } else if (!this.state.tenant) {
       toast.error("Please register tenant");
+    } else if (this.state.buildingId && this.state.unitId && this.state.tenant) {
+      window.sessionStorage.setItem("page", "IssueContract");
+      this.props.navigation.navigate("SelectedTemplateTwo", { templateId: templateId });
     }
-    if (this.state.buildingId && this.state.unitId) {
-      this.props.navigation.navigate("SelectedTemplateTwo", { id: templateId });
-    }
+  };
+
+  handleGotoTemplateLease = (templateId: any) => {
+    window.sessionStorage.setItem("page", "IssueLease");
+    this.props.navigation.navigate("SelectedTemplateTwo", { templateId: templateId });
   };
 
   // Customizable Area End
