@@ -448,7 +448,7 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
   addVehicleSchema(){
     const validations = Yup.object().shape({
 
-      full_name: Yup.string().required(`This field is required`).trim(),
+      full_name: Yup.string().required(`This field is required`).matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field ").trim(),
       plateNumber: Yup.string().required(`This field is required`).trim(),
       carManufacturer: Yup.string().required(`This field is required`).trim(), carModle: Yup.string().required(`This field is required`).trim(), carColor: Yup.string().required(`This field is required`).trim(),
       banner: Yup.mixed(),
