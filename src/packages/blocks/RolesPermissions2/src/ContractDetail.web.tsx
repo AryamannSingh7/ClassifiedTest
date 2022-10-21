@@ -93,19 +93,13 @@ class ContractDetail extends ContractDetailController {
                       <Box className="upload-button">
                         <Box className="upload-button-group">
                           <Box className="top">
-                            <Button
-                              onClick={() => {
-                                this.handleTerminateContractModal();
-                              }}
-                            >
-                              {t("Terminate")}
-                            </Button>
-                            <Link href="/Contracts">
-                              <Button>{t("Close")}</Button>
-                            </Link>
+                            <Button onClick={() => this.handleTerminateContractModal()}>{t("Terminate")}</Button>
+                            <Button>{t("Close")}</Button>
                           </Box>
                           <Box className="bottom">
-                            <Button>{t("ReNew Contract")}</Button>
+                            <Link href={`/Contract/${this.state.contractId}/Renew`}>
+                              <Button>{t("ReNew Contract")}</Button>
+                            </Link>
                             <Box
                               className="image"
                               onClick={() => {
@@ -147,20 +141,8 @@ class ContractDetail extends ContractDetailController {
                 {t("? Once terminated you won't be able to retrieve.")}
               </Typography>
               <DialogActions className="dialog-button-group">
-                <Button
-                  onClick={() => {
-                    this.handleTerminateContractModal();
-                  }}
-                >
-                  {t("Yes, Terminate")}
-                </Button>
-                <Button
-                  onClick={() => {
-                    this.handleTerminateContractModal();
-                  }}
-                >
-                  {t("No, Don't Terminate")}
-                </Button>
+                <Button onClick={() => this.handleTerminateContractModal()}>{t("Yes, Terminate")}</Button>
+                <Button onClick={() => this.handleTerminateContractModal()}>{t("No, Don't Terminate")}</Button>
               </DialogActions>
             </Box>
           </DialogContent>

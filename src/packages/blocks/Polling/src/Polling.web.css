@@ -448,6 +448,16 @@
   color: #0582d7;
   font-weight: bold;
 }
+
+.removeOptions {
+  margin-top: 20px;
+}
+
+.removeOptions .MuiButton-label {
+  color: #e8064a;
+  font-weight: bold;
+}
+
 .Previewbtn .MuiButton-label {
   color: white;
   font-weight: bold;

@@ -55,6 +55,12 @@ class ContractsList extends ContractsListController {
     this.getContractsList();
   }
 
+  async componentDidUpdate(prevProps: any, prevState: any): Promise<void> {
+    if (prevState.filter.sort !== this.state.filter.sort || prevState.filter.status !== this.state.filter.status) {
+      await this.getContractsList();
+    }
+  }
+
   render() {
     const { classes } = this.props;
     const { t }: any = this.props;
@@ -88,8 +94,20 @@ class ContractsList extends ContractsListController {
                         </IconButton>
                       }
                     >
-                      <MenuItem>{t("Ascending")}</MenuItem>
-                      <MenuItem>{t("Descending")}</MenuItem>
+                      <MenuItem
+                        onClick={() => {
+                          this.setState({ filter: { ...this.state.filter, sort: "asc" } });
+                        }}
+                      >
+                        {t("Ascending")}
+                      </MenuItem>
+                      <MenuItem
+                        onClick={() => {
+                          this.setState({ filter: { ...this.state.filter, sort: "desc" } });
+                        }}
+                      >
+                        {t("Descending")}
+                      </MenuItem>
                     </Menu>
                     <Menu
                       menuButton={
@@ -98,38 +116,46 @@ class ContractsList extends ContractsListController {
                         </IconButton>
                       }
                     >
-                      <MenuItem>{t("Active")}</MenuItem>
-                      <MenuItem>{t("Terminated")}</MenuItem>
-                      <MenuItem>{t("Pending")}</MenuItem>
-                      <MenuItem>{t("Closed")}</MenuItem>
+                      <MenuItem
+                        onClick={() => {
+                          this.setState({ filter: { ...this.state.filter, status: "active" } });
+                        }}
+                      >
+                        {t("Active")}
+                      </MenuItem>
+                      <MenuItem
+                        onClick={() => {
+                          this.setState({ filter: { ...this.state.filter, status: "terminated" } });
+                        }}
+                      >
+                        {t("Terminated")}
+                      </MenuItem>
+                      <MenuItem
+                        onClick={() => {
+                          this.setState({ filter: { ...this.state.filter, status: "pending" } });
+                        }}
+                      >
+                        {t("Pending")}
+                      </MenuItem>
+                      <MenuItem
+                        onClick={() => {
+                          this.setState({ filter: { ...this.state.filter, status: "closedF" } });
+                        }}
+                      >
+                        {t("Closed")}
+                      </MenuItem>
                     </Menu>
                   </div>
                 </Box>
                 <Container>
                   <Box className="select">
                     <Tab
-                      onClick={() => {
-                        this.setState(
-                          {
-                            ...this.state,
-                            isContractOpen: true,
-                          },
-                          () => {}
-                        );
-                      }}
+                      onClick={() => this.setState({ isContractOpen: true })}
                       label={t("My Contracts")}
                       className={this.state.isContractOpen ? "active" : ""}
                     />
                     <Tab
-                      onClick={() => {
-                        this.setState(
-                          {
-                            ...this.state,
-                            isContractOpen: false,
-                          },
-                          () => {}
-                        );
-                      }}
+                      onClick={() => this.setState({ isContractOpen: false })}
                       label={t("Saved Templates")}
                       className={!this.state.isContractOpen ? "active" : ""}
                     />
@@ -256,17 +282,17 @@ class ContractsList extends ContractsListController {
                               </Grid>
                             )}
                             {this.state.templatesList.map((template: any) => {
-                              console.log(template);
-
                               return (
                                 <Grid item xs={6} key={template.id}>
                                   <Card className="template">
-                                    <div className="content">
-                                      <div className="image">
-                                        <img src={TemplateIcon} alt="" />
+                                    <Link href={`Template/${template.id}`}>
+                                      <div className="content">
+                                        <div className="image">
+                                          <img src={TemplateIcon} alt="" />
+                                        </div>
+                                        <h4>{template.attributes.template_name}</h4>
                                       </div>
-                                      <h4>{template.attributes.title}</h4>
-                                    </div>
+                                    </Link>
                                     <div className="right-menu">
                                       <Menu
                                         menuButton={

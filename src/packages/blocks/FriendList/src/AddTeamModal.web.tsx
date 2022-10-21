@@ -26,10 +26,10 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 // Icons
 
-import MyTeamController, {
+import AddTeamModalController, {
   Props,
   configJSON,
-} from "./MyTeamController";
+} from "./AddTeamModalController";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import "../../../web/src/assets/css/style.scss";
@@ -41,7 +41,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import {withStyles} from "@material-ui/core/styles";
 import {Field, Form, Formik} from "formik";
-class Polling extends MyTeamController {
+
+class AddTeamModal extends AddTeamModalController {
   constructor(props: Props) {
     super(props);
   }
@@ -55,7 +56,7 @@ class Polling extends MyTeamController {
                 <Typography variant="h5" style={{fontWeight:"bold"}}>
                     Create New Member
                 </Typography>
-                <IconButton onClick={this.handleClose}>
+                <IconButton onClick={this.handleModalClose}>
                     <img src={cancle}
                         //@ts-ignore
                          style={dashBoard.modalCacle}/>
@@ -63,25 +64,7 @@ class Polling extends MyTeamController {
 
             </Box>
             <Divider/>
-            <Formik
-                initialValues={{
-                    email: "",
-                    usertype: "",
-                    fullname: "",
-                    phoneno: "",
-                    building: " ",
-                    unit:""
-                }}
-                validationSchema={this.AddTeamSchema()}
-                validateOnMount={true}
-                onSubmit={(values) => {
-                    console.log("valus=========>", values)
-                    // same shape as initial values
-                    this.addTeamData(values);
-                }}
-            >
-                {({ values, touched, errors, isValid, setFieldValue }) => (
-                    <Form translate={true} className="commonForm ">
+                    <form className="commonForm ">
                         <Grid container spacing={3}>
                             <Grid item xs={12} sm={6}>
                                 <Box className="formGroup customSelect">
@@ -98,19 +81,24 @@ class Polling extends MyTeamController {
                                             style={{ paddingLeft: '45px' }}
                                             // label="Select User Type"
                                             onChange={(e) => {
-                                                (e.target.value != " ") && setFieldValue("usertype", e.target.value)
+                                                this.selectUser(e.target.value)
                                             }}
-                                            value={values.usertype}
+                                            value={this.state.userId}
                                         >
                                             <MenuItem  disabled value=" ">
                                                 Select User
                                             </MenuItem>
-                                            <MenuItem value={"user1"}>User1</MenuItem>
-                                            <MenuItem value={"user2"}>User2</MenuItem>
-                                            <MenuItem value={"user3"}>User3</MenuItem>
-                                            <MenuItem value={"user4"}>User4</MenuItem>
+                                            {
+                                                this.state.userList.length > 0 &&
+                                                    this.state.userList.map((item:any,key:any)=> {
+                                                        return(
+                                                            <MenuItem value={item.id} key={key}>{item.attributes.full_name}</MenuItem>
+                                                        )
+                                                    })
+                                            }
                                         </Select>
                                     </FormControl>
+                                    <Typography variant="subtitle2" style={{color:"red"}}>{this.state.userError}</Typography>
                                 </Box>
                             </Grid>
                             <Grid item xs={12} sm={6}>
@@ -128,19 +116,24 @@ class Polling extends MyTeamController {
                                             style={{ paddingLeft: '45px' }}
                                             // label="Select User Type"
                                             onChange={(e) => {
-                                                (e.target.value != " ") && setFieldValue("usertype", e.target.value)
+                                               this.setState({roleId:e.target.value,roleError:""})
                                             }}
-                                            value={values.usertype}
+                                            value={this.state.roleId}
                                         >
                                             <MenuItem  disabled value=" ">
                                                 Select Role
                                             </MenuItem>
-                                            <MenuItem value={"user1"}>Role 1</MenuItem>
-                                            <MenuItem value={"user2"}>Role 2</MenuItem>
-                                            <MenuItem value={"user3"}>Role 3</MenuItem>
-                                            <MenuItem value={"user4"}>Role 4</MenuItem>
+                                            {
+                                                this.state.roleList.length > 0 &&
+                                                    this.state.roleList.map((item:any,key:any)=> {
+                                                        return(
+                                                            <MenuItem key={key} value={item.id}>{item.name}</MenuItem>
+                                                        )
+                                                    })
+                                            }
                                         </Select>
                                     </FormControl>
+                                    <Typography variant="subtitle2" style={{color:"red"}}>{this.state.roleError}</Typography>
                                 </Box>
                             </Grid>
                         </Grid>
@@ -148,7 +141,7 @@ class Polling extends MyTeamController {
                             <Grid item xs={12} sm={6}>
                                 <Box className="formGroup">
                                     <FormLabel component="legend" style={dashBoard.labelsStyle}>{t("Email Address")}</FormLabel>
-                                    <Field name="email" type="text" placeholder={t("Email Address")} style={dashBoard.inviteInput} />
+                                    <input value={this.state.selectedUser.email} disabled name="email" type="text" placeholder={t("Email Address")} style={dashBoard.inviteInput} />
                                     <span
                                         //@ts-ignore
                                         style={dashBoard.formLeftIcn}>
@@ -159,7 +152,7 @@ class Polling extends MyTeamController {
                             <Grid item xs={12} sm={6}>
                                 <Box className="formGroup">
                                     <FormLabel component="legend" style={dashBoard.labelsStyle}>{t("Phone Number")}</FormLabel>
-                                    <Field name="phoneno" type="text" placeholder={t("Phone Number")} style={dashBoard.inviteInput} />
+                                    <input value={this.state.selectedUser.phone} disabled name="phoneno" type="text" placeholder={t("Phone Number")} style={dashBoard.inviteInput} />
                                     <span
                                         //@ts-ignore
                                         style={dashBoard.formLeftIcn}>
@@ -182,19 +175,16 @@ class Polling extends MyTeamController {
                                             labelId="demo-simple-select-outlined-label"
                                             id="demo-simple-select-outlined"
                                             style={{ paddingLeft: '45px' }}
+                                            value={this.state.selectedUser.buildingId ? this.state.selectedUser.buildingId :"default"}
+                                            readOnly
                                             // label="Select User Type"
-                                            onChange={(e) => {
-                                                (e.target.value != " ") && setFieldValue("building", e.target.value)
-                                            }}
-                                            value={values.building}
                                         >
-                                            <MenuItem  disabled value=" ">
+                                            <MenuItem  disabled value="default">
                                                 {t("Select Building")}
                                             </MenuItem>
-                                            <MenuItem value={"building1"}>Building 1</MenuItem>
-                                            <MenuItem value={"building2"}>Building 2</MenuItem>
-                                            <MenuItem value={"building3"}>Building 3</MenuItem>
-                                            <MenuItem value={"building4"}>Building 4</MenuItem>
+                                            <MenuItem  disabled value={this.state.selectedUser.buildingId}>
+                                                {this.state.selectedUser.buildingName}
+                                            </MenuItem>
                                         </Select>
                                     </FormControl>
                                 </Box>
@@ -211,21 +201,16 @@ class Polling extends MyTeamController {
                                             name="unit"
                                             labelId="demo-simple-select-outlined-label"
                                             id="demo-simple-select-outlined"
+                                            readOnly
                                             style={{ paddingLeft: '45px' }}
-                                            // label="Select User Type"
-                                            onChange={(e) => {
-                                                (e.target.value != " ") && setFieldValue("unit", e.target.value)
-                                            }}
-                                            value={values.unit}
+                                            value={this.state.selectedUser.unitId ? this.state.selectedUser.unitId :"default"}
                                         >
-                                            <MenuItem  disabled value=" ">
+                                            <MenuItem  disabled value="default">
                                                 {t("Select Unit")}
                                             </MenuItem>
-                                            <MenuItem value={"unit1"}>Unit 1</MenuItem>
-                                            <MenuItem value={"unit2"}>Unit 2</MenuItem>
-                                            <MenuItem value={"unit3"}>Unit 3</MenuItem>
-                                            <MenuItem value={"unit4"}>Unit 4</MenuItem>
-
+                                            <MenuItem  disabled value={this.state.selectedUser.unitId}>
+                                                {this.state.selectedUser.unitName}
+                                            </MenuItem>
                                             {/* {
                                         this.state?.userTypeData?.map((val, index) => (
                                           <MenuItem
@@ -243,19 +228,17 @@ class Polling extends MyTeamController {
                             </Grid>
                         </Grid>
                         <Box style={{display:"flex",justifyContent:'flex-end'}}>
-                            <DeclineButton size="large" style={{marginRight:"15px",width:"160px"}}>Cancel</DeclineButton>
-                            <AcceptButton size="large" style={{width:"160px"}}>Create</AcceptButton>
+                            <DeclineButton size="large" style={{marginRight:"15px",width:"160px"}} onClick={this.handleModalClose}>Cancel</DeclineButton>
+                            <AcceptButton size="large" style={{width:"160px"}} onClick={this.handleSubmit}>Create</AcceptButton>
                         </Box>
-                    </Form>
-                )}
-            </Formik>
+                    </form>
         </div>
       );
   }
 }
 
 //@ts-ignore
-export default withTranslation()(withStyles(dashBoard)(withRouter(Polling)));
+export default withTranslation()(withStyles(dashBoard)(withRouter(AddTeamModal)));
 
 const dashBoard = {
     navigation: {

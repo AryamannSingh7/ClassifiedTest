@@ -27,6 +27,11 @@ interface S {
 
   templatesList: any[];
   contractsList: any[];
+
+  filter: {
+    sort: string;
+    status: string;
+  };
   // Customizable Area End
 }
 
@@ -53,6 +58,11 @@ export default class ContractsListController extends BlockComponent<Props, S, SS
 
       templatesList: [],
       contractsList: [],
+
+      filter: {
+        status: "",
+        sort: "desc",
+      },
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -111,6 +121,7 @@ export default class ContractsListController extends BlockComponent<Props, S, SS
   // Customizable Area Start
   // Get All Contract List - API
   getContractsList = () => {
+    const { status, sort } = this.state.filter;
     const header = {
       "Content-Type": configJSON.ApiContentType,
       token: localStorage.getItem("userToken"),
@@ -123,7 +134,7 @@ export default class ContractsListController extends BlockComponent<Props, S, SS
     const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_contract/contracts`
+      `society_managements/${society_id}/bx_block_contract/contracts?status=${status}&sort=${sort}`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));

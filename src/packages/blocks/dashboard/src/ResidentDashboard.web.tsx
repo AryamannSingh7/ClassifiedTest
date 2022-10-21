@@ -38,7 +38,7 @@ const MenuList = [
   },
   {
     name: "Fees & Payments",
-    url: "",
+    url: "/FeesAndPayment",
     img: "",
   },
   {
@@ -273,7 +273,7 @@ class ResidentDashboard extends DashboardController {
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
-                    <Link href="">
+                    <Link href="/FeesAndPayment">
                       <DashboardCard image={keyhand} heading={t("Fees & Payment")} title={t("Last Paid")} value="75" />
                     </Link>
                   </Grid>

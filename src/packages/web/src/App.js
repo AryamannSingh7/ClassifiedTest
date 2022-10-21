@@ -163,6 +163,12 @@ import ClassifiedEditSuccessfully from '../../blocks/ContentManagement/src/Class
 import NeighboursDetails from '../../blocks/search/src/NeighboursDetails.web';
 import NeighboursListing from '../../blocks/search/src/NeighboursListing.web';
 
+import FacilityReservationListing from '../../blocks/RequestManagement/src/FacilityReservationListing.web';
+import FacilityReservationDetails from '../../blocks/RequestManagement/src/FacilityReservationDetails.web';
+import FacilityReservation from '../../blocks/RequestManagement/src/FacilityReservation.web';
+import FacilityReservationReportedSuccessfully from '../../blocks/RequestManagement/src/FacilityReservationReportedSuccessfully.web';
+import CreateFacilityReservation from '../../blocks/RequestManagement/src/CreateFacilityReservation.web';
+
 // Help
 import FaqChairman from '../../blocks/contactus/src/FaqChairman.web';
 import FaqOwner from '../../blocks/contactus/src/FaqOwner.web';
@@ -192,6 +198,7 @@ import LeaseForm from '../../blocks/RolesPermissions2/src/LeaseForm.web';
 import ChangedSelectedTemplate from '../../blocks/RolesPermissions2/src/ChangedSelectedTemplate.web';
 import ReviewTemplate from '../../blocks/RolesPermissions2/src/ReviewTemplate.web';
 import AddCondition from '../../blocks/RolesPermissions2/src/AddCondition.web';
+import RenewContract from '../../blocks/RolesPermissions2/src/RenewContract.web';
 
 // Meetings
 import ChairmanScheduledMeeting from '../../blocks/BulkUploading/src/ScheduledMeeting.web';
@@ -274,6 +281,10 @@ import ChairmanNominationDetails from '../../blocks/FriendList/src/ChairmanNomin
 import NominateMySelf from '../../blocks/FriendList/src/NominateMySelf.web';
 import MyNomination from '../../blocks/FriendList/src/MyNomination.web';
 import TaskManagement from '../../blocks/FriendList/src/TaskManagement.web';
+
+// Fees & Payment Imports
+import FeesAndPayment from '../../blocks/CollectTransactionFees/src/FeesAndPayments.web';
+import ViewMyInvoices from '../../blocks/CollectTransactionFees/src/ViewMyInvoices.web';
 
 // Reports
 import ReportDashboard from '../../blocks/ExpenseTracking/src/ReportDashboard.web';
@@ -566,6 +577,31 @@ const routeMap = {
     path: '/ClassifiedEditSuccessfully',
     exact: true
   },
+  FacilityReservationListing: {
+    component: FacilityReservationListing,
+    path: '/FacilityReservationListing',
+    exact: true
+  },
+  FacilityReservationDetails: {
+    component: FacilityReservationDetails,
+    path: '/FacilityReservationDetails',
+    exact: true
+  },
+  FacilityReservation: {
+    component: FacilityReservation,
+    path: '/FacilityReservation',
+    exact: true
+  },
+  CreateFacilityReservation: {
+    component: CreateFacilityReservation,
+    path: '/CreateFacilityReservation',
+    exact: true
+  },
+  FacilityReservationReportedSuccessfully: {
+    component: FacilityReservationReportedSuccessfully,
+    path: '/FacilityReservationReportedSuccessfully',
+    exact: true
+  },
   // RolesPermissions2: {
   //   component: RolesPermissions2,
   //   path: '/RolesPermissions2'
@@ -788,6 +824,11 @@ const routeMap = {
     path: '/Contract/:id',
     exact: true
   },
+  RenewContract: {
+    component: RenewContract,
+    path: '/Contract/:id/Renew',
+    exact: true
+  },
   TemplateDetail: {
     component: TemplateDetail,
     path: '/Template/:id',
@@ -803,22 +844,17 @@ const routeMap = {
     path: '/IssueLease',
     exact: true
   },
-  SelectedTemplate: {
-    component: SelectedTemplate,
-    path: '/IssueLease/:templateId',
-    exact: true
-  },
+  // SelectedTemplate: {
+  //   component: SelectedTemplate,
+  //   path: '/IssueLease/:templateId',
+  //   exact: true
+  // },
   SelectedTemplateTwo: {
     component: SelectedTemplate,
     path: '/IssueContract/:templateId',
     exact: true
   },
   LeaseFormIssueLease: {
-    component: LeaseForm,
-    path: '/IssueLease/:templateId/LeaseForm',
-    exact: true
-  },
-  LeaseFormIssueContract: {
     component: LeaseForm,
     path: '/IssueContract/:templateId/LeaseForm',
     exact: true
@@ -1593,6 +1629,20 @@ const routeMap = {
   TaskManagement: {
     component: TaskManagement,
     path: '/TaskManagement',
+    exact: true
+  },
+
+  // Fees & Payment
+
+  FeesAndPayment: {
+    component: FeesAndPayment,
+    path: '/FeesAndPayment',
+    exact: true
+  },
+
+  ViewMyInvoices: {
+    component: ViewMyInvoices,
+    path: '/MyInvoices',
     exact: true
   },
 

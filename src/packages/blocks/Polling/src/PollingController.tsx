@@ -396,6 +396,18 @@ export default class PollingController extends BlockComponent<
     //==============================================
 
 
+  deleteOption = (mainKey:any) => {
+
+    let updatedArray = this.state.options
+    if (mainKey > -1) {
+      updatedArray.splice(mainKey, 1)
+    }
+    console.log("UpdatedArray",updatedArray)
+    this.setState({
+      options:updatedArray
+    })
+  }
+
   handlePollSurveyNavigation (isTaken:any,type:any,id:any) {
     if(isTaken && type === "poll"){
       // @ts-ignore

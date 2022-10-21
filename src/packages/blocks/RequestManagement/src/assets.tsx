@@ -27,3 +27,11 @@ export const GreyCalenderIcon = require("../assets/grey-calender.png");
 export const PdfIcon = require("../assets/pdf.png");
 export const DownloadIcon = require("../assets/download.png");
 export const UploadIcon = require("../assets/upload.png");
+
+//FacilityReservation
+export const Building1 = require("../assets/building1.png");
+export const Tenant_Logo = require("../assets/TenantLogo.png");
+export const Grid_Icon = require("../assets/grid-icon.png");
+export const Filter_Icon = require("../assets/filter-icon.png");
+export const Building_Logo = require("../assets/BuildingLogo.png");
+export const Tick_Circle_Icon = require("../assets/tick-circle-icon.png");
