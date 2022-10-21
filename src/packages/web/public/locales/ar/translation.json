@@ -778,5 +778,10 @@
   "Previous payments": "المدفوعات السابقة",
   "View Budget Spending": "عرض الإنفاق في الميزانية",
   "Landlord": "المالك",
-  "Edit Template": "تحرير القالب"
+  "Edit Template": "تحرير القالب",
+  "Generate a Lease": "إنشاء عقد إيجار",
+  "Yes, Delete": "نعم ، احذف",
+  "Once deleted you won't be able to retrieve.": ".بمجرد الحذف لن تتمكن من الاسترداد",
+  "Are you sure want to delete lease template?": "?هل أنت متأكد من أنك تريد حذف قالب الإيجار",
+  "Delete Template": "حذف القالب"
 }

@@ -778,5 +778,10 @@
   "Previous payments": "Previous payments",
   "View Budget Spending": "View Budget Spending",
   "Landlord": "Landlord",
-  "Edit Template": "Edit Template"
+  "Edit Template": "Edit Template",
+  "Generate a Lease": "Generate a Lease",
+  "Yes, Delete": "Yes, Delete",
+  "Once deleted you won't be able to retrieve.": "Once deleted you won't be able to retrieve.",
+  "Are you sure want to delete lease template?": "Are you sure want to delete lease template?",
+  "Delete Template": "Delete Template"
 }

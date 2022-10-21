@@ -181,7 +181,7 @@ class ReviewTemplate extends LeaseFormController {
                   <Button
                     disabled={!this.state.templateName}
                     className="add-button"
-                    onClick={() => this.handleSaveLeaseModal()}
+                    onClick={() => this.handleCreateTemplate()}
                   >
                     {t("Save")}
                   </Button>

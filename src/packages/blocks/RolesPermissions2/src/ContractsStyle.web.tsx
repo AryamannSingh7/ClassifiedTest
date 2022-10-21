@@ -244,7 +244,7 @@ export const ContractsStyleWeb: any = {
       fontWeight: "600",
       border: "2px solid #2b6fec",
       color: "#2b6fec",
-      padding: "12px 50px",
+      padding: "12px 25px",
       borderRadius: "25px",
     },
     "& .upload-button .bottom button": {

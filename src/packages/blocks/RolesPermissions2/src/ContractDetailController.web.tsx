@@ -4,6 +4,7 @@ import { BlockComponent } from "../../../framework/src/BlockComponent";
 import MessageEnum, { getName } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
 import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
+import moment from "moment";
 
 // Customizable Area Start
 // Customizable Area End
@@ -85,18 +86,27 @@ export default class ContractDetailController extends BlockComponent<Props, S, S
 
       if (responseJson.code === 200) {
         const contract = responseJson.contract.data;
-        this.setState({
-          contractData: {
-            templateText: contract.attributes.custom_contract
-              ? contract.attributes.custom_contract_image.url
-              : contract.attributes.template_text,
-            templateUrl: contract.attributes.custom_contract
-              ? contract.attributes.custom_contract_image.url
-              : contract.attributes.template_pdf.url,
-            isCustomContract: contract.attributes.custom_contract,
-            tenantName: contract.attributes.tenant.full_name,
+        this.setState(
+          {
+            contractData: {
+              ...this.state.contractData,
+              templateUrl: contract.attributes.custom_contract
+                ? contract.attributes.custom_contract_image.url
+                : contract.attributes.template_pdf.url,
+              isCustomContract: contract.attributes.custom_contract,
+              tenantName: contract.attributes.tenant.full_name,
+            },
           },
-        });
+          () => {
+            let text: string = "";
+            if (contract.attributes.custom_contract) {
+              text = contract.attributes.custom_contract_image.url;
+            } else {
+              text = contract.attributes.contract_template;
+            }
+            this.setState({ contractData: { ...this.state.contractData, templateText: text } });
+          }
+        );
       }
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));

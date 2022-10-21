@@ -108,28 +108,12 @@ class ContractsList extends ContractsListController {
                 <Container>
                   <Box className="select">
                     <Tab
-                      onClick={() => {
-                        this.setState(
-                          {
-                            ...this.state,
-                            isContractOpen: true,
-                          },
-                          () => {}
-                        );
-                      }}
+                      onClick={() => this.setState({ isContractOpen: true })}
                       label={t("My Contracts")}
                       className={this.state.isContractOpen ? "active" : ""}
                     />
                     <Tab
-                      onClick={() => {
-                        this.setState(
-                          {
-                            ...this.state,
-                            isContractOpen: false,
-                          },
-                          () => {}
-                        );
-                      }}
+                      onClick={() => this.setState({ isContractOpen: false })}
                       label={t("Saved Templates")}
                       className={!this.state.isContractOpen ? "active" : ""}
                     />
@@ -256,17 +240,17 @@ class ContractsList extends ContractsListController {
                               </Grid>
                             )}
                             {this.state.templatesList.map((template: any) => {
-                              console.log(template);
-
                               return (
                                 <Grid item xs={6} key={template.id}>
                                   <Card className="template">
-                                    <div className="content">
-                                      <div className="image">
-                                        <img src={TemplateIcon} alt="" />
+                                    <Link href={`Template/${template.id}`}>
+                                      <div className="content">
+                                        <div className="image">
+                                          <img src={TemplateIcon} alt="" />
+                                        </div>
+                                        <h4>{template.attributes.template_name}</h4>
                                       </div>
-                                      <h4>{template.attributes.title}</h4>
-                                    </div>
+                                    </Link>
                                     <div className="right-menu">
                                       <Menu
                                         menuButton={
