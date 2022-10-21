@@ -169,7 +169,6 @@ import FacilityReservation from '../../blocks/RequestManagement/src/FacilityRese
 import FacilityReservationReportedSuccessfully from '../../blocks/RequestManagement/src/FacilityReservationReportedSuccessfully.web';
 import CreateFacilityReservation from '../../blocks/RequestManagement/src/CreateFacilityReservation.web';
 
-
 // Help
 import FaqChairman from '../../blocks/contactus/src/FaqChairman.web';
 import FaqOwner from '../../blocks/contactus/src/FaqOwner.web';
@@ -199,6 +198,7 @@ import LeaseForm from '../../blocks/RolesPermissions2/src/LeaseForm.web';
 import ChangedSelectedTemplate from '../../blocks/RolesPermissions2/src/ChangedSelectedTemplate.web';
 import ReviewTemplate from '../../blocks/RolesPermissions2/src/ReviewTemplate.web';
 import AddCondition from '../../blocks/RolesPermissions2/src/AddCondition.web';
+import RenewContract from '../../blocks/RolesPermissions2/src/RenewContract.web';
 
 // Meetings
 import ChairmanScheduledMeeting from '../../blocks/BulkUploading/src/ScheduledMeeting.web';
@@ -283,8 +283,8 @@ import MyNomination from '../../blocks/FriendList/src/MyNomination.web';
 import TaskManagement from '../../blocks/FriendList/src/TaskManagement.web';
 
 // Fees & Payment Imports
-import FeesAndPayment from "../../blocks/CollectTransactionFees/src/FeesAndPayments.web"
-import ViewMyInvoices from "../../blocks/CollectTransactionFees/src/ViewMyInvoices.web"
+import FeesAndPayment from '../../blocks/CollectTransactionFees/src/FeesAndPayments.web';
+import ViewMyInvoices from '../../blocks/CollectTransactionFees/src/ViewMyInvoices.web';
 
 // Reports
 import ReportDashboard from '../../blocks/ExpenseTracking/src/ReportDashboard.web';
@@ -822,6 +822,11 @@ const routeMap = {
   ContractDetail: {
     component: ContractDetail,
     path: '/Contract/:id',
+    exact: true
+  },
+  RenewContract: {
+    component: RenewContract,
+    path: '/Contract/:id/Renew',
     exact: true
   },
   TemplateDetail: {
@@ -1627,7 +1632,7 @@ const routeMap = {
     exact: true
   },
 
-  // Fees & Payment 
+  // Fees & Payment
 
   FeesAndPayment: {
     component: FeesAndPayment,

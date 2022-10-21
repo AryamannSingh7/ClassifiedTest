@@ -783,5 +783,8 @@
   "Yes, Delete": "Yes, Delete",
   "Once deleted you won't be able to retrieve.": "Once deleted you won't be able to retrieve.",
   "Are you sure want to delete lease template?": "Are you sure want to delete lease template?",
-  "Delete Template": "Delete Template"
+  "Delete Template": "Delete Template",
+  "Renew Contract": "Renew Contract",
+  "Yes, Renew": "Yes, Renew",
+  "No, Don't Renew": "No, Don't Renew"
 }

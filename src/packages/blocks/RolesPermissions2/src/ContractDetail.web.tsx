@@ -97,7 +97,9 @@ class ContractDetail extends ContractDetailController {
                             <Button>{t("Close")}</Button>
                           </Box>
                           <Box className="bottom">
-                            <Button>{t("ReNew Contract")}</Button>
+                            <Link href={`/Contract/${this.state.contractId}/Renew`}>
+                              <Button>{t("ReNew Contract")}</Button>
+                            </Link>
                             <Box
                               className="image"
                               onClick={() => {

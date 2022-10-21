@@ -4,6 +4,7 @@ import { BlockComponent } from "../../../framework/src/BlockComponent";
 import MessageEnum, { getName } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
 import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
+import moment from "moment";
 
 // Customizable Area Start
 // Customizable Area End
@@ -20,18 +21,13 @@ export interface Props {
 
 interface S {
   // Customizable Area Start
-  isContractOpen: boolean;
-  isShareModalOpen: boolean;
+  isRenewContractModalOpen: boolean;
 
-  shareUrl: string;
+  contractId: string;
 
-  templatesList: any[];
-  contractsList: any[];
+  currencyList: any;
 
-  filter: {
-    sort: string;
-    status: string;
-  };
+  contractData: ContractData;
   // Customizable Area End
 }
 
@@ -39,9 +35,16 @@ interface SS {
   id: any;
 }
 
-export default class ContractsListController extends BlockComponent<Props, S, SS> {
-  GetTemplatesListCallId: any;
-  GetContractsListCallId: any;
+interface ContractData {
+  tenantName: string;
+  complexName: string;
+  buildingName: string;
+  unitName: string;
+}
+
+export default class RenewContractController extends BlockComponent<Props, S, SS> {
+  GetContractsDetailsCallId: any;
+  GetCurrencyListCallId: any;
 
   constructor(props: Props) {
     super(props);
@@ -51,17 +54,17 @@ export default class ContractsListController extends BlockComponent<Props, S, SS
     this.subScribedMessages = [getName(MessageEnum.RestAPIResponceMessage), getName(MessageEnum.RestAPIRequestMessage)];
 
     this.state = {
-      isContractOpen: true,
-      isShareModalOpen: false,
+      isRenewContractModalOpen: false,
 
-      shareUrl: "",
+      contractId: "",
 
-      templatesList: [],
-      contractsList: [],
+      currencyList: [],
 
-      filter: {
-        status: "",
-        sort: "desc",
+      contractData: {
+        tenantName: "",
+        complexName: "",
+        buildingName: "",
+        unitName: "",
       },
     };
     // Customizable Area End
@@ -70,18 +73,27 @@ export default class ContractsListController extends BlockComponent<Props, S, SS
 
   async receive(from: string, message: Message) {
     // Customizable Area Start
-    // Get All Contract List - API
+    // Get Contract Detail - API
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetContractsListCallId !== null &&
-      this.GetContractsListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+      this.GetContractsDetailsCallId !== null &&
+      this.GetContractsDetailsCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
-      this.GetContractsListCallId = null;
+      this.GetContractsDetailsCallId = null;
 
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      if (responseJson.contract) {
-        this.setState({ contractsList: responseJson.contract.data });
+      if (responseJson.code === 200) {
+        const contract = responseJson.contract.data;
+
+        this.setState({
+          contractData: {
+            tenantName: contract.attributes.tenant_name,
+            complexName: "",
+            buildingName: contract.attributes.building_name,
+            unitName: contract.attributes.unit_name,
+          },
+        });
       }
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
@@ -93,18 +105,17 @@ export default class ContractsListController extends BlockComponent<Props, S, SS
       ApiCatchErrorResponse(errorResponse);
     }
 
-    // Get All Template List - API
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetTemplatesListCallId !== null &&
-      this.GetTemplatesListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+      this.GetCurrencyListCallId !== null &&
+      this.GetCurrencyListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
-      this.GetTemplatesListCallId = null;
+      this.GetCurrencyListCallId = null;
 
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson.data) {
-        this.setState({ templatesList: responseJson.data });
+        this.setState({ currencyList: responseJson.data });
       }
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
@@ -119,9 +130,16 @@ export default class ContractsListController extends BlockComponent<Props, S, SS
   }
 
   // Customizable Area Start
-  // Get All Contract List - API
-  getContractsList = () => {
-    const { status, sort } = this.state.filter;
+  async componentDidMount(): Promise<void> {
+    const contract_id = this.props.navigation.getParam("id");
+    this.setState({ contractId: contract_id }, () => {
+      this.getContractDetails();
+      this.getCurrencyList();
+    });
+  }
+
+  // Get Contract Details - API
+  getContractDetails = () => {
     const header = {
       "Content-Type": configJSON.ApiContentType,
       token: localStorage.getItem("userToken"),
@@ -129,12 +147,12 @@ export default class ContractsListController extends BlockComponent<Props, S, SS
 
     const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
 
-    this.GetContractsListCallId = apiRequest.messageId;
+    this.GetContractsDetailsCallId = apiRequest.messageId;
 
     const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_contract/contracts?status=${status}&sort=${sort}`
+      `society_managements/${society_id}/bx_block_contract/contracts/${this.state.contractId}`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
@@ -145,8 +163,8 @@ export default class ContractsListController extends BlockComponent<Props, S, SS
     return true;
   };
 
-  // Get All Template List - API
-  getTemplatesList = () => {
+  // Get Currency List - API
+  getCurrencyList = () => {
     const header = {
       "Content-Type": configJSON.ApiContentType,
       token: localStorage.getItem("userToken"),
@@ -154,13 +172,10 @@ export default class ContractsListController extends BlockComponent<Props, S, SS
 
     const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
 
-    this.GetTemplatesListCallId = apiRequest.messageId;
+    this.GetCurrencyListCallId = apiRequest.messageId;
 
-    const society_id = localStorage.getItem("society_id");
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_contract/saved_lease_templates`
-    );
+    // const society_id = localStorage.getItem("society_id");
+    apiRequest.addData(getName(MessageEnum.RestAPIResponceEndPointMessage), `bx_block_posts/classifieds/currency_list`);
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
@@ -171,11 +186,8 @@ export default class ContractsListController extends BlockComponent<Props, S, SS
   };
 
   // Handle State
-  handleShareModal = () => {
-    this.setState({
-      ...this.state,
-      isShareModalOpen: !this.state.isShareModalOpen,
-    });
+  handleRenewContractModal = () => {
+    this.setState({ isRenewContractModalOpen: !this.state.isRenewContractModalOpen });
   };
   // Customizable Area End
 }
