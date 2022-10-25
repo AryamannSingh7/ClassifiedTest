@@ -43,7 +43,7 @@ class RegisterUnit extends EmailAccountRegistrationController {
 
         <Grid container className="main-content-block">
           <Grid xs={12}>
-            <p className="text-left" style={{ fontSize: '2.5rem', fontWeight: 700 }}>
+            <p className="text-left" style={{ fontSize: '2rem', fontWeight: 700 }}>
               Register a Unit
 
             </p>
@@ -66,7 +66,8 @@ class RegisterUnit extends EmailAccountRegistrationController {
             <Box
               display="flex"
               justifyContent='space-between'
-              className='select-type'
+              
+              className={'select-type ' + (this.state.unitRegisterType == 'Linkage' ? ' active-box' :'')}
 
               alignItems="center"
 
@@ -77,7 +78,7 @@ class RegisterUnit extends EmailAccountRegistrationController {
             >
               <img src={Linkage} />
               <Box className="middle-section">
-                      <label for="radCreateMode" className={"title" + (this.state.unitRegisterType == 'Linkage' ? ' active-type' : '')}>
+                      <label for="radCreateMode" className={"title" + (this.state.unitRegisterType == 'Linkage' ? ' active-type' : '')} style={{padding:'20px 20px 0px 0px'}}>
                   Linkage
                       </label>
                       <br/>
@@ -93,7 +94,7 @@ class RegisterUnit extends EmailAccountRegistrationController {
               display="flex"
               justifyContent='space-between'
               className='select-type'
-
+              className={'select-type ' + (this.state.unitRegisterType == 'Manual' ? ' active-box' :'')}
               alignItems="center"
 
               border="0.1px solid rgb(209 209 209 / 44%)"
@@ -104,7 +105,7 @@ class RegisterUnit extends EmailAccountRegistrationController {
               <img src={manual} />
 
               <Box className="middle-section">
-                      <label for="radCreateMode2" className={"title" + (this.state.unitRegisterType == 'Manual' ? ' active-type' : '')}>
+                      <label for="radCreateMode2" className={"title" + (this.state.unitRegisterType == 'Manual' ? ' active-type' : '')} style={{padding:'20px 20px 0px 0px'}}>
                   Manual
                       </label><br/>
                       <label for="radCreateMode2" className="para">
