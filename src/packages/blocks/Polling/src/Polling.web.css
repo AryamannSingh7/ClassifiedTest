@@ -110,7 +110,7 @@
 .createPSCards .PollNameText {
   font-weight: 600;
   color: black;
-  font-size: 16px;
+  font-size: 20px;
   overflow-wrap: break-word;
 }
 .createPSCards .MuiOutlinedInput-input {
@@ -439,6 +439,7 @@
   /* font-weight: 600; */
   color: grey;
   font-size: 12px;
+  padding-top: 10px;
 }
 
 .createPSCards .addOptions {
@@ -513,6 +514,32 @@
   height: 20%;
 }
 
+/* EDITOR
+ */
+
+.descriptionEditorDetails .notranslate > div {
+  max-height: 10px;
+}
+
+.descriptionEditorDetails .RichTextEditor__root___2QXK- {
+  border-radius: 5px;
+  max-height: 300px;
+  overflow: hidden;
+}
+
+.descriptionEditorDetails .EditorToolbar__root___3_Aqz {
+  border-bottom: none;
+  padding: 15px 0;
+}
+.descriptionEditorDetails .RichTextEditor__editor___1QqIU {
+  background: #f2f2f2;
+}
+.descriptionEditorDetails .public-DraftEditor-content {
+  height: 90%;
+}
+.descriptionEditorDetails .DraftEditor-editorContainer{
+  height:150px
+}
 /* Progress bar for [ "YES" ] */
 
 .progressbarYES {

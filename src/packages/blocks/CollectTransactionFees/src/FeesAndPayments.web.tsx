@@ -113,7 +113,7 @@ class Visitors extends FeesAndPaymentController{
                                 marginTop='.5rem'
                                 padding='1.5rem'
                                 style={{boxShadow:"rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"}}
-                                onClick={()=>this.props.history.push("/MyRecipets")}
+                                onClick={()=>this.props.history.push("/MyReceipts")}
                             >
                                 <Box style={{minWidth:"100%"}}>
                                     <Box style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>

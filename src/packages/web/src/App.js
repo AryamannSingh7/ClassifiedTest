@@ -278,7 +278,15 @@ import TaskManagement from '../../blocks/FriendList/src/TaskManagement.web';
 // Fees & Payment Imports
 import FeesAndPayment from "../../blocks/CollectTransactionFees/src/FeesAndPayments.web"
 import ViewMyInvoices from "../../blocks/CollectTransactionFees/src/ViewMyInvoices.web"
-
+import InvoiceDetails from "../../blocks/CollectTransactionFees/src/InvoiceDetails.web"
+import ViewMyReceipts from "../../blocks/CollectTransactionFees/src/ViewMyReceipts.web"
+import ReceiptDetails from "../../blocks/CollectTransactionFees/src/ReceiptDetails.web"
+import PreviousPayments from "../../blocks/CollectTransactionFees/src/PreviousPayments.web"
+import PaymentDetails from "../../blocks/CollectTransactionFees/src/PaymentDetails.web"
+import BudgetSpending from "../../blocks/CollectTransactionFees/src/BudgetSpending.web"
+import BudgetSpendingDetails from "../../blocks/CollectTransactionFees/src/SpentDetails.web"
+import BuildingBudget from "../../blocks/CollectTransactionFees/src/BuildingBudget.web"
+import MyManagementFee from "../../blocks/CollectTransactionFees/src/ManagementFee.web"
 // Reports
 import ReportDashboard from '../../blocks/ExpenseTracking/src/ReportDashboard.web';
 import BudgetReport from '../../blocks/ExpenseTracking/src/BudgetReport.web';
@@ -1614,6 +1622,58 @@ const routeMap = {
     exact: true
   },
 
+  InvoiceDetails: {
+    component: InvoiceDetails,
+    path: '/Invoice/:id',
+    exact: true
+  },
+
+  ViewMyReceipts: {
+    component: ViewMyReceipts,
+    path: '/MyReceipts',
+    exact: true
+  },
+
+  ReceiptDetails: {
+    component: ReceiptDetails,
+    path: '/Receipt/:id',
+    exact: true
+  },
+
+  PreviousPayments: {
+    component: PreviousPayments,
+    path: '/PreviousPayments',
+    exact: true
+  },
+
+  PaymentDetails: {
+    component: PaymentDetails,
+    path: '/Payment/:id',
+    exact: true
+  },
+
+  BudgetSpending:{
+    component: BudgetSpending,
+    path: '/BudgetSpending',
+    exact: true
+  },
+
+  BudgetSpendingDetails:{
+    component: BudgetSpendingDetails,
+    path: '/Spent/:id',
+    exact: true
+  },
+
+  BuildingBudget:{
+    component: BuildingBudget,
+    path: '/BuildingBudget',
+    exact: true
+  },
+  MyManagementFee:{
+    component: MyManagementFee,
+    path: '/MyManagementFee',
+    exact: true
+  },
   CommunityRequestManagement: {
     component: CommunityRequestManagement,
     path: '/CommunityRequestManagement'
