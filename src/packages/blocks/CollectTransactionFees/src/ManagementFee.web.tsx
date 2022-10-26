@@ -8,15 +8,15 @@ import {shortIcon,filterIcon} from "../../BroadcastMessage/src/assets"
 import { makeStyles,withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router';
 import {Calander} from "./assets"
-import ViewMyInvoicesController, {
+import ManagementFeeController, {
   Props
-} from "./ViewMyInvoicesController";
+} from "./ManagementFeeController";
 import './style.css'
 import Select from '@material-ui/core/Select';
 import {withTranslation} from "react-i18next";
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
-class Visitors extends ViewMyInvoicesController{
+class Visitors extends ManagementFeeController{
   constructor(props: Props) {
     super(props);
   }

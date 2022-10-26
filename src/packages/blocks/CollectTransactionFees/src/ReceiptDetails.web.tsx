@@ -7,14 +7,14 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles,withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router';
 import {Share} from "./assets"
-import FeesAndPaymentController, {
+import ReceiptDetailsController, {
   Props
-} from "./FeesAndPaymentController";
+} from "./ReceiptDetailsController";
 import './style.css'
 import {withTranslation} from "react-i18next";
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
-class ReceiptDetails extends FeesAndPaymentController{
+class ReceiptDetails extends ReceiptDetailsController{
   constructor(props: Props) {
     super(props);
   }
