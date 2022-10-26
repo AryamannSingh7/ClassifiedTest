@@ -103,7 +103,7 @@ class ReviewTemplate extends LeaseFormController {
                             {t("Edit Document")}
                           </Button>
                           {window.sessionStorage.getItem("isEditFlow") === "true" ? (
-                            <Button onClick={() => this.handleEditLeaseModal()}>{t("Edit Template")}</Button>
+                            <Button onClick={() => this.handleSaveLeaseModal()}>{t("Edit Template")}</Button>
                           ) : (
                             <Button onClick={() => this.handleSaveLeaseModal()}>{t("Save Template")}</Button>
                           )}
@@ -155,7 +155,7 @@ class ReviewTemplate extends LeaseFormController {
                   <Button
                     disabled={!this.state.templateName}
                     className="add-button"
-                    onClick={() => this.handleSaveLeaseModal()}
+                    onClick={() => this.handleEditLeaseModal()}
                   >
                     {t("Edit")}
                   </Button>
