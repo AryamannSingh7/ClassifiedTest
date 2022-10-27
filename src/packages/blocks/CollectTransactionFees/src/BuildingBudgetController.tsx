@@ -40,8 +40,7 @@ export default class CoverImageController extends BlockComponent<
   apiEmailLoginCallId: string = "";
   emailReg: RegExp;
   labelTitle: string = "";
-  getNominationListId:string = "";
-
+  getVisitorListId:string = "";
   constructor(props: Props) {
 
     super(props);
@@ -68,8 +67,7 @@ export default class CoverImageController extends BlockComponent<
   }
 
   async componentDidMount() {
-    this.getNominationList()
-    console.log("DID I CALLED ?")
+
   }
 
 
@@ -78,53 +76,13 @@ export default class CoverImageController extends BlockComponent<
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
       var errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if(this.getNominationListId === apiRequestCallId ){
-        console.log("NOMINATION",responseJson,errorReponse)
+      if(this.apiEmailLoginCallId === apiRequestCallId ){
+        console.log(responseJson,errorReponse)
       }
     }
   }
 
-  getNominationList = async () => {
-    const societyID = localStorage.getItem("society_id")
-    this.getNominationListId = await this.apiCall({
-      contentType: "application/json",
-      method: "GET",
-      endPoint: `/bx_block_my_team/chairman_nominations`,
-    });
-  }
-
-  apiCall = async (data: any) => {
-    const { contentType, method, endPoint, body } = data;
-    // console.log("Called 1",data);
-    const token = localStorage.getItem('userToken') ;
-
-    const header = {
-      token
-    };
-    const requestMessage = new Message(
-        getName(MessageEnum.RestAPIRequestMessage)
-    );
-    requestMessage.addData(
-        getName(MessageEnum.RestAPIRequestHeaderMessage),
-        JSON.stringify(header)
-    );
-    requestMessage.addData(
-        getName(MessageEnum.RestAPIResponceEndPointMessage),
-        endPoint
-    );
-    requestMessage.addData(
-        getName(MessageEnum.RestAPIRequestMethodMessage),
-        method
-    );
-    body && requestMessage.addData(
-        getName(MessageEnum.RestAPIRequestBodyMessage),
-        body
-    );
-    runEngine.sendMessage(requestMessage.id, requestMessage);
-    // console.log("Called",requestMessage);
-    return requestMessage.messageId;
-  };
-
+  
   handleClick = (event:any) => {
     this.setState({anchorEl:event.currentTarget })
   };
