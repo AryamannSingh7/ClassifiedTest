@@ -78,6 +78,13 @@ interface S {
   audienceModal:boolean;
   surveyOptions:Array<Object>;
   audienceType:"";
+  cautionWindow:any;
+  dateWindow:boolean,
+  descriptionWindow:boolean,
+  textEditor:any;
+  endDate:any;
+  endDateError:any;
+  descriptionError:any;
   // Customizable Area End
 }
 
@@ -106,6 +113,7 @@ export default class PollingController extends BlockComponent<
   getGenerateReport:string;
   getLivePollsSurveys: string;
   getOldPollsSurveys:string;
+  makeUpdatePollId:string;
   // Customizable Area End
 
   constructor(props: Props) {
@@ -218,6 +226,13 @@ export default class PollingController extends BlockComponent<
       ],
       audienceType:"",
       totalSurveyCount:"",
+      cautionWindow:false,
+      dateWindow:false,
+      descriptionWindow:false,
+      textEditor:"",
+      endDate:"",
+      endDateError:"",
+      descriptionError:"",
       // Customizable Area End
 
     };
@@ -396,6 +411,30 @@ export default class PollingController extends BlockComponent<
     //==============================================
 
 
+  deleteOption = (mainKey:any) => {
+
+    let updatedArray = this.state.options
+    if (mainKey > -1) {
+      updatedArray.splice(mainKey, 1)
+    }
+    console.log("UpdatedArray",updatedArray)
+    this.setState({
+      options:updatedArray
+    })
+  }
+
+  manageEnd = () => {
+    this.setState({
+      cautionWindow:true
+    })
+  }
+
+  closeCautionModal = () => {
+    this.setState({
+      cautionWindow:false
+    })
+  }
+
   handlePollSurveyNavigation (isTaken:any,type:any,id:any) {
     if(isTaken && type === "poll"){
       // @ts-ignore
@@ -496,6 +535,10 @@ export default class PollingController extends BlockComponent<
       }
       this.state.PollData.description = this.state.textEditorVal
     };
+
+  onChangeTextEditorEdit = (value:any) => {
+    this.setState({textEditor:value})
+  };
 
     handleTabChange = (event:any, newValue: number) => {
       this.setState({TabValue:newValue});
@@ -908,6 +951,17 @@ export default class PollingController extends BlockComponent<
       if(apiRequestCallId === this.getOldPollsSurveys){
         this.setState({oldPollsData: responseJson.polls_survey.data})
       }
+      if(apiRequestCallId === this.makeUpdatePollId) {
+        if(responseJson.code === 200){
+          this.setState({
+            dateWindow:false,
+            descriptionWindow:false,
+            cautionWindow:false
+          })
+          this.getPollPreviewAnswer()
+        }
+
+      }
     }
 //Error Block    
     else if (responseJson && responseJson?.error || responseJson?.errors) {
@@ -966,7 +1020,10 @@ export default class PollingController extends BlockComponent<
   }
 
   getPollPreviewAnswerData = async (response: any) => {
-    this.setState({pollPreviewAnswer: response})
+    this.setState({
+      pollPreviewAnswer: response,
+      textEditor:response.poll?.data?.attributes?.description
+    })
   }
 
   getSubmitPollAnswer = async (response: any) => {
@@ -994,5 +1051,88 @@ export default class PollingController extends BlockComponent<
   
   getPollErrorResponse = async (response: any) => {
     
+  }
+
+  validateEndDate = () => {
+    let endDateValidation = false
+    if(this.state.endDate){
+      if(this.dateIsValid(this.state.endDate)){
+        let today = new Date();
+        today.setHours(0,0,0,0);
+        let endDate = new Date(this.state.endDate)
+        let startDate = new Date(this.state.pollPreviewAnswer?.poll?.data?.attributes?.start_date)
+        if (endDate <= today || endDate < startDate) {
+          if(endDate <= today){
+            this.setState({endDateError: "You can not use previous date."})
+          }else{
+            this.setState({endDateError: "You can not use previous date then start date"})
+          }
+        }else{
+          this.setState({
+            endDateError:""
+          })
+          endDateValidation = true
+        }
+      }else{
+        this.setState({endDateError: "Invalid end date"})
+      }
+    }else{
+      this.setState({endDateError: "End Date can't be empty."})
+    }
+    return endDateValidation
+  }
+
+  makeUpdatePoll = async (endPoint:any) => {
+    const societyID = localStorage.getItem("society_id")
+    const surveyID =  window.location.search ? window.location.search.split("=")[1] : null;
+    this.setState({pollPreviewAnswerID:surveyID})
+    this.makeUpdatePollId  = await this.apiCall({
+      contentType: configJSON.exampleApiContentType,
+      method: configJSON.httpPutMethod,
+      endPoint: endPoint,
+    });
+  }
+
+  validateDescription = () => {
+    let DescriptionValidation = false
+    if(this.state.textEditor){
+      if(this.state.textEditor.length >=5){
+        this.setState({
+          descriptionError:""
+        })
+        DescriptionValidation = true
+      }else{
+        this.setState({
+          descriptionError:"Description not match the minimum requirements."
+        })
+      }
+    }else{
+      this.setState({descriptionError: "Description can't be empty"})
+    }
+    return DescriptionValidation
+  }
+
+  updateEndDate = () => {
+    if(this.validateEndDate()){
+      const societyID = localStorage.getItem("society_id")
+      const surveyID =  window.location.search ? window.location.search.split("=")[1] : null;
+      console.log("SUCCESS")
+      this.makeUpdatePoll(`/society_managements/${societyID}/bx_block_polling/polls/${surveyID}/poll_preview_update?end_date=${this.state.endDate}`)
+    }
+  }
+
+  updateDescription = () => {
+    if(this.validateDescription()){
+      const societyID = localStorage.getItem("society_id")
+      const surveyID =  window.location.search ? window.location.search.split("=")[1] : null;
+      console.log("SUCCESS")
+      this.makeUpdatePoll(`/society_managements/${societyID}/bx_block_polling/polls/${surveyID}/poll_preview_update?description=${this.state.textEditor}`)
+    }
+  }
+
+  makeEndSurvey = () => {
+    const societyID = localStorage.getItem("society_id")
+    const surveyID =  window.location.search ? window.location.search.split("=")[1] : null;
+    this.makeUpdatePoll(`/society_managements/${societyID}/bx_block_polling/polls/${surveyID}/poll_preview_update?end_poll=true`)
   }
 }

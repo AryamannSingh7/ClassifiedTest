@@ -362,6 +362,21 @@
   padding-top: 30px !important;
 }
 
+.save-lease .input-box {
+  padding: 10px 25px;
+  border: 1px solid lightgray;
+  font-size: 16px;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  outline: none;
+  color: #494949;
+  border-radius: 30px;
+  background-color: #f9f9f9;
+}
+
 .save-lease .MuiDialogActions-root,
 .penalty-dialog .MuiDialogActions-root {
   justify-content: center;
@@ -395,7 +410,7 @@
   border-radius: 25px;
   padding: 12px 15px;
   background-color: #efefef;
-  margin-bottom: 15px;
+  /* margin-bottom: 15px; */
 }
 
 .penalty-dialog .select-input::before,
@@ -409,6 +424,11 @@
 
 .penalty-dialog .select-input .MuiInputAdornment-positionStart {
   margin-right: 20px;
+}
+
+.penalty-dialog h4 {
+  font-weight: 600;
+  margin-top: 20px;
 }
 
 .add-meeting .date-time .MuiInput-underline:before,
@@ -595,6 +615,8 @@
   padding: 0;
 }
 
+.save-lease .input-box.MuiInput-underline:before,
+.save-lease .input-box.MuiInput-underline:after,
 .select-meeting.scheduled-meeting .button-group .MuiInput-underline:before,
 .select-meeting.scheduled-meeting .button-group .MuiInput-underline:after,
 .select-meeting.scheduled-meeting .filter .MuiInput-underline:before,

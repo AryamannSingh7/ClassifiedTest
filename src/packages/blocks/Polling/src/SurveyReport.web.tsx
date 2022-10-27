@@ -121,9 +121,9 @@ class PollReport extends SurveyReportController {
                                         </TableRow>
                                     </TableHead>
                                     {
-                                        this.state.surveyReport.length > 0 &&
+                                        this.state.surveyReport?.length > 0 &&
                                         <TableBody>
-                                            {this.state.surveyReport.map((row, index) => (
+                                            {this.state.surveyReport?.map((row, index) => (
                                                 <TableRow key={row.name}>
                                                     <TableCell component="th" scope="row">{index + 1}</TableCell>
                                                     <TableCell align="start">{row.name}</TableCell>
@@ -149,8 +149,8 @@ class PollReport extends SurveyReportController {
 
                             <Divider />
                             <Box className="TableHeader">
-                                <h5>{t("Showing")} {this.state.reportPagination.total_count > 10 ? (this.state.reportPagination.total_count * this.state.reportPagination.page) : this.state.reportPagination.total_count} of {this.state.reportPagination.total_count} {t("results")}</h5>
-                                <Pagination count={Math.round(this.state.reportPagination.total_count/10)} onChange={this.handleReportPagination} variant="outlined" shape="rounded" />
+                                <h5>{t("Showing")} {this.state?.reportPagination?.total_count > 10 ? (this.state.reportPagination?.total_count * this.state.reportPagination?.page) : this.state.reportPagination?.total_count} of {this.state.reportPagination?.total_count} {t("results")}</h5>
+                                <Pagination count={Math.round(this.state.reportPagination?.total_count/10)} onChange={this.handleReportPagination} variant="outlined" shape="rounded" />
                             </Box>
                         </Grid>
                     </Grid>

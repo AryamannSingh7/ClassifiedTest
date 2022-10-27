@@ -17,6 +17,7 @@ import {
     InputAdornment,
     Divider,
     CircularProgress,
+    IconButton
 } from "@material-ui/core";
 import {withStyles} from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
@@ -44,6 +45,7 @@ import 'date-fns';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import InfoIcon from '@material-ui/icons/Info';
+import ClearIcon from '@material-ui/icons/Clear';
 // Icons
 
 import CreateSurveyController, {
@@ -61,7 +63,8 @@ import '../../../web/src/i18n.js';
 import DateRangeOutlinedIcon from "@material-ui/icons/DateRangeOutlined";
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Menu from '@material-ui/core/Menu';
-
+import DeleteIcon from '@material-ui/icons/Delete';
+import BackspaceIcon from '@material-ui/icons/Backspace';
 const currencies = [
     {
       value: 'USD',
@@ -271,7 +274,7 @@ class CreateSurveys extends CreateSurveyController {
                                                 <TextField  label={t("Enter question")} variant="outlined"
                                                             name="question"
                                                             inputProps={{
-                                                                maxLength: 30
+                                                                maxLength: 255
                                                             }}
                                                             id="SurveyQuestion"
                                                             value={item.title}
@@ -282,33 +285,42 @@ class CreateSurveys extends CreateSurveyController {
                                                 {
                                                     item.question_type !== "short_answers" && item.survey_options_attributes.map((inputfield:any , index:any) => {
                                                         return(
-                                                            <>
-                                                                <TextField
-                                                                   key={index}
-                                                                   label={t("Option") + " - " + (index + 1)} variant="outlined"
-                                                                   name="text"
-                                                                   inputProps={{
-                                                                       maxLength: 20
-                                                                   }}
-                                                                   id="SurveyQuestionOptions"
-                                                                   value={inputfield.text}
-                                                                   onChange={(event) => this.handleOptionsChange(key,index, event)}
-                                                                   required fullWidth style={{marginTop:20}}
-                                                                />
-                                                                <p style={{color:"red"}}>{t(inputfield.error)}</p>
-                                                            </>
+                                                            <Box display='flex' alignItems="center">
+                                                                <Box style={{width:"95%"}}>
+                                                                    <TextField
+                                                                        key={index}
+                                                                        label={t("Option") + " - " + (index + 1)} variant="outlined"
+                                                                        name="text"
+                                                                        id="SurveyQuestionOptions"
+                                                                        value={inputfield.text}
+                                                                        onChange={(event) => this.handleOptionsChange(key,index, event)}
+                                                                        required fullWidth style={{marginTop:20}}
+                                                                    />
+                                                                    <p style={{color:"red"}}>{t(inputfield.error)}</p>
+                                                                </Box>
+                                                                <Box style={{display:'flex',alignItems:"center",justifyContent:'center'}}>
+                                                                    <IconButton style={{marginTop:"15px",marginLeft:"10px"}} onClick={()=>this.deleteOption(key,index)}>
+                                                                        <BackspaceIcon fontSize="large" style={{color:"red"}} />
+                                                                    </IconButton>
+                                                                </Box>
+                                                            </Box>
                                                         )
                                                     })
                                                 }
-                                                {
-                                                    item.question_type !== "short_answers" &&
-                                                    <Button variant="outlined" color="primary"
-                                                            onClick={() => this.addOptionsFields(key)}
-                                                            className="addOptions"
-                                                    >
-                                                        {t("ADD OPTION")}
+                                                <Box display="flex" justifyContent="space-between">
+                                                    {
+                                                        item.question_type !== "short_answers" &&
+                                                        <Button variant="outlined" color="primary"
+                                                                onClick={() => this.addOptionsFields(key)}
+                                                                className="addOptions"
+                                                        >
+                                                            {t("ADD OPTION")}
+                                                        </Button>
+                                                    }
+                                                    <Button variant="outlined" color="secondary" className="removeOptions" style={{marginTop:"20px"}} onClick={()=> this.deleteQuestion(key)}>
+                                                        Remove Question
                                                     </Button>
-                                                }
+                                                </Box>
                                             </Box>
                                         </Grid>
                                     )

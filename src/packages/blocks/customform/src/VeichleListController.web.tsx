@@ -8,6 +8,7 @@ import { runEngine } from "../../../framework/src/RunEngine";
 
 // Customizable Area Start
 import * as Yup from 'yup';
+import { withRouter, RouteComponentProps } from "react-router-dom";
 export const Colors = {
   inputLabel: "rgba(31, 31, 34, 0.6)",
   inputTextColor: "rgb(31, 31, 34)",
@@ -28,7 +29,7 @@ const options = {
 
 export const configJSON = require("./config");
 
-export interface Props {
+export interface Props extends RouteComponentProps{
   navigation: any;
   id: string;
   // Customizable Area Start
@@ -447,11 +448,11 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
   addVehicleSchema(){
     const validations = Yup.object().shape({
 
-      full_name: Yup.string().required(`This field is required`).trim(),
+      full_name: Yup.string().required(`This field is required`).matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field ").trim(),
       plateNumber: Yup.string().required(`This field is required`).trim(),
       carManufacturer: Yup.string().required(`This field is required`).trim(), carModle: Yup.string().required(`This field is required`).trim(), carColor: Yup.string().required(`This field is required`).trim(),
       banner: Yup.mixed(),
-      bannerUrl: Yup.string().nullable(true).required(`Please select banner image.`)
+      bannerUrl: Yup.string().nullable(true).required(`Please Registration card image.`)
 
     });
     return validations

@@ -83,29 +83,36 @@ class ContractDetail extends ContractDetailController {
                         {this.state.contractData.isCustomContract ? (
                           <iframe src={this.state.contractData.templateText} />
                         ) : (
-                          <div
-                            dangerouslySetInnerHTML={{
-                              __html: this.state.contractData.templateText,
-                            }}
-                          />
+                          <>
+                            <div
+                              dangerouslySetInnerHTML={{
+                                __html: this.state.contractData.templateText,
+                              }}
+                            />
+                            <br />
+                            <div
+                              dangerouslySetInnerHTML={{
+                                __html: this.state.contractData.conditionText,
+                              }}
+                            />
+                          </>
                         )}
                       </div>
                       <Box className="upload-button">
                         <Box className="upload-button-group">
                           <Box className="top">
-                            <Button
-                              onClick={() => {
-                                this.handleTerminateContractModal();
-                              }}
-                            >
-                              {t("Terminate")}
-                            </Button>
-                            <Link href="/Contracts">
-                              <Button>{t("Close")}</Button>
-                            </Link>
+                            <Button onClick={() => this.handleTerminateContractModal()}>{t("Terminate")}</Button>
+                            <Button onClick={() => this.handleClosedContractModal()}>{t("Close")}</Button>
                           </Box>
                           <Box className="bottom">
-                            <Button>{t("ReNew Contract")}</Button>
+                            <Button
+                              disabled={this.state.contractData.status !== "Active"}
+                              onClick={() =>
+                                this.props.navigation.navigate("RenewContract", { id: this.state.contractId })
+                              }
+                            >
+                              {t("ReNew Contract")}
+                            </Button>
                             <Box
                               className="image"
                               onClick={() => {
@@ -147,20 +154,30 @@ class ContractDetail extends ContractDetailController {
                 {t("? Once terminated you won't be able to retrieve.")}
               </Typography>
               <DialogActions className="dialog-button-group">
-                <Button
-                  onClick={() => {
-                    this.handleTerminateContractModal();
-                  }}
-                >
-                  {t("Yes, Terminate")}
-                </Button>
-                <Button
-                  onClick={() => {
-                    this.handleTerminateContractModal();
-                  }}
-                >
-                  {t("No, Don't Terminate")}
-                </Button>
+                <Button onClick={() => this.handleUpdateContractStatus("Terminated")}>{t("Yes, Terminate")}</Button>
+                <Button onClick={() => this.handleTerminateContractModal()}>{t("No, Don't Terminate")}</Button>
+              </DialogActions>
+            </Box>
+          </DialogContent>
+        </Dialog>
+
+        <Dialog
+          className="delete-document personal"
+          fullWidth
+          onClose={() => this.handleClosedContractModal()}
+          open={this.state.isClosedContractModalOpen}
+        >
+          <DialogContent>
+            <Box textAlign="center">
+              <img src={ExclamationIcon} alt="ExclamationIcon" />
+              <Typography variant="h6">{t("Close Contract")}?</Typography>
+              <Typography variant="body1">
+                {t("Are you sure want to close the contract with")} {this.state.contractData.tenantName}?
+                {t("Once closed you won't be able to retrieve")}.
+              </Typography>
+              <DialogActions className="dialog-button-group">
+                <Button onClick={() => this.handleUpdateContractStatus("Closed")}>{t("Yes, Close")}</Button>
+                <Button onClick={() => this.handleClosedContractModal()}>{t("No, Don't Close")}</Button>
               </DialogActions>
             </Box>
           </DialogContent>

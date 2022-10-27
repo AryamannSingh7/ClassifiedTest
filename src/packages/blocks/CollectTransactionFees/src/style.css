@@ -36,3 +36,19 @@
     text-align: center;
     font-weight: 800 !important;
 }
+
+.shareIcon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    border: 1px solid #2B6FED;
+    border-radius: 100px;
+    cursor: pointer;
+}
+
+.selectFYBox select{
+    padding-left: 15px !important;
+    font-size: 15px;
+    min-width: 80px;
+}

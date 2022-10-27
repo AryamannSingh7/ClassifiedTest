@@ -65,7 +65,7 @@ class SelectType extends EmailAccountRegistrationController {
               display="flex"
               justifyContent='space-between'
               className={'select-type ' + (this.state.userType == 'Owner Resident' ? ' active-box' :'')}
-
+              
               alignItems="center"
               border="0.1px solid rgb(209 209 209 / 44%)"
               borderRadius="16px"
@@ -74,7 +74,7 @@ class SelectType extends EmailAccountRegistrationController {
             >
               <img src={resident_owner}/>
               <Box className={"middle-section" } >
-                      <label for="radCreateMode"  className={"title" + (this.state.userType == 'Owner Resident' ? ' active-type' :'')} style={{padding:'20px 20px 0px 0px'}}>
+                      <label for="radCreateMode" className={"title" + (this.state.userType == 'Owner Resident' ? ' active-type' :'')} style={{padding:'20px 20px 0px 0px'}}>
                   Resident Owner
                 </label>
                       <br />

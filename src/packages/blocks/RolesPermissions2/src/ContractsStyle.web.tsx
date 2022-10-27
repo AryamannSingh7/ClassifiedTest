@@ -199,7 +199,7 @@ export const ContractsStyleWeb: any = {
       alignContent: "flex-start",
     },
     "& .content-box .contracts-list": {
-      minHeight: "calc(100% - 70px)",
+      height: "calc(100% - 70px)",
       overflowY: "auto",
       overflowX: "hidden",
     },
@@ -244,7 +244,7 @@ export const ContractsStyleWeb: any = {
       fontWeight: "600",
       border: "2px solid #2b6fec",
       color: "#2b6fec",
-      padding: "12px 50px",
+      padding: "12px 25px",
       borderRadius: "25px",
     },
     "& .upload-button .bottom button": {
@@ -287,7 +287,7 @@ export const ContractsStyleWeb: any = {
     },
     "& .page-container": {
       overflowY: "auto",
-      height: "85vh",
+      height: "88vh",
     },
     "& .issue-lease-content .select-input-box .select-input": {
       background: "#F9F9F9",
@@ -313,7 +313,7 @@ export const ContractsStyleWeb: any = {
     },
     "& .issue-lease-content .select-box .select-input.input": {
       fontSize: "16px",
-      padding: "20px 10px 20px 66px !important",
+      padding: "18px 10px 18px 60px !important",
       outline: "none",
     },
     "& .issue-lease-content .select-input-box .select-input .MuiListItemIcon-root": {
@@ -323,7 +323,7 @@ export const ContractsStyleWeb: any = {
       padding: "12px 15px",
     },
     "& .issue-lease-content .select-input-box .input.select-input .MuiInputAdornment-positionStart": {
-      marginRight: "36px",
+      marginRight: "25px",
     },
     "& .issue-lease-content .select-input-box .input.select-input:before": {
       border: 0,
@@ -437,6 +437,7 @@ export const ContractsStyleWeb: any = {
       color: "white",
       padding: "12px 50px",
       borderRadius: "25px",
+      fontWeight: 600,
     },
     "& .error": {
       color: "red",
@@ -459,6 +460,19 @@ export const ContractsStyleWeb: any = {
     "& .form.issue-lease-content .next-button": {
       position: "sticky",
       bottom: 0,
+    },
+    "& .renew-form .contract-info-box": {},
+    "& .renew-form .contract-info-box .contract-info": {
+      boxShadow: "4px 0px 14px #ececec",
+      borderRadius: "8px",
+      padding: "15px",
+    },
+    "& .renew-form .contract-info-box .contract-info h4": {
+      marginBottom: "15px",
+    },
+    "& .renew-form .contract-info-box .contract-info span": {
+      color: "lightgray",
+      fontSize: "14px",
     },
   },
   commonPage: {

@@ -41,11 +41,34 @@ class LeaseForm extends LeaseFormController {
   }
 
   async componentDidMount(): Promise<void> {
+    const contract = JSON.parse(window.sessionStorage.getItem("contractForm") as any);
     const template_id: any = this.props.navigation.getParam("templateId");
-    this.setState({ ...this.state, templateId: template_id }, () => {
-      this.getCurrencyList();
-      this.getBuilding();
-    });
+    this.setState(
+      {
+        templateId: template_id,
+        leaseForm: {
+          tenantName: contract.tenantName,
+          landlordName: contract.landlordName,
+          buildingName: contract.buildingName,
+          unitName: contract.unitName,
+          buildingId: contract.buildingId,
+          unitId: contract.unitId,
+          duration: contract.duration,
+          startDate: contract.startDate,
+          endDate: contract.endDate,
+          monthlyRent: contract.monthlyRent,
+          currency: contract.currency,
+        },
+      },
+      () => {
+        this.getCurrencyList();
+        this.getBuilding();
+        if (this.state.leaseForm.buildingId) {
+          this.getUnits(this.state.leaseForm.buildingId);
+          this.handleCheckContractExist(this.state.leaseForm.unitId);
+        }
+      }
+    );
   }
 
   render() {
@@ -62,7 +85,7 @@ class LeaseForm extends LeaseFormController {
               <Box>
                 <Box display={{ xs: "flex", md: "flex" }} className="top-bar">
                   <div className="left-icon">
-                    <IconButton onClick={() => this.goBackPage()}>
+                    <IconButton onClick={() => this.gotoSelectTemplatePage()}>
                       <KeyboardBackspaceIcon />
                     </IconButton>
                     <span>{t("Issue a Lease")}</span>
@@ -72,6 +95,7 @@ class LeaseForm extends LeaseFormController {
                   <Box className="issue-lease-content form">
                     <h4 style={{ marginTop: "18px" }}>{t("Residential Rental Lease Agreement")}</h4>
                     <Formik
+                      enableReinitialize={true}
                       initialValues={this.state.leaseForm}
                       validationSchema={this.ContractFormValidation}
                       onSubmit={(values: any, { resetForm }) => {

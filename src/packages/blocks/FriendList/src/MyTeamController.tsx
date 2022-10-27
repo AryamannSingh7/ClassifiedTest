@@ -1,14 +1,12 @@
 // Customizable Area Start
-import { IBlock } from "../../../framework/src/IBlock";
-import { Message } from "../../../framework/src/Message";
-import { BlockComponent } from "../../../framework/src/BlockComponent";
-import MessageEnum, {
-  getName,
-} from "../../../framework/src/Messages/MessageEnum";
-import { runEngine } from "../../../framework/src/RunEngine";
+import {IBlock} from "../../../framework/src/IBlock";
+import {Message} from "../../../framework/src/Message";
+import {BlockComponent} from "../../../framework/src/BlockComponent";
+import MessageEnum, {getName,} from "../../../framework/src/Messages/MessageEnum";
+import {runEngine} from "../../../framework/src/RunEngine";
 
 
-import { imgPasswordInVisible, imgPasswordVisible } from "./assets";
+import {imgPasswordInVisible, imgPasswordVisible} from "./assets";
 import * as Yup from "yup";
 
 
@@ -29,7 +27,10 @@ interface S {
   loading:boolean;
   deleteModal:boolean
   setOpen:boolean;
-  teamAddData:any
+  teamAddData:any;
+  roleList:any;
+  userList:any;
+  selectedUser:any;
 }
 
 interface SS {
@@ -45,13 +46,14 @@ export default class FriendListController extends BlockComponent<
   getMyTeamListId:string = "";
   getRolesListId:string = "";
   createTeamMemberId:string = "";
-
+  getUserListId:string = "";
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
 
     this.subScribedMessages = [
-      getName(MessageEnum.AccoutLoginSuccess),
+      getName(MessageEnum.RestAPIResponceMessage),
+      getName(MessageEnum.PostDetailDataMessage)
     ];
 
     this.state = {
@@ -62,7 +64,12 @@ export default class FriendListController extends BlockComponent<
       loading:false,
       deleteModal:false,
       setOpen:false,
-      teamAddData:{}
+      teamAddData:{},
+      roleList:[],
+      userList:[],
+      selectedUser:{
+
+      },
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
@@ -78,30 +85,17 @@ export default class FriendListController extends BlockComponent<
   };
 
 
+  async componentDidMount(): Promise<void> {
+    super.componentDidMount();
+    this.getMyTeamList()
+  }
+
   getMyTeamList = async () => {
     const societyID = localStorage.getItem("society_id")
     this.getMyTeamListId = await this.apiCall({
       contentType: "application/json",
       method: "GET",
-      endPoint: `/bx_block_my_team/team_members`,
-    });
-  }
-
-  getRolesList = async () => {
-    const societyID = localStorage.getItem("society_id")
-    this.getRolesListId = await this.apiCall({
-      contentType: "application/json",
-      method:"GET",
-      endPoint: `/bx_block_roles_permissions/roles`,
-    });
-  }
-
-  createTeamMember = async (data:any) => {
-    const societyID = localStorage.getItem("society_id")
-    this.createTeamMemberId = await this.apiCall({
-      method:"POST",
-      endPoint: `/bx_block_roles_permissions/roles`,
-      body:data
+      endPoint: `/bx_block_my_team/team_members?society_management_id=${societyID}`,
     });
   }
 
@@ -162,7 +156,52 @@ export default class FriendListController extends BlockComponent<
 
   async receive(from: string, message: Message) {
     runEngine.debugLog("Message Recived", message);
-
+    if(getName(MessageEnum.PostDetailDataMessage)=== message.id){
+      if(message.properties.text === "CLOSE_CREATE_TEAM_MODAL"){
+        this.setState({
+          setOpen:false
+        })
+      }
+      if(message.properties.text === "TEAM_MEMBER_ADDED_SUCCESS"){
+        this.getMyTeamList()
+        this.setState({
+          setOpen:false
+        })
+      }
+    }
+    if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {
+      const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
+      const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      var errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if(apiRequestCallId === this.getUserListId){
+        if(responseJson.hasOwnProperty("data")){
+          this.setState({
+            userList:responseJson?.data
+          })
+        }else{
+          this.setState({
+            userList:[]
+          })
+        }
+      }
+      if(apiRequestCallId === this.getMyTeamListId){
+        console.log("Team LIST",responseJson)
+      }
+      if(apiRequestCallId === this.getRolesListId){
+        if(responseJson.hasOwnProperty("data")){
+          this.setState({
+            roleList:responseJson?.data?.roles
+          })
+        }else{
+          this.setState({
+            roleList:[]
+          })
+        }
+      }
+      if(apiRequestCallId === this.createTeamMemberId){
+        console.log("TEAM Member created",responseJson)
+      }
+    }
     if (message.id === getName(MessageEnum.AccoutLoginSuccess)) {
       let value = message.getData(getName(MessageEnum.AuthTokenDataMessage));
 
