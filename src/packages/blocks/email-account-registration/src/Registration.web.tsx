@@ -47,7 +47,7 @@ class Registration extends EmailAccountRegistrationController  {
             </Grid>
           </Grid>
 
-          <div style={{display: 'flex' ,justifyContent: 'center'}}>
+          <div style={{display: 'flex' ,justifyContent: 'center' ,cursor: 'pointer'}}  onClick={()=>window.open("https://www.TenantInt.com", '_blank').focus()}>
               <img className="text-center" src={company_logo} alt="" />
           </div>
     
@@ -485,7 +485,7 @@ class Registration extends EmailAccountRegistrationController  {
 
                         </Typography>
                       </Box>
-                      <Box display='flex' justifyContent='center'>
+                      <Box display='flex' justifyContent='center' style={{ cursor: 'pointer'}} onClick={()=>window.open("https://www.TenantInt.com", '_blank').focus()}>
                         <img src={company_logo} width='125' height='125' />
                       </Box>
 

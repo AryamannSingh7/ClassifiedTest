@@ -56,10 +56,10 @@ class EmailAccountLogin extends EmailAccountLoginController {
                   <Box className="header-block">
                     <Box display={{ xs: 'flex', md: 'none' }}>
                       <Link href="/EmailAccountLogin">
-                        <img src={Tenant_Logo.default} className="tenant-logo" alt="" />
+                        <img src={Tenant_Logo.default} className="tenant-logo" style={{ cursor: 'pointer'}} onClick={()=>window.open("https://www.TenantInt.com", '_blank').focus()} alt="" />
                       </Link>
                     </Box>
-                    <h1>Welcome Back</h1>
+                    <h1 className="login-h1">Welcome Back</h1>
                     <p>Login with your account credentials </p>
                   </Box>
                   <Formik
@@ -202,7 +202,7 @@ class EmailAccountLogin extends EmailAccountLoginController {
                 {/* desktop footer block */}
                 <Box className="footer-main-block bottomBlock">
                   <h6 className="bottom-text">POWERED BY</h6>
-                  <img src={Tenant_Logo.default} className="tenant-logo" alt="" />
+                  <img src={Tenant_Logo.default} className="tenant-logo" style={{ cursor: 'pointer'}} onClick={()=>window.open("https://www.TenantInt.com", '_blank').focus()} alt="" />
                 </Box>
               </Box>
             </Grid>
