@@ -202,7 +202,9 @@ class EmailAccountLogin extends EmailAccountLoginController {
                 {/* desktop footer block */}
                 <Box className="footer-main-block bottomBlock">
                   <h6 className="bottom-text">POWERED BY</h6>
-                  <img src={Tenant_Logo.default} className="tenant-logo" alt="" />
+                  <a  href="http://www.tenantint.com/" target="_blank">
+                    <img src={Tenant_Logo.default} className="tenant-logo" alt="" />
+                  </a>
                 </Box>
               </Box>
             </Grid>

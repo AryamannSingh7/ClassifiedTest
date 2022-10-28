@@ -833,6 +833,8 @@
   "Close Contract": "إغلاق العقد",
   "Are you sure want to close the contract with": "هل أنت متأكد من أنك تريد إغلاق العقد مع",
   "Once closed you won't be able to retrieve": "بمجرد إغلاقها لن تتمكن من استردادها",
-  "Yes, Close": "نعم ، أغلق",
-  "No, Don't Close": "لا ، لا تغلق"
+  "Yes, Close": "نعم، أغلق",
+  "No, Don't Close": "لا ، لا تغلق",
+  "My Invoices/Receipts": "فواتيري / إيصالاتي",
+  "Invoice Type": "نوع الفاتورة"
 }

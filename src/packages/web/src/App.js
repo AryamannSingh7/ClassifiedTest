@@ -294,8 +294,12 @@ import BudgetSpending from "../../blocks/CollectTransactionFees/src/BudgetSpendi
 import BudgetSpendingDetails from "../../blocks/CollectTransactionFees/src/SpentDetails.web"
 import BuildingBudget from "../../blocks/CollectTransactionFees/src/BuildingBudget.web"
 import MyManagementFee from "../../blocks/CollectTransactionFees/src/ManagementFee.web"
-
-
+// Owner Side
+import MyInvoicesAndReceipts from "../../blocks/CollectTransactionFees/src/MyInvoicesAndReceipts.web"
+import MyInvoices from "../../blocks/CollectTransactionFees/src/MyInvoices.web"
+import MyInvoiceDetails from "../../blocks/CollectTransactionFees/src/MyInvoiceDetails.web"
+import MyReceipts from "../../blocks/CollectTransactionFees/src/MyReceipts.web"
+import MyReceiptsDetails from "../../blocks/CollectTransactionFees/src/MyReceiptsDetails.web"
 // Reports
 import ReportDashboard from '../../blocks/ExpenseTracking/src/ReportDashboard.web';
 import BudgetReport from '../../blocks/ExpenseTracking/src/BudgetReport.web';
@@ -1708,6 +1712,37 @@ const routeMap = {
     path: '/MyManagementFee',
     exact: true
   },
+
+  MyInvoicesAndReceipts:{
+    component: MyInvoicesAndReceipts,
+    path: '/InvoicesAndReceipts',
+    exact: true
+  },
+
+  MyInvoices:{
+    component: MyInvoices,
+    path: '/Owner/MyInvoices',
+    exact: true
+  },
+
+  MyInvoiceDetails:{
+    component: MyInvoiceDetails,
+    path: '/Owner/MyInvoices/:id',
+    exact: true
+  },
+
+  MyReceipts:{
+    component: MyReceipts,
+    path: '/Owner/MyReceipts',
+    exact: true
+  },
+
+  MyReceiptsDetails:{
+    component: MyReceiptsDetails,
+    path: '/Owner/MyReceipts/:id',
+    exact: true
+  },
+
   CommunityRequestManagement: {
     component: CommunityRequestManagement,
     path: '/CommunityRequestManagement'
