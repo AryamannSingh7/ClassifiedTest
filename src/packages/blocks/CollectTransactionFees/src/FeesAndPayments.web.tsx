@@ -165,6 +165,7 @@ class Visitors extends FeesAndPaymentController{
                                             {t("View Budget Spending")}
                                         </Typography>
                                         <ArrowForwardIosIcon fontSize="small"/>
+                                        
                                     </Box>
                                 </Box>
                             </Box>
