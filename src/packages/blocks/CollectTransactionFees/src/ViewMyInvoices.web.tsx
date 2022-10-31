@@ -66,7 +66,7 @@ class Visitors extends ViewMyInvoicesController{
                                 marginTop='.5rem'
                                 padding='1.5rem'
                                 style={{boxShadow:"rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"}}
-                                onClick={()=>this.props.history.push("/BuildingBudget")}
+                                onClick={()=>this.props.history.push("/Invoice/1")}
                             >
                                 <Box style={{minWidth:"100%"}}>
                                     <Box style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
@@ -124,7 +124,7 @@ class Visitors extends ViewMyInvoicesController{
                                 marginTop='.5rem'
                                 padding='1.5rem'
                                 style={{boxShadow:"rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"}}
-                                onClick={()=>this.props.history.push("/BuildingBudget")}
+                                onClick={()=>this.props.history.push("/Invoice/1")}
                             >
                                 <Box style={{minWidth:"100%"}}>
                                     <Box style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
@@ -182,7 +182,7 @@ class Visitors extends ViewMyInvoicesController{
                                 marginTop='.5rem'
                                 padding='1.5rem'
                                 style={{boxShadow:"rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"}}
-                                onClick={()=>this.props.history.push("/BuildingBudget")}
+                                onClick={()=>this.props.history.push("/Invoice/1")}
                             >
                                 <Box style={{minWidth:"100%"}}>
                                     <Box style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
