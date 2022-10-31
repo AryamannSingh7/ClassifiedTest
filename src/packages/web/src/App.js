@@ -310,7 +310,8 @@ import AuditReport from '../../blocks/ExpenseTracking/src/AuditReport.web';
 import ManagementFeeReport from '../../blocks/ExpenseTracking/src/ManagementFeeReport.web';
 
 // My Unit
-import MyUnitList from '../../blocks/TaskAllocator/src/MyUnitList';
+import MyUnitList from '../../blocks/TaskAllocator/src/MyUnitList.web';
+import RegisterMyUnit from '../../blocks/TaskAllocator/src/RegisterUnit.web';
 
 const routeMap = {
   //done
@@ -1832,6 +1833,12 @@ const routeMap = {
   MyUnitList: {
     component: MyUnitList,
     path: '/MyUnitList',
+    roles: [ROLE.OWNER],
+    exact: true
+  },
+  RegisterMyUnit: {
+    component: RegisterMyUnit,
+    path: '/RegisterMyUnit',
     roles: [ROLE.OWNER],
     exact: true
   },

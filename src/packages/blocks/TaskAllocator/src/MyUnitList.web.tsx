@@ -219,7 +219,7 @@ class MyUnitList extends MyUnitListController {
                     <div className="upload-button">
                       <Grid container>
                         <Grid item xs={12} md={12}>
-                          <Link href="/RegisterUnit">
+                          <Link href="/RegisterMyUnit">
                             <Button>{t("Register Another Unit")}</Button>
                           </Link>
                         </Grid>
