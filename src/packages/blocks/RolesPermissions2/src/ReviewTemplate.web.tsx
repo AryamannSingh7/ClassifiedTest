@@ -17,7 +17,7 @@ import {
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import LeaseFormController, { Props } from "./LeaseFormController.web";
 import { ContractsStyleWeb } from "./ContractsStyle.web";
-import { BuildingLogo, DownloadIcon, ShareIcon, ExclamationIcon } from "./assets";
+import { BuildingLogo, DownloadIcon, ShareIcon, LeaseGeneratorIcon, SaveTemplateIcon } from "./assets";
 import { withTranslation } from "react-i18next";
 import "../../../web/src/i18n.js";
 import toast from "react-hot-toast";
@@ -136,7 +136,7 @@ class ReviewTemplate extends LeaseFormController {
         >
           <DialogContent>
             <Box textAlign="center">
-              <img src={ExclamationIcon} alt="ExclamationIcon" />
+              <img src={SaveTemplateIcon} alt="ExclamationIcon" />
               <Typography variant="h6">{t("Save Lease Template")}</Typography>
               <Typography variant="body1">
                 {t(
@@ -181,7 +181,7 @@ class ReviewTemplate extends LeaseFormController {
         >
           <DialogContent>
             <Box textAlign="center">
-              <img src={ExclamationIcon} alt="ExclamationIcon" />
+              <img src={LeaseGeneratorIcon} alt="ExclamationIcon" />
               <Typography variant="h6">{t("Lease Document Generated")}</Typography>
               <Typography variant="body1">
                 {t(
