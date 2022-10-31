@@ -30,7 +30,13 @@ class Registration extends EmailAccountRegistrationController  {
     // Customizable Area End
   }
 
-
+  getSelectedItem(){
+    const item = dailCode.find((opt)=>{
+      if (opt.dial_code == this.state.selectCode)
+        return opt;
+    })
+    return item || {};
+  }
 
   render() {
     const filterOptions = createFilterOptions({
@@ -192,7 +198,7 @@ class Registration extends EmailAccountRegistrationController  {
                           <FormControl variant="outlined" >
                             {/* <InputLabel id="demo-simple-select-outlined-label"><img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AF.svg`} width='15' height='15' />
                           sd</InputLabel> */}
-                            <Select
+                            {/* <Select
                             search
                               name='selectCode'
                               labelId="demo-simple-select-outlined-label"
@@ -212,23 +218,24 @@ class Registration extends EmailAccountRegistrationController  {
                               )
                               }
 
-                            </Select>
-                     {/* <Autocomplete
+                            </Select> */}
+                     <Autocomplete
   id="combo-box-demo"
   options={dailCode}
   autoComplete="new-password"
-  value={this.state.selectCode}
+  value={this.getSelectedItem()}
   filterOptions={filterOptions}
   getOptionLabel={(option) => this.handleChangeCode(option)}
-  style={{ width: 300 }}
-  renderOption={(props, option) => {
-    return <MenuItem>{props.name}</MenuItem>;
+  onInputChange={(event, newInputValue)=>this.setState({selectCode:newInputValue})}
+  style={{ width: 100 }}
+  renderOption={(props, option) => { console.log(props)
+    return <MenuItem>{props.dial_code} <img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/${props.code}.svg`} width='15' height='15' style={{ marginRight: '5px' }} /></MenuItem>;
   }}
   renderInput={(params) => <TextField {...params}  inputProps={{
     ...params.inputProps,
     autoComplete: 'new-password',
   }}  variant="outlined" />}
-/> */}
+/>
                           </FormControl>
 
                         </Box>
