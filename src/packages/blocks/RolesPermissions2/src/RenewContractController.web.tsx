@@ -5,7 +5,8 @@ import MessageEnum, { getName } from "../../../framework/src/Messages/MessageEnu
 import { runEngine } from "../../../framework/src/RunEngine";
 import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
 import moment from "moment";
-
+import * as Yup from "yup";
+import toast from "react-hot-toast";
 // Customizable Area Start
 // Customizable Area End
 
@@ -28,11 +29,20 @@ interface S {
   currencyList: any;
 
   contractData: ContractData;
+  renewForm: RenewForm;
   // Customizable Area End
 }
 
 interface SS {
   id: any;
+}
+
+interface RenewForm {
+  duration: string;
+  endDate: string;
+  startDate: string;
+  monthlyRent: string;
+  currency: string;
 }
 
 interface ContractData {
@@ -45,6 +55,7 @@ interface ContractData {
 export default class RenewContractController extends BlockComponent<Props, S, SS> {
   GetContractsDetailsCallId: any;
   GetCurrencyListCallId: any;
+  RenewContractCallId: any;
 
   constructor(props: Props) {
     super(props);
@@ -65,6 +76,14 @@ export default class RenewContractController extends BlockComponent<Props, S, SS
         complexName: "",
         buildingName: "",
         unitName: "",
+      },
+
+      renewForm: {
+        duration: "",
+        endDate: "",
+        startDate: "",
+        monthlyRent: "",
+        currency: "",
       },
     };
     // Customizable Area End
@@ -89,9 +108,16 @@ export default class RenewContractController extends BlockComponent<Props, S, SS
         this.setState({
           contractData: {
             tenantName: contract.attributes.tenant_name,
-            complexName: "",
+            complexName: contract.attributes.society_management.name,
             buildingName: contract.attributes.building_name,
             unitName: contract.attributes.unit_name,
+          },
+          renewForm: {
+            duration: contract.attributes.agreement_duration || "",
+            endDate: contract.attributes.expires_on || "",
+            startDate: contract.attributes.start_date || "",
+            monthlyRent: contract.attributes.rent_amount || "",
+            currency: contract.attributes.currency || "",
           },
         });
       }
@@ -126,6 +152,30 @@ export default class RenewContractController extends BlockComponent<Props, S, SS
       }
       ApiCatchErrorResponse(errorResponse);
     }
+
+    // Renew Contract - API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.RenewContractCallId !== null &&
+      this.RenewContractCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.RenewContractCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      if (responseJson.code === 200) {
+        toast.success(responseJson.message);
+        this.props.navigation.navigate("ContractDetail", { id: this.state.contractId });
+      }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
     // Customizable Area End
   }
 
@@ -137,6 +187,23 @@ export default class RenewContractController extends BlockComponent<Props, S, SS
       this.getCurrencyList();
     });
   }
+
+  RenewFormValidation: any = Yup.object().shape({
+    duration: Yup.string()
+      .required("Required")
+      .max(100, "Maximum length should be 100 character")
+      .matches(/\S/, "Required"),
+    endDate: Yup.string()
+      .required("Required")
+      .matches(/\S/, "Required"),
+    currency: Yup.string()
+      .required("Required")
+      .matches(/\S/, "Required"),
+    monthlyRent: Yup.string()
+      .required("Required")
+      .matches(/\S/, "Required")
+      .matches(/^\d+$/, "Enter only number"),
+  });
 
   // Get Contract Details - API
   getContractDetails = () => {
@@ -180,6 +247,41 @@ export default class RenewContractController extends BlockComponent<Props, S, SS
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  handleRenewContract = () => {
+    const body = {
+      contract: {
+        agreement_duration: this.state.renewForm.duration,
+        rent_amount: this.state.renewForm.monthlyRent,
+        currency: this.state.renewForm.currency,
+        expires_on: this.state.renewForm.endDate,
+      },
+    };
+
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.RenewContractCallId = apiRequest.messageId;
+
+    const society_id = localStorage.getItem("society_id");
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `society_managements/${society_id}/bx_block_contract/contracts/${this.state.contractId}`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestBodyMessage), JSON.stringify(body));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePut);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
