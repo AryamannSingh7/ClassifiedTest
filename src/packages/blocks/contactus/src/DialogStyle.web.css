@@ -431,6 +431,11 @@
   margin-top: 20px;
 }
 
+.rent-history-dialog .select-input.input {
+  margin-top: 20px;
+  background-color: #f3f3f3;
+}
+
 .add-meeting .date-time .MuiInput-underline:before,
 .add-meeting .dialog-select-input:before,
 .add-meeting .date-time .MuiInput-underline:after,
@@ -1058,18 +1063,19 @@
   background-color: #efefef !important;
 }
 
-.edit-family-modal input::placeholder {
+.edit-family-modal input::placeholder,
+.rent-history-dialog input::placeholder {
   color: black;
-  opacity: 1; /* Firefox */
+  opacity: 1;
 }
 
-.edit-family-modal input:-ms-input-placeholder {
-  /* Internet Explorer 10-11 */
+.edit-family-modal input:-ms-input-placeholder,
+.rent-history-dialog input:-ms-input-placeholder {
   color: black;
 }
 
-.edit-family-modal input::-ms-input-placeholder {
-  /* Microsoft Edge */
+.edit-family-modal input::-ms-input-placeholder,
+.rent-history-dialog input::-ms-input-placeholder {
   color: black;
 }
 
