@@ -110,6 +110,8 @@ import EditRequest from "../../blocks/customform/src/EditRequest.web"
 import NewRequest from "../../blocks/customform/src/NewRequest.web"
 import ManagerList from "../../blocks/customform/src/ManagerList.web"
 import Inbox from "../../blocks/customform/src/Inbox.web"
+import ChairmanChat from "../../blocks/customform/src/ChairmanChat.web"
+
 import IncidentChat from "../../blocks/customform/src/IncidentChat.web"
 
 import Chatbox from "../../blocks/customform/src/Chatbox.web"
@@ -334,6 +336,11 @@ const routeMap = {
   Inbox: {
     component: Inbox,
     path: '/inbox',
+    exact: true
+  },
+  ChairmanChat: {
+    component: ChairmanChat,
+    path: '/ChairmanChat',
     exact: true
   },
   Chatbox: {
