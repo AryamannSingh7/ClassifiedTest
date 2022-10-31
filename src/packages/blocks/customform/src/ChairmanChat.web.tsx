@@ -41,7 +41,6 @@ import ProfileController,{Props} from "../../user-profile-basic/src/ProfileContr
 import { calendar, emailedit, fbedit, heart, instaedit, message, mobile, NoProfile_Img, snapedit, twitteredit, user } from "../../user-profile-basic/src/assets";
 import { dailCode } from "../../email-account-registration/src/code";
 import ChipInput from "material-ui-chip-input";
-import { AvatarIcon, CallIcon, ChatIcon, EmailIcon, FacebookIcon, InstagramIcon, SettingIcon, SnapchatIcon, TwitterIcon } from "./assets";
 import OtpInput from "react-otp-input";
 import InboxWeb from "./Inbox.web";
 
