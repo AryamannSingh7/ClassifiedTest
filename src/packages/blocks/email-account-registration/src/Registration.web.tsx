@@ -486,7 +486,9 @@ class Registration extends EmailAccountRegistrationController  {
                         </Typography>
                       </Box>
                       <Box display='flex' justifyContent='center'>
-                        <img src={company_logo} width='125' height='125' />
+                        <a href="http://www.tenantint.com/" target="_blank">
+                          <img src={company_logo} width='125' height='125' />
+                        </a>
                       </Box>
 
                     </Box>
@@ -499,7 +501,7 @@ class Registration extends EmailAccountRegistrationController  {
           </Grid>
         <Grid item xs={12} md={5} className="auth-cols">
           <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
-            <img src={Building1.default} className="building-logo" alt="" />
+              <img src={Building1.default} className="building-logo" alt="" />
           </Box>
         </Grid>
           </Grid>
