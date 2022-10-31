@@ -93,7 +93,7 @@ class ChairmanProfile extends ProfileController {
 
             <Grid item xs={9} md={9} sm={9} style={{ paddingTop: 35 }}>
              {/*//@ts-nocheck */
-              <InboxWeb/>
+              // <InboxWeb/>
               }
             </Grid>
           </Box>
