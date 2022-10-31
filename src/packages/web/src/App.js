@@ -312,6 +312,7 @@ import ManagementFeeReport from '../../blocks/ExpenseTracking/src/ManagementFeeR
 // My Unit
 import MyUnitList from '../../blocks/TaskAllocator/src/MyUnitList.web';
 import RegisterMyUnit from '../../blocks/TaskAllocator/src/RegisterUnit.web';
+import RegisterMyUnitSuccess from '../../blocks/TaskAllocator/src/RegisterUnitSuccess.web';
 
 const routeMap = {
   //done
@@ -1839,6 +1840,12 @@ const routeMap = {
   RegisterMyUnit: {
     component: RegisterMyUnit,
     path: '/RegisterMyUnit',
+    roles: [ROLE.OWNER],
+    exact: true
+  },
+  RegisterMyUnitSuccess: {
+    component: RegisterMyUnitSuccess,
+    path: '/RegisterMyUnit/Success',
     roles: [ROLE.OWNER],
     exact: true
   },

@@ -283,6 +283,17 @@ export const MyUnitStyle: any = {
         },
       },
     },
+    "& .success-page": {
+      height: "calc(100% - 100px)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      flexDirection: "column",
+      gap: "20px",
+      "& p": {
+        textAlign: "center",
+      },
+    },
     "& .next-button": {
       background: "white",
       display: "flex",
