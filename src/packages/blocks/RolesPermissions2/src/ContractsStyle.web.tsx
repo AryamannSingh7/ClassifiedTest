@@ -199,7 +199,7 @@ export const ContractsStyleWeb: any = {
       alignContent: "flex-start",
     },
     "& .content-box .contracts-list": {
-      minHeight: "calc(100% - 70px)",
+      height: "calc(100% - 70px)",
       overflowY: "auto",
       overflowX: "hidden",
     },

@@ -30,7 +30,7 @@ class AddCondition extends LeaseFormController {
     this.setState(
       {
         templateId: template_id,
-        editor: RichTextEditor.createValueFromString(condition.editorCondition, "html"),
+        editor: RichTextEditor.createValueFromString(condition.editorCondition || "", "html"),
       },
       () => {}
     );

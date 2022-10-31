@@ -1,7 +1,7 @@
 import * as React from "react";
 // custom components
 import {
-  Button, Grid, Box, Typography, Link, IconButton
+  Button, Grid, Box, Typography, Link, IconButton,Divider
 } from "@material-ui/core";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
@@ -38,20 +38,18 @@ class NewVeichleList extends VeichleListController {
       <>
         <Grid container spacing={2} className="auth-container">
           <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset' }}>
-            <Grid container>
+            <Grid container style={{padding:"15px 5px"}}>
               <Grid xs={12} style={{ display: 'flex', alignItems: 'center' }}>
                 <ArrowBackIcon onClick={() => window.history.back()} />
-                <p style={{ fontWeight: 600, fontSize: '1.25rem' }}>
-
-{
+                <p style={{ fontWeight: 600, fontSize: '1.25rem', marginLeft:"15px" }}>
+                {
                     this.state.allVehcile.length==0 ? ' Register vehicle' : ' Register another vehicle'
-}
-
-
+                }
                 </p>
               </Grid>
             </Grid>
-            <div style={{ margin: 'auto' }}>
+            <Divider/>
+            <div style={{ margin: '10px 15px' }}>
 
               <Grid container className="main-content-block">
                 <Grid xs={12}>
@@ -270,7 +268,7 @@ class NewVeichleList extends VeichleListController {
                         alignItems:'center',
                         padding:'4rem',
                         marginTop:'15px',
-                            border:'1px dotted #00000036',
+                            border:'3px dashed #00000036',
                             marginBottom:10,
                             backgroundSize:'cover',
                             borderRadius: 15, backgroundImage: values.bannerUrl
@@ -280,7 +278,7 @@ class NewVeichleList extends VeichleListController {
                             <img src={upload} width='25' height='25'/>
                             
                             <label htmlFor="file1"
-                            style={{ color:'rgb(33 33 33 / 33%)'}}>
+                            style={{ color:'rgb(33 33 33 / 33%)',textAlign:"center",marginTop:"10px"}}>
                               Add Registration Card Copy
                             </label>
                             <input
@@ -321,9 +319,11 @@ class NewVeichleList extends VeichleListController {
                               style={{
                                 color: "#F14E24",
                                 fontFamily: "Poppins",
-                                fontWeight: 300,
+                                fontWeight: 700,
                                 fontSize: 14,
-                                marginTop: 5
+                                marginTop: "-5px",
+                                marginLeft:"25px",
+                                marginBottom:"10px",
                               }}
                             >
                               {errors.bannerUrl}

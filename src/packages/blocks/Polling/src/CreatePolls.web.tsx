@@ -137,6 +137,19 @@ class CreatePolls extends PollingController {
                                     </Box>
                                 </Box>
                                 {/*<p style={{color:"red"}}>{this.state.pollDateError}</p>*/}
+
+                                <Box style={{width:"100%"}}>
+                                    <Box className="infoIcon">
+                                        <Typography variant="subtitle1">{t("Description")}</Typography>
+                                        <InfoIcon style={{color:"grey", fontSize:18}}/>
+                                    </Box>
+                                    <Box className="descriptionEditor"  style={{maxHeight:"200px",overflow:"hidden"}}>
+                                        <TextEditor
+                                            //@ts-ignore
+                                            markup={this.state.textEditorVal}
+                                            onChange={this.onChangeTextEditor} />
+                                    </Box>
+                                </Box>
                                 <Box className="anonymousSwitch">
                                     <Box className="infoIcon">
                                         <Typography variant="subtitle1">{t("Make it anonymous poll")}</Typography>
@@ -158,18 +171,8 @@ class CreatePolls extends PollingController {
                             </Box>
                         </Grid>
 
-                        <Grid item sm={12} md={12} xs={12}>
+                        <Grid item sm={12} md={12} xs={12} style={{marginTop:"70px"}}>
                             <Box className="createPSCards">
-                                <Box className="infoIcon">
-                                    <Typography variant="subtitle1">{t("Description")}</Typography>
-                                    <InfoIcon style={{color:"grey", fontSize:18}}/>
-                                </Box>
-                                <Box className="descriptionEditor">
-                                    <TextEditor
-                                    //@ts-ignore
-                                    markup={this.state.textEditorVal}
-                                    onChange={this.onChangeTextEditor} />
-                                </Box>
                                 <p style={{color:"red"}}>{t(this.state.pollDescriptionError)}</p>
                                 <TextField  label={t("enter question")} variant="outlined"
                                 name="question"

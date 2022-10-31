@@ -1548,7 +1548,7 @@ console.log(attributes)
   signupSchema() {
     const validations = Yup.object().shape({
 
-      full_name: Yup.string().required(`Name is required`).trim(),
+      full_name: Yup.string().required(`Name is required`).trim().matches("^[a-zA-Z\-]+$","Only characters are allowed in username"),
       email: Yup.string().required(`Email is required`).trim(),
       phone: Yup.number()
         .typeError("Only numbers are allowed.")

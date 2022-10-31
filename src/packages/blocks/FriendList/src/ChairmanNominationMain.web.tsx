@@ -70,7 +70,7 @@ class MyTeamCore extends ChairmanNominationMainController {
                             <Typography variant="h4" className="subHeading">Chairman and Vice Chairman Nomination</Typography>
                             {
                                 this.state.onGoingNomination &&
-                                    <AcceptButton disabled style={{marginTop:"20px"}} onClick={()=>this.setState({setOpen:true})}>Start Nomination Process</AcceptButton>
+                                    <AcceptButton style={{marginTop:"20px"}} onClick={()=>this.setState({setOpen:true})}>Start Nomination Process</AcceptButton>
                             }
                         </Box>
                     </Box>
@@ -187,6 +187,10 @@ class MyTeamCore extends ChairmanNominationMainController {
                         <Grid item xs={12}>
                             <TextField label="Title" variant="outlined"
                                name="title"
+                               value={this.state.nominationTitle}
+                               onChange={(e:any)=> {
+                                   this.setState({nominationTitle:e.target.value,nominationTitleError:""})
+                               }}
                                id="Nomination Title"
                                style={{border:"1px solid #ECECEC",borderRadius:"10px",backgroundColor:"#f9f9f9",marginRight:"10px"}}
                                inputProps={{
@@ -194,19 +198,22 @@ class MyTeamCore extends ChairmanNominationMainController {
                                }}
                                fullWidth
                             />
+                            <p style={{color:"red"}}>{this.state.nominationTitleError}</p>
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 label="Start Date" variant="outlined"
-                                placeHolder="Start Date"
+                                placeholder="Start Date"
                                 style={{border:"1px solid #ECECEC",borderRadius:"10px",backgroundColor:"#f9f9f9",marginRight:"10px"}}
-                                type="date" name="startDate"  fullWidth
+                                type={this.state.startDateType} name="startDate"  fullWidth
+                                onFocus={()=> this.setState({startDateType:"date"})}
                                 id="SurveyQuestion"
                                 format='DD/MM/YYYY'
-                                // value={this.state.SurveyData.startDate}
-                                // onChange={this.handlePollDataChange}
+                                value={this.state.nominationStartDate}
+                                onChange={(e:any)=> {
+                                    this.setState({nominationStartDate:e.target.value,nominationStartDateError:""})
+                                }}
                                 InputProps={{
-                                    // min: "2019-01-24",
                                     //@ts-ignore
                                     max: "5000-05-31",
                                     startAdornment: (
@@ -216,17 +223,20 @@ class MyTeamCore extends ChairmanNominationMainController {
                                     ),
                                 } }
                             />
-                            {/*<p style={{color:"red"}}>{this.state.pollDateError}</p>*/}
+                            <p style={{color:"red"}}>{this.state.nominationStartDateError}</p>
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <TextField label="End Date" variant="outlined"
-                                       type="date" name="endDate"  fullWidth
+                                       type={this.state.endDateType} name="endDate"  fullWidth
+                                       placeholder="End Date"
                                        style={{border:"1px solid #ECECEC",borderRadius:"10px",backgroundColor:"#f9f9f9",marginRight:"10px"}}
+                                       onFocus={()=> this.setState({endDateType:"date"})}
+                                       value={this.state.nominationEndDate}
+                                       onChange={(e:any)=> {
+                                           this.setState({nominationEndDate:e.target.value,nominationEndDateError:""})
+                                       }}
                                        id="SurveyQuestion"
-                                       // value={this.state.SurveyData.endDate}
-                                       // onChange={this.handlePollDataChange}
                                        InputProps={{
-                                           // min: "2019-01-24",
                                            //@ts-ignore
                                            max: "5000-05-31",
                                            startAdornment: (
@@ -236,24 +246,29 @@ class MyTeamCore extends ChairmanNominationMainController {
                                            )
                                        }}
                             />
-                            {/*<p style={{color:"red"}}>{this.state.pollEndDateError}</p>*/}
+                            <p style={{color:"red"}}>{this.state.nominationEndDateError}</p>
                         </Grid>
                         <Grid xs={12} style={{marginTop:"10px",padding:"0px 7px"}}>
                             <TextField
                                 id="outlined-multiline-static"
                                 label="Description"
                                 multiline
+                                value={this.state.nominationDescription}
+                                onChange={(e:any)=> {
+                                    this.setState({nominationDescription:e.target.value,nominationDescriptionError:""})
+                                }}
                                 fullWidth
                                 style={{border:"1px solid #ECECEC",borderRadius:"10px",backgroundColor:"#f9f9f9",marginRight:"10px"}}
                                 rows={5}
                                 variant="outlined"
                             />
+                            <p style={{color:"red"}}>{this.state.nominationDescriptionError}</p>
                         </Grid>
                     </Grid>
                     <Grid item xs={12} style={{display:'flex',justifyContent:"flex-end",marginTop:"20px"}}>
                         <Box>
                             <DeclineButton variant="contained" style={{marginRight:"15px"}}>Cancel</DeclineButton>
-                            <AcceptButton variant="contained">Start Process</AcceptButton>
+                            <AcceptButton variant="contained" onClick={this.manageSubmit}>Start Process</AcceptButton>
                         </Box>
                     </Grid>
                 </div>
