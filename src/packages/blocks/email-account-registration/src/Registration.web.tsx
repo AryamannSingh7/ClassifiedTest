@@ -197,7 +197,7 @@ class Registration extends EmailAccountRegistrationController  {
                           <FormControl variant="outlined" >
                             {/* <InputLabel id="demo-simple-select-outlined-label"><img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AF.svg`} width='15' height='15' />
                           sd</InputLabel> */}
-                            {/* <Select
+                            <Select
                             search
                               name='selectCode'
                               labelId="demo-simple-select-outlined-label"
@@ -217,24 +217,26 @@ class Registration extends EmailAccountRegistrationController  {
                               )
                               }
 
-                            </Select> */}
-                     <Autocomplete
-  id="combo-box-demo"
+                            </Select>
+                     {/* <Autocomplete
+  id="new"
   options={dailCode}
   autoComplete="new-password"
   value={this.getSelectedItem()}
   filterOptions={filterOptions}
-  getOptionLabel={(option:any) => this.handleChangeCode(option)}
-  onInputChange={(event:any, newInputValue:any)=>this.setState({selectCode:newInputValue})}
-  style={{ width: 100 }}
-  renderOption={(props:any, option:any) => { console.log(props)
+  getOptionLabel={option => option.dial_code || ""}
+  // onInputChange={(event:any, newInputValue:any)=>this.setState({selectCode:newInputValue})}
+  // onInputChange={(event:any, newInputValue:any)=>console.log(newInputValue)}
+  
+  style={{ width: 150 }}
+  renderOption={(props:any, option:any) => {
     return <MenuItem>{props.dial_code} <img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/${props.code}.svg`} width='15' height='15' style={{ marginRight: '5px' }} /></MenuItem>;
   }}
   renderInput={(params:any) => <TextField {...params}  inputProps={{
     ...params.inputProps,
     autoComplete: 'new-password',
   }}  variant="outlined" />}
-/>
+/> */}
                           </FormControl>
 
                         </Box>
