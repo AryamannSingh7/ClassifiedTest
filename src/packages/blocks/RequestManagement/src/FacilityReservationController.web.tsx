@@ -52,7 +52,7 @@ export interface S {
   file : any,
   commonAreaData:any,
   incidentRelatedData:any,
-  incidentListing:any,
+  facilityReservationListing:any,
   showDialog:any;
   // Customizable Area End
 }
@@ -130,7 +130,7 @@ export default class FacilityReservationController extends BlockComponent<
       loading: false,
       commonAreaData:null,
       incidentRelatedData:null,
-      incidentListing: null,
+      facilityReservationListing: null,
       anchorEl:null,
       anchorEl_1:null,
       getIncidentDetails:null,
@@ -236,7 +236,7 @@ export default class FacilityReservationController extends BlockComponent<
           if (responseJson && responseJson.data) {
             console.log("apiupdateIncidentCallId===========>",responseJson)
                //@ts-ignore
-              this.props.history.push("/IncidentListing")
+              this.props.history.push("/FacilityReservation")
             this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
@@ -251,7 +251,7 @@ export default class FacilityReservationController extends BlockComponent<
         else if (apiRequestCallId === this.getFacilityReservationListingApiCallId) {
           if (responseJson && responseJson?.data ) {
           console.log("getFacilityReservationListingApiCallId ========================>",responseJson)
-          this.setState({incidentListing :responseJson?.data})
+          this.setState({facilityReservationListing :responseJson?.data})
           this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
@@ -272,7 +272,7 @@ export default class FacilityReservationController extends BlockComponent<
             let error = responseJson.errors[0] as string;
                      //@ts-ignore
                     //@ts-nocheck
-              this.props.history.push("/IncidentListing")
+              this.props.history.push("/FacilityReservation")
             this.setState({ error });
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
