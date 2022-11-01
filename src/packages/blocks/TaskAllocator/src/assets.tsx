@@ -16,6 +16,7 @@ export const ConfigIcon = require("../assets/config.png");
 export const PriceIcon = require("../assets/price.png");
 export const ValuationIcon = require("../assets/valuation.png");
 export const RentAmountHistoryIcon = require("../assets/amount.png");
+export const UnitRegisterCompleteIcon = require("../assets/unit.png");
 export const ReceivedIcon = require("../assets/rAmount.png");
 export const TenantIcon = require("../assets/tenant.png");
 export const DeleteRentIcon = require("../assets/delete-rent.png");
