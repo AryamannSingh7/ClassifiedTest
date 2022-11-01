@@ -12,6 +12,7 @@ import MessageEnum, {
 // Customizable Area Start
 import * as Yup from 'yup';
 import { imgPasswordInVisible, imgPasswordVisible } from "./assets";
+import { ApiCatchErrorResponse } from "../../../components/src/APIErrorResponse";
 // Customizable Area End
 
 export const configJSON = require("./config");
@@ -238,12 +239,14 @@ export default class EmailAccountRegistrationController extends BlockComponent<
 
 
           } else if (responseJson?.errors) {
+            console.log(responseJson.errors)
             let error = responseJson.errors[0];
             this.setState({ error });
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
           }
-          this.parseApiCatchErrorResponse(this.state.error);
+          
+          ApiCatchErrorResponse(responseJson.errors);
           this.setState({ loading: false })
 
         } else if (apiRequestCallId === this.verifyOtpApiCallId) {
@@ -274,7 +277,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             this.setState({ error });
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
-            this.parseApiCatchErrorResponse(this.state.error);
+            ApiCatchErrorResponse(this.state.error);
           }
           this.setState({ loading: false })
 
@@ -294,12 +297,12 @@ export default class EmailAccountRegistrationController extends BlockComponent<
           } else if (responseJson?.errors) {
             let error = responseJson.errors[0];
             this.setState({ error });
-            this.parseApiCatchErrorResponse(this.state.error);
-            this.parseApiCatchErrorResponse(errorReponse);
+            ApiCatchErrorResponse(this.state.error);
+            ApiCatchErrorResponse(errorReponse);
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
-            this.parseApiCatchErrorResponse(this.state.error);
-            this.parseApiCatchErrorResponse(errorReponse);
+            ApiCatchErrorResponse(this.state.error);
+            ApiCatchErrorResponse(errorReponse);
           }
           this.setState({ loading: false })
 
@@ -328,7 +331,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             this.parseApiErrorResponse(responseJson);
           }
 
-          this.parseApiCatchErrorResponse(errorReponse);
+          ApiCatchErrorResponse(errorReponse);
         } else if (apiRequestCallId === this.createRequestApiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
@@ -350,7 +353,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             this.parseApiErrorResponse(responseJson);
           }
 
-          this.parseApiCatchErrorResponse(errorReponse);
+          ApiCatchErrorResponse(errorReponse);
         } else if (apiRequestCallId === this.createRequestManaulApiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
@@ -369,7 +372,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             this.parseApiErrorResponse(responseJson);
           }
 
-          this.parseApiCatchErrorResponse(errorReponse);
+          ApiCatchErrorResponse(errorReponse);
         } else if (apiRequestCallId === this.changeUserTypeApiCallId) {
           if (!responseJson.errors) {
             //@ts-ignore
@@ -388,7 +391,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             this.parseApiErrorResponse(responseJson);
           }
 
-          this.parseApiCatchErrorResponse(errorReponse);
+          ApiCatchErrorResponse(errorReponse);
         } else if (apiRequestCallId === this.getCountryApiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
@@ -398,7 +401,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             this.parseApiErrorResponse(responseJson);
           }
 
-          this.parseApiCatchErrorResponse(errorReponse);
+          ApiCatchErrorResponse(errorReponse);
         } else if (apiRequestCallId === this.getComplexApiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
@@ -415,7 +418,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             this.parseApiErrorResponse(responseJson);
           }
 
-          this.parseApiCatchErrorResponse(errorReponse);
+          ApiCatchErrorResponse(errorReponse);
         } else if (apiRequestCallId === this.getCityApiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
@@ -425,7 +428,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             this.parseApiErrorResponse(responseJson);
           }
 
-          this.parseApiCatchErrorResponse(errorReponse);
+          ApiCatchErrorResponse(errorReponse);
         } else if (apiRequestCallId === this.getBuildingApiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
@@ -435,7 +438,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             this.parseApiErrorResponse(responseJson);
           }
 
-          this.parseApiCatchErrorResponse(errorReponse);
+          ApiCatchErrorResponse(errorReponse);
         } else if (apiRequestCallId === this.getUnitApiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
@@ -449,7 +452,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             this.parseApiErrorResponse(responseJson);
           }
 
-          this.parseApiCatchErrorResponse(errorReponse);
+          ApiCatchErrorResponse(errorReponse);
         }
       }
     }
@@ -1514,10 +1517,10 @@ console.log(attributes)
   signupSchemaManager() {
     const validations = Yup.object().shape({
 
-      company_name: Yup.string().required(`Company name is required`).trim(),
+      company_name: Yup.string().email().required(`Company name is required`).trim(),
       managerName: Yup.string().required(`Manager name is required`).trim(),
       ownerName: Yup.string().required(`Owner name is required`).trim(),
-      email: Yup.string().required(`Email is required`).trim(),
+      email: Yup.string().email().required(`Email is required`).trim(),
       owner_email: Yup.string().required(`Owner email is required`).trim(),
       phone: Yup.number()
         .typeError("Only numbers are allowed.")
@@ -1555,7 +1558,7 @@ console.log(attributes)
     const validations = Yup.object().shape({
 
       full_name: Yup.string().required(`Name is required`).trim().matches("^[a-zA-Z\-]+$","Only characters are allowed in username"),
-      email: Yup.string().required(`Email is required`).trim(),
+      email: Yup.string().email().required(`Email is required`).trim(),
       phone: Yup.number()
         .typeError("Only numbers are allowed.")
         .required("Mobile number is required.")
@@ -1582,7 +1585,7 @@ console.log(attributes)
   }
   EmailSchema() {
     const validations = Yup.object().shape({
-      email: Yup.string()
+      email: Yup.string().email()
         .trim()
         .required("Email is required.")
     });
