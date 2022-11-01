@@ -171,16 +171,25 @@ export default class CoverImageController extends BlockComponent<
 
   updateEndDate = () => {
     if(this.validateEndDate()){
-      console.log("SUCCESS")
+      const societyID = localStorage.getItem("society_id")
+      const surveyID =  window.location.search ? window.location.search.split("=")[1] : null;
+      this.makeEndSurvey(`/society_managements/${societyID}/bx_block_survey/surveys/${surveyID}/survey_preview_update?end_date=${this.state.endDate}`)
     }
   }
 
   updateDescription = () => {
     if(this.validateDescription()){
-      console.log("SUCCESS")
+      const societyID = localStorage.getItem("society_id")
+      const surveyID =  window.location.search ? window.location.search.split("=")[1] : null;
+      this.makeEndSurvey(`/society_managements/${societyID}/bx_block_survey/surveys/${surveyID}/survey_preview_update?description=${this.state.textEditor}`)
     }
   }
 
+  handleEndSurvey = () => {
+    const societyID = localStorage.getItem("society_id")
+    const surveyID =  window.location.search ? window.location.search.split("=")[1] : null;
+    this.makeEndSurvey(`/society_managements/${societyID}/bx_block_survey/surveys/${surveyID}/survey_preview_update?end_survey=true`)
+  }
 
   getSurveyPreviewAnswer = async () => {
     const societyID = localStorage.getItem("society_id")
@@ -213,11 +222,19 @@ export default class CoverImageController extends BlockComponent<
         console.log(responseJson,errorReponse)
       }
       if(this.surveyPreviewAnswerData === apiRequestCallId){
-        console.log("RESPONSE OF SURVEY PREVIEW",responseJson?.poll?.data?.attributes)
+        console.log("RESPONSE OF SURVEY PREVIEW",responseJson?.survey?.data?.attributes)
         this.setState({
-          SurveyPreviewAnswer:responseJson?.poll?.data?.attributes || {},
-          textEditor:responseJson?.poll?.data?.attributes.description
+          SurveyPreviewAnswer:responseJson?.survey?.data?.attributes || {},
+          textEditor:responseJson?.survey?.data?.attributes.description
         })
+      }
+      if(this.makeEndSurveyID === apiRequestCallId){
+        this.setState({
+          dateWindow:false,
+          descriptionWindow:false,
+          cautionWindow:false
+        })
+        this.getSurveyPreviewAnswer()
       }
     }
   }

@@ -834,5 +834,11 @@
   "Are you sure want to close the contract with": "Are you sure want to close the contract with",
   "Once closed you won't be able to retrieve": "Once closed you won't be able to retrieve",
   "Yes, Close": "Yes, Close",
-  "No, Don't Close": "No, Don't Close"
+  "No, Don't Close": "No, Don't Close",
+  "My Invoices/Receipts": "My Invoices/Receipts",
+  "Invoice Type": "Invoice Type",
+  "Visitors Dashboard": "Visitors Dashboard",
+  "Task Management": "Task Management",
+  "Chairman and Vice Chairman Nomination": "Chairman and Vice Chairman Nomination",
+  "Team Members": "Team Members"
 }

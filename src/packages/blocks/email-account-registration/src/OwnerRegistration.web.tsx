@@ -1,23 +1,21 @@
-//@ts-ignore
-//@ts-nocheck
-
 import * as React from "react";
 // custom components
 import {
-  Button, Grid, Box, Typography, Link, IconButton, FormControl, InputLabel, Select, MenuItem
+  Button, Grid, Box, Typography, Link, IconButton, FormControl, InputLabel, Select, MenuItem, TextField
 } from "@material-ui/core";
 import "../assets/css/style.scss";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
-import EmailAccountRegistrationController, { Props } from "./EmailAccountRegistrationController.web.tsx";
+import EmailAccountRegistrationController, { Props } from "./EmailAccountRegistrationController.web";
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import { CheckBox, Visibility, VisibilityOff } from "@material-ui/icons";
 import { Building1, company_logo, email, password, user } from "./assets";
 import { dailCode } from './code'
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
-
+// @ts-ignore
+import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete';
 
 
 class Registration extends EmailAccountRegistrationController {
@@ -27,7 +25,21 @@ class Registration extends EmailAccountRegistrationController {
     // Customizable Area End
   }
 
+
+  getSelectedItem(){
+    const item = dailCode.find((opt)=>{
+      // @ts-ignore
+      if (opt.dial_code == this.state.selectCode)
+        return opt;
+    })
+    return item || {};
+  }
+
   render() {
+    const filterOptions = createFilterOptions({
+      matchFrom: 'start',
+      stringify: (option:any) => option.name,
+    });
     return (
       <>
         <Grid container spacing={2} className="auth-container">
@@ -192,7 +204,7 @@ class Registration extends EmailAccountRegistrationController {
                         <FormControl variant="outlined" >
                           {/* <InputLabel id="demo-simple-select-outlined-label"><img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AF.svg`} width='15' height='15' />
                           sd</InputLabel> */}
-                          <Select
+                          {/* <Select
                             name='selectCode'
                             labelId="demo-simple-select-outlined-label"
                             id="demo-simple-select-outlined"
@@ -210,7 +222,24 @@ class Registration extends EmailAccountRegistrationController {
                             )
                             }
 
-                          </Select>
+                          </Select> */}
+                     <Autocomplete
+  id="combo-box-demo"
+  options={dailCode}
+  autoComplete="new-password"
+  value={this.getSelectedItem()}
+  filterOptions={filterOptions}
+  getOptionLabel={(option:any) => this.handleChangeCode(option)}
+  onInputChange={(event:any, newInputValue:any)=>this.setState({selectCode:newInputValue})}
+  style={{ width: 100 }}
+  renderOption={(props:any, option:any) => { console.log(props)
+    return <MenuItem>{props.dial_code} <img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/${props.code}.svg`} width='15' height='15' style={{ marginRight: '5px' }} /></MenuItem>;
+  }}
+  renderInput={(params:any) => <TextField {...params}  inputProps={{
+    ...params.inputProps,
+    autoComplete: 'new-password',
+  }}  variant="outlined" />}
+/>
                         </FormControl>
 
                       </Box>
@@ -402,7 +431,7 @@ class Registration extends EmailAccountRegistrationController {
                       <Button
                         variant="contained"
                         type="submit"
-                            style={{ orderRadius: '25px' }}
+                            style={{ borderRadius: '25px' }}
 
                       >
                         SIGN UP
@@ -432,7 +461,6 @@ class Registration extends EmailAccountRegistrationController {
                         style={{
                           fontSize: 14,
                           color: "#FC8434",
-                          fontWeight: 500,
                           marginLeft: 5,
                           textTransform: "uppercase",
                           fontWeight: 'bold'
@@ -489,4 +517,5 @@ class Registration extends EmailAccountRegistrationController {
     )
   }
 }
+//@ts-ignore
 export default withRouter(Registration)

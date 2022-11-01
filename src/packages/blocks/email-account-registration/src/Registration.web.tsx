@@ -1,6 +1,3 @@
-//@ts-ignore
-//@ts-nocheck
-
 import * as React from "react";
 // custom components
 import {
@@ -10,13 +7,14 @@ import "../assets/css/style.scss";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
-import EmailAccountRegistrationController, { Props } from "./EmailAccountRegistrationController.web.tsx";
+import EmailAccountRegistrationController, { Props } from "./EmailAccountRegistrationController.web";
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import { CheckBox, Visibility, VisibilityOff } from "@material-ui/icons";
 import { Building1, company_logo, company_logo2, email, password, user } from "./assets";
 import {dailCode} from './code'
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
+// @ts-ignore
 import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete';
 // import "../../../web/src/assets/css/content/auth.styles.scss";
 
@@ -30,12 +28,19 @@ class Registration extends EmailAccountRegistrationController  {
     // Customizable Area End
   }
 
-
+  getSelectedItem(){
+    const item = dailCode.find((opt)=>{
+      // @ts-ignore
+      if (opt.dial_code == this.state.selectCode)
+        return opt;
+    })
+    return item || {};
+  }
 
   render() {
     const filterOptions = createFilterOptions({
       matchFrom: 'start',
-      stringify: option => option.name,
+      stringify: (option:any) => option.name,
     });
   return (
     <>
@@ -192,7 +197,7 @@ class Registration extends EmailAccountRegistrationController  {
                           <FormControl variant="outlined" >
                             {/* <InputLabel id="demo-simple-select-outlined-label"><img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AF.svg`} width='15' height='15' />
                           sd</InputLabel> */}
-                            <Select
+                            {/* <Select
                             search
                               name='selectCode'
                               labelId="demo-simple-select-outlined-label"
@@ -212,23 +217,24 @@ class Registration extends EmailAccountRegistrationController  {
                               )
                               }
 
-                            </Select>
-                     {/* <Autocomplete
+                            </Select> */}
+                     <Autocomplete
   id="combo-box-demo"
   options={dailCode}
   autoComplete="new-password"
-  value={this.state.selectCode}
+  value={this.getSelectedItem()}
   filterOptions={filterOptions}
-  getOptionLabel={(option) => this.handleChangeCode(option)}
-  style={{ width: 300 }}
-  renderOption={(props, option) => {
-    return <MenuItem>{props.name}</MenuItem>;
+  getOptionLabel={(option:any) => this.handleChangeCode(option)}
+  onInputChange={(event:any, newInputValue:any)=>this.setState({selectCode:newInputValue})}
+  style={{ width: 100 }}
+  renderOption={(props:any, option:any) => { console.log(props)
+    return <MenuItem>{props.dial_code} <img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/${props.code}.svg`} width='15' height='15' style={{ marginRight: '5px' }} /></MenuItem>;
   }}
-  renderInput={(params) => <TextField {...params}  inputProps={{
+  renderInput={(params:any) => <TextField {...params}  inputProps={{
     ...params.inputProps,
     autoComplete: 'new-password',
   }}  variant="outlined" />}
-/> */}
+/>
                           </FormControl>
 
                         </Box>
@@ -421,7 +427,7 @@ class Registration extends EmailAccountRegistrationController  {
                         <Button
                           variant="contained"
                           type="submit"
-                          style={{orderRadius:'25px'}}
+                          style={{borderRadius:'25px'}}
 
                         >
                           SIGN UP
@@ -451,7 +457,6 @@ class Registration extends EmailAccountRegistrationController  {
                           style={{
                             fontSize: 14,
                             color: "#FC8434",
-                            fontWeight: 500,
                             marginLeft: 5,
                             textTransform: "uppercase",
                             fontWeight: 'bold'
@@ -485,8 +490,10 @@ class Registration extends EmailAccountRegistrationController  {
 
                         </Typography>
                       </Box>
-                      <Box display='flex' justifyContent='center' style={{ cursor: 'pointer'}} onClick={()=>window.open("https://www.TenantInt.com", '_blank').focus()}>
-                        <img src={company_logo} width='125' height='125' />
+                      <Box display='flex' justifyContent='center'>
+                        <a href="http://www.tenantint.com/" target="_blank">
+                          <img src={company_logo} width='125' height='125' />
+                        </a>
                       </Box>
 
                     </Box>
@@ -499,7 +506,7 @@ class Registration extends EmailAccountRegistrationController  {
           </Grid>
         <Grid item xs={12} md={5} className="auth-cols">
           <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
-            <img src={Building1.default} className="building-logo" alt="" />
+              <img src={Building1.default} className="building-logo" alt="" />
           </Box>
         </Grid>
           </Grid>
@@ -508,4 +515,5 @@ class Registration extends EmailAccountRegistrationController  {
   )
                     }
 }
+// @ts-ignore
 export default withRouter(Registration)

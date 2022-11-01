@@ -270,7 +270,7 @@ export const FaqChairmanStyleWeb: any = {
     "& .faq-step .faq-list button": {
       color: "#FFFFFF",
       background: "#2B6FEC",
-      padding: "12px",
+      padding: "10px",
       marginTop: "10px",
       borderRadius: "25px",
       fontWeight: "600",

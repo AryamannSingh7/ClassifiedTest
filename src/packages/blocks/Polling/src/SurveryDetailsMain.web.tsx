@@ -248,7 +248,7 @@ class PollDetails extends SurveyDetailsMainController {
                           <Button className="cancel-button" style={{ width: "200px" }} onClick={() => this.closeCautionModal()}>
                               {t("Close")}
                           </Button>
-                          <Button style={{ width: "200px" }} className="add-button" onClick={this.makeEndSurvey}>
+                          <Button style={{ width: "200px" }} className="add-button" onClick={this.handleEndSurvey}>
                               {t("Confirm")}
                           </Button>
                       </DialogActions>

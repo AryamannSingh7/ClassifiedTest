@@ -23,7 +23,6 @@ import Divider from '@material-ui/core/Divider';
 // Icons
 import DateRangeOutlinedIcon from '@material-ui/icons/DateRangeOutlined';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-
 // Icons
 
 import MyTeamController, {
@@ -72,48 +71,110 @@ class MyTeam extends MyTeamController {
                     </Box>
                 </Box>
                 <Box className="RecentItems">
-                    <Typography className="Recenttitle">Pending Request ({2})</Typography>
+                    <Typography className="Recenttitle">Pending Request ({this.state.pendingReq.length})</Typography>
                 </Box>
 
                 <Grid container spacing={3} style={{marginTop: 15, marginBottom:30}}>
-                    <TeamCard history={this.props.history} approval={true} handleDelete={this.handleDeleteModal}/>
-                    <TeamCard history={this.props.history} approval={true} handleDelete={this.handleDeleteModal}/>
+                    {
+                        this.state.pendingReq.length > 0 ?
+                            this.state.pendingReq.map((item:any,key:any)=> {
+                                if(key < 3){
+                                    return(
+                                        <TeamCard key={key} data={item.attributes} history={this.props.history} approval={true} handleDelete={(id:any) => this.handleDeleteModal(id)} />
+                                    )
+                                }
+                          })
+                          :
+                          <Box style={{marginLeft:"25px"}}>
+                              <Typography variant={"body1"} style={{fontWeight:"bold"}} color="textSecondary" >
+                                  No User Found
+                              </Typography>
+                          </Box>
+                    }
                 </Grid>
                 <Box className="RecentItems">
-                    <Typography className="Recenttitle">Core Members({5})</Typography>
-                    <Link href="/TeamMembers/CoreTeam" >
-                        <Typography className="ViewAll">{t("View All")}</Typography>
-                    </Link>
+                    <Typography className="Recenttitle">Core Members({this.state.coreMembers.length})</Typography>
+                    {
+                        this.state.coreMembers.length > 3 &&
+                        <Link href="/TeamMembers/CoreTeam" >
+                            <Typography className="ViewAll">{t("View All")}</Typography>
+                        </Link>
+                    }
                 </Box>
+                {
+                    console.log("this.state.userList",this.state.userList)
+                }
                 <Grid container spacing={3} style={{marginTop: 15, marginBottom:30}}>
-                    <TeamCard history={this.props.history} approval={false}/>
-                    <TeamCard history={this.props.history} approval={false}/>
-                    <TeamCard history={this.props.history} approval={false}/>
-                    <TeamCard history={this.props.history} approval={false}/>
+                    {
+                        this.state.coreMembers.length > 0 ?
+                        this.state.coreMembers.map((item:any,key:any)=> {
+                            if(key < 3){
+                                return(
+                                    <TeamCard data={item.attributes} history={this.props.history} approval={false} handleDelete={(id:any) => this.handleDeleteModal(id)} />
+                                )
+                            }
+                        })
+                        :
+                        <Box style={{marginLeft:"25px"}}>
+                            <Typography variant={"body1"} style={{fontWeight:"bold"}} color="textSecondary" >
+                                No User Found
+                            </Typography>
+                        </Box>
+                    }
                 </Grid>
                 <Box className="RecentItems">
-                    <Typography className="Recenttitle">Sub Team ({7})</Typography>
-                    <Link href="/TeamMembers/SubTeam" >
-                        <Typography className="ViewAll">View All</Typography>
-                    </Link>
+                    <Typography className="Recenttitle">Sub Team ({this.state.subTeam.length})</Typography>
+                    {
+                        this.state.subTeam.length > 3 &&
+                        <Link href="/TeamMembers/SubTeam" >
+                            <Typography className="ViewAll">View All</Typography>
+                        </Link>
+                    }
                 </Box>
                 <Grid container spacing={3} style={{marginTop: 15, marginBottom:30}}>
-                    <TeamCard history={this.props.history} approval={false}/>
-                    <TeamCard history={this.props.history} approval={false}/>
-                    <TeamCard history={this.props.history} approval={false}/>
-                    <TeamCard history={this.props.history} approval={false}/>
+                    {
+                        this.state.subTeam.length > 0 ?
+                            this.state.subTeam.map((item:any,key:any)=> {
+                                if(key < 3) {
+                                    return (
+                                        <TeamCard key={key} date={item.attributes} history={this.props.history} approval={false} handleDelete={(id:any) => this.handleDeleteModal(id)} />
+                                    )
+                                }
+                            })
+                            :
+                            <Box style={{marginLeft:"25px"}}>
+                                <Typography variant={"body1"} style={{fontWeight:"bold"}} color="textSecondary" >
+                                    No User Found
+                                </Typography>
+                            </Box>
+                    }
                 </Grid>
                 <Box className="RecentItems">
-                    <Typography className="Recenttitle">Service Providers({12})</Typography>
-                    <Link href="/TeamMembers/ServiceProviders" >
-                        <Typography className="ViewAll">{t("View All")}</Typography>
-                    </Link>
+                    <Typography className="Recenttitle">Service Providers({this.state.providers.length})</Typography>
+                    {
+                        this.state.providers.length > 3 &&
+                            <Link href="/TeamMembers/ServiceProviders" >
+                                <Typography className="ViewAll">{t("View All")}</Typography>
+                            </Link>
+                    }
                 </Box>
                 <Grid container spacing={3} style={{marginTop: 15, marginBottom:30}}>
-                    <TeamCard history={this.props.history} approval={false}/>
-                    <TeamCard history={this.props.history} approval={false}/>
-                    <TeamCard history={this.props.history} approval={false}/>
-                    <TeamCard history={this.props.history} approval={false}/>
+                    {
+                        this.state.providers.length > 0 ?
+                            this.state.providers.map((item:any,key:any)=> {
+                                if(key < 3) {
+                                    return (
+                                        <TeamCard data={item.attributes} history={this.props.history} approval={false} handleDelete={(id:any) => this.handleDeleteModal(id)} />
+                                    )
+                                }
+                            })
+                            :
+                            <Box style={{marginLeft:"25px"}}>
+                                <Typography variant={"body1"} style={{fontWeight:"bold"}} color="textSecondary" >
+                                    No User Found
+                                </Typography>
+                            </Box>
+                    }
                 </Grid>
             </Container>
             </Grid>
@@ -134,7 +195,7 @@ class MyTeam extends MyTeamController {
       </Modal>
       <Dialog
           fullWidth
-          onClose={() => this.handleDeleteModal()}
+          onClose={() => this.setState({deleteModal:false})}
           open={this.state.deleteModal}
           className="cancel-meeting-dialog"
       >
@@ -146,7 +207,7 @@ class MyTeam extends MyTeamController {
                       User will be removed from the team, Are you sure you want to remove user?
                   </Typography>
                   <DialogActions className="dialog-button-group">
-                      <Button className="cancel-button" style={{ width: "200px" }} onClick={() => this.handleDeleteModal()}>
+                      <Button className="cancel-button" style={{ width: "200px" }} onClick={() => this.setState({deleteModal:false})}>
                           Close
                       </Button>
                       <Button style={{ width: "200px" }} className="add-button" >
@@ -273,6 +334,8 @@ const dashBoard = {
 
 const TeamCard = (props:any) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const userType = localStorage.getItem("selectUserType")
+    const {data} = props
     const handleClick = (event:any) => {
         setAnchorEl(event.currentTarget);
     };
@@ -287,8 +350,10 @@ const TeamCard = (props:any) => {
 
     const handleDelete = () => {
         setAnchorEl(null);
-        props.handleDelete()
+        props.handleDelete(data.id)
     }
+
+    console.log("data",data)
     return(
         <Grid item sm={4} md={3} xs={12} style={{position:"relative"}}>
             <Box style={{position:"absolute",top:"10px",right:"10px"}}>
@@ -298,9 +363,13 @@ const TeamCard = (props:any) => {
             </Box>
             <Box className="EventsCards" style={{paddingLeft:"0px"}}>
                 <Box style={{width:"100%",display:'flex',justifyContent:"center",alignItems:"center",flexDirection:"column",marginTop:"15px"}} onClick={() => props.history.push("/TeamMembers/userDetails?id=")}>
+                    {
+                        props.approval && userType === "Manager" &&
+                        <Typography variant="subtitle2" className={"statusOngoingRed"} gutterBottom style={{marginBottom: "12px"}}>Pending Approval</Typography>
+                    }
                     <img src={profileExp} height="60px" width="60px" style={{borderRadius:"100px"}}  />
-                    <Typography variant="h6" style={{fontWeight:"bold",marginBottom:"5px"}}>Vice Chairman</Typography>
-                    <Typography variant="h6" gutterBottom style={{marginBottom:"10px"}}>Marleah Eagleston</Typography>
+                    <Typography variant="h6" style={{fontWeight:"bold",marginBottom:"5px"}}>{data?.role?.name}</Typography>
+                    <Typography variant="h6" gutterBottom style={{marginBottom:"10px"}}>{data?.account?.attributes?.full_name?.name}</Typography>
                     <Grid container spacing={1} style={{width:"100%",display:"flex",alignItems:"center",justifyContent:"center"}}>
                         <Grid item>
                             <Typography variant="subtitle2" className={"statusOngoingBlue"} gutterBottom>Owner</Typography>
@@ -323,7 +392,7 @@ const TeamCard = (props:any) => {
                         </IconButton>
                     </Box>
                     {
-                        props.approval &&
+                        props.approval && userType === "Chairman" &&
                         <Grid container spacing={2} style={{width:"100%",marginTop:"10px"}}>
                             <Grid item xs={6}>
                                 <DeclineButton variant="contained" fullWidth>Decline</DeclineButton>
