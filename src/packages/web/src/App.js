@@ -356,8 +356,8 @@ const routeMap = {
     component: Inbox,
     path: '/inbox',
     exact: true
-  },
-  // ChairmanChat: {
+  }, 
+  // ChairmanChat: { 
   //   component: ChairmanChat,
   //   path: '/ChairmanChat',
   //   exact: true
