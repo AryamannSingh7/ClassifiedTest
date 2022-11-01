@@ -692,7 +692,7 @@ export default class ForgotPasswordController extends BlockComponent<
   }
   EmailSchema() {
     const validations = Yup.object().shape({
-      email: Yup.string()
+      email: Yup.string().email()
         .trim()
         .required("This field is required.")
     });

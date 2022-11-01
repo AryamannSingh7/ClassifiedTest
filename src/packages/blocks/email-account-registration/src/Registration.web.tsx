@@ -199,7 +199,6 @@ class Registration extends EmailAccountRegistrationController  {
                             {/* <InputLabel id="demo-simple-select-outlined-label"><img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AF.svg`} width='15' height='15' />
                           sd</InputLabel> */}
                             <Select
-                            search
                               name='selectCode'
                               labelId="demo-simple-select-outlined-label"
 
