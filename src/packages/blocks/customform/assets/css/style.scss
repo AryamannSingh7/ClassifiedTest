@@ -137,3 +137,25 @@
   box-shadow: none !important;
   background-color: #ffeded !important;
 }
+.oval-shape{
+  background-color: #f6f6f6;
+  padding: 12px;
+  border-radius: 20px;
+  margin-top: 10px;
+}
+.oval-shape::before {
+  content: " ";
+  position: absolute;
+  top: 30px;
+  left: -62%;
+  border-bottom: 2px solid #f6f6f6;
+  width: 100%;
+}
+.oval-shape::after {
+  content: " ";
+  position: absolute;
+  top: 30px;
+  left: 62%;
+  border-bottom: 2px solid #f6f6f6;
+  width: 100%;
+}
