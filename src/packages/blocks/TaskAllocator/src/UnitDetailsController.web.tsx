@@ -38,4 +38,6 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
   async receive(from: string, message: Message) {
     runEngine.debugLog("Message Recived", message);
   }
+
+  slider: any;
 }

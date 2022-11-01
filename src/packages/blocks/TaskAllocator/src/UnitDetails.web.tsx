@@ -2,27 +2,61 @@ import React from "react";
 import { withTranslation } from "react-i18next";
 import UnitDetailsController, { Props } from "./UnitDetailsController.web";
 import { MyUnitStyle } from "./MyUnitStyle.web";
-import { Box, Card, Container, Grid, IconButton, Link, withStyles } from "@material-ui/core";
+import { Box, Card, Container, Divider, Grid, IconButton, Link, withStyles } from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import {
+  BlueAssetsIcon,
+  BlueCalenderIcon,
+  BlueCityIcon,
+  BlueComplexIcon,
+  BlueConfigIcon,
+  BlueCountryIcon,
+  BlueFloorIcon,
+  BluePriceIcon,
+  BlueRegionIcon,
+  BlueRentIcon,
+  BlueSizeIcon,
+  BlueStatusIcon,
+  BlueTenantIcon,
+  BlueUnitIcon,
+  BlueValuationIcon,
   BuildingImage,
-  CalenderIcon,
-  CityIcon,
-  // DeleteIcon,
-  // DownloadIcon,
-  // EditIcon,
-  // EmailIcon,
-  // IdNumber,
-  // IdType,
-  // LeaseIcon,
-  // PdfIcon,
-  // PhoneNumber,
-  // TenantName,
-  // TenantType,
-  // UnitNumber,
+  DeleteRentIcon,
+  EditIcon,
 } from "./assets";
-import moment from "moment";
-import Loader from "../../../components/src/Loader.web";
+//@ts-ignore
+import Slider from "react-slick";
+const settings = {
+  infinite: false,
+  slidesToShow: 5,
+  swipeToSlide: true,
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 5,
+      },
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 4,
+      },
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 3,
+      },
+    },
+    {
+      breakpoint: 375,
+      settings: {
+        slidesToShow: 2,
+      },
+    },
+  ],
+};
 
 class UnitDetails extends UnitDetailsController {
   constructor(props: Props) {
@@ -43,97 +77,51 @@ class UnitDetails extends UnitDetailsController {
               <Box className="faq-step">
                 <Box display={{ xs: "flex", md: "flex" }} className="top-bar">
                   <div className="left-icon">
-                    <Link href="/Tenants">
+                    <Link href="/MyUnitList">
                       <IconButton>
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    <span>{t("Tenant")}</span>
+                    <span>{t("Unit")}</span>
                   </div>
                   <div className="right-icon">
-                    {/* <img src={DeleteIcon} alt="" onClick={() => this.handleDeleteTenant()} /> */}
-                    <img
-                      // src={EditIcon}
-                      alt=""
-                      // onClick={() => this.props.navigation.navigate("EditTenant", { id: this.state.tenantId })}
-                    />
+                    <img src={DeleteRentIcon} alt="" />
+                    <img src={EditIcon} alt="" />
                   </div>
                 </Box>
                 <Box className="tenant-detail-box">
                   <Container>
                     <Box className="detail">
-                      <h4>{t("Tenant Details")}</h4>
+                      <Box className="header">
+                        <h4>{t("Location Details")}</h4>
+                        <span>{t("See building on map")}</span>
+                      </Box>
                       <Card className="detail-box">
                         <Grid container spacing={2} className="info">
                           <Grid item xs={6}>
                             <Box className="info-item">
-                              {/* <img src={TenantName} alt="" /> */}
+                              <img src={BlueCountryIcon} alt="" />
                               <Box className="item-data">
-                                <span>{t("Tenant Name")}</span>
-                                {/* <p>{this.state.tenantData.tenantName || "-"}</p> */}
+                                <span>{t("Country")}</span>
+                                <p>UAE</p>
                               </Box>
                             </Box>
                           </Grid>
                           <Grid item xs={6}>
                             <Box className="info-item">
-                              {/* <img src={TenantType} alt="" /> */}
+                              <img src={BlueRegionIcon} alt="" />
                               <Box className="item-data">
-                                <span>{t("Tenant Type")}</span>
-                                {/* <p>{this.state.tenantData.tenantType || "-"}</p> */}
+                                <span>{t("Region")}</span>
+                                <p>Eastern</p>
                               </Box>
                             </Box>
                           </Grid>
                           <Grid item xs={6}>
                             <Box className="info-item">
-                              {/* <img src={BuildingName} alt="" /> */}
-                              <Box className="item-data">
-                                <span>{t("Building Name")}</span>
-                                {/* <p>{this.state.tenantData.buildingName || "-"}</p> */}
-                              </Box>
-                            </Box>
-                          </Grid>
-                          <Grid item xs={6}>
-                            <Box className="info-item">
-                              {/* <img src={UnitNumber} alt="" /> */}
-                              <Box className="item-data">
-                                <span>{t("Unit Number")}</span>
-                                {/* <p>{this.state.tenantData.unitNumber || "-"}</p> */}
-                              </Box>
-                            </Box>
-                          </Grid>
-                          <Grid item xs={12}>
-                            <Box className="info-item">
-                              <img src={CityIcon} alt="" />
+                              <img src={BlueCityIcon} alt="" />
                               <Box className="item-data">
                                 <span>{t("City")}</span>
-                                {/* <p>{this.state.tenantData.city || "-"}</p> */}
-                              </Box>
-                            </Box>
-                          </Grid>
-                          <Grid item xs={12}>
-                            <Box className="info-item">
-                              {/* <img src={PhoneNumber} alt="" /> */}
-                              <Box className="item-data">
-                                <span>{t("Phone Number")}</span>
-                                {/* <p>{this.state.tenantData.phoneNumber || "-"}</p> */}
-                              </Box>
-                            </Box>
-                          </Grid>
-                          <Grid item xs={12}>
-                            <Box className="info-item">
-                              {/* <img src={EmailIcon} alt="" /> */}
-                              <Box className="item-data">
-                                <span>{t("Email Address")}</span>
-                                {/* <p>{this.state.tenantData.email || "-"}</p> */}
-                              </Box>
-                            </Box>
-                          </Grid>
-                          <Grid item xs={12}>
-                            <Box className="info-item">
-                              {/* <img src={LeaseIcon} alt="" /> */}
-                              <Box className="item-data">
-                                <span>{t("Lease Issued")}</span>
-                                {/* <p>{this.state.tenantData.isLeaseIssued ? `${t("Yes")}` : `${t("No")}`}</p> */}
+                                <p>Eastern</p>
                               </Box>
                             </Box>
                           </Grid>
@@ -142,40 +130,207 @@ class UnitDetails extends UnitDetailsController {
                     </Box>
 
                     <Box className="detail">
-                      <h4>{t("Identity Proof")}</h4>
+                      <h4>{t("Unit Details")}</h4>
                       <Card className="detail-box">
                         <Grid container spacing={2} className="info">
                           <Grid item xs={6}>
                             <Box className="info-item">
-                              {/* <img src={IdType} alt="" /> */}
+                              <img src={BlueComplexIcon} alt="" />
                               <Box className="item-data">
-                                <span>{t("ID Type")}</span>
-                                {/* <p>{this.state.tenantData.IdType || "-"}</p> */}
+                                <span>{t("Complex Name")}</span>
+                                <p>Lorem Ipsum</p>
                               </Box>
                             </Box>
                           </Grid>
                           <Grid item xs={6}>
                             <Box className="info-item">
-                              {/* <img src={IdNumber} alt="" /> */}
+                              <img src={BlueAssetsIcon} alt="" />
                               <Box className="item-data">
-                                <span>{t("ID Number")}</span>
-                                {/* <p>{this.state.tenantData.IdNumber || "-"}</p> */}
+                                <span>{t("Building Name")}</span>
+                                <p>Lorem Ipsum</p>
                               </Box>
                             </Box>
                           </Grid>
                           <Grid item xs={6}>
                             <Box className="info-item">
-                              <img src={CalenderIcon} alt="" />
+                              <img src={BlueUnitIcon} alt="" />
                               <Box className="item-data">
-                                <span>{t("ID Expiration Date")}</span>
-                                <p>
-                                  {/* {moment(this.state.tenantData.IdExpDate, "YYYY-MM-DD").format("MMMM DD, YYYY") || "-"} */}
-                                </p>
+                                <span>{t("Unit Number")}</span>
+                                <p>Lorem Ipsum</p>
+                              </Box>
+                            </Box>
+                          </Grid>
+                          <Grid item xs={6}>
+                            <Box className="info-item">
+                              <img src={BlueFloorIcon} alt="" />
+                              <Box className="item-data">
+                                <span>{t("Floor Number")}</span>
+                                <p>Lorem Ipsum</p>
+                              </Box>
+                            </Box>
+                          </Grid>
+                          <Grid item xs={6}>
+                            <Box className="info-item">
+                              <img src={BlueSizeIcon} alt="" />
+                              <Box className="item-data">
+                                <span>{t("Size")}</span>
+                                <p>Lorem Ipsum</p>
+                              </Box>
+                            </Box>
+                          </Grid>
+                          <Grid item xs={6}>
+                            <Box className="info-item">
+                              <img src={BlueConfigIcon} alt="" />
+                              <Box className="item-data">
+                                <span>{t("Configuration")}</span>
+                                <p>Lorem Ipsum</p>
+                              </Box>
+                            </Box>
+                          </Grid>
+                          <Grid item xs={6}>
+                            <Box className="info-item">
+                              <img src={BluePriceIcon} alt="" />
+                              <Box className="item-data">
+                                <span>{t("Purchase Price")}</span>
+                                <p>Lorem Ipsum</p>
+                              </Box>
+                            </Box>
+                          </Grid>
+                          <Grid item xs={6}>
+                            <Box className="info-item">
+                              <img src={BlueCalenderIcon} alt="" />
+                              <Box className="item-data">
+                                <span>{t("Purchase Date")}</span>
+                                <p>Lorem Ipsum</p>
+                              </Box>
+                            </Box>
+                          </Grid>
+                          <Grid item xs={6}>
+                            <Box className="info-item">
+                              <img src={BlueValuationIcon} alt="" />
+                              <Box className="item-data">
+                                <span>{t("Current Valuation")}</span>
+                                <p>Lorem Ipsum</p>
                               </Box>
                             </Box>
                           </Grid>
                         </Grid>
                       </Card>
+                    </Box>
+
+                    <Box className="detail">
+                      <h4>{t("Rent Status")}</h4>
+                      <Card className="detail-box">
+                        <Grid container spacing={2} className="info">
+                          <Grid item xs={6}>
+                            <Box className="info-item">
+                              <img src={BlueStatusIcon} alt="" />
+                              <Box className="item-data">
+                                <span>{t("Unit Status")}</span>
+                                <p>Lorem Ipsum</p>
+                              </Box>
+                            </Box>
+                          </Grid>
+                          <Grid item xs={6}>
+                            <Box className="info-item">
+                              <img src={BlueTenantIcon} alt="" />
+                              <Box className="item-data">
+                                <span>{t("Tenant Name")}</span>
+                                <p>Lorem Ipsum</p>
+                              </Box>
+                            </Box>
+                          </Grid>
+                          <Grid item xs={6}>
+                            <Box className="info-item">
+                              <img src={BlueCalenderIcon} alt="" />
+                              <Box className="item-data">
+                                <span>{t("Rent Duration")}</span>
+                                <p>Lorem Ipsum</p>
+                              </Box>
+                            </Box>
+                          </Grid>
+                          <Grid item xs={6}>
+                            <Box className="info-item">
+                              <img src={BlueCalenderIcon} alt="" />
+                              <Box className="item-data">
+                                <span>{t("Current Expiry")}</span>
+                                <p>Lorem Ipsum</p>
+                              </Box>
+                            </Box>
+                          </Grid>
+                          <Grid item xs={6}>
+                            <Box className="info-item">
+                              <img src={BlueRentIcon} alt="" />
+                              <Box className="item-data">
+                                <span>{t("Rent Charge")}</span>
+                                <p>Lorem Ipsum</p>
+                              </Box>
+                            </Box>
+                          </Grid>
+                        </Grid>
+                      </Card>
+                    </Box>
+
+                    <Box className="rent-history-box">
+                      <Box className="header">
+                        <h4>{t("Rent History")}</h4>
+                        <span>{t("View All")}</span>
+                      </Box>
+
+                      <Box className="rent-history">
+                        <h4>Mr. Mohd Khan</h4>
+                        <p className="date">Tenant Name</p>
+                        <Divider />
+                        <Box className="info">
+                          <p>{t("Rent Amount")}</p>
+                          <span>$123</span>
+                        </Box>
+                        <Box className="info">
+                          <p>{t("Received Amount")}</p>
+                          <span>$123</span>
+                        </Box>
+                      </Box>
+                      <Box className="rent-history">
+                        <h4>Mr. Mohd Khan</h4>
+                        <p className="date">Tenant Name</p>
+                        <Divider />
+                        <Box className="info">
+                          <p>{t("Rent Amount")}</p>
+                          <span>$123</span>
+                        </Box>
+                        <Box className="info">
+                          <p>{t("Received Amount")}</p>
+                          <span>$123</span>
+                        </Box>
+                      </Box>
+                    </Box>
+
+                    <Box className="images-box">
+                      <h4>{t("Unit Pictures")}</h4>
+                      <Slider ref={(c: any) => (this.slider = c)} {...settings}>
+                        {/* {this.state.complexData.photos.length === 0 && <div>{t("No photos available")}</div>} */}
+                        <div>
+                          <img src={BuildingImage.default} alt="" />
+                        </div>
+                        <div>
+                          <img src={BuildingImage.default} alt="" />
+                        </div>
+                        <div>
+                          <img src={BuildingImage.default} alt="" />
+                        </div>
+                        <div>
+                          <img src={BuildingImage.default} alt="" />
+                        </div>
+                        <div>
+                          <img src={BuildingImage.default} alt="" />
+                        </div>
+                        <div>
+                          <img src={BuildingImage.default} alt="" />
+                        </div>
+                        <div>
+                          <img src={BuildingImage.default} alt="" />
+                        </div>
+                      </Slider>
                     </Box>
                   </Container>
                 </Box>
