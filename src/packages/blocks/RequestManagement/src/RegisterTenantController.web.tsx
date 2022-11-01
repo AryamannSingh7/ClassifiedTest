@@ -19,6 +19,8 @@ export interface Props {
 
 interface S {
   loading: boolean;
+  isRegisterTenantOpen: boolean;
+  isNowContract: boolean;
 
   buildingList: any[];
   unitList: any[];
@@ -63,6 +65,7 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
   CreateContractCallId: any;
   GetTenantDetailsForEditCallId: any;
   EditTenantCallId: any;
+  CreateTenantForContractCallId: any;
 
   constructor(props: Props) {
     super(props);
@@ -73,6 +76,8 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
 
     this.state = {
       loading: false,
+      isRegisterTenantOpen: true,
+      isNowContract: true,
 
       buildingList: [],
       unitList: [],
@@ -186,7 +191,36 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
       if (responseJson.data) {
         this.setState({ loading: false });
         toast.success("Tenant created successfully");
-        this.props.navigation.navigate("RegisterTenantContract", { id: responseJson.data.id });
+        if (this.state.isNowContract) {
+          this.props.navigation.navigate("IssueLease");
+        } else {
+          this.props.navigation.navigate("TenantList");
+        }
+      }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // Create Tenant For Contract - API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.CreateTenantForContractCallId !== null &&
+      this.CreateTenantForContractCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.CreateTenantForContractCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      if (responseJson.data) {
+        this.setState({ tenantId: responseJson.data.id }, () => {
+          this.getTenantDetails();
+        });
       }
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
@@ -209,7 +243,9 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson.code === 200) {
-        this.setState({ tenantDetails: responseJson.tenant.data });
+        this.setState({ tenantDetails: responseJson.tenant.data }, () => {
+          this.handleSubmitTenantContract();
+        });
       }
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
@@ -233,7 +269,7 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
 
       if (responseJson.code === 200) {
         this.setState({ loading: false });
-        toast.success("Contract created successfully");
+        toast.success("Tenant created successfully");
         this.props.navigation.navigate("TenantList");
       }
 
@@ -317,7 +353,7 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
       ApiCatchErrorResponse(errorResponse);
     }
 
-    // Get Tenant Details - API Response
+    // Edit Tenant - API Response
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.EditTenantCallId !== null &&
@@ -416,8 +452,8 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
     return true;
   };
 
-  handleSubmitRegisterTenant = (values: TenantForm) => {
-    this.setState({ loading: true });
+  handleSubmitRegisterTenant = (values: TenantForm, isNowContract: boolean) => {
+    this.setState({ loading: true, isNowContract: isNowContract });
     const otherDocument: any = [...values.otherDocument];
     var data = new FormData();
     data.append("[tenant_resquest][name]", values.tenantName);
@@ -540,8 +576,46 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
     return true;
   };
 
-  handleSubmitTenantContract = () => {
+  // Create Tenant For Contract - API
+  handleSubmitTenantForContract = (values: TenantForm) => {
     this.setState({ loading: true });
+    const otherDocument: any = [...values.otherDocument];
+    var data = new FormData();
+    data.append("[tenant_resquest][name]", values.tenantName);
+    data.append("[tenant_resquest][phone_number]", values.tenantCountryCode + "-" + values.tenantMobile);
+    data.append("[tenant_resquest][email]", values.tenantEmail);
+    data.append("[tenant_resquest][building_management_id]", values.building);
+    data.append("[tenant_resquest][apartment_management_id]", values.unit);
+    data.append("[tenant_resquest][id_proof_id]", values.idType);
+    data.append("[tenant_resquest][id_number]", values.idNumber);
+    data.append("[tenant_resquest][id_expectation_date]", values.idDate);
+    data.append("[tenant_resquest][tenant_type]", values.tenantType);
+    data.append("[tenant_resquest][tenant_id_copy]", values.idCard[0]);
+    otherDocument.map((document: any) => {
+      data.append("[tenant_resquest][tenant_documents][]", document);
+    });
+
+    const header = {
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.CreateTenantForContractCallId = apiRequest.messageId;
+
+    apiRequest.addData(getName(MessageEnum.RestAPIResponceEndPointMessage), `bx_block_contract/tenant_resquests`);
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestBodyMessage), data);
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePost);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  handleSubmitTenantContract = () => {
     var data = new FormData();
     data.append("[contract][apartment_management_id]", this.state.tenantDetails.attributes.apartment_management_id);
     data.append("[contract][account_id]", this.state.tenantDetails.attributes.account.id);
@@ -590,7 +664,7 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
     tenantMobile: Yup.string()
       .required("Required")
       .matches(/\S/, "Required")
-      .matches(/^[6-9]\d{9}$/, { message: "Please enter valid number" }),
+      .matches(/^[0-9]{6,12}$/, { message: "Please enter valid number" }),
     tenantEmail: Yup.string()
       .required("Required")
       .matches(/\S/, "Required")
@@ -653,5 +727,11 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
       u8arr[n] = bstr.charCodeAt(n);
     }
     return new File([u8arr], fileName, { type: mime });
+  };
+
+  handleChangePage = () => {
+    this.setState({
+      isRegisterTenantOpen: !this.state.isRegisterTenantOpen,
+    });
   };
 }
