@@ -836,5 +836,9 @@
   "Yes, Close": "نعم، أغلق",
   "No, Don't Close": "لا ، لا تغلق",
   "My Invoices/Receipts": "فواتيري / إيصالاتي",
-  "Invoice Type": "نوع الفاتورة"
+  "Invoice Type": "نوع الفاتورة",
+  "Visitors Dashboard": "لوحة تحكم الزوار",
+  "Task Management": "ادارة المهام",
+  "Chairman and Vice Chairman Nomination": "تعيين رئيس ونائب رئيس مجلس الإدارة",
+  "Team Members": "أعضاء الفريق"
 }

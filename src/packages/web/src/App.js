@@ -169,6 +169,7 @@ import FacilityReservation from '../../blocks/RequestManagement/src/FacilityRese
 import FacilityReservationReportedSuccessfully from '../../blocks/RequestManagement/src/FacilityReservationReportedSuccessfully.web';
 import CreateFacilityReservation from '../../blocks/RequestManagement/src/CreateFacilityReservation.web';
 
+
 // Help
 import FaqChairman from '../../blocks/contactus/src/FaqChairman.web';
 import FaqOwner from '../../blocks/contactus/src/FaqOwner.web';
@@ -356,7 +357,12 @@ const routeMap = {
     component: Inbox,
     path: '/inbox',
     exact: true
-  },
+  }, 
+  // ChairmanChat: { 
+  //   component: ChairmanChat,
+  //   path: '/ChairmanChat',
+  //   exact: true
+  // },
   Chatbox: {
     component: Chatbox,
     path: '/Chatbox',
@@ -1581,21 +1587,10 @@ const routeMap = {
     path: '/TeamMembers',
     exact: true
   },
+
   MyTeamCore: {
     component: MyTeamCore,
-    path: '/TeamMembers/CoreTeam',
-    exact: true
-  },
-
-  MyTeamSub: {
-    component: MyTeamCore,
-    path: '/TeamMembers/SubTeam',
-    exact: true
-  },
-
-  MyTeamService: {
-    component: MyTeamCore,
-    path: '/TeamMembers/ServiceProviders',
+    path: '/TeamMembers/:type',
     exact: true
   },
 

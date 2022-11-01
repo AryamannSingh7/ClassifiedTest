@@ -129,8 +129,6 @@ export default class FriendListController extends BlockComponent<
   handleSubmit = () => {
     if(this.state.userId !== "" && this.state.roleId !== ""){
       let formdata = new FormData();
-
-      formdata.append("team_member[name]", this.state.selectedUser.name);
       formdata.append("team_member[email]",  this.state.selectedUser.email);
       formdata.append("team_member[role_id]", this.state.roleId);
       formdata.append("team_member[phone_number]", this.state.selectedUser.phone);
