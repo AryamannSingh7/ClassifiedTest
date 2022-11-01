@@ -76,7 +76,7 @@ export default class FacilityReservationController extends BlockComponent<
   apiupdateIncidentCallId:any;
   apicreateIncidentCallId: any;
   validationApiCallId: any;
-  getIncidentListingApiCallId: any;
+  getFacilityReservationListingApiCallId: any;
   getIncidentDetailsByIdApiCallId : any ;
   getCommonAreaApiCallId : any ;
   getIncidentRelatedApiCallId:any;
@@ -172,7 +172,7 @@ export default class FacilityReservationController extends BlockComponent<
       prevState.status !== this.state.status
 
     ) {
-     this.getIncidentListing(this.state.sortBy ,this.state.status)
+     this.getFacilityReservationListing(this.state.sortBy ,this.state.status)
     }
   }
 
@@ -248,9 +248,9 @@ export default class FacilityReservationController extends BlockComponent<
           this.parseApiCatchErrorResponse(this.state.error);
           this.setState({loading: false , error:null})
         }
-        else if (apiRequestCallId === this.getIncidentListingApiCallId) {
+        else if (apiRequestCallId === this.getFacilityReservationListingApiCallId) {
           if (responseJson && responseJson?.data ) {
-          console.log("getIncidentListingApiCallId ========================>",responseJson)
+          console.log("getFacilityReservationListingApiCallId ========================>",responseJson)
           this.setState({incidentListing :responseJson?.data})
           this.setState({loading: false})
           } else if (responseJson?.errors) {
@@ -706,8 +706,7 @@ confirmOrRejectIncident =(id : any,val : any)=>{
     }
   };
 
-
-  getIncidentListing= (sortBy : any ,status : any)  => {
+  getFacilityReservationListing = (sortBy : any ,status : any)  => {
     try {
       const header = {
         "Content-Type": configJSON.validationApiContentType,
@@ -718,7 +717,7 @@ confirmOrRejectIncident =(id : any,val : any)=>{
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
-      this.getIncidentListingApiCallId = requestMessage.messageId;
+      this.getFacilityReservationListingApiCallId = requestMessage.messageId;
       this.setState({ loading: true });
 
      const  getSortByOrStatus = `bx_block_custom_form/incidents?sort_type=${sortBy}&filter_by=${status}`

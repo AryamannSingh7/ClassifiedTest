@@ -33,9 +33,9 @@ class FacilityReservation extends FacilityReservationController {
   constructor(props: Props) {
     super(props);
   }
-  //    componentDidMount():any {
-  //      this.getIncidentListing(this.state.sortBy, this.state.status)
-  //    }
+     componentDidMount():any {
+       this.getFacilityReservationListing(this.state.sortBy, this.state.status)
+     }
   render() {
     const { navigation } = this.props;
     return (
@@ -68,7 +68,7 @@ class FacilityReservation extends FacilityReservationController {
                     <Button variant="contained" onClick={() => {
                       this.setState({ loading: true });//@ts-ignore
                       this.props.history.push("/CreateIncident")
-                    }} >Add New Incident</Button>
+                    }} >BOOK A FACILITY</Button>
                   </Box>
                 </Box>
               </Box>

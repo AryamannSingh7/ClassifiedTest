@@ -34,7 +34,7 @@
      super(props);
    }
    componentDidMount():any {
-     this.getIncidentListing(this.state.sortBy, this.state.status)
+     this.getFacilityReservationListing(this.state.sortBy, this.state.status)
    }
    render() {
      const { navigation } = this.props;

@@ -52,7 +52,8 @@ class Registration extends EmailAccountRegistrationController {
             <ArrowBackIcon onClick={() => window.history.back()} />
           </Grid>
         </Grid>
-        <Box display='flex' justifyContent='center' style={{ cursor: 'pointer'}} onClick={()=>window.open("https://www.TenantInt.com", '_blank').focus()}>
+        <Box display='flex' justifyContent='center' style={{ cursor: 'pointer'}} onClick={()=>//@ts-ignore
+          window.open("https://www.TenantInt.com", '_blank').focus()}>
           <img src={company_logo} width='125' height='125' />
         </Box>
         <Grid container>
@@ -495,7 +496,8 @@ class Registration extends EmailAccountRegistrationController {
 
                       </Typography>
                     </Box>
-                    <Box display='flex' justifyContent='center' style={{ cursor: 'pointer'}} onClick={()=>window.open("https://www.TenantInt.com", '_blank').focus()}>
+                    <Box display='flex' justifyContent='center' style={{ cursor: 'pointer'}} onClick={()=>//@ts-ignore
+                      window.open("https://www.TenantInt.com", '_blank').focus()}>
                       <img src={company_logo}  width='125' height='125' />
                     </Box>
 
