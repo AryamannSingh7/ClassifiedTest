@@ -31,6 +31,10 @@ interface S {
   roleList:any;
   userList:any;
   selectedUser:any;
+  pendingReq:any;
+  coreMembers:any;
+  subTeam:any;
+  providers:any;
 }
 
 interface SS {
@@ -70,11 +74,16 @@ export default class FriendListController extends BlockComponent<
       selectedUser:{
 
       },
+      coreMembers:[],
+      pendingReq:[],
+      providers:[],
+      subTeam:[],
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
 
-  handleDeleteModal = () => {
+  handleDeleteModal = (id:any) => {
+    console.log("data",id)
     this.setState({
       deleteModal:!this.state.deleteModal
     })
@@ -91,6 +100,9 @@ export default class FriendListController extends BlockComponent<
   }
 
   getMyTeamList = async () => {
+    this.setState({
+      loading:true
+    })
     const societyID = localStorage.getItem("society_id")
     this.getMyTeamListId = await this.apiCall({
       contentType: "application/json",
@@ -186,6 +198,40 @@ export default class FriendListController extends BlockComponent<
       }
       if(apiRequestCallId === this.getMyTeamListId){
         console.log("Team LIST",responseJson)
+        if(responseJson.hasOwnProperty("data")){
+          const pendingReq = responseJson.data.filter((item:any)=> {
+            if(item.attributes.status === "Pending Approval"){
+              return item
+            }
+          })
+          const coreMembers = responseJson.data.filter((item:any)=> {
+            if(item.attributes.team_member_type === "CoreMember" && item.attributes.status !== "Pending Approval"){
+              return item
+            }
+          })
+          const subTeam = responseJson.data.filter((item:any)=> {
+            if(item.attributes.team_member_type === "SubTeam" && item.attributes.status !== "Pending Approval"){
+              return item
+            }
+          })
+          const ServiceProvider = responseJson.data.filter((item:any)=> {
+            if(item.attributes.team_member_type === "ServiceProvider" && item.attributes.status !== "Pending Approval"){
+              return item
+            }
+          })
+          console.log("Pending Request",pendingReq)
+          console.log("coreMembers",coreMembers)
+          console.log("subTeam",subTeam)
+          console.log("ServiceProvider",ServiceProvider)
+
+          this.setState({
+            coreMembers:coreMembers,
+            subTeam:subTeam,
+            providers:ServiceProvider,
+            pendingReq:pendingReq,
+            loading:false,
+          })
+        }
       }
       if(apiRequestCallId === this.getRolesListId){
         if(responseJson.hasOwnProperty("data")){
