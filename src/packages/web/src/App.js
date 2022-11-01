@@ -169,7 +169,6 @@ import FacilityReservation from '../../blocks/RequestManagement/src/FacilityRese
 import FacilityReservationReportedSuccessfully from '../../blocks/RequestManagement/src/FacilityReservationReportedSuccessfully.web';
 import CreateFacilityReservation from '../../blocks/RequestManagement/src/CreateFacilityReservation.web';
 
-
 // Help
 import FaqChairman from '../../blocks/contactus/src/FaqChairman.web';
 import FaqOwner from '../../blocks/contactus/src/FaqOwner.web';
@@ -314,6 +313,7 @@ import MyUnitList from '../../blocks/TaskAllocator/src/MyUnitList.web';
 import RegisterMyUnit from '../../blocks/TaskAllocator/src/RegisterUnit.web';
 import RegisterMyUnitSuccess from '../../blocks/TaskAllocator/src/RegisterUnitSuccess.web';
 import MyUnitDetails from '../../blocks/TaskAllocator/src/UnitDetails.web';
+import RentHistory from '../../blocks/TaskAllocator/src/RentHistory.web';
 
 const routeMap = {
   //done
@@ -357,8 +357,8 @@ const routeMap = {
     component: Inbox,
     path: '/inbox',
     exact: true
-  }, 
-  // ChairmanChat: { 
+  },
+  // ChairmanChat: {
   //   component: ChairmanChat,
   //   path: '/ChairmanChat',
   //   exact: true
@@ -1841,6 +1841,12 @@ const routeMap = {
   MyUnitDetails: {
     component: MyUnitDetails,
     path: '/MyUnitDetails',
+    roles: [ROLE.OWNER],
+    exact: true
+  },
+  RentHistory: {
+    component: RentHistory,
+    path: '/RentHistory',
     roles: [ROLE.OWNER],
     exact: true
   },
