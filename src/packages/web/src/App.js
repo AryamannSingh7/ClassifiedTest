@@ -357,11 +357,11 @@ const routeMap = {
     path: '/inbox',
     exact: true
   },
-  ChairmanChat: {
-    component: ChairmanChat,
-    path: '/ChairmanChat',
-    exact: true
-  },
+  // ChairmanChat: {
+  //   component: ChairmanChat,
+  //   path: '/ChairmanChat',
+  //   exact: true
+  // },
   Chatbox: {
     component: Chatbox,
     path: '/Chatbox',
