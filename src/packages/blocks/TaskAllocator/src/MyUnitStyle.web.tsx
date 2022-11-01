@@ -334,4 +334,68 @@ export const MyUnitStyle: any = {
       bottom: 0,
     },
   },
+  tenantDetails: {
+    "& .top-bar": {
+      display: "flex",
+      alignItems: "center",
+      fontWeight: "600",
+      cursor: "pointer",
+      background: "#FFFFFF",
+      padding: "10px 20px",
+      justifyContent: "space-between",
+      zIndex: "9999",
+      borderBottom: "2px solid #e2e2ef",
+    },
+    "& .top-bar .left-icon": {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: "10px",
+    },
+    "& .top-bar .left-icon span": {
+      lineHeight: "18px",
+    },
+    "& .top-bar .right-icon": {
+      display: "flex",
+      alignItems: "center",
+      gap: "20px",
+    },
+    "& .right-image": {
+      padding: "25px 60px",
+    },
+    "& a": {
+      textDecoration: "none !important",
+    },
+    "& .tenant-detail-box": {
+      background: "white",
+      height: "88vh",
+      overflow: "auto",
+    },
+    "& .tenant-detail-box .detail": {
+      margin: "15px 0",
+    },
+    "& .tenant-detail-box .detail .detail-box": {
+      borderRadius: "8px",
+      marginTop: "10px",
+      boxShadow: "none",
+      padding: "15px 20px",
+      border: "1px solid #e2e2ef",
+    },
+    "& .tenant-detail-box .detail .detail-box .info-item": {
+      display: "flex",
+      alignItems: "flex-start",
+      gap: "12px",
+    },
+    "& .tenant-detail-box .detail .detail-box .info-item .item-data": {
+      display: "flex",
+      flexDirection: "column",
+      gap: "6px",
+    },
+    "& .tenant-detail-box .detail .detail-box .info-item span": {
+      lineHeight: "14px",
+    },
+    "& .tenant-detail-box .detail .detail-box .info-item p": {
+      fontWeight: 600,
+    },
+  },
 };
