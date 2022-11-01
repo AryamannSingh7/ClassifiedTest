@@ -1,6 +1,3 @@
-//@ts-ignore
-//@ts-nocheck
- // import React from "react";
 import React, { useState } from 'react';
 //components
 import {
@@ -51,7 +48,7 @@ class IncidentListing extends IncidentController {
               <Box className="content-block">
                 <Box className="content-header">
                   <Box className="left-block blocks">
-                    <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
+                    <Box className="backIcons" onClick={() => this.redirectToDashboard()}><KeyboardBackspaceIcon /></Box>
                     <h4>Incidents</h4>
                   </Box>
                   <Box className="incident-right-block blocks">

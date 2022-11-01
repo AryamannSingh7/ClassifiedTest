@@ -50,15 +50,42 @@
 
   .content-block-wrapper {
     padding: 0 10px;
-
     &.neighbor-content-block-wrapper {
       padding: 0;
     }
-
     @include mq(tablet-portrait-medium-up) {
       padding: 0 25px;
     }
+    &.facility-block-wrapper {
+      @include scrollbars();
+      overflow-y: scroll;
+      overflow-x: hidden;
+      height: 100%;
+      background-color: #f8f9fe;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      @include mq(tablet-portrait-medium-up) {
+        width: 450px;
+        margin: 10px auto;
+      }
+      & .customButton {
+        position: sticky;
+        bottom: 0;
+        z-index: 9;
 
+        &.preview-submit {
+          position: unset;
+          margin-top: 20px;
+        }
+
+        & .MuiButton-label {
+          white-space: nowrap;
+          font-size: 12px;
+          font-weight: 700;
+        }
+      }
+    }
     &.common-incident-block {
       &.classifiedtype-block {
         height: 100%;
@@ -66,7 +93,6 @@
         flex-direction: column;
         justify-content: space-between;
       }
-
       @include scrollbars();
       overflow-y: scroll;
       margin: 0;

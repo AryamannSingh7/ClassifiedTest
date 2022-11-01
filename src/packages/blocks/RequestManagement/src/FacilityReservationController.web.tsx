@@ -52,7 +52,7 @@ export interface S {
   file : any,
   commonAreaData:any,
   incidentRelatedData:any,
-  incidentListing:any,
+  facilityReservationListing:any,
   showDialog:any;
   // Customizable Area End
 }
@@ -76,7 +76,7 @@ export default class FacilityReservationController extends BlockComponent<
   apiupdateIncidentCallId:any;
   apicreateIncidentCallId: any;
   validationApiCallId: any;
-  getIncidentListingApiCallId: any;
+  getFacilityReservationListingApiCallId: any;
   getIncidentDetailsByIdApiCallId : any ;
   getCommonAreaApiCallId : any ;
   getIncidentRelatedApiCallId:any;
@@ -130,7 +130,7 @@ export default class FacilityReservationController extends BlockComponent<
       loading: false,
       commonAreaData:null,
       incidentRelatedData:null,
-      incidentListing: null,
+      facilityReservationListing: null,
       anchorEl:null,
       anchorEl_1:null,
       getIncidentDetails:null,
@@ -172,7 +172,7 @@ export default class FacilityReservationController extends BlockComponent<
       prevState.status !== this.state.status
 
     ) {
-     this.getIncidentListing(this.state.sortBy ,this.state.status)
+     this.getFacilityReservationListing(this.state.sortBy ,this.state.status)
     }
   }
 
@@ -236,7 +236,7 @@ export default class FacilityReservationController extends BlockComponent<
           if (responseJson && responseJson.data) {
             console.log("apiupdateIncidentCallId===========>",responseJson)
                //@ts-ignore
-              this.props.history.push("/IncidentListing")
+              this.props.history.push("/FacilityReservation")
             this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
@@ -248,10 +248,10 @@ export default class FacilityReservationController extends BlockComponent<
           this.parseApiCatchErrorResponse(this.state.error);
           this.setState({loading: false , error:null})
         }
-        else if (apiRequestCallId === this.getIncidentListingApiCallId) {
+        else if (apiRequestCallId === this.getFacilityReservationListingApiCallId) {
           if (responseJson && responseJson?.data ) {
-          console.log("getIncidentListingApiCallId ========================>",responseJson)
-          this.setState({incidentListing :responseJson?.data})
+          console.log("getFacilityReservationListingApiCallId ========================>",responseJson)
+          this.setState({facilityReservationListing :responseJson?.data})
           this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
@@ -272,7 +272,7 @@ export default class FacilityReservationController extends BlockComponent<
             let error = responseJson.errors[0] as string;
                      //@ts-ignore
                     //@ts-nocheck
-              this.props.history.push("/IncidentListing")
+              this.props.history.push("/FacilityReservation")
             this.setState({ error });
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
@@ -706,8 +706,7 @@ confirmOrRejectIncident =(id : any,val : any)=>{
     }
   };
 
-
-  getIncidentListing= (sortBy : any ,status : any)  => {
+  getFacilityReservationListing = (sortBy : any ,status : any)  => {
     try {
       const header = {
         "Content-Type": configJSON.validationApiContentType,
@@ -718,7 +717,7 @@ confirmOrRejectIncident =(id : any,val : any)=>{
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
-      this.getIncidentListingApiCallId = requestMessage.messageId;
+      this.getFacilityReservationListingApiCallId = requestMessage.messageId;
       this.setState({ loading: true });
 
      const  getSortByOrStatus = `bx_block_custom_form/incidents?sort_type=${sortBy}&filter_by=${status}`

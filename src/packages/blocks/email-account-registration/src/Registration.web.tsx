@@ -52,7 +52,8 @@ class Registration extends EmailAccountRegistrationController  {
             </Grid>
           </Grid>
 
-          <div style={{display: 'flex' ,justifyContent: 'center'}}>
+          <div style={{display: 'flex' ,justifyContent: 'center' ,cursor: 'pointer'}}  onClick={()=>//@ts-ignore
+            window.open("https://www.TenantInt.com", '_blank').focus()}>
               <img className="text-center" src={company_logo} alt="" />
           </div>
     
