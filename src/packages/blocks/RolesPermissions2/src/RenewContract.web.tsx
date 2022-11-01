@@ -27,6 +27,7 @@ import RenewContractController, { Props } from "./RenewContractController.web";
 import { ContractsStyleWeb } from "./ContractsStyle.web";
 import { BuildingLogo, ExclamationIcon, CalenderIcon, DurationIcon, RentAmountIcon, CurrencyIcon } from "./assets";
 import { withTranslation } from "react-i18next";
+import { Formik, Form } from "formik";
 import "../../../web/src/i18n.js";
 
 class RenewContract extends RenewContractController {
@@ -83,90 +84,120 @@ class RenewContract extends RenewContractController {
                         </Card>
                       </Box>
 
-                      <FormControl fullWidth>
-                        <Input
-                          // value={values.duration}
-                          // onChange={handleChange}
-                          // onBlur={handleBlur}
-                          name="duration"
-                          className="select-input input"
-                          placeholder={t("Enter Agreement Duration")}
-                          startAdornment={
-                            <InputAdornment position="start">
-                              <img src={DurationIcon} alt="" />
-                            </InputAdornment>
-                          }
-                        />
-                        {/* {errors.duration && touched.duration && <p className="error">{t(errors.duration)}</p>} */}
-                      </FormControl>
+                      <Formik
+                        enableReinitialize={true}
+                        initialValues={this.state.renewForm}
+                        validationSchema={this.RenewFormValidation}
+                        onSubmit={(values, { resetForm }) => {
+                          this.setState(
+                            {
+                              renewForm: {
+                                duration: values.duration,
+                                endDate: values.startDate,
+                                startDate: values.startDate,
+                                monthlyRent: values.monthlyRent,
+                                currency: values.currency,
+                              },
+                            },
+                            () => {
+                              this.handleRenewContractModal();
+                            }
+                          );
+                        }}
+                      >
+                        {({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue }) => {
+                          return (
+                            <Form onSubmit={handleSubmit} translate="true">
+                              <FormControl fullWidth>
+                                <Input
+                                  value={values.duration}
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  name="duration"
+                                  className="select-input input"
+                                  placeholder={t("Enter Agreement Duration")}
+                                  startAdornment={
+                                    <InputAdornment position="start">
+                                      <img src={DurationIcon} alt="" />
+                                    </InputAdornment>
+                                  }
+                                />
+                                {errors.duration && touched.duration && <p className="error">{t(errors.duration)}</p>}
+                              </FormControl>
 
-                      <FormControl fullWidth>
-                        <Box className="select-box">
-                          <input
-                            // value={values.endDate}
-                            // onChange={handleChange}
-                            // onBlur={handleBlur}
-                            name="endDate"
-                            className="select-input input"
-                            placeholder={t("End Contract Date")}
-                            type="text"
-                            onFocus={(e: any) => (e.target.type = "date")}
-                            // min={values.startDate}
-                          />
-                          <img src={CalenderIcon} alt="" />
-                        </Box>
-                        {/* {errors.endDate && touched.endDate && <p className="error">{t(errors.endDate)}</p>} */}
-                      </FormControl>
+                              <FormControl fullWidth>
+                                <Box className="select-box">
+                                  <input
+                                    value={values.endDate}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    name="endDate"
+                                    className="select-input input"
+                                    placeholder={t("End Contract Date")}
+                                    type="text"
+                                    onFocus={(e: any) => (e.target.type = "date")}
+                                    min={values.startDate}
+                                  />
+                                  <img src={CalenderIcon} alt="" />
+                                </Box>
+                                {errors.endDate && touched.endDate && <p className="error">{t(errors.endDate)}</p>}
+                              </FormControl>
 
-                      <FormControl fullWidth>
-                        <Input
-                          // value={values.monthlyRent}
-                          // onChange={handleChange}
-                          // onBlur={handleBlur}
-                          name="monthlyRent"
-                          className="select-input input"
-                          placeholder={t("Enter Monthly Rent Amount")}
-                          startAdornment={
-                            <InputAdornment position="start">
-                              <img src={RentAmountIcon} alt="" />
-                            </InputAdornment>
-                          }
-                        />
+                              <FormControl fullWidth>
+                                <Input
+                                  value={values.monthlyRent}
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  name="monthlyRent"
+                                  className="select-input input"
+                                  placeholder={t("Enter Monthly Rent Amount")}
+                                  startAdornment={
+                                    <InputAdornment position="start">
+                                      <img src={RentAmountIcon} alt="" />
+                                    </InputAdornment>
+                                  }
+                                />
 
-                        {/* {errors.monthlyRent && touched.monthlyRent && <p className="error">{t(errors.monthlyRent)}</p>} */}
-                      </FormControl>
+                                {errors.monthlyRent && touched.monthlyRent && (
+                                  <p className="error">{t(errors.monthlyRent)}</p>
+                                )}
+                              </FormControl>
 
-                      <FormControl fullWidth>
-                        <Box className="select-box">
-                          <Select
-                            displayEmpty
-                            // value={values.currency}
-                            // onChange={handleChange}
-                            // onBlur={handleBlur}
-                            name="currency"
-                            variant="filled"
-                            className="select-input"
-                            input={<OutlinedInput />}
-                          >
-                            <MenuItem value="" disabled>
-                              {t("Select Currency")}
-                            </MenuItem>
-                            {this.state.currencyList.map((currency: any) => {
-                              return (
-                                <MenuItem value={currency.attributes.currency} key={currency.id}>
-                                  {currency.attributes.currency}
-                                </MenuItem>
-                              );
-                            })}
-                          </Select>
-                          <img src={CurrencyIcon} alt="" />
-                        </Box>
-                        {/* {errors.currency && touched.currency && <p className="error">{t(errors.currency)}</p>} */}
-                      </FormControl>
+                              <FormControl fullWidth>
+                                <Box className="select-box">
+                                  <Select
+                                    displayEmpty
+                                    value={values.currency}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    name="currency"
+                                    variant="filled"
+                                    className="select-input"
+                                    input={<OutlinedInput />}
+                                  >
+                                    <MenuItem value="" disabled>
+                                      {t("Select Currency")}
+                                    </MenuItem>
+                                    {this.state.currencyList.map((currency: any) => {
+                                      return (
+                                        <MenuItem value={currency.attributes.currency} key={currency.id}>
+                                          {currency.attributes.currency}
+                                        </MenuItem>
+                                      );
+                                    })}
+                                  </Select>
+                                  <img src={CurrencyIcon} alt="" />
+                                </Box>
+                                {errors.currency && touched.currency && <p className="error">{t(errors.currency)}</p>}
+                              </FormControl>
 
-                      <div className="next-button" onClick={() => this.handleRenewContractModal()}>
-                        <Button type="submit">{t("ReNew Contract")}</Button>
-                      </div>
+                              <div className="next-button">
+                                <Button type="submit">{t("ReNew Contract")}</Button>
+                              </div>
+                            </Form>
+                          );
+                        }}
+                      </Formik>
                     </Box>
                   </Box>
                 </Container>
@@ -194,7 +225,7 @@ class RenewContract extends RenewContractController {
                 {t("Are you sure want to renew contract with")} {this.state.contractData.tenantName}?
               </Typography>
               <DialogActions className="dialog-button-group">
-                <Button onClick={() => this.handleRenewContractModal()}>{t("Yes, Renew")}</Button>
+                <Button onClick={() => this.handleRenewContract()}>{t("Yes, Renew")}</Button>
                 <Button onClick={() => this.handleRenewContractModal()}>{t("No, Don't Renew")}</Button>
               </DialogActions>
             </Box>

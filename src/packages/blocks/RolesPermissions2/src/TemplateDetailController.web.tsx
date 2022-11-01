@@ -306,8 +306,8 @@ export default class TemplateDetailController extends BlockComponent<Props, S, S
     const formData = {
       tenantName: templateDetails.attributes.tenant_name,
       landlordName: templateDetails.attributes.landlord_name,
-      buildingName: "",
-      unitName: "",
+      buildingName: templateDetails.attributes.building_management.name,
+      unitName: templateDetails.attributes.apartment_management.apartment_name,
       buildingId: templateDetails.attributes.building_management_id,
       unitId: templateDetails.attributes.apartment_management_id,
       duration: templateDetails.attributes.agreement_duration,
