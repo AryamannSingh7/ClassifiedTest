@@ -1126,7 +1126,7 @@ console.log(attributes)
   }
   handleChangeCode = (e: any) => {
    console.log(e)
-   if(typeof e === 'object'){
+   if(typeof e === 'object' && Object.keys(e).length !== 0){
 
     //  this.setState({ ...this.state, selectCode: e.dial_code },()=>console.log(this.state.selectCode))
      return e?.dial_code
