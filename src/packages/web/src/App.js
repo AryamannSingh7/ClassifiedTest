@@ -1574,21 +1574,10 @@ const routeMap = {
     path: '/TeamMembers',
     exact: true
   },
+
   MyTeamCore: {
     component: MyTeamCore,
-    path: '/TeamMembers/CoreTeam',
-    exact: true
-  },
-
-  MyTeamSub: {
-    component: MyTeamCore,
-    path: '/TeamMembers/SubTeam',
-    exact: true
-  },
-
-  MyTeamService: {
-    component: MyTeamCore,
-    path: '/TeamMembers/ServiceProviders',
+    path: '/TeamMembers/:type',
     exact: true
   },
 
