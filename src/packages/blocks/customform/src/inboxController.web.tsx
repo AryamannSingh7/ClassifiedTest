@@ -66,6 +66,7 @@ interface S {
   file:any;
   selectedChatRoomId:any;
   profileData:any;
+  selectedChatRoom:any;
   // Customizable Area End
 }
 
@@ -129,6 +130,7 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
       file:null,
       selectedChatRoomId:null,
       profileData:null,
+      selectedChatRoom:null
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -870,6 +872,15 @@ console.log('hi')
 
     localStorage.setItem('selectedChat',JSON.stringify(item))
     this.props.history.push('/chatbox')
+
+  }
+  openChat2=(item:any)=>{
+
+    localStorage.setItem('selectedChat',JSON.stringify(item))
+    this.setState({
+      selectedChatRoom:item
+    },()=>this.getSingleInbox())
+
 
   }
   CreateNewMessage(value:any) {
