@@ -371,12 +371,16 @@ const TeamCard = (props:any) => {
                     <Typography variant="h6" style={{fontWeight:"bold",marginBottom:"5px"}}>{data?.role?.name}</Typography>
                     <Typography variant="h6" gutterBottom style={{marginBottom:"10px"}}>{data?.account?.attributes?.full_name?.name}</Typography>
                     <Grid container spacing={1} style={{width:"100%",display:"flex",alignItems:"center",justifyContent:"center"}}>
-                        <Grid item>
-                            <Typography variant="subtitle2" className={"statusOngoingBlue"} gutterBottom>Owner</Typography>
-                        </Grid>
-                        <Grid item>
-                            <Typography variant="subtitle2" className={"statusOngoingBlue"} gutterBottom>Chairman</Typography>
-                        </Grid>
+                        {
+                            data.account_roles.length > 0 &&
+                                data.account_roles.map((item:any,key:any)=> {
+                                    return(
+                                        <Grid item style={{marginBottom:"15px"}}>
+                                            <Typography  key={key} variant="subtitle2" className={"statusOngoingBlue"} gutterBottom>{item.name}</Typography>
+                                        </Grid>
+                                    )
+                                })
+                        }
                     </Grid>
                 </Box>
                 <Box style={{width:"100%",display:'flex',justifyContent:"center",alignItems:"center",flexDirection:"column",marginTop:"15px"}}>

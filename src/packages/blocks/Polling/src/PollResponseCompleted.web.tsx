@@ -34,7 +34,7 @@ class PollResponseCompleted extends PollingController {
                 <Box className="logo-block common-top-padding" display={{ xs: 'none', md: 'flex' }}>
                   <Link href="/EmailAccountLogin">
                     {/* <img src={Building_Logo} className="head-logo" alt="" /> */}
-                    <h4>{t("Building Name")}</h4>
+                    <h4>Building Name</h4>
                   </Link>
                 </Box>
                 <Box className="main-content-block">
@@ -42,7 +42,7 @@ class PollResponseCompleted extends PollingController {
                     <Box className="header-block chairmanHeaderBlock">
                       <PersonOutlineIcon className="bank-logo"/>
                       {/* <img src={request} className="bank-logo" alt="Tenant Logo" /> */}
-                      <h1>{t("Poll Response Submitted")}</h1>
+                      <h1>Poll Response Submitted</h1>
                       <h6>Your Poll Response has been submitted successfully</h6>
                     </Box>
                   </Box>
@@ -52,7 +52,7 @@ class PollResponseCompleted extends PollingController {
                     <Button variant="contained" 
                     onClick={this.getFinalPollAnswerView}
                     >
-                      {t("Okay")}
+                      Okay
                     </Button>
                   </Box>
                 </Box>
