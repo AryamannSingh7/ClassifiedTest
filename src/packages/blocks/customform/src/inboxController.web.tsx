@@ -159,16 +159,16 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
         getName(MessageEnum.RestAPIResponceErrorMessage)
       );
 
-      console.log("API REQUEST CALL ID: ", apiRequestCallId);
+
 
       if (apiRequestCallId && responseJson) {
         if (apiRequestCallId === this.state.postSellerDetailsMessageId) {
           this.showModal();
-          console.log("Received from post API: ", responseJson);
+      
         }
 
         if (apiRequestCallId === this.state.getSellerDetailsMessageId) {
-          console.log("Received from get API: ", responseJson);
+      
           if (responseJson.data && responseJson.data.attributes) {
             console.log(
               "responseJson.data.attributes ",
@@ -726,6 +726,7 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
   markUnread() {
  
     const item = JSON.parse(localStorage.getItem('selectedChat') || '{}')
+    console.log('jdsahkj',item)
     const header = {
       "Content-Type": configJSON.contentTypeApiAddDetail,
       "token": localStorage.getItem('userToken')
@@ -758,7 +759,7 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
   }
 
   getInboxBySearch(value:any) {
-console.log('hi')
+
     const header = {
       "Content-Type": configJSON.contentTypeApiAddDetail,
       "token": localStorage.getItem('userToken')
@@ -790,7 +791,7 @@ console.log('hi')
     return true;
   }
   addVehicle(item: any) {
-    console.log(item)
+
     localStorage.setItem('selectCar', JSON.stringify(item))
     // @ts-nocheck
     // @ts-ignore
@@ -805,19 +806,7 @@ console.log('hi')
 
     }
   }
-  checkVehicle() {
-    console.log(this.state.allVehcile.length)
-    if (this.state.allVehcile.length < 2) {
-      // @ts-nocheck
-      // @ts-ignore
-      this.props.history.push("/newVeichleList")
-    } else {
-      // @ts-nocheck
-      // @ts-ignore
-      this.setState({ showDialog: true }, () => console.log(this.state))
-    }
 
-  }
   deleteRequest() {
     // @ts-nocheck
     // @ts-ignore
@@ -1120,6 +1109,9 @@ console.log('hi')
     
         runEngine.sendMessage(requestMessage.id, requestMessage);
         return true;
+      }
+      updateChatRoom=()=>{
+        this.setState({singleChatRoom: window.history?.state?.state?.data.attributes.messages ,selectedChatRoom:window.history?.state?.state?.data,allInboxKey: Object.keys(window.history?.state?.state?.data.attributes.messages)},()=>console.log('mystate',this.state))
       }
   // Customizable Area End
 }
