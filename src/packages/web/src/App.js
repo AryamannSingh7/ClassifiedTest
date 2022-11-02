@@ -169,6 +169,7 @@ import FacilityReservation from '../../blocks/RequestManagement/src/FacilityRese
 import FacilityReservationReportedSuccessfully from '../../blocks/RequestManagement/src/FacilityReservationReportedSuccessfully.web';
 import CreateFacilityReservation from '../../blocks/RequestManagement/src/CreateFacilityReservation.web';
 
+
 // Help
 import FaqChairman from '../../blocks/contactus/src/FaqChairman.web';
 import FaqOwner from '../../blocks/contactus/src/FaqOwner.web';
@@ -266,7 +267,6 @@ import VisitorsDetails from '../../blocks/invitefriends/src/VisitorDetailsManage
 import TenantList from '../../blocks/RequestManagement/src/TenantList.web';
 import TenantDetails from '../../blocks/RequestManagement/src/TenantDetails.web';
 import RegisterTenant from '../../blocks/RequestManagement/src/RegisterTenant.web';
-import RegisterTenantContract from '../../blocks/RequestManagement/src/RegisterTenantContract.web';
 import EditTenant from '../../blocks/RequestManagement/src/EditTenant.web';
 
 // My Team Imports
@@ -313,6 +313,7 @@ import ManagementFeeReport from '../../blocks/ExpenseTracking/src/ManagementFeeR
 import MyUnitList from '../../blocks/TaskAllocator/src/MyUnitList.web';
 import RegisterMyUnit from '../../blocks/TaskAllocator/src/RegisterUnit.web';
 import RegisterMyUnitSuccess from '../../blocks/TaskAllocator/src/RegisterUnitSuccess.web';
+import MyUnitDetails from '../../blocks/TaskAllocator/src/UnitDetails.web';
 
 const routeMap = {
   //done
@@ -1812,12 +1813,6 @@ const routeMap = {
     roles: [ROLE.OWNER],
     exact: true
   },
-  RegisterTenantContract: {
-    component: RegisterTenantContract,
-    path: '/RegisterTenant/:id',
-    roles: [ROLE.OWNER],
-    exact: true
-  },
   EditTenant: {
     component: EditTenant,
     path: '/EditTenant/:id',
@@ -1840,6 +1835,12 @@ const routeMap = {
   RegisterMyUnitSuccess: {
     component: RegisterMyUnitSuccess,
     path: '/RegisterMyUnit/Success',
+    roles: [ROLE.OWNER],
+    exact: true
+  },
+  MyUnitDetails: {
+    component: MyUnitDetails,
+    path: '/MyUnitDetails',
     roles: [ROLE.OWNER],
     exact: true
   },

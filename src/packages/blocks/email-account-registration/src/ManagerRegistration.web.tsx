@@ -51,7 +51,8 @@ class ManagerRegistration extends EmailAccountRegistrationController {
           </Grid>
         </Grid>
 
-        <div style={{display: 'flex' ,justifyContent: 'center'}}>
+        <div style={{display: 'flex' ,justifyContent: 'center' ,cursor: 'pointer'}} onClick={()=> //@ts-ignore 
+          window.open("https://www.TenantInt.com", '_blank').focus()}>
               <img className="text-center" src={company_logo} alt="" />
           </div>
             <Grid container>
@@ -261,7 +262,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                         <FormControl variant="outlined" >
                           {/* <InputLabel id="demo-simple-select-outlined-label"><img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AF.svg`} width='15' height='15' />
                           sd</InputLabel> */}
-                          {/* <Select
+                          <Select
                             name='selectCode'
                             labelId="demo-simple-select-outlined-label"
                             id="demo-simple-select-outlined"
@@ -279,8 +280,8 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                             )
                             }
 
-                          </Select> */}
-                                               <Autocomplete
+                          </Select>
+                                               {/* <Autocomplete
   id="combo-box-demo"
   options={dailCode}
   autoComplete="new-password"
@@ -296,7 +297,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
     ...params.inputProps,
     autoComplete: 'new-password',
   }}  variant="outlined" />}
-/>
+/> */}
                         </FormControl>
 
                       </Box>
@@ -757,7 +758,8 @@ class ManagerRegistration extends EmailAccountRegistrationController {
 
                       </Typography>
                     </Box>
-                    <Box display='flex' justifyContent='center'>
+                    <Box display='flex' justifyContent='center' style={{ cursor: 'pointer'}} onClick={()=>//@ts-ignore
+                      window.open("https://www.TenantInt.com", '_blank').focus()}>
                       <img src={company_logo} width='125' height='125' />
                     </Box>
 

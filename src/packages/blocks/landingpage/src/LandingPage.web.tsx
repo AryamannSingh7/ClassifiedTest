@@ -44,7 +44,7 @@ class LandingPage extends React.Component {
               <img src={Landing_Banner.default} className="banner-img" alt="" />
             </div>
             <Box className="content-section">
-              <img src={Tenant_Logo.default} className="tenant-logo" alt="" />
+              <img src={Tenant_Logo.default} className="tenant-logo" style={{ cursor: 'pointer'}} onClick={()=>window.open("https://www.TenantInt.com", '_blank').focus()} alt="" />
               <h1>Manage your home  on<br></br>one platform</h1>
               {/* <p>Your gateway to peaceful living...</p> */}
             </Box>
