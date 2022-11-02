@@ -78,6 +78,9 @@ export const MyUnitStyle: any = {
       alignItems: "center",
       justifyContent: "space-between",
     },
+    "& .tenant-list-box .tenant .header h4": {
+      cursor: "pointer",
+    },
     "& .tenant-list-box .tenant .info": {
       marginTop: "10px",
     },

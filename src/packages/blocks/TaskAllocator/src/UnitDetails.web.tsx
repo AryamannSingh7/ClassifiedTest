@@ -26,6 +26,7 @@ import {
 } from "./assets";
 //@ts-ignore
 import Slider from "react-slick";
+import moment from "moment";
 const settings = {
   infinite: false,
   slidesToShow: 5,
@@ -63,8 +64,6 @@ class UnitDetails extends UnitDetailsController {
     super(props);
   }
 
-  async componentDidMount(): Promise<void> {}
-
   render() {
     const { t }: any = this.props;
     const { classes } = this.props;
@@ -94,7 +93,14 @@ class UnitDetails extends UnitDetailsController {
                     <Box className="detail">
                       <Box className="header">
                         <h4>{t("Location Details")}</h4>
-                        <span>{t("See building on map")}</span>
+                        <Link
+                          href={`https://maps.google.com/?q=${this.state.unitDetails.lat},${
+                            this.state.unitDetails.long
+                          }`}
+                          target="_blank"
+                        >
+                          <span>{t("See building on map")}</span>
+                        </Link>
                       </Box>
                       <Card className="detail-box">
                         <Grid container spacing={2} className="info">
@@ -103,7 +109,7 @@ class UnitDetails extends UnitDetailsController {
                               <img src={BlueCountryIcon} alt="" />
                               <Box className="item-data">
                                 <span>{t("Country")}</span>
-                                <p>UAE</p>
+                                <p>{this.state.unitDetails.country || "-"}</p>
                               </Box>
                             </Box>
                           </Grid>
@@ -112,7 +118,7 @@ class UnitDetails extends UnitDetailsController {
                               <img src={BlueRegionIcon} alt="" />
                               <Box className="item-data">
                                 <span>{t("Region")}</span>
-                                <p>Eastern</p>
+                                <p>{this.state.unitDetails.region || "-"}</p>
                               </Box>
                             </Box>
                           </Grid>
@@ -121,7 +127,7 @@ class UnitDetails extends UnitDetailsController {
                               <img src={BlueCityIcon} alt="" />
                               <Box className="item-data">
                                 <span>{t("City")}</span>
-                                <p>Eastern</p>
+                                <p>{this.state.unitDetails.city || "-"}</p>
                               </Box>
                             </Box>
                           </Grid>
@@ -138,7 +144,7 @@ class UnitDetails extends UnitDetailsController {
                               <img src={BlueComplexIcon} alt="" />
                               <Box className="item-data">
                                 <span>{t("Complex Name")}</span>
-                                <p>Lorem Ipsum</p>
+                                <p>{this.state.unitDetails.complex || "-"}</p>
                               </Box>
                             </Box>
                           </Grid>
@@ -147,7 +153,7 @@ class UnitDetails extends UnitDetailsController {
                               <img src={BlueAssetsIcon} alt="" />
                               <Box className="item-data">
                                 <span>{t("Building Name")}</span>
-                                <p>Lorem Ipsum</p>
+                                <p>{this.state.unitDetails.building || "-"}</p>
                               </Box>
                             </Box>
                           </Grid>
@@ -156,7 +162,7 @@ class UnitDetails extends UnitDetailsController {
                               <img src={BlueUnitIcon} alt="" />
                               <Box className="item-data">
                                 <span>{t("Unit Number")}</span>
-                                <p>Lorem Ipsum</p>
+                                <p>{this.state.unitDetails.unit || "-"}</p>
                               </Box>
                             </Box>
                           </Grid>
@@ -165,7 +171,7 @@ class UnitDetails extends UnitDetailsController {
                               <img src={BlueFloorIcon} alt="" />
                               <Box className="item-data">
                                 <span>{t("Floor Number")}</span>
-                                <p>Lorem Ipsum</p>
+                                <p>{this.state.unitDetails.floor || "-"}</p>
                               </Box>
                             </Box>
                           </Grid>
@@ -174,7 +180,7 @@ class UnitDetails extends UnitDetailsController {
                               <img src={BlueSizeIcon} alt="" />
                               <Box className="item-data">
                                 <span>{t("Size")}</span>
-                                <p>Lorem Ipsum</p>
+                                <p>{this.state.unitDetails.size || "-"}</p>
                               </Box>
                             </Box>
                           </Grid>
@@ -183,7 +189,7 @@ class UnitDetails extends UnitDetailsController {
                               <img src={BlueConfigIcon} alt="" />
                               <Box className="item-data">
                                 <span>{t("Configuration")}</span>
-                                <p>Lorem Ipsum</p>
+                                <p>{this.state.unitDetails.config || "-"}</p>
                               </Box>
                             </Box>
                           </Grid>
@@ -192,7 +198,7 @@ class UnitDetails extends UnitDetailsController {
                               <img src={BluePriceIcon} alt="" />
                               <Box className="item-data">
                                 <span>{t("Purchase Price")}</span>
-                                <p>Lorem Ipsum</p>
+                                <p>{this.state.unitDetails.purchasePrice || "-"}</p>
                               </Box>
                             </Box>
                           </Grid>
@@ -201,7 +207,11 @@ class UnitDetails extends UnitDetailsController {
                               <img src={BlueCalenderIcon} alt="" />
                               <Box className="item-data">
                                 <span>{t("Purchase Date")}</span>
-                                <p>Lorem Ipsum</p>
+                                <p>
+                                  {this.state.unitDetails.purchaseDate
+                                    ? moment(this.state.unitDetails.purchaseDate, "YYYY-MM-DD").format("MMMM DD, YYYY")
+                                    : "-"}
+                                </p>
                               </Box>
                             </Box>
                           </Grid>
@@ -210,7 +220,7 @@ class UnitDetails extends UnitDetailsController {
                               <img src={BlueValuationIcon} alt="" />
                               <Box className="item-data">
                                 <span>{t("Current Valuation")}</span>
-                                <p>Lorem Ipsum</p>
+                                <p>{this.state.unitDetails.valuation || "-"}</p>
                               </Box>
                             </Box>
                           </Grid>
@@ -308,28 +318,14 @@ class UnitDetails extends UnitDetailsController {
                     <Box className="images-box">
                       <h4>{t("Unit Pictures")}</h4>
                       <Slider ref={(c: any) => (this.slider = c)} {...settings}>
-                        {/* {this.state.complexData.photos.length === 0 && <div>{t("No photos available")}</div>} */}
-                        <div>
-                          <img src={BuildingImage.default} alt="" />
-                        </div>
-                        <div>
-                          <img src={BuildingImage.default} alt="" />
-                        </div>
-                        <div>
-                          <img src={BuildingImage.default} alt="" />
-                        </div>
-                        <div>
-                          <img src={BuildingImage.default} alt="" />
-                        </div>
-                        <div>
-                          <img src={BuildingImage.default} alt="" />
-                        </div>
-                        <div>
-                          <img src={BuildingImage.default} alt="" />
-                        </div>
-                        <div>
-                          <img src={BuildingImage.default} alt="" />
-                        </div>
+                        {this.state.unitDetails.photos.length === 0 && <div>{t("No photos available")}</div>}
+                        {this.state.unitDetails.photos.map((image: any) => {
+                          return (
+                            <div>
+                              <img src={BuildingImage.default} alt="" />
+                            </div>
+                          );
+                        })}
                       </Slider>
                     </Box>
                   </Container>
