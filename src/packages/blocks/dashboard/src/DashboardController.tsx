@@ -36,15 +36,15 @@ interface SS {
 }
 
 export default class DashboardController extends BlockComponent<Props, S, SS> {
-  // Customizable Area Start
   apiDashboardItemCallId: string = "";
   dashboardApiCallId: string = "";
   apiGetQueryStrinurl: string = "";
-  getUnreadCountAPIId:any='';
+
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
     console.disableYellowBox = true;
+    // Customizable Area Start
     this.subScribedMessages = [
       getName(MessageEnum.AccoutLoginSuccess),
       getName(MessageEnum.RestAPIResponceMessage),
@@ -166,38 +166,6 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
   handleAccordinoChange = (panel:string) => (event:any, isExpanded:boolean) => {
     this.setState({ expanded: isExpanded ? panel : '' });
   };
-  getUNreadCount() {
-    this.setState({loading:true})
-        const header = {
-          "Content-Type": configJSON.contentTypeApiAddDetail,
-          "token": localStorage.getItem('userToken')
-        };
-        const requestMessage = new Message(
-          getName(MessageEnum.RestAPIRequestMessage)
-        );
-    
-    
-        this.getUnreadCountAPIId = requestMessage.messageId;
-        requestMessage.addData(
-          getName(MessageEnum.RestAPIResponceEndPointMessage),
-          `bx_block_chat/chats/unread_messages?chat_id=2`
-        );
-    
-        requestMessage.addData(
-          getName(MessageEnum.RestAPIRequestHeaderMessage),
-          JSON.stringify(header)
-        );
-    
-    
-    
-        requestMessage.addData(
-          getName(MessageEnum.RestAPIRequestMethodMessage),
-          'GET'
-        );
-    
-        runEngine.sendMessage(requestMessage.id, requestMessage);
-        return true;
-      }
   // Customizable Area End
 
 }
