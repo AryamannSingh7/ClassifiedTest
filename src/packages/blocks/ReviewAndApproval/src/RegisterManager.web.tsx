@@ -22,35 +22,16 @@ import {
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
-import {
-  BuildingImage,
-  EarthIcon,
-  CubeIcon,
-  CalenderIcon,
-  RentAmountIcon,
-  BuildingIcon,
-  RegionIcon,
-  CityIcon,
-  ComplexIcon,
-  FloorIcon,
-  SizeIcon,
-  ConfigIcon,
-  PriceIcon,
-  ValuationIcon,
-  DeleteRentIcon,
-  RentAmountHistoryIcon,
-  ReceivedIcon,
-  TenantIcon,
-} from "./assets";
-import RegisterUnitController, { Props } from "./RegisterUnitController.web";
+import { BuildingLogo } from "./assets";
 import moment from "moment";
 import { Formik, Form } from "formik";
 import { withTranslation } from "react-i18next";
 import "../../../web/src/i18n.js";
-import { MyUnitStyle } from "./MyUnitStyle.web";
 import Loader from "../../../components/src/Loader.web";
+import { PropertyManagerStyleWeb } from "./PropertyManagerStyle.web";
+import RegisterManagerController, { Props } from "./RegisterManagerController.web";
 
-class RegisterMyUnit extends RegisterUnitController {
+class RegisterPropertyManager extends RegisterManagerController {
   constructor(props: Props) {
     super(props);
   }
@@ -63,7 +44,7 @@ class RegisterMyUnit extends RegisterUnitController {
       <>
         <Loader loading={this.state.loading} />
 
-        <Box style={{ background: "white", height: "100vh" }} className={classes.registerUnit}>
+        <Box style={{ background: "white", height: "100vh" }} className={classes.registerManager}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box>
@@ -106,7 +87,7 @@ class RegisterMyUnit extends RegisterUnitController {
                                     <MenuItem value={20}>Twenty</MenuItem>
                                     <MenuItem value={30}>Thirty</MenuItem>
                                   </Select>
-                                  <img src={EarthIcon} alt="" />
+                                  {/* <img src={EarthIcon} alt="" /> */}
                                 </Box>
                                 {/* {errors.buildingId && touched.buildingId && (
                                   <p className="error">{t(errors.buildingId)}</p>
@@ -130,7 +111,7 @@ class RegisterMyUnit extends RegisterUnitController {
                                     <MenuItem value={20}>Twenty</MenuItem>
                                     <MenuItem value={30}>Thirty</MenuItem>
                                   </Select>
-                                  <img src={RegionIcon} alt="" />
+                                  {/* <img src={RegionIcon} alt="" /> */}
                                 </Box>
                                 {/* {errors.buildingId && touched.buildingId && (
                                   <p className="error">{t(errors.buildingId)}</p>
@@ -154,7 +135,7 @@ class RegisterMyUnit extends RegisterUnitController {
                                     <MenuItem value={20}>Twenty</MenuItem>
                                     <MenuItem value={30}>Thirty</MenuItem>
                                   </Select>
-                                  <img src={CityIcon} alt="" />
+                                  {/* <img src={CityIcon} alt="" /> */}
                                 </Box>
                                 {/* {errors.buildingId && touched.buildingId && (
                                   <p className="error">{t(errors.buildingId)}</p>
@@ -182,7 +163,7 @@ class RegisterMyUnit extends RegisterUnitController {
                                     <MenuItem value={20}>Twenty</MenuItem>
                                     <MenuItem value={30}>Thirty</MenuItem>
                                   </Select>
-                                  <img src={ComplexIcon} alt="" />
+                                  {/* <img src={ComplexIcon} alt="" /> */}
                                 </Box>
                                 {/* {errors.buildingId && touched.buildingId && (
                                   <p className="error">{t(errors.buildingId)}</p>
@@ -219,7 +200,7 @@ class RegisterMyUnit extends RegisterUnitController {
                                       );
                                     })} */}
                                   </Select>
-                                  <img src={BuildingIcon} alt="" />
+                                  {/* <img src={BuildingIcon} alt="" /> */}
                                 </Box>
                                 {/* {errors.buildingId && touched.buildingId && (
                                   <p className="error">{t(errors.buildingId)}</p>
@@ -256,7 +237,7 @@ class RegisterMyUnit extends RegisterUnitController {
                                       );
                                     })} */}
                                   </Select>
-                                  <img src={CubeIcon} alt="" />
+                                  {/* <img src={CubeIcon} alt="" /> */}
                                 </Box>
                                 {/* {errors.unitId && touched.unitId && <p className="error">{t(errors.unitId)}</p>} */}
                               </FormControl>
@@ -278,7 +259,7 @@ class RegisterMyUnit extends RegisterUnitController {
                                     <MenuItem value={20}>Twenty</MenuItem>
                                     <MenuItem value={30}>Thirty</MenuItem>
                                   </Select>
-                                  <img src={FloorIcon} alt="" />
+                                  {/* <img src={FloorIcon} alt="" /> */}
                                 </Box>
                                 {/* {errors.buildingId && touched.buildingId && (
                                   <p className="error">{t(errors.buildingId)}</p>
@@ -296,7 +277,7 @@ class RegisterMyUnit extends RegisterUnitController {
                                       placeholder={t("Size")}
                                       startAdornment={
                                         <InputAdornment position="start">
-                                          <img src={SizeIcon} alt="" />
+                                          {/* <img src={SizeIcon} alt="" /> */}
                                         </InputAdornment>
                                       }
                                     />
@@ -347,7 +328,7 @@ class RegisterMyUnit extends RegisterUnitController {
                                     <MenuItem value={20}>Twenty</MenuItem>
                                     <MenuItem value={30}>Thirty</MenuItem>
                                   </Select>
-                                  <img src={ConfigIcon} alt="" />
+                                  {/* <img src={ConfigIcon} alt="" /> */}
                                 </Box>
                                 {/* {errors.buildingId && touched.buildingId && (
                                   <p className="error">{t(errors.buildingId)}</p>
@@ -365,7 +346,7 @@ class RegisterMyUnit extends RegisterUnitController {
                                       placeholder={t("Purchase Price")}
                                       startAdornment={
                                         <InputAdornment position="start">
-                                          <img src={PriceIcon} alt="" />
+                                          {/* <img src={PriceIcon} alt="" /> */}
                                         </InputAdornment>
                                       }
                                     />
@@ -387,7 +368,7 @@ class RegisterMyUnit extends RegisterUnitController {
                                       onFocus={(e: any) => (e.target.type = "date")}
                                       startAdornment={
                                         <InputAdornment position="start">
-                                          <img src={CalenderIcon} alt="" />
+                                          {/* <img src={CalenderIcon} alt="" /> */}
                                         </InputAdornment>
                                       }
                                     />
@@ -424,7 +405,7 @@ class RegisterMyUnit extends RegisterUnitController {
                               <Box className="rent-history-box">
                                 <Box className="heading">
                                   <h4>May 2022 to June 0202</h4>
-                                  <img src={DeleteRentIcon} alt="" />
+                                  {/* <img src={DeleteRentIcon} alt="" /> */}
                                 </Box>
                                 <p className="tenant-name">Tenant Name</p>
                                 <Divider />
@@ -440,7 +421,7 @@ class RegisterMyUnit extends RegisterUnitController {
                               <Box className="rent-history-box">
                                 <Box className="heading">
                                   <h4>May 2022 to June 0202</h4>
-                                  <img src={DeleteRentIcon} alt="" />
+                                  {/* <img src={DeleteRentIcon} alt="" /> */}
                                 </Box>
                                 <p className="tenant-name">Tenant Name</p>
                                 <Divider />
@@ -466,7 +447,7 @@ class RegisterMyUnit extends RegisterUnitController {
                                   placeholder={t("Monthly Renting Income")}
                                   startAdornment={
                                     <InputAdornment position="start">
-                                      <img src={RentAmountIcon} alt="" />
+                                      {/* <img src={RentAmountIcon} alt="" /> */}
                                     </InputAdornment>
                                   }
                                 />
@@ -485,7 +466,7 @@ class RegisterMyUnit extends RegisterUnitController {
                                   placeholder={t("Current Valuation")}
                                   startAdornment={
                                     <InputAdornment position="start">
-                                      <img src={ValuationIcon} alt="" />
+                                      {/* <img src={ValuationIcon} alt="" /> */}
                                     </InputAdornment>
                                   }
                                 />
@@ -508,7 +489,7 @@ class RegisterMyUnit extends RegisterUnitController {
             </Grid>
             <Grid item xs={12} md={5}>
               <Box className="right-block right-image" display={{ xs: "none", md: "flex" }}>
-                <img src={BuildingImage.default} className="building-logo" alt="" />
+                <img src={BuildingLogo.default} className="building-logo" alt="" />
               </Box>
             </Grid>
           </Grid>
@@ -548,7 +529,7 @@ class RegisterMyUnit extends RegisterUnitController {
                             onFocus={(e: any) => (e.target.type = "date")}
                             startAdornment={
                               <InputAdornment position="start">
-                                <img src={CalenderIcon} alt="" />
+                                {/* <img src={CalenderIcon} alt="" /> */}
                               </InputAdornment>
                             }
                           />
@@ -569,7 +550,7 @@ class RegisterMyUnit extends RegisterUnitController {
                               onFocus={(e: any) => (e.target.type = "date")}
                               min={values.startDate}
                             />
-                            <img src={CalenderIcon} alt="" />
+                            {/* <img src={CalenderIcon} alt="" /> */}
                           </Box>
                           {errors.endDate && touched.endDate && <p className="error">{t(errors.endDate)}</p>}
                         </FormControl>
@@ -586,7 +567,7 @@ class RegisterMyUnit extends RegisterUnitController {
                         type="text"
                         startAdornment={
                           <InputAdornment position="start">
-                            <img src={RentAmountHistoryIcon} alt="" />
+                            {/* <img src={RentAmountHistoryIcon} alt="" /> */}
                           </InputAdornment>
                         }
                       />
@@ -602,9 +583,7 @@ class RegisterMyUnit extends RegisterUnitController {
                         placeholder={t("Received Amount")}
                         type="text"
                         startAdornment={
-                          <InputAdornment position="start">
-                            <img src={ReceivedIcon} alt="" />
-                          </InputAdornment>
+                          <InputAdornment position="start">{/* <img src={ReceivedIcon} alt="" /> */}</InputAdornment>
                         }
                       />
                       {errors.receivedAmount && touched.receivedAmount && (
@@ -621,9 +600,7 @@ class RegisterMyUnit extends RegisterUnitController {
                         placeholder={t("Tenant Name")}
                         type="text"
                         startAdornment={
-                          <InputAdornment position="start">
-                            <img src={TenantIcon} alt="" />
-                          </InputAdornment>
+                          <InputAdornment position="start">{/* <img src={TenantIcon} alt="" /> */}</InputAdornment>
                         }
                       />
                       {errors.tenantName && touched.tenantName && <p className="error">{t(errors.tenantName)}</p>}
@@ -644,5 +621,5 @@ class RegisterMyUnit extends RegisterUnitController {
   }
 }
 
-export default withTranslation()(withStyles(MyUnitStyle)(RegisterMyUnit));
+export default withTranslation()(withStyles(PropertyManagerStyleWeb)(RegisterPropertyManager));
 // Customizable Area End

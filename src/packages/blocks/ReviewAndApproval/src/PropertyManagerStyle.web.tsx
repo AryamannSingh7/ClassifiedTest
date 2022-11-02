@@ -1,126 +1,123 @@
-export const MyUnitStyle: any = {
-  myUnitList: {
+export const PropertyManagerStyleWeb: any = {
+  managerList: {
     "& .top-bar": {
       display: "flex",
       alignItems: "center",
       fontWeight: "600",
       cursor: "pointer",
+      marginBottom: "18px",
       background: "#FFFFFF",
       padding: "10px 20px",
       justifyContent: "space-between",
-      zIndex: "9999",
-      borderBottom: "2px solid #e2e2ef",
+      position: "sticky",
+      top: "0",
+      zIndex: "999999",
     },
     "& .top-bar .left-icon": {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      gap: "10px",
-    },
-    "& .top-bar .left-icon span": {
-      lineHeight: "18px",
     },
     "& .top-bar .right-icon": {
       display: "flex",
       alignItems: "center",
+      gap: "5px",
     },
-    "& .top-bar .right-icon img": {
-      cursor: "pointer",
+    "& .top-bar .right-icon .szh-menu-container ul": {
+      top: "34px !important",
     },
     "& .right-image": {
       padding: "25px 60px",
     },
     "& a": {
+      color: "black",
       textDecoration: "none !important",
     },
-    "& .tenant-list-box": {
-      marginTop: "15px",
-      height: "88vh",
-      position: "relative",
-      overflow: "hidden",
+    "& .list-box": {
+      height: "85vh",
     },
-    "& .tenant-list-box .upload-button": {
+    "& .faq-step .MuiContainer-root": {
+      overflowY: "auto",
+      overflowX: "hidden",
+    },
+    "& .content-box": {
+      position: "relative",
+      width: "100%",
+    },
+    "& .content-box > .MuiGrid-root": {
+      alignContent: "flex-start",
+    },
+    "& .content-box .contracts-list": {
+      minHeight: "calc(100% - 40px)",
+    },
+    "& .upload-button": {
       position: "sticky",
-      bottom: 0,
       left: 0,
       right: 0,
+      bottom: 0,
+      background: "#F4F7FF",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
       padding: "10px 0",
+      boxShadow: "none",
     },
-    "& .tenant-list-box .upload-button .MuiGrid-root": {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-    },
-    "& .tenant-list-box .upload-button button": {
+    "& .upload-button button": {
       background: "#2b6fec",
       color: "white",
       padding: "12px 50px",
       borderRadius: "25px",
       fontWeight: 600,
     },
-    "& .tenant-list-box .tenant-list": {
-      height: "calc(100% - 70px)",
-      overflowX: "hidden",
+    "& .upload-button .MuiGrid-container": {
+      width: "fit-content",
     },
-    "& .tenant-list-box .tenant": {
-      borderRadius: "8px",
-      boxShadow: "none",
-      padding: "12px",
+    "& .contracts-list .contract": {
+      padding: "10px 25px",
+      borderRadius: "10px",
+      background: "white",
+      boxShadow: "4px 0px 14px #ececec",
+      "& .new-req-box": {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        "& .right-side-req-box": {
+          display: "flex",
+          alignItems: "center",
+          gap: "15px",
+          "& button": {
+            borderRadius: "25px",
+            fontWeight: "600",
+            background: "#FEF9F3",
+            color: "#FD9048",
+          },
+        },
+      },
     },
-    "& .tenant-list-box .tenant .city": {
-      color: "lightslategrey",
+    "& .templates-list .template .szh-menu-container ul a": {
+      color: "black",
     },
-    "& .tenant-list-box .tenant .header": {
+    "& .contracts-list .contract .header": {
+      width: "100%",
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
     },
-    "& .tenant-list-box .tenant .header h4": {
-      cursor: "pointer",
+    "& .contracts-list .contract .header h4": {
+      wordBreak: "break-all",
     },
-    "& .tenant-list-box .tenant .info": {
-      marginTop: "10px",
+    "& .contracts-list .contract .info span": {
+      color: "gray",
     },
-    "& .tenant-list-box .tenant .info span.header": {
+    "& .contracts-list .contract .info p": {
       color: "black",
-      fontSize: "16px",
     },
-    "& .tenant-list-box .tenant .info button": {
-      display: "block",
-      borderRadius: "25px",
+    "& .contracts-list .state": {
+      color: "#FC8434 !important",
       fontWeight: 600,
-      padding: "8px 20px",
-      background: "#ffeadc",
-      color: "#FC8434",
-      marginTop: "5px",
-    },
-    "& .tenant-list-box .tenant .info button span": {
-      color: "#FC8434",
-      textTransform: "capitalize",
-    },
-    "& .tenant-list-box .tenant .info button.Rented": {
-      background: "#dbffe8",
-      "&  span": {
-        color: "#1EC65B",
-      },
-    },
-    "& .tenant-list-box .tenant .info button.Empty": {
-      background: "#d6d6d6",
-      "&  span": {
-        color: "#606060",
-      },
-    },
-    "& .tenant-list-box .tenant .info button.Pending": {
-      background: "#ffd7d7",
-      "&  span": {
-        color: "#ED5656",
-      },
     },
   },
-  registerUnit: {
+  registerManager: {
     "& .top-bar": {
       display: "flex",
       alignItems: "center",
@@ -361,132 +358,6 @@ export const MyUnitStyle: any = {
     "& .form.issue-lease-content .next-button": {
       position: "sticky",
       bottom: 0,
-    },
-  },
-  tenantDetails: {
-    "& .top-bar": {
-      display: "flex",
-      alignItems: "center",
-      fontWeight: "600",
-      cursor: "pointer",
-      background: "#FFFFFF",
-      padding: "10px 20px",
-      justifyContent: "space-between",
-      zIndex: "9999",
-      borderBottom: "2px solid #e2e2ef",
-    },
-    "& .top-bar .left-icon": {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      gap: "10px",
-    },
-    "& .top-bar .left-icon span": {
-      lineHeight: "18px",
-    },
-    "& .top-bar .right-icon": {
-      display: "flex",
-      alignItems: "center",
-      gap: "20px",
-    },
-    "& .right-image": {
-      padding: "25px 60px",
-    },
-    "& a": {
-      textDecoration: "none !important",
-    },
-    "& .tenant-detail-box": {
-      background: "white",
-      height: "88vh",
-      overflow: "auto",
-    },
-    "& .tenant-detail-box .detail": {
-      margin: "15px 0",
-      "& .header": {
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        "& span": {
-          fontWeight: 600,
-          color: "#FC8434",
-          cursor: "pointer",
-        },
-      },
-    },
-    "& .tenant-detail-box .detail .detail-box": {
-      borderRadius: "8px",
-      marginTop: "10px",
-      boxShadow: "none",
-      padding: "15px 20px",
-      border: "1px solid #e2e2ef",
-    },
-    "& .tenant-detail-box .detail .detail-box .info-item": {
-      display: "flex",
-      alignItems: "flex-start",
-      gap: "12px",
-    },
-    "& .tenant-detail-box .detail .detail-box .info-item .item-data": {
-      display: "flex",
-      flexDirection: "column",
-      gap: "6px",
-    },
-    "& .tenant-detail-box .detail .detail-box .info-item span": {
-      lineHeight: "14px",
-    },
-    "& .tenant-detail-box .detail .detail-box .info-item p": {
-      fontWeight: 600,
-    },
-    "& .rent-history-box": {
-      "& .header": {
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        "& span": {
-          fontWeight: 600,
-          color: "#FC8434",
-          cursor: "pointer",
-        },
-      },
-      "& .rent-history": {
-        padding: "12px 20px",
-        margin: "10px 0",
-        border: "1px solid lightgrey",
-        borderRadius: "8px",
-        "& .date": {
-          margin: "10px 0",
-        },
-        "& .info": {
-          marginTop: "8px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          "& span": {
-            fontWeight: 600,
-            color: "#FC8434",
-          },
-        },
-      },
-    },
-    "& .images-box": {
-      margin: "15px 0",
-      overflow: "hidden",
-      "& img": {
-        width: "100px",
-        height: "100px",
-        borderRadius: "8px",
-      },
-      "& h4": {
-        marginBottom: "10px",
-      },
-      "& .slick-track": {
-        display: "flex",
-      },
-      "& .slick-prev": {
-        display: "none !important",
-      },
-      "& .slick-next": {
-        display: "none !important",
-      },
     },
   },
 };
