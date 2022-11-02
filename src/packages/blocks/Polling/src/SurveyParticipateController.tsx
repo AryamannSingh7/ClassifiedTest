@@ -120,9 +120,9 @@ export default class SurveyParticipateController extends BlockComponent<
       }
       if(this.surveyPreviewAnswerData === apiRequestCallId){
         this.setState({
-          surveyTitle:responseJson?.poll?.data?.attributes?.title,
-          SurveyQuestions:responseJson?.poll?.data?.attributes?.survey_questions || [],
-          totalQuestion:responseJson?.poll?.data?.attributes?.survey_questions.length - 1,
+          surveyTitle:responseJson?.survey?.data?.attributes?.title,
+          SurveyQuestions:responseJson?.survey?.data?.attributes?.survey_questions || [],
+          totalQuestion:responseJson?.survey?.data?.attributes?.survey_questions.length - 1,
           loading:false
         })
       }

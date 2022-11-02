@@ -80,7 +80,7 @@ class MyTeam extends MyTeamController {
                             this.state.pendingReq.map((item:any,key:any)=> {
                                 if(key < 3){
                                     return(
-                                        <TeamCard key={key} data={item.attributes} history={this.props.history} approval={true} handleDelete={(id:any) => this.handleDeleteModal(id)} />
+                                        <TeamCard key={key} data={item.attributes} history={this.props.history} approval={true} handleDelete={(id:any) => this.handleDeleteModal(id)} openChat={this.openChat}/>
                                     )
                                 }
                           })
@@ -110,7 +110,7 @@ class MyTeam extends MyTeamController {
                         this.state.coreMembers.map((item:any,key:any)=> {
                             if(key < 3){
                                 return(
-                                    <TeamCard data={item.attributes} history={this.props.history} approval={false} handleDelete={(id:any) => this.handleDeleteModal(id)} />
+                                    <TeamCard data={item.attributes} history={this.props.history} approval={false} handleDelete={(id:any) => this.handleDeleteModal(id)} openChat={this.openChat}/>
                                 )
                             }
                         })
@@ -137,7 +137,7 @@ class MyTeam extends MyTeamController {
                             this.state.subTeam.map((item:any,key:any)=> {
                                 if(key < 3) {
                                     return (
-                                        <TeamCard key={key} date={item.attributes} history={this.props.history} approval={false} handleDelete={(id:any) => this.handleDeleteModal(id)} />
+                                        <TeamCard key={key} date={item.attributes} history={this.props.history} approval={false} handleDelete={(id:any) => this.handleDeleteModal(id)} openChat={this.openChat}/>
                                     )
                                 }
                             })
@@ -164,7 +164,7 @@ class MyTeam extends MyTeamController {
                             this.state.providers.map((item:any,key:any)=> {
                                 if(key < 3) {
                                     return (
-                                        <TeamCard data={item.attributes} history={this.props.history} approval={false} handleDelete={(id:any) => this.handleDeleteModal(id)} />
+                                        <TeamCard data={item.attributes} history={this.props.history} approval={false} handleDelete={(id:any) => this.handleDeleteModal(id)} openChat={this.openChat}/>
                                     )
                                 }
                             })
@@ -353,6 +353,8 @@ const TeamCard = (props:any) => {
         props.handleDelete(data.id)
     }
 
+    
+
     console.log("data",data)
     return(
         <Grid item sm={4} md={3} xs={12} style={{position:"relative"}}>
@@ -371,23 +373,27 @@ const TeamCard = (props:any) => {
                     <Typography variant="h6" style={{fontWeight:"bold",marginBottom:"5px"}}>{data?.role?.name}</Typography>
                     <Typography variant="h6" gutterBottom style={{marginBottom:"10px"}}>{data?.account?.attributes?.full_name?.name}</Typography>
                     <Grid container spacing={1} style={{width:"100%",display:"flex",alignItems:"center",justifyContent:"center"}}>
-                        <Grid item>
-                            <Typography variant="subtitle2" className={"statusOngoingBlue"} gutterBottom>Owner</Typography>
-                        </Grid>
-                        <Grid item>
-                            <Typography variant="subtitle2" className={"statusOngoingBlue"} gutterBottom>Chairman</Typography>
-                        </Grid>
+                        {
+                            data.account_roles.length > 0 &&
+                                data.account_roles.map((item:any,key:any)=> {
+                                    return(
+                                        <Grid item style={{marginBottom:"15px"}}>
+                                            <Typography  key={key} variant="subtitle2" className={"statusOngoingBlue"} gutterBottom>{item.name}</Typography>
+                                        </Grid>
+                                    )
+                                })
+                        }
                     </Grid>
                 </Box>
                 <Box style={{width:"100%",display:'flex',justifyContent:"center",alignItems:"center",flexDirection:"column",marginTop:"15px"}}>
                     <Box style={{display:'flex'}}>
-                        <IconButton style={{backgroundColor:"rgba(252,52,52,.1)",marginRight:"8px"}}>
+                        <IconButton style={{backgroundColor:"rgba(252,52,52,.1)",marginRight:"8px"}} onClick={()=>props.openChat(data)} >
                             <img src={chat} />
                         </IconButton>
-                        <IconButton style={{backgroundColor:"rgba(252,52,52,.1)",marginRight:"8px"}}>
+                        <IconButton style={{backgroundColor:"rgba(252,52,52,.1)",marginRight:"8px"}} onClick={()=> window.location.href = `mailto:${data.email}`}>
                             <img src={email} />
                         </IconButton>
-                        <IconButton style={{backgroundColor:"rgba(252,52,52,.1)"}}>
+                        <IconButton style={{backgroundColor:"rgba(252,52,52,.1)"}} onClick={()=> window.location.href = `tel:${data.phone_number}`}>
                             <img src={telephone} />
                         </IconButton>
                     </Box>

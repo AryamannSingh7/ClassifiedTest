@@ -111,6 +111,7 @@ import NewRequest from '../../blocks/customform/src/NewRequest.web';
 import ManagerList from '../../blocks/customform/src/ManagerList.web';
 import Inbox from '../../blocks/customform/src/Inbox.web';
 import IncidentChat from '../../blocks/customform/src/IncidentChat.web';
+import ChairmanChat from '../../blocks/customform/src/ChairmanChat.web';
 
 import Chatbox from '../../blocks/customform/src/Chatbox.web';
 // import RequestManagement from "../../blocks/RequestManagement/src/RequestManagement";
@@ -364,11 +365,11 @@ const routeMap = {
     path: '/inbox',
     exact: true
   },
-  // ChairmanChat: {
-  //   component: ChairmanChat,
-  //   path: '/ChairmanChat',
-  //   exact: true
-  // },
+  ChairmanChat: {
+    component: ChairmanChat,
+    path: '/ChairmanChat',
+    exact: true
+  },
   Chatbox: {
     component: Chatbox,
     path: '/Chatbox',
