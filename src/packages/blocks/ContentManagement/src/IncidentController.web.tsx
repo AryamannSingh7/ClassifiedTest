@@ -1030,7 +1030,20 @@ createIncidentSchema() {
       console.log(error);
     }
 
+  }
+  redirectToDashboard = () => {
+    let userType = localStorage.getItem('userType')
+    if (userType == 'Owner') {
+      //@ts-ignore
+      //@ts-nocheck
+      this.props.history.push('/OwnerDashboard')
+    } else {
+      //@ts-ignore
+      //@ts-nocheck
+      this.props.history.push('/residentDashboard')
+    }
 
   }
+
   // Customizable Area End
 }

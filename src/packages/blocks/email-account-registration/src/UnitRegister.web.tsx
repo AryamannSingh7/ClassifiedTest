@@ -33,10 +33,10 @@ class RegisterUnit extends EmailAccountRegistrationController {
       <>
         <Grid container spacing={2} className="auth-container">
           <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset' }}>
-            <div style={{ margin: 'auto' }}>
+            <div >
 
         <Grid container className="main-content-block">
-          <Grid xs={12}>
+          <Grid xs={12} style={{marginBottom:'1rem'}}>
             <ArrowBackIcon onClick={() => window.history.back()} />
           </Grid>
         </Grid>
@@ -50,7 +50,7 @@ class RegisterUnit extends EmailAccountRegistrationController {
           </Grid>
         </Grid>
 
-        <Grid container className="main-content-block">
+        <Grid container className="main-content-block" style={{marginBottom:'2rem'}}>
           <Grid xs={12}>
             <p className="text-left">
               Please select the appropriate registration type for the unit. If you have more than one unit, you will be able to register them on a later stage
@@ -75,6 +75,7 @@ class RegisterUnit extends EmailAccountRegistrationController {
               borderRadius="16px"
               bgcolor="white"
               marginTop='1rem'
+              style={{marginBottom:'2rem'}}
             >
               <img src={Linkage} />
               <Box className="middle-section">
@@ -101,6 +102,7 @@ class RegisterUnit extends EmailAccountRegistrationController {
               borderRadius="16px"
               bgcolor="white"
               marginTop='1rem'
+              style={{marginBottom:'10rem'}}
             >
               <img src={manual} />
 

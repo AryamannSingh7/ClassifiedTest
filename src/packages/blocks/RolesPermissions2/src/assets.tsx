@@ -19,3 +19,5 @@ export const RentAmountIcon = require("../assets/rent-amount.png");
 export const CurrencyIcon = require("../assets/currency.png");
 export const CardIcon = require("../assets/card.png");
 export const PenaltyAmountIcon = require("../assets/penalty-amount.png");
+export const LeaseGeneratorIcon = require("../assets/lease-generate.png");
+export const SaveTemplateIcon = require("../assets/save-template.png");
