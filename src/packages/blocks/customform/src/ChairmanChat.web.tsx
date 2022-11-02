@@ -62,11 +62,15 @@ class ChairmanChat extends InboxController {
   }
 
   async componentDidMount() {
-
     this.getInbox()
     this.getProfile()
     // this.getSingleInbox()
 this.markUnread()
+console.log('hello',window.history?.state?.state?.data)
+if(window.history?.state?.state?.data){
+  this.updateChatRoom()
+}
+   
 // @ts-ignore
 // @ts-nocheck
 // this.interval = setInterval(() => {
@@ -80,13 +84,13 @@ this.markUnread()
     clearInterval(this.interval)
   }
   displaytime(obj:any) {
-    console.log('obj',obj)
+
     let value = obj[Object.keys(obj)[Object.keys(obj).length - 1]]
    
     //@ts-ignore
     //@ts-nocheck
     if(value){
-    console.log('value',value)
+
 
   let date = new Date(value[value.length-1].message.created_at)
 
@@ -113,7 +117,7 @@ this.markUnread()
 
   }
   handleClick1(e:any) {
-    console.log(e)
+
     //@ts-ignore
 //@ts-nocheck
     this.refs.fileUploader.click();
@@ -147,7 +151,7 @@ else{
 
     // get from-now for this date
     var fromNow = moment.utc( myDate ).fromNow();
-console.log(moment( myDate ).calendar())
+
     // ensure the date is displayed with today and yesterday
     return moment( myDate ).calendar( null, {
         // when the date is closer, specify custom values
@@ -364,8 +368,10 @@ const currentAccountId = localStorage.getItem('userId')
 {/* {
   this.state.allInboxKey ? 'hey':'bye'
 } */}
-            {this.state.allInboxKey?.length!=0 && this.state.allInboxKey?.map((date, i) => (
+
+            {this.state.allInboxKey?.length !=0 && this.state.allInboxKey?.map((date, i) => (
                 <>
+        
 
                 <Box key={i} display='flex' justifyContent='center' position='relative'>
                   <p className="oval-shape">
