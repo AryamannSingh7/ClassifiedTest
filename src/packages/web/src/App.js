@@ -314,6 +314,7 @@ import RegisterMyUnit from '../../blocks/TaskAllocator/src/RegisterUnit.web';
 import RegisterMyUnitSuccess from '../../blocks/TaskAllocator/src/RegisterUnitSuccess.web';
 import MyUnitDetails from '../../blocks/TaskAllocator/src/UnitDetails.web';
 import RentHistory from '../../blocks/TaskAllocator/src/RentHistory.web';
+import PendingUnit from '../../blocks/TaskAllocator/src/PendingUnit.web';
 
 const routeMap = {
   //done
@@ -1841,6 +1842,12 @@ const routeMap = {
   MyUnitDetails: {
     component: MyUnitDetails,
     path: '/MyUnitDetails',
+    roles: [ROLE.OWNER],
+    exact: true
+  },
+  PendingUnit: {
+    component: PendingUnit,
+    path: '/MyUnitDetails/PendingUnit',
     roles: [ROLE.OWNER],
     exact: true
   },

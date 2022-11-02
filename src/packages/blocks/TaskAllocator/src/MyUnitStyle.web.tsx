@@ -294,6 +294,32 @@ export const MyUnitStyle: any = {
         textAlign: "center",
       },
     },
+    "& .pending-page": {
+      height: "calc(100% - 160px)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      flexDirection: "column",
+      gap: "20px",
+      "& p": {
+        textAlign: "center",
+      },
+    },
+    "& .pending-buttons": {
+      display: "flex",
+      padding: "10px 0",
+      background: "white",
+      boxShadow: "none",
+      marginTop: "20px",
+      alignItems: "center",
+      justifyContent: "center",
+      flexDirection: "column",
+      gap: "10px",
+      "& .okay": {
+        color: "#8D8D8D",
+        background: "white",
+      },
+    },
     "& .next-button": {
       background: "white",
       display: "flex",
