@@ -36,16 +36,15 @@ interface SS {
 }
 
 export default class DashboardController extends BlockComponent<Props, S, SS> {
+  // Customizable Area Start
   apiDashboardItemCallId: string = "";
   dashboardApiCallId: string = "";
   apiGetQueryStrinurl: string = "";
   getUnreadCountAPIId:any='';
-
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
     console.disableYellowBox = true;
-    // Customizable Area Start
     this.subScribedMessages = [
       getName(MessageEnum.AccoutLoginSuccess),
       getName(MessageEnum.RestAPIResponceMessage),
