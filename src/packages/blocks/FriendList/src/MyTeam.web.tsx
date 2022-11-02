@@ -385,13 +385,13 @@ const TeamCard = (props:any) => {
                 </Box>
                 <Box style={{width:"100%",display:'flex',justifyContent:"center",alignItems:"center",flexDirection:"column",marginTop:"15px"}}>
                     <Box style={{display:'flex'}}>
-                        <IconButton style={{backgroundColor:"rgba(252,52,52,.1)",marginRight:"8px"}}>
+                        <IconButton style={{backgroundColor:"rgba(252,52,52,.1)",marginRight:"8px"}} >
                             <img src={chat} />
                         </IconButton>
-                        <IconButton style={{backgroundColor:"rgba(252,52,52,.1)",marginRight:"8px"}}>
+                        <IconButton style={{backgroundColor:"rgba(252,52,52,.1)",marginRight:"8px"}} onClick={()=> window.location.href = `mailto:${data.email}`}>
                             <img src={email} />
                         </IconButton>
-                        <IconButton style={{backgroundColor:"rgba(252,52,52,.1)"}}>
+                        <IconButton style={{backgroundColor:"rgba(252,52,52,.1)"}} onClick={()=> window.location.href = `tel:${data.phone_number}`}>
                             <img src={telephone} />
                         </IconButton>
                     </Box>
