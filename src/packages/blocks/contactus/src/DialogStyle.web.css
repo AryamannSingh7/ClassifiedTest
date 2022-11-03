@@ -436,6 +436,37 @@
   background-color: #f3f3f3;
 }
 
+.rent-history-dialog .select-box .select-input {
+  margin-top: 20px;
+  background-color: #f3f3f3;
+  width: 100%;
+  padding: 0;
+}
+
+.rent-history-dialog .custom-input-box,
+.rent-history-dialog .select-box {
+  position: relative;
+}
+
+.rent-history-dialog .select-box .MuiSelect-select.MuiSelect-select {
+  padding-left: 58px;
+}
+
+.rent-history-dialog .custom-input-box .select-input.input {
+  width: 100%;
+  outline: none;
+  padding: 17px 10px 17px 55px;
+  font-size: 16px;
+  border: none;
+}
+
+.rent-history-dialog .custom-input-box img,
+.rent-history-dialog .select-box img {
+  position: absolute;
+  top: 38px;
+  left: 16px;
+}
+
 .add-meeting .date-time .MuiInput-underline:before,
 .add-meeting .dialog-select-input:before,
 .add-meeting .date-time .MuiInput-underline:after,

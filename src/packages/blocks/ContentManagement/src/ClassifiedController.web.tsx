@@ -1039,7 +1039,7 @@ createClassifiedSchemaGerenic() {
       .typeError("Only numbers are allowed.")
       .positive("Negative numbers are not allowed.")
       .integer("Number can't contain a decimal.")
-      .min(10000000, "Minimum 8 digits are required.")
+      .min(100000000, "Minimum 9 digits are required.")
       .max(9999999999999, "Maximum 11 digits are allowed.")
       .required("Mobile number is required")
      ,
@@ -1075,7 +1075,7 @@ createClassifiedSchemaGerenic() {
       .typeError("Only numbers are allowed.")
       .positive("Negative numbers are not allowed.")
       .integer("Number can't contain a decimal.")
-      .min(10000000, "Minimum 8 digits are required.")
+      .min(100000000, "Minimum 9 digits are required.")
       .max(9999999999999, "Maximum 11 digits are allowed.")
       .required("Mobile number is required")
      ,
@@ -1116,7 +1116,7 @@ createClassifiedSchemaGerenic() {
       .typeError("Only numbers are allowed.")
       .positive("Negative numbers are not allowed.")
       .integer("Number can't contain a decimal.")
-      .min(10000000, "Minimum 8 digits are required.")
+      .min(100000000, "Minimum 9 digits are required.")
       .max(9999999999999, "Maximum 11 digits are allowed.")
       .required("Mobile number is required")
      ,

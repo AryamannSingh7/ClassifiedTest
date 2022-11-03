@@ -509,6 +509,15 @@ export const TenantStyle: any = {
       alignItems: "center",
       justifyContent: "center",
       flexDirection: "column",
+      "& button": {
+        minWidth: "300px",
+        background: "#2b6fec",
+        color: "white",
+        padding: "12px 50px",
+        borderRadius: "25px",
+        fontWeight: 600,
+        marginBottom: "20px",
+      },
     },
     "& .pdf-preview button.submit": {
       minWidth: "300px",

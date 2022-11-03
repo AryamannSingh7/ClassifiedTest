@@ -8,10 +8,6 @@ import {
   Box,
   Grid,
   MenuItem,
-  Dialog,
-  DialogContent,
-  Typography,
-  DialogActions,
   Select,
   OutlinedInput,
   ListItemIcon,
@@ -62,8 +58,6 @@ class ChangedSelectedTemplate extends LeaseFormController {
   render() {
     const { classes } = this.props;
     const { t }: any = this.props;
-
-    // console.log(this.state);
 
     return (
       <>

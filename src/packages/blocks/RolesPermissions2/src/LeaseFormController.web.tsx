@@ -960,17 +960,38 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
     unitId: Yup.string()
       .required("Required")
       .matches(/\S/, "Required")
-      .when("buildingId", (buildingId: any, schema: any) => {
-        return schema.test({
-          test: (unitId: any) => {
-            if (unitId) {
-              return !this.state.contract && this.state.tenant;
-            }
-            return true;
-          },
-          message: "You can't create contract for this unit",
-        });
-      }),
+      .test(
+        "unitId",
+        "There is no tenant available for this unit. you need to assign this unit to tenant before creating a contract.",
+        (value: any) => {
+          if (value) {
+            return this.state.tenant !== null;
+          }
+          return true;
+        }
+      )
+      .test(
+        "unitId",
+        "The contract is already created for this unit. you need to terminate the contract before creating a new one.",
+        (value: any) => {
+          if (value) {
+            return this.state.contract !== null && this.state.tenant;
+          }
+          return true;
+        }
+      ),
+    // .when("buildingId", (buildingId: any, schema: any) => {
+    //   return schema.test({
+    //     test: (unitId: any) => {
+    //       if (unitId) {
+    //         return !this.state.contract && this.state.tenant;
+    //       }
+    //       return true;
+    //     },
+    //     message:
+    //       "The contract is already created for this unit. you need to terminate the contract before creating a new one.",
+    //   });
+    // }),
     duration: Yup.string()
       .required("Required")
       .max(100, "Maximum length should be 100 character")

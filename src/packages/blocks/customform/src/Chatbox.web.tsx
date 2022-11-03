@@ -146,15 +146,15 @@ console.log(moment( myDate ).calendar())
           </Grid>
 
           <Grid xs={12}>
-            <List style={{ overflowY: "auto", maxHeight: "79vh", minHeight: "79vh" }} >
+            <List style={{ overflowY: "auto", maxHeight: "79vh", minHeight: "79vh",overflowX:'hidden' }} >
 {/* {
   this.state.allInboxKey ? 'hey':'bye'
 } */}
             {this.state.allInboxKey?.length!=0 && this.state.allInboxKey?.map((date, i) => (
                 <>
 
-                <Box key={i} display='flex' justifyContent='center'>
-                  <p>
+                <Box key={i} display='flex' justifyContent='center' position='relative'>
+                  <p className="oval-shape">
 
                     {
                       i > 1 ? this.dateToFromNowDaily(date) : moment.utc(date).format('MMM-DD-YYYY')
@@ -174,6 +174,10 @@ console.log(moment( myDate ).calendar())
                       // @ts-ignore
                           style={message.message.account_id == currentAccountId ? { 'display': 'flex', 'justifyContent': 'end', alignItems: 'center' } : { 'display': 'flex', 'justifyContent': 'start', alignItems: 'center' }}
                       >
+{
+  message.message.account_id != currentAccountId  ?  <img src={message.message.profile_pic.url} alt='profile-pic' width='50' height='50' style={{borderRadius:20,marginRight:5}}/> :null
+}
+
 
 {/* <img src=""/> */}
 

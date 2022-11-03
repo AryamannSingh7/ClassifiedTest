@@ -205,7 +205,7 @@ class Registration extends EmailAccountRegistrationController {
                         <FormControl variant="outlined" >
                           {/* <InputLabel id="demo-simple-select-outlined-label"><img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AF.svg`} width='15' height='15' />
                           sd</InputLabel> */}
-                          {/* <Select
+                          <Select
                             name='selectCode'
                             labelId="demo-simple-select-outlined-label"
                             id="demo-simple-select-outlined"
@@ -223,8 +223,8 @@ class Registration extends EmailAccountRegistrationController {
                             )
                             }
 
-                          </Select> */}
-                     <Autocomplete
+                          </Select>
+                     {/* <Autocomplete
   id="combo-box-demo"
   options={dailCode}
   autoComplete="new-password"
@@ -240,7 +240,7 @@ class Registration extends EmailAccountRegistrationController {
     ...params.inputProps,
     autoComplete: 'new-password',
   }}  variant="outlined" />}
-/>
+/> */}
                         </FormControl>
 
                       </Box>
