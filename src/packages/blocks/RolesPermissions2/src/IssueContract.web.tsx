@@ -18,7 +18,7 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import IssueContractController, { Props } from "./IssueContractController.web";
 import { ContractsStyleWeb } from "./ContractsStyle.web";
-import { BuildingLogo, TemplateIcon, EarthIcon, BuildingIcon, CubeIcon } from "./assets";
+import { BuildingLogo, TemplateIcon, BuildingIcon, CubeIcon } from "./assets";
 import { withTranslation } from "react-i18next";
 import "../../../web/src/i18n.js";
 import moment from "moment";
@@ -31,8 +31,6 @@ class IssueLease extends IssueContractController {
   render() {
     const { classes } = this.props;
     const { t }: any = this.props;
-
-    console.log(this.state);
 
     return (
       <>

@@ -53,8 +53,6 @@ class ContractDetail extends ContractDetailController {
     const sharePopupHeight = 700;
     const shareTitle = "TI 1 Final Leap";
 
-    console.log(this.state);
-
     return (
       <>
         <Box style={{ background: "#F4F7FF", height: "100vh" }} className={classes.detailPage}>
