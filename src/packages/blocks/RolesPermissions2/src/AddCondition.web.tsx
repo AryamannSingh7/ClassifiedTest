@@ -3,7 +3,6 @@ import React from "react";
 import { Button, Container, IconButton, withStyles, Box, Grid } from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import LeaseFormController, { Props } from "./LeaseFormController.web";
-import { Link } from "react-router-dom";
 import { ContractsStyleWeb } from "./ContractsStyle.web";
 import { BuildingLogo } from "./assets";
 import RichTextEditor from "react-rte";
@@ -39,8 +38,6 @@ class AddCondition extends LeaseFormController {
   render() {
     const { classes } = this.props;
     const { t }: any = this.props;
-
-    console.log(this.state);
 
     return (
       <>

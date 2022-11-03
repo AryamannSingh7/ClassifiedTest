@@ -9,18 +9,15 @@ import {
   Grid,
   MenuItem,
   Select,
-  ListItemIcon,
   OutlinedInput,
   InputAdornment,
   Input,
   FormControl,
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import { ContractsStyleWeb } from "./ContractsStyle.web";
 import {
   BuildingLogo,
-  EarthIcon,
   CubeIcon,
   TenantName,
   BuildingName,
@@ -30,7 +27,6 @@ import {
   CurrencyIcon,
 } from "./assets";
 import LeaseFormController, { Props } from "./LeaseFormController.web";
-import moment from "moment";
 import { Formik, Form } from "formik";
 import { withTranslation } from "react-i18next";
 import "../../../web/src/i18n.js";
@@ -74,8 +70,6 @@ class LeaseForm extends LeaseFormController {
   render() {
     const { classes } = this.props;
     const { t }: any = this.props;
-
-    console.log("state", this.state);
 
     return (
       <>

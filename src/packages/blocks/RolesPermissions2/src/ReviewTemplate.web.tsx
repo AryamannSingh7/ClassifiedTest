@@ -12,7 +12,6 @@ import {
   Typography,
   DialogActions,
   Input,
-  Link,
 } from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import LeaseFormController, { Props } from "./LeaseFormController.web";
@@ -50,9 +49,7 @@ class ReviewTemplate extends LeaseFormController {
   async componentDidMount(): Promise<void> {
     const template_name: any = window.sessionStorage.getItem("templateName");
     const template_id: any = this.props.navigation.getParam("templateId");
-    this.setState({ ...this.state, templateId: template_id, templateName: template_name }, () => {
-      // this.getTemplateText();
-    });
+    this.setState({ ...this.state, templateId: template_id, templateName: template_name });
   }
 
   render() {
@@ -62,8 +59,6 @@ class ReviewTemplate extends LeaseFormController {
     const sharePopupWidth = 500;
     const sharePopupHeight = 700;
     const shareTitle = "TI 1 Final Leap";
-
-    console.log(this.state);
 
     return (
       <>
