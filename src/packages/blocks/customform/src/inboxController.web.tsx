@@ -67,6 +67,7 @@ interface S {
   selectedChatRoomId:any;
   profileData:any;
   selectedChatRoom:any;
+  switchVaule:boolean
   // Customizable Area End
 }
 
@@ -130,7 +131,8 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
       file:null,
       selectedChatRoomId:null,
       profileData:null,
-      selectedChatRoom:null
+      selectedChatRoom:null,
+      switchVaule:false
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -251,7 +253,7 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
            
             if (responseJson.data) {
 
-              this.setState({ allInbox: responseJson.data,loading:false })
+              this.setState({ allInbox: responseJson.data,loading:false,switchVaule: responseJson.data[0]?.attributes?.chatable?.attributes?.disable_chat})
             }
           } else {
             //Check Error Response
@@ -1113,5 +1115,12 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
       updateChatRoom=()=>{
         this.setState({singleChatRoom: window.history?.state?.state?.data.attributes.messages ,selectedChatRoom:window.history?.state?.state?.data,allInboxKey: Object.keys(window.history?.state?.state?.data.attributes.messages)},()=>console.log('mystate',this.state))
       }
+
+      // enableDisableChat=()=>{
+      //   if(value){
+      //     this.disablechat()
+      //   }
+      // }
+
   // Customizable Area End
 }
