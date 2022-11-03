@@ -832,5 +832,22 @@
         }
       }
     }
-  }
+     }
+  &.facilityReserve-card{
+      text-align: center;
+      & .card-footer
+      {
+        justify-content: center;
+      }
+      & h5 
+      { 
+        &.MuiTypography-body1{
+        font-family: $Gotham_Light  !important;
+        font-weight: 600;
+        // opacity: 0.85;
+        font-size: 17px;
+      }
+      }
+    }
+
 }

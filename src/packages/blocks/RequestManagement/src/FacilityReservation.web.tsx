@@ -52,7 +52,7 @@ class FacilityReservation extends FacilityReservationController {
                 </Box>
                 <Box className="content-block-wrapper facility-block-wrapper">
                   <Box className="incident-content-wrapper" onClick={() => this.getFacilityReservationDetails("UpcomingReservations")}>
-                    <Card className="incident-card card" >
+                    <Card className="incident-card card facilityReserve-card" >
                       <CardContent className="costom-card-content">
                       <img src={upcoming} className="frm-icons" alt="House Icon" />
                         <Typography component="h1">
@@ -71,13 +71,13 @@ class FacilityReservation extends FacilityReservationController {
                   </Box>
 
                   <Box className="incident-content-wrapper" onClick={() => this.getFacilityReservationDetails("PendingReservations")}>
-                    <Card className="incident-card card" >
+                    <Card className="incident-card card facilityReserve-card" >
                       <CardContent className="costom-card-content">
                       <img src={pending} className="frm-icons" alt="House Icon" />
-                        <Typography component="h1">
+                        <Typography component="h5">
                           Pending Reservations
                         </Typography>
-                        <Typography component="h1">
+                        <Typography component="h5">
                             Total
                           </Typography>
                         <CardActions className="card-footer">
@@ -90,7 +90,7 @@ class FacilityReservation extends FacilityReservationController {
                   </Box>
 
                   <Box className="incident-content-wrapper" onClick={() => this.getFacilityReservationDetails(" PreviousReservations")}>
-                    <Card className="incident-card card" >
+                    <Card className="incident-card card facilityReserve-card" >
                       <CardContent className="costom-card-content">
                       <img src={previous} className="frm-icons" alt="House Icon" />
                         <Typography component="h1">
