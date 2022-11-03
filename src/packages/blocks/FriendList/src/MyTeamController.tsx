@@ -51,6 +51,9 @@ export default class FriendListController extends BlockComponent<
   getRolesListId:string = "";
   createTeamMemberId:string = "";
   getUserListId:string = "";
+  manageApprovalId:string = "";
+  deleteMemberId:string = "";
+
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
@@ -108,6 +111,25 @@ export default class FriendListController extends BlockComponent<
       contentType: "application/json",
       method: "GET",
       endPoint: `/bx_block_my_team/team_members?society_management_id=${societyID}`,
+    });
+  }
+
+  manageApproval = async (data:any,id:any) => {
+    const societyID = localStorage.getItem("society_id")
+    this.manageApprovalId = await this.apiCall({
+      contentType: "application/json",
+      method: "PATCH",
+      endPoint: `/bx_block_my_team/team_members/${id}`,
+      body:data
+    });
+  }
+
+  deleteMember = async (id:any) => {
+    const societyID = localStorage.getItem("society_id")
+    this.deleteMemberId = await this.apiCall({
+      contentType: "application/json",
+      method: "DELETE",
+      endPoint: `/bx_block_my_team/team_members/${societyID}`,
     });
   }
 

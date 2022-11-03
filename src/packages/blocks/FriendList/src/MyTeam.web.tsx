@@ -11,7 +11,7 @@ import {
     FormControl,
     Dialog,
     DialogActions,
-    DialogTitle, IconButton, DialogContent, Backdrop, Fade, FormLabel, InputLabel, Modal,
+    DialogTitle, IconButton, DialogContent, Backdrop, Fade, FormLabel, InputLabel, Modal, Card,
 } from "@material-ui/core";
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -361,7 +361,7 @@ const TeamCard = (props:any) => {
                     <MoreVertIcon/>
                 </IconButton>
             </Box>
-            <Box className="EventsCards" style={{paddingLeft:"0px"}}>
+            <Card className="EventsCards" style={{paddingLeft:"0px"}}>
                 <Box style={{width:"100%",display:'flex',justifyContent:"center",alignItems:"center",flexDirection:"column",marginTop:"15px"}} onClick={() => props.history.push("/TeamMembers/userDetails?id=")}>
                     {
                         props.approval && userType === "Manager" &&
@@ -407,7 +407,7 @@ const TeamCard = (props:any) => {
                         </Grid>
                     }
                 </Box>
-            </Box>
+            </Card>
             <Menu
                 id="simple-menu"
                 anchorEl={anchorEl}
