@@ -34,11 +34,17 @@
      super(props);
    }
    componentDidMount():any {
-     this.getFacilityReservationListing(this.state.sortBy, this.state.status)
-   }
+    //@ts-ignore
+   const reservation = this.props?.history.location?.idOrName;
+   if(reservation)
+       this.getFacilityReservationListing(this.state?.sortBy, this.state?.status)
+  else 
+  this.props.history.push("/FacilityReservation");
+ }
+  
    render() {
      const { navigation } = this.props;
-     console.log("this.state?.incidentListing==========>", this.state?.facilityReservationListing)
+     console.log("this.props?.history.location?.reservation==========>",this.state?.facilityReservationListing)
      return (
        <>
          <Box className="login-wrapper incident-wrapper">
@@ -47,7 +53,7 @@
                <Box className="content-block">
                  <Box className="content-header">
                    <Box className="left-block blocks">
-                     <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
+                     <Box className="backIcons" onClick={() => this.props.history.push("/FacilityReservation")}><KeyboardBackspaceIcon /></Box>
                      <h4>Incidents</h4>
                    </Box>
                    <Box className="incident-right-block blocks">
@@ -89,53 +95,41 @@
                      {
                        this.state?.facilityReservationListing?.map((val :any, index : any) => (
                          <>
-                           <Card className="incident-card card" key={index} onClick={() => this.getIncidentDetails(val.id)}>
+                           <Card className="incident-card card" key={index} onClick={() => this.getFacilityReservationDetails(val.id)}>
                              <CardContent className="costom-card-content">
-                               <Typography component="h4">
-                                 {val?.attributes?.incident_title}
-                               </Typography>
-                               <Typography component="span">
-                                 Incident is related to:
-                               </Typography>
+                               {/* <Typography component="h4">
+                                 {val?.attributes?.date}
+                               </Typography> */}
+                               {/* <Typography component="span">
+                                 Facility Reserved:
+                               </Typography> */}
                                <Typography className="sub-title h5-title" component="h5">
-                                 {val?.attributes?.incident_related?.name}
+                               {val?.attributes?.date}
                                </Typography>
                                <Box className="card-listing-row">
                                  <Typography component="span">
-                                   Building:
+                                  Facility Reserved:
                                  </Typography>
                                  <Typography component="span">
-                                   Unit:
+                                  Building Name:
                                  </Typography>
                                </Box>
                                <Box className="card-listing-row">
                                  <Typography className="sub-title h5-title" component="h5">
-                                   {val?.attributes?.apartment_management?.building_name}
+                                   {val?.attributes?.common_area_id}
                                  </Typography>
                                  <Typography className="sub-title h5-title" component="h5">
-                                   {val?.attributes?.apartment_management?.apartment_name}
+                                   {val?.attributes?.building_management_id}
                                  </Typography>
                                </Box>
                                <hr />
                                <CardActions className="card-footer">
                                  <Typography className="sub-title h5-title" component="h5">
-                                   {val?.attributes?.common_area?.name}
+                                    {"Rent"}
                                  </Typography>
-                                 {
-                                   val?.attributes?.incident_status === "Resolved" ?
                                      <Box className="customButton">
-                                       <Button variant="contained" className="contain success" type="submit" >Resolved</Button>
+                                       <Button variant="contained" className="contain blue" type="submit" >{"800$"}</Button>
                                      </Box>
-                                     :
-                                     (val?.attributes?.incident_status === "Pending Confirmation") ?
-                                       <Box className="customButton">
-                                         <Button variant="contained" className="contain warning" type="submit" >Pending Confirmation</Button>
-                                       </Box>
-                                       :
-                                       <Box className="customButton">
-                                         <Button variant="contained" className="contain danger" type="submit" >Unresolved</Button>
-                                       </Box>
-                                 }
                                  {/* <Button className="success">Resolved</Button> */}
                                </CardActions>
                              </CardContent>
@@ -144,10 +138,10 @@
                        ))
                      }
                    </Box>
-                   <Box className="customButton add-incident">
+                   {/* <Box className="customButton add-incident">
                      <Button variant="contained" onClick={() => { this.setState({ loading: true });//@ts-ignore
                       this.props.history.push("/CreateIncident") }} >Add New Incident</Button>
-                   </Box>
+                   </Box> */}
                  </Box>
                  {/* <Box className="footer-main-block bottomBlock">
                    <h6 className="bottom-text">POWERED BY</h6>

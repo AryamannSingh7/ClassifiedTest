@@ -55,18 +55,16 @@ class FacilityReservationReportedSuccessfully extends FacilityReservationControl
                 <Box className="main-content-block change-password-mainblock">
                   <Box className="header-block header-block-changepassword">
                     <img src={Tick_Circle_Icon} className="lock-logo" alt="Lock_Icon" />
-                    <h1>Incident Reported<br></br>Successfully</h1>
-                    <p>Your incident has been reported successfully. Your ticket id for reported incident is<br></br><span className="id-title">{id}</span></p>
+                    <h1>Request Sent<br></br>Successfully</h1>
+                    <p>Your request for garden booking has been successfully sent to the building manager for his review and approval. Upon approval you will be notified by the system</p>
                   </Box>
                 </Box>
                 <Box className="footer-block desktop-ui">
                   <Box className="row-btn customButton">
                     <Button variant="contained" onClick={() => {
-                      localStorage.removeItem("createIncidentId");
-                      localStorage.removeItem("incidentPreview");
                       //@ts-ignore
-                      this.props.history.push("/IncidentListing");
-                    }}>view ticket</Button>
+                      this.props.history.push("/FacilityReservation");
+                    }}>OkAY</Button>
                   </Box>
                 </Box>
                 {/* desktop footer block */}
