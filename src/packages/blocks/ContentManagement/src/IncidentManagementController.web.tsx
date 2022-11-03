@@ -61,6 +61,7 @@ export interface S {
   providerNameListing:any;
   providerListing:any;
   buildingNameData:any;
+  chatDrawer:any;
   // Customizable Area End
 }
 
@@ -108,7 +109,6 @@ export default class IncidentManagementController extends BlockComponent<
   labelLegalTermCondition: string;
   labelLegalPrivacyPolicy: string;
   btnTextSignUp: string;
-
   currentCountryCode: any;
   // Customizable Area End
 
@@ -164,6 +164,7 @@ export default class IncidentManagementController extends BlockComponent<
       providerNameListing :null,
       providerListing:null,
       buildingNameData:null,
+      chatDrawer:false
       // Customizable Area End
     };
 
