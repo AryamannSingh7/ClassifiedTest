@@ -20,8 +20,6 @@ import {
   Select,
   OutlinedInput,
 } from "@material-ui/core";
-import MuiDialogTitle from "@material-ui/core/DialogTitle";
-import CloseIcon from "@material-ui/icons/Close";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import RenewContractController, { Props } from "./RenewContractController.web";
 import { ContractsStyleWeb } from "./ContractsStyle.web";
@@ -38,8 +36,6 @@ class RenewContract extends RenewContractController {
   render() {
     const { classes } = this.props;
     const { t }: any = this.props;
-
-    console.log(this.state);
 
     return (
       <>

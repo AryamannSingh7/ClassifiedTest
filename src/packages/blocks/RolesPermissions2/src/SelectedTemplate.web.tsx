@@ -3,7 +3,6 @@ import React from "react";
 import { Button, Container, IconButton, withStyles, Box, Grid } from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import SelectedTemplateController, { Props } from "./SelectedTemplateController.web";
-import { Link } from "react-router-dom";
 import { ContractsStyleWeb } from "./ContractsStyle.web";
 import { BuildingLogo } from "./assets";
 import { withTranslation } from "react-i18next";
@@ -17,8 +16,6 @@ class SelectedTemplate extends SelectedTemplateController {
   render() {
     const { classes } = this.props;
     const { t }: any = this.props;
-
-    console.log(window.location.pathname);
 
     return (
       <>

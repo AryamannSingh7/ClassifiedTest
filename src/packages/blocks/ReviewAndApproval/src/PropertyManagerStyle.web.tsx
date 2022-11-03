@@ -268,17 +268,26 @@ export const PropertyManagerStyleWeb: any = {
           alignItems: "center",
           justifyContent: "space-between",
         },
-        "& .tenant-name": {
-          margin: "8px 0",
-        },
-        "& .info": {
-          marginTop: "8px",
+        "& .box-icons": {
           display: "flex",
           alignItems: "center",
-          justifyContent: "space-between",
+          gap: "20px",
+          "& img": {
+            cursor: "pointer",
+          },
+        },
+      },
+      "& .rent-history-box.unit-box": {
+        padding: "15px 20px",
+        boxShadow: "4px 0px 14px 0px #ECECEC",
+        border: "0",
+        "& .unit-info": {
+          marginTop: "15px",
           "& span": {
-            fontWeight: 600,
-            color: "#FC8434",
+            color: "#C3C3C3",
+          },
+          "& p": {
+            marginTop: "2px",
           },
         },
       },
@@ -358,6 +367,41 @@ export const PropertyManagerStyleWeb: any = {
     "& .form.issue-lease-content .next-button": {
       position: "sticky",
       bottom: 0,
+    },
+    "& .mobile-box": {
+      display: "flex",
+      alignItems: "center",
+      background: "#F9F9F9",
+      border: "1px solid #F0F0F0",
+      borderRadius: "30px",
+      marginTop: "18px",
+    },
+    "& .mobile-box .mobile-select": {
+      width: "120px",
+      borderRadius: "30px",
+      background: "#F9F9F9",
+    },
+    "& .mobile-box .mobile-select .MuiSelect-root": {
+      borderRadius: "30px",
+      background: "#F9F9F9",
+    },
+    "& .mobile-box .divider": {
+      width: "2px",
+      height: "40px",
+      margin: "0 20px",
+      background: "#F0F0F0",
+    },
+    "& .mobile-box .mobile-input": {
+      width: "100%",
+    },
+    "& .mobile-box .mobile-input:before": {
+      border: 0,
+    },
+    "& .mobile-box .mobile-input:after": {
+      border: 0,
+    },
+    "& .mobile-box .mobile-input .MuiInputBase-input": {
+      paddingLeft: 10,
     },
   },
 };

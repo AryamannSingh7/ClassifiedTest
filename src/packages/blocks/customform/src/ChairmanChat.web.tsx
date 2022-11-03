@@ -28,6 +28,8 @@ import {
   Modal,
   ListItemText,
   ListItem,
+  Switch,
+  styled,
 } from "@material-ui/core";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
@@ -53,6 +55,7 @@ import InboxController,{Props} from "./inboxController.web";
 import Loader from "../../../components/src/Loader.web";
 import moment from "moment";
 import AttachFileIcon from '@material-ui/icons/AttachFile';
+
 import '../assets/css/style.scss'
 class ChairmanChat extends InboxController {
   constructor(props: Props) {
@@ -217,16 +220,37 @@ const currentAccountId = localStorage.getItem('userId')
               {/* Chairman Sidebar -- */}
               <ChairmanSidebarWeb {...this.props} />
             </Grid>
+            <Grid item xs={9}>
+            <Grid container>
 
-            <Grid item xs={4} md={4} sm={4} style={{boxShadow:'3px -11px 7px 0px rgb(0 0 0 / 15%)'}}>
+<Grid item justifyContent="space-between" style={{width:'100%',display:'flex',paddingRight:'8rem'}}>
+  <p style={{fontWeight:600,fontSize:'1.25rem',marginBottom:'1rem'}}>
+    Chat
+  </p>
+  <Box display={'flex'} alignItems='center' gridGap={'1rem'}>
+
+  <p style={{fontWeight:600}}>
+  {this.state.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ? 'Enable Chat' :'Disable Chat'}
+  </p>
+<FormControlLabel
+        control={<IOSSwitch sx={{ m: 1 }}  enable={this.state.switchVaule}  value="start"   labelPlacement="start" diableChat={()=>this.setState({showSuccessModal:!this.state.showSuccessModal,switchVaule:!this.state.switchVaule})} />} 
+        label=''
+      />
+  </Box>
+
+</Grid>
+            </Grid>
+            <Grid container>
+
+            <Grid item xs={4} md={4} sm={4} style={{boxShadow:'rgb(0 0 0 / 15%) 9px -3px 8px 0px'}}>
           
             <>
-        <Box className="login-wrapper reg-wrapper" style={{margin:0}}>
+        <Box className="login-wrapper reg-wrapper" style={{margin:0,background:'#FFFFFF'}}>
           <Grid container style={{padding:'0 1rem'}} >
             <Grid item xs={12} style={{display:'flex',justifyContent:'space-between'}}>
           <Box  display='flex' alignItems='center' width={this.state.isSearch ? '7%':'100%'} >
             {/* <KeyboardBackspaceIcon onClick={() => window.history.back()}/> */}
-            <input autoFocus className="inputbox" placeholder="search" onChange={(e) => this.getInboxBySearch(e.target.value)} style={{border:'1px solid #F1F1F1',borderRadius:'10px',fontSize:'1rem',height:'50px',padding:'0.75rem'}} />
+            <input autoFocus className="inputbox" placeholder="search" onChange={(e) => this.getInboxBySearch(e.target.value)} style={{border:'1px solid #F1F1F1',borderRadius:'10px',fontSize:'1rem',height:'50px',padding:'0.75rem',marginTop:'1rem'}} />
             
           </Box>
             
@@ -347,7 +371,7 @@ const currentAccountId = localStorage.getItem('userId')
       </>
               
             </Grid>
-            <Grid item xs={4} md={4} sm={4} style={{borderLeft:'1px solid #EFEFEF',boxShadow:'5px -8px 9px 2px rgb(0 0 0 / 15%)',flexBasis:'36.333333%',maxWidth:'36.333333%'}}>
+            <Grid item xs={7} md={7} sm={7} style={{borderLeft:'1px solid #EFEFEF',boxShadow:'rgb(0 0 0 / 15%) 9px -3px 8px 0px'}}>
             <Grid item xs={12} md={12} className="auth-cols">
               <Box  display={{ xs: 'none', md: 'flex' }}>
               <div style={{ padding: "0.3rem", backgroundColor: "#ffff",paddingLeft:'0.3rem',minWidth:'95%'}}>
@@ -364,7 +388,7 @@ const currentAccountId = localStorage.getItem('userId')
           </Grid>
 
           <Grid xs={12}>
-            <List style={{ overflowY: "auto", maxHeight: "74vh", minHeight: "74vh",overflowX:'hidden' }} >
+            <List style={{ overflowY: "auto", maxHeight: "71vh", minHeight: "71vh",overflowX:'hidden' }} >
 {/* {
   this.state.allInboxKey ? 'hey':'bye'
 } */}
@@ -617,6 +641,9 @@ this.setState({ selectedMedia: message.message.images[0] })}} src={message.messa
               </Box>
             </Grid>
             </Grid>
+            </Grid>
+
+            </Grid>
           </Box>
 
           <Dialog
@@ -673,3 +700,54 @@ this.setState({ selectedMedia: message.message.images[0] })}} src={message.messa
 export default ChairmanChat;
 // Customizable Area End
  
+
+const IOSSwitch = styled((props) => (
+  <Switch focusVisibleClassName=".Mui-focusVisible" inputProps={{ 'aria-label': 'controlled' }}  onChange={props.diableChat} checked={props.enable} {...props}/>
+))(({ theme }) => ({
+  width: 42,
+  height: 26,
+  padding: 0,
+  '& .MuiSwitch-switchBase': {
+    padding: 0,
+    margin: 2,
+    transitionDuration: '300ms',
+    '&.Mui-checked': {
+      transform: 'translateX(16px)',
+      color: '#fff',
+      '& + .MuiSwitch-track': {
+        backgroundColor: theme.palette.mode === 'dark' ? '#2ECA45' : '#65C466',
+        opacity: 1,
+        border: 0,
+      },
+      '&.Mui-disabled + .MuiSwitch-track': {
+        opacity: 0.5,
+      },
+    },
+    '&.Mui-focusVisible .MuiSwitch-thumb': {
+      color: '#33cf4d',
+      border: '6px solid #fff',
+    },
+    '&.Mui-disabled .MuiSwitch-thumb': {
+      color:
+        theme.palette.mode === 'light'
+          ? theme.palette.grey[100]
+          : theme.palette.grey[600],
+    },
+    '&.Mui-disabled + .MuiSwitch-track': {
+      opacity: theme.palette.mode === 'light' ? 0.7 : 0.3,
+    },
+  },
+  '& .MuiSwitch-thumb': {
+    boxSizing: 'border-box',
+    width: 22,
+    height: 22,
+  },
+  '& .MuiSwitch-track': {
+    borderRadius: 26 / 2,
+    backgroundColor: theme.palette.mode === 'light' ? '#E9E9EA' : '#39393D',
+    opacity: 1,
+    transition: theme.transitions.create(['background-color'], {
+      duration: 500,
+    }),
+  },
+}));
