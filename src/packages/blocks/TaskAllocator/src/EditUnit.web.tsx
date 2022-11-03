@@ -48,9 +48,8 @@ import { Formik, Form } from "formik";
 import { withTranslation } from "react-i18next";
 import "../../../web/src/i18n.js";
 import { MyUnitStyle } from "./MyUnitStyle.web";
-import Loader from "../../../components/src/Loader.web";
 
-class RegisterMyUnit extends RegisterUnitController {
+class EditMyUnit extends RegisterUnitController {
   constructor(props: Props) {
     super(props);
   }
@@ -61,8 +60,6 @@ class RegisterMyUnit extends RegisterUnitController {
 
     return (
       <>
-        <Loader loading={this.state.loading} />
-
         <Box style={{ background: "white", height: "100vh" }} className={classes.registerUnit}>
           <Grid container>
             <Grid item xs={12} md={7}>
@@ -453,9 +450,7 @@ class RegisterMyUnit extends RegisterUnitController {
                                   <span>$123</span>
                                 </Box>
                               </Box>
-                              <Button className="add-rent-history-btn" onClick={() => this.handleRentHistoryModal()}>
-                                {t("+ Add Rent History")}
-                              </Button>
+                              <Button className="add-rent-history-btn">{t("+ Add Rent History")}</Button>
                               <FormControl fullWidth>
                                 <Input
                                   value=""
@@ -517,18 +512,10 @@ class RegisterMyUnit extends RegisterUnitController {
         <Drawer
           anchor="bottom"
           className="condition-modal penalty-dialog rent-history-dialog"
-          open={this.state.isRentHistoryModalOpen}
-          onClose={() => this.handleRentHistoryModal()}
+          open={false}
+          onClose={() => {}}
         >
-          <Formik
-            enableReinitialize
-            initialValues={this.state.rentHistoryForm}
-            validationSchema={this.validationRentHistoryFormSchema}
-            onSubmit={(values, { resetForm }) => {
-              console.log(values);
-              // resetForm();
-            }}
-          >
+          <Formik initialValues={{}} validationSchema={{}} onSubmit={(values, { resetForm }) => {}}>
             {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
               return (
                 <Form onSubmit={handleSubmit} translate="true">
@@ -538,10 +525,10 @@ class RegisterMyUnit extends RegisterUnitController {
                       <Grid item xs={6}>
                         <FormControl fullWidth>
                           <Input
-                            value={values.startDate}
+                            value=""
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            name="startDate"
+                            name="date"
                             className="select-input input"
                             placeholder={t("Start Date")}
                             type="text"
@@ -552,32 +539,37 @@ class RegisterMyUnit extends RegisterUnitController {
                               </InputAdornment>
                             }
                           />
-                          {errors.startDate && touched.startDate && <p className="error">{t(errors.startDate)}</p>}
+                          {/* {errors.startDate && touched.startDate && (
+                                      <p className="error">{t(errors.startDate)}</p>
+                                    )} */}
                         </FormControl>
                       </Grid>
                       <Grid item xs={6}>
                         <FormControl fullWidth>
-                          <Box className="custom-input-box">
-                            <input
-                              value={values.endDate}
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              name="endDate"
-                              className="select-input input"
-                              placeholder={t("End Date")}
-                              type="text"
-                              onFocus={(e: any) => (e.target.type = "date")}
-                              min={values.startDate}
-                            />
-                            <img src={CalenderIcon} alt="" />
-                          </Box>
-                          {errors.endDate && touched.endDate && <p className="error">{t(errors.endDate)}</p>}
+                          <Input
+                            value=""
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            name="date"
+                            className="select-input input"
+                            placeholder={t("End Date")}
+                            type="text"
+                            onFocus={(e: any) => (e.target.type = "date")}
+                            startAdornment={
+                              <InputAdornment position="start">
+                                <img src={CalenderIcon} alt="" />
+                              </InputAdornment>
+                            }
+                          />
+                          {/* {errors.startDate && touched.startDate && (
+                                      <p className="error">{t(errors.startDate)}</p>
+                                    )} */}
                         </FormControl>
                       </Grid>
                     </Grid>
                     <FormControl fullWidth>
                       <Input
-                        value={values.rentAmount}
+                        value=""
                         onChange={handleChange}
                         onBlur={handleBlur}
                         name="rentAmount"
@@ -590,14 +582,16 @@ class RegisterMyUnit extends RegisterUnitController {
                           </InputAdornment>
                         }
                       />
-                      {errors.rentAmount && touched.rentAmount && <p className="error">{t(errors.rentAmount)}</p>}
+                      {/* {errors.startDate && touched.startDate && (
+                                      <p className="error">{t(errors.startDate)}</p>
+                                    )} */}
                     </FormControl>
                     <FormControl fullWidth>
                       <Input
-                        value={values.receivedAmount}
+                        value=""
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        name="receivedAmount"
+                        name="date"
                         className="select-input input"
                         placeholder={t("Received Amount")}
                         type="text"
@@ -607,16 +601,16 @@ class RegisterMyUnit extends RegisterUnitController {
                           </InputAdornment>
                         }
                       />
-                      {errors.receivedAmount && touched.receivedAmount && (
-                        <p className="error">{t(errors.receivedAmount)}</p>
-                      )}
+                      {/* {errors.startDate && touched.startDate && (
+                                      <p className="error">{t(errors.startDate)}</p>
+                                    )} */}
                     </FormControl>
                     <FormControl fullWidth>
                       <Input
-                        value={values.tenantName}
+                        value=""
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        name="tenantName"
+                        name="date"
                         className="select-input input"
                         placeholder={t("Tenant Name")}
                         type="text"
@@ -626,7 +620,9 @@ class RegisterMyUnit extends RegisterUnitController {
                           </InputAdornment>
                         }
                       />
-                      {errors.tenantName && touched.tenantName && <p className="error">{t(errors.tenantName)}</p>}
+                      {/* {errors.startDate && touched.startDate && (
+                                    <p className="error">{t(errors.startDate)}</p>
+                                  )} */}
                     </FormControl>
                   </Box>
                   <Box className="button-group">
@@ -644,5 +640,5 @@ class RegisterMyUnit extends RegisterUnitController {
   }
 }
 
-export default withTranslation()(withStyles(MyUnitStyle)(RegisterMyUnit));
+export default withTranslation()(withStyles(MyUnitStyle)(EditMyUnit));
 // Customizable Area End

@@ -13,4 +13,11 @@ exports.labelTitleText = "TaskAllocator";
 exports.labelBodyText = "TaskAllocator Body";
 
 exports.btnExampleTitle = "CLICK ME";
+
+exports.ApiContentType = "application/json";
+
+exports.apiMethodTypeGet = "GET";
+exports.apiMethodTypePost = "POST";
+exports.apiMethodTypePut = "PUT";
+exports.apiMethodTypeDelete = "DELETE";
 // Customizable Area End
