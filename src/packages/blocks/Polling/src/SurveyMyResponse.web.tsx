@@ -86,7 +86,7 @@ class SurveyParticipate extends SurveyMyResponseController {
     return (
         <>
           <Grid container>
-              <Grid xs={10} style={{ display:"flex", alignItems:"center", gap:"1rem",margin:"10px 10px"}}>
+              <Grid xs={10} style={{ display:"flex", alignItems:"center", gap:"1rem",margin:"1rem"}}>
                 <ArrowBackIcon onClick={() => this.props.history.push("/PollsSurvey")} style={{cursor:"pointer",marginLeft:"5px"}}/>
                 <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
                     {t("View My Response")}
@@ -233,6 +233,10 @@ class SurveyParticipate extends SurveyMyResponseController {
                       }
                   </Box>
               </Box>
+              {
+                  this.state.SurveyQuestions.length < 2 &&
+                  <Box style={{background: "#E5ECFF",height:"190px",display:'flex',flexDirection:"column",alignItems:'center'}} />
+              }
           </Grid>
         </Grid>
         </>

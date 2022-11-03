@@ -19,6 +19,7 @@ export interface Props {
   id: string;
   history:any;
   location:any;
+  editId:any;
 }
 
 interface S {
@@ -250,14 +251,27 @@ export default class FriendListController extends BlockComponent<
           })
         }
       }
-      if(apiRequestCallId === this.getMyTeamListId){
-        console.log("Team LIST",responseJson)
-      }
       if(apiRequestCallId === this.getRolesListId){
         if(responseJson.hasOwnProperty("data")){
-          this.setState({
-            roleList:responseJson?.data?.roles
-          })
+          if(this.props.editId){
+            this.setState({
+              roleList:responseJson?.data?.roles,
+              roleId:this.props.editId.roleId,
+              selectedUser:{
+                email:this.props.editId.email,
+                phone:this.props.editId.phone,
+                buildingName:this.props.editId.buildingName,
+                buildingId:this.props.editId.buildingId,
+                unitName:this.props.editId.unitName,
+                unitId:this.props.editId.unitId
+              },
+              userId:this.props.editId.id,
+            })
+          }else{
+            this.setState({
+              roleList:responseJson?.data?.roles,
+            })
+          }
         }else{
           this.setState({
             roleList:[]

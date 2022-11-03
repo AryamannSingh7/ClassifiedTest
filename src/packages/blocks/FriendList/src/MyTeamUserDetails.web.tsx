@@ -66,8 +66,8 @@ class MyTeamCore extends MyTeamController {
                         <Typography variant="body1" >
                         My Team / Team Members / <Box component="span" style={{color: "blue"}}>Name of user</Box>
                         </Typography>
-                        <Typography variant="h4" className="subHeading"  >Name of the user</Typography>
-                        <Typography variant="h5" className="subHeading"  >General Details</Typography>
+                        <Typography variant="h4" className="subHeading" >Name of the user</Typography>
+                        <Typography variant="h5" className="subHeading" >General Details</Typography>
                     </Box>
                 </Box>
                 <Grid container spacing={3} style={{marginTop: 10, marginBottom:30}}>
