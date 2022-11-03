@@ -54,166 +54,57 @@ class MyUnitList extends MyUnitListController {
                   <div className="tenant-list-box">
                     <div className="tenant-list">
                       <Grid container spacing={2}>
-                        <Grid item xs={12}>
-                          <Card className="tenant">
-                            <Grid container spacing={2}>
-                              <Grid item xs={12}>
-                                <div className="header">
-                                  <h4>Complex</h4>
-                                  <div className="right-menu">
-                                    <Menu
-                                      menuButton={
-                                        <IconButton>
-                                          <MoreVertIcon />
-                                        </IconButton>
-                                      }
-                                    >
-                                      <MenuItem>{t("Edit")}</MenuItem>
-                                      <MenuItem>{t("Delete")}</MenuItem>
-                                    </Menu>
-                                  </div>
-                                </div>
-                                <span className="city">city</span>
-                              </Grid>
+                        {this.state.myUnitList.length === 0 && (
+                          <Grid item xs={12}>
+                            <Card className="tenant">
+                              <h6>{t("No Unit Registered")}</h6>
+                            </Card>
+                          </Grid>
+                        )}
+                        {this.state.myUnitList.map((unit: any, index: number) => {
+                          return (
+                            <Grid item xs={12} key={index}>
+                              <Card className="tenant">
+                                <Grid container spacing={2}>
+                                  <Grid item xs={12}>
+                                    <div className="header">
+                                      <h4>Complex</h4>
+                                      <div className="right-menu">
+                                        <Menu
+                                          menuButton={
+                                            <IconButton>
+                                              <MoreVertIcon />
+                                            </IconButton>
+                                          }
+                                        >
+                                          <MenuItem>{t("Edit")}</MenuItem>
+                                          <MenuItem>{t("Delete")}</MenuItem>
+                                        </Menu>
+                                      </div>
+                                    </div>
+                                    <span className="city">city</span>
+                                  </Grid>
+                                </Grid>
+                                <Grid container spacing={2} className="info">
+                                  <Grid item xs={4}>
+                                    <span className="header">{t("Unit Number")}</span>
+                                    <Button>04</Button>
+                                  </Grid>
+                                  <Grid item xs={4}>
+                                    <span className="header">{t("Floor Number")}</span>
+                                    <Button>04</Button>
+                                  </Grid>
+                                  <Grid item xs={4}>
+                                    <span className="header">{t("Status")}</span>
+                                    {/* <Button className="Rented">{t("Rented")}</Button> */}
+                                    {/* <Button className="Empty">{t("Empty")}</Button> */}
+                                    <Button className="Pending">{t("Pending")}</Button>
+                                  </Grid>
+                                </Grid>
+                              </Card>
                             </Grid>
-                            <Grid container spacing={2} className="info">
-                              <Grid item xs={4}>
-                                <span className="header">{t("Unit Number")}</span>
-                                <Button>04</Button>
-                              </Grid>
-                              <Grid item xs={4}>
-                                <span className="header">{t("Floor Number")}</span>
-                                <Button>04</Button>
-                              </Grid>
-                              <Grid item xs={4}>
-                                <span className="header">{t("Status")}</span>
-                                {/* <Button className="Rented">{t("Rented")}</Button> */}
-                                {/* <Button className="Empty">{t("Empty")}</Button> */}
-                                <Button className="Pending">{t("Pending")}</Button>
-                              </Grid>
-                            </Grid>
-                          </Card>
-                        </Grid>
-                        <Grid item xs={12}>
-                          <Card className="tenant">
-                            <Grid container spacing={2}>
-                              <Grid item xs={12}>
-                                <div className="header">
-                                  <h4>Complex</h4>
-                                  <div className="right-menu">
-                                    <Menu
-                                      menuButton={
-                                        <IconButton>
-                                          <MoreVertIcon />
-                                        </IconButton>
-                                      }
-                                    >
-                                      <MenuItem>{t("Edit")}</MenuItem>
-                                      <MenuItem>{t("Delete")}</MenuItem>
-                                    </Menu>
-                                  </div>
-                                </div>
-                                <span className="city">city</span>
-                              </Grid>
-                            </Grid>
-                            <Grid container spacing={2} className="info">
-                              <Grid item xs={4}>
-                                <span className="header">{t("Unit Number")}</span>
-                                <Button>04</Button>
-                              </Grid>
-                              <Grid item xs={4}>
-                                <span className="header">{t("Floor Number")}</span>
-                                <Button>04</Button>
-                              </Grid>
-                              <Grid item xs={4}>
-                                <span className="header">{t("Status")}</span>
-                                {/* <Button className="Rented">{t("Rented")}</Button> */}
-                                {/* <Button className="Empty">{t("Empty")}</Button> */}
-                                <Button className="Pending">{t("Pending")}</Button>
-                              </Grid>
-                            </Grid>
-                          </Card>
-                        </Grid>
-                        <Grid item xs={12}>
-                          <Card className="tenant">
-                            <Grid container spacing={2}>
-                              <Grid item xs={12}>
-                                <div className="header">
-                                  <h4>Complex</h4>
-                                  <div className="right-menu">
-                                    <Menu
-                                      menuButton={
-                                        <IconButton>
-                                          <MoreVertIcon />
-                                        </IconButton>
-                                      }
-                                    >
-                                      <MenuItem>{t("Edit")}</MenuItem>
-                                      <MenuItem>{t("Delete")}</MenuItem>
-                                    </Menu>
-                                  </div>
-                                </div>
-                                <span className="city">city</span>
-                              </Grid>
-                            </Grid>
-                            <Grid container spacing={2} className="info">
-                              <Grid item xs={4}>
-                                <span className="header">{t("Unit Number")}</span>
-                                <Button>04</Button>
-                              </Grid>
-                              <Grid item xs={4}>
-                                <span className="header">{t("Floor Number")}</span>
-                                <Button>04</Button>
-                              </Grid>
-                              <Grid item xs={4}>
-                                <span className="header">{t("Status")}</span>
-                                {/* <Button className="Rented">{t("Rented")}</Button> */}
-                                {/* <Button className="Empty">{t("Empty")}</Button> */}
-                                <Button className="Pending">{t("Pending")}</Button>
-                              </Grid>
-                            </Grid>
-                          </Card>
-                        </Grid>
-                        <Grid item xs={12}>
-                          <Card className="tenant">
-                            <Grid container spacing={2}>
-                              <Grid item xs={12}>
-                                <div className="header">
-                                  <h4>Complex</h4>
-                                  <div className="right-menu">
-                                    <Menu
-                                      menuButton={
-                                        <IconButton>
-                                          <MoreVertIcon />
-                                        </IconButton>
-                                      }
-                                    >
-                                      <MenuItem>{t("Edit")}</MenuItem>
-                                      <MenuItem>{t("Delete")}</MenuItem>
-                                    </Menu>
-                                  </div>
-                                </div>
-                                <span className="city">city</span>
-                              </Grid>
-                            </Grid>
-                            <Grid container spacing={2} className="info">
-                              <Grid item xs={4}>
-                                <span className="header">{t("Unit Number")}</span>
-                                <Button>04</Button>
-                              </Grid>
-                              <Grid item xs={4}>
-                                <span className="header">{t("Floor Number")}</span>
-                                <Button>04</Button>
-                              </Grid>
-                              <Grid item xs={4}>
-                                <span className="header">{t("Status")}</span>
-                                {/* <Button className="Rented">{t("Rented")}</Button> */}
-                                {/* <Button className="Empty">{t("Empty")}</Button> */}
-                                <Button className="Pending">{t("Pending")}</Button>
-                              </Grid>
-                            </Grid>
-                          </Card>
-                        </Grid>
+                          );
+                        })}
                       </Grid>
                     </div>
                     <div className="upload-button">

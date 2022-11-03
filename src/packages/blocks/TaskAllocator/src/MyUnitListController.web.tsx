@@ -15,7 +15,9 @@ export interface Props {
   // Customizable Area End
 }
 
-interface S {}
+interface S {
+  myUnitList: any[];
+}
 
 interface SS {
   id: any;
@@ -24,6 +26,8 @@ interface SS {
 }
 
 export default class MyUnitListController extends BlockComponent<Props, S, SS> {
+  GetMyUnitListCallId: any;
+
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
@@ -31,11 +35,60 @@ export default class MyUnitListController extends BlockComponent<Props, S, SS> {
     // Customizable Area Start
     this.subScribedMessages = [getName(MessageEnum.RestAPIResponceMessage), getName(MessageEnum.RestAPIRequestMessage)];
 
-    this.state = {};
+    this.state = {
+      myUnitList: [],
+    };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
 
   async receive(from: string, message: Message) {
     runEngine.debugLog("Message Recived", message);
+
+    // Get My Unit List - API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.GetMyUnitListCallId !== null &&
+      this.GetMyUnitListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.GetMyUnitListCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      if (responseJson && responseJson.data) {
+        this.setState({ myUnitList: responseJson.data });
+      }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
   }
+
+  async componentDidMount(): Promise<void> {
+    this.getMyUnitList();
+  }
+
+  getMyUnitList = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.GetMyUnitListCallId = apiRequest.messageId;
+
+    apiRequest.addData(getName(MessageEnum.RestAPIResponceEndPointMessage), `account_block/accounts/my_apartments`);
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
 }

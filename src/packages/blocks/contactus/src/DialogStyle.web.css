@@ -436,6 +436,24 @@
   background-color: #f3f3f3;
 }
 
+.rent-history-dialog .custom-input-box {
+  position: relative;
+}
+
+.rent-history-dialog .custom-input-box .select-input.input {
+  width: 100%;
+  outline: none;
+  padding: 17px 10px 17px 55px;
+  font-size: 16px;
+  border: none;
+}
+
+.rent-history-dialog .custom-input-box img {
+  position: absolute;
+  top: 38px;
+  left: 16px;
+}
+
 .add-meeting .date-time .MuiInput-underline:before,
 .add-meeting .dialog-select-input:before,
 .add-meeting .date-time .MuiInput-underline:after,

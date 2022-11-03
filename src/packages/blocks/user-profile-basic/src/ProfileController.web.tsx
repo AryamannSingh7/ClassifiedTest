@@ -1537,7 +1537,8 @@ this.setState({loading:true})
       values.hobbies.map((item:any)=>{
         formData.append('[data][attributes][hobbies][]',item)
       })
-      if(values.bannerUrl.includes('blob')){
+      console.log(values)
+      if(values.bannerUrl.includes('ti1finalleap')){
         
         
       }else{
@@ -1548,7 +1549,7 @@ this.setState({loading:true})
           blob
         );
       }
-
+      
       // formData.append("vehicle[color]", values.carColor)
       // let blob = await fetch(values.bannerUrl).then(r => r.blob());
       // formData.append(
