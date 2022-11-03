@@ -14,6 +14,7 @@ import {
   Dialog,
   DialogActions,
   DialogTitle,
+  Drawer,
 } from "@material-ui/core";
 import '../../dashboard/src/Dashboard.web.css'
 import {
@@ -47,6 +48,7 @@ import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 
 //resorces
 import { Close_Icon, Bank_Icon, Box_Icon, Building1,Tick_Circle_Icon } from "./assets";
+import IncidentChatWeb from "../../customform/src/IncidentChat.web";
 //import IncidentChatDrawer from "./IncidentChatDrawer.web";
 
 class IncidentManagementDetail extends IncidentManagementController {
@@ -228,12 +230,14 @@ class IncidentManagementDetail extends IncidentManagementController {
                               <Button className="change-btn" onClick={() => this.providerList(apartmentManagementId)}>change</Button>
                             </Box>
                         }
-                        <Button variant="contained" onClick={()=>this.props.history.push('/incidentchat')}>start/view ticket conversation</Button>
+                        <Button variant="contained" onClick={()=>this.setState({chatDrawer:true})}>start/view ticket conversation</Button>
                       </Box>
                     </CardContent>
                   </Card>
                 </Box>
               </Container>
+              {/* chat */}
+       
               {/* view assgin provider dialog */}
               <Dialog
                 open={this.state.showDialog}
@@ -396,6 +400,13 @@ class IncidentManagementDetail extends IncidentManagementController {
         </Box>
         {/* <IncidentChatDrawer /> */}
         <Loader loading={this.state.loading} />
+        <Drawer
+            anchor='right'
+            open={this.state.chatDrawer}
+            onClose={this.setState({chatDrawer:false})}
+          >
+            {/* <IncidentChatWeb/> */}
+          </Drawer>
       </>
     )
   }
