@@ -54,7 +54,7 @@ button {
   font-size: 15px;
 }
 
-.document-box {
+/* .document-box {
   margin-bottom: 20px;
   border-radius: 5px;
   background: #fff;
@@ -70,7 +70,7 @@ button {
   padding: 15px;
   border-radius: 10px;
   border: 2px solid #E4E4E4;
-}
+} */
 
 .document-box .item .heading {
   display: flex;
