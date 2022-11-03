@@ -436,8 +436,20 @@
   background-color: #f3f3f3;
 }
 
-.rent-history-dialog .custom-input-box {
+.rent-history-dialog .select-box .select-input {
+  margin-top: 20px;
+  background-color: #f3f3f3;
+  width: 100%;
+  padding: 0;
+}
+
+.rent-history-dialog .custom-input-box,
+.rent-history-dialog .select-box {
   position: relative;
+}
+
+.rent-history-dialog .select-box .MuiSelect-select.MuiSelect-select {
+  padding-left: 58px;
 }
 
 .rent-history-dialog .custom-input-box .select-input.input {
@@ -448,7 +460,8 @@
   border: none;
 }
 
-.rent-history-dialog .custom-input-box img {
+.rent-history-dialog .custom-input-box img,
+.rent-history-dialog .select-box img {
   position: absolute;
   top: 38px;
   left: 16px;
