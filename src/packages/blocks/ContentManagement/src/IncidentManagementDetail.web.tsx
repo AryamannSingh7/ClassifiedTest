@@ -400,13 +400,13 @@ class IncidentManagementDetail extends IncidentManagementController {
         </Box>
         {/* <IncidentChatDrawer /> */}
         <Loader loading={this.state.loading} />
-        <Drawer
+        {/* <Drawer
             anchor='right'
             open={this.state.chatDrawer}
             onClose={this.setState({chatDrawer:false})}
           >
-            {/* <IncidentChatWeb/> */}
-          </Drawer>
+            <IncidentChatWeb/> 
+          </Drawer> */}
       </>
     )
   }

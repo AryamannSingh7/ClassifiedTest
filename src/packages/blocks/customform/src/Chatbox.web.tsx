@@ -33,6 +33,7 @@ import AttachFileIcon from '@material-ui/icons/AttachFile';
 import InboxController,{Props} from "./inboxController.web";
 import '../assets/css/style.scss'
 import { info, Send } from "./assets";
+import { NoProfile_Img } from "../../user-profile-basic/src/assets";
 
 class ChatBox extends InboxController {
   constructor(props: Props) {
@@ -175,7 +176,7 @@ console.log(moment( myDate ).calendar())
                           style={message.message.account_id == currentAccountId ? { 'display': 'flex', 'justifyContent': 'end', alignItems: 'center' } : { 'display': 'flex', 'justifyContent': 'start', alignItems: 'center' }}
                       >
 {
-  message.message.account_id != currentAccountId  ?  <img src={message.message.profile_pic.url} alt='profile-pic' width='50' height='50' style={{borderRadius:20,marginRight:5}}/> :null
+  message.message.account_id != currentAccountId  ?  <img src={item?.attributes?.chat_with_account?.id != localStorage.getItem('userId') ?item?.attributes?.chat_with_account?.attributes?.profile_pic?.url || NoProfile_Img:item?.attributes?.chatable?.attributes?.profile_pic?.url || NoProfile_Img } alt='profile-pic' width='50' height='50' style={{borderRadius:20,marginRight:5}}/> :null
 }
 
 
