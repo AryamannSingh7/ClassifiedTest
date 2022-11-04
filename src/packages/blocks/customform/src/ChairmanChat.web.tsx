@@ -731,13 +731,13 @@ const IOSSwitch = styled((props) => (
     },
     '&.Mui-disabled .MuiSwitch-thumb': {
       color:
-        // @ts-ignore
+    // @ts-ignore
         theme.palette.mode === 'light'
           ? theme.palette.grey[100]
           : theme.palette.grey[600],
     },
     '&.Mui-disabled + .MuiSwitch-track': {
-      // @ts-ignore
+    // @ts-ignore
       opacity: theme.palette.mode === 'light' ? 0.7 : 0.3,
     },
   },
