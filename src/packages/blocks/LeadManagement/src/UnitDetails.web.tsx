@@ -251,7 +251,7 @@ class UnitDetails extends UnitDetailsController {
                               <CardMedia
                                 component="img"
                                 height="140"
-                                image={people.account.data.attributes.profile_pic}
+                                image={people.account.data.attributes.profile_pic.url}
                                 alt={people.account.data.attributes.full_name.name}
                                 style={dashBoard.profileImage}
                               />

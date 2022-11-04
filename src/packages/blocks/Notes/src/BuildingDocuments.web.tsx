@@ -24,7 +24,7 @@ class BuildingDocuments extends BuildingDocumentController {
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box display={{ xs: "flex", md: "flex" }} className="menu">
-                <Link href={localStorage.getItem("userType") === "Owner" ? "/OwnerDashboard" : ""}>
+                <Link href={localStorage.getItem("userType") === "Owner" ? "/OwnerDashboard" : "/ResidentDashboard"}>
                   <IconButton>
                     <KeyboardBackspaceIcon />
                   </IconButton>
