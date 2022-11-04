@@ -36,3 +36,13 @@ export const myTeam = require("../assets/myteam.png");
 export const communityManagement = require("../assets/community.png");
 export const meetings = require("../assets/meetings.png");
 export const complex = require("../assets/B&A.png");
+// Sidebar
+export const SidebarEmail = require("../assets/side-email.png");
+export const SidebarFaq = require("../assets/side-faq.png");
+export const SidebarFee = require("../assets/side-fee.png");
+export const SidebarLogout = require("../assets/side-logout.png");
+export const SidebarNeighbor = require("../assets/side-neighbor.png");
+export const SidebarProfile = require("../assets/side-profile.png");
+export const SidebarUnit = require("../assets/side-unit.png");
+export const SidebarIncident = require("../assets/side-incident.png");
+export const SidebarLogoutDialog = require("../assets/side-logout-dialog.png");
