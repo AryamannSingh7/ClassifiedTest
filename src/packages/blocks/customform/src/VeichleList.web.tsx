@@ -275,7 +275,7 @@ return <>
   <Grid container>
     <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
 
-      <p style={{ fontWeight: 600, fontSize: '1.25rem' }}>
+      <p style={{ fontWeight: 600, fontSize: '1.5rem' }}>
         No Vehicle
 
         Registered
