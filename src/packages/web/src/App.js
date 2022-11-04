@@ -1604,7 +1604,7 @@ const routeMap = {
 
   TeamUserDetails: {
     component: MyTeamUserDetails,
-    path: '/TeamMembers/userDetails',
+    path: '/TeamMember/userDetails',
     exact: true
   },
 
