@@ -24,11 +24,9 @@ class PersonalDocument extends PersonalDocumentController {
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box display={{ xs: "flex", md: "flex" }} className="menu">
-                <Link href={localStorage.getItem("userType") === "Owner" ? "/OwnerDashboard" : "/ResidentDashboard"}>
-                  <IconButton>
-                    <KeyboardBackspaceIcon />
-                  </IconButton>
-                </Link>{" "}
+                <IconButton onClick={() => this.redirectToDashboard()}>
+                  <KeyboardBackspaceIcon />
+                </IconButton>
                 {t("Personal Documents")}
               </Box>
               <Container className="content-area document-box">

@@ -6,6 +6,7 @@ import { runEngine } from "../../../framework/src/RunEngine";
 
 // Customizable Area Start
 import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
+import { ROLE } from "../../../framework/src/Enum";
 // Customizable Area End
 
 export const configJSON = require("./config.js");
@@ -373,6 +374,15 @@ export default class MyMeetingsController extends BlockComponent<Props, S, SS> {
     this.setState({
       isAttendMeetingModalOpen: !this.state.isAttendMeetingModalOpen,
     });
+  };
+
+  redirectToDashboard = () => {
+    const userType = localStorage.getItem("userType");
+    if (userType === ROLE.OWNER || userType === ROLE.PROPERTY_MANAGER) {
+      this.props.navigation.navigate("OwnerDashboard");
+    } else {
+      this.props.navigation.navigate("ResidentDashboard");
+    }
   };
 
   // Customizable Area End

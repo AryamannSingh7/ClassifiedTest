@@ -40,13 +40,9 @@ class MyMeetings extends MyMeetingsController {
               <Box className="faq-step">
                 <Box display={{ xs: "flex", md: "flex" }} className="top-bar">
                   <div className="left-icon">
-                    <Link
-                      href={localStorage.getItem("userType") === "Owner" ? "/OwnerDashboard" : "/ResidentDashboard"}
-                    >
-                      <IconButton>
-                        <KeyboardBackspaceIcon />
-                      </IconButton>
-                    </Link>
+                    <IconButton onClick={() => this.redirectToDashboard()}>
+                      <KeyboardBackspaceIcon />
+                    </IconButton>
                     <span>{t("My Meetings")}</span>
                   </div>
                   <div className="right-icon">
