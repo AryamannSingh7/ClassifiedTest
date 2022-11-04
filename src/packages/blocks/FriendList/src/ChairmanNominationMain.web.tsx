@@ -79,45 +79,55 @@ class MyTeamCore extends ChairmanNominationMainController {
                     <Grid item xs={12}>
 
                         </Grid>
-                        <Grid item xs={6}>
-                            <Paper elevation={6} style={{backgroundColor:"white",padding:"20px 30px",borderRadius:"15px",cursor:"pointer"}} onClick={()=> this.props.history.push(`/NominationDetails?id=${1}`)}>
-                                <Grid container spacing={2} >
-                                    <Grid item xs={9}>
-                                        <Typography variant="h6" style={{fontWeight:"bold"}}>Chairman and Vice Chairman Nomination</Typography>
+                        {
+                            this.state.nominationsList.length > 0
+                            &&
+                            this.state.nominationsList.map((item:any,key:any) => {
+                                console.log("DATA FOR NOMINATIONS",item)
+                                return(
+                                    <Grid key={key} item xs={6}>
+                                        <Paper elevation={6} style={{backgroundColor:"white",padding:"20px 30px",borderRadius:"15px",cursor:"pointer"}} onClick={()=> this.props.history.push(`/NominationDetails?id=${1}`)}>
+                                            <Grid container spacing={2} >
+                                                <Grid item xs={9}>
+                                                    <Typography variant="h6" style={{fontWeight:"bold"}}>{item.attributes.title}</Typography>
+                                                </Grid>
+                                                <Grid item xs={3} style={{display:'flex',alignItems:"center",justifyContent:"flex-end"}}>
+                                                    <Typography variant="subtitle2" className={"statusOngoingGreen"}>Active</Typography>
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    <Box>
+                                                        <Typography variant="subtitle1" color="textSecondary">Building:</Typography>
+                                                        <Typography variant="subtitle1" color="textPrimary">Building - 1</Typography>
+                                                    </Box>
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    <Box>
+                                                        <Typography variant="subtitle1" color="textSecondary">Complex Name:</Typography>
+                                                        <Typography variant="subtitle1" color="textPrimary">Star Heights</Typography>
+                                                    </Box>
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    <Box>
+                                                        <Typography variant="subtitle1" color="textSecondary">Duration:</Typography>
+                                                        <Typography variant="subtitle1" color="textPrimary">24-03-2022 to 24-04-2022</Typography>
+                                                    </Box>
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    <Box>
+                                                        <Typography variant="subtitle1" color="textSecondary">Total Nomination: </Typography>
+                                                        <Typography variant="subtitle1" color="textPrimary">32 Members</Typography>
+                                                    </Box>
+                                                </Grid>
+                                                <Grid item xs={12} className={"nominationBlueBG"} style={{marginBottom:"10px",marginTop:"10px"}}>
+                                                    <Typography variant="body1" style={{width:"100%"}} className="nominationBlueText" >NOMINATION STARTED</Typography>
+                                                </Grid>
+                                            </Grid>
+                                        </Paper>
                                     </Grid>
-                                    <Grid item xs={3} style={{display:'flex',alignItems:"center",justifyContent:"flex-end"}}>
-                                        <Typography variant="subtitle2" className={"statusOngoingGreen"}>Active</Typography>
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <Box>
-                                            <Typography variant="subtitle1" color="textSecondary">Building:</Typography>
-                                            <Typography variant="subtitle1" color="textPrimary">Building - 1</Typography>
-                                        </Box>
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <Box>
-                                            <Typography variant="subtitle1" color="textSecondary">Complex Name:</Typography>
-                                            <Typography variant="subtitle1" color="textPrimary">Star Heights</Typography>
-                                        </Box>
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <Box>
-                                            <Typography variant="subtitle1" color="textSecondary">Duration:</Typography>
-                                            <Typography variant="subtitle1" color="textPrimary">24-03-2022 to 24-04-2022</Typography>
-                                        </Box>
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <Box>
-                                            <Typography variant="subtitle1" color="textSecondary">Total Nomination: </Typography>
-                                            <Typography variant="subtitle1" color="textPrimary">32 Members</Typography>
-                                        </Box>
-                                    </Grid>
-                                    <Grid item xs={12} className={"nominationBlueBG"} style={{marginBottom:"10px",marginTop:"10px"}}>
-                                        <Typography variant="body1" style={{width:"100%"}} className="nominationBlueText" >NOMINATION STARTED</Typography>
-                                    </Grid>
-                                </Grid>
-                            </Paper>
-                        </Grid>
+                                )
+                            })
+                        }
+
                         <Grid item xs={6}>
                         <Paper elevation={6} style={{backgroundColor:"white",padding:"20px 30px",borderRadius:"15px",cursor:"pointer"}}>
                             <Grid container spacing={2} >

@@ -39,8 +39,10 @@ interface S {
   nominationStartDateError:any;
   nominationEndDateError:any;
   nominationDescriptionError:any;
-  startDateType:any,
-  endDateType:any,
+  startDateType:any;
+  endDateType:any;
+  nominationsList:any;
+  mainError:any;
 }
 
 interface SS {
@@ -83,6 +85,8 @@ export default class FriendListController extends BlockComponent<
       nominationTitleError:"",
       startDateType:"text",
       endDateType:"text",
+      nominationsList:[],
+      mainError:""
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
@@ -251,16 +255,37 @@ export default class FriendListController extends BlockComponent<
       var errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if(this.getNominationListId === apiRequestCallId ){
         console.log("NOMINATION",responseJson,errorReponse)
+        if(responseJson.hasOwnProperty("chairman_nominations") && responseJson.code === 200){
+          this.setState({
+            nominationsList:responseJson?.chairman_nominations?.data,
+            loading:false
+          })
+        }
+        if(this.createNominationId === apiRequestCallId) {
+          if(responseJson.meta.message === "Nomination created."){
+            this.setState({
+              setOpen:false
+            })
+            this.getNominationList()
+          }else{
+            this.setState({
+              mainError:"Something Went wrong.!"
+            })
+          }
+        }
       }
     }
   }
 
   getNominationList = async () => {
+    this.setState({
+      loading:true
+    })
     const societyID = localStorage.getItem("society_id")
     this.getNominationListId = await this.apiCall({
       contentType: "application/json",
       method: "GET",
-      endPoint: `/bx_block_my_team/chairman_nominations`,
+      endPoint: `society_managements/${societyID}/bx_block_my_team/chairman_nominations`,
     });
   }
 
@@ -268,7 +293,7 @@ export default class FriendListController extends BlockComponent<
     const societyID = localStorage.getItem("society_id")
     this.createNominationId = await this.apiCall({
       method:"POST",
-      endPoint: `/bx_block_my_team/chairman_nominations`,
+      endPoint: `society_managements/${societyID}/bx_block_my_team/chairman_nominations`,
       body:data
     });
   }
