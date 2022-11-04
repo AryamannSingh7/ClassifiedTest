@@ -1866,7 +1866,7 @@ const routeMap = {
   },
   RentHistory: {
     component: RentHistory,
-    path: '/RentHistory',
+    path: '/MyUnitDetails/:id/RentHistory',
     roles: [ROLE.OWNER],
     exact: true
   },
