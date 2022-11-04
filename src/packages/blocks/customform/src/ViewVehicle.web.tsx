@@ -64,7 +64,7 @@ class ViewVeichle extends VeichleListController {
 
                <Grid container>
                 <Grid xs={12}>
-                  <div className="card" style={{padding:'2rem'}}>
+                  <div className="card" style={{padding:'2rem',boxShadow:'none'}}>
                     <div className="status">
                       {item.attributes.status}
                     </div>

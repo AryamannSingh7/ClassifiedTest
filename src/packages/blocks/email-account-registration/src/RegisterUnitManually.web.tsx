@@ -180,11 +180,9 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                     className="formInputGrp"
                   >
 
-                    <ReactSelect options={this.state.allComplex} className="formInput1 ReactSelect" style={{ border: 'none' }} placeholder="Search Complex" onChange={(e) => { this.handleInputChangeCOm(e); setFieldValue("selectComplex", e.value) }} />
+                    <ReactSelect options={this.state.allComplex} emoji={search} className="hello ReactSelect"  classNamePrefix='filter' style={{ border: 'none' }} placeholder="Search Complex" onChange={(e) => { this.handleInputChangeCOm(e); setFieldValue("selectComplex", e.value) }} />
 
-                    <span className="frmLeftIcons" style={{ top: '1.5rem' }}>
-                      <img src={search} />
-                    </span>
+                    
                   </Box>
                 </Box>
                 <ErrorMessage className="text-error" component="Typography" name="selectComplex" />

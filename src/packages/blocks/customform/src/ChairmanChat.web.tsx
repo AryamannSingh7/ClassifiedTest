@@ -715,6 +715,7 @@ const IOSSwitch = styled((props) => (
       transform: 'translateX(16px)',
       color: '#fff',
       '& + .MuiSwitch-track': {
+        // @ts-ignore
         backgroundColor: theme.palette.mode === 'dark' ? '#2ECA45' : '#65C466',
         opacity: 1,
         border: 0,
@@ -729,11 +730,13 @@ const IOSSwitch = styled((props) => (
     },
     '&.Mui-disabled .MuiSwitch-thumb': {
       color:
+    // @ts-ignore
         theme.palette.mode === 'light'
           ? theme.palette.grey[100]
           : theme.palette.grey[600],
     },
     '&.Mui-disabled + .MuiSwitch-track': {
+    // @ts-ignore
       opacity: theme.palette.mode === 'light' ? 0.7 : 0.3,
     },
   },
@@ -744,6 +747,7 @@ const IOSSwitch = styled((props) => (
   },
   '& .MuiSwitch-track': {
     borderRadius: 26 / 2,
+    // @ts-ignore
     backgroundColor: theme.palette.mode === 'light' ? '#E9E9EA' : '#39393D',
     opacity: 1,
     transition: theme.transitions.create(['background-color'], {
