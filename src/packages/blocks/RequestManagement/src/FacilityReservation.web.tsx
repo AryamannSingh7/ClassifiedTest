@@ -28,7 +28,7 @@ import CountryCodeSelector from "../../country-code-selector/src/CountryCodeSele
 import FacilityReservationController, { Props } from "./FacilityReservationController.web";
 //Customizable Area End
 //resorces
-import { Tenant_Logo, Building1, Grid_Icon, Filter_Icon } from "../src/assets";
+import { Tenant_Logo, Building1, Grid_Icon, Filter_Icon,upcoming,pending,previous } from "../src/assets";
 class FacilityReservation extends FacilityReservationController {
   constructor(props: Props) {
     super(props);
@@ -51,23 +51,68 @@ class FacilityReservation extends FacilityReservationController {
                   </Box>
                 </Box>
                 <Box className="content-block-wrapper facility-block-wrapper">
-                  <Box className="incident-content-wrapper">
-                    <Card className="incident-card card" >
+                  <Box className="incident-content-wrapper" onClick={() => this.getFacilityReservationDetails("UpcomingReservations")}>
+                    <Card className="incident-card card facilityReserve-card" >
                       <CardContent className="costom-card-content">
-                        <Typography component="h4">
+                      <img src={upcoming} className="frm-icons" alt="House Icon" />
+                        <Typography component="h1">
                           Upcoming Reservations
                         </Typography>
+                        <Typography component="h1">
+                           Total
+                        </Typography>
                         <CardActions className="card-footer">
-                          {/* <Button className="success">Resolved</Button> */}
-                          <Button variant="contained">{67}</Button>
+                        <Box className="customButton">
+                          <Button variant="contained" className="contain warning" >{67}</Button>
+                          </Box>
                         </CardActions>
                       </CardContent>
                     </Card>
                   </Box>
+
+                  <Box className="incident-content-wrapper" onClick={() => this.getFacilityReservationDetails("PendingReservations")}>
+                    <Card className="incident-card card facilityReserve-card" >
+                      <CardContent className="costom-card-content">
+                      <img src={pending} className="frm-icons" alt="House Icon" />
+                        <Typography component="h5">
+                          Pending Reservations
+                        </Typography>
+                        <Typography component="h5">
+                            Total
+                          </Typography>
+                        <CardActions className="card-footer">
+                        <Box className="customButton">
+                          <Button variant="contained" className="contain warning" >{67}</Button>
+                          </Box>
+                        </CardActions>
+                      </CardContent>
+                    </Card>
+                  </Box>
+
+                  <Box className="incident-content-wrapper" onClick={() => this.getFacilityReservationDetails(" PreviousReservations")}>
+                    <Card className="incident-card card facilityReserve-card" >
+                      <CardContent className="costom-card-content">
+                      <img src={previous} className="frm-icons" alt="House Icon" />
+                        <Typography component="h1">
+                          Previous Reservations
+                        </Typography>
+                        <Typography component="h1">
+                             Total
+                          </Typography>
+                        <CardActions className="card-footer">
+                          {/* <Button className="success">Resolved</Button> */}
+                          <Box className="customButton">
+                          <Button variant="contained" className="contain warning" >{67}</Button>
+                          </Box>
+                          </CardActions>
+                      </CardContent>
+                    </Card>
+                  </Box>
+
                   <Box className="customButton add-incident">
                     <Button variant="contained" onClick={() => {
                       this.setState({ loading: true });//@ts-ignore
-                      this.props.history.push("/CreateIncident")
+                      this.props.history.push("/CreateFacilityReservation")
                     }} >BOOK A FACILITY</Button>
                   </Box>
                 </Box>
