@@ -115,7 +115,7 @@ class PollDetails extends SurveyDetailsMainController {
                                                 </Typography>
                                             </Box>
                                             {
-                                                this.state.SurveyPreviewAnswer.status == "ongoing" || this.state.SurveyPreviewAnswer.status == "upcoming" &&
+                                                this.state.SurveyPreviewAnswer.status == "ongoing" &&
                                                 <IconButton onClick={()=> this.setState({dateWindow:true})} style={{padding:"3px",marginTop:"20px"}}><CreateIcon style={{color:"#FC8434",alignSelf:'flex-end'}} fontSize="small"/></IconButton>
                                             }
                                         </Box>
@@ -128,7 +128,7 @@ class PollDetails extends SurveyDetailsMainController {
                                             <InfoIcon style={{color:"grey", fontSize:18}}/>
                                         </Box>
                                         {
-                                            this.state.SurveyPreviewAnswer.status == "ongoing" || this.state.SurveyPreviewAnswer.status == "upcoming" &&
+                                            this.state.SurveyPreviewAnswer.status == "ongoing" &&
                                             <IconButton onClick={() => this.setState({descriptionWindow: true})}
                                                         style={{padding: "3px"}}><CreateIcon
                                                 style={{color: "#FC8434", alignSelf: 'flex-end'}}

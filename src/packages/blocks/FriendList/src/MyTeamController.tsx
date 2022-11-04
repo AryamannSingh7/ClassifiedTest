@@ -35,6 +35,8 @@ interface S {
   coreMembers:any;
   subTeam:any;
   providers:any;
+  deleteId:any;
+  editId:any;
 }
 
 interface SS {
@@ -52,6 +54,8 @@ export default class FriendListController extends BlockComponent<
   createTeamMemberId:string = "";
   createChatRoomAPIId:any='';
   getUserListId:string = "";
+  manageApprovalId:string = "";
+  deleteMemberId:string = "";
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
@@ -79,14 +83,33 @@ export default class FriendListController extends BlockComponent<
       pendingReq:[],
       providers:[],
       subTeam:[],
+      deleteId:"",
+      editId:"",
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
 
   handleDeleteModal = (id:any) => {
-    console.log("data",id)
     this.setState({
-      deleteModal:!this.state.deleteModal
+      deleteModal:!this.state.deleteModal,
+      deleteId:id
+    })
+  }
+
+  handleEdit = (user:any) => {
+    const editData = {
+      id:user.id,
+      roleId:user.role.id,
+      email:user.email,
+      phone:user.phone_number,
+      buildingId:user.building_management.building_management_id,
+      buildingName:user.building_management.building_name,
+      unitName:user.apartment_management.apartment_management_id,
+      unitId:user.apartment_management.apartment_name,
+    }
+    this.setState({
+      setOpen:true,
+      editId:editData
     })
   }
 
@@ -100,6 +123,12 @@ export default class FriendListController extends BlockComponent<
     this.getMyTeamList()
   }
 
+  approvalFnc = (type:any,id:any) => {
+    let formdata = new FormData();
+    formdata.append("team_member[status]", type);
+    this.manageApproval(formdata,id)
+  }
+
   getMyTeamList = async () => {
     this.setState({
       loading:true
@@ -109,6 +138,25 @@ export default class FriendListController extends BlockComponent<
       contentType: "application/json",
       method: "GET",
       endPoint: `/bx_block_my_team/team_members?society_management_id=${societyID}`,
+    });
+  }
+
+  manageApproval = async (data:any,id:any) => {
+    const societyID = localStorage.getItem("society_id")
+    this.manageApprovalId = await this.apiCall({
+      contentType: "application/json",
+      method: "PATCH",
+      endPoint: `/bx_block_my_team/team_members/${id}`,
+      body:data
+    });
+  }
+
+  deleteMember = async (id:any) => {
+    const societyID = localStorage.getItem("society_id")
+    this.deleteMemberId = await this.apiCall({
+      contentType: "application/json",
+      method: "DELETE",
+      endPoint: `/bx_block_my_team/team_members/${id}`,
     });
   }
 
@@ -198,7 +246,6 @@ export default class FriendListController extends BlockComponent<
         }
       }
       if(apiRequestCallId === this.getMyTeamListId){
-        console.log("Team LIST",responseJson)
         if(responseJson.hasOwnProperty("data")){
           const pendingReq = responseJson.data.filter((item:any)=> {
             if(item.attributes.status === "Pending Approval"){
@@ -220,11 +267,6 @@ export default class FriendListController extends BlockComponent<
               return item
             }
           })
-          console.log("Pending Request",pendingReq)
-          console.log("coreMembers",coreMembers)
-          console.log("subTeam",subTeam)
-          console.log("ServiceProvider",ServiceProvider)
-
           this.setState({
             coreMembers:coreMembers,
             subTeam:subTeam,
@@ -253,9 +295,22 @@ export default class FriendListController extends BlockComponent<
             pathname: '/chairmanchat',
             state: { data: responseJson.data }
           })
-          
         }else{
           //
+        }
+      }
+      if(this.manageApprovalId === apiRequestCallId){
+        if(responseJson.hasOwnProperty('data')){
+          this.getMyTeamList()
+        }
+      }
+      if(this.deleteMemberId === apiRequestCallId){
+        if(responseJson.message === "Successfully deleted"){
+          this.getMyTeamList()
+          this.setState({
+            deleteModal:false,
+            deleteId:""
+          })
         }
       }
       if(apiRequestCallId === this.createTeamMemberId){
@@ -264,12 +319,10 @@ export default class FriendListController extends BlockComponent<
     }
     if (message.id === getName(MessageEnum.AccoutLoginSuccess)) {
       let value = message.getData(getName(MessageEnum.AuthTokenDataMessage));
-
       this.showAlert(
         "Change Value",
         "From: " + this.state.txtSavedValue + " To: " + value
       );
-
       this.setState({ txtSavedValue: value });
     }
   }
@@ -376,8 +429,14 @@ export default class FriendListController extends BlockComponent<
     } catch (error) {
       console.log(error);
     }
-
   }
+
+  sentMessage (data:any) {
+    const msg : Message = new Message(getName(MessageEnum.PostDetailDataMessage))
+    msg.properties['text'] = data
+    this.send(msg)
+  }
+
 }
 
 // Customizable Area End

@@ -17,19 +17,9 @@ export interface Props {
   // Customizable Area End
 }
 
-interface RentHistoryForm {
-  startDate: string;
-  endDate: string;
-  rentAmount: string;
-  receivedAmount: string;
-  tenantName: string;
-}
-
 interface S {
   loading: boolean;
-  isRentHistoryModalOpen: boolean;
-
-  rentHistoryForm: RentHistoryForm;
+  isAddPropertyModalOpen: boolean;
 }
 
 interface SS {
@@ -48,15 +38,7 @@ export default class RegisterManagerController extends BlockComponent<Props, S, 
 
     this.state = {
       loading: false,
-      isRentHistoryModalOpen: false,
-
-      rentHistoryForm: {
-        startDate: "",
-        endDate: "",
-        rentAmount: "",
-        receivedAmount: "",
-        tenantName: "",
-      },
+      isAddPropertyModalOpen: false,
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
@@ -65,28 +47,9 @@ export default class RegisterManagerController extends BlockComponent<Props, S, 
     runEngine.debugLog("Message Recived", message);
   }
 
-  validationRentHistoryFormSchema: any = Yup.object().shape({
-    startDate: Yup.string()
-      .required("Required")
-      .matches(/\S/, "Required"),
-    endDate: Yup.string()
-      .required("Required")
-      .matches(/\S/, "Required"),
-    rentAmount: Yup.string()
-      .required("Required")
-      .matches(/\S/, "Required"),
-    receivedAmount: Yup.string()
-      .required("Required")
-      .matches(/\S/, "Required"),
-    tenantName: Yup.string()
-      .required("Required")
-      .max(100, "Maximum length of title should be 100 character")
-      .matches(/\S/, "Required"),
-  });
-
-  handleRentHistoryModal = () => {
+  handleAddPropertyModal = () => {
     this.setState({
-      isRentHistoryModalOpen: !this.state.isRentHistoryModalOpen,
+      isAddPropertyModalOpen: !this.state.isAddPropertyModalOpen,
     });
   };
 }
