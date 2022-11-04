@@ -136,9 +136,9 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
       );
       if (apiRequestCallId === this.getProfileDataAPiCallId) {
         console.log(responseJson)
-        if (!responseJson.errors) {
+        if (!responseJson?.errors) {
           console.log(responseJson)
-          this.setState({ profileData: responseJson.data,loading:false }, () => console.log(this.state.profileData))
+          this.setState({ profileData: responseJson?.data,loading:false }, () => console.log(this.state?.profileData))
         } else {
           //Check Error Response
           // this.parseApiErrorResponse(responseJson);
@@ -146,15 +146,15 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
 
         this.parseApiCatchErrorResponse(errorReponse);
       }
-      if (responseJson && !responseJson.errors && responseJson.data) {
-        if (responseJson.data.length === 0) {
+      if (responseJson && !responseJson?.errors && responseJson?.data) {
+        if (responseJson?.data?.length === 0) {
           this.setState({
             errorMsg: "Data Not Found",
             loading: false
           });
         } else {
           this.setState({
-            dashboardData: responseJson.data,
+            dashboardData: responseJson?.data,
             errorMsg: "",
             loading: false
           });

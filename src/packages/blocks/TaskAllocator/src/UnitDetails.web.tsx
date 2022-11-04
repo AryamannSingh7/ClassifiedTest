@@ -237,46 +237,66 @@ class UnitDetails extends UnitDetailsController {
                               <img src={BlueStatusIcon} alt="" />
                               <Box className="item-data">
                                 <span>{t("Unit Status")}</span>
-                                <p>Lorem Ipsum</p>
+                                <p>
+                                  {this.state.rentDetails.status === "No-Own"
+                                    ? "Not Owned"
+                                    : this.state.rentDetails.status}
+                                </p>
                               </Box>
                             </Box>
                           </Grid>
-                          <Grid item xs={6}>
-                            <Box className="info-item">
-                              <img src={BlueTenantIcon} alt="" />
-                              <Box className="item-data">
-                                <span>{t("Tenant Name")}</span>
-                                <p>Lorem Ipsum</p>
-                              </Box>
-                            </Box>
-                          </Grid>
-                          <Grid item xs={6}>
-                            <Box className="info-item">
-                              <img src={BlueCalenderIcon} alt="" />
-                              <Box className="item-data">
-                                <span>{t("Rent Duration")}</span>
-                                <p>Lorem Ipsum</p>
-                              </Box>
-                            </Box>
-                          </Grid>
-                          <Grid item xs={6}>
-                            <Box className="info-item">
-                              <img src={BlueCalenderIcon} alt="" />
-                              <Box className="item-data">
-                                <span>{t("Current Expiry")}</span>
-                                <p>Lorem Ipsum</p>
-                              </Box>
-                            </Box>
-                          </Grid>
-                          <Grid item xs={6}>
-                            <Box className="info-item">
-                              <img src={BlueRentIcon} alt="" />
-                              <Box className="item-data">
-                                <span>{t("Rent Charge")}</span>
-                                <p>Lorem Ipsum</p>
-                              </Box>
-                            </Box>
-                          </Grid>
+                          {this.state.rentDetails.status === "Rented" && (
+                            <>
+                              <Grid item xs={6}>
+                                <Box className="info-item">
+                                  <img src={BlueTenantIcon} alt="" />
+                                  <Box className="item-data">
+                                    <span>{t("Tenant Name")}</span>
+                                    <p>{this.state.rentDetails.tenantName || "-"}</p>
+                                  </Box>
+                                </Box>
+                              </Grid>
+                              <Grid item xs={6}>
+                                <Box className="info-item">
+                                  <img src={BlueCalenderIcon} alt="" />
+                                  <Box className="item-data">
+                                    <span>{t("Rent Duration")}</span>
+                                    <p>
+                                      {this.state.rentDetails.startDate && this.state.rentDetails.endDate
+                                        ? moment(this.state.rentDetails.endDate).diff(
+                                            moment(this.state.rentDetails.startDate),
+                                            "months"
+                                          )
+                                        : ""}{" "}
+                                      Months
+                                    </p>
+                                  </Box>
+                                </Box>
+                              </Grid>
+                              <Grid item xs={6}>
+                                <Box className="info-item">
+                                  <img src={BlueCalenderIcon} alt="" />
+                                  <Box className="item-data">
+                                    <span>{t("Current Expiry")}</span>
+                                    <p>
+                                      {this.state.rentDetails.endDate
+                                        ? moment(this.state.rentDetails.endDate, "YYYY-MM-DD").format("MMMM DD, YYYY")
+                                        : "-"}
+                                    </p>
+                                  </Box>
+                                </Box>
+                              </Grid>
+                              <Grid item xs={6}>
+                                <Box className="info-item">
+                                  <img src={BlueRentIcon} alt="" />
+                                  <Box className="item-data">
+                                    <span>{t("Rent Charge")}</span>
+                                    <p>{this.state.rentDetails.charge || "-"} / Month</p>
+                                  </Box>
+                                </Box>
+                              </Grid>
+                            </>
+                          )}
                         </Grid>
                       </Card>
                     </Box>
@@ -284,35 +304,38 @@ class UnitDetails extends UnitDetailsController {
                     <Box className="rent-history-box">
                       <Box className="header">
                         <h4>{t("Rent History")}</h4>
-                        <span>{t("View All")}</span>
+                        {this.state.rentHistory.length !== 0 && (
+                          <span
+                            onClick={() => this.props.navigation.navigate("RentHistory", { id: this.state.unitId })}
+                          >
+                            {t("View All")}
+                          </span>
+                        )}
                       </Box>
-
-                      <Box className="rent-history">
-                        <h4>Mr. Mohd Khan</h4>
-                        <p className="date">Tenant Name</p>
-                        <Divider />
-                        <Box className="info">
-                          <p>{t("Rent Amount")}</p>
-                          <span>$123</span>
-                        </Box>
-                        <Box className="info">
-                          <p>{t("Received Amount")}</p>
-                          <span>$123</span>
-                        </Box>
-                      </Box>
-                      <Box className="rent-history">
-                        <h4>Mr. Mohd Khan</h4>
-                        <p className="date">Tenant Name</p>
-                        <Divider />
-                        <Box className="info">
-                          <p>{t("Rent Amount")}</p>
-                          <span>$123</span>
-                        </Box>
-                        <Box className="info">
-                          <p>{t("Received Amount")}</p>
-                          <span>$123</span>
-                        </Box>
-                      </Box>
+                      {this.state.rentHistory.length === 0 && (
+                        <Box className="rent-history">{t("No history available")}</Box>
+                      )}
+                      {this.state.rentHistory.map((history: any) => {
+                        return (
+                          <Box className="rent-history" key={history.id}>
+                            <h4>{history.attributes.tenant_name || "-"}</h4>
+                            <p className="date">
+                              {moment(history.attributes.start_date, "YYYY-MM-DD").format("MMMM YYYY") +
+                                " to " +
+                                moment(history.attributes.end_date, "YYYY-MM-DD").format("MMMM YYYY")}
+                            </p>
+                            <Divider />
+                            <Box className="info">
+                              <p>{t("Rent Amount")}</p>
+                              <span>{history.attributes.rent_amount || "-"}</span>
+                            </Box>
+                            <Box className="info">
+                              <p>{t("Received Amount")}</p>
+                              <span>{history.attributes.tenant_name}</span>
+                            </Box>
+                          </Box>
+                        );
+                      })}
                     </Box>
 
                     <Box className="images-box">

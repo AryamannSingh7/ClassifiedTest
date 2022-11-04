@@ -23,7 +23,21 @@ import DashboardCard from "../../../components/src/DashboardCard";
 import CloseIcon from "@material-ui/icons/Close";
 import ArrowForwardIosOutlinedIcon from "@material-ui/icons/ArrowForwardIosOutlined";
 import DashboardController, { Props } from "./DashboardController.web";
-import { BuildingLogo, hamburgerIcon, LogoutDialogIcon, globalIcon, notification, chatIcon, keyhand } from "./assets";
+import {
+  BuildingLogo,
+  hamburgerIcon,
+  globalIcon,
+  notification,
+  chatIcon,
+  keyhand,
+  SidebarProfile,
+  SidebarFee,
+  SidebarNeighbor,
+  SidebarFaq,
+  SidebarLogout,
+  SidebarIncident,
+  SidebarLogoutDialog,
+} from "./assets";
 import { withTranslation } from "react-i18next";
 import "../../../web/src/i18n.js";
 import i18next from "i18next";
@@ -34,27 +48,27 @@ const MenuList = [
   {
     name: "Profile",
     url: "profile",
-    img: "",
+    img: SidebarProfile,
   },
   {
     name: "Fees & Payments",
     url: "/FeesAndPayment",
-    img: "",
+    img: SidebarFee,
   },
   {
     name: "My Incidents",
     url: "",
-    img: "",
+    img: SidebarIncident,
   },
   {
     name: "My Neighbors",
     url: "/NeighboursListing",
-    img: "",
+    img: SidebarNeighbor,
   },
   {
     name: "FAQ",
     url: "/FaqResident",
-    img: "",
+    img: SidebarFaq,
   },
 ];
 
@@ -91,17 +105,15 @@ class ResidentDashboard extends DashboardController {
         <Box className={classes.ownerDashboard} style={{ background: "#F8F9FE", height: "100vh" }}>
           <Drawer open={this.state.isMenuOpen} onClose={() => this.toggleDrawer()}>
             <Box className="dashboard-sidebar">
-              <Box className="close-menu" onClick={() => this.toggleDrawer()}>
-                <IconButton>
+              <Box className="close-menu">
+                <IconButton onClick={() => this.toggleDrawer()}>
                   <CloseIcon />
                 </IconButton>{" "}
                 <span>{t("Menu")}</span>
               </Box>
               <Divider />
               <div className="user-info">
-                <Avatar alt="Remy Sharp" src={this.state.profileData?.attributes?.profile_pic}>
-                  HN
-                </Avatar>
+                <Avatar alt="Remy Sharp" src={this.state.profileData?.attributes?.profile_pic?.url} />
                 <h4>{this.state.profileData?.attributes?.full_name?.name|| 'N/A'}</h4>
                 <p>{this.state.profileData?.attributes?.email?.email|| 'N/A'}</p>
               </div>
@@ -112,7 +124,7 @@ class ResidentDashboard extends DashboardController {
                     <Link className="list-box" href={menu.url}>
                       <div className="list-menu">
                         <div className="image">
-                          <img src={keyhand} alt="" />
+                          <img src={menu.img} alt="" />
                         </div>
                         <p>{t(menu.name)}</p>
                       </div>
@@ -124,7 +136,7 @@ class ResidentDashboard extends DashboardController {
                   <div className="list-box">
                     <div className="list-menu">
                       <div className="image">
-                        <img src={keyhand} alt="" />
+                        <img src={SidebarLogout} alt="" />
                       </div>
                       <p>{t("Logout")}</p>
                     </div>
@@ -311,7 +323,7 @@ class ResidentDashboard extends DashboardController {
         >
           <DialogContent>
             <Box textAlign="center">
-              <img src={LogoutDialogIcon} alt="ExclamationIcon" />
+              <img src={SidebarLogoutDialog} alt="ExclamationIcon" />
               <Typography variant="h6">{t("Are you sure you want to logout?")}</Typography>
               <Typography variant="body1">{t("You will be returned to the login screen")}</Typography>
               <DialogActions className="dialog-button-group">

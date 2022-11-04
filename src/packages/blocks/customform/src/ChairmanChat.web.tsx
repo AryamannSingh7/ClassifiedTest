@@ -701,6 +701,7 @@ export default ChairmanChat;
 // Customizable Area End
  
 
+// @ts-ignore
 const IOSSwitch = styled((props) => (
   <Switch focusVisibleClassName=".Mui-focusVisible" inputProps={{ 'aria-label': 'controlled' }}  onChange={props.diableChat} checked={props.enable} {...props}/>
 ))(({ theme }) => ({
