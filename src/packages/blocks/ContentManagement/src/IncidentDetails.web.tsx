@@ -254,7 +254,7 @@ class IncidentDetails extends IncidentController {
                     {/*</Card> */}
                   </Box>
                   <Box className="customButton ticket-conversion">
-                    <Button variant="contained" onClick={() => this.createChatRoom(attributes?.id)}>start/ view ticket conversation</Button>
+                    <Button variant="contained" onClick={() => this.createChatRoom(attributes?.id)}>{attributes?.incident_status === 'Resolved' ? 'View ticket conversation':'Start/ View ticket conversation' }</Button>
                   </Box>
                 </Box>
                 {/* <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>
