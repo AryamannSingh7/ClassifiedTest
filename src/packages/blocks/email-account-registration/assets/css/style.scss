@@ -243,3 +243,34 @@ input#mobile:focus {
     text-align: center;
   }
 }
+.filter {
+  &__menu {
+    margin: 0.125rem auto;
+  }
+
+  &__option {
+    background-color: white;
+
+    &--is-focused {
+      background-color: lightblue;
+    }
+  }
+
+  &__group {
+    padding: 0;
+  }
+
+  &__menu-portal {
+    border: 1px solid darkblue;
+  }
+}
+.filter__indicator-separator{
+  background-color: transparent !important;
+}
+.filter__indicators{
+  margin-right: 0.3;
+}
+.hello{
+  width: 90%;
+    margin-left: 1.1rem;
+}

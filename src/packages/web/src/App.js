@@ -170,6 +170,7 @@ import FacilityReservation from '../../blocks/RequestManagement/src/FacilityRese
 import FacilityReservationReportedSuccessfully from '../../blocks/RequestManagement/src/FacilityReservationReportedSuccessfully.web';
 import CreateFacilityReservation from '../../blocks/RequestManagement/src/CreateFacilityReservation.web';
 
+
 // Help
 import FaqChairman from '../../blocks/contactus/src/FaqChairman.web';
 import FaqOwner from '../../blocks/contactus/src/FaqOwner.web';
@@ -1603,7 +1604,7 @@ const routeMap = {
 
   TeamUserDetails: {
     component: MyTeamUserDetails,
-    path: '/TeamMembers/userDetails',
+    path: '/TeamMember/userDetails',
     exact: true
   },
 
