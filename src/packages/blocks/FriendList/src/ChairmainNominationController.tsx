@@ -89,7 +89,7 @@ export default class CoverImageController extends BlockComponent<
     this.getNominationListId = await this.apiCall({
       contentType: "application/json",
       method: "GET",
-      endPoint: `/bx_block_my_team/chairman_nominations`,
+      endPoint: `society_managements/${societyID}/bx_block_my_team/chairman_nominations`,
     });
   }
 

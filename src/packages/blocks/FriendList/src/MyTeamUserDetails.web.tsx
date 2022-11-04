@@ -26,10 +26,10 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 // Icons
 import {building,user_icon} from "../../user-profile-basic/src/assets"
 import {calendar} from "../../invitefriends/src/assets"
-import MyTeamController, {
+import MyTeamUserDetailsController, {
   Props,
   configJSON,
-} from "./MyTeamController";
+} from "./MyTeamUserDetailsController";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import "../../../web/src/assets/css/style.scss";
@@ -43,7 +43,7 @@ import {withStyles} from "@material-ui/core/styles";
 import AddTeamModal from "./AddTeamModal.web";
 import {CheckIcon} from "../../user-profile-basic/src/assets"
 
-class MyTeamCore extends MyTeamController {
+class MyTeamCore extends MyTeamUserDetailsController {
   constructor(props: Props) {
     super(props);
   }
@@ -63,6 +63,7 @@ class MyTeamCore extends MyTeamController {
             <Container className="link-decoration">
                 <Box className="navigation">
                     <Box>
+
                         <Typography variant="body1" >
                         My Team / Team Members / <Box component="span" style={{color: "blue"}}>Name of user</Box>
                         </Typography>

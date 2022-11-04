@@ -308,7 +308,7 @@ class Complex extends ComplexController {
                           </Link>
                         </Box>
                         <Divider />
-                        <Box className="document-box">
+                        <Box className="document-box-box">
                           <Grid container spacing={2}>
                             <Grid item xs={12} md={6} lg={4}>
                               <Link href="/DocumentChairman/Policy">
@@ -387,7 +387,7 @@ class Complex extends ComplexController {
                           </Box>
                         </Box>
                         <Divider />
-                        <Box className="document-box">
+                        <Box className="document-box-box">
                           <Grid container spacing={2}>
                             {this.state.complexData.sharedAreaList.map((sharedArea: any) => {
                               return (

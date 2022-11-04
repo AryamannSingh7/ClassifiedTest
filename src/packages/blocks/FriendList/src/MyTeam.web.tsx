@@ -364,7 +364,7 @@ const TeamCard = (props:any) => {
                 </IconButton>
             </Box>
             <Card className="EventsCards" style={{paddingLeft:"0px"}}>
-                <Box style={{width:"100%",display:'flex',justifyContent:"center",alignItems:"center",flexDirection:"column",marginTop:"15px"}} onClick={() => props.history.push("/TeamMember/userDetails?id=")}>
+                <Box style={{width:"100%",display:'flex',justifyContent:"center",alignItems:"center",flexDirection:"column",marginTop:"15px"}} onClick={() => props.history.push(`/TeamMember/userDetails?id=${data.id}`)}>
                     {
                         props.approval && userType === "Manager" &&
                         <Typography variant="subtitle2" className={"statusOngoingRed"} gutterBottom style={{marginBottom: "12px"}}>Pending Approval</Typography>
