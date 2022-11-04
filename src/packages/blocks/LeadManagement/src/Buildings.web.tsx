@@ -283,7 +283,7 @@ class Buildings extends BuildingsController {
                           </Link>
                         </Box>
                         <Divider />
-                        <Box className="document-box">
+                        <Box className="document-box-box">
                           <Grid container spacing={2}>
                             <Grid item xs={12} md={6} lg={4}>
                               <Link href="/DocumentChairman/Policy">
@@ -466,7 +466,7 @@ class Buildings extends BuildingsController {
                           </Box>
                         </Box>
                         <Divider />
-                        <Box className="document-box">
+                        <Box className="document-box-box">
                           <Grid container spacing={2}>
                             {this.state.buildingData.sharedAreaList.map((sharedArea: any) => {
                               return (
