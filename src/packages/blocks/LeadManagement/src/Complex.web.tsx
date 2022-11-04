@@ -308,7 +308,7 @@ class Complex extends ComplexController {
                           </Link>
                         </Box>
                         <Divider />
-                        <Box className="document-box">
+                        <Box className="document-box-box">
                           <Grid container spacing={2}>
                             <Grid item xs={12} md={6} lg={4}>
                               <Link href="/DocumentChairman/Policy">
@@ -387,22 +387,24 @@ class Complex extends ComplexController {
                           </Box>
                         </Box>
                         <Divider />
-                        <Box className="document-box">
+                        <Box className="document-box-box">
                           <Grid container spacing={2}>
                             {this.state.complexData.sharedAreaList.map((sharedArea: any) => {
                               return (
                                 <Grid item xs={12} md={6} lg={4} key={sharedArea.id}>
-                                  <Link href={`/SharedArea/${sharedArea.id}`}>
-                                    <Box className="item" style={dashBoard.cursorPointer}>
-                                      <div
-                                        className="heading"
-                                        onClick={() => this.props.navigation.navigate("SharedArea")}
-                                      >
-                                        <img src={Document} />
-                                        <h4>{sharedArea.name}</h4>
-                                      </div>
-                                    </Box>
-                                  </Link>
+                                  <Box
+                                    className="item"
+                                    style={dashBoard.cursorPointer}
+                                    onClick={() => this.props.navigation.navigate("SharedArea", { id: sharedArea.id })}
+                                  >
+                                    <div
+                                      className="heading"
+                                      onClick={() => this.props.navigation.navigate("SharedArea")}
+                                    >
+                                      <img src={Document} />
+                                      <h4>{sharedArea.name}</h4>
+                                    </div>
+                                  </Box>
                                 </Grid>
                               );
                             })}
