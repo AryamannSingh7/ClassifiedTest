@@ -68,6 +68,16 @@ class ChairmanSidebar extends DashboardController {
               </Typography>
             </AccordionDetails>
             <AccordionDetails
+                onClick={() => {
+                  //@ts-ignore
+                  this.props.history.push("/VisitorList");
+                }}
+            >
+              <Typography variant="body2" className="cursor-pointer">
+                {t("Visitors Dashboard")}
+              </Typography>
+            </AccordionDetails>
+            <AccordionDetails
               onClick={() => {
                 //@ts-ignore
                 this.props.history.push("/DashboardBudget");
@@ -98,7 +108,7 @@ class ChairmanSidebar extends DashboardController {
               <Typography>
                 <img src={myTeam} alt="" />
               </Typography>
-              <Typography className="ListItemText">My Team</Typography>
+              <Typography className="ListItemText">{t("My Team")}</Typography>
             </AccordionSummary>
             <AccordionDetails
               onClick={() => {
@@ -107,7 +117,7 @@ class ChairmanSidebar extends DashboardController {
               }}
             >
               <Typography variant="body2" className="cursor-pointer">
-                Team Members
+                {t("Team Members")}
               </Typography>
             </AccordionDetails>
             <AccordionDetails
@@ -117,7 +127,7 @@ class ChairmanSidebar extends DashboardController {
               }}
             >
               <Typography variant="body2" className="cursor-pointer">
-                Chairman and Vice Chairman Nomination
+                {t("Chairman and Vice Chairman Nomination")}
               </Typography>
             </AccordionDetails>
             <AccordionDetails
@@ -127,7 +137,7 @@ class ChairmanSidebar extends DashboardController {
               }}
             >
               <Typography variant="body2" className="cursor-pointer">
-                Task Management
+                {t("Task Management")}
               </Typography>
             </AccordionDetails>
           </Accordion>
@@ -291,7 +301,7 @@ class ChairmanSidebar extends DashboardController {
             <div
               onClick={() => {
                 //@ts-ignore
-                this.props.history.push("/Chat");
+                this.props.history.push("/chairmanchat");
               }}
             >
               <Typography className="SingleLinkSize">{t("Chat")}</Typography>

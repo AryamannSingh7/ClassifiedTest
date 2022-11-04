@@ -45,17 +45,6 @@ import Loader from "../../../components/src/Loader.web";
 import { Formik, Form } from "formik";
 import moment from "moment";
 
-function createData(no: any, Reserved_By: any, Building: any, Unit_Number: any, Reserved_On: any, Duration: any) {
-  return { no, Reserved_By, Building, Unit_Number, Reserved_On, Duration };
-}
-
-const rows = [
-  createData(1, "John Doe", "Building 1", "A-101", "12 July 2022", "9:00 - 12:00"),
-  createData(2, "Stellina Pareker", "Building 2", "A-102", "12 July 2021", "9:00 - 12:00"),
-  createData(3, "Kevin", "Building 3", "A-103", "12 July 2020", "9:00 - 12:00"),
-  createData(4, "Harper Hawking", "Building 4", "A-104", "12 July 2019", "9:00 - 12:00"),
-];
-
 const settings = {
   infinite: false,
   slidesToShow: 5,

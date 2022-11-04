@@ -77,8 +77,8 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
           validateOnMount={true}
           onSubmit={(values) => { console.log('dfdf'); this.setState({ showDialog: true }) }}
         >
-          {({ values, touched, errors, isValid, setFieldValue, handleChange }) => (
-            <Form translate="yes" className="commonForm">
+          {({ values, touched, errors, isValid, setFieldValue, handleChange }) => ( 
+            <Form translate="yes" className="commonForm" style={{height:'76vh',position:'relative'}}>
               <Grid container style={{ margin: '1rem', width: '90%' }}>
                       <Grid xs={12} className="formGroup1 customSelect">
 
@@ -155,10 +155,10 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                     className="formInputGrp"
                   >
 
-                    <ReactSelect options={this.state.allComplex} className="formInput2 ReactSelect" style={{ border: 'none' }} placeholder="Search Complex" onChange={(e) => { this.handleInputChangeCOm(e); setFieldValue("selectComplex", e.value) }} />
+                    <ReactSelect options={this.state.allComplex} className="hello" classNamePrefix='filter'  style={{ border: 'none' }} placeholder="Search Complex" onChange={(e) => { this.handleInputChangeCOm(e); setFieldValue("selectComplex", e.value) }} />
 
                     <span className="frmLeftIcons" style={{ top: '1.5rem' }}>
-                      <img src={search} />
+                      {/* <img src={search} /> */}
                     </span>
                   </Box>
                 </Box>
@@ -224,7 +224,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
 
                 </Grid>
               </Grid>
-                    <Box className="customButton" style={{ width: '90%', margin: '1rem' }}>
+                    <Box className="customButton" style={{ width: '90%', margin: '1rem',position:'absolute',bottom:'0' }}>
                       <Button variant="contained" type="submit">SEND REGISTRATION REQUEST</Button>
               </Box>
 

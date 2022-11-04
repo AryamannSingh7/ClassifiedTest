@@ -22,6 +22,9 @@
   & .content-section
   {
     text-align: center;
+    & h1 {
+      font-weight: bold;
+    }
   }
   & .row-banner {
     padding: 20px 0 10px 0;

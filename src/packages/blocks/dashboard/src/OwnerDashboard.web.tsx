@@ -44,7 +44,7 @@ const MenuList = [
   },
   {
     name: "My Units",
-    url: "",
+    url: "/MyUnitList",
     img: "",
   },
   {
@@ -105,7 +105,7 @@ class OwnerDashboard extends DashboardController {
               </Box>
               <Divider />
               <div className="user-info">
-                <Avatar alt="Remy Sharp" src={this.state.profileData?.attributes?.profile_pic}>
+                <Avatar alt="Remy Sharp" src={this.state.profileData?.attributes?.profile_pic?.url}>
                   HN
                 </Avatar>
                 <h4>{this.state.profileData?.attributes?.full_name?.name|| 'N/A'}</h4>
@@ -417,7 +417,7 @@ class OwnerDashboard extends DashboardController {
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
-                    <Link href="">
+                    <Link href="/PropertyManagers">
                       <DashboardCard
                         image={keyhand}
                         heading={t("Property Manager")}

@@ -38,7 +38,7 @@
   border-color: transparent !important;
 }
 .active-box{
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  box-shadow: rgba(149, 157, 165, 0.6) 0px 10px 20px;
 }
 .select-type {
   padding: 1rem;
@@ -242,4 +242,35 @@ input#mobile:focus {
   & p {
     text-align: center;
   }
+}
+.filter {
+  &__menu {
+    margin: 0.125rem auto;
+  }
+
+  &__option {
+    background-color: white;
+
+    &--is-focused {
+      background-color: lightblue;
+    }
+  }
+
+  &__group {
+    padding: 0;
+  }
+
+  &__menu-portal {
+    border: 1px solid darkblue;
+  }
+}
+.filter__indicator-separator{
+  background-color: transparent !important;
+}
+.filter__indicators{
+  margin-right: 0.3;
+}
+.hello{
+  width: 90%;
+    margin-left: 1.1rem;
 }

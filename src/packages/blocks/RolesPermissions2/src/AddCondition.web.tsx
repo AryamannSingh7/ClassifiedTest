@@ -2,8 +2,7 @@
 import React from "react";
 import { Button, Container, IconButton, withStyles, Box, Grid } from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
-import AddConditionController, { Props } from "./AddConditionController.web";
-import { Link } from "react-router-dom";
+import LeaseFormController, { Props } from "./LeaseFormController.web";
 import { ContractsStyleWeb } from "./ContractsStyle.web";
 import { BuildingLogo } from "./assets";
 import RichTextEditor from "react-rte";
@@ -19,16 +18,26 @@ const toolbarConfig: any = {
   ],
 };
 
-class AddCondition extends AddConditionController {
+class AddCondition extends LeaseFormController {
   constructor(props: Props) {
     super(props);
+  }
+
+  async componentDidMount(): Promise<void> {
+    const condition = JSON.parse(window.sessionStorage.getItem("condition") as any);
+    const template_id: any = this.props.navigation.getParam("templateId");
+    this.setState(
+      {
+        templateId: template_id,
+        editor: RichTextEditor.createValueFromString(condition.editorCondition || "", "html"),
+      },
+      () => {}
+    );
   }
 
   render() {
     const { classes } = this.props;
     const { t }: any = this.props;
-
-    console.log();
 
     return (
       <>
@@ -38,7 +47,15 @@ class AddCondition extends AddConditionController {
               <Box className="faq-step">
                 <Box display={{ xs: "flex", md: "flex" }} className="top-bar">
                   <div className="left-icon">
-                    <IconButton onClick={() => this.goBackPage()}>
+                    <IconButton
+                      onClick={() => {
+                        this.setState({ editor: RichTextEditor.createEmptyValue() }, () => {
+                          this.props.navigation.navigate("ChangedSelectedTemplate", {
+                            templateId: this.state.templateId,
+                          });
+                        });
+                      }}
+                    >
                       <KeyboardBackspaceIcon />
                     </IconButton>
                     <span>{t("Add More Condition")}</span>
@@ -47,14 +64,45 @@ class AddCondition extends AddConditionController {
                 <Container className="page-container">
                   <div className="template-box add-condition">
                     <div className="template-view">
-                      <RichTextEditor value={this.state.value} onChange={this.onChange} toolbarConfig={toolbarConfig} />
+                      <RichTextEditor
+                        value={this.state.editor}
+                        onChange={(value: any) => {
+                          value.toString("html");
+                          this.setState({ editor: value });
+                        }}
+                        toolbarConfig={toolbarConfig}
+                      />
                     </div>
                     <div className="upload-button">
                       <Box className="button-group">
-                        <Button className="condition-button">{t("Back Condition Listing")}</Button>
-                        <Link to="/IssueContract/1/LeaseForm/Template/Review">
-                          <Button>{t("Add This Conditions to Lease")}</Button>
-                        </Link>
+                        <Button
+                          onClick={() => {
+                            this.setState({ editor: RichTextEditor.createEmptyValue() }, () => {
+                              this.props.navigation.navigate("ChangedSelectedTemplate", {
+                                templateId: this.state.templateId,
+                              });
+                            });
+                          }}
+                          className="condition-button"
+                        >
+                          {t("Back Condition Listing")}
+                        </Button>
+                        <Button
+                          onClick={() => {
+                            const data = {
+                              isEditorCondition: true,
+                              paymentTerm: [],
+                              personalCondition: [],
+                              editorCondition: this.state.editor._cache.html,
+                            };
+                            window.sessionStorage.setItem("condition", JSON.stringify(data));
+                            this.props.navigation.navigate("ChangedSelectedTemplate", {
+                              templateId: this.state.templateId,
+                            });
+                          }}
+                        >
+                          {t("Add This Conditions to Lease")}
+                        </Button>
                       </Box>
                     </div>
                   </div>

@@ -1,6 +1,3 @@
-//@ts-ignore
-//@ts-nocheck
-
 import * as React from "react";
 // custom components
 import {
@@ -12,10 +9,10 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import HomeIcon from '@material-ui/icons/Home';
-import { Building1, Car, CarBlue, deleteI, deleteIcon, edit, List, ListCopy, NoVehicles, owner, palette, paletteBlue, Rc, resident_owner, tenet, user, userBlue } from "./assets";
+import { Building1, Car, CarBlue, deleteI, deleteIcon, edit, List, ListCopy, NoVehicles, palette, paletteBlue, Rc, user, userBlue } from "./assets";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
-import VeichleListController from "./VeichleListController.web";
+import VeichleListController,{Props} from "./VeichleListController.web";
 import '../assets/css/style.scss';
 import { InsertEmoticon } from "@material-ui/icons";
 
@@ -39,7 +36,8 @@ class ViewVeichle extends VeichleListController {
   }
 
   render() {
-    let item = JSON.parse(localStorage.getItem('selectCar'))
+        // @ts-ignore
+    let item = JSON.parse(localStorage.getItem('selectCar')||{})
     return (
 
       <>
@@ -66,15 +64,15 @@ class ViewVeichle extends VeichleListController {
 
                <Grid container>
                 <Grid xs={12}>
-                  <div className="card" style={{padding:'2rem'}}>
+                  <div className="card" style={{padding:'2rem',boxShadow:'none'}}>
                     <div className="status">
                       {item.attributes.status}
                     </div>
                     <div className="card-content">
 
                       <img src="https://img.freepik.com/premium-photo/generic-brandless-modern-sport-car-with-fire-smoke_110488-1759.jpg" style={{marginRight:5}} />
-                      <div className="content">
-                        <p className="title">
+                      <div className="content" style={{padding:'0px 0px 0px 5px',display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'column'}}>
+                        <p className="title" style={{padding:0,marginBottom:10}}>
                           {item.attributes.company_name}
                         </p>
                         <p className="sub-title">
@@ -87,7 +85,7 @@ class ViewVeichle extends VeichleListController {
                       <div>
 
                         <div style={{ display: 'flex', fontWeight: 500 }}>
-                          <img src={userBlue} width='25' height='25' style={{ marginRight: 10 }} />
+                          <img src={userBlue.default} width='25' height='25' style={{ marginRight: 10 }} />
                           <p>   Owner Name :</p>
                         </div>
                         <div style={{ marginLeft: 35, marginBottom: 20, fontWeight: 'bold' }}>

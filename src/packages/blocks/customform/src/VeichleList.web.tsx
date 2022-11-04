@@ -62,8 +62,8 @@ class VeichleList extends VeichleListController {
                               <div className="card-content">
 
                                 <img src='https://img.freepik.com/premium-photo/generic-brandless-modern-sport-car-with-fire-smoke_110488-1759.jpg' style={{ marginRight: 5 }} />
-                                <div className="content">
-                                  <p className="title">
+                                <div className="content" style={{padding:'0px 0px 0px 5px',display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'column'}}>
+                                  <p className="title" style={{padding:0,marginBottom:10}}>
                                     {item.attributes.company_name}
                                   </p>
                                   <p className="sub-title">
@@ -275,7 +275,7 @@ return <>
   <Grid container>
     <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
 
-      <p style={{ fontWeight: 600, fontSize: '1.25rem' }}>
+      <p style={{ fontWeight: 600, fontSize: '1.5rem' }}>
         No Vehicle
 
         Registered

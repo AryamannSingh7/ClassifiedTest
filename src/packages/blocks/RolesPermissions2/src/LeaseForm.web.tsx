@@ -9,18 +9,15 @@ import {
   Grid,
   MenuItem,
   Select,
-  ListItemIcon,
   OutlinedInput,
   InputAdornment,
   Input,
   FormControl,
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import { ContractsStyleWeb } from "./ContractsStyle.web";
 import {
   BuildingLogo,
-  EarthIcon,
   CubeIcon,
   TenantName,
   BuildingName,
@@ -30,7 +27,6 @@ import {
   CurrencyIcon,
 } from "./assets";
 import LeaseFormController, { Props } from "./LeaseFormController.web";
-import moment from "moment";
 import { Formik, Form } from "formik";
 import { withTranslation } from "react-i18next";
 import "../../../web/src/i18n.js";
@@ -41,18 +37,39 @@ class LeaseForm extends LeaseFormController {
   }
 
   async componentDidMount(): Promise<void> {
+    const contract = JSON.parse(window.sessionStorage.getItem("contractForm") as any);
     const template_id: any = this.props.navigation.getParam("templateId");
-    this.setState({ ...this.state, templateId: template_id }, () => {
-      this.getCurrencyList();
-      this.getBuilding();
-    });
+    this.setState(
+      {
+        templateId: template_id,
+        leaseForm: {
+          tenantName: contract.tenantName,
+          landlordName: contract.landlordName,
+          buildingName: contract.buildingName,
+          unitName: contract.unitName,
+          buildingId: contract.buildingId,
+          unitId: contract.unitId,
+          duration: contract.duration,
+          startDate: contract.startDate,
+          endDate: contract.endDate,
+          monthlyRent: contract.monthlyRent,
+          currency: contract.currency,
+        },
+      },
+      () => {
+        this.getCurrencyList();
+        this.getBuilding();
+        if (this.state.leaseForm.buildingId) {
+          this.getUnits(this.state.leaseForm.buildingId);
+          this.handleCheckContractExist(this.state.leaseForm.unitId);
+        }
+      }
+    );
   }
 
   render() {
     const { classes } = this.props;
     const { t }: any = this.props;
-
-    console.log("state", this.state);
 
     return (
       <>
@@ -62,7 +79,7 @@ class LeaseForm extends LeaseFormController {
               <Box>
                 <Box display={{ xs: "flex", md: "flex" }} className="top-bar">
                   <div className="left-icon">
-                    <IconButton onClick={() => this.goBackPage()}>
+                    <IconButton onClick={() => this.gotoSelectTemplatePage()}>
                       <KeyboardBackspaceIcon />
                     </IconButton>
                     <span>{t("Issue a Lease")}</span>
@@ -72,6 +89,7 @@ class LeaseForm extends LeaseFormController {
                   <Box className="issue-lease-content form">
                     <h4 style={{ marginTop: "18px" }}>{t("Residential Rental Lease Agreement")}</h4>
                     <Formik
+                      enableReinitialize={true}
                       initialValues={this.state.leaseForm}
                       validationSchema={this.ContractFormValidation}
                       onSubmit={(values: any, { resetForm }) => {

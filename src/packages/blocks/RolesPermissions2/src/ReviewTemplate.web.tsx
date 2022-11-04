@@ -4,7 +4,6 @@ import {
   Button,
   Container,
   IconButton,
-  Link,
   withStyles,
   Box,
   Grid,
@@ -12,10 +11,15 @@ import {
   DialogContent,
   Typography,
   DialogActions,
+  Input,
 } from "@material-ui/core";
-import MuiDialogTitle from "@material-ui/core/DialogTitle";
-import CloseIcon from "@material-ui/icons/Close";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
+import LeaseFormController, { Props } from "./LeaseFormController.web";
+import { ContractsStyleWeb } from "./ContractsStyle.web";
+import { BuildingLogo, DownloadIcon, ShareIcon, LeaseGeneratorIcon, SaveTemplateIcon } from "./assets";
+import { withTranslation } from "react-i18next";
+import "../../../web/src/i18n.js";
+import toast from "react-hot-toast";
 import {
   EmailShareButton,
   FacebookShareButton,
@@ -34,15 +38,18 @@ import {
   TwitterIcon,
   WhatsappIcon,
 } from "react-share";
-import ReviewTemplateController, { Props } from "./ReviewTemplateController.web";
-import { ContractsStyleWeb } from "./ContractsStyle.web";
-import { BuildingLogo, DownloadIcon, ShareIcon, ExclamationIcon } from "./assets";
-import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
+import MuiDialogTitle from "@material-ui/core/DialogTitle";
+import CloseIcon from "@material-ui/icons/Close";
 
-class ReviewTemplate extends ReviewTemplateController {
+class ReviewTemplate extends LeaseFormController {
   constructor(props: Props) {
     super(props);
+  }
+
+  async componentDidMount(): Promise<void> {
+    const template_name: any = window.sessionStorage.getItem("templateName");
+    const template_id: any = this.props.navigation.getParam("templateId");
+    this.setState({ ...this.state, templateId: template_id, templateName: template_name });
   }
 
   render() {
@@ -53,8 +60,6 @@ class ReviewTemplate extends ReviewTemplateController {
     const sharePopupHeight = 700;
     const shareTitle = "TI 1 Final Leap";
 
-    console.log(this.state);
-
     return (
       <>
         <Box style={{ background: "#F4F7FF", height: "100vh" }} className={classes.detailPage}>
@@ -63,51 +68,44 @@ class ReviewTemplate extends ReviewTemplateController {
               <Box className="faq-step">
                 <Box display={{ xs: "flex", md: "flex" }} className="top-bar">
                   <div className="left-icon">
-                    <Link href="/OwnerDashboard">
-                      <IconButton>
-                        <KeyboardBackspaceIcon />
-                      </IconButton>
-                    </Link>
+                    <IconButton onClick={() => this.goBackFromReviewPage()}>
+                      <KeyboardBackspaceIcon />
+                    </IconButton>
                     <span>{t("Review Lease Document")}</span>
                   </div>
-                  <div className="right-icon">
+
+                  <div className="right-icon" onClick={() => toast.error("You need to generate a lease first")}>
                     <img src={DownloadIcon} alt="SortIcon" />
                   </div>
                 </Box>
                 <Container>
                   <Box className="content-box">
                     <div className="contracts-list">
-                      <iframe
-                        src="http://www.africau.edu/images/default/sample.pdf"
-                        // style={{ width: "100%" }}
+                      <div
+                        dangerouslySetInnerHTML={{ __html: window.sessionStorage.getItem("changedTemplate") as any }}
                       />
                     </div>
                     <Box className="upload-button">
                       <Box className="upload-button-group review">
                         <Box className="top">
-                          <Button>{t("Edit Document")}</Button>
                           <Button
-                            onClick={() => {
-                              this.handleSaveLeaseModal();
-                            }}
+                            onClick={() =>
+                              this.props.navigation.navigate("LeaseFormIssueLease", {
+                                templateId: this.state.templateId,
+                              })
+                            }
                           >
-                            {t("Save Template")}
+                            {t("Edit Document")}
                           </Button>
+                          {window.sessionStorage.getItem("isEditFlow") === "true" ? (
+                            <Button onClick={() => this.handleSaveLeaseModal()}>{t("Edit Template")}</Button>
+                          ) : (
+                            <Button onClick={() => this.handleSaveLeaseModal()}>{t("Save Template")}</Button>
+                          )}
                         </Box>
                         <Box className="bottom">
-                          <Button
-                            onClick={() => {
-                              this.handleGenerateLeaseModal();
-                            }}
-                          >
-                            {t("Generate Lease")}
-                          </Button>
-                          <Box
-                            className="image"
-                            onClick={() => {
-                              this.handleShareModal();
-                            }}
-                          >
+                          <Button onClick={() => this.handleGenerateLeaseModal()}>{t("Generate Lease")}</Button>
+                          <Box className="image" onClick={() => toast.error("You need to generate a lease first")}>
                             <img src={ShareIcon} alt="" />
                           </Box>
                         </Box>
@@ -133,22 +131,38 @@ class ReviewTemplate extends ReviewTemplateController {
         >
           <DialogContent>
             <Box textAlign="center">
-              <img src={ExclamationIcon} alt="ExclamationIcon" />
+              <img src={SaveTemplateIcon} alt="ExclamationIcon" />
               <Typography variant="h6">{t("Save Lease Template")}</Typography>
               <Typography variant="body1">
                 {t(
                   "Your lease document will be saved as template. You can access this document from contracts section of the app."
                 )}
               </Typography>
+              <Input
+                value={this.state.templateName}
+                onChange={(e) => this.setState({ templateName: e.target.value })}
+                className="input-box"
+                fullWidth
+                placeholder={t("Template Name")}
+              />
               <DialogActions className="dialog-button-group">
-                <Button
-                  className="add-button"
-                  onClick={() => {
-                    this.handleSaveLeaseModal();
-                  }}
-                >
-                  {t("Save")}
-                </Button>
+                {window.sessionStorage.getItem("isEditFlow") === "true" ? (
+                  <Button
+                    disabled={!this.state.templateName}
+                    className="add-button"
+                    onClick={() => this.handleEditLeaseModal()}
+                  >
+                    {t("Edit")}
+                  </Button>
+                ) : (
+                  <Button
+                    disabled={!this.state.templateName}
+                    className="add-button"
+                    onClick={() => this.handleCreateTemplate()}
+                  >
+                    {t("Save")}
+                  </Button>
+                )}
               </DialogActions>
             </Box>
           </DialogContent>
@@ -162,7 +176,7 @@ class ReviewTemplate extends ReviewTemplateController {
         >
           <DialogContent>
             <Box textAlign="center">
-              <img src={ExclamationIcon} alt="ExclamationIcon" />
+              <img src={LeaseGeneratorIcon} alt="ExclamationIcon" />
               <Typography variant="h6">{t("Lease Document Generated")}</Typography>
               <Typography variant="body1">
                 {t(
@@ -170,12 +184,7 @@ class ReviewTemplate extends ReviewTemplateController {
                 )}
               </Typography>
               <DialogActions className="dialog-button-group">
-                <Button
-                  className="add-button"
-                  onClick={() => {
-                    this.handleGenerateLeaseModal();
-                  }}
-                >
+                <Button className="add-button" onClick={() => this.handleCreateContract()}>
                   {t("Okay")}
                 </Button>
               </DialogActions>

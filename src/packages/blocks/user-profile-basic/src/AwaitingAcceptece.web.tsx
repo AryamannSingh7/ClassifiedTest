@@ -37,13 +37,14 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 
 //resources
 import { withRouter } from 'react-router';
-import AwaitingAccepteController, { Props } from "./AwaitingAccepteController";
+// import AwaitingAccepteController, { Props } from "./AwaitingAccepteController";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import { withTranslation } from 'react-i18next';
 import '../../../web/src/i18n.js';
 
 import { x_mark, true_mark, delete_icon, info, cancle, user_icon, email_icon, phone_icon, building, unit } from "./assets";
+import CommunityUserProfileController,{Props} from "./communityManagementController.web";
 
 const ProfileData = [ 
   {
@@ -95,10 +96,17 @@ const ProfileData = [
     more: <MoreVertIcon color='disabled' />
 }
 ]
-class AwaitingAcceptece extends AwaitingAccepteController {
+class AwaitingAcceptece extends CommunityUserProfileController {
   constructor(props: Props) {
     super(props);
   }
+  async componentDidMount() {
+    this.getInvitation()
+   this.getBuilding()
+   
+   this.getUserType()
+   
+         }
 
   render() {
     const {t}: any = this.props
@@ -163,31 +171,43 @@ class AwaitingAcceptece extends AwaitingAccepteController {
                   <Box style={{marginTop:"35px"}}>
                     <div style={dashBoard.gaMemberCard}>
                       <>
-                      {ProfileData.map((item, index) => {
-                        return(
+                      {this.state.allInvitation.map((item:any, index:any) => {
+                        return( item.attributes.status=='Pending' &&
                           <div key={index}>
                           <Card style={dashBoard.cardStyle}>
                             <CardActionArea>
                               <CardMedia
                                 component="img"
                                 height="140"
-                                image={item.image}
+                                image={item?.attributes?.account?.attributes?.profile_pic?.url || 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2080&q=80'}
                                 alt="green iguana"
                                 style={dashBoard.profileImage}
                               />
                               <CardContent style={{padding:"0px 16px 16px 16px"}}>
-                              <span style={{position:"absolute", right:"10px", top:"10px"}} onClick={(e: any) => this.handleMoreClick(e)}>{item.more}</span>
+                              <span style={{position:"absolute", right:"10px", top:"10px"}} onClick={(e: any) => this.handleMoreClick(e)}><MoreVertIcon color='disabled' /></span>
                               <Typography variant="h6"
                               //@ts-ignore 
-                              style={dashBoard.unitno}>{item.unitno}</Typography>
-                              <Typography variant="h6" style={{textAlign:"center", marginTop:"5px"}}>{item.name}</Typography>
+                              style={dashBoard.unitno}>{item.attributes.apartment_management.apartment_name}</Typography>
+                              <Typography variant="h6" style={{textAlign:"center", marginTop:"5px"}}>{item.attributes.full_name}</Typography>
                               <Typography variant="subtitle1" style={{textAlign:"center", marginTop:"5px"}}>{item.date}</Typography>
                               <div style={{textAlign:"center",marginTop:"10px 0px 15px 0px"}}>
-                                <Typography variant="h6" style={dashBoard.userType}>{item.userType}</Typography>
+                                {/* <Typography variant="h6" style={dashBoard.userType}>{item.userType}</Typography> */}
                               </div>
                               </CardContent>
                             </CardActionArea>
                           </Card>
+                          <Menu
+                      id="simple-menu"
+                      anchorEl={this.state.anchorEl1}
+                      keepMounted
+                      open={Boolean(this.state.anchorEl1)}
+                      onClose={this.handleMoreClose}
+                      style={{padding:"0px", cursor:'pointer'}}
+                      >
+                      <MenuItem onClick={()=>this.handleDeleteRequestOpen(item)} style={{margin:"7px", cursor:'pointer'}}>{t("Resend Request")}</MenuItem>
+                      <hr style={{margin:"0px"}}/>
+                      <MenuItem onClick={()=>this.handleResendRequest(item)} style={{margin:"7px", cursor:'pointer'}}>{t("Delete Invitation Request")}</MenuItem>
+                  </Menu>
                           </div>
                         )
 
@@ -199,18 +219,7 @@ class AwaitingAcceptece extends AwaitingAccepteController {
                   </Box>
 
                   {/* More Menu */}
-                  <Menu
-                      id="simple-menu"
-                      anchorEl={this.state.anchorEl1}
-                      keepMounted
-                      open={Boolean(this.state.anchorEl1)}
-                      onClose={this.handleMoreClose}
-                      style={{padding:"0px", cursor:'pointer'}}
-                      >
-                      <MenuItem onClick={this.handleResendRequest} style={{margin:"7px", cursor:'pointer'}}>{t("Resend Request")}</MenuItem>
-                      <hr style={{margin:"0px"}}/>
-                      <MenuItem onClick={this.handleDeleteRequestOpen} style={{margin:"7px", cursor:'pointer'}}>{t("Delete Invitation Request")}</MenuItem>
-                  </Menu>
+               
 
                   {/* Delete Invitation Confirmation Modal */}
                   <Modal
@@ -232,7 +241,7 @@ class AwaitingAcceptece extends AwaitingAccepteController {
                             //@ts-ignore 
                             style={dashBoard.unitno}>Delete Invitation Confirmation</Typography>
                             <Typography variant="subtitle1" style={{marginTop:"20px"}}>Are you sure want to delete invitation request 
-                                sent to <b>Marleah Eagleston</b> for Unit <b>B-1405</b> </Typography>
+                                sent to <b>{this.state?.selectInvitation?.attributes?.full_name}</b> for Unit <b>{this.state.selectInvitation?.attributes?.apartment_management?.apartment_name}</b> </Typography>
                             <Grid container spacing={3} style={{marginTop:"20px"}}>
                             <Grid item xs={12} sm={6} style={{marginBottom:"20px"}}>
                                 <Button variant="outlined" style={{width:"100%", color:"#2B6FED", border:"1px solid #2B6FED", fontWeight:600, height:"50px"}} onClick={this.handleRequestClose}>
@@ -240,7 +249,7 @@ class AwaitingAcceptece extends AwaitingAccepteController {
                                 </Button>
                             </Grid>
                             <Grid item xs={12} sm={6}>
-                                <Button variant="contained" color="primary" style={{width:"100%", backgroundColor:"#2B6FED", fontWeight:600, height:"50px"}}>
+                                <Button variant="contained" color="primary" onClick={this.deleteRequest} style={{width:"100%", backgroundColor:"#2B6FED", fontWeight:600, height:"50px"}}>
                                     YES, DELETE
                                 </Button>
                             </Grid>
@@ -250,7 +259,7 @@ class AwaitingAcceptece extends AwaitingAccepteController {
                   </Modal>
 
                   {/* Resend Request Modal */}
-                  <Modal
+                 { this.state.setDeleteRequest && <Modal
                      style={dashBoard.modal}
                      open={Boolean(this.state.setDeleteRequest)}
                      onClose={this.handleDeleteRequestClose}
@@ -270,12 +279,12 @@ class AwaitingAcceptece extends AwaitingAccepteController {
                         style={dashBoard.modalCacle}/>
                         <Formik
                     initialValues={{
-                      email: "",
+                      email: this.state.selectInvitation?.attributes?.email,
                       usertype: "",
-                      fullname: "",
-                      phoneno: "",
-                      building: " ",
-                      unit:""
+                      fullname: this.state.selectInvitation?.attributes?.full_name,
+                      phoneno: this.state?.selectInvitation.attributes?.phone_number,
+                      building: this.state.selectInvitation?.attributes?.building_management?.id,
+                      unit:this.state.selectInvitation?.apartment_management?.id
                     }}
                     validationSchema={this.InvitationSchema()}
                     validateOnMount={true}
@@ -310,11 +319,9 @@ class AwaitingAcceptece extends AwaitingAccepteController {
                                       <MenuItem  disabled value=" ">
                                         Select User Type
                                       </MenuItem>
-                                      <MenuItem value={"user1"}>User1</MenuItem>
-                                      <MenuItem value={"user2"}>User2</MenuItem>
-                                      <MenuItem value={"user3"}>User3</MenuItem>
-                                      <MenuItem value={"user4"}>User4</MenuItem>
-
+                                      {/* {
+                                      this.state.allBuilding.map((item:any)=> <MenuItem value={item.id}>{item.name}</MenuItem>)
+                                    } */}
                                       {/* {
                                         this.state?.userTypeData?.map((val, index) => (
                                           <MenuItem
@@ -389,10 +396,9 @@ class AwaitingAcceptece extends AwaitingAccepteController {
                                     <MenuItem  disabled value=" ">
                                       Select Building
                                     </MenuItem>
-                                    <MenuItem value={"building1"}>User1</MenuItem>
-                                    <MenuItem value={"building2"}>User2</MenuItem>
-                                    <MenuItem value={"building3"}>User3</MenuItem>
-                                    <MenuItem value={"building4"}>User4</MenuItem>
+                                    {
+                                      this.state.allBuilding.map((item:any)=> <MenuItem value={item.id}>{item.name}</MenuItem>)
+                                    }
 
                                     {/* {
                                       this.state?.userTypeData?.map((val, index) => (
@@ -431,10 +437,9 @@ class AwaitingAcceptece extends AwaitingAccepteController {
                                       <MenuItem  disabled value=" ">
                                         Select Unit
                                       </MenuItem>
-                                      <MenuItem value={"unit1"}>User1</MenuItem>
-                                      <MenuItem value={"unit2"}>User2</MenuItem>
-                                      <MenuItem value={"unit3"}>User3</MenuItem>
-                                      <MenuItem value={"unit4"}>User4</MenuItem>
+                                      {
+                                        this.state.allUnit.map((item:any)=> <MenuItem value={item.id}>{item.apartment_name}</MenuItem>)
+                                      }
 
                                       {/* {
                                         this.state?.userTypeData?.map((val, index) => (
@@ -457,7 +462,7 @@ class AwaitingAcceptece extends AwaitingAccepteController {
                         </Formik>
                       </div>
                     </Fade>
-                  </Modal>
+                  </Modal>}
               </Container>
             </Grid>
           </Box>

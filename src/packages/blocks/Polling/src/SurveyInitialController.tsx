@@ -97,9 +97,8 @@ export default class SurveyInitialController extends BlockComponent<
         console.log(responseJson,errorReponse)
       }
       if(this.surveyPreviewAnswerData === apiRequestCallId){
-        console.log("RESPONSE OF SURVEY PREVIEW",responseJson?.poll?.data?.attributes)
         this.setState({
-          SurveyPreviewAnswer:responseJson?.poll?.data?.attributes || {}
+          SurveyPreviewAnswer:responseJson?.survey?.data?.attributes || {}
         })
       }
     }

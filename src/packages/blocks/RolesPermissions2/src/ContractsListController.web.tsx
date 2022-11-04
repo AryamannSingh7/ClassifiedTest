@@ -27,6 +27,11 @@ interface S {
 
   templatesList: any[];
   contractsList: any[];
+
+  filter: {
+    sort: string;
+    status: string;
+  };
   // Customizable Area End
 }
 
@@ -53,6 +58,11 @@ export default class ContractsListController extends BlockComponent<Props, S, SS
 
       templatesList: [],
       contractsList: [],
+
+      filter: {
+        status: "",
+        sort: "desc",
+      },
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -111,6 +121,7 @@ export default class ContractsListController extends BlockComponent<Props, S, SS
   // Customizable Area Start
   // Get All Contract List - API
   getContractsList = () => {
+    const { status, sort } = this.state.filter;
     const header = {
       "Content-Type": configJSON.ApiContentType,
       token: localStorage.getItem("userToken"),
@@ -123,7 +134,7 @@ export default class ContractsListController extends BlockComponent<Props, S, SS
     const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_contract/contracts`
+      `society_managements/${society_id}/bx_block_contract/contracts?status=${status}&sort=${sort}`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
@@ -165,6 +176,55 @@ export default class ContractsListController extends BlockComponent<Props, S, SS
       ...this.state,
       isShareModalOpen: !this.state.isShareModalOpen,
     });
+  };
+
+  handleEditTemplate = (template: any) => {
+    const templateDetails = template;
+
+    const formData = {
+      tenantName: templateDetails.attributes.tenant_name,
+      landlordName: templateDetails.attributes.landlord_name,
+      buildingName: templateDetails.attributes.building_management.name,
+      unitName: templateDetails.attributes.apartment_management.apartment_name,
+      buildingId: templateDetails.attributes.building_management_id,
+      unitId: templateDetails.attributes.apartment_management_id,
+      duration: templateDetails.attributes.agreement_duration,
+      startDate: templateDetails.attributes.start_date,
+      endDate: templateDetails.attributes.expires_on,
+      monthlyRent: templateDetails.attributes.rent_amount,
+      currency: templateDetails.attributes.currency,
+    };
+
+    let termId: any[] = [];
+    let conditionId: any[] = [];
+    if (templateDetails.attributes.term_ids) {
+      termId = templateDetails.attributes.term_ids[0].split(",");
+    }
+    if (templateDetails.attributes.condition_ids) {
+      conditionId = templateDetails.attributes.condition_ids[0].split(",");
+    }
+
+    const condition = {
+      isEditorCondition: templateDetails.attributes.custom_term_condition !== null,
+      paymentTerm: termId,
+      personalCondition: conditionId,
+      editorCondition: templateDetails.attributes.custom_term_condition,
+    };
+
+    window.sessionStorage.setItem("contractForm", JSON.stringify(formData));
+
+    window.sessionStorage.setItem("isLatePaymentPenalty", templateDetails.attributes.penanlty_late_payment);
+
+    window.sessionStorage.setItem("isEditFlow", "true");
+
+    window.sessionStorage.setItem("changedTemplate", templateDetails.attributes.custom_lease_template);
+    window.sessionStorage.setItem("tenant", templateDetails.attributes.tenant_id);
+    window.sessionStorage.setItem("templateId", templateDetails.id);
+    window.sessionStorage.setItem("templateName", templateDetails.attributes.template_name);
+
+    window.sessionStorage.setItem("condition", JSON.stringify(condition));
+
+    this.props.navigation.navigate("LeaseFormIssueLease", { templateId: templateDetails.attributes.lease_template_id });
   };
   // Customizable Area End
 }

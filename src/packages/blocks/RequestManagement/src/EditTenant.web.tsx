@@ -372,9 +372,7 @@ class EditTenant extends RegisterTenantController {
                               </FormControl>
 
                               <div className="next-button submit-button">
-                                {/* <Link to=""> */}
                                 <Button type="submit">{t("Edit")}</Button>
-                                {/* </Link> */}
                               </div>
                             </Box>
                           </Form>

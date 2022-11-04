@@ -362,6 +362,21 @@
   padding-top: 30px !important;
 }
 
+.save-lease .input-box {
+  padding: 10px 25px;
+  border: 1px solid lightgray;
+  font-size: 16px;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  outline: none;
+  color: #494949;
+  border-radius: 30px;
+  background-color: #f9f9f9;
+}
+
 .save-lease .MuiDialogActions-root,
 .penalty-dialog .MuiDialogActions-root {
   justify-content: center;
@@ -395,7 +410,7 @@
   border-radius: 25px;
   padding: 12px 15px;
   background-color: #efefef;
-  margin-bottom: 15px;
+  /* margin-bottom: 15px; */
 }
 
 .penalty-dialog .select-input::before,
@@ -409,6 +424,47 @@
 
 .penalty-dialog .select-input .MuiInputAdornment-positionStart {
   margin-right: 20px;
+}
+
+.penalty-dialog h4 {
+  font-weight: 600;
+  margin-top: 20px;
+}
+
+.rent-history-dialog .select-input.input {
+  margin-top: 20px;
+  background-color: #f3f3f3;
+}
+
+.rent-history-dialog .select-box .select-input {
+  margin-top: 20px;
+  background-color: #f3f3f3;
+  width: 100%;
+  padding: 0;
+}
+
+.rent-history-dialog .custom-input-box,
+.rent-history-dialog .select-box {
+  position: relative;
+}
+
+.rent-history-dialog .select-box .MuiSelect-select.MuiSelect-select {
+  padding-left: 58px;
+}
+
+.rent-history-dialog .custom-input-box .select-input.input {
+  width: 100%;
+  outline: none;
+  padding: 17px 10px 17px 55px;
+  font-size: 16px;
+  border: none;
+}
+
+.rent-history-dialog .custom-input-box img,
+.rent-history-dialog .select-box img {
+  position: absolute;
+  top: 38px;
+  left: 16px;
 }
 
 .add-meeting .date-time .MuiInput-underline:before,
@@ -595,6 +651,8 @@
   padding: 0;
 }
 
+.save-lease .input-box.MuiInput-underline:before,
+.save-lease .input-box.MuiInput-underline:after,
 .select-meeting.scheduled-meeting .button-group .MuiInput-underline:before,
 .select-meeting.scheduled-meeting .button-group .MuiInput-underline:after,
 .select-meeting.scheduled-meeting .filter .MuiInput-underline:before,
@@ -1036,18 +1094,19 @@
   background-color: #efefef !important;
 }
 
-.edit-family-modal input::placeholder {
+.edit-family-modal input::placeholder,
+.rent-history-dialog input::placeholder {
   color: black;
-  opacity: 1; /* Firefox */
+  opacity: 1;
 }
 
-.edit-family-modal input:-ms-input-placeholder {
-  /* Internet Explorer 10-11 */
+.edit-family-modal input:-ms-input-placeholder,
+.rent-history-dialog input:-ms-input-placeholder {
   color: black;
 }
 
-.edit-family-modal input::-ms-input-placeholder {
-  /* Microsoft Edge */
+.edit-family-modal input::-ms-input-placeholder,
+.rent-history-dialog input::-ms-input-placeholder {
   color: black;
 }
 

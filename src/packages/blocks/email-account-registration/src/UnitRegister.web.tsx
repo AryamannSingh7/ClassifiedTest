@@ -33,24 +33,24 @@ class RegisterUnit extends EmailAccountRegistrationController {
       <>
         <Grid container spacing={2} className="auth-container">
           <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset' }}>
-            <div style={{ margin: 'auto' }}>
+            <div >
 
         <Grid container className="main-content-block">
-          <Grid xs={12}>
+          <Grid xs={12} style={{marginBottom:'1rem'}}>
             <ArrowBackIcon onClick={() => window.history.back()} />
           </Grid>
         </Grid>
 
         <Grid container className="main-content-block">
           <Grid xs={12}>
-            <p className="text-left" style={{ fontSize: '2.5rem', fontWeight: 700 }}>
+            <p className="text-left" style={{ fontSize: '2rem', fontWeight: 700 }}>
               Register a Unit
 
             </p>
           </Grid>
         </Grid>
 
-        <Grid container className="main-content-block">
+        <Grid container className="main-content-block" style={{marginBottom:'2rem'}}>
           <Grid xs={12}>
             <p className="text-left">
               Please select the appropriate registration type for the unit. If you have more than one unit, you will be able to register them on a later stage
@@ -66,7 +66,8 @@ class RegisterUnit extends EmailAccountRegistrationController {
             <Box
               display="flex"
               justifyContent='space-between'
-              className='select-type'
+              
+              className={'select-type ' + (this.state.unitRegisterType == 'Linkage' ? ' active-box' :'')}
 
               alignItems="center"
 
@@ -74,10 +75,11 @@ class RegisterUnit extends EmailAccountRegistrationController {
               borderRadius="16px"
               bgcolor="white"
               marginTop='1rem'
+              style={{marginBottom:'2rem'}}
             >
               <img src={Linkage} />
               <Box className="middle-section">
-                      <label for="radCreateMode" className={"title" + (this.state.unitRegisterType == 'Linkage' ? ' active-type' : '')}>
+                      <label for="radCreateMode" className={"title" + (this.state.unitRegisterType == 'Linkage' ? ' active-type' : '')} style={{padding:'20px 20px 0px 0px'}}>
                   Linkage
                       </label>
                       <br/>
@@ -93,18 +95,19 @@ class RegisterUnit extends EmailAccountRegistrationController {
               display="flex"
               justifyContent='space-between'
               className='select-type'
-
+              className={'select-type ' + (this.state.unitRegisterType == 'Manual' ? ' active-box' :'')}
               alignItems="center"
 
               border="0.1px solid rgb(209 209 209 / 44%)"
               borderRadius="16px"
               bgcolor="white"
               marginTop='1rem'
+              style={{marginBottom:'10rem'}}
             >
               <img src={manual} />
 
               <Box className="middle-section">
-                      <label for="radCreateMode2" className={"title" + (this.state.unitRegisterType == 'Manual' ? ' active-type' : '')}>
+                      <label for="radCreateMode2" className={"title" + (this.state.unitRegisterType == 'Manual' ? ' active-type' : '')} style={{padding:'20px 20px 0px 0px'}}>
                   Manual
                       </label><br/>
                       <label for="radCreateMode2" className="para">

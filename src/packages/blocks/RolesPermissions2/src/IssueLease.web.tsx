@@ -4,7 +4,7 @@ import { Container, IconButton, Link, withStyles, Box, Grid, Card } from "@mater
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import IssueContractController, { Props } from "./IssueContractController.web";
 import { ContractsStyleWeb } from "./ContractsStyle.web";
-import { BuildingLogo, TemplateIcon, EarthIcon } from "./assets";
+import { BuildingLogo, TemplateIcon } from "./assets";
 import { withTranslation } from "react-i18next";
 import "../../../web/src/i18n.js";
 
@@ -20,8 +20,6 @@ class IssueContract extends IssueContractController {
   render() {
     const { classes } = this.props;
     const { t }: any = this.props;
-
-    console.log(this.state);
 
     return (
       <>
@@ -70,25 +68,21 @@ class IssueContract extends IssueContractController {
                           </Grid>
                         )}
                         {this.state.templatesList.map((template: any, index: number) => {
-                          console.log(template);
-
                           return (
                             <Grid item xs={6} key={template.id}>
-                              <Link href={`/IssueLease/${template.id}`}>
-                                <Card className="template">
-                                  <div className="content">
-                                    <div className="image">
-                                      <img src={TemplateIcon} alt="" />
-                                    </div>
-                                    <h4>{template.attributes.title}</h4>
+                              <Card className="template" onClick={() => this.handleGotoTemplateLease(template.id)}>
+                                <div className="content">
+                                  <div className="image">
+                                    <img src={TemplateIcon} alt="" />
                                   </div>
-                                  {index === 0 && (
-                                    <div className="right-menu">
-                                      <span>{t("Default")}</span>
-                                    </div>
-                                  )}
-                                </Card>
-                              </Link>
+                                  <h4>{template.attributes.title}</h4>
+                                </div>
+                                {index === 0 && (
+                                  <div className="right-menu">
+                                    <span>{t("Default")}</span>
+                                  </div>
+                                )}
+                              </Card>
                             </Grid>
                           );
                         })}

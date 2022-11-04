@@ -37,16 +37,15 @@ class SelectType extends EmailAccountRegistrationController {
         <div style={{ margin: 'auto' }}>
 
         <Grid container className="main-content-block">
-          <Grid xs={12}>
-            <ArrowBackIcon onClick={() => window.history.back()} />
+          <Grid xs={12} style={{marginBottom:"35px"}}>
+            <ArrowBackIcon onClick={() => window.history.back()} style={{fontSize:"35px"}} />
           </Grid>
         </Grid>
 
         <Grid container className="main-content-block">
           <Grid xs={12}>
-            <p className="text-left" style={{ fontSize: '2.5rem', fontWeight: 700 }}>
+            <p className="text-left" style={{ fontSize: '1.5rem', fontWeight: 800 }}>
               Please select your type
-
             </p>
           </Grid>
         </Grid>
@@ -65,7 +64,7 @@ class SelectType extends EmailAccountRegistrationController {
               display="flex"
               justifyContent='space-between'
               className={'select-type ' + (this.state.userType == 'Owner Resident' ? ' active-box' :'')}
-
+              
               alignItems="center"
               border="0.1px solid rgb(209 209 209 / 44%)"
               borderRadius="16px"
@@ -74,7 +73,7 @@ class SelectType extends EmailAccountRegistrationController {
             >
               <img src={resident_owner}/>
               <Box className={"middle-section" } >
-                      <label for="radCreateMode"  className={"title" + (this.state.userType == 'Owner Resident' ? ' active-type' :'')} style={{padding:'20px 20px 0px 0px'}}>
+                      <label for="radCreateMode" className={"title" + (this.state.userType == 'Owner Resident' ? ' active-type' :'')} style={{padding:'20px 20px 0px 0px'}}>
                   Resident Owner
                 </label>
                       <br />

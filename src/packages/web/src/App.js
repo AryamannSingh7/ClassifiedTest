@@ -22,7 +22,7 @@ import BroadcastMessage from '../../blocks/BroadcastMessage/src/BroadcastMessage
 import Location from '../../blocks/location/src/Location';
 import SocialMediaAccountLoginScreen from '../../blocks/social-media-account-login/src/SocialMediaAccountLoginScreen';
 import Invitefriends from '../../blocks/invitefriends/src/Invitefriends';
-import ReviewAndApproval from '../../blocks/ReviewAndApproval/src/ReviewAndApproval';
+// import ReviewAndApproval from '../../blocks/ReviewAndApproval/src/ReviewAndApproval';
 import LanguageOptions from '../../blocks/LanguageOptions/src/LanguageOptions';
 import Polling from '../../blocks/Polling/src/Polling';
 import Customisableusersubscriptions from '../../blocks/customisableusersubscriptions/src/Customisableusersubscriptions';
@@ -38,81 +38,82 @@ import Feedback from '../../blocks/Feedback/src/Feedback';
 // import Contactus from "../../blocks/contactus/src/Contactus";
 import AddContactus from '../../blocks/contactus/src/AddContactus';
 import CountryCodeSelector from '../../blocks/country-code-selector/src/CountryCodeSelector';
-import TaskAllocator from '../../blocks/TaskAllocator/src/TaskAllocator';
+// import TaskAllocator from '../../blocks/TaskAllocator/src/TaskAllocator';
 import FriendList from '../../blocks/FriendList/src/FriendList';
 import FormApprovalWorkflow from '../../blocks/FormApprovalWorkflow/src/FormApprovalWorkflow';
 import AdminConsole3 from '../../blocks/AdminConsole3/src/AdminConsole3';
 import OTPInputAuth from '../../blocks/otp-input-confirmation/src/OTPInputAuth';
 import Maps from '../../blocks/maps/src/Maps';
 // import Notes from "../../blocks/Notes/src/Notes";
-import EmailAccountLoginBlock from "../../blocks/email-account-login/src/EmailAccountLoginBlock";
-import TaxCalculator from "../../blocks/TaxCalculator/src/TaxCalculator";
-import Pushnotifications from "../../blocks/pushnotifications/src/Pushnotifications";
-import BudgetingForecasting from "../../blocks/BudgetingForecasting/src/BudgetingForecasting";
-import Videos from "../../blocks/videos/src/Videos";
-import ContentFlag from "../../blocks/ContentFlag/src/ContentFlag";
-import StoreCredits from "../../blocks/StoreCredits/src/StoreCredits";
-import InvoiceBilling from "../../blocks/InvoiceBilling/src/InvoiceBilling";
-import EmailAccountRegistration from "../../blocks/email-account-registration/src/EmailAccountRegistration";
-import ContentManagement from "../../blocks/ContentManagement/src/ContentManagement";
-import PricingEngine2 from "../../blocks/PricingEngine2/src/PricingEngine2";
-import Chat9 from "../../blocks/Chat9/src/Chat9";
-import CollectTransactionFees from "../../blocks/CollectTransactionFees/src/CollectTransactionFees";
-import Analytics from "../../blocks/analytics/src/Analytics";
-import Customform from "../../blocks/customform/src/Customform";
-import PhoneNumberInput from "../../blocks/mobile-account-registration/src/PhoneNumberInput";
-import AdditionalDetailForm from "../../blocks/mobile-account-registration/src/AdditionalDetailForm";
-import Settings5 from "../../blocks/Settings5/src/Settings5";
-import UserProfileBasicBlock from "../../blocks/user-profile-basic/src/UserProfileBasicBlock";
-import  './assets/css/constants/base/global.scss'
-import LandingPage from "../../blocks/landingpage/src/LandingPage.web";
-import EmailAccountLogin from "../../blocks/email-account-login/src/EmailAccountLogin.web";
-import ChairmanLogin from "../../blocks/email-account-login/src/ChairmanLogin.web";
-import ForgotPassword from "../../blocks/forgot-password/src/ForgotPassword.web";
-import ChairmanForgotPassword from "../../blocks/forgot-password/src/ChairmanForgotPassword.web";
-import ForgotPasswordOTP from "../../blocks/forgot-password/src/ForgotPasswordOTP.web";
-import ChairmanForgotPasswordOTP from "../../blocks/forgot-password/src/ChairmanForgotPasswordOTP.web";
-import ChangePassword from "../../blocks/forgot-password/src/ChangePassword.web";
-import ChairmanChangePassword from "../../blocks/forgot-password/src/ChairmanChangePassword.web";
-import ChangeSuccessfully from "../../blocks/forgot-password/src/ChangeSuccessfully.web";
-import ChairmanChangeSuccessfully from "../../blocks/forgot-password/src/ChairmanChangeSuccessfully.web";
-import RegistrationRequest from "../../blocks/email-account-login/src/RegistrationRequest.web";
-import ChairmanRegistrationRequest from "../../blocks/email-account-login/src/ChairmanRegistrationRequest.web";
-import DashboardGeneral from "../../blocks/dashboard/src/DashboardGeneral.web";
-import DashboardTicket from "../../blocks/dashboard/src/DashboardTicket.web";
-import DashboardActions from "../../blocks/dashboard/src/DashboardActions.web";
-import DashboardBudget from "../../blocks/dashboard/src/DashboardBudget.web";
-import BudgetDetails from "../../blocks/dashboard/src/BudgetDetails.web";
-import CreatePolls from "../../blocks/Polling/src/CreatePolls.web";
-import CreateSurveys from "../../blocks/Polling/src/CreateSurveys.web";
-import PollPreview from "../../blocks/Polling/src/PollPreview.web";
-import SurveyPreview from "../../blocks/Polling/src/SurveyPreview.web";
-import SurveyParticipate from "../../blocks/Polling/src/SurveyParticipate.web"
-import SurveyDetailsMain from "../../blocks/Polling/src/SurveryDetailsMain.web"
-import PollsallData from "../../blocks/Polling/src/PollsallData.web";
-import SurveyallData from "../../blocks/Polling/src/SurveyallData.web";
-import PollsSurvey from "../../blocks/Polling/src/PollsSurvey.web"
-import SurveyReport from "../../blocks/Polling/src/SurveyReport.web"
-import SubmitPoll from "../../blocks/Polling/src/SubmitPoll.web"
-import SurveyInitial from "../../blocks/Polling/src/SurveyInitial.web"
-import OwnerDashboard from "../../blocks/dashboard/src/OwnerDashboard.web"
-import ResidentDashboard from "../../blocks/dashboard/src/ResidentDashboard.web"
-import PollVoteSubmitted from "../../blocks/Polling/src/PollVoteSubmitted.web"
-import PollResponseCompleted from "../../blocks/Polling/src/PollResponseCompleted.web"
-import SurveyMyResponse from "../../blocks/Polling/src/SurveyMyResponse.web"
-import SurveySubmitted from "../../blocks/Polling/src/SurveySubmitted"
-import VeichleList from "../../blocks/customform/src/VeichleList.web"
-import NewVeichleList from "../../blocks/customform/src/NewVehicle.web"
-import NewFamily from "../../blocks/customform/src/NewFamily.web"
-import EditVeichleList from "../../blocks/customform/src/EditVehicle.web"
-import EditFamily from "../../blocks/customform/src/EditFamily.web"
-import EditRequest from "../../blocks/customform/src/EditRequest.web"
-import NewRequest from "../../blocks/customform/src/NewRequest.web"
-import ManagerList from "../../blocks/customform/src/ManagerList.web"
-import Inbox from "../../blocks/customform/src/Inbox.web"
-import IncidentChat from "../../blocks/customform/src/IncidentChat.web"
+import EmailAccountLoginBlock from '../../blocks/email-account-login/src/EmailAccountLoginBlock';
+import TaxCalculator from '../../blocks/TaxCalculator/src/TaxCalculator';
+import Pushnotifications from '../../blocks/pushnotifications/src/Pushnotifications';
+import BudgetingForecasting from '../../blocks/BudgetingForecasting/src/BudgetingForecasting';
+import Videos from '../../blocks/videos/src/Videos';
+import ContentFlag from '../../blocks/ContentFlag/src/ContentFlag';
+import StoreCredits from '../../blocks/StoreCredits/src/StoreCredits';
+import InvoiceBilling from '../../blocks/InvoiceBilling/src/InvoiceBilling';
+import EmailAccountRegistration from '../../blocks/email-account-registration/src/EmailAccountRegistration';
+import ContentManagement from '../../blocks/ContentManagement/src/ContentManagement';
+import PricingEngine2 from '../../blocks/PricingEngine2/src/PricingEngine2';
+import Chat9 from '../../blocks/Chat9/src/Chat9';
+import CollectTransactionFees from '../../blocks/CollectTransactionFees/src/CollectTransactionFees';
+import Analytics from '../../blocks/analytics/src/Analytics';
+import Customform from '../../blocks/customform/src/Customform';
+import PhoneNumberInput from '../../blocks/mobile-account-registration/src/PhoneNumberInput';
+import AdditionalDetailForm from '../../blocks/mobile-account-registration/src/AdditionalDetailForm';
+import Settings5 from '../../blocks/Settings5/src/Settings5';
+import UserProfileBasicBlock from '../../blocks/user-profile-basic/src/UserProfileBasicBlock';
+import './assets/css/constants/base/global.scss';
+import LandingPage from '../../blocks/landingpage/src/LandingPage.web';
+import EmailAccountLogin from '../../blocks/email-account-login/src/EmailAccountLogin.web';
+import ChairmanLogin from '../../blocks/email-account-login/src/ChairmanLogin.web';
+import ForgotPassword from '../../blocks/forgot-password/src/ForgotPassword.web';
+import ChairmanForgotPassword from '../../blocks/forgot-password/src/ChairmanForgotPassword.web';
+import ForgotPasswordOTP from '../../blocks/forgot-password/src/ForgotPasswordOTP.web';
+import ChairmanForgotPasswordOTP from '../../blocks/forgot-password/src/ChairmanForgotPasswordOTP.web';
+import ChangePassword from '../../blocks/forgot-password/src/ChangePassword.web';
+import ChairmanChangePassword from '../../blocks/forgot-password/src/ChairmanChangePassword.web';
+import ChangeSuccessfully from '../../blocks/forgot-password/src/ChangeSuccessfully.web';
+import ChairmanChangeSuccessfully from '../../blocks/forgot-password/src/ChairmanChangeSuccessfully.web';
+import RegistrationRequest from '../../blocks/email-account-login/src/RegistrationRequest.web';
+import ChairmanRegistrationRequest from '../../blocks/email-account-login/src/ChairmanRegistrationRequest.web';
+import DashboardGeneral from '../../blocks/dashboard/src/DashboardGeneral.web';
+import DashboardTicket from '../../blocks/dashboard/src/DashboardTicket.web';
+import DashboardActions from '../../blocks/dashboard/src/DashboardActions.web';
+import DashboardBudget from '../../blocks/dashboard/src/DashboardBudget.web';
+import BudgetDetails from '../../blocks/dashboard/src/BudgetDetails.web';
+import CreatePolls from '../../blocks/Polling/src/CreatePolls.web';
+import CreateSurveys from '../../blocks/Polling/src/CreateSurveys.web';
+import PollPreview from '../../blocks/Polling/src/PollPreview.web';
+import SurveyPreview from '../../blocks/Polling/src/SurveyPreview.web';
+import SurveyParticipate from '../../blocks/Polling/src/SurveyParticipate.web';
+import SurveyDetailsMain from '../../blocks/Polling/src/SurveryDetailsMain.web';
+import PollsallData from '../../blocks/Polling/src/PollsallData.web';
+import SurveyallData from '../../blocks/Polling/src/SurveyallData.web';
+import PollsSurvey from '../../blocks/Polling/src/PollsSurvey.web';
+import SurveyReport from '../../blocks/Polling/src/SurveyReport.web';
+import SubmitPoll from '../../blocks/Polling/src/SubmitPoll.web';
+import SurveyInitial from '../../blocks/Polling/src/SurveyInitial.web';
+import OwnerDashboard from '../../blocks/dashboard/src/OwnerDashboard.web';
+import ResidentDashboard from '../../blocks/dashboard/src/ResidentDashboard.web';
+import PollVoteSubmitted from '../../blocks/Polling/src/PollVoteSubmitted.web';
+import PollResponseCompleted from '../../blocks/Polling/src/PollResponseCompleted.web';
+import SurveyMyResponse from '../../blocks/Polling/src/SurveyMyResponse.web';
+import SurveySubmitted from '../../blocks/Polling/src/SurveySubmitted';
+import VeichleList from '../../blocks/customform/src/VeichleList.web';
+import NewVeichleList from '../../blocks/customform/src/NewVehicle.web';
+import NewFamily from '../../blocks/customform/src/NewFamily.web';
+import EditVeichleList from '../../blocks/customform/src/EditVehicle.web';
+import EditFamily from '../../blocks/customform/src/EditFamily.web';
+import EditRequest from '../../blocks/customform/src/EditRequest.web';
+import NewRequest from '../../blocks/customform/src/NewRequest.web';
+import ManagerList from '../../blocks/customform/src/ManagerList.web';
+import Inbox from '../../blocks/customform/src/Inbox.web';
+import IncidentChat from '../../blocks/customform/src/IncidentChat.web';
+import ChairmanChat from '../../blocks/customform/src/ChairmanChat.web';
 
-import Chatbox from "../../blocks/customform/src/Chatbox.web"
+import Chatbox from '../../blocks/customform/src/Chatbox.web';
 // import RequestManagement from "../../blocks/RequestManagement/src/RequestManagement";
 import LeadManagement from '../../blocks/LeadManagement/src/LeadManagement';
 import SocialMediaAccountRegistrationScreen from '../../blocks/social-media-account-registration/src/SocialMediaAccountRegistrationScreen';
@@ -163,6 +164,13 @@ import ClassifiedEditSuccessfully from '../../blocks/ContentManagement/src/Class
 import NeighboursDetails from '../../blocks/search/src/NeighboursDetails.web';
 import NeighboursListing from '../../blocks/search/src/NeighboursListing.web';
 
+import FacilityReservationListing from '../../blocks/RequestManagement/src/FacilityReservationListing.web';
+import FacilityReservationDetails from '../../blocks/RequestManagement/src/FacilityReservationDetails.web';
+import FacilityReservation from '../../blocks/RequestManagement/src/FacilityReservation.web';
+import FacilityReservationReportedSuccessfully from '../../blocks/RequestManagement/src/FacilityReservationReportedSuccessfully.web';
+import CreateFacilityReservation from '../../blocks/RequestManagement/src/CreateFacilityReservation.web';
+
+
 // Help
 import FaqChairman from '../../blocks/contactus/src/FaqChairman.web';
 import FaqOwner from '../../blocks/contactus/src/FaqOwner.web';
@@ -192,6 +200,7 @@ import LeaseForm from '../../blocks/RolesPermissions2/src/LeaseForm.web';
 import ChangedSelectedTemplate from '../../blocks/RolesPermissions2/src/ChangedSelectedTemplate.web';
 import ReviewTemplate from '../../blocks/RolesPermissions2/src/ReviewTemplate.web';
 import AddCondition from '../../blocks/RolesPermissions2/src/AddCondition.web';
+import RenewContract from '../../blocks/RolesPermissions2/src/RenewContract.web';
 
 // Meetings
 import ChairmanScheduledMeeting from '../../blocks/BulkUploading/src/ScheduledMeeting.web';
@@ -259,7 +268,6 @@ import VisitorsDetails from '../../blocks/invitefriends/src/VisitorDetailsManage
 import TenantList from '../../blocks/RequestManagement/src/TenantList.web';
 import TenantDetails from '../../blocks/RequestManagement/src/TenantDetails.web';
 import RegisterTenant from '../../blocks/RequestManagement/src/RegisterTenant.web';
-import RegisterTenantContract from '../../blocks/RequestManagement/src/RegisterTenantContract.web';
 import EditTenant from '../../blocks/RequestManagement/src/EditTenant.web';
 
 // My Team Imports
@@ -275,12 +283,45 @@ import NominateMySelf from '../../blocks/FriendList/src/NominateMySelf.web';
 import MyNomination from '../../blocks/FriendList/src/MyNomination.web';
 import TaskManagement from '../../blocks/FriendList/src/TaskManagement.web';
 
+// Fees & Payment Imports
+import FeesAndPayment from '../../blocks/CollectTransactionFees/src/FeesAndPayments.web';
+import ViewMyInvoices from '../../blocks/CollectTransactionFees/src/ViewMyInvoices.web';
+import InvoiceDetails from '../../blocks/CollectTransactionFees/src/InvoiceDetails.web';
+import ViewMyReceipts from '../../blocks/CollectTransactionFees/src/ViewMyReceipts.web';
+import ReceiptDetails from '../../blocks/CollectTransactionFees/src/ReceiptDetails.web';
+import PreviousPayments from '../../blocks/CollectTransactionFees/src/PreviousPayments.web';
+import PaymentDetails from '../../blocks/CollectTransactionFees/src/PaymentDetails.web';
+import BudgetSpending from '../../blocks/CollectTransactionFees/src/BudgetSpending.web';
+import BudgetSpendingDetails from '../../blocks/CollectTransactionFees/src/SpentDetails.web';
+import BuildingBudget from '../../blocks/CollectTransactionFees/src/BuildingBudget.web';
+import MyManagementFee from '../../blocks/CollectTransactionFees/src/ManagementFee.web';
+
+// Owner Side
+import MyInvoicesAndReceipts from '../../blocks/CollectTransactionFees/src/MyInvoicesAndReceipts.web';
+import MyInvoices from '../../blocks/CollectTransactionFees/src/MyInvoices.web';
+import MyInvoiceDetails from '../../blocks/CollectTransactionFees/src/MyInvoiceDetails.web';
+import MyReceipts from '../../blocks/CollectTransactionFees/src/MyReceipts.web';
+import MyReceiptsDetails from '../../blocks/CollectTransactionFees/src/MyReceiptsDetails.web';
+
 // Reports
 import ReportDashboard from '../../blocks/ExpenseTracking/src/ReportDashboard.web';
 import BudgetReport from '../../blocks/ExpenseTracking/src/BudgetReport.web';
 import ExpenseReport from '../../blocks/ExpenseTracking/src/ExpenseReport.web';
 import AuditReport from '../../blocks/ExpenseTracking/src/AuditReport.web';
 import ManagementFeeReport from '../../blocks/ExpenseTracking/src/ManagementFeeReport.web';
+
+// My Unit
+import MyUnitList from '../../blocks/TaskAllocator/src/MyUnitList.web';
+import RegisterMyUnit from '../../blocks/TaskAllocator/src/RegisterUnit.web';
+import RegisterMyUnitSuccess from '../../blocks/TaskAllocator/src/RegisterUnitSuccess.web';
+import MyUnitDetails from '../../blocks/TaskAllocator/src/UnitDetails.web';
+import RentHistory from '../../blocks/TaskAllocator/src/RentHistory.web';
+import PendingUnit from '../../blocks/TaskAllocator/src/PendingUnit.web';
+import EditMyUnit from '../../blocks/TaskAllocator/src/EditUnit.web';
+
+// Property Manager
+import PropertyManagerList from '../../blocks/ReviewAndApproval/src/ManagerList.web';
+import RegisterPropertyManager from '../../blocks/ReviewAndApproval/src/RegisterManager.web';
 
 const routeMap = {
   //done
@@ -323,6 +364,11 @@ const routeMap = {
   Inbox: {
     component: Inbox,
     path: '/inbox',
+    exact: true
+  },
+  ChairmanChat: {
+    component: ChairmanChat,
+    path: '/ChairmanChat',
     exact: true
   },
   Chatbox: {
@@ -566,6 +612,31 @@ const routeMap = {
     path: '/ClassifiedEditSuccessfully',
     exact: true
   },
+  FacilityReservationListing: {
+    component: FacilityReservationListing,
+    path: '/FacilityReservationListing',
+    exact: true
+  },
+  FacilityReservationDetails: {
+    component: FacilityReservationDetails,
+    path: '/FacilityReservationDetails',
+    exact: true
+  },
+  FacilityReservation: {
+    component: FacilityReservation,
+    path: '/FacilityReservation',
+    exact: true
+  },
+  CreateFacilityReservation: {
+    component: CreateFacilityReservation,
+    path: '/CreateFacilityReservation',
+    exact: true
+  },
+  FacilityReservationReportedSuccessfully: {
+    component: FacilityReservationReportedSuccessfully,
+    path: '/FacilityReservationReportedSuccessfully',
+    exact: true
+  },
   // RolesPermissions2: {
   //   component: RolesPermissions2,
   //   path: '/RolesPermissions2'
@@ -598,10 +669,10 @@ const routeMap = {
     component: Invitefriends,
     path: '/Invitefriends'
   },
-  ReviewAndApproval: {
-    component: ReviewAndApproval,
-    path: '/ReviewAndApproval'
-  },
+  // ReviewAndApproval: {
+  //   component: ReviewAndApproval,
+  //   path: '/ReviewAndApproval'
+  // },
   LanguageOptions: {
     component: LanguageOptions,
     path: '/LanguageOptions'
@@ -788,6 +859,11 @@ const routeMap = {
     path: '/Contract/:id',
     exact: true
   },
+  RenewContract: {
+    component: RenewContract,
+    path: '/Contract/:id/Renew',
+    exact: true
+  },
   TemplateDetail: {
     component: TemplateDetail,
     path: '/Template/:id',
@@ -803,22 +879,17 @@ const routeMap = {
     path: '/IssueLease',
     exact: true
   },
-  SelectedTemplate: {
-    component: SelectedTemplate,
-    path: '/IssueLease/:templateId',
-    exact: true
-  },
+  // SelectedTemplate: {
+  //   component: SelectedTemplate,
+  //   path: '/IssueLease/:templateId',
+  //   exact: true
+  // },
   SelectedTemplateTwo: {
     component: SelectedTemplate,
     path: '/IssueContract/:templateId',
     exact: true
   },
   LeaseFormIssueLease: {
-    component: LeaseForm,
-    path: '/IssueLease/:templateId/LeaseForm',
-    exact: true
-  },
-  LeaseFormIssueContract: {
     component: LeaseForm,
     path: '/IssueContract/:templateId/LeaseForm',
     exact: true
@@ -962,10 +1033,10 @@ const routeMap = {
     component: CountryCodeSelector,
     path: '/CountryCodeSelector'
   },
-  TaskAllocator: {
-    component: TaskAllocator,
-    path: '/TaskAllocator'
-  },
+  // TaskAllocator: {
+  //   component: TaskAllocator,
+  //   path: '/TaskAllocator'
+  // },
   FriendList: {
     component: FriendList,
     path: '/FriendList'
@@ -1154,10 +1225,10 @@ const routeMap = {
     component: Invitefriends,
     path: '/Invitefriends'
   },
-  ReviewAndApproval: {
-    component: ReviewAndApproval,
-    path: '/ReviewAndApproval'
-  },
+  // ReviewAndApproval: {
+  //   component: ReviewAndApproval,
+  //   path: '/ReviewAndApproval'
+  // },
   LanguageOptions: {
     component: LanguageOptions,
     path: '/LanguageOptions'
@@ -1218,10 +1289,10 @@ const routeMap = {
     component: CountryCodeSelector,
     path: '/CountryCodeSelector'
   },
-  TaskAllocator: {
-    component: TaskAllocator,
-    path: '/TaskAllocator'
-  },
+  // TaskAllocator: {
+  //   component: TaskAllocator,
+  //   path: '/TaskAllocator'
+  // },
   FriendList: {
     component: FriendList,
     path: '/FriendList'
@@ -1524,27 +1595,16 @@ const routeMap = {
     path: '/TeamMembers',
     exact: true
   },
+
   MyTeamCore: {
     component: MyTeamCore,
-    path: '/TeamMembers/CoreTeam',
-    exact: true
-  },
-
-  MyTeamSub: {
-    component: MyTeamCore,
-    path: '/TeamMembers/SubTeam',
-    exact: true
-  },
-
-  MyTeamService: {
-    component: MyTeamCore,
-    path: '/TeamMembers/ServiceProviders',
+    path: '/TeamMembers/:type',
     exact: true
   },
 
   TeamUserDetails: {
     component: MyTeamUserDetails,
-    path: '/TeamMembers/userDetails',
+    path: '/TeamMember/userDetails',
     exact: true
   },
 
@@ -1593,6 +1653,103 @@ const routeMap = {
   TaskManagement: {
     component: TaskManagement,
     path: '/TaskManagement',
+    exact: true
+  },
+
+  // Fees & Payment
+
+  FeesAndPayment: {
+    component: FeesAndPayment,
+    path: '/FeesAndPayment',
+    exact: true
+  },
+
+  ViewMyInvoices: {
+    component: ViewMyInvoices,
+    path: '/MyInvoices',
+    exact: true
+  },
+
+  InvoiceDetails: {
+    component: InvoiceDetails,
+    path: '/Invoice/:id',
+    exact: true
+  },
+
+  ViewMyReceipts: {
+    component: ViewMyReceipts,
+    path: '/MyReceipts',
+    exact: true
+  },
+
+  ReceiptDetails: {
+    component: ReceiptDetails,
+    path: '/Receipt/:id',
+    exact: true
+  },
+
+  PreviousPayments: {
+    component: PreviousPayments,
+    path: '/PreviousPayments',
+    exact: true
+  },
+
+  PaymentDetails: {
+    component: PaymentDetails,
+    path: '/Payment/:id',
+    exact: true
+  },
+
+  BudgetSpending: {
+    component: BudgetSpending,
+    path: '/BudgetSpending',
+    exact: true
+  },
+
+  BudgetSpendingDetails: {
+    component: BudgetSpendingDetails,
+    path: '/Spent/:id',
+    exact: true
+  },
+
+  BuildingBudget: {
+    component: BuildingBudget,
+    path: '/BuildingBudget',
+    exact: true
+  },
+  MyManagementFee: {
+    component: MyManagementFee,
+    path: '/MyManagementFee',
+    exact: true
+  },
+
+  MyInvoicesAndReceipts: {
+    component: MyInvoicesAndReceipts,
+    path: '/InvoicesAndReceipts',
+    exact: true
+  },
+
+  MyInvoices: {
+    component: MyInvoices,
+    path: '/Owner/MyInvoices',
+    exact: true
+  },
+
+  MyInvoiceDetails: {
+    component: MyInvoiceDetails,
+    path: '/Owner/MyInvoices/:id',
+    exact: true
+  },
+
+  MyReceipts: {
+    component: MyReceipts,
+    path: '/Owner/MyReceipts',
+    exact: true
+  },
+
+  MyReceiptsDetails: {
+    component: MyReceiptsDetails,
+    path: '/Owner/MyReceipts/:id',
     exact: true
   },
 
@@ -1664,15 +1821,65 @@ const routeMap = {
     roles: [ROLE.OWNER],
     exact: true
   },
-  RegisterTenantContract: {
-    component: RegisterTenantContract,
-    path: '/RegisterTenant/:id',
-    roles: [ROLE.OWNER],
-    exact: true
-  },
   EditTenant: {
     component: EditTenant,
     path: '/EditTenant/:id',
+    roles: [ROLE.OWNER],
+    exact: true
+  },
+  // My Unit
+  MyUnitList: {
+    component: MyUnitList,
+    path: '/MyUnitList',
+    roles: [ROLE.OWNER],
+    exact: true
+  },
+  RegisterMyUnit: {
+    component: RegisterMyUnit,
+    path: '/RegisterMyUnit',
+    roles: [ROLE.OWNER],
+    exact: true
+  },
+  RegisterMyUnitSuccess: {
+    component: RegisterMyUnitSuccess,
+    path: '/RegisterMyUnit/Success',
+    roles: [ROLE.OWNER],
+    exact: true
+  },
+  MyUnitDetails: {
+    component: MyUnitDetails,
+    path: '/MyUnitDetails/:id',
+    roles: [ROLE.OWNER],
+    exact: true
+  },
+  EditMyUnit: {
+    component: EditMyUnit,
+    path: '/MyUnitDetails/Edit',
+    roles: [ROLE.OWNER],
+    exact: true
+  },
+  PendingUnit: {
+    component: PendingUnit,
+    path: '/MyUnitDetails/PendingUnit',
+    roles: [ROLE.OWNER],
+    exact: true
+  },
+  RentHistory: {
+    component: RentHistory,
+    path: '/MyUnitDetails/:id/RentHistory',
+    roles: [ROLE.OWNER],
+    exact: true
+  },
+  // Property Manager
+  PropertyManagerList: {
+    component: PropertyManagerList,
+    path: '/PropertyManagers',
+    roles: [ROLE.OWNER],
+    exact: true
+  },
+  RegisterPropertyManager: {
+    component: RegisterPropertyManager,
+    path: '/RegisterPropertyManagers',
     roles: [ROLE.OWNER],
     exact: true
   },

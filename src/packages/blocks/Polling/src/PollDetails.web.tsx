@@ -7,22 +7,22 @@ import "./Polling.web.css"
 import DOMPurify from 'dompurify'
 import {CheckMark, awated, allUsers} from "./assets"
 import {
-  Container,
-  Typography,
-  TextField,
-  Button,
-  Link,
-  Dialog,
-  DialogActions,
-  DialogTitle,
-  TableContainer,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  Divider,
-  InputBase
+    Container,
+    Typography,
+    TextField,
+    Button,
+    Link,
+    Dialog,
+    DialogActions,
+    DialogTitle,
+    TableContainer,
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableRow,
+    Divider,
+    InputBase, DialogContent, IconButton, InputAdornment
 } from "@material-ui/core";
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -31,6 +31,7 @@ import Grid from '@material-ui/core/Grid';
 import InfoIcon from '@material-ui/icons/Info';
 import CalendarTodayOutlinedIcon from '@material-ui/icons/CalendarTodayOutlined';
 // Icons
+import {CheckIcon} from "../../user-profile-basic/src/assets"
 
 import PollingController, {
   Props,
@@ -44,6 +45,11 @@ import SearchIcon from '@material-ui/icons/Search';
 import HighlightOffOutlinedIcon from "@material-ui/icons/HighlightOffOutlined";
 import { withTranslation } from 'react-i18next';
 import '../../../web/src/i18n.js';
+import CloseIcon from "@material-ui/icons/Close";
+import DateRangeOutlinedIcon from "@material-ui/icons/DateRangeOutlined";
+import TextEditor from "./TextEditorSurvey.web";
+import {withStyles} from "@material-ui/core/styles";
+import CreateIcon from "@material-ui/icons/Create";
 
 function createData(name:any, unit:any) {
     return { name, unit };
@@ -132,18 +138,33 @@ class PollDetails extends PollingController {
                                 </Box>
                                 <Box className="datebox">
                                     <CalendarTodayOutlinedIcon style={{color:"grey", fontSize:22}}/>
-                                    <Box>
-                                        <Typography className="PollNamedate">{t("End Date")}</Typography>
-                                        <Typography className="PollNameText">
-                                            {/* June 7, 2022 */}
-                                        {this.state.pollPreviewAnswer?.poll?.data?.attributes?.end_date}</Typography>
+                                    <Box display='flex'>
+                                        <Box>
+                                            <Typography className="PollNamedate">{t("End Date")}</Typography>
+                                            <Typography className="PollNameText">
+                                                {/* June 7, 2022 */}
+                                            {this.state.pollPreviewAnswer?.poll?.data?.attributes?.end_date}</Typography>
+                                        </Box>
+                                        {
+                                            this.state.pollPreviewAnswer?.poll?.data?.attributes?.status  == "ongoing" &&
+                                            <IconButton onClick={()=> this.setState({dateWindow:true})} style={{padding:"3px",marginTop:"20px"}}><CreateIcon style={{color:"#FC8434",alignSelf:'flex-end'}} fontSize="small"/></IconButton>
+                                        }
                                     </Box>
                                 </Box>
                             </Box>
                             <Box style={{marginTop:15}}>
-                                <Box className="infoIcon">
-                                    <Typography variant="subtitle1">{t("Description")}</Typography>
-                                    <InfoIcon style={{color:"grey", fontSize:18}}/>
+                                <Box display="flex" alignItems="center" justifyContent="space-between">
+                                    <Box className="infoIcon">
+                                        <Typography variant="subtitle1">{t("Description")}</Typography>
+                                        <InfoIcon style={{color:"grey", fontSize:18}}/>
+                                    </Box>
+                                    {
+                                        this.state.pollPreviewAnswer?.poll?.data?.attributes?.status == "ongoing" &&
+                                        <IconButton onClick={() => this.setState({descriptionWindow: true})}
+                                                    style={{padding: "3px"}}><CreateIcon
+                                            style={{color: "#FC8434", alignSelf: 'flex-end'}}
+                                            fontSize="small"/></IconButton>
+                                    }
                                 </Box>
                                 <Box style={{marginTop:5, overflowWrap:"break-word"}}>
                                     <Typography variant="body2"
@@ -166,12 +187,12 @@ class PollDetails extends PollingController {
                                 </Typography>
                             </Box>
                             <Box>
-                                <Button variant="contained" color="primary"
+                                <ReportButton variant="contained" color="primary"
                                     disabled={this.state.pollPreviewAnswer?.poll?.data?.attributes?.poll_type}
                                     onClick={() => this.props.history.push(`/PollReport?id=${this.state.pollPreviewAnswerID}`)}
                                 >
                                     {t("GENERATE REPORT")}
-                                </Button>
+                                </ReportButton>
                             </Box>
                         </Grid>
                     </Grid>
@@ -295,9 +316,136 @@ class PollDetails extends PollingController {
                     </Box>
                 </Grid>
                 </Grid>
+                {
+                    this.state.pollPreviewAnswer?.poll?.data?.attributes?.status == "ongoing" &&
+                    <Grid xs={12} style={{display:"flex",justifyContent:"flex-end"}}>
+                        <ReportButton variant="contained" color="primary" onClick={this.manageEnd}>
+                            {t("End Poll")}
+                        </ReportButton>
+                    </Grid>
+                }
             </Container>
         </Grid>
         </Box>
+            {/*Warning Dialog*/}
+            <Dialog
+                fullWidth
+                onClose={this.closeCautionModal}
+                open={this.state.cautionWindow}
+                className="cancel-meeting-dialog"
+            >
+                <DialogContent style={{ margin: "15px 0" }}>
+                    <Box textAlign="center">
+                        <img className="comment-image" src={CheckIcon} alt="check" />
+                        <Typography variant="h6">{t("End Poll")}</Typography>
+                        <Typography variant="body1" style={{ marginBottom: "0px" }}>
+                            {t("Are you sure you want to end this Poll?")}
+                        </Typography>
+                        <DialogActions className="dialog-button-group">
+                            <Button className="cancel-button" style={{ width: "200px" }} onClick={() => this.closeCautionModal()}>
+                                {t("Close")}
+                            </Button>
+                            <Button style={{ width: "200px" }} className="add-button" onClick={this.makeEndSurvey}>
+                                {t("Confirm")}
+                            </Button>
+                        </DialogActions>
+                    </Box>
+                </DialogContent>
+            </Dialog>
+            {/*Date Dialog*/}
+            <Dialog
+                fullWidth
+                onClose={()=>this.setState({dateWindow:false})}
+                open={this.state.dateWindow}
+                className="cancel-meeting-dialog"
+            >
+                <DialogContent style={{ margin: "15px 0",position:"relative"}}>
+                    <Box style={{position:"absolute",top:"12px",right:"40px"}}>
+                        <IconButton onClick={()=> this.setState({dateWindow:false})}>
+                            <CloseIcon />
+                        </IconButton>
+                    </Box>
+                    <Box>
+                        <Box style={{width:"100%",textAlign:"center" }}>
+                            <Typography variant="h5" style={{fontWeight:"bold"}}>{t("Edit End Date")}</Typography>
+                        </Box>
+                        <Box style={{width:"100%",display:'flex',justifyContent:'center',marginTop:"20px"}}>
+                            <Box style={{display:"flex",width:"90%",flexDirection:'column'}}>
+                                <Box className="infoIcon" style={{alignItems:'center'}}>
+                                    <Typography variant="subtitle1" style={{marginBottom:"0px"}}>{t("End Date")}</Typography>
+                                    <InfoIcon style={{color:"grey", fontSize:18}}/>
+                                </Box>
+                                <Box style={{width:"100%"}}>
+                                    <TextField label="End Date" variant="outlined"
+                                               type="date" name="endDate"  fullWidth
+                                               style={{width:"100%",backgroundColor:"ghostwhite"}}
+                                               id="SurveyQuestion"
+                                               value={this.state.endDate}
+                                               defaultValue={new Date(this.state.SurveyPreviewAnswer?.end_date)}
+                                               onChange={(e)=> this.setState({endDate:e.target.value})}
+                                               InputProps={{
+                                                   // min: "2019-01-24",
+                                                   //@ts-ignore
+                                                   max: "5000-05-31",
+                                                   startAdornment: (
+                                                       <InputAdornment position="start">
+                                                           <DateRangeOutlinedIcon />
+                                                       </InputAdornment>
+                                                   )
+                                               }}
+                                    />
+                                    <p style={{color:"red"}}>{t(this.state.endDateError)}</p>
+                                </Box>
+                            </Box>
+                        </Box>
+                        <DialogActions className="dialog-button-group">
+                            <Button style={{ width: "99%" }} className="add-button" onClick={this.updateEndDate}>
+                                {t("Save")}
+                            </Button>
+                        </DialogActions>
+                    </Box>
+                </DialogContent>
+            </Dialog>
+            {/*Description Dialog*/}
+            <Dialog
+                fullWidth
+                onClose={()=>this.setState({descriptionWindow:false})}
+                open={this.state.descriptionWindow}
+                className="cancel-meeting-dialog"
+            >
+                <DialogContent style={{ margin: "15px 0",position:"relative"}}>
+                    <Box style={{position:"absolute",top:"12px",right:"40px"}}>
+                        <IconButton onClick={()=> this.setState({descriptionWindow:false})}>
+                            <CloseIcon />
+                        </IconButton>
+                    </Box>
+                    <Box>
+                        <Box style={{width:"100%",textAlign:"center" }}>
+                            <Typography variant="h5" style={{fontWeight:"bold"}}>{t("Edit Description")}</Typography>
+                        </Box>
+                        <Box style={{width:"100%",display:'flex',justifyContent:'center',marginTop:"20px"}}>
+                            <Box style={{display:"flex",width:"90%",flexDirection:'column'}}>
+                                <Box className="infoIcon" style={{alignItems:'center'}}>
+                                    <Typography variant="subtitle1" style={{marginBottom:"0px"}}>{t("Description")}</Typography>
+                                    <InfoIcon style={{color:"grey", fontSize:18}}/>
+                                </Box>
+                                <Box className="descriptionEditorDetails" style={{maxHeight:"400px",overflow:"hidden"}}>
+                                    <TextEditor
+                                        // @ts-ignore
+                                        markup={this.state.textEditor}
+                                        onChange={this.onChangeTextEditorEdit} />
+                                </Box>
+                                <p style={{color:"red"}}>{t(this.state.descriptionError)}</p>
+                            </Box>
+                        </Box>
+                        <DialogActions className="dialog-button-group">
+                            <Button style={{ width: "99%" }} className="add-button" onClick={this.updateDescription}>
+                                {t("Save")}
+                            </Button>
+                        </DialogActions>
+                    </Box>
+                </DialogContent>
+            </Dialog>
     </Box>
      </>
       );
@@ -313,4 +461,14 @@ const dashBoard = {
         paddingBottom: 150,
     },
 }
+
+const ReportButton = withStyles(() => ({
+    root: {
+        color: "white",
+        backgroundColor: "#2B6FED",
+        '&:hover': {
+            backgroundColor: "#2B6FED",
+        },
+    },
+}))(Button);
 // Customizable Area End

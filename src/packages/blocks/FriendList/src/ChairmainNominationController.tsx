@@ -40,6 +40,7 @@ export default class CoverImageController extends BlockComponent<
   apiEmailLoginCallId: string = "";
   emailReg: RegExp;
   labelTitle: string = "";
+  getNominationListId:string = "";
 
   constructor(props: Props) {
 
@@ -67,7 +68,8 @@ export default class CoverImageController extends BlockComponent<
   }
 
   async componentDidMount() {
-
+    this.getNominationList()
+    console.log("DID I CALLED ?")
   }
 
 
@@ -76,47 +78,53 @@ export default class CoverImageController extends BlockComponent<
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
       var errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if(this.apiEmailLoginCallId === apiRequestCallId ){
-        console.log(responseJson,errorReponse)
+      if(this.getNominationListId === apiRequestCallId ){
+        console.log("NOMINATION",responseJson,errorReponse)
       }
     }
   }
 
-  doEmailLogIn(data:any): boolean {
-    const header = {
-      "Content-Type": configJSON.loginApiContentType
-    };
-
-    const requestMessage = new Message(
-      getName(MessageEnum.RestAPIRequestMessage)
-    );
-
-    this.apiEmailLoginCallId = requestMessage.messageId;
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      configJSON.loginAPiEndPoint
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestBodyMessage),
-      JSON.stringify(data)
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.loginAPiMethod
-    );
-
-    runEngine.sendMessage(requestMessage.id, requestMessage);
-
-    return true;
+  getNominationList = async () => {
+    const societyID = localStorage.getItem("society_id")
+    this.getNominationListId = await this.apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `society_managements/${societyID}/bx_block_my_team/chairman_nominations`,
+    });
   }
+
+  apiCall = async (data: any) => {
+    const { contentType, method, endPoint, body } = data;
+    // console.log("Called 1",data);
+    const token = localStorage.getItem('userToken') ;
+
+    const header = {
+      token
+    };
+    const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+    );
+    requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+    );
+    requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        endPoint
+    );
+    requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        method
+    );
+    body && requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestBodyMessage),
+        body
+    );
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    // console.log("Called",requestMessage);
+    return requestMessage.messageId;
+  };
+
   handleClick = (event:any) => {
     this.setState({anchorEl:event.currentTarget })
   };

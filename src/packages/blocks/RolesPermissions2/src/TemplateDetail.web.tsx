@@ -39,6 +39,7 @@ import TemplateDetailController, { Props } from "./TemplateDetailController.web"
 import { BuildingLogo, DownloadIcon, ShareIcon, ExclamationIcon } from "./assets";
 import { withTranslation } from "react-i18next";
 import "../../../web/src/i18n.js";
+import Loader from "../../../components/src/Loader.web";
 
 class TemplateDetail extends TemplateDetailController {
   constructor(props: Props) {
@@ -53,57 +54,61 @@ class TemplateDetail extends TemplateDetailController {
     const sharePopupHeight = 700;
     const shareTitle = "TI 1 Final Leap";
 
-    console.log(this.state);
-
     return (
       <>
+        <Loader loading={this.state.loading} />
+
         <Box style={{ background: "#F4F7FF", height: "100vh" }} className={classes.detailPage}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box className="faq-step">
                 <Box display={{ xs: "flex", md: "flex" }} className="top-bar">
                   <div className="left-icon">
-                    <Link href="/OwnerDashboard">
+                    <Link href="/Contracts">
                       <IconButton>
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    Contracts 1
+                    <span>{this.state.templateData.templateName}</span>
                   </div>
                   <div className="right-icon">
-                    <img src={DownloadIcon} alt="SortIcon" />
+                    <Link href={this.state.templateData.templateUrl} target="_blank">
+                      <img src={DownloadIcon} alt="SortIcon" />
+                    </Link>
                   </div>
                 </Box>
                 <Container>
                   <Box className="content-box">
                     <div className="contracts-list">
-                      <iframe
-                        src="http://www.africau.edu/images/default/sample.pdf"
-                        // style={{ width: "100%" }}
+                      <div
+                        dangerouslySetInnerHTML={{
+                          __html: this.state.templateData.templateText,
+                        }}
+                      />
+                      <br />
+                      <div
+                        dangerouslySetInnerHTML={{
+                          __html: this.state.templateData.conditionText,
+                        }}
                       />
                     </div>
                     <Box className="upload-button">
                       <Box className="upload-button-group">
                         <Box className="top">
-                          <Button
-                            onClick={() => {
-                              this.handleTerminateContractModal();
-                            }}
-                          >
-                            {t("Terminate")}
-                          </Button>
-                          <Link href="/Contracts">
-                            <Button>{t("Close")}</Button>
-                          </Link>
+                          <Button onClick={() => this.handleEditTemplate()}>{t("Edit Document")}</Button>
+                          <Button onClick={() => this.handleDeleteTemplateModal()}>{t("Delete Template")}</Button>
                         </Box>
                         <Box className="bottom">
-                          <Button>{t("ReNew Contract")}</Button>
-                          <Box
-                            className="image"
+                          <Button
                             onClick={() => {
-                              this.handleShareModal();
+                              this.setState({ loading: true }, () => {
+                                this.handleCreateContract();
+                              });
                             }}
                           >
+                            {t("Generate a Lease")}
+                          </Button>
+                          <Box className="image" onClick={() => this.handleShareModal()}>
                             <img src={ShareIcon} alt="" />
                           </Box>
                         </Box>
@@ -115,7 +120,7 @@ class TemplateDetail extends TemplateDetailController {
             </Grid>
             <Grid item xs={12} md={5}>
               <Box className="right-block right-image" display={{ xs: "none", md: "flex" }}>
-                <img src={BuildingLogo} className="building-logo" alt="" />
+                <img src={BuildingLogo.default} className="building-logo" alt="" />
               </Box>
             </Grid>
           </Grid>
@@ -124,32 +129,19 @@ class TemplateDetail extends TemplateDetailController {
         <Dialog
           className="delete-document personal"
           fullWidth
-          onClose={() => this.handleTerminateContractModal()}
+          onClose={() => this.handleDeleteTemplateModal()}
           open={this.state.isTerminateContractModalOpen}
         >
           <DialogContent>
             <Box textAlign="center">
               <img src={ExclamationIcon} alt="ExclamationIcon" />
-              <Typography variant="h6">{t("Terminate Contract?")}</Typography>
+              <Typography variant="h6">{t("Delete lease Template?")}</Typography>
               <Typography variant="body1">
-                {t("Are you sure want to terminate lease contract with")} Ali Khan
-                {t("? Once terminated you won't be able to retrieve.")}
+                {t("Are you sure want to delete lease template?")} {t("Once deleted you won't be able to retrieve.")}
               </Typography>
               <DialogActions className="dialog-button-group">
-                <Button
-                  onClick={() => {
-                    this.handleTerminateContractModal();
-                  }}
-                >
-                  {t("Yes, Terminate")}
-                </Button>
-                <Button
-                  onClick={() => {
-                    this.handleTerminateContractModal();
-                  }}
-                >
-                  {t("No, Don't Terminate")}
-                </Button>
+                <Button onClick={() => this.deleteTemplateDetails()}>{t("Yes, Delete")}</Button>
+                <Button onClick={() => this.handleDeleteTemplateModal()}>{t("No, Don't Delete")}</Button>
               </DialogActions>
             </Box>
           </DialogContent>

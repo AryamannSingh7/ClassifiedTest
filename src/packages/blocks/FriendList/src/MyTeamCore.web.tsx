@@ -103,7 +103,7 @@ class MyTeamCore extends MyTeamController {
           </Modal>
           <Dialog
               fullWidth
-              onClose={() => this.handleDeleteModal()}
+              onClose={() => this.setState({deleteModal:false})}
               open={this.state.deleteModal}
               className="cancel-meeting-dialog"
           >
@@ -115,7 +115,7 @@ class MyTeamCore extends MyTeamController {
                           User will be removed from the team, Are you sure you want to remove user?
                       </Typography>
                       <DialogActions className="dialog-button-group">
-                          <Button className="cancel-button" style={{ width: "200px" }} onClick={() => this.handleDeleteModal()}>
+                          <Button className="cancel-button" style={{ width: "200px" }} onClick={() => this.setState({deleteModal:false})}>
                               Close
                           </Button>
                           <Button style={{ width: "200px" }} className="add-button" >
