@@ -46,7 +46,7 @@ class EditProfile extends ProfileController {
               <Grid container className="main-content-block" style={{marginTop:'1.5rem'}}>
                 <Grid xs={12}>
                   <Formik initialValues={{
-                    bannerUrl:profileData?.attributes.profile_pic.url,
+                    bannerUrl:profileData?.attributes?.profile_pic?.url,
                     full_name: profileData?.attributes?.full_name?.name,
                     banner:'',
                     phone: profileData?.attributes?.full_phone_number?.phone_number,
@@ -56,11 +56,11 @@ class EditProfile extends ProfileController {
                     DOB: profileData?.attributes?.date_of_birth?.date_of_birth,
                     gender: profileData?.attributes?.gender?.gender,
                     hobbies: profileData?.attributes?.hobbies?.hobbies ? profileData?.attributes?.hobbies?.hobbies :[] ,
-                    twitter: profileData?.attributes?.website[0].twitter_link,
-                    fb: profileData?.attributes?.website[2].fb_link,
-                    insta: profileData?.attributes?.website[1].instagram_link,
-                    snap: profileData?.attributes?.website[3].snapchat_link,
-                    bio: profileData?.attributes?.bio?.bio
+                    twitter: profileData?.attributes?.website[0].twitter_link==='null'?'':'',
+                    fb: profileData?.attributes?.website[2].fb_link==='null'?'':'',
+                    insta: profileData?.attributes?.website[1].instagram_link==='null'?'':'',
+                    snap: profileData?.attributes?.website[3].snapchat_link==='null'?'':'',
+                    bio: profileData?.attributes?.bio?.bio==='null'?'':''
                   }}
                     validationSchema={this.profileSchema()}
                     validateOnMount={true}
