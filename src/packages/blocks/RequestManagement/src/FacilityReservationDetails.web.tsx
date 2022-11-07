@@ -179,6 +179,41 @@ class FacilityReservationDetails extends FacilityReservationController {
               </Box>
             </Box>
           </Dialog>
+
+            {/* view status dialog */}
+            <Dialog
+                open={this.state?.deleteShowDialog}
+                onClose={() => this.setState({ deleteShowDialog: false })}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                className="diloag-wrapper"
+                PaperProps={{
+                  style: {
+                    borderRadius: '15px',
+                    width: "500px"
+                  },
+                }}
+              >
+                <Box className="diloag-body classified-dialouge-body desktop-ui ">
+                  <Box className="diloag-header classified-header">
+                    <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
+                      {""}
+                    </DialogTitle>
+                    {/* <Button onClick={() => this.setState({ deleteShowDialog: false })}>
+                      <img src={Close_Icon} className="close-icon" />
+                    </Button> */}
+                  </Box>
+                  <Box className="diloag-content classified-content diloag-management-content">
+                    <img src={"#"} className="lock-logo" alt="Lock_Icon" />
+                    <h3>Approve Classified Request</h3>
+                    <p className="lead"> Are you sure you want to publish this classified??</p>
+                    <Box className="diloag-btn customButton">
+                      <Button variant="outlined" onClick={() => { this.setState({ deleteShowDialog: false }) }}>Close</Button>
+                      <Button variant="contained" >Confirm</Button>
+                    </Box>
+                  </Box>
+                </Box>
+              </Dialog>
         </Box>
         <Loader loading={this.state.loading} />
       </>
