@@ -304,6 +304,8 @@ export default class TemplateDetailController extends BlockComponent<Props, S, S
     const templateDetails = this.state.template;
 
     const formData = {
+      address: "",
+      complexName: "",
       tenantName: templateDetails.attributes.tenant_name,
       landlordName: templateDetails.attributes.landlord_name,
       buildingName: templateDetails.attributes.building_management.name,

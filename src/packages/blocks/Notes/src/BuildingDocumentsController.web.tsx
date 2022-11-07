@@ -4,6 +4,7 @@ import { BlockComponent } from "../../../framework/src/BlockComponent";
 import MessageEnum, { getName } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
 import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
+import { ROLE } from "../../../framework/src/Enum";
 
 // Customizable Area Start
 // Customizable Area End
@@ -114,6 +115,15 @@ export default class BuildingDocumentController extends BlockComponent<Props, S,
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
+  };
+
+  handleGotoDashboard = () => {
+    const userType = localStorage.getItem("userType");
+    if (userType === ROLE.OWNER || userType === ROLE.PROPERTY_MANAGER) {
+      this.props.navigation.navigate("OwnerDashboard");
+    } else {
+      this.props.navigation.navigate("ResidentDashboard");
+    }
   };
   // Customizable Area End
 }

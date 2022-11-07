@@ -163,8 +163,8 @@ export default class OwnerComplexController extends BlockComponent<Props, S, SS>
 
   // Handle State
   handleGotoDashboard = () => {
-    const role = localStorage.getItem("userType");
-    if (role === ROLE.OWNER || role === ROLE.PROPERTY_MANAGER) {
+    const userType = localStorage.getItem("userType");
+    if (userType === ROLE.OWNER || userType === ROLE.PROPERTY_MANAGER) {
       this.props.navigation.navigate("OwnerDashboard");
     } else {
       this.props.navigation.navigate("ResidentDashboard");

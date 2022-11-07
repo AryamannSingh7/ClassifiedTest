@@ -54,7 +54,7 @@ import ContentFlag from '../../blocks/ContentFlag/src/ContentFlag';
 import StoreCredits from '../../blocks/StoreCredits/src/StoreCredits';
 import InvoiceBilling from '../../blocks/InvoiceBilling/src/InvoiceBilling';
 import EmailAccountRegistration from '../../blocks/email-account-registration/src/EmailAccountRegistration';
-import ContentManagement from '../../blocks/ContentManagement/src/ContentManagement';
+// import ContentManagement from '../../blocks/ContentManagement/src/ContentManagement';
 import PricingEngine2 from '../../blocks/PricingEngine2/src/PricingEngine2';
 import Chat9 from '../../blocks/Chat9/src/Chat9';
 import CollectTransactionFees from '../../blocks/CollectTransactionFees/src/CollectTransactionFees';
@@ -325,6 +325,9 @@ import EditMyUnit from '../../blocks/TaskAllocator/src/EditUnit.web';
 // Property Manager
 import PropertyManagerList from '../../blocks/ReviewAndApproval/src/ManagerList.web';
 import RegisterPropertyManager from '../../blocks/ReviewAndApproval/src/RegisterManager.web';
+
+// My Lease
+import MyLeaseList from '../../blocks/ContentManagement/src/MyLeaseList.web';
 
 const routeMap = {
   //done
@@ -1114,10 +1117,10 @@ const routeMap = {
     component: EmailAccountRegistration,
     path: '/EmailAccountRegistration'
   },
-  ContentManagement: {
-    component: ContentManagement,
-    path: '/ContentManagement'
-  },
+  // ContentManagement: {
+  //   component: ContentManagement,
+  //   path: '/ContentManagement'
+  // },
   PricingEngine2: {
     component: PricingEngine2,
     path: '/PricingEngine2'
@@ -1365,10 +1368,10 @@ const routeMap = {
     component: EmailAccountRegistration,
     path: '/EmailAccountRegistration'
   },
-  ContentManagement: {
-    component: ContentManagement,
-    path: '/ContentManagement'
-  },
+  // ContentManagement: {
+  //   component: ContentManagement,
+  //   path: '/ContentManagement'
+  // },
   PricingEngine2: {
     component: PricingEngine2,
     path: '/PricingEngine2'
@@ -1928,6 +1931,13 @@ const routeMap = {
     component: ManagementFeeReport,
     path: '/ManagementFeeReports',
     roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
+    exact: true
+  },
+  // My Lease
+  MyLeaseList: {
+    component: MyLeaseList,
+    path: '/MyLeaseList',
+    roles: [ROLE.TENANT, ROLE.OWNER_RESIDENT],
     exact: true
   },
 
