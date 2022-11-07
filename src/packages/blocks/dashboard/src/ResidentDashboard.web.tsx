@@ -304,14 +304,14 @@ class ResidentDashboard extends DashboardController {
                     <Typography variant="h5">{t("Personal Services")}</Typography>
                   </Grid>
                   <Grid item xs={6} sm={6}>
-                    <Link href="">
+                    <Link href="/MyLeaseList">
                       <DashboardCard image={DashboardLease} heading={t("My Lease")} title={t("Total")} value="75" />
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="/veichleList">
                       <DashboardCard
-                        image={DashboardVehicle}
+                        image={DashboardVehicle.default}
                         heading={t("My Vehicles")}
                         title={t("Registered")}
                         value="75"

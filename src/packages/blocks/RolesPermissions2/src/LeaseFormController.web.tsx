@@ -975,7 +975,12 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
         "The contract is already created for this unit. you need to terminate the contract before creating a new one.",
         (value: any) => {
           if (value) {
-            return this.state.contract !== null && this.state.tenant;
+            return (
+              (this.state.contract === null ||
+                (this.state.contract.attributes.status === "Terminated" ||
+                  this.state.contract.attributes.status === "Closed")) &&
+              this.state.tenant
+            );
           }
           return true;
         }

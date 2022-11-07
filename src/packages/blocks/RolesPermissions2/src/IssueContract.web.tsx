@@ -128,7 +128,10 @@ class IssueLease extends IssueContractController {
                       </Box>
                     </Box>
 
-                    {this.state.contract && this.state.tenant ? (
+                    {this.state.contract &&
+                    (this.state.contract.attributes.status === "Pending" ||
+                      this.state.contract.attributes.status === "Active") &&
+                    this.state.tenant ? (
                       <Box className="contract-info">
                         <Card className="contract">
                           <Grid container spacing={2}>
