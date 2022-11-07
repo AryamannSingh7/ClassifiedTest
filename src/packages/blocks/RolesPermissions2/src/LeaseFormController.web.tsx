@@ -25,6 +25,8 @@ interface LeaseForm {
   landlordName: string;
   buildingName: string;
   unitName: string;
+  complexName: string;
+  address: string;
   buildingId: string;
   unitId: string;
   duration: string;
@@ -95,6 +97,7 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
   CreateContractCallId: any;
   CreateTemplateCallId: any;
   EditTemplateCallId: any;
+  GetComplexListCallId: any;
 
   constructor(props: Props) {
     super(props);
@@ -125,6 +128,8 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
         endDate: "",
         monthlyRent: "",
         currency: "",
+        complexName: "",
+        address: "",
       },
 
       isPenaltyCountModalOpen: false,
@@ -161,6 +166,37 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
   }
 
   async receive(from: string, message: Message) {
+    // Get Complex - API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.GetComplexListCallId !== null &&
+      this.GetComplexListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.GetComplexListCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      console.log(responseJson);
+
+      if (responseJson && responseJson.complex && responseJson.complex_address) {
+        this.setState({
+          leaseForm: {
+            ...this.state.leaseForm,
+            complexName: responseJson.complex.name,
+            address: responseJson.complex_address.address,
+          },
+        });
+      }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
     // Get Building - API Response
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
@@ -171,7 +207,7 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
 
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      if (responseJson.buildings) {
+      if (responseJson && responseJson.buildings) {
         this.setState({ buildingList: responseJson.buildings });
       }
 
@@ -349,6 +385,8 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
         changedTemplate = changedTemplate.replaceAll("{{BUILDING_NAME}}", contract.buildingName);
         changedTemplate = changedTemplate.replaceAll("{{UNIT_NAME}}", contract.unitName);
         changedTemplate = changedTemplate.replaceAll("{{DURATION}}", contract.duration);
+        changedTemplate = changedTemplate.replaceAll("{{COMPLEX_NAME}}", contract.complexName);
+        changedTemplate = changedTemplate.replaceAll("{{COMPLEX_ADDRESS}}", contract.address);
         changedTemplate = changedTemplate.replaceAll(
           "{{START_DATE}}",
           moment(contract.startDate, "YYYY-MM-DD").format("MMMM DD, YYYY")
@@ -509,6 +547,31 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
   }
 
   // Customizable Area Start
+  // Get Complex - API
+  getComplexList = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.GetComplexListCallId = apiRequest.messageId;
+
+    const society_id = localStorage.getItem("society_id");
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `society_managements/${society_id}/bx_block_contract/contracts/find_complex`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
   // Get Building - API
   getBuilding = () => {
     const header = {
