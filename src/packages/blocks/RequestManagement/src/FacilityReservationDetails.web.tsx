@@ -86,7 +86,7 @@ class FacilityReservationDetails extends FacilityReservationController {
                      </Button>
                    </Box>
                 </Box>
-                <Box className="content-block-wrapper common-incident-block">
+                <Box className="content-block-wrapper facility-block-wrapper">
                   <Box className="incident-content-wrapper">
                    
                     <Box className="incident-rows mt-15">
