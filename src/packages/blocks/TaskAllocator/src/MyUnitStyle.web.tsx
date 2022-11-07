@@ -78,6 +78,9 @@ export const MyUnitStyle: any = {
       alignItems: "center",
       justifyContent: "space-between",
     },
+    "& .tenant-list-box .tenant .header h4": {
+      cursor: "pointer",
+    },
     "& .tenant-list-box .tenant .info": {
       marginTop: "10px",
     },
@@ -294,6 +297,32 @@ export const MyUnitStyle: any = {
         textAlign: "center",
       },
     },
+    "& .pending-page": {
+      height: "calc(100% - 160px)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      flexDirection: "column",
+      gap: "20px",
+      "& p": {
+        textAlign: "center",
+      },
+    },
+    "& .pending-buttons": {
+      display: "flex",
+      padding: "10px 0",
+      background: "white",
+      boxShadow: "none",
+      marginTop: "20px",
+      alignItems: "center",
+      justifyContent: "center",
+      flexDirection: "column",
+      gap: "10px",
+      "& .okay": {
+        color: "#8D8D8D",
+        background: "white",
+      },
+    },
     "& .next-button": {
       background: "white",
       display: "flex",
@@ -373,6 +402,16 @@ export const MyUnitStyle: any = {
     },
     "& .tenant-detail-box .detail": {
       margin: "15px 0",
+      "& .header": {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        "& span": {
+          fontWeight: 600,
+          color: "#FC8434",
+          cursor: "pointer",
+        },
+      },
     },
     "& .tenant-detail-box .detail .detail-box": {
       borderRadius: "8px",
@@ -396,6 +435,58 @@ export const MyUnitStyle: any = {
     },
     "& .tenant-detail-box .detail .detail-box .info-item p": {
       fontWeight: 600,
+    },
+    "& .rent-history-box": {
+      "& .header": {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        "& span": {
+          fontWeight: 600,
+          color: "#FC8434",
+          cursor: "pointer",
+        },
+      },
+      "& .rent-history": {
+        padding: "12px 20px",
+        margin: "10px 0",
+        border: "1px solid lightgrey",
+        borderRadius: "8px",
+        "& .date": {
+          margin: "10px 0",
+        },
+        "& .info": {
+          marginTop: "8px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          "& span": {
+            fontWeight: 600,
+            color: "#FC8434",
+          },
+        },
+      },
+    },
+    "& .images-box": {
+      margin: "15px 0",
+      overflow: "hidden",
+      "& img": {
+        width: "100px",
+        height: "100px",
+        borderRadius: "8px",
+      },
+      "& h4": {
+        marginBottom: "10px",
+      },
+      "& .slick-track": {
+        display: "flex",
+      },
+      "& .slick-prev": {
+        display: "none !important",
+      },
+      "& .slick-next": {
+        display: "none !important",
+      },
     },
   },
 };

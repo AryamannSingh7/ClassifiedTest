@@ -69,8 +69,6 @@ class ContractsList extends ContractsListController {
     const sharePopupHeight = 700;
     const shareTitle = "TI 1 Final Leap";
 
-    console.log(this.state);
-
     return (
       <>
         <Box style={{ background: "#F4F7FF", height: "100vh" }} className={classes.contractList}>
@@ -309,7 +307,9 @@ class ContractsList extends ContractsListController {
                                             {t("Download")}
                                           </Link>
                                         </MenuItem>
-                                        <MenuItem>{t("Edit")}</MenuItem>
+                                        <MenuItem onClick={() => this.handleEditTemplate(template)}>
+                                          {t("Edit")}
+                                        </MenuItem>
                                         <MenuItem
                                           onClick={() => {
                                             this.setState(

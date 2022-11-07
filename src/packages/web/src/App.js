@@ -22,7 +22,7 @@ import BroadcastMessage from '../../blocks/BroadcastMessage/src/BroadcastMessage
 import Location from '../../blocks/location/src/Location';
 import SocialMediaAccountLoginScreen from '../../blocks/social-media-account-login/src/SocialMediaAccountLoginScreen';
 import Invitefriends from '../../blocks/invitefriends/src/Invitefriends';
-import ReviewAndApproval from '../../blocks/ReviewAndApproval/src/ReviewAndApproval';
+// import ReviewAndApproval from '../../blocks/ReviewAndApproval/src/ReviewAndApproval';
 import LanguageOptions from '../../blocks/LanguageOptions/src/LanguageOptions';
 import Polling from '../../blocks/Polling/src/Polling';
 import Customisableusersubscriptions from '../../blocks/customisableusersubscriptions/src/Customisableusersubscriptions';
@@ -111,6 +111,7 @@ import NewRequest from '../../blocks/customform/src/NewRequest.web';
 import ManagerList from '../../blocks/customform/src/ManagerList.web';
 import Inbox from '../../blocks/customform/src/Inbox.web';
 import IncidentChat from '../../blocks/customform/src/IncidentChat.web';
+import ChairmanChat from '../../blocks/customform/src/ChairmanChat.web';
 
 import Chatbox from '../../blocks/customform/src/Chatbox.web';
 // import RequestManagement from "../../blocks/RequestManagement/src/RequestManagement";
@@ -168,7 +169,6 @@ import FacilityReservationDetails from '../../blocks/RequestManagement/src/Facil
 import FacilityReservation from '../../blocks/RequestManagement/src/FacilityReservation.web';
 import FacilityReservationReportedSuccessfully from '../../blocks/RequestManagement/src/FacilityReservationReportedSuccessfully.web';
 import CreateFacilityReservation from '../../blocks/RequestManagement/src/CreateFacilityReservation.web';
-
 
 // Help
 import FaqChairman from '../../blocks/contactus/src/FaqChairman.web';
@@ -314,6 +314,13 @@ import MyUnitList from '../../blocks/TaskAllocator/src/MyUnitList.web';
 import RegisterMyUnit from '../../blocks/TaskAllocator/src/RegisterUnit.web';
 import RegisterMyUnitSuccess from '../../blocks/TaskAllocator/src/RegisterUnitSuccess.web';
 import MyUnitDetails from '../../blocks/TaskAllocator/src/UnitDetails.web';
+import RentHistory from '../../blocks/TaskAllocator/src/RentHistory.web';
+import PendingUnit from '../../blocks/TaskAllocator/src/PendingUnit.web';
+import EditMyUnit from '../../blocks/TaskAllocator/src/EditUnit.web';
+
+// Property Manager
+import PropertyManagerList from '../../blocks/ReviewAndApproval/src/ManagerList.web';
+import RegisterPropertyManager from '../../blocks/ReviewAndApproval/src/RegisterManager.web';
 
 const routeMap = {
   //done
@@ -357,12 +364,12 @@ const routeMap = {
     component: Inbox,
     path: '/inbox',
     exact: true
-  }, 
-  // ChairmanChat: { 
-  //   component: ChairmanChat,
-  //   path: '/ChairmanChat',
-  //   exact: true
-  // },
+  },
+  ChairmanChat: {
+    component: ChairmanChat,
+    path: '/ChairmanChat',
+    exact: true
+  },
   Chatbox: {
     component: Chatbox,
     path: '/Chatbox',
@@ -661,10 +668,10 @@ const routeMap = {
     component: Invitefriends,
     path: '/Invitefriends'
   },
-  ReviewAndApproval: {
-    component: ReviewAndApproval,
-    path: '/ReviewAndApproval'
-  },
+  // ReviewAndApproval: {
+  //   component: ReviewAndApproval,
+  //   path: '/ReviewAndApproval'
+  // },
   LanguageOptions: {
     component: LanguageOptions,
     path: '/LanguageOptions'
@@ -1217,10 +1224,10 @@ const routeMap = {
     component: Invitefriends,
     path: '/Invitefriends'
   },
-  ReviewAndApproval: {
-    component: ReviewAndApproval,
-    path: '/ReviewAndApproval'
-  },
+  // ReviewAndApproval: {
+  //   component: ReviewAndApproval,
+  //   path: '/ReviewAndApproval'
+  // },
   LanguageOptions: {
     component: LanguageOptions,
     path: '/LanguageOptions'
@@ -1596,7 +1603,7 @@ const routeMap = {
 
   TeamUserDetails: {
     component: MyTeamUserDetails,
-    path: '/TeamMembers/userDetails',
+    path: '/TeamMember/userDetails',
     exact: true
   },
 
@@ -1840,7 +1847,38 @@ const routeMap = {
   },
   MyUnitDetails: {
     component: MyUnitDetails,
-    path: '/MyUnitDetails',
+    path: '/MyUnitDetails/:id',
+    roles: [ROLE.OWNER],
+    exact: true
+  },
+  EditMyUnit: {
+    component: EditMyUnit,
+    path: '/MyUnitDetails/Edit',
+    roles: [ROLE.OWNER],
+    exact: true
+  },
+  PendingUnit: {
+    component: PendingUnit,
+    path: '/MyUnitDetails/PendingUnit',
+    roles: [ROLE.OWNER],
+    exact: true
+  },
+  RentHistory: {
+    component: RentHistory,
+    path: '/RentHistory',
+    roles: [ROLE.OWNER],
+    exact: true
+  },
+  // Property Manager
+  PropertyManagerList: {
+    component: PropertyManagerList,
+    path: '/PropertyManagers',
+    roles: [ROLE.OWNER],
+    exact: true
+  },
+  RegisterPropertyManager: {
+    component: RegisterPropertyManager,
+    path: '/RegisterPropertyManagers',
     roles: [ROLE.OWNER],
     exact: true
   },

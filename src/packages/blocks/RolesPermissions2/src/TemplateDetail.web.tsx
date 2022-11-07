@@ -54,8 +54,6 @@ class TemplateDetail extends TemplateDetailController {
     const sharePopupHeight = 700;
     const shareTitle = "TI 1 Final Leap";
 
-    console.log(this.state);
-
     return (
       <>
         <Loader loading={this.state.loading} />

@@ -11,7 +11,7 @@ import {
     FormControl,
     Dialog,
     DialogActions,
-    DialogTitle, IconButton, DialogContent, Backdrop, Fade, FormLabel, InputLabel, Modal,
+    DialogTitle, IconButton, DialogContent, Backdrop, Fade, FormLabel, InputLabel, Modal, Card,
 } from "@material-ui/core";
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -78,9 +78,9 @@ class MyTeam extends MyTeamController {
                     {
                         this.state.pendingReq.length > 0 ?
                             this.state.pendingReq.map((item:any,key:any)=> {
-                                if(key < 3){
+                                if(key < 4){
                                     return(
-                                        <TeamCard key={key} data={item.attributes} history={this.props.history} approval={true} handleDelete={(id:any) => this.handleDeleteModal(id)} />
+                                        <TeamCard key={key} data={item.attributes} history={this.props.history} approval={true} approvalFnc={(type:any,id:any)=> this.approvalFnc(type,id)} handleDelete={(id:any) => this.handleDeleteModal(id)} openChat={this.openChat} handleEdit={(id:any) => this.handleEdit(id)}/>
                                     )
                                 }
                           })
@@ -101,16 +101,13 @@ class MyTeam extends MyTeamController {
                         </Link>
                     }
                 </Box>
-                {
-                    console.log("this.state.userList",this.state.userList)
-                }
                 <Grid container spacing={3} style={{marginTop: 15, marginBottom:30}}>
                     {
                         this.state.coreMembers.length > 0 ?
                         this.state.coreMembers.map((item:any,key:any)=> {
-                            if(key < 3){
+                            if(key < 4){
                                 return(
-                                    <TeamCard data={item.attributes} history={this.props.history} approval={false} handleDelete={(id:any) => this.handleDeleteModal(id)} />
+                                    <TeamCard data={item.attributes} history={this.props.history} approval={false} handleDelete={(id:any) => this.handleDeleteModal(id)} openChat={this.openChat} handleEdit={(id:any) => this.handleEdit(id)}/>
                                 )
                             }
                         })
@@ -135,9 +132,9 @@ class MyTeam extends MyTeamController {
                     {
                         this.state.subTeam.length > 0 ?
                             this.state.subTeam.map((item:any,key:any)=> {
-                                if(key < 3) {
+                                if(key < 4) {
                                     return (
-                                        <TeamCard key={key} date={item.attributes} history={this.props.history} approval={false} handleDelete={(id:any) => this.handleDeleteModal(id)} />
+                                        <TeamCard key={key} date={item.attributes} history={this.props.history} approval={false} handleDelete={(id:any) => this.handleDeleteModal(id)} openChat={this.openChat} handleEdit={(id:any) => this.handleEdit(id)}/>
                                     )
                                 }
                             })
@@ -162,9 +159,9 @@ class MyTeam extends MyTeamController {
                     {
                         this.state.providers.length > 0 ?
                             this.state.providers.map((item:any,key:any)=> {
-                                if(key < 3) {
+                                if(key < 4) {
                                     return (
-                                        <TeamCard data={item.attributes} history={this.props.history} approval={false} handleDelete={(id:any) => this.handleDeleteModal(id)} />
+                                        <TeamCard data={item.attributes} history={this.props.history} approval={false} handleDelete={(id:any) => this.handleDeleteModal(id)} openChat={this.openChat} handleEdit={(id:any) => this.handleEdit(id)}/>
                                     )
                                 }
                             })
@@ -190,7 +187,8 @@ class MyTeam extends MyTeamController {
               timeout: 500,
           }}>
           <Fade in={Boolean(this.state.setOpen)}>
-              <AddTeamModal />
+              {/*@ts-ignore*/}
+              <AddTeamModal editId={this.state.editId}/>
           </Fade>
       </Modal>
       <Dialog
@@ -210,7 +208,7 @@ class MyTeam extends MyTeamController {
                       <Button className="cancel-button" style={{ width: "200px" }} onClick={() => this.setState({deleteModal:false})}>
                           Close
                       </Button>
-                      <Button style={{ width: "200px" }} className="add-button" >
+                      <Button style={{ width: "200px" }} className="add-button" onClick={()=> this.deleteMember(this.state.deleteId)}>
                           Confirm
                       </Button>
                   </DialogActions>
@@ -346,6 +344,7 @@ const TeamCard = (props:any) => {
 
     const handleEdit = () => {
         setAnchorEl(null);
+        props.handleEdit(data)
     }
 
     const handleDelete = () => {
@@ -353,16 +352,19 @@ const TeamCard = (props:any) => {
         props.handleDelete(data.id)
     }
 
-    console.log("data",data)
+    const approval = (type:any) => {
+        props.approvalFnc(type,data.id)
+    }
+
     return(
-        <Grid item sm={4} md={3} xs={12} style={{position:"relative"}}>
+        <Grid item sm={4} md={3} xs={12} style={{position:"relative",height:"100%"}}>
             <Box style={{position:"absolute",top:"10px",right:"10px"}}>
                 <IconButton onClick={handleClick}>
                     <MoreVertIcon/>
                 </IconButton>
             </Box>
-            <Box className="EventsCards" style={{paddingLeft:"0px"}}>
-                <Box style={{width:"100%",display:'flex',justifyContent:"center",alignItems:"center",flexDirection:"column",marginTop:"15px"}} onClick={() => props.history.push("/TeamMembers/userDetails?id=")}>
+            <Card className="EventsCards" style={{paddingLeft:"0px"}}>
+                <Box style={{width:"100%",display:'flex',justifyContent:"center",alignItems:"center",flexDirection:"column",marginTop:"15px"}} onClick={() => props.history.push("/TeamMember/userDetails?id=")}>
                     {
                         props.approval && userType === "Manager" &&
                         <Typography variant="subtitle2" className={"statusOngoingRed"} gutterBottom style={{marginBottom: "12px"}}>Pending Approval</Typography>
@@ -371,23 +373,27 @@ const TeamCard = (props:any) => {
                     <Typography variant="h6" style={{fontWeight:"bold",marginBottom:"5px"}}>{data?.role?.name}</Typography>
                     <Typography variant="h6" gutterBottom style={{marginBottom:"10px"}}>{data?.account?.attributes?.full_name?.name}</Typography>
                     <Grid container spacing={1} style={{width:"100%",display:"flex",alignItems:"center",justifyContent:"center"}}>
-                        <Grid item>
-                            <Typography variant="subtitle2" className={"statusOngoingBlue"} gutterBottom>Owner</Typography>
-                        </Grid>
-                        <Grid item>
-                            <Typography variant="subtitle2" className={"statusOngoingBlue"} gutterBottom>Chairman</Typography>
-                        </Grid>
+                        {
+                            data.account_roles.length > 0 &&
+                                data.account_roles.map((item:any,key:any)=> {
+                                    return(
+                                        <Grid item style={{marginBottom:"15px"}}>
+                                            <Typography  key={key} variant="subtitle2" className={"statusOngoingBlue"} gutterBottom>{item.name}</Typography>
+                                        </Grid>
+                                    )
+                                })
+                        }
                     </Grid>
                 </Box>
                 <Box style={{width:"100%",display:'flex',justifyContent:"center",alignItems:"center",flexDirection:"column",marginTop:"15px"}}>
                     <Box style={{display:'flex'}}>
-                        <IconButton style={{backgroundColor:"rgba(252,52,52,.1)",marginRight:"8px"}}>
+                        <IconButton style={{backgroundColor:"rgba(252,52,52,.1)",marginRight:"8px"}} onClick={()=>props.openChat(data)} >
                             <img src={chat} />
                         </IconButton>
-                        <IconButton style={{backgroundColor:"rgba(252,52,52,.1)",marginRight:"8px"}}>
+                        <IconButton style={{backgroundColor:"rgba(252,52,52,.1)",marginRight:"8px"}} onClick={()=> window.location.href = `mailto:${data.email}`}>
                             <img src={email} />
                         </IconButton>
-                        <IconButton style={{backgroundColor:"rgba(252,52,52,.1)"}}>
+                        <IconButton style={{backgroundColor:"rgba(252,52,52,.1)"}} onClick={()=> window.location.href = `tel:${data.phone_number}`}>
                             <img src={telephone} />
                         </IconButton>
                     </Box>
@@ -395,15 +401,15 @@ const TeamCard = (props:any) => {
                         props.approval && userType === "Chairman" &&
                         <Grid container spacing={2} style={{width:"100%",marginTop:"10px"}}>
                             <Grid item xs={6}>
-                                <DeclineButton variant="contained" fullWidth>Decline</DeclineButton>
+                                <DeclineButton variant="contained" fullWidth onClick={()=> approval("Decline")}>Decline</DeclineButton>
                             </Grid>
                             <Grid item xs={6}>
-                                <AcceptButton variant="contained" fullWidth>Accept</AcceptButton>
+                                <AcceptButton variant="contained" fullWidth onClick={()=> approval("Accept")}>Accept</AcceptButton>
                             </Grid>
                         </Grid>
                     }
                 </Box>
-            </Box>
+            </Card>
             <Menu
                 id="simple-menu"
                 anchorEl={anchorEl}

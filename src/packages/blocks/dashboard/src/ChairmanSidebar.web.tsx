@@ -301,7 +301,7 @@ class ChairmanSidebar extends DashboardController {
             <div
               onClick={() => {
                 //@ts-ignore
-                this.props.history.push("/Chat");
+                this.props.history.push("/chairmanchat");
               }}
             >
               <Typography className="SingleLinkSize">{t("Chat")}</Typography>
