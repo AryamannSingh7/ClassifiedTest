@@ -34,8 +34,15 @@ class RentHistory extends RentHistoryController {
                     <span>{t("Rent History")}</span>
                   </div>
                   <div className="right-icon">
-                    <p>{t("Select All")}</p>
-                    <img src={DeleteRentIcon} alt="" />
+                    {this.state.isDeleteOpen && <p onClick={() => this.selectAllHistory()}>{t("Select All")}</p>}
+                    {this.state.isDeleteOpen ? (
+                      <img src={DeleteRentIcon} alt="" onClick={() => this.deleteRentHistories()} />
+                    ) : (
+                      this.state.isDeleteOpen &&
+                      this.state.rentHistory.length >= 0 && (
+                        <img src={DeleteRentIcon} alt="" onClick={() => this.setState({ isDeleteOpen: true })} />
+                      )
+                    )}
                   </div>
                 </Box>
                 <Box className="tenant-detail-box">
@@ -46,7 +53,7 @@ class RentHistory extends RentHistoryController {
                       )}
                       {this.state.rentHistory.map((history: any) => {
                         return (
-                          <Box className="rent-history">
+                          <Box className="rent-history" key={history.id}>
                             <Box className="header">
                               <Box className="left-side">
                                 <h4>
@@ -56,11 +63,27 @@ class RentHistory extends RentHistoryController {
                                 </h4>
                                 <p className="date">{history.attributes.tenant_name || "-"}</p>
                               </Box>
-                              <Checkbox
-                                checked={true}
-                                icon={<CircleUnchecked />}
-                                checkedIcon={<CircleCheckedFilled />}
-                              />
+                              {this.state.isDeleteOpen && (
+                                <Checkbox
+                                  onChange={(e: any) => {
+                                    if (!e.target.checked) {
+                                      const newIdList = this.state.selectedRentHistory.filter(
+                                        (id: any) => id !== history.id
+                                      );
+                                      this.setState({
+                                        selectedRentHistory: newIdList,
+                                      });
+                                    } else {
+                                      this.setState({
+                                        selectedRentHistory: [...this.state.selectedRentHistory, history.id],
+                                      });
+                                    }
+                                  }}
+                                  checked={this.state.selectedRentHistory.includes(history.id)}
+                                  icon={<CircleUnchecked />}
+                                  checkedIcon={<CircleCheckedFilled />}
+                                />
+                              )}
                             </Box>
                             <Divider />
                             <Box className="info">
@@ -69,7 +92,7 @@ class RentHistory extends RentHistoryController {
                             </Box>
                             <Box className="info">
                               <p>{t("Received Amount")}</p>
-                              <span>{history.attributes.tenant_name}</span>
+                              <span>{history.attributes.received_amount || "-"}</span>
                             </Box>
                           </Box>
                         );
