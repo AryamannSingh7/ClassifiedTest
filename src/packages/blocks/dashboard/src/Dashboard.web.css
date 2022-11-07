@@ -48,7 +48,7 @@
 /* .SingleLink .SingleLinkSize:hover{
     color: red;
 } */
-.AccordinoList  {
+.AccordinoList {
   margin-bottom: 50px;
 }
 
@@ -111,8 +111,8 @@
 }
 
 .dashboard-sidebar .user-info .MuiAvatar-root {
-  width: 80px;
-  height: 80px;
+  width: 65px;
+  height: 65px;
   margin-bottom: 10px;
 }
 
@@ -138,12 +138,7 @@
 .dashboard-sidebar .menu-list .list-menu .image {
   border-radius: 50%;
   background-color: #ffebdb;
-  padding: 15px;
-}
-
-.dashboard-sidebar .menu-list .list-menu .image img {
-  width: 25px;
-  height: 25px;
+  padding: 18px;
 }
 
 .AccordinoList .MuiAccordionSummary-content {

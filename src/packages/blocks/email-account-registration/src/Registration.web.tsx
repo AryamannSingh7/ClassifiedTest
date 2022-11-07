@@ -58,6 +58,11 @@ class Registration extends EmailAccountRegistrationController  {
           </div>
     
           <Grid container>
+          <Grid xs={12}>
+              <p className="text-center" style={{fontWeight:600,fontSize:'1.5rem',marginTop:'0.5rem'}}>
+                WELCOME
+              </p>
+            </Grid>
             <Grid xs={12}>
               <p className="text-center">
                 Create an account with your credentials

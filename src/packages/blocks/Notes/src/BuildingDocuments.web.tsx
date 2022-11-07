@@ -24,11 +24,9 @@ class BuildingDocuments extends BuildingDocumentController {
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box display={{ xs: "flex", md: "flex" }} className="menu">
-                <Link href={localStorage.getItem("userType") === "Owner" ? "/OwnerDashboard" : ""}>
-                  <IconButton>
-                    <KeyboardBackspaceIcon />
-                  </IconButton>
-                </Link>{" "}
+                <IconButton onClick={() => this.handleGotoDashboard()}>
+                  <KeyboardBackspaceIcon />
+                </IconButton>{" "}
                 {t("Building Documents")}
               </Box>
               <Container className="content-area document-box">

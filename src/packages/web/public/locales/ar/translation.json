@@ -842,5 +842,6 @@
   "Chairman and Vice Chairman Nomination": "تعيين رئيس ونائب رئيس مجلس الإدارة",
   "Team Members": "أعضاء الفريق",
   "There is no tenant available for this unit. you need to assign this unit to tenant before creating a contract.": ".لا يوجد مستأجر متاح لهذه الوحدة. تحتاج إلى تخصيص هذه الوحدة للمستأجر قبل إنشاء العقد",
-  "The contract is already created for this unit. you need to terminate the contract before creating a new one.": ".تم إنشاء العقد بالفعل لهذه الوحدة. تحتاج إلى إنهاء العقد قبل إنشاء عقد جديد"
+  "The contract is already created for this unit. you need to terminate the contract before creating a new one.": ".تم إنشاء العقد بالفعل لهذه الوحدة. تحتاج إلى إنهاء العقد قبل إنشاء عقد جديد",
+  "Complex Address": "عنوان معقد"
 }
