@@ -161,7 +161,7 @@ class IssueLease extends IssueContractController {
                                         href={
                                           this.state.contract.attributes.custom_contract
                                             ? this.state.contract.attributes.custom_contract_image.url
-                                            : this.state.contract.attributes.template_pdf.url
+                                            : this.state.contract.attributes.contract_template_pdf.url
                                         }
                                       >
                                         {t("Download")}
