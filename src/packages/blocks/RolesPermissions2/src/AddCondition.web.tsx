@@ -41,7 +41,7 @@ class AddCondition extends LeaseFormController {
 
     return (
       <>
-        <Box style={{ background: "white", height: "100vh" }} className={classes.changedTemplate}>
+        <Box style={{ background: "white", height: "100vh", overflowY: "hidden" }} className={classes.changedTemplate}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box className="faq-step">
