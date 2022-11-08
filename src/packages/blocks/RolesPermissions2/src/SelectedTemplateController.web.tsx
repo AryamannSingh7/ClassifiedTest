@@ -117,6 +117,8 @@ export default class SelectedTemplateController extends BlockComponent<Props, S,
   };
 
   gotoContractFrom = () => {
+    const buildingId = window.sessionStorage.getItem("buildingId");
+    const unitId = window.sessionStorage.getItem("unitId");
     const formData = {
       tenantName: "",
       landlordName: "",
@@ -124,8 +126,8 @@ export default class SelectedTemplateController extends BlockComponent<Props, S,
       unitName: "",
       address: "",
       complexName: "",
-      buildingId: "",
-      unitId: "",
+      buildingId: buildingId ? buildingId : "",
+      unitId: unitId ? unitId : "",
       duration: "",
       startDate: "",
       endDate: "",

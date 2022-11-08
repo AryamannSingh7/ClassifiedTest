@@ -49,7 +49,21 @@ class ReviewTemplate extends LeaseFormController {
   async componentDidMount(): Promise<void> {
     const template_name: any = window.sessionStorage.getItem("templateName");
     const template_id: any = this.props.navigation.getParam("templateId");
-    this.setState({ ...this.state, templateId: template_id, templateName: template_name });
+    const sessionCondition = JSON.parse(window.sessionStorage.getItem("condition") as any);
+    this.setState(
+      {
+        ...this.state,
+        templateId: template_id,
+        templateName: template_name,
+        selectedPaymentTermId: sessionCondition.paymentTerm.map((term: any) => Number(term)),
+        selectedPersonalConditionId: sessionCondition.personalCondition.map((condition: any) => Number(condition)),
+      },
+      () => {
+        this.getPenaltyDetails();
+        this.getPaymentTerm();
+        this.getPersonalCondition();
+      }
+    );
   }
 
   render() {
@@ -60,9 +74,12 @@ class ReviewTemplate extends LeaseFormController {
     const sharePopupHeight = 700;
     const shareTitle = "TI 1 Final Leap";
 
+    const isPenaltyAdded = window.sessionStorage.getItem("isLatePaymentPenalty");
+    const customConditionText = JSON.parse(window.sessionStorage.getItem("condition") as any);
+
     return (
       <>
-        <Box style={{ background: "#F4F7FF", height: "100vh" }} className={classes.detailPage}>
+        <Box style={{ background: "#F4F7FF", height: "100vh", overflowY: "hidden" }} className={classes.detailPage}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box className="faq-step">
@@ -84,6 +101,42 @@ class ReviewTemplate extends LeaseFormController {
                       <div
                         dangerouslySetInnerHTML={{ __html: window.sessionStorage.getItem("changedTemplate") as any }}
                       />
+                      <br />
+                      <Box>
+                        {isPenaltyAdded === "true" && this.state.penalty && (
+                          <>
+                            <h4>{t("Penalty Details")}</h4>
+                            <p>Type: {this.state.penalty.penanlty_counted}</p>
+                            <p>Amount: {this.state.penalty.amount}</p>
+                          </>
+                        )}
+                      </Box>
+                      {this.state.selectedPaymentTermText.length !== 0 && (
+                        <>
+                          <br />
+                          <h4>{t("Payment Terms")}</h4>
+                        </>
+                      )}
+                      {this.state.selectedPaymentTermText.map((condition: any) => {
+                        return <p key={condition.id}>{condition.text}</p>;
+                      })}
+                      {this.state.selectedPersonalConditionText.length !== 0 && (
+                        <>
+                          <br />
+                          <h4>{t("Personal Conditions")}</h4>
+                        </>
+                      )}
+                      {this.state.selectedPersonalConditionText.map((condition: any) => {
+                        return <p key={condition.id}>{condition.text}</p>;
+                      })}
+                      <br />
+                      {customConditionText.isEditorCondition && (
+                        <>
+                          <h4>{t("Custom Condition")}</h4>
+                          <div dangerouslySetInnerHTML={{ __html: customConditionText.editorCondition }} />
+                        </>
+                      )}
+                      <br />
                     </div>
                     <Box className="upload-button">
                       <Box className="upload-button-group review">
