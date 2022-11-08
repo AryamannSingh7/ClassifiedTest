@@ -170,6 +170,10 @@ import FacilityReservation from '../../blocks/RequestManagement/src/FacilityRese
 import FacilityReservationReportedSuccessfully from '../../blocks/RequestManagement/src/FacilityReservationReportedSuccessfully.web';
 import CreateFacilityReservation from '../../blocks/RequestManagement/src/CreateFacilityReservation.web';
 
+import FacilityManagerDetail from '../../blocks/RequestManagement/src/FacilityManagerDetail.web';
+import ManagerFacilityReservation from '../../blocks/RequestManagement/src/ManagerFacilityReservation.web';
+
+
 // Help
 import FaqChairman from '../../blocks/contactus/src/FaqChairman.web';
 import FaqOwner from '../../blocks/contactus/src/FaqOwner.web';
@@ -639,6 +643,19 @@ const routeMap = {
     path: '/FacilityReservationReportedSuccessfully',
     exact: true
   },
+
+  FacilityManagerDetail: {
+    component: FacilityManagerDetail,
+    path: '/FacilityManagerDetail',
+    exact: true
+  },
+ 
+  ManagerFacilityReservation: {
+    component: ManagerFacilityReservation,
+    path: '/ManagerFacilityReservation',
+    exact: true
+  },
+ 
   // RolesPermissions2: {
   //   component: RolesPermissions2,
   //   path: '/RolesPermissions2'
