@@ -320,6 +320,7 @@ import MyUnitDetails from '../../blocks/TaskAllocator/src/UnitDetails.web';
 import RentHistory from '../../blocks/TaskAllocator/src/RentHistory.web';
 import PendingUnit from '../../blocks/TaskAllocator/src/PendingUnit.web';
 import EditMyUnit from '../../blocks/TaskAllocator/src/EditUnit.web';
+import TenantProfile from '../../blocks/TaskAllocator/src/TenantProfile.web';
 
 // Property Manager
 import PropertyManagerList from '../../blocks/ReviewAndApproval/src/PropertyManagerList.web';
@@ -1887,6 +1888,12 @@ const routeMap = {
     component: RentHistory,
     path: '/MyUnitDetails/:id/RentHistory',
     roles: [ROLE.OWNER],
+    exact: true
+  },
+  TenantProfile: {
+    component: TenantProfile,
+    path: '/TenantProfile/:id',
+    roles: [ROLE.PUBLIC],
     exact: true
   },
   // Property Manager
