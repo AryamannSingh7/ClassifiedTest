@@ -230,7 +230,7 @@ class IncidentManagementDetail extends IncidentManagementController {
                               <Button className="change-btn" onClick={() => this.providerList(apartmentManagementId)}>change</Button>
                             </Box>
                         }
-                        <Button variant="contained" onClick={()=>this.setState({chatDrawer:true})}>start/view ticket conversation</Button>
+                        <Button variant="contained" onClick={() => this.createChatRoom(this.state?.getIncidentDetails?.id)}>start/view ticket conversation</Button>
                       </Box>
                     </CardContent>
                   </Card>
@@ -400,13 +400,13 @@ class IncidentManagementDetail extends IncidentManagementController {
         </Box>
         {/* <IncidentChatDrawer /> */}
         <Loader loading={this.state.loading} />
-        {/* <Drawer
+        <Drawer
             anchor='right'
             open={this.state.chatDrawer}
-            onClose={this.setState({chatDrawer:false})}
+            onClose={()=>this.setState({chatDrawer:false})}
           >
-            <IncidentChatWeb/> 
-          </Drawer> */}
+             <IncidentChatWeb/>  
+          </Drawer>
       </>
     )
   }

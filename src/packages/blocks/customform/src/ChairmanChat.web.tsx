@@ -67,6 +67,7 @@ class ChairmanChat extends InboxController {
   async componentDidMount() {
     this.getInbox()
     this.getProfile()
+
     // this.getSingleInbox()
 this.markUnread()
 console.log('hello',window.history?.state?.state?.data)

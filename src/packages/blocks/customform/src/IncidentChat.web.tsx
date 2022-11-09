@@ -76,6 +76,9 @@ class IncidentChatBox extends InboxController {
 
   async componentDidMount() {
     this.getAllChat()
+    this.interval = setInterval(() => {
+      this.getSingleInbox()
+    }, 3000);
 
   }
 
@@ -117,7 +120,7 @@ class IncidentChatBox extends InboxController {
 
 
           <Grid xs={12}>
-            <List style={{ overflowY: "auto", maxHeight: "84vh", minHeight: "84vh" }}>
+            <List style={{ overflowY: "auto", maxHeight: "75vh", minHeight: "75vh" }}>
               {/* {
   this.state.allInboxKey ? 'hey':'bye'
 } */}
