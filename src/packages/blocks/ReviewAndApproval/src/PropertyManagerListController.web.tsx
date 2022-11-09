@@ -24,7 +24,7 @@ interface SS {
   id: any;
 }
 
-export default class ManagerListController extends BlockComponent<Props, S, SS> {
+export default class PropertyManagerListController extends BlockComponent<Props, S, SS> {
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);

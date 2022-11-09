@@ -28,7 +28,7 @@ interface SS {
   // Customizable Area End
 }
 
-export default class RegisterManagerController extends BlockComponent<Props, S, SS> {
+export default class RegisterPropertyManagerController extends BlockComponent<Props, S, SS> {
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
