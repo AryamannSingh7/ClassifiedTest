@@ -63,7 +63,7 @@ class RegisterMyUnit extends RegisterUnitController {
       <>
         <Loader loading={this.state.loading} />
 
-        <Box style={{ background: "white", height: "100vh" }} className={classes.registerUnit}>
+        <Box style={{ background: "white", height: "100vh", overflowY: "hidden" }} className={classes.registerUnit}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box>
