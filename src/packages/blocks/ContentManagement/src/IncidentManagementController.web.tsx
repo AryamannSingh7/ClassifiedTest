@@ -95,6 +95,7 @@ export default class IncidentManagementController extends BlockComponent<
   apiUpdateStatusCallId:any;
   getProviderNameApiCallId:any;
   getProviderListingApiCallId:any;
+  createChatRoomAPIId:any;
 
   imgPasswordVisible: any;
   imgPasswordInVisible: any;
@@ -366,6 +367,20 @@ export default class IncidentManagementController extends BlockComponent<
           }
           this.parseApiCatchErrorResponse(this.state.error);
           this.setState({loading: false , error:null})
+        }else if (apiRequestCallId === this.createChatRoomAPIId) {
+          if (responseJson && responseJson?.data) {
+            console.log("createChatRoom ========================>", responseJson)
+            localStorage.setItem('selectedChat', JSON.stringify(responseJson.data))
+           
+            this.setState({ loading: false,chatDrawer:true })
+          } else if (responseJson?.errors) {
+            let error = responseJson.errors[0] as string;
+            this.setState({ error });
+          } else {
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
+          }
+          this.parseApiCatchErrorResponse(this.state.error);
+          this.setState({ loading: false, error: null })
         }
         else if (apiRequestCallId === this.getIncidentDetailsByIdApiCallId) {
           if (responseJson && responseJson?.data ) {
@@ -1124,5 +1139,53 @@ onChange =(e :any)=>{
       console.log(error);
     }
   };
+  createChatRoom = async (id: any) => {
+console.log(id)
+    try {
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+      this.createChatRoomAPIId = requestMessage.messageId;
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        `bx_block_chat/chats`
+      );
+
+      const header = {
+        token: localStorage.getItem("userToken"),
+      };
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+
+      const formData = new FormData();
+      formData.append("chat[chatable_type]", 'BxBlockCustomForm::Incident');
+      // @ts-ignore
+      formData.append("chat[chatable_id]", id);
+
+
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestBodyMessage),
+        formData
+      );
+
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        'POST'
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+
+      return true;
+    } catch (error) {
+      console.log(error);
+    }
+
+  }
   // Customizable Area End
 }

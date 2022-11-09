@@ -199,6 +199,11 @@ class CommunityUserProfile extends CommunityUserProfileController {
     super(props);
   }
 
+ async componentDidMount() {
+    this.getUserProfile()
+    this.getBuilding();
+    
+  }
   render() {
     const {t}: any = this.props
     return (
@@ -223,6 +228,24 @@ class CommunityUserProfile extends CommunityUserProfileController {
                 </Box>
                  <Box style={dashBoard.boxStyling}>
                     <Grid container  xs={6} md={6} sm={6} spacing={2}>
+                    <Grid item xs={4}>
+                        <FormControl style={dashBoard.YearMain} className='yearTab'>
+                          <NativeSelect className='yearSelection'
+                            // value={this.state.Year}
+                            name="selectedBUilding"
+                            onChange={this.handleChange}
+                          >
+                            <option value={2022}>{t("Select Building")}</option>
+                            {
+                              this.state.allBuilding.map((item:any)=><>
+                              <option value={item.id}>{item.name}</option>
+                              </>)
+                            }
+                            
+                           
+                          </NativeSelect>
+                      </FormControl>
+                      </Grid>
                       <Grid item xs={4}>
                         <FormControl style={dashBoard.YearMain} className='yearTab'>
                           <NativeSelect className='yearSelection'
@@ -230,9 +253,11 @@ class CommunityUserProfile extends CommunityUserProfileController {
                             // onChange={this.handleChange}
                           >
                             <option value={2022}>{t("Select Unit")}</option>
-                            <option value={2021}>2021</option>
-                            <option value={2020}>2020</option>
-                            <option value={2019}>2019</option>
+                            {
+                              this.state.allUnit.map((item:any)=><>
+                              <option value={item.id}>{item.apartment_name}</option>
+                              </>)
+                            }
                           </NativeSelect>
                       </FormControl>
                       </Grid>
@@ -274,16 +299,19 @@ class CommunityUserProfile extends CommunityUserProfileController {
                   </Box>
 
                   {/* GA MEMBERS -- */}
-                  <Box>
+                  {
+                    this.state.allProfileKeys.map((item:any)=>
+                    (  <>
+                        <Box>
                     <Grid container style={dashBoard.gaMemberMain}> 
                           <Grid item xs={6}>
-                            <Typography variant="h6" style={dashBoard.subHeading}>{t("GA Members")}</Typography>
+                            <Typography variant="h6" style={dashBoard.subHeading}>{t(`${item}`)}</Typography>
                           </Grid>
                           <Grid item xs={1} style={dashBoard.cursorPointer}>
                             <Typography variant="subtitle1" style={dashBoard.viewMore}    
                               onClick={() => {
                               //@ts-ignore
-                              this.props.history.push("/GaMembers");
+                              this.props.history.push(`/${item}`);
                             }}>{t("View All")}</Typography>
                           </Grid>
                     </Grid>
@@ -294,7 +322,8 @@ class CommunityUserProfile extends CommunityUserProfileController {
                     this.props.history.push("/UserDetailedProfile")}}>
                     <div style={dashBoard.gaMemberCard}>
                       <>
-                      {ProfileData.slice(0, 4).map((item, index) => {
+                      {//@ts-ignore
+                      this.state.allProfile[item].data.slice(0,4).map((singleProfile:any, index:any) => {
                         return(
                           <div key={index}>
                           <Card style={dashBoard.cardStyle}>
@@ -302,7 +331,7 @@ class CommunityUserProfile extends CommunityUserProfileController {
                               <CardMedia
                                 component="img"
                                 height="140"
-                                image={item.image}
+                                image={singleProfile?.attributes?.profile_pic?.url}
                                 alt="green iguana"
                                 style={dashBoard.profileImage}
                               />
@@ -310,9 +339,9 @@ class CommunityUserProfile extends CommunityUserProfileController {
                               <Typography variant="h6"
                               //@ts-ignore 
                               style={dashBoard.unitno}>{item.unitno}</Typography>
-                              <Typography variant="h6" style={{textAlign:"center", marginTop:"5px"}}>{item.name}</Typography>
+                              <Typography variant="h6" style={{textAlign:"center", marginTop:"5px"}}>{singleProfile?.attributes?.full_name?.name}</Typography>
                               <div style={{textAlign:"center",marginTop:"5px"}}>
-                                <Typography variant="h6" style={dashBoard.userType}>{item.userType}</Typography>
+                                <Typography variant="h6" style={dashBoard.userType}>{item}</Typography>
                               </div>
                               <div style={dashBoard.contactIcon}>
                                 <div style={dashBoard.relatedMemberCard}>
@@ -333,121 +362,16 @@ class CommunityUserProfile extends CommunityUserProfileController {
                       </>
                     </div>
                   </Box>
+                      </>)
+                    )
+                  }
+               
 
                   {/* RESIDENTS -- */}
-                  <Box>
-                    <Grid container style={dashBoard.gaMemberMain}> 
-                          <Grid item xs={6}>
-                            <Typography variant="h6" style={dashBoard.subHeading}>{t("Residents")}</Typography>
-                          </Grid>
-                          <Grid item xs={1} style={dashBoard.cursorPointer}>
-                            <Typography variant="subtitle1" style={dashBoard.viewMore} 
-                             onClick={() => {
-                              //@ts-ignore
-                              this.props.history.push("/Residents");
-                            }}>{t("View All")}</Typography>
-                          </Grid>
-                    </Grid>
-                  </Box>
-                  <Box style={{marginTop:"10px"}}>
-                    <div style={dashBoard.gaMemberCard}>
-                      <>
-                      {Residents.map((item, index) => {
-                        return(
-                          <div key={index}>
-                          <Card style={dashBoard.cardStyle}>
-                            <CardActionArea>
-                              <CardMedia
-                                component="img"
-                                height="140"
-                                image={item.image}
-                                alt="green iguana"
-                                style={dashBoard.profileImage}
-                              />
-                              <CardContent style={{padding:"0px 16px 16px 16px"}}>
-                              <Typography variant="h6"
-                              //@ts-ignore 
-                              style={dashBoard.unitno}>{item.unitno}</Typography>
-                              <Typography variant="h6" style={{textAlign:"center", marginTop:"5px"}}>{item.name}</Typography>
-                              <div style={{textAlign:"center",marginTop:"5px"}}>
-                                <Typography variant="h6" style={dashBoard.userType}>{item.userType}</Typography>
-                              </div>
-                              <div style={dashBoard.contactIcon}>
-                                <div style={dashBoard.relatedMemberCard}>
-                                  <img src={chat} style={{width:"40px", margin:"0 auto"}}/>
-                                  <img src={email_org} style={{width:"40px", margin:"0 auto"}}/>
-                                  <img src={call_org} style={{width:"40px", margin:"0 auto"}}/>
-                                </div>
-                              </div>
-                              </CardContent>
-                            </CardActionArea>
-                          </Card>
-                          </div>
-                        )
-
-                        })
-
-                        }
-                      </>
-                    </div>
-                  </Box>
+                 
 
                    {/* PROPERTY MANAGER -- */}
-                   <Box>
-                    <Grid container style={dashBoard.gaMemberMain}> 
-                          <Grid item xs={6}>
-                            <Typography variant="h6" style={dashBoard.subHeading}>{t("Property Manager")}</Typography>
-                          </Grid>
-                          <Grid item xs={1} style={dashBoard.cursorPointer}>
-                            <Typography variant="subtitle1" style={dashBoard.viewMore}onClick={() => {
-                              //@ts-ignore
-                              this.props.history.push("/PropertysManager");
-                            }}>{t("View All")}</Typography>
-                          </Grid>
-                    </Grid>
-                  </Box>
-                   <Box style={{margin:"10px 0px 50px"}}>
-                    <div style={dashBoard.gaMemberCard}>
-                      <>
-                      {PropertyManager.map((item, index) => {
-                        return(
-                          <div key={index}>
-                          <Card style={dashBoard.cardStyle}>
-                            <CardActionArea>
-                              <CardMedia
-                                component="img"
-                                height="140"
-                                image={item.image}
-                                alt="green iguana"
-                                style={dashBoard.profileImage}
-                              />
-                              <CardContent style={{padding:"0px 16px 16px 16px"}}>
-                              <Typography variant="h6"
-                              //@ts-ignore 
-                              style={dashBoard.unitno}>{item.unitno}</Typography>
-                              <Typography variant="h6" style={{textAlign:"center", marginTop:"5px"}}>{item.name}</Typography>
-                              <div style={{textAlign:"center",marginTop:"5px"}}>
-                                <Typography variant="h6" style={dashBoard.userType}>{item.userType}</Typography>
-                              </div>
-                              <div style={dashBoard.contactIcon}>
-                                <div style={dashBoard.relatedMemberCard}>
-                                  <img src={chat} style={{width:"40px", margin:"0 auto"}}/>
-                                  <img src={email_org} style={{width:"40px", margin:"0 auto"}}/>
-                                  <img src={call_org} style={{width:"40px", margin:"0 auto"}}/>
-                                </div>
-                              </div>
-                              </CardContent>
-                            </CardActionArea>
-                          </Card>
-                          </div>
-                        )
-
-                        })
-
-                        }
-                      </>
-                    </div>
-                  </Box>
+                 
 
               </Container>
             </Grid>
