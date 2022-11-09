@@ -57,6 +57,7 @@ class RegisterMyUnit extends RegisterUnitController {
 
   async componentDidMount(): Promise<void> {
     this.getBuildingList();
+    this.getComplexDetails();
   }
 
   render() {
@@ -162,7 +163,8 @@ class RegisterMyUnit extends RegisterUnitController {
                                     onChange={(e: any) => {
                                       const value = e.target.value;
                                       setFieldValue("buildingId", value);
-                                      // this.getUnits(value);
+                                      this.getFloorList(value);
+                                      this.getUnitList(value);
                                     }}
                                     onBlur={handleBlur}
                                     name="buildingId"

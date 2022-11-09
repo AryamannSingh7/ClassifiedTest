@@ -61,8 +61,11 @@ interface SS {
 
 export default class RegisterUnitController extends BlockComponent<Props, S, SS> {
   GetBuildingListCallId: any;
+  GetComplexDetailsCallId: any;
   GetRentHistoryListCallId: any;
   DeleteRentHistoriesCallId: any;
+  GetFloorListCallId: any;
+  GetUnitListCallId: any;
 
   constructor(props: Props) {
     super(props);
@@ -121,6 +124,72 @@ export default class RegisterUnitController extends BlockComponent<Props, S, SS>
       if (responseJson && responseJson.data) {
         this.setState({ buildingList: responseJson.data.buildings });
       }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // Floor List - API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.GetFloorListCallId !== null &&
+      this.GetFloorListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.GetFloorListCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      console.log(responseJson);
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // Unit List - API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.GetUnitListCallId !== null &&
+      this.GetUnitListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.GetUnitListCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      console.log(responseJson);
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // Complex Details - API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.GetComplexDetailsCallId !== null &&
+      this.GetComplexDetailsCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.GetComplexDetailsCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      // if (responseJson && responseJson.data) {
+      //   this.setState({ buildingList: responseJson.data.buildings });
+      // }
+      console.log(responseJson);
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
@@ -192,6 +261,77 @@ export default class RegisterUnitController extends BlockComponent<Props, S, SS>
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
       `bx_block_address/building_list?society_management_id=${society_id}`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  getFloorList = (building: any) => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.GetFloorListCallId = apiRequest.messageId;
+
+    const society_id = localStorage.getItem("society_id");
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `society_managements/${society_id}/bx_block_meeting/meeting_groups/floor_listing?building_id=${building}`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  getUnitList = (building: any) => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.GetUnitListCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_request_management/unit_list?building_management_id=${building}&status=Rented`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  getComplexDetails = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.GetComplexDetailsCallId = apiRequest.messageId;
+
+    const society_id = localStorage.getItem("society_id");
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_request_management/find_complex?society_management_id=${society_id}`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
