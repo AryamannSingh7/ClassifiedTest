@@ -277,6 +277,8 @@ export default class IssueContractController extends BlockComponent<Props, S, SS
       toast.error("Please register tenant");
     } else if (this.state.buildingId && this.state.unitId && this.state.tenant) {
       window.sessionStorage.setItem("page", "IssueContract");
+      window.sessionStorage.setItem("buildingId", this.state.buildingId);
+      window.sessionStorage.setItem("unitId", this.state.unitId);
       this.props.navigation.navigate("SelectedTemplateTwo", { templateId: templateId });
     }
   };

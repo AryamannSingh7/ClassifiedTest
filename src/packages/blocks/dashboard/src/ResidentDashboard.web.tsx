@@ -37,6 +37,20 @@ import {
   SidebarLogout,
   SidebarIncident,
   SidebarLogoutDialog,
+  DashboardIncident,
+  DashboardAnnouncement,
+  DashboardVisitor,
+  DashboardFacility,
+  DashboardFee,
+  DashboardPoll,
+  DashboardInfo,
+  DashboardMeeting,
+  DashboardClass,
+  DashboardDocument,
+  DashboardLease,
+  DashboardFamily,
+  DashboardSuggestion,
+  DashboardVehicle,
 } from "./assets";
 import { withTranslation } from "react-i18next";
 import "../../../web/src/i18n.js";
@@ -196,23 +210,33 @@ class ResidentDashboard extends DashboardController {
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="/IncidentListing">
-                      <DashboardCard image={keyhand} heading={t("Incidents")} title={t("Open")} value="75" />
+                      <DashboardCard image={DashboardIncident} heading={t("Incidents")} title={t("Open")} value="75" />
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="/Announcement">
-                      <DashboardCard image={keyhand} heading={t("Announcements")} title={t("Total")} value="75" />
+                      <DashboardCard
+                        image={DashboardAnnouncement}
+                        heading={t("Announcements")}
+                        title={t("Total")}
+                        value="75"
+                      />
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="/Visitors">
-                      <DashboardCard image={keyhand} heading={t("Visitors")} title={t("Scheduled")} value="75" />
+                      <DashboardCard
+                        image={DashboardVisitor}
+                        heading={t("Visitors")}
+                        title={t("Scheduled")}
+                        value="75"
+                      />
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="">
                       <DashboardCard
-                        image={keyhand}
+                        image={DashboardFacility}
                         heading={t("Facility Reservation")}
                         title={t("Scheduled")}
                         value="75"
@@ -221,18 +245,23 @@ class ResidentDashboard extends DashboardController {
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="">
-                      <DashboardCard image={keyhand} heading={t("Management Fees")} title={t("Paid On")} value="75" />
+                      <DashboardCard
+                        image={DashboardFee}
+                        heading={t("Management Fees")}
+                        title={t("Paid On")}
+                        value="75"
+                      />
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="/pollsSurvey">
-                      <DashboardCard image={keyhand} heading={t("Survey")} title={t("Ongoing")} value="75" />
+                      <DashboardCard image={DashboardPoll} heading={t("Survey")} title={t("Ongoing")} value="75" />
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="/ComplexDetails">
                       <DashboardCard
-                        image={keyhand}
+                        image={DashboardInfo}
                         heading={t("Building Info & Rules")}
                         title={t("Last Uploaded")}
                         value="75"
@@ -241,18 +270,28 @@ class ResidentDashboard extends DashboardController {
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="/MyMeetings">
-                      <DashboardCard image={keyhand} heading={t("Meetings")} title={t("Scheduled")} value="75" />
+                      <DashboardCard
+                        image={DashboardMeeting}
+                        heading={t("Meetings")}
+                        title={t("Scheduled")}
+                        value="75"
+                      />
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="/ClassifiedListing">
-                      <DashboardCard image={keyhand} heading={t("Classifieds")} title={t("Last Uploaded")} value="75" />
+                      <DashboardCard
+                        image={DashboardClass}
+                        heading={t("Classifieds")}
+                        title={t("Last Uploaded")}
+                        value="75"
+                      />
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="/BuildingDocuments">
                       <DashboardCard
-                        image={keyhand}
+                        image={DashboardDocument}
                         heading={t("Building Documents")}
                         title={t("Last Uploaded")}
                         value="75"
@@ -265,19 +304,24 @@ class ResidentDashboard extends DashboardController {
                     <Typography variant="h5">{t("Personal Services")}</Typography>
                   </Grid>
                   <Grid item xs={6} sm={6}>
-                    <Link href="">
-                      <DashboardCard image={keyhand} heading={t("My Lease")} title={t("Total")} value="75" />
+                    <Link href="/MyLeaseList">
+                      <DashboardCard image={DashboardLease} heading={t("My Lease")} title={t("Total")} value="75" />
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="/veichleList">
-                      <DashboardCard image={keyhand} heading={t("My Vehicles")} title={t("Registered")} value="75" />
+                      <DashboardCard
+                        image={DashboardVehicle.default}
+                        heading={t("My Vehicles")}
+                        title={t("Registered")}
+                        value="75"
+                      />
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="/familylist">
                       <DashboardCard
-                        image={keyhand}
+                        image={DashboardFamily}
                         heading={t("My Family")}
                         title={t("Registered Members")}
                         value="75"
@@ -286,18 +330,28 @@ class ResidentDashboard extends DashboardController {
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="/FeesAndPayment">
-                      <DashboardCard image={keyhand} heading={t("Fees & Payment")} title={t("Last Paid")} value="75" />
+                      <DashboardCard
+                        image={DashboardFee}
+                        heading={t("Fees & Payment")}
+                        title={t("Last Paid")}
+                        value="75"
+                      />
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="">
-                      <DashboardCard image={keyhand} heading={t("My Suggestions")} title={t("Total")} value="75" />
+                      <DashboardCard
+                        image={DashboardSuggestion}
+                        heading={t("My Suggestions")}
+                        title={t("Total")}
+                        value="75"
+                      />
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="/PersonalDocument">
                       <DashboardCard
-                        image={keyhand}
+                        image={DashboardDocument}
                         heading={t("My Documents")}
                         title={t("Last Uploaded")}
                         value="NA"

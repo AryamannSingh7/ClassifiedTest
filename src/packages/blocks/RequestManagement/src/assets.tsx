@@ -44,3 +44,7 @@ export const previous= require("../assets/previous.png");
 export const Pencil= require("../assets/Pencil.png");
 export const wrong= require("../assets/wrong.png");
 export const Bin= require("../assets/Bin.png");
+export const Close_Icon = require("../assets/icon-close.png");
+export const Classified_CorrectIcon = require("../assets/classified_correct_icon.png");
+export const User_Icon = require("../assets/user-icon.png");
+export const Users_Icon = require("../assets/users-icon.png");

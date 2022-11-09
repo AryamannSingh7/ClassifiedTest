@@ -39,7 +39,7 @@ class RenewContract extends RenewContractController {
 
     return (
       <>
-        <Box style={{ background: "white", height: "100vh" }} className={classes.selectTemplate}>
+        <Box style={{ background: "white", height: "100vh", overflowY: "hidden" }} className={classes.selectTemplate}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box className="faq-step top-bar-contract-details">

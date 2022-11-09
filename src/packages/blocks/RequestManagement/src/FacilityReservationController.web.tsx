@@ -54,6 +54,7 @@ export interface S {
   incidentRelatedData:any,
   facilityReservationListing:any,
   showDialog:any;
+  deleteShowDialog:any;
   // Customizable Area End
 }
 
@@ -141,7 +142,8 @@ export default class FacilityReservationController extends BlockComponent<
       notImageOrVideoError:false,
       sizeError:false,
       file :{},
-      showDialog:false
+      showDialog:false,
+      deleteShowDialog:false
       // Customizable Area End
     };
 

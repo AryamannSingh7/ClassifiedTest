@@ -21,3 +21,4 @@ export const CardIcon = require("../assets/card.png");
 export const PenaltyAmountIcon = require("../assets/penalty-amount.png");
 export const LeaseGeneratorIcon = require("../assets/lease-generate.png");
 export const SaveTemplateIcon = require("../assets/save-template.png");
+export const ComplexIcon = require("../assets/complex.png");

@@ -94,22 +94,28 @@ export default class TemplateDetailController extends BlockComponent<Props, S, S
 
         let conditionText: string = "";
         if (template.attributes.conditions && template.attributes.conditions.length > 0) {
-          conditionText += "<h4>Personal Condition</h4>";
+          conditionText += "<br/><h4>Personal Condition</h4>";
           template.attributes.conditions.map((condition: any) => {
             conditionText += `<p>${condition.text}</p>`;
             return;
           });
         }
         if (template.attributes.terms && template.attributes.terms.length > 0) {
-          conditionText += "<h4>Payment Terms</h4>";
+          conditionText += "<br/><h4>Payment Terms</h4>";
           template.attributes.terms.map((term: any) => {
             conditionText += `<p>${term.text}</p>`;
             return;
           });
         }
         if (template.attributes.custom_term_condition) {
-          conditionText += "<h4>Custom Condition</h4>";
+          conditionText += "<br/><h4>Custom Condition</h4>";
           conditionText += template.attributes.custom_term_condition;
+        }
+
+        if (template.attributes.penanlty_late_payment && template.attributes.penanlty_late_payments) {
+          conditionText += "<br/><h4>Late Payment Penalty</h4>";
+          conditionText += `<p>Type: ${template.attributes.penanlty_late_payments.penanlty_counted}</p>`;
+          conditionText += `<p>Amount: ${template.attributes.penanlty_late_payments.amount}</p>`;
         }
 
         this.setState({
@@ -304,6 +310,8 @@ export default class TemplateDetailController extends BlockComponent<Props, S, S
     const templateDetails = this.state.template;
 
     const formData = {
+      address: "",
+      complexName: "",
       tenantName: templateDetails.attributes.tenant_name,
       landlordName: templateDetails.attributes.landlord_name,
       buildingName: templateDetails.attributes.building_management.name,
