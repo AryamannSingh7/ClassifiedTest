@@ -11,6 +11,7 @@ import ChairmainNominationController, {
   Props
 } from "./ChairmainNominationController";
 import './MyTeam.web.css'
+import moment from "moment";
 
 class Visitors extends ChairmainNominationController{
   constructor(props: Props) {
@@ -33,105 +34,79 @@ class Visitors extends ChairmainNominationController{
                 </Grid>
                 <Box style={{background: "#F7F9FE",minHeight:"95%",display:'flex',flexDirection:"column",alignItems:'center',justifyContent:"space-between"}} >
                     <Grid container spacing={3} style={{width:"90%",marginTop:"20px"}}>
-                        <Grid item xs={12}>
-                            <Paper elevation={6} style={{backgroundColor:"white",padding:"20px 30px",borderRadius:"15px",cursor:"pointer"}} onClick={()=> this.props.history.push(`/NominationDetails?id=${1}`)}>
-                                <Grid container spacing={2} >
-                                    <Grid item xs={9}>
-                                        <Typography variant="body1" style={{fontWeight:"bold"}}>Chairman Nomination 2022</Typography>
+                        {
+                            this.state.nominationsList.length > 0
+                            &&
+                            this.state.nominationsList.map((item:any,key:any) => {
+                                return(
+                                    <Grid key={key} item xs={12}>
+                                        <Paper elevation={6} style={{backgroundColor:"white",padding:"20px 30px",borderRadius:"15px",cursor:"pointer"}} onClick={()=> this.props.history.push(`/ChairmanNominationDetails?id=${item.id}`)}>
+                                            <Grid container spacing={2} >
+                                                <Grid item xs={item.attributes.status === "upcoming" ? 7 : 8}>
+                                                    <Typography variant="body1" style={{fontWeight:"bold"}}>{item.attributes.title}</Typography>
+                                                </Grid>
+                                                <Grid item xs={item.attributes.status === "upcoming" ? 5 : 4} style={{display:'flex',alignItems:"center",justifyContent:"flex-end"}}>
+                                                    {
+                                                        item.attributes.status === "closed" &&
+                                                        <Typography variant="subtitle2" className={"statusOngoingRed"}>{item.attributes.status}</Typography>
+                                                    }
+                                                    {
+                                                        item.attributes.status === "active" &&
+                                                        <Typography variant="subtitle2" className={"statusOngoingGreen"}>{item.attributes.status}</Typography>
+                                                    }
+                                                    {
+                                                        item.attributes.status === "upcoming" &&
+                                                        <Typography variant="subtitle2" className={"statusOngoingBlue"}>{item.attributes.status}</Typography>
+                                                    }
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    <Box>
+                                                        <Typography variant="subtitle2" color="textSecondary">Building:</Typography>
+                                                        <Typography variant="subtitle2" color="textPrimary">{item.attributes.building}</Typography>
+                                                    </Box>
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    <Box>
+                                                        <Typography variant="subtitle2" color="textSecondary">Complex Name:</Typography>
+                                                        <Typography variant="subtitle2" color="textPrimary">{item.attributes.complex_name}</Typography>
+                                                    </Box>
+                                                </Grid>
+                                                <Grid item xs={12}>
+                                                    <Box>
+                                                        <Typography variant="subtitle2" color="textSecondary">Duration:</Typography>
+                                                        <Typography variant="subtitle2" color="textPrimary">{moment(item.attributes.start_date).format("DD-MMM-YYYY")} to {moment(item.attributes.end_date).format("DD-MMM-YYYY")}</Typography>
+                                                    </Box>
+                                                </Grid>
+                                                {
+                                                    item.attributes.stage === "Nomination Started" &&
+                                                    <Grid item xs={12} className={"nominationBlueBG"} style={{marginBottom:"10px",marginTop:"10px"}}>
+                                                        <Typography variant="body1" style={{width:"100%"}} className="nominationBlueText" >{item.attributes.stage || "NA"}</Typography>
+                                                    </Grid>
+                                                }
+                                                {
+                                                    item.attributes.stage === "Nomination Ended" &&
+                                                    <Grid item xs={12} className={"nominationGrayBG"} style={{marginBottom:"10px",marginTop:"10px"}}>
+                                                        <Typography variant="body1" style={{width:"100%"}} className="nominationGrayText" >{item.attributes.stage || "NA"}</Typography>
+                                                    </Grid>
+                                                }
+                                                {
+                                                    item.attributes.stage === "Voting Started" &&
+                                                    <Grid item xs={12} className={"nominationOrangeBG"} style={{marginBottom:"10px",marginTop:"10px"}}>
+                                                        <Typography variant="body1" style={{width:"100%"}} className="nominationOrangeText" >{item.attributes.stage || "NA"}</Typography>
+                                                    </Grid>
+                                                }
+                                                {
+                                                    item.attributes.stage === "Voting Ended" &&
+                                                    <Grid item xs={12} className={"nominationGrayBG"} style={{marginBottom:"10px",marginTop:"10px"}}>
+                                                        <Typography variant="body1" style={{width:"100%"}} className="nominationGrayText" >{item.attributes.stage || "NA"}</Typography>
+                                                    </Grid>
+                                                }
+                                            </Grid>
+                                        </Paper>
                                     </Grid>
-                                    <Grid item xs={3} style={{display:'flex',alignItems:"center",justifyContent:"flex-end"}}>
-                                        <Typography variant="subtitle2" className={"statusOngoingGreen"}>Active</Typography>
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <Box>
-                                            <Typography variant="subtitle2" color="textSecondary">Building:</Typography>
-                                            <Typography variant="subtitle2" color="textPrimary">Building - 1</Typography>
-                                        </Box>
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <Box>
-                                            <Typography variant="subtitle2" color="textSecondary">Complex Name:</Typography>
-                                            <Typography variant="subtitle2" color="textPrimary">Star Heights</Typography>
-                                        </Box>
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <Box>
-                                            <Typography variant="subtitle2" color="textSecondary">Duration:</Typography>
-                                            <Typography variant="subtitle2" color="textPrimary">24-03-2022 to 24-04-2022</Typography>
-                                        </Box>
-                                    </Grid>
-                                    <Grid item xs={12} className={"nominationBlueBG"} style={{marginBottom:"10px",marginTop:"10px"}}>
-                                        <Typography variant="body1" style={{width:"100%"}} className="nominationBlueText" >NOMINATION STARTED</Typography>
-                                    </Grid>
-                                </Grid>
-                            </Paper>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Paper elevation={6} style={{backgroundColor:"white",padding:"20px 30px",borderRadius:"15px",cursor:"pointer"}}>
-                                <Grid container spacing={2} >
-                                    <Grid item xs={9}>
-                                        <Typography variant="body1" style={{fontWeight:"bold"}}>Chairman Nomination 2022</Typography>
-                                    </Grid>
-                                    <Grid item xs={3} style={{display:'flex',alignItems:"center",justifyContent:"flex-end"}}>
-                                        <Typography variant="subtitle2" className={"statusOngoingRed"}>Closed</Typography>
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <Box>
-                                            <Typography variant="subtitle2" color="textSecondary">Building:</Typography>
-                                            <Typography variant="subtitle2" color="textPrimary">Building - 1</Typography>
-                                        </Box>
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <Box>
-                                            <Typography variant="subtitle2" color="textSecondary">Complex Name:</Typography>
-                                            <Typography variant="subtitle2" color="textPrimary">Star Heights</Typography>
-                                        </Box>
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <Box>
-                                            <Typography variant="subtitle2" color="textSecondary">Duration:</Typography>
-                                            <Typography variant="subtitle2" color="textPrimary">24-03-2022 to 24-04-2022</Typography>
-                                        </Box>
-                                    </Grid>
-                                    <Grid item xs={12} className={"nominationGrayBG"} style={{marginBottom:"10px",marginTop:"10px"}}>
-                                        <Typography variant="body1" style={{width:"100%"}} className="nominationGrayText" >Voting Closed</Typography>
-                                    </Grid>
-                                </Grid>
-                            </Paper>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Paper elevation={6} style={{backgroundColor:"white",padding:"20px 30px",borderRadius:"15px",cursor:"pointer"}}>
-                                <Grid container spacing={2} >
-                                    <Grid item xs={9}>
-                                        <Typography variant="body1" style={{fontWeight:"bold"}}>Chairman Nomination 2022</Typography>
-                                    </Grid>
-                                    <Grid item xs={3} style={{display:'flex',alignItems:"center",justifyContent:"flex-end"}}>
-                                        <Typography variant="subtitle2" className={"statusOngoingRed"}>Active</Typography>
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <Box>
-                                            <Typography variant="subtitle2" color="textSecondary">Building:</Typography>
-                                            <Typography variant="subtitle2" color="textPrimary">Building - 1</Typography>
-                                        </Box>
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <Box>
-                                            <Typography variant="subtitle2" color="textSecondary">Complex Name:</Typography>
-                                            <Typography variant="subtitle2" color="textPrimary">Star Heights</Typography>
-                                        </Box>
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <Box>
-                                            <Typography variant="subtitle2" color="textSecondary">Duration:</Typography>
-                                            <Typography variant="subtitle2" color="textPrimary">24-03-2022 to 24-04-2022</Typography>
-                                        </Box>
-                                    </Grid>
-                                    <Grid item xs={12} className={"nominationOrangeBG"} style={{marginBottom:"10px",marginTop:"10px"}}>
-                                        <Typography variant="body1" style={{width:"100%"}} className="nominationOrangeText" >Voting Started</Typography>
-                                    </Grid>
-                                </Grid>
-                            </Paper>
-                        </Grid>
+                                )
+                            })
+                        }
                     </Grid>
                     {/*<Box style={{width:"90%",marginBottom:"50px",marginTop:"10px"}}>*/}
                     {/*    <CloseButton variant="contained" fullWidth size="large">*/}
