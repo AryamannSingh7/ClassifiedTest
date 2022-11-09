@@ -2,11 +2,22 @@ import React from "react";
 import { withTranslation } from "react-i18next";
 import TenantProfileController, { Props } from "./TenantProfileController.web";
 import { MyUnitStyle } from "./MyUnitStyle.web";
-import { Avatar, Box, Container, Grid, IconButton, withStyles } from "@material-ui/core";
+import { Avatar, Box, Container, Grid, IconButton, Link, withStyles } from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
-import { BuildingImage, ChatIcon, EmailIcon, FBIcon, PhoneIcon, TwitterIcon } from "./assets";
+import {
+  BuildingImage,
+  ChatIcon,
+  DarkChatIcon,
+  DarkFBIcon,
+  DarkTwitterIcon,
+  EmailIcon,
+  FBIcon,
+  PhoneIcon,
+  TwitterIcon,
+} from "./assets";
 import { Menu } from "@szhsin/react-menu";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import moment from "moment";
 
 class TenantProfile extends TenantProfileController {
   constructor(props: Props) {
@@ -16,6 +27,8 @@ class TenantProfile extends TenantProfileController {
   render() {
     const { t }: any = this.props;
     const { classes } = this.props;
+
+    console.log(this.state);
 
     return (
       <>
@@ -36,21 +49,32 @@ class TenantProfile extends TenantProfileController {
                 <Box className="tenant-detail-box">
                   <Container>
                     <Box className="profile-top-box">
-                      <Avatar src="" />
-                      <h4>Name</h4>
+                      <Avatar src={this.state.profileData.image} />
+                      <h4>{this.state.profileData.name || "-"}</h4>
                       <Box className="profile-info-box">
-                        <img src={ChatIcon} alt="chat" />
+                        {this.state.profileData.isDisableChat ? (
+                          <img src={DarkChatIcon} alt="chat" />
+                        ) : (
+                          <img src={ChatIcon} alt="chat" />
+                        )}
                         <div />
-                        <img src={PhoneIcon} alt="phone" />
+                        <Link href={`tel:${this.state.profileData.phone}`}>
+                          <img src={PhoneIcon} alt="phone" />
+                        </Link>
                         <div />
-                        <img src={EmailIcon} alt="email" />
+                        <Link href={`mailto:${this.state.profileData.email}`}>
+                          <img src={EmailIcon} alt="email" />
+                        </Link>
                       </Box>
                       <Box className="profile-add-info-box">
                         <p>
-                          <span>Gender:</span> Male
+                          <span>Gender:</span> {this.state.profileData.gender || "-"}
                         </p>
                         <p>
-                          <span>DOB:</span> 03/06/2020
+                          <span>DOB:</span>{" "}
+                          {this.state.profileData.dob
+                            ? moment(this.state.profileData.dob, "MMM-DD-YYYY").format("MMMM DD, YYYY")
+                            : ""}
                         </p>
                       </Box>
                     </Box>
@@ -58,23 +82,36 @@ class TenantProfile extends TenantProfileController {
                     <Box className="profile-bottom-box">
                       <Box className="profile-item">
                         <h4>Bio</h4>
-                        <p>
-                          Hello! I am Jaroslav Brabec living with my family in central park since 2015. I am business
-                          analyst by profession. It would be nice to get in touch with you.
-                        </p>
+                        <p>{this.state.profileData.bio || "-"}</p>
                       </Box>
                       <Box className="profile-item">
                         <h4>Hobbies</h4>
                         <Box className="profile-hobby-box">
-                          <span>Cooking</span>
-                          <span>Gardening</span>
+                          {this.state.profileData.hobbies.length === 0 && <p>No hobby available</p>}
+                          {this.state.profileData.hobbies.map((hobby: any, index: number) => {
+                            return <span key={index}>{hobby}</span>;
+                          })}
                         </Box>
                       </Box>
                       <Box className="profile-item">
                         <h4>Follow me on:</h4>
                         <Box className="profile-social-box">
-                          <img src={FBIcon} alt="fb" />
-                          <img src={TwitterIcon} alt="twitter" />
+                          {this.state.profileData.social.length > 0 &&
+                          this.state.profileData.social[2].publilc_access ? (
+                            <Link href={this.state.profileData.social[2].fb_link} target="_blank">
+                              <img src={FBIcon} alt="fb" />
+                            </Link>
+                          ) : (
+                            <img src={DarkFBIcon} alt="fb" />
+                          )}
+                          {this.state.profileData.social.length > 0 &&
+                          this.state.profileData.social[0].publilc_access ? (
+                            <Link href={this.state.profileData.social[0].twitter_link} target="_blank">
+                              <img src={TwitterIcon} alt="fb" />
+                            </Link>
+                          ) : (
+                            <img src={DarkTwitterIcon} alt="fb" />
+                          )}
                         </Box>
                       </Box>
                     </Box>
