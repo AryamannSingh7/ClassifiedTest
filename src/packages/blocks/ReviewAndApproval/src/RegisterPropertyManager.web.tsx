@@ -424,6 +424,24 @@ class RegisterPropertyManager extends RegisterPropertyManagerController {
                       {/* {errors.startDate && touched.startDate && <p className="error">{t(errors.startDate)}</p>} */}
                     </FormControl>
                     <FormControl fullWidth>
+                      <Input
+                        value=""
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        name="startDate"
+                        className="select-input input"
+                        placeholder={t("Contract End Date")}
+                        type="text"
+                        onFocus={(e: any) => (e.target.type = "date")}
+                        startAdornment={
+                          <InputAdornment position="start">
+                            <img src={IDDateIcon} alt="" />
+                          </InputAdornment>
+                        }
+                      />
+                      {/* {errors.startDate && touched.startDate && <p className="error">{t(errors.startDate)}</p>} */}
+                    </FormControl>
+                    <FormControl fullWidth>
                       <Box className="select-box">
                         <Select
                           displayEmpty

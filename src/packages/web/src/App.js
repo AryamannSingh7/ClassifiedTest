@@ -326,6 +326,7 @@ import TenantProfile from '../../blocks/TaskAllocator/src/TenantProfile.web';
 import PropertyManagerList from '../../blocks/ReviewAndApproval/src/PropertyManagerList.web';
 import RegisterPropertyManager from '../../blocks/ReviewAndApproval/src/RegisterPropertyManager.web';
 import RegisterPropertyManagerSuccess from '../../blocks/ReviewAndApproval/src/PropertyManagerSuccess.web';
+import PropertyManagerDetails from '../../blocks/ReviewAndApproval/src/PropertyManagerDetails.web';
 
 // My Lease
 import MyLeaseList from '../../blocks/ContentManagement/src/MyLeaseList.web';
@@ -1900,6 +1901,12 @@ const routeMap = {
   PropertyManagerList: {
     component: PropertyManagerList,
     path: '/PropertyManagers',
+    roles: [ROLE.OWNER],
+    exact: true
+  },
+  PropertyManagerDetails: {
+    component: PropertyManagerDetails,
+    path: '/PropertyManager/:id',
     roles: [ROLE.OWNER],
     exact: true
   },
