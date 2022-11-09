@@ -32,17 +32,6 @@ class TenantProfile extends TenantProfileController {
                     {/* </Link> */}
                     <span>{t("Tenant Profile")}</span>
                   </div>
-                  <div className="right-icon">
-                    <Menu
-                      menuButton={
-                        <IconButton>
-                          <MoreVertIcon />
-                        </IconButton>
-                      }
-                    >
-                      {/* <MenuItem>{t("Rented")}</MenuItem> */}
-                    </Menu>
-                  </div>
                 </Box>
                 <Box className="tenant-detail-box">
                   <Container>
@@ -77,17 +66,6 @@ class TenantProfile extends TenantProfileController {
                       <Box className="profile-item">
                         <h4>Hobbies</h4>
                         <Box className="profile-hobby-box">
-                          <span>Travelling</span>
-                          <span>Cooking</span>
-                          <span>Cooking</span>
-                          <span>Cooking</span>
-                          <span>Cooking</span>
-                          <span>Cooking</span>
-                          <span>Cooking</span>
-                          <span>Cooking</span>
-                          <span>Cooking</span>
-                          <span>Cooking</span>
-                          <span>Cooking</span>
                           <span>Cooking</span>
                           <span>Gardening</span>
                         </Box>
