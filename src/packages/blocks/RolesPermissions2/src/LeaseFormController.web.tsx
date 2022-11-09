@@ -25,8 +25,10 @@ interface LeaseForm {
   landlordName: string;
   buildingName: string;
   unitName: string;
-  buildingId: string;
-  unitId: string;
+  complexName: string;
+  address: string;
+  buildingId: any;
+  unitId: any;
   duration: string;
   startDate: string;
   endDate: string;
@@ -68,8 +70,10 @@ interface S {
   personalCondition: any[];
   selectedPaymentTermId: any[];
   selectedPaymentTerm: any[];
+  selectedPaymentTermText: any[];
   selectedPersonalConditionId: any[];
   selectedPersonalCondition: any[];
+  selectedPersonalConditionText: any[];
 
   editor: any;
 
@@ -95,6 +99,7 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
   CreateContractCallId: any;
   CreateTemplateCallId: any;
   EditTemplateCallId: any;
+  GetComplexListCallId: any;
 
   constructor(props: Props) {
     super(props);
@@ -125,6 +130,8 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
         endDate: "",
         monthlyRent: "",
         currency: "",
+        complexName: "",
+        address: "",
       },
 
       isPenaltyCountModalOpen: false,
@@ -149,8 +156,10 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
       personalCondition: [],
       selectedPaymentTermId: [],
       selectedPaymentTerm: [],
+      selectedPaymentTermText: [],
       selectedPersonalConditionId: [],
       selectedPersonalCondition: [],
+      selectedPersonalConditionText: [],
 
       editor: RichTextEditor.createEmptyValue(),
 
@@ -161,6 +170,68 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
   }
 
   async receive(from: string, message: Message) {
+    // Get Complex - API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.GetComplexListCallId !== null &&
+      this.GetComplexListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.GetComplexListCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      if (responseJson) {
+        this.setState({
+          leaseForm: {
+            ...this.state.leaseForm,
+            complexName: responseJson.complex ? (responseJson.complex.name ? responseJson.complex.name : "") : "",
+            address: responseJson.complex_address
+              ? responseJson.complex_address.address
+                ? responseJson.complex_address.address
+                : ""
+              : "",
+            unitName: responseJson.apartment_management
+              ? responseJson.apartment_management.apartment_name
+                ? responseJson.apartment_management.apartment_name
+                : ""
+              : "",
+            unitId: responseJson.apartment_management
+              ? responseJson.apartment_management.id
+                ? responseJson.apartment_management.id
+                : ""
+              : "",
+            tenantName: responseJson.tenant_name
+              ? responseJson.tenant_name.full_name
+                ? responseJson.tenant_name.full_name
+                : ""
+              : "",
+            landlordName: responseJson.landlord_name
+              ? responseJson.landlord_name.full_name
+                ? responseJson.landlord_name.full_name
+                : ""
+              : "",
+            buildingName: responseJson.building_management
+              ? responseJson.building_management.name
+                ? responseJson.building_management.name
+                : ""
+              : "",
+            buildingId: responseJson.building_management
+              ? responseJson.building_management.id
+                ? responseJson.building_management.id
+                : ""
+              : "",
+          },
+        });
+      }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
     // Get Building - API Response
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
@@ -171,7 +242,7 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
 
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      if (responseJson.buildings) {
+      if (responseJson && responseJson.buildings) {
         this.setState({ buildingList: responseJson.buildings });
       }
 
@@ -349,6 +420,8 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
         changedTemplate = changedTemplate.replaceAll("{{BUILDING_NAME}}", contract.buildingName);
         changedTemplate = changedTemplate.replaceAll("{{UNIT_NAME}}", contract.unitName);
         changedTemplate = changedTemplate.replaceAll("{{DURATION}}", contract.duration);
+        changedTemplate = changedTemplate.replaceAll("{{COMPLEX_NAME}}", contract.complexName);
+        changedTemplate = changedTemplate.replaceAll("{{COMPLEX_ADDRESS}}", contract.address);
         changedTemplate = changedTemplate.replaceAll(
           "{{START_DATE}}",
           moment(contract.startDate, "YYYY-MM-DD").format("MMMM DD, YYYY")
@@ -388,7 +461,7 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
             const data = this.state.paymentTerm.filter((term: any) =>
               this.state.selectedPaymentTermId.includes(term.id)
             );
-            this.setState({ selectedPaymentTerm: data });
+            this.setState({ selectedPaymentTerm: data, selectedPaymentTermText: data });
           }
         });
       }
@@ -418,7 +491,7 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
             const data = this.state.personalCondition.filter((condition: any) =>
               this.state.selectedPersonalConditionId.includes(condition.id)
             );
-            this.setState({ selectedPersonalCondition: data });
+            this.setState({ selectedPersonalCondition: data, selectedPersonalConditionText: data });
           }
         });
       }
@@ -509,6 +582,31 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
   }
 
   // Customizable Area Start
+  // Get Complex - API
+  getUnitDetails = (unitId: any) => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.GetComplexListCallId = apiRequest.messageId;
+
+    const society_id = localStorage.getItem("society_id");
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `society_managements/${society_id}/bx_block_contract/contracts/find_complex?apartment_management_id=${unitId}`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
   // Get Building - API
   getBuilding = () => {
     const header = {
@@ -549,6 +647,7 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
       `society_managements/${society_id}/bx_block_contract/contracts/find_unit?building_management_id=${building}`
+      // `society_managements/${society_id}/bx_block_contract/tenant_resquests/find_unit`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
@@ -946,26 +1045,31 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
   };
 
   ContractFormValidation: any = Yup.object().shape({
-    tenantName: Yup.string()
-      .required("Required")
-      .max(100, "Maximum length should be 100 character")
-      .matches(/\S/, "Required"),
-    landlordName: Yup.string()
-      .required("Required")
-      .max(100, "Maximum length should be 100 character")
-      .matches(/\S/, "Required"),
+    // tenantName: Yup.string()
+    //   .required("Required")
+    //   .max(100, "Maximum length should be 100 character")
+    //   .matches(/\S/, "Required"),
+    // landlordName: Yup.string()
+    //   .required("Required")
+    //   .max(100, "Maximum length should be 100 character")
+    //   .matches(/\S/, "Required"),
     buildingId: Yup.string()
       .required("Required")
-      .matches(/\S/, "Required"),
+      .matches(/\S/, "Required")
+      .nullable(),
     unitId: Yup.string()
       .required("Required")
+      .nullable()
       .matches(/\S/, "Required")
       .test(
         "unitId",
         "There is no tenant available for this unit. you need to assign this unit to tenant before creating a contract.",
         (value: any) => {
-          if (value) {
-            return this.state.tenant !== null;
+          if (window.sessionStorage.getItem("isEditFlow") === "false") {
+            if (value) {
+              return this.state.tenant !== null;
+            }
+            return true;
           }
           return true;
         }
@@ -974,24 +1078,20 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
         "unitId",
         "The contract is already created for this unit. you need to terminate the contract before creating a new one.",
         (value: any) => {
-          if (value) {
-            return this.state.contract !== null && this.state.tenant;
+          if (window.sessionStorage.getItem("isEditFlow") === "false") {
+            if (value) {
+              return (
+                (this.state.contract === null ||
+                  (this.state.contract.attributes.status === "Terminated" ||
+                    this.state.contract.attributes.status === "Closed")) &&
+                this.state.tenant
+              );
+            }
+            return true;
           }
           return true;
         }
       ),
-    // .when("buildingId", (buildingId: any, schema: any) => {
-    //   return schema.test({
-    //     test: (unitId: any) => {
-    //       if (unitId) {
-    //         return !this.state.contract && this.state.tenant;
-    //       }
-    //       return true;
-    //     },
-    //     message:
-    //       "The contract is already created for this unit. you need to terminate the contract before creating a new one.",
-    //   });
-    // }),
     duration: Yup.string()
       .required("Required")
       .max(100, "Maximum length should be 100 character")

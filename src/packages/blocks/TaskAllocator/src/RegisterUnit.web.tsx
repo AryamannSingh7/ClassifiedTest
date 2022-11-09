@@ -19,8 +19,8 @@ import {
   FormControlLabel,
   Divider,
   Drawer,
+  Link,
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import {
   BuildingImage,
@@ -69,9 +69,11 @@ class RegisterMyUnit extends RegisterUnitController {
               <Box>
                 <Box display={{ xs: "flex", md: "flex" }} className="top-bar">
                   <div className="left-icon">
-                    <IconButton>
-                      <KeyboardBackspaceIcon />
-                    </IconButton>
+                    <Link href="/MyUnitList">
+                      <IconButton>
+                        <KeyboardBackspaceIcon />
+                      </IconButton>
+                    </Link>
                     <span>{t("Add Another Unit")}</span>
                   </div>
                 </Box>

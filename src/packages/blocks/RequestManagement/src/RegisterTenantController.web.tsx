@@ -664,7 +664,7 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
     tenantMobile: Yup.string()
       .required("Required")
       .matches(/\S/, "Required")
-      .matches(/^[0-9]{6,12}$/, { message: "Please enter valid number" }),
+      .matches(/^[0-9]{6,10}$/, { message: "Please enter valid number" }),
     tenantEmail: Yup.string()
       .required("Required")
       .matches(/\S/, "Required")

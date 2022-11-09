@@ -182,6 +182,8 @@ export default class ContractsListController extends BlockComponent<Props, S, SS
     const templateDetails = template;
 
     const formData = {
+      address: "",
+      complexName: "",
       tenantName: templateDetails.attributes.tenant_name,
       landlordName: templateDetails.attributes.landlord_name,
       buildingName: templateDetails.attributes.building_management.name,
