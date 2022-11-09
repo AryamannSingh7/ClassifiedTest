@@ -843,5 +843,6 @@
   "Team Members": "Team Members",
   "There is no tenant available for this unit. you need to assign this unit to tenant before creating a contract.": "There is no tenant available for this unit. you need to assign this unit to tenant before creating a contract.",
   "The contract is already created for this unit. you need to terminate the contract before creating a new one.": "The contract is already created for this unit. you need to terminate the contract before creating a new one.",
-  "Complex Address": "Complex Address"
+  "Complex Address": "Complex Address",
+  "No Lease Available": "No Lease Available"
 }

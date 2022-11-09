@@ -40,7 +40,7 @@ class ChairmanNominationDetails extends ChairmanNominationDetailsController{
                       <Box style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
                           <ArrowBackIcon onClick={() => this.props.history.push("/")} />
                           <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
-                              Nomination Name
+                              {this.state.nominationData.title}
                           </p>
                       </Box>
                   </Grid>
@@ -51,11 +51,11 @@ class ChairmanNominationDetails extends ChairmanNominationDetailsController{
                             <Paper elevation={6} style={{backgroundColor:"white",padding:"20px 30px",borderRadius:"15px"}}>
                                 <Grid container spacing={2} >
                                     <Grid item xs={12} style={{display:'flex'}}>
-                                        <Typography variant="h6" style={{fontWeight:"bold"}}>Chairman and Vice Chairman Nomination</Typography>
+                                        <Typography variant="h6" style={{fontWeight:"bold"}}>{this.state.nominationData.title}</Typography>
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Box>
-                                            <Typography variant="subtitle1" color="textPrimary">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc non erat non massa sagittis pulvinar non…Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc non erat non massa sagittis pulvinar.</Typography>
+                                            <Typography variant="subtitle1" color="textPrimary">{this.state.nominationData.description}</Typography>
                                         </Box>
                                     </Grid>
                                     <Grid item xs={12} sm={3}>
@@ -71,65 +71,76 @@ class ChairmanNominationDetails extends ChairmanNominationDetailsController{
                             {
                                 this.state.votingStatus !== "closed" &&
                                 <>
-                                    <Typography variant="h6" style={{fontWeight:"bold"}}>Nominated Members</Typography>
+                                    {
+                                        this.state.nomineeList.length < 0 &&
+                                        <Typography variant="h6" style={{fontWeight:"bold"}}>Nominated Members</Typography>
+                                    }
+
                                     <Grid container spacing={3} style={{marginTop: "5px", marginBottom:30}}>
-                                    <Grid item xs={12}>
-                                        <Paper elevation={3} style={{backgroundColor:"white",padding:"10px 15px",borderRadius:"15px",cursor:"pointer"}} >
-                                            <Box onClick={this.handleOpenDetailsModal}>
-                                                <Box style={{display:'flex',justifyContent:'space-between'}}>
-                                                    <Box display="flex" alignItems="center">
-                                                        <img src={profileExp}/>
-                                                        <Box style={{marginLeft:"10px"}}>
-                                                            <Typography style={{fontWeight:"bold"}}>Jhon Doe</Typography>
-                                                            <Typography >B-104, B-105 , D-504</Typography>
+                                    {
+                                        this.state.nomineeList.length > 0 &&
+                                        this.state.nomineeList.map((item:any,key:any)=> {
+                                            return(
+                                                <Grid key={key} item xs={12}>
+                                                    <Paper elevation={3} style={{backgroundColor:"white",padding:"10px 15px",borderRadius:"15px",cursor:"pointer"}} >
+                                                        <Box onClick={this.handleOpenDetailsModal}>
+                                                            <Box style={{display:'flex',justifyContent:'space-between'}}>
+                                                                <Box display="flex" alignItems="center">
+                                                                    <img src={profileExp}/>
+                                                                    <Box style={{marginLeft:"10px"}}>
+                                                                        <Typography style={{fontWeight:"bold"}}>Jhon Doe</Typography>
+                                                                        <Typography >B-104, B-105 , D-504</Typography>
+                                                                    </Box>
+                                                                </Box>
+                                                                <Box style={{marginTop:"10px"}}>
+                                                                    <Typography variant="subtitle2" className={"statusOngoingBlue"}>Owner</Typography>
+                                                                </Box>
+                                                            </Box>
+                                                            <Box style={{width:"100%",marginTop:"20px "}}>
+                                                                <Typography className="textwrapStatus">
+                                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc non erat non massa sagittis pulvinar non id lectus. Cras ultrices bibendum cursus. Mauris vel erat maximus, porta risus a, pulvinar augue. Donec sit amet enim eget est posuere posuere in in lacus. Nullam lacinia, diam sit amet molestie placerat, tellus metus dignissim massa, sed tempor magna elit pulvinar felis. In in nulla malesuada, suscipit eros et, pulvinar sapien. Curabitur et odio leo.
+                                                                </Typography>
+                                                            </Box>
                                                         </Box>
-                                                    </Box>
-                                                    <Box style={{marginTop:"10px"}}>
-                                                        <Typography variant="subtitle2" className={"statusOngoingBlue"}>Owner</Typography>
-                                                    </Box>
-                                                </Box>
-                                                <Box style={{width:"100%",marginTop:"20px "}}>
-                                                    <Typography className="textwrapStatus">
-                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc non erat non massa sagittis pulvinar non id lectus. Cras ultrices bibendum cursus. Mauris vel erat maximus, porta risus a, pulvinar augue. Donec sit amet enim eget est posuere posuere in in lacus. Nullam lacinia, diam sit amet molestie placerat, tellus metus dignissim massa, sed tempor magna elit pulvinar felis. In in nulla malesuada, suscipit eros et, pulvinar sapien. Curabitur et odio leo.
-                                                    </Typography>
-                                                </Box>
-                                            </Box>
-                                            {
-                                                this.state.setVoting &&
-                                                <>
-                                                    {
-                                                        this.state.voted ?
-                                                            <Box>
-                                                                <Box style={{width:"100%",backgroundColor:"d8d8d8",height:"1px",marginTop:"25px"}}/>
-                                                                <Box style={{width:"100%",display:'flex',justifyContent:'center',alignItems:"center",marginTop:"-12px"}}>
-                                                                    <Typography variant="subtitle2" style={{fontWeight:"bold",textAlign:'center',backgroundColor:"white",padding:"0px 10px"}}>Voted As</Typography>
-                                                                </Box>
-                                                                <Grid container spacing={3} style={{marginTop:"1px"}}>
-                                                                    <Grid item xs={12}>
-                                                                        <DeclineButton disabled fullWidth>Chairman</DeclineButton>
-                                                                    </Grid>
-                                                                </Grid>
-                                                            </Box>
-                                                            :
-                                                            <Box>
-                                                                <Box style={{width:"100%",backgroundColor:"d8d8d8",height:"1px",marginTop:"25px"}}/>
-                                                                <Box style={{width:"100%",display:'flex',justifyContent:'center',alignItems:"center",marginTop:"-12px"}}>
-                                                                    <Typography variant="subtitle2" style={{fontWeight:"bold",textAlign:'center',backgroundColor:"white",padding:"0px 10px"}}>Vote As</Typography>
-                                                                </Box>
-                                                                <Grid container spacing={3} style={{marginTop:"1px"}}>
-                                                                    <Grid item xs={6} >
-                                                                        <ChairmanButton fullWidth onClick={()=> this.setState({voteConfirmModal:true})}>Chairman </ChairmanButton>
-                                                                    </Grid>
-                                                                    <Grid item xs={6} >
-                                                                        <AcceptButton fullWidth >Vice Chairman </AcceptButton>
-                                                                    </Grid>
-                                                                </Grid>
-                                                            </Box>
-                                                    }
-                                                </>
-                                            }
-                                        </Paper>
-                                    </Grid>
+                                                        {
+                                                            this.state.setVoting &&
+                                                            <>
+                                                                {
+                                                                    this.state.voted ?
+                                                                        <Box>
+                                                                            <Box style={{width:"100%",backgroundColor:"d8d8d8",height:"1px",marginTop:"25px"}}/>
+                                                                            <Box style={{width:"100%",display:'flex',justifyContent:'center',alignItems:"center",marginTop:"-12px"}}>
+                                                                                <Typography variant="subtitle2" style={{fontWeight:"bold",textAlign:'center',backgroundColor:"white",padding:"0px 10px"}}>Voted As</Typography>
+                                                                            </Box>
+                                                                            <Grid container spacing={3} style={{marginTop:"1px"}}>
+                                                                                <Grid item xs={12}>
+                                                                                    <DeclineButton disabled fullWidth>Chairman</DeclineButton>
+                                                                                </Grid>
+                                                                            </Grid>
+                                                                        </Box>
+                                                                        :
+                                                                        <Box>
+                                                                            <Box style={{width:"100%",backgroundColor:"d8d8d8",height:"1px",marginTop:"25px"}}/>
+                                                                            <Box style={{width:"100%",display:'flex',justifyContent:'center',alignItems:"center",marginTop:"-12px"}}>
+                                                                                <Typography variant="subtitle2" style={{fontWeight:"bold",textAlign:'center',backgroundColor:"white",padding:"0px 10px"}}>Vote As</Typography>
+                                                                            </Box>
+                                                                            <Grid container spacing={3} style={{marginTop:"1px"}}>
+                                                                                <Grid item xs={6} >
+                                                                                    <ChairmanButton fullWidth onClick={()=> this.setState({voteConfirmModal:true})}>Chairman </ChairmanButton>
+                                                                                </Grid>
+                                                                                <Grid item xs={6} >
+                                                                                    <AcceptButton fullWidth >Vice Chairman </AcceptButton>
+                                                                                </Grid>
+                                                                            </Grid>
+                                                                        </Box>
+                                                                }
+                                                            </>
+                                                        }
+                                                    </Paper>
+                                                </Grid>
+                                            )
+                                        })
+                                    }
                                 </Grid>
                                 </>
                             }
@@ -191,7 +202,7 @@ class ChairmanNominationDetails extends ChairmanNominationDetailsController{
                     {
                         !this.state.setVoting &&
                         <Box style={{width:"90%",marginBottom:"50px",marginTop:"10px"}}>
-                            <CloseButton variant="contained" fullWidth size="large">
+                            <CloseButton variant="contained" fullWidth size="large" onClick={()=> this.props.history.push(`/NominateMySelf?id=${this.state.nominationId}`)}>
                                 Nominate MySelf
                             </CloseButton>
                         </Box>

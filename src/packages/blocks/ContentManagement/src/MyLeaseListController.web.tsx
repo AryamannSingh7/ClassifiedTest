@@ -20,6 +20,7 @@ export interface Props {
 
 interface S {
   // Customizable Area Start
+  leaseList: any[];
   // Customizable Area End
 }
 
@@ -37,7 +38,9 @@ export default class MyLeaseListController extends BlockComponent<Props, S, SS> 
     // Customizable Area Start
     this.subScribedMessages = [getName(MessageEnum.RestAPIResponceMessage), getName(MessageEnum.RestAPIRequestMessage)];
 
-    this.state = {};
+    this.state = {
+      leaseList: [],
+    };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
@@ -53,7 +56,9 @@ export default class MyLeaseListController extends BlockComponent<Props, S, SS> 
 
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      console.log(responseJson);
+      if (responseJson && responseJson.data) {
+        this.setState({ leaseList: responseJson.data });
+      }
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {

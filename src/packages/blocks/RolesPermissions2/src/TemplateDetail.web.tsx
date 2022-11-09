@@ -58,7 +58,7 @@ class TemplateDetail extends TemplateDetailController {
       <>
         <Loader loading={this.state.loading} />
 
-        <Box style={{ background: "#F4F7FF", height: "100vh" }} className={classes.detailPage}>
+        <Box style={{ background: "#F4F7FF", height: "100vh", overflowY: "hidden" }} className={classes.detailPage}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box className="faq-step">
@@ -91,6 +91,7 @@ class TemplateDetail extends TemplateDetailController {
                           __html: this.state.templateData.conditionText,
                         }}
                       />
+                      <br />
                     </div>
                     <Box className="upload-button">
                       <Box className="upload-button-group">

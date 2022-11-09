@@ -59,9 +59,11 @@ class ChangedSelectedTemplate extends LeaseFormController {
     const { classes } = this.props;
     const { t }: any = this.props;
 
+    const customConditionText = JSON.parse(window.sessionStorage.getItem("condition") as any);
+
     return (
       <>
-        <Box style={{ background: "white", height: "100vh" }} className={classes.changedTemplate}>
+        <Box style={{ background: "white", height: "100vh", overflowY: "hidden" }} className={classes.changedTemplate}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box className="faq-step">
@@ -77,6 +79,32 @@ class ChangedSelectedTemplate extends LeaseFormController {
                   <div className="template-box">
                     <div className="template-view">
                       <div dangerouslySetInnerHTML={{ __html: this.state.changedTemplate }} />
+                      {this.state.selectedPaymentTermText.length !== 0 && (
+                        <>
+                          <br />
+                          <h4>{t("Payment Terms")}</h4>
+                        </>
+                      )}
+                      {this.state.selectedPaymentTermText.map((condition: any) => {
+                        return <p key={condition.id}>{condition.text}</p>;
+                      })}
+                      {this.state.selectedPersonalConditionText.length !== 0 && (
+                        <>
+                          <br />
+                          <h4>{t("Personal Conditions")}</h4>
+                        </>
+                      )}
+                      {this.state.selectedPersonalConditionText.map((condition: any) => {
+                        return <p key={condition.id}>{condition.text}</p>;
+                      })}
+                      <br />
+                      {customConditionText.isEditorCondition && (
+                        <>
+                          <h4>{t("Custom Condition")}</h4>
+                          <div dangerouslySetInnerHTML={{ __html: customConditionText.editorCondition }} />
+                        </>
+                      )}
+                      <br />
                     </div>
                     <div className="upload-button">
                       <Box className="condition-select">
@@ -269,18 +297,26 @@ class ChangedSelectedTemplate extends LeaseFormController {
                 this.state.selectedPaymentTermId.length === 0 && this.state.selectedPersonalConditionId.length === 0
               }
               onClick={() => {
-                const data = {
-                  isEditorCondition: false,
-                  paymentTerm: this.state.selectedPaymentTermId,
-                  personalCondition: this.state.selectedPersonalConditionId,
-                  editorCondition: "",
-                };
-                window.sessionStorage.setItem("condition", JSON.stringify(data));
+                this.setState(
+                  {
+                    selectedPaymentTermText: this.state.selectedPaymentTerm,
+                    selectedPersonalConditionText: this.state.selectedPersonalCondition,
+                  },
+                  () => {
+                    const data = {
+                      isEditorCondition: false,
+                      paymentTerm: this.state.selectedPaymentTermId,
+                      personalCondition: this.state.selectedPersonalConditionId,
+                      editorCondition: "",
+                    };
+                    window.sessionStorage.setItem("condition", JSON.stringify(data));
 
-                this.handleConditionModal();
-                if (!this.state.penalty) {
-                  this.handlePenaltyCountModal();
-                }
+                    this.handleConditionModal();
+                    if (!this.state.penalty) {
+                      this.handlePenaltyCountModal();
+                    }
+                  }
+                );
               }}
             >
               {t("Add Checked Condition to a Lease")}
@@ -288,12 +324,7 @@ class ChangedSelectedTemplate extends LeaseFormController {
           </Box>
         </Drawer>
 
-        <Drawer
-          anchor="bottom"
-          className="condition-modal penalty-dialog"
-          open={this.state.isPenaltyCountModalOpen}
-          onClose={() => this.handlePenaltyCountModal()}
-        >
+        <Drawer anchor="bottom" className="condition-modal penalty-dialog" open={this.state.isPenaltyCountModalOpen}>
           <Formik
             initialValues={{
               penaltyType: this.state.penaltyType,
