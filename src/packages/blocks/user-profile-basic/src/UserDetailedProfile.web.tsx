@@ -37,7 +37,7 @@ import Loader from "../../../components/src/Loader.web";
 import { Input } from "react-native-elements";
 import * as Yup from "yup";
 import CountryCodeSelector from "../../country-code-selector/src/CountryCodeSelector";
-import UserDetailedProfileController, { Props } from "./UserDetailedProfileController";
+import UserDetailedProfileController, { Props } from "./UserDetailedProfileController.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import { withTranslation } from 'react-i18next';
@@ -156,9 +156,21 @@ class UserDetailedProfile extends UserDetailedProfileController {
   constructor(props: Props) {
     super(props);
   }
+  async componentDidMount() {
+    if(this.props.history.location?.singleProfile){
 
+      this.getUserProfileDetails(this.props.history.location?.singleProfile?.id)
+    }else{
+      window.history.back()
+    }
+    // this.get(this.props.history.location?.singleProfile)
+    // this.getUserProfile()
+    // this.getBuilding();
+    
+  }
   render() {
     const {t}: any = this.props
+    let profileDetails = this.state.profileDetails
     return (
       <>
         <Box className="incident-Listing-wrapper desktop-ui" style={{ background: "#E5ECFF" }}>
@@ -174,7 +186,7 @@ class UserDetailedProfile extends UserDetailedProfileController {
                 <Box style={dashBoard.navigation}>
                   <Box>
                     <Typography variant="body1" >
-                      {t("Community Management")} / {t("User Profiles") } / <Box component="span" style={{ color: "blue" }}> {t("Marleah Eagleston")}</Box>
+                      {t("Community Management")} / {t("User Profiles") } / <Box component="span" style={{ color: "blue" }}> {profileDetails?.attributes?.full_name?.name || 'N/A'}</Box>
                     </Typography>
                     <Typography variant="h5" style={dashBoard.subHeading}>{t("Marleah Eagleston")}</Typography>
                   </Box>
@@ -211,20 +223,20 @@ class UserDetailedProfile extends UserDetailedProfileController {
                                     <CardContent style={{padding:"0px 16px 16px 16px"}}>
                                     <Typography variant="h6"
                                     //@ts-ignore 
-                                    style={dashBoard.unitno}>{t("Marleah Esgleston")}</Typography>
-                                    <Typography variant="h6" style={{marginTop:"5px"}}>{t("B-1405")} </Typography>
+                                    style={dashBoard.unitno}> {profileDetails?.attributes?.full_name?.name || 'N/A'}</Typography>
+                                    <Typography variant="h6" style={{marginTop:"5px"}}> {profileDetails?.attributes?.apartment_number?.apartment_number || 'N/A'} </Typography>
                                     <div style={{marginTop:"5px"}}>
                                         <Typography variant="h6" style={dashBoard.userType}>{t("GA Member")}</Typography>
                                     </div>
                                         <Grid container spacing={3} style={{marginTop:"5px"}}>
                                             <Grid item xs={2} sm={2}>
-                                                <img src={call_org} style={{width:"40px"}}/>
+                                                <img src={call_org} style={{width:"40px"}} onClick={()=> window.location.href = `mailto:${profileDetails?.attributes?.full_phone_number?.full_phone_number}`}/>
                                             </Grid>
                                             <Grid item xs={2} sm={2}>
-                                                <img src={chat} style={{width:"40px"}}/>
+                                                <img src={chat} style={{width:"40px"}} onClick={()=>this.openChat(profileDetails?.attribute)}/>
                                             </Grid>
                                             <Grid item xs={2} sm={2}>
-                                                <img src={email_org} style={{width:"40px"}}/>
+                                                <img src={email_org} style={{width:"40px"}} onClick={()=> window.location.href = `mailto:${profileDetails?.attributes?.email?.email}`}/>
                                             </Grid>
                                         </Grid>
                                     </CardContent>
@@ -234,18 +246,17 @@ class UserDetailedProfile extends UserDetailedProfileController {
                             <Grid item xs={12} sm={8} style={{padding:"35px 25px 25px 35px"}}>
                                 <Box>
                                     <Typography variant="subtitle1" style={dashBoard.subtitleClr}>{t("About")}</Typography>
-                                    <Typography variant="subtitle1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                                        Etiam posuere augue id iaculis condimentum. In hac habitasse platea dictumst. 
-                                        Sed tincidunt quam id Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                                        Etiam posuere augue id iaculis </Typography>
+                                    <Typography variant="subtitle1">{
+                                      profileDetails?.attributes?.bio?.bio
+                                    } </Typography>
                                     <Grid container spacing={3} style={{marginTop:"5px"}}>
                                         <Grid item xs={2} sm={3}>
                                             <Typography variant="subtitle1" style={dashBoard.subtitleClr}>{t("Gender")}</Typography>
-                                            <Typography variant="subtitle1">Male</Typography>
+                                            <Typography variant="subtitle1">{profileDetails?.attributes?.gender?.gender || 'N/A'}</Typography>
                                         </Grid>
                                         <Grid item xs={2} sm={3}>
                                             <Typography variant="subtitle1" style={dashBoard.subtitleClr}>{t("DOB")}</Typography>
-                                            <Typography variant="subtitle1">20-05-1978</Typography>
+                                            <Typography variant="subtitle1">{profileDetails?.attributes?.date_of_birth?.date_of_birth || 'N/A'}</Typography>
                                         </Grid>
                                         <Grid item xs={2} sm={3}>
                                             <Typography variant="subtitle1" style={dashBoard.subtitleClr}>{t("Hobbies")}</Typography>

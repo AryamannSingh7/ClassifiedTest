@@ -2170,5 +2170,39 @@ let userType=localStorage.getItem('userType')
     runEngine.sendMessage(requestMessage.id, requestMessage);
     return true;
   }
+  getUserTypeProfile=(role:any)=>{
+    let roleName =window.location.pathname
+    console.log(roleName)
+    this.setState({loading:true})
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      "token": localStorage.getItem('userToken')
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+
+    this.getProfileDataAPiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_profile/profiles?society_management_id=${localStorage.getItem('society_id')}`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.validationApiMethodType
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  }
   // Customizable Area End
 }
