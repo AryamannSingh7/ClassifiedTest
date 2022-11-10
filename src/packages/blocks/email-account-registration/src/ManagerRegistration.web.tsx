@@ -109,7 +109,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                       height="56px"
                       border="0.1px solid rgb(209 209 209 / 44%)"
                       borderRadius="16px"
-                      bgcolor="white"
+                      bgcolor="#F9F9F9"
                       marginTop='1rem'
 
                     >
@@ -157,7 +157,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                       height="56px"
                       border="0.1px solid rgb(209 209 209 / 44%)"
                       borderRadius="16px"
-                      bgcolor="white"
+                      bgcolor="#F9F9F9"
                       marginTop='1rem'
 
                     >
@@ -205,7 +205,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                       height="56px"
                       border="0.1px solid rgb(209 209 209 / 44%)"
                       borderRadius="16px"
-                      bgcolor="white"
+                      bgcolor="#F9F9F9"
                       marginTop='1rem'
 
                     >
@@ -256,7 +256,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                       height="56px"
                       border="0.1px solid rgb(209 209 209 / 44%)"
                       borderRadius="16px"
-                      bgcolor="white"
+                      bgcolor="#F9F9F9"
                     >
                       <Box>
                         <FormControl variant="outlined" >
@@ -346,7 +346,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                       height="56px"
                       border="0.1px solid rgb(209 209 209 / 44%)"
                       borderRadius="16px"
-                      bgcolor="white"
+                      bgcolor="#F9F9F9"
                       marginTop='1rem'
 
                     >
@@ -394,7 +394,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                       height="56px"
                       border="0.1px solid rgb(209 209 209 / 44%)"
                       borderRadius="16px"
-                      bgcolor="white"
+                      bgcolor="#F9F9F9"
                       marginTop='1rem'
 
                     >
@@ -445,7 +445,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                       height="56px"
                       border="0.1px solid rgb(209 209 209 / 44%)"
                       borderRadius="16px"
-                      bgcolor="white"
+                      bgcolor="#F9F9F9"
                     >
                       <Box>
                         <FormControl variant="outlined" >
@@ -534,7 +534,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                       mt="20px"
                       border="0.1px solid rgb(209 209 209 / 44%)"
                       borderRadius="16px"
-                      bgcolor="white"
+                      bgcolor="#F9F9F9"
                     >
                           <img src={password} style={{ paddingLeft: '0.5rem' }} />
                       <Field
@@ -612,7 +612,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                       mt="20px"
                       border="0.1px solid rgb(209 209 209 / 44%)"
                       borderRadius="16px"
-                      bgcolor="white"
+                      bgcolor="#F9F9F9"
                     >
                           <img src={password} style={{ paddingLeft: '0.5rem' }} />
 
