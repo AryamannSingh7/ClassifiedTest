@@ -9,3 +9,4 @@ export const info = require("../assets/info.png");
 export const calanderIcon = require("../assets/calanderIcon.png")
 export const userIcon = require("../assets/userIcon.png")
 export const buildings = require("../assets/buildings.png")
+export const pencil = require("../assets/Pencil.png")
