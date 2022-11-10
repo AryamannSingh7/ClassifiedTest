@@ -4,14 +4,14 @@ import { Button, Container, IconButton, Link, withStyles, Box, Grid, MenuItem, C
 import { Menu } from "@szhsin/react-menu";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
-import ManagerListController, { Props } from "./ManagerListController.web";
+import PropertyManagerListController, { Props } from "./PropertyManagerListController.web";
 import { BuildingLogo, SortIcon, FilterIcon } from "./assets";
 import { withTranslation } from "react-i18next";
 import "../../../web/src/i18n.js";
 import { PropertyManagerStyleWeb } from "./PropertyManagerStyle.web";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 
-class PropertyManagerList extends ManagerListController {
+class PropertyManagerList extends PropertyManagerListController {
   constructor(props: Props) {
     super(props);
   }
@@ -144,7 +144,7 @@ class PropertyManagerList extends ManagerListController {
                       <div className="upload-button">
                         <Grid container>
                           <Grid item xs={12} md={12}>
-                            <Link href="/IssueContract">
+                            <Link href="/RegisterPropertyManagers">
                               <Button>{t("Add another property manager")}</Button>
                             </Link>
                           </Grid>

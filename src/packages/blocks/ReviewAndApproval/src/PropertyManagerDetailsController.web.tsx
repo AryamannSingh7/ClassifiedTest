@@ -17,6 +17,7 @@ export interface Props {
 
 interface S {
   // Customizable Area Start
+  isEditPropertyModalOpen: boolean;
   // Customizable Area End
 }
 
@@ -24,7 +25,7 @@ interface SS {
   id: any;
 }
 
-export default class ManagerListController extends BlockComponent<Props, S, SS> {
+export default class PropertyManagerDetailsController extends BlockComponent<Props, S, SS> {
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
@@ -32,7 +33,9 @@ export default class ManagerListController extends BlockComponent<Props, S, SS> 
     // Customizable Area Start
     this.subScribedMessages = [getName(MessageEnum.RestAPIResponceMessage), getName(MessageEnum.RestAPIRequestMessage)];
 
-    this.state = {};
+    this.state = {
+      isEditPropertyModalOpen: false,
+    };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
@@ -43,5 +46,8 @@ export default class ManagerListController extends BlockComponent<Props, S, SS> 
   }
 
   // Customizable Area Start
+  handleEditPropertyModal = () => {
+    this.setState({ isEditPropertyModalOpen: !this.state.isEditPropertyModalOpen });
+  };
   // Customizable Area End
 }

@@ -3,13 +3,14 @@ import React, { useRef } from "react";
 import { Button, Container, IconButton, withStyles, Box, Grid } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
-import { BuildingImage, UnitRegisterCompleteIcon } from "./assets";
-import RegisterUnitController, { Props } from "./RegisterUnitController.web";
+// import { BuildingImage, UnitRegisterCompleteIcon } from "./assets";
+import RegisterPropertyManagerController, { Props } from "./RegisterPropertyManagerController.web";
 import { withTranslation } from "react-i18next";
 import "../../../web/src/i18n.js";
-import { MyUnitStyle } from "./MyUnitStyle.web";
+import { PropertyManagerStyleWeb } from "./PropertyManagerStyle.web";
+import { BuildingLogo, SuccessIcon } from "./assets";
 
-class RegisterMyUnitSuccess extends RegisterUnitController {
+class RegisterPropertyManagerSuccess extends RegisterPropertyManagerController {
   constructor(props: Props) {
     super(props);
   }
@@ -20,24 +21,24 @@ class RegisterMyUnitSuccess extends RegisterUnitController {
 
     return (
       <>
-        <Box style={{ background: "white", height: "100vh", overflowY: "hidden" }} className={classes.registerUnit}>
+        <Box style={{ background: "white", height: "100vh" }} className={classes.registerManager}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box>
                 <Box display={{ xs: "flex", md: "flex" }} className="top-bar">
                   <div className="left-icon">
-                    <IconButton onClick={() => this.props.navigation.navigate("MyUnitList")}>
+                    <IconButton onClick={() => this.props.navigation.navigate("PropertyManagerList")}>
                       <KeyboardBackspaceIcon />
                     </IconButton>
                   </div>
                 </Box>
                 <Container className="page-container">
                   <Box className="success-page">
-                    <img src={UnitRegisterCompleteIcon} alt="" />
-                    <h4>{t("Unit Added Successfully")}</h4>
+                    <img src={SuccessIcon} alt="" />
+                    <h4>{t("Property Manager added Successfully")}</h4>
                     <p>
                       {t(
-                        "The submission request need to go to the building/complex manger for approval, Upon approval of ownership the unit will be added to his list of units"
+                        "Property Manager has been added successfully to manage your property. He will receive link to register himself using the provided email address and mobile number."
                       )}
                     </p>
                   </Box>
@@ -49,7 +50,7 @@ class RegisterMyUnitSuccess extends RegisterUnitController {
             </Grid>
             <Grid item xs={12} md={5}>
               <Box className="right-block right-image" display={{ xs: "none", md: "flex" }}>
-                <img src={BuildingImage.default} className="building-logo" alt="" />
+                <img src={BuildingLogo.default} className="building-logo" alt="" />
               </Box>
             </Grid>
           </Grid>
@@ -59,5 +60,5 @@ class RegisterMyUnitSuccess extends RegisterUnitController {
   }
 }
 
-export default withTranslation()(withStyles(MyUnitStyle)(RegisterMyUnitSuccess));
+export default withTranslation()(withStyles(PropertyManagerStyleWeb)(RegisterPropertyManagerSuccess));
 // Customizable Area End
