@@ -43,7 +43,8 @@ interface S {
   nominationId:any;
   nomineeList:any
   nominationData:any;
-
+  nominatedSelf:boolean;
+  myNominationId:any;
 }
 
 interface SS {
@@ -87,6 +88,8 @@ export default class FriendListController extends BlockComponent<
       nominationId:"",
       nominationData:{},
       nomineeList:[],
+      nominatedSelf:false,
+      myNominationId:"",
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
@@ -171,9 +174,15 @@ export default class FriendListController extends BlockComponent<
       }
       if(apiRequestCallId === this.nominatedMemberListId){
         if(responseJson?.hasOwnProperty("nominated_members")){
+          const userId = localStorage.getItem("userId")
+          const findIf = responseJson.nominated_members.data.find((item:any)=> {
+            return item.attributes.account_id == userId
+          })
           this.setState({
             loading:false,
-            nomineeList:responseJson.nominated_members.data
+            nomineeList:responseJson.nominated_members.data,
+            nominatedSelf:findIf ? true : false,
+            myNominationId:findIf?.id
           })
         }
       }

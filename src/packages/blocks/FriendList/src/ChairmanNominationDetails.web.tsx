@@ -38,7 +38,7 @@ class ChairmanNominationDetails extends ChairmanNominationDetailsController{
                 <Grid container style={{ margin: '1rem', width: '90%' }} >
                   <Grid item xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem",justifyContent:"space-between"}} >
                       <Box style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
-                          <ArrowBackIcon onClick={() => this.props.history.push("/")} />
+                          <ArrowBackIcon onClick={() => window.history.back()} />
                           <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
                               {this.state.nominationData.title}
                           </p>
@@ -88,17 +88,19 @@ class ChairmanNominationDetails extends ChairmanNominationDetailsController{
                                                                 <Box display="flex" alignItems="center">
                                                                     <img src={profileExp}/>
                                                                     <Box style={{marginLeft:"10px"}}>
-                                                                        <Typography style={{fontWeight:"bold"}}>Jhon Doe</Typography>
-                                                                        <Typography >B-104, B-105 , D-504</Typography>
+                                                                        <Typography style={{fontWeight:"bold"}}>{item.attributes.name}</Typography>
+                                                                        <Typography >{item.attributes?.unit_number?.join(",")}</Typography>
                                                                     </Box>
                                                                 </Box>
                                                                 <Box style={{marginTop:"10px"}}>
-                                                                    <Typography variant="subtitle2" className={"statusOngoingBlue"}>Owner</Typography>
+                                                                    <Typography variant="subtitle2" className={"statusOngoingBlue"}>{item.attributes.role}</Typography>
                                                                 </Box>
                                                             </Box>
                                                             <Box style={{width:"100%",marginTop:"20px "}}>
                                                                 <Typography className="textwrapStatus">
-                                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc non erat non massa sagittis pulvinar non id lectus. Cras ultrices bibendum cursus. Mauris vel erat maximus, porta risus a, pulvinar augue. Donec sit amet enim eget est posuere posuere in in lacus. Nullam lacinia, diam sit amet molestie placerat, tellus metus dignissim massa, sed tempor magna elit pulvinar felis. In in nulla malesuada, suscipit eros et, pulvinar sapien. Curabitur et odio leo.
+                                                                    {
+                                                                        item.attributes.description
+                                                                    }
                                                                 </Typography>
                                                             </Box>
                                                         </Box>
@@ -202,9 +204,19 @@ class ChairmanNominationDetails extends ChairmanNominationDetailsController{
                     {
                         !this.state.setVoting &&
                         <Box style={{width:"90%",marginBottom:"50px",marginTop:"10px"}}>
-                            <CloseButton variant="contained" fullWidth size="large" onClick={()=> this.props.history.push(`/NominateMySelf?id=${this.state.nominationId}`)}>
-                                Nominate MySelf
-                            </CloseButton>
+                            {
+                                console.log("this.state.nominatedSelf",this.state.nominatedSelf)
+                            }
+                            {
+                                this.state.nominatedSelf ?
+                                    <CloseButton variant="contained" fullWidth size="large" onClick={()=> this.props.history.push(`/MyNomination?id=${this.state.nominationId}`)}>
+                                        View My Nomination
+                                    </CloseButton>
+                                    :
+                                    <CloseButton variant="contained" fullWidth size="large" onClick={()=> this.props.history.push(`/NominateMySelf?id=${this.state.nominationId}`)}>
+                                        Nominate MySelf
+                                    </CloseButton>
+                            }
                         </Box>
                     }
                     <Dialog

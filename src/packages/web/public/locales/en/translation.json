@@ -844,5 +844,16 @@
   "There is no tenant available for this unit. you need to assign this unit to tenant before creating a contract.": "There is no tenant available for this unit. you need to assign this unit to tenant before creating a contract.",
   "The contract is already created for this unit. you need to terminate the contract before creating a new one.": "The contract is already created for this unit. you need to terminate the contract before creating a new one.",
   "Complex Address": "Complex Address",
-  "No Lease Available": "No Lease Available"
+  "No Lease Available": "No Lease Available",
+  "Social Media": "Social Media",
+  "Assigned Tasks": "Assigned Tasks",
+  "Assigned To": "Assigned To",
+  "Assigned On": "Assigned On",
+  "Due Till": "Due Till",
+  "Create new Member": "Create new Member",
+  "Pending Request": "Pending Request",
+  "No User Found": "No User Found",
+  "Core Members": "Core Members",
+  "Service Providers": "Service Providers",
+  "Sub Team": "Sub Team"
 }
