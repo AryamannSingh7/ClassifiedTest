@@ -157,8 +157,11 @@ class UserDetailedProfile extends UserDetailedProfileController {
     super(props);
   }
   async componentDidMount() {
+    // @ts-ignore
+    // @ts-nocheck
     if(this.props.history.location?.singleProfile){
-
+ // @ts-ignore
+    // @ts-nocheck
       this.getUserProfileDetails(this.props.history.location?.singleProfile?.id)
     }else{
       window.history.back()
@@ -233,7 +236,7 @@ class UserDetailedProfile extends UserDetailedProfileController {
                                                 <img src={call_org} style={{width:"40px"}} onClick={()=> window.location.href = `mailto:${profileDetails?.attributes?.full_phone_number?.full_phone_number}`}/>
                                             </Grid>
                                             <Grid item xs={2} sm={2}>
-                                                <img src={chat} style={{width:"40px"}} onClick={()=>this.openChat(profileDetails?.attribute)}/>
+                                                {/* <img src={chat} style={{width:"40px"}} onClick={()=>this.openChat(profileDetails?.attribute)}/> */}
                                             </Grid>
                                             <Grid item xs={2} sm={2}>
                                                 <img src={email_org} style={{width:"40px"}} onClick={()=> window.location.href = `mailto:${profileDetails?.attributes?.email?.email}`}/>
