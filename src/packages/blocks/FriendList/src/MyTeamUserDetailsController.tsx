@@ -57,6 +57,8 @@ export default class FriendListController extends BlockComponent<
   getUserListId:string = "";
   manageApprovalId:string = "";
   deleteMemberId:string = "";
+  getTeamMemberDetailsId:string = "";
+
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
@@ -121,7 +123,7 @@ export default class FriendListController extends BlockComponent<
 
   async componentDidMount(): Promise<void> {
     super.componentDidMount();
-    this.getMyTeamList()
+    this.getTeamMemberDetails()
   }
 
   approvalFnc = (type:any,id:any) => {
@@ -130,14 +132,14 @@ export default class FriendListController extends BlockComponent<
     this.manageApproval(formdata,id)
   }
 
-  getMyTeamList = async () => {
+  getTeamMemberDetails = async () => {
     this.setState({
       loading:true
     })
     console.log("CHECK THE ID",this.props.location.search.split("=")[1])
     const userId = this.props.location.search.split("=")[1]
     const societyID = localStorage.getItem("society_id")
-    this.getMyTeamListId = await this.apiCall({
+    this.getTeamMemberDetailsId = await this.apiCall({
       contentType: "application/json",
       method: "GET",
       endPoint: `/bx_block_my_team/team_members/${userId}`,
@@ -227,7 +229,6 @@ export default class FriendListController extends BlockComponent<
         })
       }
       if(message.properties.text === "TEAM_MEMBER_ADDED_SUCCESS"){
-        this.getMyTeamList()
         this.setState({
           setOpen:false
         })
@@ -302,17 +303,12 @@ export default class FriendListController extends BlockComponent<
           //
         }
       }
-      if(this.manageApprovalId === apiRequestCallId){
-        if(responseJson.hasOwnProperty('data')){
-          this.getMyTeamList()
-        }
-      }
-      if(this.deleteMemberId === apiRequestCallId){
-        if(responseJson.message === "Successfully deleted"){
-          this.getMyTeamList()
+      if(this.getTeamMemberDetailsId === apiRequestCallId ){
+        if(responseJson.hasOwnProperty("data")){
+          console.log("selectedUser",responseJson.data.attributes)
           this.setState({
-            deleteModal:false,
-            deleteId:""
+            loading:false,
+            selectedUser:responseJson.data.attributes
           })
         }
       }

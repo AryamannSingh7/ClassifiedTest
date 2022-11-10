@@ -59,6 +59,7 @@ interface S {
   myNominationAsError:any;
   nominatedSelf:boolean,
   vote:{voteId:any,role:any,name:any};
+  myDetails:any;
 }
 
 interface SS {
@@ -133,7 +134,8 @@ export default class FriendListController extends BlockComponent<
         voteId:"",
         role:"",
         name:"",
-      }
+      },
+      myDetails:{}
 
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -392,8 +394,25 @@ export default class FriendListController extends BlockComponent<
           this.setState({
             loading:false,
             nomineeList:responseJson.nominated_members.data,
-            nominatedSelf:findIf.length > 0 ? true : false
+            nominatedSelf:findIf ? true : false,
+            myDetails:findIf.attributes
           })
+          if(findIf){
+            let roleType:any = []
+            if(findIf.attributes.nominate_as === "All"){
+              roleType=['0','1']
+            }else{
+              if(findIf.attributes.nominate_as === "Chairman"){
+                roleType=['0']
+              }else{
+                roleType=['1']
+              }
+            }
+            this.setState({
+              myNominationDescription:findIf.attributes.description,
+              myNominationAs:roleType
+            })
+          }
         }
       }
       if(apiRequestCallId === this.nominateId){
@@ -414,8 +433,11 @@ export default class FriendListController extends BlockComponent<
           })
         }
       }
-      if(apiRequestCallId === this.startVotingCallId){
+      if(apiRequestCallId === this.nominateMySelfId){
         console.log("RESPONSE JSON START VOTING",responseJson)
+        if(responseJson.message === "Member Nominated successfully"){
+          this.props.history.push("/NominationSuccess")
+        }
       }
     }
   }

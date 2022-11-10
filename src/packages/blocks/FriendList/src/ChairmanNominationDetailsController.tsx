@@ -10,6 +10,7 @@ import { runEngine } from "../../../framework/src/RunEngine";
 
 import { imgPasswordInVisible, imgPasswordVisible } from "./assets";
 import * as Yup from "yup";
+import moment from "moment";
 
 
 export const configJSON = require("./config");
@@ -39,6 +40,11 @@ interface S {
   selectedTab:any;
   detailsModal:any;
   nominateMySelf:boolean;
+  nominationId:any;
+  nomineeList:any
+  nominationData:any;
+  nominatedSelf:boolean;
+  myNominationId:any;
 }
 
 interface SS {
@@ -50,13 +56,15 @@ export default class FriendListController extends BlockComponent<
   S,
   SS
 > {
+  getNominationDetailsId:string = "";
+  nominatedMemberListId:string = "";
 
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
 
     this.subScribedMessages = [
-      getName(MessageEnum.AccoutLoginSuccess),
+      getName(MessageEnum.RestAPIResponceMessage),
     ];
 
     this.state = {
@@ -69,16 +77,26 @@ export default class FriendListController extends BlockComponent<
       setOpen:false,
       teamAddData:{},
       onGoingNomination:true,
-      setVoting:true,
+      setVoting:false,
       voted:false,
       startVotingModal:false,
       voteConfirmModal:false,
-      votingStatus:"closed",
+      votingStatus:"active",
       selectedTab:"Chairman",
       detailsModal:false,
       nominateMySelf:false,
+      nominationId:"",
+      nominationData:{},
+      nomineeList:[],
+      nominatedSelf:false,
+      myNominationId:"",
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
+  }
+
+  async componentDidMount() {
+    this.getNominationDetails();
+    this.nominatedMemberList();
   }
 
   handleDeleteModal = () => {
@@ -142,16 +160,32 @@ export default class FriendListController extends BlockComponent<
   }
   async receive(from: string, message: Message) {
     runEngine.debugLog("Message Recived", message);
-
-    if (message.id === getName(MessageEnum.AccoutLoginSuccess)) {
-      let value = message.getData(getName(MessageEnum.AuthTokenDataMessage));
-
-      this.showAlert(
-        "Change Value",
-        "From: " + this.state.txtSavedValue + " To: " + value
-      );
-
-      this.setState({ txtSavedValue: value });
+    if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {
+      const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
+      const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      var errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if(apiRequestCallId === this.getNominationDetailsId){
+        if(responseJson.hasOwnProperty("chairman_nominations")){
+          this.setState({
+            loading:false,
+            nominationData:responseJson.chairman_nominations.data.attributes,
+          })
+        }
+      }
+      if(apiRequestCallId === this.nominatedMemberListId){
+        if(responseJson?.hasOwnProperty("nominated_members")){
+          const userId = localStorage.getItem("userId")
+          const findIf = responseJson.nominated_members.data.find((item:any)=> {
+            return item.attributes.account_id == userId
+          })
+          this.setState({
+            loading:false,
+            nomineeList:responseJson.nominated_members.data,
+            nominatedSelf:findIf ? true : false,
+            myNominationId:findIf?.id
+          })
+        }
+      }
     }
   }
 
@@ -192,6 +226,29 @@ export default class FriendListController extends BlockComponent<
     onPress: () => this.doButtonPressed(),
   };
 
+  getNominationDetails = async () => {
+    const societyID = localStorage.getItem("society_id")
+    const nominationId =  window.location.search ? window.location.search.split("=")[1] : null;
+    this.setState({
+      loading:true,
+      nominationId
+    })
+    this.getNominationDetailsId = await this.apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `society_managements/${societyID}/bx_block_my_team/chairman_nominations/${nominationId}`,
+    });
+  }
+
+  nominatedMemberList = async () => {
+    const societyID = localStorage.getItem("society_id")
+    const nominationId =  window.location.search ? window.location.search.split("=")[1] : null;
+    this.nominatedMemberListId = await this.apiCall({
+      method:"GET",
+      endPoint: `society_managements/${societyID}/bx_block_my_team/chairman_nominations/${nominationId}/nominated_team_member_list`,
+    });
+  }
+
   doButtonPressed() {
     let msg = new Message(getName(MessageEnum.AccoutLoginSuccess));
     msg.addData(
@@ -200,6 +257,37 @@ export default class FriendListController extends BlockComponent<
     );
     this.send(msg);
   }
+
+  apiCall = async (data: any) => {
+    const { contentType, method, endPoint, body } = data;
+    const token = localStorage.getItem('userToken') ;
+
+    const header = {
+      token
+    };
+    const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+    );
+    requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+    );
+    requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        endPoint
+    );
+    requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        method
+    );
+    body && requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestBodyMessage),
+        body
+    );
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    // console.log("Called",requestMessage);
+    return requestMessage.messageId;
+  };
 
   // web events
   setInputValue = (text: string) => {

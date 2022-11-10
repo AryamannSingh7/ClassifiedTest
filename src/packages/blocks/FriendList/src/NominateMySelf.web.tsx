@@ -21,15 +21,15 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import DateRangeOutlinedIcon from '@material-ui/icons/DateRangeOutlined';
 import { makeStyles,withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router';
-import ChairmainNominationController, {
+import NominateMySelfController, {
   Props
-} from "./ChairmainNominationController";
+} from "./NominateMySelfController";
 import './MyTeam.web.css'
 import {profileExp} from "./assets";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import ReorderIcon from '@material-ui/icons/Reorder';
 
-class NominateMySelf extends ChairmainNominationController{
+class NominateMySelf extends NominateMySelfController{
   constructor(props: Props) {
     super(props);
   }
@@ -41,7 +41,7 @@ class NominateMySelf extends ChairmainNominationController{
                 <Grid container style={{ margin: '1rem', width: '90%' }} >
                   <Grid item xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem",justifyContent:"space-between"}} >
                       <Box style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
-                          <ArrowBackIcon onClick={() => this.props.history.push("/")} />
+                          <ArrowBackIcon onClick={() => window.history.back()} />
                           <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
                               Nominate My Self
                           </p>
@@ -76,6 +76,8 @@ class NominateMySelf extends ChairmainNominationController{
                                         ),
                                     }}
                                     fullWidth
+                                    value={this.state.myNominationDescription}
+                                    onChange={(e) => this.setState({myNominationDescription:e.target.value})}
                                     style={{border:"1px solid #ECECEC",borderRadius:"10px",backgroundColor:"#f9f9f9",marginRight:"10px"}}
                                     rows={8}
                                     variant="outlined"
@@ -84,19 +86,21 @@ class NominateMySelf extends ChairmainNominationController{
                             <Box style={{width:"100%",marginTop:"20px "}}>
                                 <Typography style={{fontWeight:"bold"}}>Nominate As a</Typography>
                                 <FormControlLabel
-                                    control={<Checkbox checkedIcon={<CheckBoxIcon style={{color:"#fc8434"}} />} name="checkedA" />}
+                                    onChange={this.manageSelectRole}
+                                    control={<Checkbox checkedIcon={<CheckBoxIcon style={{color:"#fc8434"}} />} name="checkedA" value={0} checked={this.state.myNominationAs.find((check:any)=> check === '0') ? true : false} />}
                                     label="Chairman"
                                 />
                                 <FormControlLabel
-                                    control={<Checkbox checkedIcon={<CheckBoxIcon style={{color:"#fc8434"}} />} name="checkedB" />}
+                                    onChange={this.manageSelectRole}
+                                    control={<Checkbox checkedIcon={<CheckBoxIcon style={{color:"#fc8434"}} />} name="checkedB" value={1} checked={this.state.myNominationAs.find((check:any)=> check === '1') ? true : false} />}
                                     label="Vice Chairman"
                                 />
                             </Box>
                         </Grid>
                     </Grid>
                     <Box style={{width:"90%",marginBottom:"50px",marginTop:"10px"}}>
-                        <CloseButton variant="contained" fullWidth size="large">
-                            Submit
+                        <CloseButton variant="contained" fullWidth size="large" onClick={this.manageNominate}>
+                            {this.state.nominatedSelf ? "Update" : "Submit"}
                         </CloseButton>
                     </Box>
                 </Box>
@@ -105,6 +109,7 @@ class NominateMySelf extends ChairmainNominationController{
     );
   }
 }
+// @ts-ignore
 export default withRouter(NominateMySelf)
 
 const CloseButton = withStyles((theme) => ({

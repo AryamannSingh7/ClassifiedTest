@@ -4,10 +4,8 @@ import { BlockComponent } from "../../../framework/src/BlockComponent";
 import MessageEnum, { getName } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
 import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
-import * as Yup from "yup";
-import toast from "react-hot-toast";
 
-export const configJSON = require("./config");
+export const configJSON = require("./config.js");
 
 export interface Props {
   navigation: any;
@@ -18,38 +16,32 @@ export interface Props {
 }
 
 interface S {
-  loading: boolean;
-  isAddPropertyModalOpen: boolean;
-}
-
-interface SS {
-  id: any;
   // Customizable Area Start
   // Customizable Area End
 }
 
-export default class RegisterManagerController extends BlockComponent<Props, S, SS> {
+interface SS {
+  id: any;
+}
+
+export default class PropertyManagerListController extends BlockComponent<Props, S, SS> {
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
-
+    console.disableYellowBox = true;
     // Customizable Area Start
     this.subScribedMessages = [getName(MessageEnum.RestAPIResponceMessage), getName(MessageEnum.RestAPIRequestMessage)];
 
-    this.state = {
-      loading: false,
-      isAddPropertyModalOpen: false,
-    };
+    this.state = {};
+    // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
 
   async receive(from: string, message: Message) {
-    runEngine.debugLog("Message Recived", message);
+    // Customizable Area Start
+    // Customizable Area End
   }
 
-  handleAddPropertyModal = () => {
-    this.setState({
-      isAddPropertyModalOpen: !this.state.isAddPropertyModalOpen,
-    });
-  };
+  // Customizable Area Start
+  // Customizable Area End
 }

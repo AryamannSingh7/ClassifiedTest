@@ -312,13 +312,13 @@
 
 .statusOngoingBlue {
   background: #2b6fed40;
-  padding: 10px 20px;
+  padding: 5px 15px;
   border-radius: 30px;
   color: #2b6fed;
   display: initial;
   min-height: 20px;
   text-transform: capitalize;
-  min-width: 50px;
+  min-width: 20px;
   font-weight: 800 !important;
 }
 

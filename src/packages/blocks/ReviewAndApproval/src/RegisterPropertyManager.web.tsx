@@ -14,6 +14,7 @@ import {
   Input,
   FormControl,
   Drawer,
+  Link,
 } from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import {
@@ -38,10 +39,10 @@ import { withTranslation } from "react-i18next";
 import "../../../web/src/i18n.js";
 import Loader from "../../../components/src/Loader.web";
 import { PropertyManagerStyleWeb } from "./PropertyManagerStyle.web";
-import RegisterManagerController, { Props } from "./RegisterManagerController.web";
+import RegisterPropertyManagerController, { Props } from "./RegisterPropertyManagerController.web";
 import { CountryList } from "./countryList";
 
-class RegisterPropertyManager extends RegisterManagerController {
+class RegisterPropertyManager extends RegisterPropertyManagerController {
   constructor(props: Props) {
     super(props);
   }
@@ -60,9 +61,11 @@ class RegisterPropertyManager extends RegisterManagerController {
               <Box>
                 <Box display={{ xs: "flex", md: "flex" }} className="top-bar">
                   <div className="left-icon">
-                    <IconButton>
-                      <KeyboardBackspaceIcon />
-                    </IconButton>
+                    <Link href="/PropertyManagers">
+                      <IconButton>
+                        <KeyboardBackspaceIcon />
+                      </IconButton>
+                    </Link>
                     <span>{t("Add Another Unit")}</span>
                   </div>
                 </Box>
@@ -410,6 +413,24 @@ class RegisterPropertyManager extends RegisterManagerController {
                         name="startDate"
                         className="select-input input"
                         placeholder={t("Contract Start Date")}
+                        type="text"
+                        onFocus={(e: any) => (e.target.type = "date")}
+                        startAdornment={
+                          <InputAdornment position="start">
+                            <img src={IDDateIcon} alt="" />
+                          </InputAdornment>
+                        }
+                      />
+                      {/* {errors.startDate && touched.startDate && <p className="error">{t(errors.startDate)}</p>} */}
+                    </FormControl>
+                    <FormControl fullWidth>
+                      <Input
+                        value=""
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        name="startDate"
+                        className="select-input input"
+                        placeholder={t("Contract End Date")}
                         type="text"
                         onFocus={(e: any) => (e.target.type = "date")}
                         startAdornment={

@@ -54,6 +54,7 @@ import AddTeamModal from "./AddTeamModal.web";
 import {CheckIcon} from "../../user-profile-basic/src/assets"
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import moment from "moment";
 
 class MyTeamCore extends NominationDetailsController {
   constructor(props: Props) {
@@ -71,22 +72,28 @@ class MyTeamCore extends NominationDetailsController {
             <Grid item xs={3} md={3} sm={3} className="SideBar">
                 <ChairmanSidebar {...this.props}/>
             </Grid>
-            <Grid xs={9} md={9} sm={9} spacing={4} style={{paddingTop: 35}}>
+            <Grid item xs={9} md={9} sm={9} style={{paddingTop: 35}}>
             <Container className="link-decoration">
                 <Box className="navigation">
                     <Box style={{width: "100%"}}>
                         <Typography variant="body1" >
-                        My Team / <Box component="span" style={{color: "blue"}}>Chairman and Vice Chairman Nomination</Box>
+                        My Team / Chairman and Vice Chairman Nomination / <Box component="span" style={{color: "blue"}}>Details</Box>
                         </Typography>
                         <Box display="flex" justifyContent="space-between" alignItems="center" width="100%">
-                            <Typography variant="h4" className="subHeading">Chairman and Vice Chairman Nomination</Typography>
+                            <Typography variant="h4" className="subHeading">{this.state?.nominationData?.title}</Typography>
                             <Box>
                                 {
-                                    this.state.setVoting ?
+                                    !this.state.nominationData?.nomination_flag && this.state.nominationData?.voting_flag ?
                                         <DeclineButton style={{marginTop:"20px"}}  onClick={()=>this.setState({setVoting:false})}>Close Voting</DeclineButton> :
                                         <>
-                                            <AcceptButton style={{marginTop:"20px",marginRight:"10px"}} onClick={()=>this.setState({startVotingModal:true})}>Start Voting</AcceptButton>
-                                            <DeclineButton style={{marginTop:"20px"}} onClick={this.handleOpenMySelfModal}>Nominate MySelf</DeclineButton>
+                                            {
+                                                this.state.nominationData?.nomination_flag && !this.state.nominationData?.voting_flag &&
+                                                <AcceptButton style={{marginTop:"20px",marginRight:"10px"}} onClick={()=>this.setState({startVotingModal:true})}>Start Voting</AcceptButton>
+                                            }
+                                            {
+                                                this.state.nominationData?.nomination_flag && !this.state.nominationData?.voting_flag &&
+                                                <DeclineButton style={{marginTop:"20px"}} onClick={this.handleOpenMySelfModal}>Nominate MySelf</DeclineButton>
+                                            }
                                         </>
                                 }
                             </Box>
@@ -98,41 +105,52 @@ class MyTeamCore extends NominationDetailsController {
                         <Paper elevation={6} style={{backgroundColor:"white",padding:"20px 30px",borderRadius:"15px"}}>
                             <Grid container spacing={2} >
                                 <Grid item xs={9} style={{display:'flex'}}>
-                                    <Typography variant="h6" style={{fontWeight:"bold"}}>Chairman and Vice Chairman Nomination</Typography>
+                                    <Typography variant="h6" style={{fontWeight:"bold"}}>{this.state.nominationData.title}</Typography>
                                     <Button variant="text" color="primary" name="ButtonEdit" id="edit button" style={{color:"2b6fed",fontWeight:"bold"}} onClick={()=>this.setState({setOpen:true})}>Edit Details</Button>
                                 </Grid>
                                 <Grid item xs={3} style={{display:'flex',alignItems:"center",justifyContent:"flex-end"}}>
-                                    <Typography variant="subtitle2" className={"statusOngoingGreen"}>Active</Typography>
+                                    {
+                                        this.state.nominationData?.status === "closed" &&
+                                        <Typography variant="subtitle2" className={"statusOngoingRed"}>{this.state.nominationData?.status}</Typography>
+                                    }
+                                    {
+                                        this.state.nominationData?.status === "active" &&
+                                        <Typography variant="subtitle2" className={"statusOngoingGreen"}>{this.state.nominationData?.status}</Typography>
+                                    }
+                                    {
+                                        this.state.nominationData?.status === "upcoming" &&
+                                        <Typography variant="subtitle2" className={"statusOngoingBlue"}>{this.state.nominationData?.status}</Typography>
+                                    }
                                 </Grid>
                                 <Grid item xs={12} sm={3}>
                                     <Box>
                                         <Typography variant="subtitle1" color="textSecondary">Building:</Typography>
-                                        <Typography variant="subtitle1" color="textPrimary">Building - 1</Typography>
+                                        <Typography variant="subtitle1" color="textPrimary">{this.state.nominationData?.building}</Typography>
                                     </Box>
                                 </Grid>
                                 <Grid item xs={12} sm={3}>
                                     <Box>
                                         <Typography variant="subtitle1" color="textSecondary">Complex Name:</Typography>
-                                        <Typography variant="subtitle1" color="textPrimary">Star Heights</Typography>
+                                        <Typography variant="subtitle1" color="textPrimary">{this.state.nominationData?.complex_name}</Typography>
                                     </Box>
                                 </Grid>
                                 <Grid item xs={12} sm={3}>
                                     <Box>
                                         <Typography variant="subtitle1" color="textSecondary">Duration:</Typography>
-                                        <Typography variant="subtitle1" color="textPrimary">24-03-2022 to 24-04-2022</Typography>
+                                        <Typography variant="subtitle1" color="textPrimary">{moment(this.state.nominationData?.start_date).format("DD-MMM-YYYY")} to {moment(this.state.nominationData?.end_date).format("DD-MMM-YYYY")}</Typography>
                                     </Box>
                                 </Grid>
                                 <Grid item xs={12} sm={3}>
                                     <Box>
                                         <Typography variant="subtitle1" color="textSecondary">Total Nomination: </Typography>
-                                        <Typography variant="subtitle1" color="textPrimary">32 Members</Typography>
+                                        <Typography variant="subtitle1" color="textPrimary">{this.state.nominationData?.total_nomination} Members</Typography>
                                     </Box>
                                 </Grid>
 
                                 <Grid item xs={12}>
                                     <Box>
                                         <Typography variant="subtitle1" color="textSecondary">Description</Typography>
-                                        <Typography variant="subtitle1" color="textPrimary">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc non erat non massa sagittis pulvinar non…Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc non erat non massa sagittis pulvinar.</Typography>
+                                        <Typography variant="subtitle1" color="textPrimary">{this.state.nominationData?.description}</Typography>
                                     </Box>
                                 </Grid>
                             </Grid>
@@ -142,65 +160,90 @@ class MyTeamCore extends NominationDetailsController {
                 {
                     this.state.votingStatus !== "closed" &&
                     <Grid container spacing={3} style={{marginTop: 10, marginBottom:30}}>
-                        <Grid item xs={12} sm={6}>
-                            <Paper elevation={3} style={{backgroundColor:"white",padding:"20px 30px",borderRadius:"15px",cursor:"pointer"}} >
-                                <Box onClick={this.handleOpenDetailsModal}>
-                                    <Box style={{display:'flex',justifyContent:'space-between'}}>
-                                        <Box display="flex" alignItems="center">
-                                            <img src={profileExp}/>
-                                            <Box style={{marginLeft:"10px"}}>
-                                                <Typography style={{fontWeight:"bold"}}>Jhon Doe</Typography>
-                                                <Typography >B-104, B-105 , D-504</Typography>
+                        {
+                            this.state.nomineeList.length > 0 &&
+                            this.state.nomineeList.map((item:any,key:any)=> {
+                                console.log("LISTING FOR THE NOMEENEE",item)
+                                return(
+                                    <Grid key={key} item xs={12} sm={6}>
+                                        <Paper elevation={3} style={{backgroundColor:"white",padding:"20px 30px",borderRadius:"15px",cursor:"pointer"}} >
+                                            <Box onClick={()=> this.handleOpenDetailsModal(item.attributes)}>
+                                                <Box style={{display:'flex',justifyContent:'space-between'}}>
+                                                    <Box display="flex" alignItems="center">
+                                                        <img src={profileExp}/>
+                                                        <Box style={{marginLeft:"10px"}}>
+                                                            <Typography style={{fontWeight:"bold"}}>{item.attributes.name}</Typography>
+                                                            <Typography >{item.attributes.unit_number.join(",")}</Typography>
+                                                        </Box>
+                                                    </Box>
+                                                    <Box style={{marginTop:"10px"}}>
+                                                        <Typography variant="subtitle2" className={"statusOngoingBlue"}>{item.attributes.role}</Typography>
+                                                    </Box>
+                                                </Box>
+                                                <Box style={{width:"100%",marginTop:"20px "}}>
+                                                    <Typography className="textwrapStatus">
+                                                        {item.attributes.description}
+                                                    </Typography>
+                                                </Box>
                                             </Box>
-                                        </Box>
-                                        <Box style={{marginTop:"10px"}}>
-                                            <Typography variant="subtitle2" className={"statusOngoingBlue"}>Owner</Typography>
-                                        </Box>
-                                    </Box>
-                                    <Box style={{width:"100%",marginTop:"20px "}}>
-                                        <Typography className="textwrapStatus">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc non erat non massa sagittis pulvinar non id lectus. Cras ultrices bibendum cursus. Mauris vel erat maximus, porta risus a, pulvinar augue. Donec sit amet enim eget est posuere posuere in in lacus. Nullam lacinia, diam sit amet molestie placerat, tellus metus dignissim massa, sed tempor magna elit pulvinar felis. In in nulla malesuada, suscipit eros et, pulvinar sapien. Curabitur et odio leo.
-                                        </Typography>
-                                    </Box>
-                                </Box>
-                                {
-                                    this.state.setVoting &&
-                                    <>
-                                        {
-                                            this.state.voted ?
-                                                <Box>
-                                                    <Box style={{width:"100%",display:'flex',justifyContent:'center',alignItems:"center",marginTop:"10px"}}>
-                                                        <Box style={{width:"41%",backgroundColor:"d8d8d8",height:"1px",marginRight:"10px"}}/>
-                                                        <Typography style={{fontWeight:"bold",textAlign:'center'}}>Voted As</Typography>
-                                                        <Box style={{width:"41%",backgroundColor:"d8d8d8",height:"1px",marginLeft:"10px"}}/>
-                                                    </Box>
-                                                    <Grid container spacing={3} style={{marginTop:"5px"}}>
-                                                        <Grid item xs={12}>
-                                                            <DeclineButton disabled fullWidth>Chairman</DeclineButton>
-                                                        </Grid>
-                                                    </Grid>
-                                                </Box>
-                                                :
-                                                <Box>
-                                                    <Box style={{width:"100%",display:'flex',justifyContent:'center',alignItems:"center",marginTop:"10px"}}>
-                                                        <Box style={{width:"43%",backgroundColor:"d8d8d8",height:"1px",marginRight:"10px"}}/>
-                                                        <Typography style={{fontWeight:"bold",textAlign:'center'}}>Vote As</Typography>
-                                                        <Box style={{width:"42%",backgroundColor:"d8d8d8",height:"1px",marginLeft:"10px"}}/>
-                                                    </Box>
-                                                    <Grid container spacing={3} style={{marginTop:"5px"}}>
-                                                        <Grid item xs={12} sm={6}>
-                                                            <ChairmanButton fullWidth onClick={()=> this.setState({voteConfirmModal:true})}>Chairman </ChairmanButton>
-                                                        </Grid>
-                                                        <Grid item xs={12} sm={6}>
-                                                            <AcceptButton fullWidth >Vice Chairman </AcceptButton>
-                                                        </Grid>
-                                                    </Grid>
-                                                </Box>
-                                        }
-                                    </>
-                                }
-                            </Paper>
-                        </Grid>
+                                            {
+                                                this.state.nominationData.voting_flag &&
+                                                <>
+                                                    {
+                                                        this.state.voted ?
+                                                            <Box>
+                                                                <Box style={{width:"100%",display:'flex',justifyContent:'center',alignItems:"center",marginTop:"10px"}}>
+                                                                    <Box style={{width:"41%",backgroundColor:"d8d8d8",height:"1px",marginRight:"10px"}}/>
+                                                                    <Typography style={{fontWeight:"bold",textAlign:'center'}}>Voted As</Typography>
+                                                                    <Box style={{width:"41%",backgroundColor:"d8d8d8",height:"1px",marginLeft:"10px"}}/>
+                                                                </Box>
+                                                                <Grid container spacing={3} style={{marginTop:"5px"}}>
+                                                                    <Grid item xs={12}>
+                                                                        <DeclineButton disabled fullWidth>Chairman</DeclineButton>
+                                                                    </Grid>
+                                                                </Grid>
+                                                            </Box>
+                                                            :
+                                                            <Box>
+                                                                <Box style={{width:"100%",display:'flex',justifyContent:'center',alignItems:"center",marginTop:"10px"}}>
+                                                                    <Box style={{width:"38%",backgroundColor:"d8d8d8",height:"1px",marginRight:"10px"}}/>
+                                                                    <Typography variant={"body2"} style={{fontWeight:"bold",textAlign:'center'}}>Vote As</Typography>
+                                                                    <Box style={{width:"38%",backgroundColor:"d8d8d8",height:"1px",marginLeft:"10px"}}/>
+                                                                </Box>
+                                                                <Grid container spacing={3} style={{marginTop:"5px"}}>
+                                                                    {
+                                                                       item.attributes.nominate_as == "Chairman"  &&
+                                                                        <Grid item xs={12} sm={12}>
+                                                                            <ChairmanButton fullWidth onClick={()=> this.manageVote(item.id,0,item.attributes.name)}>Chairman </ChairmanButton>
+                                                                        </Grid>
+                                                                    }
+                                                                    {
+                                                                        item.attributes.nominate_as === "Vice Chairman" &&
+                                                                        <Grid item xs={12} sm={12}>
+                                                                            <AcceptButton fullWidth onClick={()=> this.manageVote(item.id,1,item.attributes.name)} >Vice Chairman </AcceptButton>
+                                                                        </Grid>
+                                                                    }
+                                                                    {
+                                                                        item.attributes.nominate_as === "All" &&
+                                                                        <>
+                                                                            <Grid item xs={12} sm={6}>
+                                                                                <ChairmanButton fullWidth onClick={()=> this.manageVote(item.id,0,item.attributes.name)}>Chairman </ChairmanButton>
+                                                                            </Grid>
+                                                                            <Grid item xs={12} sm={6}>
+                                                                                <AcceptButton fullWidth  onClick={()=> this.manageVote(item.id,1,item.attributes.name)} >Vice Chairman </AcceptButton>
+                                                                            </Grid>
+                                                                        </>
+                                                                    }
+                                                                </Grid>
+                                                            </Box>
+                                                    }
+                                                </>
+                                            }
+                                        </Paper>
+                                    </Grid>
+                                )
+                            })
+                        }
                     </Grid>
                 }
                 {
@@ -287,23 +330,27 @@ class MyTeamCore extends NominationDetailsController {
                             <TextField label="Title" variant="outlined"
                                name="title"
                                id="Nomination Title"
+                               value={this.state.updateName}
+                               onChange={(e)=> this.setState({updateName:e.target.value})}
                                style={{border:"1px solid #ECECEC",borderRadius:"10px",backgroundColor:"#f9f9f9",marginRight:"10px"}}
                                inputProps={{
                                    maxLength: 40
                                }}
                                fullWidth
                             />
+                            <p style={{color:"red"}}>{this.state.nominationTitleError}</p>
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 label="Start Date" variant="outlined"
                                 placeHolder="Start Date"
+                                value={this.state.updateStartDate}
                                 style={{border:"1px solid #ECECEC",borderRadius:"10px",backgroundColor:"#f9f9f9",marginRight:"10px"}}
                                 type="date" name="startDate"  fullWidth
                                 id="SurveyQuestion"
                                 format='DD/MM/YYYY'
                                 // value={this.state.SurveyData.startDate}
-                                // onChange={this.handlePollDataChange}
+                                onChange={(e)=> this.setState({updateStartDate:e.target.value})}
                                 InputProps={{
                                     // min: "2019-01-24",
                                     //@ts-ignore
@@ -315,13 +362,15 @@ class MyTeamCore extends NominationDetailsController {
                                     ),
                                 } }
                             />
-                            {/*<p style={{color:"red"}}>{this.state.pollDateError}</p>*/}
+                            <p style={{color:"red"}}>{this.state.nominationStartDateError}</p>
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <TextField label="End Date" variant="outlined"
                                        type="date" name="endDate"  fullWidth
                                        style={{border:"1px solid #ECECEC",borderRadius:"10px",backgroundColor:"#f9f9f9",marginRight:"10px"}}
                                        id="SurveyQuestion"
+                                       value={this.state.updateEndDate}
+                                       onChange={(e)=> this.setState({updateEndDate:e.target.value})}
                                        // value={this.state.SurveyData.endDate}
                                        // onChange={this.handlePollDataChange}
                                        InputProps={{
@@ -335,24 +384,27 @@ class MyTeamCore extends NominationDetailsController {
                                            )
                                        }}
                             />
-                            {/*<p style={{color:"red"}}>{this.state.pollEndDateError}</p>*/}
+                            <p style={{color:"red"}}>{this.state.nominationEndDateError}</p>
                         </Grid>
-                        <Grid xs={12} style={{marginTop:"10px",padding:"0px 7px"}}>
+                        <Grid item xs={12} style={{marginTop:"10px",padding:"0px 7px"}}>
                             <TextField
                                 id="outlined-multiline-static"
                                 label="Description"
+                                value={this.state.updateDescription}
+                                onChange={(e)=> this.setState({updateDescription:e.target.value})}
                                 multiline
                                 fullWidth
                                 style={{border:"1px solid #ECECEC",borderRadius:"10px",backgroundColor:"#f9f9f9",marginRight:"10px"}}
                                 rows={5}
                                 variant="outlined"
                             />
+                            <p style={{color:"red"}}>{this.state.nominationDescriptionError}</p>
                         </Grid>
                     </Grid>
                     <Grid item xs={12} style={{display:'flex',justifyContent:"flex-end",marginTop:"20px"}}>
                         <Box>
                             <DeclineButton variant="contained" style={{marginRight:"15px"}}>Cancel</DeclineButton>
-                            <AcceptButton variant="contained">Start Process</AcceptButton>
+                            <AcceptButton variant="contained" onClick={this.updateNominationData}>Start Process</AcceptButton>
                         </Box>
                     </Grid>
                 </div>
@@ -371,7 +423,7 @@ class MyTeamCore extends NominationDetailsController {
                 <div style={dashBoard.paper}>
                     <Box style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:"10px"}}>
                         <Typography variant="h5" style={{fontWeight:"bold"}}>
-                            Nominated Member Details
+                            Nominate My Self
                         </Typography>
                         <IconButton onClick={this.handleCloseDetailsModal}>
                             <img src={cancle}
@@ -386,17 +438,17 @@ class MyTeamCore extends NominationDetailsController {
                                 <Box display="flex" alignItems="center">
                                     <img src={profileExp}/>
                                     <Box style={{marginLeft:"10px"}}>
-                                        <Typography style={{fontWeight:"bold"}}>Jhon Doe</Typography>
-                                        <Typography >B-104, B-105 , D-504</Typography>
+                                        <Typography style={{fontWeight:"bold"}}>{this.state.detailsForModal.name}</Typography>
+                                        <Typography >{this.state.detailsForModal.unit_number.join(",")}</Typography>
                                     </Box>
                                 </Box>
                                 <Box style={{marginTop:"10px"}}>
-                                    <Typography variant="subtitle2" className={"statusOngoingBlue"}>Owner</Typography>
+                                    <Typography variant="subtitle2" className={"statusOngoingBlue"}>{this.state.detailsForModal.role}</Typography>
                                 </Box>
                             </Box>
                             <Box style={{width:"100%",marginTop:"20px "}}>
                                 <Typography>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc non erat non massa sagittis pulvinar non id lectus. Cras ultrices bibendum cursus. Mauris vel erat maximus, porta risus a, pulvinar augue. Donec sit amet enim eget est posuere posuere in in lacus. Nullam lacinia, diam sit amet molestie placerat, tellus metus dignissim massa, sed tempor magna elit pulvinar felis. In in nulla malesuada, suscipit eros et, pulvinar sapien. Curabitur et odio leo.
+                                    {this.state.detailsForModal.description}
                                 </Typography>
                             </Box>
                         </Grid>
@@ -444,21 +496,25 @@ class MyTeamCore extends NominationDetailsController {
                                 <TextField
                                     id="outlined-multiline-static"
                                     label="Why I should be elected"
+                                    value={this.state.myNominationDescription}
+                                    onChange={(e) => this.setState({myNominationDescription:e.target.value})}
                                     multiline
                                     fullWidth
                                     style={{border:"1px solid #ECECEC",borderRadius:"10px",backgroundColor:"#f9f9f9",marginRight:"10px"}}
-                                    rows={8}
+                                    minRows={8}
                                     variant="outlined"
                                 />
                             </Box>
                             <Box style={{width:"100%",marginTop:"20px "}}>
                                 <Typography style={{fontWeight:"bold"}}>Nominate As a</Typography>
                                 <FormControlLabel
-                                    control={<Checkbox checkedIcon={<CheckBoxIcon style={{color:"#fc8434"}} />} name="checkedA" />}
+                                    onChange={this.manageSelectRole}
+                                    control={<Checkbox checkedIcon={<CheckBoxIcon style={{color:"#fc8434"}}/>} name="checkedA" value={0} checked={this.state.myNominationAs.find((check:any)=> check === '0') ? true : false}/>}
                                     label="Chairman"
                                 />
                                 <FormControlLabel
-                                    control={<Checkbox checkedIcon={<CheckBoxIcon style={{color:"#fc8434"}} />} name="checkedB" />}
+                                    onChange={this.manageSelectRole}
+                                    control={<Checkbox checkedIcon={<CheckBoxIcon style={{color:"#fc8434"}}/>} name="checkedB"  value={1} checked={this.state.myNominationAs.find((check:any)=> check === '1') ? true : false} />}
                                     label="Vice Chairman"
                                 />
                             </Box>
@@ -466,7 +522,7 @@ class MyTeamCore extends NominationDetailsController {
                         <Grid item xs={12} style={{display:'flex',justifyContent:"flex-end",marginTop:"1px"}}>
                             <Box>
                                 <CancelButton variant="contained" style={{marginRight:"15px",width:"150px"}}>Cancel</CancelButton>
-                                <ChairmanButton variant="contained" style={{width:"150px"}}>Submit</ChairmanButton>
+                                <ChairmanButton variant="contained" style={{width:"150px"}} onClick={this.manageNominate}>Submit</ChairmanButton>
                             </Box>
                         </Grid>
                     </Grid>
@@ -510,13 +566,13 @@ class MyTeamCore extends NominationDetailsController {
                     <Typography variant="h6">Submit your vote</Typography>
                     <Typography variant="body1" style={{ marginBottom: "0px" }}>
                         Are you sure you want to submit your vote <br/>
-                        for john doe as a Vice chairman
+                        for {this.state.vote.name} as a {this.state.vote.role === 0 ? "Chairman":"Vice chairman"}
                     </Typography>
                     <DialogActions className="dialog-button-group">
-                        <Button className="cancel-button" style={{ width: "200px" }} onClick={() => this.setState({startVotingModal:false})}>
+                        <Button className="cancel-button" style={{ width: "200px" }} onClick={() => this.setState({voteConfirmModal:false})}>
                             Close
                         </Button>
-                        <Button style={{ width: "200px" }} className="add-button" onClick={this.confirmVote}>
+                        <Button style={{ width: "200px" }} className="add-button" onClick={this.confirmVote} >
                             Confirm
                         </Button>
                     </DialogActions>
