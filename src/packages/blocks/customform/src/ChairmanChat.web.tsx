@@ -224,7 +224,7 @@ const currentAccountId = localStorage.getItem('userId')
             <Grid item xs={9}>
             <Grid container>
 
-<Grid item justifyContent="space-between" style={{width:'100%',display:'flex',paddingRight:'8rem'}}>
+<Grid item justifyContent="space-between" style={{width:'100%',display:'flex',paddingRight:'8rem',marginLeft:'2.5rem'}}>
   <p style={{fontWeight:600,fontSize:'1.25rem',marginBottom:'1rem'}}>
     Chat
   </p>
@@ -241,7 +241,7 @@ const currentAccountId = localStorage.getItem('userId')
 
 </Grid>
             </Grid>
-            <Grid container>
+            <Grid container style={{marginLeft:'2.3rem'}}>
 
             <Grid item xs={4} md={4} sm={4} style={{boxShadow:'rgb(0 0 0 / 15%) 9px -3px 8px 0px'}}>
           
@@ -378,9 +378,11 @@ const currentAccountId = localStorage.getItem('userId')
               <div style={{ padding: "0.3rem", backgroundColor: "#ffff",paddingLeft:'0.3rem',minWidth:'95%'}}>
         <Grid container>
           <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between',borderBottom:'1px solid #F2F2F2',paddingBottom:'1rem' }}>
-            <Box display='flex' alignItems='center' onClick={() => window.history.back()}>
+            <Box display='flex' alignItems='center' >
              
-              <span style={{ fontWeight: 'bold' }}>
+              <span style={{ fontWeight: 'bold',display:'flex',gap:'0.5rem',marginTop:'1rem' }}>
+              {item?.attributes?.chat_with_account?.id != localStorage.getItem('userId')  ? <img src={item?.attributes?.chat_with_account?.attributes?.profile_pic?.url} width='25' height='25'/> || <img src={NoProfile_Img} width='25' height='25' />:<img src={item?.attributes?.chatable?.attributes?.profile_pic?.url} width='25' height='25'/>   || <img src={NoProfile_Img} width='25' height='25'/> }
+
                 {item?.attributes?.chat_with_account?.id != localStorage.getItem('userId') ?item?.attributes?.chat_with_account?.attributes?.full_name || 'N/A':item?.attributes?.chatable?.attributes?.full_name || 'N/A' }
               </span>
             </Box>

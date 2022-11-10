@@ -76,6 +76,8 @@ class IncidentChatBox extends InboxController {
 
   async componentDidMount() {
     this.getAllChat()
+    //@ts-ignore
+    //@ts-nocheck
     this.interval = setInterval(() => {
       this.getSingleInbox()
     }, 3000);
