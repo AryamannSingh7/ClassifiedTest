@@ -1875,7 +1875,7 @@ const routeMap = {
   },
   EditMyUnit: {
     component: EditMyUnit,
-    path: '/MyUnitDetails/Edit',
+    path: '/MyUnitDetails/Edit/:id',
     roles: [ROLE.OWNER],
     exact: true
   },

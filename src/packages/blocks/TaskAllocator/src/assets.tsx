@@ -45,3 +45,4 @@ export const TwitterIcon = require("../assets/twitter.png");
 export const DarkTwitterIcon = require("../assets/dark-twitter.png");
 export const PhoneIcon = require("../assets/phone.png");
 export const EmailIcon = require("../assets/email.png");
+export const DeleteUnitIcon = require("../assets/delete.png");

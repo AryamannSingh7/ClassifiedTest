@@ -87,8 +87,13 @@ class RegisterMyUnit extends RegisterUnitController {
                     <Formik
                       enableReinitialize={true}
                       initialValues={this.state.unitRegisterForm}
-                      // validationSchema={{}}
-                      onSubmit={(values: any, { resetForm }) => {}}
+                      validationSchema={this.validationRegisterUnitFormSchema}
+                      onSubmit={(values, { resetForm }) => {
+                        this.setState({ loading: true }, () => {
+                          this.registerUnitToOwner(values);
+                          resetForm();
+                        });
+                      }}
                     >
                       {({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue }) => {
                         return (
@@ -185,9 +190,9 @@ class RegisterMyUnit extends RegisterUnitController {
                                   </Select>
                                   <img src={BuildingIcon} alt="" />
                                 </Box>
-                                {/* {errors.buildingId && touched.buildingId && (
+                                {errors.buildingId && touched.buildingId && (
                                   <p className="error">{t(errors.buildingId)}</p>
-                                )} */}
+                                )}
                               </FormControl>
                               <FormControl fullWidth>
                                 <Box className="select-box">
@@ -203,15 +208,17 @@ class RegisterMyUnit extends RegisterUnitController {
                                     <MenuItem value="" disabled>
                                       {t("Floor number")}
                                     </MenuItem>
-                                    <MenuItem value={10}>Ten</MenuItem>
-                                    <MenuItem value={20}>Twenty</MenuItem>
-                                    <MenuItem value={30}>Thirty</MenuItem>
+                                    {this.state.floorList.map((floor: any) => {
+                                      return (
+                                        <MenuItem value={floor} key={floor}>
+                                          {floor}
+                                        </MenuItem>
+                                      );
+                                    })}
                                   </Select>
                                   <img src={FloorIcon} alt="" />
                                 </Box>
-                                {/* {errors.buildingId && touched.buildingId && (
-                                  <p className="error">{t(errors.buildingId)}</p>
-                                )} */}
+                                {errors.floorId && touched.floorId && <p className="error">{t(errors.floorId)}</p>}
                               </FormControl>
                               <FormControl fullWidth>
                                 <Box className="select-box">
@@ -219,9 +226,9 @@ class RegisterMyUnit extends RegisterUnitController {
                                     displayEmpty
                                     value={values.unitId}
                                     onChange={(e: any) => {
-                                      // const value = e.target.value;
-                                      // setFieldValue("unitId", value);
-                                      // this.handleCheckContractExist(value);
+                                      const value = e.target.value;
+                                      setFieldValue("unitId", value);
+                                      this.getRentHistory(value);
                                     }}
                                     onBlur={handleBlur}
                                     name="unitId"
@@ -232,21 +239,17 @@ class RegisterMyUnit extends RegisterUnitController {
                                     <MenuItem value="" disabled>
                                       {t("Unit Number")}
                                     </MenuItem>
-                                    {/* {this.state.unitList.map((unit: any) => {
+                                    {this.state.unitList.map((unit: any) => {
                                       return (
-                                        <MenuItem
-                                          value={unit.id}
-                                          key={unit.id}
-                                          onClick={() => setFieldValue("unitName", unit.apartment_name)}
-                                        >
+                                        <MenuItem value={unit.id} key={unit.id}>
                                           {unit.apartment_name}
                                         </MenuItem>
                                       );
-                                    })} */}
+                                    })}
                                   </Select>
                                   <img src={CubeIcon} alt="" />
                                 </Box>
-                                {/* {errors.unitId && touched.unitId && <p className="error">{t(errors.unitId)}</p>} */}
+                                {errors.unitId && touched.unitId && <p className="error">{t(errors.unitId)}</p>}
                               </FormControl>
                               <FormControl fullWidth>
                                 <Input
@@ -262,9 +265,6 @@ class RegisterMyUnit extends RegisterUnitController {
                                     </InputAdornment>
                                   }
                                 />
-                                {/* {errors.tenantName && touched.tenantName && (
-                                      <p className="error">{t(errors.tenantName)}</p>
-                                    )} */}
                               </FormControl>
                               <FormControl fullWidth>
                                 <Input
@@ -280,9 +280,6 @@ class RegisterMyUnit extends RegisterUnitController {
                                     </InputAdornment>
                                   }
                                 />
-                                {/* {errors.tenantName && touched.tenantName && (
-                                      <p className="error">{t(errors.tenantName)}</p>
-                                    )} */}
                               </FormControl>
                               <Grid container spacing={2}>
                                 <Grid item xs={7}>
@@ -300,9 +297,6 @@ class RegisterMyUnit extends RegisterUnitController {
                                         </InputAdornment>
                                       }
                                     />
-                                    {/* {errors.tenantName && touched.tenantName && (
-                                      <p className="error">{t(errors.tenantName)}</p>
-                                    )} */}
                                   </FormControl>
                                 </Grid>
                                 <Grid item xs={5}>
@@ -322,9 +316,6 @@ class RegisterMyUnit extends RegisterUnitController {
                                         </InputAdornment>
                                       }
                                     />
-                                    {/* {errors.startDate && touched.startDate && (
-                                      <p className="error">{t(errors.startDate)}</p>
-                                    )} */}
                                   </FormControl>
                                 </Grid>
                               </Grid>
@@ -354,41 +345,44 @@ class RegisterMyUnit extends RegisterUnitController {
                               {values.type === "Rented" && (
                                 <>
                                   <h4 style={{ marginTop: "18px" }}>{t("Rent History")}</h4>
-                                  <Box className="rent-history-box">
-                                    <Box className="heading">
-                                      <h4>May 2022 to June 0202</h4>
-                                      <img src={DeleteRentIcon} alt="" />
-                                    </Box>
-                                    <p className="tenant-name">Tenant Name</p>
-                                    <Divider />
-                                    <Box className="info">
-                                      <p>{t("Rent Amount")}</p>
-                                      <span>$123</span>
-                                    </Box>
-                                    <Box className="info">
-                                      <p>{t("Received Amount")}</p>
-                                      <span>$123</span>
-                                    </Box>
-                                  </Box>
-                                  <Box className="rent-history-box">
-                                    <Box className="heading">
-                                      <h4>May 2022 to June 0202</h4>
-                                      <img src={DeleteRentIcon} alt="" />
-                                    </Box>
-                                    <p className="tenant-name">Tenant Name</p>
-                                    <Divider />
-                                    <Box className="info">
-                                      <p>{t("Rent Amount")}</p>
-                                      <span>$123</span>
-                                    </Box>
-                                    <Box className="info">
-                                      <p>{t("Received Amount")}</p>
-                                      <span>$123</span>
-                                    </Box>
-                                  </Box>
+                                  {this.state.rentHistoryList.map((rentHistory: any) => {
+                                    return (
+                                      <Box className="rent-history-box" key={rentHistory.id}>
+                                        <Box className="heading">
+                                          <h4>
+                                            {moment(rentHistory.attributes.start_date, "YYYY-MM-DD").format(
+                                              "MMMM YYYY"
+                                            )}{" "}
+                                            to{" "}
+                                            {moment(rentHistory.attributes.end_date, "YYYY-MM-DD").format("MMMM YYYY")}
+                                          </h4>
+                                          <img
+                                            onClick={() => {
+                                              this.setState({ loading: true, unitId: values.unitId }, () => {
+                                                this.deleteRentHistories(rentHistory.id);
+                                              });
+                                            }}
+                                            src={DeleteRentIcon}
+                                            alt="delete"
+                                          />
+                                        </Box>
+                                        <p className="tenant-name">{rentHistory.attributes.tenant_name}</p>
+                                        <Divider />
+                                        <Box className="info">
+                                          <p>{t("Rent Amount")}</p>
+                                          <span>{rentHistory.attributes.rent_amount}</span>
+                                        </Box>
+                                        <Box className="info">
+                                          <p>{t("Received Amount")}</p>
+                                          <span>{rentHistory.attributes.received_amount}</span>
+                                        </Box>
+                                      </Box>
+                                    );
+                                  })}
                                   <Button
                                     className="add-rent-history-btn"
-                                    onClick={() => this.handleRentHistoryModal()}
+                                    onClick={() => this.handleOpenRentHistoryModal(values.unitId)}
+                                    disabled={!values.unitId}
                                   >
                                     {t("+ Add Rent History")}
                                   </Button>
@@ -406,9 +400,7 @@ class RegisterMyUnit extends RegisterUnitController {
                                         </InputAdornment>
                                       }
                                     />
-                                    {/* {errors.monthlyRent && touched.monthlyRent && (
-                                      <p className="error">{t(errors.monthlyRent)}</p>
-                                    )} */}
+                                    {errors.income && touched.income && <p className="error">{t(errors.income)}</p>}
                                   </FormControl>
                                 </>
                               )}
@@ -426,9 +418,9 @@ class RegisterMyUnit extends RegisterUnitController {
                                     </InputAdornment>
                                   }
                                 />
-                                {/* {errors.monthlyRent && touched.monthlyRent && (
-                                  <p className="error">{t(errors.monthlyRent)}</p>
-                                )} */}
+                                {errors.valuation && touched.valuation && (
+                                  <p className="error">{t(errors.valuation)}</p>
+                                )}
                               </FormControl>
 
                               <div className="next-button">
@@ -455,15 +447,18 @@ class RegisterMyUnit extends RegisterUnitController {
           anchor="bottom"
           className="condition-modal penalty-dialog rent-history-dialog"
           open={this.state.isRentHistoryModalOpen}
-          onClose={() => this.handleRentHistoryModal()}
+          onClose={() => this.handleCloseRentHistoryModal()}
         >
           <Formik
             enableReinitialize
             initialValues={this.state.rentHistoryForm}
             validationSchema={this.validationRentHistoryFormSchema}
             onSubmit={(values, { resetForm }) => {
-              console.log(values);
-              // resetForm();
+              this.setState({ loading: true }, () => {
+                this.handleCloseRentHistoryModal();
+                this.addRentHistory(values);
+                resetForm();
+              });
             }}
           >
             {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
@@ -474,21 +469,20 @@ class RegisterMyUnit extends RegisterUnitController {
                     <Grid container spacing={2}>
                       <Grid item xs={6}>
                         <FormControl fullWidth>
-                          <Input
-                            value={values.startDate}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            name="startDate"
-                            className="select-input input"
-                            placeholder={t("Start Date")}
-                            type="text"
-                            onFocus={(e: any) => (e.target.type = "date")}
-                            startAdornment={
-                              <InputAdornment position="start">
-                                <img src={CalenderIcon} alt="" />
-                              </InputAdornment>
-                            }
-                          />
+                          <Box className="custom-input-box">
+                            <input
+                              value={values.startDate}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              name="startDate"
+                              className="select-input input"
+                              placeholder={t("Start Date")}
+                              type="text"
+                              onFocus={(e: any) => (e.target.type = "date")}
+                              max={moment().format("YYYY-MM-DD")}
+                            />
+                            <img src={CalenderIcon} alt="" />
+                          </Box>
                           {errors.startDate && touched.startDate && <p className="error">{t(errors.startDate)}</p>}
                         </FormControl>
                       </Grid>
@@ -505,6 +499,7 @@ class RegisterMyUnit extends RegisterUnitController {
                               type="text"
                               onFocus={(e: any) => (e.target.type = "date")}
                               min={values.startDate}
+                              max={moment().format("YYYY-MM-DD")}
                             />
                             <img src={CalenderIcon} alt="" />
                           </Box>
