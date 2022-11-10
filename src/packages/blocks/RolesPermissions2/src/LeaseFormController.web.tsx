@@ -646,8 +646,7 @@ export default class LeaseFormController extends BlockComponent<Props, S, SS> {
     const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_contract/contracts/find_unit?building_management_id=${building}`
-      // `society_managements/${society_id}/bx_block_contract/tenant_resquests/find_unit`
+      `society_managements/${society_id}/bx_block_contract/tenant_resquests/find_unit?building_management_id=${building}`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));

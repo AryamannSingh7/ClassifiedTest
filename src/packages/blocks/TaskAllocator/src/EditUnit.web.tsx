@@ -19,8 +19,8 @@ import {
   FormControlLabel,
   Divider,
   Drawer,
+  Link,
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import {
   BuildingImage,
@@ -55,12 +55,19 @@ class EditMyUnit extends RegisterUnitController {
   }
 
   async componentDidMount(): Promise<void> {
-    this.getBuildingList();
+    const unit_id = this.props.navigation.getParam("id");
+    this.setState({ unitId: unit_id }, () => {
+      this.getComplexDetails();
+      this.getRentHistory(this.state.unitId);
+      this.getEditUnitDetails();
+    });
   }
 
   render() {
     const { classes } = this.props;
     const { t }: any = this.props;
+
+    console.log(this.state);
 
     return (
       <>
@@ -70,10 +77,12 @@ class EditMyUnit extends RegisterUnitController {
               <Box>
                 <Box display={{ xs: "flex", md: "flex" }} className="top-bar">
                   <div className="left-icon">
-                    <IconButton>
+                    <IconButton
+                      onClick={() => this.props.navigation.navigate("MyUnitDetails", { id: this.state.unitId })}
+                    >
                       <KeyboardBackspaceIcon />
                     </IconButton>
-                    <span>{t("Add Another Unit")}</span>
+                    <span>{t("Edit Unit")}</span>
                   </div>
                 </Box>
                 <Container className="page-container">
@@ -81,8 +90,13 @@ class EditMyUnit extends RegisterUnitController {
                     <Formik
                       enableReinitialize={true}
                       initialValues={this.state.unitRegisterForm}
-                      // validationSchema={{}}
-                      onSubmit={(values: any, { resetForm }) => {}}
+                      validationSchema={this.validationEditUnitFormSchema}
+                      onSubmit={(values: any, { resetForm }) => {
+                        this.setState({ loading: true }, () => {
+                          this.editRegisterUnit(values);
+                          resetForm();
+                        });
+                      }}
                     >
                       {({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue }) => {
                         return (
@@ -132,7 +146,12 @@ class EditMyUnit extends RegisterUnitController {
                                 />
                               </FormControl>
                               <Box className="map-span">
-                                <span>{t("See building on map")}</span>
+                                <Link
+                                  href={`https://maps.google.com/?q=${this.state.lat},${this.state.long}`}
+                                  target="_blank"
+                                >
+                                  <span>{t("See building on map")}</span>
+                                </Link>
                               </Box>
                               <h4 style={{ marginTop: "18px" }}>{t("Unit Details")}</h4>
                               <FormControl fullWidth>
@@ -150,85 +169,46 @@ class EditMyUnit extends RegisterUnitController {
                                 />
                               </FormControl>
                               <FormControl fullWidth>
-                                <Box className="select-box">
-                                  <Select
-                                    displayEmpty
-                                    value={values.buildingId}
-                                    name="buildingId"
-                                    variant="filled"
-                                    className="select-input"
-                                    input={<OutlinedInput />}
-                                    readOnly
-                                  >
-                                    <MenuItem value="" disabled>
-                                      {t("Building Name")}
-                                    </MenuItem>
-                                    {this.state.buildingList.map((building: any) => {
-                                      return (
-                                        <MenuItem value={building.id} key={building.id}>
-                                          {building.name}
-                                        </MenuItem>
-                                      );
-                                    })}
-                                  </Select>
-                                  <img src={BuildingIcon} alt="" />
-                                </Box>
-                                {/* {errors.buildingId && touched.buildingId && (
-                                  <p className="error">{t(errors.buildingId)}</p>
-                                )} */}
+                                <Input
+                                  value={values.buildingId}
+                                  name="buildingId"
+                                  className="select-input input"
+                                  placeholder={t("Building Name")}
+                                  startAdornment={
+                                    <InputAdornment position="start">
+                                      <img src={BuildingIcon} alt="" />
+                                    </InputAdornment>
+                                  }
+                                  readOnly
+                                />
                               </FormControl>
                               <FormControl fullWidth>
-                                <Box className="select-box">
-                                  <Select
-                                    displayEmpty
-                                    value={values.floorId}
-                                    name="floorId"
-                                    className="select-input"
-                                    input={<OutlinedInput />}
-                                    readOnly
-                                  >
-                                    <MenuItem value="" disabled>
-                                      {t("Floor number")}
-                                    </MenuItem>
-                                    <MenuItem value={10}>Ten</MenuItem>
-                                    <MenuItem value={20}>Twenty</MenuItem>
-                                    <MenuItem value={30}>Thirty</MenuItem>
-                                  </Select>
-                                  <img src={FloorIcon} alt="" />
-                                </Box>
-                                {/* {errors.buildingId && touched.buildingId && (
-                                  <p className="error">{t(errors.buildingId)}</p>
-                                )} */}
+                                <Input
+                                  value={values.floorId}
+                                  name="floorId"
+                                  className="select-input input"
+                                  placeholder={t("Floor number")}
+                                  startAdornment={
+                                    <InputAdornment position="start">
+                                      <img src={FloorIcon} alt="" />
+                                    </InputAdornment>
+                                  }
+                                  readOnly
+                                />
                               </FormControl>
                               <FormControl fullWidth>
-                                <Box className="select-box">
-                                  <Select
-                                    displayEmpty
-                                    value={values.unitId}
-                                    name="unitId"
-                                    variant="filled"
-                                    className="select-input"
-                                    input={<OutlinedInput />}
-                                    readOnly
-                                  >
-                                    <MenuItem value="" disabled>
-                                      {t("Unit Number")}
-                                    </MenuItem>
-                                    {/* {this.state.unitList.map((unit: any) => {
-                                      return (
-                                        <MenuItem
-                                          value={unit.id}
-                                          key={unit.id}
-                                          onClick={() => setFieldValue("unitName", unit.apartment_name)}
-                                        >
-                                          {unit.apartment_name}
-                                        </MenuItem>
-                                      );
-                                    })} */}
-                                  </Select>
-                                  <img src={CubeIcon} alt="" />
-                                </Box>
-                                {/* {errors.unitId && touched.unitId && <p className="error">{t(errors.unitId)}</p>} */}
+                                <Input
+                                  value={values.unitId}
+                                  name="unitId"
+                                  className="select-input input"
+                                  placeholder={t("Unit Number")}
+                                  startAdornment={
+                                    <InputAdornment position="start">
+                                      <img src={CubeIcon} alt="" />
+                                    </InputAdornment>
+                                  }
+                                  readOnly
+                                />
                               </FormControl>
                               <FormControl fullWidth>
                                 <Input
@@ -274,9 +254,6 @@ class EditMyUnit extends RegisterUnitController {
                                         </InputAdornment>
                                       }
                                     />
-                                    {/* {errors.tenantName && touched.tenantName && (
-                                      <p className="error">{t(errors.tenantName)}</p>
-                                    )} */}
                                   </FormControl>
                                 </Grid>
                                 <Grid item xs={5}>
@@ -296,9 +273,6 @@ class EditMyUnit extends RegisterUnitController {
                                         </InputAdornment>
                                       }
                                     />
-                                    {/* {errors.startDate && touched.startDate && (
-                                      <p className="error">{t(errors.startDate)}</p>
-                                    )} */}
                                   </FormControl>
                                 </Grid>
                               </Grid>
@@ -328,39 +302,46 @@ class EditMyUnit extends RegisterUnitController {
                               {values.type === "Rented" && (
                                 <>
                                   <h4 style={{ marginTop: "18px" }}>{t("Rent History")}</h4>
-                                  <Box className="rent-history-box">
-                                    <Box className="heading">
-                                      <h4>May 2022 to June 0202</h4>
-                                      <img src={DeleteRentIcon} alt="" />
-                                    </Box>
-                                    <p className="tenant-name">Tenant Name</p>
-                                    <Divider />
-                                    <Box className="info">
-                                      <p>{t("Rent Amount")}</p>
-                                      <span>$123</span>
-                                    </Box>
-                                    <Box className="info">
-                                      <p>{t("Received Amount")}</p>
-                                      <span>$123</span>
-                                    </Box>
-                                  </Box>
-                                  <Box className="rent-history-box">
-                                    <Box className="heading">
-                                      <h4>May 2022 to June 0202</h4>
-                                      <img src={DeleteRentIcon} alt="" />
-                                    </Box>
-                                    <p className="tenant-name">Tenant Name</p>
-                                    <Divider />
-                                    <Box className="info">
-                                      <p>{t("Rent Amount")}</p>
-                                      <span>$123</span>
-                                    </Box>
-                                    <Box className="info">
-                                      <p>{t("Received Amount")}</p>
-                                      <span>$123</span>
-                                    </Box>
-                                  </Box>
-                                  <Button className="add-rent-history-btn">{t("+ Add Rent History")}</Button>
+                                  {this.state.rentHistoryList.map((rentHistory: any) => {
+                                    return (
+                                      <Box className="rent-history-box" key={rentHistory.id}>
+                                        <Box className="heading">
+                                          <h4>
+                                            {moment(rentHistory.attributes.start_date, "YYYY-MM-DD").format(
+                                              "MMMM YYYY"
+                                            )}{" "}
+                                            to{" "}
+                                            {moment(rentHistory.attributes.end_date, "YYYY-MM-DD").format("MMMM YYYY")}
+                                          </h4>
+                                          <img
+                                            onClick={() => {
+                                              this.setState({ loading: true, unitId: values.unitId }, () => {
+                                                this.deleteRentHistories(rentHistory.id);
+                                              });
+                                            }}
+                                            src={DeleteRentIcon}
+                                            alt="delete"
+                                          />
+                                        </Box>
+                                        <p className="tenant-name">{rentHistory.attributes.tenant_name}</p>
+                                        <Divider />
+                                        <Box className="info">
+                                          <p>{t("Rent Amount")}</p>
+                                          <span>{rentHistory.attributes.rent_amount}</span>
+                                        </Box>
+                                        <Box className="info">
+                                          <p>{t("Received Amount")}</p>
+                                          <span>{rentHistory.attributes.received_amount}</span>
+                                        </Box>
+                                      </Box>
+                                    );
+                                  })}
+                                  <Button
+                                    className="add-rent-history-btn"
+                                    onClick={() => this.handleCloseRentHistoryModal()}
+                                  >
+                                    {t("+ Add Rent History")}
+                                  </Button>
                                   <FormControl fullWidth>
                                     <Input
                                       value={values.income}
@@ -375,9 +356,7 @@ class EditMyUnit extends RegisterUnitController {
                                         </InputAdornment>
                                       }
                                     />
-                                    {/* {errors.monthlyRent && touched.monthlyRent && (
-                                      <p className="error">{t(errors.monthlyRent)}</p>
-                                    )} */}
+                                    {errors.income && touched.income && <p className="error">{t(errors.income)}</p>}
                                   </FormControl>
                                 </>
                               )}
@@ -395,9 +374,9 @@ class EditMyUnit extends RegisterUnitController {
                                     </InputAdornment>
                                   }
                                 />
-                                {/* {errors.monthlyRent && touched.monthlyRent && (
-                                  <p className="error">{t(errors.monthlyRent)}</p>
-                                )} */}
+                                {errors.valuation && touched.valuation && (
+                                  <p className="error">{t(errors.valuation)}</p>
+                                )}
                               </FormControl>
 
                               <div className="next-button">
@@ -424,15 +403,18 @@ class EditMyUnit extends RegisterUnitController {
           anchor="bottom"
           className="condition-modal penalty-dialog rent-history-dialog"
           open={this.state.isRentHistoryModalOpen}
-          onClose={() => this.handleRentHistoryModal()}
+          onClose={() => this.handleCloseRentHistoryModal()}
         >
           <Formik
             enableReinitialize
             initialValues={this.state.rentHistoryForm}
             validationSchema={this.validationRentHistoryFormSchema}
             onSubmit={(values, { resetForm }) => {
-              console.log(values);
-              // resetForm();
+              this.setState({ loading: true }, () => {
+                this.handleCloseRentHistoryModal();
+                this.addRentHistory(values);
+                resetForm();
+              });
             }}
           >
             {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
@@ -443,21 +425,20 @@ class EditMyUnit extends RegisterUnitController {
                     <Grid container spacing={2}>
                       <Grid item xs={6}>
                         <FormControl fullWidth>
-                          <Input
-                            value={values.startDate}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            name="startDate"
-                            className="select-input input"
-                            placeholder={t("Start Date")}
-                            type="text"
-                            onFocus={(e: any) => (e.target.type = "date")}
-                            startAdornment={
-                              <InputAdornment position="start">
-                                <img src={CalenderIcon} alt="" />
-                              </InputAdornment>
-                            }
-                          />
+                          <Box className="custom-input-box">
+                            <input
+                              value={values.startDate}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              name="startDate"
+                              className="select-input input"
+                              placeholder={t("Start Date")}
+                              type="text"
+                              onFocus={(e: any) => (e.target.type = "date")}
+                              max={moment().format("YYYY-MM-DD")}
+                            />
+                            <img src={CalenderIcon} alt="" />
+                          </Box>
                           {errors.startDate && touched.startDate && <p className="error">{t(errors.startDate)}</p>}
                         </FormControl>
                       </Grid>
@@ -474,6 +455,7 @@ class EditMyUnit extends RegisterUnitController {
                               type="text"
                               onFocus={(e: any) => (e.target.type = "date")}
                               min={values.startDate}
+                              max={moment().format("YYYY-MM-DD")}
                             />
                             <img src={CalenderIcon} alt="" />
                           </Box>
