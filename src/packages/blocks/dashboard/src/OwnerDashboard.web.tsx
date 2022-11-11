@@ -19,7 +19,40 @@ import {
   DialogContent,
   DialogActions,
 } from "@material-ui/core";
-import { BuildingLogo, hamburgerIcon, LogoutDialogIcon, globalIcon, notification, chatIcon, keyhand } from "./assets";
+import {
+  BuildingLogo,
+  hamburgerIcon,
+  globalIcon,
+  notification,
+  chatIcon,
+  keyhand,
+  SidebarEmail,
+  SidebarFaq,
+  SidebarFee,
+  SidebarLogout,
+  SidebarNeighbor,
+  SidebarProfile,
+  SidebarUnit,
+  SidebarLogoutDialog,
+  DashboardUnit,
+  DashboardExpense,
+  DashboardVs,
+  DashboardTenant,
+  DashboardContract,
+  DashboardMeeting,
+  DashboardPoll,
+  DashboardDocument,
+  DashboardIncident,
+  DashboardAnnouncement,
+  DashboardExpenseDollar,
+  DashboardInfo,
+  DashboardVehicle,
+  DashboardVisitor,
+  DashboardSuggestion,
+  DashboardInvoice,
+  DashboardReport,
+  DashboardManager,
+} from "./assets";
 import { DashboardStyleWeb } from "./DashboardStyle.web";
 import DashboardCard from "../../../components/src/DashboardCard";
 import { withTranslation } from "react-i18next";
@@ -35,32 +68,32 @@ const MenuList = [
   {
     name: "Profile",
     url: "/profile",
-    img: "",
+    img: SidebarProfile,
   },
   {
     name: "Fees & Payments",
     url: "",
-    img: "",
+    img: SidebarFee,
   },
   {
     name: "My Units",
     url: "/MyUnitList",
-    img: "",
+    img: SidebarUnit,
   },
   {
     name: "My Neighbors",
     url: "/NeighboursListing",
-    img: "",
+    img: SidebarNeighbor,
   },
   {
     name: "Email Alerts",
     url: "",
-    img: "",
+    img: SidebarEmail,
   },
   {
     name: "FAQ",
     url: "/FaqOwner",
-    img: "",
+    img: SidebarFaq,
   },
 ];
 
@@ -97,17 +130,15 @@ class OwnerDashboard extends DashboardController {
         <Box className={classes.ownerDashboard} style={{ background: "#F8F9FE", height: "100vh" }}>
           <Drawer open={this.state.isMenuOpen} onClose={() => this.toggleDrawer()}>
             <Box className="dashboard-sidebar">
-              <Box className="close-menu" onClick={() => this.toggleDrawer()}>
-                <IconButton>
+              <Box className="close-menu">
+                <IconButton onClick={() => this.toggleDrawer()}>
                   <CloseIcon />
                 </IconButton>{" "}
                 <span>{t("Menu")}</span>
               </Box>
               <Divider />
               <div className="user-info">
-                <Avatar alt="Remy Sharp" src={this.state.profileData?.attributes?.profile_pic?.url}>
-                  HN
-                </Avatar>
+                <Avatar alt="Remy Sharp" src={this.state.profileData?.attributes?.profile_pic?.url} />
                 <h4>{this.state.profileData?.attributes?.full_name?.name|| 'N/A'}</h4>
                 <p>{this.state.profileData?.attributes?.email?.email|| 'N/A'}</p>
               </div>
@@ -118,7 +149,7 @@ class OwnerDashboard extends DashboardController {
                     <Link className="list-box" href={menu.url}>
                       <div className="list-menu">
                         <div className="image">
-                          <img src={keyhand} alt="" />
+                          <img src={menu.img} alt="" />
                         </div>
                         <p>{t(menu.name)}</p>
                       </div>
@@ -130,7 +161,7 @@ class OwnerDashboard extends DashboardController {
                   <div className="list-box">
                     <div className="list-menu">
                       <div className="image">
-                        <img src={keyhand} alt="" />
+                        <img src={SidebarLogout} alt="" />
                       </div>
                       <p>{t("Logout")}</p>
                     </div>
@@ -189,12 +220,12 @@ class OwnerDashboard extends DashboardController {
                     <Typography variant="h5">{t("My Real Estate Details")}</Typography>
                   </Grid>
                   <Grid item xs={6} sm={6}>
-                    <DashboardCard image={keyhand} heading={t("Number of Units")} title={t("Total")} value="75" />
+                    <DashboardCard image={DashboardUnit} heading={t("Number of Units")} title={t("Total")} value="75" />
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="">
                       <DashboardCard
-                        image={keyhand}
+                        image={DashboardExpense}
                         heading={t("Total Expenses")}
                         title={t("total-expance")}
                         value="SR 75"
@@ -213,7 +244,7 @@ class OwnerDashboard extends DashboardController {
                         </div>
                         <div className="center-content">
                           <div className="image">
-                            <img src={keyhand} alt="keyhand" />
+                            <img src={DashboardVs} alt="keyhand" />
                           </div>
                           <div className="vertical-line" />
                           <div className="image text">
@@ -243,7 +274,7 @@ class OwnerDashboard extends DashboardController {
                         </div>
                         <div className="center-content">
                           <div className="image">
-                            <img src={keyhand} alt="keyhand" />
+                            <img src={DashboardVs} alt="keyhand" />
                           </div>
                           <div className="vertical-line" />
                           <div className="image text">
@@ -273,7 +304,7 @@ class OwnerDashboard extends DashboardController {
                         </div>
                         <div className="center-content">
                           <div className="image">
-                            <img src={keyhand} alt="keyhand" />
+                            <img src={DashboardVs} alt="keyhand" />
                           </div>
                           <div className="vertical-line" />
                           <div className="image text">
@@ -298,13 +329,13 @@ class OwnerDashboard extends DashboardController {
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="/Tenants">
-                      <DashboardCard image={keyhand} heading={t("My tenants")} title={t("Total")} value="75" />
+                      <DashboardCard image={DashboardTenant} heading={t("My tenants")} title={t("Total")} value="75" />
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="/Contracts">
                       <DashboardCard
-                        image={keyhand}
+                        image={DashboardContract}
                         heading={t("Contracts")}
                         title={t("Few will expire after")}
                         value="75"
@@ -313,23 +344,33 @@ class OwnerDashboard extends DashboardController {
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="/MyMeetings">
-                      <DashboardCard image={keyhand} heading={t("Meetings")} title={t("Scheduled")} value="75" />
+                      <DashboardCard
+                        image={DashboardMeeting}
+                        heading={t("Meetings")}
+                        title={t("Scheduled")}
+                        value="75"
+                      />
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
-                    <Link href="pollsSurvey">
-                      <DashboardCard image={keyhand} heading={t("Poll / Survey")} title={t("Ongoing")} value="75" />
+                    <Link href="/pollsSurvey">
+                      <DashboardCard
+                        image={DashboardPoll}
+                        heading={t("Poll / Survey")}
+                        title={t("Ongoing")}
+                        value="75"
+                      />
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="">
-                      <DashboardCard image={keyhand} heading={t("Budget")} title={t("For FY")} value="75" />
+                      <DashboardCard image={DashboardMeeting} heading={t("Budget")} title={t("For FY")} value="75" />
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="/BuildingDocuments">
                       <DashboardCard
-                        image={keyhand}
+                        image={DashboardDocument}
                         heading={t("Building Documents")}
                         title={t("Last uploaded")}
                         value="75"
@@ -338,23 +379,33 @@ class OwnerDashboard extends DashboardController {
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="/IncidentListing">
-                      <DashboardCard image={keyhand} heading={t("Incidents")} title={t("Open")} value="75" />
+                      <DashboardCard image={DashboardIncident} heading={t("Incidents")} title={t("Open")} value="75" />
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="/Announcement">
-                      <DashboardCard image={keyhand} heading={t("Announcements")} title={t("Unopened")} value="75" />
+                      <DashboardCard
+                        image={DashboardAnnouncement}
+                        heading={t("Announcements")}
+                        title={t("Unopened")}
+                        value="75"
+                      />
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="">
-                      <DashboardCard image={keyhand} heading={t("Expense")} title={t("Last Updated")} value="75" />
+                      <DashboardCard
+                        image={DashboardExpenseDollar}
+                        heading={t("Expense")}
+                        title={t("Last Updated")}
+                        value="75"
+                      />
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="/ComplexDetails">
                       <DashboardCard
-                        image={keyhand}
+                        image={DashboardInfo}
                         heading={t("Building Info & Rules")}
                         title={t("Last uploaded")}
                         value="75"
@@ -378,28 +429,48 @@ class OwnerDashboard extends DashboardController {
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="/veichleList">
-                      <DashboardCard image={keyhand} heading={t("My Vehicles")} title={t("Registered")} value="75" />
+                      <DashboardCard
+                        image={DashboardVehicle.default}
+                        heading={t("My Vehicles")}
+                        title={t("Registered")}
+                        value="75"
+                      />
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="/Visitors">
-                      <DashboardCard image={keyhand} heading={t("My Visitors")} title={t("Scheduled")} value="75" />
+                      <DashboardCard
+                        image={DashboardVisitor}
+                        heading={t("My Visitors")}
+                        title={t("Scheduled")}
+                        value="75"
+                      />
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="">
-                      <DashboardCard image={keyhand} heading={t("My Suggestion")} title={t("Total")} value="75" />
+                      <DashboardCard
+                        image={DashboardSuggestion}
+                        heading={t("My Suggestion")}
+                        title={t("Total")}
+                        value="75"
+                      />
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="/InvoiceBilling">
-                      <DashboardCard image={keyhand} heading={t("My Invoices")} title={t("Last Paid")} value="75" />
+                      <DashboardCard
+                        image={DashboardInvoice}
+                        heading={t("My Invoices")}
+                        title={t("Last Paid")}
+                        value="75"
+                      />
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="/PersonalDocument">
                       <DashboardCard
-                        image={keyhand}
+                        image={DashboardDocument}
                         heading={t("Personal Documents")}
                         title={t("Last uploaded")}
                         value="75"
@@ -409,7 +480,7 @@ class OwnerDashboard extends DashboardController {
                   <Grid item xs={6} sm={6}>
                     <Link href="">
                       <DashboardCard
-                        image={keyhand}
+                        image={DashboardReport}
                         heading={t("Issue a Reports")}
                         title={t("Last uploaded")}
                         value="NA"
@@ -419,7 +490,7 @@ class OwnerDashboard extends DashboardController {
                   <Grid item xs={6} sm={6}>
                     <Link href="/PropertyManagers">
                       <DashboardCard
-                        image={keyhand}
+                        image={DashboardManager}
                         heading={t("Property Manager")}
                         title={t("Registered")}
                         value="75"
@@ -450,7 +521,7 @@ class OwnerDashboard extends DashboardController {
         >
           <DialogContent>
             <Box textAlign="center">
-              <img src={LogoutDialogIcon} alt="ExclamationIcon" />
+              <img src={SidebarLogoutDialog} alt="ExclamationIcon" />
               <Typography variant="h6">{t("Are you sure you want to logout?")}</Typography>
               <Typography variant="body1">{t("You will be returned to the login screen")}</Typography>
               <DialogActions className="dialog-button-group">

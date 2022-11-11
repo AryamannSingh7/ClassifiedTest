@@ -25,6 +25,7 @@ import {
   CalenderIcon,
   RentAmountIcon,
   CurrencyIcon,
+  ComplexIcon,
 } from "./assets";
 import LeaseFormController, { Props } from "./LeaseFormController.web";
 import { Formik, Form } from "formik";
@@ -54,10 +55,13 @@ class LeaseForm extends LeaseFormController {
           endDate: contract.endDate,
           monthlyRent: contract.monthlyRent,
           currency: contract.currency,
+          complexName: contract.complexName,
+          address: contract.address,
         },
       },
       () => {
         this.getCurrencyList();
+        this.getComplexList();
         this.getBuilding();
         if (this.state.leaseForm.buildingId) {
           this.getUnits(this.state.leaseForm.buildingId);
@@ -139,85 +143,38 @@ class LeaseForm extends LeaseFormController {
                                   <p className="error">{t(errors.landlordName)}</p>
                                 )}
                               </FormControl>
-                              {/* <Select
-                        displayEmpty
-                        value=""
-                        variant="filled"
-                        fullWidth
-                        className="select-input"
-                        input={<OutlinedInput />}
-                      >
-                        <MenuItem value="" disabled>
-                          <ListItemIcon>
-                            <img src={CubeIcon} alt="" />
-                          </ListItemIcon>
-                          Country
-                        </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
-                      </Select>
-                      <Select
-                        displayEmpty
-                        value=""
-                        variant="filled"
-                        fullWidth
-                        className="select-input"
-                        input={<OutlinedInput />}
-                      >
-                        <MenuItem value="" disabled>
-                          <ListItemIcon>
-                            <img src={CubeIcon} alt="" />
-                          </ListItemIcon>
-                          Region
-                        </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
-                      </Select>
-                      <Select
-                        displayEmpty
-                        value=""
-                        variant="filled"
-                        fullWidth
-                        className="select-input"
-                        input={<OutlinedInput />}
-                      >
-                        <MenuItem value="" disabled>
-                          <ListItemIcon>
-                            <img src={CubeIcon} alt="" />
-                          </ListItemIcon>
-                          City
-                        </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
-                      </Select> */}
-                              {/* <FormControl fullWidth>
-                                <Select
-                                  displayEmpty
-                                  value={values.complexName}
+                              <FormControl fullWidth>
+                                <Input
+                                  value={values.complexName + " (Complex)"}
                                   onChange={handleChange}
                                   onBlur={handleBlur}
                                   name="complexName"
-                                  variant="filled"
-                                  className="select-input"
-                                  input={<OutlinedInput />}
-                                >
-                                  <MenuItem value="" disabled>
-                                    <ListItemIcon>
-                                      <img src={CubeIcon} alt="" />
-                                    </ListItemIcon>
-                                    Complex Name
-                                  </MenuItem>
-                                  <MenuItem value={10}>Ten</MenuItem>
-                                  <MenuItem value={20}>Twenty</MenuItem>
-                                  <MenuItem value={30}>Thirty</MenuItem>
-                                </Select>
-                                {errors.complexName && touched.complexName && (
-                                  <p className="error">{errors.complexName}</p>
-                                )}
-                              </FormControl> */}
+                                  className="select-input input"
+                                  placeholder={t("Complex Name")}
+                                  startAdornment={
+                                    <InputAdornment position="start">
+                                      <img src={ComplexIcon} alt="" />
+                                    </InputAdornment>
+                                  }
+                                  readOnly
+                                />
+                              </FormControl>
+                              <FormControl fullWidth>
+                                <Input
+                                  value={values.address + " (Complex Address)"}
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  name="address"
+                                  className="select-input input"
+                                  placeholder={t("Complex Address")}
+                                  startAdornment={
+                                    <InputAdornment position="start">
+                                      <img src={ComplexIcon} alt="" />
+                                    </InputAdornment>
+                                  }
+                                  readOnly
+                                />
+                              </FormControl>
                               <FormControl fullWidth>
                                 <Box className="select-box">
                                   <Select

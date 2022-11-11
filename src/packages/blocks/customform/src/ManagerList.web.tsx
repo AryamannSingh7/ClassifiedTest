@@ -206,8 +206,8 @@ class ManagerList extends ManagerController {
                                     <div className="card-content">
 
                                       <img src='https://img.freepik.com/premium-photo/generic-brandless-modern-sport-car-with-fire-smoke_110488-1759.jpg' style={{marginRight:10}}/>
-                                      <div className="content">
-                                        <p className="title">
+                                      <div className="content" style={{padding:0}}>
+                                        <p className="title" style={{padding:'17px 0px 0px 0px',marginBottom:'10px'}}>
                                           {item.attributes.company_name}
                                         </p>
                                         <p className="sub-title">

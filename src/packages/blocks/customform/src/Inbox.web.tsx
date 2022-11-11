@@ -25,6 +25,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import InboxController from "./inboxController.web";
 import moment from "moment";
+import { NoProfile_Img } from "../../user-profile-basic/src/assets";
 class Inbox extends InboxController {
 
   async componentDidMount() {
@@ -152,7 +153,7 @@ console.log(moment( myDate ).calendar())
 
 
                   <Box key={item} display='flex' style={{ gap: '1rem',maxHeight:'5rem',marginTop:'1rem',cursor:'pointer',borderBottom:'1px solid #f2f2f2' }} onClick={() => this.openChat(item)}>
-                    <img src={item?.attributes?.chat_with_account?.attributes?.profile_pic?.url ||'https://images.freeimages.com/images/large-previews/e04/yellow-frontal-with-ivy-1228121.jpg'} width='50' height='50' style={{ borderRadius: 25 }} />
+                    <img src={item?.attributes?.chat_with_account?.id != localStorage.getItem('userId') ?item?.attributes?.chat_with_account?.attributes?.profile_pic?.url || NoProfile_Img:item?.attributes?.chatable?.attributes?.profile_pic?.url || NoProfile_Img } width='50' height='50' style={{ borderRadius: 25 }} />
                     
                     <Box padding='0.25rem' width='100%' >
                       <Box width='100%' display='flex' justifyContent='space-between' alignItems='center'>

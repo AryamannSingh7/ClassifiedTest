@@ -54,6 +54,7 @@ export interface S {
   incidentRelatedData:any,
   facilityReservationListing:any,
   showDialog:any;
+  deleteShowDialog:any;
   // Customizable Area End
 }
 
@@ -75,6 +76,7 @@ export default class FacilityReservationController extends BlockComponent<
   createAccountApiCallId: any;
   apiupdateIncidentCallId:any;
   CreateFacilityReservationapiCallId: any;
+  updateFacilityReservationapiCallId:any;
   validationApiCallId: any;
   getFacilityReservationListingApiCallId: any;
   getFacilityReservationDetailsByIdApiCallId : any ;
@@ -84,6 +86,7 @@ export default class FacilityReservationController extends BlockComponent<
   createChatRoomAPIId:any;
   imgPasswordVisible: any;
   imgPasswordInVisible: any;
+  deleteFacilityReservationsApiCallId:any;
 
   labelHeader: any;
   labelFirstName: string;
@@ -141,7 +144,8 @@ export default class FacilityReservationController extends BlockComponent<
       notImageOrVideoError:false,
       sizeError:false,
       file :{},
-      showDialog:false
+      showDialog:false,
+      deleteShowDialog:false,
       // Customizable Area End
     };
 
@@ -231,6 +235,23 @@ export default class FacilityReservationController extends BlockComponent<
           this.parseApiCatchErrorResponse(this.state.error);
           this.setState({loading: false , error:null})
         }
+        else if (apiRequestCallId === this.updateFacilityReservationapiCallId) {
+          if (responseJson && responseJson.data) {
+            console.log("updateFacilityReservationapiCallId===========>",responseJson)
+               //@ts-ignore
+              this.props.history.push("/FacilityReservation")
+            this.setState({loading: false})
+          } else if (responseJson?.errors) {
+            let error = Object.values(responseJson.errors[0])[0] as string;
+            this.setState({ error });
+          } else {
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
+          }
+
+          this.parseApiCatchErrorResponse(this.state.error);
+          this.setState({loading: false , error:null})
+        }
+     
         else if (apiRequestCallId === this.apiupdateIncidentCallId) {
           if (responseJson && responseJson.data) {
             console.log("apiupdateIncidentCallId===========>",responseJson)
@@ -282,7 +303,7 @@ export default class FacilityReservationController extends BlockComponent<
         else if (apiRequestCallId === this.getCommonAreaApiCallId) {
           if (responseJson && responseJson?.data ) {
           console.log("getCommonAreaApiCallId  ========================>",responseJson)
-          this.setState({commonAreaData :responseJson?.data.common_areas})
+          this.setState({commonAreaData :responseJson?.data})
 
           this.setState({loading: false})
           } else if (responseJson?.errors) {
@@ -294,14 +315,15 @@ export default class FacilityReservationController extends BlockComponent<
           this.parseApiCatchErrorResponse(this.state.error);
           this.setState({loading: false , error:null})
         }
-        else if (apiRequestCallId === this.getIncidentRelatedApiCallId) {
-          if (responseJson && responseJson?.data ) {
-          console.log("getIncidentRelatedApiCallId========================>",responseJson)
-          this.setState({incidentRelatedData :responseJson?.data.incident_relateds})
+        else if (apiRequestCallId === this.deleteFacilityReservationsApiCallId) {
+          if (responseJson || responseJson?.data ) {
+            this.props.history.push('/FacilityReservationListing')
+          console.log("deleteFacilityReservationsApiCallId========================>",responseJson)
+          //this.setState({incidentRelatedData :responseJson?.data.incident_relateds})
 
           this.setState({loading: false})
           } else if (responseJson?.errors) {
-            let error = Object.values(responseJson.errors[0])[0] as string;
+            let error = responseJson.errors[0] as string;
             this.setState({ error });
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
@@ -327,7 +349,8 @@ export default class FacilityReservationController extends BlockComponent<
           if (responseJson && responseJson?.data ) {
           console.log("getMyApartmentListApiCallId========================>",responseJson)
           this.setState({myApartmentList :responseJson?.data?.buildings})
-
+          const id =responseJson?.data?.buildings[0]?.id;
+          this.getCommonArea(id) ;
           this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
@@ -658,25 +681,27 @@ CreateFacilityReservation = async(val :any) => {
      const header = {
       token :localStorage.getItem("userToken")
     };
-   // console.log("values create==================>",incidentFromData.media[0].file );
+    console.log("values create==================>",val );
     const formData = new FormData();
-   formData.append('facility_reservation[building_management_id]', val?.buildingName);
+   formData.append('facility_reservation[building_management_id]',val?.buildingName);
    formData.append('facility_reservation[common_area_id]',val?.areaReserve);
    formData.append('facility_reservation[date]', val?.date);
    formData.append('facility_reservation[time_from]', val?.timeFrom);
    formData.append('facility_reservation[time_to]', val?.timeTo);
+   //formData.append('facility_reservation[apartment_management_id]', val?.);
 
-
-   const httpBody = formData;
+      const httpBody = formData;
     this.setState({loading: true})
+
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
     );
 
     this.CreateFacilityReservationapiCallId = requestMessage.messageId;
+
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      configJSON.createIncident
+      `bx_block_society_management/facility_reservations`
     );
 
     requestMessage.addData(
@@ -704,6 +729,60 @@ CreateFacilityReservation = async(val :any) => {
     }
   };
 
+  updateFacilityReservation = async(val :any) => {
+    try
+     {
+       const header = {
+        token :localStorage.getItem("userToken")
+      };
+      console.log("values create==================>",val );
+      const formData = new FormData();
+     formData.append('facility_reservation[building_management_id]',val?.buildingName);
+     formData.append('facility_reservation[common_area_id]',val?.areaReserve);
+     formData.append('facility_reservation[date]', val?.date);
+     formData.append('facility_reservation[time_from]', val?.timeFrom);
+     formData.append('facility_reservation[time_to]', val?.timeTo);
+     //formData.append('facility_reservation[apartment_management_id]', val?.);
+  
+        const httpBody = formData;
+      this.setState({loading: true})
+  
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+  
+      this.updateFacilityReservationapiCallId = requestMessage.messageId;
+  
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        `bx_block_society_management/facility_reservations/${val?.id}`
+      );
+  
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+  
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestBodyMessage),
+        httpBody
+      );
+  
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        `PATCH`
+      );
+  
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+  
+      return true;
+      }
+      catch (error) {
+        this.setState({loading: false})
+        console.log(error);
+      }
+    };
+  
   getFacilityReservationListing = (sortBy : any ,status : any)  => {
     try {
       const header = {
@@ -778,13 +857,14 @@ CreateFacilityReservation = async(val :any) => {
     }
   };
 
-  getCommonArea = () => {
+  getCommonArea = (id :any) => {
     try {
       const header = {
         "Content-Type": configJSON.validationApiContentType,
         token :localStorage.getItem("userToken")
       };
-     // const society_id = localStorage.getItem("society_id")
+      console.log("id =====================>",id)
+    // const society_id = localStorage.getItem("society_id")
       //const id = localStorage.getItem("userId");
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
@@ -794,7 +874,7 @@ CreateFacilityReservation = async(val :any) => {
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `bx_block_society_management/facility_reservations/common_area_list? building_management_id=${""}`
+        `bx_block_society_management/facility_reservations/common_area_list?building_management_id=${id}`
       );
 
       requestMessage.addData(
@@ -916,7 +996,38 @@ CreateFacilityReservation = async(val :any) => {
     this.setState({anchorEl_1:null ,status :status})
   };
 
- 
+  deleteFacility =(id:any)=>{
+    const header = {
+      token :localStorage.getItem("userToken")
+    };
+    //const id =this.state?.
+    console.log("id deleteFacilityReservations==============>",id)
+    this.setState({loading: true}) 
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+  
+    this.deleteFacilityReservationsApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_society_management/facility_reservations/${id}`
+    );
+  
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+  
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      `DELETE`
+    );
+  
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+  
+    return true;
+  
+  }
 
   CreateFacilityReservationSchema() {
     const validations = Yup.object().shape({
