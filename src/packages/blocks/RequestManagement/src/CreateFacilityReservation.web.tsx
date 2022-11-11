@@ -36,10 +36,10 @@ import {
   // Upload_Icon,
   // Clipboard_Icon,
   // Warning_Icon,
-   House_Icon,
+  House_Icon,
   // Box_Icon,
-   Building1,
-   LEADING_ICON,
+  Building1,
+  LEADING_ICON,
   // Checkmark_Icon,
   // Error_Icon,
   TimeIcon
@@ -51,14 +51,14 @@ class CreateFacilityReservation extends FacilityReservationController {
   constructor(props: Props) {
     super(props);
   }
-  componentDidMount():any {
+  componentDidMount(): any {
     this.getMyApartmentList();
     this.getCommonArea();
-   // this.getIncidentRelated();
+    // this.getIncidentRelated();
   }
   render() {
     const { navigation } = this.props;
-    console.log(" getMyApartmentList=============>",this.state?.myApartmentList)
+    console.log(" getMyApartmentList=============>", this.state?.myApartmentList)
     return (
       <>
         <Box className="login-wrapper incident-wrapper">
@@ -75,19 +75,20 @@ class CreateFacilityReservation extends FacilityReservationController {
                   <Formik
                     initialValues={{
                       areaReserve: " ",
-                      buildingName:" ",
-                      date : "",
-                      timeFrom:"",
-                      timeTo:"",
+                      buildingName: " ",
+                      date: "",
+                      timeFrom: "",
+                      timeTo: "",
                     }}
                     validationSchema={this.CreateFacilityReservationSchema()}
                     validateOnMount={true}
-                    onSubmit={(values) => {console.log("values==========>",values) 
-                   // this. CreateFacilityReservation(values)
-                  }}
+                    onSubmit={(values) => {
+                      console.log("values==========>", values)
+                      // this. CreateFacilityReservation(values)
+                    }}
                   >
                     {({ values, touched, errors, isValid, setFieldError, setFieldValue, handleChange }) => (
-                      <Form translate="yes" className="commonForm">
+                      <Form translate="yes" className="commonForm CreateClassifiedFrm">
                         <h5 className="frm-title incident-preview-title"></h5>
                         <Box className="formGroup customSelect">
                           <FormControl variant="outlined" >
@@ -98,17 +99,17 @@ class CreateFacilityReservation extends FacilityReservationController {
                               name="buildingName"
                               labelId="demo-simple-select-outlined-label"
                               id="demo-simple-select-outlined"
-                              style={{paddingLeft:50,marginTop:-3}}
+                              style={{ paddingLeft: 50, marginTop: -3 }}
                               onChange={(e) => {
                                 (e.target.value != " ") && setFieldValue("buildingName", e.target.value)
                               }}
                               value={values.buildingName}
                             >
                               <MenuItem disabled value=" ">
-                              Building Name
+                                Building Name
                               </MenuItem>
                               {
-                                this.state?.myApartmentList?.map((val:any, index:any) => (
+                                this.state?.myApartmentList?.map((val: any, index: any) => (
                                   <MenuItem
                                     key={index}
                                     value={val?.id}
@@ -137,10 +138,10 @@ class CreateFacilityReservation extends FacilityReservationController {
                               value={values.areaReserve}
                             >
                               <MenuItem disabled value=" ">
-                              Area to Reserve
+                                Area to Reserve
                               </MenuItem>
                               {
-                                this.state?.commonAreaData?.map((val :any, index:any) => (
+                                this.state?.commonAreaData?.map((val: any, index: any) => (
                                   <MenuItem
                                     key={index}
                                     value={val}
@@ -153,10 +154,9 @@ class CreateFacilityReservation extends FacilityReservationController {
                             <ErrorMessage className="text-error" component="Typography" name="areaReserve" />
                           </FormControl>
                         </Box>
-
-                         <Box className="DateSection">
+                        <Box className="DateSection">
                           <Grid container>
-                            <Grid xs={6}>
+                            <Grid xs={12}>
                               <Box className="formGroup classifiedFormGroup">
                                 <TextField
                                   label="date" variant="outlined"
@@ -187,29 +187,29 @@ class CreateFacilityReservation extends FacilityReservationController {
                               </Box>
                             </Grid>
                           </Grid>
-                        </Box >  
+                        </Box >
                         <Grid container>
-                                <Grid xs={6}>
-                                  <Box className="formGroup classifiedFormGroup">
-                                    <Field name="timeFrom" type="time" placeholder="From" className="formInput" format="hh:mm" />
-                                    <span className="frmLeftIcons">
-                                      <img src={TimeIcon} className="frm-icons" alt="Warning Icon" />
-                                    </span>
-                                    <ErrorMessage className="text-error" component="Typography" name="timeFrom" />
-                                  </Box>
-                                </Grid>
-                                <Grid xs={6}>
-                                  <Box className="formGroup">
-                                    <Field name="timeTo" type="time" placeholder="To" className="formInput formInputBox" format="hh:mm" />
-                                    <span className="frmLeftIcons">
-                                      <img src={TimeIcon} className="frm-icons" alt="Warning Icon" />
-                                    </span>
-                                    <ErrorMessage className="text-error" component="Typography" name="timeTo" />
-                                  </Box>
-                                </Grid>
-                                <p>Description: You can use garden for kids party, family gathering, building event etc. You are not allowed to have meals in the garden. </p>
-                                <p>You will be charged SR 50 per hour for garden facility.</p>
-                              </Grid>
+                          <Grid xs={6}>
+                            <Box className="formGroup classifiedFormGroup">
+                              <Field name="timeFrom" type="time" placeholder="From" className="formInput" format="hh:mm" />
+                              <span className="frmLeftIcons">
+                                <img src={TimeIcon} className="frm-icons" alt="Warning Icon" />
+                              </span>
+                              <ErrorMessage className="text-error" component="Typography" name="timeFrom" />
+                            </Box>
+                          </Grid>
+                          <Grid xs={6}>
+                            <Box className="formGroup">
+                              <Field name="timeTo" type="time" placeholder="To" className="formInput formInputBox" format="hh:mm" />
+                              <span className="frmLeftIcons">
+                                <img src={TimeIcon} className="frm-icons" alt="Warning Icon" />
+                              </span>
+                              <ErrorMessage className="text-error" component="Typography" name="timeTo" />
+                            </Box>
+                          </Grid>
+                          <p>Description: You can use garden for kids party, family gathering, building event etc. You are not allowed to have meals in the garden. </p>
+                          <p>You will be charged SR 50 per hour for garden facility.</p>
+                        </Grid>
                         <Box className="customButton">
                           <Button variant="contained" type="submit">submit</Button>
                         </Box>
