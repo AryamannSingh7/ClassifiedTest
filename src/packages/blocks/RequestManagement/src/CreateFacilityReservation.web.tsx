@@ -46,19 +46,29 @@ import {
 } from "../src/assets";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import LockOpenIcon from '@material-ui/icons/LockOpen';
+import moment from "moment";
 
 class CreateFacilityReservation extends FacilityReservationController {
   constructor(props: Props) {
     super(props);
   }
   componentDidMount():any {
+    //@ts-ignore
+    const id = this.props.history?.location?.id;
+    if(id){
+       this.getFacilityReservationDetailsById(id);
+    }
+
     this.getMyApartmentList();
-    this.getCommonArea();
    // this.getIncidentRelated();
   }
   render() {
     const { navigation } = this.props;
-    console.log(" getMyApartmentList=============>",this.state?.myApartmentList)
+    const id = this.state?.getFacilityReservationDetails?.id;
+    const attributes = this.state?.getFacilityReservationDetails?.attributes;
+    console.log("commonAreaData=============>",this.state?.commonAreaData)
+    console.log("attributes?.date =============>",attributes?.date)
+    console.log("moment(attributes?.date,'DD-MMM-YYYY').format('YYYY-MM-DD')=============>",moment(attributes?.date,'DD-MMM-YYYY').format('YYYY-MM-DD'))
     return (
       <>
         <Box className="login-wrapper incident-wrapper">
@@ -71,19 +81,26 @@ class CreateFacilityReservation extends FacilityReservationController {
                     <h4>Facility Reservation</h4>
                   </Box>
                 </Box>
-                <Box className="content-block-wrapper common-incident-block desktop-ui">
+                <Box className="content-block-wrapper common-incident-block desktop-ui create-reservation-wrapper">
                   <Formik
                     initialValues={{
-                      areaReserve: " ",
-                      buildingName:" ",
-                      date : "",
-                      timeFrom:"",
-                      timeTo:"",
+                      areaReserve:attributes?.common_area?.id||" ",
+                      buildingName:attributes?.building?.id||" ",
+                      date :moment(attributes?.date,'DD-MMM-YYYY').format('YYYY-MM-DD')|| "",
+                      timeFrom:attributes?.time_from||"",
+                      timeTo:attributes?.time_to||"",
+                      id:id || ""
                     }}
+                    enableReinitialize
                     validationSchema={this.CreateFacilityReservationSchema()}
                     validateOnMount={true}
-                    onSubmit={(values) => {console.log("values==========>",values) 
-                   // this. CreateFacilityReservation(values)
+                    onSubmit={(values) => {
+                      id ? (
+                        this.updateFacilityReservation(values)
+                      ) :
+                      (
+                     this.CreateFacilityReservation(values)
+                   )
                   }}
                   >
                     {({ values, touched, errors, isValid, setFieldError, setFieldValue, handleChange }) => (
@@ -143,9 +160,9 @@ class CreateFacilityReservation extends FacilityReservationController {
                                 this.state?.commonAreaData?.map((val :any, index:any) => (
                                   <MenuItem
                                     key={index}
-                                    value={val}
+                                    value={val?.id}
                                   >
-                                    {val?.name}
+                                    {val?.attributes?.name}
                                   </MenuItem>
                                 ))
                               }
@@ -188,9 +205,9 @@ class CreateFacilityReservation extends FacilityReservationController {
                             </Grid>
                           </Grid>
                         </Box >  
-                        <Grid container>
-                                <Grid xs={6}>
-                                  <Box className="formGroup classifiedFormGroup">
+                        <Grid container spacing={2}>
+                                <Grid xs={6} >
+                                  <Box className="formGroup classifiedFormGroup" >
                                     <Field name="timeFrom" type="time" placeholder="From" className="formInput" format="hh:mm" />
                                     <span className="frmLeftIcons">
                                       <img src={TimeIcon} className="frm-icons" alt="Warning Icon" />
@@ -207,9 +224,13 @@ class CreateFacilityReservation extends FacilityReservationController {
                                     <ErrorMessage className="text-error" component="Typography" name="timeTo" />
                                   </Box>
                                 </Grid>
+                                <Box className="reservationDec">
                                 <p>Description: You can use garden for kids party, family gathering, building event etc. You are not allowed to have meals in the garden. </p>
-                                <p>You will be charged SR 50 per hour for garden facility.</p>
+                               <br></br> <p>You will be charged <span>SR 50 per hour</span> for garden facility.</p>
+                                </Box>
+                            
                               </Grid>
+
                         <Box className="customButton">
                           <Button variant="contained" type="submit">submit</Button>
                         </Box>

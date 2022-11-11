@@ -116,10 +116,10 @@ class FacilityReservationListing extends FacilityReservationController {
                               </Box>
                               <Box className="card-listing-row">
                                 <Typography className="sub-title h5-title" component="h5">
-                                  {val?.attributes?.common_area_id}
+                                  {val?.attributes?.common_area?.name}
                                 </Typography>
                                 <Typography className="sub-title h5-title" component="h5">
-                                  {val?.attributes?.building_management_id}
+                                  {val?.attributes?.building?.name}
                                 </Typography>
                               </Box>
                               <hr />
