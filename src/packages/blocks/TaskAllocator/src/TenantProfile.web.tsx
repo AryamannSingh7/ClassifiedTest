@@ -68,10 +68,10 @@ class TenantProfile extends TenantProfileController {
                       </Box>
                       <Box className="profile-add-info-box">
                         <p>
-                          <span>Gender:</span> {this.state.profileData.gender || "-"}
+                          <span>{t("Gender")}:</span> {this.state.profileData.gender || "-"}
                         </p>
                         <p>
-                          <span>DOB:</span>{" "}
+                          <span>{t("DOB")}:</span>{" "}
                           {this.state.profileData.dob
                             ? moment(this.state.profileData.dob, "MMM-DD-YYYY").format("MMMM DD, YYYY")
                             : ""}
@@ -81,11 +81,11 @@ class TenantProfile extends TenantProfileController {
 
                     <Box className="profile-bottom-box">
                       <Box className="profile-item">
-                        <h4>Bio</h4>
+                        <h4>{t("Bio")}</h4>
                         <p>{this.state.profileData.bio || "-"}</p>
                       </Box>
                       <Box className="profile-item">
-                        <h4>Hobbies</h4>
+                        <h4>{t("Hobbies")}</h4>
                         <Box className="profile-hobby-box">
                           {this.state.profileData.hobbies.length === 0 && <p>No hobby available</p>}
                           {this.state.profileData.hobbies.map((hobby: any, index: number) => {
@@ -94,7 +94,7 @@ class TenantProfile extends TenantProfileController {
                         </Box>
                       </Box>
                       <Box className="profile-item">
-                        <h4>Follow me on:</h4>
+                        <h4>{t("Follow me on")}:</h4>
                         <Box className="profile-social-box">
                           {this.state.profileData.social.length > 0 &&
                           this.state.profileData.social[2].publilc_access ? (

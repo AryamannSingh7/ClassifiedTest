@@ -29,7 +29,7 @@ class PendingUnit extends MyUnitListController {
                     <IconButton>
                       <KeyboardBackspaceIcon />
                     </IconButton>
-                    <span>Complex Name</span>
+                    <span>{localStorage.getItem("complexName")}</span>
                   </div>
                 </Box>
                 <Container className="page-container">
