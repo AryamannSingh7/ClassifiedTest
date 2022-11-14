@@ -206,7 +206,7 @@ class RegisterMyUnit extends RegisterUnitController {
                                     input={<OutlinedInput />}
                                   >
                                     <MenuItem value="" disabled>
-                                      {t("Floor number")}
+                                      {t("Floor Number")}
                                     </MenuItem>
                                     {this.state.floorList.map((floor: any) => {
                                       return (

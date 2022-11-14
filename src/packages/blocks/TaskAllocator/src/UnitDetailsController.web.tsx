@@ -4,6 +4,7 @@ import { BlockComponent } from "../../../framework/src/BlockComponent";
 import MessageEnum, { getName } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
 import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
+import toast from "react-hot-toast";
 
 export const configJSON = require("./config");
 
@@ -194,10 +195,12 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
 
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      console.log(responseJson);
-      if (responseJson) {
-        this.setState({ loading: false }, () => {});
-      }
+      this.setState({ loading: false }, () => {
+        if (responseJson && responseJson.code === 200) {
+          toast.success(responseJson.message);
+          this.props.navigation.navigate("MyUnitList");
+        }
+      });
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
@@ -275,14 +278,15 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
 
     this.DeLinkUnitCallId = apiRequest.messageId;
 
+    const owner_id = localStorage.getItem("userId");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_request_management/delink_user?id=${this.state.unitId}`
+      `bx_block_request_management/delink_user?apartment_management_id=${this.state.unitId}&account_id=${owner_id}`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
-    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeDelete);
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
