@@ -606,21 +606,27 @@ clear= () => {
 // }
 
 getFacilityReservationDetails= (idOrName :any) => {
-  if(idOrName ==="UpcomingReservations"){
+  if(idOrName ==="Upcoming Reservation"){
   //@ts-ignore
-  this.props.history.push({pathname: "/FacilityReservationListing",idOrName})
+  localStorage.setItem("idOrName", idOrName);
+  this.props.history.push({pathname: "/FacilityReservationListing"})
   }
-  else if(idOrName ==="PendingReservations"){
+  else if(idOrName ==="Pending Reservation"){
      //@ts-ignore
-  this.props.history.push({pathname: "/FacilityReservationListing",idOrName})   
+  localStorage.setItem("idOrName", idOrName);
+  this.props.history.push({pathname: "/FacilityReservationListing"})   
 }
-  else if(idOrName ==="PreviousReservations"){
+  else if(idOrName ==="Pending Reservation"){
      //@ts-ignore
-  this.props.history.push({pathname: "/FacilityReservationListing",idOrName}) }
-  else
-   //@ts-ignore
-  this.props.history.push({pathname: "/FacilityReservationDetails",idOrName});
+  localStorage.setItem("idOrName", idOrName);
+  this.props.history.push({pathname: "/FacilityReservationListing"}) }
+  else{
+      //@ts-ignore
+  localStorage.setItem("facilityReservationId",idOrName);
+  this.props.history.push({pathname: "/FacilityReservationDetails"});
   //this.getIncidentDetailsById(id)
+  }
+   
 }
 
 confirmOrRejectIncident =(id : any,val : any)=>{
@@ -1027,6 +1033,19 @@ CreateFacilityReservation = async(val :any) => {
   
     return true;
   
+  }
+  redirectToDashboard = () => {
+    let userType = localStorage.getItem('userType')
+    if (userType == 'Owner') {
+      //@ts-ignore
+      //@ts-nocheck
+      this.props.history.push('/OwnerDashboard')
+    } else {
+      //@ts-ignore
+      //@ts-nocheck
+      this.props.history.push('/residentDashboard')
+    }
+
   }
 
   CreateFacilityReservationSchema() {

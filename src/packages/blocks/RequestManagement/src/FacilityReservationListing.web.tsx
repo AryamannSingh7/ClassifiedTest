@@ -35,7 +35,7 @@ class FacilityReservationListing extends FacilityReservationController {
   }
   componentDidMount(): any {
     //@ts-ignore
-    const reservation = this.props?.history.location?.idOrName;
+    const reservation  = localStorage.getItem("idOrName");
     if (reservation)
       this.getFacilityReservationListing(this.state?.sortBy, this.state?.status)
     else
@@ -44,6 +44,7 @@ class FacilityReservationListing extends FacilityReservationController {
 
   render() {
     const { navigation } = this.props;
+    const reservation = localStorage.getItem("idOrName");
     console.log("this.props?.history.location?.reservation==========>", this.state?.facilityReservationListing)
     return (
       <>
@@ -54,7 +55,7 @@ class FacilityReservationListing extends FacilityReservationController {
                 <Box className="content-header">
                   <Box className="left-block blocks">
                     <Box className="backIcons" onClick={() => this.props.history.push("/FacilityReservation")}><KeyboardBackspaceIcon /></Box>
-                    <h4>Incidents</h4>
+                    <h4>{reservation}</h4>
                   </Box>
                   <Box className="incident-right-block blocks">
                     <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
@@ -128,7 +129,7 @@ class FacilityReservationListing extends FacilityReservationController {
                                   {"Rent"}
                                 </Typography>
                                 <Box className="customButton">
-                                  <Button variant="contained" className="contain blue" type="submit" >{"800$"}</Button>
+                                  <Button variant="contained" className="contain blue" type="submit" >{val?.attributes?.rent}</Button>
                                 </Box>
                                 {/* <Button className="success">Resolved</Button> */}
                               </CardActions>

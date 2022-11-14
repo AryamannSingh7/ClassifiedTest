@@ -52,7 +52,7 @@ class FacilityReservationDetails extends FacilityReservationController {
   }
   componentDidMount():any {
      //@ts-ignore
-    const id = this.props.history.location?.idOrName;
+    const id = localStorage.getItem("facilityReservationId");
     if(id)
        this.getFacilityReservationDetailsById(id);
    else 
