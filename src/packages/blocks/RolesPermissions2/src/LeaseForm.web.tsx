@@ -40,6 +40,8 @@ class LeaseForm extends LeaseFormController {
   async componentDidMount(): Promise<void> {
     const contract = JSON.parse(window.sessionStorage.getItem("contractForm") as any);
     const template_id: any = this.props.navigation.getParam("templateId");
+    window.sessionStorage.removeItem("buildingId");
+    window.sessionStorage.removeItem("unitId");
     this.setState(
       {
         templateId: template_id,
@@ -61,10 +63,10 @@ class LeaseForm extends LeaseFormController {
       },
       () => {
         this.getCurrencyList();
-        this.getComplexList();
         this.getBuilding();
-        if (this.state.leaseForm.buildingId) {
+        if (this.state.leaseForm.buildingId && this.state.leaseForm.unitId) {
           this.getUnits(this.state.leaseForm.buildingId);
+          this.getUnitDetails(this.state.leaseForm.unitId);
           this.handleCheckContractExist(this.state.leaseForm.unitId);
         }
       }
@@ -75,9 +77,12 @@ class LeaseForm extends LeaseFormController {
     const { classes } = this.props;
     const { t }: any = this.props;
 
+    const isEditTemplate = window.sessionStorage.getItem("isEditFlow");
+    const page = window.sessionStorage.getItem("page");
+
     return (
       <>
-        <Box style={{ background: "white", height: "100vh" }} className={classes.selectTemplate}>
+        <Box style={{ background: "white", height: "100vh", overflowY: "hidden" }} className={classes.selectTemplate}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box>
@@ -120,10 +125,11 @@ class LeaseForm extends LeaseFormController {
                                       <img src={TenantName} alt="" />
                                     </InputAdornment>
                                   }
+                                  readOnly
                                 />
-                                {errors.tenantName && touched.tenantName && (
+                                {/* {errors.tenantName && touched.tenantName && (
                                   <p className="error">{t(errors.tenantName)}</p>
-                                )}
+                                )} */}
                               </FormControl>
                               <FormControl fullWidth>
                                 <Input
@@ -138,14 +144,15 @@ class LeaseForm extends LeaseFormController {
                                       <img src={TenantName} alt="" />
                                     </InputAdornment>
                                   }
+                                  readOnly
                                 />
-                                {errors.landlordName && touched.landlordName && (
+                                {/* {errors.landlordName && touched.landlordName && (
                                   <p className="error">{t(errors.landlordName)}</p>
-                                )}
+                                )} */}
                               </FormControl>
                               <FormControl fullWidth>
                                 <Input
-                                  value={values.complexName + " (Complex)"}
+                                  value={values.complexName}
                                   onChange={handleChange}
                                   onBlur={handleBlur}
                                   name="complexName"
@@ -161,7 +168,7 @@ class LeaseForm extends LeaseFormController {
                               </FormControl>
                               <FormControl fullWidth>
                                 <Input
-                                  value={values.address + " (Complex Address)"}
+                                  value={values.address}
                                   onChange={handleChange}
                                   onBlur={handleBlur}
                                   name="address"
@@ -190,6 +197,11 @@ class LeaseForm extends LeaseFormController {
                                     variant="filled"
                                     className="select-input"
                                     input={<OutlinedInput />}
+                                    readOnly={
+                                      isEditTemplate === "false" &&
+                                      page === "IssueContract" &&
+                                      this.state.leaseForm.buildingId
+                                    }
                                   >
                                     <MenuItem value="" disabled>
                                       {t("Building Name")}
@@ -221,12 +233,18 @@ class LeaseForm extends LeaseFormController {
                                       const value = e.target.value;
                                       setFieldValue("unitId", value);
                                       this.handleCheckContractExist(value);
+                                      this.getUnitDetails(value);
                                     }}
                                     onBlur={handleBlur}
                                     name="unitId"
                                     variant="filled"
                                     className="select-input"
                                     input={<OutlinedInput />}
+                                    readOnly={
+                                      isEditTemplate === "false" &&
+                                      page === "IssueContract" &&
+                                      this.state.leaseForm.unitId
+                                    }
                                   >
                                     <MenuItem value="" disabled>
                                       {t("Unit Name")}

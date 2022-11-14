@@ -25,6 +25,7 @@ interface S {
   sortBy:any;
   status:any;
   pollListing:any;
+  nominationsList:any;
 }
 
 interface SS {
@@ -58,6 +59,7 @@ export default class CoverImageController extends BlockComponent<
       sortBy : "" ,
       status:"",
       pollListing:[],
+      nominationsList:[],
     };
 
     this.emailReg = new RegExp("");
@@ -69,7 +71,6 @@ export default class CoverImageController extends BlockComponent<
 
   async componentDidMount() {
     this.getNominationList()
-    console.log("DID I CALLED ?")
   }
 
 
@@ -80,11 +81,20 @@ export default class CoverImageController extends BlockComponent<
       var errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if(this.getNominationListId === apiRequestCallId ){
         console.log("NOMINATION",responseJson,errorReponse)
+        if(responseJson.hasOwnProperty("chairman_nominations") && responseJson.code === 200){
+          this.setState({
+            nominationsList:responseJson?.chairman_nominations?.data,
+            loading:false
+          })
+        }
       }
     }
   }
 
   getNominationList = async () => {
+    this.setState({
+      loading:true
+    })
     const societyID = localStorage.getItem("society_id")
     this.getNominationListId = await this.apiCall({
       contentType: "application/json",

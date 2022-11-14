@@ -71,7 +71,7 @@ class ContractsList extends ContractsListController {
 
     return (
       <>
-        <Box style={{ background: "#F4F7FF", height: "100vh" }} className={classes.contractList}>
+        <Box style={{ background: "#F4F7FF", height: "100vh", overflowY: "hidden" }} className={classes.contractList}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box className="faq-step">

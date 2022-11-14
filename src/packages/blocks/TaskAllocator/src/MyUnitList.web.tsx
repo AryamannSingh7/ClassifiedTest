@@ -1,20 +1,30 @@
 import React from "react";
 import { withTranslation } from "react-i18next";
 import MyUnitListController, { Props } from "./MyUnitListController.web";
-import { Box, Button, Card, Container, Grid, IconButton, Link, MenuItem, withStyles } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  Card,
+  Container,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  Grid,
+  IconButton,
+  Link,
+  MenuItem,
+  Typography,
+  withStyles,
+} from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import { BuildingImage, FilterIcon } from "./assets";
+import { BuildingImage, DeleteUnitIcon, FilterIcon } from "./assets";
 import { Menu } from "@szhsin/react-menu";
 import { MyUnitStyle } from "./MyUnitStyle.web";
 
 class MyUnitList extends MyUnitListController {
   constructor(props: Props) {
     super(props);
-  }
-
-  async componentDidMount(): Promise<void> {
-    // this.getTenantList();
   }
 
   render() {
@@ -68,7 +78,9 @@ class MyUnitList extends MyUnitListController {
                                 <Grid container spacing={2}>
                                   <Grid item xs={12}>
                                     <div className="header">
-                                      <h4>Complex</h4>
+                                      <Link href={`/MyUnitDetails/${unit.id}`}>
+                                        <h4>{unit.attributes.society_management.name}</h4>
+                                      </Link>
                                       <div className="right-menu">
                                         <Menu
                                           menuButton={
@@ -77,22 +89,29 @@ class MyUnitList extends MyUnitListController {
                                             </IconButton>
                                           }
                                         >
-                                          <MenuItem>{t("Edit")}</MenuItem>
+                                          <MenuItem
+                                            onClick={() =>
+                                              this.props.navigation.navigate("EditMyUnit", { id: unit.id })
+                                            }
+                                          >
+                                            {t("Edit")}
+                                          </MenuItem>
                                           <MenuItem>{t("Delete")}</MenuItem>
+                                          <MenuItem>{t("Delete Request")}</MenuItem>
                                         </Menu>
                                       </div>
                                     </div>
-                                    <span className="city">city</span>
+                                    <span className="city">{unit.attributes.city}</span>
                                   </Grid>
                                 </Grid>
                                 <Grid container spacing={2} className="info">
                                   <Grid item xs={4}>
                                     <span className="header">{t("Unit Number")}</span>
-                                    <Button>04</Button>
+                                    <Button>{unit.attributes.apartment_name}</Button>
                                   </Grid>
                                   <Grid item xs={4}>
                                     <span className="header">{t("Floor Number")}</span>
-                                    <Button>04</Button>
+                                    <Button>{unit.attributes.floor_number}</Button>
                                   </Grid>
                                   <Grid item xs={4}>
                                     <span className="header">{t("Status")}</span>
@@ -127,6 +146,29 @@ class MyUnitList extends MyUnitListController {
             </Grid>
           </Grid>
         </Box>
+
+        <Dialog
+          className="delete-document personal"
+          fullWidth
+          onClose={() => this.handleDeleteUnitModal()}
+          open={this.state.isDeleteUnitModalOpen}
+        >
+          <DialogContent>
+            <Box textAlign="center">
+              <img src={DeleteUnitIcon} alt="ExclamationIcon" />
+              <Typography variant="h6">{t("Delete added unit")}?</Typography>
+              <Typography variant="body1">
+                {t(
+                  "Are you sure want to delete added unit details from this app? once deleted you won't be able to view deleted unit again."
+                )}
+              </Typography>
+              <DialogActions className="dialog-button-group">
+                <Button>{t("Yes, Delete")}</Button>
+                <Button onClick={() => this.handleDeleteUnitModal()}>{t("No, Don’t Delete")}</Button>
+              </DialogActions>
+            </Box>
+          </DialogContent>
+        </Dialog>
       </>
     );
   }

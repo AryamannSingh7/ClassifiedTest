@@ -19,7 +19,7 @@ class SelectedTemplate extends SelectedTemplateController {
 
     return (
       <>
-        <Box style={{ background: "white", height: "100vh" }} className={classes.commonPage}>
+        <Box style={{ background: "white", height: "100vh", overflowY: "hidden" }} className={classes.commonPage}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box className="faq-step">

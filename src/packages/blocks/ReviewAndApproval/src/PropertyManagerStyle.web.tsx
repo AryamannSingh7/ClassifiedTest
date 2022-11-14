@@ -404,4 +404,119 @@ export const PropertyManagerStyleWeb: any = {
       paddingLeft: 10,
     },
   },
+  managerDetails: {
+    "& .top-bar": {
+      display: "flex",
+      alignItems: "center",
+      fontWeight: "600",
+      cursor: "pointer",
+      background: "#FFFFFF",
+      padding: "10px 20px",
+      justifyContent: "space-between",
+      position: "sticky",
+      top: "0",
+      zIndex: "999999",
+    },
+    "& .top-bar .left-icon": {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    "& .top-bar .right-icon": {
+      display: "flex",
+      alignItems: "center",
+      gap: "20px",
+    },
+    "& .right-image": {
+      padding: "25px 60px",
+    },
+    "& a": {
+      color: "black",
+      textDecoration: "none !important",
+    },
+    "& .list-box": {
+      height: "85vh",
+    },
+    "& .faq-step .MuiContainer-root": {
+      overflowY: "auto",
+      overflowX: "hidden",
+    },
+    "& .details-box-item": {
+      margin: "15px 0",
+      "& h4": {
+        marginBottom: "10px",
+      },
+      "& .MuiCard-root": {
+        boxShadow: "none",
+        borderRadius: "8px",
+        padding: "15px 25px",
+        "& .box-item": {
+          display: "flex",
+          alignItems: "flex-start",
+          gap: "10px",
+          "& .box-item-content span": {
+            fontSize: "14px",
+            lineHeight: "14px",
+          },
+          "& .box-item-content p": {
+            fontWeight: "600",
+            marginTop: "5px",
+          },
+        },
+        "& .heading-box-item": {
+          display: "flex",
+          gap: "5px",
+          justifyContent: "space-between",
+          alignItems: "center",
+          width: "100%",
+          marginBottom: "10px",
+          "& .right-box-item": {
+            display: "flex",
+            gap: "20px",
+            alignItems: "center",
+          },
+          "& .right-box-item span": {
+            fontWeight: "600",
+            color: "#FC8434",
+          },
+        },
+      },
+    },
+    "& .pdf-content-box": {
+      marginBottom: "15px",
+      "& .MuiCard-root": {
+        padding: "20px",
+        boxShadow: "none",
+        borderRadius: "8px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        "& .heading": {
+          display: "flex",
+          alignItems: "center",
+          gap: "15px",
+        },
+      },
+    },
+    "& .button-box": {
+      marginBottom: "15px",
+      gap: "15px",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      "& button": {
+        borderRadius: "25px",
+        fontWeight: 600,
+        padding: "15px 45px",
+      },
+      "& button.decline": {
+        border: "1px solid #2B6FED",
+        color: "#2B6FED",
+      },
+      "& button.accept": {
+        background: "#2B6FED",
+        color: "white",
+      },
+    },
+  },
 };

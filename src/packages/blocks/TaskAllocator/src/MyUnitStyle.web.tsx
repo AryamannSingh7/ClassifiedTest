@@ -489,4 +489,119 @@ export const MyUnitStyle: any = {
       },
     },
   },
+  tenantProfile: {
+    "& .top-bar": {
+      display: "flex",
+      alignItems: "center",
+      fontWeight: "600",
+      cursor: "pointer",
+      background: "#FFFFFF",
+      padding: "10px 20px",
+      justifyContent: "space-between",
+      zIndex: "9999",
+      borderBottom: "2px solid #e2e2ef",
+    },
+    "& .top-bar .left-icon": {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: "10px",
+    },
+    "& .top-bar .left-icon span": {
+      lineHeight: "18px",
+    },
+    "& .top-bar .right-icon": {
+      display: "flex",
+      alignItems: "center",
+      gap: "20px",
+    },
+    "& .right-image": {
+      padding: "25px 60px",
+    },
+    "& a": {
+      textDecoration: "none !important",
+    },
+    "& .tenant-detail-box": {
+      background: "white",
+      height: "88vh",
+      overflow: "auto",
+    },
+    "& .profile-top-box": {
+      margin: "15px 0",
+      display: "flex",
+      alignItems: "center",
+      flexDirection: "column",
+      justifyContent: "center",
+      "& .MuiAvatar-root": {
+        width: "64px",
+        height: "64px",
+        marginBottom: "10px",
+      },
+      "& .profile-info-box": {
+        marginTop: "10px",
+        marginBottom: "10px",
+        display: "flex",
+        gap: "20px",
+        padding: "15px 25px",
+        background: "#F6F6F6",
+        borderRadius: "25px",
+        "& img": {
+          cursor: "pointer",
+          width: "20px",
+          height: "20px",
+        },
+        "& div": {
+          width: "3px",
+          background: "#D6DBE4",
+        },
+      },
+      "& .profile-add-info-box": {
+        display: "flex",
+        justifyContent: "space-around",
+        alignItems: "center",
+        gap: "50px",
+        "& span": {
+          fontWeight: "600",
+        },
+      },
+    },
+    "& .profile-bottom-box": {
+      "& .profile-item": {
+        margin: "15px 0",
+        "& h4": {
+          marginBottom: "5px",
+        },
+        "& .profile-hobby-box": {
+          display: "flex",
+          gap: "12px",
+          alignItems: "center",
+          flexWrap: "wrap",
+          justifyContent: "flex-start",
+          "& span": {
+            padding: "6px 12px",
+            borderRadius: "25px",
+            background: "#ffddc6",
+            color: "#FC8434",
+            fontSize: "14px",
+            fontWeight: "600",
+          },
+        },
+        "& .profile-social-box": {
+          display: "flex",
+          gap: "12px",
+          alignItems: "center",
+          flexWrap: "wrap",
+          justifyContent: "flex-start",
+          "& img": {
+            padding: "10px",
+            background: "#F6F6F6",
+            borderRadius: "50%",
+            cursor: "pointer",
+            width: "12px",
+            height: "15px",
+          },
+        },
+      },
+    },
+  },
 };

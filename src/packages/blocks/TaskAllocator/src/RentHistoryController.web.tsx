@@ -4,6 +4,7 @@ import { BlockComponent } from "../../../framework/src/BlockComponent";
 import MessageEnum, { getName } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
 import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
+import toast from "react-hot-toast";
 
 export const configJSON = require("./config");
 
@@ -16,7 +17,11 @@ export interface Props {
 }
 
 interface S {
+  isDeleteOpen: boolean;
+  selectedRentHistory: any[];
+
   unitId: string;
+
   rentHistory: any[];
 }
 
@@ -28,6 +33,7 @@ interface SS {
 
 export default class RentHistoryController extends BlockComponent<Props, S, SS> {
   GetRentHistoryCallId: any;
+  DeleteRentHistoriesCallId: any;
 
   constructor(props: Props) {
     super(props);
@@ -38,7 +44,11 @@ export default class RentHistoryController extends BlockComponent<Props, S, SS> 
 
     this.state = {
       unitId: "",
+
       rentHistory: [],
+
+      isDeleteOpen: false,
+      selectedRentHistory: [],
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
@@ -58,6 +68,32 @@ export default class RentHistoryController extends BlockComponent<Props, S, SS> 
 
       if (responseJson && responseJson.data) {
         this.setState({ rentHistory: responseJson.data });
+      }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // Delete Rent History - API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.DeleteRentHistoriesCallId !== null &&
+      this.DeleteRentHistoriesCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.DeleteRentHistoriesCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      if (responseJson) {
+        toast.success(responseJson.message);
+        this.setState({ isDeleteOpen: false, selectedRentHistory: [] }, () => {
+          this.getRentHistory();
+        });
       }
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
@@ -98,5 +134,39 @@ export default class RentHistoryController extends BlockComponent<Props, S, SS> 
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
+  };
+
+  deleteRentHistories = () => {
+    const body = {
+      ids: this.state.selectedRentHistory,
+    };
+
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.DeleteRentHistoriesCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_settings/rent_histories/delete_all`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestBodyMessage), JSON.stringify(body));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePost);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  selectAllHistory = () => {
+    const idList = this.state.rentHistory.map((history: any) => history.id);
+    this.setState({ selectedRentHistory: idList });
   };
 }
