@@ -317,15 +317,15 @@ class CommunityUserProfile extends CommunityUserProfileController {
                     </Grid>
                   </Box>
                   <Box style={{marginTop:"10px"}}
-                   onClick={() => {
-                    //@ts-ignore
-                    this.props.history.push("/UserDetailedProfile")}}>
+                  >
                     <div style={dashBoard.gaMemberCard}>
                       <>
                       {//@ts-ignore
                       this.state.allProfile[item].data.slice(0,4).map((singleProfile:any, index:any) => {
                         return(
-                          <div key={index}>
+                          <div key={index}  onClick={() => {
+                            //@ts-ignore
+                            this.props.history.push({pathname:"/UserDetailedProfile",singleProfile})}}>
                           <Card style={dashBoard.cardStyle}>
                             <CardActionArea>
                               <CardMedia

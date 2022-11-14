@@ -1492,7 +1492,7 @@ const routeMap = {
   },
   GaMembers: {
     component: GaMembers,
-    path: '/GaMembers'
+    path: '/ga_member'
   },
   ResidentsProfile: {
     component: ResidentsProfile,
