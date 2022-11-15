@@ -136,14 +136,14 @@ export default class CoverImageController extends BlockComponent<
 
   visitorAddSchema() {
     const validations = Yup.object().shape({
-      visitorName: Yup.string().required(`This field is required`).trim(),
+      full_name: Yup.string().required(`Name is required`).trim().matches(/^[a-zA-Z\-]+$/,"Only characters are allowed in name"),
       phone: Yup.number()
           .typeError("Only numbers are allowed.")
           .required("Mobile number is required.")
           .positive("Negative numbers are not allowed.")
           .integer("Number can't contain a decimal.")
-          .min(10000000, "Minimum 5 digits are required.")
-          .max(99999999999, "Maximum 11 digits are allowed."),
+          .min(100000000, "Minimum 9 digits are required.")
+          .max(1000000000, "Maximum 9 digits are allowed."),
       photo: Yup.mixed(),
       date: Yup.string()
           .required("Required")
