@@ -52,7 +52,7 @@ class FacilityReservation extends FacilityReservationController {
                 </Box>
                 <Box className="content-block-wrapper facility-block-wrapper">
                   <Box className="incident-content-wrapper">
-                    <Card className="card facilityReserve-card" onClick={() => this.getFacilityReservationDetails("Upcoming Reservation")}>
+                    <Card className="card facilityReserve-card" onClick={() => this.getFacilityReservationDetails("Upcoming")}>
                       <CardContent className="costom-card-content">
                         <img src={upcoming} className="frm-icons" alt="House Icon" />
                         <Typography component="h4">
@@ -68,7 +68,7 @@ class FacilityReservation extends FacilityReservationController {
                         </CardActions>
                       </CardContent>
                     </Card>
-                    <Card className="card facilityReserve-card" onClick={() => this.getFacilityReservationDetails("Pending Reservation")}>
+                    <Card className="card facilityReserve-card" onClick={() => this.getFacilityReservationDetails("Pending")}>
                       <CardContent className="costom-card-content">
                         <img src={pending} className="frm-icons" alt="House Icon" />
                         <Typography component="h4">
@@ -84,7 +84,7 @@ class FacilityReservation extends FacilityReservationController {
                         </CardActions>
                       </CardContent>
                     </Card>
-                    <Card className="card facilityReserve-card" onClick={() => this.getFacilityReservationDetails("Previous Reservation")}>
+                    <Card className="card facilityReserve-card" onClick={() => this.getFacilityReservationDetails("Previous")}>
                       <CardContent className="costom-card-content">
                         <img src={previous} className="frm-icons" alt="House Icon" />
                         <Typography component="h4">

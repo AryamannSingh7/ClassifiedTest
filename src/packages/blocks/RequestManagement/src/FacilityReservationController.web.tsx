@@ -239,7 +239,7 @@ export default class FacilityReservationController extends BlockComponent<
           if (responseJson && responseJson.data) {
             console.log("updateFacilityReservationapiCallId===========>",responseJson)
                //@ts-ignore
-              this.props.history.push("/FacilityReservation")
+              this.props.history.push("/FacilityReservationListing")
             this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
@@ -606,17 +606,17 @@ clear= () => {
 // }
 
 getFacilityReservationDetails= (idOrName :any) => {
-  if(idOrName ==="Upcoming Reservation"){
+  if(idOrName ==="Upcoming"){
   //@ts-ignore
   localStorage.setItem("idOrName", idOrName);
   this.props.history.push({pathname: "/FacilityReservationListing"})
   }
-  else if(idOrName ==="Pending Reservation"){
+  else if(idOrName ==="Pending"){
      //@ts-ignore
   localStorage.setItem("idOrName", idOrName);
   this.props.history.push({pathname: "/FacilityReservationListing"})   
 }
-  else if(idOrName ==="Pending Reservation"){
+  else if(idOrName ==="Previous"){
      //@ts-ignore
   localStorage.setItem("idOrName", idOrName);
   this.props.history.push({pathname: "/FacilityReservationListing"}) }
@@ -802,7 +802,7 @@ CreateFacilityReservation = async(val :any) => {
       );
       this.getFacilityReservationListingApiCallId = requestMessage.messageId;
       this.setState({ loading: true });
-      const  getSortByOrStatus = `bx_block_society_management/facility_reservations`
+      const  getSortByOrStatus = `bx_block_society_management/facility_reservations?sort_type=${sortBy}`
     // const  getSortByOrStatus = `bx_block_custom_form/incidents?sort_type=${sortBy}&filter_by=${status}`
 
       requestMessage.addData(
