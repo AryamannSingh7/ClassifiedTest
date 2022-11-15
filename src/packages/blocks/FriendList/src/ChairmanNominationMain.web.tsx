@@ -84,7 +84,6 @@ class MyTeamCore extends ChairmanNominationMainController {
                             this.state.nominationsList.length > 0
                             &&
                             this.state.nominationsList.map((item:any,key:any) => {
-                                console.log("DATA FOR NOMINATIONS",item)
                                 return(
                                     <Grid key={key} item xs={6}>
                                         <Paper elevation={6} style={{backgroundColor:"white",padding:"20px 30px",borderRadius:"15px",cursor:"pointer"}} onClick={()=> this.props.history.push(`/NominationDetails?id=${item.id}`)}>
@@ -109,7 +108,7 @@ class MyTeamCore extends ChairmanNominationMainController {
                                                 <Grid item xs={6}>
                                                     <Box>
                                                         <Typography variant="subtitle1" color="textSecondary">Building:</Typography>
-                                                        <Typography variant="subtitle1" color="textPrimary">{item.attributes.building}</Typography>
+                                                        <Typography variant="subtitle1" color="textPrimary">{item.attributes.building_name}</Typography>
                                                     </Box>
                                                 </Grid>
                                                 <Grid item xs={6}>

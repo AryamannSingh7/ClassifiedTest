@@ -59,6 +59,8 @@ interface S {
   myNominationAsError:any;
   nominatedSelf:boolean,
   vote:{voteId:any,role:any,name:any};
+  chairmanVoteCount:any,
+  viceChairmanVoteCount:any,
 }
 
 interface SS {
@@ -78,7 +80,7 @@ export default class FriendListController extends BlockComponent<
   startVotingCallId:string = "";
   endVotingCallId:string = "";
   nominateId:string = "";
-
+  getVotingCountDetailsId:string = "";
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
@@ -133,7 +135,9 @@ export default class FriendListController extends BlockComponent<
         voteId:"",
         role:"",
         name:"",
-      }
+      },
+      chairmanVoteCount:[],
+      viceChairmanVoteCount:[],
 
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -144,6 +148,7 @@ export default class FriendListController extends BlockComponent<
     this.nominatedMemberList();
     this.getNominationDetails();
     this.myProfile();
+    this.getVotingCountDetails();
   }
 
   manageNominate = () => {
@@ -281,7 +286,16 @@ export default class FriendListController extends BlockComponent<
     const nominationId =  window.location.search ? window.location.search.split("=")[1] : null;
     this.myProfileId = await this.apiCall({
       method:"GET",
-      endPoint: `bx_block_profile/my_profile`,
+      endPoint: `/society_managements/${societyID}/bx_block_my_team/chairman_nominations/current_user_details`,
+    });
+  }
+
+  getVotingCountDetails = async () => {
+    const societyID = localStorage.getItem("society_id")
+    const nominationId =  window.location.search ? window.location.search.split("=")[1] : null;
+    this.getVotingCountDetailsId = await this.apiCall({
+      method:"GET",
+      endPoint: `/society_managements/${societyID}/bx_block_my_team/chairman_nominations/${nominationId}/voting_count`,
     });
   }
 
@@ -291,7 +305,6 @@ export default class FriendListController extends BlockComponent<
     const id =  window.location.search ? window.location.search.split("=")[1] : null;
     this.startVotingCallId = await this.apiCall({
       method:"PUT",
-
       endPoint: `/society_managements/${societyID}/bx_block_my_team/chairman_nominations/${id}/start_voting?start_voting=true`,
     });
   }
@@ -392,7 +405,7 @@ export default class FriendListController extends BlockComponent<
           this.setState({
             loading:false,
             nomineeList:responseJson.nominated_members.data,
-            nominatedSelf:findIf.length > 0 ? true : false
+            nominatedSelf:findIf ? true : false
           })
         }
       }
@@ -407,15 +420,38 @@ export default class FriendListController extends BlockComponent<
         }
       }
       if(apiRequestCallId === this.myProfileId){
-        console.log("MY PROFILE",responseJson)
-        if(responseJson.hasOwnProperty("data")){
+        if(responseJson.hasOwnProperty("user_data")){
           this.setState({
-            myProfile:responseJson.data.attributes
+            myProfile:responseJson.user_data.data.attributes
+          })
+        }
+      }
+      if(this.nominateMySelfId === apiRequestCallId){
+        if(responseJson.message === "Member Nominated successfully"){
+          this.setState({
+            nominateMySelf:false
           })
         }
       }
       if(apiRequestCallId === this.startVotingCallId){
-        console.log("RESPONSE JSON START VOTING",responseJson)
+        if(responseJson.code === 200){
+          this.nominatedMemberList()
+          this.getNominationDetails()
+        }
+      }
+      if(apiRequestCallId === this.endVotingCallId){
+        if(responseJson.code === 200){
+          this.nominatedMemberList()
+          this.getNominationDetails()
+        }
+      }
+      if(apiRequestCallId === this.getVotingCountDetailsId){
+        if(responseJson.hasOwnProperty("vote_count")){
+          this.setState({
+            chairmanVoteCount:responseJson.vote_count?.data?.attributes?.chairman,
+            viceChairmanVoteCount:responseJson.vote_count?.data?.attributes?.vice_chairman,
+          })
+        }
       }
     }
   }
