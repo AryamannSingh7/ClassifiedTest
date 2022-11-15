@@ -585,7 +585,7 @@ export default class RegisterUnitController extends BlockComponent<Props, S, SS>
         purchase_date: values.date,
         current_valuation: values.valuation,
         monthly_renting_income: values.income,
-        status: values.type,
+        unit_type: values.type,
       },
     };
 
@@ -696,9 +696,7 @@ export default class RegisterUnitController extends BlockComponent<Props, S, SS>
     valuation: Yup.string()
       .required("Required")
       .matches(/\S/, "Required"),
-    type: Yup.string()
-      .required("Required")
-      .matches(/\S/, "Required"),
+    type: Yup.string(),
     income: Yup.string().when("type", (type: any) => {
       if (type === "Rented") return Yup.string().required("Required");
     }),
@@ -708,9 +706,7 @@ export default class RegisterUnitController extends BlockComponent<Props, S, SS>
     valuation: Yup.string()
       .required("Required")
       .matches(/\S/, "Required"),
-    type: Yup.string()
-      .required("Required")
-      .matches(/\S/, "Required"),
+    type: Yup.string(),
     income: Yup.string().when("type", (type: any) => {
       if (type === "Rented") return Yup.string().required("Required");
     }),

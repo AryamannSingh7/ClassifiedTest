@@ -213,7 +213,7 @@ class ChairmanSidebar extends DashboardController {
             <AccordionDetails
               onClick={() => {
                 //@ts-ignore
-                this.props.history.push("/DashboardTicket");
+                this.props.history.push("/CharmainReceipts");
               }}
             >
               <Typography variant="body2">Receipts</Typography>

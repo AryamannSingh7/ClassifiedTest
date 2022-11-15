@@ -70,3 +70,4 @@ export const DashboardFee = require("../assets/dash-fee.png");
 export const DashboardClass = require("../assets/dash-class.png");
 export const DashboardLease = require("../assets/dash-lease.png");
 export const DashboardFamily = require("../assets/dash-family.png");
+export const voting = require("../assets/voting.png");

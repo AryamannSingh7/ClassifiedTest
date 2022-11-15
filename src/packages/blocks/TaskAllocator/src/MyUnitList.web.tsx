@@ -64,7 +64,7 @@ class MyUnitList extends MyUnitListController {
                   <div className="tenant-list-box">
                     <div className="tenant-list">
                       <Grid container spacing={2}>
-                        {this.state.myUnitList.length === 0 && (
+                        {this.state.myUnitList.length === 0 && this.state.myPendingUnitList.length === 0 && (
                           <Grid item xs={12}>
                             <Card className="tenant">
                               <h6>{t("No Unit Registered")}</h6>
@@ -96,8 +96,9 @@ class MyUnitList extends MyUnitListController {
                                           >
                                             {t("Edit")}
                                           </MenuItem>
-                                          <MenuItem>{t("Delete")}</MenuItem>
-                                          <MenuItem>{t("Delete Request")}</MenuItem>
+                                          <MenuItem onClick={() => this.handleOpenDeleteUnitModal(unit.id)}>
+                                            {t("Delete")}
+                                          </MenuItem>
                                         </Menu>
                                       </div>
                                     </div>
@@ -115,9 +116,7 @@ class MyUnitList extends MyUnitListController {
                                   </Grid>
                                   <Grid item xs={4}>
                                     <span className="header">{t("Status")}</span>
-                                    {/* <Button className="Rented">{t("Rented")}</Button> */}
-                                    {/* <Button className="Empty">{t("Empty")}</Button> */}
-                                    <Button className="Pending">{t("Pending")}</Button>
+                                    <Button className={unit.attributes.status}>{t(unit.attributes.status)}</Button>
                                   </Grid>
                                 </Grid>
                               </Card>
@@ -150,7 +149,7 @@ class MyUnitList extends MyUnitListController {
         <Dialog
           className="delete-document personal"
           fullWidth
-          onClose={() => this.handleDeleteUnitModal()}
+          onClose={() => this.handleCloseDeleteUnitModal()}
           open={this.state.isDeleteUnitModalOpen}
         >
           <DialogContent>
@@ -163,8 +162,8 @@ class MyUnitList extends MyUnitListController {
                 )}
               </Typography>
               <DialogActions className="dialog-button-group">
-                <Button>{t("Yes, Delete")}</Button>
-                <Button onClick={() => this.handleDeleteUnitModal()}>{t("No, Don’t Delete")}</Button>
+                <Button onClick={() => this.deLinkUnitFromOwner()}>{t("Yes, Delete")}</Button>
+                <Button onClick={() => this.handleCloseDeleteUnitModal()}>{t("No, Don’t Delete")}</Button>
               </DialogActions>
             </Box>
           </DialogContent>
