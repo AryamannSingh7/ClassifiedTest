@@ -63,7 +63,7 @@ const PrivateRoute = ({ roles, routeMap, component: Component, ...rest }) => (
         currentUserRole = "";
       }
 
-      if (roles === undefined) {
+      if (roles === undefined || roles.includes(ROLE.PUBLIC)) {
         return <Wrapper element={<Component />} routeMap={routeMap} {...props} />;
       } else if (roles.includes(ROLE.PRIVATE) && userToken) {
         if (currentUserRole === ROLE.OWNER || currentUserRole === ROLE.PROPERTY_MANAGER) {

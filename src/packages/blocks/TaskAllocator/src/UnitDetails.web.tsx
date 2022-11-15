@@ -2,7 +2,21 @@ import React from "react";
 import { withTranslation } from "react-i18next";
 import UnitDetailsController, { Props } from "./UnitDetailsController.web";
 import { MyUnitStyle } from "./MyUnitStyle.web";
-import { Box, Card, Container, Divider, Grid, IconButton, Link, withStyles } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  Card,
+  Container,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  Divider,
+  Grid,
+  IconButton,
+  Link,
+  Typography,
+  withStyles,
+} from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import {
   BlueAssetsIcon,
@@ -22,6 +36,7 @@ import {
   BlueValuationIcon,
   BuildingImage,
   DeleteRentIcon,
+  DeleteUnitIcon,
   EditIcon,
 } from "./assets";
 //@ts-ignore
@@ -84,8 +99,10 @@ class UnitDetails extends UnitDetailsController {
                     <span>{t("Unit")}</span>
                   </div>
                   <div className="right-icon">
-                    <img src={DeleteRentIcon} alt="" />
-                    <img src={EditIcon} alt="" />
+                    <img src={DeleteRentIcon} alt="" onClick={() => this.handleDeleteUnitModal()} />
+                    <Link href={`/MyUnitDetails/Edit/${this.state.unitId}`}>
+                      <img src={EditIcon} alt="" />
+                    </Link>
                   </div>
                 </Box>
                 <Box className="tenant-detail-box">
@@ -331,7 +348,7 @@ class UnitDetails extends UnitDetailsController {
                             </Box>
                             <Box className="info">
                               <p>{t("Received Amount")}</p>
-                              <span>{history.attributes.tenant_name}</span>
+                              <span>{history.attributes.received_amount || "-"}</span>
                             </Box>
                           </Box>
                         );
@@ -362,6 +379,38 @@ class UnitDetails extends UnitDetailsController {
             </Grid>
           </Grid>
         </Box>
+
+        <Dialog
+          className="delete-document personal"
+          fullWidth
+          onClose={() => this.handleDeleteUnitModal()}
+          open={this.state.isDeleteUnitModalOpen}
+        >
+          <DialogContent>
+            <Box textAlign="center">
+              <img src={DeleteUnitIcon} alt="ExclamationIcon" />
+              <Typography variant="h6">{t("Delete added unit")}?</Typography>
+              <Typography variant="body1">
+                {t(
+                  "Are you sure want to delete added unit details from this app? once deleted you won't be able to view deleted unit again."
+                )}
+              </Typography>
+              <DialogActions className="dialog-button-group">
+                <Button
+                  onClick={() => {
+                    this.setState({ loading: true }, () => {
+                      this.handleDeleteUnitModal();
+                      this.deLinkUnitFromOwner();
+                    });
+                  }}
+                >
+                  {t("Yes, Delete")}
+                </Button>
+                <Button onClick={() => this.handleDeleteUnitModal()}>{t("No, Don’t Delete")}</Button>
+              </DialogActions>
+            </Box>
+          </DialogContent>
+        </Dialog>
       </>
     );
   }

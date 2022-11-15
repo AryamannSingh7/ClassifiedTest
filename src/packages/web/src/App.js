@@ -173,7 +173,6 @@ import CreateFacilityReservation from '../../blocks/RequestManagement/src/Create
 import FacilityManagerDetail from '../../blocks/RequestManagement/src/FacilityManagerDetail.web';
 import ManagerFacilityReservation from '../../blocks/RequestManagement/src/ManagerFacilityReservation.web';
 
-
 // Help
 import FaqChairman from '../../blocks/contactus/src/FaqChairman.web';
 import FaqOwner from '../../blocks/contactus/src/FaqOwner.web';
@@ -325,10 +324,13 @@ import MyUnitDetails from '../../blocks/TaskAllocator/src/UnitDetails.web';
 import RentHistory from '../../blocks/TaskAllocator/src/RentHistory.web';
 import PendingUnit from '../../blocks/TaskAllocator/src/PendingUnit.web';
 import EditMyUnit from '../../blocks/TaskAllocator/src/EditUnit.web';
+import TenantProfile from '../../blocks/TaskAllocator/src/TenantProfile.web';
 
 // Property Manager
-import PropertyManagerList from '../../blocks/ReviewAndApproval/src/ManagerList.web';
-import RegisterPropertyManager from '../../blocks/ReviewAndApproval/src/RegisterManager.web';
+import PropertyManagerList from '../../blocks/ReviewAndApproval/src/PropertyManagerList.web';
+import RegisterPropertyManager from '../../blocks/ReviewAndApproval/src/RegisterPropertyManager.web';
+import RegisterPropertyManagerSuccess from '../../blocks/ReviewAndApproval/src/PropertyManagerSuccess.web';
+import PropertyManagerDetails from '../../blocks/ReviewAndApproval/src/PropertyManagerDetails.web';
 
 // My Lease
 import MyLeaseList from '../../blocks/ContentManagement/src/MyLeaseList.web';
@@ -658,13 +660,13 @@ const routeMap = {
     path: '/FacilityManagerDetail',
     exact: true
   },
- 
+
   ManagerFacilityReservation: {
     component: ManagerFacilityReservation,
     path: '/ManagerFacilityReservation',
     exact: true
   },
- 
+
   // RolesPermissions2: {
   //   component: RolesPermissions2,
   //   path: '/RolesPermissions2'
@@ -1499,7 +1501,7 @@ const routeMap = {
   },
   GaMembers: {
     component: GaMembers,
-    path: '/GaMembers'
+    path: '/ga_member'
   },
   ResidentsProfile: {
     component: ResidentsProfile,
@@ -1888,7 +1890,7 @@ const routeMap = {
   },
   EditMyUnit: {
     component: EditMyUnit,
-    path: '/MyUnitDetails/Edit',
+    path: '/MyUnitDetails/Edit/:id',
     roles: [ROLE.OWNER],
     exact: true
   },
@@ -1904,6 +1906,12 @@ const routeMap = {
     roles: [ROLE.OWNER],
     exact: true
   },
+  TenantProfile: {
+    component: TenantProfile,
+    path: '/TenantProfile/:id',
+    roles: [ROLE.PUBLIC],
+    exact: true
+  },
   // Property Manager
   PropertyManagerList: {
     component: PropertyManagerList,
@@ -1911,9 +1919,21 @@ const routeMap = {
     roles: [ROLE.OWNER],
     exact: true
   },
+  PropertyManagerDetails: {
+    component: PropertyManagerDetails,
+    path: '/PropertyManager/:id',
+    roles: [ROLE.OWNER],
+    exact: true
+  },
   RegisterPropertyManager: {
     component: RegisterPropertyManager,
     path: '/RegisterPropertyManagers',
+    roles: [ROLE.OWNER],
+    exact: true
+  },
+  RegisterPropertyManagerSuccess: {
+    component: RegisterPropertyManagerSuccess,
+    path: '/RegisterPropertyManagers/Success',
     roles: [ROLE.OWNER],
     exact: true
   },

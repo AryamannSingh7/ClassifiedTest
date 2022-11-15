@@ -224,14 +224,14 @@ const currentAccountId = localStorage.getItem('userId')
             <Grid item xs={9}>
             <Grid container>
 
-<Grid item justifyContent="space-between" style={{width:'100%',display:'flex',paddingRight:'8rem'}}>
+<Grid item justifyContent="space-between" style={{width:'100%',display:'flex',paddingRight:'8rem',marginLeft:'2.5rem'}}>
   <p style={{fontWeight:600,fontSize:'1.25rem',marginBottom:'1rem'}}>
     Chat
   </p>
   <Box display={'flex'} alignItems='center' gridGap={'1rem'}>
 
   <p style={{fontWeight:600}}>
-  {this.state.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ? 'Enable Chat' :'Disable Chat'}
+  {/* {this.state.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ? 'Enable Chat' :'Disable Chat'} */}Enable Chat
   </p>
 <FormControlLabel
         control={<IOSSwitch sx={{ m: 1 }}  enable={this.state.switchVaule}  value="start"   labelPlacement="start" diableChat={()=>this.setState({showSuccessModal:!this.state.showSuccessModal,switchVaule:!this.state.switchVaule})} />} 
@@ -241,7 +241,7 @@ const currentAccountId = localStorage.getItem('userId')
 
 </Grid>
             </Grid>
-            <Grid container>
+            <Grid container style={{marginLeft:'2.3rem'}}>
 
             <Grid item xs={4} md={4} sm={4} style={{boxShadow:'rgb(0 0 0 / 15%) 9px -3px 8px 0px'}}>
           
@@ -320,7 +320,8 @@ const currentAccountId = localStorage.getItem('userId')
           PaperProps={{
             style: {
               borderRadius: '15px',
-              padding: '2rem'
+              padding: '2rem',
+              width:'450px'
             },
           }}
         >
@@ -333,7 +334,7 @@ const currentAccountId = localStorage.getItem('userId')
           <Grid container>
             <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
 
-              <p style={{ fontWeight: 600, fontSize: '1.25rem', textAlign: 'center' }}>
+              <p style={{ fontWeight: 800, fontSize: '1.5rem', textAlign: 'center' }}>
                {
                 this.state.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ? 'Enable Chat' :'Disable Chat'
                }  Functionality?
@@ -351,15 +352,15 @@ const currentAccountId = localStorage.getItem('userId')
             </Grid>
           </Grid>
           <Box className="dialog-footer desktop-ui">
-            <DialogActions className="customButton">
-              <Button variant="contained" onClick={() => this.disablechat()}   >
+            <DialogActions className="customButton" style={{display:'flex',gap:'1rem',justifyContent:'center',flexDirection:'row-reverse'}}>
+              <Button variant="contained" onClick={() => this.disablechat()} style={{width:'12rem'}}  >
                 Yes
                 {
                   this.state.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ? ' Enable' :' Disable'
                 }
                  
               </Button>
-              <Button variant='text' onClick={() => this.setState({ showSuccessModal: false })}>
+              <Button variant='text' onClick={() => this.setState({ showSuccessModal: false })} style={{width:'fit-content',border:'1px solid #668DE7',color:'#668DE7'}} >
                 No, don’t
                 {
                   this.state.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ? ' Enable' :' Disable'
@@ -378,9 +379,11 @@ const currentAccountId = localStorage.getItem('userId')
               <div style={{ padding: "0.3rem", backgroundColor: "#ffff",paddingLeft:'0.3rem',minWidth:'95%'}}>
         <Grid container>
           <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between',borderBottom:'1px solid #F2F2F2',paddingBottom:'1rem' }}>
-            <Box display='flex' alignItems='center' onClick={() => window.history.back()}>
+            <Box display='flex' alignItems='center' >
              
-              <span style={{ fontWeight: 'bold' }}>
+              <span style={{ fontWeight: 'bold',display:'flex',gap:'0.5rem',marginTop:'1rem' }}>
+              {item?.attributes?.chat_with_account?.id != localStorage.getItem('userId')  ? <img src={item?.attributes?.chat_with_account?.attributes?.profile_pic?.url} width='25' height='25'/> || <img src={NoProfile_Img} width='25' height='25' />:<img src={item?.attributes?.chatable?.attributes?.profile_pic?.url} width='25' height='25'/>   || <img src={NoProfile_Img} width='25' height='25'/> }
+
                 {item?.attributes?.chat_with_account?.id != localStorage.getItem('userId') ?item?.attributes?.chat_with_account?.attributes?.full_name || 'N/A':item?.attributes?.chatable?.attributes?.full_name || 'N/A' }
               </span>
             </Box>
@@ -500,6 +503,8 @@ this.setState({ selectedMedia: message.message.images[0] })}} src={message.messa
                       }
 
                         <ListItemText
+                        
+                        style={ message.message.account_id == currentAccountId?{textAlign:"right"}:{textAlign:"left"}}
                               secondary={this.displaytime2(message.message.created_at)}
                         />
                      </Box>
@@ -704,7 +709,7 @@ export default ChairmanChat;
 
 // @ts-ignore
 const IOSSwitch = styled((props) => (
-  <Switch focusVisibleClassName=".Mui-focusVisible" inputProps={{ 'aria-label': 'controlled' }}  onChange={props.diableChat} checked={props.enable} {...props}/>
+  <Switch focusVisibleClassName=".Mui-focusVisible" inputProps={{ 'aria-label': 'controlled' }}  onChange={props.diableChat} checked={!props.enable} {...props}/>
 ))(({ theme }) => ({
   width: 42,
   height: 26,
@@ -715,12 +720,13 @@ const IOSSwitch = styled((props) => (
     transitionDuration: '300ms',
     '&.Mui-checked': {
       transform: 'translateX(16px)',
-      color: '#fff',
+      color: '#65C466',
       '& + .MuiSwitch-track': {
         // @ts-ignore
-        backgroundColor: theme.palette.mode === 'dark' ? '#2ECA45' : '#65C466',
+        // backgroundColor: theme.palette.mode === 'dark' ? '#2ECA45' : '#65C466',
         opacity: 1,
-        border: 0,
+        background:'transparent',
+        border:'1px solid #65C466'
       },
       '&.Mui-disabled + .MuiSwitch-track': {
         opacity: 0.5,
@@ -750,8 +756,10 @@ const IOSSwitch = styled((props) => (
   '& .MuiSwitch-track': {
     borderRadius: 26 / 2,
     // @ts-ignore
-    backgroundColor: theme.palette.mode === 'light' ? '#E9E9EA' : '#39393D',
+    // backgroundColor: theme.palette.mode === 'light' ? '#E9E9EA' : '#39393D',
+    background:'transparent',
     opacity: 1,
+    border:'1px solid grey',
     transition: theme.transitions.create(['background-color'], {
       duration: 500,
     }),
