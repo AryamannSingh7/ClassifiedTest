@@ -35,6 +35,7 @@ import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
 import moment from "moment";
 import {withTranslation} from "react-i18next";
+import VisitorsSidebar from "../../dashboard/src/VisitorsSidebar.web";
 
 class VisitorDetails extends VisitorDetailsController {
     constructor(props: Props) {
@@ -46,6 +47,8 @@ class VisitorDetails extends VisitorDetailsController {
         const { classes } = this.props;
         //@ts-ignore
         const {t} = this.props
+        const userType  = localStorage.getItem("selectUserType");
+
         return (
             <>
                 <Box style={{ background: "#F4F7FF" }} className={classes.announcements}>
@@ -54,7 +57,13 @@ class VisitorDetails extends VisitorDetailsController {
                     <Box style={{ display: "flex" }}>
                         <Grid item xs={3} md={3} sm={3} className="SideBar">
                             {/* Chairman Sidebar -- */}
-                            <ChairmanSidebarWeb {...this.props} />
+                            {
+                             userType === "Visitors" ? 
+                            <VisitorsSidebar {...this.props} />
+                            :
+                            <ChairmanSidebarWeb {...this.props} /> 
+                           }
+                            
                         </Grid>
 
                         <Grid item xs={9} md={9} sm={9} style={{ paddingTop: 35 }}>
