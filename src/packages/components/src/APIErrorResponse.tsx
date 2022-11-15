@@ -10,7 +10,7 @@ export const ApiErrorResponse = (responseJson: any) => {
   if (!responseJson || !responseJson.errors) {
     return;
   }
-  // const errors: any[] = responseJson.errors;
+
   let errors: any = [];
   if (Array.isArray(responseJson.errors)) {
     errors = responseJson.errors;

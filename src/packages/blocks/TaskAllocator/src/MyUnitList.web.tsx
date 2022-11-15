@@ -57,9 +57,15 @@ class MyUnitList extends MyUnitListController {
                         </IconButton>
                       }
                     >
-                      <MenuItem>{t("Rented")}</MenuItem>
-                      <MenuItem>{t("Empty")}</MenuItem>
-                      <MenuItem>{t("All")}</MenuItem>
+                      <MenuItem onClick={() => this.setState({ filter: { status: "", unitType: "Rented" } })}>
+                        {t("Rented")}
+                      </MenuItem>
+                      <MenuItem onClick={() => this.setState({ filter: { unitType: "", status: "Empty" } })}>
+                        {t("Empty")}
+                      </MenuItem>
+                      <MenuItem onClick={() => this.setState({ filter: { unitType: "", status: "" } })}>
+                        {t("All")}
+                      </MenuItem>
                     </Menu>
                   </div>
                 </Box>
@@ -86,7 +92,7 @@ class MyUnitList extends MyUnitListController {
                                       </Link>
                                       <div
                                         className={`right-menu ${
-                                          unit.attributes.request_status === "Accepted" ? "" : "pending"
+                                          unit.attributes.request.status === "Accepted" ? "" : "pending"
                                         }`}
                                       >
                                         <Menu
@@ -103,7 +109,7 @@ class MyUnitList extends MyUnitListController {
                                           >
                                             {t("Edit")}
                                           </MenuItem>
-                                          {unit.attributes.request_status === "Accepted" ? (
+                                          {unit.attributes.request.status === "Accepted" ? (
                                             <MenuItem onClick={() => this.handleOpenDeleteUnitModal(unit.id)}>
                                               {t("Delete")}
                                             </MenuItem>
@@ -111,7 +117,7 @@ class MyUnitList extends MyUnitListController {
                                             <MenuItem
                                               onClick={() => {
                                                 this.setState({ loading: true }, () => {
-                                                  this.deleteRequestUnit(unit.id);
+                                                  this.deleteRequestUnit(unit.attributes.request.id);
                                                 });
                                               }}
                                             >
@@ -135,7 +141,7 @@ class MyUnitList extends MyUnitListController {
                                   </Grid>
                                   <Grid item xs={4}>
                                     <span className="header">{t("Status")}</span>
-                                    {unit.attributes.request_status === "Accepted" ? (
+                                    {unit.attributes.request.status === "Accepted" ? (
                                       <Button
                                         className={
                                           unit.attributes.status === "No-Own" ? "Not Owned" : unit.attributes.status

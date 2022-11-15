@@ -23,6 +23,11 @@ interface S {
   unitId: string;
 
   myUnitList: any[];
+
+  filter: {
+    unitType: string;
+    status: string;
+  };
 }
 
 interface SS {
@@ -50,6 +55,11 @@ export default class MyUnitListController extends BlockComponent<Props, S, SS> {
       unitId: "",
 
       myUnitList: [],
+
+      filter: {
+        unitType: "",
+        status: "",
+      },
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
@@ -117,7 +127,10 @@ export default class MyUnitListController extends BlockComponent<Props, S, SS> {
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       this.setState({ loading: false }, () => {
-        console.log(responseJson);
+        if (responseJson && responseJson.code === 200) {
+          toast.success(responseJson.message);
+          this.getMyUnitList();
+        }
       });
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
@@ -134,7 +147,18 @@ export default class MyUnitListController extends BlockComponent<Props, S, SS> {
     this.getMyUnitList();
   }
 
+  async componentDidUpdate(prevProps: any, prevState: any): Promise<void> {
+    if (
+      prevState.filter.status !== this.state.filter.status ||
+      prevState.filter.unitType !== this.state.filter.unitType
+    ) {
+      await this.getMyUnitList();
+    }
+  }
+
   getMyUnitList = () => {
+    const { unitType, status } = this.state.filter;
+
     const header = {
       "Content-Type": configJSON.ApiContentType,
       token: localStorage.getItem("userToken"),
@@ -144,7 +168,10 @@ export default class MyUnitListController extends BlockComponent<Props, S, SS> {
 
     this.GetMyUnitListCallId = apiRequest.messageId;
 
-    apiRequest.addData(getName(MessageEnum.RestAPIResponceEndPointMessage), `bx_block_request_management/my_apartment`);
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_request_management/my_apartment?status=${status}&unit_type=${unitType}`
+    );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
@@ -203,7 +230,7 @@ export default class MyUnitListController extends BlockComponent<Props, S, SS> {
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
-    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeDelete);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
