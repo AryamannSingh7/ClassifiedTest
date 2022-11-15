@@ -228,8 +228,8 @@ class AddTeamModal extends AddTeamModalController {
                             </Grid>
                         </Grid>
                         <Box style={{display:"flex",justifyContent:'flex-end'}}>
-                            <DeclineButton size="large" style={{marginRight:"15px",width:"160px"}} onClick={this.handleModalClose}>Cancel</DeclineButton>
-                            <AcceptButton size="large" style={{width:"160px"}} onClick={this.handleSubmit}>Create</AcceptButton>
+                            <DeclineButton size="large" style={{marginRight:"15px",width:"160px"}} onClick={this.handleModalClose}>{t("Cancel")}</DeclineButton>
+                            <AcceptButton size="large" style={{width:"160px"}} onClick={this.handleSubmit}>{this.props.editId ? t("Update") : t("Create")}</AcceptButton>
                         </Box>
                     </form>
         </div>

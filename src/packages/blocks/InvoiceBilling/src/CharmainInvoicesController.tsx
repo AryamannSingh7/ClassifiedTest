@@ -10,10 +10,10 @@ import MessageEnum, {
 import { runEngine } from "../../../framework/src/RunEngine";
 
 // Customizable Area Start
-import { imgPasswordInVisible, imgPasswordVisible } from "./assets";
+import { imgPasswordInVisible, imgPasswordVisible } from "../../dashboard/src/assets";
 // Customizable Area End
 
-export const configJSON = require("./config");
+export const configJSON = require("../../dashboard/src/config");
 
 export interface Props {
   navigation: any;
@@ -31,6 +31,10 @@ interface S {
   anchorEl: any;
   openModal: boolean;
   payment_type:any;
+  generateReceipt:boolean;
+  paymentType:any;
+  confirmPaymentModal:boolean;
+  paymentAmount:any;
   // Customizable Area End
 }
 
@@ -67,8 +71,12 @@ export default class CharmainInvoicesController extends BlockComponent<
       // Customizable Area Start
       loading: false,
       anchorEl:null,
-      openModal: false,
-      payment_type:'fullpayment'
+      openModal: true,
+      payment_type:'fullpayment',
+      generateReceipt:true,
+      paymentType:"",
+      confirmPaymentModal:false,
+      paymentAmount:"",
       // Customizable Area End
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);

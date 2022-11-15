@@ -219,7 +219,7 @@ import ViewInvoices from '../../blocks/InvoiceBilling/src/ViewInvoices.web';
 import ViewReceipt from '../../blocks/InvoiceBilling/src/ViewReceipt.web';
 import InvoicesDetails from '../../blocks/InvoiceBilling/src/InvoicesDetails.web';
 import ReceiptsDetails from '../../blocks/InvoiceBilling/src/ReceiptsDetails.web';
-import CharmainInvoices from '../../blocks/dashboard/src/CharmainInvoices.web';
+import CharmainInvoices from '../../blocks/InvoiceBilling/src/CharmainInvoices.web';
 
 import ChairmanProfile from '../../blocks/Settings5/src/ChairmanProfile.web';
 import Profile from '../../blocks/user-profile-basic/src/Profile.web';
@@ -282,6 +282,7 @@ import MyTeamUserDetails from '../../blocks/FriendList/src/MyTeamUserDetails.web
 import ChairmanNominationMain from '../../blocks/FriendList/src/ChairmanNominationMain.web';
 import NominationDetails from '../../blocks/FriendList/src/NominationDetails.web';
 import NominationSuccess from '../../blocks/FriendList/src/NominationAdded';
+import NominationUpdated from "../../blocks/FriendList/src/NominationUpdated"
 import ChairmanNominations from '../../blocks/FriendList/src/ChairmanNomination';
 import ChairmanNominationDetails from '../../blocks/FriendList/src/ChairmanNominationDetails.web';
 import NominateMySelf from '../../blocks/FriendList/src/NominateMySelf.web';
@@ -308,6 +309,9 @@ import MyInvoiceDetails from '../../blocks/CollectTransactionFees/src/MyInvoiceD
 import MyReceipts from '../../blocks/CollectTransactionFees/src/MyReceipts.web';
 import MyReceiptsDetails from '../../blocks/CollectTransactionFees/src/MyReceiptsDetails.web';
 
+// Chairman Side
+import CharmainReceipts from "../../blocks/InvoiceBilling/src/CharmainReceipts.web"
+
 // Reports
 import ReportDashboard from '../../blocks/ExpenseTracking/src/ReportDashboard.web';
 import BudgetReport from '../../blocks/ExpenseTracking/src/BudgetReport.web';
@@ -321,7 +325,6 @@ import RegisterMyUnit from '../../blocks/TaskAllocator/src/RegisterUnit.web';
 import RegisterMyUnitSuccess from '../../blocks/TaskAllocator/src/RegisterUnitSuccess.web';
 import MyUnitDetails from '../../blocks/TaskAllocator/src/UnitDetails.web';
 import RentHistory from '../../blocks/TaskAllocator/src/RentHistory.web';
-import PendingUnit from '../../blocks/TaskAllocator/src/PendingUnit.web';
 import EditMyUnit from '../../blocks/TaskAllocator/src/EditUnit.web';
 import TenantProfile from '../../blocks/TaskAllocator/src/TenantProfile.web';
 
@@ -550,6 +553,11 @@ const routeMap = {
   CharmainInvoices: {
     component: CharmainInvoices,
     path: '/CharmainInvoices',
+    exact: true
+  },
+  CharmainReceipts: {
+    component: CharmainReceipts,
+    path: '/CharmainReceipts',
     exact: true
   },
   IncidentListing: {
@@ -1495,7 +1503,7 @@ const routeMap = {
   },
   GaMembers: {
     component: GaMembers,
-    path: '/GaMembers'
+    path: '/ga_member'
   },
   ResidentsProfile: {
     component: ResidentsProfile,
@@ -1676,6 +1684,12 @@ const routeMap = {
   NominationSuccess: {
     component: NominationSuccess,
     path: '/NominationSuccess',
+    exact: true
+  },
+
+  NominationUpdated: {
+    component: NominationUpdated,
+    path: '/NominationUpdated',
     exact: true
   },
 
@@ -1884,12 +1898,6 @@ const routeMap = {
   EditMyUnit: {
     component: EditMyUnit,
     path: '/MyUnitDetails/Edit/:id',
-    roles: [ROLE.OWNER],
-    exact: true
-  },
-  PendingUnit: {
-    component: PendingUnit,
-    path: '/MyUnitDetails/PendingUnit',
     roles: [ROLE.OWNER],
     exact: true
   },

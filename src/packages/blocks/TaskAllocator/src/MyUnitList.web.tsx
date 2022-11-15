@@ -21,6 +21,7 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { BuildingImage, DeleteUnitIcon, FilterIcon } from "./assets";
 import { Menu } from "@szhsin/react-menu";
 import { MyUnitStyle } from "./MyUnitStyle.web";
+import Loader from "../../../components/src/Loader.web";
 
 class MyUnitList extends MyUnitListController {
   constructor(props: Props) {
@@ -33,6 +34,8 @@ class MyUnitList extends MyUnitListController {
 
     return (
       <>
+        <Loader loading={this.state.loading} />
+
         <Box style={{ background: "#F4F7FF", height: "100vh", overflowY: "hidden" }} className={classes.myUnitList}>
           <Grid container>
             <Grid item xs={12} md={7}>
@@ -54,9 +57,15 @@ class MyUnitList extends MyUnitListController {
                         </IconButton>
                       }
                     >
-                      <MenuItem>{t("Rented")}</MenuItem>
-                      <MenuItem>{t("Empty")}</MenuItem>
-                      <MenuItem>{t("All")}</MenuItem>
+                      <MenuItem onClick={() => this.setState({ filter: { status: "", unitType: "Rented" } })}>
+                        {t("Rented")}
+                      </MenuItem>
+                      <MenuItem onClick={() => this.setState({ filter: { unitType: "", status: "Empty" } })}>
+                        {t("Empty")}
+                      </MenuItem>
+                      <MenuItem onClick={() => this.setState({ filter: { unitType: "", status: "" } })}>
+                        {t("All")}
+                      </MenuItem>
                     </Menu>
                   </div>
                 </Box>
@@ -81,7 +90,11 @@ class MyUnitList extends MyUnitListController {
                                       <Link href={`/MyUnitDetails/${unit.id}`}>
                                         <h4>{unit.attributes.society_management.name}</h4>
                                       </Link>
-                                      <div className="right-menu">
+                                      <div
+                                        className={`right-menu ${
+                                          unit.attributes.request.status === "Accepted" ? "" : "pending"
+                                        }`}
+                                      >
                                         <Menu
                                           menuButton={
                                             <IconButton>
@@ -96,8 +109,21 @@ class MyUnitList extends MyUnitListController {
                                           >
                                             {t("Edit")}
                                           </MenuItem>
-                                          <MenuItem>{t("Delete")}</MenuItem>
-                                          <MenuItem>{t("Delete Request")}</MenuItem>
+                                          {unit.attributes.request.status === "Accepted" ? (
+                                            <MenuItem onClick={() => this.handleOpenDeleteUnitModal(unit.id)}>
+                                              {t("Delete")}
+                                            </MenuItem>
+                                          ) : (
+                                            <MenuItem
+                                              onClick={() => {
+                                                this.setState({ loading: true }, () => {
+                                                  this.deleteRequestUnit(unit.attributes.request.id);
+                                                });
+                                              }}
+                                            >
+                                              {t("Delete Request")}
+                                            </MenuItem>
+                                          )}
                                         </Menu>
                                       </div>
                                     </div>
@@ -115,9 +141,17 @@ class MyUnitList extends MyUnitListController {
                                   </Grid>
                                   <Grid item xs={4}>
                                     <span className="header">{t("Status")}</span>
-                                    {/* <Button className="Rented">{t("Rented")}</Button> */}
-                                    {/* <Button className="Empty">{t("Empty")}</Button> */}
-                                    <Button className="Pending">{t("Pending")}</Button>
+                                    {unit.attributes.request.status === "Accepted" ? (
+                                      <Button
+                                        className={
+                                          unit.attributes.status === "No-Own" ? "Not Owned" : unit.attributes.status
+                                        }
+                                      >
+                                        {t(unit.attributes.status === "No-Own" ? "Not Owned" : unit.attributes.status)}
+                                      </Button>
+                                    ) : (
+                                      <Button className="Pending">{t("Pending")}</Button>
+                                    )}
                                   </Grid>
                                 </Grid>
                               </Card>
@@ -150,7 +184,7 @@ class MyUnitList extends MyUnitListController {
         <Dialog
           className="delete-document personal"
           fullWidth
-          onClose={() => this.handleDeleteUnitModal()}
+          onClose={() => this.handleCloseDeleteUnitModal()}
           open={this.state.isDeleteUnitModalOpen}
         >
           <DialogContent>
@@ -163,8 +197,17 @@ class MyUnitList extends MyUnitListController {
                 )}
               </Typography>
               <DialogActions className="dialog-button-group">
-                <Button>{t("Yes, Delete")}</Button>
-                <Button onClick={() => this.handleDeleteUnitModal()}>{t("No, Don’t Delete")}</Button>
+                <Button
+                  onClick={() => {
+                    this.setState({ loading: true }, () => {
+                      this.handleCloseDeleteUnitModal();
+                      this.deLinkUnitFromOwner();
+                    });
+                  }}
+                >
+                  {t("Yes, Delete")}
+                </Button>
+                <Button onClick={() => this.handleCloseDeleteUnitModal()}>{t("No, Don’t Delete")}</Button>
               </DialogActions>
             </Box>
           </DialogContent>

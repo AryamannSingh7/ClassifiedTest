@@ -187,7 +187,7 @@ class EditMyUnit extends RegisterUnitController {
                                   value={values.floorId}
                                   name="floorId"
                                   className="select-input input"
-                                  placeholder={t("Floor number")}
+                                  placeholder={t("Floor Number")}
                                   startAdornment={
                                     <InputAdornment position="start">
                                       <img src={FloorIcon} alt="" />

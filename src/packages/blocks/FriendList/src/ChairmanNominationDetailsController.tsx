@@ -45,6 +45,7 @@ interface S {
   nominationData:any;
   nominatedSelf:boolean;
   myNominationId:any;
+  vote:{voteId:any,role:any,name:any};
 }
 
 interface SS {
@@ -58,7 +59,7 @@ export default class FriendListController extends BlockComponent<
 > {
   getNominationDetailsId:string = "";
   nominatedMemberListId:string = "";
-
+  nominateId:string = "";
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
@@ -90,6 +91,12 @@ export default class FriendListController extends BlockComponent<
       nomineeList:[],
       nominatedSelf:false,
       myNominationId:"",
+      vote:{
+        voteId:"",
+        role:"",
+        name:"",
+      }
+
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
@@ -138,6 +145,17 @@ export default class FriendListController extends BlockComponent<
     this.setState({nominateMySelf:false});
   }
 
+  manageVote = (id:any,voteAs:any,name:any) => {
+    this.setState({
+      voteConfirmModal:true,
+      vote:{
+        voteId:id,
+        role:voteAs,
+        name:name,
+      }
+    })
+  }
+
   AddTeamSchema() {
     const validations = Yup.object().shape({
       email: Yup.string()
@@ -184,6 +202,16 @@ export default class FriendListController extends BlockComponent<
             nominatedSelf:findIf ? true : false,
             myNominationId:findIf?.id
           })
+        }
+      }
+      if(apiRequestCallId === this.nominateId){
+        console.log("RESPONSE",responseJson )
+        if(responseJson.message === "Voted successfully"){
+          this.setState({
+            voteConfirmModal:false
+          })
+          this.getNominationDetails()
+          this.nominatedMemberList()
         }
       }
     }
@@ -246,6 +274,14 @@ export default class FriendListController extends BlockComponent<
     this.nominatedMemberListId = await this.apiCall({
       method:"GET",
       endPoint: `society_managements/${societyID}/bx_block_my_team/chairman_nominations/${nominationId}/nominated_team_member_list`,
+    });
+  }
+
+  nominate = async (id:any,voteAs:any) => {
+    const societyID = localStorage.getItem("society_id")
+    this.nominateId = await this.apiCall({
+      method:"POST",
+      endPoint: `/society_managements/${societyID}/bx_block_my_team/chairman_nominations/${this.state.nominationId}/voting?nominated_member_id=${id}&vote_as=${voteAs}`,
     });
   }
 
