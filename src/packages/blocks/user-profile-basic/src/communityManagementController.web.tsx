@@ -41,7 +41,7 @@ export interface S {
   selectCountry: string;
   allCity: [];
   selectCity: string;
-  allBuilding: [];
+  allProfile: [];
   selectBuilding: string;
   allUnit: [];
   selectUnit: string;
@@ -73,6 +73,12 @@ export interface S {
   anchorEl1:any;
   setDeleteRequest:boolean;
   setRequestOpen:boolean;
+  allBuilding:any;
+  selectedBUilding:any;
+  selctedUnit:any;
+  selectedUserType:any;
+  query:any;
+  allProfileKeys:any;
 
   // Customizable Area End
 }
@@ -116,7 +122,6 @@ export default class CommunityUserProfileController extends BlockComponent<
   createInvitationAPICallId:any='';
   imgPasswordVisible: any;
   imgPasswordInVisible: any;
-
   labelHeader: any;
   labelFirstName: string;
   lastName: string;
@@ -166,7 +171,7 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
       selectCountry: '',
       allCity: [],
       selectCity: '',
-      allBuilding: [],
+      allProfile: [],
       selectBuilding: '',
       allUnit: [],
       selectUnit: '',
@@ -199,8 +204,13 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
   selectInvitation:null,
   anchorEl1:null,
   setDeleteRequest:false,
-  setRequestOpen:false
-
+  setRequestOpen:false,
+  allBuilding:[],
+  selectedBUilding:null,
+  selctedUnit:null,
+  selectedUserType:null,
+  query:null,
+  allProfileKeys:[]
 
       // Customizable Area End
     };
@@ -360,16 +370,12 @@ this.setState({loading:false,showDialog:false})
           }
 
           this.parseApiCatchErrorResponse(errorReponse);
-        } if (apiRequestCallId === this.deleteVehicleAPICallId) {
+        } if (apiRequestCallId === this.getProfileDataAPiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
             //@ts-ignore
             //@ts-nocheck
-            localStorage.removeItem('selectFamily')
-            this.setState({setRequestOpen:false, showDialogDelete: false, showDialog: false,loading:false })
-            this.getInvitation()
-
-            this.getProfile()
+           this.setState({allProfile:responseJson,loading:false,allProfileKeys:Object.keys(responseJson)},()=>console.log(this.state.allProfileKeys))
 
           } else {
             //Check Error Response
@@ -1169,7 +1175,7 @@ this.setState({allInvitation:responseJson.data,loading:false})
     if (e.target.value) {
       // @ts-ignore
       // @ts-nocheck
-      this.setState({ ...this.state, [e.target.name]: e.target.value }, () => this.getData(e))
+      this.setState({ ...this.state, [e.target.name]: e.target.value }, () => this.getUnit(e))
     }
 
   }
@@ -1312,7 +1318,7 @@ this.setState({loading:true})
       getName(MessageEnum.RestAPIResponceEndPointMessage),
       //@ts-ignore
       //@ts-nocheck
-       `bx_block_address/apartment_list?id=${value}`
+       `bx_block_address/apartment_list?id=${this.state.selectedBUilding}`
       // `bx_block_address/apartment_list?id=${this.state.selectBuilding.id}`
 
     );
@@ -2131,6 +2137,72 @@ let userType=localStorage.getItem('userType')
   }
   handleMoreClick = (e: any) => {
     this.setState({anchorEl1:e.currentTarget});
+  }
+  getUserProfile=()=>{
+    this.setState({loading:true})
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      "token": localStorage.getItem('userToken')
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+
+    this.getProfileDataAPiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_profile/profiles?society_management_id=${localStorage.getItem('society_id')}`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.validationApiMethodType
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  }
+  getUserTypeProfile=(role:any)=>{
+    let roleName =window.location.pathname
+    console.log(roleName)
+    this.setState({loading:true})
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      "token": localStorage.getItem('userToken')
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+
+    this.getProfileDataAPiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_profile/profiles?society_management_id=${localStorage.getItem('society_id')}`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.validationApiMethodType
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
   }
   // Customizable Area End
 }

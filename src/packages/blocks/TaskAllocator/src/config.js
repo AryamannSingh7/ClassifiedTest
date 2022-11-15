@@ -20,4 +20,5 @@ exports.apiMethodTypeGet = "GET";
 exports.apiMethodTypePost = "POST";
 exports.apiMethodTypePut = "PUT";
 exports.apiMethodTypeDelete = "DELETE";
+exports.apiMethodTypePatch = "PATCH";
 // Customizable Area End

@@ -305,6 +305,7 @@ export default class FriendListController extends BlockComponent<
       }
       if(this.getTeamMemberDetailsId === apiRequestCallId ){
         if(responseJson.hasOwnProperty("data")){
+          console.log("selectedUser",responseJson.data.attributes)
           this.setState({
             loading:false,
             selectedUser:responseJson.data.attributes

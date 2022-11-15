@@ -161,7 +161,7 @@
 .delete-dialog .dialog-button-group {
   flex-direction: row;
   justify-content: center;
-  gap: 10px;
+  /* gap: 10px; */
 }
 
 .delete-document .dialog-button-group button,

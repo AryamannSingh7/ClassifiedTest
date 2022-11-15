@@ -11,7 +11,7 @@ import AccordionSummary from "@material-ui/core/AccordionSummary";
 import DashboardOutlinedIcon from "@material-ui/icons/DashboardOutlined";
 import ArrowForwardIosOutlinedIcon from "@material-ui/icons/ArrowForwardIosOutlined";
 import { withRouter } from "react-router-dom";
-import DashboardController, { Props } from "./DashboardController";
+import DashboardController, { Props } from "./DashboardController.web";
 import { withTranslation } from "react-i18next";
 import "../../../web/src/i18n.js";
 import i18next from "i18next";
@@ -21,9 +21,16 @@ class ChairmanSidebar extends DashboardController {
     super(props);
   }
 
+    async componentDidMount() {
+
+      this.getUnreadCount()
+  
+    }
   render() {
     const { t }: any = this.props;
     const { classes }: any = this.props;
+
+   
 
     return (
       <>
@@ -206,7 +213,7 @@ class ChairmanSidebar extends DashboardController {
             <AccordionDetails
               onClick={() => {
                 //@ts-ignore
-                this.props.history.push("/DashboardTicket");
+                this.props.history.push("/CharmainReceipts");
               }}
             >
               <Typography variant="body2">Receipts</Typography>

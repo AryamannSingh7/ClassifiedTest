@@ -62,16 +62,16 @@ class MyTeam extends MyTeamController {
                 <Box className="navigation">
                     <Box>
                         <Typography variant="body1" >
-                        My Team / <Box component="span" style={{color: "blue"}}>Team Members</Box>
+                            {t("My Team")} / <Box component="span" style={{color: "blue"}}>{t("Team Members")}</Box>
                         </Typography>
-                        <Typography variant="h5" className="subHeading">Team Members</Typography>
+                        <Typography variant="h5" className="subHeading">{t("Team Members")}</Typography>
                     </Box>
                     <Box>
-                        <AcceptButton variant="outlined" onClick={(e) => this.setState({setOpen:true})}>Create new Member</AcceptButton>
+                        <AcceptButton variant="outlined" onClick={(e) => this.setState({setOpen:true})}>{t("Create new Member")}</AcceptButton>
                     </Box>
                 </Box>
                 <Box className="RecentItems">
-                    <Typography className="Recenttitle">Pending Request ({this.state.pendingReq.length})</Typography>
+                    <Typography className="Recenttitle">{t("Pending Request")}({this.state.pendingReq.length})</Typography>
                 </Box>
 
                 <Grid container spacing={3} style={{marginTop: 15, marginBottom:30}}>
@@ -87,7 +87,7 @@ class MyTeam extends MyTeamController {
                           :
                           <Box style={{marginLeft:"25px"}}>
                               <Typography variant={"body1"} style={{fontWeight:"bold"}} color="textSecondary" >
-                                  No User Found
+                                  {t("No User Found")}
                               </Typography>
                           </Box>
                     }
@@ -96,7 +96,7 @@ class MyTeam extends MyTeamController {
                     <Typography className="Recenttitle">Core Members({this.state.coreMembers.length})</Typography>
                     {
                         this.state.coreMembers.length > 3 &&
-                        <Link href="/TeamMembers/CoreTeam" >
+                        <Link href="/TeamMembers/CoreMember" >
                             <Typography className="ViewAll">{t("View All")}</Typography>
                         </Link>
                     }
@@ -114,7 +114,7 @@ class MyTeam extends MyTeamController {
                         :
                         <Box style={{marginLeft:"25px"}}>
                             <Typography variant={"body1"} style={{fontWeight:"bold"}} color="textSecondary" >
-                                No User Found
+                                {t("No User Found")}
                             </Typography>
                         </Box>
                     }
@@ -124,7 +124,7 @@ class MyTeam extends MyTeamController {
                     {
                         this.state.subTeam.length > 3 &&
                         <Link href="/TeamMembers/SubTeam" >
-                            <Typography className="ViewAll">View All</Typography>
+                            <Typography className="ViewAll">{t("View All")}</Typography>
                         </Link>
                     }
                 </Box>
@@ -141,16 +141,16 @@ class MyTeam extends MyTeamController {
                             :
                             <Box style={{marginLeft:"25px"}}>
                                 <Typography variant={"body1"} style={{fontWeight:"bold"}} color="textSecondary" >
-                                    No User Found
+                                    {t("No User Found")}
                                 </Typography>
                             </Box>
                     }
                 </Grid>
                 <Box className="RecentItems">
-                    <Typography className="Recenttitle">Service Providers({this.state.providers.length})</Typography>
+                    <Typography className="Recenttitle">{t("Service Providers")}({this.state.providers.length})</Typography>
                     {
                         this.state.providers.length > 3 &&
-                            <Link href="/TeamMembers/ServiceProviders" >
+                            <Link href="/TeamMembers/ServiceProvider" >
                                 <Typography className="ViewAll">{t("View All")}</Typography>
                             </Link>
                     }
@@ -168,7 +168,7 @@ class MyTeam extends MyTeamController {
                             :
                             <Box style={{marginLeft:"25px"}}>
                                 <Typography variant={"body1"} style={{fontWeight:"bold"}} color="textSecondary" >
-                                    No User Found
+                                    {t("No User Found")}
                                 </Typography>
                             </Box>
                     }

@@ -20,7 +20,7 @@ class PendingUnit extends MyUnitListController {
 
     return (
       <>
-        <Box style={{ background: "white", height: "100vh" }} className={classes.registerUnit}>
+        <Box style={{ background: "white", height: "100vh", overflowY: "hidden" }} className={classes.registerUnit}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box>
@@ -29,7 +29,7 @@ class PendingUnit extends MyUnitListController {
                     <IconButton>
                       <KeyboardBackspaceIcon />
                     </IconButton>
-                    <span>Complex Name</span>
+                    <span>{localStorage.getItem("complexName")}</span>
                   </div>
                 </Box>
                 <Container className="page-container">

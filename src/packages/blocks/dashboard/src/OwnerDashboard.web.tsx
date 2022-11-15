@@ -220,14 +220,14 @@ class OwnerDashboard extends DashboardController {
                     <Typography variant="h5">{t("My Real Estate Details")}</Typography>
                   </Grid>
                   <Grid item xs={6} sm={6}>
-                    <DashboardCard image={DashboardUnit} heading={t("Number of Units")} title={t("Total")} value="75" />
+                    <DashboardCard image={DashboardUnit} heading={t("Number Of Units")} title={t("Total")} value="75" />
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="">
                       <DashboardCard
                         image={DashboardExpense}
                         heading={t("Total Expenses")}
-                        title={t("total-expance")}
+                        title={t("Total Expenses")}
                         value="SR 75"
                       />
                     </Link>
@@ -372,7 +372,7 @@ class OwnerDashboard extends DashboardController {
                       <DashboardCard
                         image={DashboardDocument}
                         heading={t("Building Documents")}
-                        title={t("Last uploaded")}
+                        title={t("Last Uploaded")}
                         value="75"
                       />
                     </Link>
@@ -407,7 +407,7 @@ class OwnerDashboard extends DashboardController {
                       <DashboardCard
                         image={DashboardInfo}
                         heading={t("Building Info & Rules")}
-                        title={t("Last uploaded")}
+                        title={t("Last Uploaded")}
                         value="75"
                       />
                     </Link>
@@ -417,7 +417,7 @@ class OwnerDashboard extends DashboardController {
                       <DashboardCard
                         image={keyhand}
                         heading={t("Facility Reservation")}
-                        title={t("Last updated")}
+                        title={t("Last Updated")}
                         value="75"
                       />
                     </Link>
@@ -458,7 +458,7 @@ class OwnerDashboard extends DashboardController {
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
-                    <Link href="/InvoiceBilling">
+                    <Link href="/InvoicesAndReceipts">
                       <DashboardCard
                         image={DashboardInvoice}
                         heading={t("My Invoices")}
@@ -472,7 +472,7 @@ class OwnerDashboard extends DashboardController {
                       <DashboardCard
                         image={DashboardDocument}
                         heading={t("Personal Documents")}
-                        title={t("Last uploaded")}
+                        title={t("Last Uploaded")}
                         value="75"
                       />
                     </Link>
@@ -482,7 +482,7 @@ class OwnerDashboard extends DashboardController {
                       <DashboardCard
                         image={DashboardReport}
                         heading={t("Issue a Reports")}
-                        title={t("Last uploaded")}
+                        title={t("Last Uploaded")}
                         value="NA"
                       />
                     </Link>

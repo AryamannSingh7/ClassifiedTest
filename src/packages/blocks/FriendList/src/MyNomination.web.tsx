@@ -21,15 +21,15 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import DateRangeOutlinedIcon from '@material-ui/icons/DateRangeOutlined';
 import { makeStyles,withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router';
-import ChairmainNominationController, {
+import NominateMySelfController, {
   Props
-} from "./ChairmainNominationController";
+} from "./NominateMySelfController";
 import './MyTeam.web.css'
-import {profileExp} from "./assets";
+import {profileExp,pencil} from "./assets";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import ReorderIcon from '@material-ui/icons/Reorder';
 
-class NominateMySelf extends ChairmainNominationController{
+class NominateMySelf extends NominateMySelfController{
   constructor(props: Props) {
     super(props);
   }
@@ -41,11 +41,14 @@ class NominateMySelf extends ChairmainNominationController{
                 <Grid container style={{ margin: '1rem', width: '90%' }} >
                   <Grid item xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem",justifyContent:"space-between"}} >
                       <Box style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
-                          <ArrowBackIcon onClick={() => this.props.history.push("/")} />
+                          <ArrowBackIcon onClick={() => window.history.back()} />
                           <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
                               My Nomination
                           </p>
                       </Box>
+                      <IconButton onClick={()=> this.props.history.push(`/NominateMySelf?id=${this.state.nominationId}`)}>
+                          <img src={pencil} width="24px" height="24px" />
+                      </IconButton>
                   </Grid>
                 </Grid>
                 <Divider/>
@@ -56,23 +59,29 @@ class NominateMySelf extends ChairmainNominationController{
                                 <Box display="flex" alignItems="center">
                                     <img src={profileExp}/>
                                     <Box style={{marginLeft:"10px"}}>
-                                        <Typography style={{fontWeight:"bold",marginRight:"20px"}}>Jhon Doe</Typography>
-                                        <Typography variant="subtitle2">B-104, B-105 , D-504</Typography>
+                                        {
+                                            console.log("MyNominationDetails",this.state.myDetails)
+                                        }
+                                        <Typography style={{fontWeight:"bold",marginRight:"20px"}}>{this.state.myDetails.name}</Typography>
+                                        <Typography variant="subtitle2">{this.state.myDetails?.unit_number?.join(",")}</Typography>
                                     </Box>
                                 </Box>
                                 <Box style={{marginTop:"10px"}}>
-                                    <Typography variant="subtitle2" className={"statusOngoingBlue"}>Owner</Typography>
+                                    <Typography variant="subtitle2" className={"statusOngoingBlue"}>{this.state.myDetails.role}</Typography>
                                 </Box>
                             </Box>
                             <Box style={{width:"100%",marginTop:"20px "}}>
                                 <Typography>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc non erat non massa sagittis pulvinar non id lectus. Cras ultrices bibendum cursus. Mauris vel erat maximus, porta risus a, pulvinar augue. Donec sit amet enim eget est posuere posuere in in lacus. Nullam lacinia, diam sit amet molestie placerat, tellus metus dignissim massa, sed tempor magna elit pulvinar felis. In in nulla malesuada, suscipit eros et, pulvinar sapien. Curabitur et odio leo.
-                                </Typography>
+                                    {this.state.myDetails.description}
+                               </Typography>
                             </Box>
                         </Grid>
                     </Grid>
                     <Box style={{width:"90%",marginBottom:"50px",marginTop:"10px"}}>
-                        <CloseButton variant="contained" fullWidth size="large">
+                        {
+                            console.log("NOMINATION FIND ID","myNominateId",this.state.myNominateId)
+                        }
+                        <CloseButton variant="contained" fullWidth size="large" onClick={()=> this.cancelMyNomination()}>
                             Cancel Nomination
                         </CloseButton>
                     </Box>
@@ -82,6 +91,7 @@ class NominateMySelf extends ChairmainNominationController{
     );
   }
 }
+// @ts-ignore
 export default withRouter(NominateMySelf)
 
 const CloseButton = withStyles((theme) => ({

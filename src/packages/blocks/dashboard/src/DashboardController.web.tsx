@@ -30,6 +30,7 @@ interface S {
   isMenuOpen: boolean;
   isLogoutModalOpen: boolean;
   profileData:any
+  unReadCount:any;
   // Customizable Area End
 }
 interface SS {
@@ -42,6 +43,7 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
   dashboardApiCallId: string = "";
   apiGetQueryStrinurl: string = "";
   getProfileDataAPiCallId:any="";
+  getUnreadCountAPIId:any='';
   // Customizable Area End
 
   constructor(props: Props) {
@@ -68,6 +70,7 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
       isLogoutModalOpen: false,
       isMenuOpen: false,
       profileData:null,
+      unReadCount:null
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -135,6 +138,18 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
         getName(MessageEnum.RestAPIResponceSuccessMessage)
       );
       if (apiRequestCallId === this.getProfileDataAPiCallId) {
+        console.log(responseJson)
+        if (!responseJson?.errors) {
+          console.log(responseJson)
+          this.setState({ profileData: responseJson?.data,loading:false }, () => console.log(this.state?.profileData))
+        } else {
+          //Check Error Response
+          // this.parseApiErrorResponse(responseJson);
+        }
+
+        this.parseApiCatchErrorResponse(errorReponse);
+      }else
+      if (apiRequestCallId === this.getUnreadCountAPIId) {
         console.log(responseJson)
         if (!responseJson?.errors) {
           console.log(responseJson)
@@ -218,6 +233,37 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
         runEngine.sendMessage(requestMessage.id, requestMessage);
         return true;
       }
+      getUnreadCount() {
+        this.setState({loading:true})
+            const header = {
+              "token": localStorage.getItem('userToken')
+            };
+            const requestMessage = new Message(
+              getName(MessageEnum.RestAPIRequestMessage)
+            );
+        
+        
+            this.getUnreadCountAPIId = requestMessage.messageId;
+            requestMessage.addData(
+              getName(MessageEnum.RestAPIResponceEndPointMessage),
+              `bx_block_chat/chats/all_unread_messages`
+            );
+        
+            requestMessage.addData(
+              getName(MessageEnum.RestAPIRequestHeaderMessage),
+              JSON.stringify(header)
+            );
+        
+        
+        
+            requestMessage.addData(
+              getName(MessageEnum.RestAPIRequestMethodMessage),
+              'GET'
+            );
+        
+            runEngine.sendMessage(requestMessage.id, requestMessage);
+            return true;
+          }
   // Customizable Area End
 
 }
