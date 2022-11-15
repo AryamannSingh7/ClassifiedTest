@@ -77,21 +77,21 @@ class MyTeamCore extends NominationDetailsController {
                 <Box className="navigation">
                     <Box style={{width: "100%"}}>
                         <Typography variant="body1" >
-                        My Team / Chairman and Vice Chairman Nomination / <Box component="span" style={{color: "blue"}}>Details</Box>
+                            {t("My Team")} / {t("Chairman and Vice Chairman Nomination")} / <Box component="span" style={{color: "blue"}}>{t("Details")}</Box>
                         </Typography>
                         <Box display="flex" justifyContent="space-between" alignItems="center" width="100%">
                             <Typography variant="h4" className="subHeading">{this.state?.nominationData?.title}</Typography>
                             <Box>
                                 {
-                                    !this.state.nominationData?.nomination_flag && this.state.nominationData?.voting_flag ?
-                                        <DeclineButton style={{marginTop:"20px"}}  onClick={()=>this.setState({setVoting:false})}>Close Voting</DeclineButton> :
+                                    this.state.nominationData?.voting_flag ?
+                                        <DeclineButton style={{marginTop:"20px"}}  onClick={()=>this.endVotingCall()}>{t("Close Voting")}</DeclineButton> :
                                         <>
                                             {
                                                 this.state.nominationData?.nomination_flag && !this.state.nominationData?.voting_flag &&
-                                                <AcceptButton style={{marginTop:"20px",marginRight:"10px"}} onClick={()=>this.setState({startVotingModal:true})}>Start Voting</AcceptButton>
+                                                <AcceptButton style={{marginTop:"20px",marginRight:"10px"}} onClick={()=>this.setState({startVotingModal:true})}>{t("Start Voting")}</AcceptButton>
                                             }
                                             {
-                                                this.state.nominationData?.nomination_flag && !this.state.nominationData?.voting_flag &&
+                                                this.state.nominationData?.nomination_flag && !this.state.nominationData?.voting_flag && !this.state.nominatedSelf &&
                                                 <DeclineButton style={{marginTop:"20px"}} onClick={this.handleOpenMySelfModal}>Nominate MySelf</DeclineButton>
                                             }
                                         </>
@@ -125,7 +125,7 @@ class MyTeamCore extends NominationDetailsController {
                                 <Grid item xs={12} sm={3}>
                                     <Box>
                                         <Typography variant="subtitle1" color="textSecondary">Building:</Typography>
-                                        <Typography variant="subtitle1" color="textPrimary">{this.state.nominationData?.building}</Typography>
+                                        <Typography variant="subtitle1" color="textPrimary">{this.state.nominationData?.building_name || "NA"}</Typography>
                                     </Box>
                                 </Grid>
                                 <Grid item xs={12} sm={3}>
@@ -170,7 +170,7 @@ class MyTeamCore extends NominationDetailsController {
                                             <Box onClick={()=> this.handleOpenDetailsModal(item.attributes)}>
                                                 <Box style={{display:'flex',justifyContent:'space-between'}}>
                                                     <Box display="flex" alignItems="center">
-                                                        <img src={profileExp}/>
+                                                        <img src={ item.attributes?.image?.url || profileExp}/>
                                                         <Box style={{marginLeft:"10px"}}>
                                                             <Typography style={{fontWeight:"bold"}}>{item.attributes.name}</Typography>
                                                             <Typography >{item.attributes.unit_number.join(",")}</Typography>
@@ -268,6 +268,69 @@ class MyTeamCore extends NominationDetailsController {
                             </Typography>
                         </Box>
                         <Grid container style={{marginTop:"15px"}}>
+                            {
+                                this.state.selectedTab === "Chairman" ?
+                                    <Grid item xs={12}>
+                                        <Paper elevation={2} style={{backgroundColor:"white",padding:"20px 30px",borderRadius:"15px",cursor:"pointer"}}>
+                                            <Table className="table-box">
+                                                <TableHead>
+                                                    <TableRow>
+                                                        <TableCell style={{color:"#181d25"}}>Name</TableCell>
+                                                        <TableCell style={{color:"#181d25"}}>Unit Number</TableCell>
+                                                        <TableCell style={{color:"#181d25"}}>Total Vote</TableCell>
+                                                    </TableRow>
+                                                </TableHead>
+                                                <TableBody>
+                                                    {
+                                                        this.state.chairmanVoteCount.length > 0 &&
+                                                            this.state.chairmanVoteCount.map((item:any,key:any)=>{
+                                                                return(
+                                                                    <TableRow key={key} style={{cursor:"pointer"}}>
+                                                                        <TableCell className="ellipse" style={{fontWeight:"bold"}}>{item.name} <Typography variant="subtitle2" className="chairmanSelected">Chairman</Typography></TableCell>
+                                                                        <TableCell style={{fontWeight:"bold"}}>{item.unit_no.join(",")}</TableCell>
+                                                                        <TableCell style={{fontWeight:"bold"}}>{item.chairman_count}</TableCell>
+                                                                    </TableRow>
+                                                                )
+                                                            })
+                                                    }
+                                                </TableBody>
+                                            </Table>
+                                        </Paper>
+                                    </Grid>
+                                    :
+                                    <Grid item xs={12}>
+                                        <Paper elevation={2} style={{backgroundColor:"white",padding:"20px 30px",borderRadius:"15px",cursor:"pointer"}}>
+                                            <Table className="table-box">
+                                                <TableHead>
+                                                    <TableRow>
+                                                        <TableCell style={{color:"#181d25"}}>Name</TableCell>
+                                                        <TableCell style={{color:"#181d25"}}>Unit Number</TableCell>
+                                                        <TableCell style={{color:"#181d25"}}>Total Vote</TableCell>
+                                                    </TableRow>
+                                                </TableHead>
+                                                <TableBody>
+                                                    {
+                                                        this.state.chairmanVoteCount.length > 0 &&
+                                                        this.state.chairmanVoteCount.map((item:any,key:any)=>{
+                                                            return(
+                                                                <TableRow key={key} style={{cursor:"pointer"}}>
+                                                                    <TableCell className="ellipse" style={{fontWeight:"bold"}}>{item.name} <Typography variant="subtitle2" className="chairmanSelected">Chairman</Typography></TableCell>
+                                                                    <TableCell style={{fontWeight:"bold"}}>{item.unit_no.join(",")}</TableCell>
+                                                                    <TableCell style={{fontWeight:"bold"}}>{item.vice_chairman_count}</TableCell>
+                                                                </TableRow>
+                                                            )
+                                                        })
+                                                    }
+                                                    <TableRow onClick={() => this.props.history.push("/VisitorsDetails?id=1")} style={{cursor:"pointer"}}>
+                                                        <TableCell className="ellipse" style={{fontWeight:"bold"}}>Alex Walker <Typography variant="subtitle2" className="chairmanSelected">Chairman</Typography></TableCell>
+                                                        <TableCell style={{fontWeight:"bold"}}>Alex Walker</TableCell>
+                                                        <TableCell style={{fontWeight:"bold"}}>Building 1 </TableCell>
+                                                    </TableRow>
+                                                </TableBody>
+                                            </Table>
+                                        </Paper>
+                                    </Grid>
+                            }
                             <Grid item xs={12}>
                                 <Paper elevation={2} style={{backgroundColor:"white",padding:"20px 30px",borderRadius:"15px",cursor:"pointer"}}>
                                     <Table className="table-box">
@@ -403,8 +466,8 @@ class MyTeamCore extends NominationDetailsController {
                     </Grid>
                     <Grid item xs={12} style={{display:'flex',justifyContent:"flex-end",marginTop:"20px"}}>
                         <Box>
-                            <DeclineButton variant="contained" style={{marginRight:"15px"}}>Cancel</DeclineButton>
-                            <AcceptButton variant="contained" onClick={this.updateNominationData}>Start Process</AcceptButton>
+                            <DeclineButton variant="contained" style={{marginRight:"15px"}}>{t("Cancel")}</DeclineButton>
+                            <AcceptButton variant="contained" onClick={this.updateNominationData}>{t("Start Process")}</AcceptButton>
                         </Box>
                     </Grid>
                 </div>
@@ -484,12 +547,12 @@ class MyTeamCore extends NominationDetailsController {
                                 <Box display="flex" alignItems="center">
                                     <img src={profileExp}/>
                                     <Box style={{marginLeft:"10px",display:"flex"}}>
-                                        <Typography style={{fontWeight:"bold",marginRight:"20px"}}>Jhon Doe</Typography>
-                                        <Typography>B-104, B-105 , D-504</Typography>
+                                        <Typography style={{fontWeight:"bold",marginRight:"20px"}}>{this.state.myProfile.name}</Typography>
+                                        <Typography>{this.state.myProfile.unit_number?.join(",")}</Typography>
                                     </Box>
                                 </Box>
                                 <Box style={{marginTop:"10px"}}>
-                                    <Typography variant="subtitle2" className={"statusOngoingBlue"}>Owner</Typography>
+                                    <Typography variant="subtitle2" className={"statusOngoingBlue"}>{this.state.myProfile.role}</Typography>
                                 </Box>
                             </Box>
                             <Box style={{width:"100%",marginTop:"20px "}}>
@@ -506,7 +569,7 @@ class MyTeamCore extends NominationDetailsController {
                                 />
                             </Box>
                             <Box style={{width:"100%",marginTop:"20px "}}>
-                                <Typography style={{fontWeight:"bold"}}>Nominate As a</Typography>
+                                <Typography style={{fontWeight:"bold"}}>{t("Nominate As a")}</Typography>
                                 <FormControlLabel
                                     onChange={this.manageSelectRole}
                                     control={<Checkbox checkedIcon={<CheckBoxIcon style={{color:"#fc8434"}}/>} name="checkedA" value={0} checked={this.state.myNominationAs.find((check:any)=> check === '0') ? true : false}/>}
@@ -521,8 +584,8 @@ class MyTeamCore extends NominationDetailsController {
                         </Grid>
                         <Grid item xs={12} style={{display:'flex',justifyContent:"flex-end",marginTop:"1px"}}>
                             <Box>
-                                <CancelButton variant="contained" style={{marginRight:"15px",width:"150px"}}>Cancel</CancelButton>
-                                <ChairmanButton variant="contained" style={{width:"150px"}} onClick={this.manageNominate}>Submit</ChairmanButton>
+                                <CancelButton variant="contained" style={{marginRight:"15px",width:"150px"}} onClick={this.handleCloseMySelfModal}>{t("Cancel")}</CancelButton>
+                                <ChairmanButton variant="contained" style={{width:"150px"}} onClick={this.manageNominate}>{t("Submit")}</ChairmanButton>
                             </Box>
                         </Grid>
                     </Grid>
@@ -570,10 +633,10 @@ class MyTeamCore extends NominationDetailsController {
                     </Typography>
                     <DialogActions className="dialog-button-group">
                         <Button className="cancel-button" style={{ width: "200px" }} onClick={() => this.setState({voteConfirmModal:false})}>
-                            Close
+                            {t("Close")}
                         </Button>
                         <Button style={{ width: "200px" }} className="add-button" onClick={this.confirmVote} >
-                            Confirm
+                            {t("Confirm")}
                         </Button>
                     </DialogActions>
                 </Box>

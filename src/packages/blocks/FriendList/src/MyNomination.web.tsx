@@ -78,7 +78,10 @@ class NominateMySelf extends NominateMySelfController{
                         </Grid>
                     </Grid>
                     <Box style={{width:"90%",marginBottom:"50px",marginTop:"10px"}}>
-                        <CloseButton variant="contained" fullWidth size="large">
+                        {
+                            console.log("NOMINATION FIND ID","myNominateId",this.state.myNominateId)
+                        }
+                        <CloseButton variant="contained" fullWidth size="large" onClick={()=> this.cancelMyNomination()}>
                             Cancel Nomination
                         </CloseButton>
                     </Box>

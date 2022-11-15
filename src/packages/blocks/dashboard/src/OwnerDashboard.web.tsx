@@ -458,7 +458,7 @@ class OwnerDashboard extends DashboardController {
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
-                    <Link href="/InvoiceBilling">
+                    <Link href="/InvoicesAndReceipts">
                       <DashboardCard
                         image={DashboardInvoice}
                         heading={t("My Invoices")}

@@ -219,7 +219,7 @@ import ViewInvoices from '../../blocks/InvoiceBilling/src/ViewInvoices.web';
 import ViewReceipt from '../../blocks/InvoiceBilling/src/ViewReceipt.web';
 import InvoicesDetails from '../../blocks/InvoiceBilling/src/InvoicesDetails.web';
 import ReceiptsDetails from '../../blocks/InvoiceBilling/src/ReceiptsDetails.web';
-import CharmainInvoices from '../../blocks/dashboard/src/CharmainInvoices.web';
+import CharmainInvoices from '../../blocks/InvoiceBilling/src/CharmainInvoices.web';
 
 import ChairmanProfile from '../../blocks/Settings5/src/ChairmanProfile.web';
 import Profile from '../../blocks/user-profile-basic/src/Profile.web';
@@ -280,6 +280,7 @@ import MyTeamUserDetails from '../../blocks/FriendList/src/MyTeamUserDetails.web
 import ChairmanNominationMain from '../../blocks/FriendList/src/ChairmanNominationMain.web';
 import NominationDetails from '../../blocks/FriendList/src/NominationDetails.web';
 import NominationSuccess from '../../blocks/FriendList/src/NominationAdded';
+import NominationUpdated from "../../blocks/FriendList/src/NominationUpdated"
 import ChairmanNominations from '../../blocks/FriendList/src/ChairmanNomination';
 import ChairmanNominationDetails from '../../blocks/FriendList/src/ChairmanNominationDetails.web';
 import NominateMySelf from '../../blocks/FriendList/src/NominateMySelf.web';
@@ -305,6 +306,9 @@ import MyInvoices from '../../blocks/CollectTransactionFees/src/MyInvoices.web';
 import MyInvoiceDetails from '../../blocks/CollectTransactionFees/src/MyInvoiceDetails.web';
 import MyReceipts from '../../blocks/CollectTransactionFees/src/MyReceipts.web';
 import MyReceiptsDetails from '../../blocks/CollectTransactionFees/src/MyReceiptsDetails.web';
+
+// Chairman Side
+import CharmainReceipts from "../../blocks/InvoiceBilling/src/CharmainReceipts.web"
 
 // Reports
 import ReportDashboard from '../../blocks/ExpenseTracking/src/ReportDashboard.web';
@@ -545,6 +549,11 @@ const routeMap = {
   CharmainInvoices: {
     component: CharmainInvoices,
     path: '/CharmainInvoices',
+    exact: true
+  },
+  CharmainReceipts: {
+    component: CharmainReceipts,
+    path: '/CharmainReceipts',
     exact: true
   },
   IncidentListing: {
@@ -1666,6 +1675,12 @@ const routeMap = {
   NominationSuccess: {
     component: NominationSuccess,
     path: '/NominationSuccess',
+    exact: true
+  },
+
+  NominationUpdated: {
+    component: NominationUpdated,
+    path: '/NominationUpdated',
     exact: true
   },
 

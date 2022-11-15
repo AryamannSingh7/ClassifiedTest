@@ -96,7 +96,7 @@ class MyTeam extends MyTeamController {
                     <Typography className="Recenttitle">Core Members({this.state.coreMembers.length})</Typography>
                     {
                         this.state.coreMembers.length > 3 &&
-                        <Link href="/TeamMembers/CoreTeam" >
+                        <Link href="/TeamMembers/CoreMember" >
                             <Typography className="ViewAll">{t("View All")}</Typography>
                         </Link>
                     }
