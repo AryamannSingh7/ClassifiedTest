@@ -173,6 +173,7 @@ import CreateFacilityReservation from '../../blocks/RequestManagement/src/Create
 import FacilityManagerDetail from '../../blocks/RequestManagement/src/FacilityManagerDetail.web';
 import ManagerFacilityReservation from '../../blocks/RequestManagement/src/ManagerFacilityReservation.web';
 
+
 // Help
 import FaqChairman from '../../blocks/contactus/src/FaqChairman.web';
 import FaqOwner from '../../blocks/contactus/src/FaqOwner.web';
@@ -264,6 +265,8 @@ import VisitorAddSuccess from '../../blocks/invitefriends/src/VisitorAdded';
 import VisitorUpdateSuccess from '../../blocks/invitefriends/src/VisitorUpdated';
 import VisitorAdd from '../../blocks/invitefriends/src/VisitorAdd.web';
 import VisitorList from '../../blocks/invitefriends/src/VisitorsList.web';
+import Unit from '../../blocks/invitefriends/src/Unit.web';
+
 import VisitorsDetails from '../../blocks/invitefriends/src/VisitorDetailsManager.web';
 
 // Register Tenant
@@ -659,13 +662,13 @@ const routeMap = {
     path: '/FacilityManagerDetail',
     exact: true
   },
-
+ 
   ManagerFacilityReservation: {
     component: ManagerFacilityReservation,
     path: '/ManagerFacilityReservation',
     exact: true
   },
-
+ 
   // RolesPermissions2: {
   //   component: RolesPermissions2,
   //   path: '/RolesPermissions2'
@@ -1578,6 +1581,11 @@ const routeMap = {
   VisitorList: {
     component: VisitorList,
     path: '/VisitorList',
+    exact: true
+  },
+  Unit: {
+    component: Unit,
+    path: '/Unit',
     exact: true
   },
 

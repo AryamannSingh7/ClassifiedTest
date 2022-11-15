@@ -6,5 +6,6 @@ export const ROLE = {
   TENANT: 'Tenant',
   OWNER_RESIDENT: 'Owner Resident',
   PROPERTY_MANAGER: 'Property Manager',
-  MANAGER: 'Manager'
+  MANAGER: 'Manager',
+  VISITORS:"Visitors"
 };
