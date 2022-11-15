@@ -265,6 +265,8 @@ import VisitorAddSuccess from '../../blocks/invitefriends/src/VisitorAdded';
 import VisitorUpdateSuccess from '../../blocks/invitefriends/src/VisitorUpdated';
 import VisitorAdd from '../../blocks/invitefriends/src/VisitorAdd.web';
 import VisitorList from '../../blocks/invitefriends/src/VisitorsList.web';
+import Unit from '../../blocks/invitefriends/src/Unit.web';
+
 import VisitorsDetails from '../../blocks/invitefriends/src/VisitorDetailsManager.web';
 
 // Register Tenant
@@ -1571,6 +1573,11 @@ const routeMap = {
   VisitorList: {
     component: VisitorList,
     path: '/VisitorList',
+    exact: true
+  },
+  Unit: {
+    component: Unit,
+    path: '/Unit',
     exact: true
   },
 
