@@ -40,7 +40,7 @@ class ScheduledVisitors  extends ScheduledVisitorController{
       return (
         <>
             <Grid item xs={12} md={12} className="auth-cols">
-                <Grid container style={{ margin: '1rem', width: '95%' }} >
+                <Grid container style={{ margin: '1.5rem 1rem', width: '95%' }} >
                   <Grid xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem",justifyContent:"space-between"}} >
                       <Box style={{ display:"flex", alignItems:"center", gap:"5px"}}>
                           <ArrowBackIcon onClick={() => window.history.back()} />
@@ -87,7 +87,7 @@ class ScheduledVisitors  extends ScheduledVisitorController{
                                     {t("Scheduled Visitors")}
                                 </Typography>
                                 <Typography variant="body2" style={{textAlign:"center"}}>
-                                    {("Scheduled_Visit_Cancel_Caution")}
+                                    {("Scheduled Visit Cancel Caution")}
                                 </Typography>
                                 <Box style={{marginTop:"15px",width:"90%",display:"flex",flexDirection:"column",alignItems:"center"}}>
                                     {/*@ts-ignore*/}

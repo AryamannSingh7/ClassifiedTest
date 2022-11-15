@@ -52,6 +52,7 @@ import {
   DashboardInvoice,
   DashboardReport,
   DashboardManager,
+  voting
 } from "./assets";
 import { DashboardStyleWeb } from "./DashboardStyle.web";
 import DashboardCard from "../../../components/src/DashboardCard";
@@ -458,7 +459,7 @@ class OwnerDashboard extends DashboardController {
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
-                    <Link href="/InvoiceBilling">
+                    <Link href="/InvoicesAndReceipts">
                       <DashboardCard
                         image={DashboardInvoice}
                         heading={t("My Invoices")}
@@ -500,6 +501,11 @@ class OwnerDashboard extends DashboardController {
                   <Grid item xs={6} sm={6}>
                     <Link href="">
                       <DashboardCard image={keyhand} heading={t("Rent Payments")} title={t("Registered")} value="75" />
+                    </Link>
+                  </Grid>
+                  <Grid item xs={6} sm={6}>
+                    <Link href="/ChairmanNominations">
+                      <DashboardCard image={voting} heading={t("Chairman Nominations")} title={t("Chairman And Vice Chairman Nominations")} value="75" />
                     </Link>
                   </Grid>
                 </Grid>

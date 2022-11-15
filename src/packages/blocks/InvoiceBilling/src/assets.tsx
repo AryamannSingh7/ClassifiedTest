@@ -5,3 +5,5 @@ export const Grid_Icon = require("../assets/grid-icon.png");
 export const Filter_Icon = require("../assets/filter-icon.png");
 export const Tenant_Logo = require("../assets/TenantLogo.png");
 export const Bank_Icon = require("../assets/bank-icon.png");
+export const DownloadIcon = require("../assets/download.png")
+export const confirmIcon = require("../assets/valid.png")
