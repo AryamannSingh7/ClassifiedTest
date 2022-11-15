@@ -54,7 +54,7 @@ import ContentFlag from '../../blocks/ContentFlag/src/ContentFlag';
 import StoreCredits from '../../blocks/StoreCredits/src/StoreCredits';
 import InvoiceBilling from '../../blocks/InvoiceBilling/src/InvoiceBilling';
 import EmailAccountRegistration from '../../blocks/email-account-registration/src/EmailAccountRegistration';
-import ContentManagement from '../../blocks/ContentManagement/src/ContentManagement';
+// import ContentManagement from '../../blocks/ContentManagement/src/ContentManagement';
 import PricingEngine2 from '../../blocks/PricingEngine2/src/PricingEngine2';
 import Chat9 from '../../blocks/Chat9/src/Chat9';
 import CollectTransactionFees from '../../blocks/CollectTransactionFees/src/CollectTransactionFees';
@@ -169,6 +169,9 @@ import FacilityReservationDetails from '../../blocks/RequestManagement/src/Facil
 import FacilityReservation from '../../blocks/RequestManagement/src/FacilityReservation.web';
 import FacilityReservationReportedSuccessfully from '../../blocks/RequestManagement/src/FacilityReservationReportedSuccessfully.web';
 import CreateFacilityReservation from '../../blocks/RequestManagement/src/CreateFacilityReservation.web';
+
+import FacilityManagerDetail from '../../blocks/RequestManagement/src/FacilityManagerDetail.web';
+import ManagerFacilityReservation from '../../blocks/RequestManagement/src/ManagerFacilityReservation.web';
 
 
 // Help
@@ -318,10 +321,16 @@ import MyUnitDetails from '../../blocks/TaskAllocator/src/UnitDetails.web';
 import RentHistory from '../../blocks/TaskAllocator/src/RentHistory.web';
 import PendingUnit from '../../blocks/TaskAllocator/src/PendingUnit.web';
 import EditMyUnit from '../../blocks/TaskAllocator/src/EditUnit.web';
+import TenantProfile from '../../blocks/TaskAllocator/src/TenantProfile.web';
 
 // Property Manager
-import PropertyManagerList from '../../blocks/ReviewAndApproval/src/ManagerList.web';
-import RegisterPropertyManager from '../../blocks/ReviewAndApproval/src/RegisterManager.web';
+import PropertyManagerList from '../../blocks/ReviewAndApproval/src/PropertyManagerList.web';
+import RegisterPropertyManager from '../../blocks/ReviewAndApproval/src/RegisterPropertyManager.web';
+import RegisterPropertyManagerSuccess from '../../blocks/ReviewAndApproval/src/PropertyManagerSuccess.web';
+import PropertyManagerDetails from '../../blocks/ReviewAndApproval/src/PropertyManagerDetails.web';
+
+// My Lease
+import MyLeaseList from '../../blocks/ContentManagement/src/MyLeaseList.web';
 
 const routeMap = {
   //done
@@ -637,6 +646,19 @@ const routeMap = {
     path: '/FacilityReservationReportedSuccessfully',
     exact: true
   },
+
+  FacilityManagerDetail: {
+    component: FacilityManagerDetail,
+    path: '/FacilityManagerDetail',
+    exact: true
+  },
+ 
+  ManagerFacilityReservation: {
+    component: ManagerFacilityReservation,
+    path: '/ManagerFacilityReservation',
+    exact: true
+  },
+ 
   // RolesPermissions2: {
   //   component: RolesPermissions2,
   //   path: '/RolesPermissions2'
@@ -1098,10 +1120,10 @@ const routeMap = {
     component: EmailAccountRegistration,
     path: '/EmailAccountRegistration'
   },
-  ContentManagement: {
-    component: ContentManagement,
-    path: '/ContentManagement'
-  },
+  // ContentManagement: {
+  //   component: ContentManagement,
+  //   path: '/ContentManagement'
+  // },
   PricingEngine2: {
     component: PricingEngine2,
     path: '/PricingEngine2'
@@ -1349,10 +1371,10 @@ const routeMap = {
     component: EmailAccountRegistration,
     path: '/EmailAccountRegistration'
   },
-  ContentManagement: {
-    component: ContentManagement,
-    path: '/ContentManagement'
-  },
+  // ContentManagement: {
+  //   component: ContentManagement,
+  //   path: '/ContentManagement'
+  // },
   PricingEngine2: {
     component: PricingEngine2,
     path: '/PricingEngine2'
@@ -1854,7 +1876,7 @@ const routeMap = {
   },
   EditMyUnit: {
     component: EditMyUnit,
-    path: '/MyUnitDetails/Edit',
+    path: '/MyUnitDetails/Edit/:id',
     roles: [ROLE.OWNER],
     exact: true
   },
@@ -1870,6 +1892,12 @@ const routeMap = {
     roles: [ROLE.OWNER],
     exact: true
   },
+  TenantProfile: {
+    component: TenantProfile,
+    path: '/TenantProfile/:id',
+    roles: [ROLE.PUBLIC],
+    exact: true
+  },
   // Property Manager
   PropertyManagerList: {
     component: PropertyManagerList,
@@ -1877,9 +1905,21 @@ const routeMap = {
     roles: [ROLE.OWNER],
     exact: true
   },
+  PropertyManagerDetails: {
+    component: PropertyManagerDetails,
+    path: '/PropertyManager/:id',
+    roles: [ROLE.OWNER],
+    exact: true
+  },
   RegisterPropertyManager: {
     component: RegisterPropertyManager,
     path: '/RegisterPropertyManagers',
+    roles: [ROLE.OWNER],
+    exact: true
+  },
+  RegisterPropertyManagerSuccess: {
+    component: RegisterPropertyManagerSuccess,
+    path: '/RegisterPropertyManagers/Success',
     roles: [ROLE.OWNER],
     exact: true
   },
@@ -1912,6 +1952,13 @@ const routeMap = {
     component: ManagementFeeReport,
     path: '/ManagementFeeReports',
     roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
+    exact: true
+  },
+  // My Lease
+  MyLeaseList: {
+    component: MyLeaseList,
+    path: '/MyLeaseList',
+    roles: [ROLE.TENANT, ROLE.OWNER_RESIDENT],
     exact: true
   },
 

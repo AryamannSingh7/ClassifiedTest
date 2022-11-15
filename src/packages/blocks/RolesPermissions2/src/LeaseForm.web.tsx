@@ -25,6 +25,7 @@ import {
   CalenderIcon,
   RentAmountIcon,
   CurrencyIcon,
+  ComplexIcon,
 } from "./assets";
 import LeaseFormController, { Props } from "./LeaseFormController.web";
 import { Formik, Form } from "formik";
@@ -39,6 +40,8 @@ class LeaseForm extends LeaseFormController {
   async componentDidMount(): Promise<void> {
     const contract = JSON.parse(window.sessionStorage.getItem("contractForm") as any);
     const template_id: any = this.props.navigation.getParam("templateId");
+    window.sessionStorage.removeItem("buildingId");
+    window.sessionStorage.removeItem("unitId");
     this.setState(
       {
         templateId: template_id,
@@ -54,13 +57,16 @@ class LeaseForm extends LeaseFormController {
           endDate: contract.endDate,
           monthlyRent: contract.monthlyRent,
           currency: contract.currency,
+          complexName: contract.complexName,
+          address: contract.address,
         },
       },
       () => {
         this.getCurrencyList();
         this.getBuilding();
-        if (this.state.leaseForm.buildingId) {
+        if (this.state.leaseForm.buildingId && this.state.leaseForm.unitId) {
           this.getUnits(this.state.leaseForm.buildingId);
+          this.getUnitDetails(this.state.leaseForm.unitId);
           this.handleCheckContractExist(this.state.leaseForm.unitId);
         }
       }
@@ -71,9 +77,12 @@ class LeaseForm extends LeaseFormController {
     const { classes } = this.props;
     const { t }: any = this.props;
 
+    const isEditTemplate = window.sessionStorage.getItem("isEditFlow");
+    const page = window.sessionStorage.getItem("page");
+
     return (
       <>
-        <Box style={{ background: "white", height: "100vh" }} className={classes.selectTemplate}>
+        <Box style={{ background: "white", height: "100vh", overflowY: "hidden" }} className={classes.selectTemplate}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box>
@@ -116,10 +125,11 @@ class LeaseForm extends LeaseFormController {
                                       <img src={TenantName} alt="" />
                                     </InputAdornment>
                                   }
+                                  readOnly
                                 />
-                                {errors.tenantName && touched.tenantName && (
+                                {/* {errors.tenantName && touched.tenantName && (
                                   <p className="error">{t(errors.tenantName)}</p>
-                                )}
+                                )} */}
                               </FormControl>
                               <FormControl fullWidth>
                                 <Input
@@ -134,90 +144,44 @@ class LeaseForm extends LeaseFormController {
                                       <img src={TenantName} alt="" />
                                     </InputAdornment>
                                   }
+                                  readOnly
                                 />
-                                {errors.landlordName && touched.landlordName && (
+                                {/* {errors.landlordName && touched.landlordName && (
                                   <p className="error">{t(errors.landlordName)}</p>
-                                )}
+                                )} */}
                               </FormControl>
-                              {/* <Select
-                        displayEmpty
-                        value=""
-                        variant="filled"
-                        fullWidth
-                        className="select-input"
-                        input={<OutlinedInput />}
-                      >
-                        <MenuItem value="" disabled>
-                          <ListItemIcon>
-                            <img src={CubeIcon} alt="" />
-                          </ListItemIcon>
-                          Country
-                        </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
-                      </Select>
-                      <Select
-                        displayEmpty
-                        value=""
-                        variant="filled"
-                        fullWidth
-                        className="select-input"
-                        input={<OutlinedInput />}
-                      >
-                        <MenuItem value="" disabled>
-                          <ListItemIcon>
-                            <img src={CubeIcon} alt="" />
-                          </ListItemIcon>
-                          Region
-                        </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
-                      </Select>
-                      <Select
-                        displayEmpty
-                        value=""
-                        variant="filled"
-                        fullWidth
-                        className="select-input"
-                        input={<OutlinedInput />}
-                      >
-                        <MenuItem value="" disabled>
-                          <ListItemIcon>
-                            <img src={CubeIcon} alt="" />
-                          </ListItemIcon>
-                          City
-                        </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
-                      </Select> */}
-                              {/* <FormControl fullWidth>
-                                <Select
-                                  displayEmpty
+                              <FormControl fullWidth>
+                                <Input
                                   value={values.complexName}
                                   onChange={handleChange}
                                   onBlur={handleBlur}
                                   name="complexName"
-                                  variant="filled"
-                                  className="select-input"
-                                  input={<OutlinedInput />}
-                                >
-                                  <MenuItem value="" disabled>
-                                    <ListItemIcon>
-                                      <img src={CubeIcon} alt="" />
-                                    </ListItemIcon>
-                                    Complex Name
-                                  </MenuItem>
-                                  <MenuItem value={10}>Ten</MenuItem>
-                                  <MenuItem value={20}>Twenty</MenuItem>
-                                  <MenuItem value={30}>Thirty</MenuItem>
-                                </Select>
-                                {errors.complexName && touched.complexName && (
-                                  <p className="error">{errors.complexName}</p>
-                                )}
-                              </FormControl> */}
+                                  className="select-input input"
+                                  placeholder={t("Complex Name")}
+                                  startAdornment={
+                                    <InputAdornment position="start">
+                                      <img src={ComplexIcon} alt="" />
+                                    </InputAdornment>
+                                  }
+                                  readOnly
+                                />
+                              </FormControl>
+                              <FormControl fullWidth>
+                                <Input
+                                  value={values.address}
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  name="address"
+                                  className="select-input input"
+                                  placeholder={t("Complex Address")}
+                                  startAdornment={
+                                    <InputAdornment position="start">
+                                      <img src={ComplexIcon} alt="" />
+                                    </InputAdornment>
+                                  }
+                                  readOnly
+                                />
+                              </FormControl>
                               <FormControl fullWidth>
                                 <Box className="select-box">
                                   <Select
@@ -233,6 +197,11 @@ class LeaseForm extends LeaseFormController {
                                     variant="filled"
                                     className="select-input"
                                     input={<OutlinedInput />}
+                                    readOnly={
+                                      isEditTemplate === "false" &&
+                                      page === "IssueContract" &&
+                                      this.state.leaseForm.buildingId
+                                    }
                                   >
                                     <MenuItem value="" disabled>
                                       {t("Building Name")}
@@ -264,12 +233,18 @@ class LeaseForm extends LeaseFormController {
                                       const value = e.target.value;
                                       setFieldValue("unitId", value);
                                       this.handleCheckContractExist(value);
+                                      this.getUnitDetails(value);
                                     }}
                                     onBlur={handleBlur}
                                     name="unitId"
                                     variant="filled"
                                     className="select-input"
                                     input={<OutlinedInput />}
+                                    readOnly={
+                                      isEditTemplate === "false" &&
+                                      page === "IssueContract" &&
+                                      this.state.leaseForm.unitId
+                                    }
                                   >
                                     <MenuItem value="" disabled>
                                       {t("Unit Name")}

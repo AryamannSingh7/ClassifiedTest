@@ -97,22 +97,28 @@ export default class ContractDetailController extends BlockComponent<Props, S, S
 
         let conditionText: string = "";
         if (contract.attributes.conditions && contract.attributes.conditions.length > 0) {
-          conditionText += "<h4>Personal Condition</h4>";
+          conditionText += "<br/><h4>Personal Condition</h4>";
           contract.attributes.conditions.map((condition: any) => {
             conditionText += `<p>${condition.text}</p>`;
             return;
           });
         }
         if (contract.attributes.terms && contract.attributes.terms.length > 0) {
-          conditionText += "<h4>Payment Terms</h4>";
+          conditionText += "<br/><h4>Payment Terms</h4>";
           contract.attributes.terms.map((term: any) => {
             conditionText += `<p>${term.text}</p>`;
             return;
           });
         }
         if (contract.attributes.custom_term_condition) {
-          conditionText += "<h4>Custom Condition</h4>";
+          conditionText += "<br/><h4>Custom Condition</h4>";
           conditionText += contract.attributes.custom_term_condition;
+        }
+
+        if (contract.attributes.penanlty_late_payment && contract.attributes.penanlty_late_payments) {
+          conditionText += "<br/><h4>Late Payment Penalty</h4>";
+          conditionText += `<p>Type: ${contract.attributes.penanlty_late_payments.penanlty_counted}</p>`;
+          conditionText += `<p>Amount: ${contract.attributes.penanlty_late_payments.amount}</p>`;
         }
 
         this.setState({

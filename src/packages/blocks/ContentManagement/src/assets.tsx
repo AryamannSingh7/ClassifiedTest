@@ -47,3 +47,5 @@ export const PayDetailIcon = require("../assets/payment_detail_icon.png");
 export const TimeIcon = require("../assets/time_icon.png");
 export const DeleteIcon = require("../assets/delete_icon.png");
 export const NoClassifiedIcon = require("../assets/no-classified-icon.png");
+export const PdfImage = require("../assets/pdf.png");
+export const BuildingLogo = require("../assets/building1.png");

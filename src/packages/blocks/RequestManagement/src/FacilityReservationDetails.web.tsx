@@ -37,7 +37,8 @@ import {
   Building1,
   Pencil,
   wrong,
-  Bin
+  Bin,
+  DeleteIcon
   // User_Icon,
   // Calender_Icon,
   // Info_Icon,
@@ -51,7 +52,7 @@ class FacilityReservationDetails extends FacilityReservationController {
   }
   componentDidMount():any {
      //@ts-ignore
-    const id = this.props.history.location?.idOrName;
+    const id = localStorage.getItem("facilityReservationId");
     if(id)
        this.getFacilityReservationDetailsById(id);
    else 
@@ -77,11 +78,12 @@ class FacilityReservationDetails extends FacilityReservationController {
 
                   <Box className="incident-right-block blocks">
                      <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-                       <Button  onClick={() =>" " }>
+                       <Button onClick={() => { this.props.history.push({pathname: "/CreateFacilityReservation",//@ts-ignore
+                       id}) }}>
                          <img src={Pencil} className="grid-icon icons" alt="" />
                        </Button>
                      </Box>
-                     <Button  onClick={() => " "}>
+                     <Button  onClick={() => { this.setState({ deleteShowDialog: true }) }}>
                        <img src={Bin} className="filter-icon icons" alt="" />
                      </Button>
                    </Box>
@@ -98,13 +100,13 @@ class FacilityReservationDetails extends FacilityReservationController {
                          Building Name:
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                          {attributes?.building_management_id}
+                          {attributes?.building?.name}
                         </Typography>
                         <Typography className="title-span" component="span">
                          Facility Reserved:
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                          {attributes?.common_area_id}
+                          {attributes?.common_area?.name}
                         </Typography>
                         <Typography className="title-span" component="span">
                           Rent:
@@ -144,41 +146,76 @@ class FacilityReservationDetails extends FacilityReservationController {
               </Box>
             </Grid>
           </Grid>
-          <Dialog
-            open={this.state.showDialog}
-            onClose={() => this.setState({ showDialog: false })}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-            className="diloag-wrapper"
-            PaperProps={{
-              style: {
-                borderRadius: '15px',
-              },
-            }}
-          >
-            <Box className="diloag-body">
-              <Box className="diloag-header">
-                <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
-                  {this.state?.file?.name}
-                </DialogTitle>
-                <Button onClick={() => { this.setState({ showDialog: false }) }}>
-                  <img src={"#"} className="close-icon" onClick={() => { this.setState({ showDialog: false }) }} />
-                </Button>
-              </Box>
-              <Box className="diloag-content-body">
-                {
-                  this.state?.file?.type === "video/mp4" || this.state?.file?.type === "video/x-m4v" ?
-                    <video className="incident-dialog-video" controls >
-                      <source src={this.state?.file?.url} type={this.state?.file?.type} />
-                    </video>
-                    :
-                    <Box>
-                      <img src={this.state?.file?.url} className="incident-dialog-photo" alt="card-img" />
+
+           {/* view status dialog */}
+                <Dialog
+                open={this.state?.showDialog}
+                onClose={() => this.setState({ showDialog: false })}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                className="diloag-wrapper"
+                PaperProps={{
+                  style: {
+                    borderRadius: '15px',
+                    width: "500px"
+                  },
+                }}
+              >
+                <Box className="diloag-body classified-dialouge-body desktop-ui ">
+                  <Box className="diloag-header classified-header">
+                    <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
+                      {""}
+                    </DialogTitle>
+                    {/* <Button onClick={() => this.setState({ showDialog: false })}>
+                      <img src={Close_Icon} className="close-icon" />
+                    </Button> */}
+                  </Box>
+                  <Box className="diloag-content classified-content diloag-management-content">
+                    <img src={DeleteIcon} className="lock-logo" alt="Lock_Icon" />
+                    <h3>Cancel Reservation</h3>
+                    <p className="lead">Are you sure you want to cancel this reservation? If you proceed your reservation will be deleted and the manager will be notified</p>
+                    <Box className="diloag-btn customButton">
+                      <Button variant="outlined" onClick={() => { this.setState({ showDialog: false }) }}>Yes, DELETE</Button>
+                      <Button variant="contained" onClick={() => { this.setState({ showDialog: false }) }} >No, don’t delete</Button>
                     </Box>
-                }
-              </Box>
-            </Box>
-          </Dialog>
+                  </Box>
+                </Box>
+              </Dialog>
+
+            {/* view status dialog */}
+            <Dialog
+                open={this.state?.deleteShowDialog}
+                onClose={() => this.setState({ deleteShowDialog: false })}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                className="diloag-wrapper"
+                PaperProps={{
+                  style: {
+                    borderRadius: '15px',
+                    width: "500px"
+                  },
+                }}
+              >
+                <Box className="diloag-body classified-dialouge-body desktop-ui ">
+                  <Box className="diloag-header classified-header">
+                    <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
+                      {""}
+                    </DialogTitle>
+                    {/* <Button onClick={() => this.setState({ deleteShowDialog: false })}>
+                      <img src={Close_Icon} className="close-icon" />
+                    </Button> */}
+                  </Box>
+                  <Box className="diloag-content classified-content diloag-management-content">
+                    <img src={DeleteIcon} className="lock-logo" alt="Lock_Icon" />
+                    <h3>Delete Pending Reservation Request?</h3>
+                    <p className="lead"> Are you sure want to delete pending garden reservation request? Once deleted you will have to request reserving the facility again</p>
+                    <Box className="diloag-btn customButton">
+                      <Button variant="outlined" onClick={() => { this.deleteFacility(id)}}>Yes, DELETE</Button>
+                      <Button variant="contained" onClick={() => { this.setState({ deleteShowDialog: false }) }} >No, don’t delete</Button>
+                    </Box>
+                  </Box>
+                </Box>
+              </Dialog>
         </Box>
         <Loader loading={this.state.loading} />
       </>

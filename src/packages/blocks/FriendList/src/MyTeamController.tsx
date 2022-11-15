@@ -17,6 +17,7 @@ export interface Props {
   id: string;
   history:any;
   location:any;
+  match:any;
 }
 
 interface S {
@@ -37,6 +38,7 @@ interface S {
   providers:any;
   deleteId:any;
   editId:any;
+  teamList:any;
 }
 
 interface SS {
@@ -56,6 +58,7 @@ export default class FriendListController extends BlockComponent<
   getUserListId:string = "";
   manageApprovalId:string = "";
   deleteMemberId:string = "";
+  getMySelectedTeamListId:string = "";
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
@@ -85,6 +88,7 @@ export default class FriendListController extends BlockComponent<
       subTeam:[],
       deleteId:"",
       editId:"",
+      teamList:[],
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
@@ -120,7 +124,12 @@ export default class FriendListController extends BlockComponent<
 
   async componentDidMount(): Promise<void> {
     super.componentDidMount();
-    this.getMyTeamList()
+
+    if(this.props.match.params.type){
+     this.getMySelectedTeamList()
+    }else{
+      this.getMyTeamList()
+    }
   }
 
   approvalFnc = (type:any,id:any) => {
@@ -138,6 +147,19 @@ export default class FriendListController extends BlockComponent<
       contentType: "application/json",
       method: "GET",
       endPoint: `/bx_block_my_team/team_members?society_management_id=${societyID}`,
+    });
+  }
+
+  getMySelectedTeamList = async () => {
+    const type = this.props.match.params.type
+    this.setState({
+      loading:true
+    })
+    const societyID = localStorage.getItem("society_id")
+    this. getMySelectedTeamListId = await this.apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `/bx_block_my_team/team_members?society_management_id=${societyID}&team_member_type=${type}`,
     });
   }
 
@@ -276,6 +298,14 @@ export default class FriendListController extends BlockComponent<
           })
         }
       }
+      if(apiRequestCallId === this.getMySelectedTeamListId){
+        if(responseJson.hasOwnProperty("data")){
+          this.setState({
+            loading:false,
+            teamList:responseJson.data,
+          })
+        }
+      }
       if(apiRequestCallId === this.getRolesListId){
         if(responseJson.hasOwnProperty("data")){
           this.setState({
@@ -306,7 +336,11 @@ export default class FriendListController extends BlockComponent<
       }
       if(this.deleteMemberId === apiRequestCallId){
         if(responseJson.message === "Successfully deleted"){
-          this.getMyTeamList()
+          if(this.props.match.params.type){
+            this.getMySelectedTeamList()
+          }else{
+            this.getMyTeamList()
+          }
           this.setState({
             deleteModal:false,
             deleteId:""

@@ -55,7 +55,7 @@ class ContractDetail extends ContractDetailController {
 
     return (
       <>
-        <Box style={{ background: "#F4F7FF", height: "100vh" }} className={classes.detailPage}>
+        <Box style={{ background: "#F4F7FF", height: "100vh", overflowY: "hidden" }} className={classes.detailPage}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box className="faq-step top-bar-contract-details">
@@ -93,6 +93,7 @@ class ContractDetail extends ContractDetailController {
                                 __html: this.state.contractData.conditionText,
                               }}
                             />
+                            <br />
                           </>
                         )}
                       </div>

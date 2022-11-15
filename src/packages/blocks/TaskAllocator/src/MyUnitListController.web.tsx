@@ -16,6 +16,8 @@ export interface Props {
 }
 
 interface S {
+  isDeleteUnitModalOpen: boolean;
+
   myUnitList: any[];
 }
 
@@ -36,6 +38,8 @@ export default class MyUnitListController extends BlockComponent<Props, S, SS> {
     this.subScribedMessages = [getName(MessageEnum.RestAPIResponceMessage), getName(MessageEnum.RestAPIRequestMessage)];
 
     this.state = {
+      isDeleteUnitModalOpen: false,
+
       myUnitList: [],
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -90,5 +94,9 @@ export default class MyUnitListController extends BlockComponent<Props, S, SS> {
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
+  };
+
+  handleDeleteUnitModal = () => {
+    this.setState({ isDeleteUnitModalOpen: !this.state.isDeleteUnitModalOpen });
   };
 }

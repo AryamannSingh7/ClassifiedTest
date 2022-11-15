@@ -261,17 +261,17 @@ export default class FriendListController extends BlockComponent<
             loading:false
           })
         }
-        if(this.createNominationId === apiRequestCallId) {
-          if(responseJson.meta.message === "Nomination created."){
-            this.setState({
-              setOpen:false
-            })
-            this.getNominationList()
-          }else{
-            this.setState({
-              mainError:"Something Went wrong.!"
-            })
-          }
+      }
+      if(this.createNominationId === apiRequestCallId) {
+        if(responseJson.meta.message === "Nomination created."){
+          this.setState({
+            setOpen:false
+          })
+          this.getNominationList()
+        }else{
+          this.setState({
+            mainError:"Something Went wrong.!"
+          })
         }
       }
     }
@@ -297,6 +297,7 @@ export default class FriendListController extends BlockComponent<
       body:data
     });
   }
+
   apiCall = async (data: any) => {
     const { contentType, method, endPoint, body } = data;
     // console.log("Called 1",data);

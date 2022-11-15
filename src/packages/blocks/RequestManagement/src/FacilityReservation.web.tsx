@@ -46,13 +46,13 @@ class FacilityReservation extends FacilityReservationController {
               <Box className="content-block">
                 <Box className="content-header">
                   <Box className="left-block blocks">
-                    <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
+                    <Box className="backIcons" onClick={this.redirectToDashboard}><KeyboardBackspaceIcon /></Box>
                     <h4>Facility Reservation</h4>
                   </Box>
                 </Box>
                 <Box className="content-block-wrapper facility-block-wrapper">
                   <Box className="incident-content-wrapper">
-                    <Card className="card facilityReserve-card" onClick={() => this.getFacilityReservationDetails("UpcomingReservations")}>
+                    <Card className="card facilityReserve-card" onClick={() => this.getFacilityReservationDetails("Upcoming Reservation")}>
                       <CardContent className="costom-card-content">
                         <img src={upcoming} className="frm-icons" alt="House Icon" />
                         <Typography component="h4">
@@ -68,7 +68,7 @@ class FacilityReservation extends FacilityReservationController {
                         </CardActions>
                       </CardContent>
                     </Card>
-                    <Card className="card facilityReserve-card" onClick={() => this.getFacilityReservationDetails("PendingReservations")}>
+                    <Card className="card facilityReserve-card" onClick={() => this.getFacilityReservationDetails("Pending Reservation")}>
                       <CardContent className="costom-card-content">
                         <img src={pending} className="frm-icons" alt="House Icon" />
                         <Typography component="h4">
@@ -84,7 +84,7 @@ class FacilityReservation extends FacilityReservationController {
                         </CardActions>
                       </CardContent>
                     </Card>
-                    <Card className="card facilityReserve-card" onClick={() => this.getFacilityReservationDetails(" PreviousReservations")}>
+                    <Card className="card facilityReserve-card" onClick={() => this.getFacilityReservationDetails("Previous Reservation")}>
                       <CardContent className="costom-card-content">
                         <img src={previous} className="frm-icons" alt="House Icon" />
                         <Typography component="h4">
