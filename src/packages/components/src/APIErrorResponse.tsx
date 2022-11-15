@@ -10,7 +10,13 @@ export const ApiErrorResponse = (responseJson: any) => {
   if (!responseJson || !responseJson.errors) {
     return;
   }
-  const errors: any[] = responseJson.errors;
+  // const errors: any[] = responseJson.errors;
+  let errors: any = [];
+  if (Array.isArray(responseJson.errors)) {
+    errors = responseJson.errors;
+  } else {
+    errors = [responseJson.errors];
+  }
 
   if (errors.length !== 0 && errors[0].token) {
     toast.error(errors[0].token);
@@ -18,7 +24,7 @@ export const ApiErrorResponse = (responseJson: any) => {
     window.location.href = "/";
   }
 
-  let allErrors = "";
+  let allErrors: any = "";
   errors.map((object: string) => {
     const newLocal = JSON.stringify(object);
     JSON.parse(newLocal, (key, value) => {
