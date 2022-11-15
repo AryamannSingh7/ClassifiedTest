@@ -322,7 +322,6 @@ import RegisterMyUnit from '../../blocks/TaskAllocator/src/RegisterUnit.web';
 import RegisterMyUnitSuccess from '../../blocks/TaskAllocator/src/RegisterUnitSuccess.web';
 import MyUnitDetails from '../../blocks/TaskAllocator/src/UnitDetails.web';
 import RentHistory from '../../blocks/TaskAllocator/src/RentHistory.web';
-import PendingUnit from '../../blocks/TaskAllocator/src/PendingUnit.web';
 import EditMyUnit from '../../blocks/TaskAllocator/src/EditUnit.web';
 import TenantProfile from '../../blocks/TaskAllocator/src/TenantProfile.web';
 
@@ -1891,12 +1890,6 @@ const routeMap = {
   EditMyUnit: {
     component: EditMyUnit,
     path: '/MyUnitDetails/Edit/:id',
-    roles: [ROLE.OWNER],
-    exact: true
-  },
-  PendingUnit: {
-    component: PendingUnit,
-    path: '/MyUnitDetails/PendingUnit',
     roles: [ROLE.OWNER],
     exact: true
   },
