@@ -173,7 +173,6 @@ import CreateFacilityReservation from '../../blocks/RequestManagement/src/Create
 import FacilityManagerDetail from '../../blocks/RequestManagement/src/FacilityManagerDetail.web';
 import ManagerFacilityReservation from '../../blocks/RequestManagement/src/ManagerFacilityReservation.web';
 
-
 // Help
 import FaqChairman from '../../blocks/contactus/src/FaqChairman.web';
 import FaqOwner from '../../blocks/contactus/src/FaqOwner.web';
@@ -282,7 +281,7 @@ import MyTeamUserDetails from '../../blocks/FriendList/src/MyTeamUserDetails.web
 import ChairmanNominationMain from '../../blocks/FriendList/src/ChairmanNominationMain.web';
 import NominationDetails from '../../blocks/FriendList/src/NominationDetails.web';
 import NominationSuccess from '../../blocks/FriendList/src/NominationAdded';
-import NominationUpdated from "../../blocks/FriendList/src/NominationUpdated"
+import NominationUpdated from '../../blocks/FriendList/src/NominationUpdated';
 import ChairmanNominations from '../../blocks/FriendList/src/ChairmanNomination';
 import ChairmanNominationDetails from '../../blocks/FriendList/src/ChairmanNominationDetails.web';
 import NominateMySelf from '../../blocks/FriendList/src/NominateMySelf.web';
@@ -310,7 +309,7 @@ import MyReceipts from '../../blocks/CollectTransactionFees/src/MyReceipts.web';
 import MyReceiptsDetails from '../../blocks/CollectTransactionFees/src/MyReceiptsDetails.web';
 
 // Chairman Side
-import CharmainReceipts from "../../blocks/InvoiceBilling/src/CharmainReceipts.web"
+import CharmainReceipts from '../../blocks/InvoiceBilling/src/CharmainReceipts.web';
 
 // Reports
 import ReportDashboard from '../../blocks/ExpenseTracking/src/ReportDashboard.web';
@@ -333,6 +332,7 @@ import PropertyManagerList from '../../blocks/ReviewAndApproval/src/PropertyMana
 import RegisterPropertyManager from '../../blocks/ReviewAndApproval/src/RegisterPropertyManager.web';
 import RegisterPropertyManagerSuccess from '../../blocks/ReviewAndApproval/src/PropertyManagerSuccess.web';
 import PropertyManagerDetails from '../../blocks/ReviewAndApproval/src/PropertyManagerDetails.web';
+import PropertyManagerRequest from '../../blocks/ReviewAndApproval/src/PropertyManagerRequest.web';
 
 // My Lease
 import MyLeaseList from '../../blocks/ContentManagement/src/MyLeaseList.web';
@@ -662,13 +662,13 @@ const routeMap = {
     path: '/FacilityManagerDetail',
     exact: true
   },
- 
+
   ManagerFacilityReservation: {
     component: ManagerFacilityReservation,
     path: '/ManagerFacilityReservation',
     exact: true
   },
- 
+
   // RolesPermissions2: {
   //   component: RolesPermissions2,
   //   path: '/RolesPermissions2'
@@ -1917,6 +1917,12 @@ const routeMap = {
   PropertyManagerList: {
     component: PropertyManagerList,
     path: '/PropertyManagers',
+    roles: [ROLE.OWNER],
+    exact: true
+  },
+  PropertyManagerRequest: {
+    component: PropertyManagerRequest,
+    path: '/PropertyManagers/Request',
     roles: [ROLE.OWNER],
     exact: true
   },
