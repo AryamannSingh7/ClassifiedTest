@@ -123,7 +123,7 @@ class ChairmanNominationDetails extends ChairmanNominationDetailsController{
                                                                         <Box>
                                                                             <Box style={{width:"100%",backgroundColor:"d8d8d8",height:"1px",marginTop:"25px"}}/>
                                                                             <Box style={{width:"100%",display:'flex',justifyContent:'center',alignItems:"center",marginTop:"-12px"}}>
-                                                                                <Typography variant="subtitle2" style={{fontWeight:"bold",textAlign:'center',backgroundColor:"white",padding:"0px 10px"}}>Voted As</Typography>
+                                                                                <Typography variant="subtitle2" style={{fontWeight:"bold",textAlign:'center',backgroundColor:"white",padding:"0px 10px"}}>{t("Voted As")}</Typography>
                                                                             </Box>
                                                                             <Grid container spacing={3} style={{marginTop:"1px"}}>
                                                                                 <Grid item xs={12}>
@@ -238,8 +238,8 @@ class ChairmanNominationDetails extends ChairmanNominationDetailsController{
                                                         <Table className="table-box">
                                                             <TableHead>
                                                                 <TableRow>
-                                                                    <TableCell style={{color:"#181d25"}}>Name</TableCell>
-                                                                    <TableCell style={{color:"#181d25"}}>Total Vote</TableCell>
+                                                                    <TableCell style={{color:"#181d25"}}>{t("Name")}</TableCell>
+                                                                    <TableCell style={{color:"#181d25"}}>{t("Total Vote")}</TableCell>
                                                                 </TableRow>
                                                             </TableHead>
                                                             <TableBody>
@@ -289,8 +289,8 @@ class ChairmanNominationDetails extends ChairmanNominationDetailsController{
                                                         <Table className="table-box">
                                                             <TableHead>
                                                                 <TableRow>
-                                                                    <TableCell style={{color:"#181d25"}}>Name</TableCell>
-                                                                    <TableCell style={{color:"#181d25"}}>Total Vote</TableCell>
+                                                                    <TableCell style={{color:"#181d25"}}>{t("Name")}</TableCell>
+                                                                    <TableCell style={{color:"#181d25"}}>{t("Total Vote")}</TableCell>
                                                                 </TableRow>
                                                             </TableHead>
                                                             <TableBody>
@@ -332,8 +332,6 @@ class ChairmanNominationDetails extends ChairmanNominationDetailsController{
                                                                         }
                                                                     })
                                                                 }
-
-
                                                             </TableBody>
                                                         </Table>
                                                     </Paper>
@@ -350,7 +348,7 @@ class ChairmanNominationDetails extends ChairmanNominationDetailsController{
                             {
                                 this.state.nominatedSelf ?
                                     <CloseButton variant="contained" fullWidth size="large" onClick={()=> this.props.history.push(`/MyNomination?id=${this.state.nominationId}`)}>
-                                        View My Nomination
+                                        {t("View My Nomination")}
                                     </CloseButton>
                                     :
                                     <CloseButton variant="contained" fullWidth size="large" onClick={()=> this.props.history.push(`/NominateMySelf?id=${this.state.nominationId}`)}>
@@ -368,9 +366,10 @@ class ChairmanNominationDetails extends ChairmanNominationDetailsController{
                         <DialogContent style={{ margin: "15px 0" }}>
                             <Box textAlign="center">
                                 <img className="comment-image" src={info} alt="check" />
-                                <Typography variant="h6">Submit your vote</Typography>
+                                <Typography variant="h6">{t("Submit your vote")}</Typography>
                                 <Typography variant="body1" style={{ marginBottom: "0px" }}>
-                                    {t("Are you sure you want to submit your vote for john doe as a chairman")}
+                                    {t("Are you sure you want to submit your vote")} <br/>
+                                    {t("for")} {this.state.vote.name} as a {this.state.vote.role === 0 ? "Chairman":"Vice chairman"}
                                 </Typography>
                                 <DialogActions className="dialog-button-group" style={{flexDirection:'column'}}>
                                     <SubmitButton style={{width:"300px"}} fullWidth onClick={this.confirmVote}>

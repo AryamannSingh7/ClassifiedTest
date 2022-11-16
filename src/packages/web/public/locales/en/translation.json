@@ -905,5 +905,14 @@
   "Why I should be elected": "Why I should be elected",
   "Are you sure you want to the start the voting process? by confirming nomination process will be closed.": "Are you sure you want to the start the voting process? by confirming nomination process will be closed.",
   "Are you sure you want to submit your vote": "Are you sure you want to submit your vote",
-  "Start Nomination Process": "Start Nomination Process"
+  "Start Nomination Process": "Start Nomination Process",
+  "Select User": "Select User",
+  "Select Role": "Select Role",
+  "Please Select User": "Please Select User",
+  "Please Select Role": "Please Select Role",
+  "Submit your vote": "Submit your vote",
+  "My Nomination": "My Nomination",
+  "Cancel Nomination": "Cancel Nomination",
+  "Remove Member": "Remove Member",
+  "Create New Task ": "Create New Task "
 }
