@@ -859,7 +859,7 @@
   "Start Voting": "Start Voting",
   "Nominate As a": "Nominate As a",
   "Yes Submit": "Yes Submit",
-  "No,cancel" : "No,cancel",
+  "No,cancel": "No,cancel",
   "Nominate MySelf": "Nominate My Self",
   "View My Nomination": "View My Nomination",
   "Start Process": "Start Process",
@@ -891,6 +891,7 @@
   "DOB": "DOB",
   "Bio": "Bio",
   "Follow me on": "Follow me on",
+  "Delete Request": "Delete Request",
   "Chairman Nominations": "Chairman Nominations",
   "Total Vote": "Total Vote",
   "Total Nomination": "Total Nomination",
@@ -904,6 +905,5 @@
   "Why I should be elected": "Why I should be elected",
   "Are you sure you want to the start the voting process? by confirming nomination process will be closed.": "Are you sure you want to the start the voting process? by confirming nomination process will be closed.",
   "Are you sure you want to submit your vote": "Are you sure you want to submit your vote",
-  "Start Nomination Process": "Start Nomination Process",
-
+  "Start Nomination Process": "Start Nomination Process"
 }

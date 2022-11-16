@@ -36,15 +36,13 @@ import CloseIcon from "@material-ui/icons/Close";
 import {withTranslation} from "react-i18next";
 import VisitorsSidebar from "../../dashboard/src/VisitorsSidebar.web";
 
-class VisitorsList extends VisitorsListController {
+class Unit extends VisitorsListController {
     constructor(props: Props) {
         super(props);
     }
     render() {
         // @ts-ignore
         const { classes } = this.props;
-        const userType  = localStorage.getItem("selectUserType");
-
         // @ts-ignore
         const {t} = this.props
         return (
@@ -54,14 +52,8 @@ class VisitorsList extends VisitorsListController {
                     <DashboardHeader {...this.props} />
                     <Box style={{ display: "flex" }}>
                         <Grid item xs={3} md={3} sm={3} className="SideBar">
-                            {/* Chairman Sidebar -- */}
-                           {
-                             userType === "Visitors" ? 
-                            <VisitorsSidebar {...this.props} />
-                            :
-                            <ChairmanSidebarWeb {...this.props} /> 
-                           }
-                            
+                            {/* Chairman Sidebar -- */} 
+                            <VisitorsSidebar {...this.props} /> 
                         </Grid>
 
                         <Grid item xs={9} md={9} sm={9} style={{ paddingTop: 35 }}>
@@ -69,13 +61,13 @@ class VisitorsList extends VisitorsListController {
                                 <Box className="navigation">
                                     <Box>
                                         <Typography variant="body1">
-                                            {t("My Dashboards")} /{" "} {t("General Dashboards")} /{" "}
+                                         {"Unit"}
                                             <Box component="span" style={{ color: "blue" }}>
-                                                {t("Visitors")}
+                                                {t("")}
                                             </Box>
                                         </Typography>
                                         <Typography variant="h5" className="sub-heading">
-                                            {t("Visitors")}
+                                            {t("Unit")}
                                         </Typography>
                                     </Box>
                                 </Box>
@@ -113,7 +105,7 @@ class VisitorsList extends VisitorsListController {
                                 <Box className="meeting-table">
                                     <Grid item sm={12} md={12} xs={12}>
                                         <Box className="table-top">
-                                            <h3>Visitors</h3>
+                                            <h3>Unit</h3>
                                             <Box className="filter">
                                                 <Box className="search-box">
                                                     <SearchIcon />
@@ -180,5 +172,5 @@ class VisitorsList extends VisitorsListController {
     }
 }
 
-export default withStyles(SuggestionStyleWeb)(withTranslation()(withRouter(VisitorsList)));
+export default withStyles(SuggestionStyleWeb)(withTranslation()(withRouter(Unit)));
 // Customizable Area End
