@@ -33,7 +33,7 @@ class SurveyParticipate extends React.Component<any, any> {
                     </Typography>
                 </Box>
                 <Box style={{width:"90%",marginBottom:"25px"}}>
-                    <OkButton fullWidth size="large" onClick={() => this.props.history.push("/ChairmanNominations")}>{t("Okay")}</OkButton>
+                    <OkButton fullWidth size="large" onClick={() => window.history.go(-2)}>{t("Okay")}</OkButton>
                 </Box>
               </Box>
           </Grid>
@@ -72,5 +72,4 @@ const OkButton = withStyles((theme) => ({
         },
     },
 }))(Button);
-
 // Customizable Area End

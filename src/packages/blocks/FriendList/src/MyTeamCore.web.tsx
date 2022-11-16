@@ -297,7 +297,7 @@ const TeamCard = (props:any) => {
                         <Typography variant="subtitle2" className={"statusOngoingRed"} gutterBottom style={{marginBottom: "12px"}}>Pending Approval</Typography>
                     }
                     <img src={profileExp} height="60px" width="60px" style={{borderRadius:"100px"}}  />
-                    <Typography variant="h6" style={{fontWeight:"bold",marginBottom:"5px"}}>{data?.role?.name}</Typography>
+                    <Typography variant="h6" style={{fontWeight:"bold",marginBottom:"5px"}}>{data?.role}</Typography>
                     <Typography variant="h6" gutterBottom style={{marginBottom:"10px"}}>{data?.account?.attributes?.full_name?.name}</Typography>
                     <Grid container spacing={1} style={{width:"100%",display:"flex",alignItems:"center",justifyContent:"center"}}>
                         {
