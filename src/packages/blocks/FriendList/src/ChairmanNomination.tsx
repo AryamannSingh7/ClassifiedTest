@@ -12,13 +12,16 @@ import ChairmainNominationController, {
 } from "./ChairmainNominationController";
 import './MyTeam.web.css'
 import moment from "moment";
+import {withTranslation} from "react-i18next";
 
-class Visitors extends ChairmainNominationController{
+class ChairmanNomination extends ChairmainNominationController{
   constructor(props: Props) {
     super(props);
   }
 
   render() {
+    //@ts-ignore
+    const {t} = this.props
     return (
         <>
             <Grid item xs={12} md={12} className="auth-cols">
@@ -27,7 +30,7 @@ class Visitors extends ChairmainNominationController{
                       <Box style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
                           <ArrowBackIcon onClick={() => this.props.history.push("/")} />
                           <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
-                              Chairman Nominations
+                              {t("Chairman Nominations")}
                           </p>
                       </Box>
                   </Grid>
@@ -61,19 +64,19 @@ class Visitors extends ChairmainNominationController{
                                                 </Grid>
                                                 <Grid item xs={6}>
                                                     <Box>
-                                                        <Typography variant="subtitle2" color="textSecondary">Building:</Typography>
+                                                        <Typography variant="subtitle2" color="textSecondary">{t("Building")}:</Typography>
                                                         <Typography variant="subtitle2" color="textPrimary">{item.attributes.building}</Typography>
                                                     </Box>
                                                 </Grid>
                                                 <Grid item xs={6}>
                                                     <Box>
-                                                        <Typography variant="subtitle2" color="textSecondary">Complex Name:</Typography>
+                                                        <Typography variant="subtitle2" color="textSecondary">{t("Complex Name")}:</Typography>
                                                         <Typography variant="subtitle2" color="textPrimary">{item.attributes.complex_name}</Typography>
                                                     </Box>
                                                 </Grid>
                                                 <Grid item xs={12}>
                                                     <Box>
-                                                        <Typography variant="subtitle2" color="textSecondary">Duration:</Typography>
+                                                        <Typography variant="subtitle2" color="textSecondary">{t("Duration")}:</Typography>
                                                         <Typography variant="subtitle2" color="textPrimary">{moment(item.attributes.start_date).format("DD-MMM-YYYY")} to {moment(item.attributes.end_date).format("DD-MMM-YYYY")}</Typography>
                                                     </Box>
                                                 </Grid>
@@ -119,7 +122,7 @@ class Visitors extends ChairmainNominationController{
     );
   }
 }
-export default withRouter(Visitors)
+export default withTranslation()(withRouter(ChairmanNomination))
 
 const CloseButton = withStyles((theme) => ({
     root: {

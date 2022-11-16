@@ -261,12 +261,12 @@ export default class RegisterUnitController extends BlockComponent<Props, S, SS>
 
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      if (responseJson && responseJson.data) {
-        this.setState({ loading: false }, () => {
+      this.setState({ loading: false }, () => {
+        if (responseJson && responseJson.data) {
           toast.success("Rent History Created Successfully");
           this.getRentHistory(this.state.unitId);
-        });
-      }
+        }
+      });
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
@@ -287,12 +287,12 @@ export default class RegisterUnitController extends BlockComponent<Props, S, SS>
 
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      if (responseJson && responseJson.message) {
-        this.setState({ loading: false }, () => {
+      this.setState({ loading: false }, () => {
+        if (responseJson && responseJson.message) {
           toast.success(responseJson.message);
           this.getRentHistory(this.state.unitId);
-        });
-      }
+        }
+      });
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
@@ -313,11 +313,11 @@ export default class RegisterUnitController extends BlockComponent<Props, S, SS>
 
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      if (responseJson && responseJson.data) {
-        this.setState({ loading: false }, () => {
+      this.setState({ loading: false }, () => {
+        if (responseJson && responseJson.data) {
           this.props.navigation.navigate("RegisterMyUnitSuccess");
-        });
-      }
+        }
+      });
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
@@ -351,7 +351,7 @@ export default class RegisterUnitController extends BlockComponent<Props, S, SS>
             config: unit.attributes.configuration || "",
             price: unit.attributes.purchase_price || "",
             date: unit.attributes.purchase_date || "",
-            type: unit.attributes.status,
+            type: unit.attributes.unit_type,
             income: unit.attributes.monthly_renting_income || "",
             valuation: unit.attributes.current_valuation || "",
           },
@@ -379,11 +379,11 @@ export default class RegisterUnitController extends BlockComponent<Props, S, SS>
 
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      if (responseJson && responseJson.data) {
-        this.setState({ loading: false }, () => {
+      this.setState({ loading: false }, () => {
+        if (responseJson && responseJson.data) {
           this.props.navigation.navigate("MyUnitDetails", { id: this.state.unitId });
-        });
-      }
+        }
+      });
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {

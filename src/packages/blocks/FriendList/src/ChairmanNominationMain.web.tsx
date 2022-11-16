@@ -65,13 +65,13 @@ class MyTeamCore extends ChairmanNominationMainController {
                 <Box className="navigation">
                     <Box style={{width: "100%"}}>
                         <Typography variant="body1" >
-                        My Team / <Box component="span" style={{color: "blue"}}>Chairman and Vice Chairman Nomination</Box>
+                            {t("My Team")} / <Box component="span" style={{color: "blue"}}>{t("Chairman and Vice Chairman Nomination")}</Box>
                         </Typography>
                         <Box display="flex" justifyContent="space-between" alignItems="center" width="100%">
-                            <Typography variant="h4" className="subHeading">Chairman and Vice Chairman Nomination</Typography>
+                            <Typography variant="h4" className="subHeading">{t("Chairman and Vice Chairman Nomination")}</Typography>
                             {
                                 this.state.onGoingNomination &&
-                                    <AcceptButton style={{marginTop:"20px"}} onClick={()=>this.setState({setOpen:true})}>Start Nomination Process</AcceptButton>
+                                    <AcceptButton style={{marginTop:"20px"}} onClick={()=>this.setState({setOpen:true})}>{t("Start Nomination Process")}</AcceptButton>
                             }
                         </Box>
                     </Box>
@@ -107,25 +107,25 @@ class MyTeamCore extends ChairmanNominationMainController {
                                                 </Grid>
                                                 <Grid item xs={6}>
                                                     <Box>
-                                                        <Typography variant="subtitle1" color="textSecondary">Building:</Typography>
+                                                        <Typography variant="subtitle1" color="textSecondary">{t("Building")}:</Typography>
                                                         <Typography variant="subtitle1" color="textPrimary">{item.attributes.building_name}</Typography>
                                                     </Box>
                                                 </Grid>
                                                 <Grid item xs={6}>
                                                     <Box>
-                                                        <Typography variant="subtitle1" color="textSecondary">Complex Name:</Typography>
+                                                        <Typography variant="subtitle1" color="textSecondary">{t("Complex Name")}:</Typography>
                                                         <Typography variant="subtitle1" color="textPrimary">{item.attributes.complex_name}</Typography>
                                                     </Box>
                                                 </Grid>
                                                 <Grid item xs={6}>
                                                     <Box>
-                                                        <Typography variant="subtitle1" color="textSecondary">Duration:</Typography>
+                                                        <Typography variant="subtitle1" color="textSecondary">{t("Duration")}:</Typography>
                                                         <Typography variant="subtitle1" color="textPrimary">{moment(item.attributes.start_date).format("DD-MMM-YYYY")} to {moment(item.attributes.end_date).format("DD-MMM-YYYY")}</Typography>
                                                     </Box>
                                                 </Grid>
                                                 <Grid item xs={6}>
                                                     <Box>
-                                                        <Typography variant="subtitle1" color="textSecondary">Total Nomination: </Typography>
+                                                        <Typography variant="subtitle1" color="textSecondary">{t("Total Nomination")}: </Typography>
                                                         <Typography variant="subtitle1" color="textPrimary">{item.attributes.total_nomination} Members</Typography>
                                                     </Box>
                                                 </Grid>
@@ -176,7 +176,7 @@ class MyTeamCore extends ChairmanNominationMainController {
                 <div style={dashBoard.paper}>
                     <Box style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:"10px"}}>
                         <Typography variant="h5" style={{fontWeight:"bold"}}>
-                            Chairman and Vice Chairman Nomination
+                            {t("Chairman and Vice Chairman Nomination")}
                         </Typography>
                         <IconButton onClick={this.handleClose}>
                             <img src={cancle}
@@ -187,7 +187,7 @@ class MyTeamCore extends ChairmanNominationMainController {
                     <Divider/>
                     <Grid container spacing={2} style={{marginTop:"10px"}}>
                         <Grid item xs={12}>
-                            <TextField label="Title" variant="outlined"
+                            <TextField label={t("Title")} variant="outlined"
                                name="title"
                                value={this.state.nominationTitle}
                                onChange={(e:any)=> {
@@ -204,7 +204,7 @@ class MyTeamCore extends ChairmanNominationMainController {
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <TextField
-                                label="Start Date" variant="outlined"
+                                label={t("Start Date")} variant="outlined"
                                 placeholder="Start Date"
                                 style={{border:"1px solid #ECECEC",borderRadius:"10px",backgroundColor:"#f9f9f9",marginRight:"10px"}}
                                 type={this.state.startDateType} name="startDate"  fullWidth
@@ -228,7 +228,7 @@ class MyTeamCore extends ChairmanNominationMainController {
                             <p style={{color:"red"}}>{this.state.nominationStartDateError}</p>
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <TextField label="End Date" variant="outlined"
+                            <TextField label={t("End Date")} variant="outlined"
                                        type={this.state.endDateType} name="endDate"  fullWidth
                                        placeholder="End Date"
                                        style={{border:"1px solid #ECECEC",borderRadius:"10px",backgroundColor:"#f9f9f9",marginRight:"10px"}}
@@ -253,7 +253,7 @@ class MyTeamCore extends ChairmanNominationMainController {
                         <Grid xs={12} style={{marginTop:"10px",padding:"0px 7px"}}>
                             <TextField
                                 id="outlined-multiline-static"
-                                label="Description"
+                                label={t("Description")}
                                 multiline
                                 value={this.state.nominationDescription}
                                 onChange={(e:any)=> {
@@ -269,8 +269,8 @@ class MyTeamCore extends ChairmanNominationMainController {
                     </Grid>
                     <Grid item xs={12} style={{display:'flex',justifyContent:"flex-end",marginTop:"20px"}}>
                         <Box>
-                            <DeclineButton variant="contained" style={{marginRight:"15px"}}>Cancel</DeclineButton>
-                            <AcceptButton variant="contained" onClick={this.manageSubmit}>Start Process</AcceptButton>
+                            <DeclineButton variant="contained" style={{marginRight:"15px"}}>{t("Cancel")}</DeclineButton>
+                            <AcceptButton variant="contained" onClick={this.manageSubmit}>{t("Start Process")}</AcceptButton>
                         </Box>
                     </Grid>
                 </div>

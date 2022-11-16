@@ -173,6 +173,7 @@ import CreateFacilityReservation from '../../blocks/RequestManagement/src/Create
 import FacilityManagerDetail from '../../blocks/RequestManagement/src/FacilityManagerDetail.web';
 import ManagerFacilityReservation from '../../blocks/RequestManagement/src/ManagerFacilityReservation.web';
 
+
 // Help
 import FaqChairman from '../../blocks/contactus/src/FaqChairman.web';
 import FaqOwner from '../../blocks/contactus/src/FaqOwner.web';
@@ -264,6 +265,8 @@ import VisitorAddSuccess from '../../blocks/invitefriends/src/VisitorAdded';
 import VisitorUpdateSuccess from '../../blocks/invitefriends/src/VisitorUpdated';
 import VisitorAdd from '../../blocks/invitefriends/src/VisitorAdd.web';
 import VisitorList from '../../blocks/invitefriends/src/VisitorsList.web';
+import Unit from '../../blocks/invitefriends/src/Unit.web';
+
 import VisitorsDetails from '../../blocks/invitefriends/src/VisitorDetailsManager.web';
 
 // Register Tenant
@@ -322,7 +325,6 @@ import RegisterMyUnit from '../../blocks/TaskAllocator/src/RegisterUnit.web';
 import RegisterMyUnitSuccess from '../../blocks/TaskAllocator/src/RegisterUnitSuccess.web';
 import MyUnitDetails from '../../blocks/TaskAllocator/src/UnitDetails.web';
 import RentHistory from '../../blocks/TaskAllocator/src/RentHistory.web';
-import PendingUnit from '../../blocks/TaskAllocator/src/PendingUnit.web';
 import EditMyUnit from '../../blocks/TaskAllocator/src/EditUnit.web';
 import TenantProfile from '../../blocks/TaskAllocator/src/TenantProfile.web';
 
@@ -660,13 +662,13 @@ const routeMap = {
     path: '/FacilityManagerDetail',
     exact: true
   },
-
+ 
   ManagerFacilityReservation: {
     component: ManagerFacilityReservation,
     path: '/ManagerFacilityReservation',
     exact: true
   },
-
+ 
   // RolesPermissions2: {
   //   component: RolesPermissions2,
   //   path: '/RolesPermissions2'
@@ -1581,6 +1583,11 @@ const routeMap = {
     path: '/VisitorList',
     exact: true
   },
+  Unit: {
+    component: Unit,
+    path: '/Unit',
+    exact: true
+  },
 
   ScheduledVisitors: {
     component: ScheduledVisitors,
@@ -1891,12 +1898,6 @@ const routeMap = {
   EditMyUnit: {
     component: EditMyUnit,
     path: '/MyUnitDetails/Edit/:id',
-    roles: [ROLE.OWNER],
-    exact: true
-  },
-  PendingUnit: {
-    component: PendingUnit,
-    path: '/MyUnitDetails/PendingUnit',
     roles: [ROLE.OWNER],
     exact: true
   },

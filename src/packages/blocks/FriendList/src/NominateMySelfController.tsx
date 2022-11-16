@@ -286,7 +286,7 @@ export default class FriendListController extends BlockComponent<
     const societyID = localStorage.getItem("society_id")
     const nominationId =  window.location.search ? window.location.search.split("=")[1] : null;
     this.cancelMyNominationId = await this.apiCall({
-      method:"PUT",
+      method:"DELETE",
       endPoint: `society_managements/${societyID}/bx_block_my_team/chairman_nominations/${nominationId}/cancel_my_nomination?status=true`,
     });
   }

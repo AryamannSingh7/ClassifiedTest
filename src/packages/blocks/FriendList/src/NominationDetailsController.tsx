@@ -59,8 +59,10 @@ interface S {
   myNominationAsError:any;
   nominatedSelf:boolean,
   vote:{voteId:any,role:any,name:any};
-  chairmanVoteCount:any,
-  viceChairmanVoteCount:any,
+  chairmanVoteCount:any;
+  viceChairmanVoteCount:any;
+  votedViceChairmanId:any;
+  votedChairmanId:any;
 }
 
 interface SS {
@@ -138,7 +140,8 @@ export default class FriendListController extends BlockComponent<
       },
       chairmanVoteCount:[],
       viceChairmanVoteCount:[],
-
+      votedViceChairmanId:"",
+      votedChairmanId:"",
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
@@ -200,10 +203,7 @@ export default class FriendListController extends BlockComponent<
   }
 
   confirmVote = () => {
-
-    console.log("VOTE DETAILS",this.state.vote)
     this.nominate(this.state.vote.voteId,this.state.vote.role)
-
   }
 
   handleClose = () => {
@@ -386,6 +386,22 @@ export default class FriendListController extends BlockComponent<
       var errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if(apiRequestCallId === this.getNominationDetailsId){
         if(responseJson.hasOwnProperty("chairman_nominations")){
+          const findIfChairman = responseJson.chairman_nominations.data.attributes.voted_as.find((item:any)=> {
+            return item.vote_as == "Chairman"
+          })
+          const findIfViceChairman = responseJson.chairman_nominations.data.attributes.voted_as.find((item:any)=> {
+            return item.vote_as === "Vice chairman"
+          })
+          if(findIfViceChairman){
+            this.setState({
+              votedViceChairmanId:findIfViceChairman.nominated_team_member_id
+            })
+          }
+          if(findIfChairman){
+            this.setState({
+              votedChairmanId:findIfChairman.nominated_team_member_id
+            })
+          }
           this.setState({
               loading:false,
               nominationData:responseJson.chairman_nominations.data.attributes,
@@ -431,6 +447,8 @@ export default class FriendListController extends BlockComponent<
           this.setState({
             nominateMySelf:false
           })
+          this.getNominationDetails()
+          this.nominatedMemberList()
         }
       }
       if(apiRequestCallId === this.startVotingCallId){
@@ -443,6 +461,7 @@ export default class FriendListController extends BlockComponent<
         if(responseJson.code === 200){
           this.nominatedMemberList()
           this.getNominationDetails()
+          this.getVotingCountDetails()
         }
       }
       if(apiRequestCallId === this.getVotingCountDetailsId){

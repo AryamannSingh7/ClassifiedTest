@@ -46,6 +46,10 @@ interface S {
   nominatedSelf:boolean;
   myNominationId:any;
   vote:{voteId:any,role:any,name:any};
+  votedViceChairmanId:any;
+  votedChairmanId:any;
+  chairmanVoteCount:any;
+  viceChairmanVoteCount:any;
 }
 
 interface SS {
@@ -60,6 +64,8 @@ export default class FriendListController extends BlockComponent<
   getNominationDetailsId:string = "";
   nominatedMemberListId:string = "";
   nominateId:string = "";
+  getVotingCountDetailsId:string = "";
+
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
@@ -95,8 +101,11 @@ export default class FriendListController extends BlockComponent<
         voteId:"",
         role:"",
         name:"",
-      }
-
+      },
+      chairmanVoteCount:[],
+      viceChairmanVoteCount:[],
+      votedViceChairmanId:"",
+      votedChairmanId:"",
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
@@ -104,6 +113,7 @@ export default class FriendListController extends BlockComponent<
   async componentDidMount() {
     this.getNominationDetails();
     this.nominatedMemberList();
+    this.getVotingCountDetails();
   }
 
   handleDeleteModal = () => {
@@ -119,10 +129,7 @@ export default class FriendListController extends BlockComponent<
   }
 
   confirmVote = () => {
-    this.setState({
-      voted:true,
-      voteConfirmModal:false
-    })
+    this.nominate(this.state.vote.voteId,this.state.vote.role)
   }
 
   handleClose = () => {
@@ -156,6 +163,16 @@ export default class FriendListController extends BlockComponent<
     })
   }
 
+  getVotingCountDetails = async () => {
+    const societyID = localStorage.getItem("society_id")
+    const nominationId =  window.location.search ? window.location.search.split("=")[1] : null;
+    this.getVotingCountDetailsId = await this.apiCall({
+      method:"GET",
+      endPoint: `/society_managements/${societyID}/bx_block_my_team/chairman_nominations/${nominationId}/voting_count`,
+    });
+  }
+
+
   AddTeamSchema() {
     const validations = Yup.object().shape({
       email: Yup.string()
@@ -183,6 +200,22 @@ export default class FriendListController extends BlockComponent<
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
       var errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if(apiRequestCallId === this.getNominationDetailsId){
+        const findIfChairman = responseJson.chairman_nominations.data.attributes.voted_as.find((item:any)=> {
+          return item.vote_as == "Chairman"
+        })
+        const findIfViceChairman = responseJson.chairman_nominations.data.attributes.voted_as.find((item:any)=> {
+          return item.vote_as === "Vice chairman"
+        })
+        if(findIfViceChairman){
+          this.setState({
+            votedViceChairmanId:findIfViceChairman.nominated_team_member_id
+          })
+        }
+        if(findIfChairman){
+          this.setState({
+            votedChairmanId:findIfChairman.nominated_team_member_id
+          })
+        }
         if(responseJson.hasOwnProperty("chairman_nominations")){
           this.setState({
             loading:false,
@@ -205,13 +238,20 @@ export default class FriendListController extends BlockComponent<
         }
       }
       if(apiRequestCallId === this.nominateId){
-        console.log("RESPONSE",responseJson )
         if(responseJson.message === "Voted successfully"){
           this.setState({
             voteConfirmModal:false
           })
           this.getNominationDetails()
           this.nominatedMemberList()
+        }
+      }
+      if(apiRequestCallId === this.getVotingCountDetailsId){
+        if(responseJson.hasOwnProperty("vote_count")){
+          this.setState({
+            chairmanVoteCount:responseJson.vote_count?.data?.attributes?.chairman,
+            viceChairmanVoteCount:responseJson.vote_count?.data?.attributes?.vice_chairman,
+          })
         }
       }
     }

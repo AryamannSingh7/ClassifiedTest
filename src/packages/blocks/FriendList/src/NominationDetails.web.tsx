@@ -92,7 +92,7 @@ class MyTeamCore extends NominationDetailsController {
                                             }
                                             {
                                                 this.state.nominationData?.nomination_flag && !this.state.nominationData?.voting_flag && !this.state.nominatedSelf &&
-                                                <DeclineButton style={{marginTop:"20px"}} onClick={this.handleOpenMySelfModal}>Nominate MySelf</DeclineButton>
+                                                <DeclineButton style={{marginTop:"20px"}} onClick={this.handleOpenMySelfModal}>{t("Nominate MySelf")}</DeclineButton>
                                             }
                                         </>
                                 }
@@ -106,7 +106,10 @@ class MyTeamCore extends NominationDetailsController {
                             <Grid container spacing={2} >
                                 <Grid item xs={9} style={{display:'flex'}}>
                                     <Typography variant="h6" style={{fontWeight:"bold"}}>{this.state.nominationData.title}</Typography>
-                                    <Button variant="text" color="primary" name="ButtonEdit" id="edit button" style={{color:"2b6fed",fontWeight:"bold"}} onClick={()=>this.setState({setOpen:true})}>Edit Details</Button>
+                                    {
+                                        this.state.nominationData.status !== "closed" &&
+                                        <Button variant="text" color="primary" name="ButtonEdit" id="edit button" style={{color:"2b6fed",fontWeight:"bold"}} onClick={()=>this.setState({setOpen:true})}>{t("Edit Details")}</Button>
+                                    }
                                 </Grid>
                                 <Grid item xs={3} style={{display:'flex',alignItems:"center",justifyContent:"flex-end"}}>
                                     {
@@ -124,32 +127,32 @@ class MyTeamCore extends NominationDetailsController {
                                 </Grid>
                                 <Grid item xs={12} sm={3}>
                                     <Box>
-                                        <Typography variant="subtitle1" color="textSecondary">Building:</Typography>
+                                        <Typography variant="subtitle1" color="textSecondary">{t("Building")}:</Typography>
                                         <Typography variant="subtitle1" color="textPrimary">{this.state.nominationData?.building_name || "NA"}</Typography>
                                     </Box>
                                 </Grid>
                                 <Grid item xs={12} sm={3}>
                                     <Box>
-                                        <Typography variant="subtitle1" color="textSecondary">Complex Name:</Typography>
+                                        <Typography variant="subtitle1" color="textSecondary">{t("Complex Name")}:</Typography>
                                         <Typography variant="subtitle1" color="textPrimary">{this.state.nominationData?.complex_name}</Typography>
                                     </Box>
                                 </Grid>
                                 <Grid item xs={12} sm={3}>
                                     <Box>
-                                        <Typography variant="subtitle1" color="textSecondary">Duration:</Typography>
+                                        <Typography variant="subtitle1" color="textSecondary">{t("Duration")}:</Typography>
                                         <Typography variant="subtitle1" color="textPrimary">{moment(this.state.nominationData?.start_date).format("DD-MMM-YYYY")} to {moment(this.state.nominationData?.end_date).format("DD-MMM-YYYY")}</Typography>
                                     </Box>
                                 </Grid>
                                 <Grid item xs={12} sm={3}>
                                     <Box>
-                                        <Typography variant="subtitle1" color="textSecondary">Total Nomination: </Typography>
+                                        <Typography variant="subtitle1" color="textSecondary">{t("Total Nomination")}: </Typography>
                                         <Typography variant="subtitle1" color="textPrimary">{this.state.nominationData?.total_nomination} Members</Typography>
                                     </Box>
                                 </Grid>
 
                                 <Grid item xs={12}>
                                     <Box>
-                                        <Typography variant="subtitle1" color="textSecondary">Description</Typography>
+                                        <Typography variant="subtitle1" color="textSecondary">{t("Description")}</Typography>
                                         <Typography variant="subtitle1" color="textPrimary">{this.state.nominationData?.description}</Typography>
                                     </Box>
                                 </Grid>
@@ -158,12 +161,11 @@ class MyTeamCore extends NominationDetailsController {
                     </Grid>
                 </Grid>
                 {
-                    this.state.votingStatus !== "closed" &&
+                    this.state.nominationData.status !== "closed" &&
                     <Grid container spacing={3} style={{marginTop: 10, marginBottom:30}}>
                         {
                             this.state.nomineeList.length > 0 &&
                             this.state.nomineeList.map((item:any,key:any)=> {
-                                console.log("LISTING FOR THE NOMEENEE",item)
                                 return(
                                     <Grid key={key} item xs={12} sm={6}>
                                         <Paper elevation={3} style={{backgroundColor:"white",padding:"20px 30px",borderRadius:"15px",cursor:"pointer"}} >
@@ -190,47 +192,74 @@ class MyTeamCore extends NominationDetailsController {
                                                 this.state.nominationData.voting_flag &&
                                                 <>
                                                     {
-                                                        this.state.voted ?
+                                                        this.state.votedViceChairmanId == item.id || this.state.votedChairmanId  == item.id ?
                                                             <Box>
                                                                 <Box style={{width:"100%",display:'flex',justifyContent:'center',alignItems:"center",marginTop:"10px"}}>
-                                                                    <Box style={{width:"41%",backgroundColor:"d8d8d8",height:"1px",marginRight:"10px"}}/>
-                                                                    <Typography style={{fontWeight:"bold",textAlign:'center'}}>Voted As</Typography>
-                                                                    <Box style={{width:"41%",backgroundColor:"d8d8d8",height:"1px",marginLeft:"10px"}}/>
+                                                                    <Box style={{width:"38%",backgroundColor:"d8d8d8",height:"1px",marginRight:"10px"}}/>
+                                                                    <Typography style={{fontWeight:"bold",textAlign:'center'}}>{t("Voted As")}</Typography>
+                                                                    <Box style={{width:"38%",backgroundColor:"d8d8d8",height:"1px",marginLeft:"10px"}}/>
                                                                 </Box>
                                                                 <Grid container spacing={3} style={{marginTop:"5px"}}>
                                                                     <Grid item xs={12}>
-                                                                        <DeclineButton disabled fullWidth>Chairman</DeclineButton>
+                                                                        {
+                                                                            this.state.votedChairmanId == item.id &&
+                                                                            <DeclineButton fullWidth disableRipple>{t("Chairman")}</DeclineButton>
+                                                                        }
+                                                                        {
+                                                                            this.state.votedViceChairmanId == item.id &&
+                                                                            <DeclineButton fullWidth disableRipple>{t("Vice Chairman")}</DeclineButton>
+                                                                        }
                                                                     </Grid>
                                                                 </Grid>
                                                             </Box>
                                                             :
                                                             <Box>
                                                                 <Box style={{width:"100%",display:'flex',justifyContent:'center',alignItems:"center",marginTop:"10px"}}>
-                                                                    <Box style={{width:"38%",backgroundColor:"d8d8d8",height:"1px",marginRight:"10px"}}/>
-                                                                    <Typography variant={"body2"} style={{fontWeight:"bold",textAlign:'center'}}>Vote As</Typography>
-                                                                    <Box style={{width:"38%",backgroundColor:"d8d8d8",height:"1px",marginLeft:"10px"}}/>
+                                                                    <Box style={{width:"40%",backgroundColor:"d8d8d8",height:"1px",marginRight:"10px"}}/>
+                                                                    <Typography variant={"body2"} style={{fontWeight:"bold",textAlign:'center'}}>{t("Vote As")}</Typography>
+                                                                    <Box style={{width:"40%",backgroundColor:"d8d8d8",height:"1px",marginLeft:"10px"}}/>
                                                                 </Box>
                                                                 <Grid container spacing={3} style={{marginTop:"5px"}}>
                                                                     {
                                                                        item.attributes.nominate_as == "Chairman"  &&
                                                                         <Grid item xs={12} sm={12}>
-                                                                            <ChairmanButton fullWidth onClick={()=> this.manageVote(item.id,0,item.attributes.name)}>Chairman </ChairmanButton>
-                                                                        </Grid>
+                                                                            {
+                                                                                this.state.votedChairmanId ?
+                                                                                    <DeclineButton disabled fullWidth>{t("Chairman")}</DeclineButton>
+                                                                                    :
+                                                                                    <ChairmanButton fullWidth onClick={()=> this.manageVote(item.id,0,item.attributes.name)}>{t("Chairman")}</ChairmanButton>
+                                                                            }
+                                                                           </Grid>
                                                                     }
                                                                     {
                                                                         item.attributes.nominate_as === "Vice Chairman" &&
                                                                         <Grid item xs={12} sm={12}>
-                                                                            <AcceptButton fullWidth onClick={()=> this.manageVote(item.id,1,item.attributes.name)} >Vice Chairman </AcceptButton>
-                                                                        </Grid>
+                                                                            {
+                                                                                this.state.votedViceChairmanId ?
+                                                                                <DeclineButton disabled fullWidth>{t("Vice Chairman")}</DeclineButton>
+                                                                                :
+                                                                                <AcceptButton fullWidth onClick={()=> this.manageVote(item.id,1,item.attributes.name)} >{t("Vice Chairman")}</AcceptButton>
+                                                                            }
+                                                                            </Grid>
                                                                     }
                                                                     {
                                                                         item.attributes.nominate_as === "All" &&
                                                                         <>
                                                                             <Grid item xs={12} sm={6}>
-                                                                                <ChairmanButton fullWidth onClick={()=> this.manageVote(item.id,0,item.attributes.name)}>Chairman </ChairmanButton>
+                                                                                {
+                                                                                    this.state.votedChairmanId ?
+                                                                                        <DeclineButton disabled fullWidth>{t("Chairman")}</DeclineButton>
+                                                                                        :
+                                                                                        <ChairmanButton fullWidth onClick={()=> this.manageVote(item.id,0,item.attributes.name)}>{t("Chairman")}</ChairmanButton>
+                                                                                }
                                                                             </Grid>
                                                                             <Grid item xs={12} sm={6}>
-                                                                                <AcceptButton fullWidth  onClick={()=> this.manageVote(item.id,1,item.attributes.name)} >Vice Chairman </AcceptButton>
+                                                                                {
+                                                                                    this.state.votedViceChairmanId ?
+                                                                                        <DeclineButton disabled fullWidth>{t("Vice Chairman")}</DeclineButton>
+                                                                                        :
+                                                                                        <AcceptButton fullWidth onClick={()=> this.manageVote(item.id,1,item.attributes.name)} >{t("Vice Chairman")}</AcceptButton>
+                                                                                }
                                                                             </Grid>
                                                                         </>
                                                                     }
@@ -247,9 +276,9 @@ class MyTeamCore extends NominationDetailsController {
                     </Grid>
                 }
                 {
-                    this.state.votingStatus === "closed" &&
+                    this.state.nominationData.status === "closed" &&
                     <>
-                        <Typography variant="h5" style={{fontWeight:"bold"}}>Nominated Members</Typography>
+                        <Typography variant="h5" style={{fontWeight:"bold"}}>{t("Nominated Members")}</Typography>
                         <Box style={{display:'flex',marginTop:"30px"}}>
                             <Typography
                                 variant="body1"
@@ -257,14 +286,14 @@ class MyTeamCore extends NominationDetailsController {
                                 style={{marginRight:"15px"}}
                                 onClick={()=> this.setState({selectedTab:"Chairman"})}
                             >
-                                Chairman
+                                {t("Chairman")}
                             </Typography>
                             <Typography
                                 variant="body1"
                                 className={this.state.selectedTab === "ViceChairman" ? "tabButtonActive" : "tabButton"}
                                 onClick={()=> this.setState({selectedTab:"ViceChairman"})}
                             >
-                                Vice Chairman
+                                {t("Vice Chairman")}
                             </Typography>
                         </Box>
                         <Grid container style={{marginTop:"15px"}}>
@@ -275,22 +304,33 @@ class MyTeamCore extends NominationDetailsController {
                                             <Table className="table-box">
                                                 <TableHead>
                                                     <TableRow>
-                                                        <TableCell style={{color:"#181d25"}}>Name</TableCell>
-                                                        <TableCell style={{color:"#181d25"}}>Unit Number</TableCell>
-                                                        <TableCell style={{color:"#181d25"}}>Total Vote</TableCell>
+                                                        <TableCell style={{color:"#181d25"}}>{t("Name")}</TableCell>
+                                                        <TableCell style={{color:"#181d25"}}>{t("Unit Number")}</TableCell>
+                                                        <TableCell style={{color:"#181d25"}}>{t("Total Vote")}</TableCell>
                                                     </TableRow>
                                                 </TableHead>
                                                 <TableBody>
                                                     {
                                                         this.state.chairmanVoteCount.length > 0 &&
                                                             this.state.chairmanVoteCount.map((item:any,key:any)=>{
-                                                                return(
-                                                                    <TableRow key={key} style={{cursor:"pointer"}}>
-                                                                        <TableCell className="ellipse" style={{fontWeight:"bold"}}>{item.name} <Typography variant="subtitle2" className="chairmanSelected">Chairman</Typography></TableCell>
-                                                                        <TableCell style={{fontWeight:"bold"}}>{item.unit_no.join(",")}</TableCell>
-                                                                        <TableCell style={{fontWeight:"bold"}}>{item.chairman_count}</TableCell>
-                                                                    </TableRow>
-                                                                )
+                                                                if(key === 0){
+                                                                    return(
+                                                                        <TableRow key={key} style={{cursor:"pointer"}}>
+                                                                            <TableCell className="ellipse" style={item.chairman_count > 0? {fontWeight:"bold"} : {fontWeight:"normal"}}>{item.name} {item.chairman_count > 0 && <Typography variant="subtitle2" className="chairmanSelected">Chairman</Typography>}</TableCell>
+                                                                            <TableCell style={item.chairman_count > 0? {fontWeight:"bold"} : {fontWeight:"normal"}}>{item.unit_no?.join(",")}</TableCell>
+                                                                            <TableCell style={item.chairman_count > 0? {fontWeight:"bold"} : {fontWeight:"normal"}}>{item.chairman_count}</TableCell>
+                                                                        </TableRow>
+                                                                    )
+                                                                }else{
+                                                                    return(
+                                                                        <TableRow key={key} style={{cursor:"pointer"}}>
+                                                                            <TableCell className="ellipse">{item.name}</TableCell>
+                                                                            <TableCell>{item.unit_no.join(",")}</TableCell>
+                                                                            <TableCell>{item.chairman_count}</TableCell>
+                                                                        </TableRow>
+                                                                    )
+                                                                }
+
                                                             })
                                                     }
                                                 </TableBody>
@@ -303,62 +343,43 @@ class MyTeamCore extends NominationDetailsController {
                                             <Table className="table-box">
                                                 <TableHead>
                                                     <TableRow>
-                                                        <TableCell style={{color:"#181d25"}}>Name</TableCell>
-                                                        <TableCell style={{color:"#181d25"}}>Unit Number</TableCell>
-                                                        <TableCell style={{color:"#181d25"}}>Total Vote</TableCell>
+                                                        <TableCell style={{color:"#181d25"}}>{t("Name")}</TableCell>
+                                                        <TableCell style={{color:"#181d25"}}>{t("Unit Number")}</TableCell>
+                                                        <TableCell style={{color:"#181d25"}}>{t("Total Vote")}</TableCell>
                                                     </TableRow>
                                                 </TableHead>
                                                 <TableBody>
                                                     {
-                                                        this.state.chairmanVoteCount.length > 0 &&
-                                                        this.state.chairmanVoteCount.map((item:any,key:any)=>{
-                                                            return(
-                                                                <TableRow key={key} style={{cursor:"pointer"}}>
-                                                                    <TableCell className="ellipse" style={{fontWeight:"bold"}}>{item.name} <Typography variant="subtitle2" className="chairmanSelected">Chairman</Typography></TableCell>
-                                                                    <TableCell style={{fontWeight:"bold"}}>{item.unit_no.join(",")}</TableCell>
-                                                                    <TableCell style={{fontWeight:"bold"}}>{item.vice_chairman_count}</TableCell>
-                                                                </TableRow>
-                                                            )
+                                                        this.state.viceChairmanVoteCount.length > 0 &&
+                                                        this.state.viceChairmanVoteCount.map((item:any,key:any)=>{
+                                                            if(key === 0){
+                                                                return(
+                                                                    <TableRow key={key} style={{cursor:"pointer"}}>
+                                                                        <TableCell className="ellipse" style={item.vice_chairman_count > 0? {fontWeight:"bold"} : {fontWeight:"normal"}}>{item.name} {item.vice_chairman_count > 0 && <Typography variant="subtitle2" className="chairmanSelected">Vice Chairman</Typography> }</TableCell>
+                                                                        <TableCell style={item.vice_chairman_count > 0? {fontWeight:"bold"} : {fontWeight:"normal"}}>{item.unit_no?.join(",")}</TableCell>
+                                                                        <TableCell style={item.vice_chairman_count > 0? {fontWeight:"bold"} : {fontWeight:"normal"}}>{item.vice_chairman_count}</TableCell>
+                                                                    </TableRow>
+                                                                )
+                                                            }else{
+                                                                return(
+                                                                    <TableRow key={key} style={{cursor:"pointer"}}>
+                                                                        <TableCell className="ellipse">{item.name}</TableCell>
+                                                                        <TableCell>{item.unit_no.join(",")}</TableCell>
+                                                                        <TableCell>{item.vice_chairman_count}</TableCell>
+                                                                    </TableRow>
+                                                                )
+                                                            }
+
                                                         })
                                                     }
-                                                    <TableRow onClick={() => this.props.history.push("/VisitorsDetails?id=1")} style={{cursor:"pointer"}}>
-                                                        <TableCell className="ellipse" style={{fontWeight:"bold"}}>Alex Walker <Typography variant="subtitle2" className="chairmanSelected">Chairman</Typography></TableCell>
-                                                        <TableCell style={{fontWeight:"bold"}}>Alex Walker</TableCell>
-                                                        <TableCell style={{fontWeight:"bold"}}>Building 1 </TableCell>
-                                                    </TableRow>
                                                 </TableBody>
                                             </Table>
                                         </Paper>
                                     </Grid>
                             }
-                            <Grid item xs={12}>
-                                <Paper elevation={2} style={{backgroundColor:"white",padding:"20px 30px",borderRadius:"15px",cursor:"pointer"}}>
-                                    <Table className="table-box">
-                                        <TableHead>
-                                            <TableRow>
-                                                <TableCell style={{color:"#181d25"}}>Name</TableCell>
-                                                <TableCell style={{color:"#181d25"}}>Unit Number</TableCell>
-                                                <TableCell style={{color:"#181d25"}}>Total Vote</TableCell>
-                                            </TableRow>
-                                        </TableHead>
-                                        <TableBody>
-                                            <TableRow onClick={() => this.props.history.push("/VisitorsDetails?id=1")} style={{cursor:"pointer"}}>
-                                                <TableCell className="ellipse" style={{fontWeight:"bold"}}>Alex Walker <Typography variant="subtitle2" className="chairmanSelected">Chairman</Typography></TableCell>
-                                                <TableCell style={{fontWeight:"bold"}}>Alex Walker</TableCell>
-                                                <TableCell style={{fontWeight:"bold"}}>Building 1 </TableCell>
-                                            </TableRow>
-                                            <TableRow onClick={() => this.props.history.push("/VisitorsDetails?id=1")} style={{cursor:"pointer"}}>
-                                                <TableCell className="ellipse">Alex Walker</TableCell>
-                                                <TableCell>Alex Walker</TableCell>
-                                                <TableCell>Building 1 </TableCell>
-                                            </TableRow>
-                                        </TableBody>
-                                    </Table>
-                                </Paper>
-                            </Grid>
                             <Grid xs={12} style={{display:'flex',alignItems:"center",justifyContent:"flex-end",marginTop:"40px"}}>
-                                <DeclineButton style={{width:"175px",marginRight:"20px"}}>Print</DeclineButton>
-                                <ChairmanButton style={{width:"175px"}}>Share Result</ChairmanButton>
+                                <DeclineButton style={{width:"175px",marginRight:"20px"}} onClick={()=> window.print()}>{t("Print")}</DeclineButton>
+                                <ChairmanButton style={{width:"175px"}}>{t("Share Result")}</ChairmanButton>
                             </Grid>
                         </Grid>
                     </>
@@ -379,7 +400,7 @@ class MyTeamCore extends NominationDetailsController {
                 <div style={dashBoard.paper}>
                     <Box style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:"10px"}}>
                         <Typography variant="h5" style={{fontWeight:"bold"}}>
-                            Chairman and Vice Chairman Nomination
+                            {t("Chairman and Vice Chairman Nomination")}
                         </Typography>
                         <IconButton onClick={this.handleClose}>
                             <img src={cancle}
@@ -391,7 +412,7 @@ class MyTeamCore extends NominationDetailsController {
                     <Grid container spacing={2} style={{marginTop:"10px"}}>
                         <Grid item xs={12}>
                             <TextField label="Title" variant="outlined"
-                               name="title"
+                               name={t("title")}
                                id="Nomination Title"
                                value={this.state.updateName}
                                onChange={(e)=> this.setState({updateName:e.target.value})}
@@ -405,7 +426,7 @@ class MyTeamCore extends NominationDetailsController {
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <TextField
-                                label="Start Date" variant="outlined"
+                                label={t("Start Date")} variant="outlined"
                                 placeHolder="Start Date"
                                 value={this.state.updateStartDate}
                                 style={{border:"1px solid #ECECEC",borderRadius:"10px",backgroundColor:"#f9f9f9",marginRight:"10px"}}
@@ -428,7 +449,7 @@ class MyTeamCore extends NominationDetailsController {
                             <p style={{color:"red"}}>{this.state.nominationStartDateError}</p>
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <TextField label="End Date" variant="outlined"
+                            <TextField label={t("End Date")} variant="outlined"
                                        type="date" name="endDate"  fullWidth
                                        style={{border:"1px solid #ECECEC",borderRadius:"10px",backgroundColor:"#f9f9f9",marginRight:"10px"}}
                                        id="SurveyQuestion"
@@ -452,7 +473,7 @@ class MyTeamCore extends NominationDetailsController {
                         <Grid item xs={12} style={{marginTop:"10px",padding:"0px 7px"}}>
                             <TextField
                                 id="outlined-multiline-static"
-                                label="Description"
+                                label={t("Description")}
                                 value={this.state.updateDescription}
                                 onChange={(e)=> this.setState({updateDescription:e.target.value})}
                                 multiline
@@ -486,7 +507,7 @@ class MyTeamCore extends NominationDetailsController {
                 <div style={dashBoard.paper}>
                     <Box style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:"10px"}}>
                         <Typography variant="h5" style={{fontWeight:"bold"}}>
-                            Nominate My Self
+                            {t("Nominate MySelf")}
                         </Typography>
                         <IconButton onClick={this.handleCloseDetailsModal}>
                             <img src={cancle}
@@ -532,7 +553,7 @@ class MyTeamCore extends NominationDetailsController {
                 <div style={dashBoard.paper}>
                     <Box style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:"10px"}}>
                         <Typography variant="h5" style={{fontWeight:"bold"}}>
-                            Nominated Member Details
+                            {t("Nominated Member Details")}
                         </Typography>
                         <IconButton onClick={this.handleCloseMySelfModal}>
                             <img src={cancle}
@@ -558,7 +579,7 @@ class MyTeamCore extends NominationDetailsController {
                             <Box style={{width:"100%",marginTop:"20px "}}>
                                 <TextField
                                     id="outlined-multiline-static"
-                                    label="Why I should be elected"
+                                    label={t("Why I should be elected")}
                                     value={this.state.myNominationDescription}
                                     onChange={(e) => this.setState({myNominationDescription:e.target.value})}
                                     multiline
@@ -573,12 +594,12 @@ class MyTeamCore extends NominationDetailsController {
                                 <FormControlLabel
                                     onChange={this.manageSelectRole}
                                     control={<Checkbox checkedIcon={<CheckBoxIcon style={{color:"#fc8434"}}/>} name="checkedA" value={0} checked={this.state.myNominationAs.find((check:any)=> check === '0') ? true : false}/>}
-                                    label="Chairman"
+                                    label={t("Chairman")}
                                 />
                                 <FormControlLabel
                                     onChange={this.manageSelectRole}
                                     control={<Checkbox checkedIcon={<CheckBoxIcon style={{color:"#fc8434"}}/>} name="checkedB"  value={1} checked={this.state.myNominationAs.find((check:any)=> check === '1') ? true : false} />}
-                                    label="Vice Chairman"
+                                    label={t("Vice Chairman")}
                                 />
                             </Box>
                         </Grid>
@@ -601,17 +622,16 @@ class MyTeamCore extends NominationDetailsController {
             <DialogContent style={{ margin: "15px 0" }}>
                 <Box textAlign="center">
                     <img className="comment-image" src={CheckIcon} alt="check" />
-                    <Typography variant="h6">Start Voting</Typography>
+                    <Typography variant="h6">{t("Start Voting")}</Typography>
                     <Typography variant="body1" style={{ marginBottom: "0px" }}>
-                        Are you sure you want to the start the voting process? <br/>
-                        by confirming nomination process will be closed.
+                        {t("Are you sure you want to the start the voting process? by confirming nomination process will be closed.")}
                     </Typography>
                     <DialogActions className="dialog-button-group">
                         <Button className="cancel-button" style={{ width: "200px" }} onClick={() => this.setState({startVotingModal:false})}>
-                            Close
+                            {t("Close")}
                         </Button>
                         <Button style={{ width: "200px" }} className="add-button" onClick={this.startVoting}>
-                            Confirm
+                            {t("Confirm")}
                         </Button>
                     </DialogActions>
                 </Box>
@@ -628,7 +648,7 @@ class MyTeamCore extends NominationDetailsController {
                     <img className="comment-image" src={CheckIcon} alt="check" />
                     <Typography variant="h6">Submit your vote</Typography>
                     <Typography variant="body1" style={{ marginBottom: "0px" }}>
-                        Are you sure you want to submit your vote <br/>
+                        {t("Are you sure you want to submit your vote")} <br/>
                         for {this.state.vote.name} as a {this.state.vote.role === 0 ? "Chairman":"Vice chairman"}
                     </Typography>
                     <DialogActions className="dialog-button-group">
