@@ -68,12 +68,12 @@ class AddTeamModal extends AddTeamModalController {
                         <Grid container spacing={3}>
                             <Grid item xs={12} sm={6}>
                                 <Box className="formGroup customSelect">
-                                    <FormLabel component="legend" style={dashBoard.labelsStyle}>Select User</FormLabel>
+                                    <FormLabel component="legend" style={dashBoard.labelsStyle}>{t("Select User")}</FormLabel>
                                     <FormControl variant="outlined" >
                                                     <span className="frmLeftIcons">
                                                       <img src={user_icon} className="frm-icons" alt="User Icon" />
                                                     </span>
-                                        <InputLabel id="demo-simple-select-outlined-label" style={dashBoard.formLabels}>Select User</InputLabel>
+                                        <InputLabel id="demo-simple-select-outlined-label" style={dashBoard.formLabels}>{t("Select User")}</InputLabel>
                                         <Select
                                             name="usertype"
                                             labelId="demo-simple-select-outlined-label"
@@ -86,7 +86,7 @@ class AddTeamModal extends AddTeamModalController {
                                             value={this.state.userId}
                                         >
                                             <MenuItem  disabled value=" ">
-                                                Select User
+                                                {t("Select User")}
                                             </MenuItem>
                                             {
                                                 this.state.userList.length > 0 &&
@@ -98,17 +98,17 @@ class AddTeamModal extends AddTeamModalController {
                                             }
                                         </Select>
                                     </FormControl>
-                                    <Typography variant="subtitle2" style={{color:"red"}}>{this.state.userError}</Typography>
+                                    <Typography variant="subtitle2" style={{color:"red"}}>{t(this.state.userError)}</Typography>
                                 </Box>
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <Box className="formGroup customSelect">
-                                    <FormLabel component="legend" style={dashBoard.labelsStyle}>Select Role</FormLabel>
+                                    <FormLabel component="legend" style={dashBoard.labelsStyle}>{t("Select Role")}</FormLabel>
                                     <FormControl variant="outlined" >
                                                     <span className="frmLeftIcons">
                                                       <img src={user_icon} className="frm-icons" alt="User Icon" />
                                                     </span>
-                                        <InputLabel id="demo-simple-select-outlined-label" style={dashBoard.formLabels}>Select Role</InputLabel>
+                                        <InputLabel id="demo-simple-select-outlined-label" style={dashBoard.formLabels}>{t("Select Role")}</InputLabel>
                                         <Select
                                             name="usertype"
                                             labelId="demo-simple-select-outlined-label"
@@ -121,7 +121,7 @@ class AddTeamModal extends AddTeamModalController {
                                             value={this.state.roleId}
                                         >
                                             <MenuItem  disabled value=" ">
-                                                Select Role
+                                                {t("Select Role")}
                                             </MenuItem>
                                             {
                                                 this.state.roleList.length > 0 &&

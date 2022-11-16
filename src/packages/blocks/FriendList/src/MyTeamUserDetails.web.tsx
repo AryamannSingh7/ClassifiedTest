@@ -154,7 +154,7 @@ class MyTeamCore extends MyTeamUserDetailsController {
                                         </Grid>
                                         <Grid item xs={12}>
                                             <Box style={{margin:"10px 20px"}}>
-                                                <Typography variant="subtitle1" color="textSecondary">Social Media</Typography>
+                                                <Typography variant="subtitle1" color="textSecondary">{t("Social Media")}</Typography>
                                                 <Box style={{display:'flex'}}>
                                                     {
                                                         this.state.selectedUser?.account?.attributes?.website[0]?.twitter_link &&
@@ -232,7 +232,7 @@ class MyTeamCore extends MyTeamUserDetailsController {
                                 <Grid item xs={12} >
                                     <Box style={{width:"95%",display:'flex',justifyContent:"space-between",alignItems:"center",margin:"10px 20px"}}>
                                         <Typography variant="h6" style={{fontWeight:"bold",marginBottom:"5px"}}>To Approve a budget report</Typography>
-                                        <Typography variant="subtitle2" className={"statusOngoingRed"} gutterBottom>Pending</Typography>
+                                        <Typography variant="subtitle2" className={"statusOngoingRed"} gutterBottom>{t("Pending")}</Typography>
                                     </Box>
                                 </Grid>
                                 <Grid item xs={12}>
