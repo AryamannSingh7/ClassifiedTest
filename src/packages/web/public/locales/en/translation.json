@@ -906,7 +906,6 @@
   "Are you sure you want to the start the voting process? by confirming nomination process will be closed.": "Are you sure you want to the start the voting process? by confirming nomination process will be closed.",
   "Are you sure you want to submit your vote": "Are you sure you want to submit your vote",
   "Start Nomination Process": "Start Nomination Process",
-
   "Select User": "Select User",
   "Select Role": "Select Role",
   "Please Select User": "Please Select User",
@@ -916,7 +915,4 @@
   "Cancel Nomination": "Cancel Nomination",
   "Remove Member": "Remove Member",
   "Create New Task ": "Create New Task "
-
-
-
 }
