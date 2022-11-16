@@ -34,7 +34,7 @@ import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import "../../../web/src/assets/css/style.scss";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
-import { withTranslation } from 'react-i18next';
+import { withTranslation,useTranslation  } from 'react-i18next';
 import '../../../web/src/i18n.js';
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
@@ -52,7 +52,6 @@ class MyTeamCore extends MyTeamController {
     //@ts-ignore
     const {t} = this.props
     const userType  = localStorage.getItem("selectUserType");
-
     return (
       <>
     <Box style={{background: "#E5ECFF"}}>
@@ -274,6 +273,7 @@ const TeamCard = (props:any) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const userType = localStorage.getItem("selectUserType")
     const {data} = props
+    const { t } = useTranslation();
     const handleClick = (event:any) => {
         setAnchorEl(event.currentTarget);
     };
@@ -307,13 +307,11 @@ const TeamCard = (props:any) => {
                 </IconButton>
                  </Box> 
             }
-            
-            
             <Card className="EventsCards" style={{paddingLeft:"0px"}}>
                 <Box style={{width:"100%",display:'flex',justifyContent:"center",alignItems:"center",flexDirection:"column",marginTop:"15px"}} onClick={() => userType === "Visitors" ? null : props.history.push(`/TeamMember/userDetails?id=${data.id}`)}>
                     {
                         props.approval && userType === "Manager" &&
-                        <Typography variant="subtitle2" className={"statusOngoingRed"} gutterBottom style={{marginBottom: "12px"}}>Pending Approval</Typography>
+                        <Typography variant="subtitle2" className={"statusOngoingRed"} gutterBottom style={{marginBottom: "12px"}}>{t("Pending Approval")}</Typography>
                     }
                     <img src={profileExp} height="60px" width="60px" style={{borderRadius:"100px"}}  />
                     <Typography variant="h6" style={{fontWeight:"bold",marginBottom:"5px"}}>{data?.role}</Typography>
@@ -347,10 +345,10 @@ const TeamCard = (props:any) => {
                         props.approval && userType === "Chairman" &&
                         <Grid container spacing={2} style={{width:"100%",marginTop:"10px"}}>
                             <Grid item xs={6}>
-                                <DeclineButton variant="contained" fullWidth onClick={()=> approval("Decline")}>Decline</DeclineButton>
+                                <DeclineButton variant="contained" fullWidth onClick={()=> approval("Decline")}>{t("Decline")}</DeclineButton>
                             </Grid>
                             <Grid item xs={6}>
-                                <AcceptButton variant="contained" fullWidth onClick={()=> approval("Accept")}>Accept</AcceptButton>
+                                <AcceptButton variant="contained" fullWidth onClick={()=> approval("Accept")}>{t("Accept")}</AcceptButton>
                             </Grid>
                         </Grid>
                     }
@@ -363,8 +361,8 @@ const TeamCard = (props:any) => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
             >
-                <MenuItem onClick={handleEdit}>Edit Details</MenuItem>
-                <MenuItem onClick={handleDelete}>Remove Member</MenuItem>
+                <MenuItem onClick={handleEdit}>{t("Edit Details")}</MenuItem>
+                <MenuItem onClick={handleDelete}>{t("Remove Member")}</MenuItem>
             </Menu>
         </Grid>
     )

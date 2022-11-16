@@ -28,6 +28,7 @@ import './MyTeam.web.css'
 import {profileExp,pencil} from "./assets";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import ReorderIcon from '@material-ui/icons/Reorder';
+import {withTranslation} from "react-i18next";
 
 class NominateMySelf extends NominateMySelfController{
   constructor(props: Props) {
@@ -35,6 +36,8 @@ class NominateMySelf extends NominateMySelfController{
   }
 
   render() {
+      //@ts-ignore
+      const {t} = this.props
     return (
         <>
             <Grid item xs={12} md={12} className="auth-cols">
@@ -43,7 +46,7 @@ class NominateMySelf extends NominateMySelfController{
                       <Box style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
                           <ArrowBackIcon onClick={() => window.history.back()} />
                           <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
-                              My Nomination
+                              {t("My Nomination")}
                           </p>
                       </Box>
                       <IconButton onClick={()=> this.props.history.push(`/NominateMySelf?id=${this.state.nominationId}`)}>
@@ -59,9 +62,6 @@ class NominateMySelf extends NominateMySelfController{
                                 <Box display="flex" alignItems="center">
                                     <img src={profileExp}/>
                                     <Box style={{marginLeft:"10px"}}>
-                                        {
-                                            console.log("MyNominationDetails",this.state.myDetails)
-                                        }
                                         <Typography style={{fontWeight:"bold",marginRight:"20px"}}>{this.state.myDetails.name}</Typography>
                                         <Typography variant="subtitle2">{this.state.myDetails?.unit_number?.join(",")}</Typography>
                                     </Box>
@@ -78,11 +78,8 @@ class NominateMySelf extends NominateMySelfController{
                         </Grid>
                     </Grid>
                     <Box style={{width:"90%",marginBottom:"50px",marginTop:"10px"}}>
-                        {
-                            console.log("NOMINATION FIND ID","myNominateId",this.state.myNominateId)
-                        }
                         <CloseButton variant="contained" fullWidth size="large" onClick={()=> this.cancelMyNomination()}>
-                            Cancel Nomination
+                            {t("Cancel Nomination")}
                         </CloseButton>
                     </Box>
                 </Box>
@@ -92,7 +89,7 @@ class NominateMySelf extends NominateMySelfController{
   }
 }
 // @ts-ignore
-export default withRouter(NominateMySelf)
+export default withTranslation()(withRouter(NominateMySelf))
 
 const CloseButton = withStyles((theme) => ({
     root: {
