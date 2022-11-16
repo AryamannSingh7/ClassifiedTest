@@ -104,6 +104,7 @@ const CloseButton = withStyles((theme) => ({
         height:"55px",
         '&:hover': {
             backgroundColor: "#2b6fef",
+            color:"white"
         },
     },
 }))(Button);

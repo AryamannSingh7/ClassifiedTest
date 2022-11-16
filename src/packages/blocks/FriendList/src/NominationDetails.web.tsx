@@ -317,7 +317,7 @@ class MyTeamCore extends NominationDetailsController {
                                                                     return(
                                                                         <TableRow key={key} style={{cursor:"pointer"}}>
                                                                             <TableCell className="ellipse" style={item.chairman_count > 0? {fontWeight:"bold"} : {fontWeight:"normal"}}>{item.name} {item.chairman_count > 0 && <Typography variant="subtitle2" className="chairmanSelected">Chairman</Typography>}</TableCell>
-                                                                            <TableCell style={item.chairman_count > 0? {fontWeight:"bold"} : {fontWeight:"normal"}}>{item.unit_no.join(",")}</TableCell>
+                                                                            <TableCell style={item.chairman_count > 0? {fontWeight:"bold"} : {fontWeight:"normal"}}>{item.unit_no?.join(",")}</TableCell>
                                                                             <TableCell style={item.chairman_count > 0? {fontWeight:"bold"} : {fontWeight:"normal"}}>{item.chairman_count}</TableCell>
                                                                         </TableRow>
                                                                     )
@@ -356,7 +356,7 @@ class MyTeamCore extends NominationDetailsController {
                                                                 return(
                                                                     <TableRow key={key} style={{cursor:"pointer"}}>
                                                                         <TableCell className="ellipse" style={item.vice_chairman_count > 0? {fontWeight:"bold"} : {fontWeight:"normal"}}>{item.name} {item.vice_chairman_count > 0 && <Typography variant="subtitle2" className="chairmanSelected">Vice Chairman</Typography> }</TableCell>
-                                                                        <TableCell style={item.vice_chairman_count > 0? {fontWeight:"bold"} : {fontWeight:"normal"}}>{item.unit_no.join(",")}</TableCell>
+                                                                        <TableCell style={item.vice_chairman_count > 0? {fontWeight:"bold"} : {fontWeight:"normal"}}>{item.unit_no?.join(",")}</TableCell>
                                                                         <TableCell style={item.vice_chairman_count > 0? {fontWeight:"bold"} : {fontWeight:"normal"}}>{item.vice_chairman_count}</TableCell>
                                                                     </TableRow>
                                                                 )
