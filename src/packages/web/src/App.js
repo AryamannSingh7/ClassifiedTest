@@ -312,6 +312,12 @@ import MyReceiptsDetails from '../../blocks/CollectTransactionFees/src/MyReceipt
 // Chairman Side
 import CharmainReceipts from "../../blocks/InvoiceBilling/src/CharmainReceipts.web"
 
+// Rent Payments 
+import RentPayments from "../../blocks/PricingEngine2/src/RentPayments.web"
+import RentUnitLists from "../../blocks/PricingEngine2/src/RentUnitLists.web"          
+import ViewMyRents from "../../blocks/PricingEngine2/src/ViewMyRents.web"
+import RentDetails from "../../blocks/PricingEngine2/src/RentDetails.web"
+
 // Reports
 import ReportDashboard from '../../blocks/ExpenseTracking/src/ReportDashboard.web';
 import BudgetReport from '../../blocks/ExpenseTracking/src/BudgetReport.web';
@@ -1696,6 +1702,32 @@ const routeMap = {
   TaskManagement: {
     component: TaskManagement,
     path: '/TaskManagement',
+    exact: true
+  },
+
+  // RentPayments
+
+  RentPayments: {
+    component: RentPayments,
+    path: '/RentPayments',
+    exact: true
+  },
+
+  RentUnitLists:{
+    component:RentUnitLists,
+    path: '/RentUnitList/:id',
+    exact: true
+  },
+
+  UnitRentList:{
+    component:ViewMyRents,
+    path:"/UnitRentList/:id",
+    exact: true
+  },
+
+  RentDetails:{
+    component:RentDetails,
+    path:"/RentDetails/:id",
     exact: true
   },
 

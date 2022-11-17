@@ -914,5 +914,18 @@
   "My Nomination": "My Nomination",
   "Cancel Nomination": "Cancel Nomination",
   "Remove Member": "Remove Member",
-  "Create New Task ": "Create New Task "
+  "Create New Task ": "Create New Task ",
+  "Register Rent Payment":"Register Rent Payment",
+  "Partial Rent Payment Confirmation": "Partial Rent Payment Confirmation",
+  "Full Rent Payment Confirmation": "Full Rent Payment Confirmation",
+  "is claiming to have paid": "is claiming to have paid",
+  "out of": "out of",
+  "rent towards": "rent towards",
+  "for Flat No.": "for Flat No.",
+  "Please confirm": "Please confirm",
+  "Please confirm by typing paid amount.": "Please confirm by typing paid amount.",
+  "No, Not Paid": "No, Not Paid",
+  "Enter Partial paid amount": "Enter Partial paid amount",
+  "Due Amount": "Due Amount",
+  "Due on": "Due on"
 }

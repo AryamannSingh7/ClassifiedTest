@@ -74,6 +74,9 @@ class AddTeamModal extends AddTeamModalController {
                                                       <img src={user_icon} className="frm-icons" alt="User Icon" />
                                                     </span>
                                         <InputLabel id="demo-simple-select-outlined-label" style={dashBoard.formLabels}>{t("Select User")}</InputLabel>
+                                        {
+                                            console.log("USER ID",this.state.userId)
+                                        }
                                         <Select
                                             name="usertype"
                                             labelId="demo-simple-select-outlined-label"
@@ -91,6 +94,7 @@ class AddTeamModal extends AddTeamModalController {
                                             {
                                                 this.state.userList.length > 0 &&
                                                     this.state.userList.map((item:any,key:any)=> {
+                                                        console.log("Item.ID USer",item.id)
                                                         return(
                                                             <MenuItem value={item.id} key={key}>{item.attributes.full_name}</MenuItem>
                                                         )

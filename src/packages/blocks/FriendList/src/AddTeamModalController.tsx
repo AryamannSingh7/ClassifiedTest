@@ -112,7 +112,6 @@ export default class FriendListController extends BlockComponent<
 
   selectUser = (id:any) => {
     let updatedData = this.state.userList.filter((item:any) => item.id === id)
-    console.log("CHECK",updatedData[0].attributes)
     this.setState({
       selectedUser:{
         name:updatedData[0].attributes.full_name,
@@ -126,7 +125,6 @@ export default class FriendListController extends BlockComponent<
       userId:id,
       userError:""
     })
-
   }
 
   handleSubmit = () => {
@@ -217,6 +215,7 @@ export default class FriendListController extends BlockComponent<
     const token = localStorage.getItem('userToken') ;
 
     const header = {
+      "content-type":"application/json",
       token
     };
     const requestMessage = new Message(
@@ -267,6 +266,7 @@ export default class FriendListController extends BlockComponent<
       if(apiRequestCallId === this.getRolesListId){
         if(responseJson.hasOwnProperty("data")){
           if(this.props.editId){
+            console.log("EDIT ID",this.props.editId)
             this.setState({
               roleList:responseJson?.data?.roles,
               roleId:this.props.editId.roleId,
@@ -278,7 +278,7 @@ export default class FriendListController extends BlockComponent<
                 unitName:this.props.editId.unitName,
                 unitId:this.props.editId.unitId
               },
-              userId:this.props.editId.id,
+              userId:this.props.editId.userId,
             })
           }else{
             this.setState({

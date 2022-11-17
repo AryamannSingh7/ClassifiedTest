@@ -907,5 +907,18 @@
   "My Nomination": "ترشيحي",
   "Cancel Nomination": "إلغاء الترشيح",
   "Remove Member": "إزالة العضو",
-  "Create New Task ": "إنشاء مهمة جديدة"
+  "Create New Task ": "إنشاء مهمة جديدة",
+  "Register Rent Payment":"تسجيل دفع الإيجار",
+  "Partial Rent Payment Confirmation": "تأكيد دفع الإيجار الجزئي",
+  "Full Rent Payment Confirmation": "تأكيد دفع الإيجار بالكامل",
+  "is claiming to have paid": "يدعي أنه قد دفع",
+  "out of": "بعيدا عن المكان",
+  "rent towards": "الإيجار نحو",
+  "for Flat No.": "رقم الشقة.",
+  "Please confirm": "يرجى تأكيد",
+  "Please confirm by typing paid amount.": "يرجى التأكيد عن طريق كتابة المبلغ المدفوع.",
+  "No, Not Paid": "لا ، غير مدفوع",
+  "Enter Partial paid amount": "أدخل المبلغ المدفوع جزئياً",
+  "Due Amount": "مبلغ مستحق",
+  "Due on": "تاريخ الاستحقاق"
 }
