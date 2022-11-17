@@ -117,7 +117,7 @@ import Chatbox from '../../blocks/customform/src/Chatbox.web';
 // import RequestManagement from "../../blocks/RequestManagement/src/RequestManagement";
 import LeadManagement from '../../blocks/LeadManagement/src/LeadManagement';
 import SocialMediaAccountRegistrationScreen from '../../blocks/social-media-account-registration/src/SocialMediaAccountRegistrationScreen';
-import Notifications from '../../blocks/notifications/src/Notifications';
+// import Notifications from '../../blocks/notifications/src/Notifications';
 import MobileAccountLoginBlock from '../../blocks/mobile-account-login/src/MobileAccountLoginBlock';
 import Registration from '../../blocks/email-account-registration/src/Registration.web';
 import OwnerRegistration from '../../blocks/email-account-registration/src/OwnerRegistration.web';
@@ -336,6 +336,9 @@ import PropertyManagerRequest from '../../blocks/ReviewAndApproval/src/PropertyM
 
 // My Lease
 import MyLeaseList from '../../blocks/ContentManagement/src/MyLeaseList.web';
+
+// Notification
+import OwnerNotification from '../../blocks/notifications/src/OwnerNotification.web';
 
 const routeMap = {
   //done
@@ -806,24 +809,34 @@ const routeMap = {
 
   OwnerDashboard: {
     component: OwnerDashboard,
-    path: '/OwnerDashboard'
+    path: '/OwnerDashboard',
+    exact: true,
+    roles: [ROLE.OWNER, ROLE.PROPERTY_MANAGER]
   },
   ResidentDashboard: {
     component: ResidentDashboard,
-    path: '/ResidentDashboard'
+    path: '/ResidentDashboard',
+    exact: true,
+    roles: [ROLE.OWNER_RESIDENT, ROLE.TENANT]
   },
   // Chairman - Help
   FaqChairman: {
     component: FaqChairman,
-    path: '/FaqChairman'
+    path: '/FaqChairman',
+    exact: true,
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER]
   },
   FaqOwner: {
     component: FaqOwner,
-    path: '/FaqOwner'
+    path: '/FaqOwner',
+    exact: true,
+    roles: [ROLE.OWNER, ROLE.PROPERTY_MANAGER]
   },
   FaqResident: {
     component: FaqResident,
-    path: '/FaqResident'
+    path: '/FaqResident',
+    exact: true,
+    roles: [ROLE.OWNER_RESIDENT, ROLE.TENANT]
   },
   ContactUsChairman: {
     component: ContactUsChairman,
@@ -1183,10 +1196,10 @@ const routeMap = {
     component: SocialMediaAccountRegistrationScreen,
     path: '/SocialMediaAccountRegistrationScreen'
   },
-  Notifications: {
-    component: Notifications,
-    path: '/Notifications'
-  },
+  // Notifications: {
+  //   component: Notifications,
+  //   path: '/Notifications'
+  // },
   MobileAccountLoginBlock: {
     component: MobileAccountLoginBlock,
     path: '/MobileAccountLoginBlock'
@@ -1434,10 +1447,10 @@ const routeMap = {
     component: SocialMediaAccountRegistrationScreen,
     path: '/SocialMediaAccountRegistrationScreen'
   },
-  Notifications: {
-    component: Notifications,
-    path: '/Notifications'
-  },
+  // Notifications: {
+  //   component: Notifications,
+  //   path: '/Notifications'
+  // },
   MobileAccountLoginBlock: {
     component: MobileAccountLoginBlock,
     path: '/MobileAccountLoginBlock'
@@ -1980,6 +1993,19 @@ const routeMap = {
     component: MyLeaseList,
     path: '/MyLeaseList',
     roles: [ROLE.TENANT, ROLE.OWNER_RESIDENT],
+    exact: true
+  },
+  // Notification
+  OwnerNotification: {
+    component: OwnerNotification,
+    path: '/OwnerNotifications',
+    roles: [ROLE.OWNER],
+    exact: true
+  },
+  ResidentNotification: {
+    component: ResidentNotification,
+    path: '/ResidentNotifications',
+    roles: [ROLE.OWNER],
     exact: true
   },
 
