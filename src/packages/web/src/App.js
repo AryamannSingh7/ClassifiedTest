@@ -315,7 +315,8 @@ import CharmainReceipts from "../../blocks/InvoiceBilling/src/CharmainReceipts.w
 // Rent Payments 
 import RentPayments from "../../blocks/PricingEngine2/src/RentPayments.web"
 import RentUnitLists from "../../blocks/PricingEngine2/src/RentUnitLists.web"          
-import ViewMyRents from "../../blocks/PricingEngine2/src/ViewMyRents.web"  
+import ViewMyRents from "../../blocks/PricingEngine2/src/ViewMyRents.web"
+import RentDetails from "../../blocks/PricingEngine2/src/RentDetails.web"
 
 // Reports
 import ReportDashboard from '../../blocks/ExpenseTracking/src/ReportDashboard.web';
@@ -1721,6 +1722,12 @@ const routeMap = {
   UnitRentList:{
     component:ViewMyRents,
     path:"/UnitRentList/:id",
+    exact: true
+  },
+
+  RentDetails:{
+    component:RentDetails,
+    path:"/RentDetails/:id",
     exact: true
   },
 

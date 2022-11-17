@@ -1,7 +1,7 @@
 import * as React from "react";
 // custom components
 import {
-    Grid, Box, Divider, AppBar, Tabs, Tab, Link, IconButton, Typography,Button,Menu,MenuItem,Modal,Backdrop,Fade
+    Grid, Box, Divider, AppBar, Tabs, Tab, Link, IconButton, Typography,Button,Menu,MenuItem,Modal,Backdrop,Fade,FormControl,Input,InputAdornment
 } from "@material-ui/core";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import {shortIcon,filterIcon} from "../../BroadcastMessage/src/assets"
@@ -13,6 +13,7 @@ import ViewMyInvoicesController, {
 import './style.css'
 import {withTranslation} from "react-i18next";
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import {exclamation,currency} from "./assets";
 
 class Visitors extends ViewMyInvoicesController{
   constructor(props: Props) {
@@ -66,18 +67,20 @@ class Visitors extends ViewMyInvoicesController{
                                 marginTop='.5rem'
                                 padding='1.5rem'
                                 style={{boxShadow:"rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"}}
-                                onClick={()=>this.props.history.push("/Invoice/1")}
+
                             >
                                 <Box style={{minWidth:"100%"}}>
-                                    <Box style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-                                        <Typography variant={"subtitle2"}>
-                                            {t("Invoice")} : March 2022
-                                        </Typography>   
-                                        <Typography variant="subtitle2" className="paymentStatusRed">
-                                            Due
-                                        </Typography>
-                                    </Box>
-                                    <Grid container spacing={1} >
+                                    <Grid container spacing={1} onClick={()=>this.props.history.push("/RentDetails/1")}>
+                                        <Grid xs={12}>
+                                            <Box style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+                                                <Typography variant={"subtitle2"}>
+                                                    March 2022
+                                                </Typography>
+                                                <Typography variant="subtitle2" className="paymentStatusRed">
+                                                    Due
+                                                </Typography>
+                                            </Box>
+                                        </Grid>
                                         <Grid item xs={6} style={{marginTop:"15px"}}>
                                             <Typography variant={"subtitle2"} >
                                                 {t("Landlord")}
@@ -110,11 +113,13 @@ class Visitors extends ViewMyInvoicesController{
                                                 SR500
                                             </Typography>
                                         </Grid>
+                                    </Grid>
+                                    <Grid container spacing={2} style={{marginTop:"10px"}}>
                                         <Grid item xs={6} >
-                                            <PartialButton fullWidth>Partial Payment</PartialButton>
+                                            <PartialButton fullWidth onClick={()=> this.setState({paymentConfirmModal:true,isPartialPayment:true})}>Partial Payment</PartialButton>
                                         </Grid>
                                         <Grid item xs={6} >
-                                            <FullButton fullWidth>Full Payment</FullButton>
+                                            <FullButton fullWidth onClick={()=> this.setState({paymentConfirmModal:true,isPartialPayment:false})}>Full Payment</FullButton>
                                         </Grid>
                                     </Grid>
                                 </Box>
@@ -127,8 +132,8 @@ class Visitors extends ViewMyInvoicesController{
                     aria-describedby="transition-modal-description"
                     className="modalStyle"
                     // @ts-ignore
-                    open={this.state.deleteConfirmModal}
-                    onClose={this.handleCloseDeleteModal}
+                    open={this.state.paymentConfirmModal}
+                    onClose={()=> this.setState({paymentConfirmModal:false })}
                     closeAfterTransition
                     BackdropComponent={Backdrop}
                     BackdropProps={{
@@ -136,22 +141,56 @@ class Visitors extends ViewMyInvoicesController{
                     }}
                 >
                     {/*@ts-ignore*/}
-                    <Fade in={this.state.deleteConfirmModal}>
+                    <Fade in={this.state.paymentConfirmModal}>
                         <Box style={{width:"80%",marginTop:'15px',backgroundColor:"white",padding:'20px',borderRadius:"20px"}}>
                             <Box style={{display:"flex",flexDirection:"column",alignItems:"center",marginTop:"15px"}}>
                                 <Box>
-                                    
+                                    <img src={exclamation} />
                                 </Box>
                                 <Typography variant="h6" style={{color:"black",fontWeight:"bold",marginTop:"15px",marginBottom:"10px",textAlign:"center"}}>
-                                    {t("Delete")}
+                                    {
+                                        this.state.isPartialPayment ?
+                                            t("Partial Rent Payment Confirmation")
+                                            :
+                                            t("Full Rent Payment Confirmation")
+                                    }
                                 </Typography>
-                                <Typography variant="body2" style={{textAlign:"center"}}>
-                                    {("Announcement_Delete_Caution")}
-                                </Typography>
+                                {
+                                    this.state.isPartialPayment ?
+                                        <Typography variant="body2" style={{textAlign:"center"}}>
+                                            {"John Doe"} {t("is claiming to have paid")} SR 200 {t("out of")} SR 500 {t("rent towards")} March 2022 {t("for Flat No.")} A-102 of Park Avenue. {t("Please confirm by typing paid amount.")}
+                                        </Typography>
+                                            :
+                                        <Typography variant="body2" style={{textAlign:"center"}}>
+                                            John Doe {t("is claiming to have paid")} SR 500 {t("rent towards")} March 2022 {t("for Flat No.")} A-102 of Park Avenue. {t("Please confirm")}
+                                        </Typography>
+                                }
+                                {
+                                    this.state.isPartialPayment &&
+                                    <Box style={{marginTop:"15px",width:"100%",display:"flex",flexDirection:"column",alignItems:"center"}}>
+                                        <FormControl style={{width:"100%",display:'flex',alignItems:"center"}}>
+                                            <Input
+                                                style={{backgroundColor:"#F9F9F9",height:"60px",width:"90%",display:'flex',alignItems:"center",borderRadius:"100px"}}
+                                                id="paritalPaymentBox"
+                                                disableUnderline
+                                                placeholder="Enter Partial paid amount"
+                                                fullWidth
+                                                startAdornment={
+                                                    <InputAdornment position="start">
+                                                       <img src={currency} height="20px" width="20px" style={{marginLeft:"15px"}}/>
+                                                    </InputAdornment>
+                                                }
+                                            />
+                                        </FormControl>
+                                    </Box>
+                                }
                                 <Box style={{marginTop:"15px",width:"90%",display:"flex",flexDirection:"column",alignItems:"center"}}>
                                     {/*@ts-ignore*/}
-                                    <CloseButton variant="outlined" fullWidth style={{marginRight:"10px",marginBottom:"15px"}} onClick={this.handleDelete}  >{t("Yes")}, {t("Delete")}</CloseButton>
-                                    <Button fullWidth onClick={this.handleCloseDeleteModal}>{t("No, Don't Delete")}</Button>
+                                    <CloseButton variant="outlined" fullWidth style={{marginRight:"10px",marginBottom:"15px"}} onClick={this.handleDelete}  >{t("Yes")}, {t("Paid")}</CloseButton>
+                                    {
+                                        !this.state.isPartialPayment &&
+                                        <Button fullWidth onClick={this.handleCloseDeleteModal}>{t("No, Not Paid")}</Button>
+                                    }
                                 </Box>
                             </Box>
                         </Box>

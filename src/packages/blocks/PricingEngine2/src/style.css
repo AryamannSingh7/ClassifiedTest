@@ -45,6 +45,7 @@
     justify-content: center;
     align-items: center;
     height: 50px;
+    width:50px;
     border: 1px solid #2B6FED;
     border-radius: 100px;
     cursor: pointer;
@@ -100,4 +101,8 @@
     border-radius: 8px;
     border: 1px dashed #f0f0f0;
     width: 240px;
+}
+
+#paritalPaymentBox{
+
 }

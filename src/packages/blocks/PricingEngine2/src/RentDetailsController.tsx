@@ -25,8 +25,6 @@ interface S {
   sortBy:any;
   status:any;
   pollListing:any;
-  paymentConfirmModal:boolean;
-  isPartialPayment:boolean;
 }
 
 interface SS {
@@ -59,8 +57,6 @@ export default class CoverImageController extends BlockComponent<
       sortBy : "" ,
       status:"",
       pollListing:[],
-      paymentConfirmModal:false,
-      isPartialPayment:false,
     };
 
     this.emailReg = new RegExp("");
@@ -74,9 +70,6 @@ export default class CoverImageController extends BlockComponent<
 
   }
 
-  handleCloseDeleteModal = () => {
-
-  }
 
   async receive(from: string, message: Message) {
     if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {
@@ -94,8 +87,31 @@ export default class CoverImageController extends BlockComponent<
     this.setState({anchorEl:event.currentTarget })
   };
 
-  handleClose = () => {
-    this.setState({anchorEl:null})
+  handleClose = (e?:any, v?:any) => {
+    let sortBy : any ;
+    console.log("v=========>",v)
+    if(v === undefined || v === null){
+      sortBy =this.state.sortBy
+    }
+    else {
+      sortBy =v;
+    }
+    this.setState({anchorEl:null,sortBy : sortBy})
+  };
+
+  handleClick_1 = (event:any) => {
+    this.setState({anchorEl_1:event.currentTarget})
+  };
+
+  handleClose_1 = (e?:any, v?:any) => {
+    let status : any ;
+    if(v === undefined || v === null){
+      status =this.state.status;
+    }
+    else {
+      status =v;
+    }
+    this.setState({anchorEl_1:null ,status :status})
   };
 }
 
