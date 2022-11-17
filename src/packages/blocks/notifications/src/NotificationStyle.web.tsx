@@ -84,4 +84,113 @@ export const NotificationStyle: any = {
       },
     },
   },
+  chairmanNotification: {
+    "& .navigation": {
+      display: "flex",
+      justifyContent: "space-between",
+    },
+    "& h4": {
+      fontSize: "22px",
+    },
+    "& .navigation .sub-heading": {
+      fontWeight: 600,
+      marginTop: 15,
+      marginBottom: 15,
+    },
+    "& a": {
+      textDecoration: "none !important",
+    },
+    "& .content-boxes": {
+      marginBottom: "50px",
+      marginTop: "20px",
+    },
+    "& .content-boxes .MuiTab-root": {
+      borderTopLeftRadius: "8px",
+      // borderTopRightRadius: "8px",
+      background: "white",
+      color: "#2b6fed",
+      fontWeight: 600,
+      boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+      border: "0",
+      textTransform: "capitalize",
+    },
+    "& .content-boxes .MuiTab-root.Mui-selected": {
+      borderTopLeftRadius: "8px",
+      borderTopRightRadius: "8px",
+      background: "#2b6fed",
+      color: "white",
+      fontWeight: 600,
+      border: "0",
+    },
+    "& .content-boxes .MuiTabs-indicator": {
+      display: "none",
+    },
+    "& .content-boxes .tab-content": {
+      borderRadius: "8px",
+      background: "white",
+    },
+    "& .tab-content-box": {
+      borderRadius: "8px",
+      background: "white",
+      padding: "15px",
+      "& .notification-box:hover": {
+        background: "rgba(43,111,237,0.03)",
+      },
+      "& .notification-box:hover button.view-button": {
+        background: "rgba(43,111,237,0.03)",
+      },
+      "& .notification-box": {
+        borderRadius: "8px",
+        border: "1px solid #e4e4e4",
+        padding: "15px",
+        "& .header": {
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          flexWrap: "wrap",
+        },
+        "& .tag-box": {
+          display: "flex",
+          alignItems: "center",
+          flexWrap: "wrap",
+          gap: "10px",
+          "& span": {
+            fontSize: "14px",
+            padding: "5px 12px",
+            borderRadius: "25px",
+            fontWeight: 600,
+          },
+        },
+        "& h4": {
+          margin: "10px 0",
+        },
+        "& .time": {
+          margin: "10px 0",
+          fontSize: "14px",
+          fontWeight: 600,
+          color: "#8e8e8e",
+        },
+        "& button.view-button": {
+          border: "1px solid #2B6FED",
+          background: "white",
+          fontWeight: 600,
+          color: "#2B6FED",
+          padding: "10px 20px",
+          borderRadius: "8px",
+        },
+      },
+    },
+    "& .building": {
+      color: "#2B6FED",
+      background: "#e7efff",
+    },
+    "& .unit": {
+      background: "#ffeee2",
+      color: "#FC8434",
+    },
+    "& .category": {
+      background: "#d2ffe2",
+      color: "#1EC65B",
+    },
+  },
 };
