@@ -339,6 +339,9 @@ import MyLeaseList from '../../blocks/ContentManagement/src/MyLeaseList.web';
 
 // Notification
 import OwnerNotification from '../../blocks/notifications/src/OwnerNotification.web';
+import ResidentNotification from '../../blocks/notifications/src/ResidentNotification.web';
+import ChairmanNotification from '../../blocks/notifications/src/ChairmanNotification.web';
+import ManagerNotification from '../../blocks/notifications/src/ManagerNotification.web';
 
 const routeMap = {
   //done
@@ -1999,13 +2002,25 @@ const routeMap = {
   OwnerNotification: {
     component: OwnerNotification,
     path: '/OwnerNotifications',
-    roles: [ROLE.OWNER],
+    roles: [ROLE.OWNER, ROLE.PROPERTY_MANAGER],
     exact: true
   },
   ResidentNotification: {
     component: ResidentNotification,
     path: '/ResidentNotifications',
-    roles: [ROLE.OWNER],
+    roles: [ROLE.TENANT, ROLE.OWNER_RESIDENT],
+    exact: true
+  },
+  ChairmanNotification: {
+    component: ChairmanNotification,
+    path: '/ChairmanNotification',
+    roles: [ROLE.CHAIRMAN],
+    exact: true
+  },
+  ManagerNotification: {
+    component: ManagerNotification,
+    path: '/ManagerNotification',
+    roles: [ROLE.MANAGER],
     exact: true
   },
 
