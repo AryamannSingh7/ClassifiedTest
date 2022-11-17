@@ -140,7 +140,7 @@ class Visitors extends ViewMyInvoicesController{
                         <Box style={{width:"80%",marginTop:'15px',backgroundColor:"white",padding:'20px',borderRadius:"20px"}}>
                             <Box style={{display:"flex",flexDirection:"column",alignItems:"center",marginTop:"15px"}}>
                                 <Box>
-                                    <img src={modalDeleteIcon} />
+                                    
                                 </Box>
                                 <Typography variant="h6" style={{color:"black",fontWeight:"bold",marginTop:"15px",marginBottom:"10px",textAlign:"center"}}>
                                     {t("Delete")}
