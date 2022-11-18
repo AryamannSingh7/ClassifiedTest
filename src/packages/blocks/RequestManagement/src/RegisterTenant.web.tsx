@@ -265,6 +265,7 @@ class RegisterTenant extends RegisterTenantController {
                                       value={values.unit}
                                       onChange={(e: any) => {
                                         setFieldValue("unit", e.target.value);
+                                        this.handleCheckTenantExist(e.target.value);
                                       }}
                                       onBlur={handleBlur}
                                       name="unit"

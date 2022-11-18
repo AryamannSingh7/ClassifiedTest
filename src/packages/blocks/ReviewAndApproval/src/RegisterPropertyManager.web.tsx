@@ -32,7 +32,9 @@ import {
   IDTypeIcon,
   ManagerIcon,
   MobileIcon,
+  PdfIcon,
   UnitIcon,
+  UploadIcon,
 } from "./assets";
 import { Formik, Form } from "formik";
 import { withTranslation } from "react-i18next";
@@ -41,10 +43,16 @@ import Loader from "../../../components/src/Loader.web";
 import { PropertyManagerStyleWeb } from "./PropertyManagerStyle.web";
 import RegisterPropertyManagerController, { Props } from "./RegisterPropertyManagerController.web";
 import { CountryList } from "./countryList";
+import CloseIcon from "@material-ui/icons/Close";
 
 class RegisterPropertyManager extends RegisterPropertyManagerController {
   constructor(props: Props) {
     super(props);
+  }
+
+  async componentDidMount(): Promise<void> {
+    this.getBuildingList();
+    this.getIdTypeList();
   }
 
   render() {
@@ -66,16 +74,21 @@ class RegisterPropertyManager extends RegisterPropertyManagerController {
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    <span>{t("Add Another Unit")}</span>
+                    <span>{t("Add Property Manager")}</span>
                   </div>
                 </Box>
                 <Container className="page-container">
                   <Box className="issue-lease-content form">
                     <Formik
                       enableReinitialize={true}
-                      initialValues={{}}
-                      validationSchema={{}}
-                      onSubmit={(values: any, { resetForm }) => {}}
+                      initialValues={this.state.propertyManagerForm}
+                      validationSchema={this.registerPropertyManagerFormSchema}
+                      onSubmit={(values: any, { resetForm }) => {
+                        this.setState({ loading: true }, () => {
+                          this.createPropertyManager(values);
+                          resetForm();
+                        });
+                      }}
                     >
                       {({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue }) => {
                         return (
@@ -83,10 +96,10 @@ class RegisterPropertyManager extends RegisterPropertyManagerController {
                             <Box className="select-input-box">
                               <FormControl fullWidth>
                                 <Input
-                                  value=""
+                                  value={values.companyName}
                                   onChange={handleChange}
                                   onBlur={handleBlur}
-                                  name="size"
+                                  name="companyName"
                                   className="select-input input"
                                   placeholder={t("Company Name")}
                                   startAdornment={
@@ -95,16 +108,16 @@ class RegisterPropertyManager extends RegisterPropertyManagerController {
                                     </InputAdornment>
                                   }
                                 />
-                                {/* {errors.tenantName && touched.tenantName && (
-                                      <p className="error">{t(errors.tenantName)}</p>
-                                    )} */}
+                                {errors.companyName && touched.companyName && (
+                                  <p className="error">{t(errors.companyName)}</p>
+                                )}
                               </FormControl>
                               <FormControl fullWidth>
                                 <Input
-                                  value=""
+                                  value={values.managerName}
                                   onChange={handleChange}
                                   onBlur={handleBlur}
-                                  name="size"
+                                  name="managerName"
                                   className="select-input input"
                                   placeholder={t("Manager Full Name")}
                                   startAdornment={
@@ -113,16 +126,16 @@ class RegisterPropertyManager extends RegisterPropertyManagerController {
                                     </InputAdornment>
                                   }
                                 />
-                                {/* {errors.tenantName && touched.tenantName && (
-                                      <p className="error">{t(errors.tenantName)}</p>
-                                    )} */}
+                                {errors.managerName && touched.managerName && (
+                                  <p className="error">{t(errors.managerName)}</p>
+                                )}
                               </FormControl>
                               <FormControl fullWidth>
                                 <Input
-                                  value=""
+                                  value={values.email}
                                   onChange={handleChange}
                                   onBlur={handleBlur}
-                                  name="size"
+                                  name="email"
                                   className="select-input input"
                                   placeholder={t("Email ID (will be your user name)")}
                                   startAdornment={
@@ -131,20 +144,16 @@ class RegisterPropertyManager extends RegisterPropertyManagerController {
                                     </InputAdornment>
                                   }
                                 />
-                                {/* {errors.tenantName && touched.tenantName && (
-                                      <p className="error">{t(errors.tenantName)}</p>
-                                    )} */}
+                                {errors.email && touched.email && <p className="error">{t(errors.email)}</p>}
                               </FormControl>
                               <FormControl fullWidth>
                                 <Box className="mobile-box">
                                   <Select
                                     displayEmpty
-                                    value=""
-                                    // onChange={(e: any) => {
-                                    //   setFieldValue("tenantCountryCode", e.target.value);
-                                    // }}
+                                    value={values.countryCode}
+                                    onChange={handleChange}
                                     onBlur={handleBlur}
-                                    name="tenantCountryCode"
+                                    name="countryCode"
                                     fullWidth
                                     className="mobile-select"
                                     input={<OutlinedInput />}
@@ -167,12 +176,10 @@ class RegisterPropertyManager extends RegisterPropertyManagerController {
                                   </Select>
                                   <Box className="divider" />
                                   <Input
-                                    value=""
-                                    // onChange={(e: any) => {
-                                    //   setFieldValue("tenantMobile", e.target.value);
-                                    // }}
+                                    value={values.mobileNumber}
+                                    onChange={handleChange}
                                     onBlur={handleBlur}
-                                    name="tenantMobile"
+                                    name="mobileNumber"
                                     className="mobile-input"
                                     placeholder={t("Mobile")}
                                     startAdornment={
@@ -182,8 +189,8 @@ class RegisterPropertyManager extends RegisterPropertyManagerController {
                                     }
                                   />
                                 </Box>
-                                {errors.tenantMobile && touched.tenantMobile && (
-                                  <p className="error">{t(errors.tenantMobile)}</p>
+                                {errors.mobileNumber && touched.mobileNumber && (
+                                  <p className="error">{t(errors.mobileNumber)}</p>
                                 )}
                               </FormControl>
                               <h4 style={{ marginTop: "18px" }}>{t("Property Details")}</h4>
@@ -211,32 +218,34 @@ class RegisterPropertyManager extends RegisterPropertyManagerController {
                                 <Box className="select-box">
                                   <Select
                                     displayEmpty
-                                    value=""
+                                    value={values.idType}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
-                                    name="country"
+                                    name="idType"
                                     className="select-input"
                                     input={<OutlinedInput />}
                                   >
                                     <MenuItem value="" disabled>
                                       {t("Manager ID Type")}
                                     </MenuItem>
-                                    <MenuItem value={10}>Ten</MenuItem>
-                                    <MenuItem value={20}>Twenty</MenuItem>
-                                    <MenuItem value={30}>Thirty</MenuItem>
+                                    {this.state.idTypeList.map((idType: any) => {
+                                      return (
+                                        <MenuItem value={idType.id} key={idType.id}>
+                                          {idType.name}
+                                        </MenuItem>
+                                      );
+                                    })}
                                   </Select>
                                   <img src={IDTypeIcon} alt="" />
                                 </Box>
-                                {/* {errors.buildingId && touched.buildingId && (
-                                  <p className="error">{t(errors.buildingId)}</p>
-                                )} */}
+                                {errors.idType && touched.idType && <p className="error">{t(errors.idType)}</p>}
                               </FormControl>
                               <FormControl fullWidth>
                                 <Input
-                                  value=""
+                                  value={values.idNumber}
                                   onChange={handleChange}
                                   onBlur={handleBlur}
-                                  name="monthlyIncome"
+                                  name="idNumber"
                                   className="select-input input"
                                   placeholder={t("Manager ID Number")}
                                   startAdornment={
@@ -245,28 +254,51 @@ class RegisterPropertyManager extends RegisterPropertyManagerController {
                                     </InputAdornment>
                                   }
                                 />
-
-                                {errors.monthlyRent && touched.monthlyRent && (
-                                  <p className="error">{t(errors.monthlyRent)}</p>
-                                )}
+                                {errors.idNumber && touched.idNumber && <p className="error">{t(errors.idNumber)}</p>}
                               </FormControl>
                               <FormControl fullWidth>
                                 <Input
-                                  value=""
+                                  value={values.idDate}
                                   onChange={handleChange}
                                   onBlur={handleBlur}
-                                  name="valuation"
+                                  name="idDate"
                                   className="select-input input"
                                   placeholder={t("ID Expectation Date")}
+                                  onFocus={(e: any) => (e.target.type = "date")}
                                   startAdornment={
                                     <InputAdornment position="start">
                                       <img src={IDDateIcon} alt="" />
                                     </InputAdornment>
                                   }
                                 />
-                                {/* {errors.monthlyRent && touched.monthlyRent && (
-                                  <p className="error">{t(errors.monthlyRent)}</p>
-                                )} */}
+                                {errors.idDate && touched.idDate && <p className="error">{t(errors.idDate)}</p>}
+                              </FormControl>
+                              <FormControl fullWidth>
+                                <Box className="upload-box" onClick={() => this.uploadIDCard.click()}>
+                                  <img src={UploadIcon} alt="" />
+                                  <p>{t("Upload Tenant ID Card Copy")}</p>
+                                </Box>
+                                <input
+                                  onChange={(e: any) => setFieldValue("idCardFile", e.target.files[0])}
+                                  onBlur={handleBlur}
+                                  name="idCardFile"
+                                  style={{ display: "none" }}
+                                  ref={(ref: any) => (this.uploadIDCard = ref)}
+                                  accept=".pdf"
+                                  type="file"
+                                />
+                                {values.idCardFile && (
+                                  <Box className="pdf-box">
+                                    <img src={PdfIcon} alt="" />
+                                    <Box className="pdf-info">
+                                      <h4>{values.idCardFile.name}</h4>
+                                      <CloseIcon onClick={() => setFieldValue("idCardFile", null)} />
+                                    </Box>
+                                  </Box>
+                                )}
+                                {errors.idCardFile && touched.idCardFile && (
+                                  <p className="error">{t(errors.idCardFile)}</p>
+                                )}
                               </FormControl>
 
                               <div className="next-button">
@@ -297,8 +329,8 @@ class RegisterPropertyManager extends RegisterPropertyManagerController {
         >
           <Formik
             enableReinitialize
-            initialValues={{}}
-            validationSchema={{}}
+            initialValues={this.state.propertyForm}
+            validationSchema={this.registerPropertyFormSchema}
             onSubmit={(values, { resetForm }) => {
               console.log(values);
               // resetForm();
@@ -310,104 +342,90 @@ class RegisterPropertyManager extends RegisterPropertyManagerController {
                   <Box>
                     <h4>{t("Add Another Property")}</h4>
                     <FormControl fullWidth>
-                      <Box className="select-box">
-                        <Select
-                          displayEmpty
-                          value=""
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          name="country"
-                          className="select-input"
-                          input={<OutlinedInput />}
-                        >
-                          <MenuItem value="" disabled>
-                            {t("Country")}
-                          </MenuItem>
-                          <MenuItem value={10}>Ten</MenuItem>
-                          <MenuItem value={20}>Twenty</MenuItem>
-                          <MenuItem value={30}>Thirty</MenuItem>
-                        </Select>
-                        <img src={CountryIcon} alt="" />
-                      </Box>
-                      {/* {errors.buildingId && touched.buildingId && (
-                                  <p className="error">{t(errors.buildingId)}</p>
-                                )} */}
+                      <Input
+                        value={values.country}
+                        name="country"
+                        className="select-input input"
+                        placeholder={t("Country")}
+                        type="text"
+                        startAdornment={
+                          <InputAdornment position="start">
+                            <img src={CountryIcon} alt="" />
+                          </InputAdornment>
+                        }
+                        readOnly
+                      />
+                    </FormControl>
+                    <FormControl fullWidth>
+                      <Input
+                        value={values.city}
+                        name="city"
+                        className="select-input input"
+                        placeholder={t("City")}
+                        type="text"
+                        startAdornment={
+                          <InputAdornment position="start">
+                            <img src={CityIcon} alt="" />
+                          </InputAdornment>
+                        }
+                        readOnly
+                      />
                     </FormControl>
                     <FormControl fullWidth>
                       <Box className="select-box">
                         <Select
                           displayEmpty
-                          value=""
+                          value={values.buildingId}
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          name="country"
-                          className="select-input"
-                          input={<OutlinedInput />}
-                        >
-                          <MenuItem value="" disabled>
-                            {t("City")}
-                          </MenuItem>
-                          <MenuItem value={10}>Ten</MenuItem>
-                          <MenuItem value={20}>Twenty</MenuItem>
-                          <MenuItem value={30}>Thirty</MenuItem>
-                        </Select>
-                        <img src={CityIcon} alt="" />
-                      </Box>
-                      {/* {errors.buildingId && touched.buildingId && (
-                                  <p className="error">{t(errors.buildingId)}</p>
-                                )} */}
-                    </FormControl>
-                    <FormControl fullWidth>
-                      <Box className="select-box">
-                        <Select
-                          displayEmpty
-                          value=""
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          name="country"
+                          name="buildingId"
                           className="select-input"
                           input={<OutlinedInput />}
                         >
                           <MenuItem value="" disabled>
                             {t("Building Name")}
                           </MenuItem>
-                          <MenuItem value={10}>Ten</MenuItem>
-                          <MenuItem value={20}>Twenty</MenuItem>
-                          <MenuItem value={30}>Thirty</MenuItem>
+                          {this.state.buildingList.map((building: any) => {
+                            return (
+                              <MenuItem value={building.id} key={building.id}>
+                                {building.name}
+                              </MenuItem>
+                            );
+                          })}
                         </Select>
                         <img src={BuildingIcon} alt="" />
                       </Box>
-                      {/* {errors.buildingId && touched.buildingId && (
-                                  <p className="error">{t(errors.buildingId)}</p>
-                                )} */}
+                      {errors.buildingId && touched.buildingId && <p className="error">{t(errors.buildingId)}</p>}
                     </FormControl>
                     <FormControl fullWidth>
                       <Box className="select-box">
                         <Select
                           displayEmpty
-                          value=""
+                          value={values.unitId}
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          name="country"
+                          name="unitId"
                           className="select-input"
                           input={<OutlinedInput />}
                         >
                           <MenuItem value="" disabled>
                             {t("Unit Number")}
                           </MenuItem>
-                          <MenuItem value={10}>Ten</MenuItem>
-                          <MenuItem value={20}>Twenty</MenuItem>
-                          <MenuItem value={30}>Thirty</MenuItem>
+                          {this.state.unitList.map((unit: any) => {
+                            return (
+                              <MenuItem value={unit.id} key={unit.id}>
+                                {unit.apartment_name}
+                              </MenuItem>
+                            );
+                          })}
                         </Select>
                         <img src={UnitIcon} alt="" />
                       </Box>
-                      {/* {errors.buildingId && touched.buildingId && (
-                                  <p className="error">{t(errors.buildingId)}</p>
-                                )} */}
+                      {errors.unitId && touched.unitId && <p className="error">{t(errors.unitId)}</p>}
                     </FormControl>
                     <FormControl fullWidth>
                       <Input
-                        value=""
+                        value={values.startDate}
                         onChange={handleChange}
                         onBlur={handleBlur}
                         name="startDate"
@@ -421,58 +439,58 @@ class RegisterPropertyManager extends RegisterPropertyManagerController {
                           </InputAdornment>
                         }
                       />
-                      {/* {errors.startDate && touched.startDate && <p className="error">{t(errors.startDate)}</p>} */}
+                      {errors.startDate && touched.startDate && <p className="error">{t(errors.startDate)}</p>}
                     </FormControl>
                     <FormControl fullWidth>
-                      <Input
-                        value=""
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        name="startDate"
-                        className="select-input input"
-                        placeholder={t("Contract End Date")}
-                        type="text"
-                        onFocus={(e: any) => (e.target.type = "date")}
-                        startAdornment={
-                          <InputAdornment position="start">
-                            <img src={IDDateIcon} alt="" />
-                          </InputAdornment>
-                        }
-                      />
-                      {/* {errors.startDate && touched.startDate && <p className="error">{t(errors.startDate)}</p>} */}
+                      <Box className="custom-input-box">
+                        <input
+                          value={values.endDate}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          name="endDate"
+                          className="select-input input"
+                          placeholder={t("Contract End Date")}
+                          type="text"
+                          onFocus={(e: any) => (e.target.type = "date")}
+                          min={values.startDate}
+                        />
+                        <img src={IDDateIcon} alt="" />
+                      </Box>
+                      {errors.endDate && touched.endDate && <p className="error">{t(errors.endDate)}</p>}
                     </FormControl>
                     <FormControl fullWidth>
                       <Box className="select-box">
                         <Select
                           displayEmpty
-                          value=""
+                          value={values.feeType}
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          name="country"
+                          name="feeType"
                           className="select-input"
                           input={<OutlinedInput />}
                         >
                           <MenuItem value="" disabled>
                             {t("Select Fee Type")}
                           </MenuItem>
-                          <MenuItem value={10}>Ten</MenuItem>
-                          <MenuItem value={20}>Twenty</MenuItem>
-                          <MenuItem value={30}>Thirty</MenuItem>
+                          <MenuItem value="Fixed Percentage">{t("Fixed Percentage of Rent")}</MenuItem>
+                          <MenuItem value="Fixed Amount">{t("Fixed Amount")}</MenuItem>
                         </Select>
                         <img src={FeeTypeIcon} alt="" />
                       </Box>
-                      {/* {errors.buildingId && touched.buildingId && (
-                                  <p className="error">{t(errors.buildingId)}</p>
-                                )} */}
+                      {errors.feeType && touched.feeType && <p className="error">{t(errors.feeType)}</p>}
                     </FormControl>
                     <FormControl fullWidth>
                       <Input
-                        value=""
+                        value={values.rent}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        name="rentAmount"
+                        name="rent"
                         className="select-input input"
-                        placeholder={t("Enter Fixed Percentage of Rent")}
+                        placeholder={
+                          values.feeType === "Fixed Amount"
+                            ? `${t("Enter Fixed Amount")}`
+                            : `${t("Enter Fixed Percentage of Rent")}`
+                        }
                         type="text"
                         startAdornment={
                           <InputAdornment position="start">
@@ -480,7 +498,7 @@ class RegisterPropertyManager extends RegisterPropertyManagerController {
                           </InputAdornment>
                         }
                       />
-                      {/* {errors.rentAmount && touched.rentAmount && <p className="error">{t(errors.rentAmount)}</p>} */}
+                      {errors.rent && touched.rent && <p className="error">{t(errors.rent)}</p>}
                     </FormControl>
                   </Box>
                   <Box className="button-group">
