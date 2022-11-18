@@ -65,7 +65,7 @@ class ChairmanNomination extends ChairmainNominationController{
                                                 <Grid item xs={6}>
                                                     <Box>
                                                         <Typography variant="subtitle2" color="textSecondary">{t("Building")}:</Typography>
-                                                        <Typography variant="subtitle2" color="textPrimary">{item.attributes.building}</Typography>
+                                                        <Typography variant="subtitle2" color="textPrimary">{item.attributes.building_name}</Typography>
                                                     </Box>
                                                 </Grid>
                                                 <Grid item xs={6}>
