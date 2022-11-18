@@ -921,5 +921,7 @@
   "Due Amount": "مبلغ مستحق",
   "Due on": "تاريخ الاستحقاق",
   "Already tenant available to this unit": "المستأجر متاح بالفعل لهذه الوحدة",
-  "Only character are allowed": "مسموح فقط الحرف"
+  "Only character are allowed": "مسموح فقط الحرف",
+  "Register Rent Payments": "تسجيل مدفوعات الإيجار",
+  "Payment Due Amount": "المبلغ المستحق الدفع"
 }

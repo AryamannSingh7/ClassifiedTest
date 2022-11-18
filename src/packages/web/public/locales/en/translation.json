@@ -928,5 +928,7 @@
   "Due Amount": "Due Amount",
   "Due on": "Due on",
   "Already tenant available to this unit": "Already tenant available to this unit",
-  "Only character are allowed": "Only character are allowed"
+  "Only character are allowed": "Only character are allowed",
+  "Register Rent Payments": "Register Rent Payments",
+  "Payment Due Amount": "Payment Due Amount"
 }

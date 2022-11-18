@@ -316,6 +316,7 @@ import RentPayments from "../../blocks/PricingEngine2/src/RentPayments.web"
 import RentUnitLists from "../../blocks/PricingEngine2/src/RentUnitLists.web"          
 import ViewMyRents from "../../blocks/PricingEngine2/src/ViewMyRents.web"
 import RentDetails from "../../blocks/PricingEngine2/src/RentDetails.web"
+import AddRentPayment from "../../blocks/PricingEngine2/src/RegisterRentPayment.web"
 
 // Reports
 import ReportDashboard from '../../blocks/ExpenseTracking/src/ReportDashboard.web';
@@ -1835,6 +1836,12 @@ const routeMap = {
   MyReceipts: {
     component: MyReceipts,
     path: '/Owner/MyReceipts',
+    exact: true
+  },
+
+  AddRentPayment:{
+    component: AddRentPayment,
+    path: '/AddRentPayment',
     exact: true
   },
 

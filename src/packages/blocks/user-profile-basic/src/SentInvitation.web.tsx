@@ -72,6 +72,11 @@ constructor(props: Props) {
     // Customizable Area End
 }
 
+async componentDidMount() {
+    this.getInvitation()
+    
+  }
+
 render() {
     const {t}: any = this.props
     var searchData = rows.filter((item) => {
@@ -117,7 +122,7 @@ render() {
                                     // className={classes.margin}
                                     id="input-with-icon-textfield"
                                     placeholder="Search"
-                                    onChange={(e) => this.setState({dataSearch: e.target.value})}
+                                    onChange={(e) => this.setState({dataSearch: e.target.value},()=>this.getInvitation())}
                                     // onChange={(e) => this.handleSearchChange()}
                                     // label="TextField"
                                     InputProps={{
@@ -143,14 +148,14 @@ render() {
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
-                                        {searchData.map((row) => (
-                                            <TableRow key={row.no}>
-                                                <TableCell component="th" scope="row">{row.no}</TableCell>
-                                                <TableCell align="left">{row.name}</TableCell>
-                                                <TableCell align="left">{row.unit}</TableCell>
-                                                <TableCell align="left">{row.invitation}</TableCell>
-                                                <TableCell align="left">{row.phone}</TableCell>
-                                                <TableCell align="left">{row.email}</TableCell>
+                                        {this.state.allInvitation.map((row:any,i:any) => (
+                                            <TableRow key={row.id}>
+                                                <TableCell component="th" scope="row">{i+1}</TableCell>
+                                                <TableCell align="left">{row?.attributes?.full_name}</TableCell>
+                                                <TableCell align="left">{row?.attributes?.apartment_management?.apartment_name}</TableCell>
+                                                <TableCell align="left">{row?.attributes?.created_at}</TableCell>
+                                                <TableCell align="left">{row?.attributes?.phone_number}</TableCell>
+                                                <TableCell align="left">{row?.attributes?.email_address}</TableCell>
                                                 <TableCell align="left" onClick={(e: any) => this.handleClick(e)}>{row.more}</TableCell>
                                             </TableRow>
                                         ))}
@@ -158,7 +163,7 @@ render() {
                                 </Table>
                             </TableContainer>
                             <Box style={dashBoardActions.TableHeader}>
-                                <Typography  style={dashBoardActions.subHeading}>{t("Showing")} 5 {t("of")} {rows.length} {t("results")}</Typography>
+                                <Typography  style={dashBoardActions.subHeading}>{t("Showing")} {this.state.allInvitation.length>10 ? '10' : this.state.allInvitation.length} {t("of")} {this.state.allInvitation.length} {t("results")}</Typography>
                                 <Pagination count={10} variant="outlined" shape="rounded" />
                             </Box>
                         </Box> 

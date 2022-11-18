@@ -60,6 +60,7 @@ class CommunityRequestManagement extends CommunityUserProfileController {
   async componentDidMount() {
    this.getUserType()
    this.getBuilding();
+   this.getCount();
   //  this.getUnit();
 
 
@@ -159,7 +160,7 @@ class CommunityRequestManagement extends CommunityUserProfileController {
                                     //@ts-ignore 
                                     style={dashBoard.cancleIcon} onClick={(e: any) => this.handleToolTip(e, "")}/>
                                 </RequestManagementDetailPopover>
-                            <Typography variant="h6" style={dashBoard.subHeading}>16</Typography>
+                            <Typography variant="h6" style={dashBoard.subHeading}>{this.state.invitatonCount?.pending}</Typography>
                         </Paper>
                         <Paper elevation={3} style={dashBoard.managementPaper} 
                         onClick={() => {
@@ -196,7 +197,7 @@ class CommunityRequestManagement extends CommunityUserProfileController {
                                     //@ts-ignore
                                     style={dashBoard.cancleIcon} onClick={(e: any) => this.handleToolTip(e, "")}/>
                                 </RequestManagementDetailPopover>
-                            <Typography variant="h6" style={dashBoard.subHeading}>67</Typography>
+                            <Typography variant="h6" style={dashBoard.subHeading}>{this.state.invitatonCount?.totle_sent_requests-this.state.invitatonCount?.accepted}</Typography>
                         </Paper>
                     </div>
                   </Box>
@@ -215,19 +216,19 @@ class CommunityRequestManagement extends CommunityUserProfileController {
                             //@ts-ignore
                             this.props.history.push("/SentInvitation")}}>
                                 <h6>{t("Total Sent Invitations")}</h6>
-                                <Typography variant="h6" style={dashBoard.invitationCont}>150</Typography>
+                                <Typography variant="h6" style={dashBoard.invitationCont}>{this.state.invitatonCount?.totle_sent_requests}</Typography>
                             </div>
                             <div style={dashBoard.facility}>
                                 <h6>{t("Accepted Invitations by users")}</h6>
-                                <Typography variant="h6" style={dashBoard.invitationCont}>99</Typography>
+                                <Typography variant="h6" style={dashBoard.invitationCont}>{this.state.invitatonCount?.accepted}</Typography>
                             </div>
                             <div style={dashBoard.facility}>
                                 <h6>{t("Rejected Invitation by users")}</h6>
-                                <Typography variant="h6" style={dashBoard.invitationCont}>14</Typography>
+                                <Typography variant="h6" style={dashBoard.invitationCont}>{this.state.invitatonCount?.rejected}</Typography>
                             </div>
                             <div style={dashBoard.facility}>
                                 <h6 style={dashBoard.inviteTitle}>{t("Total received join requests")}</h6>
-                                <Typography variant="h6" style={dashBoard.invitationCont}>50</Typography>
+                                <Typography variant="h6" style={dashBoard.invitationCont}>{this.state.invitatonCount?.totle_sent_requests}</Typography>
                             </div>
                         </div>
                     </Paper>
@@ -419,7 +420,7 @@ class CommunityRequestManagement extends CommunityUserProfileController {
                                     style={{ paddingLeft: '45px' }}
                                     // label="Select User Type"
                                     onChange={(e) => {
-                                      (e.target.value != " ") && setFieldValue("building", e.target.value) ; this.getUnit(e.target.value)
+                                      (e.target.value != " ") && setFieldValue("building", e.target.value) ; this.getUnit2(e.target.value)
                                     }}
                                     value={values.building}
                                   >

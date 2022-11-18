@@ -132,17 +132,22 @@ class AwaitingAcceptece extends CommunityUserProfileController {
                 </Box>
 
                 <Box style={dashBoard.boxStyling}>
-                    <Grid container  xs={6} md={6} sm={6} spacing={2}>
-                      <Grid item xs={4}>
+                <Grid container  xs={6} md={6} sm={6} spacing={2}>
+                    <Grid item xs={4}>
                         <FormControl style={dashBoard.YearMain} className='yearTab'>
                           <NativeSelect className='yearSelection'
                             // value={this.state.Year}
-                            // onChange={this.handleChange}
+                            name="selectedBUilding"
+                            onChange={this.handleChange}
                           >
-                            <option value={2022}>Select Unit</option>
-                            <option value={2021}>2021</option>
-                            <option value={2020}>2020</option>
-                            <option value={2019}>2019</option>
+                            <option value={2022}>{t("Select Building")}</option>
+                            {
+                              this.state.allBuilding.map((item:any)=><>
+                              <option value={item.name}>{item.name}</option>
+                              </>)
+                            }
+                            
+                           
                           </NativeSelect>
                       </FormControl>
                       </Grid>
@@ -150,19 +155,37 @@ class AwaitingAcceptece extends CommunityUserProfileController {
                         <FormControl style={dashBoard.YearMain} className='yearTab'>
                           <NativeSelect className='yearSelection'
                             // value={this.state.Year}
-                            // onChange={this.handleChange}
+                            name="selctedUnit"
+                            onChange={this.handleChange}
                           >
-                            <option value={2022}>Select User Type</option>
-                            <option value={2021}>2021</option>
-                            <option value={2020}>2020</option>
-                            <option value={2019}>2019</option>
+                            <option value={2022}>{t("Select Unit")}</option>
+                            {
+                              this.state.allUnit.map((item:any)=><>
+                              <option value={item.apartment_name}>{item.apartment_name}</option>
+                              </>)
+                            }
                           </NativeSelect>
                       </FormControl>
                       </Grid>
                       <Grid item xs={4}>
-                        <Button variant="contained" style={dashBoard.backColor}><InputAdornment position="start">
+                        <FormControl style={dashBoard.YearMain} className='yearTab'>
+                          <NativeSelect className='yearSelection'
+                          name='selectedUserType'
+                            // value={this.state.Year}
+                            onChange={this.handleChange}
+                          >
+                            <option value={2022}>{t("Select User Type")}</option>
+                            <option value={'ga_member'}>ga_member</option>
+                            <option value={'resident'}>resident</option>
+                            <option value={'owner'}>owner</option>
+                            <option value={'property_manager'}>property_manager</option>
+                          </NativeSelect>
+                      </FormControl>
+                      </Grid>
+                      <Grid item xs={4}>
+                        <Button variant="contained" onClick={this.getInvitation} style={dashBoard.backColor}><InputAdornment position="start">
                                 <SearchIcon />
-                              </InputAdornment>Search</Button>
+                              </InputAdornment>{t("Search")}</Button>
                       </Grid>
                     </Grid>
                   </Box>
@@ -279,8 +302,8 @@ class AwaitingAcceptece extends CommunityUserProfileController {
                         style={dashBoard.modalCacle}/>
                         <Formik
                     initialValues={{
-                      email: this.state.selectInvitation?.attributes?.email,
-                      usertype: "",
+                      email: this.state.selectInvitation?.attributes?.email_address,
+                      usertype: this.state.selectInvitation?.attributes?.role?.id,
                       fullname: this.state.selectInvitation?.attributes?.full_name,
                       phoneno: this.state?.selectInvitation.attributes?.phone_number,
                       building: this.state.selectInvitation?.attributes?.building_management?.id,
@@ -322,16 +345,9 @@ class AwaitingAcceptece extends CommunityUserProfileController {
                                       {/* {
                                       this.state.allBuilding.map((item:any)=> <MenuItem value={item.id}>{item.name}</MenuItem>)
                                     } */}
-                                      {/* {
-                                        this.state?.userTypeData?.map((val, index) => (
-                                          <MenuItem
-                                            key={index}
-                                            value={val?.name}
-                                          >
-                                            {val?.name}
-                                          </MenuItem>
-                                        ))
-                                      } */}
+                                       {
+                                        this.state.allUserType.map((item:any)=> <MenuItem value={item?.id}>{item?.name}</MenuItem>)
+                                      }
 
                                     </Select>
                                   </FormControl>
