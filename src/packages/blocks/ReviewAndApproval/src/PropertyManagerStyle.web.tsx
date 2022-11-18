@@ -48,7 +48,7 @@ export const PropertyManagerStyleWeb: any = {
       alignContent: "flex-start",
     },
     "& .content-box .contracts-list": {
-      minHeight: "calc(100% - 40px)",
+      minHeight: "calc(100% - 70px)",
     },
     "& .upload-button": {
       position: "sticky",
@@ -93,23 +93,46 @@ export const PropertyManagerStyleWeb: any = {
           },
         },
       },
+      "& .request-buttons": {
+        marginTop: "15px",
+        "& button": {
+          background: "#2b6fec",
+          color: "white",
+          padding: "8px 50px",
+          borderRadius: "25px",
+          fontWeight: 600,
+          width: "100%",
+        },
+        "& button.decline": {
+          background: "white",
+          color: "#2b6fec",
+          border: "1px solid #2b6fec",
+          padding: "8px 50px",
+          borderRadius: "25px",
+          fontWeight: 600,
+          width: "100%",
+        },
+      },
+      "& .info": {
+        marginTop: "15px",
+        "& span": {
+          color: "gray",
+        },
+        "& p": {
+          color: "black",
+        },
+      },
+      "& .header": {
+        width: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        "& h4": {
+          wordBreak: "break-all",
+        },
+      },
     },
     "& .templates-list .template .szh-menu-container ul a": {
-      color: "black",
-    },
-    "& .contracts-list .contract .header": {
-      width: "100%",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "space-between",
-    },
-    "& .contracts-list .contract .header h4": {
-      wordBreak: "break-all",
-    },
-    "& .contracts-list .contract .info span": {
-      color: "gray",
-    },
-    "& .contracts-list .contract .info p": {
       color: "black",
     },
     "& .contracts-list .state": {
@@ -402,6 +425,42 @@ export const PropertyManagerStyleWeb: any = {
     },
     "& .mobile-box .mobile-input .MuiInputBase-input": {
       paddingLeft: 10,
+    },
+    "& .issue-lease-content .upload-box": {
+      border: "3px dashed #F0F0F0",
+      background: "#F9F9F9",
+      borderRadius: "10px",
+      padding: "10px",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      height: "150px",
+      marginTop: "18px",
+    },
+    "& .issue-lease-content .upload-box p": {
+      color: "#CBCBCB",
+      marginTop: "10px",
+    },
+    "& .issue-lease-content .pdf-box": {
+      display: "flex",
+      alignItems: "center",
+      gap: "12px",
+      border: "1px solid #F0F0F0",
+      borderRadius: "8px",
+      padding: "5px",
+      marginTop: "10px",
+      "& .pdf-info": {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        width: "100%",
+        "& h4": {
+          wordBreak: "break-all",
+          fontWeight: "500",
+          fontSize: "14px",
+        },
+      },
     },
   },
   managerDetails: {
