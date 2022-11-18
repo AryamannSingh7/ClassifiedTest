@@ -108,7 +108,7 @@ class GaMembers extends CommunityUserProfileController {
   constructor(props: Props) {
     super(props);
   }
-  componentDidMount() {
+  async componentDidMount() {
     this.getUserProfile()
    
   }
