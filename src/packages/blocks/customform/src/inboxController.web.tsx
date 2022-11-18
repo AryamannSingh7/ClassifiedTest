@@ -774,7 +774,7 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
     this.getInboxApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_chat/chats/search?query=${value}&chatable_id=${localStorage.getItem('userId')}`
+      `bx_block_chat/chats?q=${value}&chatable_id=${localStorage.getItem('userId')}`
     );
 
     requestMessage.addData(

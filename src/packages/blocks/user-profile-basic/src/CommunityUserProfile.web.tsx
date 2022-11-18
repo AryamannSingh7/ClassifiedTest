@@ -250,7 +250,8 @@ class CommunityUserProfile extends CommunityUserProfileController {
                         <FormControl style={dashBoard.YearMain} className='yearTab'>
                           <NativeSelect className='yearSelection'
                             // value={this.state.Year}
-                            // onChange={this.handleChange}
+                            name="selctedUnit"
+                            onChange={this.handleChange}
                           >
                             <option value={2022}>{t("Select Unit")}</option>
                             {
@@ -264,18 +265,20 @@ class CommunityUserProfile extends CommunityUserProfileController {
                       <Grid item xs={4}>
                         <FormControl style={dashBoard.YearMain} className='yearTab'>
                           <NativeSelect className='yearSelection'
+                          name='selectedUserType'
                             // value={this.state.Year}
-                            // onChange={this.handleChange}
+                            onChange={this.handleChange}
                           >
                             <option value={2022}>{t("Select User Type")}</option>
-                            <option value={2021}>2021</option>
-                            <option value={2020}>2020</option>
-                            <option value={2019}>2019</option>
+                            <option value={'ga_member'}>ga_member</option>
+                            <option value={'resident'}>resident</option>
+                            <option value={'owner'}>owner</option>
+                            <option value={'property_manager'}>property_manager</option>
                           </NativeSelect>
                       </FormControl>
                       </Grid>
                       <Grid item xs={4}>
-                        <Button variant="contained" style={dashBoard.backColor}><InputAdornment position="start">
+                        <Button variant="contained" onClick={this.getUserProfile} style={dashBoard.backColor}><InputAdornment position="start">
                                 <SearchIcon />
                               </InputAdornment>{t("Search")}</Button>
                       </Grid>
@@ -321,7 +324,7 @@ class CommunityUserProfile extends CommunityUserProfileController {
                     <div style={dashBoard.gaMemberCard}>
                       <>
                       {//@ts-ignore
-                      this.state.allProfile[item].data.slice(0,4).map((singleProfile:any, index:any) => {
+                      this.state.allProfile[item]?.data?.slice(0,4).map((singleProfile:any, index:any) => {
                         return(
                           <div key={index}  onClick={() => {
                             //@ts-ignore
