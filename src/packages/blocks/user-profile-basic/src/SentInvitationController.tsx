@@ -20,7 +20,9 @@ export interface Props {
 interface S {
   // Customizable Area Start
     dataSearch: any,
-    anchorEl: any
+    anchorEl: any,
+    loading:boolean,
+    allInvitation:any;
   // Customizable Area End
 
 }
@@ -38,6 +40,7 @@ export default class SentInvitationController extends BlockComponent<
 > {
 
   // Customizable Area Start
+  getInvitationAPICall:any;
   // Customizable Area End
 
   constructor(props: Props) {
@@ -52,7 +55,9 @@ export default class SentInvitationController extends BlockComponent<
 
     this.state = {
         dataSearch: "",
-        anchorEl: null
+        anchorEl: null,
+        loading:false,
+        allInvitation:[]
       
     };
     // Customizable Area End
@@ -77,11 +82,24 @@ export default class SentInvitationController extends BlockComponent<
         getName(MessageEnum.RestAPIResponceErrorMessage)
       );
 
+       if (apiRequestCallId === this.getInvitationAPICall) {
+        if (!responseJson.errors) {
+this.setState({allInvitation:responseJson.data,loading:false})
+
+
+        } else {
+          //Check Error Response
+          this.parseApiErrorResponse(responseJson);
+        }
+
+        this.parseApiCatchErrorResponse(errorReponse);
+      }
+
       }
 
     // Customizable Area End
   }
-
+// Customizable Area Start
   handleClose = () => {
     this.setState({anchorEl:null})
   }
@@ -89,4 +107,40 @@ export default class SentInvitationController extends BlockComponent<
   handleClick = (e: any) => {
     this.setState({anchorEl:e.currentTarget});
   }
+
+  getInvitation = () => {
+
+    try {
+      const header = {
+        token: localStorage.getItem("userToken")
+      };
+
+      //const id = localStorage.getItem("userId");
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+      this.getInvitationAPICall = requestMessage.messageId;
+      this.setState({ loading: true });
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        `bx_block_request_management/member_invitations?&q=${this.state.dataSearch}`
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        configJSON.validationApiMethodType
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+      return true;
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }

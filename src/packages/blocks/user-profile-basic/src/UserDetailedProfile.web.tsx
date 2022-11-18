@@ -191,7 +191,7 @@ class UserDetailedProfile extends UserDetailedProfileController {
                     <Typography variant="body1" >
                       {t("Community Management")} / {t("User Profiles") } / <Box component="span" style={{ color: "blue" }}> {profileDetails?.attributes?.full_name?.name || 'N/A'}</Box>
                     </Typography>
-                    <Typography variant="h5" style={dashBoard.subHeading}>{t("Marleah Eagleston")}</Typography>
+                    <Typography variant="h5" style={dashBoard.subHeading}>{profileDetails?.attributes?.full_name?.name || 'N/A'}</Typography>
                   </Box>
                 </Box>
 
@@ -263,11 +263,11 @@ class UserDetailedProfile extends UserDetailedProfileController {
                                         </Grid>
                                         <Grid item xs={2} sm={3}>
                                             <Typography variant="subtitle1" style={dashBoard.subtitleClr}>{t("Hobbies")}</Typography>
-                                            <Typography variant="subtitle1">Cricket, Golf</Typography>
+                                            <Typography variant="subtitle1">{profileDetails?.attributes?.hobbies?.hobbies && profileDetails?.attributes?.hobbies?.hobbies.map((item:any)=><>{item} ,</>)}</Typography>
                                         </Grid>
                                     </Grid>
                                     <Grid container spacing={3} style={{marginTop:"5px"}}>
-                                        <Grid item xs={2} sm={1}>
+                                        {/* <Grid item xs={2} sm={1}>
                                             <img src={facebook} style={{width:"40px"}}/>
                                         </Grid>
                                         <Grid item xs={2} sm={1}>
@@ -278,7 +278,27 @@ class UserDetailedProfile extends UserDetailedProfileController {
                                         </Grid>
                                         <Grid item xs={2} sm={1}>
                                             <img src={snap} style={{width:"40px"}}/>
-                                        </Grid>
+                                        </Grid> */}
+                                        {
+                    profileDetails?.attributes?.website[0].twitter_link && <Button href={profileDetails?.attributes?.website[0].twitter_link} target="_blank">
+                      <img src={twitter_org} className="icon" alt="FB_Icon" />
+                    </Button>
+                  }
+                  {
+                    profileDetails?.attributes?.website[1].instagram_link && <Button href={profileDetails?.attributes?.website[1].instagram_link} target="_blank">
+                      <img src={instagram} className="icon" alt="FB_Icon" />
+                    </Button>
+                  }
+                  {
+                    profileDetails?.attributes?.website[2].fb_link && <Button href={profileDetails?.attributes?.website[2].fb_link} target="_blank">
+                      <img src={facebook} className="icon" alt="FB_Icon" />
+                    </Button>
+                  }
+                  {
+                    profileDetails?.attributes?.website[3].snapchat_link && <Button href={profileDetails?.attributes?.website[3].snapchat_link} target="_blank">
+                      <img src={snap} className="icon" alt="FB_Icon" />
+                    </Button>
+                  }
                                 </Grid>
                                 </Box>
                             </Grid>
