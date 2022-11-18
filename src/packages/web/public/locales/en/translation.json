@@ -794,7 +794,6 @@
   "Swimming Pool": "Swimming Pool",
   "Security": "Security",
   "Gardening": "Gardening",
-  "Others": "Others",
   "Complex Tax": "Complex Tax",
   "Final Budget": "Final Budget",
   "Budget per sq. ft.": "Budget per sq. ft.",
@@ -915,7 +914,7 @@
   "Cancel Nomination": "Cancel Nomination",
   "Remove Member": "Remove Member",
   "Create New Task ": "Create New Task ",
-  "Register Rent Payment":"Register Rent Payment",
+  "Register Rent Payment": "Register Rent Payment",
   "Partial Rent Payment Confirmation": "Partial Rent Payment Confirmation",
   "Full Rent Payment Confirmation": "Full Rent Payment Confirmation",
   "is claiming to have paid": "is claiming to have paid",
@@ -927,5 +926,7 @@
   "No, Not Paid": "No, Not Paid",
   "Enter Partial paid amount": "Enter Partial paid amount",
   "Due Amount": "Due Amount",
-  "Due on": "Due on"
+  "Due on": "Due on",
+  "Already tenant available to this unit": "Already tenant available to this unit",
+  "Only character are allowed": "Only character are allowed"
 }
