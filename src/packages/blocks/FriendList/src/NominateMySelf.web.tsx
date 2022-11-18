@@ -28,6 +28,7 @@ import './MyTeam.web.css'
 import {profileExp} from "./assets";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import ReorderIcon from '@material-ui/icons/Reorder';
+import {withTranslation} from "react-i18next";
 
 class NominateMySelf extends NominateMySelfController{
   constructor(props: Props) {
@@ -35,6 +36,8 @@ class NominateMySelf extends NominateMySelfController{
   }
 
   render() {
+      //@ts-ignore
+      const {t} = this.props
     return (
         <>
             <Grid item xs={12} md={12} className="auth-cols">
@@ -43,7 +46,7 @@ class NominateMySelf extends NominateMySelfController{
                       <Box style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
                           <ArrowBackIcon onClick={() => window.history.back()} />
                           <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
-                              Nominate My Self
+                              {t("Nominate My Self")}
                           </p>
                       </Box>
                   </Grid>
@@ -55,18 +58,18 @@ class NominateMySelf extends NominateMySelfController{
                                 <Box display="flex" alignItems="center">
                                     <img src={profileExp}/>
                                     <Box style={{marginLeft:"10px"}}>
-                                        <Typography style={{fontWeight:"bold",marginRight:"20px"}}>Jhon Doe</Typography>
-                                        <Typography variant="subtitle2">B-104, B-105 , D-504</Typography>
+                                        <Typography style={{fontWeight:"bold",marginRight:"20px"}}>{this.state.myProfile.name}</Typography>
+                                        <Typography variant="subtitle2">{this.state.myProfile.unit_number?.join(",")}</Typography>
                                     </Box>
                                 </Box>
                                 <Box style={{marginTop:"10px"}}>
-                                    <Typography variant="subtitle2" className={"statusOngoingBlue"}>Owner</Typography>
+                                    <Typography variant="subtitle2" className={"statusOngoingBlue"}>{this.state.myProfile.role}</Typography>
                                 </Box>
                             </Box>
                             <Box style={{width:"100%",marginTop:"20px "}}>
                                 <TextField
                                     id="outlined-multiline-static"
-                                    label="Why I should be elected"
+                                    label={t("Why I should be elected")}
                                     multiline
                                     InputProps={{
                                         startAdornment: (
@@ -88,20 +91,28 @@ class NominateMySelf extends NominateMySelfController{
                                 <FormControlLabel
                                     onChange={this.manageSelectRole}
                                     control={<Checkbox checkedIcon={<CheckBoxIcon style={{color:"#fc8434"}} />} name="checkedA" value={0} checked={this.state.myNominationAs.find((check:any)=> check === '0') ? true : false} />}
-                                    label="Chairman"
+                                    label={t("Chairman")}
                                 />
                                 <FormControlLabel
                                     onChange={this.manageSelectRole}
                                     control={<Checkbox checkedIcon={<CheckBoxIcon style={{color:"#fc8434"}} />} name="checkedB" value={1} checked={this.state.myNominationAs.find((check:any)=> check === '1') ? true : false} />}
-                                    label="Vice Chairman"
+                                    label={t("Vice Chairman")}
                                 />
                             </Box>
                         </Grid>
                     </Grid>
                     <Box style={{width:"90%",marginBottom:"50px",marginTop:"10px"}}>
-                        <CloseButton variant="contained" fullWidth size="large" onClick={this.manageNominate}>
-                            {this.state.nominatedSelf ? "Update" : "Submit"}
-                        </CloseButton>
+                        {
+                            this.state.nominatedSelf ?
+                            <CloseButton variant="contained" fullWidth size="large" onClick={this.manageNominate}>
+                                {t("Update")}
+                            </CloseButton>
+                                :
+                            <CloseButton variant="contained" fullWidth size="large" onClick={this.manageNominate}>
+                                {t("Submit")}
+                            </CloseButton>
+                        }
+
                     </Box>
                 </Box>
             </Grid>
@@ -110,7 +121,7 @@ class NominateMySelf extends NominateMySelfController{
   }
 }
 // @ts-ignore
-export default withRouter(NominateMySelf)
+export default withTranslation()(withRouter(NominateMySelf))
 
 const CloseButton = withStyles((theme) => ({
     root: {

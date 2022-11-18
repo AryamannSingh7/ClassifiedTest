@@ -26,14 +26,14 @@ class SurveyParticipate extends React.Component<any, any> {
                 <Box style={{display:'flex',flexDirection:"column",alignItems:"center",justifyContent:"center",height:"100%"}}>
                     <img src={success} style={{marginBottom:"15px"}} />
                     <Typography variant="h5" style={{textAlign:'center',fontFamily: "Century Gothic",fontWeight:"bold"}}>
-                        Nomination Added
+                        {t("Nomination Added")}
                     </Typography>
                     <Typography variant="body1" style={{textAlign:'center',fontFamily: "Century Gothic",marginTop:"30px",width:"90%"}}>
-                        Your nomination for the election has been successfully received.
+                        {t("Your nomination for the election has been successfully received.")}
                     </Typography>
                 </Box>
                 <Box style={{width:"90%",marginBottom:"25px"}}>
-                    <OkButton fullWidth size="large" onClick={() => this.props.history.push("/ChairmanNominations")}>{t("Okay")}</OkButton>
+                    <OkButton fullWidth size="large" onClick={() => window.history.go(-2)}>{t("Okay")}</OkButton>
                 </Box>
               </Box>
           </Grid>

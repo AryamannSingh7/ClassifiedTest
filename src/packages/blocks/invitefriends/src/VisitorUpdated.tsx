@@ -31,10 +31,10 @@ class SurveyParticipate extends React.Component<any, any> {
                         {t("Visitor Request Updated")}
                     </Typography>
                     <Typography variant="body1" style={{textAlign:'center',fontFamily: "Century Gothic",marginTop:"30px",width:"90%"}}>
-                        {t("Visitor_Request_Updated_Success")}</Typography>
+                        {t("Visitor Request Updated Success")}</Typography>
                 </Box>
                 <Box style={{width:"90%",marginBottom:"25px"}}>
-                    <OkButton fullWidth size="large" onClick={() => this.props.history.push("/Visitors")}>{t("Okay")}</OkButton>
+                    <OkButton fullWidth size="large" style={{textTransform:"uppercase"}} onClick={() => this.props.history.push("/Visitors")}>{t("Okay")}</OkButton>
                 </Box>
               </Box>
           </Grid>

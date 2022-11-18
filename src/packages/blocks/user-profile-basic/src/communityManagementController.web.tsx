@@ -2091,9 +2091,7 @@ let userType=localStorage.getItem('userType')
         .positive("Negative numbers are not allowed.")
         .integer("Number can't contain a decimal.")
         .min(100000000, "Minimum 9 digits are required.")
-        .max(1000000000, "Maximum 9 digits are allowed."),
-      building: Yup.string().required(`This field is required`),
-      unit: Yup.string().required(`This field is required`),
+        .max(1000000000, "Maximum 9 digits are allowed.")
     });
     return validations
   }

@@ -60,6 +60,7 @@ interface S {
   nominatedSelf:boolean,
   vote:{voteId:any,role:any,name:any};
   myDetails:any;
+  myNominateId:any
 }
 
 interface SS {
@@ -79,7 +80,7 @@ export default class FriendListController extends BlockComponent<
   startVotingCallId:string = "";
   endVotingCallId:string = "";
   nominateId:string = "";
-
+  cancelMyNominationId:string = "";
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
@@ -135,7 +136,8 @@ export default class FriendListController extends BlockComponent<
         role:"",
         name:"",
       },
-      myDetails:{}
+      myDetails:{},
+      myNominateId:""
 
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -157,7 +159,12 @@ export default class FriendListController extends BlockComponent<
 
       }
     }
-    this.nominateMySelf(data)
+    if(this.state.nominatedSelf){
+      this.updateNomination(data)
+    }else{
+      this.nominateMySelf(data)
+    }
+
   }
 
   handleDeleteModal = () => {
@@ -197,10 +204,7 @@ export default class FriendListController extends BlockComponent<
   }
 
   confirmVote = () => {
-
-    console.log("VOTE DETAILS",this.state.vote)
     this.nominate(this.state.vote.voteId,this.state.vote.role)
-
   }
 
   handleClose = () => {
@@ -278,12 +282,21 @@ export default class FriendListController extends BlockComponent<
     });
   }
 
+  cancelMyNomination = async () => {
+    const societyID = localStorage.getItem("society_id")
+    const nominationId =  window.location.search ? window.location.search.split("=")[1] : null;
+    this.cancelMyNominationId = await this.apiCall({
+      method:"DELETE",
+      endPoint: `society_managements/${societyID}/bx_block_my_team/chairman_nominations/${nominationId}/cancel_my_nomination?status=true`,
+    });
+  }
+
   myProfile = async () => {
     const societyID = localStorage.getItem("society_id")
     const nominationId =  window.location.search ? window.location.search.split("=")[1] : null;
     this.myProfileId = await this.apiCall({
       method:"GET",
-      endPoint: `bx_block_profile/my_profile`,
+      endPoint: `/society_managements/${societyID}/bx_block_my_team/chairman_nominations/current_user_details`,
     });
   }
 
@@ -311,7 +324,7 @@ export default class FriendListController extends BlockComponent<
     const societyID = localStorage.getItem("society_id")
     this.updateNominationId = await this.apiCall({
       method:"PUT",
-      endPoint: `society_managements/${societyID}/bx_block_my_team/chairman_nominations/${this.state.nominationId}`,
+      endPoint: `society_managements/${societyID}/bx_block_my_team/chairman_nominations/${this.state.nominationId}/update_my_nomination`,
       body:JSON.stringify(data)
     });
   }
@@ -391,11 +404,13 @@ export default class FriendListController extends BlockComponent<
           const findIf = responseJson.nominated_members.data.find((item:any)=> {
             return item.attributes.account_id == userId
           })
+          console.log("THIS IS FIND IF",findIf)
           this.setState({
             loading:false,
             nomineeList:responseJson.nominated_members.data,
             nominatedSelf:findIf ? true : false,
-            myDetails:findIf.attributes
+            myDetails:findIf.attributes,
+            myNominateId:findIf.id
           })
           if(findIf){
             let roleType:any = []
@@ -426,17 +441,26 @@ export default class FriendListController extends BlockComponent<
         }
       }
       if(apiRequestCallId === this.myProfileId){
-        console.log("MY PROFILE",responseJson)
-        if(responseJson.hasOwnProperty("data")){
+        if(responseJson.hasOwnProperty("user_data")){
           this.setState({
-            myProfile:responseJson.data.attributes
+            myProfile:responseJson.user_data.data.attributes
           })
         }
       }
       if(apiRequestCallId === this.nominateMySelfId){
-        console.log("RESPONSE JSON START VOTING",responseJson)
         if(responseJson.message === "Member Nominated successfully"){
           this.props.history.push("/NominationSuccess")
+        }
+      }
+      if(this.updateNominationId === apiRequestCallId){
+        if(responseJson.message === "Member update successfully"){
+          this.props.history.push("/NominationUpdated")
+        }
+      }
+      if(apiRequestCallId === this.cancelMyNominationId){
+        console.log("CHECK ",responseJson)
+        if(responseJson.message === "Succesfull cancelled"){
+          window.history.back()
         }
       }
     }
@@ -553,7 +577,7 @@ export default class FriendListController extends BlockComponent<
   updateNominationData = () => {
     if(this.handleValidation()){
       const data = {
-        chairman_nomination:{
+        nominate_myself:{
           "start_date":this.state.updateStartDate,
           "end_date":this.state.updateEndDate,
           "title":this.state.updateName,

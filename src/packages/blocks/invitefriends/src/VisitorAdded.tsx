@@ -27,15 +27,15 @@ class SurveyParticipate extends React.Component<any, any> {
               <Box style={{height:"94.5vh",display:'flex',flexDirection:"column",alignItems:'center'}}>
                 <Box style={{display:'flex',flexDirection:"column",alignItems:"center",justifyContent:"center",height:"100%"}}>
                     <img src={visitorSuccess} style={{marginBottom:"15px"}} />
-                    <Typography variant="h5" style={{textAlign:'center',fontFamily: "Century Gothic",fontWeight:"bold"}}>
+                    <Typography variant="h4" style={{textAlign:'center',fontFamily: "Century Gothic",fontWeight:"bold"}}>
                         {t("Visitor Request Added")}
                     </Typography>
                     <Typography variant="body1" style={{textAlign:'center',fontFamily: "Century Gothic",marginTop:"30px",width:"90%"}}>
-                        {("Visitor_Request_Added_Success")}
+                        {t("Visitor Request Added Success")}
                     </Typography>
                 </Box>
                 <Box style={{width:"90%",marginBottom:"25px"}}>
-                    <OkButton fullWidth size="large" onClick={() => this.props.history.push("/Visitors")}>{t("Okay")}</OkButton>
+                    <OkButton fullWidth size="large" style={{textTransform:"uppercase"}} onClick={() => this.props.history.push("/Visitors")}>{t("Okay")}</OkButton>
                 </Box>
               </Box>
           </Grid>

@@ -54,6 +54,8 @@ export default class FriendListController extends BlockComponent<
   getRolesListId:string = "";
   createTeamMemberId:string = "";
   getUserListId:string = "";
+  updateTeamMemberId:string = "";
+
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
@@ -110,7 +112,6 @@ export default class FriendListController extends BlockComponent<
 
   selectUser = (id:any) => {
     let updatedData = this.state.userList.filter((item:any) => item.id === id)
-    console.log("CHECK",updatedData[0].attributes)
     this.setState({
       selectedUser:{
         name:updatedData[0].attributes.full_name,
@@ -124,7 +125,6 @@ export default class FriendListController extends BlockComponent<
       userId:id,
       userError:""
     })
-
   }
 
   handleSubmit = () => {
@@ -136,8 +136,12 @@ export default class FriendListController extends BlockComponent<
       formdata.append("team_member[building_management_id]", this.state.selectedUser.buildingId);
       formdata.append("team_member[account_id]", this.state.userId);
       formdata.append("team_member[apartment_management_id]", this.state.selectedUser.unitId);
+      if(this.props.editId){
+        this.updateTeamMember(this.props.editId.id,this.state.roleId)
+      }else{
+        this.createTeamMember(formdata)
+      }
 
-      this.createTeamMember(formdata)
     }else{
       if(this.state.userId !== ""){
         this.setState({
@@ -174,7 +178,7 @@ export default class FriendListController extends BlockComponent<
     this.getUserListId = await this.apiCall({
       contentType: "application/json",
       method: "GET",
-      endPoint: `/bx_block_my_team/team_members/member_invite_user_list`,
+      endPoint: `bx_block_my_team/team_members/member_invite_user_list?society_id=${societyID}`,
     });
   }
 
@@ -196,7 +200,14 @@ export default class FriendListController extends BlockComponent<
     });
   }
 
-
+  updateTeamMember = async (user:any,role:any) => {
+    const societyID = localStorage.getItem("society_id")
+    this.updateTeamMemberId = await this.apiCall({
+      method:"PUT",
+      endPoint: `/bx_block_my_team/team_members/${user}`,
+      body: JSON.stringify({role_id:role})
+    });
+  }
 
   apiCall = async (data: any) => {
     const { contentType, method, endPoint, body } = data;
@@ -204,6 +215,7 @@ export default class FriendListController extends BlockComponent<
     const token = localStorage.getItem('userToken') ;
 
     const header = {
+      "content-type":"application/json",
       token
     };
     const requestMessage = new Message(
@@ -254,6 +266,7 @@ export default class FriendListController extends BlockComponent<
       if(apiRequestCallId === this.getRolesListId){
         if(responseJson.hasOwnProperty("data")){
           if(this.props.editId){
+            console.log("EDIT ID",this.props.editId)
             this.setState({
               roleList:responseJson?.data?.roles,
               roleId:this.props.editId.roleId,
@@ -265,7 +278,7 @@ export default class FriendListController extends BlockComponent<
                 unitName:this.props.editId.unitName,
                 unitId:this.props.editId.unitId
               },
-              userId:this.props.editId.id,
+              userId:this.props.editId.userId,
             })
           }else{
             this.setState({
@@ -279,6 +292,13 @@ export default class FriendListController extends BlockComponent<
         }
       }
       if(apiRequestCallId === this.createTeamMemberId){
+        if(responseJson.hasOwnProperty("data")){
+          this.sentMessage("TEAM_MEMBER_ADDED_SUCCESS")
+        }else{
+          console.log("Error",errorReponse,responseJson)
+        }
+      }
+      if(apiRequestCallId === this.updateTeamMemberId){
         if(responseJson.hasOwnProperty("data")){
           this.sentMessage("TEAM_MEMBER_ADDED_SUCCESS")
         }else{

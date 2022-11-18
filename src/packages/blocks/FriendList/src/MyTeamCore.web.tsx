@@ -34,13 +34,14 @@ import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import "../../../web/src/assets/css/style.scss";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
-import { withTranslation } from 'react-i18next';
+import { withTranslation,useTranslation  } from 'react-i18next';
 import '../../../web/src/i18n.js';
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import {withStyles} from "@material-ui/core/styles";
 import AddTeamModal from "./AddTeamModal.web";
 import {CheckIcon} from "../../user-profile-basic/src/assets"
+import VisitorsSidebar from "../../dashboard/src/VisitorsSidebar.web";
 
 class MyTeamCore extends MyTeamController {
   constructor(props: Props) {
@@ -50,13 +51,19 @@ class MyTeamCore extends MyTeamController {
   render() {
     //@ts-ignore
     const {t} = this.props
+    const userType  = localStorage.getItem("selectUserType");
     return (
       <>
     <Box style={{background: "#E5ECFF"}}>
         <DashboardHeader {...this.props}/>
         <Box style={{display: "flex"}}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
-                <ChairmanSidebar {...this.props}/>
+            {  userType === "Visitors" ? 
+                            <VisitorsSidebar {...this.props} />
+                            :
+                            <ChairmanSidebar {...this.props}/> 
+                           }
+                
             </Grid>
             <Grid xs={9} md={9} sm={9} spacing={4} style={{paddingTop: 35}}>
             <Container className="link-decoration">
@@ -80,9 +87,14 @@ class MyTeamCore extends MyTeamController {
                             <Typography variant="h5" className="subHeading"  >{t("Service Providers")}</Typography>
                         }
                     </Box>
-                    <Box>
+                    {  userType === "Visitors" ? 
+                            null
+                            :
+                            <Box>
                         <AcceptButton variant="outlined" onClick={(e) => this.setState({setOpen:true})}>Create new Member</AcceptButton>
                     </Box>
+                           }
+                    
                 </Box>
                 <Grid container spacing={3} style={{marginTop: 15, marginBottom:30}}>
                     {
@@ -261,6 +273,7 @@ const TeamCard = (props:any) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const userType = localStorage.getItem("selectUserType")
     const {data} = props
+    const { t } = useTranslation();
     const handleClick = (event:any) => {
         setAnchorEl(event.currentTarget);
     };
@@ -285,19 +298,23 @@ const TeamCard = (props:any) => {
 
     return(
         <Grid item sm={4} md={3} xs={12} style={{position:"relative",height:"100%"}}>
-            <Box style={{position:"absolute",top:"10px",right:"10px"}}>
+            {
+                userType ==="Visitors" ?
+                null :
+                <Box style={{position:"absolute",top:"10px",right:"10px"}}>
                 <IconButton onClick={handleClick}>
                     <MoreVertIcon/>
                 </IconButton>
-            </Box>
+                 </Box> 
+            }
             <Card className="EventsCards" style={{paddingLeft:"0px"}}>
-                <Box style={{width:"100%",display:'flex',justifyContent:"center",alignItems:"center",flexDirection:"column",marginTop:"15px"}} onClick={() => props.history.push(`/TeamMember/userDetails?id=${data.id}`)}>
+                <Box style={{width:"100%",display:'flex',justifyContent:"center",alignItems:"center",flexDirection:"column",marginTop:"15px"}} onClick={() => userType === "Visitors" ? null : props.history.push(`/TeamMember/userDetails?id=${data.id}`)}>
                     {
                         props.approval && userType === "Manager" &&
-                        <Typography variant="subtitle2" className={"statusOngoingRed"} gutterBottom style={{marginBottom: "12px"}}>Pending Approval</Typography>
+                        <Typography variant="subtitle2" className={"statusOngoingRed"} gutterBottom style={{marginBottom: "12px"}}>{t("Pending Approval")}</Typography>
                     }
                     <img src={profileExp} height="60px" width="60px" style={{borderRadius:"100px"}}  />
-                    <Typography variant="h6" style={{fontWeight:"bold",marginBottom:"5px"}}>{data?.role?.name}</Typography>
+                    <Typography variant="h6" style={{fontWeight:"bold",marginBottom:"5px"}}>{data?.role}</Typography>
                     <Typography variant="h6" gutterBottom style={{marginBottom:"10px"}}>{data?.account?.attributes?.full_name?.name}</Typography>
                     <Grid container spacing={1} style={{width:"100%",display:"flex",alignItems:"center",justifyContent:"center"}}>
                         {
@@ -328,10 +345,10 @@ const TeamCard = (props:any) => {
                         props.approval && userType === "Chairman" &&
                         <Grid container spacing={2} style={{width:"100%",marginTop:"10px"}}>
                             <Grid item xs={6}>
-                                <DeclineButton variant="contained" fullWidth onClick={()=> approval("Decline")}>Decline</DeclineButton>
+                                <DeclineButton variant="contained" fullWidth onClick={()=> approval("Decline")}>{t("Decline")}</DeclineButton>
                             </Grid>
                             <Grid item xs={6}>
-                                <AcceptButton variant="contained" fullWidth onClick={()=> approval("Accept")}>Accept</AcceptButton>
+                                <AcceptButton variant="contained" fullWidth onClick={()=> approval("Accept")}>{t("Accept")}</AcceptButton>
                             </Grid>
                         </Grid>
                     }
@@ -344,8 +361,8 @@ const TeamCard = (props:any) => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
             >
-                <MenuItem onClick={handleEdit}>Edit Details</MenuItem>
-                <MenuItem onClick={handleDelete}>Remove Member</MenuItem>
+                <MenuItem onClick={handleEdit}>{t("Edit Details")}</MenuItem>
+                <MenuItem onClick={handleDelete}>{t("Remove Member")}</MenuItem>
             </Menu>
         </Grid>
     )

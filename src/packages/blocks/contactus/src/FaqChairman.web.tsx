@@ -36,6 +36,7 @@ import QuestionImage from "../assets/question.png";
 import "./DialogStyle.web.css";
 import { withTranslation } from 'react-i18next';
 import '../../../web/src/i18n.js';
+import VisitorsSidebar from "../../dashboard/src/VisitorsSidebar.web";
 
 class FaqChairman extends FaqChairmanController {
   constructor(props: Props) {
@@ -45,6 +46,7 @@ class FaqChairman extends FaqChairmanController {
   render() {
     const {t} = this.props
     const { classes } = this.props;
+    const userType  = localStorage.getItem("selectUserType");
 
     return (
       <>
@@ -54,7 +56,11 @@ class FaqChairman extends FaqChairmanController {
           <Box style={{ display: "flex" }}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
               {/* Chairman Sidebar -- */}
-              <ChairmanSidebarWeb {...this.props} />
+              {  userType === "Visitors" ? 
+                            <VisitorsSidebar {...this.props} />
+                            :
+                            <ChairmanSidebarWeb {...this.props} /> 
+                           }
             </Grid>
 
             <Grid item xs={9} md={9} sm={9} style={{ paddingTop: 35 }}>
@@ -72,6 +78,7 @@ class FaqChairman extends FaqChairmanController {
                     </Typography>
                   </Box>
                 </Box>
+        
                 <Box className="category-box">
                   <Box className="category">
                     {this.state.catagoriesList.map((category: any) => {
@@ -102,13 +109,18 @@ class FaqChairman extends FaqChairmanController {
                       );
                     })}
                   </Box>
-                  <Button
-                    startIcon={<AddIcon />}
-                    variant="contained"
-                    onClick={() => this.handleAddCategoryModal()}
-                  >
-                    {t("Add New Category")}
-                  </Button>
+                  {
+                     userType === "Visitors"  ? null
+                     :
+                     <Button
+                       startIcon={<AddIcon />}
+                       variant="contained"
+                       onClick={() => this.handleAddCategoryModal()}
+                     >
+                       {t("Add New Category")}
+                     </Button>
+                  }
+                 
                 </Box>
 
                 {this.state.faqList.length === 0 && (
@@ -134,6 +146,9 @@ class FaqChairman extends FaqChairmanController {
                             >
                               {faq.title}
                             </Typography>
+                            {userType === "Visitors" ? 
+                            null
+                            :
                             <Box className="icons">
                               <DeleteOutlineIcon
                                 onClick={() => {
@@ -146,6 +161,8 @@ class FaqChairman extends FaqChairmanController {
                                 }}
                               />
                             </Box>
+                            }
+                            
                           </AccordionSummary>
                           <AccordionDetails>
                             <Typography>{faq.content}</Typography>
@@ -155,7 +172,11 @@ class FaqChairman extends FaqChairmanController {
                     })}
                 </Box>
                 <Box className="bottom-buttons">
-                  {this.state.selectedCategoryName ? (
+                  {
+                  userType === "Visitors" ? 
+                  null
+                  :
+                  this.state.selectedCategoryName ? (
                     <Button
                       className="remove-cat-button"
                       variant="outlined"
@@ -166,13 +187,19 @@ class FaqChairman extends FaqChairmanController {
                   ) : (
                     <div />
                   )}
-                  <Button
-                    disabled={this.state.catagoriesList.length === 0}
-                    variant="contained"
-                    onClick={() => this.handleAddQuestionModal()}
-                  >
-                    {t("Add Questions")}
-                  </Button>
+                  {
+                     userType === "Visitors" ? 
+                     null
+                     :
+                     <Button
+                     disabled={this.state.catagoriesList.length === 0}
+                     variant="contained"
+                     onClick={() => this.handleAddQuestionModal()}
+                   >
+                     {t("Add Questions")}
+                   </Button>
+                  }
+                 
                 </Box>
               </Container>
             </Grid>
