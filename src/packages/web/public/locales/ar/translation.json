@@ -920,5 +920,7 @@
   "No, Not Paid": "لا ، غير مدفوع",
   "Enter Partial paid amount": "أدخل المبلغ المدفوع جزئياً",
   "Due Amount": "مبلغ مستحق",
-  "Due on": "تاريخ الاستحقاق"
+  "Due on": "تاريخ الاستحقاق",
+  "Register Rent Payments": "تسجيل مدفوعات الإيجار",
+  "Payment Due Amount": "المبلغ المستحق الدفع"
 }
