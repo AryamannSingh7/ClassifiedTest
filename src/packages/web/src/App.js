@@ -117,7 +117,7 @@ import Chatbox from '../../blocks/customform/src/Chatbox.web';
 // import RequestManagement from "../../blocks/RequestManagement/src/RequestManagement";
 import LeadManagement from '../../blocks/LeadManagement/src/LeadManagement';
 import SocialMediaAccountRegistrationScreen from '../../blocks/social-media-account-registration/src/SocialMediaAccountRegistrationScreen';
-import Notifications from '../../blocks/notifications/src/Notifications';
+// import Notifications from '../../blocks/notifications/src/Notifications';
 import MobileAccountLoginBlock from '../../blocks/mobile-account-login/src/MobileAccountLoginBlock';
 import Registration from '../../blocks/email-account-registration/src/Registration.web';
 import OwnerRegistration from '../../blocks/email-account-registration/src/OwnerRegistration.web';
@@ -283,7 +283,7 @@ import MyTeamUserDetails from '../../blocks/FriendList/src/MyTeamUserDetails.web
 import ChairmanNominationMain from '../../blocks/FriendList/src/ChairmanNominationMain.web';
 import NominationDetails from '../../blocks/FriendList/src/NominationDetails.web';
 import NominationSuccess from '../../blocks/FriendList/src/NominationAdded';
-import NominationUpdated from "../../blocks/FriendList/src/NominationUpdated"
+import NominationUpdated from '../../blocks/FriendList/src/NominationUpdated';
 import ChairmanNominations from '../../blocks/FriendList/src/ChairmanNomination';
 import ChairmanNominationDetails from '../../blocks/FriendList/src/ChairmanNominationDetails.web';
 import NominateMySelf from '../../blocks/FriendList/src/NominateMySelf.web';
@@ -311,7 +311,14 @@ import MyReceipts from '../../blocks/CollectTransactionFees/src/MyReceipts.web';
 import MyReceiptsDetails from '../../blocks/CollectTransactionFees/src/MyReceiptsDetails.web';
 
 // Chairman Side
-import CharmainReceipts from "../../blocks/InvoiceBilling/src/CharmainReceipts.web"
+import CharmainReceipts from '../../blocks/InvoiceBilling/src/CharmainReceipts.web';
+
+// Rent Payments 
+import RentPayments from "../../blocks/PricingEngine2/src/RentPayments.web"
+import RentUnitLists from "../../blocks/PricingEngine2/src/RentUnitLists.web"          
+import ViewMyRents from "../../blocks/PricingEngine2/src/ViewMyRents.web"
+import RentDetails from "../../blocks/PricingEngine2/src/RentDetails.web"
+import AddRentPayment from "../../blocks/PricingEngine2/src/RegisterRentPayment.web"
 
 // Reports
 import ReportDashboard from '../../blocks/ExpenseTracking/src/ReportDashboard.web';
@@ -334,9 +341,16 @@ import PropertyManagerList from '../../blocks/ReviewAndApproval/src/PropertyMana
 import RegisterPropertyManager from '../../blocks/ReviewAndApproval/src/RegisterPropertyManager.web';
 import RegisterPropertyManagerSuccess from '../../blocks/ReviewAndApproval/src/PropertyManagerSuccess.web';
 import PropertyManagerDetails from '../../blocks/ReviewAndApproval/src/PropertyManagerDetails.web';
+import PropertyManagerRequest from '../../blocks/ReviewAndApproval/src/PropertyManagerRequest.web';
 
 // My Lease
 import MyLeaseList from '../../blocks/ContentManagement/src/MyLeaseList.web';
+
+// Notification
+import OwnerNotification from '../../blocks/notifications/src/OwnerNotification.web';
+import ResidentNotification from '../../blocks/notifications/src/ResidentNotification.web';
+import ChairmanNotification from '../../blocks/notifications/src/ChairmanNotification.web';
+import ManagerNotification from '../../blocks/notifications/src/ManagerNotification.web';
 
 const routeMap = {
   //done
@@ -807,24 +821,34 @@ const routeMap = {
 
   OwnerDashboard: {
     component: OwnerDashboard,
-    path: '/OwnerDashboard'
+    path: '/OwnerDashboard',
+    exact: true,
+    roles: [ROLE.OWNER, ROLE.PROPERTY_MANAGER]
   },
   ResidentDashboard: {
     component: ResidentDashboard,
-    path: '/ResidentDashboard'
+    path: '/ResidentDashboard',
+    exact: true,
+    roles: [ROLE.OWNER_RESIDENT, ROLE.TENANT]
   },
   // Chairman - Help
   FaqChairman: {
     component: FaqChairman,
-    path: '/FaqChairman'
+    path: '/FaqChairman',
+    exact: true,
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER]
   },
   FaqOwner: {
     component: FaqOwner,
-    path: '/FaqOwner'
+    path: '/FaqOwner',
+    exact: true,
+    roles: [ROLE.OWNER, ROLE.PROPERTY_MANAGER]
   },
   FaqResident: {
     component: FaqResident,
-    path: '/FaqResident'
+    path: '/FaqResident',
+    exact: true,
+    roles: [ROLE.OWNER_RESIDENT, ROLE.TENANT]
   },
   ContactUsChairman: {
     component: ContactUsChairman,
@@ -1184,10 +1208,10 @@ const routeMap = {
     component: SocialMediaAccountRegistrationScreen,
     path: '/SocialMediaAccountRegistrationScreen'
   },
-  Notifications: {
-    component: Notifications,
-    path: '/Notifications'
-  },
+  // Notifications: {
+  //   component: Notifications,
+  //   path: '/Notifications'
+  // },
   MobileAccountLoginBlock: {
     component: MobileAccountLoginBlock,
     path: '/MobileAccountLoginBlock'
@@ -1435,10 +1459,10 @@ const routeMap = {
     component: SocialMediaAccountRegistrationScreen,
     path: '/SocialMediaAccountRegistrationScreen'
   },
-  Notifications: {
-    component: Notifications,
-    path: '/Notifications'
-  },
+  // Notifications: {
+  //   component: Notifications,
+  //   path: '/Notifications'
+  // },
   MobileAccountLoginBlock: {
     component: MobileAccountLoginBlock,
     path: '/MobileAccountLoginBlock'
@@ -1704,6 +1728,32 @@ const routeMap = {
     exact: true
   },
 
+  // RentPayments
+
+  RentPayments: {
+    component: RentPayments,
+    path: '/RentPayments',
+    exact: true
+  },
+
+  RentUnitLists:{
+    component:RentUnitLists,
+    path: '/RentUnitList/:id',
+    exact: true
+  },
+
+  UnitRentList:{
+    component:ViewMyRents,
+    path:"/UnitRentList/:id",
+    exact: true
+  },
+
+  RentDetails:{
+    component:RentDetails,
+    path:"/RentDetails/:id",
+    exact: true
+  },
+
   // Fees & Payment
 
   FeesAndPayment: {
@@ -1792,6 +1842,12 @@ const routeMap = {
   MyReceipts: {
     component: MyReceipts,
     path: '/Owner/MyReceipts',
+    exact: true
+  },
+
+  AddRentPayment:{
+    component: AddRentPayment,
+    path: '/AddRentPayment',
     exact: true
   },
 
@@ -1925,6 +1981,12 @@ const routeMap = {
     roles: [ROLE.OWNER],
     exact: true
   },
+  PropertyManagerRequest: {
+    component: PropertyManagerRequest,
+    path: '/PropertyManagers/Request',
+    roles: [ROLE.OWNER],
+    exact: true
+  },
   PropertyManagerDetails: {
     component: PropertyManagerDetails,
     path: '/PropertyManager/:id',
@@ -1979,6 +2041,31 @@ const routeMap = {
     component: MyLeaseList,
     path: '/MyLeaseList',
     roles: [ROLE.TENANT, ROLE.OWNER_RESIDENT],
+    exact: true
+  },
+  // Notification
+  OwnerNotification: {
+    component: OwnerNotification,
+    path: '/OwnerNotifications',
+    roles: [ROLE.OWNER, ROLE.PROPERTY_MANAGER],
+    exact: true
+  },
+  ResidentNotification: {
+    component: ResidentNotification,
+    path: '/ResidentNotifications',
+    roles: [ROLE.TENANT, ROLE.OWNER_RESIDENT],
+    exact: true
+  },
+  ChairmanNotification: {
+    component: ChairmanNotification,
+    path: '/ChairmanNotification',
+    roles: [ROLE.CHAIRMAN],
+    exact: true
+  },
+  ManagerNotification: {
+    component: ManagerNotification,
+    path: '/ManagerNotification',
+    roles: [ROLE.MANAGER],
     exact: true
   },
 

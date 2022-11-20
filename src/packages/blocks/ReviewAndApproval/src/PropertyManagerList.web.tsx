@@ -22,7 +22,7 @@ class PropertyManagerList extends PropertyManagerListController {
 
     return (
       <>
-        <Box style={{ background: "#F4F7FF", height: "100vh" }} className={classes.managerList}>
+        <Box style={{ background: "#F4F7FF", height: "100vh", overflowY: "hidden" }} className={classes.managerList}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box className="faq-step">
@@ -61,84 +61,65 @@ class PropertyManagerList extends PropertyManagerListController {
                       <div className="contracts-list">
                         <Grid container spacing={2}>
                           <Grid item xs={12}>
-                            <Card className="contract">
-                              <Box className="new-req-box">
-                                <h4>New Request</h4>
-                                <Box className="right-side-req-box">
-                                  <Button>02</Button>
-                                  <NavigateNextIcon />
+                            <Link href="/PropertyManagers/Request">
+                              <Card className="contract">
+                                <Box className="new-req-box">
+                                  <h4>New Request</h4>
+                                  <Box className="right-side-req-box">
+                                    <Button>02</Button>
+                                    <NavigateNextIcon />
+                                  </Box>
                                 </Box>
-                              </Box>
-                            </Card>
+                              </Card>
+                            </Link>
                           </Grid>
-                          <Grid item xs={12}>
-                            <Card className="contract">
-                              <Grid container spacing={2}>
-                                <Grid item xs={12}>
-                                  <div className="header">
-                                    <h4>Ali Khan</h4>
-                                    <div className="right-menu">
-                                      <Menu
-                                        menuButton={
-                                          <IconButton>
-                                            <MoreVertIcon />
-                                          </IconButton>
-                                        }
-                                      />
-                                    </div>
-                                  </div>
-                                </Grid>
+                          {this.state.propertyManagerList.length === 0 && (
+                            <Grid item xs={12}>
+                              <Card className="contract">{t("No Property Manager Available")}</Card>{" "}
+                            </Grid>
+                          )}
+                          {this.state.propertyManagerList.map((propertyManager: any, index: number) => {
+                            return (
+                              <Grid item xs={12} key={index}>
+                                <Card className="contract">
+                                  <Grid container spacing={2}>
+                                    <Grid item xs={12}>
+                                      <div className="header">
+                                        <h4>Ali Khan</h4>
+                                        <div className="right-menu">
+                                          <Menu
+                                            menuButton={
+                                              <IconButton>
+                                                <MoreVertIcon />
+                                              </IconButton>
+                                            }
+                                          >
+                                            <MenuItem>{t("View")}</MenuItem>
+                                            <MenuItem>{t("Edit")}</MenuItem>
+                                            <MenuItem>{t("Delete")}</MenuItem>
+                                          </Menu>
+                                        </div>
+                                      </div>
+                                    </Grid>
+                                  </Grid>
+                                  <Grid container spacing={2} className="info">
+                                    <Grid item xs={12}>
+                                      <span>{t("Manages")}</span>
+                                      <p>Lorem Ipsum</p>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                      <span>{t("Company Name")}</span>
+                                      <p>Lorem Ipsum</p>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                      <span>{t("Charges")}</span>
+                                      <p>Lorem Ipsum</p>
+                                    </Grid>
+                                  </Grid>
+                                </Card>
                               </Grid>
-                              <Grid container spacing={2} className="info">
-                                <Grid item xs={12}>
-                                  <span>{t("Manages")}</span>
-                                  <p>Lorem Ipsum</p>
-                                </Grid>
-                                <Grid item xs={12}>
-                                  <span>{t("Company Name")}</span>
-                                  <p>Lorem Ipsum</p>
-                                </Grid>
-                                <Grid item xs={12}>
-                                  <span>{t("Charges")}</span>
-                                  <p>Lorem Ipsum</p>
-                                </Grid>
-                              </Grid>
-                            </Card>
-                          </Grid>
-                          <Grid item xs={12}>
-                            <Card className="contract">
-                              <Grid container spacing={2}>
-                                <Grid item xs={12}>
-                                  <div className="header">
-                                    <h4>Ali Khan</h4>
-                                    <div className="right-menu">
-                                      <Menu
-                                        menuButton={
-                                          <IconButton>
-                                            <MoreVertIcon />
-                                          </IconButton>
-                                        }
-                                      />
-                                    </div>
-                                  </div>
-                                </Grid>
-                              </Grid>
-                              <Grid container spacing={2} className="info">
-                                <Grid item xs={12}>
-                                  <span>{t("Manages")}</span>
-                                  <p>Lorem Ipsum</p>
-                                </Grid>
-                                <Grid item xs={12}>
-                                  <span>{t("Company Name")}</span>
-                                  <p>Lorem Ipsum</p>
-                                </Grid>
-                                <Grid item xs={12}>
-                                  <span>{t("Charges")}</span>
-                                  <p>Lorem Ipsum</p>
-                                </Grid>
-                              </Grid>
-                            </Card>
-                          </Grid>
+                            );
+                          })}
                         </Grid>
                       </div>
                       <div className="upload-button">

@@ -69,7 +69,7 @@ class NominateMySelf extends NominateMySelfController{
                             <Box style={{width:"100%",marginTop:"20px "}}>
                                 <TextField
                                     id="outlined-multiline-static"
-                                    label="Why I should be elected"
+                                    label={t("Why I should be elected")}
                                     multiline
                                     InputProps={{
                                         startAdornment: (
@@ -91,12 +91,12 @@ class NominateMySelf extends NominateMySelfController{
                                 <FormControlLabel
                                     onChange={this.manageSelectRole}
                                     control={<Checkbox checkedIcon={<CheckBoxIcon style={{color:"#fc8434"}} />} name="checkedA" value={0} checked={this.state.myNominationAs.find((check:any)=> check === '0') ? true : false} />}
-                                    label="Chairman"
+                                    label={t("Chairman")}
                                 />
                                 <FormControlLabel
                                     onChange={this.manageSelectRole}
                                     control={<Checkbox checkedIcon={<CheckBoxIcon style={{color:"#fc8434"}} />} name="checkedB" value={1} checked={this.state.myNominationAs.find((check:any)=> check === '1') ? true : false} />}
-                                    label="Vice Chairman"
+                                    label={t("Vice Chairman")}
                                 />
                             </Box>
                         </Grid>

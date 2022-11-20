@@ -76,12 +76,12 @@ class MyTeamCore extends TaskManagementController {
                 <Box className="navigation">
                     <Box style={{width: "100%"}}>
                         <Typography variant="body1" >
-                        My Team / <Box component="span" style={{color: "blue"}}>Task Management</Box>
+                            {t("My Team")} / <Box component="span" style={{color: "blue"}}>{t("Task Management")}</Box>
                         </Typography>
                         <Box display="flex" justifyContent="space-between" alignItems="center" width="100%">
-                            <Typography variant="h4" className="subHeading">Task Management</Typography>
+                            <Typography variant="h4" className="subHeading">{t("Task Management")}</Typography>
                             <Box>
-                                <AcceptButton style={{marginTop:"20px",marginRight:"10px"}} onClick={()=>this.setState({setOpen:true})}>Create New Task </AcceptButton>
+                                <AcceptButton style={{marginTop:"20px",marginRight:"10px"}} onClick={()=>this.setState({setOpen:true})}>{t("Create New Task")}</AcceptButton>
                             </Box>
                         </Box>
                     </Box>
@@ -92,7 +92,7 @@ class MyTeamCore extends TaskManagementController {
                             <Grid item>
                                 <Select id="filter-type-select" variant="outlined" displayEmpty value={this.state.filterBuilding} style={{width:"180px",border:"1px solid #ECECEC",borderRadius:"10px",backgroundColor:"white",marginRight:"10px"}} className="select-input" onChange={(e) => this.setState({filterBuilding:e.target.value})}>
                                     <MenuItem value="" disabled>
-                                        Select Building
+                                        {t("Select Building")}
                                     </MenuItem>
                                     <MenuItem value={1}>Building 1 </MenuItem>
                                     {/*{*/}
@@ -108,7 +108,7 @@ class MyTeamCore extends TaskManagementController {
                             <Grid item>
                                 <Select id="filter-type-select" variant="outlined" displayEmpty value={this.state.filterShortBy} style={{width:"180px",border:"1px solid #ECECEC",borderRadius:"10px",backgroundColor:"white",marginRight:"10px"}} className="select-input" onChange={(e) => this.setState({filterShortBy:e.target.value})}>
                                     <MenuItem value="" disabled>
-                                        Short By
+                                        {t("Short By")}
                                     </MenuItem>
                                     <MenuItem value={1}>Task name</MenuItem>
                                     {/*{*/}
@@ -124,7 +124,7 @@ class MyTeamCore extends TaskManagementController {
                             <Grid item>
                                 <Select id="filter-type-select" variant="outlined" displayEmpty value={this.state.filterCategory} style={{width:"180px",border:"1px solid #ECECEC",borderRadius:"10px",backgroundColor:"white",marginRight:"10px"}} className="select-input" onChange={(e) => this.setState({filterCategory:e.target.value})}>
                                     <MenuItem value="" disabled>
-                                        Category
+                                        {t("Category")}
                                     </MenuItem>
                                     <MenuItem value={1}>Category 1</MenuItem>
                                     {/*{*/}
@@ -140,7 +140,7 @@ class MyTeamCore extends TaskManagementController {
                             <Grid item>
                                 <Select id="filter-type-select" variant="outlined" displayEmpty value={this.state.filterStatus} style={{width:"180px",border:"1px solid #ECECEC",borderRadius:"10px",backgroundColor:"white",marginRight:"10px"}} className="select-input" onChange={(e) => this.setState({filterStatus:e.target.value})}>
                                     <MenuItem value="" disabled>
-                                        Status
+                                        {t("Status")}
                                     </MenuItem>
                                     <MenuItem value={1}>Status 1</MenuItem>
                                     {/*{*/}
@@ -182,7 +182,7 @@ class MyTeamCore extends TaskManagementController {
                                                     <img src={buildings}  height="30px" width="30px" />
                                                 </Box>
                                                 <Box>
-                                                    <Typography variant="subtitle1" color="textSecondary" style={{color:"#FC8434"}}>Building</Typography>
+                                                    <Typography variant="subtitle1" color="textSecondary" style={{color:"#FC8434"}}>{t("Building")}</Typography>
                                                     <Typography variant="subtitle1" color="textPrimary">Building 1</Typography>
                                                 </Box>
                                             </Box>
@@ -193,7 +193,7 @@ class MyTeamCore extends TaskManagementController {
                                                     <img src={userIcon}  height="25px" width="23px"    />
                                                 </Box>
                                                 <Box>
-                                                    <Typography variant="subtitle1" color="textSecondary" style={{color:"#FC8434"}}>Assigned To</Typography>
+                                                    <Typography variant="subtitle1" color="textSecondary" style={{color:"#FC8434"}}>{t("Assigned To")}</Typography>
                                                     <Typography variant="subtitle1" color="textPrimary">Marleah Esgleston</Typography>
                                                 </Box>
                                             </Box>
@@ -204,7 +204,7 @@ class MyTeamCore extends TaskManagementController {
                                                     <img src={calanderIcon} height="25px" width="25px" />
                                                 </Box>
                                                 <Box>
-                                                    <Typography variant="subtitle1" color="textSecondary" style={{color:"#FC8434"}}>Assigned On</Typography>
+                                                    <Typography variant="subtitle1" color="textSecondary" style={{color:"#FC8434"}}>{t("Assigned On")}</Typography>
                                                     <Typography variant="subtitle1" color="textPrimary">20-05-1978</Typography>
                                                 </Box>
                                             </Box>
@@ -215,7 +215,7 @@ class MyTeamCore extends TaskManagementController {
                                                     <img src={calanderIcon} height="25px" width="25px"  />
                                                 </Box>
                                                 <Box>
-                                                    <Typography variant="subtitle1" color="textSecondary" style={{color:"#FC8434"}}>Assigned To</Typography>
+                                                    <Typography variant="subtitle1" color="textSecondary" style={{color:"#FC8434"}}>{t("Due on")}</Typography>
                                                     <Typography variant="subtitle1" color="textPrimary">20-05-1978</Typography>
                                                 </Box>
                                             </Box>

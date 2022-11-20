@@ -1,0 +1,116 @@
+.paymentStatusRed{
+    background: #f93e3e57;
+    border-radius: 30px;
+    color: #f93e3e;
+    display: initial;
+    padding: 2px 5px;
+    font-size: 12px !important;
+    min-height: 20px;
+    text-transform: capitalize;
+    min-width: 70px;
+    text-align: center;
+    font-weight: 800 !important;
+}
+
+.paymentStatusOrange{
+    background: #fc843435;
+    padding: 2px 5px;
+    font-size: 12px !important;
+    border-radius: 30px;
+    color: #FC8434;
+    display: initial;
+    min-height: 20px;
+    text-transform: capitalize;
+    min-width: 70px;
+    text-align: center;
+    font-weight: 800 !important;
+}
+
+.paymentStatusGreen{
+    background: #0da61720;
+    padding: 2px 5px;
+    font-size: 12px !important;
+    border-radius: 30px;
+    color: #0DA616;
+    display: initial;
+    min-height: 20px;
+    text-transform: capitalize;
+    min-width: 70px;
+    text-align: center;
+    font-weight: 800 !important;
+}
+
+.shareIcon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    width:50px;
+    border: 1px solid #2B6FED;
+    border-radius: 100px;
+    cursor: pointer;
+}
+
+.selectFYBox select{
+    padding-left: 15px !important;
+    font-size: 15px;
+    min-width: 80px;
+}
+
+.selectBuildingBoxRent select{
+    background-color: #F9F9F9;
+    border-radius: 100px;
+    padding-right: 10px;
+    padding-left: 15px;
+    color:#212121
+}
+
+.selectBuildingBoxRent select :focus{
+    background-color: #F9F9F9 !important;
+    border-radius: 100px;
+    padding-right: 10px;
+    padding-left: 15px;
+    color:#212121
+}
+
+.selectBuildingBox .MuiSelect-select.MuiSelect-select{
+    background-color: white !important;
+}
+
+.tabInvoiceButtonActive {
+    background: #2b6fed;
+    padding: 10px 15px;
+    border-radius: 30px;
+    color: white;
+    display: initial;
+    min-height: 20px;
+    text-transform: capitalize;
+    min-width: 130px;
+    font-weight: 800 !important;
+    cursor: pointer;
+    text-align: center;
+}
+
+.tabInvoiceButton {
+    background: rgba(200, 200, 200, 0.12);
+    padding: 10px 15px;
+    border-radius: 30px;
+    color: #181d25;
+    display: initial;
+    min-height: 20px;
+    text-transform: capitalize;
+    min-width: 130px;
+    text-align: center;
+    cursor: pointer;
+}
+
+#reminAmountFiled {
+    background-color: #F9F9F9;
+    border-radius: 8px;
+    border: 1px dashed #f0f0f0;
+    width: 240px;
+}
+
+#paritalPaymentBox{
+
+}

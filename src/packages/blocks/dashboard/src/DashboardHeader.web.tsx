@@ -85,8 +85,15 @@ class DashboardHeader extends DashboardController {
                   </MenuItem>
                 </Menu>
               </Box>
-              {/* <img src={chatIcon} alt="GlobalIcon" style={{ marginLeft: "10px" }} /> */}
-              <img src={notification} alt="GlobalIcon" style={{ marginLeft: "10px" }} />
+              {localStorage.getItem("userType") === "Chairman" ? (
+                <Link href="/ChairmanNotification">
+                  <img src={notification} alt="GlobalIcon" style={{ marginLeft: "10px" }} />
+                </Link>
+              ) : (
+                <Link>
+                  <img src={notification} alt="GlobalIcon" style={{ marginLeft: "10px" }} />
+                </Link>
+              )}
             </div>
 
             <Box style={dashBoard.HeaderSecRtBox}>

@@ -203,10 +203,7 @@ export default class FriendListController extends BlockComponent<
   }
 
   confirmVote = () => {
-
-    console.log("VOTE DETAILS",this.state.vote)
     this.nominate(this.state.vote.voteId,this.state.vote.role)
-
   }
 
   handleClose = () => {
@@ -389,15 +386,12 @@ export default class FriendListController extends BlockComponent<
       var errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if(apiRequestCallId === this.getNominationDetailsId){
         if(responseJson.hasOwnProperty("chairman_nominations")){
-          console.log("THIS IS VOTED",responseJson.chairman_nominations.data.attributes.voted_as)
           const findIfChairman = responseJson.chairman_nominations.data.attributes.voted_as.find((item:any)=> {
             return item.vote_as == "Chairman"
           })
           const findIfViceChairman = responseJson.chairman_nominations.data.attributes.voted_as.find((item:any)=> {
             return item.vote_as === "Vice chairman"
           })
-          console.log("CHAIRMAN",findIfChairman)
-          console.log("ViceChairman",findIfViceChairman)
           if(findIfViceChairman){
             this.setState({
               votedViceChairmanId:findIfViceChairman.nominated_team_member_id
