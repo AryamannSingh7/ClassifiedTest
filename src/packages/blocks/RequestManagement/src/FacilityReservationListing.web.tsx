@@ -37,7 +37,7 @@ class FacilityReservationListing extends FacilityReservationController {
     //@ts-ignore
     const reservation  = localStorage.getItem("idOrName");
     if (reservation)
-      this.getFacilityReservationListing(this.state?.sortBy, this.state?.status)
+      this.getFacilityReservationListing(this.state?.sortBy)
     else
       this.props.history.push("/FacilityReservation");
   }

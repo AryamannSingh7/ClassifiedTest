@@ -34,10 +34,11 @@ class FacilityReservation extends FacilityReservationController {
     super(props);
   }
   componentDidMount(): any {
-    this.getFacilityReservationListing(this.state.sortBy, this.state.status)
+    this.getFacilityReservationCount()
   }
   render() {
     const { navigation } = this.props;
+    console.log("getFacilityReservationCount=======>",this.state.facilityCount)
     return (
       <>
         <Box className="login-wrapper incident-wrapper">

@@ -55,6 +55,7 @@ export interface S {
   facilityReservationListing:any,
   showDialog:any;
   deleteShowDialog:any;
+  facilityCount:any;
   // Customizable Area End
 }
 
@@ -74,11 +75,12 @@ export default class FacilityReservationController extends BlockComponent<
   passwordReg: RegExp;
   emailReg: RegExp;
   createAccountApiCallId: any;
-  apiupdateIncidentCallId:any;
+  apiCancelUpcomingFacilityReservationCallId:any;
   CreateFacilityReservationapiCallId: any;
   updateFacilityReservationapiCallId:any;
   validationApiCallId: any;
   getFacilityReservationListingApiCallId: any;
+  getFacilityReservationCountApiCallId:any;
   getFacilityReservationDetailsByIdApiCallId : any ;
   getCommonAreaApiCallId : any ;
   getIncidentRelatedApiCallId:any;
@@ -146,6 +148,7 @@ export default class FacilityReservationController extends BlockComponent<
       file :{},
       showDialog:false,
       deleteShowDialog:false,
+      facilityCount:{},
       // Customizable Area End
     };
 
@@ -172,11 +175,9 @@ export default class FacilityReservationController extends BlockComponent<
 
   async componentDidUpdate(prevProps: any, prevState: any) {
     if (
-      prevState.sortBy !== this.state.sortBy ||
-      prevState.status !== this.state.status
-
+      prevState.sortBy !== this.state.sortBy
     ) {
-     this.getFacilityReservationListing(this.state.sortBy ,this.state.status)
+     this.getFacilityReservationListing(this.state.sortBy)
     }
   }
 
@@ -222,8 +223,11 @@ export default class FacilityReservationController extends BlockComponent<
       else if (apiRequestCallId === this.CreateFacilityReservationapiCallId) {
           if (responseJson && responseJson.data) {
             console.log("CreateFacilityReservationapiCallId===========>",responseJson)
+            const id = responseJson?.data?.id
             //@ts-ignore
             this.props.history.push("/FacilityReservationReportedSuccessfully")
+            this.props.history.push({pathname: "/FacilityReservationReportedSuccessfully",   //@ts-ignore
+             id})
             this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = responseJson.errors[0]
@@ -252,12 +256,13 @@ export default class FacilityReservationController extends BlockComponent<
           this.setState({loading: false , error:null})
         }
      
-        else if (apiRequestCallId === this.apiupdateIncidentCallId) {
+        else if (apiRequestCallId === this.apiCancelUpcomingFacilityReservationCallId) {
           if (responseJson && responseJson.data) {
-            console.log("apiupdateIncidentCallId===========>",responseJson)
+            this.setState({loading: false})
+            console.log("apiCancelUpcomingFacilityReservationCallId===========>",responseJson)
                //@ts-ignore
               this.props.history.push("/FacilityReservation")
-            this.setState({loading: false})
+            
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
             this.setState({ error });
@@ -265,6 +270,21 @@ export default class FacilityReservationController extends BlockComponent<
             this.setState({ error: responseJson?.error || "Something went wrong!" });
           }
 
+          this.parseApiCatchErrorResponse(this.state.error);
+          this.setState({loading: false , error:null})
+        }
+        
+        else if (apiRequestCallId === this.getFacilityReservationCountApiCallId) {
+          if (responseJson || responseJson?.data ) {
+          console.log("getFacilityReservationCountApiCallId ========================>",responseJson)
+          this.setState({facilityCount : responseJson})
+          this.setState({loading: false})
+          } else if (responseJson?.errors) {
+            let error = Object.values(responseJson.errors[0])[0] as string;
+            this.setState({ error });
+          } else {
+            this.setState({ error: responseJson?.error || "Something went wrong!" });
+          }
           this.parseApiCatchErrorResponse(this.state.error);
           this.setState({loading: false , error:null})
         }
@@ -629,35 +649,30 @@ getFacilityReservationDetails= (idOrName :any) => {
    
 }
 
-confirmOrRejectIncident =(id : any,val : any)=>{
+cancelUpcomingFacilityReservation =(id : any,val : any)=>{
   const header = {
     token :localStorage.getItem("userToken")
   };
+  
   const formData = new FormData();
-  if(val === "confirm"){
+  if(val === "Cancel"){
+    console.log("if ke andaer he val ==================>", val)
+
      //@ts-ignore
-    formData.append('incident[mark_resolved_by_reporter]', true);
-    formData.append('incident[incident_status]', 'Resolved');
-  }else{
-     //@ts-ignore
-    formData.append('incident[mark_resolved_by_reporter]', false);
-    formData.append('incident[incident_status]', 'Unresolved');
+    formData.append('facility_reservation[status]','Cancelled');
   }
-
-
- console.log("formData.getAll('apartment_management_id')==================>",formData.get('incident[incident_status]'))
  const httpBody = formData;
- console.log("httpBody httpBody==================>",httpBody);
+ console.log("httpBody httpBody==================>",httpBody.get('facility_reservation'), val);
+ this.setState({ showDialog: false ,loading: true })
 
-  this.setState({loading: true})
   const requestMessage = new Message(
     getName(MessageEnum.RestAPIRequestMessage)
   );
 
-  this.apiupdateIncidentCallId = requestMessage.messageId;
+  this.apiCancelUpcomingFacilityReservationCallId = requestMessage.messageId;
   requestMessage.addData(
     getName(MessageEnum.RestAPIResponceEndPointMessage),
-    `${configJSON.updateIncident}${id}`
+    `bx_block_society_management/facility_reservations/${id}`
   );
 
   requestMessage.addData(
@@ -672,7 +687,7 @@ confirmOrRejectIncident =(id : any,val : any)=>{
 
   requestMessage.addData(
     getName(MessageEnum.RestAPIRequestMethodMessage),
-    configJSON.PatchAPiMethod
+    "PATCH"
   );
 
   runEngine.sendMessage(requestMessage.id, requestMessage);
@@ -789,7 +804,7 @@ CreateFacilityReservation = async(val :any) => {
       }
     };
   
-  getFacilityReservationListing = (sortBy : any ,status : any)  => {
+  getFacilityReservationListing = (sortBy : any)  => {
     try {
       const header = {
         "Content-Type": configJSON.validationApiContentType,
@@ -987,20 +1002,6 @@ CreateFacilityReservation = async(val :any) => {
     this.setState({anchorEl:null,sortBy : sortBy})
   };
 
-  handleClick_1 = (event :any) => {
-    this.setState({anchorEl_1:event.currentTarget})
-  };
-
-  handleClose_1 = (e:any, v:any) => {
-   let status : any ;
-    if(v === undefined || v === null){
-      status =this.state.status;
-    }
-    else {
-      status =v;
-    }
-    this.setState({anchorEl_1:null ,status :status})
-  };
 
   deleteFacility =(id:any)=>{
     const header = {
@@ -1034,6 +1035,44 @@ CreateFacilityReservation = async(val :any) => {
     return true;
   
   }
+  getFacilityReservationCount = ()  => {
+    try {
+      const header = {
+        "Content-Type": configJSON.validationApiContentType,
+        token :localStorage.getItem("userToken")
+      };
+
+      //const id = localStorage.getItem("userId");
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+      this.getFacilityReservationCountApiCallId = requestMessage.messageId;
+      this.setState({ loading: true });
+      const  getSortByOrStatus = `/bx_block_society_management/facility_reservations/reservation_list_count`
+    // const  getSortByOrStatus = `bx_block_custom_form/incidents?sort_type=${sortBy}&filter_by=${status}`
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        getSortByOrStatus
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        configJSON.validationApiMethodType
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+      return true;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   redirectToDashboard = () => {
     let userType = localStorage.getItem('userType')
     if (userType == 'Owner') {
@@ -1047,6 +1086,7 @@ CreateFacilityReservation = async(val :any) => {
     }
 
   }
+
 
   CreateFacilityReservationSchema() {
     const validations = Yup.object().shape({

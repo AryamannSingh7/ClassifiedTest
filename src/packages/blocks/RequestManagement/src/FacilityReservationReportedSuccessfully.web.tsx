@@ -32,11 +32,12 @@ class FacilityReservationReportedSuccessfully extends FacilityReservationControl
 
   render() {
    const { navigation } = this.props;
-   const id = localStorage?.getItem("createIncidentId")
+   //@ts-ignore
+   const id = this.props.history?.location?.id
    console.log("id=====>",id );
     if (!id) {
       //@ts-ignore
-      this.props.history.replace("/CreateIncident");
+      this.props.history.replace("/FacilityReservationListing");
       return null;
     }
     return (

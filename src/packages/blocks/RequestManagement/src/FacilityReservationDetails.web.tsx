@@ -61,8 +61,9 @@ class FacilityReservationDetails extends FacilityReservationController {
   }
 
   render() {
-   console.log("this.props.history getFacilityReservationDetails===========>",this.state?.getFacilityReservationDetails)
+   //console.log("getFacilityReservationDetails===========>",this.state?.getFacilityReservationDetails)
     const { navigation } = this.props;
+    const reservation  = localStorage.getItem("idOrName");
     const id = this.state?.getFacilityReservationDetails?.id;
     const attributes = this.state?.getFacilityReservationDetails?.attributes;
     return (
@@ -74,7 +75,7 @@ class FacilityReservationDetails extends FacilityReservationController {
                 <Box className="content-header">
                   <Box className="left-block blocks">
                     <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
-                    <h4>{attributes?.date}</h4>
+                    <h4>{reservation} Reservation</h4>
                   </Box>
                  {
                   attributes?.status==="Pending" ?
@@ -125,7 +126,7 @@ class FacilityReservationDetails extends FacilityReservationController {
                           Rent:
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                          {id}
+                          {attributes?.rent}
                         </Typography>
                         {/* <Typography className="title-span" component="span">
                           Expected Resolution Date:
@@ -137,7 +138,7 @@ class FacilityReservationDetails extends FacilityReservationController {
                           Hours:
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                          {attributes?.time_from} - {attributes?.time_to}
+                          {attributes?.start_time} - {attributes?.end_time}
                         </Typography>   
                       {
                           attributes?.status==="Completed"?<>
@@ -200,7 +201,7 @@ class FacilityReservationDetails extends FacilityReservationController {
                     <h3>Cancel Reservation</h3>
                     <p className="lead">Are you sure you want to cancel this reservation? If you proceed your reservation will be deleted and the manager will be notified</p>
                     <Box className="diloag-btn customButton">
-                      <Button variant="outlined" onClick={() => { this.setState({ showDialog: false }) }}>Yes, CANCEL</Button>
+                      <Button variant="outlined" onClick={() => { this.cancelUpcomingFacilityReservation(id , "Cancel")  }}>Yes, CANCEL</Button>
                       <Button variant="contained" onClick={() => { this.setState({ showDialog: false }) }} >No, don’t cancel</Button>
                     </Box>
                   </Box>

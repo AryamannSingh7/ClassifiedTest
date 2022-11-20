@@ -195,7 +195,7 @@ class ManagerFacilityReservation extends FacilityManagerContorller {
                             <strong><h4>Facility Reservation</h4></strong>
                             <Box className="card-rows">
                               <img src={upcoming} alt="Bank Icon" />
-                              <h5> {val?.attributes?.common_area}</h5>
+                              <h5> {val?.attributes?.common_area?.name}</h5>
                             </Box>
                             <Box className="card-rows">
                               <img src={upcoming} alt="Bank Icon" />
@@ -207,7 +207,7 @@ class ManagerFacilityReservation extends FacilityManagerContorller {
                             </Box>
                             <Box className="card-rows">
                               <img src={Users_Icon} alt="Bank Icon" />
-                              <h5>{val?.attributes?.building}</h5>
+                              <h5>{val?.attributes?.building?.name}</h5>
                             </Box>
                           </CardContent>
                         </Card>

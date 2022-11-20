@@ -266,6 +266,7 @@ import VisitorUpdateSuccess from '../../blocks/invitefriends/src/VisitorUpdated'
 import VisitorAdd from '../../blocks/invitefriends/src/VisitorAdd.web';
 import VisitorList from '../../blocks/invitefriends/src/VisitorsList.web';
 import Unit from '../../blocks/invitefriends/src/Unit.web';
+import UnitGeneralDetails from '../../blocks/invitefriends/src/UnitGeneralDetails.web';
 
 import VisitorsDetails from '../../blocks/invitefriends/src/VisitorDetailsManager.web';
 
@@ -1588,7 +1589,11 @@ const routeMap = {
     path: '/Unit',
     exact: true
   },
-
+  UnitGeneralDetails: {
+    component: UnitGeneralDetails,
+    path: '/UnitGeneralDetails',
+    exact: true
+  },
   ScheduledVisitors: {
     component: ScheduledVisitors,
     path: '/ScheduledVisitors',

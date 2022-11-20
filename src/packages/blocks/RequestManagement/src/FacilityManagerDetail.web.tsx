@@ -80,7 +80,7 @@ class FacilityManagerDetail extends FacilityManagerContorller {
                   <Card className="incident-detail-card card">
                     <Box className="card-header">
                       <Typography component="h4">
-                        {attributes?.common_area}
+                        {attributes?.common_area?.name}
                       </Typography>
                       <Box className="customButton">
                         <Button variant="contained" className={attributes?.status === 'Pending' ? "contain warning" : attributes?.status === 'Upcoming' ? 'contain success' : 'contain danger'} type="submit">
@@ -102,7 +102,7 @@ class FacilityManagerDetail extends FacilityManagerContorller {
                           <Typography className="title-span" component="span">
                             Building Name:
                           </Typography>
-                          <h4>{attributes?.building}</h4>
+                          <h4>{attributes?.building?.name}</h4>
                         </Box>
                         <Box className="card-rows">
                           <Typography className="title-span" component="span">
