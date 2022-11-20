@@ -189,7 +189,7 @@ class ManagerFacilityReservation extends FacilityManagerContorller {
                           <Card className="management-card card" key={index}>
                           <CardContent className="costom-card-content">
                             <Box className="customButton">
-                              <Button variant="contained" className={val?.attributes?.status === 'Pending' ? "contain warning" : val?.attributes?.status === 'Upcoming' ? 'contain success' : 'contain blue'} type="submit">
+                              <Button variant="contained" className={val?.attributes?.status === 'Pending' ? "contain warning" : val?.attributes?.status === 'Upcoming' ? 'contain success' : val?.attributes?.status === 'Completed'?'contain blue' :"contain danger"} type="submit">
                                 {val?.attributes?.status}</Button>
                             </Box>
                             <strong><h4>Facility Reservation</h4></strong>
@@ -199,11 +199,11 @@ class ManagerFacilityReservation extends FacilityManagerContorller {
                             </Box>
                             <Box className="card-rows">
                               <img src={upcoming} alt="Bank Icon" />
-                              <h5>{val?.attributes?.date} {val?.attributes?.time_from} to {val?.attributes?.time_from}</h5>
+                              <h5>{val?.attributes?.date} {val?.attributes?.start_time} to {val?.attributes?.end_time}</h5>
                             </Box>
                             <Box className="card-rows">
                               <img src={Users_Icon} alt="Bank Icon" />
-                              <h5>{val?.attributes?.description}</h5>
+                              <h5>{val?.attributes?.Owner_name}</h5>
                             </Box>
                             <Box className="card-rows">
                               <img src={Users_Icon} alt="Bank Icon" />
