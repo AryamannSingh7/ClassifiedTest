@@ -112,6 +112,7 @@ export default class CommunityUserProfileController extends BlockComponent<
   getCityApiCallId: any;
   verifyOtpApiCallId: any;
   getBuildingApiCallId: any;
+  createChatRoomAPIId:any;
   getUnitApiCallId: any;
   createVehicleApiCallId:any;
   deleteVehicleAPICallId:any;
@@ -384,6 +385,17 @@ this.setState({loading:false,showDialog:false})
           }
 
           this.parseApiCatchErrorResponse(errorReponse);
+        }   else if(apiRequestCallId === this.createChatRoomAPIId){
+          if(responseJson.hasOwnProperty("data")){
+            localStorage.setItem('selectedChat',JSON.stringify(responseJson.data))
+            //
+            this.props.history.push({
+              pathname: '/chairmanchat',
+              state: { data: responseJson.data }
+            })
+          }else{
+            //
+          }
         }if (apiRequestCallId === this.deleteVehicleAPICallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
@@ -2216,6 +2228,70 @@ let userType=localStorage.getItem('userType')
     runEngine.sendMessage(requestMessage.id, requestMessage);
     return true;
   }
+  getUserProfileSearch=(value:any)=>{
+    this.setState({loading:true})
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      "token": localStorage.getItem('userToken')
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+
+    this.getProfileDataAPiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_profile/profiles?society_management_id=${localStorage.getItem('society_id')}&apartment_management_id=${this.state.selctedUnit?this.state.selctedUnit:''}&building_management_id=${this.state.selectedBUilding? this.state.selectedBUilding :''}&user_type=${this.state.selectedUserType ? this.state.selectedUserType:''}&q=${value}`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.validationApiMethodType
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  }
+  getUserProfileSearchWithType=(value:any,type:any)=>{
+    this.setState({loading:true})
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      "token": localStorage.getItem('userToken')
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+
+    this.getProfileDataAPiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_profile/profiles?society_management_id=${localStorage.getItem('society_id')}&apartment_management_id=${this.state.selctedUnit?this.state.selctedUnit:''}&building_management_id=${this.state.selectedBUilding? this.state.selectedBUilding :''}&user_type=${type}&q=${value}`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.validationApiMethodType
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  }
   getUserTypeProfile=(role:any)=>{
     let roleName =window.location.pathname
     console.log(roleName)
@@ -2249,6 +2325,54 @@ let userType=localStorage.getItem('userType')
 
     runEngine.sendMessage(requestMessage.id, requestMessage);
     return true;
+  }
+  openChat=(data:any)=>{
+    
+    
+    try {
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+      this.createChatRoomAPIId = requestMessage.messageId;
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        `bx_block_chat/chats`
+      );
+
+      const header = {
+        token: localStorage.getItem("userToken"),
+      };
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+
+      const formData = new FormData();
+      formData.append("chat[chatable_type]", 'AccountBlock::Account');
+      formData.append("chat[chatable_id]", localStorage.getItem('userId') || '{}');
+      formData.append("chat[chat_with_account]", data);
+
+
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestBodyMessage),
+        formData
+      );
+
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        'POST'
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+
+      return true;
+    } catch (error) {
+      console.log(error);
+    }
   }
   // Customizable Area End
 }

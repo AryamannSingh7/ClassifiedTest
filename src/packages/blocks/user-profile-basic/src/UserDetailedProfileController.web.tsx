@@ -43,6 +43,7 @@ export default class UserDetailedProfileController extends BlockComponent<
 
   // Customizable Area Start
   getProfileDataAPiCallId:any;
+  createChatRoomAPIId:any;
   // Customizable Area End
 
   constructor(props: Props) {
@@ -98,6 +99,18 @@ export default class UserDetailedProfileController extends BlockComponent<
         }
 
         this.parseApiCatchErrorResponse(errorReponse);
+      }else if(apiRequestCallId === this.createChatRoomAPIId){
+        if(responseJson.hasOwnProperty("data")){
+          localStorage.setItem('selectedChat',JSON.stringify(responseJson.data))
+          //@ts-ignore
+          // @ts-nocheck
+          this.props.history.push({
+            pathname: '/chairmanchat',
+            state: { data: responseJson.data }
+          })
+        }else{
+          //
+        }
       }
 
       }
@@ -153,4 +166,54 @@ export default class UserDetailedProfileController extends BlockComponent<
     runEngine.sendMessage(requestMessage.id, requestMessage);
     return true;
   }
+// Customizable Area Start
+  openChat=(data:any)=>{
+    
+    
+    try {
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+      this.createChatRoomAPIId = requestMessage.messageId;
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        `bx_block_chat/chats`
+      );
+
+      const header = {
+        token: localStorage.getItem("userToken"),
+      };
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+
+      const formData = new FormData();
+      formData.append("chat[chatable_type]", 'AccountBlock::Account');
+      formData.append("chat[chatable_id]", localStorage.getItem('userId') || '{}');
+      formData.append("chat[chat_with_account]", data);
+
+
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestBodyMessage),
+        formData
+      );
+
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        'POST'
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+
+      return true;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  // Customizable Area End
 }
