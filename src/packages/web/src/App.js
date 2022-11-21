@@ -1528,6 +1528,18 @@ const routeMap = {
     component: GaMembers,
     path: '/ga_member'
   },
+  resident: {
+    component: GaMembers,
+    path: '/resident'
+  },
+  owner: {
+    component: GaMembers,
+    path: '/owner'
+  },
+  property_manager: {
+    component: GaMembers,
+    path: '/property_manager'
+  },
   ResidentsProfile: {
     component: ResidentsProfile,
     path: '/ResidentsProfile'

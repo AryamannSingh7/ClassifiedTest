@@ -202,11 +202,11 @@ class UserDetailedProfile extends UserDetailedProfileController {
                             <Typography variant="h6" style={dashBoard.Headings}>{t("General Details")}</Typography>
                           </Grid>
                           <Grid item xs={1} style={dashBoard.cursorPointer}>
-                            <Typography variant="subtitle1" style={dashBoard.viewMore}    
+                            {/* <Typography variant="subtitle1" style={dashBoard.viewMore}    
                               onClick={() => {
                               //@ts-ignore
                               this.props.history.push("/GaMembers");
-                            }}>{t("View All")}</Typography>
+                            }}>{t("View All")}</Typography> */}
                           </Grid>
                     </Grid>
                   </Box>
@@ -231,12 +231,13 @@ class UserDetailedProfile extends UserDetailedProfileController {
                                     <div style={{marginTop:"5px"}}>
                                         <Typography variant="h6" style={dashBoard.userType}>{t("GA Member")}</Typography>
                                     </div>
-                                        <Grid container spacing={3} style={{marginTop:"5px"}}>
-                                            <Grid item xs={2} sm={2}>
-                                                <img src={call_org} style={{width:"40px"}} onClick={()=> window.location.href = `mailto:${profileDetails?.attributes?.full_phone_number?.full_phone_number}`}/>
+                                        <Grid container spacing={3} style={{marginTop:"5px",gap:'1rem'}}>
+                                        <Grid item xs={2} sm={2}>
+                                                <img src={call_org} style={{width:"40px"}} onClick={(e)=>{e.preventDefault();this.openChat(profileDetails?.id)}}/>
                                             </Grid>
+                                           
                                             <Grid item xs={2} sm={2}>
-                                                {/* <img src={chat} style={{width:"40px"}} onClick={()=>this.openChat(profileDetails?.attribute)}/> */}
+                                                <img src={chat} style={{width:"40px"}} onClick={()=>this.openChat(profileDetails?.id)}/>
                                             </Grid>
                                             <Grid item xs={2} sm={2}>
                                                 <img src={email_org} style={{width:"40px"}} onClick={()=> window.location.href = `mailto:${profileDetails?.attributes?.email?.email}`}/>

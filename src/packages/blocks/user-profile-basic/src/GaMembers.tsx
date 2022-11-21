@@ -41,6 +41,7 @@ import '../../../web/src/i18n.js';
 import MailOutlineOutlinedIcon from '@material-ui/icons/MailOutlineOutlined';
 import CallOutlinedIcon from '@material-ui/icons/CallOutlined';
 import QuestionAnswerOutlinedIcon from '@material-ui/icons/QuestionAnswerOutlined';
+import { call_org, chat, email_org } from "./assets";
 
 const ProfileData = [ 
   {
@@ -109,8 +110,11 @@ class GaMembers extends CommunityUserProfileController {
     super(props);
   }
   async componentDidMount() {
-    this.getUserProfile()
-   
+    console.log('haa')
+
+    console.log('haa',window.location.pathname.substring(1))
+    this.getUserProfileSearchWithType('',window.location.pathname.substring(1))
+    this.getBuilding();
   }
 
   render() {
@@ -138,20 +142,41 @@ class GaMembers extends CommunityUserProfileController {
                 </Box>
                  <Box style={dashBoard.boxStyling}>
                     <Grid container  xs={6} md={6} sm={6} spacing={2}>
-                      <Grid item xs={4}>
+                    <Grid item xs={4}>
                         <FormControl style={dashBoard.YearMain} className='yearTab'>
                           <NativeSelect className='yearSelection'
                             // value={this.state.Year}
-                            // onChange={this.handleChange}
+                            name="selectedBUilding"
+                            onChange={this.handleChange}
                           >
-                            <option value={2022}>Select Unit</option>
-                            <option value={2021}>2021</option>
-                            <option value={2020}>2020</option>
-                            <option value={2019}>2019</option>
+                            <option value={2022}>{t("Select Building")}</option>
+                            {
+                              this.state.allBuilding.map((item:any)=><>
+                              <option value={item.id}>{item.name}</option>
+                              </>)
+                            }
+                            
+                           
                           </NativeSelect>
                       </FormControl>
                       </Grid>
                       <Grid item xs={4}>
+                        <FormControl style={dashBoard.YearMain} className='yearTab'>
+                          <NativeSelect className='yearSelection'
+                            // value={this.state.Year}
+                            name="selctedUnit"
+                            onChange={this.handleChange}
+                          >
+                            <option value={2022}>{t("Select Unit")}</option>
+                            {
+                              this.state.allUnit.map((item:any)=><>
+                              <option value={item.id}>{item.apartment_name}</option>
+                              </>)
+                            }
+                          </NativeSelect>
+                      </FormControl>
+                      </Grid>
+                      {/* <Grid item xs={4}>
                         <FormControl style={dashBoard.YearMain} className='yearTab'>
                           <NativeSelect className='yearSelection'
                             // value={this.state.Year}
@@ -163,9 +188,9 @@ class GaMembers extends CommunityUserProfileController {
                             <option value={2019}>2019</option>
                           </NativeSelect>
                       </FormControl>
-                      </Grid>
+                      </Grid> */}
                       <Grid item xs={4}>
-                        <Button variant="contained" style={dashBoard.backColor}><InputAdornment position="start">
+                        <Button variant="contained" onClick={this.getUserProfile} style={dashBoard.backColor}><InputAdornment position="start">
                                 <SearchIcon />
                               </InputAdornment>Search</Button>
                       </Grid>
@@ -174,6 +199,7 @@ class GaMembers extends CommunityUserProfileController {
                     <div className="search-box">
                         <TextField
                           style={dashBoard.searchButton}
+                          onChange={(e)=> this.getUserProfileSearchWithType(e.target.value,window.location.pathname.substring(1))}
                           id="input-with-icon-textfield"
                           placeholder="search by name"
                           InputProps={{
@@ -191,15 +217,15 @@ class GaMembers extends CommunityUserProfileController {
                   {/* GA MEMBERS -- */}
                   <Box>
                     <Grid container style={dashBoard.gaMemberMain}> 
-                          <Grid item xs={6}>
+                          {/* <Grid item xs={6}>
                             <Typography variant="h6" style={dashBoard.subHeading}>{t("GA Members")}</Typography>
-                          </Grid>
+                          </Grid> */}
                     </Grid>
                   </Box>
                   <Box style={{marginTop:"10px"}}>
-                    <div style={dashBoard.gaMemberCard}>
+                    <div >
                       <>
-                      {ProfileData.map((item, index) => {
+                      {/* {ProfileData.map((item, index) => {
                         return(
                           <div key={index}>
                           <Card style={dashBoard.cardStyle}>
@@ -230,7 +256,67 @@ class GaMembers extends CommunityUserProfileController {
 
                         })
 
-                        }
+                        } */}
+
+
+{
+  this.state.allProfileKeys.map((item:any)=><>
+   {
+item == window.location.pathname.substring(1) &&
+<Grid container style={dashBoard.gaMemberMain}> 
+                          
+   <Grid item xs={6}>
+                            <Typography variant="h6" style={dashBoard.subHeading}>{window.location.pathname.substring(1)}</Typography>
+                          </Grid>
+                    </Grid>
+   } 
+
+    <Box style={{marginTop:"10px"}}>
+                    <div style={dashBoard.gaMemberCard}>
+   {//@ts-ignore
+    item == window.location.pathname.substring(1) && this.state.allProfile[item]?.data?.map((singleProfile:any,index:any)=><>
+    <div key={index}>
+                          <Card style={dashBoard.cardStyle}>
+                            <CardActionArea>
+                              <CardMedia
+                                component="img"
+                                height="140"
+                                image={singleProfile?.attributes?.profile_pic?.url}
+                                alt="green iguana"
+                                style={dashBoard.profileImage}
+                              />
+                              <CardContent style={{padding:"0px 16px 16px 16px"}}>
+                              <Typography variant="h6"
+                              //@ts-ignore 
+                              style={dashBoard.unitno}>{item.unitno}</Typography>
+                              <Typography variant="h6" style={{textAlign:"center", marginTop:"5px"}}>{singleProfile?.attributes?.full_name?.name}</Typography>
+                              <div style={{textAlign:"center",marginTop:"5px"}}>
+                                <Typography variant="h6" style={dashBoard.userType}>{item.userType}</Typography>
+                              </div>
+                              <div style={dashBoard.contactIcon}>
+                         
+                                  <img src={chat}  onClick={(e)=>{e.preventDefault();this.openChat(singleProfile?.id)}} style={{width:"40px"}}/>
+                                  <a onClick={(e)=>e.preventDefault()} href={`mailto:${singleProfile?.attributes?.email?.email}`}>
+
+                                  <img src={email_org}  style={{width:"40px", margin:"0 auto"}}/>
+                                  </a>
+                                 <a onClick={(e)=>e.preventDefault()} href={`tel:${singleProfile?.attributes?.full_phone_number?.full_phone_number}`}>
+
+                                  <img src={call_org}  style={{width:"40px", margin:"0 auto"}}/>
+                                 </a>
+                              
+                              </div>
+                              </CardContent>
+                            </CardActionArea>
+                          </Card>
+                          </div>
+    </>)
+   }
+   </div>
+   </Box>
+  
+  </>)
+}
                       </>
                     </div>
                   </Box>
