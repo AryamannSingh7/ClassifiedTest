@@ -35,6 +35,10 @@ interface S {
   buildingList:any;
   unitList:any;
   pagination:any;
+  getUnitListing:any;
+  unitPagination:any;
+  getUnitGeneralDetails:any;
+  securityBuildingList:any;
 
 }
 
@@ -55,6 +59,8 @@ export default class VisitorDetailsController extends BlockComponent<
   getUnitListId:string = "";
   getUnitId:string =""
   getBuildingListId:string ="";
+  getUnitGeneralDetailsId="";
+  getSecurityBuildingListId="";
   constructor(props: Props) {
 
     super(props);
@@ -92,7 +98,15 @@ export default class VisitorDetailsController extends BlockComponent<
         current_page:1,
         total_count:0,
         total_pages:1,
-      }
+      },
+      getUnitListing : [],
+      unitPagination:{
+        current_page:1,
+        total_count:0,
+        total_pages:1,
+      },
+      getUnitGeneralDetails:{},
+      securityBuildingList:[]
     };
 
     this.emailReg = new RegExp("");
@@ -108,6 +122,8 @@ export default class VisitorDetailsController extends BlockComponent<
   async componentDidMount() {
     await this.getVisitorList(this.state.searchQuery,this.state.page)
     await this.getBuildingList()
+    await this.getSecurityUnitList(this.state.page)
+    await this.getSecurityBuildingList()
   }
 
   handleCloseDeleteModal() {
@@ -136,14 +152,40 @@ export default class VisitorDetailsController extends BlockComponent<
       var errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if(this.getUnitListId === apiRequestCallId ){
         console.log(responseJson,errorReponse)
-        if(responseJson.hasOwnProperty("unit")){
+        if(responseJson.hasOwnProperty("apartment_managements")){
           this.setState({
-            visitorList:responseJson.visitors.data,
-            pagination:responseJson.meta.pagination,
+            getUnitListing:responseJson?.apartment_managements?.data,
+            unitPagination:responseJson?.meta?.pagination,
           })
         }else{
           this.setState({
-            visitorList:[]
+            getUnitListing:[]
+          })
+        }
+      }
+      if(this.getSecurityBuildingListId === apiRequestCallId ){
+        console.log(responseJson,errorReponse)
+        console.log("getSecurityBuildingListId============>",responseJson)
+        if(responseJson.data?.hasOwnProperty("buildings")){
+          this.setState({
+            securityBuildingList:responseJson?.data?.buildings,
+          })
+        }else{
+          this.setState({
+            securityBuildingList:[]
+          })
+        }
+      }
+      
+      if(this.getUnitGeneralDetailsId === apiRequestCallId ){
+        console.log(responseJson,errorReponse)
+        if(responseJson.hasOwnProperty("data")){
+          this.setState({
+            getUnitGeneralDetails:responseJson?.data,
+          })
+        }else{
+          this.setState({
+            getUnitGeneralDetails:{}
           })
         }
       }
@@ -177,15 +219,35 @@ export default class VisitorDetailsController extends BlockComponent<
     }
   }
 
-  getSecurityUnitList = async () => {
+  getSecurityUnitList = async (page:any) => {
     console.log("DID I CALLED yes ?",)
     const societyID = localStorage.getItem("society_id")
     this.getUnitListId = await this.apiCall({
       contentType:"application/json",
       method: "GET",
-      endPoint: `/society_managements/${societyID}/bx_block_settings/apartment_managements`,
+      endPoint:`/bx_block_settings/apartment_managements/unit_list?society_management_id=${societyID}&building_management_id=&page=${page}`,
     });
   }
+  getSecurityBuildingList = async () => {
+    console.log("DID I CALLED yes ?",)
+    const societyID = localStorage.getItem("society_id")
+    this.getSecurityBuildingListId = await this.apiCall({
+      contentType:"application/json",
+      method: "GET",
+      endPoint:`/bx_block_address/building_list?society_management_id=${societyID}`,
+    });
+  }
+
+  getUnitList = async (page:any) => {
+    console.log("DID I CALLED yes ?",)
+    const societyID = localStorage.getItem("society_id")
+    this.getUnitListId = await this.apiCall({
+      contentType:"application/json",
+      method: "GET",
+      endPoint:`/bx_block_settings/apartment_managements/unit_list?society_management_id=${societyID}&building_management_id=&page=${page}`,
+    });
+  }
+
 
   getVisitorList = async (search:any,page:any) => {
     console.log("DID I CALLED ?",search)
@@ -207,12 +269,12 @@ export default class VisitorDetailsController extends BlockComponent<
   }
 
 
-  getUnitList = async (id:any) => {
+  getUnitGeneralDetails = async (id:any) => {
     const societyID = localStorage.getItem("society_id")
-    this.getUnitId = await this.apiCall({
+    this.getUnitGeneralDetailsId = await this.apiCall({
       contentType:"application/json",
       method: "GET",
-      endPoint: `/society_managements/${societyID}/bx_block_visitor/visitors/find_unit?building_management_id=${id}`,
+      endPoint: `/bx_block_settings/apartment_managements/${id}`,
     });
   }
 

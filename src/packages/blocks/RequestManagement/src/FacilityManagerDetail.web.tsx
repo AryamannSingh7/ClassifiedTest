@@ -80,10 +80,10 @@ class FacilityManagerDetail extends FacilityManagerContorller {
                   <Card className="incident-detail-card card">
                     <Box className="card-header">
                       <Typography component="h4">
-                        {attributes?.common_area}
+                        {attributes?.common_area?.name}
                       </Typography>
                       <Box className="customButton">
-                        <Button variant="contained" className={attributes?.status === 'Pending' ? "contain warning" : attributes?.status === 'Upcoming' ? 'contain success' : 'contain danger'} type="submit">
+                        <Button variant="contained" className={attributes?.status === 'Pending' ? "contain warning" : attributes?.status === 'Upcoming' ? 'contain success' : attributes?.status === 'Completed'?'contain blue':'contain danger'} type="submit">
                           {attributes?.status}</Button>
                       </Box>
                     </Box>
@@ -96,13 +96,13 @@ class FacilityManagerDetail extends FacilityManagerContorller {
                           <Typography className="title-span" component="span">
                             Owner Name:
                           </Typography>
-                          <h4>{attributes?.classified_type === "buyer" ? "Buy" : attributes?.classified_type === "seller" ? "Sell" : 'Generic'}</h4>
+                          <h4>{attributes?.Owner_name}</h4>
                         </Box>
                         <Box className="card-rows">
                           <Typography className="title-span" component="span">
                             Building Name:
                           </Typography>
-                          <h4>{attributes?.building}</h4>
+                          <h4>{attributes?.building?.name}</h4>
                         </Box>
                         <Box className="card-rows">
                           <Typography className="title-span" component="span">
@@ -120,19 +120,19 @@ class FacilityManagerDetail extends FacilityManagerContorller {
                           <Typography className="title-span" component="span">
                             Duration:
                           </Typography>
-                          <h4>{attributes?.time_from} - {attributes?.time_from}</h4>
+                          <h4>{attributes?.start_time} - {attributes?.end_time}</h4>
                         </Box>
                             <Box className="card-rows">
                               <Typography className="title-span" component="span">
                                 Rent:
                               </Typography>
-                              <h4>{attributes?.payment_detail} </h4>
+                              <h4>{attributes?.rent} </h4>
                             </Box>
                             <Box className="card-rows">
                               <Typography className="title-span" component="span">
                                 Paid On:
                               </Typography>
-                              <h4>{attributes?.payment_detail}</h4>
+                              <h4>{attributes?.paid_on}</h4>
                             </Box>
                       </Box>
                       {/* {
@@ -178,11 +178,13 @@ class FacilityManagerDetail extends FacilityManagerContorller {
                      >APPROVE</Button>
                      </>
                      :
+                     attributes?.status === 'Upcoming' ?
                      <Box className="outline-danger">
                      <Button variant="outlined"
                     onClick={() => this.setState({ ignoreShowDialog: true })}
                      >CANCEL</Button>  
                       </Box>
+                      :null
                     }
                     </Box>
                     </CardContent>
@@ -310,7 +312,7 @@ class FacilityManagerDetail extends FacilityManagerContorller {
                     <p className="lead"> Are you sure you want to approve reservation request?</p>
                     <Box className="diloag-btn customButton">
                       <Button variant="outlined" onClick={() => { this.setState({ statusShowDialog: false }) }}>Close</Button>
-                      <Button variant="contained" onClick={() => this.rejectedOrCompleted("Completed")}>Confirm</Button>
+                      <Button variant="contained" onClick={() => this.rejectedOrCompleted("Upcoming")}>Confirm</Button>
                     </Box>
                   </Box>
                 </Box>
