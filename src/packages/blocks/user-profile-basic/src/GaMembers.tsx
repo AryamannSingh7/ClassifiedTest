@@ -273,7 +273,7 @@ item == window.location.pathname.substring(1) &&
 
     <Box style={{marginTop:"10px"}}>
                     <div style={dashBoard.gaMemberCard}>
-   {
+   {//@ts-ignore
     item == window.location.pathname.substring(1) && this.state.allProfile[item]?.data?.map((singleProfile:any,index:any)=><>
     <div key={index}>
                           <Card style={dashBoard.cardStyle}>
