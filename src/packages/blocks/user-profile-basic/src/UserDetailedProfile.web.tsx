@@ -44,6 +44,7 @@ import { withTranslation } from 'react-i18next';
 import '../../../web/src/i18n.js';
 
 import { call_org, email_org, chat, facebook, twitter_org, instagram, snap, bentalyLogo } from "./assets";
+import moment from "moment";
 
 const Residents = [ 
   {
@@ -490,7 +491,7 @@ class UserDetailedProfile extends UserDetailedProfileController {
                                 </div>
                                 <div style={{display:"flex"}}>
                                     <Typography variant="h6">{t("Reported on")}:</Typography>
-                                    <Typography variant="h6" style={{fontWeight:600}}> &nbsp; {item.Report}</Typography>
+                                    <Typography variant="h6" style={{fontWeight:600}}> &nbsp; {moment(item.reported_on).format("MMMM DD,YYYY")}</Typography>
                                 </div>
                                 <div style={{display:"flex"}}>
                                     <Typography variant="h6">{t("Building")}:</Typography>
@@ -530,33 +531,33 @@ class UserDetailedProfile extends UserDetailedProfileController {
                    <Box style={{margin:"10px 0px 50px"}}>
                     <div style={dashBoard.gaActiveMemberCard}>
                       <>
-                      {VehicleDetails.map((item, index) => {
+                      {profileDetails?.attributes?.vehicles.map((item:any, index:any) => {
                         return(
                           <div key={index}>
                           <Card style={dashBoard.activeMembercardStyle}>
                             <CardActionArea>
                               <CardContent>
-                                <Typography variant="h6" style={{fontWeight:600}}> {item.Car_no}</Typography>
+                                <Typography variant="h6" style={{fontWeight:600}}> {item.attributes?.company_name}</Typography>
                                 <img src={bentalyLogo} style={{margin:"5px 0px 5px 0px"}}/>
                                 <div style={{display:"flex"}}>
                                     <Typography variant="h6">{t("Owner Name:")}</Typography>
-                                    <Typography variant="h6" style={{fontWeight:600}}> &nbsp; {item.Owner}</Typography>
+                                    <Typography variant="h6" style={{fontWeight:600}}> &nbsp; {item.attributes?.owner_name}</Typography>
                                 </div>
                                 <div style={{display:"flex"}}>
                                     <Typography variant="h6">{t("Registration Card Number")}:</Typography>
-                                    <Typography variant="h6" style={{fontWeight:600}}> &nbsp; {item.Registration_no}</Typography>
+                                    <Typography variant="h6" style={{fontWeight:600}}> &nbsp; {item.attributes?.plate_number}</Typography>
                                 </div>
                                 <div style={{display:"flex"}}>
                                     <Typography variant="h6">{t("Car Details")}:</Typography>
-                                    <Typography variant="h6" style={{fontWeight:600}}> &nbsp; {item.Details}</Typography>
+                                    <Typography variant="h6" style={{fontWeight:600}}> &nbsp; {item?.attributes?.color}</Typography>
                                 </div>
                                 <div style={{display:"flex"}}>
                                     <Typography variant="h6">{t("Building")}:</Typography>
-                                    <Typography variant="h6" style={{fontWeight:600}}> &nbsp; {item.Building}</Typography>
+                                    <Typography variant="h6" style={{fontWeight:600}}> &nbsp; {item.attributes?.building_management?.name}</Typography>
                                 </div>
                                 <div style={{display:"flex"}}>
                                     <Typography variant="h6">{t("Unit")}:</Typography>
-                                    <Typography variant="h6" style={{fontWeight:600}}> &nbsp; {item.Unit}</Typography>
+                                    <Typography variant="h6" style={{fontWeight:600}}> &nbsp; {item.attributes?.apartment_management?.apartment_name}</Typography>
                                 </div>
                               <Typography variant="h6"
                               //@ts-ignore 
@@ -578,14 +579,14 @@ class UserDetailedProfile extends UserDetailedProfileController {
                   </Box>
 
                     {/* Unanswered Suggestion */}
-                    <Box>
+                    {/* <Box>
                     <Grid container style={dashBoard.gaMemberMain}> 
                           <Grid item xs={6}>
                             <Typography variant="h6" style={dashBoard.subHeading}>{t("Unanswered Suggestion")}</Typography>
                           </Grid>
                     </Grid>
-                  </Box>
-                   <Box style={{margin:"10px 0px 50px"}}>
+                  </Box> */}
+                   {/* <Box style={{margin:"10px 0px 50px"}}>
                     <div style={dashBoard.gaActiveMemberCard}>
                       <>
                       {UnansweredSuggestion.map((item, index) => {
@@ -620,7 +621,7 @@ class UserDetailedProfile extends UserDetailedProfileController {
                         }
                       </>
                     </div>
-                  </Box>
+                  </Box> */}
 
               </Container>
             </Grid>
