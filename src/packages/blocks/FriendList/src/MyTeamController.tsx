@@ -103,13 +103,14 @@ export default class FriendListController extends BlockComponent<
   handleEdit = (user:any) => {
     const editData = {
       id:user.id,
-      roleId:user.role.id,
+      roleId:user.role_id,
       email:user.email,
       phone:user.phone_number,
       buildingId:user.building_management.building_management_id,
       buildingName:user.building_management.building_name,
       unitName:user.apartment_management.apartment_management_id,
       unitId:user.apartment_management.apartment_name,
+      userId:user.account.id
     }
     this.setState({
       setOpen:true,

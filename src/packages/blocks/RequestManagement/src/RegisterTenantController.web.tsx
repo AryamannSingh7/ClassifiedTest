@@ -33,6 +33,8 @@ interface S {
 
   tenantId: string;
   tenantDetails: any;
+
+  isTenant: any;
 }
 
 interface TenantForm {
@@ -66,6 +68,7 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
   GetTenantDetailsForEditCallId: any;
   EditTenantCallId: any;
   CreateTenantForContractCallId: any;
+  IsTenantExistCallId: any;
 
   constructor(props: Props) {
     super(props);
@@ -103,6 +106,8 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
 
       tenantId: "",
       tenantDetails: null,
+
+      isTenant: null,
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
@@ -188,15 +193,16 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
 
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      if (responseJson.data) {
-        this.setState({ loading: false });
-        toast.success("Tenant created successfully");
-        if (this.state.isNowContract) {
-          this.props.navigation.navigate("IssueLease");
-        } else {
-          this.props.navigation.navigate("TenantList");
+      this.setState({ loading: false }, () => {
+        if (responseJson && responseJson.data) {
+          toast.success("Tenant created successfully");
+          if (this.state.isNowContract) {
+            this.props.navigation.navigate("IssueLease");
+          } else {
+            this.props.navigation.navigate("TenantList");
+          }
         }
-      }
+      });
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
@@ -267,11 +273,12 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
 
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      if (responseJson.code === 200) {
-        this.setState({ loading: false });
-        toast.success("Tenant created successfully");
-        this.props.navigation.navigate("TenantList");
-      }
+      this.setState({ loading: false }, () => {
+        if (responseJson.code === 200) {
+          toast.success("Tenant created successfully");
+          this.props.navigation.navigate("TenantList");
+        }
+      });
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
@@ -363,10 +370,34 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
 
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      if (responseJson.data) {
-        this.setState({ loading: false });
-        toast.success("Tenant updated successfully");
-        this.props.navigation.navigate("TenantDetails", { id: responseJson.data.id });
+      this.setState({ loading: false }, () => {
+        if (responseJson && responseJson.data) {
+          toast.success("Tenant updated successfully");
+          this.props.navigation.navigate("TenantDetails", { id: responseJson.data.id });
+        }
+      });
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // Find Unit Tenant Exist - API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.IsTenantExistCallId !== null &&
+      this.IsTenantExistCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.IsTenantExistCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      if (responseJson && responseJson.account) {
+        this.setState({ isTenant: responseJson.account });
       }
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
@@ -420,7 +451,7 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
     const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_contract/contracts/find_unit?building_management_id=${building}`
+      `society_managements/${society_id}/bx_block_contract/tenant_resquests/find_unit?building_management_id=${building}`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
@@ -441,8 +472,32 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
 
     this.GetIDTypeListCallId = apiRequest.messageId;
 
-    const society_id = localStorage.getItem("society_id");
     apiRequest.addData(getName(MessageEnum.RestAPIResponceEndPointMessage), `bx_block_family/id_proofs`);
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  // Find Unit Tenant Exist - API
+  handleCheckTenantExist = (unit: any) => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.IsTenantExistCallId = apiRequest.messageId;
+
+    const society_id = localStorage.getItem("society_id");
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `society_managements/${society_id}/bx_block_contract/contracts/find_tenant?apartment_management_id=${unit}`
+    );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
@@ -660,11 +715,12 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
       .matches(/\S/, "Required"),
     tenantName: Yup.string()
       .required("Required")
-      .matches(/\S/, "Required"),
+      .matches(/\S/, "Required")
+      .matches(/^[aA-zZ\s]+$/, "Only character are allowed"),
     tenantMobile: Yup.string()
       .required("Required")
       .matches(/\S/, "Required")
-      .matches(/^[0-9]{6,10}$/, { message: "Please enter valid number" }),
+      .matches(/^[0-9]{9,9}$/, { message: "Please enter valid number" }),
     tenantEmail: Yup.string()
       .required("Required")
       .matches(/\S/, "Required")
@@ -674,7 +730,13 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
       .matches(/\S/, "Required"),
     unit: Yup.string()
       .required("Required")
-      .matches(/\S/, "Required"),
+      .matches(/\S/, "Required")
+      .test("unit", "Already tenant available to this unit", (value: any) => {
+        if (value) {
+          return this.state.isTenant === null;
+        }
+        return true;
+      }),
     idType: Yup.string()
       .required("Required")
       .matches(/\S/, "Required"),

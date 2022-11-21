@@ -26,6 +26,7 @@ import ChairmanNominationDetailsController, {
 import './MyTeam.web.css'
 import {info, profileExp} from "./assets";
 import {withTranslation} from "react-i18next";
+import moment from "moment";
 
 class ChairmanNominationDetails extends ChairmanNominationDetailsController{
   constructor(props: Props) {
@@ -51,7 +52,7 @@ class ChairmanNominationDetails extends ChairmanNominationDetailsController{
                 <Box style={{background: "#F7F9FE",minHeight:"95%",display:'flex',flexDirection:"column",alignItems:'center',justifyContent:"space-between"}} >
                     <Grid container spacing={2} style={{width:"90%",marginTop:"20px"}}>
                         <Grid item xs={12}>
-                            <Paper elevation={6} style={{backgroundColor:"white",padding:"20px 30px",borderRadius:"15px"}}>
+                            <Paper elevation={2} style={{backgroundColor:"white",padding:"20px 30px",borderRadius:"15px"}}>
                                 <Grid container spacing={2} >
                                     <Grid item xs={12} style={{display:'flex'}}>
                                         <Typography variant="h6" style={{fontWeight:"bold"}}>{this.state.nominationData.title}</Typography>
@@ -64,7 +65,7 @@ class ChairmanNominationDetails extends ChairmanNominationDetailsController{
                                     <Grid item xs={12} sm={3}>
                                         <Box>
                                             <Typography variant="subtitle1" color="textSecondary">{t("Duration")}:</Typography>
-                                            <Typography variant="subtitle1" color="textPrimary">24-03-2022 to 24-04-2022</Typography>
+                                            <Typography variant="subtitle1" color="textPrimary">{moment(this.state.nominationData?.start_date).format("DD-MMM-YYYY")} to {moment(this.state.nominationData?.end_date).format("DD-MMM-YYYY")}</Typography>
                                         </Box>
                                     </Grid>
                                 </Grid>
@@ -72,20 +73,27 @@ class ChairmanNominationDetails extends ChairmanNominationDetailsController{
                         </Grid>
                         <Grid item xs={12}>
                             {
-                                this.state.votingStatus !== "closed" &&
+                                this.state.nominationData.status !== "closed" &&
                                 <>
                                     {
-                                        this.state.nomineeList.length < 0 &&
-                                        <Typography variant="h6" style={{fontWeight:"bold"}}>Nominated Members</Typography>
+                                        this.state.nomineeList.length > 0 &&
+                                        <Box style={{display:"flex"}} marginTop="10px">
+                                            <Typography variant="body1" style={{fontWeight:"bold"}}>{t("Nominated Members")}</Typography>
+                                            <Typography
+                                                variant="subtitle2"
+                                                className="countButton"
+                                            >
+                                                {this.state.nomineeList.length}
+                                            </Typography>
+                                        </Box>
                                     }
-
                                     <Grid container spacing={3} style={{marginTop: "5px", marginBottom:30}}>
                                     {
                                         this.state.nomineeList.length > 0 &&
                                         this.state.nomineeList.map((item:any,key:any)=> {
                                             return(
                                                 <Grid key={key} item xs={12}>
-                                                    <Paper elevation={3} style={{backgroundColor:"white",padding:"10px 15px",borderRadius:"15px",cursor:"pointer"}} >
+                                                    <Paper elevation={2} style={{backgroundColor:"white",padding:"10px 15px",borderRadius:"15px",cursor:"pointer"}} >
                                                         <Box onClick={this.handleOpenDetailsModal}>
                                                             <Box style={{display:'flex',justifyContent:'space-between'}}>
                                                                 <Box display="flex" alignItems="center">
@@ -108,18 +116,25 @@ class ChairmanNominationDetails extends ChairmanNominationDetailsController{
                                                             </Box>
                                                         </Box>
                                                         {
-                                                            this.state.setVoting &&
+                                                            this.state.nominationData.voting_flag &&
                                                             <>
                                                                 {
-                                                                    this.state.voted ?
+                                                                    this.state.votedViceChairmanId == item.id || this.state.votedChairmanId  == item.id ?
                                                                         <Box>
                                                                             <Box style={{width:"100%",backgroundColor:"d8d8d8",height:"1px",marginTop:"25px"}}/>
                                                                             <Box style={{width:"100%",display:'flex',justifyContent:'center',alignItems:"center",marginTop:"-12px"}}>
-                                                                                <Typography variant="subtitle2" style={{fontWeight:"bold",textAlign:'center',backgroundColor:"white",padding:"0px 10px"}}>Voted As</Typography>
+                                                                                <Typography variant="subtitle2" style={{fontWeight:"bold",textAlign:'center',backgroundColor:"white",padding:"0px 10px"}}>{t("Voted As")}</Typography>
                                                                             </Box>
                                                                             <Grid container spacing={3} style={{marginTop:"1px"}}>
                                                                                 <Grid item xs={12}>
-                                                                                    <DeclineButton disabled fullWidth>{t("Chairman")}</DeclineButton>
+                                                                                    {
+                                                                                        this.state.votedChairmanId == item.id &&
+                                                                                        <DeclineButton fullWidth disableRipple>{t("Chairman")}</DeclineButton>
+                                                                                    }
+                                                                                    {
+                                                                                        this.state.votedViceChairmanId == item.id &&
+                                                                                        <DeclineButton fullWidth disableRipple>{t("Vice Chairman")}</DeclineButton>
+                                                                                    }
                                                                                 </Grid>
                                                                             </Grid>
                                                                         </Box>
@@ -129,27 +144,47 @@ class ChairmanNominationDetails extends ChairmanNominationDetailsController{
                                                                             <Box style={{width:"100%",display:'flex',justifyContent:'center',alignItems:"center",marginTop:"-12px"}}>
                                                                                 <Typography variant="subtitle2" style={{fontWeight:"bold",textAlign:'center',backgroundColor:"white",padding:"0px 10px"}}>Vote As</Typography>
                                                                             </Box>
-                                                                            <Grid container spacing={3} style={{marginTop:"1px"}}>
+                                                                            <Grid container spacing={2} style={{marginTop:"1px"}}>
                                                                                 {
                                                                                     item.attributes.nominate_as == "Chairman"  &&
                                                                                     <Grid item xs={12} sm={12}>
-                                                                                        <ChairmanButton fullWidth onClick={()=> this.manageVote(item.id,0,item.attributes.name)}>Chairman </ChairmanButton>
+                                                                                        {
+                                                                                            this.state.votedChairmanId ?
+                                                                                                <DeclineButton disabled fullWidth>{t("Chairman")}</DeclineButton>
+                                                                                                :
+                                                                                                <ChairmanButton fullWidth onClick={()=> this.manageVote(item.id,0,item.attributes.name)}>{t("Chairman")}</ChairmanButton>
+                                                                                        }
                                                                                     </Grid>
                                                                                 }
                                                                                 {
                                                                                     item.attributes.nominate_as === "Vice Chairman" &&
                                                                                     <Grid item xs={12} sm={12}>
-                                                                                        <AcceptButton fullWidth onClick={()=> this.manageVote(item.id,1,item.attributes.name)} >Vice Chairman </AcceptButton>
+                                                                                        {
+                                                                                            this.state.votedViceChairmanId ?
+                                                                                                <DeclineButton disabled fullWidth>{t("Vice Chairman")}</DeclineButton>
+                                                                                                :
+                                                                                                <AcceptButton fullWidth onClick={()=> this.manageVote(item.id,1,item.attributes.name)} >{t("Vice Chairman")}</AcceptButton>
+                                                                                        }
                                                                                     </Grid>
                                                                                 }
                                                                                 {
                                                                                     item.attributes.nominate_as === "All" &&
                                                                                     <>
-                                                                                        <Grid item xs={12} sm={6}>
-                                                                                            <ChairmanButton fullWidth onClick={()=> this.manageVote(item.id,0,item.attributes.name)}>Chairman </ChairmanButton>
+                                                                                        <Grid item xs={6} sm={6}>
+                                                                                            {
+                                                                                                this.state.votedChairmanId ?
+                                                                                                    <DeclineButton disabled fullWidth>{t("Chairman")}</DeclineButton>
+                                                                                                    :
+                                                                                                    <ChairmanButton fullWidth onClick={()=> this.manageVote(item.id,0,item.attributes.name)}>{t("Chairman")}</ChairmanButton>
+                                                                                            }
                                                                                         </Grid>
-                                                                                        <Grid item xs={12} sm={6}>
-                                                                                            <AcceptButton fullWidth  onClick={()=> this.manageVote(item.id,1,item.attributes.name)} >Vice Chairman </AcceptButton>
+                                                                                        <Grid item xs={6} sm={6}>
+                                                                                            {
+                                                                                                this.state.votedViceChairmanId ?
+                                                                                                    <DeclineButton disabled fullWidth>{t("Vice Chairman")}</DeclineButton>
+                                                                                                    :
+                                                                                                    <AcceptButton fullWidth onClick={()=> this.manageVote(item.id,1,item.attributes.name)} >{t("Vice Chairman")}</AcceptButton>
+                                                                                            }
                                                                                         </Grid>
                                                                                     </>
                                                                                 }
@@ -167,9 +202,17 @@ class ChairmanNominationDetails extends ChairmanNominationDetailsController{
                                 </>
                             }
                             {
-                                this.state.votingStatus === "closed" &&
+                                this.state.nominationData.status === "closed" &&
                                 <>
-                                    <Typography variant="body1" style={{fontWeight:"bold"}}>{t("Nominated Members")}</Typography>
+                                    <Box style={{display:"flex"}}>
+                                        <Typography variant="body1" style={{fontWeight:"bold"}}>{t("Nominated Members")}</Typography>
+                                        <Typography
+                                            variant="subtitle2"
+                                            className="countButton"
+                                        >
+                                            {this.state.nomineeList.length}
+                                        </Typography>
+                                    </Box>
                                     <Box style={{display:'flex',marginTop:"10px"}}>
                                         <Typography
                                             variant="subtitle2"
@@ -187,47 +230,125 @@ class ChairmanNominationDetails extends ChairmanNominationDetailsController{
                                             {t("Vice Chairman")}
                                         </Typography>
                                     </Box>
-                                    <Grid container style={{marginTop:"15px"}}>
-                                        <Grid item xs={12}>
-                                            <Paper elevation={2} style={{backgroundColor:"white",padding:"10px 10px",borderRadius:"15px",cursor:"pointer"}}>
-                                                <Table className="table-box">
-                                                    <TableHead>
-                                                        <TableRow>
-                                                            <TableCell style={{color:"#181d25"}}>Name</TableCell>
-                                                            <TableCell style={{color:"#181d25"}}>Total Vote</TableCell>
-                                                        </TableRow>
-                                                    </TableHead>
-                                                    <TableBody>
-                                                        <TableRow onClick={() => this.props.history.push("/VisitorsDetails?id=1")} style={{cursor:"pointer"}}>
-                                                            <TableCell className="ellipse" style={{fontWeight:"bold"}}>
-                                                                Jhon Doe
-                                                                <Typography variant="subtitle2" className="chairmanSelected" style={{fontSize:"10px"}}>
-                                                                    Chairman
-                                                                </Typography>
-                                                                <Typography variant="subtitle2" color="textSecondary">B-105</Typography>
-                                                            </TableCell>
-                                                            <TableCell style={{fontWeight:"bold"}}>100</TableCell>
-                                                        </TableRow>
-                                                        <TableRow onClick={() => this.props.history.push("/VisitorsDetails?id=1")} style={{cursor:"pointer"}}>
-                                                            <TableCell className="ellipse">Alex Walker</TableCell>
-                                                            <TableCell>200</TableCell>
-                                                        </TableRow>
-                                                    </TableBody>
-                                                </Table>
-                                            </Paper>
-                                        </Grid>
-                                    </Grid>
+                                    {
+                                        this.state.selectedTab === "Chairman" ?
+                                            <Grid container style={{marginTop:"15px"}}>
+                                                <Grid item xs={12}>
+                                                    <Paper elevation={2} style={{backgroundColor:"white",padding:"10px 10px",borderRadius:"15px",cursor:"pointer"}}>
+                                                        <Table className="table-box">
+                                                            <TableHead>
+                                                                <TableRow>
+                                                                    <TableCell style={{color:"#181d25"}}>{t("Name")}</TableCell>
+                                                                    <TableCell style={{color:"#181d25"}}>{t("Total Vote")}</TableCell>
+                                                                </TableRow>
+                                                            </TableHead>
+                                                            <TableBody>
+                                                                {
+                                                                    this.state.chairmanVoteCount.length > 0 &&
+                                                                    this.state.chairmanVoteCount.map((item:any,key:any)=>{
+                                                                        if(key === 0){
+                                                                            return(
+                                                                                <TableRow key={key}>
+                                                                                    <TableCell className="ellipse" style={item.chairman_count > 0? {fontWeight:"bold"} : {fontWeight:"normal"}}>
+                                                                                        {item.name}
+                                                                                        {item.chairman_count > 0 &&
+                                                                                            <Typography
+                                                                                                variant="subtitle2"
+                                                                                                className="chairmanSelected"
+                                                                                                style={{fontSize: "10px",marginLeft:"3px",marginBottom:"2px"}}>
+                                                                                                Chairman
+                                                                                            </Typography>
+                                                                                        }
+                                                                                        <Typography variant="subtitle2" color="textSecondary">{item?.unit_no?.join(",")}</Typography>
+                                                                                    </TableCell>
+                                                                                    <TableCell style={item.chairman_count > 0? {fontWeight:"bold"} : {fontWeight:"normal"}}>{item.chairman_count}</TableCell>
+                                                                                </TableRow>
+                                                                            )
+                                                                        }else{
+                                                                            return(
+                                                                                <TableRow key={key}>
+                                                                                    <TableCell className="ellipse">
+                                                                                        {item.name}
+                                                                                        <Typography variant="subtitle2" color="textSecondary">{item?.unit_no?.join(",")}</Typography>
+                                                                                    </TableCell>
+                                                                                    <TableCell>{item.chairman_count}</TableCell>
+                                                                                </TableRow>
+                                                                            )
+                                                                        }
+                                                                    })
+                                                                }
+                                                            </TableBody>
+                                                        </Table>
+                                                    </Paper>
+                                                </Grid>
+                                            </Grid>
+                                            :
+                                            <Grid container style={{marginTop:"15px"}}>
+                                                <Grid item xs={12}>
+                                                    <Paper elevation={2} style={{backgroundColor:"white",padding:"10px 10px",borderRadius:"15px",cursor:"pointer"}}>
+                                                        <Table className="table-box">
+                                                            <TableHead>
+                                                                <TableRow>
+                                                                    <TableCell style={{color:"#181d25"}}>{t("Name")}</TableCell>
+                                                                    <TableCell style={{color:"#181d25"}}>{t("Total Vote")}</TableCell>
+                                                                </TableRow>
+                                                            </TableHead>
+                                                            <TableBody>
+                                                                {
+                                                                    this.state.viceChairmanVoteCount.length > 0 &&
+                                                                    this.state.viceChairmanVoteCount.map((item: any, key: any) => {
+                                                                        if (key === 0) {
+                                                                            return(
+                                                                                <TableRow key={key}>
+                                                                                    <TableCell className="ellipse" style={{fontWeight:"bold"}}>
+                                                                                        {item.name}
+                                                                                        {item.vice_chairman_count > 0 &&
+                                                                                            <Typography
+                                                                                                variant="subtitle2"
+                                                                                                className="chairmanSelected"
+                                                                                                style={{
+                                                                                                    fontSize: "10px",
+                                                                                                    marginLeft: "3px",
+                                                                                                    marginBottom: "2px"
+                                                                                                }}>
+                                                                                                {t("Vice Chairman")}
+                                                                                            </Typography>
+                                                                                        }
+                                                                                        <Typography variant="subtitle2" color="textSecondary">{item.unit_no?.join(",")}</Typography>
+                                                                                    </TableCell>
+                                                                                    <TableCell style={{fontWeight:"bold"}}>{item.vice_chairman_count}</TableCell>
+                                                                                </TableRow>
+                                                                            )
+                                                                        }else{
+                                                                            return (
+                                                                                <TableRow key={key}>
+                                                                                    <TableCell className="ellipse">
+                                                                                        {item.name}
+                                                                                        <Typography variant="subtitle2" color="textSecondary">{item.unit_no?.join(",")}</Typography>
+                                                                                    </TableCell>
+                                                                                    <TableCell>{item.vice_chairman_count}</TableCell>
+                                                                                </TableRow>
+                                                                            )
+                                                                        }
+                                                                    })
+                                                                }
+                                                            </TableBody>
+                                                        </Table>
+                                                    </Paper>
+                                                </Grid>
+                                            </Grid>
+                                    }
                                 </>
                             }
                         </Grid>
                     </Grid>
                     {
-                        !this.state.setVoting &&
+                        this.state.nominationData.stage === "Nomination Started" &&
                         <Box style={{width:"90%",marginBottom:"50px",marginTop:"10px"}}>
                             {
                                 this.state.nominatedSelf ?
                                     <CloseButton variant="contained" fullWidth size="large" onClick={()=> this.props.history.push(`/MyNomination?id=${this.state.nominationId}`)}>
-                                        View My Nomination
+                                        {t("View My Nomination")}
                                     </CloseButton>
                                     :
                                     <CloseButton variant="contained" fullWidth size="large" onClick={()=> this.props.history.push(`/NominateMySelf?id=${this.state.nominationId}`)}>
@@ -245,9 +366,10 @@ class ChairmanNominationDetails extends ChairmanNominationDetailsController{
                         <DialogContent style={{ margin: "15px 0" }}>
                             <Box textAlign="center">
                                 <img className="comment-image" src={info} alt="check" />
-                                <Typography variant="h6">Submit your vote</Typography>
+                                <Typography variant="h6">{t("Submit your vote")}</Typography>
                                 <Typography variant="body1" style={{ marginBottom: "0px" }}>
-                                    {t("Are you sure you want to submit your vote for john doe as a chairman")}
+                                    {t("Are you sure you want to submit your vote")} <br/>
+                                    {t("for")} {this.state.vote.name} as a {this.state.vote.role === 0 ? "Chairman":"Vice chairman"}
                                 </Typography>
                                 <DialogActions className="dialog-button-group" style={{flexDirection:'column'}}>
                                     <SubmitButton style={{width:"300px"}} fullWidth onClick={this.confirmVote}>

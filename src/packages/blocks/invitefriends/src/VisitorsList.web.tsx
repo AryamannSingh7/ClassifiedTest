@@ -34,6 +34,7 @@ import { SearchIconImage, UploadImage } from "../../user-profile-basic/src/asset
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
 import {withTranslation} from "react-i18next";
+import VisitorsSidebar from "../../dashboard/src/VisitorsSidebar.web";
 
 class VisitorsList extends VisitorsListController {
     constructor(props: Props) {
@@ -42,6 +43,8 @@ class VisitorsList extends VisitorsListController {
     render() {
         // @ts-ignore
         const { classes } = this.props;
+        const userType  = localStorage.getItem("selectUserType");
+
         // @ts-ignore
         const {t} = this.props
         return (
@@ -52,7 +55,13 @@ class VisitorsList extends VisitorsListController {
                     <Box style={{ display: "flex" }}>
                         <Grid item xs={3} md={3} sm={3} className="SideBar">
                             {/* Chairman Sidebar -- */}
-                            <ChairmanSidebarWeb {...this.props} />
+                           {
+                             userType === "Visitors" ? 
+                            <VisitorsSidebar {...this.props} />
+                            :
+                            <ChairmanSidebarWeb {...this.props} /> 
+                           }
+                            
                         </Grid>
 
                         <Grid item xs={9} md={9} sm={9} style={{ paddingTop: 35 }}>

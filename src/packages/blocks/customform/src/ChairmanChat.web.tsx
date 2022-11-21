@@ -378,7 +378,7 @@ const currentAccountId = localStorage.getItem('userId')
               <Box  display={{ xs: 'none', md: 'flex' }}>
               <div style={{ padding: "0.3rem", backgroundColor: "#ffff",paddingLeft:'0.3rem',minWidth:'95%'}}>
         <Grid container>
-          <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between',borderBottom:'1px solid #F2F2F2',paddingBottom:'1rem' }}>
+          <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between',paddingBottom:'1rem' }}>
             <Box display='flex' alignItems='center' >
              
               <span style={{ fontWeight: 'bold',display:'flex',gap:'0.5rem',marginTop:'1rem' }}>

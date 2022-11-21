@@ -48,6 +48,7 @@ class Visitors extends BudgetSpendingController{
                               keepMounted
                               open={Boolean(this.state.anchorEl)}
                               onClose={this.handleClose}
+                              
                           >
                               <MenuItem onClick={this.handleClose} style={{padding:"0px",minHeight:"20px"}}>Paid</MenuItem>
                               <MenuItem onClick={this.handleClose}>Due</MenuItem>

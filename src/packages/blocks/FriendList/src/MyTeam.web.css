@@ -332,7 +332,7 @@
 
 .nominationBlueText {
   color: #2b6fed;
-  text-transform: capitalize !important;
+  text-transform: uppercase !important;
   font-weight: 800 !important;
   text-align: center;
 }
@@ -347,7 +347,7 @@
 
 .nominationOrangeText{
     color: #fc8434;
-    text-transform: capitalize !important;
+    text-transform: uppercase !important;
     font-weight: 800 !important;
     text-align: center;
 }
@@ -362,7 +362,7 @@
 
 .nominationGrayText {
   color: #636363;
-  text-transform: capitalize !important;
+  text-transform: uppercase !important;
   font-weight: 800 !important;
   text-align: center;
 }
@@ -394,7 +394,7 @@
 
 .chairmanSelected{
     background: #fc8434;
-    padding: 5px 15px;
+    padding: 4px 15px;
     border-radius: 30px;
     color: white;
     display: initial;
@@ -402,6 +402,21 @@
     text-transform: capitalize;
     min-width: 50px;
     font-weight: 800 !important;
+    margin-bottom: 2px;
+}
+
+.countButton{
+  background: #fc84342e;
+  color: #fc8434;
+  padding: 1px 15px;
+  border-radius: 30px;
+  display: initial;
+  min-height: 20px;
+  text-transform: capitalize;
+  min-width: 10px;
+  font-weight: 800 !important;
+  font-size: 10px;
+  margin-bottom: 2px;
 }
 
 .tabButtonActive {

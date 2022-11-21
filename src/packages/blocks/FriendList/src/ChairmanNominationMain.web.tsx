@@ -253,7 +253,7 @@ class MyTeamCore extends ChairmanNominationMainController {
                         <Grid xs={12} style={{marginTop:"10px",padding:"0px 7px"}}>
                             <TextField
                                 id="outlined-multiline-static"
-                                label="Description"
+                                label={t("Description")}
                                 multiline
                                 value={this.state.nominationDescription}
                                 onChange={(e:any)=> {

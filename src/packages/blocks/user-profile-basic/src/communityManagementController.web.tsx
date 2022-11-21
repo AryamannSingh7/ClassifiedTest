@@ -79,7 +79,7 @@ export interface S {
   selectedUserType:any;
   query:any;
   allProfileKeys:any;
-
+  invitatonCount:any;
   // Customizable Area End
 }
 
@@ -112,6 +112,7 @@ export default class CommunityUserProfileController extends BlockComponent<
   getCityApiCallId: any;
   verifyOtpApiCallId: any;
   getBuildingApiCallId: any;
+  createChatRoomAPIId:any;
   getUnitApiCallId: any;
   createVehicleApiCallId:any;
   deleteVehicleAPICallId:any;
@@ -132,7 +133,7 @@ export default class CommunityUserProfileController extends BlockComponent<
   labelLegalTermCondition: string;
   labelLegalPrivacyPolicy: string;
   btnTextSignUp: string;
-
+  getInvitationCountApiCallId:any
   currentCountryCode: any;
   // createInvitationAPICallId:any;
   // Customizable Area End
@@ -210,7 +211,8 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
   selctedUnit:null,
   selectedUserType:null,
   query:null,
-  allProfileKeys:[]
+  allProfileKeys:[],
+  invitatonCount:null
 
       // Customizable Area End
     };
@@ -300,10 +302,10 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
           }
           this.setState({ loading: false })
 
-        } else if (apiRequestCallId === this.updatePhoneApicallId) {
+        } else if (apiRequestCallId === this.getInvitationCountApiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
-            this.setState({ showDialogDelete: true, showDialog: false, loading: false })
+            this.setState({ invitatonCount:responseJson,loading: false })
           } 
           else if (responseJson?.errors) {
 
@@ -322,7 +324,7 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
         } else if (apiRequestCallId === this.createInvitationAPICallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
-this.setState({loading:false,setOpen:false})
+this.setState({loading:false,setOpen:false},()=>this.getCount())
             //@ts-ignore
             //@ts-nocheck
 
@@ -376,6 +378,30 @@ this.setState({loading:false,showDialog:false})
             //@ts-ignore
             //@ts-nocheck
            this.setState({allProfile:responseJson,loading:false,allProfileKeys:Object.keys(responseJson)},()=>console.log(this.state.allProfileKeys))
+
+          } else {
+            //Check Error Response
+            this.parseApiErrorResponse(responseJson);
+          }
+
+          this.parseApiCatchErrorResponse(errorReponse);
+        }   else if(apiRequestCallId === this.createChatRoomAPIId){
+          if(responseJson.hasOwnProperty("data")){
+            localStorage.setItem('selectedChat',JSON.stringify(responseJson.data))
+            //
+            this.props.history.push({
+              pathname: '/chairmanchat',
+              state: { data: responseJson.data }
+            })
+          }else{
+            //
+          }
+        }if (apiRequestCallId === this.deleteVehicleAPICallId) {
+          if (!responseJson.errors) {
+            console.log(responseJson)
+            //@ts-ignore
+            //@ts-nocheck
+           this.setState({setRequestOpen:false,loading:false,allProfileKeys:Object.keys(responseJson)},()=>this.getInvitation())
 
           } else {
             //Check Error Response
@@ -1338,6 +1364,42 @@ this.setState({loading:true})
     runEngine.sendMessage(requestMessage.id, requestMessage);
     return true;
   }
+  getUnit2(value:any) {
+
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      "token": localStorage.getItem('userToken')
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+
+    this.getUnitApiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      //@ts-ignore
+      //@ts-nocheck
+       `bx_block_address/apartment_list?id=${value}`
+      // `bx_block_address/apartment_list?id=${this.state.selectBuilding.id}`
+
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.validationApiMethodType
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  }
   registerUnit = () => {
     if (this.state.unitRegisterType) {
       if (this.state.unitRegisterType == 'Manual') {
@@ -1491,7 +1553,7 @@ this.setState({loading:true})
   }
   handleChangeOTP = (otp: any) => this.setState({ otp });
 
-  verifyOtp = (): boolean => {
+  getCount = (): boolean => {
 
     const header = {
       "Content-Type": configJSON.contentTypeApiAddDetail,
@@ -1505,10 +1567,10 @@ this.setState({loading:true})
     //@ts-ignore
     //@ts-nocheck
     this.setState({ loading: true })
-    this.verifyOtpApiCallId = requestMessage.messageId;
+    this.getInvitationCountApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_profile/profiles/verify_otp?otp=111111`
+      `bx_block_request_management/member_invitations/request_count`
     );
 
     requestMessage.addData(
@@ -1721,9 +1783,6 @@ this.setState({loading:true})
   deleteRequest=()=> {
     this.setState({loading: true })
     console.log(this.state.selectInvitation)
-    // @ts-nocheck
-    // @ts-ignore
-    let item = JSON.parse(localStorage.getItem('selectFamily'))
     const header = {
 
       "token": localStorage.getItem('userToken')
@@ -2009,7 +2068,7 @@ let userType=localStorage.getItem('userType')
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `bx_block_request_management/member_invitations`
+        `bx_block_request_management/member_invitations?search_unit=${this.state.selctedUnit?this.state.selctedUnit:''}&search_building=${this.state.selectedBUilding? this.state.selectedBUilding :''}&user_type=${this.state.selectedUserType ? this.state.selectedUserType:''}`
       );
 
       requestMessage.addData(
@@ -2044,9 +2103,7 @@ let userType=localStorage.getItem('userType')
         .positive("Negative numbers are not allowed.")
         .integer("Number can't contain a decimal.")
         .min(100000000, "Minimum 9 digits are required.")
-        .max(1000000000, "Maximum 9 digits are allowed."),
-      building: Yup.string().required(`This field is required`),
-      unit: Yup.string().required(`This field is required`),
+        .max(1000000000, "Maximum 9 digits are allowed.")
     });
     return validations
   }
@@ -2122,6 +2179,7 @@ let userType=localStorage.getItem('userType')
     this.setState({anchorEl1:null});
   }
   handleDeleteRequestOpen = (data:any) => {
+    console.log(data)
     this.setState({setDeleteRequest:true,selectInvitation:data})
     this.setState({anchorEl1:null});
   }
@@ -2152,7 +2210,71 @@ let userType=localStorage.getItem('userType')
     this.getProfileDataAPiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_profile/profiles?society_management_id=${localStorage.getItem('society_id')}`
+      `bx_block_profile/profiles?society_management_id=${localStorage.getItem('society_id')}&apartment_management_id=${this.state.selctedUnit?this.state.selctedUnit:''}&building_management_id=${this.state.selectedBUilding? this.state.selectedBUilding :''}&user_type=${this.state.selectedUserType ? this.state.selectedUserType:''}`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.validationApiMethodType
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  }
+  getUserProfileSearch=(value:any)=>{
+    this.setState({loading:true})
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      "token": localStorage.getItem('userToken')
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+
+    this.getProfileDataAPiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_profile/profiles?society_management_id=${localStorage.getItem('society_id')}&apartment_management_id=${this.state.selctedUnit?this.state.selctedUnit:''}&building_management_id=${this.state.selectedBUilding? this.state.selectedBUilding :''}&user_type=${this.state.selectedUserType ? this.state.selectedUserType:''}&q=${value}`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.validationApiMethodType
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  }
+  getUserProfileSearchWithType=(value:any,type:any)=>{
+    this.setState({loading:true})
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      "token": localStorage.getItem('userToken')
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+
+    this.getProfileDataAPiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_profile/profiles?society_management_id=${localStorage.getItem('society_id')}&apartment_management_id=${this.state.selctedUnit?this.state.selctedUnit:''}&building_management_id=${this.state.selectedBUilding? this.state.selectedBUilding :''}&user_type=${type}&q=${value}`
     );
 
     requestMessage.addData(
@@ -2203,6 +2325,54 @@ let userType=localStorage.getItem('userType')
 
     runEngine.sendMessage(requestMessage.id, requestMessage);
     return true;
+  }
+  openChat=(data:any)=>{
+    
+    
+    try {
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+      this.createChatRoomAPIId = requestMessage.messageId;
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        `bx_block_chat/chats`
+      );
+
+      const header = {
+        token: localStorage.getItem("userToken"),
+      };
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+
+      const formData = new FormData();
+      formData.append("chat[chatable_type]", 'AccountBlock::Account');
+      formData.append("chat[chatable_id]", localStorage.getItem('userId') || '{}');
+      formData.append("chat[chat_with_account]", data);
+
+
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestBodyMessage),
+        formData
+      );
+
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        'POST'
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+
+      return true;
+    } catch (error) {
+      console.log(error);
+    }
   }
   // Customizable Area End
 }

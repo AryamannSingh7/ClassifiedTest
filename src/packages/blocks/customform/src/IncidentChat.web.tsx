@@ -32,6 +32,7 @@ import { Formik, Form, Field } from "formik";
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import InboxController,{Props} from "./inboxController.web";
 import '../assets/css/style.scss'
+import { NoProfile_Img } from "../../user-profile-basic/src/assets";
 
 class IncidentChatBox extends InboxController {
   constructor(props: Props) {
@@ -122,7 +123,7 @@ class IncidentChatBox extends InboxController {
 
 
           <Grid xs={12}>
-            <List style={{ overflowY: "auto", maxHeight: "75vh", minHeight: "75vh" }}>
+            <List style={{ overflowY: "auto", maxHeight: "75vh", minHeight: "75vh",overflowX:'hidden' }}>
               {/* {
   this.state.allInboxKey ? 'hey':'bye'
 } */}
@@ -130,7 +131,7 @@ class IncidentChatBox extends InboxController {
                 <>
 
                   <Box key={i} display='flex' justifyContent='center'>
-                    <p>
+                    <p className="oval-shape">
 
                       {
                         i > 1 ? moment.utc(date).fromNow() : moment.utc(date).format('MMM-DD-YYYY')
@@ -151,7 +152,9 @@ class IncidentChatBox extends InboxController {
                             //@ts-nocheck
                             style={message.message.account_id == currentAccountId ? { 'display': 'flex', 'justifyContent': 'end', alignItems: 'center' } : { 'display': 'flex', 'justifyContent': 'start', alignItems: 'center' }}
                           >
-
+{
+  message.message.account_id != currentAccountId  ?  <img src={item?.attributes?.chat_with_account?.id != localStorage.getItem('userId') ?item?.attributes?.chat_with_account?.attributes?.profile_pic?.url || NoProfile_Img:item?.attributes?.chatable?.attributes?.profile_pic?.url || NoProfile_Img } alt='profile-pic' width='50' height='50' style={{borderRadius:20,marginRight:5}}/> :null
+}
 
 
 
