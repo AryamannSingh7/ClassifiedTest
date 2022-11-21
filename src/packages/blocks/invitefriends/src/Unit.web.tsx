@@ -45,6 +45,7 @@ class Unit extends VisitorsListController {
         const { classes } = this.props;
         // @ts-ignore
         const {t} = this.props
+        console.log("securityBuildingList==========>",this.state?.securityBuildingList)
         return (
             <>
                 <Box style={{ background: "#F4F7FF" }} className={classes.announcements}>
@@ -78,25 +79,12 @@ class Unit extends VisitorsListController {
                                                 {t("Select Building")}
                                             </MenuItem>
                                             {
-                                                this.state?.buildingList?.length > 0 &&
+                                                this.state?.securityBuildingList?.length > 0 &&
                                                     this.state.buildingList.map((item:any,key:any) => {
                                                         return(
                                                             <MenuItem value={item.id} key={key}>{item.name}</MenuItem>
                                                         )
                                                     })
-                                            }
-                                        </Select>
-                                        <Select displayEmpty value={this.state.unitId} className="select-input" placeholder="Select Unit" onChange={(e)=> this.setState({unitId:e.target.value})}>
-                                            <MenuItem value="" disabled>
-                                                {t("Select Unit")}
-                                            </MenuItem>
-                                            {
-                                                this.state.unitList.length > 0 &&
-                                                    this.state.unitList.map((item:any,key:any) => {
-                                                        return(
-                                                            <MenuItem key={key} value={item.id}>{item.apartment_name}</MenuItem>
-                                                        )
-                                            })
                                             }
                                         </Select>
                                         <Button onClick={()=> this.getVisitorList(this.state.searchQuery,1)} startIcon={<img src={SearchIconImage} />}>Search</Button>
@@ -118,27 +106,28 @@ class Unit extends VisitorsListController {
                                             <TableHead>
                                                 <TableRow>
                                                     <TableCell>#</TableCell>
-                                                    <TableCell>{t("Visitor Name")}</TableCell>
-                                                    <TableCell>{t("Resident Name")}</TableCell>
                                                     <TableCell>{t("Building")}</TableCell>
-                                                    <TableCell>{t("Unit Number")}</TableCell>
-                                                    <TableCell>{t("Date")}</TableCell>
+                                                     <TableCell>{t("Unit Number")}</TableCell>
+                                                     <TableCell>{t("Resident Name")}</TableCell>
+                                                    <TableCell>{t("Owner Name")}</TableCell>
                                                     <TableCell>{t("Phone Number")}</TableCell>
+                                                    <TableCell>{t("Famliy Members")}</TableCell> 
                                                 </TableRow>
                                             </TableHead>
                                             <TableBody>
                                                 {
-                                                    this.state.visitorList.length > 0 ?
-                                                        this.state.visitorList.map((item:any,key:any)=>{
+                                                    this.state?.getUnitListing?.length > 0 ?
+                                                        this.state?.getUnitListing?.map((item:any,key:any)=>{
                                                             return(
-                                                                <TableRow key={key} onClick={() => this.props.history.push(`/VisitorsDetails?id=${item.id}`)} style={{cursor:"pointer"}}>
+                                                                <TableRow key={key} onClick={() => //@ts-ignore
+                                                                this.props.history.push({pathname: "/UnitGeneralDetails",id:item?.id})} style={{cursor:"pointer"}}>
                                                                     <TableCell>{key + 1}</TableCell>
-                                                                    <TableCell className="ellipse">{item.attributes.name}</TableCell>
-                                                                    <TableCell>{item.attributes.resident_name}</TableCell>
-                                                                    <TableCell>{item.attributes.building_management.name} </TableCell>
-                                                                    <TableCell>{item.attributes.unit_number}</TableCell>
-                                                                    <TableCell>{item.attributes.schedule_date}</TableCell>
-                                                                    <TableCell>{item.attributes.mobile_number.full_mobile_number}</TableCell>
+                                                                    <TableCell className="ellipse">{item?.attributes?.building_management?.name}</TableCell>
+                                                                     <TableCell>{item.attributes?.apartment_name}</TableCell>
+                                                                    <TableCell>{item.attributes?.resident?.resident_name} </TableCell>
+                                                                    <TableCell>{item.attributes?.owner?.owner_full_name}</TableCell>
+                                                                    <TableCell>{item.attributes?.phone_number}</TableCell>
+                                                                    <TableCell>{item.attributes?.family_members}</TableCell> 
                                                                 </TableRow>
                                                             )
                                                         })
@@ -153,12 +142,12 @@ class Unit extends VisitorsListController {
                                         <Box style={{width:"100%",height:"70px",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
                                             <Box style={{display:"flex",marginLeft:"15px"}}>
                                                 <Typography style={{marginRight:"5px"}}>{t("Showing")} </Typography>
-                                                <Typography style={{marginRight:"5px",fontWeight:"bold",color:"#FC8434"}}>{this.state.pagination.total_count < this.state.count ? this.state.pagination.total_count : (this.state.count * this.state.page)} </Typography>
+                                                <Typography style={{marginRight:"5px",fontWeight:"bold",color:"#FC8434"}}>{this.state.unitPagination?.total_count < this.state?.count ? this.state?.unitPagination.total_count : (this.state?.count * this.state?.page)} </Typography>
                                                 <Typography style={{marginRight:"5px"}}> {t("of")} </Typography>
-                                                <Typography style={{fontWeight:"bold"}}>{this.state.pagination.total_count} </Typography>
+                                                <Typography style={{fontWeight:"bold"}}>{this.state.unitPagination?.total_count} </Typography>
                                             </Box>
                                             <Box style={{marginRight:"10px"}}>
-                                                <Pagination count={this.state.pagination.total_pages} variant="outlined" shape="rounded" />
+                                                <Pagination count={this.state.unitPagination?.total_pages} variant="outlined" shape="rounded" />
                                             </Box>
                                         </Box>
                                     </Grid>

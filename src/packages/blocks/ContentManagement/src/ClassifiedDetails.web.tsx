@@ -149,7 +149,7 @@ class ClassifiedDetails extends ClassifiedController {
                           From:
                         </Typography>
                         <Typography className="sub-title" component="h4">
-                          {attributes?.duration_from} to
+                          {attributes?.duration_from}
                         </Typography>
                         <Typography component="span">
                           To:

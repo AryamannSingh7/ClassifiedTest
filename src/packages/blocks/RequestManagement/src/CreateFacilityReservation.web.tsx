@@ -58,7 +58,9 @@ class CreateFacilityReservation extends FacilityReservationController {
     if (id) {
       this.getFacilityReservationDetailsById(id);
     }
-
+  //  else {
+  //   this.props.history.push("/FacilityReservationDetails")
+  //  }
     this.getMyApartmentList();
     // this.getIncidentRelated();
   }
@@ -66,8 +68,8 @@ class CreateFacilityReservation extends FacilityReservationController {
     const { navigation } = this.props;
     const id = this.state?.getFacilityReservationDetails?.id;
     const attributes = this.state?.getFacilityReservationDetails?.attributes;
-    console.log("commonAreaData=============>", this.state?.commonAreaData)
-    console.log("attributes?.date =============>", attributes?.date)
+   // console.log("commonAreaData=============>", this.state?.commonAreaData)
+    console.log("attributes?.date =============>", attributes?.start_time,attributes?.end_time)
     console.log("moment(attributes?.date,'DD-MMM-YYYY').format('YYYY-MM-DD')=============>", moment(attributes?.date, 'DD-MMM-YYYY').format('YYYY-MM-DD'))
     return (
       <>
@@ -87,8 +89,8 @@ class CreateFacilityReservation extends FacilityReservationController {
                       areaReserve: attributes?.common_area?.id || " ",
                       buildingName: attributes?.building?.id || " ",
                       date: moment(attributes?.date, 'DD-MMM-YYYY').format('YYYY-MM-DD') || "",
-                      timeFrom: attributes?.time_from || "",
-                      timeTo: attributes?.time_to || "",
+                      timeFrom: attributes?.start_time || "",
+                      timeTo: attributes?.end_time || "",
                       id: id || ""
                     }}
                     enableReinitialize
