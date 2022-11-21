@@ -311,12 +311,12 @@ import MyReceiptsDetails from '../../blocks/CollectTransactionFees/src/MyReceipt
 // Chairman Side
 import CharmainReceipts from '../../blocks/InvoiceBilling/src/CharmainReceipts.web';
 
-// Rent Payments 
-import RentPayments from "../../blocks/PricingEngine2/src/RentPayments.web"
-import RentUnitLists from "../../blocks/PricingEngine2/src/RentUnitLists.web"          
-import ViewMyRents from "../../blocks/PricingEngine2/src/ViewMyRents.web"
-import RentDetails from "../../blocks/PricingEngine2/src/RentDetails.web"
-import AddRentPayment from "../../blocks/PricingEngine2/src/RegisterRentPayment.web"
+// Rent Payments
+import RentPayments from '../../blocks/PricingEngine2/src/RentPayments.web';
+import RentUnitLists from '../../blocks/PricingEngine2/src/RentUnitLists.web';
+import ViewMyRents from '../../blocks/PricingEngine2/src/ViewMyRents.web';
+import RentDetails from '../../blocks/PricingEngine2/src/RentDetails.web';
+import AddRentPayment from '../../blocks/PricingEngine2/src/RegisterRentPayment.web';
 
 // Reports
 import ReportDashboard from '../../blocks/ExpenseTracking/src/ReportDashboard.web';
@@ -340,6 +340,7 @@ import RegisterPropertyManager from '../../blocks/ReviewAndApproval/src/Register
 import RegisterPropertyManagerSuccess from '../../blocks/ReviewAndApproval/src/PropertyManagerSuccess.web';
 import PropertyManagerDetails from '../../blocks/ReviewAndApproval/src/PropertyManagerDetails.web';
 import PropertyManagerRequest from '../../blocks/ReviewAndApproval/src/PropertyManagerRequest.web';
+import EditPropertyManager from '../../blocks/ReviewAndApproval/src/EditPropertyManager.web';
 
 // My Lease
 import MyLeaseList from '../../blocks/ContentManagement/src/MyLeaseList.web';
@@ -1730,21 +1731,21 @@ const routeMap = {
     exact: true
   },
 
-  RentUnitLists:{
-    component:RentUnitLists,
+  RentUnitLists: {
+    component: RentUnitLists,
     path: '/RentUnitList/:id',
     exact: true
   },
 
-  UnitRentList:{
-    component:ViewMyRents,
-    path:"/UnitRentList/:id",
+  UnitRentList: {
+    component: ViewMyRents,
+    path: '/UnitRentList/:id',
     exact: true
   },
 
-  RentDetails:{
-    component:RentDetails,
-    path:"/RentDetails/:id",
+  RentDetails: {
+    component: RentDetails,
+    path: '/RentDetails/:id',
     exact: true
   },
 
@@ -1839,7 +1840,7 @@ const routeMap = {
     exact: true
   },
 
-  AddRentPayment:{
+  AddRentPayment: {
     component: AddRentPayment,
     path: '/AddRentPayment',
     exact: true
@@ -1984,6 +1985,12 @@ const routeMap = {
   PropertyManagerDetails: {
     component: PropertyManagerDetails,
     path: '/PropertyManager/:id',
+    roles: [ROLE.OWNER],
+    exact: true
+  },
+  EditPropertyManager: {
+    component: EditPropertyManager,
+    path: '/PropertyManager/Edit/:id',
     roles: [ROLE.OWNER],
     exact: true
   },

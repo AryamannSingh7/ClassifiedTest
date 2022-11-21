@@ -79,13 +79,15 @@ class PropertyManagerList extends PropertyManagerListController {
                             </Grid>
                           )}
                           {this.state.propertyManagerList.map((propertyManager: any, index: number) => {
+                            console.log(propertyManager);
+
                             return (
                               <Grid item xs={12} key={index}>
                                 <Card className="contract">
                                   <Grid container spacing={2}>
                                     <Grid item xs={12}>
                                       <div className="header">
-                                        <h4>Ali Khan</h4>
+                                        <h4>{propertyManager.attributes.name || "-"}</h4>
                                         <div className="right-menu">
                                           <Menu
                                             menuButton={
@@ -94,8 +96,24 @@ class PropertyManagerList extends PropertyManagerListController {
                                               </IconButton>
                                             }
                                           >
-                                            <MenuItem>{t("View")}</MenuItem>
-                                            <MenuItem>{t("Edit")}</MenuItem>
+                                            <MenuItem
+                                              onClick={() =>
+                                                this.props.navigation.navigate("PropertyManagerDetails", {
+                                                  id: propertyManager.id,
+                                                })
+                                              }
+                                            >
+                                              {t("View")}
+                                            </MenuItem>
+                                            <MenuItem
+                                              onClick={() =>
+                                                this.props.navigation.navigate("EditPropertyManager", {
+                                                  id: propertyManager.id,
+                                                })
+                                              }
+                                            >
+                                              {t("Edit")}
+                                            </MenuItem>
                                             <MenuItem>{t("Delete")}</MenuItem>
                                           </Menu>
                                         </div>
@@ -105,15 +123,15 @@ class PropertyManagerList extends PropertyManagerListController {
                                   <Grid container spacing={2} className="info">
                                     <Grid item xs={12}>
                                       <span>{t("Manages")}</span>
-                                      <p>Lorem Ipsum</p>
+                                      {/* <p>{propertyManager.attributes}</p> */}
                                     </Grid>
                                     <Grid item xs={12}>
                                       <span>{t("Company Name")}</span>
-                                      <p>Lorem Ipsum</p>
+                                      <p>{propertyManager.attributes.company_name || "-"}</p>
                                     </Grid>
                                     <Grid item xs={12}>
                                       <span>{t("Charges")}</span>
-                                      <p>Lorem Ipsum</p>
+                                      {/* <p> / Month</p> */}
                                     </Grid>
                                   </Grid>
                                 </Card>

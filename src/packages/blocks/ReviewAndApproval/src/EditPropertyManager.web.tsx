@@ -46,33 +46,25 @@ import { CountryList } from "./countryList";
 import CloseIcon from "@material-ui/icons/Close";
 import moment from "moment";
 
-class RegisterPropertyManager extends RegisterPropertyManagerController {
+class EditPropertyManager extends RegisterPropertyManagerController {
   constructor(props: Props) {
     super(props);
   }
 
   async componentDidMount(): Promise<void> {
-    const propertyList = JSON.parse(sessionStorage.getItem("propertyList") as any);
-    if (propertyList) {
-      this.setState({ propertyList: propertyList }, () => {
-        this.getBuildingList();
-        this.getIdTypeList();
-        this.getComplexDetails();
-      });
-    } else {
-      this.setState({ propertyList: [] }, () => {
-        this.getBuildingList();
-        this.getIdTypeList();
-        this.getComplexDetails();
-      });
-    }
+    const manager_id = this.props.navigation.getParam("id");
+    this.setState({ editManagerId: manager_id }, () => {
+      this.getPropertyManagerDetail();
+      this.getBuildingList();
+      this.getIdTypeList();
+      this.getComplexDetails();
+      this.getPropertyList();
+    });
   }
 
   render() {
     const { classes } = this.props;
     const { t }: any = this.props;
-
-    console.log(this.state);
 
     return (
       <>
@@ -84,12 +76,14 @@ class RegisterPropertyManager extends RegisterPropertyManagerController {
               <Box>
                 <Box display={{ xs: "flex", md: "flex" }} className="top-bar">
                   <div className="left-icon">
-                    <Link href="/PropertyManagers">
-                      <IconButton>
-                        <KeyboardBackspaceIcon />
-                      </IconButton>
-                    </Link>
-                    <span>{t("Add Property Manager")}</span>
+                    <IconButton
+                      onClick={() =>
+                        this.props.navigation.navigate("PropertyManagerDetails", { id: this.state.editManagerId })
+                      }
+                    >
+                      <KeyboardBackspaceIcon />
+                    </IconButton>
+                    <span>{t("Edit Property Manager")}</span>
                   </div>
                 </Box>
                 <Container className="page-container">
@@ -158,6 +152,7 @@ class RegisterPropertyManager extends RegisterPropertyManagerController {
                                       <img src={EmailIcon} alt="" />
                                     </InputAdornment>
                                   }
+                                  readOnly
                                 />
                                 {errors.email && touched.email && <p className="error">{t(errors.email)}</p>}
                               </FormControl>
@@ -638,5 +633,5 @@ class RegisterPropertyManager extends RegisterPropertyManagerController {
   }
 }
 
-export default withTranslation()(withStyles(PropertyManagerStyleWeb)(RegisterPropertyManager));
+export default withTranslation()(withStyles(PropertyManagerStyleWeb)(EditPropertyManager));
 // Customizable Area End
