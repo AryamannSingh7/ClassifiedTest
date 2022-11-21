@@ -332,7 +332,7 @@
 
 .nominationBlueText {
   color: #2b6fed;
-  text-transform: capitalize !important;
+  text-transform: uppercase !important;
   font-weight: 800 !important;
   text-align: center;
 }
@@ -347,7 +347,7 @@
 
 .nominationOrangeText{
     color: #fc8434;
-    text-transform: capitalize !important;
+    text-transform: uppercase !important;
     font-weight: 800 !important;
     text-align: center;
 }
@@ -362,7 +362,7 @@
 
 .nominationGrayText {
   color: #636363;
-  text-transform: capitalize !important;
+  text-transform: uppercase !important;
   font-weight: 800 !important;
   text-align: center;
 }

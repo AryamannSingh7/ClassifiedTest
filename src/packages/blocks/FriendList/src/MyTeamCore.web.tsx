@@ -52,6 +52,7 @@ class MyTeamCore extends MyTeamController {
     //@ts-ignore
     const {t} = this.props
     const userType  = localStorage.getItem("selectUserType");
+
     return (
       <>
     <Box style={{background: "#E5ECFF"}}>
@@ -307,6 +308,8 @@ const TeamCard = (props:any) => {
                 </IconButton>
                  </Box> 
             }
+            
+            
             <Card className="EventsCards" style={{paddingLeft:"0px"}}>
                 <Box style={{width:"100%",display:'flex',justifyContent:"center",alignItems:"center",flexDirection:"column",marginTop:"15px"}} onClick={() => userType === "Visitors" ? null : props.history.push(`/TeamMember/userDetails?id=${data.id}`)}>
                     {

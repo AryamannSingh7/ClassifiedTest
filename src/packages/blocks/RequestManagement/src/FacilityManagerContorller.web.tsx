@@ -777,9 +777,11 @@ onChange =(e :any)=>{
     if(val ==="Completed")
     this.updateStatus("Completed")
     else if(val ==="Cancel")
-    this.updateStatus("Cancel")
-    else
+    this.updateStatus("Cancelled")
+    else if(val ==="Rejected")
     this.updateStatus("Rejected")
+    else
+    this.updateStatus("Upcoming")
   }
 
   updateStatus= (val :any)  => {
@@ -788,11 +790,11 @@ onChange =(e :any)=>{
     };
     const  id : any= localStorage.getItem("FacilityDetailsManagerId")
     const formData = new FormData();
-    if(val ==="Completed"){
+    if(val ==="Upcoming"){
     formData.append('facility_reservation[status]',val)
     this.setState({statusShowDialog :false})   
   }
-  else if(val ==="Cancel"){
+  else if(val ==="Cancelled"){
     formData.append('facility_reservation[status]',val)
     formData.append('facility_reservation[note]',this.state?.addNote)
     this.setState({ignoreShowDialog :false })
@@ -828,7 +830,7 @@ onChange =(e :any)=>{
 
     requestMessage.addData(
       getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.PatchAPiMethod
+      "PATCH"
     );
 
     runEngine.sendMessage(requestMessage.id, requestMessage);

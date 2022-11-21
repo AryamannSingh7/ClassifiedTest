@@ -173,6 +173,7 @@ import CreateFacilityReservation from '../../blocks/RequestManagement/src/Create
 import FacilityManagerDetail from '../../blocks/RequestManagement/src/FacilityManagerDetail.web';
 import ManagerFacilityReservation from '../../blocks/RequestManagement/src/ManagerFacilityReservation.web';
 
+
 // Help
 import FaqChairman from '../../blocks/contactus/src/FaqChairman.web';
 import FaqOwner from '../../blocks/contactus/src/FaqOwner.web';
@@ -265,6 +266,7 @@ import VisitorUpdateSuccess from '../../blocks/invitefriends/src/VisitorUpdated'
 import VisitorAdd from '../../blocks/invitefriends/src/VisitorAdd.web';
 import VisitorList from '../../blocks/invitefriends/src/VisitorsList.web';
 import Unit from '../../blocks/invitefriends/src/Unit.web';
+import UnitGeneralDetails from '../../blocks/invitefriends/src/UnitGeneralDetails.web';
 
 import VisitorsDetails from '../../blocks/invitefriends/src/VisitorDetailsManager.web';
 
@@ -676,13 +678,13 @@ const routeMap = {
     path: '/FacilityManagerDetail',
     exact: true
   },
-
+ 
   ManagerFacilityReservation: {
     component: ManagerFacilityReservation,
     path: '/ManagerFacilityReservation',
     exact: true
   },
-
+ 
   // RolesPermissions2: {
   //   component: RolesPermissions2,
   //   path: '/RolesPermissions2'
@@ -1529,6 +1531,18 @@ const routeMap = {
     component: GaMembers,
     path: '/ga_member'
   },
+  resident: {
+    component: GaMembers,
+    path: '/resident'
+  },
+  owner: {
+    component: GaMembers,
+    path: '/owner'
+  },
+  property_manager: {
+    component: GaMembers,
+    path: '/property_manager'
+  },
   ResidentsProfile: {
     component: ResidentsProfile,
     path: '/ResidentsProfile'
@@ -1612,7 +1626,11 @@ const routeMap = {
     path: '/Unit',
     exact: true
   },
-
+  UnitGeneralDetails: {
+    component: UnitGeneralDetails,
+    path: '/UnitGeneralDetails',
+    exact: true
+  },
   ScheduledVisitors: {
     component: ScheduledVisitors,
     path: '/ScheduledVisitors',
