@@ -37,7 +37,7 @@ class FacilityReservationListing extends FacilityReservationController {
     //@ts-ignore
     const reservation  = localStorage.getItem("idOrName");
     if (reservation)
-      this.getFacilityReservationListing(this.state?.sortBy, this.state?.status)
+      this.getFacilityReservationListing(this.state?.sortBy)
     else
       this.props.history.push("/FacilityReservation");
   }
@@ -46,6 +46,15 @@ class FacilityReservationListing extends FacilityReservationController {
     const { navigation } = this.props;
     const reservation = localStorage.getItem("idOrName");
     console.log("this.props?.history.location?.reservation==========>", this.state?.facilityReservationListing)
+    let facilityReservationListing : any ;
+
+    if(reservation === "Previous"){
+      facilityReservationListing = this.state?.facilityReservationListing?.filter((val : any) => val?.attributes?.status === 'Completed')
+    }
+    else{
+      facilityReservationListing = this.state?.facilityReservationListing?.filter((val : any) => val?.attributes?.status === reservation)
+    }
+    console.log("ressklt facilityReservationListing==========>",facilityReservationListing)
     return (
       <>
         <Box className="login-wrapper incident-wrapper">
@@ -55,7 +64,7 @@ class FacilityReservationListing extends FacilityReservationController {
                 <Box className="content-header">
                   <Box className="left-block blocks">
                     <Box className="backIcons" onClick={() => this.props.history.push("/FacilityReservation")}><KeyboardBackspaceIcon /></Box>
-                    <h4>{reservation}</h4>
+                    <h4>{reservation} Reservation</h4>
                   </Box>
                   <Box className="incident-right-block blocks">
                     <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
@@ -74,7 +83,7 @@ class FacilityReservationListing extends FacilityReservationController {
                       </Menu>
                     </Box>
 
-                    <Button aria-controls="fade-menu" aria-haspopup="true" onClick={(e: any) => this.handleClick_1(e)}>
+                    {/* <Button aria-controls="fade-menu" aria-haspopup="true" onClick={(e: any) => this.handleClick_1(e)}>
                       <img src={Filter_Icon} className="filter-icon icons" alt="" />
                     </Button>
                     <Menu
@@ -87,14 +96,15 @@ class FacilityReservationListing extends FacilityReservationController {
                       <MenuItem onClick={(e) => this.handleClose_1(e, "Unresolved")}>Unresolved</MenuItem>
                       <MenuItem onClick={(e) => this.handleClose_1(e, "Resolved")}>Resolved</MenuItem>
                       <MenuItem onClick={(e) => this.handleClose_1(e, "Pending Confirmation")}>Pending Confirmation</MenuItem>
-                    </Menu>
+                    </Menu> */}
 
                   </Box>
                 </Box>
                 <Box className="content-block-wrapper facility-block-wrapper">
                   <Box className="incident-content-wrapper">
                     {
-                      this.state?.facilityReservationListing?.map((val: any, index: any) => (
+                      facilityReservationListing?.length !== 0 ?
+                      facilityReservationListing?.map((val: any, index: any) => (
                         <>
                           <Card className="incident-card card" key={index} onClick={() => this.getFacilityReservationDetails(val.id)}>
                             <CardContent className="costom-card-content">
@@ -137,6 +147,12 @@ class FacilityReservationListing extends FacilityReservationController {
                           </Card>
                         </>
                       ))
+                      :
+                      <Box style={{marginLeft:"25px"}}>
+                                <Typography variant={"body1"} style={{fontWeight:"bold"}} color="textSecondary" >
+                                    No Data Found
+                                </Typography>
+                            </Box>
                     }
                   </Box>
                 </Box>

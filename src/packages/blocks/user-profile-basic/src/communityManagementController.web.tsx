@@ -112,6 +112,7 @@ export default class CommunityUserProfileController extends BlockComponent<
   getCityApiCallId: any;
   verifyOtpApiCallId: any;
   getBuildingApiCallId: any;
+  createChatRoomAPIId:any;
   getUnitApiCallId: any;
   createVehicleApiCallId:any;
   deleteVehicleAPICallId:any;
@@ -323,7 +324,7 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
         } else if (apiRequestCallId === this.createInvitationAPICallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
-this.setState({loading:false,setOpen:false},()=>this.getCount())
+this.setState({loading:false,setOpen:false,setDeleteRequest:false},()=>this.getCount())
             //@ts-ignore
             //@ts-nocheck
 
@@ -384,6 +385,17 @@ this.setState({loading:false,showDialog:false})
           }
 
           this.parseApiCatchErrorResponse(errorReponse);
+        }   else if(apiRequestCallId === this.createChatRoomAPIId){
+          if(responseJson.hasOwnProperty("data")){
+            localStorage.setItem('selectedChat',JSON.stringify(responseJson.data))
+            //
+            this.props.history.push({
+              pathname: '/chairmanchat',
+              state: { data: responseJson.data }
+            })
+          }else{
+            //
+          }
         }if (apiRequestCallId === this.deleteVehicleAPICallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
@@ -1353,7 +1365,6 @@ this.setState({loading:true})
     return true;
   }
   getUnit2(value:any) {
-
     const header = {
       "Content-Type": configJSON.contentTypeApiAddDetail,
       "token": localStorage.getItem('userToken')
@@ -2148,6 +2159,54 @@ let userType=localStorage.getItem('userType')
       console.log(error);
     }
   }
+  updateInvitation=(values:any)=>{
+    this.setState({ loading: true })
+    try {
+      const header = {
+
+        token: localStorage.getItem("userToken")
+      };
+      const formData = new FormData();
+      formData.append("member_invitation[full_name]]", values.fullname)
+      formData.append("member_invitation[email_address]", values.email)
+      formData.append("member_invitation[phone_number]", values.phoneno)
+      formData.append("member_invitation[role_id]", values.usertype)
+      formData.append("member_invitation[building_management_id]", values.building)
+      formData.append("member_invitation[apartment_management_id]", values.unit)
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+
+      this.createInvitationAPICallId = requestMessage.messageId;
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        'bx_block_request_management/member_invitations'
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestBodyMessage),
+        formData
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        'PUT'
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+      return true;
+
+    } catch (error) {
+      // this.setState({ loading: false })
+      console.log(error);
+    }
+  }
   handleAcceptClose = () => {
     this.setState({setAcceptOpen:false});
   };
@@ -2163,11 +2222,13 @@ let userType=localStorage.getItem('userType')
     this.setState({setAcceptOpen:true,selectInvitation:data});
   };
   handleResendRequest = (data:any) => {
+    
     this.setState({setRequestOpen:true,selectInvitation:data})
     this.setState({anchorEl1:null});
   }
   handleDeleteRequestOpen = (data:any) => {
     console.log(data)
+    this.getUnit2(data?.attributes?.building_management?.id)
     this.setState({setDeleteRequest:true,selectInvitation:data})
     this.setState({anchorEl1:null});
   }
@@ -2199,6 +2260,70 @@ let userType=localStorage.getItem('userType')
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
       `bx_block_profile/profiles?society_management_id=${localStorage.getItem('society_id')}&apartment_management_id=${this.state.selctedUnit?this.state.selctedUnit:''}&building_management_id=${this.state.selectedBUilding? this.state.selectedBUilding :''}&user_type=${this.state.selectedUserType ? this.state.selectedUserType:''}`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.validationApiMethodType
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  }
+  getUserProfileSearch=(value:any)=>{
+    this.setState({loading:true})
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      "token": localStorage.getItem('userToken')
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+
+    this.getProfileDataAPiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_profile/profiles?society_management_id=${localStorage.getItem('society_id')}&apartment_management_id=${this.state.selctedUnit?this.state.selctedUnit:''}&building_management_id=${this.state.selectedBUilding? this.state.selectedBUilding :''}&user_type=${this.state.selectedUserType ? this.state.selectedUserType:''}&q=${value}`
+    );
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestHeaderMessage),
+      JSON.stringify(header)
+    );
+
+
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIRequestMethodMessage),
+      configJSON.validationApiMethodType
+    );
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  }
+  getUserProfileSearchWithType=(value:any,type:any)=>{
+    this.setState({loading:true})
+    const header = {
+      "Content-Type": configJSON.contentTypeApiAddDetail,
+      "token": localStorage.getItem('userToken')
+    };
+    const requestMessage = new Message(
+      getName(MessageEnum.RestAPIRequestMessage)
+    );
+
+
+    this.getProfileDataAPiCallId = requestMessage.messageId;
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_profile/profiles?society_management_id=${localStorage.getItem('society_id')}&apartment_management_id=${this.state.selctedUnit?this.state.selctedUnit:''}&building_management_id=${this.state.selectedBUilding? this.state.selectedBUilding :''}&user_type=${type}&q=${value}`
     );
 
     requestMessage.addData(
@@ -2249,6 +2374,54 @@ let userType=localStorage.getItem('userType')
 
     runEngine.sendMessage(requestMessage.id, requestMessage);
     return true;
+  }
+  openChat=(data:any)=>{
+    
+    
+    try {
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+      this.createChatRoomAPIId = requestMessage.messageId;
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        `bx_block_chat/chats`
+      );
+
+      const header = {
+        token: localStorage.getItem("userToken"),
+      };
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+
+      const formData = new FormData();
+      formData.append("chat[chatable_type]", 'AccountBlock::Account');
+      formData.append("chat[chatable_id]", localStorage.getItem('userId') || '{}');
+      formData.append("chat[chat_with_account]", data);
+
+
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestBodyMessage),
+        formData
+      );
+
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        'POST'
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+
+      return true;
+    } catch (error) {
+      console.log(error);
+    }
   }
   // Customizable Area End
 }

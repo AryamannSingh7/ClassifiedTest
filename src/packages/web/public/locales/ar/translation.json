@@ -795,7 +795,6 @@
   "Swimming Pool": "حمام السباحة",
   "Security": "حماية",
   "Gardening": "الحدائق",
-  "Others": "آحرون",
   "Complex Tax": "ضريبة معقدة",
   "Final Budget": "الميزانية النهائية",
   "Budget per sq. ft.": "الميزانية لكل قدم مربع",
@@ -908,7 +907,7 @@
   "Cancel Nomination": "إلغاء الترشيح",
   "Remove Member": "إزالة العضو",
   "Create New Task ": "إنشاء مهمة جديدة",
-  "Register Rent Payment":"تسجيل دفع الإيجار",
+  "Register Rent Payment": "تسجيل دفع الإيجار",
   "Partial Rent Payment Confirmation": "تأكيد دفع الإيجار الجزئي",
   "Full Rent Payment Confirmation": "تأكيد دفع الإيجار بالكامل",
   "is claiming to have paid": "يدعي أنه قد دفع",
@@ -921,6 +920,8 @@
   "Enter Partial paid amount": "أدخل المبلغ المدفوع جزئياً",
   "Due Amount": "مبلغ مستحق",
   "Due on": "تاريخ الاستحقاق",
+  "Already tenant available to this unit": "المستأجر متاح بالفعل لهذه الوحدة",
+  "Only character are allowed": "مسموح فقط الحرف",
   "Register Rent Payments": "تسجيل مدفوعات الإيجار",
   "Payment Due Amount": "المبلغ المستحق الدفع"
 }

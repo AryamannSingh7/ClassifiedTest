@@ -38,7 +38,8 @@ import {
   Pencil,
   wrong,
   Bin,
-  DeleteIcon
+  DeleteIcon,
+  CROSS
   // User_Icon,
   // Calender_Icon,
   // Info_Icon,
@@ -60,8 +61,9 @@ class FacilityReservationDetails extends FacilityReservationController {
   }
 
   render() {
-   console.log("this.props.history getFacilityReservationDetails===========>",this.state?.getFacilityReservationDetails)
+   //console.log("getFacilityReservationDetails===========>",this.state?.getFacilityReservationDetails)
     const { navigation } = this.props;
+    const reservation  = localStorage.getItem("idOrName");
     const id = this.state?.getFacilityReservationDetails?.id;
     const attributes = this.state?.getFacilityReservationDetails?.attributes;
     return (
@@ -73,20 +75,32 @@ class FacilityReservationDetails extends FacilityReservationController {
                 <Box className="content-header">
                   <Box className="left-block blocks">
                     <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
-                    <h4>{attributes?.date}</h4>
+                    <h4>{reservation} Reservation</h4>
                   </Box>
-
+                 {
+                  attributes?.status==="Pending" ?
                   <Box className="incident-right-block blocks">
-                     <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-                       <Button onClick={() => { this.props.history.push({pathname: "/CreateFacilityReservation",//@ts-ignore
-                       id}) }}>
-                         <img src={Pencil} className="grid-icon icons" alt="" />
-                       </Button>
-                     </Box>
-                     <Button  onClick={() => { this.setState({ deleteShowDialog: true }) }}>
-                       <img src={Bin} className="filter-icon icons" alt="" />
-                     </Button>
-                   </Box>
+                  <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+                    <Button onClick={() => { this.props.history.push({pathname: "/CreateFacilityReservation",//@ts-ignore
+                    id}) }}>
+                      <img src={Pencil} className="grid-icon icons" alt="" />
+                    </Button>
+                  </Box>
+                  <Button  onClick={() => { this.setState({ deleteShowDialog: true }) }}>
+                    <img src={Bin} className="filter-icon icons" alt="" />
+                  </Button>
+                </Box>
+                  :
+                  attributes?.status==="Upcoming" ?
+                  <Box className="incident-right-block blocks">
+                  <Button  onClick={() => { this.setState({ showDialog: true }) }}>
+                    <img src={CROSS} className="filter-icon icons" alt="" />
+                  </Button>
+                </Box>
+                :
+                null
+                 }
+                 
                 </Box>
                 <Box className="content-block-wrapper facility-block-wrapper">
                   <Box className="incident-content-wrapper">
@@ -112,7 +126,7 @@ class FacilityReservationDetails extends FacilityReservationController {
                           Rent:
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                          {id}
+                          {attributes?.rent}
                         </Typography>
                         {/* <Typography className="title-span" component="span">
                           Expected Resolution Date:
@@ -124,8 +138,20 @@ class FacilityReservationDetails extends FacilityReservationController {
                           Hours:
                         </Typography>
                         <Typography className="sub-title" component="h5">
-                          {attributes?.time_from} - {attributes?.time_to}
+                          {attributes?.start_time} - {attributes?.end_time}
                         </Typography>   
+                      {
+                          attributes?.status==="Completed"?<>
+                         <Typography component="span">
+                           Paid on:
+                         </Typography>
+                         <Typography className="sub-title" component="h5">
+                           {attributes?.paid_on}
+                         </Typography>  
+                         </>
+                          :null
+                      }
+                        
                       </CardContent>
                     </Card>
                   </Box>
@@ -175,8 +201,8 @@ class FacilityReservationDetails extends FacilityReservationController {
                     <h3>Cancel Reservation</h3>
                     <p className="lead">Are you sure you want to cancel this reservation? If you proceed your reservation will be deleted and the manager will be notified</p>
                     <Box className="diloag-btn customButton">
-                      <Button variant="outlined" onClick={() => { this.setState({ showDialog: false }) }}>Yes, DELETE</Button>
-                      <Button variant="contained" onClick={() => { this.setState({ showDialog: false }) }} >No, don’t delete</Button>
+                      <Button variant="outlined" onClick={() => { this.cancelUpcomingFacilityReservation(id , "Cancel")  }}>Yes, CANCEL</Button>
+                      <Button variant="contained" onClick={() => { this.setState({ showDialog: false }) }} >No, don’t cancel</Button>
                     </Box>
                   </Box>
                 </Box>

@@ -131,7 +131,7 @@ class IncidentChatBox extends InboxController {
                 <>
 
                   <Box key={i} display='flex' justifyContent='center'>
-                    <p className="oval-shape">
+                    <p>
 
                       {
                         i > 1 ? moment.utc(date).fromNow() : moment.utc(date).format('MMM-DD-YYYY')
@@ -158,7 +158,7 @@ class IncidentChatBox extends InboxController {
 
 
 
-                            <Box>
+                            <Box style={{background:'#f6f6f6',borderRadius:'6px',padding:'0.5rem',borderTopRightRadius:0}}>
 
 
                               <Typography

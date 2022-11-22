@@ -48,3 +48,4 @@ export const Close_Icon = require("../assets/icon-close.png");
 export const Classified_CorrectIcon = require("../assets/classified_correct_icon.png");
 export const User_Icon = require("../assets/user-icon.png");
 export const Users_Icon = require("../assets/users-icon.png");
+export const CROSS = require("../assets/cross.png");

@@ -200,6 +200,7 @@ class CommunityUserProfile extends CommunityUserProfileController {
   }
 
  async componentDidMount() {
+
     this.getUserProfile()
     this.getBuilding();
     
@@ -287,6 +288,7 @@ class CommunityUserProfile extends CommunityUserProfileController {
                     <div className="search-box">
                         <TextField
                           style={dashBoard.searchButton}
+                          onChange={(e)=>{e.preventDefault();this.getUserProfileSearch(e.target.value)}}
                           id="input-with-icon-textfield"
                           placeholder={t("Search by name")}
                           InputProps={{
@@ -326,10 +328,8 @@ class CommunityUserProfile extends CommunityUserProfileController {
                       {//@ts-ignore
                       this.state.allProfile[item]?.data?.slice(0,4).map((singleProfile:any, index:any) => {
                         return(
-                          <div key={index}  onClick={() => {
-                            //@ts-ignore
-                            this.props.history.push({pathname:"/UserDetailedProfile",singleProfile})}}>
-                          <Card style={dashBoard.cardStyle}>
+                          <div key={index}  >
+                          <Card style={dashBoard.cardStyle} >
                             <CardActionArea>
                               <CardMedia
                                 component="img"
@@ -337,20 +337,30 @@ class CommunityUserProfile extends CommunityUserProfileController {
                                 image={singleProfile?.attributes?.profile_pic?.url}
                                 alt="green iguana"
                                 style={dashBoard.profileImage}
+                                onClick={(e) => {
+                                  localStorage.setItem('selectedPofile',JSON.stringify(singleProfile))
+                                  //@ts-ignore
+                                  this.props.history.push({pathname:"/UserDetailedProfile",singleProfile})}}
                               />
                               <CardContent style={{padding:"0px 16px 16px 16px"}}>
                               <Typography variant="h6"
                               //@ts-ignore 
                               style={dashBoard.unitno}>{item.unitno}</Typography>
                               <Typography variant="h6" style={{textAlign:"center", marginTop:"5px"}}>{singleProfile?.attributes?.full_name?.name}</Typography>
-                              <div style={{textAlign:"center",marginTop:"5px"}}>
+                              <div style={{textAlign:"center",marginTop:"5px"}} >
                                 <Typography variant="h6" style={dashBoard.userType}>{item}</Typography>
                               </div>
                               <div style={dashBoard.contactIcon}>
                                 <div style={dashBoard.relatedMemberCard}>
-                                  <img src={chat} style={{width:"40px", margin:"0 auto"}}/>
-                                  <img src={email_org} style={{width:"40px", margin:"0 auto"}}/>
-                                  <img src={call_org} style={{width:"40px", margin:"0 auto"}}/>
+                                  <img src={chat}  onClick={(e)=>{e.preventDefault();this.openChat(singleProfile?.id)}} style={{width:"40px", margin:"0 auto"}}/>
+                                  <a onClick={(e)=>e.preventDefault()} href={`mailto:${singleProfile?.attributes?.email?.email}`}>
+
+                                  <img src={email_org}  style={{width:"40px", margin:"0 auto"}}/>
+                                  </a>
+                                 <a onClick={(e)=>e.preventDefault()} href={`tel:${singleProfile?.attributes?.full_phone_number?.full_phone_number}`}>
+
+                                  <img src={call_org}  style={{width:"40px", margin:"0 auto"}}/>
+                                 </a>
                                 </div>
                               </div>
                               </CardContent>
