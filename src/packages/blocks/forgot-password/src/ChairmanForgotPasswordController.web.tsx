@@ -688,7 +688,7 @@ export default class ChairmanForgotPasswordController extends BlockComponent<
   }
   EmailSchema() {
     const validations = Yup.object().shape({
-      email: Yup.string().email()
+      email: Yup.string()
         .trim()
         .required("This field is required.")
     });
