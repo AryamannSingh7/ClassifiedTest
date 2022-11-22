@@ -172,7 +172,7 @@ class MyTeamCore extends NominationDetailsController {
                                             <Box onClick={()=> this.handleOpenDetailsModal(item.attributes)}>
                                                 <Box style={{display:'flex',justifyContent:'space-between'}}>
                                                     <Box display="flex" alignItems="center">
-                                                        <img src={ item.attributes?.image?.url || profileExp}/>
+                                                        <img src={ item.attributes?.image?.url || profileExp} width="50px" height="50px" style={{borderRadius:"100px"}}/>
                                                         <Box style={{marginLeft:"10px"}}>
                                                             <Typography style={{fontWeight:"bold"}}>{item.attributes.name}</Typography>
                                                             <Typography >{item.attributes.unit_number.join(",")}</Typography>
@@ -490,7 +490,7 @@ class MyTeamCore extends NominationDetailsController {
                             <DeclineButton variant="contained" style={{marginRight:"15px"}}>{t("Cancel")}</DeclineButton>
                             <AcceptButton variant="contained" onClick={this.updateNominationData}>{t("Update Nomination")}</AcceptButton>
                         </Box>
-                    </Grid>         
+                    </Grid>
                 </div>
             </Fade>
         </Modal>
