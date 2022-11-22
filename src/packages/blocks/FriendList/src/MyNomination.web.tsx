@@ -60,11 +60,11 @@ class NominateMySelf extends NominateMySelfController{
                         <Grid item xs={12}>
                             <Box style={{display:'flex',justifyContent:'space-between'}}>
                                 <Box display="flex" alignItems="center">
-                                    <img src={profileExp}/>
+                                    <img src={this.state.myProfile?.image?.url || profileExp} width="50px" height="50px" style={{borderRadius:"100px"}}/>
                                     <Box style={{marginLeft:"10px"}}>
                                         <Typography style={{fontWeight:"bold",marginRight:"20px"}}>{this.state.myDetails.name}</Typography>
                                         <Typography variant="subtitle2">{this.state.myDetails?.unit_number?.join(",")}</Typography>
-                                    </Box>
+                                    </Box> 
                                 </Box>
                                 <Box style={{marginTop:"10px"}}>
                                     <Typography variant="subtitle2" className={"statusOngoingBlue"}>{this.state.myDetails.role}</Typography>
