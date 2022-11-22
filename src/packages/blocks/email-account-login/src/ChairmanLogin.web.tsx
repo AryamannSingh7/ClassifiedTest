@@ -38,6 +38,7 @@ import Select from '@material-ui/core/Select';
 import { withTranslation } from 'react-i18next';
 import '../../../web/src/i18n.js';
 import i18next from 'i18next';
+import AlertErrorWeb from "../../../components/src/AlertError.web";
 
 class ChairmanLogin extends ChairmanAccountLoginController {
   constructor(props: Props) {
@@ -216,6 +217,7 @@ class ChairmanLogin extends ChairmanAccountLoginController {
             </Grid>
           </Grid>
           <Loader loading={this.state.loading} />
+          <AlertErrorWeb show={this.state.showError} handleClose={()=> this.setState({showError:false,error:null})} message={this.state.error} />
         </Box>
       </>
     );

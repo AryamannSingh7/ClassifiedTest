@@ -146,7 +146,7 @@ class MyTeamCore extends NominationDetailsController {
                                 <Grid item xs={12} sm={3}>
                                     <Box>
                                         <Typography variant="subtitle1" color="textSecondary">{t("Total Nomination")}: </Typography>
-                                        <Typography variant="subtitle1" color="textPrimary">{this.state.nominationData?.total_nomination} Members</Typography>
+                                        <Typography variant="subtitle1" color="textPrimary">{this.state.nominationData?.total_nomination || 0} Members</Typography>
                                     </Box>
                                 </Grid>
 
@@ -488,9 +488,9 @@ class MyTeamCore extends NominationDetailsController {
                     <Grid item xs={12} style={{display:'flex',justifyContent:"flex-end",marginTop:"20px"}}>
                         <Box>
                             <DeclineButton variant="contained" style={{marginRight:"15px"}}>{t("Cancel")}</DeclineButton>
-                            <AcceptButton variant="contained" onClick={this.updateNominationData}>{t("Start Process")}</AcceptButton>
+                            <AcceptButton variant="contained" onClick={this.updateNominationData}>{t("Update Nomination")}</AcceptButton>
                         </Box>
-                    </Grid>
+                    </Grid>         
                 </div>
             </Fade>
         </Modal>
@@ -507,7 +507,7 @@ class MyTeamCore extends NominationDetailsController {
                 <div style={dashBoard.paper}>
                     <Box style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:"10px"}}>
                         <Typography variant="h5" style={{fontWeight:"bold"}}>
-                            {t("Nominate MySelf")}
+                            {t("Nominated Member Details")}
                         </Typography>
                         <IconButton onClick={this.handleCloseDetailsModal}>
                             <img src={cancle}
@@ -520,7 +520,7 @@ class MyTeamCore extends NominationDetailsController {
                         <Grid item xs={12}>
                             <Box style={{display:'flex',justifyContent:'space-between'}}>
                                 <Box display="flex" alignItems="center">
-                                    <img src={profileExp}/>
+                                    <img src={this.state?.detailsForModal?.image?.url || profileExp}/>
                                     <Box style={{marginLeft:"10px"}}>
                                         <Typography style={{fontWeight:"bold"}}>{this.state.detailsForModal.name}</Typography>
                                         <Typography >{this.state.detailsForModal.unit_number.join(",")}</Typography>

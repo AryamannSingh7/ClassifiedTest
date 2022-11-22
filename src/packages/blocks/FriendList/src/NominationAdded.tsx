@@ -19,7 +19,7 @@ class SurveyParticipate extends React.Component<any, any> {
         <>
           <Grid container>
               <Grid xs={10} style={{ display:"flex", alignItems:"center", gap:"1rem",margin:"10px 10px"}}>
-                <ArrowBackIcon onClick={() => this.props.history.push("/ChairmanNominations")} style={{cursor:"pointer",marginLeft:"5px"}}/>
+                {/*<ArrowBackIcon onClick={() => this.props.history.push("/ChairmanNominations")} style={{cursor:"pointer",marginLeft:"5px"}}/>*/}
               </Grid>
               <Grid xs={12}>
               <Box style={{height:"94.5vh",display:'flex',flexDirection:"column",alignItems:'center'}}>
@@ -63,9 +63,9 @@ const OkButton = withStyles((theme) => ({
         color: "white",
         backgroundColor: "#2b6fed",
         fontWeight:"bold",
-        height:"45px",
+        height:"55px",
         fontSize:"16px",
-        textTransform:"initial",
+        textTransform:"uppercase",
         borderRadius:"100px",
         '&:hover': {
             backgroundColor: "#2b6fef",
