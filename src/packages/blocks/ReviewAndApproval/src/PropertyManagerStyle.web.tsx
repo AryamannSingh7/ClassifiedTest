@@ -114,7 +114,6 @@ export const PropertyManagerStyleWeb: any = {
         },
       },
       "& .info": {
-        marginTop: "15px",
         "& span": {
           color: "gray",
         },

@@ -160,14 +160,14 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                                             propertyId: property.id,
                                             propertyForm: {
                                               ...this.state.propertyForm,
-                                              buildingId: property.building_management_id,
-                                              unitId: property.apartment_management_id,
-                                              buildingName: property,
-                                              unitName: property,
-                                              startDate: property.start_date,
-                                              endDate: property.end_date,
-                                              feeType: property.fees_type,
-                                              rent: property.fixed_persentage_of_rent,
+                                              buildingId: property.attributes.building_management_id,
+                                              unitId: property.attributes.apartment_management_id,
+                                              buildingName: property.attributes.building_management.name,
+                                              unitName: property.attributes.apartment_management.apartment_name,
+                                              startDate: property.attributes.start_date,
+                                              endDate: property.attributes.end_date,
+                                              feeType: property.attributes.fees_type,
+                                              rent: property.attributes.fixed_persentage_of_rent,
                                             },
                                           },
                                           () => {
@@ -184,15 +184,15 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                                     <Box className="box-item-content">
                                       <span>{t("Contract")}</span>
                                       <p>
-                                        {moment(property.start_date, "YYYY-MM-DD").format("MMMM DD, YYYY")} -{" "}
-                                        {moment(property.end_date, "YYYY-MM-DD").format("MMMM DD, YYYY")}
+                                        {moment(property.attributes.start_date, "YYYY-MM-DD").format("MMMM DD, YYYY")} -{" "}
+                                        {moment(property.attributes.end_date, "YYYY-MM-DD").format("MMMM DD, YYYY")}
                                       </p>
                                     </Box>
                                   </Grid>
                                   <Grid item xs={12}>
                                     <Box className="box-item-content">
                                       <span>{t("Charges")}</span>
-                                      <p>{property.fixed_persentage_of_rent}/Month</p>
+                                      <p>{property.attributes.fixed_persentage_of_rent}/Month</p>
                                     </Box>
                                   </Grid>
                                 </Grid>

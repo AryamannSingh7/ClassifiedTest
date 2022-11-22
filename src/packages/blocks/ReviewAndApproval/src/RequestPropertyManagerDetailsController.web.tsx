@@ -101,7 +101,7 @@ export default class RequestPropertyManagerDetailsController extends BlockCompon
             IdNumber: manager.attributes.id_number,
             IdDate: manager.attributes.id_expiration_date,
             IdPdfDocument: manager.attributes.image.url,
-            propertyList: manager.attributes.properties,
+            propertyList: manager.attributes.properties.data,
           },
         });
       }

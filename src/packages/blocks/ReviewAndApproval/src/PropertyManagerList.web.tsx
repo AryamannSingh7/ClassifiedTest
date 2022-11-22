@@ -43,8 +43,8 @@ class PropertyManagerList extends PropertyManagerListController {
                         </IconButton>
                       }
                     >
-                      <MenuItem>{t("Ascending")}</MenuItem>
-                      <MenuItem>{t("Descending")}</MenuItem>
+                      <MenuItem onClick={() => this.setState({ sort: "asc" })}>{t("Ascending")}</MenuItem>
+                      <MenuItem onClick={() => this.setState({ sort: "desc" })}>{t("Descending")}</MenuItem>
                     </Menu>
                   </div>
                 </Box>
@@ -57,7 +57,7 @@ class PropertyManagerList extends PropertyManagerListController {
                             <Link href="/PropertyManagers/Request">
                               <Card className="contract">
                                 <Box className="new-req-box">
-                                  <h4>New Request</h4>
+                                  <h4>{t("New Request")}</h4>
                                   <Box className="right-side-req-box">
                                     <Button>02</Button>
                                     <NavigateNextIcon />
@@ -72,8 +72,11 @@ class PropertyManagerList extends PropertyManagerListController {
                             </Grid>
                           )}
                           {this.state.propertyManagerList.map((propertyManager: any, index: number) => {
-                            console.log(propertyManager);
-
+                            const building: any[] = propertyManager.attributes.properties.data.map((property: any) => {
+                              return `Building ${property.attributes.building_management.name} unit ${
+                                property.attributes.apartment_management.apartment_name
+                              }`;
+                            });
                             return (
                               <Grid item xs={12} key={index}>
                                 <Card className="contract">
@@ -116,7 +119,7 @@ class PropertyManagerList extends PropertyManagerListController {
                                   <Grid container spacing={2} className="info">
                                     <Grid item xs={12}>
                                       <span>{t("Manages")}</span>
-                                      {/* <p>{propertyManager.attributes}</p> */}
+                                      <p>{building.toString()}</p>
                                     </Grid>
                                     <Grid item xs={12}>
                                       <span>{t("Company Name")}</span>

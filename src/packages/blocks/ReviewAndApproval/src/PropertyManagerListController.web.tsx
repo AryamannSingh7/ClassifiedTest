@@ -18,6 +18,8 @@ export interface Props {
 interface S {
   // Customizable Area Start
   propertyManagerList: any[];
+
+  sort: string;
   // Customizable Area End
 }
 
@@ -38,6 +40,7 @@ export default class PropertyManagerListController extends BlockComponent<Props,
 
     this.state = {
       propertyManagerList: [],
+      sort: "asc",
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -97,6 +100,12 @@ export default class PropertyManagerListController extends BlockComponent<Props,
     this.getManagerRequestList();
   }
 
+  async componentDidUpdate(prevProps: any, prevState: any) {
+    if (prevState.sort !== this.state.sort) {
+      this.getPropertyManagerList();
+    }
+  }
+
   getPropertyManagerList = () => {
     const header = {
       "Content-Type": configJSON.ApiContentType,
@@ -109,7 +118,7 @@ export default class PropertyManagerListController extends BlockComponent<Props,
 
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_property_manager/property_manager_requests`
+      `bx_block_property_manager/property_manager_requests?sort=${this.state.sort}`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));

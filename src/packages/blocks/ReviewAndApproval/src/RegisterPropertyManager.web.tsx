@@ -106,6 +106,8 @@ class RegisterPropertyManager extends RegisterPropertyManagerController {
                       }}
                     >
                       {({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue }) => {
+                        console.log(values);
+
                         return (
                           <Form onSubmit={handleSubmit} translate="true">
                             <Box className="select-input-box">
