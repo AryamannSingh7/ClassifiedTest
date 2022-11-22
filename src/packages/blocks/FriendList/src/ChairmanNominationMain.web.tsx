@@ -52,6 +52,7 @@ class MyTeamCore extends ChairmanNominationMainController {
   render() {
     //@ts-ignore
     const {t} = this.props
+    const userType = localStorage.getItem("userType")
     return (
       <>
     <Box style={{background: "#E5ECFF"}}>
@@ -70,7 +71,7 @@ class MyTeamCore extends ChairmanNominationMainController {
                         <Box display="flex" justifyContent="space-between" alignItems="center" width="100%">
                             <Typography variant="h4" className="subHeading">{t("Chairman and Vice Chairman Nomination")}</Typography>
                             {
-                                this.state.onGoingNomination &&
+                                this.state.onGoingNomination && userType === "Chairman" &&
                                     <AcceptButton style={{marginTop:"20px"}} onClick={()=>this.setState({setOpen:true})}>{t("Start Nomination Process")}</AcceptButton>
                             }
                         </Box>
@@ -85,11 +86,11 @@ class MyTeamCore extends ChairmanNominationMainController {
                             &&
                             this.state.nominationsList.map((item:any,key:any) => {
                                 return(
-                                    <Grid key={key} item xs={6}>
+                                    <Grid key={key} item xs={12} sm={12} md={6}>
                                         <Paper elevation={6} style={{backgroundColor:"white",padding:"20px 30px",borderRadius:"15px",cursor:"pointer"}} onClick={()=> this.props.history.push(`/NominationDetails?id=${item.id}`)}>
                                             <Grid container spacing={2} >
                                                 <Grid item xs={9}>
-                                                    <Typography variant="h6" style={{fontWeight:"bold",minHeight:"60px",display:'flex',alignItems:"center"}}>{item.attributes.title}</Typography>
+                                                    <Typography variant="h6" style={{fontWeight:"bold",minHeight:"60px",display:'flex',alignItems:"center",fontSize:"18px"}}>{item.attributes.title}</Typography>
                                                 </Grid>
                                                 <Grid item xs={3} style={{display:'flex',alignItems:"center",justifyContent:"flex-end"}}>
                                                     {
@@ -126,7 +127,7 @@ class MyTeamCore extends ChairmanNominationMainController {
                                                 <Grid item xs={6}>
                                                     <Box>
                                                         <Typography variant="subtitle1" color="textSecondary">{t("Total Nomination")}: </Typography>
-                                                        <Typography variant="subtitle1" color="textPrimary">{item.attributes.total_nomination} Members</Typography>
+                                                        <Typography variant="subtitle1" color="textPrimary">{item.attributes.total_nomination || 0} Members</Typography>
                                                     </Box>
                                                 </Grid>
                                                 {

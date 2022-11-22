@@ -97,7 +97,7 @@ class ChairmanNominationDetails extends ChairmanNominationDetailsController{
                                                         <Box onClick={this.handleOpenDetailsModal}>
                                                             <Box style={{display:'flex',justifyContent:'space-between'}}>
                                                                 <Box display="flex" alignItems="center">
-                                                                    <img src={profileExp}/>
+                                                                    <img src={item?.attributes?.image?.url || profileExp} width="50px" height="50px" style={{borderRadius:"100px"}}/>
                                                                     <Box style={{marginLeft:"10px"}}>
                                                                         <Typography style={{fontWeight:"bold"}}>{item.attributes.name}</Typography>
                                                                         <Typography >{item.attributes?.unit_number?.join(",")}</Typography>

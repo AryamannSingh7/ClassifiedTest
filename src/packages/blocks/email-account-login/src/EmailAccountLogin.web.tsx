@@ -13,7 +13,7 @@ import {
   MenuItem,
   FormControl
 } from "@material-ui/core";
-
+import AlertErrorWeb from "../../../components/src/AlertError.web";
 //images
 import {
   Tenant_Logo, Building_Logo, Landing_Banner, Building1,
@@ -80,40 +80,39 @@ class EmailAccountLogin extends EmailAccountLoginController {
                   >
                     {({ values, touched, errors, isValid, setFieldValue, handleChange }) => (
                       <Form translate="yes" className="commonForm">
-
-                        <Box className="formGroup customSelect">
-                          <FormControl variant="outlined" >
-                            <span className="frmLeftIcons">
-                              <img src={User_Icon} className="frm-icons" alt="Email Icon" />
-                            </span>
-                            {/* <InputLabel id="demo-simple-select-outlined-label">Select User Type</InputLabel>  */}
-                            <Select
-                              name="userType"
-                              labelId="demo-simple-select-outlined-label"
-                              id="demo-simple-select-outlined"
-                              style={{ paddingLeft: '45px' }}
-                              // label="Select User Type"
-                              onChange={(e) => {
-                                (e.target.value != " ") && setFieldValue("userType", e.target.value)
-                              }}
-                              value={values.userType}
-                            >
-                              <MenuItem disabled value=" ">
-                                Select User Type
-                              </MenuItem>
-                              <MenuItem value="Owner">
-                                Owner
-                              </MenuItem>
-                              <MenuItem value="Tenant">
-                                Tenant
-                              </MenuItem>
-                              <MenuItem value="Owner Resident">
-                                Owner Resident
-                              </MenuItem>
-                            </Select>
-                            <ErrorMessage className="text-error" component="Typography" name="userType" />
-                          </FormControl>
-                        </Box>
+                        {/*<Box className="formGroup customSelect">*/}
+                        {/*  <FormControl variant="outlined" >*/}
+                        {/*    <span className="frmLeftIcons">*/}
+                        {/*      <img src={User_Icon} className="frm-icons" alt="Email Icon" />*/}
+                        {/*    </span>*/}
+                        {/*    /!* <InputLabel id="demo-simple-select-outlined-label">Select User Type</InputLabel>  *!/*/}
+                        {/*    <Select*/}
+                        {/*      name="userType"*/}
+                        {/*      labelId="demo-simple-select-outlined-label"*/}
+                        {/*      id="demo-simple-select-outlined"*/}
+                        {/*      style={{ paddingLeft: '45px' }}*/}
+                        {/*      // label="Select User Type"*/}
+                        {/*      onChange={(e) => {*/}
+                        {/*        (e.target.value != " ") && setFieldValue("userType", e.target.value)*/}
+                        {/*      }}*/}
+                        {/*      value={values.userType}*/}
+                        {/*    >*/}
+                        {/*      <MenuItem disabled value=" ">*/}
+                        {/*        Select User Type*/}
+                        {/*      </MenuItem>*/}
+                        {/*      <MenuItem value="Owner">*/}
+                        {/*        Owner*/}
+                        {/*      </MenuItem>*/}
+                        {/*      <MenuItem value="Tenant">*/}
+                        {/*        Tenant*/}
+                        {/*      </MenuItem>*/}
+                        {/*      <MenuItem value="Owner Resident">*/}
+                        {/*        Owner Resident*/}
+                        {/*      </MenuItem>*/}
+                        {/*    </Select>*/}
+                        {/*    <ErrorMessage className="text-error" component="Typography" name="userType" />*/}
+                        {/*  </FormControl>*/}
+                        {/*</Box>*/}
                         <Box className="formGroup">
                           <Field name="email" type="text" placeholder="Email ID" className="formInput" />
                           <span className="frmLeftIcons">
@@ -216,6 +215,7 @@ class EmailAccountLogin extends EmailAccountLoginController {
           </Grid>
         </Box>
         <Loader loading={this.state.loading} />
+        <AlertErrorWeb show={this.state.showError} handleClose={()=> this.setState({showError:false,error:null})} message={this.state.error} />
       </>
     );
   }

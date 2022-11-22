@@ -412,6 +412,15 @@ export default class FriendListController extends BlockComponent<
           })
         }
       }
+      if(apiRequestCallId === this.updateNominationId){
+        this.getNominationDetails()
+        this.setState({
+          setOpen:false
+        })
+        if(responseJson.hasOwnProperty("chairman_nomination")){
+
+        }
+      }
       if(apiRequestCallId === this.nominatedMemberListId){
         if(responseJson?.hasOwnProperty("nominated_members")){
           const userId = localStorage.getItem("userId")

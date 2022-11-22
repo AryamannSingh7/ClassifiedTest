@@ -404,13 +404,12 @@ export default class FriendListController extends BlockComponent<
           const findIf = responseJson.nominated_members.data.find((item:any)=> {
             return item.attributes.account_id == userId
           })
-          console.log("THIS IS FIND IF",findIf)
           this.setState({
             loading:false,
             nomineeList:responseJson.nominated_members.data,
             nominatedSelf:findIf ? true : false,
-            myDetails:findIf.attributes,
-            myNominateId:findIf.id
+            myDetails:findIf?.attributes,
+            myNominateId:findIf?.id
           })
           if(findIf){
             let roleType:any = []
