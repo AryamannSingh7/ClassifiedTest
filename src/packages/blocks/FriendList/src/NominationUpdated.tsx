@@ -63,9 +63,9 @@ const OkButton = withStyles((theme) => ({
         color: "white",
         backgroundColor: "#2b6fed",
         fontWeight:"bold",
-        height:"45px",
+        height:"55px",
         fontSize:"16px",
-        textTransform:"initial",
+        textTransform:"uppercase",
         borderRadius:"100px",
         '&:hover': {
             backgroundColor: "#2b6fef",
