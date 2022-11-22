@@ -324,7 +324,7 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
         } else if (apiRequestCallId === this.createInvitationAPICallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
-this.setState({loading:false,setOpen:false},()=>this.getCount())
+this.setState({loading:false,setOpen:false,setDeleteRequest:false},()=>this.getCount())
             //@ts-ignore
             //@ts-nocheck
 
@@ -1365,7 +1365,6 @@ this.setState({loading:true})
     return true;
   }
   getUnit2(value:any) {
-
     const header = {
       "Content-Type": configJSON.contentTypeApiAddDetail,
       "token": localStorage.getItem('userToken')
@@ -2160,6 +2159,54 @@ let userType=localStorage.getItem('userType')
       console.log(error);
     }
   }
+  updateInvitation=(values:any)=>{
+    this.setState({ loading: true })
+    try {
+      const header = {
+
+        token: localStorage.getItem("userToken")
+      };
+      const formData = new FormData();
+      formData.append("member_invitation[full_name]]", values.fullname)
+      formData.append("member_invitation[email_address]", values.email)
+      formData.append("member_invitation[phone_number]", values.phoneno)
+      formData.append("member_invitation[role_id]", values.usertype)
+      formData.append("member_invitation[building_management_id]", values.building)
+      formData.append("member_invitation[apartment_management_id]", values.unit)
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+
+      this.createInvitationAPICallId = requestMessage.messageId;
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        'bx_block_request_management/member_invitations'
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestBodyMessage),
+        formData
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        'PUT'
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+      return true;
+
+    } catch (error) {
+      // this.setState({ loading: false })
+      console.log(error);
+    }
+  }
   handleAcceptClose = () => {
     this.setState({setAcceptOpen:false});
   };
@@ -2175,11 +2222,13 @@ let userType=localStorage.getItem('userType')
     this.setState({setAcceptOpen:true,selectInvitation:data});
   };
   handleResendRequest = (data:any) => {
+    
     this.setState({setRequestOpen:true,selectInvitation:data})
     this.setState({anchorEl1:null});
   }
   handleDeleteRequestOpen = (data:any) => {
     console.log(data)
+    this.getUnit2(data?.attributes?.building_management?.id)
     this.setState({setDeleteRequest:true,selectInvitation:data})
     this.setState({anchorEl1:null});
   }

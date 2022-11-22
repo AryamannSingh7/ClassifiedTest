@@ -161,7 +161,7 @@ class AwaitingAcceptece extends CommunityUserProfileController {
                             <option value={2022}>{t("Select Unit")}</option>
                             {
                               this.state.allUnit.map((item:any)=><>
-                              <option value={item.apartment_name}>{item.apartment_name}</option>
+                              <option value={item.apartment_name}>{item?.apartment_name}</option>
                               </>)
                             }
                           </NativeSelect>
@@ -210,7 +210,7 @@ class AwaitingAcceptece extends CommunityUserProfileController {
                               <span style={{position:"absolute", right:"10px", top:"10px"}} onClick={(e: any) => this.handleMoreClick(e)}><MoreVertIcon color='disabled' /></span>
                               <Typography variant="h6"
                               //@ts-ignore 
-                              style={dashBoard.unitno}>{item.attributes.apartment_management.apartment_name}</Typography>
+                              style={dashBoard.unitno}>{item.attributes.apartment_management?.apartment_name}</Typography>
                               <Typography variant="h6" style={{textAlign:"center", marginTop:"5px"}}>{item.attributes.full_name}</Typography>
                               <Typography variant="subtitle1" style={{textAlign:"center", marginTop:"5px"}}>{item.date}</Typography>
                               <div style={{textAlign:"center",marginTop:"10px 0px 15px 0px"}}>
@@ -312,9 +312,9 @@ class AwaitingAcceptece extends CommunityUserProfileController {
                     validationSchema={this.InvitationSchema()}
                     validateOnMount={true}
                      onSubmit={(values) => {
-                       console.log("valus=========>", values)
+                      this.updateInvitation(values)
                        // same shape as initial values
-                       this.invitationData(values);
+                    
                     }}
                   >
                     {({ values, touched, errors, isValid, setFieldValue }) => (
@@ -454,7 +454,7 @@ class AwaitingAcceptece extends CommunityUserProfileController {
                                         Select Unit
                                       </MenuItem>
                                       {
-                                        this.state.allUnit.map((item:any)=> <MenuItem value={item.id}>{item.apartment_name}</MenuItem>)
+                                        this.state.allUnit.map((item:any)=> <MenuItem value={item.id}>{item?.apartment_name}</MenuItem>)
                                       }
 
                                       {/* {
@@ -471,6 +471,16 @@ class AwaitingAcceptece extends CommunityUserProfileController {
                                     </Select>
                                   </FormControl>
                               </Box>
+                            </Grid>
+                            <Grid container justifyContent="flex-end">
+                              <Grid item>
+                              <Button style={{ border: '1px solid #5000f4',borderRadius:5,width:'9rem',height:'3rem',marginRight:'1rem' }} onClick={()=>this.setState({setDeleteRequest:false})} >
+                CLOSE
+              </Button>
+              <Button variant="contained" type="submit" style={{background:'#5000f4', border: '1px solid #5000f4',borderRadius:5,width:'9rem',height:'3rem',color:'white'}}   >
+                CONFRIM
+              </Button>
+                              </Grid>
                             </Grid>
                           </Grid>
                         </Form>

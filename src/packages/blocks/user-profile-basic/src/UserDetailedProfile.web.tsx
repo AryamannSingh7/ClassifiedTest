@@ -44,6 +44,7 @@ import { withTranslation } from 'react-i18next';
 import '../../../web/src/i18n.js';
 
 import { call_org, email_org, chat, facebook, twitter_org, instagram, snap, bentalyLogo } from "./assets";
+import moment from "moment";
 
 const Residents = [ 
   {
@@ -157,23 +158,17 @@ class UserDetailedProfile extends UserDetailedProfileController {
     super(props);
   }
   async componentDidMount() {
-    // @ts-ignore
-    // @ts-nocheck
-    if(this.props.history.location?.singleProfile){
- // @ts-ignore
-    // @ts-nocheck
-      this.getUserProfileDetails(this.props.history.location?.singleProfile?.id)
-    }else{
-      window.history.back()
-    }
-    // this.get(this.props.history.location?.singleProfile)
-    // this.getUserProfile()
-    // this.getBuilding();
+
+
     
   }
   render() {
+    
     const {t}: any = this.props
-    let profileDetails = this.state.profileDetails
+     // @ts-ignore
+    // @ts-nocheck
+    let profileDetails = JSON.parse(localStorage.getItem('selectedPofile'))
+    console.log('haha',profileDetails)
     return (
       <>
         <Box className="incident-Listing-wrapper desktop-ui" style={{ background: "#E5ECFF" }}>
@@ -219,7 +214,7 @@ class UserDetailedProfile extends UserDetailedProfileController {
                                     <CardMedia
                                         component="img"
                                         height="140"
-                                        image={"https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2080&q=80"}
+                                        image={profileDetails?.profile_pic?.url}
                                         alt="green iguana"
                                         style={dashBoard.profileImage}
                                     />
@@ -233,7 +228,7 @@ class UserDetailedProfile extends UserDetailedProfileController {
                                     </div>
                                         <Grid container spacing={3} style={{marginTop:"5px",gap:'1rem'}}>
                                         <Grid item xs={2} sm={2}>
-                                                <img src={call_org} style={{width:"40px"}} onClick={(e)=>{e.preventDefault();this.openChat(profileDetails?.id)}}/>
+                                                <img src={call_org} style={{width:"40px"}} onClick={()=> window.location.href = `tel:${profileDetails?.attributes?.full_phone_number?.full_phone_number}`}/>
                                             </Grid>
                                            
                                             <Grid item xs={2} sm={2}>
@@ -264,7 +259,8 @@ class UserDetailedProfile extends UserDetailedProfileController {
                                         </Grid>
                                         <Grid item xs={2} sm={3}>
                                             <Typography variant="subtitle1" style={dashBoard.subtitleClr}>{t("Hobbies")}</Typography>
-                                            <Typography variant="subtitle1">{profileDetails?.attributes?.hobbies?.hobbies && profileDetails?.attributes?.hobbies?.hobbies.map((item:any)=><>{item} ,</>)}</Typography>
+                                        
+                                            <Typography variant="subtitle1">{profileDetails?.attributes?.hobbies?.hobbies.length>0 && profileDetails?.attributes?.hobbies?.hobbies.map((item:any)=><>{item} ,</>)}</Typography>
                                         </Grid>
                                     </Grid>
                                     <Grid container spacing={3} style={{marginTop:"5px"}}>
@@ -317,8 +313,50 @@ class UserDetailedProfile extends UserDetailedProfileController {
                   </Box>
                   <Box style={{marginTop:"10px"}}>
                     <div style={dashBoard.gaMemberCard}>
+
+                  {
+                    profileDetails?.attributes?.families?.families && profileDetails?.attributes?.families?.families.map((item:any,index:any)=><>
+                    <div key={index}>
+                          <Card style={dashBoard.cardStyle}>
+                            <CardActionArea>
+                              <CardMedia
+                                component="img"
+                                height="140"
+                                image={item.image}
+                                alt="green iguana"
+                                style={dashBoard.relatedprofileImage}
+                              />
+                              <CardContent style={{padding:"0px 16px 16px 16px"}}>
+                              <span style={{position:"absolute", right:"10px", top:"10px"}} onClick={(e: any) => this.handleMoreClick(e)}>{item.more}</span>
+                              {/* <Typography variant="h6"
+                              //@ts-ignore 
+                              style={dashBoard.relatedunitno}>{item.unitno}</Typography> */}
+                              <Typography variant="h6" style={{textAlign:"center", marginTop:"5px"}}>{item?.attributes?.name}</Typography>
+                              {/* <Typography variant="subtitle1" style={{textAlign:"center", marginTop:"5px"}}>{item.date}</Typography> */}
+                              <div style={{textAlign:"center",marginTop:"10px 0px 15px 0px"}}>
+                                <Typography variant="h6" style={dashBoard.userType}>{item?.attributes?.relation?.name}</Typography>
+                              </div>
+                              <div style={dashBoard.contactIcon}>
+                                {/* <div style={dashBoard.relatedMemberCard}>
+                                  <img src={chat} style={{width:"40px", margin:"0 auto"}}/>
+                                  <img src={email_org}  style={{width:"40px", margin:"0 auto"}}/>
+                                  <img src={call_org}  style={{width:"40px", margin:"0 auto"}}/>
+                                </div> */}
+                              </div>
+                              </CardContent>
+                            </CardActionArea>
+                          </Card>
+                          </div>
+                    </>)
+
+                  }
+                      </div>
+                      </Box>
+                
+                  <Box style={{marginTop:"10px"}}>
+                    <div style={dashBoard.gaMemberCard}>
                       <>
-                      {Residents.map((item, index) => {
+                      {/* {Residents.map((item, index) => {
                         return(
                           <div key={index}>
                           <Card style={dashBoard.cardStyle}>
@@ -336,7 +374,6 @@ class UserDetailedProfile extends UserDetailedProfileController {
                               //@ts-ignore 
                               style={dashBoard.relatedunitno}>{item.unitno}</Typography>
                               <Typography variant="h6" style={{textAlign:"center", marginTop:"5px"}}>{item.name}</Typography>
-                              {/* <Typography variant="subtitle1" style={{textAlign:"center", marginTop:"5px"}}>{item.date}</Typography> */}
                               <div style={{textAlign:"center",marginTop:"10px 0px 15px 0px"}}>
                                 <Typography variant="h6" style={dashBoard.userType}>{item.userType}</Typography>
                               </div>
@@ -355,7 +392,7 @@ class UserDetailedProfile extends UserDetailedProfileController {
 
                         })
 
-                        }
+                        } */}
                       </>
                     </div>
                   </Box>
@@ -385,7 +422,7 @@ class UserDetailedProfile extends UserDetailedProfileController {
                    <Box style={{margin:"10px 0px 50px"}}>
                     <div style={dashBoard.gaMemberCard}>
                       <>
-                      {PropertyManager.map((item, index) => {
+                      {profileDetails?.attributes?.related_units.map((item:any, index:any) => {
                         return(
                           <div key={index}>
                           <Card style={dashBoard.cardStyle}>
@@ -394,10 +431,10 @@ class UserDetailedProfile extends UserDetailedProfileController {
                               <span style={{position:"absolute", right:"10px", top:"35px"}} onClick={(e: any) => this.handleUnitMoreClick(e)}>{item.more}</span>
                               <Typography variant="h6"
                               //@ts-ignore 
-                              style={dashBoard.unitno}>{item.building}{item.unitno}</Typography>
-                              <div style={{marginTop:"5px"}}>
+                              style={dashBoard.unitno}>{item.apartment_name}</Typography>
+                              {/* <div style={{marginTop:"5px"}}>
                                 <Typography variant="h6" style={dashBoard.userType}>{item.userType}</Typography>
-                              </div>
+                              </div> */}
                               </CardContent>
                             </CardActionArea>
                           </Card>
@@ -434,19 +471,19 @@ class UserDetailedProfile extends UserDetailedProfileController {
                    <Box style={{margin:"10px 0px 50px"}}>
                     <div style={dashBoard.gaActiveMemberCard}>
                       <>
-                      {Activeincidents.map((item, index) => {
+                      {profileDetails?.attributes?.incidents.map((item:any, index:any) => {
                         return(
                           <div key={index}>
                           <Card style={dashBoard.activeMembercardStyle}>
                             <CardActionArea>
                               <CardContent>
                               <div style={dashBoard.facility}>
-                                    <Typography variant="h6" style={{fontWeight:600}}> {item.title}</Typography>
-                                    <Typography variant="h6" style={dashBoard.userType}>{item.status}</Typography>
+                                    <Typography variant="h6" style={{fontWeight:600}}> {item.incident_title}</Typography>
+                                    <Typography variant="h6" style={dashBoard.userType}>{item.incident_status}</Typography>
                                 </div>
                                 <div style={{display:"flex"}}>
                                     <Typography variant="h6">{t("Affected Area")}:</Typography>
-                                    <Typography variant="h6" style={{fontWeight:600}}> &nbsp; {item.Affected_Area}</Typography>
+                                    <Typography variant="h6" style={{fontWeight:600}}> &nbsp; {item.affected_area || 'N/A'}</Typography>
                                 </div>
                                 <div style={{display:"flex"}}>
                                     <Typography variant="h6">{t("Incident is related to")}:</Typography>
@@ -454,7 +491,7 @@ class UserDetailedProfile extends UserDetailedProfileController {
                                 </div>
                                 <div style={{display:"flex"}}>
                                     <Typography variant="h6">{t("Reported on")}:</Typography>
-                                    <Typography variant="h6" style={{fontWeight:600}}> &nbsp; {item.Report}</Typography>
+                                    <Typography variant="h6" style={{fontWeight:600}}> &nbsp; {moment(item.reported_on).format("MMMM DD,YYYY")}</Typography>
                                 </div>
                                 <div style={{display:"flex"}}>
                                     <Typography variant="h6">{t("Building")}:</Typography>
@@ -494,33 +531,33 @@ class UserDetailedProfile extends UserDetailedProfileController {
                    <Box style={{margin:"10px 0px 50px"}}>
                     <div style={dashBoard.gaActiveMemberCard}>
                       <>
-                      {VehicleDetails.map((item, index) => {
+                      {profileDetails?.attributes?.vehicles.map((item:any, index:any) => {
                         return(
                           <div key={index}>
                           <Card style={dashBoard.activeMembercardStyle}>
                             <CardActionArea>
                               <CardContent>
-                                <Typography variant="h6" style={{fontWeight:600}}> {item.Car_no}</Typography>
+                                <Typography variant="h6" style={{fontWeight:600}}> {item.attributes?.company_name}</Typography>
                                 <img src={bentalyLogo} style={{margin:"5px 0px 5px 0px"}}/>
                                 <div style={{display:"flex"}}>
                                     <Typography variant="h6">{t("Owner Name:")}</Typography>
-                                    <Typography variant="h6" style={{fontWeight:600}}> &nbsp; {item.Owner}</Typography>
+                                    <Typography variant="h6" style={{fontWeight:600}}> &nbsp; {item.attributes?.owner_name}</Typography>
                                 </div>
                                 <div style={{display:"flex"}}>
                                     <Typography variant="h6">{t("Registration Card Number")}:</Typography>
-                                    <Typography variant="h6" style={{fontWeight:600}}> &nbsp; {item.Registration_no}</Typography>
+                                    <Typography variant="h6" style={{fontWeight:600}}> &nbsp; {item.attributes?.plate_number}</Typography>
                                 </div>
                                 <div style={{display:"flex"}}>
                                     <Typography variant="h6">{t("Car Details")}:</Typography>
-                                    <Typography variant="h6" style={{fontWeight:600}}> &nbsp; {item.Details}</Typography>
+                                    <Typography variant="h6" style={{fontWeight:600}}> &nbsp; {item?.attributes?.color}</Typography>
                                 </div>
                                 <div style={{display:"flex"}}>
                                     <Typography variant="h6">{t("Building")}:</Typography>
-                                    <Typography variant="h6" style={{fontWeight:600}}> &nbsp; {item.Building}</Typography>
+                                    <Typography variant="h6" style={{fontWeight:600}}> &nbsp; {item.attributes?.building_management?.name}</Typography>
                                 </div>
                                 <div style={{display:"flex"}}>
                                     <Typography variant="h6">{t("Unit")}:</Typography>
-                                    <Typography variant="h6" style={{fontWeight:600}}> &nbsp; {item.Unit}</Typography>
+                                    <Typography variant="h6" style={{fontWeight:600}}> &nbsp; {item.attributes?.apartment_management?.apartment_name}</Typography>
                                 </div>
                               <Typography variant="h6"
                               //@ts-ignore 
@@ -542,14 +579,14 @@ class UserDetailedProfile extends UserDetailedProfileController {
                   </Box>
 
                     {/* Unanswered Suggestion */}
-                    <Box>
+                    {/* <Box>
                     <Grid container style={dashBoard.gaMemberMain}> 
                           <Grid item xs={6}>
                             <Typography variant="h6" style={dashBoard.subHeading}>{t("Unanswered Suggestion")}</Typography>
                           </Grid>
                     </Grid>
-                  </Box>
-                   <Box style={{margin:"10px 0px 50px"}}>
+                  </Box> */}
+                   {/* <Box style={{margin:"10px 0px 50px"}}>
                     <div style={dashBoard.gaActiveMemberCard}>
                       <>
                       {UnansweredSuggestion.map((item, index) => {
@@ -584,7 +621,7 @@ class UserDetailedProfile extends UserDetailedProfileController {
                         }
                       </>
                     </div>
-                  </Box>
+                  </Box> */}
 
               </Container>
             </Grid>
