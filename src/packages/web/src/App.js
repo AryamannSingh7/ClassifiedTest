@@ -173,7 +173,6 @@ import CreateFacilityReservation from '../../blocks/RequestManagement/src/Create
 import FacilityManagerDetail from '../../blocks/RequestManagement/src/FacilityManagerDetail.web';
 import ManagerFacilityReservation from '../../blocks/RequestManagement/src/ManagerFacilityReservation.web';
 
-
 // Help
 import FaqChairman from '../../blocks/contactus/src/FaqChairman.web';
 import FaqOwner from '../../blocks/contactus/src/FaqOwner.web';
@@ -343,6 +342,7 @@ import RegisterPropertyManagerSuccess from '../../blocks/ReviewAndApproval/src/P
 import PropertyManagerDetails from '../../blocks/ReviewAndApproval/src/PropertyManagerDetails.web';
 import PropertyManagerRequest from '../../blocks/ReviewAndApproval/src/PropertyManagerRequest.web';
 import EditPropertyManager from '../../blocks/ReviewAndApproval/src/EditPropertyManager.web';
+import RequestPropertyManagerDetails from '../../blocks/ReviewAndApproval/src/RequestPropertyManagerDetails.web';
 
 // My Lease
 import MyLeaseList from '../../blocks/ContentManagement/src/MyLeaseList.web';
@@ -678,13 +678,13 @@ const routeMap = {
     path: '/FacilityManagerDetail',
     exact: true
   },
- 
+
   ManagerFacilityReservation: {
     component: ManagerFacilityReservation,
     path: '/ManagerFacilityReservation',
     exact: true
   },
- 
+
   // RolesPermissions2: {
   //   component: RolesPermissions2,
   //   path: '/RolesPermissions2'
@@ -1997,6 +1997,12 @@ const routeMap = {
   PropertyManagerRequest: {
     component: PropertyManagerRequest,
     path: '/PropertyManagers/Request',
+    roles: [ROLE.OWNER],
+    exact: true
+  },
+  RequestPropertyManagerDetails: {
+    component: RequestPropertyManagerDetails,
+    path: '/PropertyManagers/Request/:id',
     roles: [ROLE.OWNER],
     exact: true
   },

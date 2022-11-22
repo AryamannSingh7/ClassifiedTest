@@ -563,6 +563,11 @@ export const PropertyManagerStyleWeb: any = {
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
+      position: "sticky",
+      bottom: 0,
+      background: "white",
+      width: "100%",
+      padding: "10px 0",
       "& button": {
         borderRadius: "25px",
         fontWeight: 600,

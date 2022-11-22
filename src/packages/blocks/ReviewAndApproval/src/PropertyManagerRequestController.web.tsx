@@ -17,6 +17,7 @@ export interface Props {
 
 interface S {
   // Customizable Area Start
+  requestList: any[];
   // Customizable Area End
 }
 
@@ -25,6 +26,9 @@ interface SS {
 }
 
 export default class PropertyManagerRequestController extends BlockComponent<Props, S, SS> {
+  GetManagerRequestCallId: any;
+  EditManagerRequestCallId: any;
+
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
@@ -32,16 +36,87 @@ export default class PropertyManagerRequestController extends BlockComponent<Pro
     // Customizable Area Start
     this.subScribedMessages = [getName(MessageEnum.RestAPIResponceMessage), getName(MessageEnum.RestAPIRequestMessage)];
 
-    this.state = {};
+    this.state = {
+      requestList: [],
+    };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
 
   async receive(from: string, message: Message) {
     // Customizable Area Start
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.GetManagerRequestCallId !== null &&
+      this.GetManagerRequestCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.GetManagerRequestCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      console.log(responseJson);
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
     // Customizable Area End
   }
 
   // Customizable Area Start
+  async componentDidMount(): Promise<void> {
+    this.getManagerRequestList();
+  }
+
+  getManagerRequestList = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.GetManagerRequestCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_property_manager/property_manager_requests/new_request`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  updateManagerRequest = (requestId: any, status: any) => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.EditManagerRequestCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_property_manager/property_manager_requests/update_request?id=${requestId}&status=${status}`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePut);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
   // Customizable Area End
 }

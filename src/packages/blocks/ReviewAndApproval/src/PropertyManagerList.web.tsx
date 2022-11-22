@@ -5,7 +5,7 @@ import { Menu } from "@szhsin/react-menu";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import PropertyManagerListController, { Props } from "./PropertyManagerListController.web";
-import { BuildingLogo, SortIcon, FilterIcon } from "./assets";
+import { BuildingLogo, SortIcon } from "./assets";
 import { withTranslation } from "react-i18next";
 import "../../../web/src/i18n.js";
 import { PropertyManagerStyleWeb } from "./PropertyManagerStyle.web";
@@ -46,13 +46,6 @@ class PropertyManagerList extends PropertyManagerListController {
                       <MenuItem>{t("Ascending")}</MenuItem>
                       <MenuItem>{t("Descending")}</MenuItem>
                     </Menu>
-                    <Menu
-                      menuButton={
-                        <IconButton>
-                          <img src={FilterIcon} alt="FilterIcon" />
-                        </IconButton>
-                      }
-                    />
                   </div>
                 </Box>
                 <Container>
@@ -128,10 +121,6 @@ class PropertyManagerList extends PropertyManagerListController {
                                     <Grid item xs={12}>
                                       <span>{t("Company Name")}</span>
                                       <p>{propertyManager.attributes.company_name || "-"}</p>
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                      <span>{t("Charges")}</span>
-                                      {/* <p> / Month</p> */}
                                     </Grid>
                                   </Grid>
                                 </Card>
