@@ -337,7 +337,7 @@ class CommunityUserProfile extends CommunityUserProfileController {
                                 image={singleProfile?.attributes?.profile_pic?.url}
                                 alt="green iguana"
                                 style={dashBoard.profileImage}
-                                onClick={(e) => {
+                                onClick={(e:any) => {
                                   localStorage.setItem('selectedPofile',JSON.stringify(singleProfile))
                                   //@ts-ignore
                                   this.props.history.push({pathname:"/UserDetailedProfile",singleProfile})}}
