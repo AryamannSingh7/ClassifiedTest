@@ -204,8 +204,6 @@ class EditPropertyManager extends RegisterPropertyManagerController {
                               </FormControl>
                               <h4 style={{ marginTop: "18px" }}>{t("Property Details")}</h4>
                               {this.state.propertyList.map((property: any, index: number) => {
-                                console.log(property);
-
                                 return (
                                   <Box className="rent-history-box unit-box" key={index}>
                                     <Box className="heading">

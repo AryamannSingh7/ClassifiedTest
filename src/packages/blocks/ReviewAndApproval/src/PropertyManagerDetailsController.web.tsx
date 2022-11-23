@@ -64,6 +64,8 @@ export default class PropertyManagerDetailsController extends BlockComponent<Pro
   GetPropertyManagerDetailsCallId: any;
   GetComplexDetailsCallId: any;
   EditPropertyCallId: any;
+  DeletePropertyManagerCallId: any;
+  DeletePropertyCallId: any;
 
   constructor(props: Props) {
     super(props);
@@ -120,7 +122,6 @@ export default class PropertyManagerDetailsController extends BlockComponent<Pro
 
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      console.log(responseJson.data);
       if (responseJson && responseJson.data) {
         const manager = responseJson.data;
         this.setState({
@@ -133,7 +134,7 @@ export default class PropertyManagerDetailsController extends BlockComponent<Pro
             IdNumber: manager.attributes.id_number,
             IdDate: manager.attributes.id_expiration_date,
             IdPdfDocument: manager.attributes.image.url,
-            propertyList: manager.attributes.properties.data,
+            propertyList: manager.attributes.properties ? manager.attributes.properties.data : [],
           },
         });
       }
@@ -191,6 +192,54 @@ export default class PropertyManagerDetailsController extends BlockComponent<Pro
           toast.success("Property details change successfully");
           this.getPropertyManagerDetails();
         }
+      });
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // Delete Property Manager - API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.DeletePropertyManagerCallId !== null &&
+      this.DeletePropertyManagerCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.DeletePropertyManagerCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      this.setState({ loading: false }, () => {
+        toast.success(responseJson.message);
+        this.props.navigation.navigate("PropertyManagerList");
+      });
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // Delete Property - API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.DeletePropertyCallId !== null &&
+      this.DeletePropertyCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.DeletePropertyCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      this.setState({ loading: false }, () => {
+        toast.success(responseJson.message);
+        this.getPropertyManagerDetails();
       });
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
@@ -292,6 +341,52 @@ export default class PropertyManagerDetailsController extends BlockComponent<Pro
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePut);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  deletePropertyManager = (managerId: any) => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.DeletePropertyManagerCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_property_manager/property_manager_requests/${managerId}`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeDelete);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  deleteProperty = (propertyId: any) => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.DeletePropertyCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_property_manager/properties/${propertyId}`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeDelete);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;

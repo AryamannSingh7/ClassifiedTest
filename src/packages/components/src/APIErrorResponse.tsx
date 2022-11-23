@@ -11,12 +11,7 @@ export const ApiErrorResponse = (responseJson: any) => {
     return;
   }
 
-  let errors: any = [];
-  if (Array.isArray(responseJson.errors)) {
-    errors = responseJson.errors;
-  } else {
-    errors = [responseJson.errors];
-  }
+  let errors: any = responseJson.errors;
 
   if (errors.length !== 0 && errors[0].token) {
     toast.error(errors[0].token);

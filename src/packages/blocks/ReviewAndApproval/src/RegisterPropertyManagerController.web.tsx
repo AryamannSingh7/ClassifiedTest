@@ -418,9 +418,7 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       this.setState({ loading: false }, () => {
-        if (responseJson && responseJson.data) {
-          this.getPropertyList();
-        }
+        this.getPropertyList();
       });
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));

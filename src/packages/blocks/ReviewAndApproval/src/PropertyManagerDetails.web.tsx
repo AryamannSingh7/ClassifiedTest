@@ -85,7 +85,13 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                       }
                       alt="edit"
                     />
-                    <img src={DeleteIcon} alt="delete" />
+                    <img
+                      onClick={() =>
+                        this.setState({ loading: true }, () => this.deletePropertyManager(this.state.propertyManagerId))
+                      }
+                      src={DeleteIcon}
+                      alt="delete"
+                    />
                   </div>
                 </Box>
                 <Container>
@@ -142,14 +148,15 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                             <Card>{t("No Property Available")}</Card>
                           </Grid>
                         )}
-                        {this.state.propertyManagerDetails.propertyList.map((property: any) => {
-                          console.log(property);
-
+                        {this.state.propertyManagerDetails.propertyList.map((property: any, index: number) => {
                           return (
-                            <Grid item xs={12} key={property.id}>
+                            <Grid item xs={12} key={index}>
                               <Card>
                                 <Box className="heading-box-item">
-                                  <h4>Building 5 Unit 508</h4>
+                                  <h4>
+                                    Building {property.attributes.building_management.name} Unit{" "}
+                                    {property.attributes.apartment_management.apartment_name}
+                                  </h4>
                                   <Box className="right-box-item">
                                     <img
                                       src={EditIcon}
@@ -176,7 +183,19 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                                         );
                                       }}
                                     />
-                                    <img src={DeleteIcon} alt="delete" />
+                                    <img
+                                      onClick={() => {
+                                        if (this.state.propertyManagerDetails.propertyList.length === 1) {
+                                          this.setState({ loading: true }, () =>
+                                            this.deletePropertyManager(this.state.propertyManagerId)
+                                          );
+                                        } else {
+                                          this.setState({ loading: true }, () => this.deleteProperty(property.id));
+                                        }
+                                      }}
+                                      src={DeleteIcon}
+                                      alt="delete"
+                                    />
                                   </Box>
                                 </Box>
                                 <Grid container spacing={2}>
@@ -200,32 +219,6 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                             </Grid>
                           );
                         })}
-                        {/* <Grid item xs={12}>
-                          <Card>
-                            <Box className="heading-box-item">
-                              <h4>Building 5 Unit 508</h4>
-                              <Box className="right-box-item">
-                                {/* <img src={EditIcon} alt="edit" />
-                                    <img src={DeleteIcon} alt="delete" />
-                                <span>See building on map</span>
-                              </Box>
-                            </Box>
-                            <Grid container spacing={2}>
-                              <Grid item xs={12}>
-                                <Box className="box-item-content">
-                                  <span>Contract</span>
-                                  <p> 01 April, 2020 - 31 March, 2025</p>
-                                </Box>
-                              </Grid>
-                              <Grid item xs={12}>
-                                <Box className="box-item-content">
-                                  <span>Charges</span>
-                                  <p>SR 1400/Month</p>
-                                </Box>
-                              </Grid>
-                            </Grid>
-                          </Card>
-                        </Grid> */}
                       </Grid>
                     </Box>
 
@@ -311,8 +304,6 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
             initialValues={this.state.propertyForm}
             validationSchema={this.registerPropertyFormSchema}
             onSubmit={(values, { resetForm }) => {
-              console.log(values);
-
               this.setState({ loading: true }, () => {
                 this.handleEditPropertyModal();
                 this.editProperty(values);

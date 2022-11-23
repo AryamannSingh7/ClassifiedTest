@@ -54,7 +54,9 @@ export default class PropertyManagerRequestController extends BlockComponent<Pro
 
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      console.log(responseJson);
+      if (responseJson && responseJson.data) {
+        this.setState({ requestList: responseJson.data });
+      }
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {

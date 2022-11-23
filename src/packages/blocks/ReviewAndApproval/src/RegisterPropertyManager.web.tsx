@@ -72,8 +72,6 @@ class RegisterPropertyManager extends RegisterPropertyManagerController {
     const { classes } = this.props;
     const { t }: any = this.props;
 
-    console.log(this.state);
-
     return (
       <>
         <Loader loading={this.state.loading} />
@@ -106,8 +104,6 @@ class RegisterPropertyManager extends RegisterPropertyManagerController {
                       }}
                     >
                       {({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue }) => {
-                        console.log(values);
-
                         return (
                           <Form onSubmit={handleSubmit} translate="true">
                             <Box className="select-input-box">
@@ -385,7 +381,6 @@ class RegisterPropertyManager extends RegisterPropertyManagerController {
             initialValues={this.state.propertyForm}
             validationSchema={this.registerPropertyFormSchema}
             onSubmit={(values, { resetForm }) => {
-              console.log(values);
               if (this.state.propertyId) {
                 let newList = this.state.propertyList;
                 newList[Number(this.state.propertyId)] = values;

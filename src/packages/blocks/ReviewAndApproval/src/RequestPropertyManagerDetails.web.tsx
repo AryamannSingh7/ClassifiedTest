@@ -103,8 +103,6 @@ class RequestPropertyManagerDetails extends RequestPropertyManagerDetailsControl
                           </Grid>
                         )}
                         {this.state.propertyManagerDetails.propertyList.map((property: any) => {
-                          console.log(property);
-
                           return (
                             <Grid item xs={12} key={property.id}>
                               <Card>

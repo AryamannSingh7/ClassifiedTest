@@ -88,7 +88,6 @@ export default class RequestPropertyManagerDetailsController extends BlockCompon
 
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      console.log(responseJson.data);
       if (responseJson && responseJson.data) {
         const manager = responseJson.data;
         this.setState({

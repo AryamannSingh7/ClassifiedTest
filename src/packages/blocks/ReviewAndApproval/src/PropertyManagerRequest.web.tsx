@@ -38,41 +38,50 @@ class PropertyManagerRequest extends PropertyManagerRequestController {
                     <div className="content-box">
                       <div className="contracts-list">
                         <Grid container spacing={2}>
-                          <Grid item xs={12}>
-                            <Card className="contract">
-                              <Link href={`/PropertyManagers/Request/1`}>
-                                <Grid container spacing={2}>
-                                  <Grid item xs={12}>
-                                    <div className="header">
-                                      <h4>Ali Khan</h4>
-                                    </div>
+                          {this.state.requestList.length === 0 && (
+                            <Grid item xs={12}>
+                              <Card className="contract">{t("No request found")}</Card>
+                            </Grid>
+                          )}
+                          {this.state.requestList.map((manager: any) => {
+                            return (
+                              <Grid item xs={12} key={manager.id}>
+                                <Card className="contract">
+                                  <Link href={`/PropertyManagers/Request/${manager.id}`}>
+                                    <Grid container spacing={2}>
+                                      <Grid item xs={12}>
+                                        <div className="header">
+                                          <h4>Ali Khan</h4>
+                                        </div>
+                                      </Grid>
+                                    </Grid>
+                                    <Grid container spacing={2} className="info">
+                                      <Grid item xs={12}>
+                                        <span>{t("Manages")}</span>
+                                        <p>Lorem Ipsum</p>
+                                      </Grid>
+                                      <Grid item xs={12}>
+                                        <span>{t("Company Name")}</span>
+                                        <p>Lorem Ipsum</p>
+                                      </Grid>
+                                      <Grid item xs={12}>
+                                        <span>{t("Charges")}</span>
+                                        <p>Lorem Ipsum</p>
+                                      </Grid>
+                                    </Grid>
+                                  </Link>
+                                  <Grid container spacing={2} className="request-buttons">
+                                    <Grid item xs={6}>
+                                      <Button className="decline">{t("Decline")}</Button>
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                      <Button>{t("Accept")}</Button>
+                                    </Grid>
                                   </Grid>
-                                </Grid>
-                                <Grid container spacing={2} className="info">
-                                  <Grid item xs={12}>
-                                    <span>{t("Manages")}</span>
-                                    <p>Lorem Ipsum</p>
-                                  </Grid>
-                                  <Grid item xs={12}>
-                                    <span>{t("Company Name")}</span>
-                                    <p>Lorem Ipsum</p>
-                                  </Grid>
-                                  <Grid item xs={12}>
-                                    <span>{t("Charges")}</span>
-                                    <p>Lorem Ipsum</p>
-                                  </Grid>
-                                </Grid>
-                              </Link>
-                              <Grid container spacing={2} className="request-buttons">
-                                <Grid item xs={6}>
-                                  <Button className="decline">{t("Decline")}</Button>
-                                </Grid>
-                                <Grid item xs={6}>
-                                  <Button>{t("Accept")}</Button>
-                                </Grid>
+                                </Card>
                               </Grid>
-                            </Card>
-                          </Grid>
+                            );
+                          })}
                         </Grid>
                       </div>
                     </div>

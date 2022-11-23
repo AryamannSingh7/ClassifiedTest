@@ -10,6 +10,7 @@ import { withTranslation } from "react-i18next";
 import "../../../web/src/i18n.js";
 import { PropertyManagerStyleWeb } from "./PropertyManagerStyle.web";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
+import Loader from "../../../components/src/Loader.web";
 
 class PropertyManagerList extends PropertyManagerListController {
   constructor(props: Props) {
@@ -22,6 +23,8 @@ class PropertyManagerList extends PropertyManagerListController {
 
     return (
       <>
+        <Loader loading={this.state.loading} />
+
         <Box style={{ background: "#F4F7FF", height: "100vh", overflowY: "hidden" }} className={classes.managerList}>
           <Grid container>
             <Grid item xs={12} md={7}>
@@ -59,7 +62,9 @@ class PropertyManagerList extends PropertyManagerListController {
                                 <Box className="new-req-box">
                                   <h4>{t("New Request")}</h4>
                                   <Box className="right-side-req-box">
-                                    <Button>02</Button>
+                                    {this.state.requestPropertyManagerList.length > 0 && (
+                                      <Button>{this.state.requestPropertyManagerList.length}</Button>
+                                    )}
                                     <NavigateNextIcon />
                                   </Box>
                                 </Box>
@@ -110,7 +115,15 @@ class PropertyManagerList extends PropertyManagerListController {
                                             >
                                               {t("Edit")}
                                             </MenuItem>
-                                            <MenuItem>{t("Delete")}</MenuItem>
+                                            <MenuItem
+                                              onClick={() =>
+                                                this.setState({ loading: true }, () =>
+                                                  this.deletePropertyManager(propertyManager.id)
+                                                )
+                                              }
+                                            >
+                                              {t("Delete")}
+                                            </MenuItem>
                                           </Menu>
                                         </div>
                                       </div>
