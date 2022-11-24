@@ -65,7 +65,7 @@ class UnitGeneralDetails extends VisitorsListController {
   render() {
     const {t}: any = this.props
     let profileDetails = this.state?.getUnitGeneralDetails?.attributes;
-    console.log("profileDetails======>",profileDetails)
+    console.log("profileDetails==============>",profileDetails)
     return (
       <>
         <Box className="incident-Listing-wrapper desktop-ui" style={{ background: "#E5ECFF" }}>
@@ -236,7 +236,6 @@ class UnitGeneralDetails extends VisitorsListController {
                 </Box>
             
             </Grid>
-       
                                 </Grid>    
                             </Box>
                         </Grid>

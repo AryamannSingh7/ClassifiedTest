@@ -562,7 +562,7 @@ getFacilityDetails= (id :any) => {
 
 serachHandle=()=>{
 console.log("this.state?.buildingName ,this.state?.status ,this.state?.areaReserve",this.state?.buildingName ,this.state?.status ,this.state?.areaReserve)
-  //this.getFacilityReservationListing(this.state?.buildingName ,this.state?.status ,this.state?.areaReserve)
+  this.getFacilityReservationListing(this.state?.buildingName ,this.state?.status ,this.state?.areaReserve)
 }
 
 onChange =(e :any)=>{
@@ -593,7 +593,7 @@ onChange =(e :any)=>{
      
      //const  url = `bx_block_custom_form/incidents`
      //const  getSortByOrStatus = `bx_block_posts/classifieds/classified_list?search_building=${this.state?.serachBuildingName}&filter_by=${this.state.classifiedType}&classified_status=${this.state?.status}`
-     const  getSortByOrStatus =`bx_block_society_management/facility_reservations`
+     const  getSortByOrStatus =`bx_block_society_management/facility_reservations?search_building=${buildingName}&search_status=${status}&search_by_facility=${areaReserve}`
      requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
         getSortByOrStatus
