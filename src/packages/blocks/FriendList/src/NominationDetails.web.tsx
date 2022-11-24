@@ -624,7 +624,7 @@ class MyTeamCore extends NominationDetailsController {
                     <img className="comment-image" src={CheckIcon} alt="check" />
                     <Typography variant="h6">{t("Start Voting")}</Typography>
                     <Typography variant="body1" style={{ marginBottom: "0px" }}>
-                        {t("Are you sure you want to the start the voting process? by confirming nomination process will be closed.")}
+                        {t("Are you sure you want to start the voting process? by confirming nomination process will be closed.")}
                     </Typography>
                     <DialogActions className="dialog-button-group">
                         <Button className="cancel-button" style={{ width: "200px" }} onClick={() => this.setState({startVotingModal:false})}>

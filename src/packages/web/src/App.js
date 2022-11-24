@@ -323,6 +323,7 @@ import AddRentPayment from "../../blocks/PricingEngine2/src/RegisterRentPayment.
 // Reports
 import ReportDashboard from '../../blocks/ExpenseTracking/src/ReportDashboard.web';
 import BudgetReport from '../../blocks/ExpenseTracking/src/BudgetReport.web';
+import BudgetReportDetails from "../../blocks/ExpenseTracking/src/BudgetReportDetails.web"
 import ExpenseReport from '../../blocks/ExpenseTracking/src/ExpenseReport.web';
 import AuditReport from '../../blocks/ExpenseTracking/src/AuditReport.web';
 import ManagementFeeReport from '../../blocks/ExpenseTracking/src/ManagementFeeReport.web';
@@ -2030,6 +2031,14 @@ const routeMap = {
     roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
     exact: true
   },
+
+  BudgetReportDetails :{
+    component: BudgetReportDetails,
+    path: '/BudgetReports/:id',
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
+    exact: true
+  },
+
   ExpenseReport: {
     component: ExpenseReport,
     path: '/ExpenseReports',
