@@ -53,10 +53,10 @@ class UnitGeneralDetails extends VisitorsListController {
   async componentDidMount() {
      // @ts-ignore
     // @ts-nocheck
-   // const id = this.props.history.location?.id
-   const id = '183'
+   const id = this.props.history.location?.id
+   const ownerId = this.props.history.location?.ownerId
     if(id){
-      this.getUnitGeneralDetails(id)
+      this.getUnitGeneralDetails(id ,ownerId)
     }else{
       window.history.back()
     }
@@ -81,9 +81,9 @@ class UnitGeneralDetails extends VisitorsListController {
                 <Box style={dashBoard.navigation}>
                   <Box>
                     <Typography variant="body1" >
-                      {t("Unit")} / <Box component="span" style={{ color: "blue" }}> {t("User Profiles") }</Box>
+                      {t("Unit")} / <Box component="span" style={{ color: "blue" }}> {t("Resident Profile") }</Box>
                     </Typography>
-                    <Typography variant="h5" style={dashBoard.subHeading}>{t("User Profiles")}</Typography>
+                    <Typography variant="h5" style={dashBoard.subHeading}>{t("Resident Profile")}</Typography>
                   </Box>
                 </Box>
 
@@ -108,18 +108,18 @@ class UnitGeneralDetails extends VisitorsListController {
                                     <CardMedia
                                         component="img"
                                         height="140"
-                                        image={""}
+                                        image={profileDetails?.profile_pic}
                                         alt="green iguana"
                                         style={dashBoard.profileImage}
                                     />
                                     <CardContent style={{padding:"0px 16px 16px 16px"}}>
                                     <Typography variant="h6"
                                     //@ts-ignore 
-                                    style={dashBoard.unitno}> {profileDetails?.building_management?.name || 'N/A'}</Typography>
-                                    <Typography variant="h6" style={{marginTop:"5px"}}> {profileDetails?.apartment_name || 'N/A'} </Typography>
+                                    style={dashBoard.unitno}> {profileDetails?.full_name?.name || 'N/A'}</Typography>
+                                    <Typography variant="h6" style={{marginTop:"5px"}}> {profileDetails?.apartment_number?.apartment_number || 'N/A'} </Typography>
                                         <Grid container spacing={3} style={{marginTop:"5px"}}>
                                             <Grid item xs={2} sm={2}>
-                                                <img src={call_org} style={{width:"40px"}} onClick={()=> window.location.href = `mailto:${profileDetails?.full_phone_number?.full_phone_number}`}/>
+                                                <img src={call_org} style={{width:"40px"}} onClick={()=> window.location.href = `tel:${profileDetails?.full_phone_number?.full_phone_number}`}/>
                                             </Grid>
                                             <Grid item xs={2} sm={2}>
                                                 {/* <img src={chat} style={{width:"40px"}} onClick={()=>this.openChat(profileDetails?.attribute)}/> */}
@@ -149,10 +149,37 @@ class UnitGeneralDetails extends VisitorsListController {
                                         </Grid>
                                         <Grid item xs={2} sm={3}>
                                             <Typography variant="subtitle1" style={dashBoard.subtitleClr}>{t("Hobbies")}</Typography>
-                                            <Typography variant="subtitle1">Cricket, Golf</Typography>
+                                            {/* <Typography variant="subtitle1">Cricket, Golf</Typography> */}
+                                            {
+                                                profileDetails?.hobbies?.hobbies?.map((val: any, index: any) => (
+                                                  <Grid item xs={6} md={4}>
+                                                    <Box className="customButton" >
+                                                      <Button variant="contained" className="contain warning" key={index}>{val}</Button>
+                                                    </Box>
+                                                  </Grid>
+                                                ))
+      
+                                            }
                                         </Grid>
                                     </Grid>
                                     <Grid container spacing={3} style={{marginTop:"5px"}}>
+                                      {
+                                           profileDetails?.website.length !== 0 ?
+                                           <>
+                                           {
+                                            profileDetails?.website[0].twitter_link === null ? null :
+                                            <Grid item xs={2} sm={1}>
+                                            <a href={profileDetails?.website[0]?.twitter_link} target="_blank" rel="noopener noreferrer">
+                                              <img src={twitter_org} className="icon" alt="Twitter_Icon" style={{width:"40px"}} />
+                                            </a>
+                                            </Grid>
+                                           }
+                                          
+                                           </>
+                                           :
+                                           null
+                                      }
+                                      
                                         <Grid item xs={2} sm={1}>
                                             <img src={facebook} style={{width:"40px"}}/>
                                         </Grid>

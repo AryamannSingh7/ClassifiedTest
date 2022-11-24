@@ -120,13 +120,13 @@ class Unit extends VisitorsListController {
                                                         this.state?.getUnitListing?.map((item:any,key:any)=>{
                                                             return(
                                                                 <TableRow key={key} onClick={() => //@ts-ignore
-                                                                this.props.history.push({pathname: "/UnitGeneralDetails",id:item?.id})} style={{cursor:"pointer"}}>
+                                                                this.props.history.push({pathname: "/UnitGeneralDetails",id:item?.id , ownerId : item.attributes?.owner?.id})} style={{cursor:"pointer"}}>
                                                                     <TableCell>{key + 1}</TableCell>
                                                                     <TableCell className="ellipse">{item?.attributes?.building_management?.name}</TableCell>
                                                                      <TableCell>{item.attributes?.apartment_name}</TableCell>
-                                                                    <TableCell>{item.attributes?.resident?.resident_name} </TableCell>
-                                                                    <TableCell>{item.attributes?.owner?.owner_full_name}</TableCell>
-                                                                    <TableCell>{item.attributes?.phone_number}</TableCell>
+                                                                    <TableCell>{item.attributes?.resident?.full_name} </TableCell>
+                                                                    <TableCell>{item.attributes?.owner?.full_name}</TableCell>
+                                                                    <TableCell>{item.attributes?.resident?.full_phone_number}</TableCell>
                                                                     <TableCell>{item.attributes?.family_members}</TableCell> 
                                                                 </TableRow>
                                                             )

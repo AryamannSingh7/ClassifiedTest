@@ -250,7 +250,7 @@ class ChairmanLogin extends ChairmanAccountLoginController {
             </Grid>
           </Grid>
           <Loader loading={this.state.loading} />
-          <AlertErrorWeb show={this.state.showError} handleClose={()=> this.setState({showError:false,error:null})} message={this.state.error} />
+          {/* <AlertErrorWeb show={this.state.showError} handleClose={()=> this.setState({showError:false,error:null})} message={this.state.error} /> */}
         </Box>
       </>
     );
