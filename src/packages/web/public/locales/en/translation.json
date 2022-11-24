@@ -902,7 +902,7 @@
   "Share Result": "Share Result",
   "Nominated Member Details": "Nominated Member Details",
   "Why I should be elected": "Why I should be elected",
-  "Are you sure you want to the start the voting process? by confirming nomination process will be closed.": "Are you sure you want to the start the voting process? by confirming nomination process will be closed.",
+  "Are you sure you want to start the voting process? by confirming nomination process will be closed.": "Are you sure you want to start the voting process? by confirming nomination process will be closed.",
   "Are you sure you want to submit your vote": "Are you sure you want to submit your vote",
   "Start Nomination Process": "Start Nomination Process",
   "Select User": "Select User",
@@ -930,5 +930,9 @@
   "Already tenant available to this unit": "Already tenant available to this unit",
   "Only character are allowed": "Only character are allowed",
   "Register Rent Payments": "Register Rent Payments",
-  "Payment Due Amount": "Payment Due Amount"
+  "Payment Due Amount": "Payment Due Amount",
+  "Budget Report Details":"Budget Report Details",
+  "No Budget Details are Available":"No Budget Details are Available",
+  "Approve Budget Report":"Approve Budget Report",
+  "Are you sure you want to approve budget report?":"Are you sure you want to approve budget report?"
 }
