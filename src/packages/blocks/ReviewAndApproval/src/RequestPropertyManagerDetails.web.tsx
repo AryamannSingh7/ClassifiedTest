@@ -164,9 +164,11 @@ class RequestPropertyManagerDetails extends RequestPropertyManagerDetailsControl
                               <Box className="box-item-content">
                                 <span>{t("ID Expiration Date")}</span>
                                 <p>
-                                  {moment(this.state.propertyManagerDetails.IdDate, "YYYY-MM-DD").format(
-                                    "MMMM DD, YYYY"
-                                  )}
+                                  {this.state.propertyManagerDetails.IdDate
+                                    ? moment(this.state.propertyManagerDetails.IdDate, "YYYY-MM-DD").format(
+                                        "MMMM DD, YYYY"
+                                      )
+                                    : "-"}
                                 </p>
                               </Box>
                             </Box>

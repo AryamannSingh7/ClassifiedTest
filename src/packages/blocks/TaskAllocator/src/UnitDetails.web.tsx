@@ -105,7 +105,9 @@ class UnitDetails extends UnitDetailsController {
                   <Container className="page-container">
                     <Box className="pending-page">
                       <img src={UnderProcessIcon} alt="" />
-                      <h4>{t("Registration Request Under process")}</h4>
+                      <h4>
+                        Registration Request <br /> Under process
+                      </h4>
                       <p>
                         Your registration request for {this.state.unitDetails.unit} of {this.state.unitDetails.building}{" "}
                         is sent and under process. You will receive notification once it is processed.
@@ -233,7 +235,7 @@ class UnitDetails extends UnitDetailsController {
                                 <img src={BlueUnitIcon} alt="" />
                                 <Box className="item-data">
                                   <span>{t("Unit Number")}</span>
-                                  <p>{this.state.unitDetails.unit || "-"}</p>
+                                  <p>#{this.state.unitDetails.unit || "-"}</p>
                                 </Box>
                               </Box>
                             </Grid>
@@ -413,8 +415,8 @@ class UnitDetails extends UnitDetailsController {
 
                       <Box className="images-box">
                         <h4>{t("Unit Pictures")}</h4>
+                        {this.state.unitDetails.photos.length === 0 && <div>{t("No photos available")}</div>}
                         <Slider ref={(c: any) => (this.slider = c)} {...settings}>
-                          {this.state.unitDetails.photos.length === 0 && <div>{t("No photos available")}</div>}
                           {this.state.unitDetails.photos.map((image: any) => {
                             return (
                               <div>
@@ -453,6 +455,7 @@ class UnitDetails extends UnitDetailsController {
                 )}
               </Typography>
               <DialogActions className="dialog-button-group">
+                <Button onClick={() => this.handleDeleteUnitModal()}>{t("No, Don’t Delete")}</Button>
                 <Button
                   onClick={() => {
                     this.setState({ loading: true }, () => {
@@ -463,7 +466,6 @@ class UnitDetails extends UnitDetailsController {
                 >
                   {t("Yes, Delete")}
                 </Button>
-                <Button onClick={() => this.handleDeleteUnitModal()}>{t("No, Don’t Delete")}</Button>
               </DialogActions>
             </Box>
           </DialogContent>

@@ -443,7 +443,7 @@ export default class RegisterUnitController extends BlockComponent<Props, S, SS>
     return true;
   };
 
-  getUnitList = (building: any) => {
+  getUnitList = (buildingId: any, floor: any) => {
     const header = {
       "Content-Type": configJSON.ApiContentType,
       token: localStorage.getItem("userToken"),
@@ -455,7 +455,7 @@ export default class RegisterUnitController extends BlockComponent<Props, S, SS>
 
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_request_management/unit_list?building_management_id=${building}&status=No-Own`
+      `bx_block_request_management/unit_list?building_management_id=${buildingId}&floor_number=${floor}&status=No-Own`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));

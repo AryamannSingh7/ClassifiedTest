@@ -17,6 +17,8 @@ export interface Props {
 
 interface S {
   // Customizable Area Start
+  loading: boolean;
+
   requestList: any[];
   // Customizable Area End
 }
@@ -37,6 +39,8 @@ export default class PropertyManagerRequestController extends BlockComponent<Pro
     this.subScribedMessages = [getName(MessageEnum.RestAPIResponceMessage), getName(MessageEnum.RestAPIRequestMessage)];
 
     this.state = {
+      loading: false,
+
       requestList: [],
     };
     // Customizable Area End
@@ -57,6 +61,29 @@ export default class PropertyManagerRequestController extends BlockComponent<Pro
       if (responseJson && responseJson.data) {
         this.setState({ requestList: responseJson.data });
       }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // Status - API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.EditManagerRequestCallId !== null &&
+      this.EditManagerRequestCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.EditManagerRequestCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      this.setState({ loading: false }, () => {
+        console.log(responseJson);
+      });
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {

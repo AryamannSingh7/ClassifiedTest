@@ -77,11 +77,11 @@ class PropertyManagerList extends PropertyManagerListController {
                             </Grid>
                           )}
                           {this.state.propertyManagerList.map((propertyManager: any, index: number) => {
-                            const building: any[] = propertyManager.attributes.properties.data.map((property: any) => {
-                              return `Building ${property.attributes.building_management.name} unit ${
-                                property.attributes.apartment_management.apartment_name
-                              }`;
-                            });
+                            // const building: any[] = propertyManager.attributes.properties.data.map((property: any) => {
+                            //   return `Building ${property.attributes.building_management.name} unit ${
+                            //     property.attributes.apartment_management.apartment_name
+                            //   }`;
+                            // });
                             return (
                               <Grid item xs={12} key={index}>
                                 <Card className="contract">
@@ -132,7 +132,7 @@ class PropertyManagerList extends PropertyManagerListController {
                                   <Grid container spacing={2} className="info">
                                     <Grid item xs={12}>
                                       <span>{t("Manages")}</span>
-                                      <p>{building.toString()}</p>
+                                      {/* <p>{building.toString()}</p> */}
                                     </Grid>
                                     <Grid item xs={12}>
                                       <span>{t("Company Name")}</span>
