@@ -41,6 +41,8 @@ export default class CoverImageController extends BlockComponent<
   emailReg: RegExp;
   labelTitle: string = "";
   getVisitorListId:string = "";
+  getRentBuildingListId:string = "";
+
   constructor(props: Props) {
 
     super(props);
@@ -67,7 +69,7 @@ export default class CoverImageController extends BlockComponent<
   }
 
   async componentDidMount() {
-
+      this.getRentBuildingList()
   }
 
 
@@ -82,37 +84,49 @@ export default class CoverImageController extends BlockComponent<
     }
   }
 
-  
-  handleClick = (event:any) => {
-    this.setState({anchorEl:event.currentTarget })
+  getRentBuildingList = async () => {
+    const societyID = localStorage.getItem("society_id")
+    this.getRentBuildingListId = await this.apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `bx_block_rent_payment/apartments`,
+    });
+  }
+
+  apiCall = async (data: any) => {
+    const { contentType, method, endPoint, body } = data;
+    // console.log("Called 1",data);
+
+    const token = localStorage.getItem('userToken') ;
+
+    const header = {
+      "Content-Type": contentType,
+      token
+    };
+    const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+    );
+    requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+    );
+    requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        endPoint
+    );
+    requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        method
+    );
+    body && requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestBodyMessage),
+        body
+    );
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    // console.log("Called",requestMessage);
+    return requestMessage.messageId;
   };
 
-  handleClose = (e?:any, v?:any) => {
-    let sortBy : any ;
-    console.log("v=========>",v)
-    if(v === undefined || v === null){
-      sortBy =this.state.sortBy
-    }
-    else {
-      sortBy =v;
-    }
-    this.setState({anchorEl:null,sortBy : sortBy})
-  };
-
-  handleClick_1 = (event:any) => {
-    this.setState({anchorEl_1:event.currentTarget})
-  };
-
-  handleClose_1 = (e?:any, v?:any) => {
-    let status : any ;
-    if(v === undefined || v === null){
-      status =this.state.status;
-    }
-    else {
-      status =v;
-    }
-    this.setState({anchorEl_1:null ,status :status})
-  };
 }
 
 // Customizable Area End

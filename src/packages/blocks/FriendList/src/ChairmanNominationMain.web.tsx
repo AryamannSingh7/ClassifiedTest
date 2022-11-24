@@ -185,7 +185,9 @@ class MyTeamCore extends ChairmanNominationMainController {
                                  style={dashBoard.modalCacle}/>
                         </IconButton>
                     </Box>
-                    <Divider/>
+                    <Box style={{display:'flex',alignItems:"center",marginLeft:"-50px"}}>
+                        <Divider style={{width:"120%"}}/>
+                    </Box>
                     <Grid container spacing={2} style={{marginTop:"10px"}}>
                         <Grid item xs={12}>
                             <TextField label={t("Title")} variant="outlined"
@@ -366,7 +368,8 @@ const dashBoard = {
         borderRadius: '10px',
         // boxShadow: theme.shadows[5],
         padding: "16px 32px 24px",
-        width:"700px"
+        width:"700px",
+        overflow:"hidden"
     },
     formLabels:{
         paddingLeft:35

@@ -23,6 +23,7 @@ export interface Props {
 
 interface S {
   // Customizable Area Start
+  ApproveModal:boolean
   // Customizable Area End
 }
 
@@ -38,7 +39,9 @@ export default class BudgetReportController extends BlockComponent<Props, S, SS>
     // Customizable Area Start
     this.subScribedMessages = [getName(MessageEnum.RestAPIResponceMessage), getName(MessageEnum.RestAPIRequestMessage)];
 
-    this.state = {};
+    this.state = {
+      ApproveModal:false
+    };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }

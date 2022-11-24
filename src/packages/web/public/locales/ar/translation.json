@@ -923,5 +923,9 @@
   "Already tenant available to this unit": "المستأجر متاح بالفعل لهذه الوحدة",
   "Only character are allowed": "مسموح فقط الحرف",
   "Register Rent Payments": "تسجيل مدفوعات الإيجار",
-  "Payment Due Amount": "المبلغ المستحق الدفع"
+  "Payment Due Amount": "المبلغ المستحق الدفع",
+  "Budget Report Details":"تفاصيل التقرير",
+  "No Budget Details are Available":"لا تتوفر تفاصيل الميزانية",
+  "Approve Budget Report":"الموافقة على تقرير الميزانية",
+  "Are you sure you want to approve budget report?":"هل أنت متأكد أنك تريد الموافقة على تقرير الميزانية؟"
 }
