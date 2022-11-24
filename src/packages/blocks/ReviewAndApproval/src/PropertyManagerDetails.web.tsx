@@ -48,6 +48,8 @@ import "../../../web/src/i18n.js";
 import { PropertyManagerStyleWeb } from "./PropertyManagerStyle.web";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import { Form, Formik } from "formik";
+import moment from "moment";
+import Loader from "../../../components/src/Loader.web";
 
 class PropertyManagerDetails extends PropertyManagerDetailsController {
   constructor(props: Props) {
@@ -60,6 +62,8 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
 
     return (
       <>
+        <Loader loading={this.state.loading} />
+
         <Box style={{ background: "#F4F7FF", height: "100vh" }} className={classes.managerDetails}>
           <Grid container>
             <Grid item xs={12} md={7}>
@@ -71,25 +75,37 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    <span>Ali Khan</span>
+                    <span>{this.state.propertyManagerDetails.managerName || "-"}</span>
                   </div>
                   <div className="right-icon">
-                    <img src={EditIcon} alt="edit" />
-                    <img src={DeleteIcon} alt="delete" />
+                    <img
+                      src={EditIcon}
+                      onClick={() =>
+                        this.props.navigation.navigate("EditPropertyManager", { id: this.state.propertyManagerId })
+                      }
+                      alt="edit"
+                    />
+                    <img
+                      onClick={() =>
+                        this.setState({ loading: true }, () => this.deletePropertyManager(this.state.propertyManagerId))
+                      }
+                      src={DeleteIcon}
+                      alt="delete"
+                    />
                   </div>
                 </Box>
                 <Container>
                   <Box className="list-box">
                     <Box className="details-box-item">
-                      <h4>Property Manager Details</h4>
+                      <h4>{t("Property Manager Details")}</h4>
                       <Card>
                         <Grid container spacing={2}>
                           <Grid item xs={12}>
                             <Box className="box-item">
                               <img src={BlueManagerIcon} alt="" />
                               <Box className="box-item-content">
-                                <span>Manager Name</span>
-                                <p>Manager Name</p>
+                                <span>{t("Manager Name")}</span>
+                                <p>{this.state.propertyManagerDetails.managerName || "-"}</p>
                               </Box>
                             </Box>
                           </Grid>
@@ -97,8 +113,8 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                             <Box className="box-item">
                               <img src={BlueCompanyIcon} alt="" />
                               <Box className="box-item-content">
-                                <span>Company Name</span>
-                                <p>Company Name</p>
+                                <span>{t("Company Name")}</span>
+                                <p>{this.state.propertyManagerDetails.companyName || "-"}</p>
                               </Box>
                             </Box>
                           </Grid>
@@ -106,8 +122,8 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                             <Box className="box-item">
                               <img src={BluePhoneIcon} alt="" />
                               <Box className="box-item-content">
-                                <span>Phone Number</span>
-                                <p>1234567890</p>
+                                <span>{t("Phone Number")}</span>
+                                <p>{this.state.propertyManagerDetails.phoneNumber || "-"}</p>
                               </Box>
                             </Box>
                           </Grid>
@@ -115,8 +131,8 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                             <Box className="box-item">
                               <img src={BlueEmailIcon} alt="" />
                               <Box className="box-item-content">
-                                <span>Email Address</span>
-                                <p>john.deo@yopmail.com</p>
+                                <span>{t("Email Address")}</span>
+                                <p>{this.state.propertyManagerDetails.email || "-"}</p>
                               </Box>
                             </Box>
                           </Grid>
@@ -125,73 +141,97 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                     </Box>
 
                     <Box className="details-box-item">
-                      <h4>Property Details</h4>
+                      <h4>{t("Property Details")}</h4>
                       <Grid container spacing={2}>
-                        <Grid item xs={12}>
-                          <Card>
-                            <Box className="heading-box-item">
-                              <h4>Building 5 Unit 508</h4>
-                              <Box className="right-box-item">
-                                <img src={EditIcon} alt="edit" onClick={() => this.handleEditPropertyModal()} />
-                                <img src={DeleteIcon} alt="delete" />
-                                {/* <span>See building on map</span> */}
-                              </Box>
-                            </Box>
-                            <Grid container spacing={2}>
-                              <Grid item xs={12}>
-                                <Box className="box-item-content">
-                                  <span>Contract</span>
-                                  <p> 01 April, 2020 - 31 March, 2025</p>
+                        {this.state.propertyManagerDetails.propertyList.length === 0 && (
+                          <Grid item xs={12}>
+                            <Card>{t("No Property Available")}</Card>
+                          </Grid>
+                        )}
+                        {this.state.propertyManagerDetails.propertyList.map((property: any, index: number) => {
+                          return (
+                            <Grid item xs={12} key={index}>
+                              <Card>
+                                <Box className="heading-box-item">
+                                  <h4>
+                                    Building {property.attributes.building_management.name} Unit{" "}
+                                    {property.attributes.apartment_management.apartment_name}
+                                  </h4>
+                                  <Box className="right-box-item">
+                                    <img
+                                      src={EditIcon}
+                                      alt="edit"
+                                      onClick={() => {
+                                        this.setState(
+                                          {
+                                            propertyId: property.id,
+                                            propertyForm: {
+                                              ...this.state.propertyForm,
+                                              buildingId: property.attributes.building_management_id,
+                                              unitId: property.attributes.apartment_management_id,
+                                              buildingName: property.attributes.building_management.name,
+                                              unitName: property.attributes.apartment_management.apartment_name,
+                                              startDate: property.attributes.start_date,
+                                              endDate: property.attributes.end_date,
+                                              feeType: property.attributes.fees_type,
+                                              rent: property.attributes.fixed_persentage_of_rent,
+                                            },
+                                          },
+                                          () => {
+                                            this.handleEditPropertyModal();
+                                          }
+                                        );
+                                      }}
+                                    />
+                                    <img
+                                      onClick={() => {
+                                        if (this.state.propertyManagerDetails.propertyList.length === 1) {
+                                          this.setState({ loading: true }, () =>
+                                            this.deletePropertyManager(this.state.propertyManagerId)
+                                          );
+                                        } else {
+                                          this.setState({ loading: true }, () => this.deleteProperty(property.id));
+                                        }
+                                      }}
+                                      src={DeleteIcon}
+                                      alt="delete"
+                                    />
+                                  </Box>
                                 </Box>
-                              </Grid>
-                              <Grid item xs={12}>
-                                <Box className="box-item-content">
-                                  <span>Charges</span>
-                                  <p>SR 1400/Month</p>
-                                </Box>
-                              </Grid>
+                                <Grid container spacing={2}>
+                                  <Grid item xs={12}>
+                                    <Box className="box-item-content">
+                                      <span>{t("Contract")}</span>
+                                      <p>
+                                        {moment(property.attributes.start_date, "YYYY-MM-DD").format("MMMM DD, YYYY")} -{" "}
+                                        {moment(property.attributes.end_date, "YYYY-MM-DD").format("MMMM DD, YYYY")}
+                                      </p>
+                                    </Box>
+                                  </Grid>
+                                  <Grid item xs={12}>
+                                    <Box className="box-item-content">
+                                      <span>{t("Charges")}</span>
+                                      <p>{property.attributes.fixed_persentage_of_rent}/Month</p>
+                                    </Box>
+                                  </Grid>
+                                </Grid>
+                              </Card>
                             </Grid>
-                          </Card>
-                        </Grid>
-                        <Grid item xs={12}>
-                          <Card>
-                            <Box className="heading-box-item">
-                              <h4>Building 5 Unit 508</h4>
-                              <Box className="right-box-item">
-                                {/* <img src={EditIcon} alt="edit" />
-                                    <img src={DeleteIcon} alt="delete" /> */}
-                                <span>See building on map</span>
-                              </Box>
-                            </Box>
-                            <Grid container spacing={2}>
-                              <Grid item xs={12}>
-                                <Box className="box-item-content">
-                                  <span>Contract</span>
-                                  <p> 01 April, 2020 - 31 March, 2025</p>
-                                </Box>
-                              </Grid>
-                              <Grid item xs={12}>
-                                <Box className="box-item-content">
-                                  <span>Charges</span>
-                                  <p>SR 1400/Month</p>
-                                </Box>
-                              </Grid>
-                            </Grid>
-                          </Card>
-                        </Grid>
+                          );
+                        })}
                       </Grid>
                     </Box>
 
                     <Box className="details-box-item">
-                      <h4>Identity Proof</h4>
+                      <h4>{t("Identity Proof")}</h4>
                       <Card>
                         <Grid container spacing={2}>
                           <Grid item xs={6}>
                             <Box className="box-item">
                               <img src={BlueTypeIcon} alt="" />
                               <Box className="box-item-content">
-                                <span>ID Type</span>
-                                <p>Aadhar Card</p>
+                                <span>{t("ID Type")}</span>
+                                <p>{this.state.propertyManagerDetails.IdType || "-"}</p>
                               </Box>
                             </Box>
                           </Grid>
@@ -199,8 +239,8 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                             <Box className="box-item">
                               <img src={BlueNumberIcon} alt="" />
                               <Box className="box-item-content">
-                                <span>ID Number</span>
-                                <p>8567-5231-1456</p>
+                                <span>{t("ID Number")}</span>
+                                <p>{this.state.propertyManagerDetails.IdNumber || "-"}</p>
                               </Box>
                             </Box>
                           </Grid>
@@ -208,8 +248,12 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                             <Box className="box-item">
                               <img src={BlueDateIcon} alt="" />
                               <Box className="box-item-content">
-                                <span>ID Expiration Date</span>
-                                <p>14-March-2024</p>
+                                <span>{t("ID Expiration Date")}</span>
+                                <p>
+                                  {moment(this.state.propertyManagerDetails.IdDate, "YYYY-MM-DD").format(
+                                    "MMMM DD, YYYY"
+                                  )}
+                                </p>
                               </Box>
                             </Box>
                           </Grid>
@@ -221,16 +265,22 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                       <Card>
                         <Box className="heading">
                           <img src={PdfIcon} alt="" />
-                          <h4>Ali Khan Aadhaar Card </h4>
+                          <h4>
+                            {this.state.propertyManagerDetails.managerName +
+                              " " +
+                              this.state.propertyManagerDetails.IdType}{" "}
+                          </h4>
                         </Box>
-                        <img src={DownloadIcon} alt="" />
+                        <Link target="_blank" href={this.state.propertyManagerDetails.IdPdfDocument}>
+                          <img src={DownloadIcon} alt="" />
+                        </Link>
                       </Card>
                     </Box>
 
-                    <Box className="button-box">
+                    {/* <Box className="button-box">
                       <Button className="decline">Decline</Button>
                       <Button className="accept">Accept</Button>
-                    </Box>
+                    </Box> */}
                   </Box>
                 </Container>
               </Box>
@@ -251,117 +301,83 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
         >
           <Formik
             enableReinitialize
-            initialValues={{}}
-            validationSchema={{}}
+            initialValues={this.state.propertyForm}
+            validationSchema={this.registerPropertyFormSchema}
             onSubmit={(values, { resetForm }) => {
-              console.log(values);
-              // resetForm();
+              this.setState({ loading: true }, () => {
+                this.handleEditPropertyModal();
+                this.editProperty(values);
+              });
             }}
           >
-            {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
+            {({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue }) => {
               return (
                 <Form onSubmit={handleSubmit} translate="true">
                   <Box>
-                    <h4>{t("Edit Another Property")}</h4>
+                    <h4>{t("Edit Property")}</h4>
                     <FormControl fullWidth>
-                      <Box className="select-box">
-                        <Select
-                          displayEmpty
-                          value=""
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          name="country"
-                          className="select-input"
-                          input={<OutlinedInput />}
-                        >
-                          <MenuItem value="" disabled>
-                            {t("Country")}
-                          </MenuItem>
-                          <MenuItem value={10}>Ten</MenuItem>
-                          <MenuItem value={20}>Twenty</MenuItem>
-                          <MenuItem value={30}>Thirty</MenuItem>
-                        </Select>
-                        <img src={CountryIcon} alt="" />
-                      </Box>
-                      {/* {errors.buildingId && touched.buildingId && (
-                                  <p className="error">{t(errors.buildingId)}</p>
-                                )} */}
-                    </FormControl>
-                    <FormControl fullWidth>
-                      <Box className="select-box">
-                        <Select
-                          displayEmpty
-                          value=""
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          name="country"
-                          className="select-input"
-                          input={<OutlinedInput />}
-                        >
-                          <MenuItem value="" disabled>
-                            {t("City")}
-                          </MenuItem>
-                          <MenuItem value={10}>Ten</MenuItem>
-                          <MenuItem value={20}>Twenty</MenuItem>
-                          <MenuItem value={30}>Thirty</MenuItem>
-                        </Select>
-                        <img src={CityIcon} alt="" />
-                      </Box>
-                      {/* {errors.buildingId && touched.buildingId && (
-                                  <p className="error">{t(errors.buildingId)}</p>
-                                )} */}
-                    </FormControl>
-                    <FormControl fullWidth>
-                      <Box className="select-box">
-                        <Select
-                          displayEmpty
-                          value=""
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          name="country"
-                          className="select-input"
-                          input={<OutlinedInput />}
-                        >
-                          <MenuItem value="" disabled>
-                            {t("Building Name")}
-                          </MenuItem>
-                          <MenuItem value={10}>Ten</MenuItem>
-                          <MenuItem value={20}>Twenty</MenuItem>
-                          <MenuItem value={30}>Thirty</MenuItem>
-                        </Select>
-                        <img src={BuildingIcon} alt="" />
-                      </Box>
-                      {/* {errors.buildingId && touched.buildingId && (
-                                  <p className="error">{t(errors.buildingId)}</p>
-                                )} */}
-                    </FormControl>
-                    <FormControl fullWidth>
-                      <Box className="select-box">
-                        <Select
-                          displayEmpty
-                          value=""
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          name="country"
-                          className="select-input"
-                          input={<OutlinedInput />}
-                        >
-                          <MenuItem value="" disabled>
-                            {t("Unit Number")}
-                          </MenuItem>
-                          <MenuItem value={10}>Ten</MenuItem>
-                          <MenuItem value={20}>Twenty</MenuItem>
-                          <MenuItem value={30}>Thirty</MenuItem>
-                        </Select>
-                        <img src={UnitIcon} alt="" />
-                      </Box>
-                      {/* {errors.buildingId && touched.buildingId && (
-                                  <p className="error">{t(errors.buildingId)}</p>
-                                )} */}
+                      <Input
+                        value={values.country}
+                        name="country"
+                        className="select-input input"
+                        placeholder={t("Country")}
+                        type="text"
+                        startAdornment={
+                          <InputAdornment position="start">
+                            <img src={CountryIcon} alt="" />
+                          </InputAdornment>
+                        }
+                        readOnly
+                      />
                     </FormControl>
                     <FormControl fullWidth>
                       <Input
-                        value=""
+                        value={values.city}
+                        name="city"
+                        className="select-input input"
+                        placeholder={t("City")}
+                        type="text"
+                        startAdornment={
+                          <InputAdornment position="start">
+                            <img src={CityIcon} alt="" />
+                          </InputAdornment>
+                        }
+                        readOnly
+                      />
+                    </FormControl>
+                    <FormControl fullWidth>
+                      <Input
+                        value={values.buildingName}
+                        name="buildingName"
+                        className="select-input input"
+                        placeholder={t("Building Name")}
+                        type="text"
+                        startAdornment={
+                          <InputAdornment position="start">
+                            <img src={BuildingIcon} alt="" />
+                          </InputAdornment>
+                        }
+                        readOnly
+                      />
+                    </FormControl>
+                    <FormControl fullWidth>
+                      <Input
+                        value={values.unitName}
+                        name="unitName"
+                        className="select-input input"
+                        placeholder={t("Unit Number")}
+                        type="text"
+                        startAdornment={
+                          <InputAdornment position="start">
+                            <img src={UnitIcon} alt="" />
+                          </InputAdornment>
+                        }
+                        readOnly
+                      />
+                    </FormControl>
+                    <FormControl fullWidth>
+                      <Input
+                        value={values.startDate}
                         onChange={handleChange}
                         onBlur={handleBlur}
                         name="startDate"
@@ -375,58 +391,58 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                           </InputAdornment>
                         }
                       />
-                      {/* {errors.startDate && touched.startDate && <p className="error">{t(errors.startDate)}</p>} */}
+                      {errors.startDate && touched.startDate && <p className="error">{t(errors.startDate)}</p>}
                     </FormControl>
                     <FormControl fullWidth>
-                      <Input
-                        value=""
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        name="startDate"
-                        className="select-input input"
-                        placeholder={t("Contract End Date")}
-                        type="text"
-                        onFocus={(e: any) => (e.target.type = "date")}
-                        startAdornment={
-                          <InputAdornment position="start">
-                            <img src={IDDateIcon} alt="" />
-                          </InputAdornment>
-                        }
-                      />
-                      {/* {errors.startDate && touched.startDate && <p className="error">{t(errors.startDate)}</p>} */}
+                      <Box className="custom-input-box">
+                        <input
+                          value={values.endDate}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          name="endDate"
+                          className="select-input input"
+                          placeholder={t("Contract End Date")}
+                          type="text"
+                          onFocus={(e: any) => (e.target.type = "date")}
+                          min={values.startDate}
+                        />
+                        <img src={IDDateIcon} alt="" />
+                      </Box>
+                      {errors.endDate && touched.endDate && <p className="error">{t(errors.endDate)}</p>}
                     </FormControl>
                     <FormControl fullWidth>
                       <Box className="select-box">
                         <Select
                           displayEmpty
-                          value=""
+                          value={values.feeType}
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          name="country"
+                          name="feeType"
                           className="select-input"
                           input={<OutlinedInput />}
                         >
                           <MenuItem value="" disabled>
                             {t("Select Fee Type")}
                           </MenuItem>
-                          <MenuItem value={10}>Ten</MenuItem>
-                          <MenuItem value={20}>Twenty</MenuItem>
-                          <MenuItem value={30}>Thirty</MenuItem>
+                          <MenuItem value="Fixed Percentage">{t("Fixed Percentage of Rent")}</MenuItem>
+                          <MenuItem value="Fixed Amount">{t("Fixed Amount")}</MenuItem>
                         </Select>
                         <img src={FeeTypeIcon} alt="" />
                       </Box>
-                      {/* {errors.buildingId && touched.buildingId && (
-                                  <p className="error">{t(errors.buildingId)}</p>
-                                )} */}
+                      {errors.feeType && touched.feeType && <p className="error">{t(errors.feeType)}</p>}
                     </FormControl>
                     <FormControl fullWidth>
                       <Input
-                        value=""
+                        value={values.rent}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        name="rentAmount"
+                        name="rent"
                         className="select-input input"
-                        placeholder={t("Enter Fixed Percentage of Rent")}
+                        placeholder={
+                          values.feeType === "Fixed Amount"
+                            ? `${t("Enter Fixed Amount")}`
+                            : `${t("Enter Fixed Percentage of Rent")}`
+                        }
                         type="text"
                         startAdornment={
                           <InputAdornment position="start">
@@ -434,7 +450,7 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                           </InputAdornment>
                         }
                       />
-                      {/* {errors.rentAmount && touched.rentAmount && <p className="error">{t(errors.rentAmount)}</p>} */}
+                      {errors.rent && touched.rent && <p className="error">{t(errors.rent)}</p>}
                     </FormControl>
                   </Box>
                   <Box className="button-group">

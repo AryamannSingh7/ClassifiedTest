@@ -114,7 +114,6 @@ export const PropertyManagerStyleWeb: any = {
         },
       },
       "& .info": {
-        marginTop: "15px",
         "& span": {
           color: "gray",
         },
@@ -563,6 +562,11 @@ export const PropertyManagerStyleWeb: any = {
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
+      position: "sticky",
+      bottom: 0,
+      background: "white",
+      width: "100%",
+      padding: "10px 0",
       "& button": {
         borderRadius: "25px",
         fontWeight: 600,

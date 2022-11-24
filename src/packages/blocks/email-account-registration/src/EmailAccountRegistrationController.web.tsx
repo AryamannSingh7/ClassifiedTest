@@ -1,6 +1,3 @@
-//@ts-ignore
-//@ts-nocheck
-
 import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
@@ -8,11 +5,11 @@ import { runEngine } from "../../../framework/src/RunEngine";
 import MessageEnum, {
   getName
 } from "../../../framework/src/Messages/MessageEnum";
-
 // Customizable Area Start
 import * as Yup from 'yup';
 import { imgPasswordInVisible, imgPasswordVisible } from "./assets";
 import { ApiCatchErrorResponse } from "../../../components/src/APIErrorResponse";
+import { ROLE } from "../../../framework/src/Enum";
 // Customizable Area End
 
 export const configJSON = require("./config");
@@ -43,9 +40,9 @@ export interface S {
   allCity: [];
   selectCity: string;
   allBuilding: [];
-  selectBuilding: string;
+  selectBuilding: any;
   allUnit: [];
-  selectUnit: string;
+  selectUnit: any;
   selectEmail: string;
   unitRegisterType: string;
   allComplex: [];
@@ -55,10 +52,7 @@ export interface S {
   selectCode: string;
   selectCode2: string;
 
-
-
-
-
+  showDialog: boolean;
   // Customizable Area End
 }
 
@@ -89,16 +83,9 @@ export default class EmailAccountRegistrationController extends BlockComponent<
   verifyOtpApiCallId: any;
   getBuildingApiCallId: any;
   getUnitApiCallId: any;
-
-
-
-
-
   validationApiCallId: string = "";
-
   imgPasswordVisible: any;
   imgPasswordInVisible: any;
-
   labelHeader: any;
   labelFirstName: string;
   lastName: string;
@@ -109,7 +96,6 @@ export default class EmailAccountRegistrationController extends BlockComponent<
   labelLegalTermCondition: string;
   labelLegalPrivacyPolicy: string;
   btnTextSignUp: string;
-
   currentCountryCode: any;
   // Customizable Area End
 
@@ -159,6 +145,8 @@ export default class EmailAccountRegistrationController extends BlockComponent<
       //@ts-nocheck
       loading: false,
       otp: '',
+
+      showDialog: false
       // Customizable Area End
     };
 
@@ -223,7 +211,6 @@ export default class EmailAccountRegistrationController extends BlockComponent<
           }
         } else if (apiRequestCallId === this.createAccountApiCallId) {
           if (!responseJson.errors) {
-            console.log(responseJson)
             localStorage.setItem('res_token', responseJson.meta.token)
             localStorage.setItem('res_user', JSON.stringify(responseJson.data.attributes))
             localStorage.setItem('res_user_id', responseJson.data.id)
@@ -232,14 +219,10 @@ export default class EmailAccountRegistrationController extends BlockComponent<
             //@ts-nocheck
             this.updateType()
             this.setState({ loading: false, error: null })
-
             //@ts-ignore
             //@ts-nocheck
             this.props.history.push('/otp')
-
-
           } else if (responseJson?.errors) {
-            console.log(responseJson.errors)
             let error = responseJson.errors[0];
             this.setState({ error });
           } else {
@@ -251,27 +234,12 @@ export default class EmailAccountRegistrationController extends BlockComponent<
 
         } else if (apiRequestCallId === this.verifyOtpApiCallId) {
           if (!responseJson.errors) {
-            console.log(responseJson)
             //@ts-ignore
             //@ts-nocheck
             this.setState({ loading: false })
             //@ts-ignore
             //@ts-nocheck
             this.props.history.push('/registerunit')
-            // if (this.props.history.location.state?.data) {
-            //   //@ts-ignore
-            //   //@ts-nocheck
-            //   this.props.history.push('/registerunit')
-            // } else {
-            //   //@ts-ignore
-            //   //@ts-nocheck
-            //   this.props.history.push('/selecttype')
-            // }
-            // //@ts-ignore
-            // //@ts-nocheck
-            // this.props.history.push('/selecttype')
-
-
           } else if (responseJson?.errors) {
             let error = responseJson.errors[0];
             this.setState({ error });
@@ -283,17 +251,13 @@ export default class EmailAccountRegistrationController extends BlockComponent<
 
         } else if (apiRequestCallId === this.createManagerAccountApiCallId) {
           if (!responseJson.errors) {
-            console.log(responseJson)
             localStorage.setItem('res_token', responseJson.meta.token)
             localStorage.setItem('res_user', responseJson.data.attributes)
             localStorage.setItem('res_user_id', responseJson.data.id)
             localStorage.setItem('user_email', responseJson.data.attributes.email)
             //@ts-ignore
             //@ts-nocheck
-
             this.props.history.push('/otp')
-
-
           } else if (responseJson?.errors) {
             let error = responseJson.errors[0];
             this.setState({ error });
@@ -308,14 +272,12 @@ export default class EmailAccountRegistrationController extends BlockComponent<
 
         } else if (apiRequestCallId === this.createAccountOwnerApiCallId) {
           if (!responseJson.errors) {
-            console.log(responseJson.data.attributes.email)
             localStorage.setItem('res_token', responseJson.meta.token)
             localStorage.setItem('res_user', JSON.stringify(responseJson.data.attributes))
             localStorage.setItem('res_user_id', responseJson.data.id)
             localStorage.setItem('user_email', responseJson.data.attributes.email)
             //@ts-ignore
             //@ts-nocheck
-
             this.props.history.push({
               pathname: '/otp',
               state: {
@@ -324,87 +286,57 @@ export default class EmailAccountRegistrationController extends BlockComponent<
                 data: this.props.history.location.state?.data,
               },
             })
-
-
           } else {
             //Check Error Response
             this.parseApiErrorResponse(responseJson);
           }
-
           ApiCatchErrorResponse(errorReponse);
         } else if (apiRequestCallId === this.createRequestApiCallId) {
           if (!responseJson.errors) {
-            console.log(responseJson)
-            // localStorage.setItem('res_token', responseJson.meta.token)
-            // localStorage.setItem('res_user', responseJson.data.attributes)
-            // localStorage.setItem('res_user_id', responseJson.data.id)
-            // this.props.history.push('/selecttype')
             //@ts-ignore
             //@ts-nocheck
-
             this.props.history.push('/RegistrationRequestsignup')
             //@ts-ignore
             //@ts-nocheck
             this.setState({ showDialog: false })
-
-
           } else {
             //Check Error Response
             this.parseApiErrorResponse(responseJson);
           }
-
           ApiCatchErrorResponse(errorReponse);
         } else if (apiRequestCallId === this.createRequestManaulApiCallId) {
           if (!responseJson.errors) {
-            console.log(responseJson)
-            // localStorage.setItem('res_token', responseJson.meta.token)
-            // localStorage.setItem('res_user', responseJson.data.attributes)
-            // localStorage.setItem('res_user_id', responseJson.data.id)
-            // this.props.history.push('/selecttype')
             //@ts-ignore
             //@ts-nocheck
-
             this.props.history.push('/RegistrationRequestsignup')
-
-
           } else {
             //Check Error Response
             this.parseApiErrorResponse(responseJson);
           }
-
           ApiCatchErrorResponse(errorReponse);
         } else if (apiRequestCallId === this.changeUserTypeApiCallId) {
           if (!responseJson.errors) {
             //@ts-ignore
             //@ts-nocheck
             this.setState({ loading: false })
-            // localStorage.setItem('res_token', responseJson.meta.token)
-            // localStorage.setItem('res_user', responseJson.data.attributes)
-            // localStorage.setItem('res_user_id', responseJson.data.id)
             //@ts-ignore
             //@ts-nocheck
             this.props.history.push('/addressfill')
-
-
           } else {
             //Check Error Response
             this.parseApiErrorResponse(responseJson);
           }
-
           ApiCatchErrorResponse(errorReponse);
         } else if (apiRequestCallId === this.getCountryApiCallId) {
           if (!responseJson.errors) {
-            console.log(responseJson)
             this.setState({ allContries: responseJson.data.countries })
           } else {
             //Check Error Response
             this.parseApiErrorResponse(responseJson);
           }
-
           ApiCatchErrorResponse(errorReponse);
         } else if (apiRequestCallId === this.getComplexApiCallId) {
           if (!responseJson.errors) {
-            console.log(responseJson)
             //@ts-ignore
             //@ts-nocheck
             let temp = []
@@ -412,46 +344,39 @@ export default class EmailAccountRegistrationController extends BlockComponent<
               temp.push({ value: item.id, label: item.name })
             )
             // @ts-ignore
-            this.setState({ allComplex: temp }, () => console.log(this.state.allComplex))
+            this.setState({ allComplex: temp })
           } else {
             //Check Error Response
             this.parseApiErrorResponse(responseJson);
           }
-
           ApiCatchErrorResponse(errorReponse);
         } else if (apiRequestCallId === this.getCityApiCallId) {
           if (!responseJson.errors) {
-            console.log(responseJson)
             this.setState({ allCity: responseJson.data.cities })
           } else {
             //Check Error Response
             this.parseApiErrorResponse(responseJson);
           }
-
           ApiCatchErrorResponse(errorReponse);
         } else if (apiRequestCallId === this.getBuildingApiCallId) {
           if (!responseJson.errors) {
-            console.log(responseJson)
             this.setState({ allBuilding: responseJson.data.buildings })
           } else {
             //Check Error Response
             this.parseApiErrorResponse(responseJson);
           }
-
           ApiCatchErrorResponse(errorReponse);
         } else if (apiRequestCallId === this.getUnitApiCallId) {
           if (!responseJson.errors) {
-            console.log(responseJson)
-            let temp = [responseJson.data.unit_apartments]
-            //@ts-ignore
-            //@ts-nocheck
-
-            this.setState({ allUnit: responseJson.data.unit_apartments }, () => console.log(this.state.allUnit[0]))
+            if(sessionStorage.getItem("selectedUserType") === ROLE.PROPERTY_MANAGER){
+              this.setState({ allUnit: responseJson.data.apartments})
+            }else{
+              this.setState({ allUnit: responseJson.data.unit_apartments })
+            }
           } else {
             //Check Error Response
             this.parseApiErrorResponse(responseJson);
           }
-
           ApiCatchErrorResponse(errorReponse);
         }
       }
@@ -794,7 +719,8 @@ export default class EmailAccountRegistrationController extends BlockComponent<
 
     const data = {
       type: "email_account",
-      "user_type": this.props.history.location.state?.data,
+      //@ts-ignore
+      user_type: this.props.history.location.state?.data,
       attributes: attrs
     };
 
@@ -893,33 +819,31 @@ export default class EmailAccountRegistrationController extends BlockComponent<
   }
 
   createAccountManager = (attributes: any) => {
+    this.setState({ selectEmail: attributes.email,loading:true })
+
     const header = {
       "Content-Type": configJSON.contentTypeApiAddDetail
     };
-    this.setState({ selectEmail: attributes.email,loading:true })
 
-console.log(attributes)
     const attrs = {
-
       email: attributes.email,
       company_name: attributes.company_name,
       manager_full_name: attributes.managerName,
-      owner_full_name: attributes.ownerName,
-      owner_phone_number: this.state.selectCode + attributes.owner_phone,
-      owner_email: attributes.owner_email,
+      // owner_full_name: attributes.ownerName,
+      // owner_phone_number: this.state.selectCode + attributes.owner_phone,
+      // owner_email: attributes.owner_email,
       password: attributes.password,
       full_phone_number:  this.state.selectCode + attributes.phone,
       password_confirmation: attributes.confirm_password
     };
 
-    const data = {
-      type: "email_account",
-      "user_type": this.props.history.location.state?.data,
-      attributes: attrs
-    };
-
     const httpBody = {
-      data: data
+      data: {
+        type: "email_account",
+        //@ts-ignore
+        user_type: this.props.history.location.state?.data,
+        attributes: attrs
+      }
     };
 
     const requestMessage = new Message(
@@ -952,8 +876,7 @@ console.log(attributes)
 
   }
 
-  createRequest = (attributes: any): boolean => {
-
+  createRequest = () => {
     const header = {
       "Content-Type": configJSON.contentTypeApiAddDetail,
       "token": localStorage.getItem('res_token')
@@ -971,10 +894,6 @@ console.log(attributes)
       society_management_id: this.state.selectComplex
     };
 
-    const data = {
-      attributes: attrs
-    };
-
     const httpBody = {
       data: attrs
     };
@@ -982,7 +901,9 @@ console.log(attributes)
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
     );
+
     this.createRequestApiCallId = requestMessage.messageId;
+
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
       'bx_block_request_management/requests'
@@ -1005,80 +926,72 @@ console.log(attributes)
 
     runEngine.sendMessage(requestMessage.id, requestMessage);
     return true;
-
-
-
   }
-  updateTypeOwner = () => {
-    console.log(this.state.userType)
-    if (this.state.userType) {
 
+  updateTypeOwner = () => {
+    if (this.state.userType) {
+      sessionStorage.setItem("selectedUserType", this.state.userType)
       if (this.state.userType === 'Owner') {
         //@ts-ignore
         //@ts-nocheck
-
         this.props.history.push({
           pathname: '/registerowner',
           state: {
             data: this.state.userType,
           },
         })
-
       }
       if (this.state.userType === 'Property Manager') {
         //@ts-ignore
         //@ts-nocheck
-
         this.props.history.push({
           pathname: '/registermanager',
           state: {
             data: this.state.userType,
           },
         })
-
       }
       if (this.state.userType === 'Tenant') {
         //@ts-ignore
         //@ts-nocheck
-
         this.props.history.push({
           pathname: '/register',
           state: {
             data: this.state.userType,
           },
         })
-
       }
       if (this.state.userType === 'Owner Resident') {
         //@ts-ignore
         //@ts-nocheck
-
         this.props.history.push({
           pathname: '/register',
           state: {
             data: this.state.userType,
           },
         })
-
       }
     }
   }
-  updateType = (): boolean => {
 
+  updateType = (): boolean => {
     const header = {
       "Content-Type": configJSON.contentTypeApiAddDetail
     };
+
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
     );
-    console.log(this.changeUserTypeApiCallId)
-    console.log(requestMessage.messageId)
+
     //@ts-ignore
     //@ts-nocheck
     this.setState({ loading: true })
+
     this.changeUserTypeApiCallId = requestMessage.messageId;
+
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
+       //@ts-ignore
       `account_block/user_type?user_type=${this.props.history.location.state?.data}&id=${localStorage.getItem('res_user_id')}`
     );
 
@@ -1087,8 +1000,6 @@ console.log(attributes)
       JSON.stringify(header)
     );
 
-
-
     requestMessage.addData(
       getName(MessageEnum.RestAPIRequestMethodMessage),
       'PATCH'
@@ -1096,28 +1007,22 @@ console.log(attributes)
 
     runEngine.sendMessage(requestMessage.id, requestMessage);
     return true;
-
-
-
   }
 
-  changeType(value: any) {
+  changeType = (value: any) => {
     this.setState({ userType: value })
-
   }
 
-  changeUnitType(value: any) {
+  changeUnitType = (value: any) => {
     this.setState({ unitRegisterType: value })
-
   }
-  handleChange2 = (e: any) => {
 
+  handleChange2 = (e: any) => {
     if (e.target.value) {
       // @ts-ignore
       // @ts-nocheck
       this.setState({ ...this.state, [e.target.name]: e.target.value })
     }
-
   }
 
   handleChange = (e: any) => {
@@ -1127,49 +1032,36 @@ console.log(attributes)
       this.setState({ ...this.state, [e.target.name]: e.target.value }, () => this.getData(e))
     }
   }
-  handleChangeCode = (e: any) => {
-   console.log(e)
-   if(typeof e === 'object' && Object.keys(e).length !== 0){
 
-    //  this.setState({ ...this.state, selectCode: e.dial_code },()=>console.log(this.state.selectCode))
+  handleChangeCode = (e: any) => {
+   if(typeof e === 'object' && Object.keys(e).length !== 0){
      return e?.dial_code
    }else{
     return ''
    }
-
   }
-  //@ts-ignore
-  //@ts-nocheck
 
-  getData(e) {
-
-
+  getData(e: any) {
     if (e.target.name == 'selectCountry') {
       this.getCity()
-
     } else if (e.target.name == 'selectCity') {
       this.getComplexbyCity()
-
     } else if (e.target.name == 'selectComplex') {
       this.getBuilding()
-
     } else if (e.target.name == 'selectBuilding') {
       this.getUnit()
-
     }
-
   }
 
-  getCountry() {
-
+  getCountry = () => {
     const header = {
       "Content-Type": configJSON.contentTypeApiAddDetail,
       "token": localStorage.getItem('res_token')
     };
+
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
     );
-
 
     this.getCountryApiCallId = requestMessage.messageId;
     requestMessage.addData(
@@ -1182,8 +1074,6 @@ console.log(attributes)
       JSON.stringify(header)
     );
 
-
-
     requestMessage.addData(
       getName(MessageEnum.RestAPIRequestMethodMessage),
       configJSON.validationApiMethodType
@@ -1193,16 +1083,15 @@ console.log(attributes)
     return true;
   }
 
-  getCity() {
-
+  getCity = () => {
     const header = {
       "Content-Type": configJSON.contentTypeApiAddDetail,
       "token": localStorage.getItem('res_token')
     };
+
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
     );
-
 
     this.getCityApiCallId = requestMessage.messageId;
     requestMessage.addData(
@@ -1215,8 +1104,6 @@ console.log(attributes)
       JSON.stringify(header)
     );
 
-
-
     requestMessage.addData(
       getName(MessageEnum.RestAPIRequestMethodMessage),
       configJSON.validationApiMethodType
@@ -1227,15 +1114,14 @@ console.log(attributes)
   }
 
   getBuilding() {
-
     const header = {
       "Content-Type": configJSON.contentTypeApiAddDetail,
       "token": localStorage.getItem('res_token')
     };
+
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
     );
-
 
     this.getBuildingApiCallId = requestMessage.messageId;
     requestMessage.addData(
@@ -1248,8 +1134,6 @@ console.log(attributes)
       JSON.stringify(header)
     );
 
-
-
     requestMessage.addData(
       getName(MessageEnum.RestAPIRequestMethodMessage),
       configJSON.validationApiMethodType
@@ -1259,67 +1143,65 @@ console.log(attributes)
     return true;
   }
 
-  getUnit() {
-
+  getUnit = () => {
     const header = {
       "Content-Type": configJSON.contentTypeApiAddDetail,
       "token": localStorage.getItem('res_token')
     };
+
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
     );
 
-
     this.getUnitApiCallId = requestMessage.messageId;
+
+    if(sessionStorage.getItem("selectedUserType") === ROLE.PROPERTY_MANAGER){
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        `bx_block_property_manager/property_manager_requests/unit_list?society_management_id=${this.state.selectComplex}&building_management_id=${this.state.selectBuilding.id}`
+      );
+    }else{
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        `bx_block_address/apartment_list?id=${this.state.selectBuilding.id}`
+      );
+    }
+
     requestMessage.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      //@ts-ignore
-      //@ts-nocheck
-      `bx_block_address/apartment_list?id=${this.state.selectBuilding.id}`
+      getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header)
     );
 
     requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
-
-
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.validationApiMethodType
+      getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.validationApiMethodType
     );
 
     runEngine.sendMessage(requestMessage.id, requestMessage);
     return true;
   }
+
   registerUnit = () => {
     if (this.state.unitRegisterType) {
       if (this.state.unitRegisterType == 'Manual') {
         //@ts-ignore
         //@ts-nocheck
-
         this.props.history.push('/registerunitmanually')
       } else {
         //@ts-ignore
         //@ts-nocheck
-
         this.props.history.push('/RegisterUnitLink')
-
-
       }
     }
   }
-  getComplex() {
 
+  getComplex = () => {
     const header = {
       "Content-Type": configJSON.contentTypeApiAddDetail,
       "token": localStorage.getItem('res_token')
     };
+
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
     );
-
 
     this.getComplexApiCallId = requestMessage.messageId;
     requestMessage.addData(
@@ -1332,8 +1214,6 @@ console.log(attributes)
       JSON.stringify(header)
     );
 
-
-
     requestMessage.addData(
       getName(MessageEnum.RestAPIRequestMethodMessage),
       configJSON.validationApiMethodType
@@ -1342,16 +1222,16 @@ console.log(attributes)
     runEngine.sendMessage(requestMessage.id, requestMessage);
     return true;
   }
-  getComplexbyCity() {
 
+  getComplexbyCity = () => {
     const header = {
       "Content-Type": configJSON.contentTypeApiAddDetail,
       "token": localStorage.getItem('res_token')
     };
+
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
     );
-
 
     this.getComplexApiCallId = requestMessage.messageId;
     requestMessage.addData(
@@ -1364,8 +1244,6 @@ console.log(attributes)
       JSON.stringify(header)
     );
 
-
-
     requestMessage.addData(
       getName(MessageEnum.RestAPIRequestMethodMessage),
       configJSON.validationApiMethodType
@@ -1374,28 +1252,21 @@ console.log(attributes)
     runEngine.sendMessage(requestMessage.id, requestMessage);
     return true;
   }
+
   handleInputChange = (newValue: string) => {
-    // localStorage.setItem('selectComplex', JSON.stringify(newValue))
     this.setState({ selectComplex: newValue })
-
-
-
   };
+
   handleInputChangeCOm = (newValue: any) => {
-    console.log(newValue)
-
     this.setState({ selectComplex: newValue.value }, () => this.getData({ target: { name: 'selectComplex' } }))
-
-
-
   };
-  createRequestManual = (attributes: any) => {
 
+  createRequestManual = (attributes: any) => {
     const header = {
       "Content-Type": configJSON.contentTypeApiAddDetail,
       "token": localStorage.getItem('res_token')
     };
-    console.log(this.state)
+
     const attrs = {//@ts-ignore
       //@ts-nocheck
       building_management_id: this.state.selectBuilding.id,
@@ -1407,11 +1278,6 @@ console.log(attributes)
       society_management_id: this.state.selectComplex
     };
 
-    const data = {
-
-      attributes: attrs
-    };
-
     const httpBody = {
       data: attrs
     };
@@ -1419,7 +1285,9 @@ console.log(attributes)
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
     );
+
     this.createRequestManaulApiCallId = requestMessage.messageId;
+
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
       'bx_block_request_management/requests'
@@ -1444,26 +1312,29 @@ console.log(attributes)
     return true;
 
   }
+
   handleChangeOTP = (otp: any) => this.setState({ otp });
 
   verifyOtp = (): boolean => {
-
     const header = {
       "Content-Type": configJSON.contentTypeApiAddDetail
     };
+
     const httpBody = {
       otp: this.state?.otp || "111111",
       email: localStorage.getItem('user_email')
     };
+
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
     );
-    console.log(this.changeUserTypeApiCallId)
-    console.log(requestMessage.messageId)
+
     //@ts-ignore
     //@ts-nocheck
     this.setState({ loading: true })
+
     this.verifyOtpApiCallId = requestMessage.messageId;
+
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
       `account_block/accounts/verify_user`
@@ -1478,7 +1349,6 @@ console.log(attributes)
       JSON.stringify(httpBody)
     );
 
-
     requestMessage.addData(
       getName(MessageEnum.RestAPIRequestMethodMessage),
       'POST'
@@ -1486,57 +1356,51 @@ console.log(attributes)
 
     runEngine.sendMessage(requestMessage.id, requestMessage);
     return true;
-
-
-
   }
 
-  addressSchema() {
+  addressSchema = () => {
     const validations = Yup.object().shape({
-
       selectCountry: Yup.string().required(`Country is required`).trim(),
       selectCity: Yup.string().required(`City is required`).trim(),
       selectBuilding: Yup.string().required(`Building is required`).trim(),
       selectComplex: Yup.string().required(`Complex is required`).trim(),
       selectUnit: Yup.string().required(`Unit is required`).trim(),
-
     });
     return validations
   }
-  addressSchemaManual() {
+
+  addressSchemaManual = () => {
     const validations = Yup.object().shape({
-
-
       selectBuilding: Yup.string().required(`Building is required`).trim(),
       selectComplex: Yup.string().required(`Complex is required`).trim(),
       selectUnit: Yup.string().required(`Unit is required`).trim(),
-
     });
     return validations
   }
-  signupSchemaManager() {
-    const validations = Yup.object().shape({
 
+  signupSchemaManager = () => {
+    const validations = Yup.object().shape({
+      //@ts-ignore
       company_name: Yup.string().required(`Company name is required`).trim().matches("^[a-zA-Z\-]+$","Only characters are allowed in username"),
+      //@ts-ignore
       managerName: Yup.string().required(`Manager name is required`).trim().matches("^[a-zA-Z\-]+$","Only characters are allowed in username"),
-      ownerName: Yup.string().required(`Owner name is required`).trim().matches("^[a-zA-Z\-]+$","Only characters are allowed in username"),
+      // ownerName: Yup.string().required(`Owner name is required`).trim().matches("^[a-zA-Z\-]+$","Only characters are allowed in username"),
       email: Yup.string().email().required(`Email is required`).trim(),
-      owner_email: Yup.string().email().required(`Owner email is required`).trim(),
+      // owner_email: Yup.string().email().required(`Owner email is required`).trim(),
       phone: Yup.number()
         .typeError("Only numbers are allowed.")
         .required("Mobile number is required.")
         .positive("Negative numbers are not allowed.")
         .integer("Number can't contain a decimal.")
         .min(100000000, "Minimum 9 digits are required.")
-        .max(1000000000, "Maximum 9 digits are allowed.")
-,
-      owner_phone: Yup.number()
-        .typeError("Only numbers are allowed.")
-        .required("Mobile number is required.")
-        .positive("Negative numbers are not allowed.")
-        .integer("Number can't contain a decimal.")
-        .min(100000000, "Minimum 9 digits are required.")
         .max(1000000000, "Maximum 9 digits are allowed."),
+      // owner_phone: Yup.number()
+      //   .typeError("Only numbers are allowed.")
+      //   .required("Mobile number is required.")
+      //   .positive("Negative numbers are not allowed.")
+      //   .integer("Number can't contain a decimal.")
+      //   .min(100000000, "Minimum 9 digits are required.")
+      //   .max(1000000000, "Maximum 9 digits are allowed."),
       password: Yup
         .string()
         .min(8, `Minimum Password length is 8.`)
@@ -1554,9 +1418,10 @@ console.log(attributes)
     });
     return validations
   }
-  signupSchema() {
-    const validations = Yup.object().shape({
 
+  signupSchema = () => {
+    const validations = Yup.object().shape({
+      //@ts-ignore
       full_name: Yup.string().required(`Name is required`).trim().matches("^[a-zA-Z\-]+$","Only characters are allowed in name"),
       email: Yup.string().email().required(`Email is required`).trim(),
       phone: Yup.number()
@@ -1583,7 +1448,8 @@ console.log(attributes)
     });
     return validations
   }
-  EmailSchema() {
+
+  EmailSchema = () => {
     const validations = Yup.object().shape({
       email: Yup.string().email()
         .trim()
