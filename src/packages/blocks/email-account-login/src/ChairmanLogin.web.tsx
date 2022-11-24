@@ -20,7 +20,7 @@ import LockOpenIcon from '@material-ui/icons/LockOpen';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import {
-  Tenant_Logo, Building_Logo, Email_Icon, User_Icon, Lock_User_Icon, Building1
+  Tenant_Logo, Building_Logo, Email_Icon, User_Icon, Lock_User_Icon, Building1 ,globalIcon
 } from "../src/assets";
 import { withRouter } from 'react-router';
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -31,14 +31,15 @@ import ChairmanAccountLoginController, {
 import Loader from "../../../components/src/Loader.web";
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { withTranslation } from 'react-i18next';
 import '../../../web/src/i18n.js';
 import i18next from 'i18next';
-import AlertErrorWeb from "../../../components/src/AlertError.web";
+import { Menu } from "@szhsin/react-menu";
+import MenuItem from '@material-ui/core/MenuItem';
+import "@szhsin/react-menu/dist/core.css";
 
 class ChairmanLogin extends ChairmanAccountLoginController {
   constructor(props: Props) {
@@ -47,6 +48,16 @@ class ChairmanLogin extends ChairmanAccountLoginController {
   componentDidMount() {
     this.getUserType();
   }
+  handleEngLngChange = () => {
+    localStorage.setItem("language", "en");
+    i18next.changeLanguage("en");
+  };
+
+  handleAreLngChange = () => {
+    localStorage.setItem("language", "ar");
+    i18next.changeLanguage("ar");
+  };
+
 
   render() {
     return (
@@ -55,13 +66,35 @@ class ChairmanLogin extends ChairmanAccountLoginController {
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
               <Box className="content-block">
-                <Box className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
-                <Box className="logo-block common-top-padding" display={{ xs: 'none', md: 'flex' }}>
+                {/* <Box className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box> */}
+                <Box className="logo-block common-top-padding common-logo-block" display={{ xs: 'none', md: 'flex' }}>
                   <Link href="/ChairmanLogin">
                     <img src={Building_Logo.default} className="head-logo" alt="" />
                     <h4>Building Name</h4>
                   </Link>
+                     <Box  >
+                    <Menu
+                      className="chairman-lang-menu chairman-menu"
+                      arrow={true}
+                      align="center"
+                      menuButton={<img src={globalIcon} alt="GlobalIcon" />}
+                    >
+                      <MenuItem
+                        className={localStorage.getItem("language") === "en" ? "active" : ""}
+                        onClick={() => this.handleEngLngChange()}
+                      >
+                        English
+                      </MenuItem>
+                      <MenuItem
+                        className={localStorage.getItem("language") === "ar" ? "active" : ""}
+                        onClick={() => this.handleAreLngChange()}
+                      >
+                        Arabic
+                      </MenuItem>
+                    </Menu>
+                  </Box>
                 </Box>
+             
                 <Box className="main-content-block desktop-ui">
                   <Box className="header-block">
                     <Box display={{ xs: 'flex', md: 'none' }}>
@@ -217,7 +250,7 @@ class ChairmanLogin extends ChairmanAccountLoginController {
             </Grid>
           </Grid>
           <Loader loading={this.state.loading} />
-          <AlertErrorWeb show={this.state.showError} handleClose={()=> this.setState({showError:false,error:null})} message={this.state.error} />
+          {/* <AlertErrorWeb show={this.state.showError} handleClose={()=> this.setState({showError:false,error:null})} message={this.state.error} /> */}
         </Box>
       </>
     );

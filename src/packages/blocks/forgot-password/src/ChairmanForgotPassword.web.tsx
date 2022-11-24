@@ -23,15 +23,29 @@ import { Input } from "react-native-elements";
 import * as Yup from "yup";
 import CountryCodeSelector from "../../country-code-selector/src/CountryCodeSelector";
 import ChairmanForgotPasswordController, { Props } from "./ChairmanForgotPasswordController.web";
+import { Menu } from "@szhsin/react-menu";
+import MenuItem from '@material-ui/core/MenuItem';
+import "@szhsin/react-menu/dist/core.css";
+
 //Customizable Area End
 
 //resorces
-import { Tenant_Logo, Building_Logo, Email_Icon, User_Icon, Lock_User_Icon, Building1 } from "../src/assets";
+import { Tenant_Logo, Building_Logo, Email_Icon, User_Icon, Lock_User_Icon, Building1 ,globalIcon} from "../src/assets";
 
 class ChairmanForgotPassword extends ChairmanForgotPasswordController {
   constructor(props: Props) {
     super(props);
   }
+
+  handleEngLngChange = () => {
+    localStorage.setItem("language", "en");
+    i18next.changeLanguage("en");
+  };
+
+  handleAreLngChange = () => {
+    localStorage.setItem("language", "ar");
+    i18next.changeLanguage("ar");
+  };
 
   render() {
     const { navigation } = this.props;
@@ -44,12 +58,32 @@ class ChairmanForgotPassword extends ChairmanForgotPasswordController {
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
               <Box className="content-block">
-                <Box className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
-                <Box className="logo-block common-top-padding" display={{ xs: 'none', md: 'flex' }}>
+                <Box className="logo-block common-top-padding common-logo-block" display={{ xs: 'none', md: 'flex' }}>
                   <Link href="/ChairmanLogin">
                     <img src={Building_Logo.default} className="head-logo" alt="" />
                     <h4>Building Name</h4>
                   </Link>
+                  <Box  >
+                    <Menu
+                      className="chairman-lang-menu chairman-menu"
+                      arrow={true}
+                      align="center"
+                      menuButton={<img src={globalIcon} alt="GlobalIcon" />}
+                    >
+                      <MenuItem
+                        className={localStorage.getItem("language") === "en" ? "active" : ""}
+                        onClick={() => this.handleEngLngChange()}
+                      >
+                        English
+                      </MenuItem>
+                      <MenuItem
+                        className={localStorage.getItem("language") === "ar" ? "active" : ""}
+                        onClick={() => this.handleAreLngChange()}
+                      >
+                        Arabic
+                      </MenuItem>
+                    </Menu>
+                  </Box>
                 </Box>
                 <Box className="main-content-block desktop-ui">
                   {/* <Box className="header-block">

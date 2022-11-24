@@ -640,6 +640,17 @@ getFacilityReservationDetails= (idOrName :any) => {
      //@ts-ignore
   localStorage.setItem("idOrName", idOrName);
   this.props.history.push({pathname: "/FacilityReservationListing"}) }
+ 
+  else if(idOrName ==="Rejected"){
+    //@ts-ignore
+ localStorage.setItem("idOrName", idOrName);
+ this.props.history.push({pathname: "/FacilityReservationListing"}) }
+ 
+ else if(idOrName ==="Cancelled"){
+  //@ts-ignore
+localStorage.setItem("idOrName", idOrName);
+this.props.history.push({pathname: "/FacilityReservationListing"}) }
+
   else{
       //@ts-ignore
   localStorage.setItem("facilityReservationId",idOrName);
