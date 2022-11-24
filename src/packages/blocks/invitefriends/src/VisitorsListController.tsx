@@ -179,9 +179,9 @@ export default class VisitorDetailsController extends BlockComponent<
       
       if(this.getUnitGeneralDetailsId === apiRequestCallId ){
         console.log(responseJson,errorReponse)
-        if(responseJson.hasOwnProperty("data")){
+        if(responseJson.hasOwnProperty("resident")){
           this.setState({
-            getUnitGeneralDetails:responseJson?.data,
+            getUnitGeneralDetails:responseJson?.resident?.data,
           })
         }else{
           this.setState({
@@ -225,7 +225,7 @@ export default class VisitorDetailsController extends BlockComponent<
     this.getUnitListId = await this.apiCall({
       contentType:"application/json",
       method: "GET",
-      endPoint:`/bx_block_settings/apartment_managements/unit_list?society_management_id=${societyID}&building_management_id=&page=${page}`,
+      endPoint:`bx_block_settings/apartment_managements/unit_list?society_management_id=${societyID}&building_management_id=&page=${page}`,
     });
   }
   getSecurityBuildingList = async () => {
@@ -234,7 +234,7 @@ export default class VisitorDetailsController extends BlockComponent<
     this.getSecurityBuildingListId = await this.apiCall({
       contentType:"application/json",
       method: "GET",
-      endPoint:`/bx_block_address/building_list?society_management_id=${societyID}`,
+      endPoint:`bx_block_address/building_list?society_management_id=${societyID}`,
     });
   }
 
@@ -269,12 +269,12 @@ export default class VisitorDetailsController extends BlockComponent<
   }
 
 
-  getUnitGeneralDetails = async (id:any) => {
+  getUnitGeneralDetails = async (id:any ,ownerId:any) => {
     const societyID = localStorage.getItem("society_id")
     this.getUnitGeneralDetailsId = await this.apiCall({
       contentType:"application/json",
       method: "GET",
-      endPoint: `/bx_block_settings/apartment_managements/${id}`,
+      endPoint: `bx_block_settings/apartment_managements/unit_details?id=${id}&owner_id=${ownerId}`,
     });
   }
 

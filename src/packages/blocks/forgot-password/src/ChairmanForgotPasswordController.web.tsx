@@ -354,7 +354,7 @@ export default class ChairmanForgotPasswordController extends BlockComponent<
         getName(MessageEnum.RestAPIResponceErrorMessage)
       );
 
-      if (responseJson?.messages[0]?.otp) {
+      if (responseJson?.messages) {
         console.log('responseJson===========> successflll',responseJson)
         // let params = new URL(document.location as any).searchParams;
         // let token = params.get("token");
@@ -364,7 +364,7 @@ export default class ChairmanForgotPasswordController extends BlockComponent<
           this.props.history.push("/ChairmanChangePassword")
         //  window.location ="/ChairmanChangePassword" as any
       } else if (responseJson?.errors) {
-          let error = `${Object.values(responseJson.errors[0])[0]}` as string;
+          let error = responseJson?.errors[0]?.pin as string;
           this.setState({ error });
       } else {
           this.setState({ error: responseJson?.error || 'Something went wrong!' });
