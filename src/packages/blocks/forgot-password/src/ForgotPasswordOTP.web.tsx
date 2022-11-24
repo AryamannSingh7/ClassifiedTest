@@ -79,10 +79,10 @@ class ForgotPasswordOTP extends ForgotPasswordController {
                   </Box>
                 </Box>
                 {/* desktop footer block */}
-                <Box className="footer-main-block bottomBlock">
+                {/* <Box className="footer-main-block bottomBlock">
                   <h6 className="bottom-text">POWERED BY</h6>
                   <img src={Tenant_Logo.default} className="tenant-logo" alt="" />
-                </Box>
+                </Box> */}
               </Box>
             </Grid>
             <Grid item xs={12} md={5} className="auth-cols">

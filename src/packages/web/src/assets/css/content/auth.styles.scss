@@ -18,12 +18,23 @@
   }
 
   & .logo-block {
+   &.common-logo-block {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px;
+   }
+    
+    & .chairman-menu {
+      cursor: pointer;
+    }
     & a {
       display: flex;
       align-items: center;
       text-decoration: none;
       margin-left: 20px;
     }
+
 
     & .head-logo {
       height: 80px;
@@ -96,7 +107,7 @@
   }
 
   & .right-block {
-    padding: 30px 60px;
+    padding: 30px 20px;
 
     @include mq(tablet-portrait-tablet-up) {
       padding: 30px;

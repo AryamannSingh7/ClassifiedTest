@@ -230,3 +230,21 @@ li {
 .mb-10 {
   margin-bottom: 10px;
 }
+
+.famliy-container{
+  margin-bottom: 50px;
+& .famliy-card{
+ display: flex;
+flex-direction: column;
+border: 1px solid #ccc;
+border-radius: 10px;
+padding: 10px;
+margin: 10px;
+
+& .famliy-row{
+  display: flex;
+  justify-content: space-between;
+ // width: 100%;
+}
+}
+}

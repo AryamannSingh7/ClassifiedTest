@@ -51,16 +51,15 @@ class ManagerFacilityReservation extends FacilityManagerContorller {
     super(props);
   }
   componentDidMount(): any {
-    this.getFacilityReservationListing();
+   // this.getFacilityReservationListing();
     this.getBuildingName();
   }
   
 
   render() {
     const { t, classes }: any = this.props;
-    console.log("this.state.facilityListing=================>/", this.state.facilityListing);
-    const statusArray = ["Pending Approval", "Published", "Rejected"]
-    const classifiedType = ["buyer", "seller", 'generic', 'All'];
+    console.log(" this.state.unitNameData?=================>/",this.state.unitNameData);
+    const statusArray = ["Pending", "Approved","Upcoming", "Completed", "Cancelled", "Rejected"]
     return (
       <>
         <Box className="incident-Listing-wrapper desktop-ui" style={{ background: "#E5ECFF" }}>
@@ -76,38 +75,13 @@ class ManagerFacilityReservation extends FacilityManagerContorller {
                 <Box className={classes.navigation}>
                   <Box>
                     <Typography variant="body1" >
-                      {t("My Dashboard")} / {t("General Dashboard")} /<Box component="span" style={{ color: "blue" }}> {t("Classifieds")}</Box>
+                      {t("My Dashboard")} / {t("General Dashboard")} /<Box component="span" style={{ color: "blue" }}> {t("Facility Reservation")}</Box>
                     </Typography>
-                    <Typography variant="h5" className={classes.subHeading}>{t("Classifieds")}</Typography>
+                    <Typography variant="h5" className={classes.subHeading}>{t("Facility Reservation")}</Typography>
                   </Box>
                 </Box>
                 <Box className="sorting-header classified-sorting-header">
                   <div className="left-block">
-                    <Box className="formGroup customSelect">
-                      <FormControl variant="outlined" >
-                        <Select
-                          name="classifiedType"
-                          labelId="demo-simple-select-outlined-label"
-                          id="demo-simple-select-outlined"
-                          onChange={(e) => { this.onChange(e) }}
-                          value={this.state.classifiedType}
-                        >
-                          <MenuItem disabled value=" ">
-                            {t("Classified Type")}
-                          </MenuItem>
-                          {
-                            classifiedType?.map((val, index) => (
-                              <MenuItem
-                                key={index}
-                                value={val}
-                              >
-                                {val}
-                              </MenuItem>
-                            ))
-                          }
-                        </Select>
-                      </FormControl>
-                    </Box>
                     <Box className="formGroup customSelect">
                       <FormControl variant="outlined" >
                         <Select
@@ -124,15 +98,16 @@ class ManagerFacilityReservation extends FacilityManagerContorller {
                             this.state?.buildingNameData?.map((val: any, index: any) => (
                               <MenuItem
                                 key={index}
-                                value={val?.attributes?.name}
+                                value={val?.id}
                               >
-                                {val?.attributes?.name}
+                                {val?.name}
                               </MenuItem>
                             ))
                           }
                         </Select>
                       </FormControl>
                     </Box>
+
                     <Box className="formGroup customSelect">
                       <FormControl variant="outlined" >
                         <Select
@@ -159,6 +134,33 @@ class ManagerFacilityReservation extends FacilityManagerContorller {
 
                       </FormControl>
                     </Box>
+
+                    <Box className="formGroup customSelect">
+                      <FormControl variant="outlined" >
+                        <Select
+                          name="areaReserve"
+                          labelId="demo-simple-select-outlined-label"
+                          id="demo-simple-select-outlined"
+                          onChange={(e) => { this.onChange(e) }}
+                          value={this.state.areaReserve}
+                        >
+                          <MenuItem disabled value=" ">
+                            {t("Select Facility")}
+                          </MenuItem>
+                          {
+                            this.state?.unitNameData?.map((val : any, index : any) => (
+                              <MenuItem
+                                key={index}
+                                value={val?.id}
+                              >
+                                {val?.attributes?.name}
+                              </MenuItem>
+                            ))
+                          }
+                        </Select>
+                      </FormControl>
+                    </Box>
+
                     <Box className="customButton">
                       <Button variant="contained" onClick={() => this.serachHandle()}>
                         {t("Search")}

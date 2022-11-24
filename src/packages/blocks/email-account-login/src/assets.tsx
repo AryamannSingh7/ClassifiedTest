@@ -17,3 +17,4 @@ export const Delete_Icon = require("../assets/delete_icon.png");
 export const Bank_Icon = require("../assets/bank_icon.png");
 export const Email_Icon = require("../assets/email-icon.svg");
 export const User_Icon = require("../assets/user-icon.svg");
+export const globalIcon = require("../assets/global.png");

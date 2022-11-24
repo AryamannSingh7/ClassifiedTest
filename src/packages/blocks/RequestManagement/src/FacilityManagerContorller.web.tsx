@@ -62,7 +62,7 @@ export interface S {
   providerNameListing:any;
   providerListing:any;
   buildingNameData:any;
-  classifiedType:any;
+  areaReserve:any;
   addNote:any;
   getFacilityDetails:any;
   ignoreShowDialog:any;
@@ -163,7 +163,7 @@ export default class FacilityManagerContorller extends BlockComponent<
       showDialog:false,
       unitNameData:null,
       buildingNameData:null,
-      classifiedType : " ",
+      areaReserve: " ",
       facilityListing:null,
       addNote:"",
       getFacilityDetails:null,
@@ -291,7 +291,7 @@ export default class FacilityManagerContorller extends BlockComponent<
         else if (apiRequestCallId === this.getUnitRelatedApiCallId) {
           if (responseJson && responseJson?.data ) {
           console.log("getUnitRelatedApiCallId  ========================>",responseJson)
-         this.setState({unitNameData :responseJson?.data?.unit_apartments})
+         this.setState({unitNameData :responseJson?.data})
           this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
@@ -305,7 +305,7 @@ export default class FacilityManagerContorller extends BlockComponent<
         else if (apiRequestCallId === this.getBuildingNameApiCallId) {
           if (responseJson && responseJson?.data ) {
           console.log("getBuildingNameApiCallId  ========================>",responseJson)
-          this.setState({buildingNameData :responseJson?.data})
+          this.setState({buildingNameData :responseJson?.data?.buildings})
           this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = responseJson.errors[0] as string;
@@ -561,27 +561,15 @@ getFacilityDetails= (id :any) => {
 }
 
 serachHandle=()=>{
-  this.getFacilityReservationListing()
+console.log("this.state?.buildingName ,this.state?.status ,this.state?.areaReserve",this.state?.buildingName ,this.state?.status ,this.state?.areaReserve)
+  //this.getFacilityReservationListing(this.state?.buildingName ,this.state?.status ,this.state?.areaReserve)
 }
 
 onChange =(e :any)=>{
   if(e.target.name === 'buildingName'){
     const id = e.target?.value
     this.setState({ buildingName:id})
-    this.setState({ serachBuildingName:id})
-  }
-  else if(e.target.name === "statusDetail"){
-    const  value = e.target.value
-    //@ts-ignore
-    this.setState({ [e.target.name]:e.target.value})
-     this.setState({ statusShowDialog: true })
-  }
-  else if(e.target.name === "statusDetail"){
-    const  value = e.target.value
-    //@ts-ignore
-    this.setState({ [e.target.name]:e.target.value})
-    // this.setState({ statusShowDialog: false })
-    // this.updateStatus(value);
+    this.getUnit(id)
   }
   else {
     //@ts-ignore
@@ -589,7 +577,7 @@ onChange =(e :any)=>{
   }
 }
 
-  getFacilityReservationListing= ()  => {
+  getFacilityReservationListing= (buildingName:any,status:any,areaReserve:any)  => {
     try {
       const header = {
         "Content-Type": configJSON.validationApiContentType,
@@ -628,43 +616,6 @@ onChange =(e :any)=>{
     }
   };
 
-  searchIncidentListing= (serachBuildingName : any ,unitName : any,status:any)  => {
-    try {
-      const header = {
-        "Content-Type": configJSON.validationApiContentType,
-        token :localStorage.getItem("userToken")
-      };
-
-      //const id = localStorage.getItem("userId");
-      const requestMessage = new Message(
-        getName(MessageEnum.RestAPIRequestMessage)
-      );
-      this.searchIncidentListingApiCallId = requestMessage.messageId;
-      this.setState({ loading: true });
-     
-     const  getSortByOrStatus = `bx_block_posts/classifieds?search_building=${this.state?.serachBuildingName}&filter_by=${this.state.classifiedType}&classified_status=${this.state?.status}`
-       
-      requestMessage.addData(
-        getName(MessageEnum.RestAPIResponceEndPointMessage),
-        getSortByOrStatus
-      );
-
-      requestMessage.addData(
-        getName(MessageEnum.RestAPIRequestHeaderMessage),
-        JSON.stringify(header)
-      );
-
-      requestMessage.addData(
-        getName(MessageEnum.RestAPIRequestMethodMessage),
-        configJSON.validationApiMethodType
-      );
-
-      runEngine.sendMessage(requestMessage.id, requestMessage);
-      return true;
-    } catch (error) {
-      console.log(error);
-    }
-  };
   
   getBuildingName = () => {
     try {
@@ -672,7 +623,7 @@ onChange =(e :any)=>{
         "Content-Type": configJSON.validationApiContentType,
         token :localStorage.getItem("userToken")
       };
-     // const society_id = localStorage.getItem("society_id")
+     const society_id = localStorage.getItem("society_id")
       //const id = localStorage.getItem("userId");
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
@@ -682,7 +633,7 @@ onChange =(e :any)=>{
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `/bx_block_settings/building_managements`
+        `bx_block_address/building_list?society_management_id=${society_id}`
       );
 
       requestMessage.addData(
@@ -718,7 +669,7 @@ onChange =(e :any)=>{
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `bx_block_address/all_apartment_list?building_management_id=${id}`
+        `bx_block_society_management/facility_reservations/common_area_list?building_management_id=${id}`
       );
 
       requestMessage.addData(
