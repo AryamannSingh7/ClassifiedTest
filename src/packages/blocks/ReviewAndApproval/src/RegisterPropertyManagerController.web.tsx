@@ -131,8 +131,8 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
   }
 
   async receive(from: string, message: Message) {
-    runEngine.debugLog("Message Recived", message);
-
+    let responseJson: any;
+    let errorResponse: any;
     // Get All Building List - API Response
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
@@ -141,19 +141,13 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
     ) {
       this.GetBuildingListCallId = null;
 
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson.buildings) {
         this.setState({ buildingList: responseJson.buildings });
       }
 
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
+      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
     }
 
     // Get All Unit List - API Response
@@ -164,19 +158,13 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
     ) {
       this.GetUnitListCallId = null;
 
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson.apartments) {
         this.setState({ unitList: responseJson.apartments });
       }
 
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
+      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
     }
 
     // Get All Id Type List - API Response
@@ -187,19 +175,13 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
     ) {
       this.GetIDTypeListCallId = null;
 
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson.relaions) {
         this.setState({ idTypeList: responseJson.relaions });
       }
 
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
+      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
     }
 
     // Create Property Manager - API Response
@@ -210,7 +192,7 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
     ) {
       this.CreatePropertyManagerCallId = null;
 
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       this.setState({ loading: false }, () => {
         if (responseJson && responseJson.data) {
@@ -219,13 +201,7 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
         }
       });
 
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
+      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
     }
 
     // Check Property Manager Available - API Response
@@ -236,7 +212,7 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
     ) {
       this.CheckPropertyManagerAvailableCallId = null;
 
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson && responseJson.message) {
         this.setState({ isPropertyManagerAvailable: true });
@@ -244,13 +220,7 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
         this.setState({ isPropertyManagerAvailable: false });
       }
 
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
+      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
     }
 
     // Complex Details - API Response
@@ -261,7 +231,7 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
     ) {
       this.GetComplexDetailsCallId = null;
 
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson && responseJson.complex && responseJson.complex_address) {
         this.setState({
@@ -273,13 +243,7 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
         });
       }
 
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
+      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
     }
 
     // Get Property Manager Details - API Response
@@ -290,7 +254,7 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
     ) {
       this.GetPropertyManagerDetailCallId = null;
 
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson && responseJson.data) {
         const manager = responseJson.data;
@@ -325,13 +289,7 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
         });
       }
 
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
+      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
     }
 
     // Get Property Manager's Property List - API Response
@@ -342,19 +300,13 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
     ) {
       this.GetPropertyListCallId = null;
 
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson && responseJson.data) {
         this.setState({ propertyList: responseJson.data });
       }
 
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
+      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
     }
 
     // Create Property  - API Response
@@ -365,7 +317,7 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
     ) {
       this.CreatePropertyCallId = null;
 
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       this.setState({ loading: false }, () => {
         if (responseJson && responseJson.data) {
@@ -373,13 +325,7 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
         }
       });
 
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
+      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
     }
 
     // Edit Property  - API Response
@@ -390,7 +336,7 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
     ) {
       this.EditPropertyCallId = null;
 
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       this.setState({ loading: false }, () => {
         if (responseJson && responseJson.data) {
@@ -398,13 +344,7 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
         }
       });
 
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
+      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
     }
 
     // Delete Property  - API Response
@@ -415,19 +355,13 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
     ) {
       this.DeletePropertyCallId = null;
 
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       this.setState({ loading: false }, () => {
         this.getPropertyList();
       });
 
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
+      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
     }
 
     // Edit Property Manager  - API Response
@@ -438,7 +372,7 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
     ) {
       this.EditPropertyManagerCallId = null;
 
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       this.setState({ loading: false }, () => {
         if (responseJson && responseJson.data) {
@@ -447,14 +381,14 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
         }
       });
 
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
+      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
     }
+    if (responseJson && responseJson.meta && responseJson.meta.token) {
+      runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+    } else {
+      ApiErrorResponse(responseJson);
+    }
+    ApiCatchErrorResponse(errorResponse);
   }
 
   // Customizable Area Start
@@ -892,15 +826,14 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
       );
 
   dataURLtoFileObject = (dataurl: any, fileName: any) => {
-    var arr = dataurl.split(","),
-      mime = arr[0].match(/:(.*?);/)[1],
+    let arr = dataurl.split(","),
       bstr = atob(arr[1]),
       n = bstr.length,
       u8arr = new Uint8Array(n);
     while (n--) {
       u8arr[n] = bstr.charCodeAt(n);
     }
-    return new File([u8arr], fileName, { type: mime });
+    return new File([u8arr], fileName);
   };
   // Customizable Area End
 }

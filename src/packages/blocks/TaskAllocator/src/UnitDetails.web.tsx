@@ -99,7 +99,7 @@ class UnitDetails extends UnitDetailsController {
                       <IconButton onClick={() => this.props.navigation.navigate("MyUnitList")}>
                         <KeyboardBackspaceIcon />
                       </IconButton>
-                      <span>{this.state.unitDetails.complex || "N/A"}</span>
+                      <span>{this.validationText(this.state.unitDetails.complex)}</span>
                     </div>
                   </Box>
                   <Container className="page-container">
@@ -182,7 +182,7 @@ class UnitDetails extends UnitDetailsController {
                                 <img src={BlueCountryIcon} alt="" />
                                 <Box className="item-data">
                                   <span>{t("Country")}</span>
-                                  <p>{this.state.unitDetails.country || "-"}</p>
+                                  <p>{this.validationText(this.state.unitDetails.country)}</p>
                                 </Box>
                               </Box>
                             </Grid>
@@ -191,7 +191,7 @@ class UnitDetails extends UnitDetailsController {
                                 <img src={BlueRegionIcon} alt="" />
                                 <Box className="item-data">
                                   <span>{t("Region")}</span>
-                                  <p>{this.state.unitDetails.region || "-"}</p>
+                                  <p>{this.validationText(this.state.unitDetails.region)}</p>
                                 </Box>
                               </Box>
                             </Grid>
@@ -200,7 +200,7 @@ class UnitDetails extends UnitDetailsController {
                                 <img src={BlueCityIcon} alt="" />
                                 <Box className="item-data">
                                   <span>{t("City")}</span>
-                                  <p>{this.state.unitDetails.city || "-"}</p>
+                                  <p>{this.validationText(this.state.unitDetails.city)}</p>
                                 </Box>
                               </Box>
                             </Grid>
@@ -217,7 +217,7 @@ class UnitDetails extends UnitDetailsController {
                                 <img src={BlueComplexIcon} alt="" />
                                 <Box className="item-data">
                                   <span>{t("Complex Name")}</span>
-                                  <p>{this.state.unitDetails.complex || "-"}</p>
+                                  <p>{this.validationText(this.state.unitDetails.complex)}</p>
                                 </Box>
                               </Box>
                             </Grid>
@@ -226,7 +226,7 @@ class UnitDetails extends UnitDetailsController {
                                 <img src={BlueAssetsIcon} alt="" />
                                 <Box className="item-data">
                                   <span>{t("Building Name")}</span>
-                                  <p>{this.state.unitDetails.building || "-"}</p>
+                                  <p>{this.validationText(this.state.unitDetails.building)}</p>
                                 </Box>
                               </Box>
                             </Grid>
@@ -235,7 +235,7 @@ class UnitDetails extends UnitDetailsController {
                                 <img src={BlueUnitIcon} alt="" />
                                 <Box className="item-data">
                                   <span>{t("Unit Number")}</span>
-                                  <p>#{this.state.unitDetails.unit || "-"}</p>
+                                  <p>#{this.validationText(this.state.unitDetails.unit)}</p>
                                 </Box>
                               </Box>
                             </Grid>
@@ -244,7 +244,7 @@ class UnitDetails extends UnitDetailsController {
                                 <img src={BlueFloorIcon} alt="" />
                                 <Box className="item-data">
                                   <span>{t("Floor Number")}</span>
-                                  <p>{this.state.unitDetails.floor || "-"}</p>
+                                  <p>{this.validationText(this.state.unitDetails.floor)}</p>
                                 </Box>
                               </Box>
                             </Grid>
@@ -253,7 +253,7 @@ class UnitDetails extends UnitDetailsController {
                                 <img src={BlueSizeIcon} alt="" />
                                 <Box className="item-data">
                                   <span>{t("Size")}</span>
-                                  <p>{this.state.unitDetails.size || "-"}</p>
+                                  <p>{this.validationText(this.state.unitDetails.size)}</p>
                                 </Box>
                               </Box>
                             </Grid>
@@ -262,7 +262,7 @@ class UnitDetails extends UnitDetailsController {
                                 <img src={BlueConfigIcon} alt="" />
                                 <Box className="item-data">
                                   <span>{t("Configuration")}</span>
-                                  <p>{this.state.unitDetails.config || "-"}</p>
+                                  <p>{this.validationText(this.state.unitDetails.config)}</p>
                                 </Box>
                               </Box>
                             </Grid>
@@ -271,7 +271,7 @@ class UnitDetails extends UnitDetailsController {
                                 <img src={BluePriceIcon} alt="" />
                                 <Box className="item-data">
                                   <span>{t("Purchase Price")}</span>
-                                  <p>{this.state.unitDetails.purchasePrice || "-"}</p>
+                                  <p>{this.validationText(this.state.unitDetails.purchasePrice)}</p>
                                 </Box>
                               </Box>
                             </Grid>
@@ -295,7 +295,7 @@ class UnitDetails extends UnitDetailsController {
                                 <img src={BlueValuationIcon} alt="" />
                                 <Box className="item-data">
                                   <span>{t("Current Valuation")}</span>
-                                  <p>{this.state.unitDetails.valuation || "-"}</p>
+                                  <p>{this.validationText(this.state.unitDetails.valuation)}</p>
                                 </Box>
                               </Box>
                             </Grid>
@@ -327,7 +327,7 @@ class UnitDetails extends UnitDetailsController {
                                     <img src={BlueTenantIcon} alt="" />
                                     <Box className="item-data">
                                       <span>{t("Tenant Name")}</span>
-                                      <p>{this.state.rentDetails.tenantName || "-"}</p>
+                                      <p>{this.validationText(this.state.rentDetails.tenantName)}</p>
                                     </Box>
                                   </Box>
                                 </Grid>
@@ -366,7 +366,7 @@ class UnitDetails extends UnitDetailsController {
                                     <img src={BlueRentIcon} alt="" />
                                     <Box className="item-data">
                                       <span>{t("Rent Charge")}</span>
-                                      <p>{this.state.rentDetails.charge || "-"} / Month</p>
+                                      <p>{this.validationText(this.state.rentDetails.charge)} / Month</p>
                                     </Box>
                                   </Box>
                                 </Grid>
@@ -393,7 +393,7 @@ class UnitDetails extends UnitDetailsController {
                         {this.state.rentHistory.map((history: any) => {
                           return (
                             <Box className="rent-history" key={history.id}>
-                              <h4>{history.attributes.tenant_name || "-"}</h4>
+                              <h4>{this.validationText(history.attributes.tenant_name)}</h4>
                               <p className="date">
                                 {moment(history.attributes.start_date, "YYYY-MM-DD").format("MMMM YYYY") +
                                   " to " +
@@ -402,11 +402,11 @@ class UnitDetails extends UnitDetailsController {
                               <Divider />
                               <Box className="info">
                                 <p>{t("Rent Amount")}</p>
-                                <span>{history.attributes.rent_amount || "-"}</span>
+                                <span>{this.validationText(history.attributes.rent_amount)}</span>
                               </Box>
                               <Box className="info">
                                 <p>{t("Received Amount")}</p>
-                                <span>{history.attributes.received_amount || "-"}</span>
+                                <span>{this.validationText(history.attributes.received_amount)}</span>
                               </Box>
                             </Box>
                           );

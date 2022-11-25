@@ -79,8 +79,8 @@ export default class RentHistoryController extends BlockComponent<Props, S, SS> 
   }
 
   async receive(from: string, message: Message) {
-    runEngine.debugLog("Message Recived", message);
-
+    let responseJson: any;
+    let errorResponse: any;
     // Get Rent History - API Response
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
@@ -89,19 +89,11 @@ export default class RentHistoryController extends BlockComponent<Props, S, SS> 
     ) {
       this.GetRentHistoryCallId = null;
 
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      if (responseJson && responseJson.data) {
-        this.setState({ rentHistory: responseJson.data });
-      }
+      this.getRentHistoryResponse(responseJson);
 
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
+      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
     }
 
     // Delete Rent History - API Response
@@ -112,22 +104,11 @@ export default class RentHistoryController extends BlockComponent<Props, S, SS> 
     ) {
       this.DeleteRentHistoriesCallId = null;
 
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      if (responseJson) {
-        toast.success(responseJson.message);
-        this.setState({ isDeleteOpen: false, selectedRentHistory: [] }, () => {
-          this.getRentHistory();
-        });
-      }
+      this.deleteRentHistoriesResponse(responseJson);
 
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
+      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
     }
 
     // Create Rent History - API Response
@@ -138,23 +119,18 @@ export default class RentHistoryController extends BlockComponent<Props, S, SS> 
     ) {
       this.CreateRentHistoryCallId = null;
 
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      this.setState({ loading: false }, () => {
-        if (responseJson && responseJson.data) {
-          toast.success("Rent History Created Successfully");
-          this.getRentHistory();
-        }
-      });
+      this.addRentHistoryResponse(responseJson);
 
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
+      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
     }
+    if (responseJson && responseJson.meta && responseJson.meta.token) {
+      runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+    } else {
+      ApiErrorResponse(responseJson);
+    }
+    ApiCatchErrorResponse(errorResponse);
   }
 
   async componentDidMount(): Promise<void> {
@@ -187,6 +163,12 @@ export default class RentHistoryController extends BlockComponent<Props, S, SS> 
     return true;
   };
 
+  getRentHistoryResponse = (responseJson: any) => {
+    if (responseJson && responseJson.data) {
+      this.setState({ rentHistory: responseJson.data });
+    }
+  };
+
   deleteRentHistories = () => {
     const body = {
       ids: this.state.selectedRentHistory,
@@ -216,8 +198,17 @@ export default class RentHistoryController extends BlockComponent<Props, S, SS> 
     return true;
   };
 
+  deleteRentHistoriesResponse = (responseJson: any) => {
+    if (responseJson) {
+      toast.success(responseJson.message);
+      this.setState({ isDeleteOpen: false, selectedRentHistory: [] }, () => {
+        this.getRentHistory();
+      });
+    }
+  };
+
   addRentHistory = (values: any) => {
-    var data = new FormData();
+    let data = new FormData();
     data.append("rent_history[apartment_management_id]", this.state.unitId);
     data.append("rent_history[start_date]", values.startDate);
     data.append("rent_history[end_date]", values.endDate);
@@ -243,6 +234,15 @@ export default class RentHistoryController extends BlockComponent<Props, S, SS> 
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
+  };
+
+  addRentHistoryResponse = (responseJson: any) => {
+    this.setState({ loading: false }, () => {
+      if (responseJson && responseJson.data) {
+        toast.success("Rent History Created Successfully");
+        this.getRentHistory();
+      }
+    });
   };
 
   validationRentHistoryFormSchema: any = Yup.object().shape({
@@ -273,5 +273,12 @@ export default class RentHistoryController extends BlockComponent<Props, S, SS> 
     this.setState({
       isRentHistoryModalOpen: !this.state.isRentHistoryModalOpen,
     });
+  };
+
+  validationText = (name: any) => {
+    if (name) {
+      return name;
+    }
+    return "-";
   };
 }

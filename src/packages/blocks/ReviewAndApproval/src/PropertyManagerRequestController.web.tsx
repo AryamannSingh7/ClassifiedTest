@@ -49,6 +49,9 @@ export default class PropertyManagerRequestController extends BlockComponent<Pro
 
   async receive(from: string, message: Message) {
     // Customizable Area Start
+    let responseJson: any;
+    let errorResponse: any;
+
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.GetManagerRequestCallId !== null &&
@@ -56,19 +59,13 @@ export default class PropertyManagerRequestController extends BlockComponent<Pro
     ) {
       this.GetManagerRequestCallId = null;
 
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson && responseJson.data) {
         this.setState({ requestList: responseJson.data });
       }
 
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
+      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
     }
 
     // Status - API Response
@@ -79,20 +76,20 @@ export default class PropertyManagerRequestController extends BlockComponent<Pro
     ) {
       this.EditManagerRequestCallId = null;
 
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       this.setState({ loading: false }, () => {
         console.log(responseJson);
       });
 
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
+      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
     }
+    if (responseJson && responseJson.meta && responseJson.meta.token) {
+      runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+    } else {
+      ApiErrorResponse(responseJson);
+    }
+    ApiCatchErrorResponse(errorResponse);
     // Customizable Area End
   }
 

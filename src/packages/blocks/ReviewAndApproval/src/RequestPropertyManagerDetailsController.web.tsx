@@ -78,6 +78,8 @@ export default class RequestPropertyManagerDetailsController extends BlockCompon
 
   async receive(from: string, message: Message) {
     // Customizable Area Start
+    let responseJson: any;
+    let errorResponse: any;
     // Get Property Manager Detail - API
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
@@ -86,7 +88,7 @@ export default class RequestPropertyManagerDetailsController extends BlockCompon
     ) {
       this.GetPropertyManagerDetailsCallId = null;
 
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson && responseJson.data) {
         const manager = responseJson.data;
@@ -105,14 +107,14 @@ export default class RequestPropertyManagerDetailsController extends BlockCompon
         });
       }
 
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
+      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
     }
+    if (responseJson && responseJson.meta && responseJson.meta.token) {
+      runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+    } else {
+      ApiErrorResponse(responseJson);
+    }
+    ApiCatchErrorResponse(errorResponse);
     // Customizable Area End
   }
 

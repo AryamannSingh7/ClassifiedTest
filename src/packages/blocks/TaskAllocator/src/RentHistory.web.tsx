@@ -5,7 +5,6 @@ import { MyUnitStyle } from "./MyUnitStyle.web";
 import {
   Box,
   Button,
-  Card,
   Checkbox,
   Container,
   Divider,
@@ -15,7 +14,6 @@ import {
   IconButton,
   Input,
   InputAdornment,
-  Link,
   withStyles,
 } from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
@@ -55,11 +53,11 @@ class RentHistory extends RentHistoryController {
                   <div className="right-icon">
                     {this.state.isDeleteOpen && <p onClick={() => this.selectAllHistory()}>{t("Select All")}</p>}
                     {this.state.isDeleteOpen ? (
-                      <img src={DeleteRentIcon} alt="" onClick={() => this.deleteRentHistories()} />
+                      <img src={DeleteRentIcon} alt="delete" onClick={() => this.deleteRentHistories()} />
                     ) : (
                       !this.state.isDeleteOpen &&
                       this.state.rentHistory.length >= 0 && (
-                        <img src={DeleteRentIcon} alt="" onClick={() => this.setState({ isDeleteOpen: true })} />
+                        <img src={DeleteRentIcon} alt="delete" onClick={() => this.setState({ isDeleteOpen: true })} />
                       )
                     )}
                   </div>
@@ -107,11 +105,11 @@ class RentHistory extends RentHistoryController {
                             <Divider />
                             <Box className="info">
                               <p>{t("Rent Amount")}</p>
-                              <span>{history.attributes.rent_amount || "-"}</span>
+                              <span>{this.validationText(history.attributes.rent_amount)}</span>
                             </Box>
                             <Box className="info">
                               <p>{t("Received Amount")}</p>
-                              <span>{history.attributes.received_amount || "-"}</span>
+                              <span>{this.validationText(history.attributes.received_amount)}</span>
                             </Box>
                           </Box>
                         );

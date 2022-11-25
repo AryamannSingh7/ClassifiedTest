@@ -48,7 +48,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
               style={{ display: "flex", justifyContent: "center", cursor: "pointer" }}
               onClick={() =>
                 //@ts-ignore
-                window.open("https://www.TenantInt.com", "_blank").focus()
+                window.open("https://www.TenantInt.com", "_blank", "noopener").focus()
               }
             >
               <img className="text-center" src={company_logo} alt="" />
@@ -739,7 +739,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                           style={{ cursor: "pointer" }}
                           onClick={() =>
                             //@ts-ignore
-                            window.open("https://www.TenantInt.com", "_blank").focus()
+                            window.open("https://www.TenantInt.com", "_blank", "noopener").focus()
                           }
                         >
                           <img src={company_logo} width="125" height="125" />
