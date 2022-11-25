@@ -143,9 +143,7 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
 
       responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      if (responseJson.buildings) {
-        this.setState({ buildingList: responseJson.buildings });
-      }
+      this.getBuildingListResponse(responseJson);
 
       errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
     }
@@ -160,9 +158,7 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
 
       responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      if (responseJson.apartments) {
-        this.setState({ unitList: responseJson.apartments });
-      }
+      this.getUnitListResponse(responseJson);
 
       errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
     }
@@ -177,9 +173,7 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
 
       responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      if (responseJson.relaions) {
-        this.setState({ idTypeList: responseJson.relaions });
-      }
+      this.getIdTypeListResponse(responseJson);
 
       errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
     }
@@ -194,12 +188,7 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
 
       responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      this.setState({ loading: false }, () => {
-        if (responseJson && responseJson.data) {
-          sessionStorage.clear();
-          this.props.navigation.navigate("RegisterPropertyManagerSuccess");
-        }
-      });
+      this.createPropertyManagerResponse(responseJson);
 
       errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
     }
@@ -214,11 +203,7 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
 
       responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      if (responseJson && responseJson.message) {
-        this.setState({ isPropertyManagerAvailable: true });
-      } else {
-        this.setState({ isPropertyManagerAvailable: false });
-      }
+      this.checkPropertyManagerAvailableResponse(responseJson);
 
       errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
     }
@@ -233,15 +218,7 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
 
       responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      if (responseJson && responseJson.complex && responseJson.complex_address) {
-        this.setState({
-          propertyForm: {
-            ...this.state.propertyForm,
-            country: responseJson.complex_address.country,
-            city: responseJson.complex_address.city,
-          },
-        });
-      }
+      this.getComplexDetailsResponse(responseJson);
 
       errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
     }
@@ -256,38 +233,7 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
 
       responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      if (responseJson && responseJson.data) {
-        const manager = responseJson.data;
-        const IdCardCopy: any[] = [manager.attributes.image];
-
-        const IdCardCopyUrlPromise: any[] = IdCardCopy.map(async (file: any) => {
-          return new Promise(async (resolve, reject) => {
-            let blobString = await this.fileUrlToDataURL(file.url);
-            resolve(blobString);
-          });
-        });
-
-        let IdCardCopyFilesPromise = await Promise.allSettled(IdCardCopyUrlPromise);
-        let IdCardCopyFiles = IdCardCopyFilesPromise.map((file: any) => file.value);
-
-        const IdCardFile = IdCardCopyFiles.map((blobString: any, index: number) => {
-          return this.dataURLtoFileObject(blobString, manager.attributes.name + " " + manager.attributes.id_proof.name);
-        });
-
-        this.setState({
-          propertyManagerForm: {
-            companyName: manager.attributes.company_name,
-            managerName: manager.attributes.name,
-            email: manager.attributes.email,
-            countryCode: manager.attributes.mobile_number.split("-")[0],
-            mobileNumber: manager.attributes.mobile_number.split("-")[1],
-            idType: manager.attributes.id_proof.id,
-            idNumber: manager.attributes.id_number,
-            idDate: manager.attributes.id_expiration_date,
-            idCardFile: IdCardFile[0],
-          },
-        });
-      }
+      this.getPropertyManagerDetailResponse(responseJson);
 
       errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
     }
@@ -302,9 +248,7 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
 
       responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      if (responseJson && responseJson.data) {
-        this.setState({ propertyList: responseJson.data });
-      }
+      this.getPropertyListResponse(responseJson);
 
       errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
     }
@@ -319,11 +263,7 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
 
       responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      this.setState({ loading: false }, () => {
-        if (responseJson && responseJson.data) {
-          this.getPropertyList();
-        }
-      });
+      this.createPropertyResponse(responseJson);
 
       errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
     }
@@ -338,11 +278,7 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
 
       responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      this.setState({ loading: false }, () => {
-        if (responseJson && responseJson.data) {
-          this.getPropertyList();
-        }
-      });
+      this.editPropertyResponse(responseJson);
 
       errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
     }
@@ -374,12 +310,7 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
 
       responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      this.setState({ loading: false }, () => {
-        if (responseJson && responseJson.data) {
-          toast.success("Property manager updated successfully");
-          this.props.navigation.navigate("PropertyManagerDetails", { id: this.state.editManagerId });
-        }
-      });
+      this.editPropertyManagerResponse(responseJson);
 
       errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
     }
@@ -418,6 +349,12 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
     return true;
   };
 
+  getBuildingListResponse = (responseJson: any) => {
+    if (responseJson.buildings) {
+      this.setState({ buildingList: responseJson.buildings });
+    }
+  };
+
   getUnitList = (building: any) => {
     const header = {
       "Content-Type": configJSON.ApiContentType,
@@ -442,6 +379,12 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
     return true;
   };
 
+  getUnitListResponse = (responseJson: any) => {
+    if (responseJson.apartments) {
+      this.setState({ unitList: responseJson.apartments });
+    }
+  };
+
   getIdTypeList = () => {
     const header = {
       "Content-Type": configJSON.ApiContentType,
@@ -461,6 +404,12 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
+  };
+
+  getIdTypeListResponse = (responseJson: any) => {
+    if (responseJson.relaions) {
+      this.setState({ idTypeList: responseJson.relaions });
+    }
   };
 
   createPropertyManager = (values: any) => {
@@ -509,6 +458,15 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
     return true;
   };
 
+  createPropertyManagerResponse = (responseJson: any) => {
+    this.setState({ loading: false }, () => {
+      if (responseJson && responseJson.data) {
+        sessionStorage.clear();
+        this.props.navigation.navigate("RegisterPropertyManagerSuccess");
+      }
+    });
+  };
+
   getComplexDetails = () => {
     const header = {
       "Content-Type": configJSON.ApiContentType,
@@ -531,6 +489,18 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
+  };
+
+  getComplexDetailsResponse = (responseJson: any) => {
+    if (responseJson && responseJson.complex && responseJson.complex_address) {
+      this.setState({
+        propertyForm: {
+          ...this.state.propertyForm,
+          country: responseJson.complex_address.country,
+          city: responseJson.complex_address.city,
+        },
+      });
+    }
   };
 
   getPropertyList = () => {
@@ -556,6 +526,12 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
     return true;
   };
 
+  getPropertyListResponse = (responseJson: any) => {
+    if (responseJson && responseJson.data) {
+      this.setState({ propertyList: responseJson.data });
+    }
+  };
+
   getPropertyManagerDetail = () => {
     const header = {
       "Content-Type": configJSON.ApiContentType,
@@ -579,6 +555,41 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
     return true;
   };
 
+  getPropertyManagerDetailResponse = async (responseJson: any) => {
+    if (responseJson && responseJson.data) {
+      const manager = responseJson.data;
+      const IdCardCopy: any[] = [manager.attributes.image];
+
+      const IdCardCopyUrlPromise: any[] = IdCardCopy.map(async (file: any) => {
+        return new Promise(async (resolve, reject) => {
+          let blobString = await this.fileUrlToDataURL(file.url);
+          resolve(blobString);
+        });
+      });
+
+      let IdCardCopyFilesPromise = await Promise.allSettled(IdCardCopyUrlPromise);
+      let IdCardCopyFiles = IdCardCopyFilesPromise.map((file: any) => file.value);
+
+      const IdCardFile = IdCardCopyFiles.map((blobString: any, index: number) => {
+        return this.dataURLtoFileObject(blobString, manager.attributes.name + " " + manager.attributes.id_proof.name);
+      });
+
+      this.setState({
+        propertyManagerForm: {
+          companyName: manager.attributes.company_name,
+          managerName: manager.attributes.name,
+          email: manager.attributes.email,
+          countryCode: manager.attributes.mobile_number.split("-")[0],
+          mobileNumber: manager.attributes.mobile_number.split("-")[1],
+          idType: manager.attributes.id_proof.id,
+          idNumber: manager.attributes.id_number,
+          idDate: manager.attributes.id_expiration_date,
+          idCardFile: IdCardFile[0],
+        },
+      });
+    }
+  };
+
   checkPropertyManagerAvailable = (unit: any) => {
     const header = {
       "Content-Type": configJSON.ApiContentType,
@@ -600,6 +611,14 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
+  };
+
+  checkPropertyManagerAvailableResponse = (responseJson: any) => {
+    if (responseJson && responseJson.message) {
+      this.setState({ isPropertyManagerAvailable: true });
+    } else {
+      this.setState({ isPropertyManagerAvailable: false });
+    }
   };
 
   editPropertyManager = (values: any) => {
@@ -639,6 +658,15 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
     return true;
   };
 
+  editPropertyManagerResponse = (responseJson: any) => {
+    this.setState({ loading: false }, () => {
+      if (responseJson && responseJson.data) {
+        toast.success("Property manager updated successfully");
+        this.props.navigation.navigate("PropertyManagerDetails", { id: this.state.editManagerId });
+      }
+    });
+  };
+
   editProperty = (values: any) => {
     let body = {
       properties: {
@@ -675,6 +703,14 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
     return true;
   };
 
+  editPropertyResponse = (responseJson: any) => {
+    this.setState({ loading: false }, () => {
+      if (responseJson && responseJson.data) {
+        this.getPropertyList();
+      }
+    });
+  };
+
   createProperty = (values: any) => {
     let body = {
       properties: {
@@ -707,6 +743,14 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
+  };
+
+  createPropertyResponse = (responseJson: any) => {
+    this.setState({ loading: false }, () => {
+      if (responseJson && responseJson.data) {
+        this.getPropertyList();
+      }
+    });
   };
 
   deleteProperty = (propertyId: any) => {

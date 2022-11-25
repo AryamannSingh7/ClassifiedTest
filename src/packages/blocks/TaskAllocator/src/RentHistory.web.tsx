@@ -51,13 +51,13 @@ class RentHistory extends RentHistoryController {
                     <span>{t("Rent History")}</span>
                   </div>
                   <div className="right-icon">
-                    {this.state.isDeleteOpen && <p onClick={() => this.selectAllHistory()}>{t("Select All")}</p>}
                     {this.state.isDeleteOpen ? (
-                      <img src={DeleteRentIcon} alt="delete" onClick={() => this.deleteRentHistories()} />
+                      <>
+                        <p onClick={() => this.selectAllHistory()}>{t("Select All")}</p>
+                        <img src={DeleteRentIcon} alt="delete" onClick={() => this.deleteRentHistories()} />
+                      </>
                     ) : (
-                      !this.state.isDeleteOpen && (
-                        <img src={DeleteRentIcon} alt="delete" onClick={() => this.setState({ isDeleteOpen: true })} />
-                      )
+                      <img src={DeleteRentIcon} alt="delete" onClick={() => this.setState({ isDeleteOpen: true })} />
                     )}
                   </div>
                 </Box>
