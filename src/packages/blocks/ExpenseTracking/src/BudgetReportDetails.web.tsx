@@ -6,15 +6,12 @@ import {
   withStyles,
   Button,
   IconButton,
-  Select,
-  MenuItem,
   Divider,
   Table,
   TableHead,
   TableCell,
   TableRow,
   TableBody,
-  InputBase,
   Box,
   Grid,
   Dialog,
@@ -23,32 +20,19 @@ import {
 } from "@material-ui/core";
 import Tooltip from '@material-ui/core/Tooltip';
 import BudgetReportDetailsController, { Props } from "./BudgetReportDetailsController.web";
-import { Menu } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/core.css";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
-import SearchIcon from "@material-ui/icons/Search";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-//@ts-ignore
-import Pagination from "@material-ui/lab/Pagination";
 import { withTranslation } from "react-i18next";
 import "web/src/i18n";
 import i18next from "i18next";
-import { ROLE } from "../../../framework/src/Enum";
 import { ReportsStyleWeb } from "./ReportsStyle.web";
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
-import { SearchIconImage } from "./assets";
 import {CheckIcon} from "../../user-profile-basic/src/assets"
 class BudgetReport extends BudgetReportDetailsController {
   constructor(props: Props) {
     super(props);
   } 
-
-  async componentDidMount(): Promise<void> {
-    // this.getBuildingsList();
-  }
-
-  async componentDidUpdate(prevProps: any, prevState: any): Promise<void> {}
 
   render() {
     const { classes } = this.props;

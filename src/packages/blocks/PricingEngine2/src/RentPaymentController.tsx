@@ -85,7 +85,6 @@ export default class CoverImageController extends BlockComponent<
   }
 
   getRentBuildingList = async () => {
-    const societyID = localStorage.getItem("society_id")
     this.getRentBuildingListId = await this.apiCall({
       contentType: "application/json",
       method: "GET",
@@ -95,7 +94,6 @@ export default class CoverImageController extends BlockComponent<
 
   apiCall = async (data: any) => {
     const { contentType, method, endPoint, body } = data;
-    // console.log("Called 1",data);
 
     const token = localStorage.getItem('userToken') ;
 
@@ -123,7 +121,6 @@ export default class CoverImageController extends BlockComponent<
         body
     );
     runEngine.sendMessage(requestMessage.id, requestMessage);
-    // console.log("Called",requestMessage);
     return requestMessage.messageId;
   };
 

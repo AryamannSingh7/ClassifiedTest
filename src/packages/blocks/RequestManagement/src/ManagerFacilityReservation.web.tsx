@@ -167,22 +167,6 @@ class ManagerFacilityReservation extends FacilityManagerContorller {
                       </Button>
                     </Box>
                   </div>
-                  {/* <Box className="formGroup classified-search-iput">
-                    <TextField
-                      variant="outlined"
-                      style={{ border: "1px solid #ECECEC", borderRadius: "10px", backgroundColor: "#f9f9f9", marginRight: "10px" }}
-                      placeholder={t("Search by unit number")}
-                      type="text"
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            <SearchOutlinedIcon />
-                          </InputAdornment>
-                        ),
-                      }}
-
-                    />
-                  </Box> */}
                 </Box>
                 <Grid container spacing={2} style={{ marginTop: 15, marginBottom: 15 }}>
                   {
@@ -254,7 +238,7 @@ const dashBoard: any = {
     paddingLeft: 15,
     paddingBottom: 25,
     background: "#fff",
-    borderRadius: 10,
+    borderRadius: 10, 
   },
   CardsIcons: {
     border: "1px solid #d9d4d3",
