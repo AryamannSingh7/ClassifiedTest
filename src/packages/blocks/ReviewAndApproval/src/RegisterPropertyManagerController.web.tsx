@@ -131,183 +131,151 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
   }
 
   async receive(from: string, message: Message) {
-    let responseJson: any;
-    let errorResponse: any;
-    // Get All Building List - API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetBuildingListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.GetBuildingListCallId = null;
+    if (getName(MessageEnum.RestAPIResponceMessage) === message.id) {
+      let responseJson: any;
+      let errorResponse: any;
 
-      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
+      // Get All Building List - API Response
+      if (this.GetBuildingListCallId === apiRequestCallId) {
+        this.GetBuildingListCallId = null;
 
-      this.getBuildingListResponse(responseJson);
+        responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+        this.getBuildingListResponse(responseJson);
+
+        errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      }
+
+      // Get All Unit List - API Response
+      if (this.GetUnitListCallId === apiRequestCallId) {
+        this.GetUnitListCallId = null;
+
+        responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+        this.getUnitListResponse(responseJson);
+
+        errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      }
+
+      // Get All Id Type List - API Response
+      if (this.GetIDTypeListCallId === apiRequestCallId) {
+        this.GetIDTypeListCallId = null;
+
+        responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+        this.getIdTypeListResponse(responseJson);
+
+        errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      }
+
+      // Create Property Manager - API Response
+      if (this.CreatePropertyManagerCallId === apiRequestCallId) {
+        this.CreatePropertyManagerCallId = null;
+
+        responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+        this.createPropertyManagerResponse(responseJson);
+
+        errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      }
+
+      // Check Property Manager Available - API Response
+      if (this.CheckPropertyManagerAvailableCallId === apiRequestCallId) {
+        this.CheckPropertyManagerAvailableCallId = null;
+
+        responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+        this.checkPropertyManagerAvailableResponse(responseJson);
+
+        errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      }
+
+      // Complex Details - API Response
+      if (this.GetComplexDetailsCallId === apiRequestCallId) {
+        this.GetComplexDetailsCallId = null;
+
+        responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+        this.getComplexDetailsResponse(responseJson);
+
+        errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      }
+
+      // Get Property Manager Details - API Response
+      if (this.GetPropertyManagerDetailCallId === apiRequestCallId) {
+        this.GetPropertyManagerDetailCallId = null;
+
+        responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+        this.getPropertyManagerDetailResponse(responseJson);
+
+        errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      }
+
+      // Get Property Manager's Property List - API Response
+      if (this.GetPropertyListCallId === apiRequestCallId) {
+        this.GetPropertyListCallId = null;
+
+        responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+        this.getPropertyListResponse(responseJson);
+
+        errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      }
+
+      // Create Property  - API Response
+      if (this.CreatePropertyCallId === apiRequestCallId) {
+        this.CreatePropertyCallId = null;
+
+        responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+        this.createPropertyResponse(responseJson);
+
+        errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      }
+
+      // Edit Property  - API Response
+      if (this.EditPropertyCallId === apiRequestCallId) {
+        this.EditPropertyCallId = null;
+
+        responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+        this.editPropertyResponse(responseJson);
+
+        errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      }
+
+      // Delete Property  - API Response
+      if (this.DeletePropertyCallId === apiRequestCallId) {
+        this.DeletePropertyCallId = null;
+
+        responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+        this.setState({ loading: false }, () => {
+          this.getPropertyList();
+        });
+
+        errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      }
+
+      // Edit Property Manager  - API Response
+      if (this.EditPropertyManagerCallId === apiRequestCallId) {
+        this.EditPropertyManagerCallId = null;
+
+        responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+        this.editPropertyManagerResponse(responseJson);
+
+        errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      }
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
     }
-
-    // Get All Unit List - API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetUnitListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.GetUnitListCallId = null;
-
-      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      this.getUnitListResponse(responseJson);
-
-      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-    }
-
-    // Get All Id Type List - API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetIDTypeListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.GetIDTypeListCallId = null;
-
-      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      this.getIdTypeListResponse(responseJson);
-
-      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-    }
-
-    // Create Property Manager - API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.CreatePropertyManagerCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.CreatePropertyManagerCallId = null;
-
-      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      this.createPropertyManagerResponse(responseJson);
-
-      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-    }
-
-    // Check Property Manager Available - API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.CheckPropertyManagerAvailableCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.CheckPropertyManagerAvailableCallId = null;
-
-      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      this.checkPropertyManagerAvailableResponse(responseJson);
-
-      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-    }
-
-    // Complex Details - API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetComplexDetailsCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.GetComplexDetailsCallId = null;
-
-      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      this.getComplexDetailsResponse(responseJson);
-
-      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-    }
-
-    // Get Property Manager Details - API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetPropertyManagerDetailCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.GetPropertyManagerDetailCallId = null;
-
-      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      this.getPropertyManagerDetailResponse(responseJson);
-
-      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-    }
-
-    // Get Property Manager's Property List - API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetPropertyListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.GetPropertyListCallId = null;
-
-      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      this.getPropertyListResponse(responseJson);
-
-      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-    }
-
-    // Create Property  - API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.CreatePropertyCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.CreatePropertyCallId = null;
-
-      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      this.createPropertyResponse(responseJson);
-
-      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-    }
-
-    // Edit Property  - API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.EditPropertyCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.EditPropertyCallId = null;
-
-      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      this.editPropertyResponse(responseJson);
-
-      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-    }
-
-    // Delete Property  - API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.DeletePropertyCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.DeletePropertyCallId = null;
-
-      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      this.setState({ loading: false }, () => {
-        this.getPropertyList();
-      });
-
-      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-    }
-
-    // Edit Property Manager  - API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.EditPropertyManagerCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.EditPropertyManagerCallId = null;
-
-      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      this.editPropertyManagerResponse(responseJson);
-
-      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-    }
-    if (responseJson && responseJson.meta && responseJson.meta.token) {
-      runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-    } else {
-      ApiErrorResponse(responseJson);
-    }
-    ApiCatchErrorResponse(errorResponse);
   }
 
   // Customizable Area Start
@@ -338,7 +306,7 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
   };
 
   getBuildingListResponse = (responseJson: any) => {
-    if (responseJson.buildings) {
+    if (responseJson && responseJson.buildings) {
       this.setState({ buildingList: responseJson.buildings });
     }
   };
@@ -368,7 +336,7 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
   };
 
   getUnitListResponse = (responseJson: any) => {
-    if (responseJson.apartments) {
+    if (responseJson && responseJson.apartments) {
       this.setState({ unitList: responseJson.apartments });
     }
   };
@@ -395,7 +363,7 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
   };
 
   getIdTypeListResponse = (responseJson: any) => {
-    if (responseJson.relaions) {
+    if (responseJson && responseJson.relaions) {
       this.setState({ idTypeList: responseJson.relaions });
     }
   };
