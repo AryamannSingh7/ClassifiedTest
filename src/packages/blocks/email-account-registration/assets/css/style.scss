@@ -37,7 +37,7 @@
   border: none !important;
   border-color: transparent !important;
 }
-.active-box{
+.active-box {
   box-shadow: rgba(149, 157, 165, 0.6) 0px 10px 20px;
 }
 .select-type {
@@ -45,26 +45,24 @@
 
   .middle-section {
     width: 60%;
-    color: #D3D3D3;
+    color: #d3d3d3;
 
     .title {
       font-weight: bold;
       margin-bottom: 0.58rem;
-      color: #A5A3A4;
+      color: #a5a3a4;
       font-size: 15px;
     }
 
     .para {
-      color: #D3D3D3;
+      color: #d3d3d3;
     }
-    .active-para{
+    .active-para {
       color: rgb(140, 143, 146);
     }
   }
-  
- 
 
-  input[type='radio']:checked:after {
+  input[type="radio"]:checked:after {
     width: 15px;
     height: 15px;
     border-radius: 15px;
@@ -72,12 +70,11 @@
     left: -1px;
     position: relative;
     background-color: #ffa500;
-    content: '';
+    content: "";
     display: inline-block;
     visibility: visible;
     border: 2px solid white;
   }
-
 }
 
 .css-yk16xz-control {
@@ -95,7 +92,7 @@
 }
 
 .active-type {
-  color: #2B6FED !important;
+  color: #2b6fed !important;
 }
 
 .commonForm .formGroup .ReactSelect {
@@ -124,7 +121,6 @@
 }
 
 .commonForm .formGroup .formInput {
-
   padding: 18px 18px 18px 50px;
   color: #b5b5b5;
   border-radius: 25px;
@@ -173,7 +169,6 @@
   margin: 0 auto;
 }
 
-
 @media only screen and (max-width: 600px) {
   .auth-container .auth-cols:nth-child(2) {
     height: auto;
@@ -181,7 +176,7 @@
 }
 
 input#mobile {
-  background-image: url('../../assets/numpad.png');
+  background-image: url("../../assets/numpad.png");
   background-repeat: no-repeat;
   text-indent: 31px;
 }
@@ -203,6 +198,10 @@ input#mobile:focus {
   background: #f9f9f9;
   border-radius: 25px;
   border: 1px solid #e9dede;
+}
+
+.country-code-select .MuiSelect-root {
+  background: white;
 }
 
 .formGroup1 {
@@ -227,11 +226,7 @@ input#mobile:focus {
     width: auto;
     white-space: break-spaces;
     text-align: center;
-
-
   }
-
-
 }
 
 // .diloag-body .diloag-header {
@@ -264,13 +259,13 @@ input#mobile:focus {
     border: 1px solid darkblue;
   }
 }
-.filter__indicator-separator{
+.filter__indicator-separator {
   background-color: transparent !important;
 }
-.filter__indicators{
+.filter__indicators {
   margin-right: 0.3;
 }
-.hello{
+.hello {
   width: 90%;
-    margin-left: 1.1rem;
+  margin-left: 1.1rem;
 }

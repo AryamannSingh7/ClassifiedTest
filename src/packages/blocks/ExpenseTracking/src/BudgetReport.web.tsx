@@ -27,6 +27,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 //@ts-ignore
 import Pagination from "@material-ui/lab/Pagination";
+import { withRouter } from 'react-router';
 import { withTranslation } from "react-i18next";
 import "../../../web/src/i18n.js";
 import i18next from "i18next";
@@ -37,7 +38,7 @@ import { SearchIconImage } from "./assets";
 class BudgetReport extends BudgetReportController {
   constructor(props: Props) {
     super(props);
-  }
+  } 
 
   async componentDidMount(): Promise<void> {
     // this.getBuildingsList();
@@ -178,7 +179,7 @@ class BudgetReport extends BudgetReportController {
                                 </IconButton>
                               }
                             >
-                              <MenuItem>{t("View")}</MenuItem>
+                              <MenuItem onClick={()=> this.props.history.push("/BudgetReports/1")}>{t("View")}</MenuItem>
                               <MenuItem>{t("Download")}</MenuItem>
                               <MenuItem>{t("Share")}</MenuItem>
                             </Menu>
@@ -225,5 +226,5 @@ class BudgetReport extends BudgetReportController {
   }
 }
 
-export default withTranslation()(withStyles(ReportsStyleWeb)(BudgetReport));
+export default withTranslation()(withStyles(ReportsStyleWeb)(withRouter(BudgetReport)));
 // Customizable Area End

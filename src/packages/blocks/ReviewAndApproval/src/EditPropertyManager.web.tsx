@@ -46,26 +46,20 @@ import { CountryList } from "./countryList";
 import CloseIcon from "@material-ui/icons/Close";
 import moment from "moment";
 
-class RegisterPropertyManager extends RegisterPropertyManagerController {
+class EditPropertyManager extends RegisterPropertyManagerController {
   constructor(props: Props) {
     super(props);
   }
 
   async componentDidMount(): Promise<void> {
-    const propertyList = JSON.parse(sessionStorage.getItem("propertyList") as any);
-    if (propertyList) {
-      this.setState({ propertyList: propertyList }, () => {
-        this.getBuildingList();
-        this.getIdTypeList();
-        this.getComplexDetails();
-      });
-    } else {
-      this.setState({ propertyList: [] }, () => {
-        this.getBuildingList();
-        this.getIdTypeList();
-        this.getComplexDetails();
-      });
-    }
+    const manager_id = this.props.navigation.getParam("id");
+    this.setState({ editManagerId: manager_id }, () => {
+      this.getPropertyManagerDetail();
+      this.getBuildingList();
+      this.getIdTypeList();
+      this.getComplexDetails();
+      this.getPropertyList();
+    });
   }
 
   render() {
@@ -82,12 +76,14 @@ class RegisterPropertyManager extends RegisterPropertyManagerController {
               <Box>
                 <Box display={{ xs: "flex", md: "flex" }} className="top-bar">
                   <div className="left-icon">
-                    <Link href="/PropertyManagers">
-                      <IconButton>
-                        <KeyboardBackspaceIcon />
-                      </IconButton>
-                    </Link>
-                    <span>{t("Add Property Manager")}</span>
+                    <IconButton
+                      onClick={() =>
+                        this.props.navigation.navigate("PropertyManagerDetails", { id: this.state.editManagerId })
+                      }
+                    >
+                      <KeyboardBackspaceIcon />
+                    </IconButton>
+                    <span>{t("Edit Property Manager")}</span>
                   </div>
                 </Box>
                 <Container className="page-container">
@@ -98,8 +94,7 @@ class RegisterPropertyManager extends RegisterPropertyManagerController {
                       validationSchema={this.registerPropertyManagerFormSchema}
                       onSubmit={(values: any, { resetForm }) => {
                         this.setState({ loading: true }, () => {
-                          this.createPropertyManager(values);
-                          resetForm();
+                          this.editPropertyManager(values);
                         });
                       }}
                     >
@@ -156,6 +151,7 @@ class RegisterPropertyManager extends RegisterPropertyManagerController {
                                       <img src={EmailIcon} alt="" />
                                     </InputAdornment>
                                   }
+                                  readOnly
                                 />
                                 {errors.email && touched.email && <p className="error">{t(errors.email)}</p>}
                               </FormControl>
@@ -212,30 +208,41 @@ class RegisterPropertyManager extends RegisterPropertyManagerController {
                                   <Box className="rent-history-box unit-box" key={index}>
                                     <Box className="heading">
                                       <h4>
-                                        Building {property.buildingName} Unit {property.unitName}
+                                        Building {property.attributes.building_management.name} Unit{" "}
+                                        {property.attributes.apartment_management.apartment_name}
                                       </h4>
                                       <Box className="box-icons">
                                         <img
                                           src={EditIcon}
-                                          alt=""
+                                          alt="edit"
                                           onClick={() => {
-                                            this.setState({ propertyId: index + "", propertyForm: property }, () => {
-                                              this.handleOpenAddPropertyModal();
-                                            });
+                                            this.setState(
+                                              {
+                                                propertyId: property.id,
+                                                propertyForm: {
+                                                  ...this.state.propertyForm,
+                                                  buildingId: property.attributes.building_management.id,
+                                                  unitId: property.attributes.apartment_management.id,
+                                                  buildingName: property.attributes.building_management.name,
+                                                  unitName: property.attributes.apartment_management.apartment_name,
+                                                  startDate: property.attributes.start_date,
+                                                  endDate: property.attributes.end_date,
+                                                  feeType: property.attributes.fees_type,
+                                                  rent: property.attributes.fixed_persentage_of_rent,
+                                                },
+                                              },
+                                              () => {
+                                                this.handleOpenAddPropertyModal();
+                                              }
+                                            );
                                           }}
                                         />
                                         <img
                                           src={DeleteIcon}
-                                          alt=""
+                                          alt="delete"
                                           onClick={() => {
-                                            const newPropertyList = this.state.propertyList.filter(
-                                              (property: any, id: number) => id !== index
-                                            );
-                                            this.setState({ propertyList: newPropertyList }, () => {
-                                              sessionStorage.setItem(
-                                                "propertyList",
-                                                JSON.stringify(this.state.propertyList)
-                                              );
+                                            this.setState({ loading: true }, () => {
+                                              this.deleteProperty(property.id);
                                             });
                                           }}
                                         />
@@ -244,13 +251,13 @@ class RegisterPropertyManager extends RegisterPropertyManagerController {
                                     <Box className="unit-info">
                                       <span>{t("Contract")}</span>
                                       <p>
-                                        {moment(property.startDate, "YYYY-MM-DD").format("MMMM DD, YYYY")} -{" "}
-                                        {moment(property.endDate, "YYYY-MM-DD").format("MMMM DD, YYYY")}
+                                        {moment(property.attributes.start_date, "YYYY-MM-DD").format("MMMM DD, YYYY")} -{" "}
+                                        {moment(property.attributes.end_date, "YYYY-MM-DD").format("MMMM DD, YYYY")}
                                       </p>
                                     </Box>
                                     <Box className="unit-info">
                                       <span>{t("Charges")}</span>
-                                      <p>{property.rent} / Month</p>
+                                      <p>{property.attributes.fixed_persentage_of_rent} / Month</p>
                                     </Box>
                                   </Box>
                                 );
@@ -381,20 +388,14 @@ class RegisterPropertyManager extends RegisterPropertyManagerController {
             initialValues={this.state.propertyForm}
             validationSchema={this.registerPropertyFormSchema}
             onSubmit={(values, { resetForm }) => {
-              if (this.state.propertyId) {
-                let newList = this.state.propertyList;
-                newList[Number(this.state.propertyId)] = values;
-                this.setState({ propertyList: newList }, () => {
-                  this.handleCloseAddPropertyModal();
-                  sessionStorage.setItem("propertyList", JSON.stringify(this.state.propertyList));
-                });
-              } else {
-                const newUnitList = this.state.unitList.filter((unit: any) => unit.id !== values.unitId);
-                this.setState({ propertyList: [...this.state.propertyList, values], unitList: newUnitList }, () => {
-                  this.handleCloseAddPropertyModal();
-                  sessionStorage.setItem("propertyList", JSON.stringify(this.state.propertyList));
-                });
-              }
+              this.setState({ loading: true }, () => {
+                if (this.state.propertyId) {
+                  this.editProperty(values);
+                } else {
+                  this.createProperty(values);
+                }
+                this.handleCloseAddPropertyModal();
+              });
             }}
           >
             {({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue }) => {
@@ -635,5 +636,5 @@ class RegisterPropertyManager extends RegisterPropertyManagerController {
   }
 }
 
-export default withTranslation()(withStyles(PropertyManagerStyleWeb)(RegisterPropertyManager));
+export default withTranslation()(withStyles(PropertyManagerStyleWeb)(EditPropertyManager));
 // Customizable Area End
