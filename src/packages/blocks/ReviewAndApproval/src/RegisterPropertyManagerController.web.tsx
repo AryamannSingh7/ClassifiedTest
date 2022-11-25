@@ -132,143 +132,137 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
 
   async receive(from: string, message: Message) {
     if (getName(MessageEnum.RestAPIResponceMessage) === message.id) {
-      let responseJson: any;
-      let errorResponse: any;
+      let responseJson: any = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      let errorResponse: any = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
 
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
-      // Get All Building List - API Response
-      if (this.GetBuildingListCallId === apiRequestCallId) {
-        this.GetBuildingListCallId = null;
-
-        responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-        this.getBuildingListResponse(responseJson);
-
-        errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      switch (apiRequestCallId) {
+        // Get All Building List - API Response
+        case this.GetBuildingListCallId:
+          this.GetBuildingListCallId = null;
+          this.getBuildingListResponse(responseJson);
+          break;
+        case this.GetUnitListCallId:
+          this.GetUnitListCallId = null;
+          this.getUnitListResponse(responseJson);
+          break;
+        case this.GetIDTypeListCallId:
+          this.GetIDTypeListCallId = null;
+          this.getIdTypeListResponse(responseJson);
+          break;
+        case this.CreatePropertyManagerCallId:
+          this.CreatePropertyManagerCallId = null;
+          this.createPropertyManagerResponse(responseJson);
+          break;
+        case this.CheckPropertyManagerAvailableCallId:
+          this.CheckPropertyManagerAvailableCallId = null;
+          this.checkPropertyManagerAvailableResponse(responseJson);
+          break;
+        case this.GetComplexDetailsCallId:
+          this.GetComplexDetailsCallId = null;
+          this.getComplexDetailsResponse(responseJson);
+          break;
+        case this.GetPropertyManagerDetailCallId:
+          this.GetPropertyManagerDetailCallId = null;
+          this.getPropertyManagerDetailResponse(responseJson);
+          break;
+        case this.GetPropertyListCallId:
+          this.GetPropertyListCallId = null;
+          this.getPropertyListResponse(responseJson);
+          break;
+        case this.CreatePropertyCallId:
+          this.CreatePropertyCallId = null;
+          this.createPropertyResponse(responseJson);
+          break;
+        case this.EditPropertyCallId:
+          this.EditPropertyCallId = null;
+          this.editPropertyResponse(responseJson);
+          break;
+        case this.DeletePropertyCallId:
+          this.DeletePropertyCallId = null;
+          this.setState({ loading: false }, () => {
+            this.getPropertyList();
+          });
+          break;
+        case this.EditPropertyManagerCallId:
+          this.EditPropertyManagerCallId = null;
+          this.editPropertyManagerResponse(responseJson);
+          break;
       }
+      // Get All Building List - API Response
+      // if (this.GetBuildingListCallId === apiRequestCallId) {
+      //   this.GetBuildingListCallId = null;
+      //   this.getBuildingListResponse(responseJson);
+      // }
 
       // Get All Unit List - API Response
-      if (this.GetUnitListCallId === apiRequestCallId) {
-        this.GetUnitListCallId = null;
-
-        responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-        this.getUnitListResponse(responseJson);
-
-        errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      }
+      // if (this.GetUnitListCallId === apiRequestCallId) {
+      //   this.GetUnitListCallId = null;
+      //   this.getUnitListResponse(responseJson);
+      // }
 
       // Get All Id Type List - API Response
-      if (this.GetIDTypeListCallId === apiRequestCallId) {
-        this.GetIDTypeListCallId = null;
-
-        responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-        this.getIdTypeListResponse(responseJson);
-
-        errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      }
+      // if (this.GetIDTypeListCallId === apiRequestCallId) {
+      //   this.GetIDTypeListCallId = null;
+      //   this.getIdTypeListResponse(responseJson);
+      // }
 
       // Create Property Manager - API Response
-      if (this.CreatePropertyManagerCallId === apiRequestCallId) {
-        this.CreatePropertyManagerCallId = null;
-
-        responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-        this.createPropertyManagerResponse(responseJson);
-
-        errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      }
+      // if (this.CreatePropertyManagerCallId === apiRequestCallId) {
+      //   this.CreatePropertyManagerCallId = null;
+      //   this.createPropertyManagerResponse(responseJson);
+      // }
 
       // Check Property Manager Available - API Response
-      if (this.CheckPropertyManagerAvailableCallId === apiRequestCallId) {
-        this.CheckPropertyManagerAvailableCallId = null;
-
-        responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-        this.checkPropertyManagerAvailableResponse(responseJson);
-
-        errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      }
+      // if (this.CheckPropertyManagerAvailableCallId === apiRequestCallId) {
+      //   this.CheckPropertyManagerAvailableCallId = null;
+      //   this.checkPropertyManagerAvailableResponse(responseJson);
+      // }
 
       // Complex Details - API Response
-      if (this.GetComplexDetailsCallId === apiRequestCallId) {
-        this.GetComplexDetailsCallId = null;
-
-        responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-        this.getComplexDetailsResponse(responseJson);
-
-        errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      }
+      // if (this.GetComplexDetailsCallId === apiRequestCallId) {
+      //   this.GetComplexDetailsCallId = null;
+      //   this.getComplexDetailsResponse(responseJson);
+      // }
 
       // Get Property Manager Details - API Response
-      if (this.GetPropertyManagerDetailCallId === apiRequestCallId) {
-        this.GetPropertyManagerDetailCallId = null;
-
-        responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-        this.getPropertyManagerDetailResponse(responseJson);
-
-        errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      }
+      // if (this.GetPropertyManagerDetailCallId === apiRequestCallId) {
+      //   this.GetPropertyManagerDetailCallId = null;
+      //   this.getPropertyManagerDetailResponse(responseJson);
+      // }
 
       // Get Property Manager's Property List - API Response
-      if (this.GetPropertyListCallId === apiRequestCallId) {
-        this.GetPropertyListCallId = null;
-
-        responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-        this.getPropertyListResponse(responseJson);
-
-        errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      }
+      // if (this.GetPropertyListCallId === apiRequestCallId) {
+      //   this.GetPropertyListCallId = null;
+      //   this.getPropertyListResponse(responseJson);
+      // }
 
       // Create Property  - API Response
-      if (this.CreatePropertyCallId === apiRequestCallId) {
-        this.CreatePropertyCallId = null;
-
-        responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-        this.createPropertyResponse(responseJson);
-
-        errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      }
+      // if (this.CreatePropertyCallId === apiRequestCallId) {
+      //   this.CreatePropertyCallId = null;
+      //   this.createPropertyResponse(responseJson);
+      // }
 
       // Edit Property  - API Response
-      if (this.EditPropertyCallId === apiRequestCallId) {
-        this.EditPropertyCallId = null;
-
-        responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-        this.editPropertyResponse(responseJson);
-
-        errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      }
+      // if (this.EditPropertyCallId === apiRequestCallId) {
+      //   this.EditPropertyCallId = null;
+      //   this.editPropertyResponse(responseJson);
+      // }
 
       // Delete Property  - API Response
-      if (this.DeletePropertyCallId === apiRequestCallId) {
-        this.DeletePropertyCallId = null;
-
-        responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-        this.setState({ loading: false }, () => {
-          this.getPropertyList();
-        });
-
-        errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      }
+      // if (this.DeletePropertyCallId === apiRequestCallId) {
+      //   this.DeletePropertyCallId = null;
+      //   this.setState({ loading: false }, () => {
+      //     this.getPropertyList();
+      //   });
+      // }
 
       // Edit Property Manager  - API Response
-      if (this.EditPropertyManagerCallId === apiRequestCallId) {
-        this.EditPropertyManagerCallId = null;
+      // if (this.EditPropertyManagerCallId === apiRequestCallId) {
+      //   this.EditPropertyManagerCallId = null;
+      //   this.editPropertyManagerResponse(responseJson);
+      // }
 
-        responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-        this.editPropertyManagerResponse(responseJson);
-
-        errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      }
       if (responseJson && responseJson.meta && responseJson.meta.token) {
         runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
       } else {
