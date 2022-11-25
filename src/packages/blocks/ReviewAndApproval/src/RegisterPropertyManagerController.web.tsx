@@ -136,7 +136,6 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
     // Get All Building List - API Response
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetBuildingListCallId !== null &&
       this.GetBuildingListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.GetBuildingListCallId = null;
@@ -151,7 +150,6 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
     // Get All Unit List - API Response
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetUnitListCallId !== null &&
       this.GetUnitListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.GetUnitListCallId = null;
@@ -166,7 +164,6 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
     // Get All Id Type List - API Response
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetIDTypeListCallId !== null &&
       this.GetIDTypeListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.GetIDTypeListCallId = null;
@@ -181,7 +178,6 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
     // Create Property Manager - API Response
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.CreatePropertyManagerCallId !== null &&
       this.CreatePropertyManagerCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.CreatePropertyManagerCallId = null;
@@ -196,7 +192,6 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
     // Check Property Manager Available - API Response
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.CheckPropertyManagerAvailableCallId !== null &&
       this.CheckPropertyManagerAvailableCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.CheckPropertyManagerAvailableCallId = null;
@@ -211,7 +206,6 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
     // Complex Details - API Response
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetComplexDetailsCallId !== null &&
       this.GetComplexDetailsCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.GetComplexDetailsCallId = null;
@@ -226,7 +220,6 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
     // Get Property Manager Details - API Response
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetPropertyManagerDetailCallId !== null &&
       this.GetPropertyManagerDetailCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.GetPropertyManagerDetailCallId = null;
@@ -241,7 +234,6 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
     // Get Property Manager's Property List - API Response
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetPropertyListCallId !== null &&
       this.GetPropertyListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.GetPropertyListCallId = null;
@@ -256,7 +248,6 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
     // Create Property  - API Response
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.CreatePropertyCallId !== null &&
       this.CreatePropertyCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.CreatePropertyCallId = null;
@@ -271,7 +262,6 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
     // Edit Property  - API Response
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.EditPropertyCallId !== null &&
       this.EditPropertyCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.EditPropertyCallId = null;
@@ -286,7 +276,6 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
     // Delete Property  - API Response
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.DeletePropertyCallId !== null &&
       this.DeletePropertyCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.DeletePropertyCallId = null;
@@ -303,7 +292,6 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
     // Edit Property Manager  - API Response
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.EditPropertyManagerCallId !== null &&
       this.EditPropertyManagerCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       this.EditPropertyManagerCallId = null;
