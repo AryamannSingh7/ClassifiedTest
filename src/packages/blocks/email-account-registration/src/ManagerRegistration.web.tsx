@@ -76,9 +76,6 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                     confirm_password: "",
                     managerName: "",
                     company_name: "",
-                    // owner_phone: "",
-                    // owner_email: "",
-                    // ownerName: "",
                     showPassword: false,
                     showConfirmPassword: false,
                   }}
@@ -243,8 +240,6 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                         >
                           <Box>
                             <FormControl variant="outlined">
-                              {/* <InputLabel id="demo-simple-select-outlined-label"><img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AF.svg`} width='15' height='15' />
-                          sd</InputLabel> */}
                               <Select
                                 name="selectCode"
                                 labelId="demo-simple-select-outlined-label"
@@ -271,23 +266,6 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                                   </MenuItem>
                                 ))}
                               </Select>
-                              {/* <Autocomplete
-  id="combo-box-demo"
-  options={dailCode}
-  autoComplete="new-password"
-  value={this.getSelectedItem()}
-  filterOptions={filterOptions}
-  getOptionLabel={(option:any) => this.handleChangeCode(option)}
-  onInputChange={(event:any, newInputValue:any)=>this.setState({selectCode:newInputValue})}
-  style={{ width: 100 }}
-  renderOption={(props:any, option:any) => { console.log(props)
-    return <MenuItem>{props.dial_code} <img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/${props.code}.svg`} width='15' height='15' style={{ marginRight: '5px' }} /></MenuItem>;
-  }}
-  renderInput={(params:any) => <TextField {...params}  inputProps={{
-    ...params.inputProps,
-    autoComplete: 'new-password',
-  }}  variant="outlined" />}
-/> */}
                             </FormControl>
                           </Box>
 
@@ -324,195 +302,6 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                           </Typography>
                         ) : null}
 
-                        {/* Owner Name */}
-
-                        {/* <Box
-                          className="input"
-                          display="flex"
-                          overflow="hidden"
-                          alignItems="center"
-                          height="56px"
-                          border="0.1px solid rgb(209 209 209 / 44%)"
-                          borderRadius="16px"
-                          bgcolor="#F9F9F9"
-                          marginTop="1rem"
-                        >
-                          <img src={user} style={{ paddingLeft: "0.5rem" }} />
-
-                          <Field
-                            name="ownerName"
-                            placeholder={"Owner full name"}
-                            style={{
-                              border: "none",
-                              height: "100%",
-                              width: "80%",
-                              color: "rgba(0, 0, 0, 0.6)",
-
-                              fontWeight: 400,
-                              fontSize: 16,
-                              marginRight: 10,
-                              marginLeft: 10,
-                              outline: "none",
-                            }}
-                          />
-                        </Box>
-                        {errors.ownerName && touched.ownerName ? (
-                          <Typography
-                            style={{
-                              color: "#F14E24",
-
-                              fontWeight: 300,
-                              fontSize: 14,
-                              marginTop: 5,
-                              marginLeft: 10,
-                            }}
-                          >
-                            {errors.ownerName}
-                          </Typography>
-                        ) : null} */}
-
-                        {/* email */}
-                        {/* <Box
-                          className="input"
-                          display="flex"
-                          overflow="hidden"
-                          alignItems="center"
-                          height="56px"
-                          border="0.1px solid rgb(209 209 209 / 44%)"
-                          borderRadius="16px"
-                          bgcolor="#F9F9F9"
-                          marginTop="1rem"
-                        >
-                          <img src={email} style={{ paddingLeft: "0.5rem" }} />
-
-                          <Field
-                            name="owner_email"
-                            placeholder={"Owner Email ID"}
-                            style={{
-                              border: "none",
-                              height: "100%",
-                              width: "80%",
-                              color: "rgba(0, 0, 0, 0.6)",
-
-                              fontWeight: 400,
-                              fontSize: 16,
-                              marginRight: 10,
-                              marginLeft: 10,
-                              outline: "none",
-                            }}
-                          />
-                        </Box>
-                        {errors.owner_email && touched.owner_email ? (
-                          <Typography
-                            style={{
-                              color: "#F14E24",
-
-                              fontWeight: 300,
-                              fontSize: 14,
-                              marginTop: 5,
-                              marginLeft: 10,
-                            }}
-                          >
-                            {errors.owner_email}
-                          </Typography>
-                        ) : null} */}
-
-                        {/* mobile */}
-
-                        {/* <Box
-                          marginTop="1rem"
-                          className="input"
-                          display="flex"
-                          overflow="hidden"
-                          alignItems="center"
-                          height="56px"
-                          border="0.1px solid rgb(209 209 209 / 44%)"
-                          borderRadius="16px"
-                          bgcolor="#F9F9F9"
-                        >
-                          <Box>
-                            <FormControl variant="outlined"> */}
-                        {/* <InputLabel id="demo-simple-select-outlined-label"><img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AF.svg`} width='15' height='15' />
-                          sd</InputLabel> */}
-                        {/* <Select
-                                name="selectCode"
-                                labelId="demo-simple-select-outlined-label"
-                                id="demo-simple-select-outlined"
-                                onChange={this.handleChange}
-                                label="Unit"
-                                value={this.state.selectCode2}
-                              >
-                                <MenuItem value="">
-                                  <em>None</em>
-                                </MenuItem>
-                                {dailCode.map((item) => (
-                                  <MenuItem key={item.dial_code} value={item.dial_code}>
-                                    {" "}
-                                    <img
-                                      src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/${
-                                        item.code
-                                      }.svg`}
-                                      width="15"
-                                      height="15"
-                                    />
-                                    {item.dial_code}
-                                  </MenuItem>
-                                ))}
-                              </Select> */}
-                        {/* <Autocomplete
-  id="combo-box-demo"
-  options={dailCode}
-  autoComplete="new-password"
-  value={this.getSelectedItem()}
-  filterOptions={filterOptions}
-  getOptionLabel={(option:any) => this.handleChangeCode(option)}
-  onInputChange={(event:any, newInputValue:any)=>this.setState({selectCode:newInputValue})}
-  style={{ width: 100 }}
-  renderOption={(props:any, option:any) => { console.log(props)
-    return <MenuItem>{props.dial_code} <img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/${props.code}.svg`} width='15' height='15' style={{ marginRight: '5px' }} /></MenuItem>;
-  }}
-  renderInput={(params:any) => <TextField {...params}  inputProps={{
-    ...params.inputProps,
-    autoComplete: 'new-password',
-  }}  variant="outlined" />}
-/> */}
-                        {/* </FormControl>
-                          </Box> */}
-
-                        {/* <Field
-                            id="mobile"
-                            name="owner_phone"
-                            placeholder={"Mobile"}
-                            style={{
-                              border: "none",
-                              height: "42%",
-                              width: "80%",
-                              color: "rgba(0, 0, 0, 0.6)",
-
-                              fontWeight: 400,
-                              fontSize: 16,
-                              marginRight: 10,
-                              marginLeft: 10,
-                              outline: "none",
-                            }}
-                          />
-                        </Box>
-                        {errors.owner_phone && touched.owner_phone ? (
-                          <Typography
-                            style={{
-                              color: "#F14E24",
-
-                              fontWeight: 300,
-                              fontSize: 14,
-                              marginTop: 5,
-                              marginLeft: 10,
-                            }}
-                          >
-                            {errors.owner_phone}
-                          </Typography>
-                        ) : null} */}
-
-                        {/* pass */}
                         <Box
                           display="flex"
                           overflow="hidden"
@@ -729,8 +518,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                               fontSize: 12,
                             }}
                           >
-                            POWERED BY
-                            {/* , {t("including the")} */}{" "}
+                            POWERED BY{" "}
                           </Typography>
                         </Box>
                         <Box

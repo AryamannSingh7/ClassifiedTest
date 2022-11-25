@@ -4,8 +4,6 @@ import { BlockComponent } from "../../../framework/src/BlockComponent";
 import MessageEnum, { getName } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
 import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
-import * as Yup from "yup";
-import toast from "react-hot-toast";
 
 export const configJSON = require("./config.js");
 

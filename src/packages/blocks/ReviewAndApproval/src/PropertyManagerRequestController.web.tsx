@@ -52,6 +52,7 @@ export default class PropertyManagerRequestController extends BlockComponent<Pro
     let responseJson: any;
     let errorResponse: any;
 
+    // Get Request Manager List  - API Response
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.GetManagerRequestCallId !== null &&
@@ -68,7 +69,7 @@ export default class PropertyManagerRequestController extends BlockComponent<Pro
       errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
     }
 
-    // Status - API Response
+    // Status Update - API Response
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.EditManagerRequestCallId !== null &&

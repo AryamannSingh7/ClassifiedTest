@@ -465,7 +465,7 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
 
   createPropertyManager = (values: any) => {
     const ownerId = localStorage.getItem("userId") as any;
-    var data = new FormData();
+    let data = new FormData();
 
     data.append("company_name", values.companyName);
     data.append("name", values.managerName);
@@ -603,7 +603,7 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
   };
 
   editPropertyManager = (values: any) => {
-    var data = new FormData();
+    let data = new FormData();
     data.append("company_name", values.companyName);
     data.append("name", values.managerName);
     data.append("email", values.email);

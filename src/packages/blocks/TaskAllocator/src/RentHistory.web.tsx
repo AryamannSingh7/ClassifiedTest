@@ -55,8 +55,7 @@ class RentHistory extends RentHistoryController {
                     {this.state.isDeleteOpen ? (
                       <img src={DeleteRentIcon} alt="delete" onClick={() => this.deleteRentHistories()} />
                     ) : (
-                      !this.state.isDeleteOpen &&
-                      this.state.rentHistory.length >= 0 && (
+                      !this.state.isDeleteOpen && (
                         <img src={DeleteRentIcon} alt="delete" onClick={() => this.setState({ isDeleteOpen: true })} />
                       )
                     )}
