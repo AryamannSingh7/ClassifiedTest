@@ -57,7 +57,7 @@ class ForgotPassword extends ForgotPasswordController {
                       </Link>
                     </Box> */}
                     <h1>Forgot Password</h1>
-                    <h6>One Time Password(OTP) will be sent to the regestered email.</h6>
+                    <h6>One Time Password(OTP) will be sent to the regestered email or mobile.</h6>
                   </Box>
                   <Formik
                     initialValues={{
@@ -98,10 +98,10 @@ class ForgotPassword extends ForgotPasswordController {
                   </Formik>
                 </Box>
                 {/* desktop footer block */}
-                <Box className="footer-main-block bottomBlock">
+                {/* <Box className="footer-main-block bottomBlock">
                   <h6 className="bottom-text">POWERED BY</h6>
                   <img src={Tenant_Logo.default} className="tenant-logo" alt="" />
-                </Box>
+                </Box> */}
               </Box>
             </Grid>
             <Grid item xs={12} md={5} className="auth-cols">

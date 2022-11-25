@@ -43,7 +43,7 @@ class RegisterPropertyManagerSuccess extends RegisterPropertyManagerController {
                     </p>
                   </Box>
                   <div className="next-button">
-                    <Button onClick={() => this.props.navigation.navigate("MyUnitList")}>{t("Okay")}</Button>
+                    <Button onClick={() => this.props.navigation.navigate("PropertyManagerList")}>{t("Okay")}</Button>
                   </div>
                 </Container>
               </Box>

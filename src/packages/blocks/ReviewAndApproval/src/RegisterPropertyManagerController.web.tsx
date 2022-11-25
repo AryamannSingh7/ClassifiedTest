@@ -26,7 +26,14 @@ interface S {
   idTypeList: any[];
 
   propertyManagerForm: PropertyManagerForm;
+
   propertyForm: PropertyForm;
+  isPropertyManagerAvailable: boolean;
+
+  propertyId: string;
+  propertyList: any[];
+
+  editManagerId: string;
 }
 
 interface PropertyManagerForm {
@@ -46,6 +53,8 @@ interface PropertyForm {
   city: string;
   buildingId: string;
   unitId: string;
+  buildingName: string;
+  unitName: string;
   startDate: string;
   endDate: string;
   feeType: string;
@@ -63,6 +72,14 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
   GetBuildingListCallId: any;
   GetUnitListCallId: any;
   CreatePropertyManagerCallId: any;
+  CheckPropertyManagerAvailableCallId: any;
+  GetComplexDetailsCallId: any;
+  GetPropertyManagerDetailCallId: any;
+  GetPropertyListCallId: any;
+  EditPropertyCallId: any;
+  CreatePropertyCallId: any;
+  DeletePropertyCallId: any;
+  EditPropertyManagerCallId: any;
 
   constructor(props: Props) {
     super(props);
@@ -96,11 +113,19 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
         city: "",
         buildingId: "",
         unitId: "",
+        buildingName: "",
+        unitName: "",
         startDate: "",
         endDate: "",
         feeType: "",
         rent: "",
       },
+      isPropertyManagerAvailable: false,
+
+      propertyId: "",
+      propertyList: [],
+
+      editManagerId: "",
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
@@ -188,7 +213,238 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       this.setState({ loading: false }, () => {
-        console.log(responseJson);
+        if (responseJson && responseJson.data) {
+          sessionStorage.clear();
+          this.props.navigation.navigate("RegisterPropertyManagerSuccess");
+        }
+      });
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // Check Property Manager Available - API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.CheckPropertyManagerAvailableCallId !== null &&
+      this.CheckPropertyManagerAvailableCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.CheckPropertyManagerAvailableCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      if (responseJson && responseJson.message) {
+        this.setState({ isPropertyManagerAvailable: true });
+      } else {
+        this.setState({ isPropertyManagerAvailable: false });
+      }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // Complex Details - API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.GetComplexDetailsCallId !== null &&
+      this.GetComplexDetailsCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.GetComplexDetailsCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      if (responseJson && responseJson.complex && responseJson.complex_address) {
+        this.setState({
+          propertyForm: {
+            ...this.state.propertyForm,
+            country: responseJson.complex_address.country,
+            city: responseJson.complex_address.city,
+          },
+        });
+      }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // Get Property Manager Details - API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.GetPropertyManagerDetailCallId !== null &&
+      this.GetPropertyManagerDetailCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.GetPropertyManagerDetailCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      if (responseJson && responseJson.data) {
+        const manager = responseJson.data;
+        const IdCardCopy: any[] = [manager.attributes.image];
+
+        const IdCardCopyUrlPromise: any[] = IdCardCopy.map(async (file: any) => {
+          return new Promise(async (resolve, reject) => {
+            let blobString = await this.fileUrlToDataURL(file.url);
+            resolve(blobString);
+          });
+        });
+
+        let IdCardCopyFilesPromise = await Promise.allSettled(IdCardCopyUrlPromise);
+        let IdCardCopyFiles = IdCardCopyFilesPromise.map((file: any) => file.value);
+
+        const IdCardFile = IdCardCopyFiles.map((blobString: any, index: number) => {
+          return this.dataURLtoFileObject(blobString, manager.attributes.name + " " + manager.attributes.id_proof.name);
+        });
+
+        this.setState({
+          propertyManagerForm: {
+            companyName: manager.attributes.company_name,
+            managerName: manager.attributes.name,
+            email: manager.attributes.email,
+            countryCode: manager.attributes.mobile_number.split("-")[0],
+            mobileNumber: manager.attributes.mobile_number.split("-")[1],
+            idType: manager.attributes.id_proof.id,
+            idNumber: manager.attributes.id_number,
+            idDate: manager.attributes.id_expiration_date,
+            idCardFile: IdCardFile[0],
+          },
+        });
+      }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // Get Property Manager's Property List - API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.GetPropertyListCallId !== null &&
+      this.GetPropertyListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.GetPropertyListCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      if (responseJson && responseJson.data) {
+        this.setState({ propertyList: responseJson.data });
+      }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // Create Property  - API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.CreatePropertyCallId !== null &&
+      this.CreatePropertyCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.CreatePropertyCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      this.setState({ loading: false }, () => {
+        if (responseJson && responseJson.data) {
+          this.getPropertyList();
+        }
+      });
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // Edit Property  - API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.EditPropertyCallId !== null &&
+      this.EditPropertyCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.EditPropertyCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      this.setState({ loading: false }, () => {
+        if (responseJson && responseJson.data) {
+          this.getPropertyList();
+        }
+      });
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // Delete Property  - API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.DeletePropertyCallId !== null &&
+      this.DeletePropertyCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.DeletePropertyCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      this.setState({ loading: false }, () => {
+        this.getPropertyList();
+      });
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
+
+    // Edit Property Manager  - API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.EditPropertyManagerCallId !== null &&
+      this.EditPropertyManagerCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.EditPropertyManagerCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      this.setState({ loading: false }, () => {
+        if (responseJson && responseJson.data) {
+          toast.success("Property manager updated successfully");
+          this.props.navigation.navigate("PropertyManagerDetails", { id: this.state.editManagerId });
+        }
       });
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
@@ -241,8 +497,7 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
     const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      // `society_managements/${society_id}/bx_block_contract/contracts/find_unit?building_management_id=${building}`
-      `society_managements/${society_id}/bx_block_contract/tenant_resquests/find_unit?building_management_id=${building}`
+      `society_managements/${society_id}/bx_block_contract/contracts/find_unit?building_management_id=${building}`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
@@ -275,21 +530,29 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
   };
 
   createPropertyManager = (values: any) => {
-    // idCardFile: null,
-    const body = {
-      property_manager_request: {
-        company_name: values.companyName,
-        name: values.managerName,
-        email: values.email,
-        mobile_number: values.countryCode + "-" + values.mobileNumber,
-        id_proof_id: values.idType,
-        id_number: values.idNumber,
-        id_expiration_date: values.idDate,
-      },
-    };
+    const ownerId = localStorage.getItem("userId") as any;
+    var data = new FormData();
+
+    data.append("company_name", values.companyName);
+    data.append("name", values.managerName);
+    data.append("email", values.email);
+    data.append("mobile_number", values.countryCode + "-" + values.mobileNumber);
+    data.append("id_proof_id", values.idType);
+    data.append("id_number", values.idNumber);
+    data.append("id_expiration_date", values.idDate);
+    data.append("image", values.idCardFile);
+
+    for (let i = 0; i < this.state.propertyList.length; i++) {
+      data.append(`properties_attributes[${i}][building_management_id]`, this.state.propertyList[i].buildingId);
+      data.append(`properties_attributes[${i}][apartment_management_id]`, this.state.propertyList[i].unitId);
+      data.append(`properties_attributes[${i}][start_date]`, this.state.propertyList[i].startDate);
+      data.append(`properties_attributes[${i}][end_date]`, this.state.propertyList[i].endDate);
+      data.append(`properties_attributes[${i}][fees_type]`, this.state.propertyList[i].feeType);
+      data.append(`properties_attributes[${i}][fixed_persentage_of_rent]`, this.state.propertyList[i].rent);
+      data.append(`properties_attributes[${i}][account_id]`, ownerId);
+    }
 
     const header = {
-      "Content-Type": configJSON.ApiContentType,
       token: localStorage.getItem("userToken"),
     };
 
@@ -304,9 +567,232 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
-    apiRequest.addData(getName(MessageEnum.RestAPIRequestBodyMessage), JSON.stringify(body));
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestBodyMessage), data);
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePost);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  getComplexDetails = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.GetComplexDetailsCallId = apiRequest.messageId;
+
+    const society_id = localStorage.getItem("society_id");
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_request_management/find_complex?society_management_id=${society_id}`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  getPropertyList = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.GetPropertyListCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_property_manager/properties?property_manager_id=${this.state.editManagerId}`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  getPropertyManagerDetail = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.GetPropertyManagerDetailCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_property_manager/property_manager_requests/${this.state.editManagerId}`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  checkPropertyManagerAvailable = (unit: any) => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.CheckPropertyManagerAvailableCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_property_manager/properties/verify_property?apartment_management_id=${unit}`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  editPropertyManager = (values: any) => {
+    var data = new FormData();
+    data.append("company_name", values.companyName);
+    data.append("name", values.managerName);
+    data.append("email", values.email);
+    data.append("mobile_number", values.countryCode + "-" + values.mobileNumber);
+    data.append("id_proof_id", values.idType);
+    data.append("id_number", values.idNumber);
+    data.append("id_expiration_date", values.idDate);
+
+    if (typeof values.idCardFile === "object" && values.idCardFile !== null) {
+      data.append("image", values.idCardFile);
+    }
+
+    const header = {
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.EditPropertyManagerCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_property_manager/property_manager_requests/${this.state.editManagerId}`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestBodyMessage), data);
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePut);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  editProperty = (values: any) => {
+    let body = {
+      properties: {
+        building_management_id: values.buildingId,
+        apartment_management_id: values.unitId,
+        start_date: values.startDate,
+        end_date: values.endDate,
+        fees_type: values.feeType,
+        fixed_persentage_of_rent: values.rent,
+      },
+    };
+
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.EditPropertyCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_property_manager/properties/${this.state.propertyId}`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestBodyMessage), JSON.stringify(body));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePut);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  createProperty = (values: any) => {
+    let body = {
+      properties: {
+        building_management_id: values.buildingId,
+        apartment_management_id: values.unitId,
+        start_date: values.startDate,
+        end_date: values.endDate,
+        fees_type: values.feeType,
+        fixed_persentage_of_rent: values.rent,
+        property_manager_request_id: this.state.editManagerId,
+      },
+    };
+
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.CreatePropertyCallId = apiRequest.messageId;
+
+    apiRequest.addData(getName(MessageEnum.RestAPIResponceEndPointMessage), `bx_block_property_manager/properties`);
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestBodyMessage), JSON.stringify(body));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePost);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  deleteProperty = (propertyId: any) => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.DeletePropertyCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_property_manager/properties/${propertyId}`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeDelete);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
@@ -347,7 +833,13 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
       .matches(/\S/, "Required"),
     unitId: Yup.string()
       .required("Required")
-      .matches(/\S/, "Required"),
+      .matches(/\S/, "Required")
+      .test("unitId", "Property Manager is available for this unit", (value: any) => {
+        if (value) {
+          return !this.state.isPropertyManagerAvailable;
+        }
+        return true;
+      }),
     startDate: Yup.string()
       .required("Required")
       .matches(/\S/, "Required"),
@@ -362,10 +854,53 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
       .matches(/\S/, "Required"),
   });
 
-  handleAddPropertyModal = () => {
+  handleOpenAddPropertyModal = () => {
     this.setState({
       isAddPropertyModalOpen: !this.state.isAddPropertyModalOpen,
     });
+  };
+
+  handleCloseAddPropertyModal = () => {
+    this.setState({
+      isAddPropertyModalOpen: !this.state.isAddPropertyModalOpen,
+      propertyId: "",
+      propertyForm: {
+        ...this.state.propertyForm,
+        buildingId: "",
+        unitId: "",
+        buildingName: "",
+        unitName: "",
+        startDate: "",
+        endDate: "",
+        feeType: "",
+        rent: "",
+      },
+    });
+  };
+
+  fileUrlToDataURL = (url: any) =>
+    fetch(url)
+      .then((response: any) => response.blob())
+      .then(
+        (blob: any) =>
+          new Promise((resolve: any, reject: any) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result);
+            reader.onerror = reject;
+            reader.readAsDataURL(blob);
+          })
+      );
+
+  dataURLtoFileObject = (dataurl: any, fileName: any) => {
+    var arr = dataurl.split(","),
+      mime = arr[0].match(/:(.*?);/)[1],
+      bstr = atob(arr[1]),
+      n = bstr.length,
+      u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], fileName, { type: mime });
   };
   // Customizable Area End
 }

@@ -4,6 +4,8 @@ import { BlockComponent } from "../../../framework/src/BlockComponent";
 import MessageEnum, { getName } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
 import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
+import * as Yup from "yup";
+import toast from "react-hot-toast";
 
 export const configJSON = require("./config.js");
 
@@ -17,17 +19,34 @@ export interface Props {
 
 interface S {
   // Customizable Area Start
-  requestList: any[];
+  loading: boolean;
+
+  propertyManagerId: string;
+  propertyManagerDetails: PropertyManagerDetails;
+
   // Customizable Area End
+}
+
+interface PropertyManagerDetails {
+  managerName: string;
+  companyName: string;
+  phoneNumber: string;
+  email: string;
+  IdType: string;
+  IdNumber: string;
+  IdDate: string;
+  IdPdfDocument: string;
+  propertyList: any[];
 }
 
 interface SS {
   id: any;
 }
 
-export default class PropertyManagerRequestController extends BlockComponent<Props, S, SS> {
-  GetManagerRequestCallId: any;
-  EditManagerRequestCallId: any;
+export default class RequestPropertyManagerDetailsController extends BlockComponent<Props, S, SS> {
+  GetPropertyManagerDetailsCallId: any;
+  GetComplexDetailsCallId: any;
+  EditPropertyCallId: any;
 
   constructor(props: Props) {
     super(props);
@@ -37,7 +56,21 @@ export default class PropertyManagerRequestController extends BlockComponent<Pro
     this.subScribedMessages = [getName(MessageEnum.RestAPIResponceMessage), getName(MessageEnum.RestAPIRequestMessage)];
 
     this.state = {
-      requestList: [],
+      loading: false,
+
+      propertyManagerId: "",
+
+      propertyManagerDetails: {
+        managerName: "",
+        companyName: "",
+        phoneNumber: "",
+        email: "",
+        IdType: "",
+        IdNumber: "",
+        IdDate: "",
+        IdPdfDocument: "",
+        propertyList: [],
+      },
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -45,17 +78,31 @@ export default class PropertyManagerRequestController extends BlockComponent<Pro
 
   async receive(from: string, message: Message) {
     // Customizable Area Start
+    // Get Property Manager Detail - API
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetManagerRequestCallId !== null &&
-      this.GetManagerRequestCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+      this.GetPropertyManagerDetailsCallId !== null &&
+      this.GetPropertyManagerDetailsCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
-      this.GetManagerRequestCallId = null;
+      this.GetPropertyManagerDetailsCallId = null;
 
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson && responseJson.data) {
-        this.setState({ requestList: responseJson.data });
+        const manager = responseJson.data;
+        this.setState({
+          propertyManagerDetails: {
+            managerName: manager.attributes.name,
+            companyName: manager.attributes.company_name,
+            phoneNumber: manager.attributes.mobile_number,
+            email: manager.attributes.email,
+            IdType: manager.attributes.id_proof.name,
+            IdNumber: manager.attributes.id_number,
+            IdDate: manager.attributes.id_expiration_date,
+            IdPdfDocument: manager.attributes.image.url,
+            propertyList: manager.attributes.properties.data,
+          },
+        });
       }
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
@@ -71,10 +118,13 @@ export default class PropertyManagerRequestController extends BlockComponent<Pro
 
   // Customizable Area Start
   async componentDidMount(): Promise<void> {
-    this.getManagerRequestList();
+    const manager_id = this.props.navigation.getParam("id");
+    this.setState({ propertyManagerId: manager_id }, () => {
+      this.getPropertyManagerDetails();
+    });
   }
 
-  getManagerRequestList = () => {
+  getPropertyManagerDetails = () => {
     const header = {
       "Content-Type": configJSON.ApiContentType,
       token: localStorage.getItem("userToken"),
@@ -82,11 +132,11 @@ export default class PropertyManagerRequestController extends BlockComponent<Pro
 
     const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
 
-    this.GetManagerRequestCallId = apiRequest.messageId;
+    this.GetPropertyManagerDetailsCallId = apiRequest.messageId;
 
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_property_manager/property_manager_requests/new_request`
+      `bx_block_property_manager/property_manager_requests/${this.state.propertyManagerId}`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
@@ -96,29 +146,5 @@ export default class PropertyManagerRequestController extends BlockComponent<Pro
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
   };
-
-  updateManagerRequest = (requestId: any, status: any) => {
-    const header = {
-      "Content-Type": configJSON.ApiContentType,
-      token: localStorage.getItem("userToken"),
-    };
-
-    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
-
-    this.EditManagerRequestCallId = apiRequest.messageId;
-
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_property_manager/property_manager_requests/update_request?id=${requestId}&status=${status}`
-    );
-
-    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
-
-    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePut);
-
-    runEngine.sendMessage(apiRequest.id, apiRequest);
-    return true;
-  };
-
   // Customizable Area End
 }
