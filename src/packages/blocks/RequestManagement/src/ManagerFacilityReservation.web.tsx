@@ -3,63 +3,40 @@ import React from "react";
 import {
   Container,
   Typography,
-  Link,
   Card,
   CardContent,
-  CardActions,
   Button,
   withStyles,
-  TextField,
-  InputAdornment
 } from "@material-ui/core";
-
 import '../../dashboard/src/Dashboard.web.css'
-// import {
-//   keyrented, money, location, account,
-//   registered, activemembers, members, overdue, Cardcalendar, awated, Check_Mark, xmark
-// }
-//   from "../../dashboard/src/assets"
-
-import { Formik, Form, Field, ErrorMessage } from "formik";
-
 import Box from '@material-ui/core/Box';
 import Select from "@material-ui/core/Select";
-import NativeSelect from "@material-ui/core/NativeSelect";
 import Grid from '@material-ui/core/Grid';
-
-//resources
-import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
-import { Input } from "react-native-elements";
-import * as Yup from "yup";
-import CountryCodeSelector from "../../country-code-selector/src/CountryCodeSelector";
 import FacilityManagerContorller, { Props } from "./FacilityManagerContorller.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import { withTranslation } from 'react-i18next';
 import '../../../web/src/i18n.js';
-
-//resorces
-import { User_Icon ,Users_Icon,upcoming } from "../src/assets";
-//import { Dollar_Icon } from "../src/assets";
+import { Users_Icon,upcoming } from "../src/assets";
 
 class ManagerFacilityReservation extends FacilityManagerContorller {
   constructor(props: Props) {
     super(props);
   }
   componentDidMount(): any {
-   // this.getFacilityReservationListing();
     this.getBuildingName();
   }
   
 
   render() {
     const { t, classes }: any = this.props;
-    console.log(" this.state.unitNameData?=================>/",this.state.unitNameData);
+    
     const statusArray = ["Pending", "Approved","Upcoming", "Completed", "Cancelled", "Rejected"]
+
     return (
       <>
         <Box className="incident-Listing-wrapper desktop-ui" style={{ background: "#E5ECFF" }}>

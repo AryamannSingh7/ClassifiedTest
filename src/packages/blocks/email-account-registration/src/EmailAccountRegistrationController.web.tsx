@@ -828,7 +828,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     const attrs = {
       email: attributes.email,
       company_name: attributes.company_name,
-      manager_full_name: attributes.managerName,
+      full_name: attributes.managerName,
       // owner_full_name: attributes.ownerName,
       // owner_phone_number: this.state.selectCode + attributes.owner_phone,
       // owner_email: attributes.owner_email,

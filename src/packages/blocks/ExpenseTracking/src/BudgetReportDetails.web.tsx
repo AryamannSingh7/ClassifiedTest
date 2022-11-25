@@ -18,9 +18,8 @@ import {
   DialogContent,
   DialogActions,
 } from "@material-ui/core";
-import Tooltip from '@material-ui/core/Tooltip';
+import Tooltip from "@material-ui/core/Tooltip";
 import BudgetReportDetailsController, { Props } from "./BudgetReportDetailsController.web";
-import "@szhsin/react-menu/dist/core.css";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { withTranslation } from "react-i18next";
@@ -38,8 +37,6 @@ class BudgetReport extends BudgetReportDetailsController {
     const { classes } = this.props;
     const { t }: any = this.props;
 
-    console.log(this.state);
-
     return (
       <>
         <Box style={{ background: "#F4F7FF" }} className={classes.reportList}>
@@ -56,7 +53,7 @@ class BudgetReport extends BudgetReportDetailsController {
                 <Box className="navigation">
                   <Box>
                     <Typography variant="body1">
-                      {t("Documents & Reports")} / {t("Reports")} /  {t("Budget Reports")} / {" "} 
+                      {t("Documents & Reports")} / {t("Reports")} / {t("Budget Reports")} /{" "}
                       <Box component="span" style={{ color: "blue" }}>
                         {t("Budget Report Details")}
                       </Box>
@@ -66,9 +63,7 @@ class BudgetReport extends BudgetReportDetailsController {
                     </Typography>
                   </Box>
                 </Box>
-                <Box className="top-bar">
-                 
-                </Box>
+                <Box className="top-bar" />
                 <Grid className="meeting-table">
                   <Grid item sm={12} md={12} xs={12}>
                     <Box className="table-top">
@@ -79,7 +74,9 @@ class BudgetReport extends BudgetReportDetailsController {
                       <TableHead>
                         <TableRow>
                           <TableCell align="left">{t("Name")}</TableCell>
-                          <TableCell align="right" style={{paddingRight:"50px"}}>{t("Amount")}</TableCell>
+                          <TableCell align="right" style={{ paddingRight: "50px" }}>
+                            {t("Amount")}
+                          </TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
@@ -87,32 +84,42 @@ class BudgetReport extends BudgetReportDetailsController {
                           <TableCell colSpan={6}>{t("No Budget Details are Available")}</TableCell>
                         </TableRow>
                         <TableRow>
-                          <TableCell align="left" style={{display:'flex',alignItems:"center"}}>
+                          <TableCell align="left" style={{ display: "flex", alignItems: "center" }}>
                             Electricity Bill
                             <HtmlTooltip
                               title={
                                 <React.Fragment>
-                                  <Box style={{margin:"10px"}}>
-                                    <Typography variant="h6" style={{fontWeight:"bold",marginBottom:"10px"}}>Electricity Bill</Typography>
-                                    <Typography variant="subtitle2"> Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print </Typography>
-                                  </Box>                                  
+                                  <Box style={{ margin: "10px" }}>
+                                    <Typography variant="h6" style={{ fontWeight: "bold", marginBottom: "10px" }}>
+                                      Electricity Bill
+                                    </Typography>
+                                    <Typography variant="subtitle2">
+                                      {" "}
+                                      Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out
+                                      print{" "}
+                                    </Typography>
+                                  </Box>
                                 </React.Fragment>
                               }
                             >
-                              <IconButton style={{padding:"2px"}}><InfoOutlinedIcon style={{color:"#2B6FED",fontSize:"20px"}}/></IconButton>
+                              <IconButton style={{ padding: "2px" }}>
+                                <InfoOutlinedIcon style={{ color: "#2B6FED", fontSize: "20px" }} />
+                              </IconButton>
                             </HtmlTooltip>
-                            </TableCell>                      
-                          <TableCell align="right" style={{paddingRight:"50px"}}>SR 12,000</TableCell>
+                          </TableCell>
+                          <TableCell align="right" style={{ paddingRight: "50px" }}>
+                            SR 12,000
+                          </TableCell>
                         </TableRow>
                       </TableBody>
                     </Table>
                     <Divider />
                   </Grid>
                 </Grid>
-                <Box style={{display:'flex',justifyContent:"flex-end"}}>
-                          <ApproveButton>Reject</ApproveButton>
-                          <RejectButton onClick={()=> this.setState({ApproveModal:true})}>Approve</RejectButton>
-                  </Box>
+                <Box style={{ display: "flex", justifyContent: "flex-end" }}>
+                  <ApproveButton>Reject</ApproveButton>
+                  <RejectButton onClick={() => this.setState({ ApproveModal: true })}>Approve</RejectButton>
+                </Box>
               </Container>
             </Grid>
             <Dialog
@@ -150,39 +157,37 @@ export default withTranslation()(withStyles(ReportsStyleWeb)(BudgetReport));
 
 const HtmlTooltip = withStyles((theme) => ({
   tooltip: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     color: "black",
     maxWidth: 300,
     fontSize: theme.typography.pxToRem(12),
-    border: '1px solid #dadde9',
+    border: "1px solid #dadde9",
   },
 }))(Tooltip);
 
 const RejectButton = withStyles((theme) => ({
   root: {
-      color: "white",
-      backgroundColor: "#2b6fed",
-      fontWeight:"bold",
-      height:"55px",
-      width:"200px",
-      '&:hover': {
-          backgroundColor: "#2b6fef",
-      },
+    color: "white",
+    backgroundColor: "#2b6fed",
+    fontWeight: "bold",
+    height: "55px",
+    width: "200px",
+    "&:hover": {
+      backgroundColor: "#2b6fef",
+    },
   },
 }))(Button);
 
 const ApproveButton = withStyles((theme) => ({
   root: {
-      color: "#2b6fed",
-      backgroundColor: "white",
-      fontWeight:"bold",
-      height:"55px",
-      width:"200px",
-      border:"#2B6FED 1px solid",
-      marginRight:"20px"
-      
+    color: "#2b6fed",
+    backgroundColor: "white",
+    fontWeight: "bold",
+    height: "55px",
+    width: "200px",
+    border: "#2B6FED 1px solid",
+    marginRight: "20px",
   },
 }))(Button);
-
 
 // Customizable Area End

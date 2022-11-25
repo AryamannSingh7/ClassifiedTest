@@ -400,6 +400,32 @@ export const MyUnitStyle: any = {
       height: "88vh",
       overflow: "auto",
     },
+    "& .upload-button": {
+      position: "sticky",
+      bottom: 0,
+      left: 0,
+      right: 0,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: "10px 0",
+      background: "white",
+    },
+    "& .upload-button .MuiGrid-root": {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    "& .upload-button button": {
+      background: "#2b6fec",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      color: "white",
+      padding: "12px 50px",
+      borderRadius: "25px",
+      fontWeight: 600,
+    },
     "& .tenant-detail-box .detail": {
       margin: "15px 0",
       "& .header": {
@@ -436,12 +462,23 @@ export const MyUnitStyle: any = {
     "& .tenant-detail-box .detail .detail-box .info-item p": {
       fontWeight: 600,
     },
+    "& .rent-history-grid": {
+      overflowX: "hidden",
+      height: "88vh",
+      background: "white",
+    },
     "& .rent-history-box": {
+      minHeight: "calc(100% - 78px)",
       "& .header": {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
         "& span": {
+          fontWeight: 600,
+          // color: "#FC8434",
+          cursor: "pointer",
+        },
+        "& span.Mui-checked": {
           fontWeight: 600,
           color: "#FC8434",
           cursor: "pointer",

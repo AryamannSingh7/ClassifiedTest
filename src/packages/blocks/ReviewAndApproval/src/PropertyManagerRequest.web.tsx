@@ -7,6 +7,7 @@ import { BuildingLogo } from "./assets";
 import { withTranslation } from "react-i18next";
 import "../../../web/src/i18n.js";
 import { PropertyManagerStyleWeb } from "./PropertyManagerStyle.web";
+import Loader from "../../../components/src/Loader.web";
 
 class PropertyManagerRequest extends PropertyManagerRequestController {
   constructor(props: Props) {
@@ -19,6 +20,8 @@ class PropertyManagerRequest extends PropertyManagerRequestController {
 
     return (
       <>
+        <Loader loading={this.state.loading} />
+
         <Box style={{ background: "#F4F7FF", height: "100vh" }} className={classes.managerList}>
           <Grid container>
             <Grid item xs={12} md={7}>
@@ -43,11 +46,11 @@ class PropertyManagerRequest extends PropertyManagerRequestController {
                               <Card className="contract">{t("No request found")}</Card>
                             </Grid>
                           )}
-                          {this.state.requestList.map((manager: any) => {
+                          {this.state.requestList.map((request: any) => {
                             return (
-                              <Grid item xs={12} key={manager.id}>
+                              <Grid item xs={12} key={request.id}>
                                 <Card className="contract">
-                                  <Link href={`/PropertyManagers/Request/${manager.id}`}>
+                                  <Link href={`/PropertyManagers/Request/${request.attributes.account_id}`}>
                                     <Grid container spacing={2}>
                                       <Grid item xs={12}>
                                         <div className="header">
@@ -72,10 +75,27 @@ class PropertyManagerRequest extends PropertyManagerRequestController {
                                   </Link>
                                   <Grid container spacing={2} className="request-buttons">
                                     <Grid item xs={6}>
-                                      <Button className="decline">{t("Decline")}</Button>
+                                      <Button
+                                        className="decline"
+                                        onClick={() => {
+                                          this.setState({ loading: true }, () => {
+                                            this.updateManagerRequest(request.attributes.account_id, "Rejected");
+                                          });
+                                        }}
+                                      >
+                                        {t("Decline")}
+                                      </Button>
                                     </Grid>
                                     <Grid item xs={6}>
-                                      <Button>{t("Accept")}</Button>
+                                      <Button
+                                        onClick={() => {
+                                          this.setState({ loading: true }, () => {
+                                            this.updateManagerRequest(request.id, "Accepted");
+                                          });
+                                        }}
+                                      >
+                                        {t("Accept")}
+                                      </Button>
                                     </Grid>
                                   </Grid>
                                 </Card>
