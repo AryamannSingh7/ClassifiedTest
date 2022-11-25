@@ -72,7 +72,7 @@ class MyTeamCore extends ChairmanNominationMainController {
                             <Typography variant="h4" className="subHeading">{t("Chairman and Vice Chairman Nomination")}</Typography>
                             {
                                 this.state.onGoingNomination && userType === "Chairman" &&
-                                    <AcceptButton style={{marginTop:"20px"}} onClick={()=>this.setState({setOpen:true})}>{t("Start Nomination Process")}</AcceptButton>
+                                    <AcceptButton style={{marginTop:"20px"}} onClick={()=>this.setState({setOpen:true})}>{t("START CHAIRMAN NOMINATION")}</AcceptButton>
                             }
                         </Box>
                     </Box>

@@ -132,29 +132,29 @@ class BudgetReport extends BudgetReportDetailsController {
               </Container>
             </Grid>
             <Dialog
-          fullWidth
-          onClose={() => this.setState({ApproveModal:false})}
-          open={this.state.ApproveModal}
-          className="cancel-meeting-dialog"
-        >   
-          <DialogContent style={{ margin: "15px 0" }}>
-            <Box textAlign="center">
-              <img className="comment-image" src={CheckIcon} alt="check" />
-              <Typography variant="h6">{t("Approve Budget Report")}</Typography>
-              <Typography variant="body1" style={{ marginBottom: "0px" }}>
-                {t("Are you sure you want to approve budget report?")}
-              </Typography>
-              <DialogActions className="dialog-button-group">
-                <Button className="cancel-button" style={{ width: "200px",marginRight:"15px" }} onClick={() => this.setState({ApproveModal:false})}>
-                  {t("Close")}
-                </Button>
-                <Button style={{ width: "200px" }} className="add-button" onClick={() => this.setState({ApproveModal:false})}>
-                  {t("Approve")}
-                </Button>
-              </DialogActions>
-            </Box>
-          </DialogContent>
-        </Dialog>
+              fullWidth
+              onClose={() => this.setState({ApproveModal:false})}
+              open={this.state.ApproveModal}
+              className="cancel-meeting-dialog"
+            >   
+              <DialogContent style={{ margin: "15px 0" }}>
+                <Box textAlign="center">
+                  <img className="comment-image" src={CheckIcon} alt="check" />
+                  <Typography variant="h6">{t("Approve Budget Report")}</Typography>
+                  <Typography variant="body1" style={{ marginBottom: "0px" }}>
+                    {t("Are you sure you want to approve budget report?")}
+                  </Typography>
+                  <DialogActions className="dialog-button-group">
+                    <Button className="cancel-button" style={{ width: "200px",marginRight:"15px" }} onClick={() => this.setState({ApproveModal:false})}>
+                      {t("Close")}
+                    </Button>
+                    <Button style={{ width: "200px" }} className="add-button" onClick={() => this.setState({ApproveModal:false})}>
+                      {t("Approve")}
+                    </Button>
+                  </DialogActions>
+                </Box>
+              </DialogContent>
+            </Dialog>
           </Box>
         </Box>
       </>

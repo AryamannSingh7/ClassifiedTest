@@ -520,7 +520,7 @@ class MyTeamCore extends NominationDetailsController {
                         <Grid item xs={12}>
                             <Box style={{display:'flex',justifyContent:'space-between'}}>
                                 <Box display="flex" alignItems="center">
-                                    <img src={this.state?.detailsForModal?.image?.url || profileExp}/>
+                                    <img src={this.state?.detailsForModal?.image?.url || profileExp} width="50px" height="50px" style={{borderRadius:"100px"}}/>
                                     <Box style={{marginLeft:"10px"}}>
                                         <Typography style={{fontWeight:"bold"}}>{this.state.detailsForModal.name}</Typography>
                                         <Typography >{this.state.detailsForModal.unit_number.join(",")}</Typography>
