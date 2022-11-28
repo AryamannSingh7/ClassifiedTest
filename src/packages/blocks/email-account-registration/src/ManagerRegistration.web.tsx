@@ -29,6 +29,25 @@ class ManagerRegistration extends EmailAccountRegistrationController {
     return item || {};
   }
 
+  showInputError = (error: any, touch: any) => {
+    if (error && touch) {
+      return (
+        <Typography
+          style={{
+            color: "#F14E24",
+            fontWeight: 300,
+            fontSize: 14,
+            marginTop: 5,
+            marginLeft: 10,
+          }}
+        >
+          {error}
+        </Typography>
+      );
+    }
+    return;
+  };
+
   render() {
     const filterOptions = createFilterOptions({
       matchFrom: "start",
@@ -88,6 +107,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                   {({ values, errors, touched, isValid, handleChange, setFieldValue }) => (
                     <Form translate="yes" className="">
                       <Box display="flex" flexDirection="column">
+                        {/* Company Name */}
                         <Box
                           className="formInputGrp"
                           display="flex"
@@ -100,7 +120,6 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                           marginTop="1rem"
                         >
                           <img src={compnayName} style={{ paddingLeft: "0.5rem" }} />
-
                           <Field
                             name="company_name"
                             placeholder={"Company Name"}
@@ -117,23 +136,8 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                             }}
                           />
                         </Box>
-                        {errors.company_name && touched.company_name ? (
-                          <Typography
-                            style={{
-                              color: "#F14E24",
-
-                              fontWeight: 300,
-                              fontSize: 14,
-                              marginTop: 5,
-                              marginLeft: 10,
-                            }}
-                          >
-                            {errors.company_name}
-                          </Typography>
-                        ) : null}
-
+                        {this.showInputError(errors.company_name, touched.company_name)}
                         {/* Manager Name */}
-
                         <Box
                           className="input"
                           display="flex"
@@ -146,7 +150,6 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                           marginTop="1rem"
                         >
                           <img src={user} style={{ paddingLeft: "0.5rem" }} />
-
                           <Field
                             name="managerName"
                             placeholder={"Manager Full name"}
@@ -155,7 +158,6 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                               height: "100%",
                               width: "80%",
                               color: "rgba(0, 0, 0, 0.6)",
-
                               fontWeight: 400,
                               fontSize: 16,
                               marginRight: 10,
@@ -164,21 +166,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                             }}
                           />
                         </Box>
-                        {errors.managerName && touched.managerName ? (
-                          <Typography
-                            style={{
-                              color: "#F14E24",
-
-                              fontWeight: 300,
-                              fontSize: 14,
-                              marginTop: 5,
-                              marginLeft: 10,
-                            }}
-                          >
-                            {errors.managerName}
-                          </Typography>
-                        ) : null}
-
+                        {this.showInputError(errors.managerName, touched.managerName)}
                         {/* email */}
                         <Box
                           className="input"
@@ -192,7 +180,6 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                           marginTop="1rem"
                         >
                           <img src={email} style={{ paddingLeft: "0.5rem" }} />
-
                           <Field
                             name="email"
                             placeholder={"Email ID (will be your user name)"}
@@ -201,7 +188,6 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                               height: "100%",
                               width: "80%",
                               color: "rgba(0, 0, 0, 0.6)",
-
                               fontWeight: 400,
                               fontSize: 16,
                               marginRight: 10,
@@ -210,23 +196,8 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                             }}
                           />
                         </Box>
-                        {errors.email && touched.email ? (
-                          <Typography
-                            style={{
-                              color: "#F14E24",
-
-                              fontWeight: 300,
-                              fontSize: 14,
-                              marginTop: 5,
-                              marginLeft: 10,
-                            }}
-                          >
-                            {errors.email}
-                          </Typography>
-                        ) : null}
-
+                        {this.showInputError(errors.email, touched.email)}
                         {/* mobile */}
-
                         <Box
                           marginTop="1rem"
                           className="input"
@@ -254,7 +225,6 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                                 </MenuItem>
                                 {dailCode.map((item) => (
                                   <MenuItem key={item.dial_code} value={item.dial_code}>
-                                    {" "}
                                     <img
                                       src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/${
                                         item.code
@@ -268,7 +238,6 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                               </Select>
                             </FormControl>
                           </Box>
-
                           <Field
                             id="mobile"
                             name="phone"
@@ -278,7 +247,6 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                               height: "42%",
                               width: "80%",
                               color: "rgba(0, 0, 0, 0.6)",
-
                               fontWeight: 400,
                               fontSize: 16,
                               marginRight: 10,
@@ -287,21 +255,8 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                             }}
                           />
                         </Box>
-                        {errors.phone && touched.phone ? (
-                          <Typography
-                            style={{
-                              color: "#F14E24",
-
-                              fontWeight: 300,
-                              fontSize: 14,
-                              marginTop: 5,
-                              marginLeft: 10,
-                            }}
-                          >
-                            {errors.phone}
-                          </Typography>
-                        ) : null}
-
+                        {this.showInputError(errors.phone, touched.phone)}
+                        {/* Password */}
                         <Box
                           display="flex"
                           overflow="hidden"
@@ -320,9 +275,8 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                             style={{
                               border: "none",
                               height: "100%",
-                              width: "80%",
+                              width: "100%",
                               color: "rgba(0, 0, 0, 0.6)",
-
                               fontWeight: 400,
                               fontSize: 16,
                               marginRight: 10,
@@ -364,22 +318,8 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                             </IconButton>
                           )}
                         </Box>
-                        {errors.password && touched.password ? (
-                          <Typography
-                            style={{
-                              color: "#F14E24",
-
-                              fontWeight: 300,
-                              fontSize: 14,
-                              marginTop: 5,
-                              marginLeft: 10,
-                            }}
-                          >
-                            {errors.password}
-                          </Typography>
-                        ) : null}
-
-                        {/* confirm */}
+                        {this.showInputError(errors.password, touched.password)}
+                        {/* Confirm Password */}
                         <Box
                           display="flex"
                           overflow="hidden"
@@ -399,9 +339,8 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                             style={{
                               border: "none",
                               height: "100%",
-                              width: "80%",
+                              width: "100%",
                               color: "rgba(0, 0, 0, 0.6)",
-
                               fontWeight: 400,
                               fontSize: 16,
                               marginRight: 10,
@@ -443,20 +382,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                             </IconButton>
                           )}
                         </Box>
-                        {errors.confirm_password && touched.confirm_password ? (
-                          <Typography
-                            style={{
-                              color: "#F14E24",
-                              fontWeight: 300,
-                              fontSize: 14,
-                              marginTop: 5,
-                              marginLeft: 10,
-                            }}
-                          >
-                            {errors.confirm_password}
-                          </Typography>
-                        ) : null}
-
+                        {this.showInputError(errors.confirm_password, touched.confirm_password)}
                         <Button
                           className={"btn"}
                           variant="contained"
