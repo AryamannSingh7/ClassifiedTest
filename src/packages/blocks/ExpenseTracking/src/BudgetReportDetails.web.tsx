@@ -24,7 +24,6 @@ import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { withTranslation } from "react-i18next";
 import "web/src/i18n";
-import i18next from "i18next";
 import { ReportsStyleWeb } from "./ReportsStyle.web";
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import {CheckIcon} from "../../user-profile-basic/src/assets"

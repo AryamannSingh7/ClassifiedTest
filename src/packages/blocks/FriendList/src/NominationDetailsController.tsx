@@ -471,40 +471,44 @@ export default class FriendListController extends BlockComponent<
     }
   }
 
+  afterReceiveBlock = (apiRequestCallId:any,responseJson:any) => {
+    if(apiRequestCallId === this.getNominationDetailsId){
+      this.nominationDetailsResponse(responseJson)
+    }
+    if(apiRequestCallId === this.updateNominationId){
+      this.getNominationDetails()
+      this.setState({
+        setOpen:false
+      })
+    }
+    if(apiRequestCallId === this.nominatedMemberListId){
+      this.nominatedMembersListResponse(responseJson)
+    }
+    if(apiRequestCallId === this.nominateId){
+      this.voteResponse(responseJson)
+    }
+    if(apiRequestCallId === this.myProfileId){
+      this.myProfileResponse(responseJson)
+    }
+    if(this.nominateMySelfId === apiRequestCallId){
+      this.nominateMySelfResponse(responseJson)
+    }
+    if(apiRequestCallId === this.startVotingCallId){
+      this.startVotingResponse(responseJson)
+    }
+    if(apiRequestCallId === this.endVotingCallId){
+      this.endVotingResponse(responseJson)
+    }
+    if(apiRequestCallId === this.getVotingCountDetailsId){
+      this.votingCountResponse(responseJson)
+    }
+  }
+
   async receive(from: string, message: Message) {
     if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-      if(apiRequestCallId === this.getNominationDetailsId){
-        this.nominationDetailsResponse(responseJson)
-      }
-      if(apiRequestCallId === this.updateNominationId){
-        this.getNominationDetails()
-        this.setState({
-          setOpen:false
-        })
-      }
-      if(apiRequestCallId === this.nominatedMemberListId){
-        this.nominatedMembersListResponse(responseJson)
-      }
-      if(apiRequestCallId === this.nominateId){
-        this.voteResponse(responseJson)
-      }
-      if(apiRequestCallId === this.myProfileId){
-        this.myProfileResponse(responseJson)
-      }
-      if(this.nominateMySelfId === apiRequestCallId){
-        this.nominateMySelfResponse(responseJson)
-      }
-      if(apiRequestCallId === this.startVotingCallId){
-        this.startVotingResponse(responseJson)
-      }
-      if(apiRequestCallId === this.endVotingCallId){
-        this.endVotingResponse(responseJson)
-      }
-      if(apiRequestCallId === this.getVotingCountDetailsId){
-        this.votingCountResponse(responseJson)
-      }
+      this.afterReceiveBlock(apiRequestCallId,responseJson)
     }
   }
 
