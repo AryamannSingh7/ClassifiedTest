@@ -467,8 +467,13 @@ export const MyUnitStyle: any = {
       height: "88vh",
       background: "white",
     },
-    "& .rent-history-box": {
+    "& .rent-history-grid .rent-history-box": {
       minHeight: "calc(100% - 78px)",
+    },
+    "& .view-all-text": {
+      color: "#FC8434",
+    },
+    "& .rent-history-box": {
       "& .header": {
         display: "flex",
         alignItems: "center",

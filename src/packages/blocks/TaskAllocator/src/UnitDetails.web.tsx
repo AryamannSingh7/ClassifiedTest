@@ -320,7 +320,7 @@ class UnitDetails extends UnitDetailsController {
                                 </Box>
                               </Box>
                             </Grid>
-                            {this.state.rentDetails.status === "Rented" && (
+                            {this.state.rentDetails.status === "rented" && (
                               <>
                                 <Grid item xs={6}>
                                   <Box className="info-item">
@@ -342,7 +342,7 @@ class UnitDetails extends UnitDetailsController {
                                               moment(this.state.rentDetails.startDate),
                                               "months"
                                             )
-                                          : ""}{" "}
+                                          : "0"}{" "}
                                         Months
                                       </p>
                                     </Box>
@@ -381,6 +381,7 @@ class UnitDetails extends UnitDetailsController {
                           <h4>{t("Rent History")}</h4>
                           {this.state.rentHistory.length !== 0 && (
                             <span
+                              className="view-all-text"
                               onClick={() => this.props.navigation.navigate("RentHistory", { id: this.state.unitId })}
                             >
                               {t("View All")}
