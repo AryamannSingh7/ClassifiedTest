@@ -16,10 +16,10 @@ import moment from "moment";
 export const configJSON = require("./config");
 
 export interface Props {
-  navigation: any;
-  id: string;
-  history:any;
-  location:any;
+  navigation?: any;
+  id?: string;
+  history?:any;
+  location?:any;
 }
 
 interface S {
@@ -283,7 +283,6 @@ export default class FriendListController extends BlockComponent<
 
   myProfile = async () => {
     const societyID = localStorage.getItem("society_id")
-    const nominationId =  window.location.search ? window.location.search.split("=")[1] : null;
     this.myProfileId = await this.apiCall({
       method:"GET",
       endPoint: `/society_managements/${societyID}/bx_block_my_team/chairman_nominations/current_user_details`,
@@ -347,7 +346,7 @@ export default class FriendListController extends BlockComponent<
 
 
   apiCall = async (data: any) => {
-    const { contentType, method, endPoint, body } = data;
+    const { method, endPoint, body } = data;
     const token = localStorage.getItem('userToken') ;
 
     const header = {
@@ -374,112 +373,137 @@ export default class FriendListController extends BlockComponent<
         body
     );
     runEngine.sendMessage(requestMessage.id, requestMessage);
-    // console.log("Called",requestMessage);
     return requestMessage.messageId;
   };
 
+  nominationDetailsResponse = (responseJson:any) => {
+    if(responseJson.hasOwnProperty("chairman_nominations")){
+      const findIfChairman = responseJson.chairman_nominations.data.attributes.voted_as.find((item:any)=> {
+        return item.vote_as == "Chairman"
+      })
+      const findIfViceChairman = responseJson.chairman_nominations.data.attributes.voted_as.find((item:any)=> {
+        return item.vote_as === "Vice chairman"
+      })
+      if(findIfViceChairman){
+        this.setState({
+          votedViceChairmanId:findIfViceChairman.nominated_team_member_id
+        })
+      }
+      if(findIfChairman){
+        this.setState({
+          votedChairmanId:findIfChairman.nominated_team_member_id
+        })
+      }
+      this.setState({
+          loading:false,
+          nominationData:responseJson.chairman_nominations.data.attributes,
+          updateName:responseJson.chairman_nominations.data.attributes.title,
+          updateDescription:responseJson.chairman_nominations.data.attributes.description,
+          updateEndDate:moment(responseJson.chairman_nominations.data.attributes.end_date).format("YYYY-MM-DD"),
+          updateStartDate:moment(responseJson.chairman_nominations.data.attributes.start_date).format("YYYY-MM-DD"),
+      })
+    }
+  }
+
+  nominatedMembersListResponse = (responseJson:any) => {
+    if(responseJson?.hasOwnProperty("nominated_members")){
+      const userId = localStorage.getItem("userId")
+      const findIf = responseJson.nominated_members.data.find((item:any)=> {
+        return item.attributes.account_id == userId
+      })
+      this.setState({
+        loading:false,
+        nomineeList:responseJson.nominated_members.data,
+        nominatedSelf:findIf ? true : false
+      })
+    }
+  }
+
+  voteResponse = (responseJson:any) => {
+    if(responseJson.message === "Voted successfully"){
+      this.setState({
+        voteConfirmModal:false
+      })
+      this.getNominationDetails()
+      this.nominatedMemberList()
+    }
+  }
+
+  myProfileResponse = (responseJson:any) => {
+    if(responseJson.hasOwnProperty("user_data")){
+      this.setState({
+        myProfile:responseJson.user_data.data.attributes
+      })
+    }
+  }
+
+  nominateMySelfResponse = (responseJson:any) => {
+    if(responseJson.message === "Member Nominated successfully"){
+      this.setState({
+        nominateMySelf:false
+      })
+      this.getNominationDetails()
+      this.nominatedMemberList()
+    }
+  }
+
+  startVotingResponse = (responseJson:any) => {
+    if(responseJson.code === 200){
+      this.nominatedMemberList()
+      this.getNominationDetails()
+    }
+  }
+
+  endVotingResponse = (responseJson:any) => {
+    if(responseJson.code === 200){
+      this.nominatedMemberList()
+      this.getNominationDetails()
+      this.getVotingCountDetails()
+    }
+  }
+
+  votingCountResponse = (responseJson:any) => {
+    if(responseJson.hasOwnProperty("vote_count")){
+      this.setState({
+        chairmanVoteCount:responseJson.vote_count?.data?.attributes?.chairman,
+        viceChairmanVoteCount:responseJson.vote_count?.data?.attributes?.vice_chairman,
+      })
+    }
+  }
+
   async receive(from: string, message: Message) {
-    runEngine.debugLog("Message Recived", message);
     if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-      var errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if(apiRequestCallId === this.getNominationDetailsId){
-        if(responseJson.hasOwnProperty("chairman_nominations")){
-          const findIfChairman = responseJson.chairman_nominations.data.attributes.voted_as.find((item:any)=> {
-            return item.vote_as == "Chairman"
-          })
-          const findIfViceChairman = responseJson.chairman_nominations.data.attributes.voted_as.find((item:any)=> {
-            return item.vote_as === "Vice chairman"
-          })
-          if(findIfViceChairman){
-            this.setState({
-              votedViceChairmanId:findIfViceChairman.nominated_team_member_id
-            })
-          }
-          if(findIfChairman){
-            this.setState({
-              votedChairmanId:findIfChairman.nominated_team_member_id
-            })
-          }
-          this.setState({
-              loading:false,
-              nominationData:responseJson.chairman_nominations.data.attributes,
-              updateName:responseJson.chairman_nominations.data.attributes.title,
-              updateDescription:responseJson.chairman_nominations.data.attributes.description,
-              updateEndDate:moment(responseJson.chairman_nominations.data.attributes.end_date).format("YYYY-MM-DD"),
-              updateStartDate:moment(responseJson.chairman_nominations.data.attributes.start_date).format("YYYY-MM-DD"),
-          })
-        }
+        this.nominationDetailsResponse(responseJson)
       }
       if(apiRequestCallId === this.updateNominationId){
         this.getNominationDetails()
         this.setState({
           setOpen:false
         })
-        if(responseJson.hasOwnProperty("chairman_nomination")){
-
-        }
       }
       if(apiRequestCallId === this.nominatedMemberListId){
-        if(responseJson?.hasOwnProperty("nominated_members")){
-          const userId = localStorage.getItem("userId")
-          const findIf = responseJson.nominated_members.data.find((item:any)=> {
-            return item.attributes.account_id == userId
-          })
-          this.setState({
-            loading:false,
-            nomineeList:responseJson.nominated_members.data,
-            nominatedSelf:findIf ? true : false
-          })
-        }
+        this.nominatedMembersListResponse(responseJson)
       }
       if(apiRequestCallId === this.nominateId){
-        console.log("RESPONSE",responseJson )
-        if(responseJson.message === "Voted successfully"){
-          this.setState({
-            voteConfirmModal:false
-          })
-          this.getNominationDetails()
-          this.nominatedMemberList()
-        }
+        this.voteResponse(responseJson)
       }
       if(apiRequestCallId === this.myProfileId){
-        if(responseJson.hasOwnProperty("user_data")){
-          this.setState({
-            myProfile:responseJson.user_data.data.attributes
-          })
-        }
+        this.myProfileResponse(responseJson)
       }
       if(this.nominateMySelfId === apiRequestCallId){
-        if(responseJson.message === "Member Nominated successfully"){
-          this.setState({
-            nominateMySelf:false
-          })
-          this.getNominationDetails()
-          this.nominatedMemberList()
-        }
+        this.nominateMySelfResponse(responseJson)
       }
       if(apiRequestCallId === this.startVotingCallId){
-        if(responseJson.code === 200){
-          this.nominatedMemberList()
-          this.getNominationDetails()
-        }
+        this.startVotingResponse(responseJson)
       }
       if(apiRequestCallId === this.endVotingCallId){
-        if(responseJson.code === 200){
-          this.nominatedMemberList()
-          this.getNominationDetails()
-          this.getVotingCountDetails()
-        }
+        this.endVotingResponse(responseJson)
       }
       if(apiRequestCallId === this.getVotingCountDetailsId){
-        if(responseJson.hasOwnProperty("vote_count")){
-          this.setState({
-            chairmanVoteCount:responseJson.vote_count?.data?.attributes?.chairman,
-            viceChairmanVoteCount:responseJson.vote_count?.data?.attributes?.vice_chairman,
-          })
-        }
+        this.votingCountResponse(responseJson)
       }
     }
   }
@@ -497,29 +521,8 @@ export default class FriendListController extends BlockComponent<
     return date.toISOString().startsWith(dateStr);
   }
 
-  handleValidation = () => {
-    let titleValidation = false
+  startDateValidation = () => {
     let startDateValidation = false
-    let endDateValidation = false
-    let DescriptionValidation = false
-
-    if(this.state.updateName){
-      if(this.state.updateName.length >=5){
-        this.setState({
-          nominationTitleError:""
-        })
-        titleValidation = true
-      }else{
-        this.setState({
-          nominationTitleError:"Title not match the minimum requirements."
-        })
-      }
-    }else{
-      this.setState({
-        nominationTitleError:"Title can't be empty."
-      })
-    }
-
     if(this.state.updateStartDate){
       if(this.state.updateStartDate !== ""){
         if(this.dateIsValid(this.state.updateStartDate)){
@@ -543,7 +546,11 @@ export default class FriendListController extends BlockComponent<
     }else{
       this.setState({nominationStartDateError: "Start Date can't be empty."})
     }
+    return startDateValidation
+  }
 
+  endDateValidation = () => {
+    let endDateValidation = false
     if(this.state.updateEndDate){
       if(this.dateIsValid(this.state.updateEndDate)){
         let today = new Date();
@@ -569,7 +576,34 @@ export default class FriendListController extends BlockComponent<
     }else{
       this.setState({nominationEndDateError: "End Date can't be empty."})
     }
+    return endDateValidation
+  }
+  handleValidation = () => {
+    let titleValidation = false
+    let startDateValidation = false
+    let endDateValidation = false
+    let DescriptionValidation = false
 
+    if(this.state.updateName){
+      if(this.state.updateName.length >=5){
+        this.setState({
+          nominationTitleError:""
+        })
+        titleValidation = true
+      }else{
+        this.setState({
+          nominationTitleError:"Title not match the minimum requirements."
+        })
+      }
+    }else{
+      this.setState({
+        nominationTitleError:"Title can't be empty."
+      })
+    }
+
+    startDateValidation = this.startDateValidation()
+    endDateValidation = this.endDateValidation()
+    
     if(this.state.updateDescription){
       if(this.state.updateDescription.length >=5){
         this.setState({

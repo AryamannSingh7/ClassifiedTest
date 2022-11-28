@@ -1,17 +1,12 @@
 // Customizable Area Start
 import React from "react";
 import "./MyTeam.web.css"
-// @ts-ignore
-import DOMPurify from 'dompurify'
 import {
     Container,
     Typography,
-    Link,
     Button,
-    FormControl,
     Dialog,
     DialogActions,
-    DialogTitle,
     IconButton,
     Modal,
     Backdrop,
@@ -20,14 +15,11 @@ import {
     Paper,
     TextField,
     InputAdornment,
-    TextareaAutosize,
     Table, TableHead, TableRow, TableCell, TableBody, Checkbox, FormControlLabel,
 } from "@material-ui/core";
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import Select from "@material-ui/core/Select";
-import NativeSelect from "@material-ui/core/NativeSelect";
-import {chat, edit, email, profileExp, telephone} from "./assets"
+import {profileExp} from "./assets"
 import Divider from '@material-ui/core/Divider';
 // Icons
 import DateRangeOutlinedIcon from '@material-ui/icons/DateRangeOutlined';
@@ -45,7 +37,7 @@ import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import "../../../web/src/assets/css/style.scss";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
-import { withTranslation } from 'react-i18next';
+import { withTranslation,useTranslation } from 'react-i18next';
 import '../../../web/src/i18n.js';
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
@@ -67,6 +59,7 @@ class MyTeamCore extends NominationDetailsController {
     return (
       <>
     <Box style={{background: "#E5ECFF"}}>
+        {/* @ts-ignore */}
         <DashboardHeader {...this.props}/>
         <Box style={{display: "flex"}}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
@@ -79,25 +72,15 @@ class MyTeamCore extends NominationDetailsController {
                         <Typography variant="body1" >
                             {t("My Team")} / {t("Chairman and Vice Chairman Nomination")} / <Box component="span" style={{color: "blue"}}>{t("Details")}</Box>
                         </Typography>
-                        <Box display="flex" justifyContent="space-between" alignItems="center" width="100%">
-                            <Typography variant="h4" className="subHeading">{this.state?.nominationData?.title}</Typography>
-                            <Box>
-                                {
-                                    this.state.nominationData?.voting_flag ?
-                                        <DeclineButton style={{marginTop:"20px"}}  onClick={()=>this.endVotingCall()}>{t("Close Voting")}</DeclineButton> :
-                                        <>
-                                            {
-                                                this.state.nominationData?.nomination_flag && !this.state.nominationData?.voting_flag &&
-                                                <AcceptButton style={{marginTop:"20px",marginRight:"10px"}} onClick={()=>this.setState({startVotingModal:true})}>{t("Start Voting")}</AcceptButton>
-                                            }
-                                            {
-                                                this.state.nominationData?.nomination_flag && !this.state.nominationData?.voting_flag && !this.state.nominatedSelf &&
-                                                <DeclineButton style={{marginTop:"20px"}} onClick={this.handleOpenMySelfModal}>{t("Nominate MySelf")}</DeclineButton>
-                                            }
-                                        </>
-                                }
-                            </Box>
-                        </Box>
+                        <NominationHeader 
+                            title={this.state?.nominationData?.title}
+                            voting_flag={this.state.nominationData?.voting_flag}
+                            endVotingCall={()=>this.endVotingCall()}
+                            startVoting={()=>this.setState({startVotingModal:true})}
+                            nomination_flag={this.state.nominationData?.nomination_flag}
+                            nominatedSelf={this.state.nominatedSelf}
+                            handleOpenMySelfModal={this.handleOpenMySelfModal}
+                        />
                     </Box>
                 </Box>
                 <Grid container spacing={3} style={{marginTop: 10, marginBottom:30}}>
@@ -112,18 +95,7 @@ class MyTeamCore extends NominationDetailsController {
                                     }
                                 </Grid>
                                 <Grid item xs={3} style={{display:'flex',alignItems:"center",justifyContent:"flex-end"}}>
-                                    {
-                                        this.state.nominationData?.status === "closed" &&
-                                        <Typography variant="subtitle2" className={"statusOngoingRed"}>{this.state.nominationData?.status}</Typography>
-                                    }
-                                    {
-                                        this.state.nominationData?.status === "active" &&
-                                        <Typography variant="subtitle2" className={"statusOngoingGreen"}>{this.state.nominationData?.status}</Typography>
-                                    }
-                                    {
-                                        this.state.nominationData?.status === "upcoming" &&
-                                        <Typography variant="subtitle2" className={"statusOngoingBlue"}>{this.state.nominationData?.status}</Typography>
-                                    }
+                                    <NominationStatus status={this.state.nominationData?.status} />
                                 </Grid>
                                 <Grid item xs={12} sm={3}>
                                     <Box>
@@ -164,112 +136,17 @@ class MyTeamCore extends NominationDetailsController {
                     this.state.nominationData.status !== "closed" &&
                     <Grid container spacing={3} style={{marginTop: 10, marginBottom:30}}>
                         {
-                            this.state.nomineeList.length > 0 &&
-                            this.state.nomineeList.map((item:any,key:any)=> {
+                            this.state.nomineeList?.map((item:any,key:any)=> {
                                 return(
-                                    <Grid key={key} item xs={12} sm={6}>
-                                        <Paper elevation={3} style={{backgroundColor:"white",padding:"20px 30px",borderRadius:"15px",cursor:"pointer"}} >
-                                            <Box onClick={()=> this.handleOpenDetailsModal(item.attributes)}>
-                                                <Box style={{display:'flex',justifyContent:'space-between'}}>
-                                                    <Box display="flex" alignItems="center">
-                                                        <img src={ item.attributes?.image?.url || profileExp} width="50px" height="50px" style={{borderRadius:"100px"}}/>
-                                                        <Box style={{marginLeft:"10px"}}>
-                                                            <Typography style={{fontWeight:"bold"}}>{item.attributes.name}</Typography>
-                                                            <Typography >{item.attributes.unit_number.join(",")}</Typography>
-                                                        </Box>
-                                                    </Box>
-                                                    <Box style={{marginTop:"10px"}}>
-                                                        <Typography variant="subtitle2" className={"statusOngoingBlue"}>{item.attributes.role}</Typography>
-                                                    </Box>
-                                                </Box>
-                                                <Box style={{width:"100%",marginTop:"20px "}}>
-                                                    <Typography className="textwrapStatus">
-                                                        {item.attributes.description}
-                                                    </Typography>
-                                                </Box>
-                                            </Box>
-                                            {
-                                                this.state.nominationData.voting_flag &&
-                                                <>
-                                                    {
-                                                        this.state.votedViceChairmanId == item.id || this.state.votedChairmanId  == item.id ?
-                                                            <Box>
-                                                                <Box style={{width:"100%",display:'flex',justifyContent:'center',alignItems:"center",marginTop:"10px"}}>
-                                                                    <Box style={{width:"38%",backgroundColor:"d8d8d8",height:"1px",marginRight:"10px"}}/>
-                                                                    <Typography style={{fontWeight:"bold",textAlign:'center'}}>{t("Voted As")}</Typography>
-                                                                    <Box style={{width:"38%",backgroundColor:"d8d8d8",height:"1px",marginLeft:"10px"}}/>
-                                                                </Box>
-                                                                <Grid container spacing={3} style={{marginTop:"5px"}}>
-                                                                    <Grid item xs={12}>
-                                                                        {
-                                                                            this.state.votedChairmanId == item.id &&
-                                                                            <DeclineButton fullWidth disableRipple>{t("Chairman")}</DeclineButton>
-                                                                        }
-                                                                        {
-                                                                            this.state.votedViceChairmanId == item.id &&
-                                                                            <DeclineButton fullWidth disableRipple>{t("Vice Chairman")}</DeclineButton>
-                                                                        }
-                                                                    </Grid>
-                                                                </Grid>
-                                                            </Box>
-                                                            :
-                                                            <Box>
-                                                                <Box style={{width:"100%",display:'flex',justifyContent:'center',alignItems:"center",marginTop:"10px"}}>
-                                                                    <Box style={{width:"40%",backgroundColor:"d8d8d8",height:"1px",marginRight:"10px"}}/>
-                                                                    <Typography variant={"body2"} style={{fontWeight:"bold",textAlign:'center'}}>{t("Vote As")}</Typography>
-                                                                    <Box style={{width:"40%",backgroundColor:"d8d8d8",height:"1px",marginLeft:"10px"}}/>
-                                                                </Box>
-                                                                <Grid container spacing={3} style={{marginTop:"5px"}}>
-                                                                    {
-                                                                       item.attributes.nominate_as == "Chairman"  &&
-                                                                        <Grid item xs={12} sm={12}>
-                                                                            {
-                                                                                this.state.votedChairmanId ?
-                                                                                    <DeclineButton disabled fullWidth>{t("Chairman")}</DeclineButton>
-                                                                                    :
-                                                                                    <ChairmanButton fullWidth onClick={()=> this.manageVote(item.id,0,item.attributes.name)}>{t("Chairman")}</ChairmanButton>
-                                                                            }
-                                                                           </Grid>
-                                                                    }
-                                                                    {
-                                                                        item.attributes.nominate_as === "Vice Chairman" &&
-                                                                        <Grid item xs={12} sm={12}>
-                                                                            {
-                                                                                this.state.votedViceChairmanId ?
-                                                                                <DeclineButton disabled fullWidth>{t("Vice Chairman")}</DeclineButton>
-                                                                                :
-                                                                                <AcceptButton fullWidth onClick={()=> this.manageVote(item.id,1,item.attributes.name)} >{t("Vice Chairman")}</AcceptButton>
-                                                                            }
-                                                                            </Grid>
-                                                                    }
-                                                                    {
-                                                                        item.attributes.nominate_as === "All" &&
-                                                                        <>
-                                                                            <Grid item xs={12} sm={6}>
-                                                                                {
-                                                                                    this.state.votedChairmanId ?
-                                                                                        <DeclineButton disabled fullWidth>{t("Chairman")}</DeclineButton>
-                                                                                        :
-                                                                                        <ChairmanButton fullWidth onClick={()=> this.manageVote(item.id,0,item.attributes.name)}>{t("Chairman")}</ChairmanButton>
-                                                                                }
-                                                                            </Grid>
-                                                                            <Grid item xs={12} sm={6}>
-                                                                                {
-                                                                                    this.state.votedViceChairmanId ?
-                                                                                        <DeclineButton disabled fullWidth>{t("Vice Chairman")}</DeclineButton>
-                                                                                        :
-                                                                                        <AcceptButton fullWidth onClick={()=> this.manageVote(item.id,1,item.attributes.name)} >{t("Vice Chairman")}</AcceptButton>
-                                                                                }
-                                                                            </Grid>
-                                                                        </>
-                                                                    }
-                                                                </Grid>
-                                                            </Box>
-                                                    }
-                                                </>
-                                            }
-                                        </Paper>
-                                    </Grid>
+                                    <NominatedMemberCard 
+                                        item={item}
+                                        key={key}
+                                        handleOpenDetailsModal={(item:any)=> this.handleOpenDetailsModal(item)}
+                                        voting_flag={this.state.nominationData.voting_flag}
+                                        votedViceChairmanId={this.state.votedViceChairmanId}
+                                        votedChairmanId={this.state.votedChairmanId}
+                                        manageVote={(id:any,voted:any,name:any)=> this.manageVote(id,voted,name)}
+                                    />
                                 )
                             })
                         }
@@ -311,25 +188,10 @@ class MyTeamCore extends NominationDetailsController {
                                                 </TableHead>
                                                 <TableBody>
                                                     {
-                                                        this.state.chairmanVoteCount.length > 0 &&
-                                                            this.state.chairmanVoteCount.map((item:any,key:any)=>{
-                                                                if(key === 0){
-                                                                    return(
-                                                                        <TableRow key={key} style={{cursor:"pointer"}}>
-                                                                            <TableCell className="ellipse" style={item.chairman_count > 0? {fontWeight:"bold"} : {fontWeight:"normal"}}>{item.name} {item.chairman_count > 0 && <Typography variant="subtitle2" className="chairmanSelected">Chairman</Typography>}</TableCell>
-                                                                            <TableCell style={item.chairman_count > 0? {fontWeight:"bold"} : {fontWeight:"normal"}}>{item.unit_no?.join(",")}</TableCell>
-                                                                            <TableCell style={item.chairman_count > 0? {fontWeight:"bold"} : {fontWeight:"normal"}}>{item.chairman_count}</TableCell>
-                                                                        </TableRow>
-                                                                    )
-                                                                }else{
-                                                                    return(
-                                                                        <TableRow key={key} style={{cursor:"pointer"}}>
-                                                                            <TableCell className="ellipse">{item.name}</TableCell>
-                                                                            <TableCell>{item.unit_no.join(",")}</TableCell>
-                                                                            <TableCell>{item.chairman_count}</TableCell>
-                                                                        </TableRow>
-                                                                    )
-                                                                }
+                                                            this.state.chairmanVoteCount?.map((item:any,key:any)=>{
+                                                                return(
+                                                                    <ChairmanVoteCount item={item} key={key} />
+                                                                )
 
                                                             })
                                                     }
@@ -350,26 +212,10 @@ class MyTeamCore extends NominationDetailsController {
                                                 </TableHead>
                                                 <TableBody>
                                                     {
-                                                        this.state.viceChairmanVoteCount.length > 0 &&
-                                                        this.state.viceChairmanVoteCount.map((item:any,key:any)=>{
-                                                            if(key === 0){
-                                                                return(
-                                                                    <TableRow key={key} style={{cursor:"pointer"}}>
-                                                                        <TableCell className="ellipse" style={item.vice_chairman_count > 0? {fontWeight:"bold"} : {fontWeight:"normal"}}>{item.name} {item.vice_chairman_count > 0 && <Typography variant="subtitle2" className="chairmanSelected">Vice Chairman</Typography> }</TableCell>
-                                                                        <TableCell style={item.vice_chairman_count > 0? {fontWeight:"bold"} : {fontWeight:"normal"}}>{item.unit_no?.join(",")}</TableCell>
-                                                                        <TableCell style={item.vice_chairman_count > 0? {fontWeight:"bold"} : {fontWeight:"normal"}}>{item.vice_chairman_count}</TableCell>
-                                                                    </TableRow>
-                                                                )
-                                                            }else{
-                                                                return(
-                                                                    <TableRow key={key} style={{cursor:"pointer"}}>
-                                                                        <TableCell className="ellipse">{item.name}</TableCell>
-                                                                        <TableCell>{item.unit_no.join(",")}</TableCell>
-                                                                        <TableCell>{item.vice_chairman_count}</TableCell>
-                                                                    </TableRow>
-                                                                )
-                                                            }
-
+                                                        this.state.viceChairmanVoteCount?.map((item:any,key:any)=>{
+                                                            return(
+                                                                <ViceChairmanVoteCount  item={item} key={key} />
+                                                            )
                                                         })
                                                     }
                                                 </TableBody>
@@ -566,7 +412,7 @@ class MyTeamCore extends NominationDetailsController {
                         <Grid item xs={12}>
                             <Box style={{display:'flex',justifyContent:'space-between'}}>
                                 <Box display="flex" alignItems="center">
-                                    <img src={profileExp}/>
+                                    <img src={this.state.myProfile.image.url || profileExp}  width="50px" height="50px" style={{borderRadius:"100px"}}/>
                                     <Box style={{marginLeft:"10px",display:"flex"}}>
                                         <Typography style={{fontWeight:"bold",marginRight:"20px"}}>{this.state.myProfile.name}</Typography>
                                         <Typography>{this.state.myProfile.unit_number?.join(",")}</Typography>
@@ -671,6 +517,210 @@ class MyTeamCore extends NominationDetailsController {
 
 //@ts-ignore
 export default withTranslation()(withStyles(dashBoard)(withRouter(MyTeamCore)));
+
+const NominationHeader = (props:any) => {
+    const {t} = useTranslation()
+    return(
+        <Box display="flex" justifyContent="space-between" alignItems="center" width="100%">
+            <Typography variant="h4" className="subHeading">{props?.title}</Typography>
+            <Box>
+                {
+                    props?.voting_flag ?
+                        <DeclineButton style={{marginTop:"20px"}}  onClick={()=>props.endVotingCall()}>{t("Close Voting")}</DeclineButton> :
+                        <>
+                            {
+                                props?.nomination_flag && !props.voting_flag &&
+                                <AcceptButton style={{marginTop:"20px",marginRight:"10px"}} onClick={props.startVoting}>{t("Start Voting")}</AcceptButton>
+                            }
+                            {
+                                props?.nomination_flag && !props?.voting_flag && !props.nominatedSelf &&
+                                <DeclineButton style={{marginTop:"20px"}} onClick={props.handleOpenMySelfModal}>{t("Nominate MySelf")}</DeclineButton>
+                            }
+                        </>
+                }
+            </Box>
+        </Box>
+    )
+}
+
+const NominationStatus = (props:any) => {
+    return(
+        <>
+            {
+                props?.status === "closed" &&
+                <Typography variant="subtitle2" className={"statusOngoingRed"}>{props?.status}</Typography>
+            }
+            {
+                props?.status === "active" &&
+                <Typography variant="subtitle2" className={"statusOngoingGreen"}>{props?.status}</Typography>
+            }
+            {
+                props?.status === "upcoming" &&
+                <Typography variant="subtitle2" className={"statusOngoingBlue"}>{props?.status}</Typography>
+            }
+        </>
+    )
+}
+
+const ChairmanVoteCount = (props:any) => {
+    const {item,key} = props
+    if(key === 0){
+        return(
+            <TableRow key={key} style={{cursor:"pointer"}}>
+                <TableCell className="ellipse" style={item.chairman_count > 0? {fontWeight:"bold"} : {fontWeight:"normal"}}>{item.name} {item.chairman_count > 0 && <Typography variant="subtitle2" className="chairmanSelected">Chairman</Typography>}</TableCell>
+                <TableCell style={item.chairman_count > 0? {fontWeight:"bold"} : {fontWeight:"normal"}}>{item.unit_no?.join(",")}</TableCell>
+                <TableCell style={item.chairman_count > 0? {fontWeight:"bold"} : {fontWeight:"normal"}}>{item.chairman_count}</TableCell>
+            </TableRow>
+        )
+    }else{
+        return(
+            <TableRow key={key} style={{cursor:"pointer"}}>
+                <TableCell className="ellipse">{item.name}</TableCell>
+                <TableCell>{item.unit_no.join(",")}</TableCell>
+                <TableCell>{item.chairman_count}</TableCell>
+            </TableRow>
+        )
+    }
+}
+
+
+const ViceChairmanVoteCount = (props:any) => {
+    const {item,key} = props
+    if(key === 0){
+        return(
+            <TableRow key={key} style={{cursor:"pointer"}}>
+                <TableCell className="ellipse" style={item.vice_chairman_count > 0? {fontWeight:"bold"} : {fontWeight:"normal"}}>{item.name} {item.vice_chairman_count > 0 && <Typography variant="subtitle2" className="chairmanSelected">Vice Chairman</Typography> }</TableCell>
+                <TableCell style={item.vice_chairman_count > 0? {fontWeight:"bold"} : {fontWeight:"normal"}}>{item.unit_no?.join(",")}</TableCell>
+                <TableCell style={item.vice_chairman_count > 0? {fontWeight:"bold"} : {fontWeight:"normal"}}>{item.vice_chairman_count}</TableCell>
+            </TableRow>
+        )
+    }else{
+        return(
+            <TableRow key={key} style={{cursor:"pointer"}}>
+                <TableCell className="ellipse">{item.name}</TableCell>
+                <TableCell>{item.unit_no.join(",")}</TableCell>
+                <TableCell>{item.vice_chairman_count}</TableCell>
+            </TableRow>
+        )
+    }
+}
+
+const VotedAsCheck = (props:any) => {
+    const {t} = useTranslation()
+    return(
+        <Grid item xs={12}>
+            {
+                props.votedChairmanId == props.id &&
+                <DeclineButton fullWidth disableRipple>{t("Chairman")}</DeclineButton>
+            }
+            {
+                props.votedViceChairmanId == props.id &&
+                <DeclineButton fullWidth disableRipple>{t("Vice Chairman")}</DeclineButton>
+            }
+        </Grid>
+    )
+}
+
+const NominatedMemberCard = (props:any) => {
+    const {item,key,handleOpenDetailsModal} = props
+    const {t} = useTranslation()
+    return(
+        <Grid key={key} item xs={12} sm={6}>
+            <Paper elevation={3} style={{backgroundColor:"white",padding:"20px 30px",borderRadius:"15px",cursor:"pointer"}} >
+                <Box onClick={()=> handleOpenDetailsModal(item.attributes)}>
+                    <Box style={{display:'flex',justifyContent:'space-between'}}>
+                        <Box display="flex" alignItems="center">
+                            <img src={ item.attributes?.image?.url || profileExp} width="50px" height="50px" style={{borderRadius:"100px"}}/>
+                            <Box style={{marginLeft:"10px"}}>
+                                <Typography style={{fontWeight:"bold"}}>{item.attributes.name}</Typography>
+                                <Typography >{item.attributes.unit_number.join(",")}</Typography>
+                            </Box>
+                        </Box>
+                        <Box style={{marginTop:"10px"}}>
+                            <Typography variant="subtitle2" className={"statusOngoingBlue"}>{item.attributes.role}</Typography>
+                        </Box>
+                    </Box>
+                    <Box style={{width:"100%",marginTop:"20px "}}>
+                        <Typography className="textwrapStatus">
+                            {item.attributes.description}
+                        </Typography>
+                    </Box>
+                </Box>
+                {
+                    props?.voting_flag &&
+                    <>
+                        {
+                            props.votedViceChairmanId == item.id || props.votedChairmanId  == item.id ?
+                                <Box>
+                                    <Box style={{width:"100%",display:'flex',justifyContent:'center',alignItems:"center",marginTop:"10px"}}>
+                                        <Box style={{width:"38%",backgroundColor:"d8d8d8",height:"1px",marginRight:"10px"}}/>
+                                        <Typography style={{fontWeight:"bold",textAlign:'center'}}>{t("Voted As")}</Typography>
+                                        <Box style={{width:"38%",backgroundColor:"d8d8d8",height:"1px",marginLeft:"10px"}}/>
+                                    </Box>
+                                    <Grid container spacing={3} style={{marginTop:"5px"}}>
+                                        <VotedAsCheck votedChairmanId={props.votedChairmanId} id={item.id}/>
+                                    </Grid>
+                                </Box>
+                                :
+                                <Box>
+                                    <Box style={{width:"100%",display:'flex',justifyContent:'center',alignItems:"center",marginTop:"10px"}}>
+                                        <Box style={{width:"40%",backgroundColor:"d8d8d8",height:"1px",marginRight:"10px"}}/>
+                                        <Typography variant={"body2"} style={{fontWeight:"bold",textAlign:'center'}}>{t("Vote As")}</Typography>
+                                        <Box style={{width:"40%",backgroundColor:"d8d8d8",height:"1px",marginLeft:"10px"}}/>
+                                    </Box>
+                                    <Grid container spacing={3} style={{marginTop:"5px"}}>
+                                        {
+                                            item.attributes.nominate_as == "Chairman"  &&
+                                            <Grid item xs={12} sm={12}>
+                                                {
+                                                    props.votedChairmanId ?
+                                                        <DeclineButton disabled fullWidth>{t("Chairman")}</DeclineButton>
+                                                        :
+                                                        <ChairmanButton fullWidth onClick={()=> props.manageVote(item.id,0,item.attributes.name)}>{t("Chairman")}</ChairmanButton>
+                                                }
+                                                </Grid>
+                                        }
+                                        {
+                                            item.attributes.nominate_as === "Vice Chairman" &&
+                                            <Grid item xs={12} sm={12}>
+                                                {
+                                                    props.votedViceChairmanId ?
+                                                    <DeclineButton disabled fullWidth>{t("Vice Chairman")}</DeclineButton>
+                                                    :
+                                                    <AcceptButton fullWidth onClick={()=> props.manageVote(item.id,1,item.attributes.name)} >{t("Vice Chairman")}</AcceptButton>
+                                                }
+                                                </Grid>
+                                        }
+                                        {
+                                            item.attributes.nominate_as === "All" &&
+                                            <>
+                                                <Grid item xs={12} sm={6}>
+                                                    {
+                                                        props.votedChairmanId ?
+                                                            <DeclineButton disabled fullWidth>{t("Chairman")}</DeclineButton>
+                                                            :
+                                                            <ChairmanButton fullWidth onClick={()=> props.manageVote(item.id,0,item.attributes.name)}>{t("Chairman")}</ChairmanButton>
+                                                    }
+                                                </Grid>
+                                                <Grid item xs={12} sm={6}>
+                                                    {
+                                                        props.votedViceChairmanId ?
+                                                            <DeclineButton disabled fullWidth>{t("Vice Chairman")}</DeclineButton>
+                                                            :
+                                                            <AcceptButton fullWidth onClick={()=> props.manageVote(item.id,1,item.attributes.name)} >{t("Vice Chairman")}</AcceptButton>
+                                                    }
+                                                </Grid>
+                                            </>
+                                        }
+                                    </Grid>
+                                </Box>
+                        }
+                    </>
+                }
+            </Paper>
+        </Grid>
+    )
+}
 
 const dashBoard = {
     navigation: {
