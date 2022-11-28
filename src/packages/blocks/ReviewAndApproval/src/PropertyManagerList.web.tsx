@@ -5,11 +5,12 @@ import { Menu } from "@szhsin/react-menu";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import PropertyManagerListController, { Props } from "./PropertyManagerListController.web";
-import { BuildingLogo, SortIcon, FilterIcon } from "./assets";
+import { BuildingLogo, SortIcon } from "./assets";
 import { withTranslation } from "react-i18next";
 import "../../../web/src/i18n.js";
 import { PropertyManagerStyleWeb } from "./PropertyManagerStyle.web";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
+import Loader from "../../../components/src/Loader.web";
 
 class PropertyManagerList extends PropertyManagerListController {
   constructor(props: Props) {
@@ -22,6 +23,8 @@ class PropertyManagerList extends PropertyManagerListController {
 
     return (
       <>
+        <Loader loading={this.state.loading} />
+
         <Box style={{ background: "#F4F7FF", height: "100vh", overflowY: "hidden" }} className={classes.managerList}>
           <Grid container>
             <Grid item xs={12} md={7}>
@@ -43,16 +46,9 @@ class PropertyManagerList extends PropertyManagerListController {
                         </IconButton>
                       }
                     >
-                      <MenuItem>{t("Ascending")}</MenuItem>
-                      <MenuItem>{t("Descending")}</MenuItem>
+                      <MenuItem onClick={() => this.setState({ sort: "asc" })}>{t("Ascending")}</MenuItem>
+                      <MenuItem onClick={() => this.setState({ sort: "desc" })}>{t("Descending")}</MenuItem>
                     </Menu>
-                    <Menu
-                      menuButton={
-                        <IconButton>
-                          <img src={FilterIcon} alt="FilterIcon" />
-                        </IconButton>
-                      }
-                    />
                   </div>
                 </Box>
                 <Container>
@@ -64,9 +60,11 @@ class PropertyManagerList extends PropertyManagerListController {
                             <Link href="/PropertyManagers/Request">
                               <Card className="contract">
                                 <Box className="new-req-box">
-                                  <h4>New Request</h4>
+                                  <h4>{t("New Request")}</h4>
                                   <Box className="right-side-req-box">
-                                    <Button>02</Button>
+                                    {this.state.requestPropertyManagerList.length > 0 && (
+                                      <Button>{this.state.requestPropertyManagerList.length}</Button>
+                                    )}
                                     <NavigateNextIcon />
                                   </Box>
                                 </Box>
@@ -79,13 +77,18 @@ class PropertyManagerList extends PropertyManagerListController {
                             </Grid>
                           )}
                           {this.state.propertyManagerList.map((propertyManager: any, index: number) => {
+                            const building: any[] = propertyManager.attributes.properties.data.map((property: any) => {
+                              return `Building ${property.attributes.building_management.name} unit ${
+                                property.attributes.apartment_management.apartment_name
+                              }`;
+                            });
                             return (
                               <Grid item xs={12} key={index}>
                                 <Card className="contract">
                                   <Grid container spacing={2}>
                                     <Grid item xs={12}>
                                       <div className="header">
-                                        <h4>Ali Khan</h4>
+                                        <h4>{propertyManager.attributes.name || "-"}</h4>
                                         <div className="right-menu">
                                           <Menu
                                             menuButton={
@@ -94,9 +97,33 @@ class PropertyManagerList extends PropertyManagerListController {
                                               </IconButton>
                                             }
                                           >
-                                            <MenuItem>{t("View")}</MenuItem>
-                                            <MenuItem>{t("Edit")}</MenuItem>
-                                            <MenuItem>{t("Delete")}</MenuItem>
+                                            <MenuItem
+                                              onClick={() =>
+                                                this.props.navigation.navigate("PropertyManagerDetails", {
+                                                  id: propertyManager.id,
+                                                })
+                                              }
+                                            >
+                                              {t("View")}
+                                            </MenuItem>
+                                            <MenuItem
+                                              onClick={() =>
+                                                this.props.navigation.navigate("EditPropertyManager", {
+                                                  id: propertyManager.id,
+                                                })
+                                              }
+                                            >
+                                              {t("Edit")}
+                                            </MenuItem>
+                                            <MenuItem
+                                              onClick={() =>
+                                                this.setState({ loading: true }, () =>
+                                                  this.deletePropertyManager(propertyManager.id)
+                                                )
+                                              }
+                                            >
+                                              {t("Delete")}
+                                            </MenuItem>
                                           </Menu>
                                         </div>
                                       </div>
@@ -105,15 +132,11 @@ class PropertyManagerList extends PropertyManagerListController {
                                   <Grid container spacing={2} className="info">
                                     <Grid item xs={12}>
                                       <span>{t("Manages")}</span>
-                                      <p>Lorem Ipsum</p>
+                                      <p>{building.toString()}</p>
                                     </Grid>
                                     <Grid item xs={12}>
                                       <span>{t("Company Name")}</span>
-                                      <p>Lorem Ipsum</p>
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                      <span>{t("Charges")}</span>
-                                      <p>Lorem Ipsum</p>
+                                      <p>{propertyManager.attributes.company_name || "-"}</p>
                                     </Grid>
                                   </Grid>
                                 </Card>

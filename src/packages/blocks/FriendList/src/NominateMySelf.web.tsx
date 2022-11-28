@@ -46,7 +46,12 @@ class NominateMySelf extends NominateMySelfController{
                       <Box style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
                           <ArrowBackIcon onClick={() => window.history.back()} />
                           <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
-                              {t("Nominate My Self")}
+                              {
+                                  this.state.nominatedSelf ?
+                                  t("Edit Nomination")
+                                      :
+                                  t("Nominate My Self")
+                              }
                           </p>
                       </Box>
                   </Grid>
@@ -56,7 +61,7 @@ class NominateMySelf extends NominateMySelfController{
                         <Grid item xs={12}>
                             <Box style={{display:'flex',justifyContent:'space-between'}}>
                                 <Box display="flex" alignItems="center">
-                                    <img src={profileExp}/>
+                                    <img src={this.state.myProfile?.image?.url || profileExp} width="50px" height="50px" style={{borderRadius:"100px"}}/>
                                     <Box style={{marginLeft:"10px"}}>
                                         <Typography style={{fontWeight:"bold",marginRight:"20px"}}>{this.state.myProfile.name}</Typography>
                                         <Typography variant="subtitle2">{this.state.myProfile.unit_number?.join(",")}</Typography>
@@ -68,13 +73,15 @@ class NominateMySelf extends NominateMySelfController{
                             </Box>
                             <Box style={{width:"100%",marginTop:"20px "}}>
                                 <TextField
-                                    id="outlined-multiline-static"
+                                    id="nominateMySelf"
                                     label={t("Why I should be elected")}
+                                    placeholder={t("Why I should be elected")}
                                     multiline
-                                    InputProps={{
+                                    // @ts-ignore
+                                    InputProps={!this.state.nominatedSelf && {
                                         startAdornment: (
                                             <InputAdornment position="start" style={{alignSelf:"flex-start"}}>
-                                                <ReorderIcon style={{marginTop:"10px"}}/>
+                                                <ReorderIcon style={{marginTop:"15px"}}/>
                                             </InputAdornment>
                                         ),
                                     }}
@@ -86,26 +93,29 @@ class NominateMySelf extends NominateMySelfController{
                                     variant="outlined"
                                 />
                             </Box>
-                            <Box style={{width:"100%",marginTop:"20px "}}>
-                                <Typography style={{fontWeight:"bold"}}>Nominate As a</Typography>
-                                <FormControlLabel
-                                    onChange={this.manageSelectRole}
-                                    control={<Checkbox checkedIcon={<CheckBoxIcon style={{color:"#fc8434"}} />} name="checkedA" value={0} checked={this.state.myNominationAs.find((check:any)=> check === '0') ? true : false} />}
-                                    label={t("Chairman")}
-                                />
-                                <FormControlLabel
-                                    onChange={this.manageSelectRole}
-                                    control={<Checkbox checkedIcon={<CheckBoxIcon style={{color:"#fc8434"}} />} name="checkedB" value={1} checked={this.state.myNominationAs.find((check:any)=> check === '1') ? true : false} />}
-                                    label={t("Vice Chairman")}
-                                />
-                            </Box>
+                            {
+                                !this.state.nominatedSelf &&
+                                <Box style={{width:"100%",marginTop:"20px "}}>
+                                    <Typography style={{fontWeight:"bold"}}>Nominate As a</Typography>
+                                    <FormControlLabel
+                                        onChange={this.manageSelectRole}
+                                        control={<Checkbox checkedIcon={<CheckBoxIcon style={{color:"#fc8434"}} />} name="checkedA" value={0} checked={this.state.myNominationAs.find((check:any)=> check === '0') ? true : false} />}
+                                        label={t("Chairman")}
+                                    />
+                                    <FormControlLabel
+                                        onChange={this.manageSelectRole}
+                                        control={<Checkbox checkedIcon={<CheckBoxIcon style={{color:"#fc8434"}} />} name="checkedB" value={1} checked={this.state.myNominationAs.find((check:any)=> check === '1') ? true : false} />}
+                                        label={t("Vice Chairman")}
+                                    />
+                                </Box>
+                            }
                         </Grid>
                     </Grid>
                     <Box style={{width:"90%",marginBottom:"50px",marginTop:"10px"}}>
                         {
                             this.state.nominatedSelf ?
                             <CloseButton variant="contained" fullWidth size="large" onClick={this.manageNominate}>
-                                {t("Update")}
+                                {t("Save")}
                             </CloseButton>
                                 :
                             <CloseButton variant="contained" fullWidth size="large" onClick={this.manageNominate}>
@@ -130,6 +140,7 @@ const CloseButton = withStyles((theme) => ({
         fontWeight:"bold",
         borderRadius:"100px",
         height:"55px",
+        textTransform:"uppercase",
         '&:hover': {
             backgroundColor: "#2b6fef",
         },

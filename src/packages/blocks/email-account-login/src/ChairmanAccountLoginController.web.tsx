@@ -41,7 +41,7 @@ export interface S {
   error: string | null;
   loading: boolean;
   userTypeData:any;
-
+  showError:boolean;
   // Customizable Area End
 }
 
@@ -141,6 +141,14 @@ export default class ChairmanAccountLoginController extends BlockComponent<
     // Customizable Area End
   }
 
+  showError = () => {
+    if(this.state.error){
+      this.setState({
+        showError:true
+      })
+    }
+  }
+
   async receive(from: string, message: Message) {
     // Customizable Area Start
     if (getName(MessageEnum.RestAPIResponceMessage) === message.id) {
@@ -207,9 +215,9 @@ export default class ChairmanAccountLoginController extends BlockComponent<
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
           }
-
-          this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({loading: false , error:null})
+          // this.parseApiCatchErrorResponse(this.state.error);
+          this.showError()
+          this.setState({loading: false})
         }
         else if (apiRequestCallId === this.apiRegistrationRequestCallId) {
           if (responseJson && responseJson?.data ) {
@@ -239,8 +247,9 @@ export default class ChairmanAccountLoginController extends BlockComponent<
             this.setState({ error: responseJson?.error || "Something went wrong!" });
 
           }
-          this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({loading: false ,error:null})
+          // this.parseApiCatchErrorResponse(this.state.error);
+          this.showError()
+          this.setState({loading: false})
         }
         else if (apiRequestCallId === this.deleteRequestCallId) {
           if (responseJson.message && responseJson ) {
@@ -253,8 +262,9 @@ export default class ChairmanAccountLoginController extends BlockComponent<
             this.setState({ error: responseJson?.error || "Something went wrong!" });
           }
           this.setState({loading: false,showDialog:false})
-          this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({error:null})
+          // this.parseApiCatchErrorResponse(this.state.error);
+          this.showError()
+          // this.setState({error:null})
         }
         else if (apiRequestCallId === this.getUserTypeApiCallId) {
           if (responseJson && responseJson?.data ) {
@@ -268,8 +278,9 @@ export default class ChairmanAccountLoginController extends BlockComponent<
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
           }
-          this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({loading: false , error:null})
+          // this.parseApiCatchErrorResponse(this.state.error);
+          this.showError()
+          this.setState({loading: false})
         }
 
       }

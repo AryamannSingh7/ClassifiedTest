@@ -40,6 +40,7 @@ export interface S {
   error: string | null;
   userType: string | null;
   stayLogin:boolean;
+  showError:boolean;
   // Customizable Area End
 }
 
@@ -83,8 +84,8 @@ export default class EmailAccountLoginController extends BlockComponent<
   labelLegalTermCondition: string;
   labelLegalPrivacyPolicy: string;
   btnTextSignUp: string;
-
   currentCountryCode: any;
+
   // Customizable Area End
 
   constructor(props: Props) {
@@ -116,6 +117,7 @@ export default class EmailAccountLoginController extends BlockComponent<
       phone: "",
       userType:'',
       stayLogin:false,
+      showError:false,
       // Customizable Area End
     };
 
@@ -138,6 +140,14 @@ export default class EmailAccountLoginController extends BlockComponent<
     this.labelLegalPrivacyPolicy = configJSON.labelLegalPrivacyPolicy;
     this.btnTextSignUp = configJSON.btnTextSignUp;
     // Customizable Area End
+  }
+
+  showError = () => {
+   if(this.state.error){
+     this.setState({
+       showError:true
+     })
+   }
   }
 
   async receive(from: string, message: Message) {
@@ -195,12 +205,47 @@ export default class EmailAccountLoginController extends BlockComponent<
           if (responseJson && responseJson.meta && responseJson.meta.token) {
             localStorage.setItem("userToken", responseJson?.meta?.token)
             localStorage.setItem("userId", responseJson?.meta?.id)
-            localStorage.setItem("userType", responseJson?.meta?.role.name)
             localStorage.setItem("society_id", responseJson.meta?.society_id)
             localStorage.setItem("complexName", responseJson.meta?.complex_name)
             localStorage.setItem("language", "en");
             i18next.changeLanguage("en");
-            console.log('ehhlo sir')
+            console.log("CHECK THE ROLE",responseJson.meta.role)
+            const isResidentOwner = responseJson.meta.role.filter((item)=> {
+              return item.name === "Owner Resident"
+            })
+            const isPropertyManager= responseJson.meta.role.filter((item)=> {
+              return item.name === "Property Manager"
+            })
+            const isTenant = responseJson.meta.role.filter((item)=> {
+              return item.name === "Tenant"
+            })
+            const isOwner = responseJson.meta.role.filter((item)=> {
+              return item.name === "Owner"
+            })
+            if(isResidentOwner.length > 0 || isPropertyManager.length > 0 || isTenant.length > 0 ||  isOwner.length > 0){
+              if(isResidentOwner.length > 0){
+                localStorage.setItem("userType","Owner Resident")
+                this.props.history.push("/ResidentDashboard")
+              }
+              if(isPropertyManager.length > 0){
+                localStorage.setItem("userType","Property Manager")
+                this.props.history.push("/OwnerDashboard")
+              }
+              if(isTenant.length > 0){
+                localStorage.setItem("userType","Tenant")
+                this.props.history.push("/ResidentDashboard")
+              }
+              if(isOwner.length > 0){
+                localStorage.setItem("userType","Owner")
+                this.props.history.push("/OwnerDashboard")
+              }
+            }else{
+              this.setState({
+                error:"You have no right to access this dashboard"
+              })
+            }
+            console.log("Check the filtered value",isResidentOwner,isPropertyManager,isTenant,isOwner)
+
             this.getRegistrationRequest();
           // this.props.history.push("/RegistrationRequest")
            //window.location.replace("/RegistrationRequest");
@@ -212,8 +257,9 @@ export default class EmailAccountLoginController extends BlockComponent<
             this.setState({ error: responseJson?.error || "Something went wrong!" });
           }
           this.setState({loading: false})
-          this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({error:null})
+          // this.parseApiCatchErrorResponse(this.state.error);
+          this.showError()
+          // this.setState({error:null})
         }
         else if (apiRequestCallId === this.deleteRequestCallId) {
           if (responseJson.message && responseJson ) {
@@ -226,8 +272,9 @@ export default class EmailAccountLoginController extends BlockComponent<
             this.setState({ error: responseJson?.error || "Something went wrong!" });
           }
           this.setState({loading: false,showDialog:false})
-          this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({error:null})
+          // this.parseApiCatchErrorResponse(this.state.error);
+          // this.setState({showError:true})
+          this.showError()
         }
         else if (apiRequestCallId === this.apiRegistrationRequestCallId) {
           if (responseJson && responseJson?.data ) {
@@ -239,11 +286,11 @@ export default class EmailAccountLoginController extends BlockComponent<
             this.setState({registrationRequest, requestdeleteId :registrationRequest.id,loading: false})
           }
         else if (localStorage.getItem("userType") === "Owner" || localStorage.getItem("userType") === "Property Manager") {
-          this.props.history.push("/OwnerDashboard")
+          // this.props.history.push("/OwnerDashboard")
           //window.location.replace("/DashboardGeneral");
           this.setState({ loading: false })
         } else {
-            this.props.history.push("/ResidentDashboard")
+            // this.props.history.push("/ResidentDashboard")
             //window.location.replace("/DashboardGeneral");
             this.setState({loading: false})
            }
@@ -256,8 +303,9 @@ export default class EmailAccountLoginController extends BlockComponent<
             this.setState({ error: responseJson?.error || "Something went wrong!" });
 
           }
-          this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({loading: false ,error:null})
+          // this.parseApiCatchErrorResponse(this.state.error);
+          this.setState({loading: false})
+          this.showError()
         }
       }
     }
@@ -501,7 +549,7 @@ clear= () => {
         .trim()
         .required(`Email is required.`),
       password: Yup.string().required(`Password is required`),
-      userType: Yup.string().required(`User type is required`).trim(),
+      // userType: Yup.string().required(`User type is required`).trim(),
     });
     return validations
   }
@@ -519,7 +567,7 @@ clear= () => {
     const data = {
       type: "email_account",
       attributes: attrs,
-      user_type: values.userType,
+      // user_type: values.userType,
       stay_login: values.stayIn
     };
 

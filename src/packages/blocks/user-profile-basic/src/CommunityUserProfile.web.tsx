@@ -329,9 +329,7 @@ class CommunityUserProfile extends CommunityUserProfileController {
                       this.state.allProfile[item]?.data?.slice(0,4).map((singleProfile:any, index:any) => {
                         return(
                           <div key={index}  >
-                          <Card style={dashBoard.cardStyle} onClick={(e) => {
-                            //@ts-ignore
-                            this.props.history.push({pathname:"/UserDetailedProfile",singleProfile})}}>
+                          <Card style={dashBoard.cardStyle} >
                             <CardActionArea>
                               <CardMedia
                                 component="img"
@@ -339,13 +337,17 @@ class CommunityUserProfile extends CommunityUserProfileController {
                                 image={singleProfile?.attributes?.profile_pic?.url}
                                 alt="green iguana"
                                 style={dashBoard.profileImage}
+                                onClick={(e:any) => {
+                                  localStorage.setItem('selectedPofile',JSON.stringify(singleProfile))
+                                  //@ts-ignore
+                                  this.props.history.push({pathname:"/UserDetailedProfile",singleProfile})}}
                               />
                               <CardContent style={{padding:"0px 16px 16px 16px"}}>
                               <Typography variant="h6"
                               //@ts-ignore 
                               style={dashBoard.unitno}>{item.unitno}</Typography>
                               <Typography variant="h6" style={{textAlign:"center", marginTop:"5px"}}>{singleProfile?.attributes?.full_name?.name}</Typography>
-                              <div style={{textAlign:"center",marginTop:"5px"}}>
+                              <div style={{textAlign:"center",marginTop:"5px"}} >
                                 <Typography variant="h6" style={dashBoard.userType}>{item}</Typography>
                               </div>
                               <div style={dashBoard.contactIcon}>
