@@ -40,18 +40,6 @@ export default class UnitExpenseListController extends BlockComponent<Props, S, 
       let responseJson: any = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
       let errorResponse: any = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
 
-      const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
-      switch (apiRequestCallId) {
-        case 1:
-          break;
-        case 2:
-          break;
-        case 3:
-          break;
-        default:
-          break;
-      }
-
       if (responseJson && responseJson.meta && responseJson.meta.token) {
         runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
       } else {
