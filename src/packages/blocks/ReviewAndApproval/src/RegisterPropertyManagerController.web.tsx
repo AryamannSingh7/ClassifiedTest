@@ -142,126 +142,64 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
           this.GetBuildingListCallId = null;
           this.getBuildingListResponse(responseJson);
           break;
+        // Get All Unit List - API Response
         case this.GetUnitListCallId:
           this.GetUnitListCallId = null;
           this.getUnitListResponse(responseJson);
           break;
+        // Get All Id Type List - API Response
         case this.GetIDTypeListCallId:
           this.GetIDTypeListCallId = null;
           this.getIdTypeListResponse(responseJson);
           break;
+        // Create Property Manager - API Response
         case this.CreatePropertyManagerCallId:
           this.CreatePropertyManagerCallId = null;
           this.createPropertyManagerResponse(responseJson);
           break;
+        // Check Property Manager Available - API Response
         case this.CheckPropertyManagerAvailableCallId:
           this.CheckPropertyManagerAvailableCallId = null;
           this.checkPropertyManagerAvailableResponse(responseJson);
           break;
+        // Complex Details - API Response
         case this.GetComplexDetailsCallId:
           this.GetComplexDetailsCallId = null;
           this.getComplexDetailsResponse(responseJson);
           break;
+        // Get Property Manager Details - API Response
         case this.GetPropertyManagerDetailCallId:
           this.GetPropertyManagerDetailCallId = null;
           this.getPropertyManagerDetailResponse(responseJson);
           break;
+        // Get Property Manager's Property List - API Response
         case this.GetPropertyListCallId:
           this.GetPropertyListCallId = null;
           this.getPropertyListResponse(responseJson);
           break;
+        // Create Property - API Response
         case this.CreatePropertyCallId:
           this.CreatePropertyCallId = null;
           this.createPropertyResponse(responseJson);
           break;
+        // Edit Property - API Response
         case this.EditPropertyCallId:
           this.EditPropertyCallId = null;
           this.editPropertyResponse(responseJson);
           break;
+        // Delete Property - API Response
         case this.DeletePropertyCallId:
           this.DeletePropertyCallId = null;
           this.setState({ loading: false }, () => {
             this.getPropertyList();
           });
           break;
+        // Edit Property Manager - API Response
         case this.EditPropertyManagerCallId:
           this.EditPropertyManagerCallId = null;
           this.editPropertyManagerResponse(responseJson);
           break;
       }
-      // Get All Building List - API Response
-      // if (this.GetBuildingListCallId === apiRequestCallId) {
-      //   this.GetBuildingListCallId = null;
-      //   this.getBuildingListResponse(responseJson);
-      // }
-
-      // Get All Unit List - API Response
-      // if (this.GetUnitListCallId === apiRequestCallId) {
-      //   this.GetUnitListCallId = null;
-      //   this.getUnitListResponse(responseJson);
-      // }
-
-      // Get All Id Type List - API Response
-      // if (this.GetIDTypeListCallId === apiRequestCallId) {
-      //   this.GetIDTypeListCallId = null;
-      //   this.getIdTypeListResponse(responseJson);
-      // }
-
-      // Create Property Manager - API Response
-      // if (this.CreatePropertyManagerCallId === apiRequestCallId) {
-      //   this.CreatePropertyManagerCallId = null;
-      //   this.createPropertyManagerResponse(responseJson);
-      // }
-
-      // Check Property Manager Available - API Response
-      // if (this.CheckPropertyManagerAvailableCallId === apiRequestCallId) {
-      //   this.CheckPropertyManagerAvailableCallId = null;
-      //   this.checkPropertyManagerAvailableResponse(responseJson);
-      // }
-
-      // Complex Details - API Response
-      // if (this.GetComplexDetailsCallId === apiRequestCallId) {
-      //   this.GetComplexDetailsCallId = null;
-      //   this.getComplexDetailsResponse(responseJson);
-      // }
-
-      // Get Property Manager Details - API Response
-      // if (this.GetPropertyManagerDetailCallId === apiRequestCallId) {
-      //   this.GetPropertyManagerDetailCallId = null;
-      //   this.getPropertyManagerDetailResponse(responseJson);
-      // }
-
-      // Get Property Manager's Property List - API Response
-      // if (this.GetPropertyListCallId === apiRequestCallId) {
-      //   this.GetPropertyListCallId = null;
-      //   this.getPropertyListResponse(responseJson);
-      // }
-
-      // Create Property  - API Response
-      // if (this.CreatePropertyCallId === apiRequestCallId) {
-      //   this.CreatePropertyCallId = null;
-      //   this.createPropertyResponse(responseJson);
-      // }
-
-      // Edit Property  - API Response
-      // if (this.EditPropertyCallId === apiRequestCallId) {
-      //   this.EditPropertyCallId = null;
-      //   this.editPropertyResponse(responseJson);
-      // }
-
-      // Delete Property  - API Response
-      // if (this.DeletePropertyCallId === apiRequestCallId) {
-      //   this.DeletePropertyCallId = null;
-      //   this.setState({ loading: false }, () => {
-      //     this.getPropertyList();
-      //   });
-      // }
-
-      // Edit Property Manager  - API Response
-      // if (this.EditPropertyManagerCallId === apiRequestCallId) {
-      //   this.EditPropertyManagerCallId = null;
-      //   this.editPropertyManagerResponse(responseJson);
-      // }
 
       if (responseJson && responseJson.meta && responseJson.meta.token) {
         runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
