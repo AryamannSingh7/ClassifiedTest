@@ -1,11 +1,30 @@
 import React from "react";
 import { withTranslation } from "react-i18next";
 import MyExpenseListController, { Props } from "./MyExpenseListController.web";
-import { Box, Button, Card, Container, Grid, IconButton, Link, withStyles } from "@material-ui/core";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
+  Button,
+  Card,
+  Checkbox,
+  Container,
+  Divider,
+  Drawer,
+  Grid,
+  IconButton,
+  Link,
+  Typography,
+  withStyles,
+} from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import { FilterIcon, RightArrowIcon } from "../assets";
 import OwnerSidebarImage from "../../../../components/src/OwnerSidebarImage.web";
 import { ExpenseTrackingStyle } from "./ExpenseTrackingStyle.web";
+import CircleUnchecked from "@material-ui/icons/RadioButtonUnchecked";
+import CircleCheckedFilled from "@material-ui/icons/CheckCircle";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 class MyExpenseList extends MyExpenseListController {
   constructor(props: Props) {
@@ -31,7 +50,7 @@ class MyExpenseList extends MyExpenseListController {
                     </Link>
                     <span>{t("My Expenses")}</span>
                   </Box>
-                  <Box className="right-icon">
+                  <Box className="right-icon" onClick={() => this.handleFilterModal()}>
                     <img src={FilterIcon} alt="filter" />
                   </Box>
                 </Box>
@@ -81,6 +100,60 @@ class MyExpenseList extends MyExpenseListController {
             </Grid>
           </Grid>
         </Box>
+
+        <Drawer
+          anchor="bottom"
+          className="condition-modal"
+          open={this.state.isFilterOpen}
+          onClose={() => this.handleFilterModal()}
+        >
+          <Box className="condition-box filter-box">
+            <Box className="heading">
+              <p>{t("Add More Conditions")}</p>
+              <span>{t("Clear All")}</span>
+            </Box>
+            <Box className="accordion-box">
+              <Accordion square expanded={this.state.expanded === "panel1"} onChange={this.handleChange("panel1")}>
+                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                  <Typography>Building 1</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Box className="content-box">
+                    <Box className="condition">
+                      <p>Unit 2</p>
+                      <Checkbox
+                        className="condition-check"
+                        checked={true}
+                        onChange={(e: any) => {
+                          console.log(e);
+                        }}
+                        icon={<CircleUnchecked />}
+                        checkedIcon={<CircleCheckedFilled />}
+                      />
+                    </Box>
+                    <Box className="condition">
+                      <p>Unit 2</p>
+                      <Checkbox
+                        className="condition-check"
+                        checked={true}
+                        onChange={(e: any) => {
+                          console.log(e);
+                        }}
+                        icon={<CircleUnchecked />}
+                        checkedIcon={<CircleCheckedFilled />}
+                      />
+                    </Box>
+                  </Box>
+                </AccordionDetails>
+              </Accordion>
+              <br />
+              <Divider />
+              <Box className="button-group">
+                <Button className="add-button">{t("Apply")}</Button>
+              </Box>
+            </Box>
+          </Box>
+        </Drawer>
       </>
     );
   }

@@ -1,13 +1,28 @@
 import React from "react";
 import { withTranslation } from "react-i18next";
 import UnitExpenseListController, { Props } from "./UnitExpenseListController.web";
-import { Box, Button, Card, Container, Grid, IconButton, Link, MenuItem, withStyles } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  Card,
+  Checkbox,
+  Container,
+  Divider,
+  Drawer,
+  Grid,
+  IconButton,
+  Link,
+  MenuItem,
+  withStyles,
+} from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import { FilterIcon, SortIcon } from "../assets";
 import OwnerSidebarImage from "../../../../components/src/OwnerSidebarImage.web";
 import { ExpenseTrackingStyle } from "./ExpenseTrackingStyle.web";
 import { Menu } from "@szhsin/react-menu";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import CircleUnchecked from "@material-ui/icons/RadioButtonUnchecked";
+import CircleCheckedFilled from "@material-ui/icons/CheckCircle";
 
 class UnitExpenseList extends UnitExpenseListController {
   constructor(props: Props) {
@@ -44,7 +59,7 @@ class UnitExpenseList extends UnitExpenseListController {
                       <MenuItem>{t("Acs")}</MenuItem>
                       <MenuItem>{t("Desc")}</MenuItem>
                     </Menu>
-                    <IconButton>
+                    <IconButton onClick={() => this.handleFilterModal()}>
                       <img src={FilterIcon} alt="filter" />
                     </IconButton>
                   </Box>
@@ -119,6 +134,51 @@ class UnitExpenseList extends UnitExpenseListController {
             </Grid>
           </Grid>
         </Box>
+
+        <Drawer
+          anchor="bottom"
+          className="condition-modal"
+          open={this.state.isFilterOpen}
+          onClose={() => this.handleFilterModal()}
+        >
+          <Box className="condition-box filter-box">
+            <Box className="heading">
+              <p>{t("Add More Conditions")}</p>
+              <span>{t("Clear All")}</span>
+            </Box>
+            <Box className="content-box">
+              <Box className="condition">
+                <p>category 1</p>
+                <Checkbox
+                  className="condition-check"
+                  checked={false}
+                  onChange={(e: any) => {
+                    console.log(e);
+                  }}
+                  icon={<CircleUnchecked />}
+                  checkedIcon={<CircleCheckedFilled />}
+                />
+              </Box>
+              <Box className="condition">
+                <p>category 2</p>
+                <Checkbox
+                  className="condition-check"
+                  checked={true}
+                  onChange={(e: any) => {
+                    console.log(e);
+                  }}
+                  icon={<CircleUnchecked />}
+                  checkedIcon={<CircleCheckedFilled />}
+                />
+              </Box>
+            </Box>
+            <br />
+            <Divider />
+            <Box className="button-group">
+              <Button className="add-button">{t("Apply")}</Button>
+            </Box>
+          </Box>
+        </Drawer>
       </>
     );
   }

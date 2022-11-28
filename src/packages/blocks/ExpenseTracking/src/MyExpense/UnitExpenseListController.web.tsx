@@ -15,7 +15,9 @@ export interface Props {
   // Customizable Area End
 }
 
-interface S {}
+interface S {
+  isFilterOpen: boolean;
+}
 
 interface SS {
   id: any;
@@ -31,7 +33,9 @@ export default class UnitExpenseListController extends BlockComponent<Props, S, 
     // Customizable Area Start
     this.subScribedMessages = [getName(MessageEnum.RestAPIResponceMessage), getName(MessageEnum.RestAPIRequestMessage)];
 
-    this.state = {};
+    this.state = {
+      isFilterOpen: false,
+    };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
 
@@ -48,4 +52,8 @@ export default class UnitExpenseListController extends BlockComponent<Props, S, 
       ApiCatchErrorResponse(errorResponse);
     }
   }
+
+  handleFilterModal = () => {
+    this.setState({ isFilterOpen: !this.state.isFilterOpen });
+  };
 }

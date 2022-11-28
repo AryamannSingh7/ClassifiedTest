@@ -19,22 +19,21 @@ interface S {
   // Customizable Area Start
   loading: boolean;
 
-  propertyManagerId: string;
-  propertyManagerDetails: PropertyManagerDetails;
+  propertyId: string;
+  propertyDetails: PropertyDetails;
 
   // Customizable Area End
 }
 
-interface PropertyManagerDetails {
+interface PropertyDetails {
   managerName: string;
   companyName: string;
   phoneNumber: string;
   email: string;
-  IdType: string;
-  IdNumber: string;
-  IdDate: string;
-  IdPdfDocument: string;
-  propertyList: any[];
+  buildingName: string;
+  unitName: string;
+  lat: string;
+  long: string;
 }
 
 interface SS {
@@ -56,18 +55,17 @@ export default class RequestPropertyManagerDetailsController extends BlockCompon
     this.state = {
       loading: false,
 
-      propertyManagerId: "",
+      propertyId: "",
 
-      propertyManagerDetails: {
+      propertyDetails: {
         managerName: "",
         companyName: "",
         phoneNumber: "",
         email: "",
-        IdType: "",
-        IdNumber: "",
-        IdDate: "",
-        IdPdfDocument: "",
-        propertyList: [],
+        buildingName: "",
+        unitName: "",
+        lat: "",
+        long: "",
       },
     };
     // Customizable Area End
@@ -89,18 +87,17 @@ export default class RequestPropertyManagerDetailsController extends BlockCompon
       responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson && responseJson.data) {
-        const manager = responseJson.data;
+        const property = responseJson.data;
         this.setState({
-          propertyManagerDetails: {
-            managerName: manager.attributes.name,
-            companyName: manager.attributes.company_name,
-            phoneNumber: manager.attributes.mobile_number,
-            email: manager.attributes.email,
-            IdType: manager.attributes.id_proof.name,
-            IdNumber: manager.attributes.id_number,
-            IdDate: manager.attributes.id_expiration_date,
-            IdPdfDocument: manager.attributes.image.url,
-            propertyList: manager.attributes.properties.data,
+          propertyDetails: {
+            managerName: property.attributes.property_manager.name,
+            companyName: property.attributes.property_manager.company_name,
+            phoneNumber: property.attributes.property_manager.mobile_number,
+            email: property.attributes.property_manager.email,
+            buildingName: property.attributes.building_management.name,
+            unitName: property.attributes.apartment_management.data.attributes.apartment_name,
+            lat: property.attributes.apartment_management.data.attributes.lat,
+            long: property.attributes.apartment_management.data.attributes.long,
           },
         });
       }
@@ -118,13 +115,13 @@ export default class RequestPropertyManagerDetailsController extends BlockCompon
 
   // Customizable Area Start
   async componentDidMount(): Promise<void> {
-    const manager_id = this.props.navigation.getParam("id");
-    this.setState({ propertyManagerId: manager_id }, () => {
-      this.getPropertyManagerDetails();
+    const property_id = this.props.navigation.getParam("id");
+    this.setState({ propertyId: property_id }, () => {
+      this.getPropertyDetails();
     });
   }
 
-  getPropertyManagerDetails = () => {
+  getPropertyDetails = () => {
     const header = {
       "Content-Type": configJSON.ApiContentType,
       token: localStorage.getItem("userToken"),
@@ -136,7 +133,7 @@ export default class RequestPropertyManagerDetailsController extends BlockCompon
 
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_property_manager/property_manager_requests/${this.state.propertyManagerId}`
+      `bx_block_property_manager/property_manager_requests/new_request_show?id=${this.state.propertyId}`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
@@ -145,6 +142,13 @@ export default class RequestPropertyManagerDetailsController extends BlockCompon
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
+  };
+
+  validationText = (name: any) => {
+    if (name) {
+      return name;
+    }
+    return "-";
   };
   // Customizable Area End
 }

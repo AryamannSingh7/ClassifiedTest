@@ -145,5 +145,11 @@ export default class PropertyManagerRequestController extends BlockComponent<Pro
     return true;
   };
 
+  validationText = (name: any) => {
+    if (name) {
+      return name;
+    }
+    return "N/A";
+  };
   // Customizable Area End
 }

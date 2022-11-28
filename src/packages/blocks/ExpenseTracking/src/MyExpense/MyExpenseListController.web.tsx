@@ -15,7 +15,11 @@ export interface Props {
   // Customizable Area End
 }
 
-interface S {}
+interface S {
+  isFilterOpen: boolean;
+
+  expanded: any;
+}
 
 interface SS {
   id: any;
@@ -31,7 +35,11 @@ export default class MyExpenseListController extends BlockComponent<Props, S, SS
     // Customizable Area Start
     this.subScribedMessages = [getName(MessageEnum.RestAPIResponceMessage), getName(MessageEnum.RestAPIRequestMessage)];
 
-    this.state = {};
+    this.state = {
+      isFilterOpen: false,
+
+      expanded: "panel1",
+    };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
 
@@ -48,4 +56,12 @@ export default class MyExpenseListController extends BlockComponent<Props, S, SS
       ApiCatchErrorResponse(errorResponse);
     }
   }
+
+  handleFilterModal = () => {
+    this.setState({ isFilterOpen: !this.state.isFilterOpen });
+  };
+
+  handleChange = (panel: any) => (event: any, newExpanded: any) => {
+    this.setState({ expanded: newExpanded ? panel : false });
+  };
 }
