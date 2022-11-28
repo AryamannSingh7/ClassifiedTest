@@ -1,5 +1,4 @@
 import * as React from "react";
-// custom components
 import { Button, Grid, Box, Typography, Link, IconButton, FormControl, Select, MenuItem } from "@material-ui/core";
 import "../assets/css/style.scss";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
@@ -10,8 +9,6 @@ import { Building1, company_logo, compnayName, email, password, user } from "./a
 import { dailCode } from "./code";
 import { withRouter } from "react-router";
 import Loader from "../../../components/src/Loader.web";
-// @ts-ignore
-import { createFilterOptions } from "@material-ui/lab/Autocomplete";
 import { withTranslation } from "react-i18next";
 
 class ManagerRegistration extends EmailAccountRegistrationController {
@@ -45,14 +42,9 @@ class ManagerRegistration extends EmailAccountRegistrationController {
         </Typography>
       );
     }
-    return;
   };
 
   render() {
-    const filterOptions = createFilterOptions({
-      matchFrom: "start",
-      stringify: (option: any) => option.name,
-    });
     return (
       <>
         <Grid container className="auth-container">
