@@ -25,13 +25,12 @@ import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { withTranslation } from "react-i18next";
 import "web/src/i18n";
 import { ReportsStyleWeb } from "./ReportsStyle.web";
-import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
-import { CheckIcon } from "../../user-profile-basic/src/assets";
-
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+import {CheckIcon} from "../../user-profile-basic/src/assets"
 class BudgetReport extends BudgetReportDetailsController {
   constructor(props: Props) {
     super(props);
-  }
+  } 
 
   render() {
     const { classes } = this.props;
@@ -124,10 +123,10 @@ class BudgetReport extends BudgetReportDetailsController {
             </Grid>
             <Dialog
               fullWidth
-              onClose={() => this.setState({ ApproveModal: false })}
+              onClose={() => this.setState({ApproveModal:false})}
               open={this.state.ApproveModal}
               className="cancel-meeting-dialog"
-            >
+            >   
               <DialogContent style={{ margin: "15px 0" }}>
                 <Box textAlign="center">
                   <img className="comment-image" src={CheckIcon} alt="check" />
@@ -136,18 +135,10 @@ class BudgetReport extends BudgetReportDetailsController {
                     {t("Are you sure you want to approve budget report?")}
                   </Typography>
                   <DialogActions className="dialog-button-group">
-                    <Button
-                      className="cancel-button"
-                      style={{ width: "200px", marginRight: "15px" }}
-                      onClick={() => this.setState({ ApproveModal: false })}
-                    >
+                    <Button className="cancel-button" style={{ width: "200px",marginRight:"15px" }} onClick={() => this.setState({ApproveModal:false})}>
                       {t("Close")}
                     </Button>
-                    <Button
-                      style={{ width: "200px" }}
-                      className="add-button"
-                      onClick={() => this.setState({ ApproveModal: false })}
-                    >
+                    <Button style={{ width: "200px" }} className="add-button" onClick={() => this.setState({ApproveModal:false})}>
                       {t("Approve")}
                     </Button>
                   </DialogActions>

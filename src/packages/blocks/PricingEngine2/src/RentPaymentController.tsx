@@ -94,7 +94,6 @@ export default class CoverImageController extends BlockComponent<Props, S, SS> {
     requestMessage.addData(getName(MessageEnum.RestAPIRequestMethodMessage), method);
     body && requestMessage.addData(getName(MessageEnum.RestAPIRequestBodyMessage), body);
     runEngine.sendMessage(requestMessage.id, requestMessage);
-
     return requestMessage.messageId;
   };
 }

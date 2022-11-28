@@ -215,7 +215,7 @@ const dashBoard: any = {
     paddingLeft: 15,
     paddingBottom: 25,
     background: "#fff",
-    borderRadius: 10,
+    borderRadius: 10, 
   },
   CardsIcons: {
     border: "1px solid #d9d4d3",
