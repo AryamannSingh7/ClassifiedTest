@@ -51,15 +51,15 @@ class ManagerFacilityReservation extends FacilityManagerContorller {
     super(props);
   }
   componentDidMount(): any {
-   // this.getFacilityReservationListing();
+    this.getFacilityReservationListing("","" ,"");
     this.getBuildingName();
   }
   
 
   render() {
     const { t, classes }: any = this.props;
-    console.log(" this.state.unitNameData?=================>/",this.state.unitNameData);
-    const statusArray = ["Pending", "Approved","Upcoming", "Completed", "Cancelled", "Rejected"]
+    console.log("this.state?.facilityListing??=================>/",this.state?.facilityListing);
+    const statusArray = ["Pending","Upcoming", "Completed", "Cancelled", "Rejected"]
     return (
       <>
         <Box className="incident-Listing-wrapper desktop-ui" style={{ background: "#E5ECFF" }}>
@@ -186,6 +186,7 @@ class ManagerFacilityReservation extends FacilityManagerContorller {
                 </Box>
                 <Grid container spacing={2} style={{ marginTop: 15, marginBottom: 15 }}>
                   {
+                     this.state?.facilityListing?.length !== 0 ? 
                     this.state?.facilityListing?.map((val: any, index: any) => (
                       <Grid item sm={6} lg={4} key={index} onClick={() => this.getFacilityDetails(val.id)}>
                           <Card className="management-card card" key={index}>
@@ -215,6 +216,13 @@ class ManagerFacilityReservation extends FacilityManagerContorller {
                         </Card>
                       </Grid>
                     ))
+                    :
+                    <Box style={{marginLeft:"25px"}}>
+                    <Typography variant={"body1"} style={{fontWeight:"bold"}} color="textSecondary" >
+                        No Data Found
+                    </Typography>
+                </Box>
+
                   }
                 </Grid>
               </Container>
