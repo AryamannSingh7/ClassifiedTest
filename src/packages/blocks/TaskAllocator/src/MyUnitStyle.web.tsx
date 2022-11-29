@@ -462,6 +462,9 @@ export const MyUnitStyle: any = {
     "& .tenant-detail-box .detail .detail-box .info-item p": {
       fontWeight: 600,
     },
+    "& .tenant-detail-box .detail .detail-box .info-item p.tenant-link-text": {
+      color: "#FC8434",
+    },
     "& .rent-history-grid": {
       overflowX: "hidden",
       height: "88vh",

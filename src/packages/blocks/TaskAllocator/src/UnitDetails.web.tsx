@@ -34,7 +34,6 @@ import {
   BlueTenantIcon,
   BlueUnitIcon,
   BlueValuationIcon,
-  BuildingImage,
   DeleteRentIcon,
   DeleteUnitIcon,
   EditIcon,
@@ -44,6 +43,7 @@ import {
 import Slider from "react-slick";
 import moment from "moment";
 import Loader from "../../../components/src/Loader.web";
+import OwnerSidebarImage from "../../../components/src/OwnerSidebarImage.web";
 const settings = {
   infinite: false,
   slidesToShow: 5,
@@ -131,9 +131,7 @@ class UnitDetails extends UnitDetailsController {
                 </Box>
               </Grid>
               <Grid item xs={12} md={5}>
-                <Box className="right-block right-image" display={{ xs: "none", md: "flex" }}>
-                  <img src={BuildingImage.default} className="building-logo" alt="" />
-                </Box>
+                <OwnerSidebarImage />
               </Grid>
             </Grid>
           </Box>
@@ -327,7 +325,19 @@ class UnitDetails extends UnitDetailsController {
                                     <img src={BlueTenantIcon} alt="" />
                                     <Box className="item-data">
                                       <span>{t("Tenant Name")}</span>
-                                      <p>{this.validationText(this.state.rentDetails.tenantName)}</p>
+                                      {this.state.rentDetails.tenantName ? (
+                                        <Link
+                                          href={`/MyUnitDetails/${this.state.unitId}/TenantProfile/${
+                                            this.state.rentDetails.tenantId
+                                          }`}
+                                        >
+                                          <p className="tenant-link-text">
+                                            {this.validationText(this.state.rentDetails.tenantName)}
+                                          </p>
+                                        </Link>
+                                      ) : (
+                                        <p>-</p>
+                                      )}
                                     </Box>
                                   </Box>
                                 </Grid>
@@ -340,10 +350,10 @@ class UnitDetails extends UnitDetailsController {
                                         {this.state.rentDetails.startDate && this.state.rentDetails.endDate
                                           ? moment(this.state.rentDetails.endDate).diff(
                                               moment(this.state.rentDetails.startDate),
-                                              "months"
+                                              "days"
                                             )
                                           : "0"}{" "}
-                                        Months
+                                        Days
                                       </p>
                                     </Box>
                                   </Box>
@@ -421,7 +431,7 @@ class UnitDetails extends UnitDetailsController {
                           {this.state.unitDetails.photos.map((image: any) => {
                             return (
                               <div>
-                                <img src={BuildingImage.default} alt="" />
+                                <img src={image.url} alt="" />
                               </div>
                             );
                           })}
@@ -432,9 +442,7 @@ class UnitDetails extends UnitDetailsController {
                 </Box>
               </Grid>
               <Grid item xs={12} md={5}>
-                <Box className="right-block right-image" display={{ xs: "none", md: "flex" }}>
-                  <img src={BuildingImage.default} className="building-logo" alt="" />
-                </Box>
+                <OwnerSidebarImage />
               </Grid>
             </Grid>
           </Box>

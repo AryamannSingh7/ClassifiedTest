@@ -1991,7 +1991,7 @@ const routeMap = {
   },
   TenantProfile: {
     component: TenantProfile,
-    path: '/TenantProfile/:id',
+    path: '/MyUnitDetails/:uId/TenantProfile/:id',
     roles: [ROLE.PUBLIC],
     exact: true
   },

@@ -38,6 +38,7 @@ interface UnitData {
 
 interface RentData {
   status: string;
+  tenantId: string;
   tenantName: string;
   startDate: string;
   endDate: string;
@@ -102,6 +103,7 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
       },
       rentDetails: {
         status: "",
+        tenantId: "",
         tenantName: "",
         startDate: "",
         endDate: "",
@@ -242,10 +244,11 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
         },
         rentDetails: {
           status: unit.attributes.status,
-          tenantName: unit.attributes.rent_status ? unit.attributes.rent_status.tenant_name : "",
-          startDate: unit.attributes.rent_status ? unit.attributes.rent_status.start_date : "",
-          endDate: unit.attributes.rent_status ? unit.attributes.rent_status.end_date : "",
-          charge: unit.attributes.rent_status ? unit.attributes.rent_status.rent_amount : "",
+          tenantId: unit.attributes.rent_status.data ? unit.attributes.rent_status.data.attributes.tenant.data.id : "",
+          tenantName: unit.attributes.rent_status.data ? unit.attributes.rent_status.data.attributes.tenant_name : "",
+          startDate: unit.attributes.rent_status.data ? unit.attributes.rent_status.data.attributes.start_date : "",
+          endDate: unit.attributes.rent_status.data ? unit.attributes.rent_status.data.attributes.end_date : "",
+          charge: unit.attributes.rent_status.data ? unit.attributes.rent_status.data.attributes.rent_amount : "",
         },
       });
     }
