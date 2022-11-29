@@ -5,7 +5,6 @@ import { MyUnitStyle } from "./MyUnitStyle.web";
 import { Avatar, Box, Container, Grid, IconButton, Link, withStyles } from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import {
-  BuildingImage,
   ChatIcon,
   DarkChatIcon,
   DarkFBIcon,
@@ -15,9 +14,8 @@ import {
   PhoneIcon,
   TwitterIcon,
 } from "./assets";
-import { Menu } from "@szhsin/react-menu";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import moment from "moment";
+import OwnerSidebarImage from "../../../components/src/OwnerSidebarImage.web";
 
 class TenantProfile extends TenantProfileController {
   constructor(props: Props) {
@@ -25,10 +23,7 @@ class TenantProfile extends TenantProfileController {
   }
 
   render() {
-    const { t }: any = this.props;
-    const { classes } = this.props;
-
-    console.log(this.state);
+    const { t, classes }: any = this.props;
 
     return (
       <>
@@ -38,11 +33,11 @@ class TenantProfile extends TenantProfileController {
               <Box className="faq-step">
                 <Box display={{ xs: "flex", md: "flex" }} className="top-bar">
                   <div className="left-icon">
-                    {/* <Link href="/MyUnitList"> */}
-                    <IconButton>
+                    <IconButton
+                      onClick={() => this.props.navigation.navigate("MyUnitDetails", { id: this.state.unitId })}
+                    >
                       <KeyboardBackspaceIcon />
                     </IconButton>
-                    {/* </Link> */}
                     <span>{t("Tenant Profile")}</span>
                   </div>
                 </Box>
@@ -50,7 +45,7 @@ class TenantProfile extends TenantProfileController {
                   <Container>
                     <Box className="profile-top-box">
                       <Avatar src={this.state.profileData.image} />
-                      <h4>{this.state.profileData.name || "-"}</h4>
+                      <h4>{this.validationText(this.state.profileData.name)}</h4>
                       <Box className="profile-info-box">
                         {this.state.profileData.isDisableChat ? (
                           <img src={DarkChatIcon} alt="chat" />
@@ -68,7 +63,7 @@ class TenantProfile extends TenantProfileController {
                       </Box>
                       <Box className="profile-add-info-box">
                         <p>
-                          <span>{t("Gender")}:</span> {this.state.profileData.gender || "-"}
+                          <span>{t("Gender")}:</span> {this.validationText(this.state.profileData.gender)}
                         </p>
                         <p>
                           <span>{t("DOB")}:</span>{" "}
@@ -82,12 +77,12 @@ class TenantProfile extends TenantProfileController {
                     <Box className="profile-bottom-box">
                       <Box className="profile-item">
                         <h4>{t("Bio")}</h4>
-                        <p>{this.state.profileData.bio || "-"}</p>
+                        <p>{this.validationText(this.state.profileData.bio)}</p>
                       </Box>
                       <Box className="profile-item">
                         <h4>{t("Hobbies")}</h4>
                         <Box className="profile-hobby-box">
-                          {this.state.profileData.hobbies.length === 0 && <p>No hobby available</p>}
+                          {this.state.profileData.hobbies.length === 0 && <p>{t("No hobby available")}</p>}
                           {this.state.profileData.hobbies.map((hobby: any, index: number) => {
                             return <span key={index}>{hobby}</span>;
                           })}
@@ -120,9 +115,7 @@ class TenantProfile extends TenantProfileController {
               </Box>
             </Grid>
             <Grid item xs={12} md={5}>
-              <Box className="right-block right-image" display={{ xs: "none", md: "flex" }}>
-                <img src={BuildingImage.default} className="building-logo" alt="" />
-              </Box>
+              <OwnerSidebarImage />
             </Grid>
           </Grid>
         </Box>

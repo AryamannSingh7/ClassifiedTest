@@ -1,39 +1,23 @@
-//@ts-ignore
-//@ts-nocheck
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { withRouter } from 'react-router';
-import * as Yup from "yup";
-// Customizable Area End
-
-//components
-import {
-  Box,
-  Button,
-  Typography,
-  Link,
-  Grid
-} from "@material-ui/core";
-
-//resources
-import LockIcon from '@material-ui/icons/LockOpen';
-import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-
+import { withRouter } from "react-router";
+import { Box, Button, Link, Grid } from "@material-ui/core";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import ChairmanForgotPasswordController, { Props } from "./ChairmanForgotPasswordController.web";
 import Loader from "../../../components/src/Loader.web";
-//resorces
-import { Tenant_Logo, Building_Logo, Lock_User_Icon, Landing_Banner, Building1 ,globalIcon} from "../src/assets";
+import { Tenant_Logo, Building_Logo, Lock_User_Icon, Building1, globalIcon } from "../src/assets";
 import { Menu } from "@szhsin/react-menu";
-import MenuItem from '@material-ui/core/MenuItem';
+import MenuItem from "@material-ui/core/MenuItem";
 import "@szhsin/react-menu/dist/core.css";
+import i18next from "i18next";
 
 class ChairmanChangePassword extends ChairmanForgotPasswordController {
   constructor(props: Props) {
     super(props);
     this.isChangePassword = true;
   }
+
   handleEngLngChange = () => {
     localStorage.setItem("language", "en");
     i18next.changeLanguage("en");
@@ -44,7 +28,6 @@ class ChairmanChangePassword extends ChairmanForgotPasswordController {
     i18next.changeLanguage("ar");
   };
 
-
   render() {
     return (
       <>
@@ -52,12 +35,12 @@ class ChairmanChangePassword extends ChairmanForgotPasswordController {
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
               <Box className="content-block">
-                <Box className="logo-block common-top-padding common-logo-block" display={{ xs: 'none', md: 'flex' }}>
+                <Box className="logo-block common-top-padding common-logo-block" display={{ xs: "none", md: "flex" }}>
                   <Link href="/ChairmanLogin">
                     <img src={Building_Logo.default} className="head-logo" alt="" />
                     <h4>Building Name</h4>
                   </Link>
-                  <Box  >
+                  <Box>
                     <Menu
                       className="chairman-lang-menu chairman-menu"
                       arrow={true}
@@ -80,84 +63,92 @@ class ChairmanChangePassword extends ChairmanForgotPasswordController {
                   </Box>
                 </Box>
                 <Box className="main-content-block desktop-ui">
-                  {/* <Box className="header-block">
-                    <Box display={{ xs: 'flex', md: 'none' }}>
-                      <img src={Tenant_Logo} className="tenant-logo" alt="" />
-                    </Box>
-                    <h1>Welcome Back</h1>
-                    <p>Login with your account credentials </p>
-                  </Box> */}
                   <Box className="header-block">
                     <h1>Change Password</h1>
-                    <h6>You need to change your password.<br></br>Please enter a new password</h6>
+                    <h6>
+                      You need to change your password.
+                      <br />
+                      Please enter a new password
+                    </h6>
                   </Box>
                   <Formik
                     initialValues={{
                       confirmPassword: "",
                       confirmShowPassword: false,
                       newShowPassword: false,
-                      newPassword: ""
+                      newPassword: "",
                     }}
                     validationSchema={this.changePasswordValidations()}
                     validateOnMount={true}
                     onSubmit={(values) => {
-                      console.log("valus=========>", values)
-                      this.changePassword(values)
-                      // same shape as initial values
+                      this.changePassword(values);
                     }}
                   >
                     {({ values, touched, errors, isValid, setFieldValue, handleChange }) => (
                       <Form translate="yes" className="commonForm">
                         <Box className="formGroup">
                           <div className="formInputGrp">
-                            <Field type={values.newShowPassword ? "text" : "password"} name="newPassword" placeholder="New Password" className="formInput" />
+                            <Field
+                              type={values.newShowPassword ? "text" : "password"}
+                              name="newPassword"
+                              placeholder="New Password"
+                              className="formInput"
+                            />
                             <span className="frmLeftIcons">
                               <img src={Lock_User_Icon} className="frm-icons" alt="Email Icon" />
                             </span>
-                            {
-                              values.newShowPassword ? <span className="frmrightIcons"><Visibility onClick={() => setFieldValue("newShowPassword", false)} /></span>
-                                : <span className="frmrightIcons"><VisibilityOffIcon onClick={() => setFieldValue("newShowPassword", true)} /></span>
-                            }
-                            {/* <span className="frmrightIcons"><VisibilityOffIcon /></span> */}
+                            {values.newShowPassword ? (
+                              <span className="frmrightIcons">
+                                <Visibility onClick={() => setFieldValue("newShowPassword", false)} />
+                              </span>
+                            ) : (
+                              <span className="frmrightIcons">
+                                <VisibilityOffIcon onClick={() => setFieldValue("newShowPassword", true)} />
+                              </span>
+                            )}
                           </div>
                           <ErrorMessage className="text-error" component="Typography" name="newPassword" />
                         </Box>
                         <Box className="formGroup">
                           <div className="formInputGrp">
-                            <Field type={values.confirmShowPassword ? "text" : "password"} name="confirmPassword" placeholder="Confirm Password" className="formInput" />
+                            <Field
+                              type={values.confirmShowPassword ? "text" : "password"}
+                              name="confirmPassword"
+                              placeholder="Confirm Password"
+                              className="formInput"
+                            />
                             <span className="frmLeftIcons">
                               <img src={Lock_User_Icon} className="frm-icons" alt="Email Icon" />
                             </span>
-                            {
-                              values.confirmShowPassword ? <span className="frmrightIcons"><Visibility onClick={() => setFieldValue("confirmShowPassword", false)} /></span>
-                                : <span className="frmrightIcons"><VisibilityOffIcon onClick={() => setFieldValue("confirmShowPassword", true)} /></span>
-                            }
-                            {/* <span className="frmrightIcons"><VisibilityOffIcon /></span> */}
+                            {values.confirmShowPassword ? (
+                              <span className="frmrightIcons">
+                                <Visibility onClick={() => setFieldValue("confirmShowPassword", false)} />
+                              </span>
+                            ) : (
+                              <span className="frmrightIcons">
+                                <VisibilityOffIcon onClick={() => setFieldValue("confirmShowPassword", true)} />
+                              </span>
+                            )}
                           </div>
                           <ErrorMessage className="text-error" component="Typography" name="confirmPassword" />
                         </Box>
                         <Box className="customButton row-btn">
-                          <Button variant="contained" type="submit" >change password</Button>
+                          <Button variant="contained" type="submit">
+                            change password
+                          </Button>
                         </Box>
                       </Form>
                     )}
                   </Formik>
-
                 </Box>
-                {/* mobile footer block */}
-                {/* <Box className="bottomBlock common-bottom-padding" display={{ xs: 'flex', md: 'none' }}>
-                  <Link href="#" className="link">Don't have an account ? </Link>
-                  <Link href="#" className="link"> <span> register</span></Link>
-                </Box> */}
-                {/* desktop footer block */}
-                <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>
+                <Box className="bottomBlock common-bottom-padding" display={{ xs: "none", md: "flex" }}>
                   <h6 className="bottom-text">POWERED BY</h6>
                   <img src={Tenant_Logo.default} className="tenant-logo" alt="" />
                 </Box>
               </Box>
             </Grid>
             <Grid item xs={12} md={5} className="auth-cols">
-              <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
+              <Box className="right-block" display={{ xs: "none", md: "flex" }}>
                 <img src={Building1.default} className="building-logo" alt="" />
               </Box>
             </Grid>
@@ -168,4 +159,5 @@ class ChairmanChangePassword extends ChairmanForgotPasswordController {
     );
   }
 }
+//@ts-ignore
 export default withRouter(ChairmanChangePassword);

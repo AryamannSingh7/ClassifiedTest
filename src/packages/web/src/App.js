@@ -247,7 +247,7 @@ import Announcement from '../../blocks/BroadcastMessage/src/Announcement.web';
 import BuildingAnnouncement from '../../blocks/BroadcastMessage/src/BuildingAnnouncement.web';
 import AnnouncementInfo from '../../blocks/BroadcastMessage/src/AnnouncementDetails.web';
 
-// Complex and Appartment
+// Complex and Apartment
 import Buildings from '../../blocks/LeadManagement/src/Buildings.web';
 import Complex from '../../blocks/LeadManagement/src/Complex.web';
 import UnitDetails from '../../blocks/LeadManagement/src/UnitDetails.web';
@@ -322,7 +322,7 @@ import AddRentPayment from '../../blocks/PricingEngine2/src/RegisterRentPayment.
 // Reports
 import ReportDashboard from '../../blocks/ExpenseTracking/src/ReportDashboard.web';
 import BudgetReport from '../../blocks/ExpenseTracking/src/BudgetReport.web';
-import BudgetReportDetails from "../../blocks/ExpenseTracking/src/BudgetReportDetails.web"
+import BudgetReportDetails from '../../blocks/ExpenseTracking/src/BudgetReportDetails.web';
 import ExpenseReport from '../../blocks/ExpenseTracking/src/ExpenseReport.web';
 import AuditReport from '../../blocks/ExpenseTracking/src/AuditReport.web';
 import ManagementFeeReport from '../../blocks/ExpenseTracking/src/ManagementFeeReport.web';
@@ -353,6 +353,13 @@ import OwnerNotification from '../../blocks/notifications/src/OwnerNotification.
 import ResidentNotification from '../../blocks/notifications/src/ResidentNotification.web';
 import ChairmanNotification from '../../blocks/notifications/src/ChairmanNotification.web';
 import ManagerNotification from '../../blocks/notifications/src/ManagerNotification.web';
+
+// My Expense
+import MyExpenseList from '../../blocks/ExpenseTracking/src/MyExpense/MyExpenseList.web';
+import UnitExpenseList from '../../blocks/ExpenseTracking/src/MyExpense/UnitExpenseList.web';
+import ExpenseDetail from '../../blocks/ExpenseTracking/src/MyExpense/ExpenseDetail.web';
+import AddEditExpense from '../../blocks/ExpenseTracking/src/MyExpense/AddEditExpense.web';
+import AddExpenseSuccess from '../../blocks/ExpenseTracking/src/MyExpense/AddExpenseSuccess.web';
 
 const routeMap = {
   //done
@@ -1984,7 +1991,7 @@ const routeMap = {
   },
   TenantProfile: {
     component: TenantProfile,
-    path: '/TenantProfile/:id',
+    path: '/MyUnitDetails/:uId/TenantProfile/:id',
     roles: [ROLE.PUBLIC],
     exact: true
   },
@@ -2045,7 +2052,7 @@ const routeMap = {
     exact: true
   },
 
-  BudgetReportDetails :{
+  BudgetReportDetails: {
     component: BudgetReportDetails,
     path: '/BudgetReports/:id',
     roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
@@ -2100,6 +2107,43 @@ const routeMap = {
     component: ManagerNotification,
     path: '/ManagerNotification',
     roles: [ROLE.MANAGER],
+    exact: true
+  },
+  // My Expense
+  MyExpenseList: {
+    component: MyExpenseList,
+    path: '/MyExpenseList',
+    roles: [ROLE.OWNER, ROLE.OWNER_RESIDENT],
+    exact: true
+  },
+  UnitExpenseList: {
+    component: UnitExpenseList,
+    path: '/MyExpenseList/:id',
+    roles: [ROLE.OWNER, ROLE.OWNER_RESIDENT],
+    exact: true
+  },
+  ExpenseDetail: {
+    component: ExpenseDetail,
+    path: '/ExpenseDetail/:id',
+    roles: [ROLE.OWNER, ROLE.OWNER_RESIDENT],
+    exact: true
+  },
+  AddExpense: {
+    component: AddEditExpense,
+    path: '/AddExpense',
+    roles: [ROLE.OWNER, ROLE.OWNER_RESIDENT],
+    exact: true
+  },
+  AddExpenseSuccess: {
+    component: AddExpenseSuccess,
+    path: '/AddExpense/Success',
+    roles: [ROLE.OWNER, ROLE.OWNER_RESIDENT],
+    exact: true
+  },
+  EditExpense: {
+    component: AddEditExpense,
+    path: '/EditExpense/:id',
+    roles: [ROLE.OWNER, ROLE.OWNER_RESIDENT],
     exact: true
   },
 

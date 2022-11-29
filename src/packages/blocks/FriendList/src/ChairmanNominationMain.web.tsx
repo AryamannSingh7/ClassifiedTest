@@ -1,34 +1,22 @@
 // Customizable Area Start
 import React from "react";
 import "./MyTeam.web.css"
-// @ts-ignore
-import DOMPurify from 'dompurify'
 import {
     Container,
     Typography,
-    Link,
     Button,
-    FormControl,
-    Dialog,
-    DialogActions,
-    DialogTitle, IconButton, Modal, Backdrop, Fade, DialogContent, Paper, TextField, InputAdornment, TextareaAutosize,
+    IconButton, Modal, Backdrop, Fade, Paper, TextField, InputAdornment,
 } from "@material-ui/core";
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import Select from "@material-ui/core/Select";
-import NativeSelect from "@material-ui/core/NativeSelect";
-import {chat, edit, email, profileExp, telephone} from "./assets"
 import Divider from '@material-ui/core/Divider';
 // Icons
 import DateRangeOutlinedIcon from '@material-ui/icons/DateRangeOutlined';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 // Icons
-import {building, cancle, user_icon} from "../../user-profile-basic/src/assets"
-import {calendar} from "../../invitefriends/src/assets"
+import {cancle} from "../../user-profile-basic/src/assets"
 import ChairmanNominationMainController, {
-  Props,
-  configJSON,
+  Props
 } from "./ChairmanNominationMainController";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
@@ -37,11 +25,7 @@ import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
 import { withTranslation } from 'react-i18next';
 import '../../../web/src/i18n.js';
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
 import {withStyles} from "@material-ui/core/styles";
-import AddTeamModal from "./AddTeamModal.web";
-import {CheckIcon} from "../../user-profile-basic/src/assets"
 import moment from "moment";
 
 class MyTeamCore extends ChairmanNominationMainController {
@@ -72,7 +56,7 @@ class MyTeamCore extends ChairmanNominationMainController {
                             <Typography variant="h4" className="subHeading">{t("Chairman and Vice Chairman Nomination")}</Typography>
                             {
                                 this.state.onGoingNomination && userType === "Chairman" &&
-                                    <AcceptButton style={{marginTop:"20px"}} onClick={()=>this.setState({setOpen:true})}>{t("Start Nomination Process")}</AcceptButton>
+                                    <AcceptButton style={{marginTop:"20px"}} onClick={()=>this.setState({setOpen:true})}>{t("START CHAIRMAN NOMINATION")}</AcceptButton>
                             }
                         </Box>
                     </Box>
@@ -137,6 +121,12 @@ class MyTeamCore extends ChairmanNominationMainController {
                                                     </Grid>
                                                 }
                                                 {
+                                                    item.attributes.stage === "Upcoming Nomination" &&
+                                                    <Grid item xs={12} className={"nominationBlueBG"} style={{marginBottom:"10px",marginTop:"10px"}}>
+                                                        <Typography variant="body1" style={{width:"100%"}} className="nominationBlueText" >{item.attributes.stage || "NA"}</Typography>
+                                                    </Grid>
+                                                }
+                                                {
                                                     item.attributes.stage === "Nomination Ended" &&
                                                     <Grid item xs={12} className={"nominationGrayBG"} style={{marginBottom:"10px",marginTop:"10px"}}>
                                                         <Typography variant="body1" style={{width:"100%"}} className="nominationGrayText" >{item.attributes.stage || "NA"}</Typography>
@@ -149,7 +139,7 @@ class MyTeamCore extends ChairmanNominationMainController {
                                                     </Grid>
                                                 }
                                                 {
-                                                    item.attributes.stage === "Voting Ended" &&
+                                                    item.attributes.stage === "Voting Closed" &&
                                                     <Grid item xs={12} className={"nominationGrayBG"} style={{marginBottom:"10px",marginTop:"10px"}}>
                                                         <Typography variant="body1" style={{width:"100%"}} className="nominationGrayText" >{item.attributes.stage || "NA"}</Typography>
                                                     </Grid>

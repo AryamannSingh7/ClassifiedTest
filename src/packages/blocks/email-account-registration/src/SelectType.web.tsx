@@ -131,7 +131,7 @@ class SelectType extends EmailAccountRegistrationController {
                     bgcolor="white"
                     marginTop="1rem"
                   >
-                    {this.state.userType == "Owner" ? <img src={owner} /> : <img src={owner} />}
+                    <img src={owner} />
 
                     <Box className="middle-section">
                       <label

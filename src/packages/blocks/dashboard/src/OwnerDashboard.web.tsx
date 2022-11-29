@@ -99,6 +99,10 @@ const MenuList = [
 ];
 
 class OwnerDashboard extends DashboardController {
+  constructor(props: Props) {
+    super(props);
+  }
+  
   toggleDrawer = () => {
     this.setState({ isMenuOpen: !this.state.isMenuOpen });
   };
@@ -394,7 +398,7 @@ class OwnerDashboard extends DashboardController {
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
-                    <Link href="">
+                    <Link href="/MyExpenseList">
                       <DashboardCard
                         image={DashboardExpenseDollar}
                         heading={t("Expense")}

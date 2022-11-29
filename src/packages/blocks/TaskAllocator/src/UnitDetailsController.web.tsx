@@ -38,6 +38,7 @@ interface UnitData {
 
 interface RentData {
   status: string;
+  tenantId: string;
   tenantName: string;
   startDate: string;
   endDate: string;
@@ -102,6 +103,7 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
       },
       rentDetails: {
         status: "",
+        tenantId: "",
         tenantName: "",
         startDate: "",
         endDate: "",
@@ -114,8 +116,8 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
   }
 
   async receive(from: string, message: Message) {
-    runEngine.debugLog("Message Recived", message);
-
+    let responseJson: any;
+    let errorResponse: any;
     // Get Unit Details - API Response
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
@@ -124,49 +126,11 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
     ) {
       this.GetMyUnitDetailsCallId = null;
 
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      if (responseJson && responseJson.data) {
-        const unit = responseJson.data;
+      this.getMyUnitDetailsResponse(responseJson);
 
-        this.setState({
-          unitDetails: {
-            lat: unit.attributes.lat,
-            long: unit.attributes.long,
-            country: unit.attributes.country,
-            region: unit.attributes.region,
-            city: unit.attributes.city,
-            complex: unit.attributes.society_management.name,
-            building: unit.attributes.building_management.name,
-            unit: unit.attributes.apartment_name,
-            floor: unit.attributes.floor_number,
-            size: unit.attributes.size,
-            config: unit.attributes.configuration,
-            purchasePrice: unit.attributes.purchase_price,
-            purchaseDate: unit.attributes.purchase_date,
-            valuation: unit.attributes.current_valuation,
-            photos: unit.attributes.photos,
-            isPendingRequest: unit.attributes.request.status === "Requested",
-            requestId: unit.attributes.request.id,
-          },
-
-          rentDetails: {
-            status: unit.attributes.status,
-            tenantName: unit.attributes.rent_status ? unit.attributes.rent_status.tenant_name : "",
-            startDate: unit.attributes.rent_status ? unit.attributes.rent_status.start_date : "",
-            endDate: unit.attributes.rent_status ? unit.attributes.rent_status.end_date : "",
-            charge: unit.attributes.rent_status ? unit.attributes.rent_status.rent_amount : "",
-          },
-        });
-      }
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
+      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
     }
 
     // Get Rent History - API Response
@@ -177,19 +141,11 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
     ) {
       this.GetRentHistoryCallId = null;
 
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      if (responseJson && responseJson.data) {
-        this.setState({ rentHistory: responseJson.data });
-      }
+      this.getRentHistoryResponse(responseJson);
 
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
+      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
     }
 
     // DeLink Unit - API Response
@@ -200,22 +156,11 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
     ) {
       this.DeLinkUnitCallId = null;
 
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      this.setState({ loading: false }, () => {
-        if (responseJson && responseJson.code === 200) {
-          toast.success(responseJson.message);
-          this.props.navigation.navigate("MyUnitList");
-        }
-      });
+      this.deLinkUnitFromOwnerResponse(responseJson);
 
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
+      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
     }
 
     // Delete Request Unit - API Response
@@ -226,23 +171,19 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
     ) {
       this.DeleteRequestUnitCallId = null;
 
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      this.setState({ loading: false }, () => {
-        if (responseJson && responseJson.code === 200) {
-          toast.success(responseJson.message);
-          this.props.navigation.navigate("MyUnitList");
-        }
-      });
+      this.deleteRequestUnitResponse(responseJson);
 
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
+      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
     }
+
+    if (responseJson && responseJson.meta && responseJson.meta.token) {
+      runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+    } else {
+      ApiErrorResponse(responseJson);
+    }
+    ApiCatchErrorResponse(errorResponse);
   }
 
   slider: any;
@@ -278,6 +219,41 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
     return true;
   };
 
+  getMyUnitDetailsResponse = (responseJson: any) => {
+    if (responseJson && responseJson.data) {
+      const unit = responseJson.data;
+      this.setState({
+        unitDetails: {
+          lat: unit.attributes.lat,
+          long: unit.attributes.long,
+          country: unit.attributes.country,
+          region: unit.attributes.region,
+          city: unit.attributes.city,
+          complex: unit.attributes.society_management.name,
+          building: unit.attributes.building_management.name,
+          unit: unit.attributes.apartment_name,
+          floor: unit.attributes.floor_number,
+          size: unit.attributes.size,
+          config: unit.attributes.configuration,
+          purchasePrice: unit.attributes.purchase_price,
+          purchaseDate: unit.attributes.purchase_date,
+          valuation: unit.attributes.current_valuation,
+          photos: unit.attributes.photos,
+          isPendingRequest: unit.attributes.request.status === "Requested",
+          requestId: unit.attributes.request.id,
+        },
+        rentDetails: {
+          status: unit.attributes.status,
+          tenantId: unit.attributes.rent_status.data ? unit.attributes.rent_status.data.attributes.tenant.data.id : "",
+          tenantName: unit.attributes.rent_status.data ? unit.attributes.rent_status.data.attributes.tenant_name : "",
+          startDate: unit.attributes.rent_status.data ? unit.attributes.rent_status.data.attributes.start_date : "",
+          endDate: unit.attributes.rent_status.data ? unit.attributes.rent_status.data.attributes.end_date : "",
+          charge: unit.attributes.rent_status.data ? unit.attributes.rent_status.data.attributes.rent_amount : "",
+        },
+      });
+    }
+  };
+
   getRentHistory = () => {
     const header = {
       "Content-Type": configJSON.ApiContentType,
@@ -299,6 +275,12 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
+  };
+
+  getRentHistoryResponse = (responseJson: any) => {
+    if (responseJson && responseJson.data) {
+      this.setState({ rentHistory: responseJson.data });
+    }
   };
 
   deLinkUnitFromOwner = () => {
@@ -323,6 +305,15 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
+  };
+
+  deLinkUnitFromOwnerResponse = (responseJson: any) => {
+    this.setState({ loading: false }, () => {
+      if (responseJson && responseJson.code === 200) {
+        toast.success(responseJson.message);
+        this.props.navigation.navigate("MyUnitList");
+      }
+    });
   };
 
   handleDeleteUnitModal = () => {
@@ -350,5 +341,21 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
+  };
+
+  deleteRequestUnitResponse = (responseJson: any) => {
+    this.setState({ loading: false }, () => {
+      if (responseJson && responseJson.code === 200) {
+        toast.success(responseJson.message);
+        this.props.navigation.navigate("MyUnitList");
+      }
+    });
+  };
+
+  validationText = (name: any) => {
+    if (name) {
+      return name;
+    }
+    return "-";
   };
 }
