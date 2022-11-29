@@ -325,19 +325,15 @@ class UnitDetails extends UnitDetailsController {
                                     <img src={BlueTenantIcon} alt="" />
                                     <Box className="item-data">
                                       <span>{t("Tenant Name")}</span>
-                                      {this.state.rentDetails.tenantName ? (
-                                        <Link
-                                          href={`/MyUnitDetails/${this.state.unitId}/TenantProfile/${
-                                            this.state.rentDetails.tenantId
-                                          }`}
-                                        >
-                                          <p className="tenant-link-text">
-                                            {this.validationText(this.state.rentDetails.tenantName)}
-                                          </p>
-                                        </Link>
-                                      ) : (
-                                        <p>-</p>
-                                      )}
+                                      <Link
+                                        href={`/MyUnitDetails/${this.state.unitId}/TenantProfile/${
+                                          this.state.rentDetails.tenantId
+                                        }`}
+                                      >
+                                        <p className="tenant-link-text">
+                                          {this.validationText(this.state.rentDetails.tenantName)}
+                                        </p>
+                                      </Link>
                                     </Box>
                                   </Box>
                                 </Grid>
