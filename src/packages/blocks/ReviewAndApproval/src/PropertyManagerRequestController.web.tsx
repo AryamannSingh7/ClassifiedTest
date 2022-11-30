@@ -80,7 +80,7 @@ export default class PropertyManagerRequestController extends BlockComponent<Pro
       responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       this.setState({ loading: false }, () => {
-        console.log(responseJson);
+        this.getManagerRequestList();
       });
 
       errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));

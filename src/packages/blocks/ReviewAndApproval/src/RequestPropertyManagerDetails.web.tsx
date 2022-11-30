@@ -111,8 +111,26 @@ class RequestPropertyManagerDetails extends RequestPropertyManagerDetailsControl
                     </Box>
 
                     <Box className="button-box">
-                      <Button className="decline">Decline</Button>
-                      <Button className="accept">Accept</Button>
+                      <Button
+                        className="decline"
+                        onClick={() => {
+                          this.setState({ loading: true }, () => {
+                            this.updateManagerRequest("Rejected");
+                          });
+                        }}
+                      >
+                        Decline
+                      </Button>
+                      <Button
+                        className="accept"
+                        onClick={() => {
+                          this.setState({ loading: true }, () => {
+                            this.updateManagerRequest("Accepted");
+                          });
+                        }}
+                      >
+                        Accept
+                      </Button>
                     </Box>
                   </Box>
                 </Container>

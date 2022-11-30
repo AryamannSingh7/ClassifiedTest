@@ -1,18 +1,7 @@
 import React from "react";
 import { withTranslation } from "react-i18next";
 import UnitTotalExpenseController, { Props } from "./UnitTotalExpenseController.web";
-import {
-  Box,
-  Card,
-  Container,
-  Grid,
-  IconButton,
-  Input,
-  InputAdornment,
-  Link,
-  MenuItem,
-  withStyles,
-} from "@material-ui/core";
+import { Box, Card, Container, Grid, IconButton, Input, InputAdornment, Link, withStyles } from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import { ExpenseDateIcon, FilterIcon } from "../assets";
 import OwnerSidebarImage from "../../../../components/src/OwnerSidebarImage.web";
@@ -35,7 +24,7 @@ class UnitTotalExpense extends UnitTotalExpenseController {
               <Box className="faq-step">
                 <Box display={{ xs: "flex", md: "flex" }} className="top-bar">
                   <Box className="left-icon">
-                    <Link href="/OwnerDashboard">
+                    <Link href="/TotalExpense">
                       <IconButton>
                         <KeyboardBackspaceIcon />
                       </IconButton>
