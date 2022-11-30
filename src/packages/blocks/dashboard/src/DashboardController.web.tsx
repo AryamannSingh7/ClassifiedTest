@@ -95,10 +95,10 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
 
   async componentDidMount(): Promise<void> {
     super.componentDidMount();
-    await this.getToken();
+    this.getToken();
     if (this.isPlatformWeb() === false) {
       this.props.navigation.addListener("willFocus", async () => {
-        await this.getToken();
+        this.getToken();
       });
     }
     this.getProfile();
@@ -171,25 +171,9 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
           break;
       }
       if (responseJson && !responseJson?.errors && responseJson?.data) {
-        if (responseJson?.data?.length === 0) {
-          this.setState({
-            errorMsg: "Data Not Found", loading: false
-          });
-        } else {
-          this.setState({
-            dashboardData: responseJson?.data, errorMsg: "", loading: false
-          });
-        }
+        this.handleResponse(responseJson);
       } else {
-        if (errorResponse === undefined) {
-          this.setState({
-            errorMsg: "Something went wrong", loading: false
-          });
-        } else {
-          this.setState({
-            errorMsg: errorResponse, loading: false
-          });
-        }
+        this.handleErrorResponse(errorResponse);
       }
     }
     // Customizable Area End
@@ -205,6 +189,30 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
   handleAccordinoChange = (panel: string) => (event: any, isExpanded: boolean) => {
     this.setState({ expanded: isExpanded ? panel : "" });
   };
+
+  handleResponse = (responseJson: any) => {
+    if (responseJson?.data?.length === 0) {
+      this.setState({
+        errorMsg: "Data Not Found", loading: false
+      });
+    } else {
+      this.setState({
+        dashboardData: responseJson?.data, errorMsg: "", loading: false
+      });
+    }
+  }
+
+  handleErrorResponse = (errorResponse: any) => {
+    if (errorResponse === undefined) {
+      this.setState({
+        errorMsg: "Something went wrong", loading: false
+      });
+    } else {
+      this.setState({
+        errorMsg: errorResponse, loading: false
+      });
+    }
+  }
 
   getProfile = () => {
     this.setState({ loading: true });
