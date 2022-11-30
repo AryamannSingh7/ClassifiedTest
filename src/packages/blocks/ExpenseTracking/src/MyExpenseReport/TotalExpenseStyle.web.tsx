@@ -136,5 +136,102 @@ export const TotalExpenseStyle: any = {
         },
       },
     },
+    "& .big-box": {
+      paddingBottom: "0",
+      borderRadius: "8px",
+      boxShadow: "none",
+      paddingTop: "20px",
+    },
+    "& .big-box .image": {
+      padding: "20px",
+      border: "3px solid #F8F9FE",
+      display: "inline-block",
+      borderRadius: "50%",
+      marginBottom: "20px",
+    },
+    "& .big-box h4": {
+      marginBottom: "20px",
+      textTransform: "capitalize",
+    },
+    "& .big-box .state p": {
+      marginBottom: "5px",
+      textTransform: "capitalize",
+    },
+    "& .big-box button": {
+      padding: "5px 11px",
+      minWidth: "125px",
+      borderRadius: "25px",
+      fontWeight: "600",
+      color: "#8A8A8A",
+      background: "#F6F6F6",
+    },
+    "& .big-box button.yellow": {
+      background: "#FEF9F3",
+      color: "#FD9048",
+    },
+    "& .big-box .content-box": {
+      display: "flex",
+      alignItems: "flex-end",
+      justifyContent: "space-evenly",
+    },
+    "& .big-box .content-box .left-content": {
+      display: "flex",
+      alignItems: "center",
+      flexDirection: "column",
+      marginBottom: "20px",
+      width: "40%",
+      textAlign: "center",
+    },
+    "& .big-box .content-box .left-content .state": {
+      display: "flex",
+      alignItems: "center",
+      flexDirection: "column",
+    },
+    "& .big-box .content-box .right-content .state": {
+      display: "flex",
+      alignItems: "center",
+      flexDirection: "column",
+    },
+    "& .big-box .content-box .right-content": {
+      display: "flex",
+      alignItems: "center",
+      flexDirection: "column",
+      marginBottom: "20px",
+      width: "40%",
+      textAlign: "center",
+    },
+    "& .big-box .content-box .center-content": {
+      display: "flex",
+      alignItems: "center",
+      flexDirection: "column",
+      width: "20%",
+    },
+    "& .big-box .content-box .center-content .vertical-line": {
+      width: "3px",
+      height: "30px",
+      background: "#F8F9FE",
+    },
+    "& .big-box .content-box .center-content .image": {
+      marginBottom: "0px",
+    },
+    "& .big-box .content-box .center-content .image.text": {
+      padding: "15px",
+    },
+    "& .big-box .content-box .center-content .image.text h4": {
+      marginBottom: "0px",
+      color: "#FD9048",
+    },
+    "& .rented-empty-card": {
+      boxShadow: "none",
+      borderRadius: "8px",
+      padding: "20px",
+      "& h4": {
+        marginBottom: "10px",
+      },
+      "& .orange": {
+        color: "#FC8434",
+        fontWeight: "600",
+      },
+    },
   },
 };

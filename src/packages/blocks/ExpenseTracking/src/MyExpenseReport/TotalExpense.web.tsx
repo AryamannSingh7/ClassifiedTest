@@ -6,8 +6,8 @@ import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import { ExpenseIcon, FilterIcon } from "../assets";
 import OwnerSidebarImage from "../../../../components/src/OwnerSidebarImage.web";
 import { TotalExpenseStyle } from "./TotalExpenseStyle.web";
-import ExpenseCard from "../../../../components/src/ExpenseCard.web";
 import { Menu } from "@szhsin/react-menu";
+import ExpenseCard from "../../../../components/src/ExpenseCard";
 
 class TotalExpense extends TotalExpenseController {
   constructor(props: Props) {
