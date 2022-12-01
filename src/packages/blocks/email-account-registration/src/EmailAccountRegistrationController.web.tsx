@@ -187,29 +187,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
       );
 
       if (apiRequestCallId && responseJson) {
-        if (apiRequestCallId === this.validationApiCallId) {
-          this.arrayholder = responseJson.data;
-
-          if (this.arrayholder && this.arrayholder.length !== 0) {
-            let regexData = this.arrayholder[0];
-
-            if (regexData.password_validation_regexp) {
-              this.passwordReg = new RegExp(
-                regexData.password_validation_regexp
-              );
-            }
-
-            if (regexData.password_validation_rules) {
-              this.setState({
-                passwordHelperText: regexData.password_validation_rules
-              });
-            }
-
-            if (regexData.email_validation_regexp) {
-              this.emailReg = new RegExp(regexData.email_validation_regexp);
-            }
-          }
-        } else if (apiRequestCallId === this.createAccountApiCallId) {
+        if (apiRequestCallId === this.createAccountApiCallId) {
           if (!responseJson.errors) {
             localStorage.setItem('res_token', responseJson.meta.token)
             localStorage.setItem('res_user', JSON.stringify(responseJson.data.attributes))
