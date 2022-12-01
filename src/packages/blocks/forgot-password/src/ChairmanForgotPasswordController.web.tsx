@@ -218,7 +218,6 @@ export default class ChairmanForgotPasswordController extends BlockComponent<
     );
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.sendEmailOtpCallId !== null &&
       this.sendEmailOtpCallId ===
         message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
@@ -244,20 +243,16 @@ export default class ChairmanForgotPasswordController extends BlockComponent<
         let error = Object.values(responseJson.errors[0])[0] as string;
         this.setState({ error });
       } else {
-        this.setState({ error: responseJson?.error || "Something went wrong!" });
+        this.setState({ error: "Something went wrong!" });
       }
       this.parseApiCatchErrorResponse(this.state.error);
       this.setState({loading: false , error:null})
       
     }  else if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.verifyOtpApiCallId !== null &&
       this.verifyOtpApiCallId ===
         message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
-      // var responseJson = message.getData(
-      //   getName(MessageEnum.RestAPIResponceSuccessMessage)
-      // );
 
       var errorReponse = message.getData(
         getName(MessageEnum.RestAPIResponceErrorMessage)
@@ -276,22 +271,16 @@ export default class ChairmanForgotPasswordController extends BlockComponent<
           let error = responseJson?.errors[0]?.pin as string;
           this.setState({ error });
       } else {
-          this.setState({ error: responseJson?.error || 'Something went wrong!' });
+          this.setState({ error: 'Something went wrong!' });
       }
       this.parseApiCatchErrorResponse(this.state.error);
       this.setState({loading: false , error:null})
     }
      else if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.requestChangePasswordCallId !== null &&
       this.requestChangePasswordCallId ===
         message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
-      // console.log("entered 3");
-      // var responseJson = message.getData(
-      //   getName(MessageEnum.RestAPIResponceSuccessMessage)
-      // );
-
       var errorReponse = message.getData(
         getName(MessageEnum.RestAPIResponceErrorMessage)
       );
@@ -306,7 +295,7 @@ export default class ChairmanForgotPasswordController extends BlockComponent<
         this.setState({ error: responseJson?.message });
       } else {
         console.log("Something responseJson  ===========>",responseJson)
-          this.setState({ error: responseJson?.error || 'Something went wrong!' });
+          this.setState({ error: 'Something went wrong!' });
       }
       this.parseApiCatchErrorResponse(this.state.error);
       this.setState({loading: false , error:null})
