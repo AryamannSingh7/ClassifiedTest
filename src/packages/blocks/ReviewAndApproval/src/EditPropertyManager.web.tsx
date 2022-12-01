@@ -1,5 +1,5 @@
 // Customizable Area Start
-import React, { useRef } from "react";
+import React from "react";
 import {
   Button,
   Container,
@@ -14,7 +14,6 @@ import {
   Input,
   FormControl,
   Drawer,
-  Link,
 } from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import {

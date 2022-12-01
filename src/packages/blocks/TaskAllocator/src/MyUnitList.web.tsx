@@ -164,7 +164,7 @@ class MyUnitList extends MyUnitListController {
                       <Grid container>
                         <Grid item xs={12} md={12}>
                           <Link href="/RegisterMyUnit">
-                            <Button>{t("Register Another Unit")}</Button>
+                            <Button>{t("Add Another Unit")}</Button>
                           </Link>
                         </Grid>
                       </Grid>
