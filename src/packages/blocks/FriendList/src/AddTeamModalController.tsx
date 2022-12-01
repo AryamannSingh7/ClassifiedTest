@@ -294,6 +294,7 @@ export default class FriendListController extends BlockComponent<
       if(apiRequestCallId === this.createTeamMemberId){
         if(responseJson.hasOwnProperty("data")){
           this.sentMessage("TEAM_MEMBER_ADDED_SUCCESS")
+
         }else{
           console.log("Error",errorReponse,responseJson)
         }
