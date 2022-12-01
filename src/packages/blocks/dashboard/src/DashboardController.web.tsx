@@ -1,9 +1,7 @@
 import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
-import MessageEnum, {
-  getName
-} from "../../../framework/src/Messages/MessageEnum";
+import MessageEnum, { getName } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
 
 // Customizable Area Start
@@ -25,12 +23,21 @@ interface S {
   loading: boolean;
   Year: any;
   expanded: any;
-  anchorEl:any;
+  anchorEl: any;
 
   isMenuOpen: boolean;
   isLogoutModalOpen: boolean;
-  profileData:any
-  unReadCount:any;
+  profileData: any;
+  unReadCount: any;
+
+  isPropertyManagerModalOpen: boolean;
+  propertyManagerRequest: any[];
+  property: {
+    manager: string;
+    building: string;
+    unit: string;
+    company: string;
+  };
   // Customizable Area End
 }
 interface SS {
@@ -39,11 +46,12 @@ interface SS {
 
 export default class DashboardController extends BlockComponent<Props, S, SS> {
   // Customizable Area Start
-  apiDashboardItemCallId: string = "";
-  dashboardApiCallId: string = "";
-  apiGetQueryStrinurl: string = "";
-  getProfileDataAPiCallId:any="";
-  getUnreadCountAPIId:any='';
+  apiDashboardItemCallId: any = "";
+  dashboardApiCallId: any = "";
+  apiGetQueryStrinurl: any = "";
+  getProfileDataAPiCallId: any = "";
+  getUnreadCountAPIId: any = "";
+  GetManagerRequestCallId: any;
   // Customizable Area End
 
   constructor(props: Props) {
@@ -55,7 +63,7 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
       getName(MessageEnum.AccoutLoginSuccess),
       getName(MessageEnum.RestAPIResponceMessage),
       getName(MessageEnum.SessionSaveMessage),
-      getName(MessageEnum.SessionResponseMessage)
+      getName(MessageEnum.SessionResponseMessage),
     ];
 
     this.state = {
@@ -64,62 +72,68 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
       token: "",
       loading: false,
       Year: "",
-      expanded: '',
-      anchorEl:null,
+      expanded: "",
+      anchorEl: null,
 
       isLogoutModalOpen: false,
       isMenuOpen: false,
-      profileData:null,
-      unReadCount:null
+      profileData: null,
+      unReadCount: null,
+
+      isPropertyManagerModalOpen: false,
+      propertyManagerRequest: [],
+      property: {
+        manager: "",
+        building: "",
+        unit: "",
+        company: "",
+      },
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
 
-  async componentDidMount() {
+  async componentDidMount(): Promise<void> {
     super.componentDidMount();
     this.getToken();
     if (this.isPlatformWeb() === false) {
-      this.props.navigation.addListener('willFocus', () => {
+      this.props.navigation.addListener("willFocus", async () => {
         this.getToken();
       });
     }
-    this.getProfile()
-  }
-  
-  getToken=()=>{
-    const msg: Message = new Message(getName(MessageEnum.SessionRequestMessage));
-    this.send(msg);
+    this.getProfile();
+
+    if (window.location.pathname.split("/")[1] === "OwnerDashboard") {
+      this.getManagerRequestList();
+    }
   }
 
-  getDashboardData(): boolean {
+  getToken = () => {
+    const msg: Message = new Message(getName(MessageEnum.SessionRequestMessage));
+    this.send(msg);
+  };
+
+  getDashboardData = (): boolean => {
     // Customizable Area Start
     const header = {
       "Content-Type": configJSON.dashboarContentType,
-      token: this.state.token
+      token: this.state.token,
     };
-    const requestMessage = new Message(
-      getName(MessageEnum.RestAPIRequestMessage)
-    );
+
+    const requestMessage = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
     this.apiDashboardItemCallId = requestMessage.messageId;
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      configJSON.dashboardGetUrl
-    );
 
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
+    requestMessage.addData(getName(MessageEnum.RestAPIResponceEndPointMessage), configJSON.dashboardGetUrl);
 
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.dashboarApiMethodType
-    );
+    requestMessage.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    requestMessage.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.dashboarApiMethodType);
+
     runEngine.sendMessage(requestMessage.id, requestMessage);
-    // Customizable Area End
     return true;
-  }
+    // Customizable Area End
+  };
 
   async receive(from: string, message: Message) {
     // Customizable Area Start
@@ -131,139 +145,151 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
     }
 
     if (getName(MessageEnum.RestAPIResponceMessage) === message.id) {
-      const apiRequestCallId = message.getData(
-        getName(MessageEnum.RestAPIResponceDataMessage)
-      );
-      var responseJson = message.getData(
-        getName(MessageEnum.RestAPIResponceSuccessMessage)
-      );
-      if (apiRequestCallId === this.getProfileDataAPiCallId) {
-        console.log(responseJson)
-        if (!responseJson?.errors) {
-          console.log(responseJson)
-          this.setState({ profileData: responseJson?.data,loading:false }, () => console.log(this.state?.profileData))
-        } else {
-          //Check Error Response
-          // this.parseApiErrorResponse(responseJson);
-        }
+      let responseJson: any = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      let errorResponse: any = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
 
-        this.parseApiCatchErrorResponse(errorReponse);
-      }else
-      if (apiRequestCallId === this.getUnreadCountAPIId) {
-        console.log(responseJson)
-        if (!responseJson?.errors) {
-          console.log(responseJson)
-          this.setState({ profileData: responseJson?.data,loading:false }, () => console.log(this.state?.profileData))
-        } else {
-          //Check Error Response
-          // this.parseApiErrorResponse(responseJson);
-        }
+      const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
 
-        this.parseApiCatchErrorResponse(errorReponse);
+      switch (apiRequestCallId) {
+        case this.getProfileDataAPiCallId:
+          this.getProfileDataAPiCallId = null;
+          if (!responseJson?.errors) {
+            this.setState({ profileData: responseJson?.data,loading:false })
+          }
+          this.parseApiCatchErrorResponse(errorResponse);
+          break;
+        case this.getUnreadCountAPIId:
+          this.getUnreadCountAPIId = null;
+          if (!responseJson?.errors) {
+            this.setState({ profileData: responseJson?.data,loading:false })
+          }
+          this.parseApiCatchErrorResponse(errorResponse);
+          break;
+        case this.GetManagerRequestCallId:
+          this.GetManagerRequestCallId = null;
+          this.getManagerRequestListResponse(responseJson);
+          break;
       }
       if (responseJson && !responseJson?.errors && responseJson?.data) {
-        if (responseJson?.data?.length === 0) {
-          this.setState({
-            errorMsg: "Data Not Found",
-            loading: false
-          });
-        } else {
-          this.setState({
-            dashboardData: responseJson?.data,
-            errorMsg: "",
-            loading: false
-          });
-        }
+        this.handleResponse(responseJson);
       } else {
-        var errorReponse = message.getData(
-          getName(MessageEnum.RestAPIResponceErrorMessage)
-        );
-        if (errorReponse === undefined) {
-          this.setState({
-            errorMsg: "Something went wrong",
-            loading: false
-          });
-        } else {
-          this.setState({
-            errorMsg: errorReponse,
-            loading: false
-          });
-        }
+        this.handleErrorResponse(errorResponse);
       }
     }
     // Customizable Area End
   }
 
+  slider: any;
+
   // Customizable Area Start
-  handleChange = (event:any) => {
+  handleChange = (event: any) => {
     this.setState({ Year: event.target.value });
   };
 
-  handleAccordinoChange = (panel:string) => (event:any, isExpanded:boolean) => {
-    this.setState({ expanded: isExpanded ? panel : '' });
+  handleAccordinoChange = (panel: string) => (event: any, isExpanded: boolean) => {
+    this.setState({ expanded: isExpanded ? panel : "" });
   };
-  getProfile() {
-    this.setState({loading:true})
-        const header = {
-          "token": localStorage.getItem('userToken')
-        };
-        const requestMessage = new Message(
-          getName(MessageEnum.RestAPIRequestMessage)
-        );
-    
-    
-        this.getProfileDataAPiCallId = requestMessage.messageId;
-        requestMessage.addData(
-          getName(MessageEnum.RestAPIResponceEndPointMessage),
-          `bx_block_profile/my_profile`
-        );
-    
-        requestMessage.addData(
-          getName(MessageEnum.RestAPIRequestHeaderMessage),
-          JSON.stringify(header)
-        );
-    
-    
-    
-        requestMessage.addData(
-          getName(MessageEnum.RestAPIRequestMethodMessage),
-          'GET'
-        );
-    
-        runEngine.sendMessage(requestMessage.id, requestMessage);
-        return true;
-      }
-      getUnreadCount() {
-        this.setState({loading:true})
-            const header = {
-              "token": localStorage.getItem('userToken')
-            };
-            const requestMessage = new Message(
-              getName(MessageEnum.RestAPIRequestMessage)
-            );
-        
-        
-            this.getUnreadCountAPIId = requestMessage.messageId;
-            requestMessage.addData(
-              getName(MessageEnum.RestAPIResponceEndPointMessage),
-              `bx_block_chat/chats/all_unread_messages`
-            );
-        
-            requestMessage.addData(
-              getName(MessageEnum.RestAPIRequestHeaderMessage),
-              JSON.stringify(header)
-            );
-        
-        
-        
-            requestMessage.addData(
-              getName(MessageEnum.RestAPIRequestMethodMessage),
-              'GET'
-            );
-        
-            runEngine.sendMessage(requestMessage.id, requestMessage);
-            return true;
-          }
-  // Customizable Area End
 
+  handleResponse = (responseJson: any) => {
+    if (responseJson?.data?.length === 0) {
+      this.setState({
+        errorMsg: "Data Not Found", loading: false
+      });
+    } else {
+      this.setState({
+        dashboardData: responseJson?.data, errorMsg: "", loading: false
+      });
+    }
+  }
+
+  handleErrorResponse = (errorResponse: any) => {
+    if (errorResponse === undefined) {
+      this.setState({
+        errorMsg: "Something went wrong", loading: false
+      });
+    } else {
+      this.setState({
+        errorMsg: errorResponse, loading: false
+      });
+    }
+  }
+
+  getProfile = () => {
+    this.setState({ loading: true });
+
+    const header = {
+      token: localStorage.getItem("userToken"),
+    };
+
+    const requestMessage = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.getProfileDataAPiCallId = requestMessage.messageId;
+
+    requestMessage.addData(getName(MessageEnum.RestAPIResponceEndPointMessage), `bx_block_profile/my_profile`);
+
+    requestMessage.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    requestMessage.addData(getName(MessageEnum.RestAPIRequestMethodMessage), "GET");
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  };
+
+  getUnreadCount = () => {
+    this.setState({ loading: true });
+
+    const header = {
+      token: localStorage.getItem("userToken"),
+    };
+
+    const requestMessage = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.getUnreadCountAPIId = requestMessage.messageId;
+
+    requestMessage.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_chat/chats/all_unread_messages`
+    );
+
+    requestMessage.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    requestMessage.addData(getName(MessageEnum.RestAPIRequestMethodMessage), "GET");
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+  };
+
+  getManagerRequestList = () => {
+    const header = {
+      "Content-Type": "application/json",
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.GetManagerRequestCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_property_manager/property_manager_requests/new_request`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), "GET");
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  getManagerRequestListResponse = (responseJson: any) => {
+    if (responseJson && responseJson.data) {
+      this.setState({ propertyManagerRequest: responseJson.data });
+    }
+  };
+
+  handlePropertyManagerModal = () => {
+    this.setState({ isPropertyManagerModalOpen: !this.state.isPropertyManagerModalOpen });
+  };
+  // Customizable Area End
 }

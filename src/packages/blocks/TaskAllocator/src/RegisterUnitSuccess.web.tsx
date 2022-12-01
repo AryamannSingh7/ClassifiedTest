@@ -37,7 +37,7 @@ class RegisterMyUnitSuccess extends RegisterUnitController {
                     <h4>{t("Unit Added Successfully")}</h4>
                     <p>
                       {t(
-                        "The submission request need to go to the building/complex manger for approval, Upon approval of ownership the unit will be added to his list of units"
+                        "A verification ownership request has been sent to the building/complex manger for approval, Upon approval of ownership the unit will be added to his list of units"
                       )}
                     </p>
                   </Box>

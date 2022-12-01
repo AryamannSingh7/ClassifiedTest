@@ -169,7 +169,6 @@ class RegisterMyUnit extends RegisterUnitController {
                                       const value = e.target.value;
                                       setFieldValue("buildingId", value);
                                       this.getFloorList(value);
-                                      this.getUnitList(value);
                                     }}
                                     onBlur={handleBlur}
                                     name="buildingId"
@@ -199,7 +198,11 @@ class RegisterMyUnit extends RegisterUnitController {
                                   <Select
                                     displayEmpty
                                     value={values.floorId}
-                                    onChange={handleChange}
+                                    onChange={(e: any) => {
+                                      const floor = e.target.value;
+                                      setFieldValue("floorId", floor);
+                                      this.getUnitList(values.buildingId, floor);
+                                    }}
                                     onBlur={handleBlur}
                                     name="floorId"
                                     className="select-input"

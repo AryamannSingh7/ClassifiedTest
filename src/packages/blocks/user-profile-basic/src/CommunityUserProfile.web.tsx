@@ -390,7 +390,7 @@ class CommunityUserProfile extends CommunityUserProfileController {
             </Grid>
           </Box>
         </Box>
-        {/* <Loader loading={this.state.loading} /> */}
+        <Loader loading={this.state.loading} />
       </>
     )
   }

@@ -260,7 +260,7 @@ class UserDetailedProfile extends UserDetailedProfileController {
                                         <Grid item xs={2} sm={3}>
                                             <Typography variant="subtitle1" style={dashBoard.subtitleClr}>{t("Hobbies")}</Typography>
                                         
-                                            <Typography variant="subtitle1">{profileDetails?.attributes?.hobbies?.hobbies.length>0 && profileDetails?.attributes?.hobbies?.hobbies.map((item:any)=><>{item} ,</>)}</Typography>
+                                            <Typography variant="subtitle1">{profileDetails?.attributes?.hobbies?.hobbies !==null && profileDetails?.attributes?.hobbies?.hobbies.map((item:any)=><>{item} ,</>)}</Typography>
                                         </Grid>
                                     </Grid>
                                     <Grid container spacing={3} style={{marginTop:"5px"}}>
@@ -315,7 +315,7 @@ class UserDetailedProfile extends UserDetailedProfileController {
                     <div style={dashBoard.gaMemberCard}>
 
                   {
-                    profileDetails?.attributes?.families?.families && profileDetails?.attributes?.families?.families.map((item:any,index:any)=><>
+                    profileDetails?.attributes?.families?.families ? profileDetails?.attributes?.families?.families.map((item:any,index:any)=><>
                     <div key={index}>
                           <Card style={dashBoard.cardStyle}>
                             <CardActionArea>
@@ -348,7 +348,9 @@ class UserDetailedProfile extends UserDetailedProfileController {
                           </Card>
                           </div>
                     </>)
-
+                        :<>
+                        No related people found
+                        </>
                   }
                       </div>
                       </Box>
@@ -471,7 +473,7 @@ class UserDetailedProfile extends UserDetailedProfileController {
                    <Box style={{margin:"10px 0px 50px"}}>
                     <div style={dashBoard.gaActiveMemberCard}>
                       <>
-                      {profileDetails?.attributes?.incidents.map((item:any, index:any) => {
+                      {profileDetails?.attributes?.incidents.length>0 ? profileDetails?.attributes?.incidents.map((item:any, index:any) => {
                         return(
                           <div key={index}>
                           <Card style={dashBoard.activeMembercardStyle}>
@@ -514,7 +516,8 @@ class UserDetailedProfile extends UserDetailedProfileController {
                         )
 
                         })
-
+                        :<>
+                        No incident has been added by this user</>
                         }
                       </>
                     </div>
@@ -531,7 +534,7 @@ class UserDetailedProfile extends UserDetailedProfileController {
                    <Box style={{margin:"10px 0px 50px"}}>
                     <div style={dashBoard.gaActiveMemberCard}>
                       <>
-                      {profileDetails?.attributes?.vehicles.map((item:any, index:any) => {
+                      {profileDetails?.attributes?.vehicles!== null ? profileDetails?.attributes?.vehicles.map((item:any, index:any) => {
                         return(
                           <div key={index}>
                           <Card style={dashBoard.activeMembercardStyle}>
@@ -572,6 +575,7 @@ class UserDetailedProfile extends UserDetailedProfileController {
                         )
 
                         })
+                        :<> No Vehicle has been Added by this user</>
 
                         }
                       </>

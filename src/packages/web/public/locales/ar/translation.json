@@ -897,7 +897,7 @@
   "Why I should be elected": "لماذا يجب أن يتم انتخابي",
   "Are you sure you want to the start the voting process? by confirming nomination process will be closed.": "هل أنت متأكد أنك تريد أن تبدأ عملية التصويت؟ بتأكيد عملية الترشيح سيتم إغلاقها.",
   "Are you sure you want to submit your vote": "هل أنت متأكد أنك تريد أن تقدم تصويتك",
-  "Start Nomination Process": "ابدأ عملية الترشيح",
+  "START CHAIRMAN NOMINATION": "ابدأ عملية الترشيح",
   "Select User": "اختر المستخدم",
   "Select Role": "حدد الدور",
   "Please Select User": "الرجاء تحديد المستخدم",
@@ -924,8 +924,11 @@
   "Only character are allowed": "مسموح فقط الحرف",
   "Register Rent Payments": "تسجيل مدفوعات الإيجار",
   "Payment Due Amount": "المبلغ المستحق الدفع",
-  "Budget Report Details":"تفاصيل التقرير",
-  "No Budget Details are Available":"لا تتوفر تفاصيل الميزانية",
-  "Approve Budget Report":"الموافقة على تقرير الميزانية",
-  "Are you sure you want to approve budget report?":"هل أنت متأكد أنك تريد الموافقة على تقرير الميزانية؟"
+  "Budget Report Details": "تفاصيل التقرير",
+  "No Budget Details are Available": "لا تتوفر تفاصيل الميزانية",
+  "Approve Budget Report": "الموافقة على تقرير الميزانية",
+  "Are you sure you want to approve budget report?": "هل أنت متأكد أنك تريد الموافقة على تقرير الميزانية؟",
+  "Add Another Unit": "أضف وحدة أخرى",
+  "Add Another Rent History": "أضف تاريخ إيجار آخر",
+  "A verification ownership request has been sent to the building/complex manger for approval, Upon approval of ownership the unit will be added to his list of units": "تم إرسال طلب التحقق من الملكية إلى مدير المبنى / المجمع للموافقة عليه ، وعند الموافقة على الملكية سيتم إضافة الوحدة إلى قائمة الوحدات الخاصة به"
 }
