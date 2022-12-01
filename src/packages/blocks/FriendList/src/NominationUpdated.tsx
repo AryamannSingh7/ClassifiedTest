@@ -19,7 +19,7 @@ class SurveyParticipate extends React.Component<any, any> {
         <>
           <Grid container>
               <Grid xs={10} style={{ display:"flex", alignItems:"center", gap:"1rem",margin:"10px 10px"}}>
-                <ArrowBackIcon onClick={() => window.history.back()} style={{cursor:"pointer",marginLeft:"5px"}}/>
+
               </Grid>
               <Grid xs={12}>
               <Box style={{height:"94.5vh",display:'flex',flexDirection:"column",alignItems:'center'}}>

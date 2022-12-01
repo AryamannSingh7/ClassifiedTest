@@ -190,7 +190,7 @@ class MyTeamCore extends NominationDetailsController {
                                                     {
                                                             this.state.chairmanVoteCount?.map((item:any,key:any)=>{
                                                                 return(
-                                                                    <ChairmanVoteCount item={item} key={key} />
+                                                                    <ChairmanVoteCount item={item} key={key} count={key}/>
                                                                 )
 
                                                             })
@@ -214,7 +214,7 @@ class MyTeamCore extends NominationDetailsController {
                                                     {
                                                         this.state.viceChairmanVoteCount?.map((item:any,key:any)=>{
                                                             return(
-                                                                <ViceChairmanVoteCount  item={item} key={key} />
+                                                                <ViceChairmanVoteCount  item={item} key={key} count={key}/>
                                                             )
                                                         })
                                                     }
@@ -333,7 +333,7 @@ class MyTeamCore extends NominationDetailsController {
                     </Grid>
                     <Grid item xs={12} style={{display:'flex',justifyContent:"flex-end",marginTop:"20px"}}>
                         <Box>
-                            <DeclineButton variant="contained" style={{marginRight:"15px"}}>{t("Cancel")}</DeclineButton>
+                            <DeclineButton variant="contained" style={{marginRight:"15px"}} onClick={this.handleClose}>{t("Cancel")}</DeclineButton>
                             <AcceptButton variant="contained" onClick={this.updateNominationData}>{t("Update Nomination")}</AcceptButton>
                         </Box>
                     </Grid>
@@ -412,9 +412,9 @@ class MyTeamCore extends NominationDetailsController {
                         <Grid item xs={12}>
                             <Box style={{display:'flex',justifyContent:'space-between'}}>
                                 <Box display="flex" alignItems="center">
-                                    <img src={this.state.myProfile.image.url || profileExp}  width="50px" height="50px" style={{borderRadius:"100px"}}/>
+                                    <img src={this.state.myProfile?.image?.url || profileExp}  width="50px" height="50px" style={{borderRadius:"100px"}}/>
                                     <Box style={{marginLeft:"10px",display:"flex"}}>
-                                        <Typography style={{fontWeight:"bold",marginRight:"20px"}}>{this.state.myProfile.name}</Typography>
+                                        <Typography style={{fontWeight:"bold",marginRight:"20px"}}>{this.state.myProfile?.name}</Typography>
                                         <Typography>{this.state.myProfile.unit_number?.join(",")}</Typography>
                                     </Box>
                                 </Box>
@@ -563,10 +563,10 @@ const NominationStatus = (props:any) => {
 }
 
 const ChairmanVoteCount = (props:any) => {
-    const {item,key} = props
-    if(key === 0){
+    const {item,count} = props
+    if(count === 0){
         return(
-            <TableRow key={key} style={{cursor:"pointer"}}>
+            <TableRow key={count} style={{cursor:"pointer"}}>
                 <TableCell className="ellipse" style={item.chairman_count > 0? {fontWeight:"bold"} : {fontWeight:"normal"}}>{item.name} {item.chairman_count > 0 && <Typography variant="subtitle2" className="chairmanSelected">Chairman</Typography>}</TableCell>
                 <TableCell style={item.chairman_count > 0? {fontWeight:"bold"} : {fontWeight:"normal"}}>{item.unit_no?.join(",")}</TableCell>
                 <TableCell style={item.chairman_count > 0? {fontWeight:"bold"} : {fontWeight:"normal"}}>{item.chairman_count}</TableCell>
@@ -574,7 +574,7 @@ const ChairmanVoteCount = (props:any) => {
         )
     }else{
         return(
-            <TableRow key={key} style={{cursor:"pointer"}}>
+            <TableRow key={count} style={{cursor:"pointer"}}>
                 <TableCell className="ellipse">{item.name}</TableCell>
                 <TableCell>{item.unit_no.join(",")}</TableCell>
                 <TableCell>{item.chairman_count}</TableCell>
@@ -585,10 +585,11 @@ const ChairmanVoteCount = (props:any) => {
 
 
 const ViceChairmanVoteCount = (props:any) => {
-    const {item,key} = props
-    if(key === 0){
+    const {item,count} = props
+    console.log("KEY",count)
+    if(count === 0){
         return(
-            <TableRow key={key} style={{cursor:"pointer"}}>
+            <TableRow key={count} style={{cursor:"pointer"}}>
                 <TableCell className="ellipse" style={item.vice_chairman_count > 0? {fontWeight:"bold"} : {fontWeight:"normal"}}>{item.name} {item.vice_chairman_count > 0 && <Typography variant="subtitle2" className="chairmanSelected">Vice Chairman</Typography> }</TableCell>
                 <TableCell style={item.vice_chairman_count > 0? {fontWeight:"bold"} : {fontWeight:"normal"}}>{item.unit_no?.join(",")}</TableCell>
                 <TableCell style={item.vice_chairman_count > 0? {fontWeight:"bold"} : {fontWeight:"normal"}}>{item.vice_chairman_count}</TableCell>
@@ -596,7 +597,7 @@ const ViceChairmanVoteCount = (props:any) => {
         )
     }else{
         return(
-            <TableRow key={key} style={{cursor:"pointer"}}>
+            <TableRow key={count} style={{cursor:"pointer"}}>
                 <TableCell className="ellipse">{item.name}</TableCell>
                 <TableCell>{item.unit_no.join(",")}</TableCell>
                 <TableCell>{item.vice_chairman_count}</TableCell>
