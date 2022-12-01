@@ -213,6 +213,9 @@ export default class ChairmanForgotPasswordController extends BlockComponent<
   };
 
   async receive(from: string, message: Message) {
+    var responseJson = message.getData(
+      getName(MessageEnum.RestAPIResponceSuccessMessage)
+    );
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.sendEmailOtpCallId !== null &&
@@ -220,10 +223,6 @@ export default class ChairmanForgotPasswordController extends BlockComponent<
         message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       // console.log("entered email!!!!");
-      var responseJson = message.getData(
-        getName(MessageEnum.RestAPIResponceSuccessMessage)
-      );
-
       if (
         responseJson !== undefined &&
         responseJson.meta &&
@@ -256,9 +255,9 @@ export default class ChairmanForgotPasswordController extends BlockComponent<
       this.verifyOtpApiCallId ===
         message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
-      var responseJson = message.getData(
-        getName(MessageEnum.RestAPIResponceSuccessMessage)
-      );
+      // var responseJson = message.getData(
+      //   getName(MessageEnum.RestAPIResponceSuccessMessage)
+      // );
 
       var errorReponse = message.getData(
         getName(MessageEnum.RestAPIResponceErrorMessage)
@@ -289,9 +288,9 @@ export default class ChairmanForgotPasswordController extends BlockComponent<
         message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
     ) {
       // console.log("entered 3");
-      var responseJson = message.getData(
-        getName(MessageEnum.RestAPIResponceSuccessMessage)
-      );
+      // var responseJson = message.getData(
+      //   getName(MessageEnum.RestAPIResponceSuccessMessage)
+      // );
 
       var errorReponse = message.getData(
         getName(MessageEnum.RestAPIResponceErrorMessage)
@@ -305,9 +304,6 @@ export default class ChairmanForgotPasswordController extends BlockComponent<
        //window.location.replace("/ChangePassword") 
       } else if (responseJson?.message) {
         this.setState({ error: responseJson?.message });
-      } else if (responseJson?.errors) {
-          let error = `${Object.values(responseJson.errors[0])[0]}` as string;
-          this.setState({ error });
       } else {
         console.log("Something responseJson  ===========>",responseJson)
           this.setState({ error: responseJson?.error || 'Something went wrong!' });
