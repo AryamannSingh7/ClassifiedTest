@@ -212,76 +212,85 @@ export default class ChairmanForgotPasswordController extends BlockComponent<
     runEngine.sendMessage(requestMessage.id, requestMessage);
   };
 
+  sendEmailOtpCallIdResponse = (responseJson:any) => {
+    if ( responseJson.meta && responseJson.meta.token) {
+      //this.otpToken = responseJson.meta.token;
+      console.log("checuser==============================>,",responseJson)
+     // this.setState({ token:responseJson.meta.token, emailOtp:responseJson.email_otp });
+     localStorage.setItem("otpToken", responseJson?.meta?.token)
+     localStorage.setItem("emailOtp", responseJson?.email_otp)
+     this.setState({loading: false})
+     //@ts-ignore
+      this.props.history.push("/ChairmanForgotPasswordOTP")
+          
+    //error handling
+    
+  } else if (responseJson?.errors) {
+    let error = responseJson.errors[0]
+    this.setState({ error });
+  } else {
+    this.setState({ error: responseJson?.error || "Something went wrong!" });
+  }
+  this.parseApiCatchErrorResponse(this.state.error);
+  this.setState({loading: false , error:null})
+  }
+
+  requestChangePasswordCallIdResponse = (responseJson:any) => {
+    if (responseJson?.data) {
+      this.setState({loading: false})
+      //@ts-ignore
+      this.props.history.push("/ChairmanChangeSuccessfully")
+      //window.location ="/ChairmanChangeSuccessfully" as any
+     //window.location.replace("/ChangePassword") 
+    } else if (responseJson?.message) {
+      this.setState({ error: responseJson?.message });
+    } 
+    else {
+      console.log("Something responseJson  ===========>",responseJson)
+        this.setState({ error: 'Something went wrong!' });
+    }
+    this.parseApiCatchErrorResponse(this.state.error);
+    this.setState({loading: false , error:null})
+  }
+
+  verifyOtpApiCallIdResponse = (responseJson:any) => {
+    if (responseJson?.hasOwnProperty('messages')) {
+      console.log('responseJson===========> successflll',responseJson)
+          this.setState({loading: false})
+            //@ts-ignore
+            this.props.history.push("/ChairmanChangePassword")
+          //  window.location ="/ChairmanChangePassword" as any
+        } else if (responseJson?.errors ) {
+            let error = responseJson?.errors[0]?.pin as string;
+            this.setState({ error : error || 'Something went wrong!' });
+        } 
+        this.parseApiCatchErrorResponse(this.state.error);
+        this.setState({loading: false , error:null})
+  }
+
   async receive(from: string, message: Message) {
     if (getName(MessageEnum.RestAPIResponceMessage) === message.id) {
       const apiRequestCallId = message.getData(
         getName(MessageEnum.RestAPIResponceDataMessage)
       );
 
-      var responseJson = message.getData(
+      let responseJson = message.getData(
         getName(MessageEnum.RestAPIResponceSuccessMessage)
       );
 
-      var errorReponse = message.getData(
+      let errorReponse = message.getData(
         getName(MessageEnum.RestAPIResponceErrorMessage)
       );
 
       if (apiRequestCallId && responseJson) {
-        console.log( "apiRequestCallId && responseJson ======> ",apiRequestCallId , responseJson ,this.verifyOtpApiCallId)
          if (apiRequestCallId === this.sendEmailOtpCallId) {
-          if ( responseJson.meta && responseJson.meta.token) {
-              //this.otpToken = responseJson.meta.token;
-              console.log("checuser==============================>,",responseJson)
-             // this.setState({ token:responseJson.meta.token, emailOtp:responseJson.email_otp });
-             localStorage.setItem("otpToken", responseJson?.meta?.token)
-             localStorage.setItem("emailOtp", responseJson?.email_otp)
-             this.setState({loading: false})
-             //@ts-ignore
-              this.props.history.push("/ChairmanForgotPasswordOTP")
-                  
-            //error handling
-            
-          } else if (responseJson?.errors) {
-            let error = responseJson.errors[0]
-            this.setState({ error });
-          } else {
-            this.setState({ error: responseJson?.error || "Something went wrong!" });
-          }
-
-          this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({loading: false , error:null})
+            this.sendEmailOtpCallIdResponse(responseJson)
         }
         else if (apiRequestCallId === this.requestChangePasswordCallId) {
-          if (responseJson?.data) {
-            this.setState({loading: false})
-            //@ts-ignore
-            this.props.history.push("/ChairmanChangeSuccessfully")
-            //window.location ="/ChairmanChangeSuccessfully" as any
-           //window.location.replace("/ChangePassword") 
-          } else if (responseJson?.message) {
-            this.setState({ error: responseJson?.message });
-          } 
-          // else {
-          //   console.log("Something responseJson  ===========>",responseJson)
-          //     this.setState({ error: 'Something went wrong!' });
-          // }
-          this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({loading: false , error:null})
+            this.requestChangePasswordCallIdResponse(responseJson)
         }
         else if (apiRequestCallId === this.verifyOtpApiCallId) {
-          console.log( "apiRequestCallId && responseJson ======> ",apiRequestCallId , this.verifyOtpApiCallId ,responseJson)
-          if (responseJson?.hasOwnProperty('messages')) {
-            console.log('responseJson===========> successflll',responseJson)
-                this.setState({loading: false})
-                  //@ts-ignore
-                  this.props.history.push("/ChairmanChangePassword")
-                //  window.location ="/ChairmanChangePassword" as any
-              } else if (responseJson?.errors ) {
-                  let error = responseJson?.errors[0]?.pin as string;
-                  this.setState({ error : error || 'Something went wrong!' });
-              } 
-              this.parseApiCatchErrorResponse(this.state.error);
-              this.setState({loading: false , error:null})
+              this.verifyOtpApiCallIdResponse(responseJson)
         }
       }
     }
