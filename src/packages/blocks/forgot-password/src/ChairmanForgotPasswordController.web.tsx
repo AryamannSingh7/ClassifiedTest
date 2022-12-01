@@ -291,10 +291,11 @@ export default class ChairmanForgotPasswordController extends BlockComponent<
        //window.location.replace("/ChangePassword") 
       } else if (responseJson?.message) {
         this.setState({ error: responseJson?.message });
-      } else {
-        console.log("Something responseJson  ===========>",responseJson)
-          this.setState({ error: 'Something went wrong!' });
-      }
+      } 
+      // else {
+      //   console.log("Something responseJson  ===========>",responseJson)
+      //     this.setState({ error: 'Something went wrong!' });
+      // }
       this.parseApiCatchErrorResponse(this.state.error);
       this.setState({loading: false , error:null})
     } 
