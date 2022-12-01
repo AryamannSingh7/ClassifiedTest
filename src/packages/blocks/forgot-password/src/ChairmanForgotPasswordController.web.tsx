@@ -267,12 +267,10 @@ export default class ChairmanForgotPasswordController extends BlockComponent<
           //@ts-ignore
           this.props.history.push("/ChairmanChangePassword")
         //  window.location ="/ChairmanChangePassword" as any
-      } else if (responseJson?.errors) {
+      } else if (responseJson?.errors ) {
           let error = responseJson?.errors[0]?.pin as string;
-          this.setState({ error });
-      } else {
-          this.setState({ error: 'Something went wrong!' });
-      }
+          this.setState({ error : error || 'Something went wrong!' });
+      } 
       this.parseApiCatchErrorResponse(this.state.error);
       this.setState({loading: false , error:null})
     }
