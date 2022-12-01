@@ -71,3 +71,6 @@ export const DashboardClass = require("../assets/dash-class.png");
 export const DashboardLease = require("../assets/dash-lease.png");
 export const DashboardFamily = require("../assets/dash-family.png");
 export const voting = require("../assets/voting.png");
+export const NotificationGreen = require("../assets/notification-green.png");
+export const NotificationRed = require("../assets/notification-red.png");
+export const ExclamationIcon = require("../assets/request.png");

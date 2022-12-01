@@ -52,7 +52,9 @@ import {
   DashboardInvoice,
   DashboardReport,
   DashboardManager,
-  voting
+  voting,
+  NotificationGreen,
+  ExclamationIcon,
 } from "./assets";
 import { DashboardStyleWeb } from "./DashboardStyle.web";
 import DashboardCard from "../../../components/src/DashboardCard";
@@ -64,6 +66,8 @@ import ArrowForwardIosOutlinedIcon from "@material-ui/icons/ArrowForwardIosOutli
 import DashboardController, { Props } from "./DashboardController.web";
 import { Menu } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/core.css";
+//@ts-ignore
+import Slider from "react-slick";
 
 const MenuList = [
   {
@@ -98,11 +102,18 @@ const MenuList = [
   },
 ];
 
+const settings = {
+  swipeToSlide: true,
+  // dots: true,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+};
+
 class OwnerDashboard extends DashboardController {
   constructor(props: Props) {
     super(props);
   }
-  
+
   toggleDrawer = () => {
     this.setState({ isMenuOpen: !this.state.isMenuOpen });
   };
@@ -129,6 +140,8 @@ class OwnerDashboard extends DashboardController {
   render() {
     const { t }: any = this.props;
     const { classes }: any = this.props;
+
+    console.log(this.state);
 
     return (
       <>
@@ -221,6 +234,43 @@ class OwnerDashboard extends DashboardController {
               </Box>
               <Container className="dashboard">
                 <Grid container spacing={1} style={{ marginTop: 15 }}>
+                  <Box className="notification-slider">
+                    <Slider ref={(c: any) => (this.slider = c)} {...settings}>
+                      {this.state.propertyManagerRequest.map((request: any) => {
+                        return (
+                          <Box
+                            className="slide-box"
+                            key={request.id}
+                            onClick={() => {
+                              this.setState(
+                                {
+                                  property: {
+                                    manager: "",
+                                    building: request.attributes.building_management.name,
+                                    unit: request.attributes.apartment_management.data.attributes.apartment_name,
+                                    company: "",
+                                  },
+                                },
+                                () => {
+                                  this.handlePropertyManagerModal();
+                                }
+                              );
+                            }}
+                          >
+                            <Box className="heading">
+                              <img src={NotificationGreen} alt="" />
+                              <span>Property manager request received</span>
+                            </Box>
+                            <p>
+                              Property manager request received for building{" "}
+                              {request.attributes.building_management.name} unit{" "}
+                              {request.attributes.apartment_management.data.attributes.apartment_name}.
+                            </p>
+                          </Box>
+                        );
+                      })}
+                    </Slider>
+                  </Box>
                   <Grid item xs={12} sm={12} className="title">
                     <Typography variant="h5">{t("My Real Estate Details")}</Typography>
                   </Grid>
@@ -228,7 +278,7 @@ class OwnerDashboard extends DashboardController {
                     <DashboardCard image={DashboardUnit} heading={t("Number Of Units")} title={t("Total")} value="75" />
                   </Grid>
                   <Grid item xs={6} sm={6}>
-                    <Link href="">
+                    <Link href="/TotalExpense">
                       <DashboardCard
                         image={DashboardExpense}
                         heading={t("Total Expenses")}
@@ -509,7 +559,12 @@ class OwnerDashboard extends DashboardController {
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="/ChairmanNominations">
-                      <DashboardCard image={voting} heading={t("Chairman Nominations")} title={t("Chairman And Vice Chairman Nominations")} value="75" />
+                      <DashboardCard
+                        image={voting}
+                        heading={t("Chairman Nominations")}
+                        title={t("Chairman And Vice Chairman Nominations")}
+                        value="75"
+                      />
                     </Link>
                   </Grid>
                 </Grid>
@@ -537,6 +592,31 @@ class OwnerDashboard extends DashboardController {
               <DialogActions className="dialog-button-group">
                 <Button onClick={() => this.logout()}>{t("Logout")}</Button>
                 <Button onClick={() => this.handleLogoutModal()}>{t("Cancel")}</Button>
+              </DialogActions>
+            </Box>
+          </DialogContent>
+        </Dialog>
+
+        <Dialog
+          className="delete-document personal"
+          fullWidth
+          onClose={() => this.handlePropertyManagerModal()}
+          open={this.state.isPropertyManagerModalOpen}
+        >
+          <DialogContent>
+            <Box textAlign="center">
+              <img src={ExclamationIcon} alt="ExclamationIcon" />
+              <Typography variant="h6">{t("Property Manager Request Received")}</Typography>
+              <Typography variant="body1">
+                {this.state.property.manager} is claiming to be your Building {this.state.property.building} Unit{" "}
+                {this.state.property.unit} property manager from Company {this.state.property.company}. Do you want to
+                give him right to manage your mentioned property?
+              </Typography>
+              <DialogActions className="dialog-button-group">
+                <Button onClick={() => this.props.navigation.navigate("PropertyManagerRequest")}>
+                  {t("View Profile")}
+                </Button>
+                <Button onClick={() => this.handlePropertyManagerModal()}>{t("Close")}</Button>
               </DialogActions>
             </Box>
           </DialogContent>

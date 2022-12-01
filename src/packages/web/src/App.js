@@ -361,6 +361,13 @@ import ExpenseDetail from '../../blocks/ExpenseTracking/src/MyExpense/ExpenseDet
 import AddEditExpense from '../../blocks/ExpenseTracking/src/MyExpense/AddEditExpense.web';
 import AddExpenseSuccess from '../../blocks/ExpenseTracking/src/MyExpense/AddExpenseSuccess.web';
 
+// Total Expense
+import TotalExpense from '../../blocks/ExpenseTracking/src/MyExpenseReport/TotalExpense.web';
+import UnitTotalExpense from '../../blocks/ExpenseTracking/src/MyExpenseReport/UnitTotalExpense.web';
+import RentedVsEmpty from '../../blocks/ExpenseTracking/src/MyExpenseReport/RentedVsEmpty.web';
+import CollectedVsDue from '../../blocks/ExpenseTracking/src/MyExpenseReport/CollectedVsDue.web';
+import SpentVsCollected from '../../blocks/ExpenseTracking/src/MyExpenseReport/SpentVsCollected.web';
+
 const routeMap = {
   //done
   LandingPage: {
@@ -2143,6 +2150,37 @@ const routeMap = {
   EditExpense: {
     component: AddEditExpense,
     path: '/EditExpense/:id',
+    roles: [ROLE.OWNER, ROLE.OWNER_RESIDENT],
+    exact: true
+  },
+  // Total Expense
+  TotalExpense: {
+    component: TotalExpense,
+    path: '/TotalExpense',
+    roles: [ROLE.OWNER, ROLE.OWNER_RESIDENT],
+    exact: true
+  },
+  UnitTotalExpense: {
+    component: UnitTotalExpense,
+    path: '/TotalExpense/:id',
+    roles: [ROLE.OWNER, ROLE.OWNER_RESIDENT],
+    exact: true
+  },
+  RentedVsEmpty: {
+    component: RentedVsEmpty,
+    path: '/RentedVsEmpty',
+    roles: [ROLE.OWNER, ROLE.OWNER_RESIDENT],
+    exact: true
+  },
+  CollectedVsDue: {
+    component: CollectedVsDue,
+    path: '/CollectedVsDue',
+    roles: [ROLE.OWNER, ROLE.OWNER_RESIDENT],
+    exact: true
+  },
+  SpentVsCollected: {
+    component: SpentVsCollected,
+    path: '/SpentVsCollected',
     roles: [ROLE.OWNER, ROLE.OWNER_RESIDENT],
     exact: true
   },

@@ -21,3 +21,5 @@ export const UnitIcon = require("../assets/unit.png");
 export const ResolvedByIcon = require("../assets/resolved-by.png");
 export const SummaryIcon = require("../assets/summary.png");
 export const SuccessExpenseIcon = require("../assets/success-expense.png");
+export const ExpenseIcon = require("../assets/expense.png");
+export const DashboardVs = require("../assets/dash-vs.png");

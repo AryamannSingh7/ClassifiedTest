@@ -44,6 +44,7 @@ export default class RequestPropertyManagerDetailsController extends BlockCompon
   GetPropertyManagerDetailsCallId: any;
   GetComplexDetailsCallId: any;
   EditPropertyCallId: any;
+  EditManagerRequestCallId: any;
 
   constructor(props: Props) {
     super(props);
@@ -104,6 +105,24 @@ export default class RequestPropertyManagerDetailsController extends BlockCompon
 
       errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
     }
+
+    // Status Update - API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.EditManagerRequestCallId !== null &&
+      this.EditManagerRequestCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.EditManagerRequestCallId = null;
+
+      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      this.setState({ loading: false }, () => {
+        this.props.navigation.navigate("PropertyManagerRequest");
+      });
+
+      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+    }
+
     if (responseJson && responseJson.meta && responseJson.meta.token) {
       runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
     } else {
@@ -139,6 +158,29 @@ export default class RequestPropertyManagerDetailsController extends BlockCompon
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  updateManagerRequest = (status: any) => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.EditManagerRequestCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_property_manager/property_manager_requests/update_request?id=${this.state.propertyId}&status=${status}`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePut);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;

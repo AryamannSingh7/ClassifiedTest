@@ -126,5 +126,37 @@ export const DashboardStyleWeb: any = {
       marginBottom: "0px",
       color: "#FD9048",
     },
+    "& .notification-slider": {
+      width: "100%",
+      marginBottom: "20px",
+    },
+    "& .notification-slider .slick-list .slick-track": {
+      display: "flex",
+      gap: "20px",
+    },
+    "& .notification-slider .slick-prev": {
+      display: "none !important",
+    },
+    "& .notification-slider .slick-next": {
+      display: "none !important",
+    },
+    "& .notification-slider .slide-box": {
+      width: "95% !important",
+      padding: "20px",
+      background: "white",
+      borderRadius: "8px",
+      cursor: "pointer",
+    },
+    "& .notification-slider .slide-box .heading": {
+      display: "flex",
+      gap: "15px",
+      alignItems: "center",
+    },
+    "& .notification-slider .slide-box .heading span": {
+      fontWeight: "600",
+    },
+    "& .notification-slider .slide-box p": {
+      marginTop: "10px",
+    },
   },
 };
