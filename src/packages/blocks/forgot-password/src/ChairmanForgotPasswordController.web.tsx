@@ -212,7 +212,7 @@ export default class ChairmanForgotPasswordController extends BlockComponent<
     runEngine.sendMessage(requestMessage.id, requestMessage);
   };
 
-  sendEmailOtpCallIdResponse = (responseJson:any) => {
+  sendEmailOtpCallIdResponse = (responseJson:any ,errorReponse:any) => {
     if ( responseJson.meta && responseJson.meta.token) {
       //this.otpToken = responseJson.meta.token;
       console.log("checuser==============================>,",responseJson)
@@ -284,7 +284,7 @@ export default class ChairmanForgotPasswordController extends BlockComponent<
 
       if (apiRequestCallId && responseJson) {
          if (apiRequestCallId === this.sendEmailOtpCallId) {
-            this.sendEmailOtpCallIdResponse(responseJson)
+            this.sendEmailOtpCallIdResponse(responseJson ,errorReponse)
         }
         else if (apiRequestCallId === this.requestChangePasswordCallId) {
             this.requestChangePasswordCallIdResponse(responseJson)
