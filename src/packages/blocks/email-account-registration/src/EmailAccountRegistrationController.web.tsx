@@ -185,135 +185,154 @@ export default class EmailAccountRegistrationController extends BlockComponent<
       var errorReponse = message.getData(
         getName(MessageEnum.RestAPIResponceErrorMessage)
       );
+         switch(apiRequestCallId){
+          case this.createAccountApiCallId:
+            this.createAccountApiCallId=null;
+            this.handleCreateAccount(responseJson,errorReponse)
+            break;
+            case this.verifyOtpApiCallId:
+             this.verifyOtpApiCallId=null;
+             this.handleVerifyOtp(responseJson,errorReponse)
+             break;
+             case this.createManagerAccountApiCallId:
+              this.createManagerAccountApiCallId=null;
+              this.handleManagerAccountCreate(responseJson,errorReponse)
+              break;
+              case this.createAccountOwnerApiCallId:
+                this.createAccountOwnerApiCallId=null;
+                this.handleCreateAccountOwner(responseJson,errorReponse)
+                break;
+              case this.createRequestApiCallId:
+                this.createRequestApiCallId=null;
+                this.handleCreateRequestApiCallId(responseJson,errorReponse)
+                break;
+                case this.createRequestManaulApiCallId:
+                  this.createRequestManaulApiCallId=null;
+                  this.handleCreateRequestManaulApiCallId(responseJson,errorReponse)
+                  break;
+                  case this.changeUserTypeApiCallId:
+                    this.changeUserTypeApiCallId=null;
+                    this.handleChangeUserTypeApiCallId(responseJson,errorReponse)
+                    break;
+                    case this.getCountryApiCallId:
+                      this.getCountryApiCallId=null;
+                      this.handleGetCountryApiCallId(responseJson,errorReponse)
+                      break;
+         }
+    
+        // if (apiRequestCallId === this.createAccountApiCallId) {
+        // }
+        // if (apiRequestCallId === this.verifyOtpApiCallId) {
+        //   if (!responseJson.errors) {
+        //     //@ts-ignore
+        //     //@ts-nocheck
+        //     this.setState({ loading: false })
+        //     //@ts-ignore
+        //     //@ts-nocheck
+        //     this.props.history.push('/registerunit')
+        //   } else if (responseJson?.errors) {
+        //     let error = responseJson.errors[0];
+        //     this.setState({ error });
+        //   } else {
+        //     this.setState({ error: responseJson?.error || "Something went wrong!" });
+        //     ApiCatchErrorResponse(this.state.error);
+        //   }
+        //   this.setState({ loading: false })
 
-      if (apiRequestCallId && responseJson) {
-        if (apiRequestCallId === this.createAccountApiCallId) {
-          if (!responseJson.errors) {
-            localStorage.setItem('res_token', responseJson.meta.token)
-            localStorage.setItem('res_user', JSON.stringify(responseJson.data.attributes))
-            localStorage.setItem('res_user_id', responseJson.data.id)
-            localStorage.setItem('user_email', responseJson.data.attributes.email)
-            //@ts-ignore
-            //@ts-nocheck
-            this.updateType()
-            this.setState({ loading: false, error: null })
-            //@ts-ignore
-            //@ts-nocheck
-            this.props.history.push('/otp')
-          } else if (responseJson?.errors) {
-            let error = responseJson.errors[0];
-            this.setState({ error });
-          } else {
-            this.setState({ error: responseJson?.error || "Something went wrong!" });
-          }
-          
-          ApiCatchErrorResponse(responseJson.errors);
-          this.setState({ loading: false })
+        // } 
+        //  if (apiRequestCallId === this.createManagerAccountApiCallId) {
+        //   if (!responseJson.errors) {
+        //     localStorage.setItem('res_token', responseJson.meta.token)
+        //     localStorage.setItem('res_user', responseJson.data.attributes)
+        //     localStorage.setItem('res_user_id', responseJson.data.id)
+        //     localStorage.setItem('user_email', responseJson.data.attributes.email)
+        //     //@ts-ignore
+        //     //@ts-nocheck
+        //     this.props.history.push('/otp')
+        //   } else if (responseJson?.errors) {
+        //     let error = responseJson.errors[0];
+        //     this.setState({ error });
+        //     ApiCatchErrorResponse(this.state.error);
+        //     ApiCatchErrorResponse(errorReponse);
+        //   } else {
+        //     this.setState({ error: responseJson?.error || "Something went wrong!" });
+        //     ApiCatchErrorResponse(this.state.error);
+        //     ApiCatchErrorResponse(errorReponse);
+        //   }
+        //   this.setState({ loading: false })
 
-        } else if (apiRequestCallId === this.verifyOtpApiCallId) {
-          if (!responseJson.errors) {
-            //@ts-ignore
-            //@ts-nocheck
-            this.setState({ loading: false })
-            //@ts-ignore
-            //@ts-nocheck
-            this.props.history.push('/registerunit')
-          } else if (responseJson?.errors) {
-            let error = responseJson.errors[0];
-            this.setState({ error });
-          } else {
-            this.setState({ error: responseJson?.error || "Something went wrong!" });
-            ApiCatchErrorResponse(this.state.error);
-          }
-          this.setState({ loading: false })
-
-        } else if (apiRequestCallId === this.createManagerAccountApiCallId) {
-          if (!responseJson.errors) {
-            localStorage.setItem('res_token', responseJson.meta.token)
-            localStorage.setItem('res_user', responseJson.data.attributes)
-            localStorage.setItem('res_user_id', responseJson.data.id)
-            localStorage.setItem('user_email', responseJson.data.attributes.email)
-            //@ts-ignore
-            //@ts-nocheck
-            this.props.history.push('/otp')
-          } else if (responseJson?.errors) {
-            let error = responseJson.errors[0];
-            this.setState({ error });
-            ApiCatchErrorResponse(this.state.error);
-            ApiCatchErrorResponse(errorReponse);
-          } else {
-            this.setState({ error: responseJson?.error || "Something went wrong!" });
-            ApiCatchErrorResponse(this.state.error);
-            ApiCatchErrorResponse(errorReponse);
-          }
-          this.setState({ loading: false })
-
-        } else if (apiRequestCallId === this.createAccountOwnerApiCallId) {
-          if (!responseJson.errors) {
-            localStorage.setItem('res_token', responseJson.meta.token)
-            localStorage.setItem('res_user', JSON.stringify(responseJson.data.attributes))
-            localStorage.setItem('res_user_id', responseJson.data.id)
-            localStorage.setItem('user_email', responseJson.data.attributes.email)
-            //@ts-ignore
-            //@ts-nocheck
-            this.props.history.push({
-              pathname: '/otp',
-              state: {
-                //@ts-ignore
-                //@ts-nocheck
-                data: this.props.history.location.state?.data,
-              },
-            })
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-          ApiCatchErrorResponse(errorReponse);
-        } else if (apiRequestCallId === this.createRequestApiCallId) {
-          if (!responseJson.errors) {
-            //@ts-ignore
-            //@ts-nocheck
-            this.props.history.push('/RegistrationRequestsignup')
-            //@ts-ignore
-            //@ts-nocheck
-            this.setState({ showDialog: false })
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-          ApiCatchErrorResponse(errorReponse);
-        } else if (apiRequestCallId === this.createRequestManaulApiCallId) {
-          if (!responseJson.errors) {
-            //@ts-ignore
-            //@ts-nocheck
-            this.props.history.push('/RegistrationRequestsignup')
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-          ApiCatchErrorResponse(errorReponse);
-        } else if (apiRequestCallId === this.changeUserTypeApiCallId) {
-          if (!responseJson.errors) {
-            //@ts-ignore
-            //@ts-nocheck
-            this.setState({ loading: false })
-            //@ts-ignore
-            //@ts-nocheck
-            this.props.history.push('/addressfill')
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-          ApiCatchErrorResponse(errorReponse);
-        } else if (apiRequestCallId === this.getCountryApiCallId) {
-          if (!responseJson.errors) {
-            this.setState({ allContries: responseJson.data.countries })
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-          ApiCatchErrorResponse(errorReponse);
-        } else if (apiRequestCallId === this.getComplexApiCallId) {
+        // } 
+        //  if (apiRequestCallId === this.createAccountOwnerApiCallId) {
+        //   if (!responseJson.errors) {
+        //     localStorage.setItem('res_token', responseJson.meta.token)
+        //     localStorage.setItem('res_user', JSON.stringify(responseJson.data.attributes))
+        //     localStorage.setItem('res_user_id', responseJson.data.id)
+        //     localStorage.setItem('user_email', responseJson.data.attributes.email)
+        //     //@ts-ignore
+        //     //@ts-nocheck
+        //     this.props.history.push({
+        //       pathname: '/otp',
+        //       state: {
+        //         //@ts-ignore
+        //         //@ts-nocheck
+        //         data: this.props.history.location.state?.data,
+        //       },
+        //     })
+        //   } else {
+        //     //Check Error Response
+        //     this.parseApiErrorResponse(responseJson);
+        //   }
+        //   ApiCatchErrorResponse(errorReponse);
+        // } 
+        //  if (apiRequestCallId === this.createRequestApiCallId) {
+        //   if (!responseJson.errors) {
+        //     //@ts-ignore
+        //     //@ts-nocheck
+        //     this.props.history.push('/RegistrationRequestsignup')
+        //     //@ts-ignore
+        //     //@ts-nocheck
+        //     this.setState({ showDialog: false })
+        //   } else {
+        //     //Check Error Response
+        //     this.parseApiErrorResponse(responseJson);
+        //   }
+        //   ApiCatchErrorResponse(errorReponse);
+        // } 
+        //  if (apiRequestCallId === this.createRequestManaulApiCallId) {
+        //   if (!responseJson.errors) {
+        //     //@ts-ignore
+        //     //@ts-nocheck
+        //     this.props.history.push('/RegistrationRequestsignup')
+        //   } else {
+        //     //Check Error Response
+        //     this.parseApiErrorResponse(responseJson);
+        //   }
+        //   ApiCatchErrorResponse(errorReponse);
+        // } 
+        //  if (apiRequestCallId === this.changeUserTypeApiCallId) {
+        //   if (!responseJson.errors) {
+        //     //@ts-ignore
+        //     //@ts-nocheck
+        //     this.setState({ loading: false })
+        //     //@ts-ignore
+        //     //@ts-nocheck
+        //     this.props.history.push('/addressfill')
+        //   } else {
+        //     //Check Error Response
+        //     this.parseApiErrorResponse(responseJson);
+        //   }
+        //   ApiCatchErrorResponse(errorReponse);
+        // }
+        //  if (apiRequestCallId === this.getCountryApiCallId) {
+        //   if (!responseJson.errors) {
+        //     this.setState({ allContries: responseJson.data.countries })
+        //   } else {
+        //     //Check Error Response
+        //     this.parseApiErrorResponse(responseJson);
+        //   }
+        //   ApiCatchErrorResponse(errorReponse);
+        // } 
+         if (apiRequestCallId === this.getComplexApiCallId) {
           if (!responseJson.errors) {
             //@ts-ignore
             //@ts-nocheck
@@ -357,13 +376,143 @@ export default class EmailAccountRegistrationController extends BlockComponent<
           }
           ApiCatchErrorResponse(errorReponse);
         }
-      }
     }
 
     // Customizable Area End
   }
 
   // Customizable Area Start
+  handleCreateAccount(responseJson:any,errorReponse:any){
+    if (!responseJson.errors) {
+      localStorage.setItem('res_token', responseJson.meta.token)
+      localStorage.setItem('res_user', JSON.stringify(responseJson.data.attributes))
+      localStorage.setItem('res_user_id', responseJson.data.id)
+      localStorage.setItem('user_email', responseJson.data.attributes.email)
+      //@ts-ignore
+      //@ts-nocheck
+      this.updateType()
+      this.setState({ loading: false, error: null })
+      //@ts-ignore
+      //@ts-nocheck
+      this.props.history.push('/otp')
+    } else if (responseJson?.errors) {
+      let error = responseJson.errors[0];
+      this.setState({ error });
+    } else {
+      this.setState({ error: responseJson?.error || "Something went wrong!" });
+    }
+    
+    ApiCatchErrorResponse(responseJson.errors);
+    this.setState({ loading: false })
+  }
+  handleVerifyOtp(responseJson:any,errorReponse:any){
+    if (!responseJson.errors) {
+      //@ts-ignore
+      //@ts-nocheck
+      this.setState({ loading: false })
+      //@ts-ignore
+      //@ts-nocheck
+      this.props.history.push('/registerunit')
+    } else if (responseJson?.errors) {
+      let error = responseJson.errors[0];
+      this.setState({ error });
+    } else {
+      this.setState({ error: responseJson?.error || "Something went wrong!" });
+      ApiCatchErrorResponse(this.state.error);
+    }
+    this.setState({ loading: false })
+  }
+  handleManagerAccountCreate(responseJson:any,errorReponse:any){
+    if (!responseJson.errors) {
+      localStorage.setItem('res_token', responseJson.meta.token)
+      localStorage.setItem('res_user', responseJson.data.attributes)
+      localStorage.setItem('res_user_id', responseJson.data.id)
+      localStorage.setItem('user_email', responseJson.data.attributes.email)
+      //@ts-ignore
+      //@ts-nocheck
+      this.props.history.push('/otp')
+    } else if (responseJson?.errors) {
+      let error = responseJson.errors[0];
+      this.setState({ error });
+      ApiCatchErrorResponse(this.state.error);
+      ApiCatchErrorResponse(errorReponse);
+    } else {
+      this.setState({ error: responseJson?.error || "Something went wrong!" });
+      ApiCatchErrorResponse(this.state.error);
+      ApiCatchErrorResponse(errorReponse);
+    }
+    this.setState({ loading: false })
+  }
+  handleCreateAccountOwner(responseJson:any,errorReponse:any){
+    if (!responseJson.errors) {
+      localStorage.setItem('res_token', responseJson.meta.token)
+      localStorage.setItem('res_user', JSON.stringify(responseJson.data.attributes))
+      localStorage.setItem('res_user_id', responseJson.data.id)
+      localStorage.setItem('user_email', responseJson.data.attributes.email)
+      //@ts-ignore
+      //@ts-nocheck
+      this.props.history.push({
+        pathname: '/otp',
+        state: {
+          //@ts-ignore
+          //@ts-nocheck
+          data: this.props.history.location.state?.data,
+        },
+      })
+    } else {
+      //Check Error Response
+      this.parseApiErrorResponse(responseJson);
+    }
+    ApiCatchErrorResponse(errorReponse);
+  }
+  handleCreateRequestApiCallId(responseJson:any,errorReponse:any){
+    if (!responseJson.errors) {
+      //@ts-ignore
+      //@ts-nocheck
+      this.props.history.push('/RegistrationRequestsignup')
+      //@ts-ignore
+      //@ts-nocheck
+      this.setState({ showDialog: false })
+    } else {
+      //Check Error Response
+      this.parseApiErrorResponse(responseJson);
+    }
+    ApiCatchErrorResponse(errorReponse);
+  }
+  handleCreateRequestManaulApiCallId(responseJson:any,errorReponse:any){
+    if (!responseJson.errors) {
+      //@ts-ignore
+      //@ts-nocheck
+      this.props.history.push('/RegistrationRequestsignup')
+    } else {
+      //Check Error Response
+      this.parseApiErrorResponse(responseJson);
+    }
+    ApiCatchErrorResponse(errorReponse);
+  }
+  handleChangeUserTypeApiCallId(responseJson:any,errorReponse:any){
+    if (!responseJson.errors) {
+      //@ts-ignore
+      //@ts-nocheck
+      this.setState({ loading: false })
+      //@ts-ignore
+      //@ts-nocheck
+      this.props.history.push('/addressfill')
+    } else {
+      //Check Error Response
+      this.parseApiErrorResponse(responseJson);
+    }
+    ApiCatchErrorResponse(errorReponse);
+  }
+  handleGetCountryApiCallId(responseJson:any,errorReponse:any){
+    if (!responseJson.errors) {
+      this.setState({ allContries: responseJson.data.countries })
+    } else {
+      //Check Error Response
+      this.parseApiErrorResponse(responseJson);
+    }
+    ApiCatchErrorResponse(errorReponse);
+  }
   goToPrivacyPolicy() {
     const msg: Message = new Message(
       getName(MessageEnum.NavigationPrivacyPolicyMessage)
