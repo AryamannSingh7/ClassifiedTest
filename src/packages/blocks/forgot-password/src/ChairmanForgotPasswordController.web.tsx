@@ -213,27 +213,7 @@ export default class ChairmanForgotPasswordController extends BlockComponent<
   };
 
   async receive(from: string, message: Message) {
-    if (getName(MessageEnum.NavigationPayLoadMessage) === message.id) {
-      const otpAuthTkn = message.getData(
-        getName(MessageEnum.AuthTokenDataMessage)
-      );
-
-      if (otpAuthTkn && otpAuthTkn.length > 0) {
-        this.setState({ token: otpAuthTkn });
-        if (this.isChangePassword) {
-          this.setState({ accountStatus: "ChangePassword" });
-        }
-        this.otpToken = this.state.token;
-        // runEngine.debugLog("otpAuthTkn", this.state.token);
-      } else {
-        const accountType = message.getData(
-          getName(MessageEnum.NavigationForgotPasswordPageInfo)
-        );
-        if (accountType) {
-          this.startForgotPassword(accountType);
-        }
-      }
-    } else if (
+    if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.sendEmailOtpCallId !== null &&
       this.sendEmailOtpCallId ===
