@@ -360,31 +360,6 @@ export default class EmailAccountRegistrationController extends BlockComponent<
       }
     }
 
-    if (getName(MessageEnum.NavigationPayLoadMessage) === message.id) {
-      const otpAuthTkn = message.getData(
-        getName(MessageEnum.AuthTokenDataMessage)
-      );
-      if (otpAuthTkn && otpAuthTkn.length > 0) {
-        this.setState({ otpAuthToken: otpAuthTkn });
-        runEngine.debugLog("otpAuthTkn", this.state.otpAuthToken);
-        runEngine.unSubscribeFromMessages(this as IBlock, [message.id]);
-      }
-    }
-
-    if (getName(MessageEnum.CountryCodeMessage) === message.id) {
-      var selectedCode = message.getData(
-        getName(MessageEnum.CountyCodeDataMessage)
-      );
-
-      if (selectedCode !== undefined) {
-        this.setState({
-          countryCodeSelected:
-            selectedCode.indexOf("+") > 0
-              ? selectedCode.split("+")[1]
-              : selectedCode
-        });
-      }
-    }
     // Customizable Area End
   }
 
