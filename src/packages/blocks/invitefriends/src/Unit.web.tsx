@@ -147,7 +147,7 @@ class Unit extends VisitorsListController {
                                                 <Typography style={{fontWeight:"bold"}}>{this.state.unitPagination?.total_count} </Typography>
                                             </Box>
                                             <Box style={{marginRight:"10px"}}>
-                                                <Pagination count={this.state.unitPagination?.total_pages} variant="outlined" shape="rounded" />
+                                                <Pagination count={this.state.unitPagination?.total_pages} onChange={this.handleUnitPagination} variant="outlined" shape="rounded" />
                                             </Box>
                                         </Box>
                                     </Grid>

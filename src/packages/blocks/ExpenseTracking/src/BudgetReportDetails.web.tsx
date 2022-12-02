@@ -6,55 +6,35 @@ import {
   withStyles,
   Button,
   IconButton,
-  Select,
-  MenuItem,
   Divider,
   Table,
   TableHead,
   TableCell,
   TableRow,
   TableBody,
-  InputBase,
   Box,
   Grid,
   Dialog,
   DialogContent,
   DialogActions,
 } from "@material-ui/core";
-import Tooltip from '@material-ui/core/Tooltip';
+import Tooltip from "@material-ui/core/Tooltip";
 import BudgetReportDetailsController, { Props } from "./BudgetReportDetailsController.web";
-import { Menu } from "@szhsin/react-menu";
-import "@szhsin/react-menu/dist/core.css";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
-import SearchIcon from "@material-ui/icons/Search";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-//@ts-ignore
-import Pagination from "@material-ui/lab/Pagination";
 import { withTranslation } from "react-i18next";
 import "web/src/i18n";
-import i18next from "i18next";
-import { ROLE } from "../../../framework/src/Enum";
 import { ReportsStyleWeb } from "./ReportsStyle.web";
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
-import { SearchIconImage } from "./assets";
 import {CheckIcon} from "../../user-profile-basic/src/assets"
 class BudgetReport extends BudgetReportDetailsController {
   constructor(props: Props) {
     super(props);
   } 
 
-  async componentDidMount(): Promise<void> {
-    // this.getBuildingsList();
-  }
-
-  async componentDidUpdate(prevProps: any, prevState: any): Promise<void> {}
-
   render() {
     const { classes } = this.props;
     const { t }: any = this.props;
-
-    console.log(this.state);
 
     return (
       <>
@@ -72,7 +52,7 @@ class BudgetReport extends BudgetReportDetailsController {
                 <Box className="navigation">
                   <Box>
                     <Typography variant="body1">
-                      {t("Documents & Reports")} / {t("Reports")} /  {t("Budget Reports")} / {" "} 
+                      {t("Documents & Reports")} / {t("Reports")} / {t("Budget Reports")} /{" "}
                       <Box component="span" style={{ color: "blue" }}>
                         {t("Budget Report Details")}
                       </Box>
@@ -82,9 +62,7 @@ class BudgetReport extends BudgetReportDetailsController {
                     </Typography>
                   </Box>
                 </Box>
-                <Box className="top-bar">
-                 
-                </Box>
+                <Box className="top-bar" />
                 <Grid className="meeting-table">
                   <Grid item sm={12} md={12} xs={12}>
                     <Box className="table-top">
@@ -95,7 +73,9 @@ class BudgetReport extends BudgetReportDetailsController {
                       <TableHead>
                         <TableRow>
                           <TableCell align="left">{t("Name")}</TableCell>
-                          <TableCell align="right" style={{paddingRight:"50px"}}>{t("Amount")}</TableCell>
+                          <TableCell align="right" style={{ paddingRight: "50px" }}>
+                            {t("Amount")}
+                          </TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
@@ -103,58 +83,68 @@ class BudgetReport extends BudgetReportDetailsController {
                           <TableCell colSpan={6}>{t("No Budget Details are Available")}</TableCell>
                         </TableRow>
                         <TableRow>
-                          <TableCell align="left" style={{display:'flex',alignItems:"center"}}>
+                          <TableCell align="left" style={{ display: "flex", alignItems: "center" }}>
                             Electricity Bill
                             <HtmlTooltip
                               title={
                                 <React.Fragment>
-                                  <Box style={{margin:"10px"}}>
-                                    <Typography variant="h6" style={{fontWeight:"bold",marginBottom:"10px"}}>Electricity Bill</Typography>
-                                    <Typography variant="subtitle2"> Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print </Typography>
-                                  </Box>                                  
+                                  <Box style={{ margin: "10px" }}>
+                                    <Typography variant="h6" style={{ fontWeight: "bold", marginBottom: "10px" }}>
+                                      Electricity Bill
+                                    </Typography>
+                                    <Typography variant="subtitle2">
+                                      {" "}
+                                      Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out
+                                      print{" "}
+                                    </Typography>
+                                  </Box>
                                 </React.Fragment>
                               }
                             >
-                              <IconButton style={{padding:"2px"}}><InfoOutlinedIcon style={{color:"#2B6FED",fontSize:"20px"}}/></IconButton>
+                              <IconButton style={{ padding: "2px" }}>
+                                <InfoOutlinedIcon style={{ color: "#2B6FED", fontSize: "20px" }} />
+                              </IconButton>
                             </HtmlTooltip>
-                            </TableCell>                      
-                          <TableCell align="right" style={{paddingRight:"50px"}}>SR 12,000</TableCell>
+                          </TableCell>
+                          <TableCell align="right" style={{ paddingRight: "50px" }}>
+                            SR 12,000
+                          </TableCell>
                         </TableRow>
                       </TableBody>
                     </Table>
                     <Divider />
                   </Grid>
                 </Grid>
-                <Box style={{display:'flex',justifyContent:"flex-end"}}>
-                          <ApproveButton>Reject</ApproveButton>
-                          <RejectButton onClick={()=> this.setState({ApproveModal:true})}>Approve</RejectButton>
-                  </Box>
+                <Box style={{ display: "flex", justifyContent: "flex-end" }}>
+                  <ApproveButton>Reject</ApproveButton>
+                  <RejectButton onClick={() => this.setState({ ApproveModal: true })}>Approve</RejectButton>
+                </Box>
               </Container>
             </Grid>
             <Dialog
-          fullWidth
-          onClose={() => this.setState({ApproveModal:false})}
-          open={this.state.ApproveModal}
-          className="cancel-meeting-dialog"
-        >   
-          <DialogContent style={{ margin: "15px 0" }}>
-            <Box textAlign="center">
-              <img className="comment-image" src={CheckIcon} alt="check" />
-              <Typography variant="h6">{t("Approve Budget Report")}</Typography>
-              <Typography variant="body1" style={{ marginBottom: "0px" }}>
-                {t("Are you sure you want to approve budget report?")}
-              </Typography>
-              <DialogActions className="dialog-button-group">
-                <Button className="cancel-button" style={{ width: "200px",marginRight:"15px" }} onClick={() => this.setState({ApproveModal:false})}>
-                  {t("Close")}
-                </Button>
-                <Button style={{ width: "200px" }} className="add-button" onClick={() => this.setState({ApproveModal:false})}>
-                  {t("Approve")}
-                </Button>
-              </DialogActions>
-            </Box>
-          </DialogContent>
-        </Dialog>
+              fullWidth
+              onClose={() => this.setState({ApproveModal:false})}
+              open={this.state.ApproveModal}
+              className="cancel-meeting-dialog"
+            >   
+              <DialogContent style={{ margin: "15px 0" }}>
+                <Box textAlign="center">
+                  <img className="comment-image" src={CheckIcon} alt="check" />
+                  <Typography variant="h6">{t("Approve Budget Report")}</Typography>
+                  <Typography variant="body1" style={{ marginBottom: "0px" }}>
+                    {t("Are you sure you want to approve budget report?")}
+                  </Typography>
+                  <DialogActions className="dialog-button-group">
+                    <Button className="cancel-button" style={{ width: "200px",marginRight:"15px" }} onClick={() => this.setState({ApproveModal:false})}>
+                      {t("Close")}
+                    </Button>
+                    <Button style={{ width: "200px" }} className="add-button" onClick={() => this.setState({ApproveModal:false})}>
+                      {t("Approve")}
+                    </Button>
+                  </DialogActions>
+                </Box>
+              </DialogContent>
+            </Dialog>
           </Box>
         </Box>
       </>
@@ -166,39 +156,37 @@ export default withTranslation()(withStyles(ReportsStyleWeb)(BudgetReport));
 
 const HtmlTooltip = withStyles((theme) => ({
   tooltip: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     color: "black",
     maxWidth: 300,
     fontSize: theme.typography.pxToRem(12),
-    border: '1px solid #dadde9',
+    border: "1px solid #dadde9",
   },
 }))(Tooltip);
 
 const RejectButton = withStyles((theme) => ({
   root: {
-      color: "white",
-      backgroundColor: "#2b6fed",
-      fontWeight:"bold",
-      height:"55px",
-      width:"200px",
-      '&:hover': {
-          backgroundColor: "#2b6fef",
-      },
+    color: "white",
+    backgroundColor: "#2b6fed",
+    fontWeight: "bold",
+    height: "55px",
+    width: "200px",
+    "&:hover": {
+      backgroundColor: "#2b6fef",
+    },
   },
 }))(Button);
 
 const ApproveButton = withStyles((theme) => ({
   root: {
-      color: "#2b6fed",
-      backgroundColor: "white",
-      fontWeight:"bold",
-      height:"55px",
-      width:"200px",
-      border:"#2B6FED 1px solid",
-      marginRight:"20px"
-      
+    color: "#2b6fed",
+    backgroundColor: "white",
+    fontWeight: "bold",
+    height: "55px",
+    width: "200px",
+    border: "#2B6FED 1px solid",
+    marginRight: "20px",
   },
 }))(Button);
-
 
 // Customizable Area End

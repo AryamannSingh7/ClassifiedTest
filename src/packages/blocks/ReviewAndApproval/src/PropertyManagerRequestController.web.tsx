@@ -17,6 +17,8 @@ export interface Props {
 
 interface S {
   // Customizable Area Start
+  loading: boolean;
+
   requestList: any[];
   // Customizable Area End
 }
@@ -37,6 +39,8 @@ export default class PropertyManagerRequestController extends BlockComponent<Pro
     this.subScribedMessages = [getName(MessageEnum.RestAPIResponceMessage), getName(MessageEnum.RestAPIRequestMessage)];
 
     this.state = {
+      loading: false,
+
       requestList: [],
     };
     // Customizable Area End
@@ -45,6 +49,10 @@ export default class PropertyManagerRequestController extends BlockComponent<Pro
 
   async receive(from: string, message: Message) {
     // Customizable Area Start
+    let responseJson: any;
+    let errorResponse: any;
+
+    // Get Request Manager List  - API Response
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.GetManagerRequestCallId !== null &&
@@ -52,20 +60,37 @@ export default class PropertyManagerRequestController extends BlockComponent<Pro
     ) {
       this.GetManagerRequestCallId = null;
 
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson && responseJson.data) {
         this.setState({ requestList: responseJson.data });
       }
 
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
+      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
     }
+
+    // Status Update - API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.EditManagerRequestCallId !== null &&
+      this.EditManagerRequestCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.EditManagerRequestCallId = null;
+
+      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      this.setState({ loading: false }, () => {
+        this.getManagerRequestList();
+      });
+
+      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+    }
+    if (responseJson && responseJson.meta && responseJson.meta.token) {
+      runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+    } else {
+      ApiErrorResponse(responseJson);
+    }
+    ApiCatchErrorResponse(errorResponse);
     // Customizable Area End
   }
 
@@ -120,5 +145,11 @@ export default class PropertyManagerRequestController extends BlockComponent<Pro
     return true;
   };
 
+  validationText = (name: any) => {
+    if (name) {
+      return name;
+    }
+    return "N/A";
+  };
   // Customizable Area End
 }

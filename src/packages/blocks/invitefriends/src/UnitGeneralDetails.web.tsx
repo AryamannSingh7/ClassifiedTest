@@ -53,8 +53,8 @@ class UnitGeneralDetails extends VisitorsListController {
   async componentDidMount() {
      // @ts-ignore
     // @ts-nocheck
-   const id = this.props.history.location?.id
-   const ownerId = this.props.history.location?.ownerId
+   const id = this.props.history.location?.id || 274 ;
+   const ownerId = this.props.history.location?.ownerId || 274;
     if(id){
       this.getUnitGeneralDetails(id ,ownerId)
     }else{
@@ -147,20 +147,33 @@ class UnitGeneralDetails extends VisitorsListController {
                                             <Typography variant="subtitle1" style={dashBoard.subtitleClr}>{t("DOB")}</Typography>
                                             <Typography variant="subtitle1">{profileDetails?.date_of_birth?.date_of_birth || 'N/A'}</Typography>
                                         </Grid>
-                                        <Grid item xs={2} sm={3}>
-                                            <Typography variant="subtitle1" style={dashBoard.subtitleClr}>{t("Hobbies")}</Typography>
-                                            {/* <Typography variant="subtitle1">Cricket, Golf</Typography> */}
-                                            {
-                                                profileDetails?.hobbies?.hobbies?.map((val: any, index: any) => (
-                                                  <Grid item xs={6} md={4}>
-                                                    <Box className="customButton" >
-                                                      <Button variant="contained" className="contain warning" key={index}>{val}</Button>
-                                                    </Box>
-                                                  </Grid>
-                                                ))
-      
-                                            }
-                                        </Grid>
+
+                                        {
+                                profileDetails?.hobbies?.publilc_access ?
+                                  <Box className="bio-row" >
+                                    <Typography component="h4">
+                                      Hobbies
+                                    </Typography>
+                                    <Grid container>
+                                      {
+                                        profileDetails?.hobbies?.hobbies?.length === 0 ?
+                                          null
+                                          :
+                                          profileDetails?.hobbies?.hobbies?.map((val: any, index: any) => (
+                                            <Grid item xs={6} md={4}>
+                                              <Box className="customButton" >
+                                                <Button variant="contained" className="contain warning" key={index}>{val}</Button>
+                                              </Box>
+                                            </Grid>
+                                          ))
+                                      }
+                                    </Grid>
+                                  </Box>
+                                  :
+                                  null
+                              }
+                                      
+
                                     </Grid>
                                     <Grid container spacing={3} style={{marginTop:"5px"}}>
                                       {

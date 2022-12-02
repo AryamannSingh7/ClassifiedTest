@@ -265,7 +265,11 @@ export default class FriendListController extends BlockComponent<
       if(this.createNominationId === apiRequestCallId) {
         if(responseJson.meta.message === "Nomination created."){
           this.setState({
-            setOpen:false
+            setOpen:false,
+            nominationTitle:"",
+            nominationStartDate:"",
+            nominationEndDate:"",
+            nominationDescription:"",
           })
           this.getNominationList()
         }else{

@@ -112,6 +112,8 @@ export default class PropertyManagerDetailsController extends BlockComponent<Pro
 
   async receive(from: string, message: Message) {
     // Customizable Area Start
+    let responseJson: any;
+    let errorResponse: any;
     // Get Property Manager Detail - API
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
@@ -120,32 +122,11 @@ export default class PropertyManagerDetailsController extends BlockComponent<Pro
     ) {
       this.GetPropertyManagerDetailsCallId = null;
 
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      if (responseJson && responseJson.data) {
-        const manager = responseJson.data;
-        this.setState({
-          propertyManagerDetails: {
-            managerName: manager.attributes.name,
-            companyName: manager.attributes.company_name,
-            phoneNumber: manager.attributes.mobile_number,
-            email: manager.attributes.email,
-            IdType: manager.attributes.id_proof.name,
-            IdNumber: manager.attributes.id_number,
-            IdDate: manager.attributes.id_expiration_date,
-            IdPdfDocument: manager.attributes.image.url,
-            propertyList: manager.attributes.properties ? manager.attributes.properties.data : [],
-          },
-        });
-      }
+      this.getPropertyManagerDetailsResponse(responseJson);
 
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
+      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
     }
 
     // Complex Details - API Response
@@ -156,25 +137,11 @@ export default class PropertyManagerDetailsController extends BlockComponent<Pro
     ) {
       this.GetComplexDetailsCallId = null;
 
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      if (responseJson && responseJson.complex && responseJson.complex_address) {
-        this.setState({
-          propertyForm: {
-            ...this.state.propertyForm,
-            country: responseJson.complex_address.country,
-            city: responseJson.complex_address.city,
-          },
-        });
-      }
+      this.getComplexDetailsResponse(responseJson);
 
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
+      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
     }
 
     // Edit Property - API Response
@@ -185,22 +152,11 @@ export default class PropertyManagerDetailsController extends BlockComponent<Pro
     ) {
       this.EditPropertyCallId = null;
 
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      this.setState({ loading: false }, () => {
-        if (responseJson) {
-          toast.success("Property details change successfully");
-          this.getPropertyManagerDetails();
-        }
-      });
+      this.editPropertyResponse(responseJson);
 
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
+      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
     }
 
     // Delete Property Manager - API Response
@@ -211,20 +167,14 @@ export default class PropertyManagerDetailsController extends BlockComponent<Pro
     ) {
       this.DeletePropertyManagerCallId = null;
 
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       this.setState({ loading: false }, () => {
         toast.success(responseJson.message);
         this.props.navigation.navigate("PropertyManagerList");
       });
 
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
+      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
     }
 
     // Delete Property - API Response
@@ -235,21 +185,19 @@ export default class PropertyManagerDetailsController extends BlockComponent<Pro
     ) {
       this.DeletePropertyCallId = null;
 
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      this.setState({ loading: false }, () => {
-        toast.success(responseJson.message);
-        this.getPropertyManagerDetails();
-      });
+      this.deletePropertyResponse(responseJson);
 
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
+      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
     }
+
+    if (responseJson && responseJson.meta && responseJson.meta.token) {
+      runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+    } else {
+      ApiErrorResponse(responseJson);
+    }
+    ApiCatchErrorResponse(errorResponse);
     // Customizable Area End
   }
 
@@ -285,6 +233,25 @@ export default class PropertyManagerDetailsController extends BlockComponent<Pro
     return true;
   };
 
+  getPropertyManagerDetailsResponse = (responseJson: any) => {
+    if (responseJson && responseJson.data) {
+      const manager = responseJson.data;
+      this.setState({
+        propertyManagerDetails: {
+          managerName: manager.attributes.name,
+          companyName: manager.attributes.company_name,
+          phoneNumber: manager.attributes.mobile_number,
+          email: manager.attributes.email,
+          IdType: manager.attributes.id_proof.name,
+          IdNumber: manager.attributes.id_number,
+          IdDate: manager.attributes.id_expiration_date,
+          IdPdfDocument: manager.attributes.image.url,
+          propertyList: manager.attributes.properties ? manager.attributes.properties.data : [],
+        },
+      });
+    }
+  };
+
   getComplexDetails = () => {
     const header = {
       "Content-Type": configJSON.ApiContentType,
@@ -309,6 +276,18 @@ export default class PropertyManagerDetailsController extends BlockComponent<Pro
     return true;
   };
 
+  getComplexDetailsResponse = (responseJson: any) => {
+    if (responseJson && responseJson.complex && responseJson.complex_address) {
+      this.setState({
+        propertyForm: {
+          ...this.state.propertyForm,
+          country: responseJson.complex_address.country,
+          city: responseJson.complex_address.city,
+        },
+      });
+    }
+  };
+
   editProperty = (values: any) => {
     let body = {
       properties: {
@@ -330,7 +309,6 @@ export default class PropertyManagerDetailsController extends BlockComponent<Pro
 
     this.EditPropertyCallId = apiRequest.messageId;
 
-    const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
       `bx_block_property_manager/properties/${this.state.propertyId}`
@@ -344,6 +322,15 @@ export default class PropertyManagerDetailsController extends BlockComponent<Pro
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
+  };
+
+  editPropertyResponse = (responseJson: any) => {
+    this.setState({ loading: false }, () => {
+      if (responseJson) {
+        toast.success("Property details change successfully");
+        this.getPropertyManagerDetails();
+      }
+    });
   };
 
   deletePropertyManager = (managerId: any) => {
@@ -392,6 +379,13 @@ export default class PropertyManagerDetailsController extends BlockComponent<Pro
     return true;
   };
 
+  deletePropertyResponse = (responseJson: any) => {
+    this.setState({ loading: false }, () => {
+      toast.success(responseJson.message);
+      this.getPropertyManagerDetails();
+    });
+  };
+
   registerPropertyFormSchema: any = Yup.object().shape({
     buildingId: Yup.string()
       .required("Required")
@@ -415,6 +409,13 @@ export default class PropertyManagerDetailsController extends BlockComponent<Pro
 
   handleEditPropertyModal = () => {
     this.setState({ isEditPropertyModalOpen: !this.state.isEditPropertyModalOpen });
+  };
+
+  validationText = (name: any) => {
+    if (name) {
+      return name;
+    }
+    return "-";
   };
   // Customizable Area End
 }

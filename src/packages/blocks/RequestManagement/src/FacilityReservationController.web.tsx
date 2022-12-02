@@ -9,10 +9,8 @@ import MessageEnum, {
 // Customizable Area Start
 import * as Yup from 'yup';
 import moment from "moment";
-import { withRouter, RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps } from "react-router-dom";
 import { imgPasswordInVisible, imgPasswordVisible } from "./assets";
-import { valueContainerCSS } from "react-select/src/components/containers";
-import { truncateSync } from "fs";
 // Customizable Area End
 
 export const configJSON = require("./config");
@@ -339,7 +337,6 @@ export default class FacilityReservationController extends BlockComponent<
           if (responseJson || responseJson?.data ) {
             this.props.history.push('/FacilityReservationListing')
           console.log("deleteFacilityReservationsApiCallId========================>",responseJson)
-          //this.setState({incidentRelatedData :responseJson?.data.incident_relateds})
 
           this.setState({loading: false})
           } else if (responseJson?.errors) {
@@ -617,47 +614,16 @@ clear= () => {
   this.props.history.push("/");
 }
 
-// onSubmit =(values:any)=>{
-//   localStorage.setItem("incidentPreview", JSON.stringify(values))
-//   console.log("onsbumit=========>", values);
-//     this.setState({ loading: true })
-//     //@ts-ignore
-//     this.props.history.push("/IncidentPreview")
-// }
-
 getFacilityReservationDetails= (idOrName :any) => {
-  if(idOrName ==="Upcoming"){
-  //@ts-ignore
-  localStorage.setItem("idOrName", idOrName);
-  this.props.history.push({pathname: "/FacilityReservationListing"})
+  if(idOrName){
+    if(idOrName ==="Upcoming" || idOrName ==="Pending" || idOrName ==="Previous" || idOrName ==="Rejected" ||idOrName ==="Cancelled"){
+      localStorage.setItem("idOrName", idOrName);
+      this.props.history.push({pathname: "/FacilityReservationListing"})
+    } else{
+      localStorage.setItem("facilityReservationId",idOrName);
+      this.props.history.push({pathname: "/FacilityReservationDetails"});
+    }
   }
-  else if(idOrName ==="Pending"){
-     //@ts-ignore
-  localStorage.setItem("idOrName", idOrName);
-  this.props.history.push({pathname: "/FacilityReservationListing"})   
-}
-  else if(idOrName ==="Previous"){
-     //@ts-ignore
-  localStorage.setItem("idOrName", idOrName);
-  this.props.history.push({pathname: "/FacilityReservationListing"}) }
- 
-  else if(idOrName ==="Rejected"){
-    //@ts-ignore
- localStorage.setItem("idOrName", idOrName);
- this.props.history.push({pathname: "/FacilityReservationListing"}) }
- 
- else if(idOrName ==="Cancelled"){
-  //@ts-ignore
-localStorage.setItem("idOrName", idOrName);
-this.props.history.push({pathname: "/FacilityReservationListing"}) }
-
-  else{
-      //@ts-ignore
-  localStorage.setItem("facilityReservationId",idOrName);
-  this.props.history.push({pathname: "/FacilityReservationDetails"});
-  //this.getIncidentDetailsById(id)
-  }
-   
 }
 
 cancelUpcomingFacilityReservation =(id : any,val : any)=>{
@@ -720,7 +686,6 @@ CreateFacilityReservation = async(val :any) => {
    formData.append('facility_reservation[date]', val?.date);
    formData.append('facility_reservation[time_from]', val?.timeFrom);
    formData.append('facility_reservation[time_to]', val?.timeTo);
-   //formData.append('facility_reservation[apartment_management_id]', val?.);
 
       const httpBody = formData;
     this.setState({loading: true})
@@ -774,7 +739,6 @@ CreateFacilityReservation = async(val :any) => {
      formData.append('facility_reservation[date]', val?.date);
      formData.append('facility_reservation[time_from]', val?.timeFrom);
      formData.append('facility_reservation[time_to]', val?.timeTo);
-     //formData.append('facility_reservation[apartment_management_id]', val?.);
   
         const httpBody = formData;
       this.setState({loading: true})
@@ -822,14 +786,12 @@ CreateFacilityReservation = async(val :any) => {
         token :localStorage.getItem("userToken")
       };
 
-      //const id = localStorage.getItem("userId");
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
       this.getFacilityReservationListingApiCallId = requestMessage.messageId;
       this.setState({ loading: true });
       const  getSortByOrStatus = `bx_block_society_management/facility_reservations?sort_type=${sortBy}`
-    // const  getSortByOrStatus = `bx_block_custom_form/incidents?sort_type=${sortBy}&filter_by=${status}`
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
@@ -895,9 +857,6 @@ CreateFacilityReservation = async(val :any) => {
         "Content-Type": configJSON.validationApiContentType,
         token :localStorage.getItem("userToken")
       };
-      console.log("id =====================>",id)
-    // const society_id = localStorage.getItem("society_id")
-      //const id = localStorage.getItem("userId");
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
@@ -933,7 +892,6 @@ CreateFacilityReservation = async(val :any) => {
         token :localStorage.getItem("userToken")
       };
 
-      //const id = localStorage.getItem("userId");
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
@@ -968,7 +926,7 @@ CreateFacilityReservation = async(val :any) => {
         "Content-Type": configJSON.validationApiContentType,
         token :localStorage.getItem("userToken")
       };
-      //const id = localStorage.getItem("userId");
+    
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
@@ -1018,8 +976,7 @@ CreateFacilityReservation = async(val :any) => {
     const header = {
       token :localStorage.getItem("userToken")
     };
-    //const id =this.state?.
-    console.log("id deleteFacilityReservations==============>",id)
+    
     this.setState({loading: true}) 
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
@@ -1053,14 +1010,12 @@ CreateFacilityReservation = async(val :any) => {
         token :localStorage.getItem("userToken")
       };
 
-      //const id = localStorage.getItem("userId");
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
       this.getFacilityReservationCountApiCallId = requestMessage.messageId;
       this.setState({ loading: true });
       const  getSortByOrStatus = `/bx_block_society_management/facility_reservations/reservation_list_count`
-    // const  getSortByOrStatus = `bx_block_custom_form/incidents?sort_type=${sortBy}&filter_by=${status}`
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),

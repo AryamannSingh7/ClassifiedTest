@@ -75,7 +75,7 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    <span>{this.state.propertyManagerDetails.managerName || "-"}</span>
+                    <span>{this.validationText(this.state.propertyManagerDetails.managerName)}</span>
                   </div>
                   <div className="right-icon">
                     <img
@@ -105,7 +105,7 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                               <img src={BlueManagerIcon} alt="" />
                               <Box className="box-item-content">
                                 <span>{t("Manager Name")}</span>
-                                <p>{this.state.propertyManagerDetails.managerName || "-"}</p>
+                                <p>{this.validationText(this.state.propertyManagerDetails.managerName)}</p>
                               </Box>
                             </Box>
                           </Grid>
@@ -114,7 +114,7 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                               <img src={BlueCompanyIcon} alt="" />
                               <Box className="box-item-content">
                                 <span>{t("Company Name")}</span>
-                                <p>{this.state.propertyManagerDetails.companyName || "-"}</p>
+                                <p>{this.validationText(this.state.propertyManagerDetails.companyName)}</p>
                               </Box>
                             </Box>
                           </Grid>
@@ -123,7 +123,7 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                               <img src={BluePhoneIcon} alt="" />
                               <Box className="box-item-content">
                                 <span>{t("Phone Number")}</span>
-                                <p>{this.state.propertyManagerDetails.phoneNumber || "-"}</p>
+                                <p>{this.validationText(this.state.propertyManagerDetails.phoneNumber)}</p>
                               </Box>
                             </Box>
                           </Grid>
@@ -132,7 +132,7 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                               <img src={BlueEmailIcon} alt="" />
                               <Box className="box-item-content">
                                 <span>{t("Email Address")}</span>
-                                <p>{this.state.propertyManagerDetails.email || "-"}</p>
+                                <p>{this.validationText(this.state.propertyManagerDetails.email)}</p>
                               </Box>
                             </Box>
                           </Grid>
@@ -231,7 +231,7 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                               <img src={BlueTypeIcon} alt="" />
                               <Box className="box-item-content">
                                 <span>{t("ID Type")}</span>
-                                <p>{this.state.propertyManagerDetails.IdType || "-"}</p>
+                                <p>{this.validationText(this.state.propertyManagerDetails.IdType)}</p>
                               </Box>
                             </Box>
                           </Grid>
@@ -240,7 +240,7 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                               <img src={BlueNumberIcon} alt="" />
                               <Box className="box-item-content">
                                 <span>{t("ID Number")}</span>
-                                <p>{this.state.propertyManagerDetails.IdNumber || "-"}</p>
+                                <p>{this.validationText(this.state.propertyManagerDetails.IdNumber)}</p>
                               </Box>
                             </Box>
                           </Grid>
@@ -250,9 +250,11 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                               <Box className="box-item-content">
                                 <span>{t("ID Expiration Date")}</span>
                                 <p>
-                                  {moment(this.state.propertyManagerDetails.IdDate, "YYYY-MM-DD").format(
-                                    "MMMM DD, YYYY"
-                                  )}
+                                  {this.state.propertyManagerDetails.IdDate
+                                    ? moment(this.state.propertyManagerDetails.IdDate, "YYYY-MM-DD").format(
+                                        "MMMM DD, YYYY"
+                                      )
+                                    : "-"}
                                 </p>
                               </Box>
                             </Box>

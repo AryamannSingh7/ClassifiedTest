@@ -901,6 +901,65 @@
   font-weight: 600;
 }
 
+.condition-modal .condition-box.filter-box .heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
+}
+
+.condition-modal .condition-box .heading p {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.condition-modal .condition-box .heading span {
+  font-weight: 600;
+  color: #8d8d8d;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.condition-modal .condition-box.filter-box .content-box {
+  margin-bottom: 0;
+  width: 100%;
+}
+
+.condition-modal .filter-box .accordion-box .MuiAccordion-root {
+  box-shadow: none;
+}
+
+.condition-modal .filter-box .accordion-box .MuiAccordionSummary-root {
+  padding: 0;
+}
+
+.condition-modal .filter-box .accordion-box .MuiAccordionSummary-root p {
+  font-weight: 600;
+}
+
+.condition-modal .filter-box .accordion-box .MuiAccordionSummary-expandIcon {
+  transform: rotate(-90deg);
+  padding: 0;
+}
+
+.condition-modal .filter-box .accordion-box .MuiAccordionSummary-expandIcon.Mui-expanded {
+  transform: rotate(0deg);
+  padding: 0;
+}
+
+.condition-modal .filter-box .accordion-box .MuiAccordionDetails-root {
+  padding: 0 16px 0;
+}
+
+.condition-modal .filter-box .accordion-box .MuiAccordionSummary-content,
+.condition-modal .filter-box .accordion-box .MuiAccordionSummary-content.Mui-expanded {
+  margin: 10px 0;
+}
+
+.condition-modal .filter-box .accordion-box .MuiAccordionSummary-root.Mui-expanded {
+  min-height: 40px;
+}
+
 .condition-modal .condition-box .condition {
   display: flex;
   align-items: center;

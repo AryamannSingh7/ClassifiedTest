@@ -81,6 +81,12 @@ class ChairmanNomination extends ChairmainNominationController{
                                                     </Box>
                                                 </Grid>
                                                 {
+                                                    item.attributes.stage === "Upcoming Nomination" &&
+                                                    <Grid item xs={12} className={"nominationBlueBG"} style={{marginBottom:"10px",marginTop:"10px"}}>
+                                                        <Typography variant="body1" style={{width:"100%"}} className="nominationBlueText" >{item.attributes.stage || "NA"}</Typography>
+                                                    </Grid>
+                                                }
+                                                {
                                                     item.attributes.stage === "Nomination Started" &&
                                                     <Grid item xs={12} className={"nominationBlueBG"} style={{marginBottom:"10px",marginTop:"10px"}}>
                                                         <Typography variant="body1" style={{width:"100%"}} className="nominationBlueText" >{item.attributes.stage || "NA"}</Typography>
@@ -99,7 +105,7 @@ class ChairmanNomination extends ChairmainNominationController{
                                                     </Grid>
                                                 }
                                                 {
-                                                    item.attributes.stage === "Voting Ended" &&
+                                                    item.attributes.stage === "Voting Closed" &&
                                                     <Grid item xs={12} className={"nominationGrayBG"} style={{marginBottom:"10px",marginTop:"10px"}}>
                                                         <Typography variant="body1" style={{width:"100%"}} className="nominationGrayText" >{item.attributes.stage || "NA"}</Typography>
                                                     </Grid>

@@ -17,6 +17,7 @@ export interface Props {
 
 interface S {
   profileId: string;
+  unitId: string;
 
   profileData: ProfileData;
 }
@@ -52,6 +53,7 @@ export default class TenantProfileController extends BlockComponent<Props, S, SS
 
     this.state = {
       profileId: "",
+      unitId: "",
 
       profileData: {
         image: "",
@@ -80,25 +82,9 @@ export default class TenantProfileController extends BlockComponent<Props, S, SS
     ) {
       this.GetProfileDetailsCallId = null;
 
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      let responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      if (responseJson && responseJson.data) {
-        const tenant = responseJson.data;
-        this.setState({
-          profileData: {
-            image: tenant.attributes.profile_pic ? tenant.attributes.profile_pic.url : "",
-            name: tenant.attributes.full_name.name,
-            gender: tenant.attributes.gender.gender,
-            dob: tenant.attributes.date_of_birth.date_of_birth,
-            bio: tenant.attributes.bio.bio,
-            hobbies: tenant.attributes.hobbies.hobbies ? tenant.attributes.hobbies.hobbies : [],
-            isDisableChat: tenant.attributes.disable_chat,
-            phone: tenant.attributes.full_phone_number.full_phone_number,
-            email: tenant.attributes.email.email,
-            social: tenant.attributes.website,
-          },
-        });
-      }
+      this.getProfileDetailsResponse(responseJson);
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
@@ -112,7 +98,8 @@ export default class TenantProfileController extends BlockComponent<Props, S, SS
 
   async componentDidMount(): Promise<void> {
     const profile_id = this.props.navigation.getParam("id");
-    this.setState({ profileId: profile_id }, () => {
+    const unit_id = this.props.navigation.getParam("uId");
+    this.setState({ profileId: profile_id, unitId: unit_id }, () => {
       this.getProfileDetails();
     });
   }
@@ -138,5 +125,32 @@ export default class TenantProfileController extends BlockComponent<Props, S, SS
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
+  };
+
+  getProfileDetailsResponse = (responseJson: any) => {
+    if (responseJson && responseJson.data) {
+      const tenant = responseJson.data;
+      this.setState({
+        profileData: {
+          image: tenant.attributes.profile_pic ? tenant.attributes.profile_pic.url : "",
+          name: tenant.attributes.full_name.name,
+          gender: tenant.attributes.gender.gender,
+          dob: tenant.attributes.date_of_birth.date_of_birth,
+          bio: tenant.attributes.bio.bio,
+          hobbies: tenant.attributes.hobbies.hobbies ? tenant.attributes.hobbies.hobbies : [],
+          isDisableChat: tenant.attributes.disable_chat,
+          phone: tenant.attributes.full_phone_number.full_phone_number,
+          email: tenant.attributes.email.email,
+          social: tenant.attributes.website,
+        },
+      });
+    }
+  };
+
+  validationText = (name: any) => {
+    if (name) {
+      return name;
+    }
+    return "-";
   };
 }

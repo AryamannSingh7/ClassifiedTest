@@ -1,36 +1,14 @@
-//@ts-ignore
-//@ts-nocheck
 import React from "react";
-
-//components
-import {
-  Box,
-  Button,
-  Link,
-  Typography,
-  IconButton,
-  Grid
-} from "@material-ui/core";
-
-//resources
-import MailOutlineIcon from '@material-ui/icons/MailOutline';
-import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
-
+import { Box, Button, Link, Typography, Grid } from "@material-ui/core";
 import { Formik, Form, Field } from "formik";
-import { withRouter } from 'react-router';
+import { withRouter } from "react-router";
 import Loader from "../../../components/src/Loader.web";
-import { Input } from "react-native-elements";
-import * as Yup from "yup";
-import CountryCodeSelector from "../../country-code-selector/src/CountryCodeSelector";
 import ChairmanForgotPasswordController, { Props } from "./ChairmanForgotPasswordController.web";
 import { Menu } from "@szhsin/react-menu";
-import MenuItem from '@material-ui/core/MenuItem';
+import MenuItem from "@material-ui/core/MenuItem";
 import "@szhsin/react-menu/dist/core.css";
-
-//Customizable Area End
-
-//resorces
-import { Tenant_Logo, Building_Logo, Email_Icon, User_Icon, Lock_User_Icon, Building1 ,globalIcon} from "../src/assets";
+import { Tenant_Logo, Building_Logo, Lock_User_Icon, Building1, globalIcon } from "../src/assets";
+import i18next from "i18next";
 
 class ChairmanForgotPassword extends ChairmanForgotPasswordController {
   constructor(props: Props) {
@@ -48,22 +26,18 @@ class ChairmanForgotPassword extends ChairmanForgotPasswordController {
   };
 
   render() {
-    const { navigation } = this.props;
-
     return (
       <>
-
-
         <Box className="login-wrapper  auth-wrapper">
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
               <Box className="content-block">
-                <Box className="logo-block common-top-padding common-logo-block" display={{ xs: 'none', md: 'flex' }}>
+                <Box className="logo-block common-top-padding common-logo-block" display={{ xs: "none", md: "flex" }}>
                   <Link href="/ChairmanLogin">
                     <img src={Building_Logo.default} className="head-logo" alt="" />
                     <h4>Building Name</h4>
                   </Link>
-                  <Box  >
+                  <Box>
                     <Menu
                       className="chairman-lang-menu chairman-menu"
                       arrow={true}
@@ -86,16 +60,13 @@ class ChairmanForgotPassword extends ChairmanForgotPasswordController {
                   </Box>
                 </Box>
                 <Box className="main-content-block desktop-ui">
-                  {/* <Box className="header-block">
-                    <Box display={{ xs: 'flex', md: 'none' }}>
-                      <img src={Tenant_Logo} className="tenant-logo" alt="" />
-                    </Box>
-                    <h1>Welcome Back</h1>
-                    <p>Login with your account credentials </p>
-                  </Box> */}
                   <Box className="header-block">
                     <h1>Forgot Password</h1>
-                    <h6>One Time Password(OTP) will be sent<br></br>to the regestered email.</h6>
+                    <h6>
+                      One Time Password(OTP) will be sent
+                      <br />
+                      to the regestered email.
+                    </h6>
                   </Box>
                   <Formik
                     initialValues={{
@@ -104,46 +75,43 @@ class ChairmanForgotPassword extends ChairmanForgotPasswordController {
                     validationSchema={this.EmailSchema()}
                     validateOnMount={true}
                     onSubmit={(values) => {
-                      console.log("valus=========>", values)
-                      this.checkUser(values)
-                      // same shape as initial values
+                      this.checkUser(values);
                     }}
                   >
                     {({ values, touched, errors, isValid, setFieldValue, handleChange }) => (
                       <Form translate="yes" className="commonForm">
                         <Box className="formGroup">
-                          {/* <label htmlFor="" className="textfieldLabel">Enter your regestered Email </label> */}
                           <div className="formInputGrp">
-                            <Field type="text" name="email" placeholder="Email ID or Mobile Number" className="formInput" />
+                            <Field
+                              type="text"
+                              name="email"
+                              placeholder="Email ID or Mobile Number"
+                              className="formInput"
+                            />
                             <span className="frmLeftIcons">
                               <img src={Lock_User_Icon} className="frm-icons" alt="Email Icon" />
                             </span>
                           </div>
 
-                          {
-                            errors.email && touched.email ?
-                              (
-                                <Typography className="text-error">{errors.email} </Typography>
-                              ) : null
-                          }
+                          {errors.email && touched.email ? (
+                            <Typography className="text-error">{errors.email} </Typography>
+                          ) : null}
                         </Box>
                         <Box className="customButton">
-                          <Button variant="contained" type="submit">next</Button>
+                          <Button variant="contained" type="submit">
+                            next
+                          </Button>
                         </Box>
                         <Box className="passwordRow">
                           Back to
-                          <Link href="ChairmanLogin" className="link"> <span> Login</span></Link>
+                          <Link href="ChairmanLogin" className="link">
+                            <span> Login</span>
+                          </Link>
                         </Box>
                       </Form>
                     )}
                   </Formik>
                 </Box>
-                {/* mobile footer block */}
-                {/* <Box className="bottomBlock common-bottom-padding" display={{ xs: 'flex', md: 'none' }}>
-                  <Link href="#" className="link">Don't have an account ? </Link>
-                  <Link href="#" className="link"> <span> register</span></Link>
-                </Box> */}
-                {/* desktop footer block */}
                 <Box className="footer-main-block bottomBlock">
                   <h6 className="bottom-text">POWERED BY</h6>
                   <img src={Tenant_Logo.default} className="tenant-logo" alt="" />
@@ -151,7 +119,7 @@ class ChairmanForgotPassword extends ChairmanForgotPasswordController {
               </Box>
             </Grid>
             <Grid item xs={12} md={5} className="auth-cols">
-              <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
+              <Box className="right-block" display={{ xs: "none", md: "flex" }}>
                 <img src={Building1.default} className="building-logo" alt="" />
               </Box>
             </Grid>
@@ -159,8 +127,8 @@ class ChairmanForgotPassword extends ChairmanForgotPasswordController {
         </Box>
         <Loader loading={this.state.loading} />
       </>
-    )
+    );
   }
 }
-
-export default withRouter(ChairmanForgotPassword)
+//@ts-ignore
+export default withRouter(ChairmanForgotPassword);

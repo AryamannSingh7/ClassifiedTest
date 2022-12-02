@@ -212,258 +212,86 @@ export default class ChairmanForgotPasswordController extends BlockComponent<
     runEngine.sendMessage(requestMessage.id, requestMessage);
   };
 
-  async receive(from: string, message: Message) {
-    if (getName(MessageEnum.NavigationPayLoadMessage) === message.id) {
-      const otpAuthTkn = message.getData(
-        getName(MessageEnum.AuthTokenDataMessage)
-      );
+  sendEmailOtpCallIdResponse = (responseJson:any ,errorReponse:any) => {
+    if ( responseJson.meta && responseJson.meta.token) {
+      //this.otpToken = responseJson.meta.token;
+      console.log("checuser==============================>,",responseJson)
+     // this.setState({ token:responseJson.meta.token, emailOtp:responseJson.email_otp });
+     localStorage.setItem("otpToken", responseJson?.meta?.token)
+     localStorage.setItem("emailOtp", responseJson?.email_otp)
+     this.setState({loading: false})
+     //@ts-ignore
+      this.props.history.push("/ChairmanForgotPasswordOTP")
+          
+    //error handling
+    
+  } else if (responseJson?.errors) {
+    let error = responseJson.errors[0]
+    this.setState({ error });
+  } else {
+    this.setState({ error: responseJson?.error || "Something went wrong!" });
+  }
+  this.parseApiCatchErrorResponse(this.state.error);
+  this.setState({loading: false , error:null})
+  }
 
-      if (otpAuthTkn && otpAuthTkn.length > 0) {
-        this.setState({ token: otpAuthTkn });
-        if (this.isChangePassword) {
-          this.setState({ accountStatus: "ChangePassword" });
-        }
-        this.otpToken = this.state.token;
-        // runEngine.debugLog("otpAuthTkn", this.state.token);
-      } else {
-        const accountType = message.getData(
-          getName(MessageEnum.NavigationForgotPasswordPageInfo)
-        );
-        if (accountType) {
-          this.startForgotPassword(accountType);
-        }
-      }
-    } else if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.validationAPICallId &&
-      this.validationAPICallId ===
-        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      var responseJson = message.getData(
-        getName(MessageEnum.RestAPIResponceSuccessMessage)
-      );
-
-      if (responseJson === undefined) {
-        return;
-      }
-
-      if (responseJson && responseJson.data[0]) {
-        const passRegex = RegExp(
-          responseJson.data[0].password_validation_regexp
-        );
-        const emailRegex = RegExp(responseJson.data[0].email_validation_regexp);
-        const passwordRulesFromValidation =
-          responseJson.data[0].password_validation_rules;
-
-        this.setState({
-          //email schema
-          emailSchema: {
-            email: Yup.string()
-              .email(configJSON.pleaseEnterAValidEmail)
-              .required(configJSON.emailIsRequired)
-              .matches(emailRegex, configJSON.invalidEmailAddress)
-          },
-          //password schema
-          passwordSchema: {
-            password: Yup.string()
-              .required(configJSON.pleaseEnterAPassword)
-              .matches(passRegex, configJSON.invalidPassword),
-
-            confirmPassword: Yup.string()
-              .required(configJSON.pleaseConfirmYourPassword)
-              .when("password", {
-                is: val => (val && val.length > 0 ? true : false),
-                then: Yup.string().oneOf(
-                  [Yup.ref("password")],
-                  configJSON.passwordsMustMatch
-                )
-              })
-          },
-          passwordRules: passwordRulesFromValidation
-        });
-      }
-    } else if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.sendEmailOtpCallId !== null &&
-      this.sendEmailOtpCallId ===
-        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      // console.log("entered email!!!!");
-      var responseJson = message.getData(
-        getName(MessageEnum.RestAPIResponceSuccessMessage)
-      );
-
-      if (
-        responseJson !== undefined &&
-        responseJson.meta &&
-        responseJson.meta.token
-      ) {
-        //this.otpToken = responseJson.meta.token;
-        console.log("checuser==============================>,",responseJson)
-       // this.setState({ token:responseJson.meta.token, emailOtp:responseJson.email_otp });
-       localStorage.setItem("otpToken", responseJson?.meta?.token)
-       localStorage.setItem("emailOtp", responseJson?.email_otp)
-       this.setState({loading: false})
-       //@ts-ignore
-        this.props.history.push("/ChairmanForgotPasswordOTP")
-        //window.location ="/ChairmanForgotPasswordOTP" as any ;
-        //navigate to OTP page
-        // const msg: Message = new Message(
-        //   getName(MessageEnum.NavigationMobilePhoneOTPMessage)
-        // );
-
-        // msg.addData(
-        //   getName(MessageEnum.AuthTokenDataMessage),
-        //   this.state.token
-        // );
-
-        // msg.addData(getName(MessageEnum.NavigationPropsMessage), this.props);
-
-        // msg.addData(
-        //   getName(MessageEnum.AuthTokenEmailMessage),
-        //   this.state.emailValue
-        // );
-
-        // msg.addData(getName(MessageEnum.EnterOTPAsForgotPasswordMessage), true);
-
-        // this.send(msg);
-      }
-      //error handling
-      
-      else if (responseJson?.errors) {
-        //Check Error Response
-        let error = Object.values(responseJson.errors[0])[0] as string;
-        this.setState({ error });
-      } else {
-        this.setState({ error: responseJson?.error || "Something went wrong!" });
-      }
-      this.parseApiCatchErrorResponse(this.state.error);
-      this.setState({loading: false , error:null})
-      
-    }  else if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.verifyOtpApiCallId !== null &&
-      this.verifyOtpApiCallId ===
-        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      var responseJson = message.getData(
-        getName(MessageEnum.RestAPIResponceSuccessMessage)
-      );
-
-      var errorReponse = message.getData(
-        getName(MessageEnum.RestAPIResponceErrorMessage)
-      );
-
-      if (responseJson?.messages) {
-        console.log('responseJson===========> successflll',responseJson)
-        // let params = new URL(document.location as any).searchParams;
-        // let token = params.get("token");
-        //window.location = "/new-password?token=" + token as any;
-        this.setState({loading: false})
-          //@ts-ignore
-          this.props.history.push("/ChairmanChangePassword")
-        //  window.location ="/ChairmanChangePassword" as any
-      } else if (responseJson?.errors) {
-          let error = responseJson?.errors[0]?.pin as string;
-          this.setState({ error });
-      } else {
-          this.setState({ error: responseJson?.error || 'Something went wrong!' });
-      }
-      this.parseApiCatchErrorResponse(this.state.error);
-      this.setState({loading: false , error:null})
+  requestChangePasswordCallIdResponse = (responseJson:any) => {
+    if (responseJson?.data) {
+      this.setState({loading: false})
+      //@ts-ignore
+      this.props.history.push("/ChairmanChangeSuccessfully")
+      //window.location ="/ChairmanChangeSuccessfully" as any
+     //window.location.replace("/ChangePassword") 
+    } else if (responseJson?.message) {
+      this.setState({ error: responseJson?.message });
+    } 
+    else {
+      console.log("Something responseJson  ===========>",responseJson)
+        this.setState({ error: 'Something went wrong!' });
     }
-    else if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.requestPhoneOtpCallId !== null &&
-      this.requestPhoneOtpCallId ===
-        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      // console.log("entered phone!!!!");
-      var responseJson = message.getData(
+    this.parseApiCatchErrorResponse(this.state.error);
+    this.setState({loading: false , error:null})
+  }
+
+  verifyOtpApiCallIdResponse = (responseJson:any) => {
+    if (responseJson?.hasOwnProperty('messages')) {
+      console.log('responseJson===========> successflll',responseJson)
+          this.setState({loading: false})
+            //@ts-ignore
+            this.props.history.push("/ChairmanChangePassword")
+          //  window.location ="/ChairmanChangePassword" as any
+        } else if (responseJson?.errors ) {
+            let error = responseJson?.errors[0]?.pin as string;
+            this.setState({ error : error || 'Something went wrong!' });
+        } 
+        this.parseApiCatchErrorResponse(this.state.error);
+        this.setState({loading: false , error:null})
+  }
+
+  async receive(from: string, message: Message) {
+    if (getName(MessageEnum.RestAPIResponceMessage) === message.id) {
+      const apiRequestCallId = message.getData(
+        getName(MessageEnum.RestAPIResponceDataMessage)
+      );
+
+      let responseJson = message.getData(
         getName(MessageEnum.RestAPIResponceSuccessMessage)
       );
 
-      if (
-        responseJson !== undefined &&
-        responseJson.meta &&
-        responseJson.meta.token
-      ) {
-        this.otpToken = responseJson.meta.token;
-        this.setState({ token: this.otpToken });
-
-        const msg: Message = new Message(
-          getName(MessageEnum.NavigationMobilePhoneOTPMessage)
-        );
-        msg.addData(
-          getName(MessageEnum.AuthTokenDataMessage),
-          this.state.token
-        );
-
-        msg.addData(getName(MessageEnum.NavigationPropsMessage), this.props);
-
-        msg.addData(
-          getName(MessageEnum.AuthTokenPhoneNumberMessage),
-          this.state.phoneValue
-        );
-
-        msg.addData(getName(MessageEnum.EnterOTPAsForgotPasswordMessage), true);
-
-        this.send(msg);
-      }
-      //error handling
-      else if (responseJson && responseJson.errors) {
-        this.parseApiErrorResponse(responseJson);
-      } else {
-        var errorReponse = message.getData(
-          getName(MessageEnum.RestAPIResponceErrorMessage)
-        );
-
-        this.parseApiCatchErrorResponse(errorReponse);
-      }
-    } else if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.requestChangePasswordCallId !== null &&
-      this.requestChangePasswordCallId ===
-        message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      // console.log("entered 3");
-      var responseJson = message.getData(
-        getName(MessageEnum.RestAPIResponceSuccessMessage)
-      );
-
-      var errorReponse = message.getData(
+      let errorReponse = message.getData(
         getName(MessageEnum.RestAPIResponceErrorMessage)
       );
 
-      if (responseJson?.data) {
-        this.setState({loading: false})
-        //@ts-ignore
-        this.props.history.push("/ChairmanChangeSuccessfully")
-        //window.location ="/ChairmanChangeSuccessfully" as any
-       //window.location.replace("/ChangePassword") 
-      } else if (responseJson?.message) {
-        this.setState({ error: responseJson?.message });
-      } else if (responseJson?.errors) {
-          let error = `${Object.values(responseJson.errors[0])[0]}` as string;
-          this.setState({ error });
-      } else {
-        console.log("Something responseJson  ===========>",responseJson)
-          this.setState({ error: responseJson?.error || 'Something went wrong!' });
-      }
-      this.parseApiCatchErrorResponse(this.state.error);
-      this.setState({loading: false , error:null})
-    } else if (getName(MessageEnum.CountryCodeMessage) === message.id) {
-      var selectedCode = message.getData(
-        getName(MessageEnum.CountyCodeDataMessage)
-      );
-
-      if (selectedCode !== undefined) {
-        this.setState({
-          countryCodeSelected:
-            selectedCode.indexOf("+") > 0
-              ? selectedCode.split("+")[1]
-              : selectedCode
-        });
+      if (apiRequestCallId && responseJson) {
+         if (apiRequestCallId === this.sendEmailOtpCallId) {
+            this.sendEmailOtpCallIdResponse(responseJson ,errorReponse)
+        }
+        else if (apiRequestCallId === this.requestChangePasswordCallId) {
+            this.requestChangePasswordCallIdResponse(responseJson)
+        }
+        else if (apiRequestCallId === this.verifyOtpApiCallId) {
+              this.verifyOtpApiCallIdResponse(responseJson)
+        }
       }
     }
   }
