@@ -178,239 +178,249 @@ export default class EmailAccountRegistrationController extends BlockComponent<
         getName(MessageEnum.RestAPIResponceDataMessage)
       );
 
-      var responseJson = message.getData(
+      let responseJson = message.getData(
         getName(MessageEnum.RestAPIResponceSuccessMessage)
       );
 
-      var errorReponse = message.getData(
+      let errorReponse = message.getData(
         getName(MessageEnum.RestAPIResponceErrorMessage)
       );
-
-      if (apiRequestCallId && responseJson) {
-        if (apiRequestCallId === this.validationApiCallId) {
-          this.arrayholder = responseJson.data;
-
-          if (this.arrayholder && this.arrayholder.length !== 0) {
-            let regexData = this.arrayholder[0];
-
-            if (regexData.password_validation_regexp) {
-              this.passwordReg = new RegExp(
-                regexData.password_validation_regexp
-              );
-            }
-
-            if (regexData.password_validation_rules) {
-              this.setState({
-                passwordHelperText: regexData.password_validation_rules
-              });
-            }
-
-            if (regexData.email_validation_regexp) {
-              this.emailReg = new RegExp(regexData.email_validation_regexp);
-            }
-          }
-        } else if (apiRequestCallId === this.createAccountApiCallId) {
-          if (!responseJson.errors) {
-            localStorage.setItem('res_token', responseJson.meta.token)
-            localStorage.setItem('res_user', JSON.stringify(responseJson.data.attributes))
-            localStorage.setItem('res_user_id', responseJson.data.id)
-            localStorage.setItem('user_email', responseJson.data.attributes.email)
-            //@ts-ignore
-            //@ts-nocheck
-            this.updateType()
-            this.setState({ loading: false, error: null })
-            //@ts-ignore
-            //@ts-nocheck
-            this.props.history.push('/otp')
-          } else if (responseJson?.errors) {
-            let error = responseJson.errors[0];
-            this.setState({ error });
-          } else {
-            this.setState({ error: responseJson?.error || "Something went wrong!" });
-          }
-          
-          ApiCatchErrorResponse(responseJson.errors);
-          this.setState({ loading: false })
-
-        } else if (apiRequestCallId === this.verifyOtpApiCallId) {
-          if (!responseJson.errors) {
-            //@ts-ignore
-            //@ts-nocheck
-            this.setState({ loading: false })
-            //@ts-ignore
-            //@ts-nocheck
-            this.props.history.push('/registerunit')
-          } else if (responseJson?.errors) {
-            let error = responseJson.errors[0];
-            this.setState({ error });
-          } else {
-            this.setState({ error: responseJson?.error || "Something went wrong!" });
-            ApiCatchErrorResponse(this.state.error);
-          }
-          this.setState({ loading: false })
-
-        } else if (apiRequestCallId === this.createManagerAccountApiCallId) {
-          if (!responseJson.errors) {
-            localStorage.setItem('res_token', responseJson.meta.token)
-            localStorage.setItem('res_user', responseJson.data.attributes)
-            localStorage.setItem('res_user_id', responseJson.data.id)
-            localStorage.setItem('user_email', responseJson.data.attributes.email)
-            //@ts-ignore
-            //@ts-nocheck
-            this.props.history.push('/otp')
-          } else if (responseJson?.errors) {
-            let error = responseJson.errors[0];
-            this.setState({ error });
-            ApiCatchErrorResponse(this.state.error);
-            ApiCatchErrorResponse(errorReponse);
-          } else {
-            this.setState({ error: responseJson?.error || "Something went wrong!" });
-            ApiCatchErrorResponse(this.state.error);
-            ApiCatchErrorResponse(errorReponse);
-          }
-          this.setState({ loading: false })
-
-        } else if (apiRequestCallId === this.createAccountOwnerApiCallId) {
-          if (!responseJson.errors) {
-            localStorage.setItem('res_token', responseJson.meta.token)
-            localStorage.setItem('res_user', JSON.stringify(responseJson.data.attributes))
-            localStorage.setItem('res_user_id', responseJson.data.id)
-            localStorage.setItem('user_email', responseJson.data.attributes.email)
-            //@ts-ignore
-            //@ts-nocheck
-            this.props.history.push({
-              pathname: '/otp',
-              state: {
-                //@ts-ignore
-                //@ts-nocheck
-                data: this.props.history.location.state?.data,
-              },
-            })
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-          ApiCatchErrorResponse(errorReponse);
-        } else if (apiRequestCallId === this.createRequestApiCallId) {
-          if (!responseJson.errors) {
-            //@ts-ignore
-            //@ts-nocheck
-            this.props.history.push('/RegistrationRequestsignup')
-            //@ts-ignore
-            //@ts-nocheck
-            this.setState({ showDialog: false })
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-          ApiCatchErrorResponse(errorReponse);
-        } else if (apiRequestCallId === this.createRequestManaulApiCallId) {
-          if (!responseJson.errors) {
-            //@ts-ignore
-            //@ts-nocheck
-            this.props.history.push('/RegistrationRequestsignup')
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-          ApiCatchErrorResponse(errorReponse);
-        } else if (apiRequestCallId === this.changeUserTypeApiCallId) {
-          if (!responseJson.errors) {
-            //@ts-ignore
-            //@ts-nocheck
-            this.setState({ loading: false })
-            //@ts-ignore
-            //@ts-nocheck
-            this.props.history.push('/addressfill')
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-          ApiCatchErrorResponse(errorReponse);
-        } else if (apiRequestCallId === this.getCountryApiCallId) {
-          if (!responseJson.errors) {
-            this.setState({ allContries: responseJson.data.countries })
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-          ApiCatchErrorResponse(errorReponse);
-        } else if (apiRequestCallId === this.getComplexApiCallId) {
-          if (!responseJson.errors) {
-            //@ts-ignore
-            //@ts-nocheck
-            let temp = []
-            responseJson.data.housing_complexes.map((item: any) =>
-              temp.push({ value: item.id, label: item.name })
-            )
-            // @ts-ignore
-            this.setState({ allComplex: temp })
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-          ApiCatchErrorResponse(errorReponse);
-        } else if (apiRequestCallId === this.getCityApiCallId) {
-          if (!responseJson.errors) {
-            this.setState({ allCity: responseJson.data.cities })
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-          ApiCatchErrorResponse(errorReponse);
-        } else if (apiRequestCallId === this.getBuildingApiCallId) {
-          if (!responseJson.errors) {
-            this.setState({ allBuilding: responseJson.data.buildings })
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-          ApiCatchErrorResponse(errorReponse);
-        } else if (apiRequestCallId === this.getUnitApiCallId) {
-          if (!responseJson.errors) {
-            if(sessionStorage.getItem("selectedUserType") === ROLE.PROPERTY_MANAGER){
-              this.setState({ allUnit: responseJson.data.apartments})
-            }else{
-              this.setState({ allUnit: responseJson.data.unit_apartments })
-            }
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-          ApiCatchErrorResponse(errorReponse);
-        }
-      }
+         switch(apiRequestCallId){
+          case this.createAccountApiCallId:
+            this.createAccountApiCallId=null;
+            this.handleCreateAccount(responseJson,errorReponse)
+            break;
+            case this.verifyOtpApiCallId:
+             this.verifyOtpApiCallId=null;
+             this.handleVerifyOtp(responseJson,errorReponse)
+             break;
+             case this.createManagerAccountApiCallId:
+              this.createManagerAccountApiCallId=null;
+              this.handleManagerAccountCreate(responseJson,errorReponse)
+              break;
+              case this.createAccountOwnerApiCallId:
+                this.createAccountOwnerApiCallId=null;
+                this.handleCreateAccountOwner(responseJson,errorReponse)
+                break;
+              case this.createRequestApiCallId:
+                this.createRequestApiCallId=null;
+                this.handleCreateRequestApiCallId(responseJson,errorReponse)
+                break;
+                case this.createRequestManaulApiCallId:
+                  this.createRequestManaulApiCallId=null;
+                  this.handleCreateRequestManaulApiCallId(responseJson,errorReponse)
+                  break;
+                  case this.changeUserTypeApiCallId:
+                    this.changeUserTypeApiCallId=null;
+                    this.handleChangeUserTypeApiCallId(responseJson,errorReponse)
+                    break;
+                    case this.getCountryApiCallId:
+                      this.getCountryApiCallId=null;
+                      this.handleGetCountryApiCallId(responseJson,errorReponse)
+                      break;
+                      case this.getComplexApiCallId:
+                        this.getComplexApiCallId=null;
+                        this.handleGetComplexApiCallId(responseJson,errorReponse)
+                        break;
+                        case this.getCityApiCallId:
+                          this.getCityApiCallId=null;
+                          this.handleGetCityApiCallId(responseJson,errorReponse);
+                          break;
+                          case this.getBuildingApiCallId:
+                            this.getBuildingApiCallId=null;
+                            this.handleGetBuildingApiCallId(responseJson,errorReponse);
+                            break;
+                            case this.getUnitApiCallId:
+                              this.getUnitApiCallId=null;
+                              this.handleGtUnitApiCallId(responseJson,errorReponse)
+         }
+    
+   
+        
     }
 
-    if (getName(MessageEnum.NavigationPayLoadMessage) === message.id) {
-      const otpAuthTkn = message.getData(
-        getName(MessageEnum.AuthTokenDataMessage)
-      );
-      if (otpAuthTkn && otpAuthTkn.length > 0) {
-        this.setState({ otpAuthToken: otpAuthTkn });
-        runEngine.debugLog("otpAuthTkn", this.state.otpAuthToken);
-        runEngine.unSubscribeFromMessages(this as IBlock, [message.id]);
-      }
-    }
-
-    if (getName(MessageEnum.CountryCodeMessage) === message.id) {
-      var selectedCode = message.getData(
-        getName(MessageEnum.CountyCodeDataMessage)
-      );
-
-      if (selectedCode !== undefined) {
-        this.setState({
-          countryCodeSelected:
-            selectedCode.indexOf("+") > 0
-              ? selectedCode.split("+")[1]
-              : selectedCode
-        });
-      }
-    }
     // Customizable Area End
   }
 
   // Customizable Area Start
+  handleCreateAccount(responseJson:any,errorReponse:any){
+    if (!responseJson.errors) {
+      localStorage.setItem('res_token', responseJson.meta.token)
+      localStorage.setItem('res_user', JSON.stringify(responseJson.data.attributes))
+      localStorage.setItem('res_user_id', responseJson.data.id)
+      localStorage.setItem('user_email', responseJson.data.attributes.email)
+      //@ts-ignore
+      //@ts-nocheck
+      this.updateType()
+      this.setState({ loading: false, error: null })
+      //@ts-ignore
+      //@ts-nocheck
+      this.props.history.push('/otp')
+    } else if (responseJson?.errors) {
+      let error = responseJson.errors[0];
+      this.setState({ error });
+    } else {
+      this.setState({ error: responseJson?.error || "Something went wrong!" });
+    }
+    
+    ApiCatchErrorResponse(responseJson.errors);
+    this.setState({ loading: false })
+  }
+  handleVerifyOtp(responseJson:any,errorReponse:any){
+    if (!responseJson.errors) {
+      //@ts-ignore
+      //@ts-nocheck
+      this.setState({ loading: false })
+      //@ts-ignore
+      //@ts-nocheck
+      this.props.history.push('/registerunit')
+    } else if (responseJson?.errors) {
+      let error = responseJson.errors[0];
+      this.setState({ error });
+    } else {
+      this.setState({ error: responseJson?.error || "Something went wrong!" });
+      ApiCatchErrorResponse(this.state.error);
+    }
+    this.setState({ loading: false })
+  }
+  handleManagerAccountCreate(responseJson:any,errorReponse:any){
+    if (!responseJson.errors) {
+      localStorage.setItem('res_token', responseJson.meta.token)
+      localStorage.setItem('res_user', responseJson.data.attributes)
+      localStorage.setItem('res_user_id', responseJson.data.id)
+      localStorage.setItem('user_email', responseJson.data.attributes.email)
+      //@ts-ignore
+      //@ts-nocheck
+      this.props.history.push('/otp')
+    } else if (responseJson?.errors) {
+      let error = responseJson.errors[0];
+      this.setState({ error });
+      ApiCatchErrorResponse(this.state.error);
+      ApiCatchErrorResponse(errorReponse);
+    } else {
+      this.setState({ error: responseJson?.error || "Something went wrong!" });
+      ApiCatchErrorResponse(this.state.error);
+      ApiCatchErrorResponse(errorReponse);
+    }
+    this.setState({ loading: false })
+  }
+  handleCreateAccountOwner(responseJson:any,errorReponse:any){
+    if (!responseJson.errors) {
+      localStorage.setItem('res_token', responseJson.meta.token)
+      localStorage.setItem('res_user', JSON.stringify(responseJson.data.attributes))
+      localStorage.setItem('res_user_id', responseJson.data.id)
+      localStorage.setItem('user_email', responseJson.data.attributes.email)
+      //@ts-ignore
+      //@ts-nocheck
+      this.props.history.push({
+        pathname: '/otp',
+        state: {
+          //@ts-ignore
+          //@ts-nocheck
+          data: this.props.history.location.state?.data,
+        },
+      })
+    } else {
+      //Check Error Response
+      this.parseApiErrorResponse(responseJson);
+    }
+    ApiCatchErrorResponse(errorReponse);
+  }
+  handleCreateRequestApiCallId(responseJson:any,errorReponse:any){
+    if (!responseJson.errors) {
+      //@ts-ignore
+      //@ts-nocheck
+      this.props.history.push('/RegistrationRequestsignup')
+      //@ts-ignore
+      //@ts-nocheck
+      this.setState({ showDialog: false })
+    } else {
+      //Check Error Response
+      this.parseApiErrorResponse(responseJson);
+    }
+    ApiCatchErrorResponse(errorReponse);
+  }
+  handleCreateRequestManaulApiCallId(responseJson:any,errorReponse:any){
+    if (!responseJson.errors) {
+      //@ts-ignore
+      //@ts-nocheck
+      this.props.history.push('/RegistrationRequestsignup')
+    } else {
+      //Check Error Response
+      this.parseApiErrorResponse(responseJson);
+    }
+    ApiCatchErrorResponse(errorReponse);
+  }
+  handleChangeUserTypeApiCallId(responseJson:any,errorReponse:any){
+    if (!responseJson.errors) {
+      //@ts-ignore
+      //@ts-nocheck
+      this.setState({ loading: false })
+      //@ts-ignore
+      //@ts-nocheck
+      this.props.history.push('/addressfill')
+    } else {
+      //Check Error Response
+      this.parseApiErrorResponse(responseJson);
+    }
+    ApiCatchErrorResponse(errorReponse);
+  }
+  handleGetCountryApiCallId(responseJson:any,errorReponse:any){
+    if (!responseJson.errors) {
+      this.setState({ allContries: responseJson.data.countries })
+    } else {
+      //Check Error Response
+      this.parseApiErrorResponse(responseJson);
+    }
+    ApiCatchErrorResponse(errorReponse);
+  }
+  handleGetComplexApiCallId(responseJson:any,errorReponse:any){
+    if (!responseJson.errors) {
+      //@ts-ignore
+      //@ts-nocheck
+      let temp = []
+      responseJson.data.housing_complexes.map((item: any) =>
+        temp.push({ value: item.id, label: item.name })
+      )
+      // @ts-ignore
+      this.setState({ allComplex: temp })
+    } else {
+      //Check Error Response
+      this.parseApiErrorResponse(responseJson);
+    }
+    ApiCatchErrorResponse(errorReponse);
+  }
+  handleGetCityApiCallId(responseJson:any,errorReponse:any){
+    if (!responseJson.errors) {
+      this.setState({ allCity: responseJson.data.cities })
+    } else {
+      //Check Error Response
+      this.parseApiErrorResponse(responseJson);
+    }
+    ApiCatchErrorResponse(errorReponse);
+  }
+  handleGtUnitApiCallId(responseJson:any,errorReponse:any){
+    if (!responseJson.errors) {
+      if(sessionStorage.getItem("selectedUserType") === ROLE.PROPERTY_MANAGER){
+        this.setState({ allUnit: responseJson.data.apartments})
+      }else{
+        this.setState({ allUnit: responseJson.data.unit_apartments })
+      }
+    } else {
+      //Check Error Response
+      this.parseApiErrorResponse(responseJson);
+    }
+    ApiCatchErrorResponse(errorReponse);
+  }
+  handleGetBuildingApiCallId(responseJson:any,errorReponse:any){
+    if (!responseJson.errors) {
+      this.setState({ allBuilding: responseJson.data.buildings })
+    } else {
+      //Check Error Response
+      this.parseApiErrorResponse(responseJson);
+    }
+    ApiCatchErrorResponse(errorReponse);
+  }
   goToPrivacyPolicy() {
     const msg: Message = new Message(
       getName(MessageEnum.NavigationPrivacyPolicyMessage)
@@ -450,7 +460,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
       return false;
     }
 
-    var phoneNumberError = this.validateCountryCodeAndPhoneNumber(
+    let phoneNumberError = this.validateCountryCodeAndPhoneNumber(
       this.state.countryCodeSelected,
       this.state.phone
     );

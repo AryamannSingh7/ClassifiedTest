@@ -495,6 +495,9 @@ export const PropertyManagerStyleWeb: any = {
     "& .list-box": {
       height: "85vh",
     },
+    "& .list-box .content-box": {
+      height: "calc(100% - 78px)",
+    },
     "& .faq-step .MuiContainer-root": {
       overflowY: "auto",
       overflowX: "hidden",
@@ -540,6 +543,12 @@ export const PropertyManagerStyleWeb: any = {
         },
       },
     },
+    "& .list-box .content-box .heading-box-item": {
+      marginBottom: "0 !important",
+    },
+    "& .list-box .content-box .heading-box-item h4": {
+      marginBottom: "0 !important",
+    },
     "& .pdf-content-box": {
       marginBottom: "15px",
       "& .MuiCard-root": {
@@ -555,6 +564,10 @@ export const PropertyManagerStyleWeb: any = {
           gap: "15px",
         },
       },
+    },
+    "& .list-box > .button-box": {
+      background: "transparent",
+      marginBottom: "0",
     },
     "& .button-box": {
       marginBottom: "15px",

@@ -50,26 +50,34 @@ class PropertyManagerRequest extends PropertyManagerRequestController {
                             return (
                               <Grid item xs={12} key={request.id}>
                                 <Card className="contract">
-                                  <Link href={`/PropertyManagers/Request/${request.attributes.account_id}`}>
+                                  <Link href={`/PropertyManagers/Request/${request.id}`}>
                                     <Grid container spacing={2}>
                                       <Grid item xs={12}>
                                         <div className="header">
-                                          <h4>Ali Khan</h4>
+                                          <h4>
+                                            {request.attributes.property_manager &&
+                                              this.validationText(request.attributes.property_manager.name)}
+                                          </h4>
                                         </div>
                                       </Grid>
                                     </Grid>
                                     <Grid container spacing={2} className="info">
                                       <Grid item xs={12}>
                                         <span>{t("Manages")}</span>
-                                        <p>Lorem Ipsum</p>
+                                        <p>
+                                          Building {this.validationText(request.attributes.building_management.name)}{" "}
+                                          Unit{" "}
+                                          {this.validationText(
+                                            request.attributes.apartment_management.data.attributes.apartment_name
+                                          )}
+                                        </p>
                                       </Grid>
                                       <Grid item xs={12}>
                                         <span>{t("Company Name")}</span>
-                                        <p>Lorem Ipsum</p>
-                                      </Grid>
-                                      <Grid item xs={12}>
-                                        <span>{t("Charges")}</span>
-                                        <p>Lorem Ipsum</p>
+                                        <p>
+                                          {request.attributes.property_manager &&
+                                            this.validationText(request.attributes.property_manager.company_name)}
+                                        </p>
                                       </Grid>
                                     </Grid>
                                   </Link>
@@ -79,7 +87,7 @@ class PropertyManagerRequest extends PropertyManagerRequestController {
                                         className="decline"
                                         onClick={() => {
                                           this.setState({ loading: true }, () => {
-                                            this.updateManagerRequest(request.attributes.account_id, "Rejected");
+                                            this.updateManagerRequest(request.id, "Rejected");
                                           });
                                         }}
                                       >

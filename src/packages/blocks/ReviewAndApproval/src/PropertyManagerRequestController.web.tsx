@@ -80,7 +80,7 @@ export default class PropertyManagerRequestController extends BlockComponent<Pro
       responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       this.setState({ loading: false }, () => {
-        console.log(responseJson);
+        this.getManagerRequestList();
       });
 
       errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
@@ -145,5 +145,11 @@ export default class PropertyManagerRequestController extends BlockComponent<Pro
     return true;
   };
 
+  validationText = (name: any) => {
+    if (name) {
+      return name;
+    }
+    return "N/A";
+  };
   // Customizable Area End
 }
