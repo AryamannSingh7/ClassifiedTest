@@ -6,3 +6,6 @@ export const ExpenseReportIcon = require("../assets/expense-report.png");
 export const FeeReportIcon = require("../assets/fee-report.png");
 export const InvitationReportIcon = require("../assets/invitation-report.png");
 export const SearchIconImage = require("../assets/search.png");
+export const buildingLogo = require("../assets/buildingImage.png");
+export const manageLogo = require("../assets/manageLogo.png");
+export const GroupLogo = require("../assets/groupLogo.png");
