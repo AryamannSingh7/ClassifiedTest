@@ -59,7 +59,7 @@ class MyTeamCore extends MyTeamController {
         <DashboardHeader {...this.props}/>
         <Box style={{display: "flex"}}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
-            {  userType === "Visitors" ? 
+            {  userType === "Security" ? 
                             <VisitorsSidebar {...this.props} />
                             :
                             <ChairmanSidebar {...this.props}/> 
@@ -88,7 +88,7 @@ class MyTeamCore extends MyTeamController {
                             <Typography variant="h5" className="subHeading"  >{t("Service Providers")}</Typography>
                         }
                     </Box>
-                    {  userType === "Visitors" ? 
+                    {  userType === "Security" ? 
                             null
                             :
                             <Box>
@@ -300,7 +300,7 @@ const TeamCard = (props:any) => {
     return(
         <Grid item sm={4} md={3} xs={12} style={{position:"relative",height:"100%"}}>
             {
-                userType ==="Visitors" ?
+                userType ==="Security" ?
                 null :
                 <Box style={{position:"absolute",top:"10px",right:"10px"}}>
                 <IconButton onClick={handleClick}>
@@ -311,7 +311,7 @@ const TeamCard = (props:any) => {
             
             
             <Card className="EventsCards" style={{paddingLeft:"0px"}}>
-                <Box style={{width:"100%",display:'flex',justifyContent:"center",alignItems:"center",flexDirection:"column",marginTop:"15px"}} onClick={() => userType === "Visitors" ? null : props.history.push(`/TeamMember/userDetails?id=${data.id}`)}>
+                <Box style={{width:"100%",display:'flex',justifyContent:"center",alignItems:"center",flexDirection:"column",marginTop:"15px"}} onClick={() => userType === "Security" ? null : props.history.push(`/TeamMember/userDetails?id=${data.id}`)}>
                     {
                         props.approval && userType === "Manager" &&
                         <Typography variant="subtitle2" className={"statusOngoingRed"} gutterBottom style={{marginBottom: "12px"}}>{t("Pending Approval")}</Typography>

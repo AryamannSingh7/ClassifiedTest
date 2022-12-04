@@ -44,6 +44,7 @@ import { withTranslation } from 'react-i18next';
 import 'web/src/i18n';
 import VisitorsSidebar from "../../dashboard/src/VisitorsSidebar.web";
 import { call_org, email_org, chat, facebook, twitter_org, instagram, snap, bentalyLogo } from "../../user-profile-basic/src/assets";
+import {NoProfile_Img} from "../../search/src/assets"
 
 
 class UnitGeneralDetails extends VisitorsListController {
@@ -64,7 +65,7 @@ class UnitGeneralDetails extends VisitorsListController {
   }
   render() {
     const {t}: any = this.props
-    let profileDetails = this.state?.getUnitGeneralDetails?.attributes;
+    let profileDetails = this.state?.getUnitGeneralDetails?.resident?.data?.attributes;
     console.log("profileDetails==============>",profileDetails)
     return (
       <>
@@ -95,7 +96,7 @@ class UnitGeneralDetails extends VisitorsListController {
                           </Grid>
                           <Grid style={{display: 'flex'}}>
                             <Typography variant="subtitle1" >{t("Owner Name : ")}</Typography>
-                            <Typography variant="subtitle1" >{"adarsh pandya"} </Typography>
+                            <h5>{this.state?.getUnitGeneralDetails?.owner}</h5>
                           </Grid>
                     </Grid>
                   </Box>
@@ -108,7 +109,7 @@ class UnitGeneralDetails extends VisitorsListController {
                                     <CardMedia
                                         component="img"
                                         height="140"
-                                        image={profileDetails?.profile_pic}
+                                        image={profileDetails?.profile_pic?.url || NoProfile_Img}
                                         alt="green iguana"
                                         style={dashBoard.profileImage}
                                     />
@@ -134,10 +135,17 @@ class UnitGeneralDetails extends VisitorsListController {
                             </Grid>
                             <Grid item xs={12} sm={8} style={{padding:"35px 25px 25px 35px"}}>
                                 <Box>
+                                  {
+                                      profileDetails?.bio?.publilc_access ?
+                                      <>
                                     <Typography variant="subtitle1" style={dashBoard.subtitleClr}>{t("About")}</Typography>
                                     <Typography variant="subtitle1">{
-                                      profileDetails?.bio?.bio
+                                      profileDetails?.bio?.bio || "N/A"
                                     } </Typography>
+                                    </>
+                                    :
+                                    null
+                                  }
                                     <Grid container spacing={3} style={{marginTop:"5px"}}>
                                         <Grid item xs={2} sm={3}>
                                             <Typography variant="subtitle1" style={dashBoard.subtitleClr}>{t("Gender")}</Typography>
@@ -151,13 +159,11 @@ class UnitGeneralDetails extends VisitorsListController {
                                         {
                                 profileDetails?.hobbies?.publilc_access ?
                                   <Box className="bio-row" >
-                                    <Typography component="h4">
-                                      Hobbies
-                                    </Typography>
+                                     <Typography variant="subtitle1" style={dashBoard.subtitleClr}>{t("Hobbies")}</Typography>   
                                     <Grid container>
                                       {
-                                        profileDetails?.hobbies?.hobbies?.length === 0 ?
-                                          null
+                                        profileDetails?.hobbies?.hobbies === null ?
+                                        'N/A'
                                           :
                                           profileDetails?.hobbies?.hobbies?.map((val: any, index: any) => (
                                             <Grid item xs={6} md={4}>
@@ -172,39 +178,60 @@ class UnitGeneralDetails extends VisitorsListController {
                                   :
                                   null
                               }
-                                      
-
                                     </Grid>
                                     <Grid container spacing={3} style={{marginTop:"5px"}}>
                                       {
                                            profileDetails?.website.length !== 0 ?
                                            <>
                                            {
-                                            profileDetails?.website[0].twitter_link === null ? null :
-                                            <Grid item xs={2} sm={1}>
-                                            <a href={profileDetails?.website[0]?.twitter_link} target="_blank" rel="noopener noreferrer">
-                                              <img src={twitter_org} className="icon" alt="Twitter_Icon" style={{width:"40px"}} />
-                                            </a>
-                                            </Grid>
+                                              profileDetails?.website[0]?.publilc_access && profileDetails?.website[0]?.twitter_link !== null ? 
+                                              <Grid item xs={2} sm={1}>
+                                              <a href={profileDetails?.website[0]?.twitter_link} target="_blank" rel="noopener noreferrer">
+                                                <img src={twitter_org} className="icon" alt="Twitter_Icon" style={{width:"40px"}} />
+                                              </a>
+                                              </Grid>
+                                              :
+                                           null
                                            }
-                                          
+                                            {
+                                              profileDetails?.website[1]?.publilc_access && profileDetails?.website[1]?.instagram_link !== null ? 
+                                              <Grid item xs={2} sm={1}>
+                                              <a href={profileDetails?.website[1]?.instagram_link} target="_blank" rel="noopener noreferrer">
+                                                <img src={instagram} className="icon" alt="instagram_Icon" style={{width:"40px"}} />
+                                              </a>
+                                              </Grid>
+                                              :
+                                           null
+                                           }
+
+                                          {
+                                              profileDetails?.website[2]?.publilc_access && profileDetails?.website[2]?.fb_link !== null ? 
+                                              <Grid item xs={2} sm={1}>
+                                              <a href={profileDetails?.website[2]?.fb_link} target="_blank" rel="noopener noreferrer">
+                                                <img src={facebook} className="icon" alt="fb_Icon" style={{width:"40px"}} />
+                                              </a>
+                                              </Grid>
+                                              :
+                                           null
+                                           }
+
+                                         
+                                          {
+                                              profileDetails?.website[3]?.publilc_access && profileDetails?.website[3]?.snapchat_link !== null ? 
+                                              <Grid item xs={2} sm={1}>
+                                              <a href={profileDetails?.website[3]?.snapchat_link} target="_blank" rel="noopener noreferrer">
+                                                <img src={snap} className="icon" alt="snapchat_Icon" style={{width:"40px"}} />
+                                              </a>
+                                              </Grid>
+                                              :
+                                           null
+                                           }        
                                            </>
                                            :
                                            null
                                       }
                                       
-                                        <Grid item xs={2} sm={1}>
-                                            <img src={facebook} style={{width:"40px"}}/>
-                                        </Grid>
-                                        <Grid item xs={2} sm={1}>
-                                            <img src={twitter_org} style={{width:"40px"}}/>
-                                        </Grid>
-                                        <Grid item xs={2} sm={1}>
-                                            <img src={instagram} style={{width:"40px"}}/>
-                                        </Grid>
-                                        <Grid item xs={2} sm={1}>
-                                            <img src={snap} style={{width:"40px"}}/>
-                                        </Grid>
+                                      
                                 </Grid>
                                 </Box>
                             </Grid>
@@ -216,43 +243,35 @@ class UnitGeneralDetails extends VisitorsListController {
                        <Typography variant="h6" style={dashBoard.Headings}>{t("Family Deatils")}</Typography>
                   </Grid>
                   <Box  className="famliy-container" style={{marginTop:"10px"}}>
+                  {
+                       profileDetails?.families.families !== 0 ?
                     <Paper>
                         <Grid container >
                             <Box  style={{padding:"35px 25px 25px 35px",width:'100%'}}>
                             <Grid container  >
-                             <Grid xs={12} md={6} >
-              
+                              {
+                                 profileDetails?.families.families?.map((val:any,index:any)=>(
+                                  <Grid xs={12} md={6} key={index} >
                                   <Box className="famliy-card">
                                   <Box className="famliy-row">
-                                    <Typography variant="subtitle1" style={dashBoard.subtitleClr}>{t("About")}</Typography>
-                                    <Typography >{t("hellloo")}</Typography>
+                                  <Typography component="h4">
+                                      {val?.attributes?.name}
+                                    </Typography>
+                                    <Typography variant="subtitle1" style={dashBoard.subtitleClr}>{'DI:'}{val?.attributes?.id_number}</Typography>
                                     </Box>
-                                    <Typography variant="subtitle1">{
-                                     "wife"
-                                    } </Typography>
-                                   
+                                   <Typography variant="subtitle1" style={dashBoard.subtitleClr}>{val?.attributes?.relation?.name}</Typography>
                                     </Box>
-                                
                                 </Grid>
-                             
-                                <Grid xs={12} md={6} >
-              
-              <Box className="famliy-card">
-              <Box className="famliy-row">
-                <Typography variant="subtitle1" style={dashBoard.subtitleClr}>{t("About")}</Typography>
-                <Typography >{t("hellloo")}</Typography>
-                </Box>
-                <Typography variant="subtitle1">{
-                 "wife"
-                } </Typography>
-               
-                </Box>
-            
-            </Grid>
+                                 )) 
+                              }
                                 </Grid>    
                             </Box>
                         </Grid>
                     </Paper>
+                     :  <Typography component="h4">
+                     N/A
+                 </Typography> 
+                }
                   </Box>
 
               </Container>
