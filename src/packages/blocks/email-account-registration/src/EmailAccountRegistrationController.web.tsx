@@ -232,7 +232,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
                             break;
                             case this.getUnitApiCallId:
                               this.getUnitApiCallId=null;
-                              this.handleGtUnitApiCallIdresponseJson,errorReponse)
+                              this.handleGtUnitApiCallId(responseJson,errorReponse)
          }
     
    
