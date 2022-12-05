@@ -7,17 +7,11 @@ import {
     Typography,
     TextField,
     Button,
-    MenuItem,
-    InputAdornment,
     CircularProgress,
-    IconButton
 } from "@material-ui/core";
 import {withStyles} from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import Select from "@material-ui/core/Select";
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
 import Modal from "@material-ui/core/Modal";
 import Fade from "@material-ui/core/Fade";
 import 'date-fns';
@@ -25,8 +19,7 @@ import InfoIcon from '@material-ui/icons/Info';
 // Icons
 
 import GenerateBudgetReportController, {
-  Props,
-  configJSON,
+  Props
 } from "./GenerateBudgetReportController";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
@@ -35,8 +28,6 @@ import Backdrop from "@material-ui/core/Backdrop";
 import { withRouter } from 'react-router';
 import { withTranslation } from 'react-i18next';
 import '../../../web/src/i18n.js';
-import DateRangeOutlinedIcon from "@material-ui/icons/DateRangeOutlined";
-import BackspaceIcon from '@material-ui/icons/Backspace';
 
 class CreateSurveys extends GenerateBudgetReportController {
   constructor(props: Props) {

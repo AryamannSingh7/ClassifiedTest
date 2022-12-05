@@ -6,7 +6,6 @@ import MessageEnum, {
   getName
 } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
-// import {toast} from "react-toastify";
 
 export const configJSON = require("./config");
 
@@ -122,7 +121,6 @@ export default class CoverImageController extends BlockComponent<
       audienceValidationError:"",
     };
 
-    this.emailReg = new RegExp("");
     this.labelTitle = configJSON.labelTitle;
 
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -152,7 +150,7 @@ export default class CoverImageController extends BlockComponent<
           totalBudget:total
         })
       }
-      await localStorage.removeItem("Survey_Data")
+      localStorage.removeItem("Survey_Data")
     }
   }
 
@@ -160,7 +158,7 @@ export default class CoverImageController extends BlockComponent<
     if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-      var errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      const errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if(this.apiEmailLoginCallId === apiRequestCallId ){
         console.log(responseJson,errorReponse)
       }
@@ -432,17 +430,6 @@ export default class CoverImageController extends BlockComponent<
 
   handleSurveyDataSubmit =  async (event:any,preview?:boolean) => {
     event.preventDefault()
-    let societyID = localStorage.getItem("society_id")
-    this.setState({
-      isSubmitted: true,
-    })
-    if (this.handleValidation() || preview) {
-      this.setState({
-        loading:true
-      })
-
-      localStorage.removeItem("Report_Data")
-    }
   }
 
   addSurveyData = async (data:any) => {
@@ -486,7 +473,6 @@ export default class CoverImageController extends BlockComponent<
 
   apiCall = async (data: any) => {
     const { contentType, method, endPoint, body } = data;
-    // console.log("Called 1",data);
 
     const token = localStorage.getItem('userToken') ;
 
@@ -514,7 +500,6 @@ export default class CoverImageController extends BlockComponent<
         body
     );
     runEngine.sendMessage(requestMessage.id, requestMessage);
-    // console.log("Called",requestMessage);
     return requestMessage.messageId;
   };
   handleClick = (event:any) => {
