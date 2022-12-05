@@ -134,6 +134,14 @@ class BudgetReport extends BudgetReportDetailsController {
                             SR 12,000
                           </TableCell>
                         </TableRow>
+                          <TableRow>
+                              <TableCell  align="left" style={{ display: "flex", alignItems: "center" }}>
+                                  <Typography variant="body1">Budget Amount</Typography>
+                              </TableCell>
+                              <TableCell align="right" style={{ paddingRight: "50px" }}>
+                                  <Typography variant="body1" style={{fontWeight:"bold",color:"#FC8434",paddingRight:"0px"}}> SR 12,000 </Typography>
+                              </TableCell>
+                          </TableRow>
                       </TableBody>
                     </Table>
                     <Divider />

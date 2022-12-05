@@ -15,6 +15,11 @@
       "git add"
     ]
   },
+  "resolutions": {
+    "@types/react": "16.9.11",
+    "@types/react-dom": "16.9.11",
+    "@types/react-native": "0.61.3"
+  },
   "devDependencies": {
     "@react-native-community/eslint-config": "^3.0.1",
     "@types/enzyme": "^3.10.5",

@@ -937,5 +937,8 @@
   "Are you sure you want to approve budget report?": "Are you sure you want to approve budget report?",
   "Add Another Unit": "Add Another Unit",
   "Add Another Rent History": "Add Another Rent History",
-  "A verification ownership request has been sent to the building/complex manger for approval, Upon approval of ownership the unit will be added to his list of units": "A verification ownership request has been sent to the building/complex manger for approval, Upon approval of ownership the unit will be added to his list of units"
+  "A verification ownership request has been sent to the building/complex manger for approval, Upon approval of ownership the unit will be added to his list of units": "A verification ownership request has been sent to the building/complex manger for approval, Upon approval of ownership the unit will be added to his list of units",
+  "Generate Budget Report": "Generate Budget Report",
+  "Enter budget year": "Enter budget year",
+  "Add Another Budget Item": "Add Another Budget Item"
 }
