@@ -116,7 +116,9 @@ class GaMembers extends CommunityUserProfileController {
     this.getUserProfileSearchWithType('',window.location.pathname.substring(1))
     this.getBuilding();
   }
-
+getData(item: any) {
+  return item==='ga_member' ? 'GA Members':item ==='property_manager' ? 'Property Manager':item==='resident'? 'Residents':'Owners'
+}
   render() {
     const {t}: any = this.props
     const statusArray=["Unresolved", "Resolved", "Pending Confirmation"]
@@ -135,9 +137,9 @@ class GaMembers extends CommunityUserProfileController {
                 <Box style={dashBoard.navigation}>
                   <Box>
                     <Typography variant="body1" >
-                      {t("Community Management")} / {t("User Profiles")} / <Box component="span" style={{ color: "blue" }}> {t("GA Members")}</Box>
+                      {t("Community Management")} / {t("User Profiles")} / <Box component="span" style={{ color: "blue" }}> {this.getData(window.location.pathname.substring(1))}</Box>
                     </Typography>
-                    <Typography variant="h5" style={dashBoard.subHeading}>{t("User Profiles")}</Typography>
+                    <Typography variant="h5" style={dashBoard.subHeading}>{this.getData(window.location.pathname.substring(1))}</Typography>
                   </Box>
                 </Box>
                  <Box style={dashBoard.boxStyling}>
@@ -266,7 +268,7 @@ item == window.location.pathname.substring(1) &&
 <Grid container style={dashBoard.gaMemberMain}> 
                           
    <Grid item xs={6}>
-                            <Typography variant="h6" style={dashBoard.subHeading}>{window.location.pathname.substring(1)}</Typography>
+                            <Typography variant="h6" style={dashBoard.subHeading}>{this.getData(window.location.pathname.substring(1))}</Typography>
                           </Grid>
                     </Grid>
    } 
@@ -284,14 +286,22 @@ item == window.location.pathname.substring(1) &&
                                 image={singleProfile?.attributes?.profile_pic?.url}
                                 alt="green iguana"
                                 style={dashBoard.profileImage}
+                                onClick={(e:any) => {
+                                  localStorage.setItem('selectedPofile',JSON.stringify(singleProfile))
+                                  //@ts-ignore
+                                  this.props.history.push({pathname:"/UserDetailedProfile",singleProfile})}}
                               />
                               <CardContent style={{padding:"0px 16px 16px 16px"}}>
                               <Typography variant="h6"
                               //@ts-ignore 
-                              style={dashBoard.unitno}>{item.unitno}</Typography>
+                              style={dashBoard.unitno}>{singleProfile?.attributes?.apartment_number?.apartment_number}</Typography>
                               <Typography variant="h6" style={{textAlign:"center", marginTop:"5px"}}>{singleProfile?.attributes?.full_name?.name}</Typography>
                               <div style={{textAlign:"center",marginTop:"5px"}}>
-                                <Typography variant="h6" style={dashBoard.userType}>{item.userType}</Typography>
+                                {
+                                //@ts-ignore
+                                //@ts-nocheck
+                                <Typography variant="h6" style={dashBoard.userType}>{this.getData(item).slice(0, -1)}</Typography>
+                              }
                               </div>
                               <div style={dashBoard.contactIcon}>
                          
@@ -468,7 +478,8 @@ const dashBoard = {
     display: "inline-block",
     padding: "3px 20px",
     color:"#2D6EED",
-    fontWeight:600
+    fontWeight:600,
+    textTransform:"capitalize"
   },
   unitno:{
     marginTop:15,
