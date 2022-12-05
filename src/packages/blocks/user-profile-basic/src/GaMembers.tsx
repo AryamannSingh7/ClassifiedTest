@@ -297,7 +297,11 @@ item == window.location.pathname.substring(1) &&
                               style={dashBoard.unitno}>{singleProfile?.attributes?.apartment_number?.apartment_number}</Typography>
                               <Typography variant="h6" style={{textAlign:"center", marginTop:"5px"}}>{singleProfile?.attributes?.full_name?.name}</Typography>
                               <div style={{textAlign:"center",marginTop:"5px"}}>
-                                <Typography variant="h6" style={dashBoard.userType}>{item}</Typography>
+                                {
+                                //@ts-ignore
+                                //@ts-nocheck
+                                <Typography variant="h6" style={dashBoard.userType}>{this.getData(item).slice(0, -1)}</Typography>
+                              }
                               </div>
                               <div style={dashBoard.contactIcon}>
                          
@@ -475,7 +479,7 @@ const dashBoard = {
     padding: "3px 20px",
     color:"#2D6EED",
     fontWeight:600,
-    textTransform:'capitalize'
+    textTransform:"capitalize"
   },
   unitno:{
     marginTop:15,

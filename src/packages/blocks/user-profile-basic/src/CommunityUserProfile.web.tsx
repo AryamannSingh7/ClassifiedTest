@@ -224,7 +224,11 @@ class CommunityUserProfile extends CommunityUserProfileController {
                     <Typography variant="body1" >
                       {t("Community Management")} /<Box component="span" style={{ color: "blue" }}> {t("User Profiles")}</Box>
                     </Typography>
+                    {
+                                //@ts-ignore
+                                //@ts-nocheck
                     <Typography variant="h5" style={dashBoard.subHeading}>{t("User Profiles")}</Typography>
+                              }
                   </Box>
                 </Box>
                  <Box style={dashBoard.boxStyling}>
@@ -310,7 +314,11 @@ class CommunityUserProfile extends CommunityUserProfileController {
                         <Box>
                     <Grid container style={dashBoard.gaMemberMain}> 
                           <Grid item xs={6}>
+                          {
+                                //@ts-ignore
+                                //@ts-nocheck
                             <Typography variant="h6" style={dashBoard.subHeading} >{t(`${item==='ga_member' ? 'GA Members':item ==='property_manager' ? 'Property Manager':item==='resident'? 'Residents':'Owners'}`)}</Typography>
+                              }
                           </Grid>
                           <Grid item xs={1} style={dashBoard.cursorPointer}>
                             <Typography variant="subtitle1" style={dashBoard.viewMore}    
@@ -349,7 +357,11 @@ class CommunityUserProfile extends CommunityUserProfileController {
                               <Typography variant="h6" style={{textAlign:"center", marginTop:"5px"}}>{singleProfile?.attributes?.apartment_number?.apartment_number}</Typography>
                               <Typography variant="h6" style={{textAlign:"center", marginTop:"5px"}}>{singleProfile?.attributes?.full_name?.name}</Typography>
                               <div style={{textAlign:"center",marginTop:"5px"}} >
+                              {
+                                //@ts-ignore
+                                //@ts-nocheck
                                 <Typography variant="h6" style={dashBoard.userType}>{t(`${item==='ga_member' ? 'GA Members':item ==='property_manager' ? 'Property Manager':item}`)}</Typography>
+                              }
                               </div>
                               <div style={dashBoard.contactIcon}>
                                 <div style={dashBoard.relatedMemberCard}>
@@ -408,7 +420,7 @@ const dashBoard = {
   subHeading: {
     fontWeight: 600,
     marginTop: 15,
-    textTransform:'capitalize'
+    textTransform:"capitalize"
   },
   YearMain: {
     background: "#fff",
@@ -468,7 +480,7 @@ const dashBoard = {
     padding: "3px 20px",
     color:"#2D6EED",
     fontWeight:600,
-    textTransform:'capitalize'
+    textTransform:"capitalize"
   },
   unitno:{
     marginTop:15,
