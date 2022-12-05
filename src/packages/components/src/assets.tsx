@@ -1,1 +1,1 @@
-export const BuildingImage = require("../assets/building.png");
+// export const BuildingImage = require("../assets/building.png");

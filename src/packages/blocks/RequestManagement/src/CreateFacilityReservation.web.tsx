@@ -58,9 +58,9 @@ class CreateFacilityReservation extends FacilityReservationController {
     if (id) {
       this.getFacilityReservationDetailsById(id);
     }
-  //  else {
-  //   this.props.history.push("/FacilityReservationDetails")
-  //  }
+    //  else {
+    //   this.props.history.push("/FacilityReservationDetails")
+    //  }
     this.getMyApartmentList();
     // this.getIncidentRelated();
   }
@@ -68,8 +68,8 @@ class CreateFacilityReservation extends FacilityReservationController {
     const { navigation } = this.props;
     const id = this.state?.getFacilityReservationDetails?.id;
     const attributes = this.state?.getFacilityReservationDetails?.attributes;
-   // console.log("commonAreaData=============>", this.state?.commonAreaData)
-    console.log("attributes?.date =============>", attributes?.start_time,attributes?.end_time)
+    // console.log("commonAreaData=============>", this.state?.commonAreaData)
+    console.log("attributes?.date =============>", attributes?.start_time, attributes?.end_time)
     console.log("moment(attributes?.date,'DD-MMM-YYYY').format('YYYY-MM-DD')=============>", moment(attributes?.date, 'DD-MMM-YYYY').format('YYYY-MM-DD'))
     return (
       <>
@@ -80,7 +80,7 @@ class CreateFacilityReservation extends FacilityReservationController {
                 <Box className="content-header">
                   <Box className="left-block blocks">
                     <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
-                    <h4>Facility Reservation</h4>
+                    <h4>Update Facility Reservation</h4>
                   </Box>
                 </Box>
                 <Box className="content-block-wrapper common-incident-block desktop-ui create-reservation-wrapper">
@@ -226,18 +226,21 @@ class CreateFacilityReservation extends FacilityReservationController {
                             </Box>
                           </Grid>
                           <Box className="reservationDec">
-                            <p>Description: You can use garden for kids party, family gathering, building event etc. You are not allowed to have meals in the garden. </p>
+                            <h5>Description:</h5>
+                            <p>
+                              You can use garden for kids party, family gathering, building event etc. You are not allowed to have meals in the garden.
+                            </p>
                             <br></br> <p>You will be charged <span>SR 50 per hour</span> for garden facility.</p>
                           </Box>
                         </Grid>
                         <Box className="customButton">
-                          <Button variant="contained" type="submit">submit</Button>
+                          <Button variant="contained" type="submit">update request</Button>
                         </Box>
                       </Form>
                     )}
                   </Formik>
                 </Box>
-             
+
               </Box>
             </Grid>
             <Grid item xs={12} md={5} className="auth-cols">
