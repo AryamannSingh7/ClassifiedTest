@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Box } from "@material-ui/core";
-import { BuildingImage } from "./assets";
+//import { BuildingImage } from "./assets";
 
 export default class OwnerSidebarImage extends Component {
   render() {

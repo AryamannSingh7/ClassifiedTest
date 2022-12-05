@@ -65,7 +65,7 @@ class FacilityReservation extends FacilityReservationController {
                         </Typography>
                         <CardActions className="card-footer">
                           <Box className="customButton">
-                            <Button variant="contained" className="contain warning">0{total_upcoming_count}</Button>
+                            <Button variant="contained" className="contain warning">{total_upcoming_count}</Button>
                           </Box>
                         </CardActions>
                       </CardContent>

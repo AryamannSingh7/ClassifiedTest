@@ -558,6 +558,11 @@ class OwnerDashboard extends DashboardController {
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
+                    <Link href="/FacilityReservation">
+                      <DashboardCard image={keyhand} heading={t("Facility Reservation ")} title={t("Facility Listing")} value="75" />
+                    </Link>
+                  </Grid>
+                  <Grid item xs={6} sm={6}>
                     <Link href="/ChairmanNominations">
                       <DashboardCard
                         image={voting}

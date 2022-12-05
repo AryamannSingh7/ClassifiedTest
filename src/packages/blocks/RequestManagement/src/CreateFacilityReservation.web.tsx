@@ -69,6 +69,8 @@ class CreateFacilityReservation extends FacilityReservationController {
     const id = this.state?.getFacilityReservationDetails?.id;
     const attributes = this.state?.getFacilityReservationDetails?.attributes;
     // console.log("commonAreaData=============>", this.state?.commonAreaData)
+    //@ts-ignore
+    const FacilityId = this.props.history?.location?.id;
     console.log("attributes?.date =============>", attributes?.start_time, attributes?.end_time)
     console.log("moment(attributes?.date,'DD-MMM-YYYY').format('YYYY-MM-DD')=============>", moment(attributes?.date, 'DD-MMM-YYYY').format('YYYY-MM-DD'))
     return (
@@ -80,7 +82,10 @@ class CreateFacilityReservation extends FacilityReservationController {
                 <Box className="content-header">
                   <Box className="left-block blocks">
                     <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
-                    <h4>Update Facility Reservation</h4>
+                    {
+                      FacilityId ? <h4>Update Facility Reservation</h4> : <h4>Facility Reservation</h4>
+                    }
+                    
                   </Box>
                 </Box>
                 <Box className="content-block-wrapper common-incident-block desktop-ui create-reservation-wrapper">
@@ -201,7 +206,7 @@ class CreateFacilityReservation extends FacilityReservationController {
                                   }
                                   }
                                 />
-                                <ErrorMessage className="text-error" component="Typography" name="startDate" />
+                                <ErrorMessage className="text-error" component="Typography" name="date" />
                               </Box>
                             </Grid>
                           </Grid>
@@ -234,7 +239,10 @@ class CreateFacilityReservation extends FacilityReservationController {
                           </Box>
                         </Grid>
                         <Box className="customButton">
-                          <Button variant="contained" type="submit">update request</Button>
+                        {
+                         FacilityId ?<Button variant="contained" type="submit">update request</Button>: <Button variant="contained" type="submit">Submit</Button>
+                       }
+                          
                         </Box>
                       </Form>
                     )}

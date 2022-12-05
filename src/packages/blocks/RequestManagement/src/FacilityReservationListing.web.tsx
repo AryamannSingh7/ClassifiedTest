@@ -87,19 +87,6 @@ class FacilityReservationListing extends FacilityReservationController {
                         <MenuItem onClick={(e) => this.handleClose(e, "desc")}>Descending</MenuItem>
                       </Menu>
                     </Box>
-                    <Button aria-controls="fade-menu" aria-haspopup="true" onClick={(e: any) => this.handleClick_1(e)}>
-                      <img src={Filter_Icon} className="filter-icon icons" alt="" />
-                    </Button>
-                    <Menu
-                      id="fade-menu"
-                      anchorEl={this.state.anchorEl_1}
-                      keepMounted
-                    >
-                      <MenuItem>Unresolved</MenuItem>
-                      <MenuItem>Resolved</MenuItem>
-                      <MenuItem>Pending Confirmation</MenuItem>
-                    </Menu>
-
                     {/* <Button aria-controls="fade-menu" aria-haspopup="true" onClick={(e: any) => this.handleClick_1(e)}>
                       <img src={Filter_Icon} className="filter-icon icons" alt="" />
                     </Button>
