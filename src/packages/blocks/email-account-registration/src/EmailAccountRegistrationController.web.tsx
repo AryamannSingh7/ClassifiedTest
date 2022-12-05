@@ -399,7 +399,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     }
     ApiCatchErrorResponse(errorReponse);
   }
-  handleGtUnitApiCallIdresponseJson(responseJson:any,errorReponse:any){
+  handleGtUnitApiCallId(responseJson:any,errorReponse:any){
     if (!responseJson.errors) {
       if(sessionStorage.getItem("selectedUserType") === ROLE.PROPERTY_MANAGER){
         this.setState({ allUnit: responseJson.data.apartments})
