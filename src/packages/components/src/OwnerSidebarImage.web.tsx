@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Box } from "@material-ui/core";
 import { BuildingImage } from "./assets";
 
-export default class OwnerSidebarImage extends Component {
+export default class SidebarImageComponent extends Component {
   render() {
     return (
       <Box className="right-block right-image" display={{ xs: "none", md: "flex" }}>
