@@ -144,7 +144,9 @@ enum MessageEnum {
   CustomSubscriptionDataMessage,
   PostDetailDataMessage,
   HelpCentreMessageData,
-  EventsMessageData
+  EventsMessageData,
+  NavigationAddExpenseMessage,
+  AddExpenseDataMessage
 }
 
 export const getName = (myEnum: MessageEnum) => {
