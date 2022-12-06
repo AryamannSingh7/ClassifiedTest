@@ -411,7 +411,7 @@ this.setState({loading:false,showDialog:false})
           this.parseApiCatchErrorResponse(errorReponse);
         } else if (apiRequestCallId === this.getInvitationAPICall) {
           if (!responseJson.errors) {
-this.setState({allInvitation:responseJson.data,loading:false})
+this.setState({allInvitation:responseJson.member_invitations.data,loading:false})
 
 
           } else {
@@ -578,7 +578,7 @@ this.setState({allInvitation:responseJson.data,loading:false})
   };
 
   handleToolTip = (e:any,text:any) => {
-
+this.setState({openToolTip:!this.state.openToolTip})
   }
 
   invitationData = (value:any) => {

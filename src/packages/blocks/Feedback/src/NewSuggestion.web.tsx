@@ -49,7 +49,7 @@ class Suggestion extends SuggestionController {
                 <Box className="content-header">
                   <Box className="left-block blocks">
                     <Box className="backIcons" onClick={() => this.redirectToDashboard()}><KeyboardBackspaceIcon /></Box>
-                    <h4>Incidents</h4>
+                    <h4>Add New Suggestion</h4>
                   </Box>
                   <Box className="incident-right-block blocks">
                    
