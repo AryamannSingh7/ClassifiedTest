@@ -31,6 +31,7 @@ import MobilePhoneToOTPAdapter from "../../blocks/adapters/src/MobilePhoneToOTPA
 import OtpToNewPasswordAdapter from "../../blocks/adapters/src/OtpToNewPasswordAdapter";
 import MobilePhoneLogInAdapter from "../../blocks/adapters/src/MobilePhoneLogInAdapter";
 import MobilePhoneToAdditionalDetailsAdapter from "../../blocks/adapters/src/MobilePhoneToAdditionalDetailsAdapter";
+import AddExpenseAdapter from "../../blocks/adapters/src/AddExpenseAdapter";
 
 //Assembler generated adapters start
 const socialMediaLogInAdapter = new SocialMediaLogInAdapter();
@@ -41,6 +42,7 @@ const mobilePhoneToOTPAdapter = new MobilePhoneToOTPAdapter();
 const otpToNewPasswordAdapter = new OtpToNewPasswordAdapter();
 const mobilePhoneLogInAdapter = new MobilePhoneLogInAdapter();
 const mobilePhoneToAdditionalDetailsAdapter = new MobilePhoneToAdditionalDetailsAdapter();
+const addExpenseAdapter = new AddExpenseAdapter();
 
 //Assembler generated adapters end
 
