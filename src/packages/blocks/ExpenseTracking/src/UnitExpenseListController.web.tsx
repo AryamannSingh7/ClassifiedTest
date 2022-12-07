@@ -26,6 +26,18 @@ export interface IExpense {
   };
 }
 
+interface IResponseExpenseList {
+  data: IExpense[];
+}
+
+interface IResponseExpenseCategoryList {
+  expense_category: IExpenseCategory[];
+}
+
+interface IResponseDeleteExpense {
+  data: IExpense;
+}
+
 export interface IExpenseCategory {
   id: number;
   title: string;
@@ -108,17 +120,11 @@ export default class UnitExpenseListController extends BlockComponent<Props, S, 
       switch (apiRequestCallId) {
         // Get All Expense List - API Response
         case this.GetAllExpenseListCallId:
-          this.setState({ loading: false }, () => {
-            if (responseJson && responseJson.data) {
-              this.setState({ expenseList: responseJson.data });
-            }
-          });
+          this.getAllExpenseListResponse(responseJson);
           break;
         // Get All Expense Category List - API Response
         case this.GetAllExpenseCategoryListCallId:
-          if (responseJson && responseJson.expense_category) {
-            this.setState({ expenseCategoryList: responseJson.expense_category });
-          }
+          this.getAllExpenseCategoryListResponse(responseJson);
           break;
         // Get Unit Details - API Response
         case this.GetUnitDetailsCallId:
@@ -134,11 +140,7 @@ export default class UnitExpenseListController extends BlockComponent<Props, S, 
           break;
         // Delete Expense - API Response
         case this.DeleteExpenseCallId:
-          this.setState({ loading: false }, () => {
-            if (responseJson && responseJson.data) {
-              this.getAllExpenseList();
-            }
-          });
+          this.deleteExpenseResponse(responseJson.data);
           break;
       }
 
@@ -196,6 +198,14 @@ export default class UnitExpenseListController extends BlockComponent<Props, S, 
     return true;
   };
 
+  getAllExpenseListResponse = (responseJson: IResponseExpenseList) => {
+    this.setState({ loading: false }, () => {
+      if (responseJson && responseJson.data) {
+        this.setState({ expenseList: responseJson.data });
+      }
+    });
+  };
+
   getAllExpenseCategoryList = () => {
     const header = {
       "Content-Type": configJSON.ApiContentType,
@@ -217,6 +227,12 @@ export default class UnitExpenseListController extends BlockComponent<Props, S, 
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
+  };
+
+  getAllExpenseCategoryListResponse = (responseJson: IResponseExpenseCategoryList) => {
+    if (responseJson && responseJson.expense_category) {
+      this.setState({ expenseCategoryList: responseJson.expense_category });
+    }
   };
 
   getUnitDetails = () => {
@@ -265,6 +281,14 @@ export default class UnitExpenseListController extends BlockComponent<Props, S, 
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
+  };
+
+  deleteExpenseResponse = (responseJson: IResponseDeleteExpense) => {
+    this.setState({ loading: false }, () => {
+      if (responseJson && responseJson.data) {
+        this.getAllExpenseList();
+      }
+    });
   };
 
   handleFilterModal = () => {

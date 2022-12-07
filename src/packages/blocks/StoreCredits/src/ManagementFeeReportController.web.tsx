@@ -5,7 +5,6 @@ import MessageEnum, { getName } from "../../../framework/src/Messages/MessageEnu
 import { runEngine } from "../../../framework/src/RunEngine";
 
 // Customizable Area Start
-import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
 // Customizable Area End
 
 export const configJSON = require("./config.js");
