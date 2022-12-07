@@ -92,7 +92,7 @@ export default class CoverImageController extends BlockComponent<
           budgetCategoryError:"",
           amount:"",
           amountError:"",
-          description:"",
+                   
           descriptionError:"",
           error:false,
           _destroy: "false",

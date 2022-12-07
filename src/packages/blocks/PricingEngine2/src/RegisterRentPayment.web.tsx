@@ -66,7 +66,8 @@ class RegisterRentPayment extends RegisterRentPaymentController{
                                 className="selectBuildingBoxRent"
                                 native
                                 style={{backgroundColor:"#F9F9F9",borderRadius:"100px",height:"60px",border:"1px solid #f0f0f0"}}
-                                value=""
+                                value={this.state.selectedMonth}
+                                onChange={(e:any)=> this.setState({selectedMonth:e.target.value})}
                                 startAdornment={
                                     <InputAdornment position="start">
                                         <img src={calendar} style={{marginLeft:"25px"}} />
@@ -99,7 +100,8 @@ class RegisterRentPayment extends RegisterRentPaymentController{
                                 className="selectBuildingBoxRent"
                                 native
                                 style={{backgroundColor:"#F9F9F9",borderRadius:"100px",height:"60px",border:"1px solid #f0f0f0"}}
-                                value=""
+                                value={this.state.selectedBuilding}
+                                onChange={this.manageSelectBuilding}
                                 startAdornment={
                                     <InputAdornment position="start">
                                         <img src={Building} style={{marginLeft:"25px"}} />
@@ -111,8 +113,13 @@ class RegisterRentPayment extends RegisterRentPaymentController{
                                 }}
                             >
                                 <option value="" disabled>Building Name</option>
-                                <option value={20}>Twenty</option>
-                                <option value={30}>Thirty</option>
+                                {
+                                    this.state.BuildingListing?.map((item:any,key:any)=> {
+                                        return(
+                                            <option key={key} value={item.id}>{item.attributes.name}</option>
+                                        )
+                                    })
+                                }
                             </Select>
                         </Grid>
                         <Grid item xs={12}>
@@ -134,8 +141,13 @@ class RegisterRentPayment extends RegisterRentPaymentController{
                                 }}
                             >
                                 <option value="" disabled>Unit Number</option>
-                                <option value={20}>Twenty</option>
-                                <option value={30}>Thirty</option>
+                                {
+                                    this.state.UnitListing?.map((item:any,key:any)=> {
+                                        return(
+                                            <option key={key} value={item.id}> {item?.attributes?.apartment_name}</option>
+                                        )
+                                    })
+                                }
                             </Select>
                         </Grid>
                         <Grid item xs={12} style={{display:"flex",alignItems:"center",marginBottom:"5px"}}>
@@ -166,9 +178,12 @@ class RegisterRentPayment extends RegisterRentPaymentController{
                                     <Input
                                         style={{backgroundColor:"#F9F9F9",height:"60px",width:"100%",display:'flex',alignItems:"center",borderRadius:"100px",border:"1px solid #f0f0f0"}}
                                         id="paritalPaymentBox"
+                                        type="number"
                                         disableUnderline
                                         placeholder="Enter Partial paid amount"
                                         fullWidth
+                                        value={this.state.partialPaymentAmount}
+                                        onChange={(e:any)=> this.setState({partialPaymentAmount:e.target.value})}
                                         startAdornment={
                                             <InputAdornment position="start">
                                                 <img src={currency} height="20px" width="20px" style={{marginLeft:"15px"}}/>
@@ -192,6 +207,11 @@ class RegisterRentPayment extends RegisterRentPaymentController{
                             </Grid>
                         }
                     </Grid>
+                    <Box style={{width:"90%",marginBottom:"30px",marginTop:"10px"}}>
+                        <CloseButton variant="contained" fullWidth size="large" onClick={()=> this.props.history.push("/AddRentPayment")}>
+                            {t("Register Rent Payment")}
+                        </CloseButton>
+                    </Box>
                 </Box>
             </Grid>
         </>

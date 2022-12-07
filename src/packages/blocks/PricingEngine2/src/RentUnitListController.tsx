@@ -2,9 +2,7 @@
 import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
-import MessageEnum, {
-  getName
-} from "../../../framework/src/Messages/MessageEnum";
+import MessageEnum, { getName } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
 
 export const configJSON = require("./config");
@@ -12,92 +10,62 @@ export const configJSON = require("./config");
 export interface Props {
   navigation: any;
   id: string;
-  history:any;
-  match:any;
-  location:any; 
+  history: any;
+  match: any;
+  location: any;
 }
 
 interface S {
-  anchorEl :any ;
-  anchorEl_1 :any ;
+  anchorEl: any;
+  anchorEl_1: any;
   loading: boolean;
-  sortBy:any;
-  status:any;
-  pollListing:any;
-  selectedTab:any;
-  paymentType:any;
-  UnitListing:any;
-  BuildingListing:any;
-  selectedBuilding:any;
-  selectedUnit:any;
-  selectedMonth:any;
-  partialPaymentAmount:any;
+  sortBy: any;
+  status: any;
+  UnitListing: any;
 }
 
 interface SS {
   id: any;
 }
 
-export default class CoverImageController extends BlockComponent<
-  Props,
-  S,
-  SS
-> {
-
+export default class CoverImageController extends BlockComponent<Props, S, SS> {
   apiEmailLoginCallId: string = "";
   emailReg: RegExp;
   labelTitle: string = "";
-  getRentBuildingListId: string = "";
+  getVisitorListId: string = "";
   getRentUnitListId: string = "";
 
   constructor(props: Props) {
-
     super(props);
     this.receive = this.receive.bind(this);
 
-    this.subScribedMessages = [
-      getName(MessageEnum.RestAPIResponceMessage),
-    ]
-    
+    this.subScribedMessages = [getName(MessageEnum.RestAPIResponceMessage)];
+
     this.state = {
-      anchorEl:null,
-      anchorEl_1:null,
-      loading:false,
-      sortBy : "" ,
-      status:"",
-      pollListing:[],
-      selectedTab:"MyInvoices",
-      paymentType:"",
-      UnitListing:[],
-      BuildingListing:[],
-      selectedBuilding:"",
-      selectedUnit:"",
-      selectedMonth:"",
-      partialPaymentAmount:""
+      anchorEl: null,
+      anchorEl_1: null,
+      loading: false,
+      sortBy: "",
+      status: "",
+      UnitListing: [],
     };
 
     this.emailReg = new RegExp("");
     this.labelTitle = configJSON.labelTitle;
 
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
-
   }
 
   async componentDidMount() {
-    this.getRentBuildingList()
+    this.getRentUnitList();
   }
 
-  manageSelectBuilding = (e:any) => {
-    this.setState({
-      selectedBuilding:e.target.value
-    })
-    this.getRentUnitList(e.target.value)
-  }
+
   async receive(from: string, message: Message) {
-    if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {
+    if (getName(MessageEnum.RestAPIResponceMessage) === message.id) {
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-      let errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      var errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (this.getRentUnitListId === apiRequestCallId) {
         if(responseJson.hasOwnProperty("data")){
           this.setState({
@@ -105,43 +73,16 @@ export default class CoverImageController extends BlockComponent<
           })
         }
       }
-      if (this.getRentBuildingListId === apiRequestCallId) {
-        if(responseJson.hasOwnProperty("data")){
-          this.setState({
-            BuildingListing:responseJson.data
-          })
-        }
-      }
     }
   }
 
-  getRentBuildingList = async () => {
-    this.getRentBuildingListId = await this.apiCall({
-      contentType: "application/json",
-      method: "GET",
-      endPoint: `/bx_block_rent_payment/buildings`,
-    });
-  };
-
-  getRentUnitList = async (id:any) => {
+  getRentUnitList = async () => {
+    const {id} = this.props.match.params
     console.log("BuildingID",id)
     this.getRentUnitListId = await this.apiCall({
       contentType: "application/json",
       method: "GET",
       endPoint: `/bx_block_rent_payment/apartments/${id}`,
-    });
-  };
-
-  createPayment = () => {
-
-  }
-
-  registerPayment = async (body:any) => {
-    this.getRentUnitListId = await this.apiCall({
-      contentType: "application/json",
-      method: "GET",
-      endPoint: `/bx_block_rent_payment/rent_payments`,
-      body:JSON.stringify(body)
     });
   };
 
@@ -161,14 +102,6 @@ export default class CoverImageController extends BlockComponent<
     body && requestMessage.addData(getName(MessageEnum.RestAPIRequestBodyMessage), body);
     runEngine.sendMessage(requestMessage.id, requestMessage);
     return requestMessage.messageId;
-  };
-  
-  handleClick = (event:any) => {
-    this.setState({anchorEl:event.currentTarget })
-  };
-
-  handleClose = () => {
-    this.setState({anchorEl:null})
   };
 }
 

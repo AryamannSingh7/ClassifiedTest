@@ -42,7 +42,7 @@ export default class CoverImageController extends BlockComponent<
   apiEmailLoginCallId: string = "";
   emailReg: RegExp;
   labelTitle: string = "";
-  getVisitorListId:string = "";
+  getRentUnitViseListId: string = "";
   constructor(props: Props) {
 
     super(props);
@@ -71,8 +71,36 @@ export default class CoverImageController extends BlockComponent<
   }
 
   async componentDidMount() {
-
+    this.getRentUnitList()
   }
+
+  getRentUnitList = async () => {
+    const {id} = this.props.match.params
+    this.getRentUnitViseListId = await this.apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `/bx_block_rent_payment/monthly_payment/${id}`,
+    });
+  };
+
+
+  apiCall = async (data: any) => {
+    const { contentType, method, endPoint, body } = data;
+
+    const token = localStorage.getItem("userToken");
+
+    const header = {
+      "Content-Type": contentType,
+      token,
+    };
+    const requestMessage = new Message(getName(MessageEnum.RestAPIRequestMessage));
+    requestMessage.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+    requestMessage.addData(getName(MessageEnum.RestAPIResponceEndPointMessage), endPoint);
+    requestMessage.addData(getName(MessageEnum.RestAPIRequestMethodMessage), method);
+    body && requestMessage.addData(getName(MessageEnum.RestAPIRequestBodyMessage), body);
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return requestMessage.messageId;
+  };
 
   handleCloseDeleteModal = () => {
 

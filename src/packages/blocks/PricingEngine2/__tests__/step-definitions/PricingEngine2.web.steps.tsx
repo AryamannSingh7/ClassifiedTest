@@ -10,11 +10,17 @@ import MessageEnum, {
 } from "../../../../framework/src/Messages/MessageEnum";
 import React from "react";
 import PricingEngine2 from "../../src/PricingEngine2.web";
+import RentPayments from "../../src/RentPayments.web"
 const navigation = require("react-navigation");
 
 const screenProps = {
   navigation: navigation,
   id: "PricingEngine2",
+};
+
+const RentPaymentsProps = {
+  navigation: navigation,
+  id: "RentPayments",
 };
 
 const feature = loadFeature(
