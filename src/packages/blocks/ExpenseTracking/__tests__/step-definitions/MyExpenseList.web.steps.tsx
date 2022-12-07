@@ -13,7 +13,7 @@ const myExpenseListProps = {
     navigate: jest.fn(),
   },
   id: "AddEditExpense",
-  classes: ExpenseTrackingStyle as any,
+  classes: ExpenseTrackingStyle,
 };
 
 const feature = loadFeature("./__tests__/features/MyExpenseList.web.feature");

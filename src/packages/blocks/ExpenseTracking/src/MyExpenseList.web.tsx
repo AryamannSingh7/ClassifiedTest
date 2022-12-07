@@ -72,14 +72,14 @@ class MyExpenseList extends MyExpenseListController {
                         {this.state.expenseBuildingList.map((building: IExpenseBuilding) => {
                           return (
                             <Grid item xs={12} key={building.id}>
-                              <Link href={`/MyExpenseList/${building.attributes.apartment_management.id}`}>
+                              <Link href={`/MyExpenseList/${building.id}`}>
                                 <Card className="tenant">
                                   <Grid container spacing={2}>
                                     <Grid item xs={12}>
                                       <Box className="header">
                                         <h4>
                                           Building {building.attributes.building_management.name} Unit{" "}
-                                          {building.attributes.apartment_management.apartment_name}
+                                          {building.attributes.apartment_name}
                                         </h4>
                                         <Box className="right-menu">
                                           <img src={RightArrowIcon} alt="" />

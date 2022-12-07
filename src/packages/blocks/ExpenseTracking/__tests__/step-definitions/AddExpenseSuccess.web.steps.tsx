@@ -13,7 +13,7 @@ const addExpenseSuccessProps = {
     navigate: jest.fn(),
   },
   id: "AddExpenseSuccess",
-  classes: ExpenseTrackingStyle as any,
+  classes: ExpenseTrackingStyle,
 };
 
 const feature = loadFeature("./__tests__/features/AddExpenseSuccess.web.feature");
@@ -48,6 +48,7 @@ defineFeature(feature, (test) => {
 
     when("I navigate to the AddExpenseSuccess", () => {
       instance = AddExpenseSuccessMountWrapper.instance();
+      console.log(instance);
     });
 
     then("AddExpenseSuccess will load with out errors", async () => {

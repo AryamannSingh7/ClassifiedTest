@@ -23,8 +23,17 @@ export interface IExpenseCategory {
   id: number;
   title: string;
 }
+
 export interface IResponseExpenseCategory {
   expense_category: IExpenseCategory[];
+}
+
+interface IResponseBuilding {
+  buildings: IBuilding[];
+}
+
+interface IResponseUnit {
+  apartments: IUnit[];
 }
 
 export interface IBuilding {
@@ -125,7 +134,6 @@ export default class AddEditExpenseController extends BlockComponent<Props, S, S
     // Customizable Area End
     if (getName(MessageEnum.NavigationPayLoadMessage) === message.id) {
       const data = message.getData(getName(MessageEnum.AddExpenseDataMessage));
-      if (data) {
         const { isMainPage, unitId, buildingId } = data;
 
         this.setState(
@@ -142,7 +150,6 @@ export default class AddEditExpenseController extends BlockComponent<Props, S, S
             this.getUnitList(buildingId);
           }
         );
-      }
     }
 
     if (getName(MessageEnum.RestAPIResponceMessage) === message.id) {
@@ -158,15 +165,11 @@ export default class AddEditExpenseController extends BlockComponent<Props, S, S
           break;
         // Get Building List - API Response
         case this.GetBuildingListCallId:
-          if (responseJson && responseJson.buildings) {
-            this.setState({ buildingList: responseJson.buildings });
-          }
+          this.handleBuildingListResponse(responseJson);
           break;
         // Get Unit List - API Response
         case this.GetUnitListCallId:
-          if (responseJson && responseJson.apartments) {
-            this.setState({ unitList: responseJson.apartments });
-          }
+          this.handleUnitListResponse(responseJson);
           break;
         // Add Expense - API Response
         case this.AddExpenseCallId:
@@ -280,6 +283,12 @@ export default class AddEditExpenseController extends BlockComponent<Props, S, S
     return true;
   };
 
+  handleBuildingListResponse = (responseJson: IResponseBuilding) => {
+    if (responseJson && responseJson.buildings) {
+      this.setState({ buildingList: responseJson.buildings });
+    }
+  };
+
   getUnitList = (building: string) => {
     const header = {
       "Content-Type": configJSON.ApiContentType,
@@ -302,6 +311,12 @@ export default class AddEditExpenseController extends BlockComponent<Props, S, S
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
+  };
+
+  handleUnitListResponse = (responseJson: IResponseUnit) => {
+    if (responseJson && responseJson.apartments) {
+      this.setState({ unitList: responseJson.apartments });
+    }
   };
 
   getExpenseDetails = () => {
@@ -339,6 +354,7 @@ export default class AddEditExpenseController extends BlockComponent<Props, S, S
   });
 
   handleAddExpenseForm = (values: ExpenseForm) => {
+    const society_id = localStorage.getItem("society_id");
     const body = {
       expense: {
         expense_date: values.expenseDate,
@@ -349,6 +365,7 @@ export default class AddEditExpenseController extends BlockComponent<Props, S, S
         apartment_management_id: values.unit,
         resolved_by: values.resolvedBy,
         summary: values.summary,
+        society_management_id: society_id,
       },
     };
 
@@ -429,6 +446,7 @@ export default class AddEditExpenseController extends BlockComponent<Props, S, S
         this.handleEditExpenseForm(values);
       } else {
         this.handleAddExpenseForm(values);
+        resetForm();
       }
     });
   };

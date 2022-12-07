@@ -11,7 +11,6 @@ import {
   Drawer,
   Grid,
   IconButton,
-  Link,
   MenuItem,
   withStyles,
 } from "@material-ui/core";
