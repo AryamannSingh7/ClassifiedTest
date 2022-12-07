@@ -29,10 +29,8 @@ import FacilityReservationController, { Props } from "./FacilityReservationContr
 //Customizable Area End
 //resorces
 import { 
-  Tenant_Logo, 
   Building1, 
   Grid_Icon, 
-  Filter_Icon, 
 } from "../src/assets";
 class FacilityReservationListing extends FacilityReservationController {
   constructor(props: Props) {
