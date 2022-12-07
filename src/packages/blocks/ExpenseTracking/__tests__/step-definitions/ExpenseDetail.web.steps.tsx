@@ -13,7 +13,7 @@ const expenseDetailsProps = {
     navigate: jest.fn(),
   },
   id: "ExpenseDetail",
-  classes: ExpenseTrackingStyle as any,
+  classes: ExpenseTrackingStyle,
 };
 
 const feature = loadFeature("./__tests__/features/ExpenseDetail.web.feature");

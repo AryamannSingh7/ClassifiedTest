@@ -56,13 +56,6 @@
     "indent": 4
   },
   "jest": {
-    "testEnvironment": "jsdom",
-    "moduleNameMapper": {
-      "\\.(css|less|scss|sass)$": "identity-obj-proxy"
-    },
-    "transformIgnorePatterns": [
-      "node_modules/(?!@ngrx|(?!deck.gl)|ng-dynamic)"
-    ],
     "globals": {
       "ts-jest": {
         "tsConfig": "__tests__/tsconfig.base.json"
@@ -101,10 +94,5 @@
       "!coverage/**/*",
       "!__tests__/**/*"
     ]
-  },
-  "resolutions": {
-    "@types/react": "16.9.11",
-    "@types/react-dom": "16.9.11",
-    "@types/react-native": "0.61.3"
   }
 }

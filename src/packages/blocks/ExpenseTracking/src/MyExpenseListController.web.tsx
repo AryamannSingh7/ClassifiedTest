@@ -25,10 +25,7 @@ export interface IUnit {
 export interface IExpenseBuilding {
   id: string;
   attributes: {
-    apartment_management: {
-      id: number;
-      apartment_name: string;
-    };
+    apartment_name: string;
     building_management: {
       id: number;
       name: string;
