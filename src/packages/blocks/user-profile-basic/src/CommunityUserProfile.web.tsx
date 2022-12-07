@@ -222,14 +222,18 @@ class CommunityUserProfile extends CommunityUserProfileController {
                 <Box style={dashBoard.navigation}>
                   <Box>
                     <Typography variant="body1" >
-                      {t("Community Management")} /<Box component="span" style={{ color: "blue" }}> {t("Property Manager")}</Box>
+                      {t("Community Management")} /<Box component="span" style={{ color: "blue" }}> {t("User Profiles")}</Box>
                     </Typography>
+                    {
+                                //@ts-ignore
+                                //@ts-nocheck
                     <Typography variant="h5" style={dashBoard.subHeading}>{t("User Profiles")}</Typography>
+                              }
                   </Box>
                 </Box>
                  <Box style={dashBoard.boxStyling}>
-                    <Grid container  xs={6} md={6} sm={6} spacing={2}>
-                    <Grid item xs={4}>
+                    <Grid container  xs={8} md={8} sm={8} spacing={2}>
+                    <Grid item xs={3}>
                         <FormControl style={dashBoard.YearMain} className='yearTab'>
                           <NativeSelect className='yearSelection'
                             // value={this.state.Year}
@@ -247,7 +251,7 @@ class CommunityUserProfile extends CommunityUserProfileController {
                           </NativeSelect>
                       </FormControl>
                       </Grid>
-                      <Grid item xs={4}>
+                      <Grid item xs={3}>
                         <FormControl style={dashBoard.YearMain} className='yearTab'>
                           <NativeSelect className='yearSelection'
                             // value={this.state.Year}
@@ -278,13 +282,13 @@ class CommunityUserProfile extends CommunityUserProfileController {
                           </NativeSelect>
                       </FormControl>
                       </Grid>
-                      <Grid item xs={4}>
-                        <Button variant="contained" onClick={this.getUserProfile} style={dashBoard.backColor}><InputAdornment position="start">
+                      <Grid item xs={2}>
+                        <Button variant="contained" onClick={this.getUserProfile} style={dashBoard.backColor}><InputAdornment position="start" style={{color:'white'}}>
                                 <SearchIcon />
                               </InputAdornment>{t("Search")}</Button>
                       </Grid>
                     </Grid>
-                    <Grid container  xs={6} sm={8} spacing={2} style={{justifyContent:"end"}}>
+                    <Grid container  xs={4} sm={4} spacing={2} style={{justifyContent:"end"}}>
                     <div className="search-box">
                         <TextField
                           style={dashBoard.searchButton}
@@ -310,7 +314,11 @@ class CommunityUserProfile extends CommunityUserProfileController {
                         <Box>
                     <Grid container style={dashBoard.gaMemberMain}> 
                           <Grid item xs={6}>
-                            <Typography variant="h6" style={dashBoard.subHeading}>{t(`${item}`)}</Typography>
+                          {
+                                //@ts-ignore
+                                //@ts-nocheck
+                            <Typography variant="h6" style={dashBoard.subHeading} >{t(`${item==='ga_member' ? 'GA Members':item ==='property_manager' ? 'Property Manager':item==='resident'? 'Residents':'Owners'}`)}</Typography>
+                              }
                           </Grid>
                           <Grid item xs={1} style={dashBoard.cursorPointer}>
                             <Typography variant="subtitle1" style={dashBoard.viewMore}    
@@ -346,9 +354,14 @@ class CommunityUserProfile extends CommunityUserProfileController {
                               <Typography variant="h6"
                               //@ts-ignore 
                               style={dashBoard.unitno}>{item.unitno}</Typography>
+                              <Typography variant="h6" style={{textAlign:"center", marginTop:"5px"}}>{singleProfile?.attributes?.apartment_number?.apartment_number}</Typography>
                               <Typography variant="h6" style={{textAlign:"center", marginTop:"5px"}}>{singleProfile?.attributes?.full_name?.name}</Typography>
                               <div style={{textAlign:"center",marginTop:"5px"}} >
-                                <Typography variant="h6" style={dashBoard.userType}>{item}</Typography>
+                              {
+                                //@ts-ignore
+                                //@ts-nocheck
+                                <Typography variant="h6" style={dashBoard.userType}>{t(`${item==='ga_member' ? 'GA Members':item ==='property_manager' ? 'Property Manager':item}`)}</Typography>
+                              }
                               </div>
                               <div style={dashBoard.contactIcon}>
                                 <div style={dashBoard.relatedMemberCard}>
@@ -407,6 +420,7 @@ const dashBoard = {
   subHeading: {
     fontWeight: 600,
     marginTop: 15,
+    textTransform:"capitalize"
   },
   YearMain: {
     background: "#fff",
@@ -465,7 +479,8 @@ const dashBoard = {
     display: "inline-block",
     padding: "3px 20px",
     color:"#2D6EED",
-    fontWeight:600
+    fontWeight:600,
+    textTransform:"capitalize"
   },
   unitno:{
     marginTop:15,

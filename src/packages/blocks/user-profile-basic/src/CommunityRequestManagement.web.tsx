@@ -245,12 +245,17 @@ class CommunityRequestManagement extends CommunityUserProfileController {
                     timeout: 500,
                     }}
                     >
+                      
                     <Fade in={Boolean(this.state.setOpen)}>
                       <div style={dashBoard.paper}>
+                        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',borderBottom:'1px solid #0000002e',padding:'16px 32px 24px'}}>
+
+                        <p style={{fontWeight:600}}>Invite Member</p>
                         <img src={cancle}
                         onClick={this.handleClose}
                         //@ts-ignore 
                         style={dashBoard.modalCacle}/>
+                        </div>
                         <Formik
                     initialValues={{
                       email: "",
@@ -269,7 +274,7 @@ class CommunityRequestManagement extends CommunityUserProfileController {
                     }}
                   >
                     {({ values, touched, errors, isValid, setFieldValue }) => (
-                        <Form translate={true} className="commonForm ">
+                        <Form translate={true} className="commonForm " style={{padding:'16px 32px 24px',width:'auto'}}>
                           <Grid container spacing={3}>
                             <Grid item xs={12} sm={6}>
                               <Box className="formGroup customSelect">
@@ -533,6 +538,7 @@ CANCEL
  variant="contained"
  type="submit"
  style={{borderRadius:10}}
+ className='MuiButtonBase-root-2 '
 
 >
  SEND INVITATION
@@ -639,7 +645,7 @@ facility: {
     backgroundColor: "#fff",
     borderRadius: '10px',
     // boxShadow: theme.shadows[5],
-    padding: "16px 32px 24px",
+    // padding: "16px 32px 24px",
     width:"700px"
 },
   formLabels:{
