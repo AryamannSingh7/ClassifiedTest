@@ -49,7 +49,13 @@ class VisitorDetails extends VisitorDetailsController {
         const {t} = this.props
         const userType  = localStorage.getItem("selectUserType");
         let comingWtihCar :any=""
-        this.state?.visitorDetails?.vehicle_detail?.car_number? comingWtihCar = "Yes"  :comingWtihCar = "No"
+        if( this.state?.visitorDetails?.vehicle_detail?.car_number){
+            comingWtihCar = "Yes"
+        }
+        else {
+            comingWtihCar = "No"
+        }
+    
         console.log("this.state?.visitorDetails======>",this.state?.visitorDetails)
         return (
             <>
