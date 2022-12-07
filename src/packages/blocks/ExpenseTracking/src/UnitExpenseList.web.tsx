@@ -154,7 +154,9 @@ class UnitExpenseList extends UnitExpenseListController {
           <Box className="condition-box filter-box">
             <Box className="heading">
               <p>{t("Add More Conditions")}</p>
-              <span onClick={() => this.handleClearFilter()}>{t("Clear All")}</span>
+              <span className="clear-all-text" onClick={() => this.handleClearFilter()}>
+                {t("Clear All")}
+              </span>
             </Box>
             <Box className="content-box">
               {this.state.expenseCategoryList.map((category: IExpenseCategory) => {

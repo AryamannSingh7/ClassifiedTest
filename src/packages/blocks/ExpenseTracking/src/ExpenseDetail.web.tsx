@@ -120,9 +120,7 @@ class ExpenseDetail extends ExpenseDetailController {
               </Typography>
               <DialogActions className="dialog-button-group">
                 <Button onClick={() => this.handleDeleteExpense()}>{t("Yes, Delete")}</Button>
-                <Button data-test-id="close-delete-expense-button" onClick={() => this.handleExpenseModal()}>
-                  {t("No, Don’t Delete")}
-                </Button>
+                <Button onClick={() => this.handleExpenseModal()}>{t("No, Don’t Delete")}</Button>
               </DialogActions>
             </Box>
           </DialogContent>

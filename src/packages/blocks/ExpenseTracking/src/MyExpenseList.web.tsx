@@ -43,8 +43,6 @@ class MyExpenseList extends MyExpenseListController {
   render() {
     const { t, classes } = this.props;
 
-    console.log(this.state);
-
     return (
       // Customizable Area Start
       <>
@@ -69,6 +67,11 @@ class MyExpenseList extends MyExpenseListController {
                   <Box className="tenant-list-box">
                     <Box className="tenant-list">
                       <Grid container spacing={2}>
+                        {this.state.expenseBuildingList.length === 0 && (
+                          <Grid item xs={12}>
+                            <Card className="tenant">{t("No Expense Unit Available")}</Card>
+                          </Grid>
+                        )}
                         {this.state.expenseBuildingList.map((building: IExpenseBuilding) => {
                           return (
                             <Grid item xs={12} key={building.id}>
@@ -126,7 +129,9 @@ class MyExpenseList extends MyExpenseListController {
           <Box className="condition-box filter-box">
             <Box className="heading">
               <p>{t("Add More Conditions")}</p>
-              <span onClick={() => this.handleClearFilter()}>{t("Clear All")}</span>
+              <span className="clear-all-text" onClick={() => this.handleClearFilter()}>
+                {t("Clear All")}
+              </span>
             </Box>
             <Box className="accordion-box">
               {this.state.buildingList.length === 0 && <p>{t("No unit available")}</p>}
