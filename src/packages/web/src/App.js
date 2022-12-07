@@ -357,18 +357,18 @@ import ChairmanNotification from '../../blocks/notifications/src/ChairmanNotific
 import ManagerNotification from '../../blocks/notifications/src/ManagerNotification.web';
 
 // My Expense
-import MyExpenseList from '../../blocks/ExpenseTracking/src/MyExpense/MyExpenseList.web';
-import UnitExpenseList from '../../blocks/ExpenseTracking/src/MyExpense/UnitExpenseList.web';
-import ExpenseDetail from '../../blocks/ExpenseTracking/src/MyExpense/ExpenseDetail.web';
-import AddEditExpense from '../../blocks/ExpenseTracking/src/MyExpense/AddEditExpense.web';
-import AddExpenseSuccess from '../../blocks/ExpenseTracking/src/MyExpense/AddExpenseSuccess.web';
+import MyExpenseList from '../../blocks/ExpenseTracking/src/MyExpenseList.web';
+import UnitExpenseList from '../../blocks/ExpenseTracking/src/UnitExpenseList.web';
+import ExpenseDetail from '../../blocks/ExpenseTracking/src/ExpenseDetail.web';
+import AddEditExpense from '../../blocks/ExpenseTracking/src/AddEditExpense.web';
+import AddExpenseSuccess from '../../blocks/ExpenseTracking/src/AddExpenseSuccess.web';
 
 // Total Expense
-import TotalExpense from '../../blocks/ExpenseTracking/src/MyExpenseReport/TotalExpense.web';
-import UnitTotalExpense from '../../blocks/ExpenseTracking/src/MyExpenseReport/UnitTotalExpense.web';
-import RentedVsEmpty from '../../blocks/ExpenseTracking/src/MyExpenseReport/RentedVsEmpty.web';
-import CollectedVsDue from '../../blocks/ExpenseTracking/src/MyExpenseReport/CollectedVsDue.web';
-import SpentVsCollected from '../../blocks/ExpenseTracking/src/MyExpenseReport/SpentVsCollected.web';
+import TotalExpense from '../../blocks/StoreCredits/src/MyExpenseReport/TotalExpense.web';
+import UnitTotalExpense from '../../blocks/StoreCredits/src/MyExpenseReport/UnitTotalExpense.web';
+import RentedVsEmpty from '../../blocks/StoreCredits/src/MyExpenseReport/RentedVsEmpty.web';
+import CollectedVsDue from '../../blocks/StoreCredits/src/MyExpenseReport/CollectedVsDue.web';
+import SpentVsCollected from '../../blocks/StoreCredits/src/MyExpenseReport/SpentVsCollected.web';
 
 const routeMap = {
   //done
