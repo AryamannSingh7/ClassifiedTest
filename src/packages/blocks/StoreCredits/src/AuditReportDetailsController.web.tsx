@@ -28,7 +28,7 @@ interface SS {
   id: any;
 }
 
-export default class BudgetReportController extends BlockComponent<Props, S, SS> {
+export default class AuditReportDetailsController extends BlockComponent<Props, S, SS> {
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
