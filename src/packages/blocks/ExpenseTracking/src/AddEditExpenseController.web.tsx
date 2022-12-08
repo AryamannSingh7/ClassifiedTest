@@ -69,7 +69,6 @@ interface S {
   expenseCategoryList: IExpenseCategory[];
   buildingList: IBuilding[];
   unitList: IUnit[];
-
   // Customizable Area End
 }
 
@@ -103,6 +102,7 @@ export default class AddEditExpenseController extends BlockComponent<Props, S, S
     ];
 
     this.state = {
+      // Customizable Area Start
       loading: false,
       isComingFromMainPage: false,
 
@@ -121,40 +121,41 @@ export default class AddEditExpenseController extends BlockComponent<Props, S, S
       expenseCategoryList: [],
       buildingList: [],
       unitList: [],
+      // Customizable Area End
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
 
-    // Customizable Area End
+    // Customizable Area Start
     // Customizable Area End
   }
 
   async receive(from: string, message: Message) {
     runEngine.debugLog("Message Recived", message);
 
-    // Customizable Area End
+    // Customizable Area Start
     if (getName(MessageEnum.NavigationPayLoadMessage) === message.id) {
       const data = message.getData(getName(MessageEnum.AddExpenseDataMessage));
-        const { isMainPage, unitId, buildingId } = data;
+      const { isMainPage, unitId, buildingId } = data;
 
-        this.setState(
-          {
-            isComingFromMainPage: isMainPage,
-            expenseForm: {
-              ...this.state.expenseForm,
-              building: buildingId,
-              unit: unitId,
-            },
+      this.setState(
+        {
+          isComingFromMainPage: isMainPage,
+          expenseForm: {
+            ...this.state.expenseForm,
+            building: buildingId,
+            unit: unitId,
           },
-          () => {
-            this.getBuildingList();
-            this.getUnitList(buildingId);
-          }
-        );
+        },
+        () => {
+          this.getBuildingList();
+          this.getUnitList(buildingId);
+        }
+      );
     }
 
     if (getName(MessageEnum.RestAPIResponceMessage) === message.id) {
-      let responseJson: any = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-      let errorResponse: any = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      let responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      let errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
 
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
 

@@ -13,7 +13,8 @@ Feature: UnitExpenseList
         Given I am a User loading UnitExpenseList
         When Getting details of unit
         Then My Expense List is not Empty and should show in web
-        And Should go to Expense Detail page
+        And Should go to Expense Detail page and Edit page
+        And Should delete the expense
 
     Scenario: Filter on My Expense List
         Given I am a User loading My Expense

@@ -1,6 +1,6 @@
 import { defineFeature, loadFeature } from "jest-cucumber";
 import { configure, mount } from "enzyme";
-import React from "react";
+import React, { Component } from "react";
 import MyExpenseList from "../../src/MyExpenseList.web";
 import { ExpenseTrackingStyle } from "../../src/ExpenseTrackingStyle.web";
 import Adapter from "enzyme-adapter-react-16";
@@ -22,7 +22,7 @@ const myExpenseListProps = {
 const feature = loadFeature("./__tests__/features/MyExpenseList.web.feature");
 
 jest.mock("@material-ui/core/styles", () => ({
-  withStyles: (styles: any) => (component: any) => component,
+  withStyles: (styles: any) => (component: Component) => component,
 }));
 
 jest.mock("react-i18next", () => ({

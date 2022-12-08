@@ -1,14 +1,13 @@
 import { defineFeature, loadFeature } from "jest-cucumber";
 import { configure, mount } from "enzyme";
-import React from "react";
+import React, { Component } from "react";
 import UnitExpenseList from "../../src/UnitExpenseList.web";
 import { ExpenseTrackingStyle } from "../../src/ExpenseTrackingStyle.web";
 import Adapter from "enzyme-adapter-react-16";
-import { Button, Drawer, IconButton, MenuItem } from "@material-ui/core";
+import { Button, Drawer, IconButton } from "@material-ui/core";
 import { Message } from "../../../../framework/src/Message";
 import MessageEnum, { getName } from "../../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../../framework/src/RunEngine";
-import { Menu } from "@szhsin/react-menu";
 
 const unitExpenseListProps = {
   navigation: {
@@ -36,7 +35,7 @@ const expenseCategories = {
 const feature = loadFeature("./__tests__/features/UnitExpenseList.web.feature");
 
 jest.mock("@material-ui/core/styles", () => ({
-  withStyles: (styles: any) => (component: any) => component,
+  withStyles: (styles: any) => (component: Component) => component,
 }));
 
 jest.mock("react-i18next", () => ({
@@ -172,7 +171,19 @@ defineFeature(feature, (test) => {
       expect(instance.state.expenseList.length).not.toEqual(0);
     });
 
-    then("Should go to Expense Detail page", async () => {});
+    then("Should go to Expense Detail page and Edit page", async () => {
+      instance.handleNavigationToDetails("23");
+      instance.handleNavigationToEditExpense("23");
+    });
+
+    then("Should delete the expense", () => {
+      instance.handleDeleteExpense("12");
+      let deleteExpense = new Message(getName(MessageEnum.RestAPIResponceMessage));
+      deleteExpense.addData(getName(MessageEnum.RestAPIResponceDataMessage), deleteExpense);
+      deleteExpense.addData(getName(MessageEnum.RestAPIResponceSuccessMessage), myExpenseList.data[0]);
+      instance.DeleteExpenseCallId = deleteExpense;
+      runEngine.sendMessage("Expense Delete", deleteExpense);
+    });
   });
 
   test("Filter on My Expense List", ({ given, when, then }) => {

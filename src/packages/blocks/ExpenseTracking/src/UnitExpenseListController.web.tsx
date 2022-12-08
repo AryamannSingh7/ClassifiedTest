@@ -56,6 +56,7 @@ export interface Props {
 }
 
 interface S {
+  // Customizable Area Start
   loading: boolean;
   isFilterOpen: boolean;
 
@@ -70,6 +71,7 @@ interface S {
   sort: string;
   categoryList: number[];
   filterCategoryList: number[];
+  // Customizable Area End
 }
 
 interface SS {
@@ -79,19 +81,27 @@ interface SS {
 }
 
 export default class UnitExpenseListController extends BlockComponent<Props, S, SS> {
+  // Customizable Area Start
   GetAllExpenseListCallId: string = "";
   GetAllExpenseCategoryListCallId: string = "";
   GetUnitDetailsCallId: string = "";
   DeleteExpenseCallId: string = "";
+  // Customizable Area End
 
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
 
     // Customizable Area Start
-    this.subScribedMessages = [getName(MessageEnum.RestAPIResponceMessage), getName(MessageEnum.RestAPIRequestMessage)];
+    this.subScribedMessages = [
+      // Customizable Area Start
+      getName(MessageEnum.RestAPIResponceMessage),
+      getName(MessageEnum.RestAPIRequestMessage),
+      // Customizable Area End
+    ];
 
     this.state = {
+      // Customizable Area Start
       loading: false,
       isFilterOpen: false,
 
@@ -106,14 +116,21 @@ export default class UnitExpenseListController extends BlockComponent<Props, S, 
       sort: "desc",
       categoryList: [],
       filterCategoryList: [],
+      // Customizable Area End
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
+
+    // Customizable Area Start
+    // Customizable Area End
   }
 
   async receive(from: string, message: Message) {
+    runEngine.debugLog("Message Recived", message);
+
+    // Customizable Area Start
     if (getName(MessageEnum.RestAPIResponceMessage) === message.id) {
-      let responseJson: any = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-      let errorResponse: any = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      let responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      let errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
 
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
 
@@ -151,8 +168,10 @@ export default class UnitExpenseListController extends BlockComponent<Props, S, 
       }
       ApiCatchErrorResponse(errorResponse);
     }
+    // Customizable Area End
   }
 
+  // Customizable Area Start
   async componentDidMount(): Promise<void> {
     const unit_id = this.props.navigation.getParam("id");
     this.setState({ unitId: unit_id }, () => {
@@ -162,7 +181,7 @@ export default class UnitExpenseListController extends BlockComponent<Props, S, 
     });
   }
 
-  async componentDidUpdate(prevProps: any, prevState: any): Promise<void> {
+  async componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<S>): Promise<void> {
     if (
       prevState.sort !== this.state.sort ||
       JSON.stringify(prevState.filterCategoryList) !== JSON.stringify(this.state.filterCategoryList)
@@ -343,4 +362,5 @@ export default class UnitExpenseListController extends BlockComponent<Props, S, 
   handleClearFilter = () => {
     this.setState({ categoryList: [] });
   };
+  // Customizable Area End
 }

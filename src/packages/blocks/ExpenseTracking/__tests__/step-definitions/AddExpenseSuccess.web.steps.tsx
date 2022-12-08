@@ -1,6 +1,6 @@
 import { defineFeature, loadFeature } from "jest-cucumber";
 import { configure, mount } from "enzyme";
-import React from "react";
+import React, { Component } from "react";
 import AddExpenseSuccess from "../../src/AddExpenseSuccess.web";
 import { ExpenseTrackingStyle } from "../../src/ExpenseTrackingStyle.web";
 import { Button, IconButton } from "@material-ui/core";
@@ -19,10 +19,10 @@ const addExpenseSuccessProps = {
 const feature = loadFeature("./__tests__/features/AddExpenseSuccess.web.feature");
 
 jest.mock("@material-ui/core/styles", () => ({
-  withStyles: (styles: any) => (component: any) => component,
+  withStyles: (styles: any) => (component: Component) => component,
 }));
 
-jest.mock('react-i18next', () => ({
+jest.mock("react-i18next", () => ({
   withTranslation: () => (Component: any) => {
     Component.defaultProps = { ...Component.defaultProps, t: () => "" };
     return Component;
@@ -40,15 +40,9 @@ defineFeature(feature, (test) => {
 
   test("User navigates to AddExpenseSuccess", ({ given, when, then }) => {
     let AddExpenseSuccessMountWrapper: any;
-    let instance: any;
 
     given("I am a User loading AddExpenseSuccess", () => {
       AddExpenseSuccessMountWrapper = mount(<AddExpenseSuccess {...addExpenseSuccessProps} />);
-    });
-
-    when("I navigate to the AddExpenseSuccess", () => {
-      instance = AddExpenseSuccessMountWrapper.instance();
-      console.log(instance);
     });
 
     then("AddExpenseSuccess will load with out errors", async () => {

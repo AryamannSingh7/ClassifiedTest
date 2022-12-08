@@ -110,50 +110,38 @@ export default class MyExpenseListController extends BlockComponent<Props, S, SS
     runEngine.debugLog("Message Recived", message);
 
     // Customizable Area Start
-    let responseJson: any;
-    let errorResponse: any;
-    // Get Expense Building List - API Response=
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetAllExpenseBuildingListCallId !== "" &&
-      this.GetAllExpenseBuildingListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.GetAllExpenseBuildingListCallId = "";
+    if (getName(MessageEnum.RestAPIResponceMessage) === message.id) {
+      let responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      let errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
 
-      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
 
-      this.setState({ loading: false }, () => {
-        if (responseJson && responseJson.data) {
-          this.setState({ expenseBuildingList: responseJson.data });
-        }
-      });
-
-      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-    }
-
-    // Get Own Building List - API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetAllOwnBuildingListCallId !== "" &&
-      this.GetAllOwnBuildingListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.GetAllOwnBuildingListCallId = "";
-
-      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      if (responseJson && responseJson.data) {
-        this.setState({ buildingList: responseJson.data });
+      switch (apiRequestCallId) {
+        // Get Expense Building List - API Response
+        case this.GetAllExpenseBuildingListCallId:
+          this.setState({ loading: false }, () => {
+            if (responseJson && responseJson.data) {
+              this.setState({ expenseBuildingList: responseJson.data });
+            }
+          });
+          break;
+        // Get Own Building List - API Response
+        case this.GetAllOwnBuildingListCallId:
+          if (responseJson && responseJson.data) {
+            this.setState({ buildingList: responseJson.data });
+          }
+          break;
+        default:
+          break;
       }
 
-      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
     }
-
-    if (responseJson && responseJson.meta && responseJson.meta.token) {
-      runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-    } else {
-      ApiErrorResponse(responseJson);
-    }
-    ApiCatchErrorResponse(errorResponse);
     // Customizable Area End
   }
 
@@ -163,7 +151,7 @@ export default class MyExpenseListController extends BlockComponent<Props, S, SS
     this.getAllOwnedBuildingList();
   }
 
-  async componentDidUpdate(prevProps: any, prevState: any): Promise<void> {
+  async componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<S>): Promise<void> {
     if (JSON.stringify(prevState.filterUnitList) !== JSON.stringify(this.state.filterUnitList)) {
       this.getAllExpenseBuildingList();
     }

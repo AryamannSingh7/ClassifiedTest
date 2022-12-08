@@ -128,7 +128,7 @@ class MyExpenseList extends MyExpenseListController {
         >
           <Box className="condition-box filter-box">
             <Box className="heading">
-              <p>{t("Add More Conditions")}</p>
+              <p>{t("Filter")}</p>
               <span className="clear-all-text" onClick={() => this.handleClearFilter()}>
                 {t("Clear All")}
               </span>

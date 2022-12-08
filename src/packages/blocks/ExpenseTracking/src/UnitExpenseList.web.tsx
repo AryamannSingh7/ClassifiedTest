@@ -1,4 +1,6 @@
 import React from "react";
+
+// Customizable Area Start
 import { withTranslation } from "react-i18next";
 import UnitExpenseListController, { IExpense, IExpenseCategory, Props } from "./UnitExpenseListController.web";
 import {
@@ -24,16 +26,23 @@ import CircleUnchecked from "@material-ui/icons/RadioButtonUnchecked";
 import CircleCheckedFilled from "@material-ui/icons/CheckCircle";
 import moment from "moment";
 import Loader from "../../../components/src/Loader.web";
+// Customizable Area End
 
 class UnitExpenseList extends UnitExpenseListController {
   constructor(props: Props) {
     super(props);
+    // Customizable Area Start
+    // Customizable Area End
   }
+
+  // Customizable Area Start
+  // Customizable Area End
 
   render() {
     const { t, classes } = this.props;
 
     return (
+      // Customizable Area Start
       <>
         <Loader loading={this.state.loading} />
 
@@ -153,7 +162,7 @@ class UnitExpenseList extends UnitExpenseListController {
         >
           <Box className="condition-box filter-box">
             <Box className="heading">
-              <p>{t("Add More Conditions")}</p>
+              <p>{t("Filter")}</p>
               <span className="clear-all-text" onClick={() => this.handleClearFilter()}>
                 {t("Clear All")}
               </span>
@@ -186,6 +195,7 @@ class UnitExpenseList extends UnitExpenseListController {
           </Box>
         </Drawer>
       </>
+      // Customizable Area End
     );
   }
 }

@@ -2519,8 +2519,28 @@ exports[`UnitExpenseList Filter on My Expense List 1`] = `
           Array [
             "MyExpenseList",
           ],
+          Array [
+            "ExpenseDetail",
+            Object {
+              "id": "23",
+            },
+          ],
+          Array [
+            "EditExpense",
+            Object {
+              "id": "23",
+            },
+          ],
         ],
         "results": Array [
+          Object {
+            "type": "return",
+            "value": undefined,
+          },
+          Object {
+            "type": "return",
+            "value": undefined,
+          },
           Object {
             "type": "return",
             "value": undefined,

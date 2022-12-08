@@ -3,9 +3,9 @@ import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
 import MessageEnum, { getName } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
-import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
 
-export const configJSON = require("./config");
+// Customizable Area Start
+import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
 
 interface IExpenseDetails {
   expenseDate: string;
@@ -19,6 +19,9 @@ interface IExpenseDetails {
   resolvedBy: string;
   summary: string;
 }
+// Customizable Area End
+
+export const configJSON = require("./config");
 
 export interface Props {
   navigation: any;
@@ -30,11 +33,13 @@ export interface Props {
 }
 
 interface S {
+  // Customizable Area Start
   loading: boolean;
   isExpenseModalOpen: boolean;
 
   expenseId: string;
   expenseDetails: IExpenseDetails;
+  // Customizable Area End
 }
 
 interface SS {
@@ -44,15 +49,22 @@ interface SS {
 }
 
 export default class ExpenseDetailController extends BlockComponent<Props, S, SS> {
+  // Customizable Area Start
   GetExpenseDetailsCallId: string = "";
   DeleteExpenseCallId: string = "";
+  // Customizable Area End
 
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
 
     // Customizable Area Start
-    this.subScribedMessages = [getName(MessageEnum.RestAPIResponceMessage), getName(MessageEnum.RestAPIRequestMessage)];
+    this.subScribedMessages = [
+      // Customizable Area Start
+      getName(MessageEnum.RestAPIResponceMessage),
+      getName(MessageEnum.RestAPIRequestMessage),
+      // Customizable Area End
+    ];
 
     this.state = {
       // Customizable Area Start
@@ -76,71 +88,65 @@ export default class ExpenseDetailController extends BlockComponent<Props, S, SS
       // Customizable Area End
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
+
+    // Customizable Area Start
+    // Customizable Area End
   }
 
   async receive(from: string, message: Message) {
     runEngine.debugLog("Message Recived", message);
 
     // Customizable Area Start
-    let responseJson: any;
-    let errorResponse: any;
-    // Get Expense Details - API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetExpenseDetailsCallId !== "" &&
-      this.GetExpenseDetailsCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.GetExpenseDetailsCallId = "";
-      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+    if (getName(MessageEnum.RestAPIResponceMessage) === message.id) {
+      let responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      let errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
 
-      if (responseJson && responseJson.data) {
-        const expense = responseJson.data;
-        this.setState({
-          expenseDetails: {
-            expenseDate: expense.attributes.expense_date,
-            expenseCost: expense.attributes.expense_amount,
-            expenseIssue: expense.attributes.issue_title,
-            category: expense.attributes.expense_category.title,
-            buildingId: expense.attributes.building_management.id,
-            buildingName: expense.attributes.building_management.name,
-            unitId: expense.attributes.apartment_management.id,
-            unitName: expense.attributes.apartment_management.apartment_name,
-            resolvedBy: expense.attributes.resolved_by,
-            summary: expense.attributes.summary,
-          },
-        });
+      const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
+
+      switch (apiRequestCallId) {
+        // Get Expense Details - API Response
+        case this.GetExpenseDetailsCallId:
+          if (responseJson && responseJson.data) {
+            const expense = responseJson.data;
+            this.setState({
+              expenseDetails: {
+                expenseDate: expense.attributes.expense_date,
+                expenseCost: expense.attributes.expense_amount,
+                expenseIssue: expense.attributes.issue_title,
+                category: expense.attributes.expense_category.title,
+                buildingId: expense.attributes.building_management.id,
+                buildingName: expense.attributes.building_management.name,
+                unitId: expense.attributes.apartment_management.id,
+                unitName: expense.attributes.apartment_management.apartment_name,
+                resolvedBy: expense.attributes.resolved_by,
+                summary: expense.attributes.summary,
+              },
+            });
+          }
+          break;
+        // Delete Expense - API Response
+        case this.DeleteExpenseCallId:
+          this.setState({ loading: false }, () => {
+            if (responseJson && responseJson.data) {
+              this.handleNavigationToUnitExpenseList();
+            }
+          });
+          break;
+        default:
+          break;
       }
 
-      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
     }
-
-    // Delete Expense - API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.DeleteExpenseCallId !== "" &&
-      this.DeleteExpenseCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.DeleteExpenseCallId = "";
-      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      this.setState({ loading: false }, () => {
-        if (responseJson && responseJson.data) {
-          this.handleNavigationToUnitExpenseList();
-        }
-      });
-
-      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-    }
-
-    if (responseJson && responseJson.meta && responseJson.meta.token) {
-      runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-    } else {
-      ApiErrorResponse(responseJson);
-    }
-    ApiCatchErrorResponse(errorResponse);
     // Customizable Area End
   }
 
+  // Customizable Area Start
   async componentDidMount(): Promise<void> {
     const expense_id = this.props.navigation.getParam("id");
     this.setState({ expenseId: expense_id }, () => {
@@ -209,4 +215,5 @@ export default class ExpenseDetailController extends BlockComponent<Props, S, SS
   handleNavigationToEditExpense = () => {
     this.props.navigation.navigate("EditExpense", { id: this.state.expenseId });
   };
+  // Customizable Area End
 }

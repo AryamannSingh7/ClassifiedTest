@@ -1,4 +1,6 @@
 import React from "react";
+
+// Customizable Area Start
 import { withTranslation } from "react-i18next";
 import ExpenseDetailController, { Props } from "./ExpenseDetailController.web";
 import {
@@ -19,16 +21,23 @@ import { EditIcon, DeleteIcon, DeleteExpenseIcon } from "./assets";
 import SidebarImageComponent from "../../../components/src/OwnerSidebarImage.web";
 import { ExpenseTrackingStyle } from "./ExpenseTrackingStyle.web";
 import Loader from "../../../components/src/Loader.web";
+// Customizable Area End
 
 class ExpenseDetail extends ExpenseDetailController {
   constructor(props: Props) {
     super(props);
+    // Customizable Area Start
+    // Customizable Area End
   }
+
+  // Customizable Area Start
+  // Customizable Area End
 
   render() {
     const { t, classes } = this.props;
 
     return (
+      // Customizable Area Start
       <>
         <Loader loading={this.state.loading} />
 
@@ -126,6 +135,7 @@ class ExpenseDetail extends ExpenseDetailController {
           </DialogContent>
         </Dialog>
       </>
+      // Customizable Area End
     );
   }
 }
