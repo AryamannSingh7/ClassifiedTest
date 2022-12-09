@@ -272,7 +272,7 @@ exports[`ExpenseDetail Delete Expense Details 1`] = `
           Array [
             "UnitExpenseList",
             Object {
-              "id": "",
+              "id": 0,
             },
           ],
         ],

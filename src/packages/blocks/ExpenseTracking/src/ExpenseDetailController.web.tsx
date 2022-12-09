@@ -12,12 +12,45 @@ interface IExpenseDetails {
   expenseCost: string;
   expenseIssue: string;
   category: string;
-  buildingId: string;
+  buildingId: number;
   buildingName: string;
-  unitId: string;
+  unitId: number;
   unitName: string;
   resolvedBy: string;
   summary: string;
+}
+
+interface IExpenseDetailsResponse {
+  data: IExpense;
+}
+
+interface IExpense {
+  id: string;
+  attributes: {
+    id: number;
+    expense_date: string;
+    expense_amount: string;
+    issue_title: string;
+    expense_category_id: number;
+    building_management: {
+      id: number;
+      name: string;
+    };
+    apartment_management: {
+      id: number;
+      apartment_name: string;
+    };
+    society_management: {
+      id: number;
+      name: string;
+    };
+    resolved_by: string;
+    summary: string;
+    expense_category: {
+      id: number;
+      title: string;
+    };
+  };
 }
 // Customizable Area End
 
@@ -78,9 +111,9 @@ export default class ExpenseDetailController extends BlockComponent<Props, S, SS
         expenseCost: "",
         expenseIssue: "",
         category: "",
-        buildingId: "",
+        buildingId: 0,
         buildingName: "",
-        unitId: "",
+        unitId: 0,
         unitName: "",
         resolvedBy: "",
         summary: "",
@@ -106,23 +139,7 @@ export default class ExpenseDetailController extends BlockComponent<Props, S, SS
       switch (apiRequestCallId) {
         // Get Expense Details - API Response
         case this.GetExpenseDetailsCallId:
-          if (responseJson && responseJson.data) {
-            const expense = responseJson.data;
-            this.setState({
-              expenseDetails: {
-                expenseDate: expense.attributes.expense_date,
-                expenseCost: expense.attributes.expense_amount,
-                expenseIssue: expense.attributes.issue_title,
-                category: expense.attributes.expense_category.title,
-                buildingId: expense.attributes.building_management.id,
-                buildingName: expense.attributes.building_management.name,
-                unitId: expense.attributes.apartment_management.id,
-                unitName: expense.attributes.apartment_management.apartment_name,
-                resolvedBy: expense.attributes.resolved_by,
-                summary: expense.attributes.summary,
-              },
-            });
-          }
+          this.handleExpenseDetailsResponse(responseJson);
           break;
         // Delete Expense - API Response
         case this.DeleteExpenseCallId:
@@ -175,6 +192,26 @@ export default class ExpenseDetailController extends BlockComponent<Props, S, SS
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
+  };
+
+  handleExpenseDetailsResponse = (responseJson: IExpenseDetailsResponse) => {
+    if (responseJson && responseJson.data) {
+      const expense = responseJson.data;
+      this.setState({
+        expenseDetails: {
+          expenseDate: expense.attributes.expense_date,
+          expenseCost: expense.attributes.expense_amount,
+          expenseIssue: expense.attributes.issue_title,
+          category: expense.attributes.expense_category.title,
+          buildingId: expense.attributes.building_management.id,
+          buildingName: expense.attributes.building_management.name,
+          unitId: expense.attributes.apartment_management.id,
+          unitName: expense.attributes.apartment_management.apartment_name,
+          resolvedBy: expense.attributes.resolved_by,
+          summary: expense.attributes.summary,
+        },
+      });
+    }
   };
 
   handleDeleteExpense = () => {

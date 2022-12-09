@@ -67,12 +67,12 @@ class MyExpenseList extends MyExpenseListController {
                   <Box className="tenant-list-box">
                     <Box className="tenant-list">
                       <Grid container spacing={2}>
-                        {this.state.expenseBuildingList.length === 0 && (
+                        {this.state.expenseUnitList.length === 0 && (
                           <Grid item xs={12}>
                             <Card className="tenant">{t("No Expense Unit Available")}</Card>
                           </Grid>
                         )}
-                        {this.state.expenseBuildingList.map((building: IExpenseBuilding) => {
+                        {this.state.expenseUnitList.map((building: IExpenseBuilding) => {
                           return (
                             <Grid item xs={12} key={building.id}>
                               <Link href={`/MyExpenseList/${building.id}`}>

@@ -143,12 +143,12 @@ defineFeature(feature, (test) => {
       let unitExpenseList = new Message(getName(MessageEnum.RestAPIResponceMessage));
       unitExpenseList.addData(getName(MessageEnum.RestAPIResponceDataMessage), unitExpenseList);
       unitExpenseList.addData(getName(MessageEnum.RestAPIResponceSuccessMessage), emptyUnitExpenseList);
-      instance.GetAllExpenseBuildingListCallId = unitExpenseList;
+      instance.GetAllExpenseUnitListCallId = unitExpenseList;
       runEngine.sendMessage("Empty Unit Expense List", unitExpenseList);
     });
 
     then("Should show Empty list in web", async () => {
-      expect(instance.state.expenseBuildingList).toEqual([]);
+      expect(instance.state.expenseUnitList).toEqual([]);
     });
   });
 
@@ -166,12 +166,12 @@ defineFeature(feature, (test) => {
       let unitExpenseList = new Message(getName(MessageEnum.RestAPIResponceMessage));
       unitExpenseList.addData(getName(MessageEnum.RestAPIResponceDataMessage), unitExpenseList);
       unitExpenseList.addData(getName(MessageEnum.RestAPIResponceSuccessMessage), unitMyExpenseList);
-      instance.GetAllExpenseBuildingListCallId = unitExpenseList;
+      instance.GetAllExpenseUnitListCallId = unitExpenseList;
       runEngine.sendMessage("Unit Expense List", unitExpenseList);
     });
 
     then("Should show unit list in web", async () => {
-      expect(instance.state.expenseBuildingList.length).toBeGreaterThan(0);
+      expect(instance.state.expenseUnitList.length).toBeGreaterThan(0);
     });
   });
 

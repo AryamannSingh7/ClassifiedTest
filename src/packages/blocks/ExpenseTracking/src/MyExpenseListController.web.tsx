@@ -17,6 +17,10 @@ export interface IBuilding {
   };
 }
 
+interface IExpenseUnitResponse {
+  data: IExpenseBuilding[];
+}
+
 export interface IUnit {
   id: number;
   apartment_name: string;
@@ -53,7 +57,7 @@ interface S {
 
   expanded: string | boolean;
 
-  expenseBuildingList: IExpenseBuilding[];
+  expenseUnitList: IExpenseBuilding[];
   buildingList: IBuilding[];
 
   unitList: number[];
@@ -69,7 +73,7 @@ interface SS {
 
 export default class MyExpenseListController extends BlockComponent<Props, S, SS> {
   // Customizable Area Start
-  GetAllExpenseBuildingListCallId: string = "";
+  GetAllExpenseUnitListCallId: string = "";
   GetAllOwnBuildingListCallId: string = "";
   // Customizable Area End
 
@@ -93,7 +97,7 @@ export default class MyExpenseListController extends BlockComponent<Props, S, SS
 
       expanded: false,
 
-      expenseBuildingList: [],
+      expenseUnitList: [],
       buildingList: [],
 
       unitList: [],
@@ -118,12 +122,8 @@ export default class MyExpenseListController extends BlockComponent<Props, S, SS
 
       switch (apiRequestCallId) {
         // Get Expense Building List - API Response
-        case this.GetAllExpenseBuildingListCallId:
-          this.setState({ loading: false }, () => {
-            if (responseJson && responseJson.data) {
-              this.setState({ expenseBuildingList: responseJson.data });
-            }
-          });
+        case this.GetAllExpenseUnitListCallId:
+          this.handleAllExpenseListResponse(responseJson);
           break;
         // Get Own Building List - API Response
         case this.GetAllOwnBuildingListCallId:
@@ -147,17 +147,17 @@ export default class MyExpenseListController extends BlockComponent<Props, S, SS
 
   // Customizable Area Start
   async componentDidMount(): Promise<void> {
-    this.getAllExpenseBuildingList();
+    this.getAllExpenseUnitList();
     this.getAllOwnedBuildingList();
   }
 
   async componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<S>): Promise<void> {
     if (JSON.stringify(prevState.filterUnitList) !== JSON.stringify(this.state.filterUnitList)) {
-      this.getAllExpenseBuildingList();
+      this.getAllExpenseUnitList();
     }
   }
 
-  getAllExpenseBuildingList = () => {
+  getAllExpenseUnitList = () => {
     const { filterUnitList } = this.state;
 
     const header = {
@@ -167,7 +167,7 @@ export default class MyExpenseListController extends BlockComponent<Props, S, SS
 
     const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
 
-    this.GetAllExpenseBuildingListCallId = apiRequest.messageId;
+    this.GetAllExpenseUnitListCallId = apiRequest.messageId;
 
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
@@ -182,6 +182,14 @@ export default class MyExpenseListController extends BlockComponent<Props, S, SS
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
+  };
+
+  handleAllExpenseListResponse = (responseJson: IExpenseUnitResponse) => {
+    this.setState({ loading: false }, () => {
+      if (responseJson && responseJson.data) {
+        this.setState({ expenseUnitList: responseJson.data });
+      }
+    });
   };
 
   getAllOwnedBuildingList = () => {

@@ -16,8 +16,14 @@ export interface IExpense {
     expense_amount: number;
     issue_title: string;
     expense_category_id: number;
-    building_management_id: number;
-    apartment_management_id: number;
+    building_management: {
+      id: number;
+      name: string;
+    };
+    apartment_management: {
+      id: number;
+      apartment_name: string;
+    };
     resolved_by: string;
     expense_category: {
       id: number;
@@ -32,10 +38,6 @@ interface IResponseExpenseList {
 
 interface IResponseExpenseCategoryList {
   expense_category: IExpenseCategory[];
-}
-
-interface IResponseDeleteExpense {
-  data: IExpense;
 }
 
 export interface IExpenseCategory {
@@ -157,7 +159,7 @@ export default class UnitExpenseListController extends BlockComponent<Props, S, 
           break;
         // Delete Expense - API Response
         case this.DeleteExpenseCallId:
-          this.deleteExpenseResponse(responseJson.data);
+          this.deleteExpenseResponse();
           break;
       }
 
@@ -302,11 +304,9 @@ export default class UnitExpenseListController extends BlockComponent<Props, S, 
     return true;
   };
 
-  deleteExpenseResponse = (responseJson: IResponseDeleteExpense) => {
+  deleteExpenseResponse = () => {
     this.setState({ loading: false }, () => {
-      if (responseJson && responseJson.data) {
-        this.getAllExpenseList();
-      }
+      this.getAllExpenseList();
     });
   };
 
