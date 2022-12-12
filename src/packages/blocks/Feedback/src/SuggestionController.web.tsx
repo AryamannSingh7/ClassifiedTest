@@ -112,7 +112,7 @@ export default class SuggestionController extends BlockComponent<
         
     
          if (apiRequestCallId === this.getSuggestionListingApiCallId) {
-          if (responseJson && responseJson?.data ) {
+          if (responseJson?.data ) {
           console.log("getIncidentListingApiCallId ========================>",responseJson)
           this.setState({suggestionList :responseJson?.data})
           this.setState({loading: false})
@@ -188,7 +188,7 @@ export default class SuggestionController extends BlockComponent<
     runEngine.sendMessage(getValidationsMsg.id, getValidationsMsg);
   }
 
-  isNonNullAndEmpty(value: String) {
+  isNonNullAndEmpty(value: string) {
     return (
       value !== undefined &&
       value !== null &&
@@ -404,69 +404,7 @@ confirmOrRejectIncident =(id : any,val : any)=>{
 
 
 
-  createIncident = async(incidentFromData: any ,incidentRelated : any) => {
-  try
-   {
-     const header = {
-      token :localStorage.getItem("userToken")
-    };
-    const formData = new FormData();
-   formData.append('incident[common_area_id]', incidentFromData?.commonArea?.id);
-   formData.append('incident[incident_related_id]', incidentRelated[0]);
-   formData.append('incident[incident_title]', incidentFromData.incidentTitle);
-   formData.append('incident[description]', incidentFromData.description);
-   formData.append('incident[apartment_management_id]', incidentFromData.myApartment.id);
-
-   for (let j = 0; j < incidentFromData.media.length; j += 1) {
-    let blob = await fetch(incidentFromData.media[j].url).then(r => r.blob());
-      //@ts-ignore
-     blob.name = incidentFromData.media[j].file.name
-    console.log("bolb ==================>",blob);
-
-    formData.append(
-      "incident[attachments][]",
-      blob
-    );
-    console.log("incident[attachments][] ==================>",incidentFromData.media[j].file);
-  }
-
-   console.log("formData.getAll('apartment_management_id')==================>",formData.get('incident[attachments][]'))
-   const httpBody = formData;
-    this.setState({loading: true})
-    const requestMessage = new Message(
-      getName(MessageEnum.RestAPIRequestMessage)
-    );
-
-    this.apicreateIncidentCallId = requestMessage.messageId;
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      configJSON.createIncident
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestBodyMessage),
-      httpBody
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.exampleAPiMethod
-    );
-
-    runEngine.sendMessage(requestMessage.id, requestMessage);
-
-    return true;
-    }
-    catch (error) {
-      this.setState({loading: false})
-      console.log(error);
-    }
-  };
+ 
 
 
   getSuggtionListing= ()  => {
